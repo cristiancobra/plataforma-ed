@@ -7,9 +7,9 @@
     <div>
     <a href= {{ route('list') }} ><i class='fas fa-user-clock'></i><span> INÍCIO</span></a>
     <a href='/crm'><i class='fas fa-arrow-alt-circle-right'></i><span> CRM</span></a>
-    <a href='/analytics-index.php'><i class='fas fa-table'></i><span> RELATÓRIOS</span></a>
+    <a href='/falar'  target="blank"><i class='fas fa-comment-dots'></i><span> FALAR</span></a>
     <a href="/nuvem" target="blank"><i class="fas fa-cloud-upload-alt"></i><span> MEUS ARQUIVOS</span></a>
-    <a href="/email" target="blank"><i class="fas fa-th"></i><span> EMAIL</span></a>
+    <a href="/email"<i class="fas fa-th"></i><span> EMAIL</span></a>
     <a href="/financeiro"><i class="fas fa-credit-card"></i><span> FINANCEIRO</span></a>
     <a href="/suporte" target="blank"><i class="fas fa-question-circle"></i><span> SUPORTE</span></a>
 
