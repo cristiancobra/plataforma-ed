@@ -31,3 +31,25 @@ Route::get('/logout', function () {
     Auth::logout();
     return Redirect::to('/');
 });
+
+// ----------------------  Rotas do MENU ---------
+
+Route::get('/crm', function () {
+    return view('crm');
+});
+
+Route::get('/financeiro', function () {
+    return view('financeiro');
+});
+
+Route::get('/nuvem', function () {
+    return Redirect::to('https://nuvem.empresadigital.net.br');
+});
+
+Route::get('/email', function () {
+    return Redirect::to('https://empresadigital.net.br/meuemail');
+});
+
+Route::get('/suporte', function () {
+   return view('suporte');
+});
