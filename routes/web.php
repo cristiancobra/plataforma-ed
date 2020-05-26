@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::get('/list', 'LoginTesteController@ListUser')->name('list');
-
-Route::get('admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
+// Route::get('/list', 'LoginTesteController@ListUser')->name('list');
 
 Auth::routes();
 

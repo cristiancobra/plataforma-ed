@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 use App\User;
 
 class HomeController extends Controller {
@@ -13,7 +14,7 @@ class HomeController extends Controller {
      * @return void
      */
     public function __construct() {
-       $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -22,17 +23,16 @@ class HomeController extends Controller {
      * @return \Illuminate\Contracts\Support\Renderable
      */
     public function index() {
-        $user = User::where('name', 'cristian cobra')->first();
-        return view('painel', [
-        'userList' => $user
+        $user = Auth::user();
+        if ($user->is_admin == 0) {
+            return view('painel', [
+                'user' => $user
+            ]);
+        } else {
+        return view('admin/painel-admin', [
+            'user' => $user
         ]);
     }
-    
-    public function adminHome()
 
-    {
-
-        return view('adminHome');
-
-    }
+}
 }
