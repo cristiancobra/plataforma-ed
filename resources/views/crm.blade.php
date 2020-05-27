@@ -17,7 +17,6 @@ use App\LoginTesteController;
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/teste.css') }}" rel="stylesheet">
         <script type="text/javascript" src="<?php echo asset('js/teste.js') ?>"></script>
 
     </head>
