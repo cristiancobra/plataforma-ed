@@ -55,3 +55,11 @@ Route::get('/email', function () {
 Route::get('/suporte', function () {
    return view('suporte');
 });
+
+Route::get('/teste', function () {
+    return view('teste');
+    });
+    
+    Route::get('/inicio', function () {
+    return view('inicio');
+    });
