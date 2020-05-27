@@ -10,7 +10,7 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-        <script type="text/javascript" src="<?php echo asset('js/teste.js') ?>"></script>
+        <script type="text/javascript" src="{{ asset('js/teste.js') }}"></script>
 
     </head>
     <body>
@@ -36,23 +36,25 @@
                 <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px"></a>
             </div>
         </div>
-
-            <div class="coluna-esquerda">
+            <div class="secao">
+            <div class="coluna-4">
                 1- AGENDA:  Verifique em sua agenda se existe alguma reunião, reuniões são PRIORIDADE e devem estar no topo da lista de atenção do dia. Certifique-se de que os avisos foram programados no CRM, se o seu cliente aceito o convite de reunião. Envie uma mensagem ao seu cliente confiemando a reunião do dia. Assim você evita cancelamentos de última hora e economiza um tempão!
             </div>
-            <div class="coluna-direita">
+            <div class="coluna-4">
                 2- PROJETOS:  Verifique as Tarefas de projetos em aberto e suas data limites. Tarefas de projeto são PRIORIDADE pois existem pessoas que dependem do fechamento da sua tarefapara dar proseguimento. Distribua suas tarefas de projeto que serão possíveis trabalhar ao longo do dia e marque em sua agenda.
             </div>
-            <div class="coluna-esquerda">
+            <div class="coluna-4">
                 3- TAREFAS: Verifique quais tarefas devem ser executadas por prioridade; Primeiro as que estão em atraso e depois as emergenciais. Distribua ao longo do dua e marque em sua agenda. 
             </div>
-            <div class="coluna-direita">
+            <div class="coluna-4">
                 4- NOVA TAREFA: Antes de acrescentar novas tarefas comunique-se com toda a equipe e veja se existe alguma emergencia que necessita da sua expertisse para ser resolvida. E registre a tarefa a ser executada.
             </div>
+                </div>
+            <div class="secao">
             <div class="coluna-esquerda">
                 5- FAÇA CONTATO: Responda emails e ligações pendentes e registre.
                 </p>
             </div>
-
+</div>
     </body>
 </html>

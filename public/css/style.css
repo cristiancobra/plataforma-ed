@@ -86,8 +86,8 @@ html, body {
 .secao {
     color:white;
     font-size:16px;
-    width: 100vw;
-      float: left;
+    width: 100%;
+      
 }
 
 .coluna-esquerda {
@@ -109,6 +109,16 @@ html, body {
     display: inline-block;
     text-align: center;
 
+}
+
+.coluna-4 {
+    padding: 5vh;
+    text-align: right;
+    color:white;
+    font-size:16px;
+    width: 50vh;
+    float: left;
+    text-align: center;
 }
 
 .titulo_branco{
