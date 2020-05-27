@@ -19,4 +19,5 @@
 <li><a href="/financeiro"><i class="fas fa-credit-card"></i><span>  FINANCEIRO</span></a></li>
 <li><a href="/suporte" target="blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
 <li><a href="/logout" class="logout_btn">   SAIR   </a></li>
+</div>
 

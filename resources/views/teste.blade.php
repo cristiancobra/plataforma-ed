@@ -16,7 +16,7 @@ use App\LoginTesteController;
         <!-- Fonts -->
         <link href="{{ asset('css/teste.css') }}" rel="stylesheet">
         	
-<script type="text/javascript" src="<?php echo asset('js/teste.js')?>"></script>
+<script type="text/javascript" src=" {{ asset('js/teste.css') }} "></script>
 
     </head>
     <body>
