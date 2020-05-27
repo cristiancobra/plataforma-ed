@@ -30,18 +30,43 @@
                     <p class="titulo_branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Painel Administrativo </p>
 
+                    <div class="coluna-direita">
+                        <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px"></a>
+                    </div>
+                </div>
+                <div class="secao">
+                    <div class="coluna-4">
+                        <p style="font-size:20px">GERENCIAR EMAILS</p>
+                        <a href="https://acadia.mxroute.com:2083/" target="blank">
+                            <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
+                        login: solucoes
+                    </div>
+                    <div class="coluna-4">
+                        2- PROJETOS:  Verifique as Tarefas de projetos em aberto e suas data limites. Tarefas de projeto são PRIORIDADE pois existem pessoas que dependem do fechamento da sua tarefapara dar proseguimento. Distribua suas tarefas de projeto que serão possíveis trabalhar ao longo do dia e marque em sua agenda.
+                    </div>
+                    <div class="coluna-4">
+                        3- TAREFAS: Verifique quais tarefas devem ser executadas por prioridade; Primeiro as que estão em atraso e depois as emergenciais. Distribua ao longo do dua e marque em sua agenda. 
+                    </div>
+                    <div class="coluna-4">
+                        4- NOVA TAREFA: Antes de acrescentar novas tarefas comunique-se com toda a equipe e veja se existe alguma emergencia que necessita da sua expertisse para ser resolvida. E registre a tarefa a ser executada.
+                    </div>
+                </div>
+                <div class="secao">
+                    <div class="coluna-esquerda">
+                        5- FAÇA CONTATO: Responda emails e ligações pendentes e registre.
+                        </p>
+                    </div>
+                </div>
+                </body>
+                </html>
 
 
-                </div>
-                <div class="coluna-direita">
-                    <img src="imagens/astronauta-com-cafe-empresa-digital.png" width="300px" height="300px"></a>
-                </div>
-            </div>
-            <div class="secao">
+
+
                 <div class="coluna-esquerda">
                     <p style="font-size:20px">GERENCIAR EMAILS</p>
                     <a href="https://acadia.mxroute.com:2083/" target="blank">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf font-size: 14px;">CRIAR CONTAS</button></a><br>
+                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
                     login: solucoes
                 </div>
                 <div class="coluna-direita">
