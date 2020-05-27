@@ -1,10 +1,3 @@
-<?php
-
-use App\User;
-use App\LoginTesteController;
-?>
-
-
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -15,17 +8,22 @@ use App\LoginTesteController;
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+        <script type="text/javascript" src="{{ asset('js/teste.js') }}"></script>
 
     </head>
     <body>
 
-
         @include ('menu-plataforma')
 
-        <div class="content">
+
+        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">
+
+            <!-- Use any element to open the sidenav -->
+            <span onclick="openNav()"><i class="fas fa-rocket" style="color: white; padding: 15px; background-color: #c28dbf; border-radius: 0px 8px 8px 0px"></i></span>
+
             <div class="secao">
                 <div class="coluna-esquerda">
 
