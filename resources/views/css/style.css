@@ -4,24 +4,9 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 2 de mai de 2020, 20:39:13
+    Created on : 28 de mai de 2020, 15:20:03
     Author     : empresadigital
 */
-
-
-* {
-    box-sizing: border-box;
-}
-
-html, body {
-    background-color: #3e518e;
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    height: 100%;
-    width: 100%;
-}
-
 
  /* The side navigation menu */
 .sidenav {
@@ -31,7 +16,7 @@ html, body {
   z-index: 1; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #c28dbf; /* cor do fundo*/
+  background-color: #111; /* Black*/
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
   transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -41,8 +26,8 @@ html, body {
 .sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 18px;
-  color: white;
+  font-size: 25px;
+  color: #818181;
   display: block;
   transition: 0.3s;
 }
@@ -61,101 +46,14 @@ html, body {
   margin-left: 50px;
 }
 
-.sidenav li {
-  list-style: none;
-}
-
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
   transition: margin-left .5s;
-  padding: 0px;
-  height: 100vh;
-  width: 100vw;
+  padding: 20px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
-} 
-
-
-/*--------------- ESTILOS DO CONTEÚDO -------------- */
-
-
-.secao {
-    color:white;
-    font-size:16px;
-    width: 100%;
-      
-}
-
-.coluna-esquerda {
-    padding: 5vh;
-    text-align: right;
-    color:white;
-    font-size:16px;
-    width: 100vh;
-    display: inline-block;
-    text-align: center;
-}
-
-.coluna-direita {
-    padding: 10px;
-    color:white;
-    font-size:16px;
-    margin:auto;
-    width: 100vh;
-    display: inline-block;
-    text-align: center;
-
-}
-
-.coluna-4 {
-    padding: 5vh;
-    text-align: right;
-    color:white;
-    font-size:16px;
-    width: 50vh;
-    float: left;
-    text-align: center;
-}
-
-.titulo_branco{
-    text-align: center;
-    color:white;
-    font-size:36px;
-    font-weight: bold;
-        margin-top: 0px;
-}
-
-.destaque_amarelo{
-    text-align: center;
-    color:yellow;
-    font-size:26px;
-    font-weight: bold;
-}
-
-.foto {
-    margin: 20px;
-    padding: 0px;
-    height: 18%;
-    width: 60%;
-    background-color: white;
-    border-radius: 500px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.center {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
-}
-
-
-.secao {
-    margin:auto;
 }

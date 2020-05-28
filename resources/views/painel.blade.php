@@ -9,14 +9,30 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-   <?php // <script src="{{ asset('js/menu.js') }}" defer></script> ?>
-    <script src="{{ asset('assets/js/menu.js') }}" type="text/javascript" async="true" defer></script>
+        <link href="{{ url(mix('css/style.css')) }}" rel="stylesheet">
+    <script src="{{ url(mix('js/menu.js')) }}" defer></script>
 
     </head>
     <body>
 
-        @include ('menu-plataforma')
+     
+<div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <li><a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a></li>
+        <li><a href="" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MARKETING</span></a>
+        <li><a href="" target="blank"><i class="fas fa-heart"></i><span>  PUBLICAR NO SITE</span></a></li>
+       <li><a href='/crm'><i class='fas fa-arrow-alt-circle-right'></i><span>  CRM</span></a></li>
+    <li><a href='/falar'  target="blank"><i class='fas fa-comment-dots'></i><span>  FALAR</span></a></li>
+    <li><a href="/nuvem" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MEUS ARQUIVOS</span></a>
+        <ul>
+            <li><a href="/nuvem" target="blank"><i class="fas fa-heart"></i><span>  FAVORITOS</span></a></li>
+        </ul>
+    </li>
+    <li><a href="/email"><i class="fas fa-envelope"></i><span>  EMAIL</span></a></li>
+    <li><a href="/financeiro"><i class="fas fa-credit-card"></i><span>  FINANCEIRO</span></a></li>
+    <li><a href="/suporte" target="blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
+    <li><a href="/logout" class="logout_btn">   SAIR   </a></li>
+</div>
 
         <!-- Use any element to open the sidenav -->
             <span onclick="openNav()"><i class="fas fa-rocket" style="color: white; padding: 15px; background-color: #c28dbf; border-radius: 0px 8px 8px 0px"></i></span>
