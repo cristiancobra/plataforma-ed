@@ -50,6 +50,7 @@ and open the template in the editor.
 #main {
   transition: margin-left .5s;
   padding: 20px;
+  background-color: #3e518e;;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */

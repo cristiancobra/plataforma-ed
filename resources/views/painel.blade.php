@@ -9,8 +9,8 @@
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-        <link href="{{ url(mix('css/style.css')) }}" rel="stylesheet">
-    <script src="{{ url(mix('js/menu.js')) }}" defer></script>
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/menu.js') }}" async defer></script>
 
     </head>
     <body>
@@ -43,7 +43,7 @@
               <div class="secao">
                 <div class="coluna-esquerda">
 
-                    <p class="titulo_branco"> Olá {{ $user->name }} </p>
+                    <p class="titulo_branco"> OOOOlá {{ $user->name }} </p>
                     <p class="destaque_amarelo">    Seu ID é: {{ $user->id }} </p>
 
 
