@@ -17,7 +17,7 @@
 
      
 <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <script> <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> </script>
         <li><a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a></li>
         <li><a href="" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MARKETING</span></a>
         <li><a href="" target="blank"><i class="fas fa-heart"></i><span>  PUBLICAR NO SITE</span></a></li>
