@@ -10,7 +10,8 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
         <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/menu.js') }}" defer></script>
+   <?php // <script src="{{ asset('js/menu.js') }}" defer></script> ?>
+    <script src="{{ asset('assets/js/menu.js') }}" type="text/javascript" async="true" defer></script>
 
     </head>
     <body>
