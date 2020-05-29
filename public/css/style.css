@@ -9,91 +9,117 @@ and open the template in the editor.
 */
 
 html, body{
-   margin: 0;
-   padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
- /* The side navigation menu */
+/* The side navigation menu */
 .sidenav {
-  height: 100%; /* 100% Full-height */
-  width: 0; /* 0 width - change this with JavaScript */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
-  top: 0; /* Stay at the top */
-  left: 0;
-  background-color: #c28dbf; /* fundo*/
-  overflow-x: hidden; /* Disable horizontal scroll */
-  padding-top: 60px; /* Place content 60px from the top */
-  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    background-color: #c28dbf; /* fundo*/
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
 }
 
 /* The navigation menu links */
 .sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 16px;
-  color: white;
-  display: block;
-  transition: 0.3s;
+    padding: 8px 8px 8px 12px;
+    text-decoration: none;
+    font-size: 16px;
+    color: white;
+    display: block;
+    transition: 0.3s;
     overflow: hidden;
 }
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover {
-  color: #874983;
+    color: #874983;
     background-color: white;
 }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+    position: absolute;
+    top: -6px;
+    right: -7px;
+    font-size: 26px;
+    margin-left: 50px;
 }
 
 /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
 #main {
-  transition: margin-left .5s;
-  padding: 0px;
-  background-color: #874983;
-  margin: 0px;
+    transition: margin-left .5s;
+    padding: 0px;
+    background-color: #874983;
+    margin: 0px;
+    height: 100vh;
+      display: block;
+        z-index: 1;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
-.content{
-    margin-top:-17px;
-    margin-left:15%;
-    padding:0;
-    width:85%;
-    height:100%;
-    border:none
+
+.botao-ativar{
+    color: white;
+    padding: 10px;
+    background-color: #c28dbf;
+    width:1.5vw;
+    border-radius: 0px 8px 8px 0px;
+    z-index: 9;
+    float: left;
+}
+
+.secao{
+    margin-top:0px;
+    padding:10px;
+    width:99vw;
+    border:none;
+    height: auto;
+     text-align: center;
 }
 
 .coluna-esquerda{
-    padding:20px;
-    text-align:right;
+    padding:5px;
+    text-align:left;
     color:#fff;
     font-size:16px;
     margin-left:15%;
-    width:45%;
+    width:30vw;
     display:inline-block;
-    text-align:center
+    vertical-align: top;
+    
 }
 
 .coluna-direita{
-    padding:20px;
+    padding:5px;
     color:#fff;
     font-size:16px;
     margin:auto;
-    width:30%;
+    width:30vw;
     display:inline-block;
-    text-align:center
+    text-align:right;
+}
+
+.coluna-4{
+    padding:5px;
+    color:white;
+    font-size:16px;
+    margin:auto;
+    width:20%;
+    display:inline-block;
+    text-align:center;
+        vertical-align: middle;
 }
 
 .titulo_branco{
@@ -106,8 +132,14 @@ html, body{
 .destaque_amarelo{
     text-align:center;
     color:#ff0;
-    font-size:26px;
-    font-weight:700
+    font-size:20px;
+    font-weight:600
+}
+
+.subtitulo-branco{
+    text-align: center;
+    color: white;
+        font-weight:800
 }
 
 .foto{

@@ -34,6 +34,7 @@
                         <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px"></a>
                     </div>
                 </div>
+            </div>
                 <div class="secao">
                     <div class="coluna-4">
                         <p style="font-size:20px">GERENCIAR EMAILS</p>
