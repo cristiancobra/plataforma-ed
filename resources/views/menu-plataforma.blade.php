@@ -4,7 +4,7 @@
     <li><a href="" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MARKETING</span></a>
     <li><a href="" target="blank"><i class="fas fa-heart"></i><span>  PUBLICAR NO SITE</span></a></li>
     <li><a href='/crm'><i class='fas fa-arrow-alt-circle-right'></i><span>  CRM</span></a></li>
-    <li><a href='/falar'  target="blank"><i class='fas fa-comment-dots'></i><span>  FALAR</span></a></li>
+    <li><a href='/falar'  ><i class='fas fa-comment-dots'></i><span>  FALAR</span></a></li>
     <li><a href="/nuvem" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MEUS ARQUIVOS</span></a>
         <ul>
             <li><a href="/nuvem" target="blank"><i class="fas fa-heart"></i><span>  FAVORITOS</span></a></li>

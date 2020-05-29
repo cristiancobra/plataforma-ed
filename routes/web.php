@@ -45,7 +45,7 @@ Route::get('/nuvem', function () {
 });
 
 Route::get('/falar', function () {
-    return Redirect::to('https://nuvem.empresadigital.net.br/index.php/apps/spreed/');
+    return view('falar');
 });
 
 Route::get('/email', function () {

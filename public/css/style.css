@@ -62,6 +62,7 @@ html, body{
     height: 100vh;
       display: block;
         z-index: 1;
+         
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -78,15 +79,37 @@ html, body{
     border-radius: 0px 8px 8px 0px;
     z-index: 9;
     float: left;
+    position: absolute;
 }
 
-.secao{
+.secao-roxa{
+    margin-top:0px;
+    padding:10px;
+    width:99vw;
+    border:none;
+    height: 40%;
+     text-align: center;
+
+}
+
+.secao-branca{
     margin-top:0px;
     padding:10px;
     width:99vw;
     border:none;
     height: auto;
      text-align: center;
+     background-color: white;
+
+}
+
+.secao-iframe{
+    padding: 0px;
+    margin: 0px;
+    height: 100vh;
+    z-index: 1;
+   background-color: blue;
+   
 }
 
 .coluna-esquerda{
@@ -113,7 +136,7 @@ html, body{
 
 .coluna-4{
     padding:5px;
-    color:white;
+    color:#874983;
     font-size:16px;
     margin:auto;
     width:20%;
@@ -139,6 +162,12 @@ html, body{
 .subtitulo-branco{
     text-align: center;
     color: white;
+        font-weight:800
+}
+
+.subtitulo-roxo{
+    text-align: center;
+    color: #874983;
         font-weight:800
 }
 
