@@ -16,30 +16,28 @@
     <body>
 
 
-   @include('menu-plataforma')
+        @include('menu-plataforma')
 
 
 
         <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
         <div id="main">
 
-                    <div class="botao-ativar">
-            <!-- Use any element to open the sidenav -->
-            <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
-        </div>
+            <div class="botao-ativar">
+                <!-- Use any element to open the sidenav -->
+                <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
+            </div>
 
-            
+
 
             <div class="secao-roxa">
                 <div class="coluna-esquerda">
                     <br>
                     <p class="titulo_branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
-
-
                 </div>
-                <div class="coluna-direita" style="margin-top: 20px">
-                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
+                <div class="coluna-direita" style="margin-top: 10px">
+                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="280px" height="280px">
                 </div>
             </div>
             <div class="secao-branca">
@@ -62,7 +60,7 @@
             </div>
             <div class="secao-branca">
                 <div class="coluna-esquerda">
-                <!--    5- FAÇA CONTATO: Responda emails e ligações pendentes e registre. -->
+                    <!--    5- FAÇA CONTATO: Responda emails e ligações pendentes e registre. -->
 
                 </div>
             </div>

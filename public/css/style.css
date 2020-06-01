@@ -85,11 +85,10 @@ html, body{
 .secao-roxa{
     margin-top:0px;
     padding:10px;
-    width:99vw;
     border:none;
-    height: 40%;
-     text-align: center;
-
+    height: 250px;
+    width:100vw;
+    clear: both;
 }
 
 .secao-branca{
@@ -98,9 +97,9 @@ html, body{
     width:99vw;
     border:none;
     height: auto;
-     text-align: center;
-     background-color: white;
-
+    text-align: center;
+    background-color: white;
+    clear: both;
 }
 
 .secao-iframe{
@@ -108,37 +107,35 @@ html, body{
     margin: 0px;
     height: 100vh;
     z-index: 1;
-   background-color: blue;
    
 }
 
 .coluna-esquerda{
     padding:5px;
-    text-align:left;
     color:#fff;
     font-size:16px;
-    margin-left:15%;
-    width:30vw;
+     width:70vw;
     display:inline-block;
     vertical-align: top;
-    
+    text-align: center;
 }
 
 .coluna-direita{
-    padding:5px;
+    padding:3px;
+    margin-right: 20px;
     color:#fff;
     font-size:16px;
-    margin:auto;
-    width:30vw;
+      width:25vw;
     display:inline-block;
-    text-align:right;
+
 }
 
 .coluna-4{
     padding:5px;
+    margin-top: 15px;
+    margin-bottom:15px;
     color:#874983;
     font-size:16px;
-    margin:auto;
     width:20%;
     display:inline-block;
     text-align:center;
