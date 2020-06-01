@@ -11,6 +11,7 @@ and open the template in the editor.
 html, body{
     margin: 0;
     padding: 0;
+    font-family:helvetica,arial,verdana;
 }
 
 /* The side navigation menu */
@@ -57,12 +58,11 @@ html, body{
 #main {
     transition: margin-left .5s;
     padding: 0px;
-    background-color: #874983;
     margin: 0px;
     height: 100vh;
-      display: block;
-        z-index: 1;
-         
+    display: block;
+    z-index: 1;
+
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
@@ -73,7 +73,7 @@ html, body{
 
 .botao-ativar{
     color: white;
-    padding: 10px;
+    padding: 7px;
     background-color: #c28dbf;
     width:1.5vw;
     border-radius: 0px 8px 8px 0px;
@@ -84,16 +84,17 @@ html, body{
 
 .secao-roxa{
     margin-top:0px;
-    padding:10px;
+    padding:15px;
     border:none;
-    height: 250px;
+    height: auto;
     width:100vw;
     clear: both;
+    background-color: #874983;
 }
 
 .secao-branca{
     margin-top:0px;
-    padding:10px;
+    padding:15px;
     width:99vw;
     border:none;
     height: auto;
@@ -107,14 +108,14 @@ html, body{
     margin: 0px;
     height: 100vh;
     z-index: 1;
-   
+
 }
 
 .coluna-esquerda{
     padding:5px;
     color:#fff;
     font-size:16px;
-     width:70vw;
+    width:70vw;
     display:inline-block;
     vertical-align: top;
     text-align: center;
@@ -125,12 +126,12 @@ html, body{
     margin-right: 20px;
     color:#fff;
     font-size:16px;
-      width:25vw;
+    width:25vw;
     display:inline-block;
 
 }
 
-.coluna-4{
+.coluna-4-roxo{
     padding:5px;
     margin-top: 15px;
     margin-bottom:15px;
@@ -139,14 +140,19 @@ html, body{
     width:20%;
     display:inline-block;
     text-align:center;
-        vertical-align: middle;
+    vertical-align: middle;
 }
 
-.titulo_branco{
+.coluna-4-branco{
+    padding:5px;
+    margin-top: 15px;
+    margin-bottom:15px;
+    color:white;
+    font-size:16px;
+    width:20%;
+    display:inline-block;
     text-align:center;
-    color:#fff;
-    font-size:36px;
-    font-weight:700
+    vertical-align: middle;
 }
 
 .destaque_amarelo{
@@ -159,13 +165,31 @@ html, body{
 .subtitulo-branco{
     text-align: center;
     color: white;
-        font-weight:800
+    font-weight:800
 }
 
 .subtitulo-roxo{
     text-align: center;
     color: #874983;
-        font-weight:800
+    font-weight:800
+}
+
+.titulo-roxo{
+    color: #874983;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-weight:700;
+    text-align:center;
+    font-size:36px;
+}
+
+.titulo-branco{
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-weight:700;
+    text-align:center;
+    font-size:36px;
 }
 
 .foto{

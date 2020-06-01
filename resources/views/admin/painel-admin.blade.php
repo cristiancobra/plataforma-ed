@@ -29,7 +29,7 @@
             <div class="secao-roxa">
                 <div class="coluna-esquerda">
 
-                    <p class="titulo_branco"> Olá {{ $user->name }} </p>
+                    <br><br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Bem vindo ao Painel Administrativo </p>
 
                 </div>
@@ -39,31 +39,40 @@
                 </div>
             </div>
             <div class="secao-branca">
-                <div class="coluna-4">
+                <h1 class="titulo-roxo">OPERACIONAL</h1>
+            </div>
+            <div class="secao-branca">
+                <div class="coluna-4-roxo">
                     <p style="font-size:20px">GERENCIAR EMAILS</p>
                     <a href="https://acadia.mxroute.com:2083/" target="blank">
                         <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
                     login: solucoes
                 </div>
-                <div class="coluna-4">
+                <div class="coluna-4-roxo">
                     <p style="font-size:20px">MIGRAÇÕES</p>
                     <a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/operacional/plataforma&fileid=8431" target="blank">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
+                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
                     login: xxxxxx
                 </div>
-                <div class="coluna-4">
+                <div class="coluna-4-roxo">
                     <p style="font-size:20px">CONTRATOS DIGITAIS</p>
                     <a href="https://painel.autentique.com.br/" target="blank">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
+                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
                     login: xxxxxx
                 </div>
-                <div class="coluna-4">
+                <div class="coluna-4-roxo">
                     4- NOVA TAREFA: Antes de acrescentar novas tarefas comunique-se com toda a equipe e veja se existe alguma emergencia que necessita da sua expertisse para ser resolvida. E registre a tarefa a ser executada.
                 </div>
             </div>
             <div class="secao-roxa">
-                <div class="coluna-esquerda">
-                    5- FAÇA CONTATO: Responda emails e ligações pendentes e registre.
+                <h1 class="titulo-branco">OPERACIONAL</h1>
+            </div>
+            <div class="secao-roxa">
+                <div class="coluna-4-branco">
+                    <p style="font-size:20px">NOVA PLATAFORMA</p>
+                    <a href="/instalar-plataforma">
+                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR</button></a><br>
+
                     </p>
                 </div>
             </div>

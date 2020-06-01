@@ -33,7 +33,7 @@
             <div class="secao-roxa">
                 <div class="coluna-esquerda">
                     <br>
-                    <p class="titulo_branco"> Olá {{ $user->name }} </p>
+                    <br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
                 </div>
                 <div class="coluna-direita" style="margin-top: 10px">

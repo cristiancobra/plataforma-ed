@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('painel');
-// });
-
-
-
-// Route::get('/list', 'LoginTesteController@ListUser')->name('list');
 
 Auth::routes();
 
@@ -63,3 +56,9 @@ Route::get('/teste', function () {
     Route::get('/inicio', function () {
     return view('inicio');
     });
+    
+    // ----------------------  Rotas do ADMIN ---------
+    
+    Route::get('/instalar-plataforma', function () {
+    return view('admin.instalar-plataforma');
+});
