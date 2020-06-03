@@ -29,6 +29,10 @@ Route::get('/crm', function () {
     return view('crm');
 });
 
+Route::get('/senhas', function () {
+    return view('senhas');
+});
+
 Route::get('/financeiro', function () {
     return view('financeiro');
 });
@@ -57,6 +61,59 @@ Route::get('/teste', function () {
     return view('inicio');
     });
     
+    Route::get('/arquivosdemkt', function () {
+    return view('arquivosdemkt');
+});
+Route::get('/banco', function () {
+    return view('banco');
+});
+Route::get('/editarsite', function () {
+    return view('editarsite');
+});
+Route::get('/favoritos', function () {
+    return view('favoritos');
+});
+Route::get('/novafatura', function () {
+    return view('novafatura');
+});
+Route::get('/novaoportunidade', function () {
+    return view('novaoportunidade');
+});
+Route::get('/novareuniao', function () {
+    return view('novareuniao');
+});
+Route::get('/novatarefa', function () {
+    return view('novatarefa');
+});
+Route::get('/novopotencial', function () {
+    return view('novopotencial');
+});
+Route::get('/novoprojeto', function () {
+    return view('novoprojeto');
+});
+Route::get('/orcamento', function () {
+    return view('orcamento');
+});
+Route::get('/postarnoblog', function () {
+    return view('postarnoblog');
+});
+Route::get('/registrardespesas', function () {
+    return view('registrarpagamento');
+});
+Route::get('/tarefadeprojeto', function () {
+    return view('tarefadeprojeto');
+});
+
+
+
+
+
+
+
+
+
+
+
     // ----------------------  Rotas do ADMIN ---------
     
     Route::get('/instalar-plataforma', function () {

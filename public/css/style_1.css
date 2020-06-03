@@ -39,24 +39,13 @@ html, body{
     overflow: hidden;
 }
 
-.dropdown-btn {
-    background-color: #c28dbf; /* fundo*/
-    color: white;
-    padding: 6px 6px 6px 8px;
-    font-size: 16px;
-    border: none;
-    width: 100%;
-    text-align: left;
-    padding: 8px;
-}
-
 .sidenav ul li {
     padding: 2px 2px 2px 4px;
-    font-size: 10px;
+        font-size: 10px;
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover, .dropdown-btn:hover {
+.sidenav a:hover {
     color: #874983;
     background-color: white;
 }
@@ -76,31 +65,50 @@ html, body{
     .sidenav a {font-size: 14px;}
 }
 
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width:100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+  color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+  margin-left: 200px; /* Same as the width of the sidenav */
+  font-size: 20px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
 
 /* Add an active class to the active dropdown button */
 .active {
-    background-color: #874983;
-    color: white;
+  background-color: green;
+  color: white;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
-    display: none;
-    background-color: #874983;
-    padding-left: 8px;
-}
-
-.dropdown-container a{
-    padding-left: 22px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    background-color: #8A0886;
+  display: none;
+  background-color: #262626;
+  padding-left: 8px;
 }
 
 /* Optional: Style the caret down icon */
 .fa-caret-down {
-    float: right;
-    padding-right: 8px;
+  float: right;
+  padding-right: 8px;
 }
 
 /* ------------------------------------------------ PRINCIPAL (MAIN) -------------------------- */
@@ -124,8 +132,7 @@ html, body{
     border-radius: 0px 8px 8px 0px;
     z-index: 9;
     float: left;
-    position: fixed;
-
+    position: absolute;
 }
 
 /* ------------------------------------------------ PÁGINAS (PAINEL) -------------------------- */
@@ -192,16 +199,15 @@ html, body{
 }
 
 .coluna-4-branco{
-    padding:20px;
+    padding:5px;
     margin-top: 15px;
     margin-bottom:15px;
     color:white;
     font-size:16px;
     width:20%;
     display:inline-block;
-    text-align:justify;
-    vertical-align: top;
-    
+    text-align:center;
+    vertical-align: middle;
 }
 
 .destaque_amarelo{

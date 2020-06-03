@@ -1,17 +1,85 @@
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <li><a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a></li>
-    <li><a href="" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MARKETING</span></a>
-    <li><a href="" target="blank"><i class="fas fa-heart"></i><span>  PUBLICAR NO SITE</span></a></li>
-    <li><a href='/crm'><i class='fas fa-arrow-alt-circle-right'></i><span>  CRM</span></a></li>
-    <li><a href='/falar'  ><i class='fas fa-comment-dots'></i><span>  FALAR</span></a></li>
-    <li><a href="/nuvem" target="blank"><i class="fas fa-cloud-upload-alt"></i><span>  MEUS ARQUIVOS</span></a>
-        <ul>
-            <li><a href="/nuvem" target="blank"><i class="fas fa-heart"></i><span>  FAVORITOS</span></a></li>
-        </ul>
-    </li>
-    <li><a href="/email"><i class="fas fa-envelope"></i><span>  EMAIL</span></a></li>
-    <li><a href="/financeiro"><i class="fas fa-credit-card"></i><span>  FINANCEIRO</span></a></li>
-    <li><a href="/suporte" target="blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
+    <a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a>
+
+    <button class="dropdown-btn">
+        <i class='fas fa-angle-double-right'></i>
+        ORGANIZAÇÃO
+        <i class="fa fa-caret-down"></i>
+    </button>
+
+    <div class="dropdown-container">
+        <a href="/crm" target="blank"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
+        <a href="/novoprojeto" target="blank"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
+        <a href="/novatarefa" target="blank"><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
+        <a href="/novareuniao" target="blank"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
+        <a href="/nuvem" target="blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
+        <a href="/favoritos" target="blank"><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
+    </div>
+
+
+
+    <button class="dropdown-btn">
+        <i class='fab fa-telegram-plane'></i>
+        COMUNICAÇÃO
+        <i class="fa fa-caret-down"></i>
+    </button>
+
+    <div class="dropdown-container">
+        <a href="/falar" target="blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
+        <a href="/email" target="blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
+    </div>
+
+
+    <button class="dropdown-btn">
+        <i class='fas fa-funnel-dollar'></i>
+        VENDAS 
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+        <a href="/novopotencial" target="blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
+        <a href="/novaoportunidade" target="blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
+        <a href="/orcamento" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
+    </div>
+
+
+    <button class="dropdown-btn">
+        <i class='fas fa-bullhorn'></i>
+        MARKETING 
+        <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-container">
+        <a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
+        <a href="/postarnoblog" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
+    </div>
+
+
+
+    <li><a href="/suporte" target="blank"><i class="fas fa-gift"></i><span>  SUPORTE</span></a></li>
+
+    <button class="dropdown-btn">
+        <i class='fas fa-funnel-dollar'></i>
+        MINHA CONTA
+        <i class="fa fa-caret-down"></i>
+    </button>
+
     <li><a href="/logout" class="logout_btn">   SAIR   </a></li>
 </div>
+
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>

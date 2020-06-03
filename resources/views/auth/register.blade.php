@@ -61,11 +61,28 @@
                             </div>
                         </div>
                         
-                          <div class="form-group row">
-                            <label for="is_admin" class="col-md-4 col-form-label text-md-right">Administrador de sistema</label>
+                          
+                        <div class="form-group row">
+                            <label for="dominio" class="col-md-4 col-form-label text-md-right">Seu domínio</label>
 
                             <div class="col-md-6">
-                                <input id="is_admin" type="checkbox" class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" value="1" required autocomplete="is_admin" autofocus>
+                                <input id="dominio" type="text" class="form-control @error('dominio') is-invalid @enderror" name="name" value="{{ old('dominio') }}" required autocomplete="dominio" autofocus>
+
+                                @error('dominio')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                                                
+                        
+                        
+                        <div class="form-group row">
+                            <label for="is_admin" class="col-md-4 col-form-label text-md-right">É da equipe Empresa Digital</label>
+
+                            <div class="col-md-6">
+                                <input id="is_admin" type="checkbox" class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" value="1" autocomplete="is_admin" autofocus>
 
                                 @error('is_admin')
                                     <span class="invalid-feedback" role="alert">
