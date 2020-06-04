@@ -28,7 +28,7 @@
                 <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
             </div>
             <div class='secao-iframe'>
-                <iframe src='https://empresadigital.net.br/wp-admin/admin.php?action=replicate_item_save&post=232920&replicate_nonce=70731e54a5' width='100%' height='100%' border="0px" border="0px"></iframe>
+                <iframe src='https://empresadigital.net.br/wp-admin/' width='100%' height='100%' border="0px" border="0px"></iframe>
             </div>
         </div>
 

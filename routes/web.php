@@ -67,9 +67,11 @@ Route::get('/teste', function () {
 Route::get('/banco', function () {
     return view('banco');
 });
-Route::get('/editarsite', function () {
-    return view('editarsite');
-});
+
+Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
+Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
+
+
 Route::get('/favoritos', function () {
     return view('favoritos');
 });
@@ -94,9 +96,7 @@ Route::get('/novoprojeto', function () {
 Route::get('/orcamento', function () {
     return view('orcamento');
 });
-Route::get('/postarnoblog', function () {
-    return view('postarnoblog');
-});
+
 Route::get('/registrardespesas', function () {
     return view('registrarpagamento');
 });
