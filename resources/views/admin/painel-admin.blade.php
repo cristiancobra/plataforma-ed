@@ -27,7 +27,7 @@
             </div>
 
             <div class="secao-roxa">
-                <div class="coluna-esquerda">
+                <div class="coluna-esquerda" style="width: 55vw; margin-left: 10vw">
 
                     <br><br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Bem vindo ao Painel Administrativo </p>

@@ -29,12 +29,12 @@
             </div>
 
             <div class="secao-roxa">
-                <div class="coluna-esquerda">
+                <div class="coluna-esquerda" style="width: 55vw; margin-left: 10vw">
                     
                     <br><br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
                 </div>
-                <div class="coluna-direita" style="margin-top: 10px">
+                <div class="coluna-direita" style="margin-top: 10px; text-align: left">
                     <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="280px" height="280px">
                 </div>
             </div>

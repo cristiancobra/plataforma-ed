@@ -24,12 +24,12 @@ class HomeController extends Controller {
      */
     public function index() {
         $user = Auth::user();
-        if ($user->is_admin == 0) {
-            return view('painel', [
+        if ($user->perfil == "administrador") {
+            return view('admin/painel-admin', [
                 'user' => $user
             ]);
         } else {
-        return view('admin/painel-admin', [
+        return view('painel', [
             'user' => $user
         ]);
     }

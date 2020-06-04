@@ -39,6 +39,7 @@
     <div class="dropdown-container">
         <a href="/falar" target="blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
         <a href="/email" target="blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
+        <a href="https://acadia.mxroute.com:2096/" target="blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
     </div>
 
 

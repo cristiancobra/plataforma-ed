@@ -114,6 +114,8 @@ html, body{
     height: 100vh;
     display: block;
     z-index: 1;
+    width:99vw;
+    
 
 }
 
@@ -132,19 +134,19 @@ html, body{
 /* ------------------------------------------------ PÁGINAS (PAINEL) -------------------------- */
 
 .secao-roxa{
-    margin-top:0px;
-    padding:15px;
+    margin:0px;
+    padding:0px;
     border:none;
     height: auto;
-    width:100vw;
+    width:100%;
     clear: both;
     background-color: #874983;
 }
 
 .secao-branca{
     margin-top:0px;
-    padding:15px;
-    width:99vw;
+    padding:0px;
+    width:100%;
     border:none;
     height: auto;
     text-align: center;
