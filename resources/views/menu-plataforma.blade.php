@@ -1,6 +1,17 @@
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a>
+    
+       <button class="dropdown-btn">
+        <i class='fas fa-user-circle'></i>
+        MINHA CONTA
+        <i class="fa fa-caret-down"></i>
+    </button>
+
+    <div class="dropdown-container">
+        <a href="/senhas" target="blank"><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
+        <a href="/financeiro" target="blank"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
+    </div>
 
     <button class="dropdown-btn">
         <i class='fas fa-angle-double-right'></i>
@@ -54,14 +65,7 @@
     </div>
 
 
-
-    <li><a href="/suporte" target="blank"><i class="fas fa-gift"></i><span>  SUPORTE</span></a></li>
-
-    <button class="dropdown-btn">
-        <i class='fas fa-funnel-dollar'></i>
-        MINHA CONTA
-        <i class="fa fa-caret-down"></i>
-    </button>
+    <li><a href="/suporte" target="blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
 
     <li><a href="/logout" class="logout_btn">   SAIR   </a></li>
 </div>

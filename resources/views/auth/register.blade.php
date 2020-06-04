@@ -66,7 +66,7 @@
                             <label for="dominio" class="col-md-4 col-form-label text-md-right">Seu domínio</label>
 
                             <div class="col-md-6">
-                                <input id="dominio" type="text" class="form-control @error('dominio') is-invalid @enderror" name="name" value="{{ old('dominio') }}" required autocomplete="dominio" autofocus>
+                                <input id="dominio" type="text" class="form-control @error('dominio') is-invalid @enderror" name="dominio" value="{{ old('dominio') }}" required autocomplete="dominio" autofocus>
 
                                 @error('dominio')
                                     <span class="invalid-feedback" role="alert">
@@ -82,7 +82,7 @@
                             <label for="is_admin" class="col-md-4 col-form-label text-md-right">É da equipe Empresa Digital</label>
 
                             <div class="col-md-6">
-                                <input id="is_admin" type="checkbox" class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" value="1" autocomplete="is_admin" autofocus>
+                                <input id="is_admin" type="checkbox" checked="checked" class="form-control @error('is_admin') is-invalid @enderror" name="is_admin" value="1" autocomplete="is_admin" autofocus>
 
                                 @error('is_admin')
                                     <span class="invalid-feedback" role="alert">

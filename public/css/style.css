@@ -91,10 +91,11 @@ html, body{
 }
 
 .dropdown-container a{
-    padding-left: 22px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-left: 18px;
+    padding-top: 7px;
+    padding-bottom: 7px;
     background-color: #8A0886;
+    font-size: 14px;
 }
 
 /* Optional: Style the caret down icon */
