@@ -1,8 +1,8 @@
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a>
-    
-       <button class="dropdown-btn">
+
+    <button class="dropdown-btn">
         <i class='fas fa-user-circle'></i>
         MINHA CONTA
         <i class="fa fa-caret-down"></i>
@@ -12,6 +12,21 @@
         <a href="/senhas" target="blank"><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
         <a href="/financeiro" target="blank"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
     </div>
+
+
+    <button class="dropdown-btn">
+        <i class='fab fa-telegram-plane'></i>
+        COMUNICAÇÃO
+        <i class="fa fa-caret-down"></i>
+    </button>
+
+    <div class="dropdown-container">
+        <a href="/falar" target="blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
+        <a href="/email" target="blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
+        <a href="https://acadia.mxroute.com:2096/" target="blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
+    </div>
+
+
 
     <button class="dropdown-btn">
         <i class='fas fa-angle-double-right'></i>
@@ -29,20 +44,6 @@
     </div>
 
 
-
-    <button class="dropdown-btn">
-        <i class='fab fa-telegram-plane'></i>
-        COMUNICAÇÃO
-        <i class="fa fa-caret-down"></i>
-    </button>
-
-    <div class="dropdown-container">
-        <a href="/falar" target="blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
-        <a href="/email" target="blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
-        <a href="https://acadia.mxroute.com:2096/" target="blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
-    </div>
-
-
     <button class="dropdown-btn">
         <i class='fas fa-funnel-dollar'></i>
         VENDAS 
@@ -50,6 +51,7 @@
     </button>
     <div class="dropdown-container">
         <a href="/novopotencial" target="blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
+        <a href="/oportunidades" target="blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
         <a href="/novaoportunidade" target="blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
         <a href="/orcamento" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
     </div>
@@ -63,6 +65,7 @@
     <div class="dropdown-container">
         <a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
         <a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
+        <a href="/campanhas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CAMPANHAS</a>
     </div>
 
 

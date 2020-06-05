@@ -27,6 +27,9 @@ html, body{
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+-moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
 }
 
 /* The navigation menu links */
@@ -129,6 +132,9 @@ html, body{
     z-index: 9;
     float: left;
     position: fixed;
+        -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+-moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
 
 }
 
@@ -137,6 +143,7 @@ html, body{
 .secao-roxa{
     margin:0px;
     padding:0px;
+    padding-top: 20px;
     border:none;
     height: auto;
     width:100%;
@@ -145,8 +152,8 @@ html, body{
 }
 
 .secao-branca{
-    margin-top:0px;
     padding:0px;
+    padding-top: 20px;
     width:100%;
     border:none;
     height: auto;
@@ -185,25 +192,23 @@ width:100%;
 
 .coluna-4-roxo{
     padding:5px;
-    margin-top: 15px;
-    margin-bottom:15px;
+        margin-bottom:15px;
     color:#874983;
     font-size:16px;
     width:20%;
     display:inline-block;
     text-align:center;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .coluna-4-branco{
     padding:20px;
-    margin-top: 15px;
-    margin-bottom:15px;
+        margin-bottom:15px;
     color:white;
     font-size:16px;
     width:20%;
     display:inline-block;
-    text-align:justify;
+    text-align:center;
     vertical-align: top;
     
 }

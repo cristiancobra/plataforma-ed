@@ -29,6 +29,10 @@ Route::get('/crm', function () {
     return view('crm');
 });
 
+Route::get('/oportunidades', function () {
+    return view('oportunidades');
+});
+
 Route::get('/senhas', function () {
     return view('senhas');
 });
@@ -37,12 +41,20 @@ Route::get('/financeiro', function () {
     return view('financeiro');
 });
 
+Route::get('/gerenciador-financeiro', function () {
+    return view('gerenciador-financeiro');
+});
+
 Route::get('/nuvem', function () {
     return Redirect::to('https://nuvem.empresadigital.net.br');
 });
 
 Route::get('/falar', function () {
     return view('falar');
+});
+
+Route::get('/campanhas', function () {
+    return view('campanhas');
 });
 
 Route::get('/email', function () {
@@ -100,6 +112,7 @@ Route::get('/orcamento', function () {
 Route::get('/registrardespesas', function () {
     return view('registrarpagamento');
 });
+
 Route::get('/tarefadeprojeto', function () {
     return view('tarefadeprojeto');
 });

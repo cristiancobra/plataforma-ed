@@ -39,31 +39,28 @@
                 </div>
             </div>
             <div class="secao-branca">
-                <h1 class="titulo-roxo">OPERACIONAL</h1>
+                <h1 class="titulo-roxo">FINANCEIRO</h1>
             </div>
             <div class="secao-branca">
                 <div class="coluna-4-roxo">
-                    <p style="font-size:20px">GERENCIAR EMAILS</p>
-                    <a href="https://acadia.mxroute.com:2083/" target="blank">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
-                    login: solucoes
+                    <p style="font-size:16px">GERENCIADOR FINANCEIRO</p>
+                    <a href="/gerenciador-financeiro">
+                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR</button></a><br>
                 </div>
                 <div class="coluna-4-roxo">
-                    <p style="font-size:20px">MIGRAÇÕES</p>
-                    <a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/operacional/plataforma&fileid=8431" target="blank">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
-                    login: xxxxxx
-                </div>
-                <div class="coluna-4-roxo">
-                    <p style="font-size:20px">CONTRATOS DIGITAIS</p>
+                    <p style="font-size:16px">CONTRATOS DIGITAIS</p>
                     <a href="https://painel.autentique.com.br/" target="blank">
                         <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
                     login: xxxxxx
                 </div>
                 <div class="coluna-4-roxo">
-                    4- NOVA TAREFA: Antes de acrescentar novas tarefas comunique-se com toda a equipe e veja se existe alguma emergencia que necessita da sua expertisse para ser resolvida. E registre a tarefa a ser executada.
+
+                </div>
+                <div class="coluna-4-roxo">
+
                 </div>
             </div>
+
             <div class="secao-roxa">
                 <h1 class="titulo-branco">OPERACIONAL</h1>
             </div>
@@ -72,10 +69,22 @@
                     <p style="font-size:20px">NOVA PLATAFORMA</p>
                     <a href="/instalar-plataforma">
                         <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR</button></a><br>
-
-                    </p>
+                </div>
+                <div class="coluna-4-branco">
+                    <p style="font-size:20px">GERENCIAR EMAILS</p>
+                    <a href="https://acadia.mxroute.com:2083/" target="blank">
+                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
+                    login: solucoes
+                </div>
+                <div class="coluna-4-branco">
+                    <p style="font-size:20px">MIGRAÇÕES</p>
+                    <a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/operacional/plataforma&fileid=8431" target="blank">
+                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
+                    login: xxxxxx
+                </div>
+                <div class="coluna-4-branco">
+     
                 </div>
             </div>
-        </div>
     </body>
 </html>
