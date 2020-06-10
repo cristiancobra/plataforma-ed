@@ -35,12 +35,12 @@
     </button>
 
     <div class="dropdown-container">
-        <a href="/crm" target="blank"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
-        <a href="/novoprojeto" target="blank"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
-        <a href="/novatarefa" target="blank"><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
-        <a href="/novareuniao" target="blank"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
-        <a href="/nuvem" target="blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
-        <a href="/favoritos" target="blank"><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
+        <a href="/crm"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
+        <a href="/novoprojeto"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
+        <a href="/novatarefa" ><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
+        <a href="/novareuniao"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
+        <a href="/nuvem" ><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
+        <a href="/favoritos" ><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
     </div>
 
 
