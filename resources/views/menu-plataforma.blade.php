@@ -50,9 +50,9 @@
         <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-container">
-        <a href="/novopotencial" target="blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
-        <a href="/oportunidades" target="blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
-        <a href="/novaoportunidade" target="blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
+        <a href="/novopotencial"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
+        <a href="/oportunidades"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
+        <a href="/novaoportunidade" ><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
         <a href="/orcamento" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
     </div>
 
@@ -65,7 +65,8 @@
     <div class="dropdown-container">
         <a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
         <a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
-        <a href="/campanhas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CAMPANHAS</a>
+        <a href="/campanhas"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
+         <a href="/novalista"<i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
     </div>
 
 

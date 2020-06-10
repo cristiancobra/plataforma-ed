@@ -99,6 +99,11 @@ Route::get('/novareuniao', function () {
 Route::get('/novatarefa', function () {
     return view('novatarefa');
 });
+
+Route::get('/novalista', function () {
+    return view('novalista');
+});
+
 Route::get('/novopotencial', function () {
     return view('novopotencial');
 });
@@ -116,14 +121,6 @@ Route::get('/registrardespesas', function () {
 Route::get('/tarefadeprojeto', function () {
     return view('tarefadeprojeto');
 });
-
-
-
-
-
-
-
-
 
 
 
