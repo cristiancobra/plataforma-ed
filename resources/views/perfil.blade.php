@@ -28,7 +28,7 @@
                 <span onclick="openNav()"><i class="fas fa-rocket"></i></i></span>
             </div>
             <div class='secao-iframe'>
-                <iframe src='http://crm.empresadigital.net.br/index.php?module=Users&action=EditView&record=4eb582c2-d2b5-2200-d9e0-5cf7ca34ac95' width='100%' height='100%' border="0px" border="0px"></iframe>
+                <iframe src='' width='100%' height='100%' border="0px" border="0px"></iframe>
             </div>
         </div>
 

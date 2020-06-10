@@ -33,8 +33,8 @@ Route::get('/oportunidades', function () {
     return view('oportunidades');
 });
 
-Route::get('/senhas', function () {
-    return view('senhas');
+Route::get('/perfil', function () {
+    return view('perfil');
 });
 
 Route::get('/financeiro', function () {

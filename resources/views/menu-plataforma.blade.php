@@ -9,8 +9,8 @@
     </button>
 
     <div class="dropdown-container">
-        <a href="/senhas" target="blank"><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
-        <a href="/financeiro" target="blank"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
+        <a href="/"><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
+        <a href="/financeiro"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
     </div>
 
 
@@ -22,7 +22,7 @@
 
     <div class="dropdown-container">
         <a href="/falar" target="blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
-        <a href="/email" target="blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
+        <a href="/email"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
         <a href="https://acadia.mxroute.com:2096/" target="blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
     </div>
 
@@ -66,7 +66,7 @@
         <a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
         <a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
         <a href="/campanhas"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
-         <a href="/novalista"<i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
+         <a href="/novalista"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
     </div>
 
 
