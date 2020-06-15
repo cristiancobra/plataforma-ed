@@ -1,5 +1,6 @@
 <div id="mySidenav" class="sidenav">
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
     <a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a>
 
     <button class="dropdown-btn">
@@ -39,8 +40,8 @@
         <a href="/novoprojeto"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
         <a href="/novatarefa" ><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
         <a href="/novareuniao"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
-        <a href="/nuvem" ><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
-        <a href="/favoritos" ><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
+        <a href="/nuvem"  target="blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
+        <a href="/favoritos"  target="blank"><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
     </div>
 
 
@@ -59,14 +60,16 @@
 
     <button class="dropdown-btn">
         <i class='fas fa-bullhorn'></i>
-        MARKETING 
+        MARKETING
         <i class="fa fa-caret-down"></i>
     </button>
+
     <div class="dropdown-container">
+        <a href="/marketing"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
         <a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
         <a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
-        <a href="/campanhas"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
-         <a href="/novalista"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
+        <a href="/novacampanha"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
+        <a href="/novalista"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
     </div>
 
 

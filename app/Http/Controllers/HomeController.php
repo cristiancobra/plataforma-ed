@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\User;
+use App\Task;
+use App\UserCrm;
 
 class HomeController extends Controller {
 
@@ -24,15 +25,31 @@ class HomeController extends Controller {
      */
     public function index() {
         $user = Auth::user();
-        if ($user->perfil == "administrador") {
+        $user_crm = Auth::user()->idcrm;
+              $tarefas_abertas = Task::where([
+                  ['status','Not Started'],
+                  ['assigned_user_id',$user_crm]
+                      ])
+                  ->get();
+            
+              $total_tarefas = count($tarefas_abertas);
+              
+                if ($user->perfil == "administrador") {
+                    
             return view('admin/painel-admin', [
-                'user' => $user
+             'user' => $user,
+             'tarefas_abertas' => $tarefas_abertas,
+                'total_tarefas' => $total_tarefas,
             ]);
         } else {
         return view('painel', [
             'user' => $user
         ]);
     }
-
-}
+    }
+        public function ContarTarefas() {
+                   
+            $total_tarefas = count($tarefas_abertas)->get();
+            return $total_tarefas;
+        }
 }

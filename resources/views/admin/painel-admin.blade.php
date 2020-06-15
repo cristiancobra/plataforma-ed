@@ -31,9 +31,13 @@
 
                     <br><br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Bem vindo ao Painel Administrativo </p>
-                    
-           
-<br>
+                    <br><br>
+                    <p class="numeros_painel">  {{ $total_tarefas }}</p>                        <p class="titulo-branco"> tarefas pendentes </p>
+                                        
+                    <br>       
+
+                                <br>
+                    <br>
                 </div>
 
                 <div class="coluna-direita" style="margin-top: 10px">
@@ -85,12 +89,12 @@
                     login: xxxxxx
                 </div>
                 <div class="coluna-4-branco">
-                         <p style="font-size:20px">SERVIDORES</p>
+                    <p style="font-size:20px">SERVIDORES</p>
                     <a href="https://62.171.185.126:8090/" target="blank">
                         <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">SERVIDOR NOVO</button></a><br>
                     login: admin
                     <br>
-                  <a href="https://167.86.97.159:2087" target="blank">
+                    <a href="https://167.86.97.159:2087" target="blank">
                         <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">SERVIDOR ANTIGO</button></a><br>
                     login: root
                 </div>

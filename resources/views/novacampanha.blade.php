@@ -28,7 +28,7 @@
                 <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
             </div>
             <div class='secao-iframe'>
-                <iframe src='https://financeiro.empresadigital.net.br/sales/invoices/create' width='100%' height='100%' border="0px" border="0px"></iframe>
+                <iframe src='https://crm.empresadigital.net.br/index.php?module=Campaigns&action=WizardHome&return_module=Campaigns&return_action=index' width='100%' height='100%' border="0px" border="0px"></iframe>
             </div>
         </div>
 

@@ -4,12 +4,12 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Task extends Model
+class UserCrm extends Model
 {
     
         // Nome da conexao e da tabela existente
       protected $connection = 'suitecrm';
-    protected $table = 'tasks';
+    protected $table = 'users';
     
      
      //  The primary key associated with the table.
@@ -25,9 +25,9 @@ class Task extends Model
      *
      */
     protected $fillable = [
-        'id', 'name', 'description', 'status', 'priority','assigned_user_id',
+        'id', 'user_name', 
     ];
-    
+
     /**
      * Tarefas do SuiteCRM, campos NAO disponiveis (mass assignable)
      */

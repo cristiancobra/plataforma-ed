@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'id', 'perfil', 'dominio',
+        'name', 'email', 'password', 'id', 'perfil', 'dominio','idcrm',
     ];
 
     /**
@@ -36,4 +36,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function PegarIdCrm() {
+   return $this->hasOne(UserCrm::class,'id');
+}
 }
