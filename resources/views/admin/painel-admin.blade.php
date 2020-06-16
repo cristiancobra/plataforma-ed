@@ -33,6 +33,7 @@
                     <p class="destaque_amarelo">Bem vindo ao Painel Administrativo </p>
                     <br><br>
                     <p class="numeros_painel">  {{ $total_tarefas }}</p>                        <p class="titulo-branco"> tarefas pendentes </p>
+                    <p><a href="/crm" style="color: yellow">ver tarefas</a></p>
                                         
                     <br>       
 
