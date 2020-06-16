@@ -28,7 +28,7 @@
                 <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
             </div>
             <div class='secao-iframe'>
-                <iframe src='https://crm.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DMeetings%26action%3DEditView%26return_module%3DMeetings%26return_action%3DDetailView' width='100%' height='100%' border="0px" border="0px"></iframe>
+                <iframe src='https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DMeetings%26action%3DEditView%26return_module%3DMeetings%26return_action%3DDetailView' width='100%' height='100%' border="0px" border="0px"></iframe>
             </div>
         </div>
 
