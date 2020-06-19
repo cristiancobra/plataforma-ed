@@ -131,7 +131,10 @@ box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
 
 .botao-ativar{
     color: white;
-    padding: 7px;
+        padding-top: 4px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 2px;
     background-color: #c28dbf;
     width:1.5vw;
     border-radius: 0px 8px 8px 0px;

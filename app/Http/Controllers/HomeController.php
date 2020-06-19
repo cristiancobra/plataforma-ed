@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Task;
 use App\UserCrm;
+use App\Opportunities;
 
 class HomeController extends Controller {
 
@@ -31,8 +32,15 @@ class HomeController extends Controller {
                   ['assigned_user_id',$user_crm]
                       ])
                   ->get();
+              
+              $oportunidades_abertas = Opportunities::where([
+                  ['sales_stage','Prospecting'],
+                  ['assigned_user_id',$user_crm],
+                      ])
+                  ->first();
             
               $total_tarefas = count($tarefas_abertas);
+              $valor_oportunidades = $oportunidades_abertas->amount;
               
                 if ($user->perfil == "administrador") {
                     
@@ -40,6 +48,7 @@ class HomeController extends Controller {
              'user' => $user,
              'tarefas_abertas' => $tarefas_abertas,
                 'total_tarefas' => $total_tarefas,
+                'valor_oportunidades' => $valor_oportunidades,
             ]);
         } else {
         return view('painel', [

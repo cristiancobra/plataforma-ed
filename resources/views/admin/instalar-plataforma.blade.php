@@ -38,14 +38,14 @@
                         <br>
                         Colocar <b> 2GB</B>em <b> STORAGE SPACE</b> 
                         <br>
-                        Clicar em <b> SENHA > GERAR</B>. Salvar  a senha para utilizar no próximo passo.
+                        Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
                 </ol>
-                
+
                 <ol><h4>Usuário Empresa</h4>
                     <li>Fazer os passo acima e<a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/mail/addfwd.html" TARGET="blank"> CRIAR ENCAMINHAMENTO DE EMAIL </a>.
                         <br><br>
                 </ol>
-                
+
                 <br>
 
                 <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTAS DO CLIENTE</h2>
@@ -64,22 +64,80 @@
                         <br>Em <b>EMAIL </b> usar o modelo: <b> nome.sobrenome@empresadigital.net.br</b>
                         <br>Clicar em <b>CONFIGURAÇÕES </b> no final da página. Na aba CONTAS DE EMAIL cadastrar novo email seguindo o modelo:
                         <br>
-
+                        <br><B>EMAIL DE ENTRADA</b>
+                        <br><b>Nome da Conta de Email:</b> Nome do Cliente (maiúsculas e espaço)
+                        <br><b>Usuário para Login:</b> colocar email completo
+                        <br><b>Senha:</b> senha do cliente
+                        <br><b>Endereço do Mail Server:</b> acadia.mxroute.com  	
+                        <br><b>Protocolo de Servidor de Correio:</b> IMAP
+                        <br><b>Utilize SSL:</b>  SIM (marcar)
+                        <br>	
+                        <br>Porta do Servidor de Correio: 993
+                        <br>Pasta Monitorada: manter o padrao
+                        <br>Pasta do Lixo: cliar e selecionar   INBOX/Trash
+                        <br>Pasta Enviada:   	INBOX/Sent
+                        <br>
+                        <br>Assinaturas: padrão
+                        <br>
+                        <br><b>EMAIL DE SAÍDA</b>
+                        <br><b>Responder para: </b>repetir email do cliente
+                        <br><b>Servidor de correio SMTP de saída</b>:  system (acadia.mxroute.com)
+                        <br><b>Usuário SMTP:</b> crm@empresadigital.net.br
+                        <br><b>Senha SMTP</b>: senha da empresa digital
+                        <br>
                     </li>
                     <br>
+                    <li>Na próxima tela em <b>CONTAS DE EMAIL</b>desmarcar o email de Empresa Digital (grupo)                       
+                        <br><br>
                     <li><a href="https://vendas.empresadigital.net.br/index.php?module=SecurityGroups&action=EditView&return_module=SecurityGroups&return_action=DetailView" TARGET="blank">Criar <b>GRUPO DE SEGURANÇA </a></b> com o <b>Nome da Empresa</b> e atribuido ao cliente.
                     </li>
-                    <br>
-                    <li>Na tela seguinte adicionar o cliente como <b>usuário</b> no seu <b>GRUPO DE SEGURANÇA </b> no final da página.
+                    <br><br>
+                    <li>Na tela seguinte adicionar o cliente como <b>usuário</b> no seu <b>GRUPO DE SEGURANÇA e retirar do grupo EMPRESA DIGITAL</b> no final da página. E <b>adicionar o PERFIL "Administrador da Empresa"</b>
                     </li>
-
+                    <br><br>
+                    <li>Acessar o email do cliente e pegar a senha do SuiteCRM. Fazer login como clientee:<br>
+                        <ul>alterar a senha (usar a mesma senha do email do cliente.</ul>
+                        <ul>Na página INICIO do CRM do cliente apagar (clicar no X) os dashlets: Feed, MINHAS CONTAS, MINHAS LIGACOES</ul>
+                        <ul>e adicionar AGENDA </ul>
+                    </li>
                 </ol>
 
-             
+                <br>
+                <h3>Nextcloud</h3>
+                <ol><h4>Usuário Grátis</h4>
+                    <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="blank">Criar nova conta na nuvem</a> seguindo o modelo:
+                        <br><br>
 
+                        <b> Nome de Usuário:</b> nome.sobrenome
+                        <br>
+                        <b> Exibir nome:</b> Nome Sobrenome (maiúsculas e espaço)
+                        <br>
+                        <b> Senha:</b> mesma do email
+                        <br>
+                        <b> Email:</b> email do cliente
+                        <br>
+                        <b> Grupos:</b> criar grupo com nome da empresa (maísculas e espaço). <b>Adicionar Cobra, Nathalia, Evelym e Guilherme no grupo do cliente</b>
+                        <br>
+                        <b>  Grupo administrativo para:</b> não alterar
+                        <br>
+                        <b> Cota:</b> 5GB
+                        <br>
+
+
+                        Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
                 </ol>
 
+                <ol><h4>Usuário Empresa</h4>
+                    <li>Fazer os passo acima, mudar apenas a  <b> COTA</b> para 10GB.
+                        <br><br>
+                </ol>
 
+                <h4 STYLE="color: red">Marcar tarefa como concluida no CRM e enviar mensagem para Nathalia :</h4>
+                <b> PLATAFORMA CRIADA</b><br>
+                NOME CLIENTE: Wendy Palo<br>
+                EMAIL: wendy.palo@empresadigital.net.br<br><br>
+                https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true
+                <br><br>
 
                 <h2 class="subtitulo-roxo" style="text-align: left">CONFIGURAR WORDPRESS </h2>
                 <h3>Site novo</h3>
@@ -93,11 +151,17 @@
                     </li>
                 </ol>
                 <br>
+
                 <h3>Migração de site</h3>
-                <li>Fazer backups da Rede de Sites</li>
-                <li>Fazer backups do site a ser migrado</li>
-                <ol><li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="blank">Criar novo site na Rede de Sites.</a></li>
+                <ol>
+                    <li>Fazer backups da Rede de Sites</li>
+                    <br>
+                    <li>Fazer backups do site a ser migrado</li>
+                    <br>
+                    <li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="blank">Criar novo site na Rede de Sites.</a></li>
+                    <br>
                     <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
+                        <br>
                     <li>Entrar no child domain WEBSITE > LISTAR CHILD DOMAINS, e clicar em VHOSTS:
                         Na primeira linha apagar o nome do domínio:
                         docRoot                   /home/empresadigital.net.br/public_html/sintufscar.empresadigital.net.br
@@ -331,46 +395,46 @@
 
 
                 </p>  
-                
-                       <p>
 
-                        1. CONFIGURAR DOMÍNIO													
-                        1.1. Logar no cloudflare com login: contato@empresadigital.net.br
-                        1.2. Clicar em ADD SITE, colocar domínio e plano FREE.
-                        1.3. Adicionar RECORD A:
-                        No primeiro campo = A
-                        NAME = @
-                        Ipv4 = 167.86.97.159
-                        Clique em “Add Record”
-                        1.4. Adicionar CNAME:
-                        No primeiro campo = CNAME
-                        NAME = www
-                        Domain Name = @
-                        Clique em “Add Record”
-                        1.5. Adicionar primeira MX:
-                        No primeiro campo = MX
-                        NAME SERVER = acadia.mxroute.com
-                        Priority = 10
-                        Clique em “Add Record”
-                        1.6. Adicionar segunda MX:
-                        No primeiro campo = MX
-                        NAME SERVER = acadia-relay.mxroute.com 
-                        Priority = 20
-                        Clique em “Add Record”
-                        1.7. Adicionar segunda TXT:
-                        No primeiro campo = TXT
-                        NAME = @
-                        TEXT = v=spf1 ip4:167.86.97.159 include:mxroute.com -all
-                        Clique em “Add Record”
-                        1.8. Direcionar DNS do domínio no site registro.br com os dados fornecidos pelo cloudflare.
-                        2. CRIAR EMAILS															
-                        2.1. Logar via navegador https://acadia.mxroute.com:2083/ com login solucoes
-                        2.2. Clicar em CONTA > DOMAINS. Adicionar nome da empresa do cliente ao domínio @empresadigital.net.br.
-                        2.3. Voltar e acessar EMAILS > CONTAS DE EMAIL clicar em criar e inserir os e-mails indicados pelo cliente.
-                        2.4. Criar pasta do cliente na nuvem (usar pasta modelo) e salvar logins e senhas.
+                <p>
+
+                    1. CONFIGURAR DOMÍNIO													
+                    1.1. Logar no cloudflare com login: contato@empresadigital.net.br
+                    1.2. Clicar em ADD SITE, colocar domínio e plano FREE.
+                    1.3. Adicionar RECORD A:
+                    No primeiro campo = A
+                    NAME = @
+                    Ipv4 = 167.86.97.159
+                    Clique em “Add Record”
+                    1.4. Adicionar CNAME:
+                    No primeiro campo = CNAME
+                    NAME = www
+                    Domain Name = @
+                    Clique em “Add Record”
+                    1.5. Adicionar primeira MX:
+                    No primeiro campo = MX
+                    NAME SERVER = acadia.mxroute.com
+                    Priority = 10
+                    Clique em “Add Record”
+                    1.6. Adicionar segunda MX:
+                    No primeiro campo = MX
+                    NAME SERVER = acadia-relay.mxroute.com 
+                    Priority = 20
+                    Clique em “Add Record”
+                    1.7. Adicionar segunda TXT:
+                    No primeiro campo = TXT
+                    NAME = @
+                    TEXT = v=spf1 ip4:167.86.97.159 include:mxroute.com -all
+                    Clique em “Add Record”
+                    1.8. Direcionar DNS do domínio no site registro.br com os dados fornecidos pelo cloudflare.
+                    2. CRIAR EMAILS															
+                    2.1. Logar via navegador https://acadia.mxroute.com:2083/ com login solucoes
+                    2.2. Clicar em CONTA > DOMAINS. Adicionar nome da empresa do cliente ao domínio @empresadigital.net.br.
+                    2.3. Voltar e acessar EMAILS > CONTAS DE EMAIL clicar em criar e inserir os e-mails indicados pelo cliente.
+                    2.4. Criar pasta do cliente na nuvem (usar pasta modelo) e salvar logins e senhas.
 
 
-                    </p>
+                </p>
 
 
             </div>

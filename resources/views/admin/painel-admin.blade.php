@@ -13,7 +13,7 @@
         <script src="{{ url(mix('js/menu.js')) }}" defer></script>
 
     </head>
-    <body>
+    <body style="display: grid">
 
         @include ('menu-plataforma')
 
@@ -34,10 +34,11 @@
                     <br><br>
                     <p class="numeros_painel">  {{ $total_tarefas }}</p>                        <p class="titulo-branco"> tarefas pendentes </p>
                     <p><a href="/crm" style="color: yellow">ver tarefas</a></p>
-                                        
                     <br>       
 
-                                <br>
+                    <p class="numeros_painel">  R$ {{ $valor_oportunidades }},00</p>                        <p class="titulo-branco"> em oportunidades </p>
+                    <p><a href="/crm" style="color: yellow">ver tarefas</a></p>
+                    <br>
                     <br>
                 </div>
 
