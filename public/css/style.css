@@ -11,8 +11,85 @@ and open the template in the editor.
 html, body{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family:helvetica,arial,verdana;
     overflow-x: hidden;
+    background-color: #874983;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 0px;
+    grid-template-areas: "header header header imagem"
+                                               "tarefas potenciais oportunidades  imagem"
+                                                "item4 item5 item6 item7";
+}
+
+.header{
+    margin:0px;
+    padding:0px;
+    padding-top: 0px;
+    border:none;
+    clear: both;
+    grid-area: header;
+}
+
+.imagem{
+    grid-area: imagem;
+    margin:0px;
+    padding:40px;
+}
+
+.tarefas{
+    grid-area: tarefas;
+    margin-top:0px;
+    margin-bottom: 2%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 13%;
+    padding-bottom: 10%;
+    padding-left:  10%;
+    padding-right: 10%;
+       background-color: #874983;
+    
+    height: 60%;
+}
+
+.oportunidades{
+    grid-area: oportunidades;
+    margin-top:0px;
+    margin-bottom: 0px;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding-top: 13%;
+    padding-bottom: 0;
+    padding-left:  10%;
+    padding-right: 10%;
+       background-color: #874983;
+        height: 60%;
+}
+
+.potenciais{
+    grid-area: potenciais;
+    margin-top:0px;
+    margin-bottom: 2%;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 13%;
+    padding-bottom: 10%;
+    padding-left:  10%;
+    padding-right: 10%;
+       background-color: #874983;
+    
+    height: 60%;
+}
+
+.item4{
+    grid-area: item4;
+    margin:0px;
+    padding:0px;
 }
 
 /* ------------------------------------------------ MENU -------------------------- */
@@ -28,8 +105,8 @@ html, body{
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
     -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
--moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
-box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+    -moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+    box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
 }
 
 /* The navigation menu links */
@@ -41,7 +118,7 @@ box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
     display: block;
     transition: 0.3s;
     overflow: hidden;
-    }
+}
 
 .dropdown-btn {
     background-color: #c28dbf; /* fundo*/
@@ -52,14 +129,14 @@ box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
     width: 100%;
     text-align: left;
     padding: 8px;
-    
-    }
 
-    .dropdown-btn a{
+}
+
+.dropdown-btn a{
     width: 60%;
-    
-    }
-    
+
+}
+
 .sidenav ul li {
     padding: 2px 2px 2px 4px;
     font-size: 10px;
@@ -124,14 +201,14 @@ box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
     height: 100vh;
     display: block;
     z-index: 1;
-    width:100vw;
-    
+
+
 
 }
 
 .botao-ativar{
     color: white;
-        padding-top: 4px;
+    padding-top: 4px;
     padding-bottom: 1px;
     padding-left: 3px;
     padding-right: 2px;
@@ -141,9 +218,9 @@ box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
     z-index: 9;
     float: left;
     position: fixed;
-        -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
--moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
-box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+    -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+    -moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+    box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
 
 }
 
@@ -176,7 +253,7 @@ box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
     margin: 0px;
     height: 100vh;
     z-index: 1;
-width:100%;
+    width:100%;
 }
 
 .coluna-esquerda{
@@ -201,7 +278,7 @@ width:100%;
 
 .coluna-4-roxo{
     padding:5px;
-        margin-bottom:15px;
+    margin-bottom:15px;
     color:#874983;
     font-size:16px;
     width:20%;
@@ -212,14 +289,14 @@ width:100%;
 
 .coluna-4-branco{
     padding:20px;
-        margin-bottom:15px;
+    margin-bottom:15px;
     color:white;
     font-size:16px;
     width:20%;
     display:inline-block;
     text-align:center;
     vertical-align: top;
-    
+
 }
 
 .destaque_amarelo{
@@ -233,16 +310,22 @@ width:100%;
 .numeros_painel{
     text-align:center;
     color:#ff0;
-        font-weight:600;
-    line-height: 0;
+    font-weight:600;
+    line-height: 0px;
     font-size: 56px;
+    margin: 0px;
+    padding: 0px;
 }
 
 .subtitulo-branco{
     text-align: center;
     color: white;
     font-weight:800;
-    }
+    font-size:18px;
+        margin: 0px;
+    padding-top: 25px;
+    padding-bottom: 0px;
+}
 
 .subtitulo-roxo{
     text-align: center;
@@ -262,11 +345,11 @@ width:100%;
 .titulo-branco{
     color: white;
     margin-top: 10px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     font-weight:700;
     text-align:center;
     font-size:36px;
-    line-height: 0.5;
+    line-height: 1;
 }
 
 .foto{
@@ -289,5 +372,5 @@ width:100%;
 }
 
 .h2-roxo{
-    
+
 }

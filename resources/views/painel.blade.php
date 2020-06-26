@@ -14,55 +14,53 @@
 
     </head>
     <body>
-
-
         @include('menu-plataforma')
 
-
-
-        <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
         <div id="main">
+            <div class="container" >     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 
-            <div class="botao-ativar">
-                <!-- Use any element to open the sidenav -->
-                <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
-            </div>
+                <div class="header">
 
-            <div class="secao-roxa">
-                <div class="coluna-esquerda" style="width: 55vw; margin-left: 10vw">
-                    
+                    <div class="botao-ativar">
+                        <!-- Use any element to open the sidenav -->
+                        <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
+                    </div>
+
                     <br><br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
+                    <br>
+                    <br>
+                    <br>
+
+                </div>     
+
+                <div class="imagem">
+                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
                 </div>
-                <div class="coluna-direita" style="margin-top: 10px; text-align: left">
-                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="280px" height="280px">
+
+                <div class="tarefas">
+                    <p class="numeros_painel">  {{ $total_tarefas }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
+                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">fazer</a></p>
                 </div>
-            </div>
-            <div class="secao-branca">
-                <div class="coluna-4-branco">
-                    <p class='subtitulo-roxo'> 1 <br> REUNIÕES: </p>
-                    <p style="color: #874983">Verifique primeiro a AGENDA. Reuniões são PRIORIDADE e devem estar no topo da lista de atenção do dia. Certifique-se o seu cliente aceitou o convite de reunião. Assim você evita cancelamentos de última hora!</p>
+
+                <div class="potenciais">
+                    <p class="numeros_painel">  {{  $total_potenciais, }}</p>                        <p class="subtitulo-branco"> potenciais aguardando </p>
+                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">contatar</a></p>
                 </div>
-                <div class="coluna-4-branco">
-                    <p class='subtitulo-roxo'> 2 <br> PROJETOS: </p>
-                    <p style="color: #874983">Verifique as Tarefas de projetos em aberto e suas data limites. Tarefas de projeto são PRIORIDADE pois existem pessoas que dependem do fechamento da sua tarefapara dar proseguimento. Distribua suas tarefas de projeto que serão possíveis trabalhar ao longo do dia e marque em sua agenda.</p>
+
+                <div class="oportunidades">
+                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{ $valor_oportunidades }},00</p>                        <p class="subtitulo-branco"> em<br>oportunidades</p>
+                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="/oportunidades" style="color: yellow">vender</a></p>
                 </div>
-                <div class="coluna-4-branco">
-                    <p class='subtitulo-roxo'> 3 <br> TAREFAS: </p>
+
+
+
+                <div class="item4">
+                    <p class='subtitulo-roxo'> 4 <br> TAREFAS: </p>
                     <p style="color: #874983">Verifique quais tarefas devem ser executadas por prioridade; Primeiro as que estão em atraso e depois as emergenciais. Distribua ao longo do dua e marque em sua agenda. </p>
                 </div>
-                <div class="coluna-4-branco">
-                    <p class='subtitulo-roxo'> 4 <br> NOVA TAREFA: </p>
-                    <p style="color: #874983">Antes de acrescentar novas tarefas comunique-se com toda a equipe e veja se existe alguma emergencia que necessita da sua expertisse para ser resolvida. E registre a tarefa a ser executada.</p>
-                </div>
-            </div>
-            <div class="secao-roxa">
-                <div class="coluna-esquerda">
-                    <!--    5- FAÇA CONTATO: Responda emails e ligações pendentes e registre. -->
 
-                </div>
             </div>
         </div>
-
     </body>
 </html>

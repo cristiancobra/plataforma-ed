@@ -12,6 +12,7 @@ html, body{
     margin: 0;
     padding: 0;
     font-family:helvetica,arial,verdana;
+    overflow-x: hidden;
 }
 
 /* ------------------------------------------------ MENU -------------------------- */
@@ -26,6 +27,9 @@ html, body{
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+-moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
 }
 
 /* The navigation menu links */
@@ -37,15 +41,32 @@ html, body{
     display: block;
     transition: 0.3s;
     overflow: hidden;
-}
+    }
 
+.dropdown-btn {
+    background-color: #c28dbf; /* fundo*/
+    color: white;
+    padding: 6px 6px 6px 8px;
+    font-size: 16px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+    
+    }
+
+    .dropdown-btn a{
+    width: 60%;
+    
+    }
+    
 .sidenav ul li {
     padding: 2px 2px 2px 4px;
-        font-size: 10px;
+    font-size: 10px;
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
+.sidenav a:hover, .dropdown-btn:hover {
     color: #874983;
     background-color: white;
 }
@@ -65,50 +86,32 @@ html, body{
     .sidenav a {font-size: 14px;}
 }
 
-/* Style the sidenav links and the dropdown button */
-.sidenav a, .dropdown-btn {
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width:100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
-}
-
-/* On mouse-over */
-.sidenav a:hover, .dropdown-btn:hover {
-  color: #f1f1f1;
-}
-
-/* Main content */
-.main {
-  margin-left: 200px; /* Same as the width of the sidenav */
-  font-size: 20px; /* Increased text to enable scrolling */
-  padding: 0px 10px;
-}
 
 /* Add an active class to the active dropdown button */
 .active {
-  background-color: green;
-  color: white;
+    background-color: #874983;
+    color: white;
 }
 
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
+    display: none;
+    background-color: #874983;
+    padding-left: 8px;
+}
+
+.dropdown-container a{
+    padding-left: 18px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    background-color: #8A0886;
+    font-size: 14px;
 }
 
 /* Optional: Style the caret down icon */
 .fa-caret-down {
-  float: right;
-  padding-right: 8px;
+    float: right;
+    padding-right: 8px;
 }
 
 /* ------------------------------------------------ PRINCIPAL (MAIN) -------------------------- */
@@ -121,36 +124,46 @@ html, body{
     height: 100vh;
     display: block;
     z-index: 1;
+    width:100vw;
+    
 
 }
 
 .botao-ativar{
     color: white;
-    padding: 7px;
+        padding-top: 4px;
+    padding-bottom: 1px;
+    padding-left: 3px;
+    padding-right: 2px;
     background-color: #c28dbf;
     width:1.5vw;
     border-radius: 0px 8px 8px 0px;
     z-index: 9;
     float: left;
-    position: absolute;
+    position: fixed;
+        -webkit-box-shadow: 9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+-moz-box-shadow:    9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+box-shadow:         9px 0px 25px 0px rgba(50, 50, 50, 0.58);
+
 }
 
 /* ------------------------------------------------ PÁGINAS (PAINEL) -------------------------- */
 
 .secao-roxa{
-    margin-top:0px;
-    padding:15px;
+    margin:0px;
+    padding:0px;
+    padding-top: 20px;
     border:none;
     height: auto;
-    width:100vw;
+    width:100%;
     clear: both;
     background-color: #874983;
 }
 
 .secao-branca{
-    margin-top:0px;
-    padding:15px;
-    width:99vw;
+    padding:0px;
+    padding-top: 20px;
+    width:100%;
     border:none;
     height: auto;
     text-align: center;
@@ -163,7 +176,7 @@ html, body{
     margin: 0px;
     height: 100vh;
     z-index: 1;
-
+width:100%;
 }
 
 .coluna-esquerda{
@@ -188,40 +201,48 @@ html, body{
 
 .coluna-4-roxo{
     padding:5px;
-    margin-top: 15px;
-    margin-bottom:15px;
+        margin-bottom:15px;
     color:#874983;
     font-size:16px;
     width:20%;
     display:inline-block;
     text-align:center;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .coluna-4-branco{
-    padding:5px;
-    margin-top: 15px;
-    margin-bottom:15px;
+    padding:20px;
+        margin-bottom:15px;
     color:white;
     font-size:16px;
     width:20%;
     display:inline-block;
     text-align:center;
-    vertical-align: middle;
+    vertical-align: top;
+    
 }
 
 .destaque_amarelo{
     text-align:center;
     color:#ff0;
     font-size:20px;
-    font-weight:600
+    font-weight:600;
+    line-height: 0.7;
+}
+
+.numeros_painel{
+    text-align:center;
+    color:#ff0;
+        font-weight:600;
+    line-height: 0;
+    font-size: 56px;
 }
 
 .subtitulo-branco{
     text-align: center;
     color: white;
-    font-weight:800
-}
+    font-weight:800;
+    }
 
 .subtitulo-roxo{
     text-align: center;
@@ -245,6 +266,7 @@ html, body{
     font-weight:700;
     text-align:center;
     font-size:36px;
+    line-height: 0.5;
 }
 
 .foto{
@@ -264,4 +286,8 @@ html, body{
     margin-left:auto;
     margin-right:auto;
     width:50%
+}
+
+.h2-roxo{
+    
 }
