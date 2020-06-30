@@ -57,7 +57,7 @@
                                </div>
                 
                                 <div class="destaque">
-                                    <p style="color:purple; font-weight: 400;padding-top: 4%"> Clique no ícone do <b>FOGUETE </b>no <b>canto superior esquerdo </b> para acessar seus fluxos e ferramentas.</p>
+                                    <p style="color:purple; font-weight: 400;line-height: 2;padding-top: 4%"> Clique no ícone do <b>FOGUETE </b>no <b>canto superior esquerdo </b> para acessar seus fluxos e ferramentas a qualquer momento.</p>
                 </div>
 
             </div>

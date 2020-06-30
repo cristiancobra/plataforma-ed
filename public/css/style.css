@@ -44,7 +44,7 @@ html, body{
     background-color: #874983;
     text-align: center;
     padding-top: 10%;
-    
+
 }
 
 .tarefas{
@@ -88,60 +88,68 @@ html, body{
     display: grid;
     gap: 0px;
     height: 100%;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr fr;
-    grid-template-rows: 35% 40% 25%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 50% 50%;
     grid-template-areas:
-        "financeiro contratos nova-plataforma emails migracoes servidores"        ;
+        "financeiro contratos nova-plataforma emails"
+        "servidores migracoes vendas vendas";
 }
 
 .financeiro{
     grid-area: financeiro;
-        text-align: center;
-        color: white;
-    margin-top:0px;
+    text-align: center;
+    color: white;
+    padding:10%;
     background-color: #874983;
 }
 
 .contratos{
     grid-area: contratos;
-        text-align: center;
-        color: white;
-    margin-top:0px;
+    text-align: center;
+    color: white;
+    padding:10%;
     background-color: #874983;
 }
 
 .nova-plataforma{
     grid-area: nova-plataforma;
-        text-align: center;
-        color: white;
-    margin-top:0px;
+    text-align: center;
+    color: white;
+    padding:10%;
     background-color: #874983;
 }
 
 .emails{
     grid-area: emails;
-        text-align: center;
-        color: white;
-    margin-top:0px;
+    text-align: center;
+    color: white;
+    padding:10%;
     background-color: #874983;
 }
 
 .migracoes{
     grid-area: migracoes;
-        text-align: center;
-        color: white;
-    margin-top:0px;
-    background-color: #874983;
+    text-align: center;
+    color: white;
+    padding:10%;
+    background-color: #c28dbf;
 }
 
 .servidores{
     grid-area: servidores;
-        text-align: center;
-        color: white;
-    margin-top:0px;
-    background-color: #874983;
+    text-align: center;
+    color: white;
+    padding:10%;
+    background-color: #c28dbf;
 }
 
+.vendas{
+    grid-area: vendas;
+    text-align: center;
+    color: white;
+    padding:10%;
+    background-color: #c28dbf;
+}
 
 
 /* ------------------------------------------------ MENU -------------------------- */
@@ -312,7 +320,7 @@ html, body{
     line-height: 0px;
     font-size: 56px;
     margin: 0px;
-        padding-top: 10%;
+    padding-top: 10%;
 }
 
 .subtitulo-branco{
@@ -327,8 +335,12 @@ html, body{
 
 .subtitulo-roxo{
     text-align: center;
-    color: #874983;
-    font-weight:800
+    color: purple;
+    font-weight:800;
+    font-size:18px;
+    margin: 0px;
+    padding-top: 25px;
+    padding-bottom: 0px;
 }
 
 .titulo-roxo{
@@ -379,6 +391,17 @@ html, body{
     padding: 8px;
     cursor: pointer;
     color: black;
+    border-width: 2px;
+    border-color: #c28dbf;
+    font-size: 14px
+}
+
+.botao-roxo{
+    background: #874983;
+    border-radius: 9px;
+    padding: 8px;
+    cursor: pointer;
+    color: white;
     border-width: 2px;
     border-color: #c28dbf;
     font-size: 14px

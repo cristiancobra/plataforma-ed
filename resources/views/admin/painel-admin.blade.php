@@ -19,54 +19,65 @@
         @include('painel')
 
         <div class="grid-admin">
-            <div class="financeiro" style="padding-top: 1%; padding-bottom: 2%">
+            <div class="financeiro">
                 <p class="subtitulo-branco">FINANCEIRO</p>
                 <br>
                 <a href="/gerenciador-financeiro">
                     <button class="botao-claro">GERENCIAR</button></a><br>
             </div>
 
-            <div class="contratos" style="padding-top: 1%; padding-bottom: 2%">
+            <div class="contratos">
                 <p class="subtitulo-branco">CONTRATOS DIGITAIS</p>
                 <br>
                 <a href="https://painel.autentique.com.br/" target="blank">
                     <button class="botao-claro">ACESSAR</button></a><br>
             </div>
 
-            <div class="nova-plataforma" style="padding-top: 1%; padding-bottom: 2%">
+            <div class="nova-plataforma" >
                 <p class="subtitulo-branco">NOVA PLATAFORMA</p>
                 <br>
                 <a href="/instalar-plataforma" target="blank">
                     <button class="botao-claro">CRIAR</button></a><br>
             </div>
 
-            <div class="emails" style="padding-top: 1%; padding-bottom: 2%">
+            <div class="emails">
                 <p class="subtitulo-branco">GERENCIAR EMAILS</p>
                 <br>
                 <a href="https://acadia.mxroute.com:2083/" target="blank">
                     <button class="botao-claro">CRIAR CONTAS</button></a><br>
                 login: solucoes
+                <br>
             </div>
 
-            <div class="migracoes" style="padding-top: 1%; padding-bottom: 2%">
-                <p class="subtitulo-branco">MIGRAÇÕES</p>
+            <div class="migracoes">
+                <p class="subtitulo-roxo">MIGRAÇÕES</p>
                 <br>
                 <a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/operacional/plataforma&fileid=8431" target="blank">
-                    <button class="botao-claro">ACESSAR</button></a><br>
+                    <button class="botao-roxo">ACESSAR</button></a><br>
                 login: xxxxxx
             </div>
 
-            <div class="servidores" style="padding-top: 1%; padding-bottom: 2%">
-                <p class="subtitulo-branco">SERVIDORES</p>
+            <div class="servidores">
+                <p class="subtitulo-roxo">SERVIDORES</p>
                 <br>
                 <a href="https://62.171.185.126:8090/" target="blank">
-                    <button class="botao-claro">SERVIDOR NOVO</button></a><br>
+                    <button class="botao-roxo">SERVIDOR NOVO</button></a><br>
                 login: admin
                 <br>
+                <br>
                 <a href="https://167.86.97.159:2087" target="blank">
-                    <button class="botao-claro">SERVIDOR ANTIGO</button></a><br>
+                    <button class="botao-roxo">SERVIDOR ANTIGO</button></a><br>
                 login: root
             </div>
+            
+                        <div class="vendas">
+                <p class="subtitulo-roxo">FUNIL DE VENDAS</p>
+                <br>
+                <a href="/instalar-plataforma" target="blank">
+                    <button class="botao-roxo">INICIAR</button></a><br>
+            </div>
+            
+            
         </div>
     </body>
 </html>

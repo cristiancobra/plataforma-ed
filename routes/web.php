@@ -156,8 +156,12 @@ Route::get('/tarefadeprojeto', function () {
 
     // ----------------------  Rotas do ADMIN ---------
     
-    Route::get('/instalar-plataforma', function () {
+Route::get('/instalar-plataforma', function () {
     return view('admin.instalar-plataforma');
+});
+
+Route::get('/funil-vendas', function () {
+    return view('admin.funil-vendas');
 });
 
 
