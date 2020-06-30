@@ -33,17 +33,17 @@
                 <ol>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR EMAIL PRINCIPAL</h2>
                         <h4>Usuário Grátis</h4>
-                    <li><a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/email_accounts/index.html#/create" TARGET="blank">Criar novo email </a> seguindo o modelo:
+                    <li><a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/email_accounts/index.html#/create" TARGET="_blank">Criar novo email </a> seguindo o modelo:
                         <br><br>
                         <b> nome.sobrenome@empresadigital.net.br</b>
                         <br>
                         Colocar <b> 2GB</B>em <b> STORAGE SPACE</b> 
                         <br>
-                        Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
+                        Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
 
 
                         <h4>Usuário Empresa</h4>
-                    <li>Fazer os passo acima e<a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/mail/addfwd.html" TARGET="blank"> CRIAR ENCAMINHAMENTO DE EMAIL </a>.
+                    <li>Fazer os passo acima e<a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/mail/addfwd.html" TARGET="_blank"> CRIAR ENCAMINHAMENTO DE EMAIL </a>.
                         <br><br>
 
                     </li>
@@ -59,7 +59,7 @@
 
                     <h3>SuiteCRM</h3>
 
-                    <li><a href="https://vendas.empresadigital.net.br/index.php?module=Users&action=EditView&return_module=Users&return_action=DetailView" TARGET="blank">Criar novo usuário no SuiteCRM</a>
+                    <li><a href="https://vendas.empresadigital.net.br/index.php?module=Users&action=EditView&return_module=Users&return_action=DetailView" TARGET="_blank">Criar novo usuário no SuiteCRM</a>
                         <br>Preencher apenas os campos abaixo:
                         <br>Em <b>nome de usuário </b> usar o modelo: <b> nome.sobrenome </b> (tudo minúsculo e junto. Usar dados do próprio CRM)
                         <br>Em <b>EMAIL </b> usar o modelo: <b> nome.sobrenome@empresadigital.net.br</b>
@@ -90,7 +90,7 @@
                     <br>
                     <li>Na próxima tela em <b>CONTAS DE EMAIL</b>desmarcar o email de Empresa Digital (grupo)                       
                         <br><br>
-                    <li><a href="https://vendas.empresadigital.net.br/index.php?module=SecurityGroups&action=EditView&return_module=SecurityGroups&return_action=DetailView" TARGET="blank">Criar <b>GRUPO DE SEGURANÇA </a></b> com o <b>Nome da Empresa</b> e atribuido ao cliente.
+                    <li><a href="https://vendas.empresadigital.net.br/index.php?module=SecurityGroups&action=EditView&return_module=SecurityGroups&return_action=DetailView" TARGET="_blank">Criar <b>GRUPO DE SEGURANÇA </a></b> com o <b>Nome da Empresa</b> e atribuido ao cliente.
                     </li>
                     <br><br>
                     <li>Na tela seguinte adicionar o cliente como <b>usuário</b> no seu <b>GRUPO DE SEGURANÇA e retirar do grupo EMPRESA DIGITAL</b> no final da página. E <b>adicionar o PERFIL "Administrador da Empresa"</b>
@@ -106,7 +106,7 @@
                     <br>
                     <h3>Nextcloud</h3>
                     <h4>Usuário Grátis</h4>
-                    <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="blank">Criar nova conta na nuvem</a> seguindo o modelo:
+                    <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="_blank">Criar nova conta na nuvem</a> seguindo o modelo:
                         <br><br>
 
                         <b> Nome de Usuário:</b> nome.sobrenome
@@ -117,16 +117,15 @@
                         <br>
                         <b> Email:</b> email do cliente
                         <br>
-                        <b> Grupos:</b> criar grupo com nome da empresa (maísculas e espaço). <b>Adicionar Cobra, Nathalia, Evelym e Guilherme no grupo do cliente</b>
+                        <b> Grupos:</b> criar grupo com nome da empresa (maísculas e espaço).
                         <br>
                         <b>  Grupo administrativo para:</b> não alterar
                         <br>
                         <b> Cota:</b> 5GB
                         <br>
-
-
-                        Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
-
+                    </li>
+                    
+                    <li>Depois de criado o usuário, na linha do usuário Cobra adicionar nos seus Grupos o grupo do cliente que acabou de ser criado. Fazer o mesmo com a Nathalia, Evelym e Guilherme</li>
 
                         <h4>Usuário Empresa</h4>
                     <li>Fazer os passo acima, mudar apenas a  <b> COTA</b> para 10GB.
@@ -142,8 +141,8 @@
 
                         <h2 class="subtitulo-roxo" style="text-align: left">CONFIGURAR WORDPRESS </h2>
                         <h3>Site novo</h3>
-                    <li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="blank">Criar novo site na Rede de Sites.</a></li>
-                    <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
+                    <li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="_blank">Criar novo site na Rede de Sites.</a></li>
+                    <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="_blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
                     <li>Entrar no child domain WEBSITE > LISTAR CHILD DOMAINS, e clicar em VHOSTS:
                         Na primeira linha apagar o nome do domínio:
                         docRoot                   /home/empresadigital.net.br/public_html/
@@ -157,9 +156,9 @@
 
                     <li>Fazer backups do site a ser migrado</li>
                     <br>
-                    <li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="blank">Criar novo site na Rede de Sites.</a></li>
+                    <li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="_blank">Criar novo site na Rede de Sites.</a></li>
                     <br>
-                    <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
+                    <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="_blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
                         <br>
                         <br>
                         <b>Nome de Domínio:</b> empresa_do_cliente.empresadigital.net.br<br>
@@ -234,7 +233,7 @@
                 <h2 class="subtitulo-roxo" style="text-align: left">Pré-configurações do site</h2>
 
                 <li> Logar no site e configurar a página Home como estática (Configurações de Leitura)</li><br>
-                <li> <a href="https://vendas.empresadigital.net.br/index.php?module=Tasks&action=EditView&return_module=Tasks&return_action=DetailView" target="blank">Criar nova tarefa</a> no modelo:<br>
+                <li> <a href="https://vendas.empresadigital.net.br/index.php?module=Tasks&action=EditView&return_module=Tasks&return_action=DetailView" target="_blank">Criar nova tarefa</a> no modelo:<br>
                     <br> <b>Nome: </b>criar site
                     <br> <b>Data de início: </b>data de hoje
                     <br> <b>Data limite: </b>data de hoje + 7 dias

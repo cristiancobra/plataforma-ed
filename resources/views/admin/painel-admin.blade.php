@@ -20,17 +20,17 @@
 
         <div class="grid-admin">
             <div class="financeiro">
-                <p class="subtitulo-branco">FINANCEIRO</p>
+                <p class="subtitulo-roxo">FINANCEIRO</p>
                 <br>
                 <a href="/gerenciador-financeiro">
-                    <button class="botao-claro">GERENCIAR</button></a><br>
+                    <button class="botao-roxo">GERENCIAR</button></a><br>
             </div>
 
             <div class="contratos">
-                <p class="subtitulo-branco">CONTRATOS DIGITAIS</p>
+                <p class="subtitulo-roxo">CONTRATOS DIGITAIS</p>
                 <br>
                 <a href="https://painel.autentique.com.br/" target="blank">
-                    <button class="botao-claro">ACESSAR</button></a><br>
+                    <button class="botao-roxo">ACESSAR</button></a><br>
             </div>
 
             <div class="nova-plataforma" >
@@ -38,6 +38,13 @@
                 <br>
                 <a href="/instalar-plataforma" target="blank">
                     <button class="botao-claro">CRIAR</button></a><br>
+            </div>
+
+            <div class="usuarios-plataforma" >
+                <p class="subtitulo-branco">USUÁRIOS DA PLATAFORMA</p>
+                <br>
+                <a href="/usuarios" target="blank">
+                    <button class="botao-claro">VER LISTA</button></a><br>
             </div>
 
             <div class="emails">
@@ -69,15 +76,15 @@
                     <button class="botao-roxo">SERVIDOR ANTIGO</button></a><br>
                 login: root
             </div>
-            
-                        <div class="vendas">
-                <p class="subtitulo-roxo">FUNIL DE VENDAS</p>
+
+            <div class="vendas">
+                <p class="subtitulo-branco">FUNIL DE VENDAS</p>
                 <br>
-                <a href="/instalar-plataforma" target="blank">
-                    <button class="botao-roxo">INICIAR</button></a><br>
+                <a href="/funil-vendas" target="blank">
+                    <button class="botao-claro">INICIAR</button></a><br>
             </div>
-            
-            
+
+
         </div>
     </body>
 </html>

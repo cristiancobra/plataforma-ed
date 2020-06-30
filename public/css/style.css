@@ -91,8 +91,8 @@ html, body{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 50% 50%;
     grid-template-areas:
-        "financeiro contratos nova-plataforma emails"
-        "servidores migracoes vendas vendas";
+        "nova-plataforma vendas usuarios-plataforma emails "
+        "servidores migracoes contratos financeiro";
 }
 
 .financeiro{
@@ -100,7 +100,7 @@ html, body{
     text-align: center;
     color: white;
     padding:10%;
-    background-color: #874983;
+    background-color: #c28dbf;
 }
 
 .contratos{
@@ -108,11 +108,18 @@ html, body{
     text-align: center;
     color: white;
     padding:10%;
-    background-color: #874983;
+    background-color: #c28dbf;
 }
 
 .nova-plataforma{
     grid-area: nova-plataforma;
+    text-align: center;
+    color: white;
+    padding:10%;
+    background-color: #874983;
+}
+.usuarios-plataforma{
+    grid-area: usuarios-plataforma;
     text-align: center;
     color: white;
     padding:10%;
@@ -148,7 +155,7 @@ html, body{
     text-align: center;
     color: white;
     padding:10%;
-    background-color: #c28dbf;
+    background-color: #874983;
 }
 
 
