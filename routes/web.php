@@ -102,6 +102,10 @@ Route::get('/suporte', function () {
    return view('suporte');
 });
 
+
+
+
+
 Route::get('/teste', function () {
     return view('teste');
     });
@@ -155,3 +159,8 @@ Route::get('/tarefadeprojeto', function () {
     Route::get('/instalar-plataforma', function () {
     return view('admin.instalar-plataforma');
 });
+
+
+// ================================ ROTAS DO CRUD  ===================
+
+Route::resource('usuarios', 'Form\\UserController')->names('user')->parameters(['usuarios'=> 'user']);

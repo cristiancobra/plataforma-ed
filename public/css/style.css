@@ -14,83 +14,135 @@ html, body{
     box-sizing: border-box;
     font-family:helvetica,arial,verdana;
     overflow-x: hidden;
-    background-color: #874983;
 }
 
-.container{
+.grid{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 0px;
-    grid-template-areas: "header header header imagem"
-                                               "tarefas potenciais oportunidades  imagem"
-                                                "item4 item5 item6 item7";
+    height: 100%;
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    grid-template-rows: 35% 30% 35%;
+    grid-template-areas:
+        "header header header imagem"
+        "tarefas potenciais oportunidades imagem"
+        "imagem-destaque destaque destaque destaque";
 }
 
 .header{
+    grid-area: header;
     margin:0px;
     padding:0px;
     padding-top: 0px;
     border:none;
     clear: both;
-    grid-area: header;
+    background-color: #874983;
 }
 
 .imagem{
     grid-area: imagem;
     margin:0px;
-    padding:40px;
+    background-color: #874983;
+    text-align: center;
+    padding-top: 10%;
+    
 }
 
 .tarefas{
     grid-area: tarefas;
     margin-top:0px;
-    margin-bottom: 2%;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-top: 13%;
-    padding-bottom: 10%;
-    padding-left:  10%;
-    padding-right: 10%;
-       background-color: #874983;
-    
-    height: 60%;
+    background-color: #874983;
 }
 
 .oportunidades{
     grid-area: oportunidades;
     margin-top:0px;
     margin-bottom: 0px;
-    margin-left: 10%;
-    margin-right: 10%;
-    padding-top: 13%;
-    padding-bottom: 0;
-    padding-left:  10%;
-    padding-right: 10%;
-       background-color: #874983;
-        height: 60%;
+    background-color: #874983;
 }
 
 .potenciais{
     grid-area: potenciais;
     margin-top:0px;
-    margin-bottom: 2%;
-    margin-left: 25%;
-    margin-right: 25%;
-    padding-top: 13%;
-    padding-bottom: 10%;
-    padding-left:  10%;
-    padding-right: 10%;
-       background-color: #874983;
-    
-    height: 60%;
+    background-color: #874983;
 }
 
-.item4{
-    grid-area: item4;
-    margin:0px;
-    padding:0px;
+.imagem-destaque{
+    grid-area: imagem-destaque;
+    margin-top:0px;
+    background-color: white;
+    text-align: center;
+    padding: 40px;
 }
+
+.destaque{
+    grid-area: destaque;
+    margin-top:0px;
+    background-color: white;
+    text-align: left;
+    font-size: 20px;
+}
+
+/* ------------------------------------------------ GRID ADMIN -------------------------- */
+
+.grid-admin{
+    display: grid;
+    gap: 0px;
+    height: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr fr;
+    grid-template-rows: 35% 40% 25%;
+    grid-template-areas:
+        "financeiro contratos nova-plataforma emails migracoes servidores"        ;
+}
+
+.financeiro{
+    grid-area: financeiro;
+        text-align: center;
+        color: white;
+    margin-top:0px;
+    background-color: #874983;
+}
+
+.contratos{
+    grid-area: contratos;
+        text-align: center;
+        color: white;
+    margin-top:0px;
+    background-color: #874983;
+}
+
+.nova-plataforma{
+    grid-area: nova-plataforma;
+        text-align: center;
+        color: white;
+    margin-top:0px;
+    background-color: #874983;
+}
+
+.emails{
+    grid-area: emails;
+        text-align: center;
+        color: white;
+    margin-top:0px;
+    background-color: #874983;
+}
+
+.migracoes{
+    grid-area: migracoes;
+        text-align: center;
+        color: white;
+    margin-top:0px;
+    background-color: #874983;
+}
+
+.servidores{
+    grid-area: servidores;
+        text-align: center;
+        color: white;
+    margin-top:0px;
+    background-color: #874983;
+}
+
+
 
 /* ------------------------------------------------ MENU -------------------------- */
 .sidenav {
@@ -237,66 +289,12 @@ html, body{
     background-color: #874983;
 }
 
-.secao-branca{
-    padding:0px;
-    padding-top: 20px;
-    width:100%;
-    border:none;
-    height: auto;
-    text-align: center;
-    background-color: white;
-    clear: both;
-}
-
 .secao-iframe{
     padding: 0px;
     margin: 0px;
     height: 100vh;
     z-index: 1;
     width:100%;
-}
-
-.coluna-esquerda{
-    padding:5px;
-    color:#fff;
-    font-size:16px;
-    width:70vw;
-    display:inline-block;
-    vertical-align: top;
-    text-align: center;
-}
-
-.coluna-direita{
-    padding:3px;
-    margin-right: 20px;
-    color:#fff;
-    font-size:16px;
-    width:25vw;
-    display:inline-block;
-
-}
-
-.coluna-4-roxo{
-    padding:5px;
-    margin-bottom:15px;
-    color:#874983;
-    font-size:16px;
-    width:20%;
-    display:inline-block;
-    text-align:center;
-    vertical-align: top;
-}
-
-.coluna-4-branco{
-    padding:20px;
-    margin-bottom:15px;
-    color:white;
-    font-size:16px;
-    width:20%;
-    display:inline-block;
-    text-align:center;
-    vertical-align: top;
-
 }
 
 .destaque_amarelo{
@@ -314,7 +312,7 @@ html, body{
     line-height: 0px;
     font-size: 56px;
     margin: 0px;
-    padding: 0px;
+        padding-top: 10%;
 }
 
 .subtitulo-branco{
@@ -322,7 +320,7 @@ html, body{
     color: white;
     font-weight:800;
     font-size:18px;
-        margin: 0px;
+    margin: 0px;
     padding-top: 25px;
     padding-bottom: 0px;
 }
@@ -373,4 +371,15 @@ html, body{
 
 .h2-roxo{
 
+}
+
+.botao-claro{
+    background: #c28dbf;
+    border-radius: 9px;
+    padding: 8px;
+    cursor: pointer;
+    color: black;
+    border-width: 2px;
+    border-color: #c28dbf;
+    font-size: 14px
 }

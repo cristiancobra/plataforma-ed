@@ -16,8 +16,9 @@
     <body>
         @include('menu-plataforma')
 
-        <div id="main">
-            <div class="container" >     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+        <div id="main">     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
+
+            <div class="grid" > 
 
                 <div class="header">
 
@@ -26,17 +27,15 @@
                         <span onclick="openNav()"><i class="fas fa-rocket"></i></span>
                     </div>
 
-                    <br><br><br><p class="titulo-branco"> Olá {{ $user->name }} </p>
+                    <p class="titulo-branco" style="padding-top: 7%"> Olá {{ $user->name }} </p>
                     <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
-                    <br>
-                    <br>
-                    <br>
 
-                </div>     
+                </div>
 
                 <div class="imagem">
-                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
+                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="250px" height="250px">
                 </div>
+
 
                 <div class="tarefas">
                     <p class="numeros_painel">  {{ $total_tarefas }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
@@ -53,11 +52,12 @@
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/oportunidades" style="color: yellow">vender</a></p>
                 </div>
 
-
-
-                <div class="item4">
-                    <p class='subtitulo-roxo'> 4 <br> TAREFAS: </p>
-                    <p style="color: #874983">Verifique quais tarefas devem ser executadas por prioridade; Primeiro as que estão em atraso e depois as emergenciais. Distribua ao longo do dua e marque em sua agenda. </p>
+                <div class="imagem-destaque">
+                    <img src=" {{ asset('imagens/plataforma.png') }} " width="100px" height="100px">
+                               </div>
+                
+                                <div class="destaque">
+                                    <p style="color:purple; font-weight: 400;padding-top: 4%"> Clique no ícone do <b>FOGUETE </b>no <b>canto superior esquerdo </b> para acessar seus fluxos e ferramentas.</p>
                 </div>
 
             </div>

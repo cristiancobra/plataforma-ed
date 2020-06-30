@@ -24,5 +24,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
          \Illuminate\Support\Facades\Schema::defaultStringLength(191);
+   
+         \Illuminate\Support\Facades\Route::resourceVerbs([
+             'create' => 'novo',
+             'edit' => 'editar'
+         ]);
     }
 }
