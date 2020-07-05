@@ -32,7 +32,7 @@
             <div class="" style="padding: 20px">
                 <ol>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR EMAIL PRINCIPAL</h2>
-                        <h4>Usuário Grátis</h4>
+					<h4>Usuário Grátis</h4>
                     <li><a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/email_accounts/index.html#/create" TARGET="_blank">Criar novo email </a> seguindo o modelo:
                         <br><br>
                         <b> nome.sobrenome@empresadigital.net.br</b>
@@ -49,15 +49,15 @@
                     </li>
                     <br>
 
-                    <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTAS DO CLIENTE</h2>
-                    <h3>Plataforma Empresa Digital</h3>
-
+                    <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA PLATAFORMA EMPRESA DIGITAL</h2><br><br>
+					
+                    
                     <li><a href="/logout">Faça logout</a> e cadastre o novo usuário em register. Use o email criado acima e o dominio</li>
 
                     <br>
 
 
-                    <h3>SuiteCRM</h3>
+                    <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA CRM</h2><br><br>
 
                     <li><a href="https://vendas.empresadigital.net.br/index.php?module=Users&action=EditView&return_module=Users&return_action=DetailView" TARGET="_blank">Criar novo usuário no SuiteCRM</a>
                         <br>Preencher apenas os campos abaixo:
@@ -104,7 +104,8 @@
 
 
                     <br>
-                    <h3>Nextcloud</h3>
+                    <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA NUVEM</h2><br><br>
+					
                     <h4>Usuário Grátis</h4>
                     <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="_blank">Criar nova conta na nuvem</a> seguindo o modelo:
                         <br><br>
@@ -124,23 +125,110 @@
                         <b> Cota:</b> 5GB
                         <br>
                     </li>
-                    
+
                     <li>Depois de criado o usuário, na linha do usuário Cobra adicionar nos seus Grupos o grupo do cliente que acabou de ser criado. Fazer o mesmo com a Nathalia, Evelym e Guilherme</li>
 
-                        <h4>Usuário Empresa</h4>
+					<h4>Usuário Empresa</h4>
                     <li>Fazer os passo acima, mudar apenas a  <b> COTA</b> para 10GB.
                         <br><br>
 
 
-                        <h4 STYLE="color: red">Marcar tarefa como concluida no CRM e enviar mensagem para Nathalia :</h4>
-                        <b> PLATAFORMA CRIADA</b><br>
-                        NOME CLIENTE: Wendy Palo<br>
-                        EMAIL: wendy.palo@empresadigital.net.br<br><br>
-                        https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true
+						<h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA FINANCEIRA</h2><br><br>
+						
+						<h4>Usuário Grátis</h4>
+
+
+					<li><a href="https://financeiro.empresadigital.net.br/sales/customers/create" TARGET="_blank">Criar conta do cliente</a> seguindo o modelo:
                         <br><br>
 
-                        <h2 class="subtitulo-roxo" style="text-align: left">CONFIGURAR WORDPRESS </h2>
-                        <h3>Site novo</h3>
+                        <b> Nome:</b> Nome Sobrenome (maisculas iniciais)
+                        <br>
+                        <b> Email:</b> Email do cliente
+                        <br>
+                        <b> Número de identificação fiscal:</b> em branco por enquanto
+                        <br>
+						<b> Moeda:</b> real
+                        <br>
+						<b> Telefone:</b>  em branco por enquanto
+                        <br>
+						<b> Site:</b>  em branco se não souber
+                        <br>
+						<b> Endereço:</b>  em branco se não souber
+						<br>
+
+						<b> Referencia:</b>  manter como está
+						<br>
+						<b> Ativado:</b> SIM
+						<br>
+						<b> Pode logaro:</b> Marcar
+						<br>						
+
+                        <br>
+                    </li>
+
+					<h4>Usuário EMPRESA</h4>
+                    <li><a href="https://financeiro.empresadigital.net.br/auth/users/create" TARGET="_blank">Criar EMPRESA do cliente</a> seguindo o modelo:
+                        <br><br>
+
+                        <b> Nome:</b> Empresa do cliente (iniciais maiúsculas)
+                        <br>
+                        <b> Email:</b> Email do cliente (não @empresadigital.net.br, usar o email personalizado do cliente
+                        <br>
+                        <b> Moeda:</b> Real
+                        <br>
+						<b> Idoma:</b> manter como está
+                        <br>
+						<b> Endereço:</b> endereço da empresa (se não tiver colocar apenas cidade)
+                        <br>
+						<b>Logotipo:</b> colocar foto da logo (se tiver)
+                        <br>
+						<b> Ativado: </b> SIM
+                        <br>
+                    </li>
+
+					<li><a href="https://financeiro.empresadigital.net.br/auth/users/create" TARGET="_blank">Criar conta do cliente</a> seguindo o modelo:
+                        <br><br>
+
+                        <b> Nome:</b> Nome Sobrenome (maisculas iniciais)
+                        <br>
+                        <b> Email:</b> Email do cliente (não @empresadigital.net.br, usar o email personalizado do cliente
+                        <br>
+                        <b> Senha:</b> mesma do email @empresadigital.net.br
+                        <br>
+						<b> Idoma:</b> manter como está
+                        <br>
+						<b> Página inicial:</b> manter como está
+                        <br>
+						<b>Imagem:</b> colocar foto do cliente (se tiver)
+                        <br>
+						<b> Empresas: Empresa Digital </b> manter como está (desmarcado)
+						<br>
+						<b> Regras:</b> MARCAR em MANAGER e DESMARCAR em ADMIN).<br>
+
+                        <br>
+                    </li>
+
+					<li>Marcar tarefa como concluida no CRM </li>
+					<br><br>
+					<li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="_blank">Criar NOVA TAREFA</a> para Nathalia de acordo com o modelo:</li><br>
+                        <b> ASSUNTO</b>: Apresentar plataforma<br>
+		<b> DATA DE INÍCIO</b>:colocar o dia de hoje<br>
+		<b> DATA DE LIMITE</b>:colocar 2 dias depois da data de hoje <br>
+		<b> PRIORIDADE</b>: Alta<br>
+		<b> STATUS</b>: Não iniciada<br>
+                        <b> REFERENTE À</b>: Oportunidade (no campo de baixo clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
+		<b> NOME DO CONTATO</b>:  clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
+		<b> DESCRIÇÃO</b>:  anotar qualquer informação adicional.<br>
+
+		<b> ATRIBUÍDO À</b>: Nathalia Locks<br>
+                       
+					</li>
+					<br><br>
+
+
+
+					<h2 class="subtitulo-roxo" style="text-align: left">CONFIGURAR WORDPRESS </h2>
+					<h3>Site novo</h3>
                     <li><a href="https://empresadigital.net.br/wp-admin/network/site-new.php" target="_blank">Criar novo site na Rede de Sites.</a></li>
                     <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="_blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
                     <li>Entrar no child domain WEBSITE > LISTAR CHILD DOMAINS, e clicar em VHOSTS:

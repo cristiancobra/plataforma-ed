@@ -30,6 +30,23 @@
             </div>
 
             <div class="" style="padding: 20px">
+				
+				         3.1. Cadastrar como potencial
+         3.2. Criar conta
+         3.3. Gerar oportunidade
+         3.4. nome da oportunidade: Número de usuários + tipo de usuário + produto 
+           ex: 5 usuários empresa + Gestão de rede social 
+         3.5. Fazer primeiro contato (apresentação)
+         3.6. Reunião (análise das necessidades) 
+         3.7. nome da reunião: apresentação da plataforma e briefing 
+           referente á: oportunidade
+         3.8. Clonar pasta de cliente modelo na nuvem: clientes > 1-modelo
+         3.9. salvar no financeiro interno e enviar da proposta (orçamento)
+         3.10. Concluir a fase da venda da oportunidade no CRM com PERDEMOS (fim do procedimento) ou GANHAMOS (adicione os dados da venda: valor, data de pagamento e produtos vendidos) e seguir para o próximo passo. 
+         3.11. Criar tarefa de contrato no CRM.  
+           nome da tarefa: Contrato
+           referente á: oportunidade
+				
                 <ol style="line-height: 2">
                     <h2 class="subtitulo-roxo" style="text-align: left">CRM</h2>
                     <li><a href="/novopotencial" TARGET="_blank">Cadastrar como potencial</a> </li>

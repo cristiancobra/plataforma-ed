@@ -43,7 +43,7 @@
             <div class="usuarios-plataforma" >
                 <p class="subtitulo-branco">USUÁRIOS DA PLATAFORMA</p>
                 <br>
-                <a href="/usuarios" target="blank">
+                <a href="/usuarios">
                     <button class="botao-claro">VER LISTA</button></a><br>
             </div>
 
