@@ -48,7 +48,7 @@
                 </div>
 
                 <div class="oportunidades">
-                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{ money_format('%n', $valor_oportunidades) }},00</p>                        <p class="subtitulo-branco"> em<br>oportunidades</p>
+                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{  $valor_oportunidades }},00</p>                        <p class="subtitulo-branco"> em<br>oportunidades</p>
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/oportunidades" style="color: yellow">vender</a></p>
                 </div>
 
