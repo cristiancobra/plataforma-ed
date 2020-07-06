@@ -38,17 +38,17 @@
 
 
                 <div class="tarefas">
-                    <p class="numeros_painel">  {{ $total_tarefas }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
+                    <p class="numeros_painel">  {{ $openTasks }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">fazer</a></p>
                 </div>
 
                 <div class="potenciais">
-                    <p class="numeros_painel">  {{  $total_potenciais, }}</p>                        <p class="subtitulo-branco"> potenciais aguardando </p>
+                    <p class="numeros_painel">  {{  $openLeads }} </p>                        <p class="subtitulo-branco"> potenciais aguardando </p>
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">contatar</a></p>
                 </div>
 
                 <div class="oportunidades">
-                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{  $valor_oportunidades }},00</p>                        <p class="subtitulo-branco"> em<br>oportunidades</p>
+                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{  $totalOpportunities }} </p>                        <p class="subtitulo-branco"> em<br>oportunidades</p>
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/oportunidades" style="color: yellow">vender</a></p>
                 </div>
 

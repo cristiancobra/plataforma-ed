@@ -7,6 +7,7 @@ use Auth;
 use App\Lead;
 use App\Task;
 use App\Opportunities;
+use DB;
 
 class HomeController extends Controller {
 
@@ -27,44 +28,48 @@ class HomeController extends Controller {
 	public function index() {
 		$user = Auth::user();
 		$user_crm = Auth::user()->idcrm;
-		$tarefas_abertas = Task::where([
-					['status', 'Not Started'],
-					['assigned_user_id', $user_crm]
-				])
-				->get();
 
-		$potenciais_abertos = Lead::where([
-					['converted', '0'],
-					['assigned_user_id', $user_crm]
-				])
+		$myTasks = Task::where('assigned_user_id', $user_crm)
 				->get();
+		$openTasks = $myTasks
+				->where('status', '=', 'Not Started')
+				->count();
 
-		$oportunidades_abertas = Opportunities::where([
-					['sales_stage', 'Prospecting'],
-					['assigned_user_id', $user_crm],
-				])
+		$myLeads = Lead::where('assigned_user_id', $user_crm)
 				->get();
+		$openLeads = $myLeads
+				->where('converted', '=', '0')
+				->count();
 
-		$total_tarefas = count($tarefas_abertas);
-		$total_potenciais = count($potenciais_abertos);
-		$valor_oportunidades = $oportunidades_abertas->sum('amount');
+		$myOpportunities = Opportunities::where('assigned_user_id', $user_crm)
+				->get();
+		$totalOpportunities = $myOpportunities
+				->where('sales_stage', '=', 'Prospecting')
+				->sum('amount');
+
+
+//**		MÉTODO ANTIGO
+//		$tarefas_abertas = Task::where([
+//					['status', 'Not Started'],
+//					['assigned_user_id', $user_crm]
+//				])
+//				->get();
+
 
 		if ($user->perfil == "administrador") {
 
 			return view('admin/painel-admin', [
 				'user' => $user,
-				'tarefas_abertas' => $tarefas_abertas,
-				'total_potenciais' => $total_potenciais,
-				'total_tarefas' => $total_tarefas,
-				'valor_oportunidades' => $valor_oportunidades,
+				'openTasks' => $openTasks,
+				'openLeads' => $openLeads,
+				'totalOpportunities' => $totalOpportunities,
 			]);
 		} else {
 			return view('painel', [
 				'user' => $user,
-				'tarefas_abertas' => $tarefas_abertas,
-				'total_potenciais' => $total_potenciais,
-				'total_tarefas' => $total_tarefas,
-				'valor_oportunidades' => $valor_oportunidades,
+				'openTasks' => $openTasks,
+				'openLeads' => $openLeads,
+				'totalOpportunities' => $totalOpportunities,
 			]);
 		}
 	}
