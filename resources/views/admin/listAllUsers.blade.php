@@ -49,8 +49,8 @@
                             <td style="padding-left: 20px;padding-right: 20px"> {{ $user->email  }} </td>
                             <td style="padding-left: 20px;padding-right: 20px"> 
                                 <a href=" {{ route('user.show', ['user' => $user->id]) }} "  style="color:yellow; text-align: center">Ver usuário</a>
-                                <form action="{{ route('user.destroy', ['user' => $user->id]) }} method="post">
-									@csfr
+                                <form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post">
+									@csrf
 									@method('delete')
                                     <input type="submit" value="Remover">
                                 </form>

@@ -136,15 +136,16 @@
                         <br>
                         <b> Email:</b> email do cliente
                         <br>
-                        <b> Grupos:</b> criar grupo com nome da empresa (maísculas e espaço).
+                        <b> Grupos:</b> Nome Sobrenome (maiúsculas e espaço) e <b>apertar o ENTER</b> para criar o grupo.
                         <br>
                         <b>  Grupo administrativo para:</b> não alterar
                         <br>
                         <b> Cota:</b> 5GB
                         <br>
+						Clicar no botão roxo de confimarção.
                     </li>
 					<br>
-                    <li>Depois de criado o usuário, na linha do usuário Cobra adicionar nos seus Grupos o grupo do cliente que acabou de ser criado. Fazer o mesmo com a Nathalia, Evelym e Guilherme</li>
+                    <li>Na lista de usuário, na linha do usuário COBRA na coluna GRUPOS, adicione o grupo do cliente que acabou de ser feito. Faça o mesmo com os usuários Evelyn e Nathalia.</li>
 					<br><br>
 
 
@@ -177,49 +178,7 @@
 						<br>						
 
                         <br>
-                    </li>
-
-					<h4>Usuário EMPRESA</h4>
-                    <li><a href="https://financeiro.empresadigital.net.br/auth/users/create" TARGET="_blank">Criar EMPRESA do cliente</a> seguindo o modelo:
-                        <br><br>
-
-                        <b> Nome:</b> Empresa do cliente (iniciais maiúsculas)
-                        <br>
-                        <b> Email:</b> Email do cliente (não @empresadigital.net.br, usar o email personalizado do cliente
-                        <br>
-                        <b> Moeda:</b> Real
-                        <br>
-						<b> Idoma:</b> manter como está
-                        <br>
-						<b> Endereço:</b> endereço da empresa (se não tiver colocar apenas cidade)
-                        <br>
-						<b>Logotipo:</b> colocar foto da logo (se tiver)
-                        <br>
-						<b> Ativado: </b> SIM
-                        <br>
-                    </li>
-
-					<li><a href="https://financeiro.empresadigital.net.br/auth/users/create" TARGET="_blank">Criar conta do cliente</a> seguindo o modelo:
-                        <br><br>
-
-                        <b> Nome:</b> Nome Sobrenome (maisculas iniciais)
-                        <br>
-                        <b> Email:</b> Email do cliente (não @empresadigital.net.br, usar o email personalizado do cliente
-                        <br>
-                        <b> Senha:</b> mesma do email @empresadigital.net.br
-                        <br>
-						<b> Idoma:</b> manter como está
-                        <br>
-						<b> Página inicial:</b> manter como está
-                        <br>
-						<b>Imagem:</b> colocar foto do cliente (se tiver)
-                        <br>
-						<b> Empresas: Empresa Digital </b> manter como está (desmarcado)
-						<br>
-						<b> Regras:</b> MARCAR em MANAGER e DESMARCAR em ADMIN).<br>
-
-                        <br>
-                    </li>
+           
 
 					<li>Marcar tarefa como concluida no CRM </li>
 					<br><br>
