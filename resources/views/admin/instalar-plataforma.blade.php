@@ -112,24 +112,17 @@
                         <br><b>Servidor de correio SMTP de saída</b>:  system (acadia.mxroute.com)
                         <br><b>Usuário SMTP:</b> crm@empresadigital.net.br
                         <br><b>Senha SMTP</b>: senha da empresa digital
-                        <br>
-                    </li>
-                    <br>
-                    <li>Na próxima tela em <b>CONTAS DE EMAIL</b>desmarcar o email de Empresa Digital (grupo)                       
                         <br><br>
-                    <li><a href="https://vendas.empresadigital.net.br/index.php?module=SecurityGroups&action=EditView&return_module=SecurityGroups&return_action=DetailView" TARGET="_blank">Criar <b>GRUPO DE SEGURANÇA </a></b> com o <b>Nome da Empresa</b> e atribuido ao cliente.
+						Clicar em CONCLUIDO.
                     </li>
-                    <br><br>
-                    <li>Na tela seguinte adicionar o cliente como <b>usuário</b> no seu <b>GRUPO DE SEGURANÇA e retirar do grupo EMPRESA DIGITAL</b> no final da página. E <b>adicionar o PERFIL "Administrador da Empresa"</b>
-                    </li>
-                    <br><br>
-                    <li>Acessar o email do cliente e pegar a senha do SuiteCRM. Fazer login como clientee:<br>
-                        <ul>alterar a senha (usar a mesma senha do email do cliente.</ul>
-                        <ul>Na página INICIO do CRM do cliente apagar (clicar no X) os dashlets: Feed, MINHAS CONTAS, MINHAS LIGACOES</ul>
-                        <ul>e adicionar AGENDA </ul>
-                    </li>
-
                     <br>
+                    
+                    <li>Deslogue do CRM  e crie o<a href="https://vendas.empresadigital.net.br/index.php?module=SecurityGroups&action=EditView&return_module=SecurityGroups&return_action=DetailView" TARGET="_blank"> <b>GRUPO DE SEGURANÇA </a></b> com o <b>Nome da Empresa</b> e atribuido ao cliente. SALVAR
+                    </li>
+                    <br><br>
+                    <li>Na tela seguinte clicar em USUÁRIOS e selecionar o cliente. Em PERFIS clique em selecionar <b>adicionar o PERFIL "Administrador da Empresa"</b>
+                    </li>
+                    <br><br>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA NUVEM</h2><br><br>
 
                     <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="_blank">Criar nova conta na nuvem</a> seguindo o modelo:
@@ -150,7 +143,7 @@
                         <b> Cota:</b> 5GB
                         <br>
                     </li>
-
+					<br>
                     <li>Depois de criado o usuário, na linha do usuário Cobra adicionar nos seus Grupos o grupo do cliente que acabou de ser criado. Fazer o mesmo com a Nathalia, Evelym e Guilherme</li>
 					<br><br>
 
