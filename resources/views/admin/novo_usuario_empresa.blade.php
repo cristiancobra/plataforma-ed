@@ -32,7 +32,7 @@
             <div class="" style="padding: 20px">
                 <ol>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR EMAIL PRINCIPAL</h2>
-					<br>
+					<h4>Usuário Grátis</h4>
                     <li><a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/email_accounts/index.html#/create" TARGET="_blank">Criar novo email (usar o login solucoes)</a> seguindo o modelo:
                         <br><br>
                         <b> nome.sobrenome@empresadigital.net.br</b>
@@ -42,9 +42,14 @@
                         Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
 
 
-						<br>
+                        <h4>Usuário Empresa</h4>
+                    <li>Fazer os passo acima mas com <b> 2GB em STORAGE SPACE</b> e <a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/mail/addfwd.html" TARGET="_blank"> CRIAR ENCAMINHAMENTO DE EMAIL </a>.
+                        <br><br>
 
-						<h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA PLATAFORMA EMPRESA DIGITAL</h2><br><br>
+                    </li>
+                    <br>
+
+                    <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA PLATAFORMA EMPRESA DIGITAL</h2><br><br>
 
 
                     <li><a href="/logout" target="_blank">Faça logout</a> e cadastre o novo usuário em register seguindo o modelo:</li>
@@ -64,33 +69,9 @@
                     <li><a href="https://vendas.empresadigital.net.br/index.php?module=Users&action=EditView&return_module=Users&return_action=DetailView" TARGET="_blank">Criar novo usuário no SuiteCRM</a>
                         <br>Preencher apenas os campos abaixo:
                         <br>Em <b>nome de usuário </b> usar o modelo: <b> nome.sobrenome </b> (tudo minúsculo e junto. Usar dados do próprio CRM)
-                        <br>Em <b>EMAIL </b> usar o modelo: <b> nome.sobrenome@empresadigital.net.br</b>
-						<br>Na aba <b>SENHA </b> adicione a mesma senha do email <br>
-						Clicar no botão SALVAR.</li>
+                        <br>Em <b>EMAIL </b> usar o modelo: <b> nome.sobrenome@empresadigital.net.br</b></li>
 					<br><br>
-					<li>Deslogar do CRM e logar como cliente</li>
-					<br><br>
-					<li>Nas próximas telas clicar no botão PRÓXIMO até CONCLUIR (sem alterar nada)</li>
-					<br><br>
-					<li>Remover as dashlets (clicar no X) da página inicial do CRM do cliente:<br>
-						- MEU FLUXO DE ATIVIDADES <br>
-						- MINHAS CONTAS<br>
-					</li>
-					<br><br>
-					<li>Na aba AÇÕES clique em ADICIONAR DASHLETS e adicione:<br>
-						- AS MINHAS TAREFAS EM ABERTO<br>
-						- MINHA AGENDA<br>
-						<br><br>
-					</li>
-					<li>Organize as dashlets (agenda do lado esquerdo) e mova as outras do lado direito, na ordem:<br>
-						- AS MINHAS TAREFAS EM ABERTO<br>
-						- MINHAS REUNIOES<br>
-						- MINHAS MELHORES OPORTUNIDADES<br>
-						- MEUS POTENCIAIS
-					</li>
-					<br><br>
-
-					<li>Clicar no nome do cliente no canto superior direito. Selecionar  <b>PERFIL </b> e no final da página clique em <b>CONFIGURAÇÕES </b>. Na aba CONTAS DE EMAIL clique no botão ADICIONAR. Preencha seguindo o modelo:
+					<li>Clicar no botão <b>CONFIGURAÇÕES </b> no final da página. Na aba CONTAS DE EMAIL clique no botão ADICIONAR. Preencha seguindo o modelo:
                         <br>
                         <br><B>EMAIL DE ENTRADA</b>
                         <br><b>Nome da Conta de Email:</b> Nome do Cliente (maiúsculas e espaço)
@@ -129,9 +110,11 @@
                         <ul>e adicionar AGENDA </ul>
                     </li>
 
+
                     <br>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA NUVEM</h2><br><br>
 
+                    <h4>Usuário Grátis</h4>
                     <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="_blank">Criar nova conta na nuvem</a> seguindo o modelo:
                         <br><br>
 
@@ -152,10 +135,15 @@
                     </li>
 
                     <li>Depois de criado o usuário, na linha do usuário Cobra adicionar nos seus Grupos o grupo do cliente que acabou de ser criado. Fazer o mesmo com a Nathalia, Evelym e Guilherme</li>
-					<br><br>
+
+					<h4>Usuário Empresa</h4>
+                    <li>Fazer os passo acima, mudar apenas a  <b> COTA</b> para 10GB.
+                        <br><br>
 
 
-					<h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA FINANCEIRA</h2><br><br>
+						<h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA FINANCEIRA</h2><br><br>
+
+						<h4>Usuário Grátis</h4>
 
 
 					<li><a href="https://financeiro.empresadigital.net.br/sales/customers/create" TARGET="_blank">Criar conta do cliente</a> seguindo o modelo:

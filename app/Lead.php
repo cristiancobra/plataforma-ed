@@ -25,9 +25,11 @@ class Lead extends Model
      *
      */
     protected $fillable = [
-        'id', 'converted', 'assigned_user_id',
+        'id', 'assigned_user_id', 'status'
     ];
     
+	
+	
     /**
      * Tarefas do SuiteCRM, campos NAO disponiveis (mass assignable)
      */

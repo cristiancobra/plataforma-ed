@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Auth;
 use App\Lead;
 use App\Task;
 use App\Opportunities;
-use DB;
 
 class HomeController extends Controller {
 
@@ -33,14 +33,18 @@ class HomeController extends Controller {
 				->get();
 		$openTasks = $myTasks
 				->where('status', '=', 'Not Started')
+				->where('status', '=', 'In Progress')
 				->count();
 
 		$myLeads = Lead::where('assigned_user_id', $user_crm)
 				->get();
 		$openLeads = $myLeads
-				->where('converted', '=', '0')
+				->where('status', '=', 'New')
+				->where('status', '=', 'Assigned')
+				->where('status', '=', 'In Process')
+				->where('status', '=', 'Recycled')
 				->count();
-
+		
 		$myOpportunities = Opportunities::where('assigned_user_id', $user_crm)
 				->get();
 		$totalOpportunities = $myOpportunities

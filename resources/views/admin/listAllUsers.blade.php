@@ -35,9 +35,9 @@
                     <table style="color:white; text-align: left; padding: 40px">
                         <b><tr>
                                 <td   style="text-align:center"> <b>ID</b></td>
-                            <td   style="text-align:center"> <b>Nome </b></td>
-                           <td   style="text-align:center"> <b> Email</b></td>
-                           <td   style="text-align:center"> <b>Ações</b></td>
+								<td   style="text-align:center"> <b>Nome </b></td>
+								<td   style="text-align:center"> <b> Email</b></td>
+								<td   style="text-align:center"> <b>Ações</b></td>
                             </tr></b>
 
 
@@ -49,8 +49,9 @@
                             <td style="padding-left: 20px;padding-right: 20px"> {{ $user->email  }} </td>
                             <td style="padding-left: 20px;padding-right: 20px"> 
                                 <a href=" {{ route('user.show', ['user' => $user->id]) }} "  style="color:yellow; text-align: center">Ver usuário</a>
-                                <form action="" method="post">
-                                    <input type="hidden" name="user" value="">
+                                <form action="{{ route('user.destroy', ['user' => $user->id]) }} method="post">
+									@csfr
+									@method('delete')
                                     <input type="submit" value="Remover">
                                 </form>
 
