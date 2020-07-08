@@ -30,10 +30,17 @@ class HomeController extends Controller {
 		$user_crm = Auth::user()->idcrm;
 
 		$myTasks = Task::where('assigned_user_id', $user_crm)
+				->Where(function($consultaStatus) {
+					$consultaStatus->orwhere('status', '=', 'Not Started')
+					->orwhere('status', '=', 'In Progress');
+				})
 				->get();
-		$openTasks = $myTasks
-				->where('status', '=', 'Not Started')
-				->where('status', '=', 'In Progress')
+
+		$totalTasks = Task::where('assigned_user_id', $user_crm)
+				->Where(function($consultaStatus) {
+					$consultaStatus->orwhere('status', '=', 'Not Started')
+					->orwhere('status', '=', 'In Progress');
+				})
 				->count();
 
 		$myLeads = Lead::where('assigned_user_id', $user_crm)
@@ -44,7 +51,7 @@ class HomeController extends Controller {
 				->where('status', '=', 'In Process')
 				->where('status', '=', 'Recycled')
 				->count();
-		
+
 		$myOpportunities = Opportunities::where('assigned_user_id', $user_crm)
 				->get();
 		$totalOpportunities = $myOpportunities
@@ -64,7 +71,8 @@ class HomeController extends Controller {
 
 			return view('admin/painel-admin', [
 				'user' => $user,
-				'openTasks' => $openTasks,
+				'myTasks' => $myTasks,
+				'totalTasks' => $totalTasks,
 				'openLeads' => $openLeads,
 				'totalOpportunities' => $totalOpportunities,
 			]);

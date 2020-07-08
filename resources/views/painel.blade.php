@@ -38,7 +38,7 @@
 
 
                 <div class="tarefas">
-                    <p class="numeros_painel">  {{ $openTasks }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
+                    <p class="numeros_painel">  {{ $totalTasks }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">fazer</a></p>
                 </div>
 
@@ -54,10 +54,15 @@
 
                 <div class="imagem-destaque">
                     <img src=" {{ asset('imagens/plataforma.png') }} " width="100px" height="100px">
-                               </div>
-                
-                                <div class="destaque">
-                                    <p style="color:purple; font-weight: 400;line-height: 2;padding-top: 4%"> Clique no ícone do <b>FOGUETE </b>no <b>canto superior esquerdo </b> para acessar seus fluxos e ferramentas a qualquer momento.</p>
+				</div>
+
+				<div class="destaque">
+										@foreach($myTasks as $myTask)
+										<p>Tarefa: {{ $myTask->name }} <br></p>
+						@endforeach
+
+				
+					<p style="color:purple; font-weight: 400;line-height: 2;padding-top: 4%"> Clique no ícone do <b>FOGUETE </b>no <b>canto superior esquerdo </b> para acessar seus fluxos e ferramentas a qualquer momento.</p>
                 </div>
 
             </div>

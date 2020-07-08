@@ -36,7 +36,7 @@
             <div class="nova-plataforma" >
                 <p class="subtitulo-branco">NOVA PLATAFORMA</p>
                 <br>
-                <a href="/instalar-plataforma" target="blank">
+                <a href="/form_plataforma" target="blank">
                     <button class="botao-claro">CRIAR</button></a><br>
             </div>
 

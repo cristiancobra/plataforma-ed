@@ -30,12 +30,13 @@
             </div>
 
             <div class="" style="padding: 20px">
+
                 <ol>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR EMAIL PRINCIPAL</h2>
 					<br>
                     <li><a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/email_accounts/index.html#/create" TARGET="_blank">Criar novo email (usar o login solucoes)</a> seguindo o modelo:
                         <br><br>
-                        <b> nome.sobrenome@empresadigital.net.br</b>
+                        <b> nome: </b><span style="color:red"> {{ $email }} </span>
                         <br>
                         Colocar <b> 1GB</B>em <b> STORAGE SPACE</b> 
                         <br>
@@ -50,7 +51,7 @@
                     <li><a href="{{ route('user.create') }}" target="_blank">Criar nova conta de usuário</a> seguindo o modelo:</li>
 					<br>
 					<br><b>Name:</b> Nome completo (Nome e Sobrenome Maíusculas com espaço)
-					<br><b>Email adrress:</b> email criado da @empresadigital.net.br
+					<br><b>Email adrress:</b> <span style="color:red"> {{ $email }} </span>
 					<br><b>Password:</b> senha do email
 					<br><b>Confirm Password:</b>senha do email
 					<br><b>Seu dominio:</b> nomesobrenome.empresadigital.net.br (nome e sobrenome junto, sem ponto e sem maiúsculas)
@@ -64,7 +65,7 @@
                     <li><a href="https://vendas.empresadigital.net.br/index.php?module=Users&action=EditView&return_module=Users&return_action=DetailView" TARGET="_blank">Criar novo usuário no SuiteCRM</a>
                         <br>Preencher apenas os campos abaixo:
                         <br>Em <b>nome de usuário </b> usar o modelo: <b> nome.sobrenome </b> (tudo minúsculo e junto. Usar dados do próprio CRM)
-                        <br>Em <b>EMAIL </b> usar o modelo: <b> nome.sobrenome@empresadigital.net.br</b>
+                        <br>Em <b>EMAIL </b> usar o modelo: <span style="color:red"> {{ $email }} </span>
 						<br>Na aba <b>SENHA </b> adicione a mesma senha do email <br>
 						Clicar no botão SALVAR.</li>
 					<br><br>
@@ -94,7 +95,7 @@
                         <br>
                         <br><B>EMAIL DE ENTRADA</b>
                         <br><b>Nome da Conta de Email:</b> Nome do Cliente (maiúsculas e espaço)
-                        <br><b>Usuário para Login:</b> colocar email @empresadigital.net.br
+                        <br><b>Usuário para Login:</b> <span style="color:red"> {{ $email }} </span>
                         <br><b>Senha:</b> senha do email
                         <br><b>Endereço do Mail Server:</b> acadia.mxroute.com  	
                         <br><b>Protocolo de Servidor de Correio:</b> IMAP
@@ -108,7 +109,7 @@
                         <br>Assinaturas: padrão
                         <br>
                         <br><b>EMAIL DE SAÍDA</b>
-                        <br><b>Responder para: </b>repetir email do cliente
+                        <br><b>Responder para: </b><span style="color:red"> {{ $email }} </span>
                         <br><b>Servidor de correio SMTP de saída</b>:  system (acadia.mxroute.com)
                         <br><b>Usuário SMTP:</b> crm@empresadigital.net.br
                         <br><b>Senha SMTP</b>: senha da empresa digital
@@ -134,7 +135,7 @@
                         <br>
                         <b> Senha:</b> mesma do email
                         <br>
-                        <b> Email:</b> email do cliente
+                        <b> Email:</b> <span style="color:red"> {{ $email }} </span>
                         <br>
                         <b> Grupos:</b> Nome Sobrenome (maiúsculas e espaço) e <b>apertar o ENTER</b> para criar o grupo.
                         <br>
@@ -157,7 +158,7 @@
 
                         <b> Nome:</b> Nome Sobrenome (maisculas iniciais)
                         <br>
-                        <b> Email:</b> Email do cliente
+                        <b> Email:</b> <span style="color:red"> {{ $email }} </span>
                         <br>
                         <b> Número de identificação fiscal:</b> em branco por enquanto
                         <br>
@@ -190,6 +191,7 @@
 					<b> STATUS</b>: Não iniciada<br>
 					<b> REFERENTE À</b>: Oportunidade (no campo de baixo clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
 					<b> NOME DO CONTATO</b>:  clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
+					<b> EMAIL CRIADO</b>:  <span style="color:red"> {{ $email }} </span><br>
 					<b> DESCRIÇÃO</b>:  anotar qualquer informação adicional.<br>
 
 					<b> ATRIBUÍDO À</b>: Nathalia Locks<br>

@@ -3,15 +3,15 @@
 use Illuminate\Support\Facades\Route;
 
 /*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+  |--------------------------------------------------------------------------
+  | Web Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register web routes for your application. These
+  | routes are loaded by the RouteServiceProvider within a group which
+  | contains the "web" middleware group. Now create something great!
+  |
+ */
 
 
 Auth::routes(['register' => false]);
@@ -19,87 +19,84 @@ Auth::routes(['register' => false]);
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('/logout', function () {
-    Auth::logout();
-    return Redirect::to('/');
+	Auth::logout();
+	return Redirect::to('/');
 });
 
 // ================================ ROTA DO MENU ===================
-
 // ------------------------------------------------ INÍCIO --------------------
 
-    Route::get('/inicio', function () {
-    return view('inicio');
-    });
+Route::get('/inicio', function () {
+	return view('inicio');
+});
 
 // ------------------------------------------------ MINHA CONTA ------------------------------------------------
-    
+
 Route::get('/perfil', function () {
-    return view('perfil');
+	return view('perfil');
 });
 
 Route::get('/gerenciador-financeiro', function () {
-    return view('gerenciador-financeiro');
+	return view('gerenciador-financeiro');
 });
 
 // ------------------------------------------------ COMUNICAÇÃO ------------------------------------------------
 
 Route::get('/falar', function () {
-    return view('falar');
+	return view('falar');
 });
 
 Route::get('/email', function () {
-    return view('email');
+	return view('email');
 });
-        
+
 // ------------------------------------------------ ORGANIZAÇÃO ------------------------------------------------
-        
 // ------------------------------------------------ VENDAS  ------------------------------------------------
 
 Route::get('/novopotencial', function () {
-    return view('novopotencial');
+	return view('novopotencial');
 });
 // ------------------------------------------------ MARKETING  ------------------------------------------------
- 
+
 Route::get('/marketing', function () {
-    return view('marketing');
+	return view('marketing');
 });
-    
+
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 Route::get('/novacampanha', function () {
-    return view('novacampanha');
+	return view('novacampanha');
 });
 
 Route::get('/novalista', function () {
-    return view('novalista');
+	return view('novalista');
 });
 
 // -------------- SUPORTE  --------------------
-        
 // -------------- SAIR  --------------------
 
 Route::get('/crm', function () {
-    return view('crm');
+	return view('crm');
 });
 
 Route::get('/oportunidades', function () {
-    return view('oportunidades');
+	return view('oportunidades');
 });
 
 
 Route::get('/financeiro', function () {
-    return view('financeiro');
+	return view('financeiro');
 });
 
 Route::get('/nuvem', function () {
-    return Redirect::to('https://nuvem.empresadigital.net.br');
+	return Redirect::to('https://nuvem.empresadigital.net.br');
 });
 
 
 
 Route::get('/suporte', function () {
-   return view('suporte');
+	return view('suporte');
 });
 
 
@@ -107,64 +104,70 @@ Route::get('/suporte', function () {
 
 
 Route::get('/teste', function () {
-    return view('teste');
-    });
-        
-    Route::get('/arquivosdemkt', function () {
-    return view('arquivosdemkt');
+	return view('teste');
+});
+
+Route::get('/arquivosdemkt', function () {
+	return view('arquivosdemkt');
 });
 
 Route::get('/banco', function () {
-    return view('banco');
+	return view('banco');
 });
 
 Route::get('/favoritos', function () {
-    return view('favoritos');
+	return view('favoritos');
 });
 Route::get('/novafatura', function () {
-    return view('novafatura');
+	return view('novafatura');
 });
 Route::get('/novaoportunidade', function () {
-    return view('novaoportunidade');
+	return view('novaoportunidade');
 });
 
 Route::get('/novareuniao', function () {
-    return view('novareuniao');
+	return view('novareuniao');
 });
 
 Route::get('/novatarefa', function () {
-    return view('novatarefa');
+	return view('novatarefa');
 });
 
 Route::get('/novoprojeto', function () {
-    return view('novoprojeto');
+	return view('novoprojeto');
 });
 
 Route::get('/orcamento', function () {
-    return view('orcamento');
+	return view('orcamento');
 });
 
 Route::get('/registrardespesas', function () {
-    return view('registrarpagamento');
+	return view('registrarpagamento');
 });
 
 Route::get('/tarefadeprojeto', function () {
-    return view('tarefadeprojeto');
+	return view('tarefadeprojeto');
 });
 
 
 
-    // ----------------------  Rotas do ADMIN ---------
-    
-Route::get('/instalar-plataforma', function () {
-    return view('admin.instalar-plataforma');
-});
+// ----------------------  Rotas do ADMIN ---------
+
+Route::get('/form_plataforma', function () {
+	return view('admin.NovaPlataforma.form_plataforma');
+	});
+
+Route::post('/tutorial-plataforma','NovaPlataformaController@modelo')->name('tutorial_plataforma');
 
 Route::get('/funil-vendas', function () {
-    return view('admin.funil-vendas');
+	return view('admin.funil-vendas');
+});
+
+Route::get('/minhas-tarefas', function () {
+	return view('tarefas.listAllTaskss');
 });
 
 
 // ================================ ROTAS DO CRUD  ===================
 
-Route::resource('usuarios', 'Form\\UserController')->names('user')->parameters(['usuarios'=> 'user']);
+Route::resource('usuarios', 'Form\\UserController')->names('user')->parameters(['usuarios' => 'user']);
