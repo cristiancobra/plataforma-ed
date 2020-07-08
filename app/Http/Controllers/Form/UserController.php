@@ -46,7 +46,8 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         $user ->save();
-        
+      
+		return redirect()->route('user.index');
     }
     
 

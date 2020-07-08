@@ -31,7 +31,7 @@
                     <br>
                     <br>
                     <br>
-                    <form action=" {{ route('user.store') }} " method="post" style="padding: 40px">
+                    <form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: white">
                         @csrf
                         <label for="" >Nome do usuário: </label>
                         <input type="text" name="name">

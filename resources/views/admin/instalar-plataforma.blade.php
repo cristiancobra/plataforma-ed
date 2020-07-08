@@ -47,7 +47,7 @@
 						<h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA PLATAFORMA EMPRESA DIGITAL</h2><br><br>
 
 
-                    <li><a href="/logout" target="_blank">Faça logout</a> e cadastre o novo usuário em register seguindo o modelo:</li>
+                    <li><a href="{{ route('user.create') }}" target="_blank">Criar nova conta de usuário</a> seguindo o modelo:</li>
 					<br>
 					<br><b>Name:</b> Nome completo (Nome e Sobrenome Maíusculas com espaço)
 					<br><b>Email adrress:</b> email criado da @empresadigital.net.br
