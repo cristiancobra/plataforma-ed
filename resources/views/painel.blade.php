@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="potenciais">
-                    <p class="numeros_painel">  {{  $openLeads }} </p>                        <p class="subtitulo-branco"> potenciais aguardando </p>
+                    <p class="numeros_painel">  {{  $totalLeads }} </p>                        <p class="subtitulo-branco"> potenciais aguardando </p>
                     <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">contatar</a></p>
                 </div>
 
@@ -57,11 +57,7 @@
 				</div>
 
 				<div class="destaque">
-										@foreach($myTasks as $myTask)
-										<p>Tarefa: {{ $myTask->name }} <br></p>
-						@endforeach
-
-				
+	
 					<p style="color:purple; font-weight: 400;line-height: 2;padding-top: 4%"> Clique no ícone do <b>FOGUETE </b>no <b>canto superior esquerdo </b> para acessar seus fluxos e ferramentas a qualquer momento.</p>
                 </div>
 

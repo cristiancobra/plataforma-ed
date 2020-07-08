@@ -25,7 +25,7 @@ class Task extends Model
      *
      */
     protected $fillable = [
-        'id', 'name', 'description', 'status', 'priority','assigned_user_id',
+        'id', 'name', 'description', 'status', 'priority','assigned_user_id', 'Deleted'
     ];
     
     /**
