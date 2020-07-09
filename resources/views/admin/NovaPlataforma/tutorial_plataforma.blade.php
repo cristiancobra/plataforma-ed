@@ -42,7 +42,7 @@
                         <br>
                         <b>Senha:</b> <span style="color:red"> {{ $senha }} </span>
 						<br><br>
-		<a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
+						<a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
 
 
 						<br>
@@ -119,7 +119,7 @@
 						Clicar em CONCLUIDO.
                     </li>
                     <br>
-                    
+
                     <li>Deslogue do CRM  e crie o<a href="https://vendas.empresadigital.net.br/index.php?module=SecurityGroups&action=EditView&return_module=SecurityGroups&return_action=DetailView" TARGET="_blank"> <b>GRUPO DE SEGURANÇA </a></b> com o <b>Nome da Empresa</b> e atribuido ao cliente. SALVAR
                     </li>
                     <br><br>
@@ -181,7 +181,7 @@
 						<br>						
 
                         <br>
-           
+
 
 					<li>Marcar tarefa como concluida no CRM </li>
 					<br><br>
@@ -194,11 +194,13 @@
 					<b> REFERENTE À</b>: Oportunidade (no campo de baixo clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
 					<b> NOME DO CONTATO</b>:  clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
 					<br>
-					<b> EMAIL CRIADO:</b>  <span style="color:red"> {{ $email }} </span><br>
-					<b> SENHA CRIADA:</b><span style="color:red"> {{ $senha }} </span><br><br>
-					<b> DOMINIO:</b><span style="color:red"> {{ $dominio }} </span><br><br>
-					<b> DESCRIÇÃO</b>:  anotar qualquer informação adicional.<br>
-
+					<b> DESCRIÇÃO</b>:
+					<br>
+					<br> Dados da plataforma criada:<br>
+					<b> Email:</b>  <span style="color:red"> {{ $email }} </span><br>
+					<b> Senha:</b><span style="color:red"> {{ $senha }} </span><br>
+					<b> Domínio:</b><span style="color:red"> {{ $dominio }} </span><br><br>anotar qualquer informação adicional.<br>
+					<br>
 					<b> ATRIBUÍDO À</b>: Nathalia Locks<br>
 
 					</li>
