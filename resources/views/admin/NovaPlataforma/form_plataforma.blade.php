@@ -40,11 +40,13 @@
                         <input type="text" name="novo_sobrenome">   
                         <br>
                         <br>
+						<a href="https://passwordsgenerator.net/pt/" target="_blank" style="color: yellow">LINK PARA GERAR SENHA</a>
+						<br><br>
                         <label for="">Senha do cliente: </label>
                         <input type="text" name="nova_senha">   
                         <br>
                         <br>
-                        <input type="submit" value="Cadastrar usuário">
+                        <input type="submit" value="iniciar instalação">
 
                     </form>
                 </div>     
