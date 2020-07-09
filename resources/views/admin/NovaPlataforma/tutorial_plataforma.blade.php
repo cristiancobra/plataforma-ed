@@ -40,7 +40,9 @@
                         <br>
                         Colocar <b> 1GB</B>em <b> STORAGE SPACE</b> 
                         <br>
-                        Clicar em <b> SENHA > GERAR</B>. <a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
+                        <b>Senha:</b> <span style="color:red"> {{ $senha }} </span>
+						<br><br>
+		<a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
 
 
 						<br>
@@ -50,11 +52,11 @@
 
                     <li><a href="{{ route('user.create') }}" target="_blank">Criar nova conta de usuário</a> seguindo o modelo:</li>
 					<br>
-					<br><b>Name:</b> Nome completo (Nome e Sobrenome Maíusculas com espaço)
+					<br><b>Name:</b><span style="color:red"> {{ $nome }} </span>
 					<br><b>Email adrress:</b> <span style="color:red"> {{ $email }} </span>
-					<br><b>Password:</b> senha do email
-					<br><b>Confirm Password:</b>senha do email
-					<br><b>Seu dominio:</b> nomesobrenome.empresadigital.net.br (nome e sobrenome junto, sem ponto e sem maiúsculas)
+					<br><b>Password:</b> <span style="color:red"> {{ $senha }} </span>
+					<br><b>Confirm Password:</b> <span style="color:red"> {{ $senha }} </span>
+					<br><b>Seu dominio:</b> <span style="color:red"> {{ $dominio }} </span>
 					<br><b>Nível de acesso:</b> Cliente
 					<br><br>
 					Enviar clicando com o botão <b>REGISTER</b>.
@@ -64,9 +66,9 @@
 
                     <li><a href="https://vendas.empresadigital.net.br/index.php?module=Users&action=EditView&return_module=Users&return_action=DetailView" TARGET="_blank">Criar novo usuário no SuiteCRM</a>
                         <br>Preencher apenas os campos abaixo:
-                        <br>Em <b>nome de usuário </b> usar o modelo: <b> nome.sobrenome </b> (tudo minúsculo e junto. Usar dados do próprio CRM)
+                        <br>Em <b>nome de usuário: </b><span style="color:red"> {{ $nome_usuario }} </span>
                         <br>Em <b>EMAIL </b> usar o modelo: <span style="color:red"> {{ $email }} </span>
-						<br>Na aba <b>SENHA </b> adicione a mesma senha do email <br>
+						<br>Na aba <b>SENHA </b> adicione  <span style="color:red"> {{ $senha }} </span><br>
 						Clicar no botão SALVAR.</li>
 					<br><br>
 					<li>Deslogar do CRM e logar como cliente</li>
@@ -94,9 +96,9 @@
 					<li>Clicar no nome do cliente no canto superior direito. Selecionar  <b>PERFIL </b> e no final da página clique em <b>CONFIGURAÇÕES </b>. Na aba CONTAS DE EMAIL clique no botão ADICIONAR. Preencha seguindo o modelo:
                         <br>
                         <br><B>EMAIL DE ENTRADA</b>
-                        <br><b>Nome da Conta de Email:</b> Nome do Cliente (maiúsculas e espaço)
+                        <br><b>Nome da Conta de Email:</b><span style="color:red"> {{ $nome }} </span>
                         <br><b>Usuário para Login:</b> <span style="color:red"> {{ $email }} </span>
-                        <br><b>Senha:</b> senha do email
+                        <br><b>Senha:</b>  <span style="color:red"> {{ $senha }} </span>
                         <br><b>Endereço do Mail Server:</b> acadia.mxroute.com  	
                         <br><b>Protocolo de Servidor de Correio:</b> IMAP
                         <br><b>Utilize SSL:</b>  SIM (marcar)
@@ -129,15 +131,15 @@
                     <li><a href="https://nuvem.empresadigital.net.br/index.php/settings/users" TARGET="_blank">Criar nova conta na nuvem</a> seguindo o modelo:
                         <br><br>
 
-                        <b> Nome de Usuário:</b> nome.sobrenome
+                        <b> Nome de Usuário:</b><span style="color:red"> {{ $nome_usuario }} </span>
                         <br>
-                        <b> Exibir nome:</b> Nome Sobrenome (maiúsculas e espaço)
+                        <b> Exibir nome:</b> <span style="color:red"> {{ $nome }} </span>
                         <br>
-                        <b> Senha:</b> mesma do email
+                        <b> Senha:</b>  <span style="color:red"> {{ $senha }} </span>
                         <br>
                         <b> Email:</b> <span style="color:red"> {{ $email }} </span>
                         <br>
-                        <b> Grupos:</b> Nome Sobrenome (maiúsculas e espaço) e <b>apertar o ENTER</b> para criar o grupo.
+                        <b> Grupos:</b> Escrever <span style="color:red"> {{ $nome }} </span> <b>apertar o ENTER</b> para criar o grupo.
                         <br>
                         <b>  Grupo administrativo para:</b> não alterar
                         <br>
@@ -156,7 +158,7 @@
 					<li><a href="https://financeiro.empresadigital.net.br/sales/customers/create" TARGET="_blank">Criar conta do cliente</a> seguindo o modelo:
                         <br><br>
 
-                        <b> Nome:</b> Nome Sobrenome (maisculas iniciais)
+                        <b> Nome:</b> <span style="color:red"> {{ $nome }} </span>
                         <br>
                         <b> Email:</b> <span style="color:red"> {{ $email }} </span>
                         <br>
@@ -191,7 +193,10 @@
 					<b> STATUS</b>: Não iniciada<br>
 					<b> REFERENTE À</b>: Oportunidade (no campo de baixo clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
 					<b> NOME DO CONTATO</b>:  clicar ne SETA e fazer uma busca por NOME DA CONTA e selecionar (clicar no nome da conta).<br>
-					<b> EMAIL CRIADO</b>:  <span style="color:red"> {{ $email }} </span><br>
+					<br>
+					<b> EMAIL CRIADO:</b>  <span style="color:red"> {{ $email }} </span><br>
+					<b> SENHA CRIADA:</b><span style="color:red"> {{ $senha }} </span><br><br>
+					<b> DOMINIO:</b><span style="color:red"> {{ $dominio }} </span><br><br>
 					<b> DESCRIÇÃO</b>:  anotar qualquer informação adicional.<br>
 
 					<b> ATRIBUÍDO À</b>: Nathalia Locks<br>

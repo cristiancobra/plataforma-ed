@@ -27,8 +27,7 @@
                     </div>
 
                     <br><br><br><p class="titulo-branco"> Editar Usuário</p>
-                    <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
-                    <br>
+                             <br>
                     <br>
                     <br>
               	  <form action=" {{ route('tutorial_plataforma') }} " method="post" style="padding: 40px;color: white">

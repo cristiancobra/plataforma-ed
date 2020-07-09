@@ -28,8 +28,7 @@
                     </div>
 
                     <p class="titulo-branco" style="padding-top: 7%"> Olá {{ $user->name }} </p>
-                    <p class="destaque_amarelo">Este é o guia rápido da sua plataforma Empresa Digital </p>
-
+                    
                 </div>
 
                 <div class="imagem">

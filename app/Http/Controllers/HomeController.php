@@ -29,13 +29,6 @@ class HomeController extends Controller {
 		$user = Auth::user();
 		$user_crm = Auth::user()->idcrm;
 
-//		$myTasks = Task::where('assigned_user_id', $user_crm)
-//				->Where(function($consultaStatus) {
-//					$consultaStatus->orwhere('status', '=', 'Not Started')
-//					->orwhere('status', '=', 'In Progress');
-//				})
-//				->get();
-
 		$totalTasks = Task::where([
 					['assigned_user_id', $user_crm],
 					['deleted', '=', '0']
@@ -58,19 +51,16 @@ class HomeController extends Controller {
 				})
 				->count();
 
-
 		$totalOpportunities = Opportunities::where([
 					['assigned_user_id', $user_crm],
 					['deleted', '=', '0'],
 					['sales_stage', '!=', 'Closed Lost'],
 					['sales_stage', '!=', 'Closed Won']
 				])
-							->sum('amount');
-
-
+				->sum('amount');
 
 		if ($user->perfil == "administrador") {
-			
+
 			return view('admin/painel-admin', [
 				'user' => $user,
 				'totalTasks' => $totalTasks,
