@@ -28,7 +28,7 @@
 
 			<div class="dropdown-container">
 				<a href="{{ route('user.show', $user->id) }} "><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
-				<a href="/financeiro"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
+				<a href="https://financeiro.empresadigital.net.br"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
 			</div>
 
 
@@ -39,8 +39,8 @@
 			</button>
 
 			<div class="dropdown-container">
-				<a href="/falar" target="blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
-				<a href="/email"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
+				<a href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?module=Emails&action=index&parentTab=Colabora%C3%A7%C3%A3o" target="_blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
 				<a href="https://acadia.mxroute.com:2096/" target="blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
 			</div>
 

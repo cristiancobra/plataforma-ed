@@ -40,17 +40,6 @@ Route::get('/gerenciador-financeiro', function () {
 	return view('gerenciador-financeiro');
 });
 
-// ------------------------------------------------ COMUNICAÇÃO ------------------------------------------------
-
-Route::get('/falar', function () {
-	return view('falar');
-});
-
-Route::get('/email', function () {
-	return view('email');
-});
-
-// ------------------------------------------------ ORGANIZAÇÃO ------------------------------------------------
 // ------------------------------------------------ VENDAS  ------------------------------------------------
 
 Route::get('/novopotencial', function () {
@@ -82,11 +71,6 @@ Route::get('/crm', function () {
 
 Route::get('/oportunidades', function () {
 	return view('oportunidades');
-});
-
-
-Route::get('/financeiro', function () {
-	return view('financeiro');
 });
 
 Route::get('/nuvem', function () {
