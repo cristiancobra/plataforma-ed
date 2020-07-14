@@ -1,4 +1,8 @@
-        @include('painel')
+@extends('layouts/painel')
+
+@section('title','Empresa Digital ADMIN')
+
+@section('admin') 
 
         <div class="grid-admin">
             <div class="financeiro">
@@ -18,7 +22,7 @@
             <div class="nova-plataforma" >
                 <p class="subtitulo-branco">NOVA PLATAFORMA</p>
                 <br>
-                <a href="/form_plataforma" target="blank">
+                <a href="{{ route('user.create') }}" target="blank">
                     <button class="botao-claro">CRIAR</button></a><br>
             </div>
 
@@ -68,5 +72,5 @@
 
 
         </div>
-    </body>
-</html>
+    
+@endsection

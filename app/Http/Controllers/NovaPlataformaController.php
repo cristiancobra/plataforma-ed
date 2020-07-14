@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use Helper;
 
 class NovaPlataformaController extends Controller {
 
@@ -14,11 +14,11 @@ class NovaPlataformaController extends Controller {
 	$email = strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome."@empresadigital.net.br");
 	$dominio = strtolower($request->novo_nome).strtolower($request->novo_sobrenome."."."empresadigital.net.br");
 	
-	if ($request->nova_senha != null) {
+	//if ($request->nova_senha != null) {
 		$senha = $request->nova_senha;
-	}else{
-		$senha = User::gerar_senha(8, true, true, true, true);
-	}
+	//}else{
+	//	$senha = Helper::gerarSenha(8, true, true, true, true);
+	//}
 				
 		return view('admin.NovaPlataforma.tutorial_plataforma', [
 			'nome' => $nome,

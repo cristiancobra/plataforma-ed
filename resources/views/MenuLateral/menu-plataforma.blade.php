@@ -10,7 +10,7 @@
     </button>
 
     <div class="dropdown-container">
-        <a href="/"><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
+        <a href=" "><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
         <a href="/financeiro"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
     </div>
 

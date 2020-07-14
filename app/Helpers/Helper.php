@@ -1,47 +1,15 @@
 <?php
 
-namespace App;
+namespace App\Helpers;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+class Helper
+{
+    public static function shout(string $string)
+    {
+        return strtoupper($string);
+    }
 
-class User extends Authenticatable {
-
-	use Notifiable;
-
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'name', 'email', 'password', 'id', 'perfil', 'dominio', 'idcrm',
-	];
-
-	/**
-	 * The attributes that should be hidden for arrays.
-	 *
-	 * @var array
-	 */
-	protected $hidden = [
-		'password', 'remember_token',
-	];
-
-	/**
-	 * The attributes that should be cast to native types.
-	 *
-	 * @var array
-	 */
-	protected $casts = [
-		'email_verified_at' => 'datetime',
-	];
-
-	public function PegarIdCrm() {
-		return $this->hasOne(UserCrm::class, 'id');
-	}
-
-	public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
+public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
 		$ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
 		$mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
 		$nu = "0123456789"; // $nu contem os números
@@ -49,7 +17,7 @@ class User extends Authenticatable {
 
 		if ($maiusculas) {
 			// se $maiusculas for "true", a variável $ma é embaralhada e adicionada para a variável $senha
-			$senha = str_shuffle($ma);
+			$senha .= str_shuffle($ma);
 		}
 
 		if ($minusculas) {
@@ -70,5 +38,4 @@ class User extends Authenticatable {
 		// retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
 		return substr(str_shuffle($senha), 0, $tamanho);
 	}
-
 }

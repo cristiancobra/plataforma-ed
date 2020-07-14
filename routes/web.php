@@ -153,11 +153,11 @@ Route::get('/tarefadeprojeto', function () {
 
 // ----------------------  Rotas do ADMIN ---------
 
-Route::get('/form_plataforma', function () {
+Route::get('/admin/NovaPlataforma/form_plataforma', function () {
 	return view('admin.NovaPlataforma.form_plataforma');
 	});
 
-Route::post('/tutorial-plataforma','NovaPlataformaController@modelo')->name('tutorial_plataforma');
+Route::get('/tutorial-plataforma','NovaPlataformaController@modelo')->name('tutorial_plataforma');
 
 Route::get('/funil-vendas', function () {
 	return view('admin.funil-vendas');
@@ -168,6 +168,6 @@ Route::get('/minhas-tarefas', function () {
 });
 
 
-// ================================ ROTAS DO CRUD  ===================
+// ================================ CRUD do USUÁRIO ===================
 
-Route::resource('usuarios', 'Form\\UserController')->names('user')->parameters(['usuarios' => 'user']);
+Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->parameters(['usuarios' => 'user']);
