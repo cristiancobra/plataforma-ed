@@ -41,7 +41,7 @@
 			<div class="dropdown-container">
 				<a href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?module=Emails&action=index&parentTab=Colabora%C3%A7%C3%A3o" target="_blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
-				<a href="https://acadia.mxroute.com:2096/" target="blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
+				<a href="https://acadia.mxroute.com:2096/" target="_blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
 			</div>
 
 
@@ -53,12 +53,12 @@
 			</button>
 
 			<div class="dropdown-container">
-				<a href="/crm"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
-				<a href="/novoprojeto"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
-				<a href="/novatarefa" ><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
-				<a href="/novareuniao"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
-				<a href="/nuvem"  target="blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
-				<a href="/favoritos"  target="blank"><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?module=Home&action=index" target="_blank"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?module=Project&action=EditView&return_module=Project&return_action=DetailView" target="_blank"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DTasks%26action%3DEditView%26return_module%3DTasks%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DMeetings%26action%3DEditView%26return_module%3DMeetings%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
+				<a href="https://nuvem.empresadigital.net.br"  target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
+				<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/&view=favorites"  target="_blank"><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
 			</div>
 
 
@@ -68,10 +68,10 @@
 				<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
-				<a href="/novopotencial"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
-				<a href="/oportunidades"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
-				<a href="/novaoportunidade" ><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
-				<a href="/orcamento" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3DEditView%26return_module%3DLeads%26return_action%3DDetailView" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
+				<a href="" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
 			</div>
 
 
@@ -82,15 +82,15 @@
 			</button>
 
 			<div class="dropdown-container">
-				<a href="/marketing"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
+				<a href="https://empresadigital.net.br/suporte/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 				<a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
 				<a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
-				<a href="/novacampanha"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
-				<a href="/novalista"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
+				<a href="https://vendas.empresadigital.net.br/index.php" target="_blank"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
+				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DProspectLists%26action%3DEditView%26return_module%3DProspectLists%26return_action%3DDetailView" target="_blank"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
 			</div>
 
 
-			<li><a href="/suporte" target="blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
+			<li><a href="https://empresadigital.net.br/suporte/" target="_blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
 
 			<li><a href="/logout" class="logout_btn">   SAIR   </a></li>
 		</div>

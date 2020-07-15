@@ -30,7 +30,7 @@ class UserController extends Controller {
 	public function create() {
 		$newUser = new \App\User();
 		$user = Auth::user();
-		$newUser->gerarSenha(8, true, true, true, true);
+		$newUser->gerarSenha(6, true, true, true, true);
 
 		return view('admin.Usuarios.createUser', [
 			'user' => $user,
