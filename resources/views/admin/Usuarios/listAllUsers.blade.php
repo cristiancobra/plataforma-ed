@@ -18,7 +18,7 @@
 
 	@foreach ($users as $user)
 
-	<tr>
+	<tr style="font-size: 14px">
 		<td style="padding-left: 10px;padding-right: 10px">  {{ $user->ID }} </td>
 		<td style="padding-left: 10px;padding-right: 10px">  {{ $user->name }}  </td>
 		<td style="padding-left: 10px;padding-right: 10px"> {{ $user->email  }} </td>
