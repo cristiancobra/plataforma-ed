@@ -38,7 +38,7 @@
 					<br>
                     <li><a href="https://acadia.mxroute.com:2083/cpsess2189633698/frontend/manager/email_accounts/index.html#/create" TARGET="_blank">Criar novo email (usar o login solucoes)</a> seguindo o modelo:
                         <br><br>
-                        <b> nome: </b><span style="color:red"> {{ $email }} </span>
+                        <b> nome: </b><span style="color:red"> {{ $nome_usuario }} </span>
                         <br>
                         Colocar <b> 1GB</B>em <b> STORAGE SPACE</b> 
                         <br>
@@ -46,23 +46,6 @@
 						<br><br>
 						<a href="https://vendas.empresadigital.net.br/index.php?action=index&module=Contacts&searchFormTab=basic_search&query=true&clear_query=true" TARGET="_blank">Salve esta senha no CRM</a> na DESCRIÇÃO do cliente.
 						<br>
-
-						<!------------------------------------------------------  PLATAFORMA ED  ------------------------------------------- -->
-
-						<h2 class="subtitulo-roxo" style="text-align: left">CRIAR CONTA PLATAFORMA EMPRESA DIGITAL</h2><br><br>
-
-
-                    <li><a href="{{ route('user.create') }}" target="_blank">Criar nova conta de usuário</a> seguindo o modelo:</li>
-					<br>
-					<br><b>Name:</b><span style="color:red"> {{ $nome }} </span>
-					<br><b>Email adrress:</b> <span style="color:red"> {{ $email }} </span>
-					<br><b>Password:</b> <span style="color:red"> {{ $senha }} </span>
-					<br><b>Confirm Password:</b> <span style="color:red"> {{ $senha }} </span>
-					<br><b>Seu dominio:</b> <span style="color:red"> {{ $dominio }} </span>
-					<br><b>Nível de acesso:</b> Cliente
-					<br><br>
-					Enviar clicando com o botão <b>REGISTER</b>.
-                    <br>
 
 					<!------------------------------------------------------  CRM ------------------------------------------- -->
 
@@ -185,8 +168,12 @@
 						<br>
 						<b> Ativado:</b> SIM
 						<br>
-						<b> Pode logaro:</b> Marcar
-						<br>						
+						<b> Pode logar:</b> Marcar
+						<br>
+						<b> Senha:</b>  <span style="color:red"> {{ $email }} </span>
+						<br>
+						
+						
                         <br>
 
 						<!------------------------------------------------------  WORDPRESS  ------------------------------------------- -->
