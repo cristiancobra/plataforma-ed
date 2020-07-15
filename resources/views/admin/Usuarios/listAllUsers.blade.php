@@ -7,7 +7,7 @@
 <br><br><br><p class="titulo-branco"> Listar usuários</p>
 <br>
 
-<table style="color:white; text-align: left; padding: 40px">
+<table style="color:white; text-align: left; padding: 20px">
 	<b><tr>
 			<td   style="text-align:center"> <b>ID</b></td>
 			<td   style="text-align:center"> <b>Nome </b></td>
@@ -19,11 +19,11 @@
 	@foreach ($users as $user)
 
 	<tr>
-		<td style="padding-left: 20px;padding-right: 20px">  {{ $user->ID }} </td>
-		<td style="padding-left: 20px;padding-right: 20px">  {{ $user->name }}  </td>
-		<td style="padding-left: 20px;padding-right: 20px"> {{ $user->email  }} </td>
-		<td style="padding-left: 20px;padding-right: 20px"> {{ $user->password  }} </td>
-		<td style="padding-left: 20px;padding-right: 20px"> 
+		<td style="padding-left: 10px;padding-right: 10px">  {{ $user->ID }} </td>
+		<td style="padding-left: 10px;padding-right: 10px">  {{ $user->name }}  </td>
+		<td style="padding-left: 10px;padding-right: 10px"> {{ $user->email  }} </td>
+		<td style="padding-left: 10px;padding-right: 10px"> {{ $user->password  }} </td>
+		<td style="padding-left: 10px;padding-right: 10px"> 
 			<a href=" {{ route('user.show', ['user' => $user->id]) }} "  style="color:yellow; text-align: center">Ver usuário</a>
 			<form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post">
 				@csrf
