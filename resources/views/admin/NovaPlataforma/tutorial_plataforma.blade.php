@@ -170,7 +170,7 @@
 						<br>
 						<b> Pode logar:</b> Marcar
 						<br>
-						<b> Senha:</b>  <span style="color:red"> {{ $email }} </span>
+						<b> Senha:</b>  <span style="color:red"> {{ $senha }} </span>
 						<br>
 						
 						
@@ -248,7 +248,7 @@
 													<li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="_blank">Criar um child domain em ADD DOMAINS (dentro do site Empresa Digital).</a>
 														<br>
 														<br>
-														<b>Nome de Domínio:</b> empresa_do_cliente.empresadigital.net.br<br>
+														<b>Nome de Domínio:</b> <span style="color:red"> {{ $dominio }} </span><br><br>
 														<b>Caminho:</b> deixar em branco<br>
 														<b>Selecionar PHP:</b> 7.4<br>
 														<b>Funcionalidades Adicionais:</b>Marcar apenas SSL</b><br>
@@ -256,7 +256,7 @@
 												<br>
 												<li>Vá em <a href="https://62.171.185.126:8090/websites/listChildDomains"> LISTAR CHILD DOMAINS</a>. Seleciona o domínio criado acima e clique em MANAGE > VHOSTS:<br>
 													Na primeira linha apagar o nome do domínio, como no modelo abaixo:<br>
-													<b>docRoot </b>                  /home/empresadigital.net.br/public_html/sintufscar.empresadigital.net.br<br>
+													<b>docRoot </b>                  /home/empresadigital.net.br/public_html/<span style="color:red"> {{ $dominio }} </span><br><br><br>
 													GUARDAR</li>
 												<br>
 												<br>

@@ -34,12 +34,12 @@
 
 			<button class="dropdown-btn">
 				<i class='fab fa-telegram-plane'></i>
-				COMUNICAÇÃO
+				EQUIPE
 				<i class="fa fa-caret-down"></i>
 			</button>
 
 			<div class="dropdown-container">
-				<a href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>EQUIPE</a>
+				<a href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>FALAR</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?module=Emails&action=index&parentTab=Colabora%C3%A7%C3%A3o" target="_blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAIL</a>
 				<a href="https://acadia.mxroute.com:2096/" target="_blank"><i class="fas fa-cogs" style="margin-right: 8px"></i>CONFIGURAR EMAIL</a>
 			</div>
@@ -57,8 +57,7 @@
 				<a href="https://vendas.empresadigital.net.br/index.php?module=Project&action=EditView&return_module=Project&return_action=DetailView" target="_blank"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DTasks%26action%3DEditView%26return_module%3DTasks%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DMeetings%26action%3DEditView%26return_module%3DMeetings%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
-				<a href="https://nuvem.empresadigital.net.br"  target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS ONLINE</a>
-				<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/&view=favorites"  target="_blank"><i class="fas fa-heart" style="margin-right: 8px"></i>FAVORITOS</a>
+				<a href="https://nuvem.empresadigital.net.br"  target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 			</div>
 
 
@@ -71,6 +70,7 @@
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3DEditView%26return_module%3DLeads%26return_action%3DDetailView" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
+				<a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCalls%26action%3DEditView%26return_module%3DCalls%26return_action%3DDetailView" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>REGISTRAR LIGAÇÃO</a>
 				<a href="" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
 			</div>
 
@@ -82,11 +82,12 @@
 			</button>
 
 			<div class="dropdown-container">
-				<a href="https://empresadigital.net.br/suporte/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
+				<a href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 				<a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
 				<a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
 				<a href="https://vendas.empresadigital.net.br/index.php" target="_blank"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DProspectLists%26action%3DEditView%26return_module%3DProspectLists%26return_action%3DDetailView" target="_blank"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
+				<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 			</div>
 
 
@@ -96,22 +97,22 @@
 		</div>
 
 		<script>
-    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
+			/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+			var dropdown = document.getElementsByClassName("dropdown-btn");
+			var i;
 
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
-            }
-        });
-    }
-</script>
+			for (i = 0; i < dropdown.length; i++) {
+				dropdown[i].addEventListener("click", function () {
+					this.classList.toggle("active");
+					var dropdownContent = this.nextElementSibling;
+					if (dropdownContent.style.display === "block") {
+						dropdownContent.style.display = "none";
+					} else {
+						dropdownContent.style.display = "block";
+					}
+				});
+			}
+		</script>
 
 		<div id="main">     <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
 
@@ -134,18 +135,21 @@
 
 
                 <div class="tarefas">
-                    <p class="numeros_painel">  {{ $totalTasks }}</p>                        <p class="subtitulo-branco"> tarefas pendentes </p>
-                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">fazer</a></p>
+                    <p class="numeros_painel">  {{ $totalTasks }}</p>
+					<p class="subtitulo-branco"> tarefas pendentes </p>
+                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DTasks%26action%3Dindex%26parentTab%3DAtividades" target="_blank" style="color: yellow">fazer</a></p>
                 </div>
 
                 <div class="potenciais">
-                    <p class="numeros_painel">  {{  $totalLeads }} </p>                        <p class="subtitulo-branco"> potenciais aguardando </p>
-                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="/crm" style="color: yellow">contatar</a></p>
+                    <p class="numeros_painel">  {{  $totalLeads }} </p>
+					<p class="subtitulo-branco"> potenciais aguardando </p>
+                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">contatar</a></p>
                 </div>
 
                 <div class="oportunidades">
-                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{  $totalOpportunities }} </p>                        <p class="subtitulo-branco"> em<br>oportunidades</p>
-                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="/oportunidades" style="color: yellow">vender</a></p>
+                    <p class="numeros_painel"  style="font-size: 40px">  R$ {{  $totalOpportunities }} </p>
+					<p class="subtitulo-branco"> em<br>oportunidades</p>
+                    <p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
                 </div>
 
                 <div class="imagem-destaque">
@@ -158,7 +162,7 @@
                 </div>
 
             </div>
-			
+
 			<div>
 				@yield('admin') 
 			</div>
