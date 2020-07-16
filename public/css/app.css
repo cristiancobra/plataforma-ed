@@ -4448,6 +4448,7 @@ input[type=button].btn-block {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+  color: white;
 }
 
 .nav-link {
@@ -4879,7 +4880,9 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: rgba(0, 0, 0, 0.5);
+    color: white;
+	font-size: 16px;
+font-weight: 600;
 }
 
 .navbar-light .navbar-nav .nav-link:hover,
@@ -4912,7 +4915,7 @@ input[type=button].btn-block {
 }
 
 .navbar-light .navbar-text a {
-  color: rgba(0, 0, 0, 0.9);
+  color: #c28dbf;
 }
 
 .navbar-light .navbar-text a:hover,
@@ -7074,7 +7077,7 @@ button.bg-dark:focus {
 }
 
 .bg-white {
-  background-color: #fff !important;
+  background-color:  #874983 !important;
 }
 
 .bg-transparent {
@@ -8330,7 +8333,7 @@ button.bg-dark:focus {
 }
 
 .shadow-sm {
-  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.375) !important;
 }
 
 .shadow {

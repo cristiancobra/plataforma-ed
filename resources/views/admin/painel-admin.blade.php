@@ -8,7 +8,7 @@
             <div class="financeiro">
                 <p class="subtitulo-roxo">FINANCEIRO</p>
                 <br>
-                <a href="/gerenciador-financeiro">
+                <a href="https://financeiro.empresadigital.net.br/">
                     <button class="botao-roxo">GERENCIAR</button></a><br>
             </div>
 

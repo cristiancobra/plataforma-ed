@@ -21,11 +21,18 @@ html, body{
     gap: 0px;
     height: 100%;
     grid-template-columns: 2fr 2fr 2fr 1fr;
-    grid-template-rows: 35% 30% 35%;
+    grid-template-rows: 5% 35% 25% 35%;
     grid-template-areas:
-        "header header header imagem"
+        "menu menu menu menu"
+	"header header header imagem"
         "tarefas potenciais oportunidades imagem"
         "imagem-destaque destaque destaque destaque";
+}
+
+.menu{
+	    grid-area: menu;
+		width: 100%;
+		  position: fixed;
 }
 
 .header{
@@ -43,7 +50,7 @@ html, body{
     margin:0px;
     background-color: #874983;
     text-align: center;
-    padding-top: 10%;
+    padding-top: 20%;
 
 }
 
