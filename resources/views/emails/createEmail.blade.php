@@ -19,8 +19,8 @@
 	<br>
 	<label for="" >Empresa: </label>
 	<select name="account_id">
-	@foreach ($users as $user)
-	<option value="{{ $user->id }}">
+	@foreach ($users_id as $user_id)
+	<option value="{{ $user_id->id }}">
 		nome
 			</option>
 	@endforeach

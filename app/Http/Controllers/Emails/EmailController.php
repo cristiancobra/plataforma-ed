@@ -33,8 +33,8 @@ class EmailController extends Controller {
 	public function create() {
 		$email = new \App\Models\EmailModel();
 		$user = Auth::user();
-		$users_id = User::where(id)->get();
-
+		$users_id = User::where('id')->get();
+dd($users_id);
 		return view('emails.createEmail', [
 			'user' => $user,
 			'users_id' => $users_id,
