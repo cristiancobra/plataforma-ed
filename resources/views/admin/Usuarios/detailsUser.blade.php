@@ -11,7 +11,7 @@
 
 <h1 style="text-align:left;color: white;padding-left: 30px"><b> Nome: </b> {{ $user->name }} </h1>
 <p style="text-align:left;color: white;padding-left: 30px"> <b>  Email: </b> {{ $user->email }} </p>
-<p style="text-align:left;color: white;padding-left: 30px"> <b>  Domínio: </b> {{ $user->dominiol }} </p>
+<p style="text-align:left;color: white;padding-left: 30px"> <b>  Domínio: </b> {{ $user->dominio }} </p>
 <p style="text-align:left;color: white;padding-left: 30px"> <b>  ID da Plataforma: </b> {{ $user->id }} </p>
 <p style="text-align:left;color: white;padding-left: 30px"> <b>  ID do CRM: </b> {{ $user->idcrm }} </p>
 <p style="text-align:left;color: white;padding-left: 30px"> <b>  Senha: </b> {{ $user->default_password }} </p>
