@@ -6,6 +6,7 @@
 
 
                     <br><br><br><p class="titulo-branco"> Criar nova Plataforma</p>
+	<p class="destaque_amarelo"><a style="color: yellow" href="/usuarios">VER TODOS OS USUÁRIOS</a></p>
                     <br>
                     <form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: white">
                         @csrf
@@ -18,7 +19,7 @@
                         <br>
                         <br>
                         <label for="">Senha do usuário: </label>
-                        <input type="password" name="password" value="">   
+                        <input type="password" name="password" value="{{ $newUser->gerarSenha(8, true, true, true, true) }}">   
                         <br>
                         <br>
                         <input type="submit" value="Criar plataforma">
