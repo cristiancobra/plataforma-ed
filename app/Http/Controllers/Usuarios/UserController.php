@@ -59,7 +59,7 @@ class UserController extends Controller {
 			'nome' => $user->name,
 			'email' => $user->email,
 			'senha' => $user->default_password,
-			'dominio' => $$user->dominio,
+			'dominio' => $user->dominio,
 			'nome_usuario' => $nome_usuario,
 		]);
 	}
