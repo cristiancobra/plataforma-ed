@@ -46,13 +46,13 @@ class UserController extends Controller {
 	 */
 	public function store(Request $request) {
 		$user = new User();
-		$user->name = ucfirst($request->novo_nome)." ".ucfirst($request->novo_sobrenome);
-		$user->email = strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome."@empresadigital.net.br");
+		$user->name = ucfirst($request->novo_nome) . " " . ucfirst($request->novo_sobrenome);
+		$user->email = strtolower($request->novo_nome) . "." . strtolower($request->novo_sobrenome . "@empresadigital.net.br");
 		$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 		$user->save();
-		
-		$dominio = strtolower($request->novo_nome).strtolower($request->novo_sobrenome."."."empresadigital.net.br");
-		$nome_usuario =  strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome);
+
+		$dominio = strtolower($request->novo_nome) . strtolower($request->novo_sobrenome . "." . "empresadigital.net.br");
+		$nome_usuario = strtolower($request->novo_nome) . "." . strtolower($request->novo_sobrenome);
 
 		return view('admin.NovaPlataforma.tutorial_plataforma', [
 			'nome' => $user->name,
@@ -62,15 +62,11 @@ class UserController extends Controller {
 			'nome_usuario' => $nome_usuario,
 		]);
 	}
-	
+
 	//	$nome = ucfirst($request->novo_nome)." ".ucfirst($request->novo_sobrenome);
 	// $nome_usuario =  strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome);
 //	$email = strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome."@empresadigital.net.br");
 //	$dominio = strtolower($request->novo_nome).strtolower($request->novo_sobrenome."."."empresadigital.net.br");
-	
-	
-	
-	
 
 	/**
 	 * Display the specified resource.
@@ -116,4 +112,7 @@ class UserController extends Controller {
 		return redirect()->route('user.index');
 	}
 
+	public function emails() {
+		return $this->hasOne(App\Models\EmailModel::class, 'user_id', 'id');
+	}
 }

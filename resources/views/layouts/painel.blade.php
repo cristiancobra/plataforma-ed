@@ -75,6 +75,7 @@
 				<i class="fa fa-caret-down"></i>
 			</button>
 			<div class="dropdown-container">
+				<a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DContacts%26action%3Dindex%26parentTab%3DMarketing" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3DEditView%26return_module%3DLeads%26return_action%3DDetailView" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
 				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
@@ -98,9 +99,7 @@
 				<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 			</div>
 
-
 			<li><a href="https://empresadigital.net.br/suporte/" target="_blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
-			<li><a href="/teste" target="_blank"><i class="fas fa-question-circle"></i><span>  teste</span></a></li>
 
 		</div>
 

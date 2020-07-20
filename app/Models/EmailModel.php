@@ -11,4 +11,8 @@ class EmailModel extends Model
     	protected $fillable = [
 		'id', 'user_id', 'account_id', 'perfil_id', 'email', 'email_password', 'status'
 	];
+
+	public function users() {
+		return $this->hasMany(App\User::class, 'user_id', 'id');
+	}
 }
