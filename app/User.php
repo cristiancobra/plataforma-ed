@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\AccountModel;
+use App\Models\EmailModel;
 
 class User extends Authenticatable {
 
@@ -16,7 +18,7 @@ class User extends Authenticatable {
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password', 'default_password', 'id', 'perfil', 'dominio', 'idcrm',
+		'name', 'email', 'password', 'default_password', 'id', 'perfil', 'dominio', 'idcrm', 'accounts'
 	];
 
 	/**
@@ -36,6 +38,14 @@ class User extends Authenticatable {
 	protected $casts = [
 		'email_verified_at' => 'datetime',
 	];
+
+	public function emails() {
+		return $this->hasMany(Models\EmailModel::class, 'user_id', 'id');
+	}
+
+	public function accounts() {
+		return $this->hasMany(AccountModel::class, 'user_id', 'id');
+	}
 
 	public function PegarIdCrm() {
 		return $this->hasOne(UserCrm::class, 'id');

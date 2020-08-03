@@ -14,18 +14,18 @@
 	<br>
 	<br>
 	<label for="" >Usuario: </label>
-	<input type="text" name="user_id">
+	<input type="text" name="user_id" readonly value="{{ $user->name }}">
 	<br>
 	<br>
 	<label for="" >Empresa: </label>
 	<select name="account_id">
-	@foreach ($users_id as $user_id)
-	<option value="{{ $user_id->id }}">
-		"{{ $user_id->id }}"
-			</option>
-	@endforeach
+		@foreach ($accounts as $account)
+		<option value="{{ $user->name }}">
+			"{{ $user->id }}"
+		</option>
+		@endforeach
 	</select>
-<!--<input type="text" name="account_id">-->
+	<!--<input type="text" name="account_id">-->
 	<br>
 	<br>
 	<label for="" >Perfil: </label>

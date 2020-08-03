@@ -9,7 +9,7 @@ use App\Lead;
 use App\Task;
 use App\Opportunities;
 
-class HomeController extends Controller {
+class dashboardController extends Controller {
 
 	/**
 	 * Create a new controller instance.
@@ -27,6 +27,7 @@ class HomeController extends Controller {
 	 */
 	public function index() {
 		$user = Auth::user();
+		$hoje = date("d/m/Y");
 		$user_crm = Auth::user()->idcrm;
 
 		$totalTasks = Task::where([
@@ -59,22 +60,13 @@ class HomeController extends Controller {
 				])
 				->sum('amount');
 
-		if ($user->perfil == "administrador") {
-
-			return view('admin/painel-admin', [
-				'user' => $user,
-				'totalTasks' => $totalTasks,
-				'totalLeads' => $totalLeads,
-				'totalOpportunities' => $totalOpportunities,
-			]);
-		} else {
-			return view('painel', [
-				'user' => $user,
-				'totalTasks' => $totalTasks,
-				'totalLeads' => $totalLeads,
-				'totalOpportunities' => $totalOpportunities,
-			]);
-		}
+		return view('usuarios/dashboardUser', [
+			'user' => $user,
+			'hoje' => $hoje,
+			'totalTasks' => $totalTasks,
+			'totalLeads' => $totalLeads,
+			'totalOpportunities' => $totalOpportunities,
+		]);
 	}
 
 	public function ContarTarefas() {

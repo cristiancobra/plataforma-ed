@@ -189,7 +189,7 @@
                     <li><a href="https://62.171.185.126:8090/websites/empresadigital.net.br" target="_blank">Criar um child domain em ADD DOMAINS.</a>
 						<br><br>
 						<b>Nome do domínio:</b><span style="color:red"> {{ $dominio }} </span><br>
-						<b>Caminho:</b>deixar em branco<br>
+						<b>Caminho:</b>/<br>
 						<b>Selecionar PHP:</b>PHP 7.4<br>
 						<b>SSL:</b> SIM (marcar)<br>
 						<b>DKIM Support:</b>NÃO (deixar em branco)<br>
@@ -198,21 +198,7 @@
 						Clicar no botão CREATE DOMAIN.
 						<br><br>
 
-
-                    <li>Procurar o domínio criado em <a href="https://62.171.185.126:8090/websites/listChildDomains"> CHILD DOMAINS</a> e clicar em MANAGER. <BR>
-						Clicar em <b>vHost Conf </b> <br>
-                        <b>Na primeira linha estará assim:<br>
-							<b>docRoot</b>                   /home/empresadigital.net.br/public_html/<span style="color:red"> {{ $dominio }} </span><br><br>
-									<br>
-									<b> Apague o domínioe deixe assim:</b> <br>
-										<b>docRoot</b>                   /home/empresadigital.net.br/public_html/<br>
-												<b>Clicar no botão GUARDAR<br>
-
-													</li>
-
-													<br>
-
-
+						
 													<!------------------------------------------------------  CRIAR TAREFA NO CRM  ------------------------------------------- -->
 
 													<li>Marcar tarefa como concluida no CRM </li>

@@ -18,6 +18,10 @@
 	<input type="text" name="novo_sobrenome">
 	<br>
 	<br>
+	<label for="" >Nome da Empresa: </label>
+	<input type="text" name="account">
+	<br>
+	<br>
 	<label for="" >Perfil: </label>
 	<input type="text" name="perfil">
 	<br>

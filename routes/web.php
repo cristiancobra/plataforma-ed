@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // ================================ SISTEMA ===================
 Auth::routes(['register' => false]);
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'dashboardController@index')->name('home');
 
 // ================================ ADMINISTRATIVO ===================
 Route::get('/admin/NovaPlataforma/form_plataforma', function () {
@@ -29,11 +29,14 @@ Route::get('/funil-vendas', function () {
 	return view('admin.funil-vendas');
 });
 
+// ================================ ACCOUNTS ===================
+Route::resource('accounts', 'Accounts\\AccountController')->names('accounts')->parameters(['empresas' => 'accounts']);
+
 // ================================ CONTATOS / CONTACTS ===================
 Route::get('contacts', 'Contact\\ContactController@Index');
 
 // ================================ EMAILS ===================
-Route::resource('emails', 'Emails\\EmailController')->names('emails')->parameters(['emails' => 'email']);
+Route::resource('emails', 'Emails\\EmailController')->names('emails');
 
 // ================================ MENU ===================
 Route::get('/inicio', function () {
@@ -48,6 +51,11 @@ Route::get('/logout', function () {
 // ------------------------------------------------ MINHA CONTA ------------------------------------------------
 Route::get('/perfil', function () {
 	return view('perfil');
+});
+
+// ------------------------------------------------ REDES SOCIAIS ------------------------------------------------
+Route::get('/redes-sociais', function () {
+	return view('socialmedia.workflowSocialmedia');
 });
 
 // ------------------------------------------------ SITE  ------------------------------------------------

@@ -3,8 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
-class EmailModel extends Model
+class Email extends Model
 {
 	protected $table = 'emails';
 	
@@ -13,6 +14,6 @@ class EmailModel extends Model
 	];
 
 	public function users() {
-		return $this->hasMany(App\User::class, 'user_id', 'id');
+		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
 }

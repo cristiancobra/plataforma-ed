@@ -1,55 +1,53 @@
-@extends('layouts/listAll')
+@extends('layouts/master')
 
-@section('title','Contatos')
+@section('title','Emails Extras')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/email.png') }} 
+@endsection
 
-<br><br><br><p class="titulo-branco"> Emails</p><br>
-<p class="destaque_amarelo">Precisa de um novo email? </p>
-<p class="destaque_amarelo"><a href="/emails/novo"> <button type="button">SOLICITAR EMAIL</button> </a></p><br><br>
+@section('description')
 
-<table style="color:white; text-align: left; padding: 20px">
-	<b><tr>
-			<td   style="text-align:center"> <b>ID</b></td>
-			<td   style="text-align:center"> <b>Usuário </b></td>
-			<td   style="text-align:center"> <b>Empresa </b></td>
-			<td   style="text-align:center"> <b> Perfil</b></td>
-			<td   style="text-align:center"> <b>Email</b></td>
-			<td   style="text-align:center"> <b>Senha</b></td>
-			<td   style="text-align:center"> <b>Status</b></td>
-		</tr>
+Precisa de um novo email?
+<a href="/emails/novo"><br><br>
+	<button type="button" class="button">SOLICITAR EMAIL</button> </a>
 
-	@foreach ($emails as $email)
+@endsection
 
-	<tr style="font-size: 14px">
-		<td style="padding-left: 10px;padding-right: 10px; font-size: 9px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white">  {{ $email->id }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""><b>  {{ $users->emails->first() }}  </b></td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white"">  {{ $email->account_id }}  </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $email->perfil_id  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $email->email  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $email->email_password  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $email->status  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> 
-			<a href=" {{ route('user.show', ['user' => $user->id]) }} "  style="color:yellow; text-align: center">Ver usuário</a>
-			<form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post">
-				@csrf
-				@method('delete')
-				<input type="submit" value="Remover">
-			</form>
+@section('main')
 
-
-
-		</td>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header"><b>Conta</b></td>
+		<td   class="table-list-header"><b>Dono </b></td>
+		<td   class="table-list-header"><b>Espaço </b></td>
+		<td   class="table-list-header"><b>Senha</b></td>
+		<td   class="table-list-header"><b>Status</b></td>
 	</tr>
 
-
+	@foreach ($emails as $email)
+	<tr style="font-size: 16px">
+		<td class="table-list-left">
+			<button class="button">
+				<a href=" https://empresadigital.net.br/webmail" target="_blank"  style="text-decoration: none;color: black">
+					<i class='fa fa-envelope'></i></a>
+			</button>
+			
+			@if ($user->perfil == "administrador")
+			<button class="button">
+				<a href=" {{ route('emails.show', ['email' => $email->id]) }}" style="text-decoration: none;color: black">
+					<i class='fa fa-cogs'></i></a>
+			</button>
+			@endif
+			{{ $email->email}}
+		</td>
+		
+		
+		<td class="table-list-left"> <b>{{ $user->name }} </b></td>
+		<td class="table-list-center"><b> 1GB </b></td>
+		<td class="table-list-center"><b>{{ $email->email_password }} </b></td>
+		<td class="table-list-center"><b>{{ $email->status  }}</b></td>
+	</tr>
 	@endforeach
-
 </table>
-
-
-<div class="imagem">
-	<img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-</div>
-
 @endsection

@@ -1,13 +1,21 @@
-@extends('layouts/create')
+@extends('layouts/master')
 
-@section('title','Editar usuário')
+@section('title','EDITAR EMAIL')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/email.png') }} 
+@endsection
 
+@section('description')
 
-<br><br><br><p class="titulo-branco"> Editar usuário</p>
-<br>
-<form action=" {{ route('user.update', ['user' =>$user->id]) }} " method="post" style="padding: 40px;color: white">
+Altere seu email
+<a href="/emails/"><br><br>
+	<button type="button" class="button">VER EMAILS</button> </a>
+
+@endsection
+
+@section('main')
+<form action=" {{ route('user.update', ['user' =>$user->id]) }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	@method('put')
 	<label for="" >Nome: </label>
@@ -38,9 +46,4 @@
 
 </form>
 </div>     
-
-<div class="imagem">
-	<img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-</div>
-
 @endsection

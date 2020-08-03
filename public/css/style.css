@@ -11,97 +11,110 @@ and open the template in the editor.
 html, body{
     margin: 0;
     padding: 0;
+	height: 100%;
     box-sizing: border-box;
     font-family:helvetica,arial,verdana;
     overflow-x: hidden;
 }
 
-.grid{
-    display: grid;
-    gap: 0px;
-    height: 100%;
-    grid-template-columns: 2fr 2fr 2fr 1fr;
-    grid-template-rows: 5% 35% 25% 35%;
-    grid-template-areas:
-        "menu menu menu menu"
-	"header header header imagem"
-        "tarefas potenciais oportunidades imagem"
-        "imagem-destaque destaque destaque destaque";
+/* ------------------------------------------------ GRID -------------------------- */
+.grid-container {
+	display: grid;
+	background-color: #c28dbf;
+	grid-template-columns: 15% 20% 20% 20% 25%;
+	grid-template-rows: 20% 40% 40%;
+	grid-template-areas: 
+		"sidebar header header header image-header"
+		"sidebar main main main main"
+		"sidebar main main main main";
 }
 
-.menu{
-	    grid-area: menu;
-		width: 100%;
-		  position: fixed;
+.sidebar {
+	grid-area: sidebar;
+	background-color: #c28dbf;
+	padding-top: 5vh;
+	padding-left: 10px;
+	height: 100%;
+	width: 15%;
+	position: absolute;
+}
+
+.sidebar a{
+	color:white;
+	list-style-type: none;
+    padding: 6px 6px 6px 8px;
+    font-size: 16px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    padding: 8px;
+}
+.sidebar a:hover{
+	color:#874983;
+	text-decoration: none;
+}
+
+.sidebar ul{
+	list-style-type: none;
 }
 
 .header{
     grid-area: header;
+    background-color: #874983;
+    color: white;
+	padding-top: 5%;
+    font-weight:700;
+    text-align:right;
+    font-size:36px;
+    line-height: 1;
+}
+
+.image-header{
+    grid-area: image-header;
     margin:0px;
-    padding:0px;
-    padding-top: 0px;
-    border:none;
-    clear: both;
     background-color: #874983;
+    text-align: left;
+    padding-top: 8%;
+	padding-left: 8%;
 }
 
-.imagem{
-    grid-area: imagem;
-    margin:0px;
-    background-color: #874983;
-    text-align: center;
-    padding-top: 20%;
-
-}
-
-.tarefas{
-    grid-area: tarefas;
-    margin-top:0px;
-    background-color: #874983;
-}
-
-.oportunidades{
-    grid-area: oportunidades;
-    margin-top:0px;
-    margin-bottom: 0px;
-    background-color: #874983;
-}
-
-.potenciais{
-    grid-area: potenciais;
-    margin-top:0px;
-    background-color: #874983;
-}
-
-.imagem-destaque{
-    grid-area: imagem-destaque;
+.main{
+    grid-area: main;
     margin-top:0px;
     background-color: white;
-    text-align: center;
-    padding: 40px;
+}
+
+/* ------------------------------------------------ realocar -------------------------- */
+
+.numbers{
+    margin-top:0px;
+    background-color: #874983;
+	padding-left: 1%;
+	padding-right: 1%;
+	padding-top: 2%;
+	padding-bottom: 2%;
+	margin: 2%;
+	display: inline-block;
+	border-radius: 20px;
+	width: 20%;
 }
 
 .destaque{
-    grid-area: destaque;
     margin-top:0px;
     background-color: white;
-    text-align: left;
-    font-size: 20px;
 }
 
 /* ------------------------------------------------ GRID ADMIN -------------------------- */
-
-.grid-admin{
-    display: grid;
-    gap: 0px;
-    height: 100%;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 50% 50%;
-    grid-template-areas:
-        "nova-plataforma vendas usuarios-plataforma emails "
-        "servidores migracoes contratos financeiro";
+.admin-blocks{
+    text-align: center;
+    color: white;
+    padding:2%;
+	width: 22%;
+	height: 100%;
+display: inline-block;
+vertical-align: middle
 }
-
+	
 .financeiro{
     grid-area: financeiro;
     text-align: center;
@@ -165,14 +178,13 @@ html, body{
     background-color: #874983;
 }
 
-
 /* ------------------------------------------------ MENU -------------------------- */
 .sidenav {
     height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
+    width: 100%; /* 0 width - change this with JavaScript */
+    position: relative; /* Stay in place */
     z-index: 1; /* Stay on top */
-    top: 0; /* Stay at the top */
+    top: 5%; /* Stay at the top */
     left: 0;
     background-color: #c28dbf; /* fundo*/
     overflow-x: hidden; /* Disable horizontal scroll */
@@ -203,12 +215,6 @@ html, body{
     width: 100%;
     text-align: left;
     padding: 8px;
-
-}
-
-.dropdown-btn a{
-    width: 60%;
-
 }
 
 .sidenav ul li {
@@ -255,8 +261,8 @@ html, body{
     padding-left: 18px;
     padding-top: 7px;
     padding-bottom: 7px;
-    background-color: #8A0886;
     font-size: 14px;
+	display: block;
 }
 
 /* Optional: Style the caret down icon */
@@ -271,13 +277,11 @@ html, body{
 #main {
     transition: margin-left .5s;
     padding: 0px;
-    margin: 0px;
+    margin-left: 200px;
     height: 100vh;
     display: block;
+	background-color: red;
     z-index: 1;
-
-
-
 }
 
 .botao-ativar{
@@ -325,6 +329,7 @@ html, body{
     font-size:20px;
     font-weight:600;
     line-height: 0.7;
+	padding-top: 15px;
 }
 
 .numeros_painel{
@@ -419,4 +424,88 @@ html, body{
     border-width: 2px;
     border-color: #c28dbf;
     font-size: 14px
+}
+
+.button {
+	background-color: #c28dbf;
+	border: solid;
+	border-width: 2px;
+	border-color: #874983;
+	padding: 2px 6px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 12px;
+	border-radius: 9px;
+	color: white;
+	transition-duration: 0.4s;
+	margin: 2px;
+}
+
+.button:hover {
+	background-color: #874983;
+	border-color: #c28dbf;
+	color: white;
+}
+
+.button-delete {
+	background-color:    #ff8383   ;
+	border: none;
+	border-width: 1px;
+	color: black;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	border-radius: 9px;
+	transition-duration: 0.4s;
+}
+
+.button-delete:hover {
+	background-color: red;
+	border-color: #c28dbf;
+	color: white;
+}
+
+.table-list{ 
+    width: 90%;
+    text-align:center;
+    display: table;
+ color:#874983;
+ margin: 5%; 
+ font-weight: bold;
+ font-size: 20px;
+ border-bottom: solid;
+}
+
+.table-list-center{ 
+     display: table-cell;
+vertical-align:super;
+border-bottom: solid;
+	 border-width: 1px;
+}
+
+.table-list-left{ 
+     display: table-cell;  
+    padding:0.5%;
+text-align: left;
+     vertical-align:super;
+	 border-bottom: solid;
+	 border-width: 1px;
+}
+
+.table-list-left ul{ 
+list-style-type : circle;
+list-style-position: outside;
+}
+
+.table-list-header{ 
+     display: table-cell;  
+    padding-left: 13px;
+padding-right: 13px;
+text-align: center;
+color: white;
+     vertical-align:super;
+	 background-color: #c28dbf
 }

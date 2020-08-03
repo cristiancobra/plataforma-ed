@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Emails;
 
 use App\Http\Controllers\Controller;
-use App\Models\EmailModel;
+use App\Models\Email;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,8 +16,12 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$emails = EmailModel::all();
 		$user = Auth::user();
+		if ($user->perfil == "administrador") {
+			$emails = Email::all();
+		} else {
+			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
+		}
 
 		return view('emails.listAllEmails', [
 			'emails' => $emails,
@@ -31,14 +35,16 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$email = new \App\Models\EmailModel();
+		$email = new \App\Models\Email();
 		$user = Auth::user();
-		$users = User::all()->get();
-		
+		$users = User::all();
+		$accounts = $users->accounts()->get();
+
 		return view('emails.createEmail', [
 			'user' => $user,
-			'users' => $users,
+			//		'users' => $users,
 			'email' => $email,
+			'accounts' => $accounts,
 		]);
 	}
 
@@ -49,7 +55,7 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$email = new \App\Models\EmailModel();
+		$email = new \App\Models\Email();
 		$email->user_id = ($request->user_id);
 		$email->account_id = ($request->account_id);
 		$email->perfil_id = ($request->perfil_id);
@@ -58,7 +64,7 @@ class EmailController extends Controller {
 		$email->status = "desativado";
 		$email->save();
 
-		$emails = \App\Models\EmailModel::all();
+		$emails = \App\Models\Email::all();
 		$user = Auth::user();
 
 		return view('emails.listAllEmails', [
@@ -70,48 +76,60 @@ class EmailController extends Controller {
 			'password' => $email->email_password,
 			'status' => $email->status,
 			'emails' => $emails,
-			
 		]);
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Models\EmailModel  $emailModel
+	 * @param  \App\Models\Email  $email
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(EmailModel $emailModel) {
-//
+	public function show(Email $email) {
+		$user = Auth::user();
+		$emails = Email::where('id', '=', $user->id)->with('users')->get();
+		//	$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
+		return view('emails.detailsEmail', [
+			'email' => $email,
+			'emails' => $emails,
+			'user' => $user,
+		]);
 	}
 
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  \App\Models\EmailModel  $emailModel
+	 * @param  \App\Models\Email  $email
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(EmailModel $emailModel) {
-//
+	public function edit(Email $email) {
+		$user = Auth::user();
+		$emails = Email::all();
+		return view('emails.editEmail', [
+			'user' => $user,
+			'email' => $email,
+			'emails' => $emails,
+		]);
 	}
 
 	/**
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\EmailModel  $emailModel
+	 * @param  \App\Models\Email  $email
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, EmailModel $emailModel) {
+	public function update(Request $request, Email $email) {
 //
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Models\EmailModel  $emailModel
+	 * @param  \App\Models\Email  $email
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(EmailModel $emailModel) {
+	public function destroy(Email $email) {
 //
 	}
 
