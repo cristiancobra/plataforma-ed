@@ -13,7 +13,7 @@ class ChangeColumnUserIdInEmails extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('emails', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained();
         });
     }
@@ -25,7 +25,7 @@ class ChangeColumnUserIdInEmails extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('emails', function (Blueprint $table) {
             $table->integer('user_id')->required();
         });
     }
