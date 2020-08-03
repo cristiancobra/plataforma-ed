@@ -14,7 +14,7 @@ class ChangeColumnUserIdInEmails extends Migration
     public function up()
     {
         Schema::table('emails', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->constrained()->change();
         });
     }
 
@@ -26,7 +26,7 @@ class ChangeColumnUserIdInEmails extends Migration
     public function down()
     {
         Schema::table('emails', function (Blueprint $table) {
-            $table->integer('user_id')->required();
+            $table->integer('user_id')->required()->change();
         });
     }
 }
