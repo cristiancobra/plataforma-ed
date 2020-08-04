@@ -9,7 +9,7 @@
 @section('description')
 Aumente sua EQUIPE
 <a href="/usuarios/novo"><br><br>
-<button type="button" class="button">ADICIONAR USUÁRIO EMAIL</button> </a>
+<button type="button" class="button-header">ADICIONAR USUÁRIO EMAIL</button> </a>
 
 @endsection
 

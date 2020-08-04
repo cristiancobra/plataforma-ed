@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\AccountModel;
+use App\Models\Account;
 use App\Models\Email;
 
 class User extends Authenticatable {
@@ -44,7 +44,7 @@ class User extends Authenticatable {
 	}
 
 	public function accounts() {
-		return $this->hasMany(AccountModel::class, 'user_id', 'id');
+		return $this->hasMany(Account::class, 'user_id', 'id');
 	}
 
 	public function PegarIdCrm() {

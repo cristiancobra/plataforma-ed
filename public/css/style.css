@@ -39,23 +39,40 @@ html, body{
 	position: absolute;
 }
 
-.sidebar a{
+
+.sidebar-item {
 	color:white;
+	background-color: #c28dbf;
 	list-style-type: none;
-    padding: 6px 6px 6px 8px;
+    padding-top: 6px;
+padding-bottom:  6px; 
     font-size: 16px;
     border: none;
     width: 100%;
     text-align: left;
-    padding: 8px;
 }
-.sidebar a:hover{
+.sidebar-item:hover{
 	color:#874983;
+	background-color: white;
 	text-decoration: none;
 }
 
-.sidebar ul{
+.sidebar-subitem {
+	color:white;
+	background-color: #874983;
 	list-style-type: none;
+    padding-top: 6px;
+padding-bottom:  6px; 
+    font-size: 16px;
+    border: none;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar-subitem:hover{
+	color:#874983;
+	background-color: white;
+	text-decoration: none;
 }
 
 .header{

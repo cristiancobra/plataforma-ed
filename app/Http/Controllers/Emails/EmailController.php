@@ -19,7 +19,7 @@ class EmailController extends Controller {
 	public function index() {
 		$user = Auth::user();
 		if ($user->perfil == "administrador") {
-			$emails = Email::all();
+			$emails = Email::where('id', '>=', 0)->orderBy('EMAIL', 'asc')->get();
 			$totalEmails = $emails->count();
 		} else {
 			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
@@ -148,7 +148,7 @@ class EmailController extends Controller {
 	 */
 	public function destroy(Email $email) {
 		$email->delete();
-		return redirect()->route('emails.emails.index');
+		return redirect()->route('emails.index');
 	}
 
 }
