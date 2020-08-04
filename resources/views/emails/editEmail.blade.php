@@ -46,6 +46,14 @@ Altere seu email
 	<br>
 	<br>
 	<input class="button-header" type="submit" value="ATUALIZAR EMAIL">
+	@if ($user->perfil == "administrador")
+	<a href="https://acadia.mxroute.com:2096/"><br><br>
+		<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
+		<center>login: solucoes</center>
+	@endif
 </form>
+
+	
+	
 </div>     
 @endsection
