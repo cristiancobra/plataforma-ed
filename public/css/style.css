@@ -452,7 +452,7 @@ vertical-align: middle
 	width: 100%;
 }
 
-.button-activedelete:hover {
+.button-active:hover {
 	background-color: red;
 	border-color: #c28dbf;
 	color: white;
@@ -500,6 +500,26 @@ vertical-align: middle
 	color: white;
 }
 
+.button-disable {
+	background-color:  #B8B8B8  ;
+	border: none;
+	border-width: 1px;
+	color: black;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	border-radius: 9px;
+	transition-duration: 0.4s;
+	width: 100%;
+}
+
+.button-disable:hover {
+	background-color: red;
+	border-color: #c28dbf;
+	color: white;
+}
 /* ------------------------------------------------ PÁGINAS LISTALL -------------------------- */
 
 .table-list{ 

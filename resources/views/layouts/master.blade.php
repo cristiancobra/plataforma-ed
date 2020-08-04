@@ -89,6 +89,17 @@
 					<a href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS EXTRAS</a>
 					<a href="https://financeiro.empresadigital.net.br"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
 				</div>
+				
+				<button class="dropdown-btn">
+					<i class='fas fa-user-circle'></i>
+					COMUNICAÇÃO
+					<i class="fa fa-caret-down"></i>
+				</button>
+
+				<div class="dropdown-container">
+					<a href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
+					<a href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>MENSAGENS</a>
+				</div>
 
 				<button class="dropdown-btn">
 					<a href="{{ route('user.index') }} " ><i class="fa fa-users"></i><span>  EQUIPE</span></a>

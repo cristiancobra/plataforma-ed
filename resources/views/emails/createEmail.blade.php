@@ -1,48 +1,59 @@
-@extends('layouts/create')
+@extends('layouts/master')
 
-@section('title','Adicionar emal')
+@section('title','SOLICITAR NOVO EMAIL')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/colaborador.png') }} 
+@endsection
 
+@section('description')
 
-<br><br><br><p class="titulo-branco"> Solicitar novo Email</p>
+Solicite seu email
+<a href="/emails/"><br><br>
+	<button type="button" class="button-header">VER EMAILS</button> </a>
+
+@endsection
+
+@section('main')
 <br>
-<form action=" {{ route('emails.store') }} " method="post" style="padding: 40px;color: white">
-	@csrf
-	<label for="" >Email completo: </label>
-	<input type="text" name="email">
-	<br>
-	<br>
-	<label for="" >Usuario: </label>
-	<input type="text" name="user_id" readonly value="{{ $user->name }}">
-	<br>
-	<br>
-	<label for="" >Empresa: </label>
-	<select name="account_id">
-		@foreach ($accounts as $account)
-		<option value="{{ $user->name }}">
-			"{{ $user->id }}"
-		</option>
-		@endforeach
-	</select>
-	<!--<input type="text" name="account_id">-->
-	<br>
-	<br>
-	<label for="" >Perfil: </label>
-	<input type="text" name="perfil_id">
-	<br>
-	<br>
-	<label for="">Senha do email: </label>
-	<input type="password" name="password" value="">   
-	<br>
-	<br>
-	<input type="submit" value="Solicitar email">
-
-</form>
+<br>
+<div style="padding-left: 6%">
+	<form action=" {{ route('emails.store') }} " method="post" style="padding: 40px;color: #874983">
+		@csrf
+		<label class="labels" for="" >EMAIL: </label>
+		<input class="fields" type="text" name="email" value="{{ $email->email }} ">
+		<br>
+		<label class="labels" for="" >DONO: </label>
+		<select name="user_id">
+			@foreach ($users as $user)
+			<option  class="fields" value="{{ $user->id }}">
+				{{ $user->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<label class="labels" for="" >EMPRESA: </label>
+		<select name="account_id">
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{ $account->id }}">
+				{{ $account->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<label class="labels" for="">SENHA PADRÃO: </label>
+		<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }} ">   
+		<br>
+		<label class="labels" for="">ESPAÇO (GB): </label>
+		<input class="fields" type="number" name="storage" value="{{ $email->storage }}">   
+		<br>
+		<br>
+		<input class="button-header" type="submit" value="SOLICITAR EMAIL">
+		@if ($user->perfil == "administrador")
+		<a href="https://acadia.mxroute.com:2096/"><br><br>
+			<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
+		<center>login: solucoes</center>
+		@endif
+	</form>
 </div>     
-
-<div class="imagem">
-	<img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-</div>
-
 @endsection

@@ -3,7 +3,7 @@
 @section('title','MEU PAINEL')
 
 @section('image-top')
-{{ asset('imagens/astronauta-estrela.png') }} 
+{{ asset('imagens/painel-progresso.png') }} 
 @endsection
 
 @section('description')

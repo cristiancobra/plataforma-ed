@@ -36,7 +36,12 @@ Altere seu email
 		<option value="{{ $email->status }}">{{ $email->status}}</option>
 		@if ($email->status == "desativado")
 		<option value="ativo">ativo</option>
-		@else
+		<option value="pendente">pendente</option>
+		@elseif  ($email->status == "ativo")
+		<option value="desativado">desativado</option>
+		<option value="pendente">pendente</option>
+		@elseif  ($email->status == "pendente")
+		<option value="ativo">ativo</option>
 		<option value="desativado">desativado</option>
 		@endif
 		
@@ -47,7 +52,7 @@ Altere seu email
 	<br>
 	<input class="button-header" type="submit" value="ATUALIZAR EMAIL">
 	@if ($user->perfil == "administrador")
-	<a href="https://acadia.mxroute.com:2096/"><br><br>
+	<a href="https://acadia.mxroute.com:2083/cpsess2438558906/frontend/manager/email_accounts/index.html#/list" target="_blank"><br><br>
 		<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
 		<center>login: solucoes</center>
 	@endif

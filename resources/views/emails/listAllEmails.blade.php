@@ -44,12 +44,14 @@ Precisa de um novo email?
 		
 		
 		<td class="table-list-left"> <b>{{ $user->name }} </b></td>
-		<td class="table-list-center"><b> 1GB </b></td>
+		<td class="table-list-center"><b>{{ $email->storage}}</b></td>
 		<td class="table-list-center"><b>{{ $email->email_password }} </b></td>
 		@if ($email->status == "desativado")
-		<td class="button-delete"><b>{{ $email->status  }}</b></td>
-		@else
+		<td class="button-disable"><b>{{ $email->status  }}</b></td>
+		@elseif ($email->status == "ativo")
 		<td class="button-active"><b>{{ $email->status  }}</b></td>
+		@else ($email->status == "pendente")
+		<td class="button-delete"><b>{{ $email->status  }}</b></td>
 		@endif
 	</tr>
 	@endforeach

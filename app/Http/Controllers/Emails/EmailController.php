@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Emails;
 
 use App\Http\Controllers\Controller;
 use App\Models\Email;
+use App\Models\Account;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,11 +41,11 @@ class EmailController extends Controller {
 		$email = new \App\Models\Email();
 		$user = Auth::user();
 		$users = User::all();
-		$accounts = $users->accounts()->get();
+		$accounts = \App\Models\Account::all();
 
 		return view('emails.createEmail', [
 			'user' => $user,
-			//		'users' => $users,
+			'users' => $users,
 			'email' => $email,
 			'accounts' => $accounts,
 		]);
@@ -60,25 +61,26 @@ class EmailController extends Controller {
 		$email = new \App\Models\Email();
 		$email->user_id = ($request->user_id);
 		$email->account_id = ($request->account_id);
-		$email->perfil_id = ($request->perfil_id);
 		$email->email = ($request->email);
-		$email->email_password = ($request->password);
-		$email->status = "desativado";
+		$email->email_password = ($request->email_password);
+		$email->storage = ($request->storage);
+		$email->status = "pendente";
 		$email->save();
 
 		$emails = \App\Models\Email::all();
 		$user = Auth::user();
 
-		return view('emails.listAllEmails', [
-			'user' => $user,
-			'user_id' => $email->user_id,
-			'account_id' => $email->account_id,
-			'perfil_id' => $email->perfil_id,
-			'email' => $email->email,
-			'password' => $email->email_password,
-			'status' => $email->status,
-			'emails' => $emails,
-		]);
+		return redirect()->action('Emails\\EmailController@index');
+		
+//		return view('emails.listAllEmails', [
+//			'user' => $user,
+//			'user_id' => $email->user_id,
+//			'account_id' => $email->account_id,
+//			'email' => $email->email,
+//			'password' => $email->email_password,
+//			'status' => $email->status,
+//			'emails' => $emails,
+//		]);
 	}
 
 	/**
@@ -145,7 +147,8 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Email $email) {
-//
+		$email->delete();
+		return redirect()->route('emails.emails.index');
 	}
 
 }

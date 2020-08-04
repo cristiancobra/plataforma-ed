@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class AccountModel extends Model {
+class Account extends Model {
 
 	protected $table = 'accounts';
 	protected $fillable = [
