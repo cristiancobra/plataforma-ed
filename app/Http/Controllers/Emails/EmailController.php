@@ -19,12 +19,14 @@ class EmailController extends Controller {
 		$user = Auth::user();
 		if ($user->perfil == "administrador") {
 			$emails = Email::all();
+			$totalEmails = $emails->count();
 		} else {
 			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
 		}
 
 		return view('emails.listAllEmails', [
 			'emails' => $emails,
+			'totalEmails' => $totalEmails,
 			'user' => $user,
 		]);
 	}
@@ -120,7 +122,20 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Email $email) {
-//
+		$email->email = $request->email;
+		//$user->name = $request->name;
+		$email->email_password = $request->email_password;
+		$email->storage = $request->storage;
+		$email->status = $request->status;
+		$email->save();
+		
+		$user = Auth::user();
+
+		return view('emails.detailsEmail', [
+			'user' => $user,
+			'email' => $email,
+			//'emails' => $emails,
+		]);
 	}
 
 	/**

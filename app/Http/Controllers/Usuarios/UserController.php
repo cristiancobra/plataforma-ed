@@ -17,14 +17,17 @@ class UserController extends Controller {
 	public function index() {
 		$user = Auth::user();
 		if ($user->perfil == "administrador") {
-			$users = User::all();
+			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$totalUsers = $users->count();
 		}else{
 			$users = User::where('id', '=', $user->id)->with('accounts')->get();
+			$totalUsers = $users->count();
 		}
 		
 		return view('usuarios.listAllUsers', [
 			'users' => $users,
 			'user' => $user,
+			'totalUsers' => $totalUsers,
 		]);
 	}
 

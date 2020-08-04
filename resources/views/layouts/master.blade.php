@@ -118,6 +118,10 @@
 					<a href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
 					<a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
+					
+					<a href="https://business.facebook.com/creatorstudio" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>PUBLICAR NO FACEBOOK</a>
+					<a href="https://stories.freepik.com" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>DESENHAR STORIE</a>
+					<a href="https://studio.youtube.com" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>ENVIAR VÍDEO YOUTUBE</a>
 					<a href="https://vendas.empresadigital.net.br/index.php?module=Campaigns&action=index&parentTab=Marketing" target="_blank"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
 					<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DProspectLists%26action%3DEditView%26return_module%3DProspectLists%26return_action%3DDetailView" target="_blank"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
 					<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
@@ -169,6 +173,7 @@
 					login: admin
 					<a href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
 					<a href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FUNIL DE VENDAS</a>
+					<a href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 				</div>
 
 				@endif

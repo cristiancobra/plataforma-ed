@@ -62,7 +62,7 @@ html, body{
     grid-area: header;
     background-color: #874983;
     color: white;
-	padding-top: 5%;
+	padding-top: 2%;
     font-weight:700;
     text-align:right;
     font-size:36px;
@@ -74,7 +74,7 @@ html, body{
     margin:0px;
     background-color: #874983;
     text-align: left;
-    padding-top: 8%;
+    padding-top: 5%;
 	padding-left: 8%;
 }
 
@@ -315,14 +315,6 @@ vertical-align: middle
     background-color: #874983;
 }
 
-.secao-iframe{
-    padding: 0px;
-    margin: 0px;
-    height: 100vh;
-    z-index: 1;
-    width:100%;
-}
-
 .destaque_amarelo{
     text-align:center;
     color:#ff0;
@@ -354,11 +346,11 @@ vertical-align: middle
 
 .subtitulo-roxo{
     text-align: center;
-    color: purple;
+    color: #874983;
     font-weight:800;
     font-size:18px;
     margin: 0px;
-    padding-top: 25px;
+    padding-top: 15px;
     padding-bottom: 0px;
 }
 
@@ -400,9 +392,6 @@ vertical-align: middle
     width:50%
 }
 
-.h2-roxo{
-
-}
 
 .botao-claro{
     background: #c28dbf;
@@ -431,7 +420,7 @@ vertical-align: middle
 	border: solid;
 	border-width: 2px;
 	border-color: #874983;
-	padding: 2px 6px;
+	padding: 3px 6px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
@@ -448,6 +437,27 @@ vertical-align: middle
 	color: white;
 }
 
+.button-active {
+	background-color:    #c28dbf  ;
+	border: none;
+	border-width: 1px;
+	color: white;
+	padding: 5px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	border-radius: 9px;
+	transition-duration: 0.4s;
+	width: 100%;
+}
+
+.button-activedelete:hover {
+	background-color: red;
+	border-color: #c28dbf;
+	color: white;
+}
+
 .button-delete {
 	background-color:    #ff8383   ;
 	border: none;
@@ -460,6 +470,7 @@ vertical-align: middle
 	font-size: 14px;
 	border-radius: 9px;
 	transition-duration: 0.4s;
+	width: 100%;
 }
 
 .button-delete:hover {
@@ -468,12 +479,36 @@ vertical-align: middle
 	color: white;
 }
 
+.button-header {
+	background-color: #c28dbf;
+	border: solid;
+	border-width: 1.5px;
+	border-color: white;
+	padding: 7px 14px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	border-radius: 16px;
+	color: white;
+	transition-duration: 0.4s;
+}
+
+.button-header:hover {
+	background-color: #874983;
+	border-color: #c28dbf;
+	color: white;
+}
+
+/* ------------------------------------------------ PÁGINAS LISTALL -------------------------- */
+
 .table-list{ 
     width: 90%;
     text-align:center;
     display: table;
  color:#874983;
- margin: 5%; 
+ margin-top: 2%; 
+ margin-left: 5%; 
  font-weight: bold;
  font-size: 20px;
  border-bottom: solid;
@@ -508,4 +543,36 @@ text-align: center;
 color: white;
      vertical-align:super;
 	 background-color: #c28dbf
+}
+
+/* ------------------------------------------------ PÁGINAS DETAILS -------------------------- */
+
+.name{
+    font-family: helvetica;
+	font-weight:bolder;
+	color: #874983;
+    margin-top: 0px;
+    margin-bottom: 5px;
+    font-weight:bolder;
+    text-align:left;
+    font-size:36px;
+}
+
+.labels{
+	font-family: helvetica;
+    color: #874983;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    font-weight:bolder;
+    text-align:left;
+    font-size:20px;
+}
+
+.fields{
+    color: #874983;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    font-weight:400;
+    text-align:left;
+    font-size:20px;
 }

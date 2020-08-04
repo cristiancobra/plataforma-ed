@@ -10,7 +10,7 @@ class Email extends Model
 	protected $table = 'emails';
 	
     	protected $fillable = [
-		'id', 'user_id', 'account_id', 'perfil_id', 'email', 'email_password', 'status'
+		'id', 'user_id', 'account_id', 'storage', 'email', 'email_password', 'status'
 	];
 
 	public function users() {

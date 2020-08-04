@@ -17,19 +17,23 @@ Dados do colaborador
 @section('main')
 <br>
 <br>
-<h1 style="text-align:left;color: #874983;padding-left: 30px"><b> Nome: </b> {{ $user->name }} </h1>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  Empresas: </b><br></p>
-	@foreach ($accounts as $account)
-	<p style="text-align:left;color: #874983;padding-left: 30px">{{ $account->name }}  </p>
-	@endforeach
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  Email: </b> {{ $user->email }} </p>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  Domínio: </b> {{ $user->dominio }} </p>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  ID da Plataforma: </b> {{ $user->id }} </p>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  ID do CRM: </b> {{ $user->idcrm }} </p>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  Senha: </b> {{ $user->default_password }} </p>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b>  Perfil: </b> {{ $user->perfil }} </p>
+<div style="padding-left: 6%">
+<h1 class="name">{{ $user->name }} </h1>
 <br>
-<p style="text-align:left;color: #874983;padding-left: 30px"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
+<p class="labels">EMPRESAS: </p>
+	
+	@foreach ($accounts as $account)
+	<p class="fields">{{ $account->name }}  </p>
+	@endforeach
+	
+	<p class="labels"> EMAIL:<span class="fields"> {{ $user->email }} </span></p>
+<p class="labels"> DOMÍNIO:<span class="fields">  {{ $user->dominio }} </span></p>
+<p class="labels"> ID PLATAFORMA:<span class="fields"> {{ $user->id }} </span></p>
+<p class="labels"> ID CRM:<span class="fields">  {{ $user->idcrm }} </span></p>
+<p class="labels"> SENHA: <span class="fields"> {{ $user->default_password }} </span></p>
+<p class="labels"> PERFIL: <span class="fields">  {{ $user->perfil }} </span></p>
+<br>
+<p class="fields">Criado em  {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
 
 <div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
 	<button class="button"><a href=" {{ route('user.edit', ['user' => $user->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
@@ -43,6 +47,6 @@ Dados do colaborador
 </div>
 <br>
 <p style="text-align: left;margin-left: 30px;color: white;font-size: 14px">* se a <b>senha padrão</b> tiver sido alterada pelo usuário, atualize a senha novamente com a <b>senha padrão</b>. Peça para o usuário alterar sua senha no seu primeiro acesso.</p>
-
+</div>
 
 @endsection

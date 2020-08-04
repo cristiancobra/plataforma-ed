@@ -1,34 +1,44 @@
-@extends('layouts/listAll')
+@extends('layouts/master')
 
-@section('title','Transações')
+@section('title','ENTRADAS')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/colaborador.png') }} 
+@endsection
 
-<br><br><br><p class="titulo-branco"> Listar movimentações bancárias</p>
-<br>
+@section('description')
+Aumente sua EQUIPE
+<a href="/usuarios/novo"><br><br>
+<button type="button" class="button">ADICIONAR USUÁRIO EMAIL</button> </a>
 
-<table style="color:white; text-align: left; padding: 20px">
-	<b><tr>
-			<td   style="text-align:center"> <b>ID</b></td>
-			<td   style="text-align:center"> <b>Empresa </b></td>
-			<td   style="text-align:center"> <b>Fatura </b></td>
-			<td   style="text-align:center"> <b> Descrição</b></td>
-			<td   style="text-align:center"> <b> Data</b></td>			
-			<td   style="text-align:center"> <b>Valor</b></td>
-		</tr></b>
+@endsection
+
+@section('main')
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header"><b>ID </b></td>
+		<td   class="table-list-header"><b>Empresa </b></td>
+			<td   class="table-list-header"><b>Fatura </b></td>
+			<td   class="table-list-header"><b> Descrição</b></td>
+			<td   class="table-list-header"><b> Data</b></td>			
+			<td   class="table-list-header"><b>Valor</b></td>
+		</tr>
 
 
 	@foreach ($transactions as $transaction)
 
-	<tr style="font-size: 14px">
-		<td style="padding-left: 10px;padding-right: 10px; font-size: 9px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white">  {{ $transaction->id }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""><b>  {{ $transaction->contact_id }}  </b></td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white"">  {{ $transaction->document_id}}  </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $transaction->description  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $transaction->paid_at  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> {{ $transaction->amount  }} </td>
-		<td style="padding-left: 10px;padding-right: 10px; border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: white""> 
-			<a href=" {{ route('user.show', ['user' => $user->id]) }} "  style="color:yellow; text-align: center">Ver usuário</a>
+	<tr style="font-size: 16px">
+		<td class="table-list-left">{{ $transaction->id }} </td>
+		<td class="table-list-left">{{ $transaction->contact_id }}  </b></td>
+		<td class="table-list-left"> {{ $transaction->document_id}}  </td>
+		<td class="table-list-left">{{ $transaction->description  }} </td>
+		<td class="table-list-left">{{ $transaction->paid_at  }} </td>
+		<td class="table-list-left">{{ $transaction->amount  }} </td>
+		<td class="table-list-left">
+			<button class="button">
+			<a href=" {{ route('transaction.show', ['transaction' => $transaction->id]) }} "   style="text-decoration: none;color: black">
+			<i class='fa fa-eye'></i></a>
+			</button><br>	
 			<form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post">
 				@csrf
 				@method('delete')

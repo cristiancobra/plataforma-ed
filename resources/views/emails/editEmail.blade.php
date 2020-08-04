@@ -10,40 +10,42 @@
 
 Altere seu email
 <a href="/emails/"><br><br>
-	<button type="button" class="button">VER EMAILS</button> </a>
+	<button type="button" class="button-header">VER EMAILS</button> </a>
 
 @endsection
 
 @section('main')
-<form action=" {{ route('user.update', ['user' =>$user->id]) }} " method="post" style="padding: 40px;color: #874983">
+<div style="padding-left: 6%">
+<form action=" {{ route('emails.update', ['email' =>$email->id]) }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	@method('put')
-	<label for="" >Nome: </label>
-	<input type="text" name="name" value="{{ $user->name }}">
+	<label class="labels" for="" >EMAIL: </label>
+	<input class="fields" type="text" name="email" value="{{ $email->email }} ">
+	<br>
+	<label class="labels" for="" >DONO: </label>
+	<input class="fields" type="text" name="name" value="">
+	<br>
+	<label class="labels" for="">SENHA PADRÃO: </label>
+	<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }} ">   
+	<br>
+	<label class="labels" for="">ESPAÇO (GB): </label>
+	<input class="fields" type="number" name="storage" value="{{ $email->storage }}">   
+	<br>
+	<label class="labels" for="status">SITUAÇÃO: </label>
+	<select class="fields" name="status">
+		<option value="{{ $email->status }}">{{ $email->status}}</option>
+		@if ($email->status == "desativado")
+		<option value="ativo">ativo</option>
+		@else
+		<option value="desativado">desativado</option>
+		@endif
+		
+	
+	
+	</select>
 	<br>
 	<br>
-	<label for="" >Email: </label>
-	<input type="text" name="email" value="{{ $user->email }} ">
-	<br>
-	<br>
-	<label for="">Domínio: </label>
-	<input type="text" name="dominio" value="{{ $user->dominio }} ">   
-	<br>
-	<br>
-	<label for="">Perfil: </label>
-	<input type="text" name="perfil" value="{{ $user->perfil }} ">   
-	<br>
-	<br>
-	<label for="">Senha padrão: </label>
-	<input type="text" name="default_password" value="{{ $user->default_password }} ">   
-	<br>
-	<br>
-	<label for="">Alterar senha: </label>
-	<input type="text" name="password" value="">   
-	<br>
-	<br>
-	<input type="submit" value="Atualizar dados do usuário">
-
+	<input class="button-header" type="submit" value="ATUALIZAR EMAIL">
 </form>
 </div>     
 @endsection

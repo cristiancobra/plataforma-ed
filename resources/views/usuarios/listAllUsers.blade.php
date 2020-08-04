@@ -7,13 +7,14 @@
 @endsection
 
 @section('description')
-
-Aumente sua <a style="color: yellow" href="/usuarios/novo">EQUIPE</a>
+Aumente sua EQUIPE
+<a href="/usuarios/novo"><br><br>
+<button type="button" class="button">ADICIONAR USUÁRIO EMAIL</button> </a>
 
 @endsection
 
 @section('main')
-
+<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Sua equipe possui atualmente <span class="labels">{{$totalUsers }} colaboradores</span></p>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Colaborador </b></td>

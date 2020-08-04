@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\AccountModel;
-use App\Models\EmailModel;
+use App\Models\Email;
 
 class User extends Authenticatable {
 
@@ -40,7 +40,7 @@ class User extends Authenticatable {
 	];
 
 	public function emails() {
-		return $this->hasMany(Models\EmailModel::class, 'user_id', 'id');
+		return $this->hasMany(Models\Email::class, 'user_id', 'id');
 	}
 
 	public function accounts() {

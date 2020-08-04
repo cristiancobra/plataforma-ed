@@ -10,12 +10,12 @@
 
 Precisa de um novo email?
 <a href="/emails/novo"><br><br>
-	<button type="button" class="button">SOLICITAR EMAIL</button> </a>
+	<button type="button" class="button-header">SOLICITAR EMAIL</button> </a>
 
 @endsection
 
 @section('main')
-
+<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Você possui <span class="labels">{{$totalEmails }} contas de email</span></p>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Conta</b></td>
@@ -46,7 +46,11 @@ Precisa de um novo email?
 		<td class="table-list-left"> <b>{{ $user->name }} </b></td>
 		<td class="table-list-center"><b> 1GB </b></td>
 		<td class="table-list-center"><b>{{ $email->email_password }} </b></td>
-		<td class="table-list-center"><b>{{ $email->status  }}</b></td>
+		@if ($email->status == "desativado")
+		<td class="button-delete"><b>{{ $email->status  }}</b></td>
+		@else
+		<td class="button-active"><b>{{ $email->status  }}</b></td>
+		@endif
 	</tr>
 	@endforeach
 </table>
