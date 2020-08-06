@@ -55,7 +55,6 @@ class UserController extends Controller {
 	public function store(Request $request) {
 		$user = new User();
 		$user->name = ucfirst($request->novo_nome) . " " . ucfirst($request->novo_sobrenome);
-		$user->accounts = $request->account;
 		$user->perfil = $request->perfil;
 		$user->email = strtolower($request->novo_nome) . "." . strtolower($request->novo_sobrenome . "@empresadigital.net.br");
 		$user->default_password = $request->password;
@@ -71,6 +70,7 @@ class UserController extends Controller {
 			'senha' => $user->default_password,
 			'dominio' => $user->dominio,
 			'nome_usuario' => $nome_usuario,
+			'user' => Auth::user(),
 		]);
 	}
 

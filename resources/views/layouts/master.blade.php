@@ -92,14 +92,14 @@
 				</div>
 
 				<button class="dropdown-btn">
-					<i class='fas fa-user-circle'></i>
+					<i class='fa fa-comments'></i>
 					COMUNICAÇÃO
 					<i class="fa fa-caret-down"></i>
 				</button>
 
 				<div class="dropdown-container">
 					<a class="sidebar-subitem"href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
-					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fas fa-envelope" style="margin-right: 8px"></i>MENSAGENS</a>
+					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
 				</div>
 
 				<a href="{{ route('user.index') }}">
@@ -145,7 +145,7 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DContacts%26action%3Dindex%26parentTab%3DMarketing" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS</a>
+					<a class="sidebar-subitem" href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DContacts%26action%3Dindex%26parentTab%3DMarketing" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS</a>
 					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3DEditView%26return_module%3DLeads%26return_action%3DDetailView" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
 					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
 					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
@@ -174,18 +174,20 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a href="'/redes-sociais'" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
-					<a href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
-					<a href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR USUÁRIO</a>
-					<a href="/usuarios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>USUÁRIOS</a>
-					<a href="/accounts"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMPRESAS</a>
-					<a href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL</a>			
+					<a class="sidebar-subitem" href="/redes-sociais" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
+					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
+					<a class="sidebar-subitem" href="/loginFB"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FACEBOOK</a>
+					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
+					<a class="sidebar-subitem" href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR USUÁRIO</a>
+					<a class="sidebar-subitem" href="/usuarios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>USUÁRIOS</a>
+					<a class="sidebar-subitem" href="/accounts"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMPRESAS</a>
+					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL</a>			
 					login: solucoes
-					<a href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES</a>
+					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES</a>
 					login: admin
-					<a href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
-					<a href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FUNIL DE VENDAS</a>
-					<a href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
+					<a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
+					<a class="sidebar-subitem" href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FUNIL DE VENDAS</a>
+					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 				</div>
 
 				@endif

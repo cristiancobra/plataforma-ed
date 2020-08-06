@@ -22,9 +22,15 @@ Altere seu email
 	<label class="labels" for="" >EMAIL: </label>
 	<input class="fields" type="text" name="email" value="{{ $email->email }} ">
 	<br>
-	<label class="labels" for="" >DONO: </label>
-	<input class="fields" type="text" name="name" value="">
-	<br>
+		<label class="labels" for="" >DONO: </label>
+		<select name="user_id">
+			@foreach ($users as $user)
+			<option  class="fields" value="{{ $user->id }}">
+				{{ $user->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
 	<label class="labels" for="">SENHA PADRÃO: </label>
 	<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }} ">   
 	<br>

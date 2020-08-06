@@ -58,13 +58,16 @@ Route::get('/redes-sociais', function () {
 	return view('socialmedia.workflowSocialmedia');
 });
 
+// ------------------------------------------------ REPORTS ------------------------------------------------
+Route::resource('relatorios', 'ReportController')->names('reports')->parameters(['relatorios' => 'report']);
+
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
-// ================================ TAREFAS / TASKS ===================
+// ================================ TASKS ===================
 Route::get('/minhas-tarefas', function () {
-	return view('tarefas.listAllTaskss');
+	return view('tarefas.listAllTasks');
 });
 
 // ================================ TRANSAÇÕES AKAUNTING ===================
@@ -72,3 +75,6 @@ Route::get('transactions', 'Transactions\\TransactionController@Index');
 
 // ================================ USUÁRIO ===================
 Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->parameters(['usuarios' => 'user']);
+
+
+Route::get('loginFB', 'Socialmedia\\FacebookController@index')->name('facebook');

@@ -1,42 +1,42 @@
-@extends('layouts/create')
+@extends('layouts/master')
 
-@section('title','Adicionar usuário')
+@section('title','ADICIONAR COLABORADOR')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/colaborador.png') }} 
+@endsection
 
+@section('description')
 
-<br><br><br><p class="titulo-branco"> Criar nova Plataforma</p>
-<p class="destaque_amarelo"><a style="color: yellow" href="/usuarios">VER TODOS OS USUÁRIOS</a></p>
+Solicite seu email
+<a href="/emails/"><br><br>
+	<button type="button" class="button-header">VER EMAILS</button> </a>
+
+@endsection
+
+@section('main')
 <br>
-<form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: white">
+<br>
+<div style="padding-left: 6%">
+	<form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
-	<label for="" >Primeiro nome: </label>
-	<input type="text" name="novo_nome">
+	<label class="labels" for="" >Primeiro nome: </label>
+	<input class="fields" type="text" name="novo_nome">
 	<br>
 	<br>
-	<label for="" >Último nome: </label>
-	<input type="text" name="novo_sobrenome">
+	<label class="labels"for="" >Último nome: </label>
+	<input class="fields" type="text" name="novo_sobrenome">
 	<br>
 	<br>
-	<label for="" >Nome da Empresa: </label>
-	<input type="text" name="account">
+	<label class="labels"'for="" >Perfil: </label>
+	<input class="fields"  type="text" name="perfil">
 	<br>
 	<br>
-	<label for="" >Perfil: </label>
-	<input type="text" name="perfil">
+	<label class="labels"for="">Senha do usuário: </label>
+	<input class="fields" type="password" name="password" value="{{ $newUser->gerarSenha(8, true, true, true, true) }}">   
 	<br>
 	<br>
-	<label for="">Senha do usuário: </label>
-	<input type="password" name="password" value="{{ $newUser->gerarSenha(8, true, true, true, true) }}">   
-	<br>
-	<br>
-	<input type="submit" value="Criar plataforma">
-
+	<input class="button-header" type="submit" value="CRIAR PLATAFORMA">
 </form>
 </div>     
-
-<div class="imagem">
-	<img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-</div>
-
 @endsection

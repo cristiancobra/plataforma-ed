@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
-use App\Models\AccountModel;
+use App\Models\Account;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -17,7 +17,7 @@ class AccountController extends Controller
      */
     public function index()
     {
-		$accounts = AccountModel::all();
+		$accounts = Account::all();
 	//	$emails = User::emails();
 		$user = Auth::user();
 
@@ -35,7 +35,7 @@ class AccountController extends Controller
      */
     public function create()
     {
-		$account = new \App\Models\AccountModel();
+		$account = new \App\Models\Account();
 		$user = Auth::user();
 		//$users = User::all()->with(accounts);
 		//$accounts = $users->accounts()->get();
@@ -56,7 +56,7 @@ class AccountController extends Controller
      */
     public function store(Request $request)
     {
-		$account = new \App\Models\AccountModel();
+		$account = new \App\Models\Account();
 		$account->name = ($request->name);
 		$account->email = ($request->email);
 		$account->phone = ($request->phone);
@@ -70,7 +70,7 @@ class AccountController extends Controller
 		$account->save();
 		
 
-		$accounts = \App\Models\AccountModel::all();
+		$accounts = \App\Models\Account::all();
 		$user = Auth::user();
 
 		return view('accounts.listAllAccounts', [
@@ -82,14 +82,14 @@ class AccountController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\AccountsModel  $accountsModel
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(AccountModel $accountModel)
+    public function show(Account $account)
     {
 		$user = Auth::user();
 		return view('accounts.detailsAccount', [
-			'account' => $accountModel,
+			'account' => $account,
 			'user' => $user,			
 		]);
 	}
@@ -97,14 +97,14 @@ class AccountController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\AccountsModel  $accountsModel
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(AccountModel $accountModel)
+    public function edit(Account $account)
     {
 		$accounts = $user->accounts()->get();
 		return view('usuarios.editAccount', [
-			'account' => $accountModel,
+			'account' => $account,
 			'accounts' => $accounts,
 		]);
 	}
@@ -113,10 +113,10 @@ class AccountController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\AccountsModel  $accountsModel
+     * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AccountModel $accountModel)
+    public function update(Request $request, Account $account)
     {
         //
     }
@@ -124,10 +124,10 @@ class AccountController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\AccountsModel  $accountsModel
+     * @param  \App\Models\AccountsModel  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AccountModel $accountModel)
+    public function destroy(Account $account)
     {
         //
     }

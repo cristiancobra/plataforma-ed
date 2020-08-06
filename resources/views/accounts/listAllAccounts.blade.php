@@ -11,11 +11,9 @@
 Organize seus recursos por empresa
 <a href="/accounts/novo"><br><br>
 	<button type="button" class="button">SOLICITAR NOVA EMPRESA</button> </a>
-
 @endsection
 
 @section('main')
-
 <table style="color:#874983; text-align: center; margin: 5%;  font-weight: bold;font-size: 20px">
 	<tr>
 		<td   style="text-align:center"> <b>ID</b></td>

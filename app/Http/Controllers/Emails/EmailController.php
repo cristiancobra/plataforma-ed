@@ -40,8 +40,8 @@ class EmailController extends Controller {
 	public function create() {
 		$email = new \App\Models\Email();
 		$user = Auth::user();
-		$users = User::all();
-		$accounts = \App\Models\Account::all();
+		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('emails.createEmail', [
 			'user' => $user,
@@ -60,7 +60,6 @@ class EmailController extends Controller {
 	public function store(Request $request) {
 		$email = new \App\Models\Email();
 		$email->user_id = ($request->user_id);
-		$email->account_id = ($request->account_id);
 		$email->email = ($request->email);
 		$email->email_password = ($request->email_password);
 		$email->storage = ($request->storage);
@@ -108,9 +107,11 @@ class EmailController extends Controller {
 	 */
 	public function edit(Email $email) {
 		$user = Auth::user();
+		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 		$emails = Email::all();
 		return view('emails.editEmail', [
 			'user' => $user,
+			'users' => $users,
 			'email' => $email,
 			'emails' => $emails,
 		]);

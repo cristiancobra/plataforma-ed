@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','Email')
+@section('title','RELATÓRIO')
 
 @section('image-top')
 {{ asset('imagens/email.png') }} 
@@ -8,29 +8,30 @@
 
 @section('description')
 
-Precisa de um novo email?
-<a href="/emails"><br><br>
-	<button type="button" class="button-header">VER TODOS OS EMAILS</button> </a>
-
+Decida suas estratégias baseado em dados
+<a href="/relatorios"><br><br>
+	<button type="button" class="button-header">VER TODOS OS RELATÓRIOS</button> </a>
 @endsection
 
 @section('main')
 <br>
 <br>
 <div style="padding-left: 6%">
-<h1 class="name"> {{ $email->email }}  </h1>
+<h1 class="name"> {{ $report->name }}  </h1>
 <p class="labels">DONO:<span class="fields">{{ $user->name }}</span></p>
-<p class="labels">SENHA PADRÃO:<span class="fields">  {{ $email->email_password }} </span></p>
-<p class="labels">ESPAÇO (GB):<span class="fields">  {{ $email->storage }} </span></p>
-<p class="labels">SITUAÇAO:<span class="fields">  {{ $email->status }} </span></p>
+<p class="labels">DATA:<span class="fields">  {{ $report->date}} </span></p>
+<p class="labels">LOGOMARCA:<span class="fields">  {{ $report->logo}} </span></p>
+<p class="labels">PALETA:<span class="fields">  {{ $report->palette}} </span></p>
+<p class="labels">INSTAGRAM:<span class="fields">  {{ $report->instagram_businness}} </span></p>
+<p class="labels">SITUAÇAO:<span class="fields">  {{ $report->status }} </span></p>
 <br>
 <p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
 
 <div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-	<button class="button"><a href=" {{ route('emails.edit', ['email' => $email->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
+	<button class="button"><a href=" {{ route('reports.edit', ['report' => $report->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
 </div>
 <div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
-	<form action="{{ route('emails.destroy', ['email' => $email->id]) }}" method="post">
+	<form action="{{ route('reports.destroy', ['report' => $report->id]) }}" method="post">
 		@csrf
 		@method('delete')
 		<input class="button-delete" type="submit" value="APAGAR">
