@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Socialmedia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Facebook;
 
 class FacebookController extends Controller {
 
