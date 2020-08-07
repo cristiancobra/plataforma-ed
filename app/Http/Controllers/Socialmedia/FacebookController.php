@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Socialmedia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Facebook;
+use Facebook\Facebook; 
 
 class FacebookController extends Controller {
 
@@ -32,9 +32,9 @@ class FacebookController extends Controller {
 
 	public function getFacebookResources() {
 
-//require_once __DIR__ . '/vendor/autoload.php'; // change path as needed
+require_once __DIR__ . '/vendor/autoload.php'; // change path as needed
 
-		$fb = new \Facebook\Facebook([
+		$fb = new Facebook\Facebook([
 			'app_id' => '904299616735303',
 			'app_secret' => '989dfd2f25ca0a3f37134e47f99e11c1',
 			'default_graph_version' => 'v2.10',

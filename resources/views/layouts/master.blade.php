@@ -176,7 +176,7 @@
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="/redes-sociais" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
-					<a class="sidebar-subitem" href="/loginFB"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FACEBOOK</a>
+					<a class="sidebar-subitem" href="/facebook"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FACEBOOK</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR USUÁRIO</a>
 					<a class="sidebar-subitem" href="/usuarios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>USUÁRIOS</a>

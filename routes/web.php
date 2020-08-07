@@ -77,4 +77,5 @@ Route::get('transactions', 'Transactions\\TransactionController@Index');
 Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->parameters(['usuarios' => 'user']);
 
 
-Route::get('loginFB', 'Socialmedia\\FacebookController@index')->name('facebook');
+Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
+//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
