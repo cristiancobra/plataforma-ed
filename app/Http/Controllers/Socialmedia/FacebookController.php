@@ -22,7 +22,7 @@ class FacebookController extends Controller {
 		$helper = $fb->getRedirectLoginHelper();
 
 		$permissions = ['email']; // Optional permissions
-		$loginUrl = $helper->getLoginUrl(route('facebook'), $permissions);
+		$loginUrl = $helper->getLoginUrl(route('facebook-callback'), $permissions);
 
 		return view('socialmedia.loginFacebook', [
 			'loginUrl' => $loginUrl,
