@@ -24,7 +24,7 @@ Meus relatórios
 <a href=" {{ $loginUrl }} ">
 	<button type="button" class="button-header">
 		LOGAR COM FACEBOOK
-	</button> </a>;
+	</button> </a>
 	{{$loginUrl}}
 </center>
 @endsection
