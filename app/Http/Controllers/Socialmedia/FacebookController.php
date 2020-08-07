@@ -32,7 +32,7 @@ class FacebookController extends Controller {
 	}
 
 	public function callback() {
-	//	$user = Auth::user();
+		$user = Auth::user();
 		session_start();
 		$fb = new \Facebook\Facebook([
 			'app_id' => '904299616735303',
@@ -59,6 +59,11 @@ class FacebookController extends Controller {
 
 			// Now you can redirect to another page and use the
 			// access token from $_SESSION['facebook_access_token']
+
+			return view('socialmedia.fb-callback', [
+				'accessToken' => $accessToken,
+				'user' => $user,
+			]);
 		}
 	}
 
