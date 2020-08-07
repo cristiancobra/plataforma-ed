@@ -13,6 +13,7 @@ class FacebookController extends Controller {
 
 	public function index() {
 		$user = Auth::user();
+		session_start();
 		$fb = new \Facebook\Facebook([
 			'app_id' => '904299616735303',
 			'app_secret' => '989dfd2f25ca0a3f37134e47f99e11c1',
@@ -32,6 +33,7 @@ class FacebookController extends Controller {
 
 	public function callback() {
 	//	$user = Auth::user();
+		session_start();
 		$fb = new \Facebook\Facebook([
 			'app_id' => '904299616735303',
 			'app_secret' => '989dfd2f25ca0a3f37134e47f99e11c1',
