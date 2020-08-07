@@ -40,7 +40,6 @@ class FacebookController extends Controller {
 			'default_graph_version' => 'v2.10',
 		]);
 
-
 		$helper = $fb->getRedirectLoginHelper();
 
 		try {
@@ -82,7 +81,7 @@ class FacebookController extends Controller {
 		var_dump($tokenMetadata);
 
 // Validation (these will throw FacebookSDKException's when they fail)
-		$tokenMetadata->validateAppId($config['app_id']);
+		$tokenMetadata->validateAppId($config['904299616735303']);
 // If you know the user ID this access token belongs to, you can validate it here
 //$tokenMetadata->validateUserId('123');
 		$tokenMetadata->validateExpiration();
