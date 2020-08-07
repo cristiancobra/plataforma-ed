@@ -78,5 +78,5 @@ Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->paramete
 
 
 Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
-Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook-callback');
+Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
 //Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');

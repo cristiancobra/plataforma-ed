@@ -29,6 +29,25 @@ class FacebookController extends Controller {
 			'user' => $user,
 		]);
 	}
+	
+		public function callback() {
+		$user = Auth::user();
+//		$fb = new \Facebook\Facebook([
+//			'app_id' => '904299616735303',
+//			'app_secret' => '989dfd2f25ca0a3f37134e47f99e11c1',
+//			'default_graph_version' => 'v2.10',
+//		]);
+//
+//		$helper = $fb->getRedirectLoginHelper();
+//
+//		$permissions = ['email']; // Optional permissions
+//		$loginUrl = $helper->getLoginUrl(route('facebook-callback'), $permissions);
+
+		return view('socialmedia.fb-callback', [
+			'loginUrl' => $loginUrl,
+			'user' => $user,
+		]);
+	}
 
 	public function getFacebookResources() {
 
