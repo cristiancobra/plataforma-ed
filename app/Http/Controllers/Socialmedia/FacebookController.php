@@ -44,7 +44,7 @@ class FacebookController extends Controller {
 //		$loginUrl = $helper->getLoginUrl(route('facebook-callback'), $permissions);
 
 		return view('socialmedia.fb-callback', [
-			'loginUrl' => $loginUrl,
+//			'loginUrl' => $loginUrl,
 			'user' => $user,
 		]);
 	}

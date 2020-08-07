@@ -25,5 +25,6 @@ Meus relatórios
 	<button type="button" class="button-header">
 		LOGAR COM FACEBOOK
 	</button> </a>;
+	{{$loginUrl}}
 </center>
 @endsection
