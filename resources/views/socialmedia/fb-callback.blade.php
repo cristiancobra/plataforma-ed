@@ -38,6 +38,9 @@ Meus relatórios
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-oiiiii {{$accessToken}}
+Nome: {{$me->name}}<br>
+Sobre: {{$me->about}}<br>
+Data de nascimento: {{$me->abbirthday}}<br>
+
 
 @endsection
