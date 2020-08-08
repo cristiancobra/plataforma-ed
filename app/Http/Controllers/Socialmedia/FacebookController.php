@@ -71,7 +71,7 @@ class FacebookController extends Controller {
 // Logged in
 	//	echo '<h3>Access Token</h3>';
 	//	var_dump($accessToken->getValue());
-		echo '<h3>Seu token de acesso é'.$accessToken.'</h3>';
+	//	echo '<h3>Seu token de acesso é'.$accessToken.'</h3>';
 
 // The OAuth 2.0 client handler helps us manage access tokens
 		$oAuth2Client = $fb->getOAuth2Client();
@@ -80,7 +80,7 @@ class FacebookController extends Controller {
 		$tokenMetadata = $oAuth2Client->debugToken($accessToken);
 	//	echo '<h3>Metadata</h3>';
 	//	var_dump($tokenMetadata);
-		echo '<h3>Seu token de acesso é'.$tokenMetadata.'</h3>';
+	//	echo '<h3>Seu token de acesso é'.$tokenMetadata.'</h3>';
 
 // Validation (these will throw FacebookSDKException's when they fail)
 //		$tokenMetadata->validateAppId($config['app_id']);
@@ -106,10 +106,15 @@ class FacebookController extends Controller {
 // User is logged in with a long-lived access token.
 // You can redirect them to a members-only page.
 //header('Location: https://example.com/members.php');
+		
+		$response = $fb->get('/me', $accessToken);
+		$me = $response->getGraphUser();
 
 		return view('socialmedia.fb-callback', [
 			'accessToken' => $accessToken,
 			'user' => $user,
+			'me' => $me,
+			
 		]);
 	}
 
