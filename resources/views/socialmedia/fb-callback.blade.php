@@ -38,9 +38,9 @@ Meus relatórios
    }(document, 'script', 'facebook-jssdk'));
 </script>
 
-Nome: {{$me->name}}<br>
-Sobre: {{$me->about}}<br>
-Data de nascimento: {{$me->abbirthday}}<br>
-
+Sobre: {{$me['picture']}}<br>
+Nome: {{$me['name']}}<br>
+Sobre: {{$me['about']}}<br>
+Data de nascimento: {{$me['birthday']}}<br>
 
 @endsection
