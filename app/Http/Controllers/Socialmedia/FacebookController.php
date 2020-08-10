@@ -107,7 +107,7 @@ class FacebookController extends Controller {
 
 		try {
 			// Returns a `Facebook\Response` object
-			$response = $fb->get('/me?fields=id,name,picture,birthday', $accessToken);
+			$response = $fb->get('/me?fields=id,name,picture,birthday,about', $accessToken);
 		} catch (Facebook\Exception\ResponseException $e) {
 			echo 'Graph returned an error: ' . $e->getMessage();
 			exit;
