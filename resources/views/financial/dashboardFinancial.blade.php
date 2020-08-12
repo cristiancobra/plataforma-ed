@@ -17,20 +17,20 @@ XXXXXX
 <center>
 	<div style="width: 100%;padding-top: 2%">
 		<div class="numbers">
-			<p class="numeros_painel"  style="font-size: 26px">  R$  {{$totalIncomes}}</p>
+			<p class="numeros_painel"  style="font-size: 22px">  R$  {{ number_format($totalIncomes,2,",",".") }}</p>
 			<p class="subtitulo-branco"> entradas</p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
 		</div>
 
 		<div class="numbers">
-			<p class="numeros_painel"  style="font-size: 26px">  R$ {{$totalExpenses}}</p>
+			<p class="numeros_painel"  style="font-size: 22px">  R$ {{ number_format($totalExpenses,2,",",".") }}</p>
 			<p class="subtitulo-branco"> saídas</p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
 		</div>
 
 
 		<div class="numbers">
-			<p class="numeros_painel"  style="font-size: 26px">  R$  {{$total}} </p>
+			<p class="numeros_painel"  style="font-size: 22px">  R$  {{ number_format($total,2,",",".") }} </p>
 			<p class="subtitulo-branco"> saldo</p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
 		</div>
@@ -56,9 +56,9 @@ XXXXXX
 		<td class="table-list-left">{{ $transaction->description  }} </td>
 		<td class="table-list-left">{{ $transaction->paid_at  }} </td>
 		@if ($transaction->type === 'income')
-		<td class="table-list-money-income">+{{ $transaction->amount  }} </td>
+		<td class="table-list-money-income">+{{ number_format($transaction->amount,2,",",".") }} </td>
 		@else
-		<td class="table-list-money-expense">-{{ $transaction->amount  }} </td>
+		<td class="table-list-money-expense">-{{ number_format($transaction->amount,2,",",".") }} </td>
 		@endif		
 		<td class="table-list-left">
 			<button class="button">
