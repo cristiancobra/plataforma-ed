@@ -71,12 +71,14 @@ Route::get('/minhas-tarefas', function () {
 });
 
 // ================================ TRANSAÇÕES AKAUNTING ===================
-Route::get('transactions', 'Transactions\\TransactionController@Index');
+Route::get('financeiro', 'Financial\\TransactionController@dashboard');
+Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
 
 // ================================ USUÁRIO ===================
 Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->parameters(['usuarios' => 'user']);
 
 
-Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
-Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
+Route::resource('facebooks', 'Facebook\\FacebookController')->names('facebook');
+//Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
+//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
 //Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');

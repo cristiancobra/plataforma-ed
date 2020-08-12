@@ -24,7 +24,6 @@ Aumente sua EQUIPE
 			<td   class="table-list-header"><b>Valor</b></td>
 		</tr>
 
-
 	@foreach ($transactions as $transaction)
 
 	<tr style="font-size: 16px">
@@ -44,20 +43,9 @@ Aumente sua EQUIPE
 				@method('delete')
 				<input type="submit" value="Remover">
 			</form>
-
-
-
 		</td>
 	</tr>
-
-
 	@endforeach
-
 </table>
-
-
-<div class="imagem">
-	<img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-</div>
 
 @endsection

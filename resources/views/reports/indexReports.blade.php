@@ -15,7 +15,7 @@ Meus relatórios
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Você possui <span class="labels">{{ $totalReports }} relatório(s)</span></p>
+<p class="subtitulo-roxo" style="text-align: right">Você possui <span class="labels">{{ $totalReports }} relatório(s)</span></p>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>VER</b></td>

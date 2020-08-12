@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Facebook extends Model
+{
+	protected $table = 'facebooks';
+	
+    	protected $fillable = [
+		'id', 'user_id', 'name', 'status', 'page_name','linked_instagram','same_site_name','about','feed_content','harmonic_feed','SEO_descriptions','feed_images',
+			'stories','interaction','pay_ads', 'value_ads'
+	];
+
+	public function users() {
+		return $this->belongsTo(User::class, 'user_id', 'id');
+	}
+}

@@ -54,10 +54,16 @@
 								{{ Auth::user()->name }} <span class="caret"></span>
 							</a>
 
+							<!--Menu do usuário logado--> 
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+								<a class="dropdown-item" href="{{ route('user.show', $user->id) }} ">
+									<i class="fas fa-user-astronaut" style="margin-right: 4px"></i>Perfil</a>
+								<a class="dropdown-item" href="https://financeiro.empresadigital.net.br" target="_blank">
+									<i class="fas fa-piggy-bank" style="margin-right: 4px"></i>Débitos e serviços</a>
 								<a class="dropdown-item" href="{{ route('logout') }}"
 								   onclick="event.preventDefault();
 	document.getElementById('logout-form').submit();">
+									<i class="fas fa-sign-out-alt" style="margin-right: 4px"></i>
 									{{ __('Logout') }}
 								</a>
 								<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -76,20 +82,9 @@
 
 				<a href='/'>
 					<button class="sidebar-item">
-						<i class="fas fa-rocket"></i>  INÍCIO
+						<i class="fas fa-rocket"></i>
+						INÍCIO
 					</button></a>
-
-				<button class="dropdown-btn">
-					<i class='fas fa-user-circle'></i>
-					MINHA CONTA
-					<i class="fa fa-caret-down"></i>
-				</button>
-
-				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{ route('user.show', $user->id) }} "><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
-					<a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS EXTRAS</a>
-					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
-				</div>
 
 				<button class="dropdown-btn">
 					<i class='fa fa-comments'></i>
@@ -100,11 +95,13 @@
 				<div class="dropdown-container">
 					<a class="sidebar-subitem"href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
 					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
+					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/" target="_blank"><i class="fas cloud" style="margin-right: 8px"></i>NUVEM (ARQUIVOS)</a>
 				</div>
 
 				<a href="{{ route('user.index') }}">
 					<button class="sidebar-item">
-						<i class="fa fa-users"></i>  EQUIPE
+						<i class="fa fa-users"></i> 
+						EQUIPE
 					</button></a>
 
 				<button class="dropdown-btn">
@@ -162,10 +159,11 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a href="https://financeiro.empresadigital.net.br/" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>PAINEL</a>
-					<a href="https://financeiro.empresadigital.net.br/sales/invoices/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA VENDA</a>
-					<a href="https://financeiro.empresadigital.net.br/purchases/bills/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA DESPESA</a>
-					<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/administrativo/financeiro" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
+					<a class="sidebar-subitem" href="/financeiro"><i class="fas fa-user-plus" style="margin-right: 8px"></i>PAINEL</a>
+					<a class="sidebar-subitem" href="/transactions"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
+					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/sales/invoices/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA VENDA</a>
+					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/purchases/bills/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA DESPESA</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/administrativo/financeiro" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>
 
 				<button class="dropdown-btn">
@@ -176,7 +174,6 @@
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="/redes-sociais" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
-					<a class="sidebar-subitem" href="/facebook"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FACEBOOK</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR USUÁRIO</a>
 					<a class="sidebar-subitem" href="/usuarios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>USUÁRIOS</a>
@@ -188,6 +185,16 @@
 					<a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
 					<a class="sidebar-subitem" href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FUNIL DE VENDAS</a>
 					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
+				</div>
+
+				<button class="dropdown-btn">
+					<i class='fas fa-funnel-dollar'></i>
+					REDES SOCIAIS 
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a class="sidebar-subitem" href="{{ route('facebook.index') }}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FACEBOOK LOGIN</a>
+					<a class="sidebar-subitem" href="{{ route('facebook.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>FACEBOOK</a>
 				</div>
 
 				@endif

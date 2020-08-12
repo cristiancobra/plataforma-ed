@@ -83,7 +83,7 @@ class FacebookController extends Controller {
 // Validation (these will throw FacebookSDKException's when they fail)
 //		$tokenMetadata->validateAppId($config['app_id']);
 // If you know the user ID this access token belongs to, you can validate it here
-//$tokenMetadata->validateUserId('123');
+// $tokenMetadata->validateUserId('123');
 		$tokenMetadata->validateExpiration();
 
 		if (!$accessToken->isLongLived()) {
@@ -107,7 +107,7 @@ class FacebookController extends Controller {
 
 		try {
 			// Returns a `Facebook\Response` object
-			$response = $fb->get('/me?fields=id,name,picture,birthday,about', $accessToken);
+			$response = $fb->get('/me?fields=id,name,first_name,about,picture{url},birthday,about', $accessToken);
 		} catch (Facebook\Exception\ResponseException $e) {
 			echo 'Graph returned an error: ' . $e->getMessage();
 			exit;

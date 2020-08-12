@@ -25,7 +25,7 @@ class EmailController extends Controller {
 			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
 		}
 
-		return view('emails.listAllEmails', [
+		return view('emails.indexEmails', [
 			'emails' => $emails,
 			'totalEmails' => $totalEmails,
 			'user' => $user,
@@ -70,8 +70,8 @@ class EmailController extends Controller {
 		$user = Auth::user();
 
 		return redirect()->action('Emails\\EmailController@index');
-		
-//		return view('emails.listAllEmails', [
+
+//		return view('emails.indexEmails', [
 //			'user' => $user,
 //			'user_id' => $email->user_id,
 //			'account_id' => $email->account_id,
@@ -109,11 +109,20 @@ class EmailController extends Controller {
 		$user = Auth::user();
 		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 		$emails = Email::all();
+
+		if ($user->perfil == "administrador") {
+			$emails = Email::where('id', '>=', 0)->orderBy('EMAIL', 'asc')->get();
+			$totalEmails = $emails->count();
+		} else {
+			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
+		}
+
 		return view('emails.editEmail', [
 			'user' => $user,
 			'users' => $users,
 			'email' => $email,
 			'emails' => $emails,
+			'totalEmails' => $totalEmails,
 		]);
 	}
 
@@ -131,13 +140,13 @@ class EmailController extends Controller {
 		$email->storage = $request->storage;
 		$email->status = $request->status;
 		$email->save();
-		
+
 		$user = Auth::user();
 
 		return view('emails.detailsEmail', [
 			'user' => $user,
 			'email' => $email,
-			//'emails' => $emails,
+				//'emails' => $emails,
 		]);
 	}
 
