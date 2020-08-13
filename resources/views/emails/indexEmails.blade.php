@@ -32,7 +32,7 @@ Precisa de um novo email?
 				<a href=" https://empresadigital.net.br/webmail" target="_blank"  style="text-decoration: none;color: black">
 					<i class='fa fa-envelope'></i></a>
 			</button>
-			
+
 			@if ($user->perfil == "administrador")
 			<button class="button">
 				<a href=" {{ route('emails.show', ['email' => $email->id]) }}" style="text-decoration: none;color: black">
@@ -41,8 +41,16 @@ Precisa de um novo email?
 			@endif
 			{{ $email->email}}
 		</td>
-		
-		
+
+		<td class="table-list-left">
+			@foreach ($user->accounts as $account)
+			<button class="button">
+				<a href=" {{ route('accounts.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
+					<i class='fa fa-eye'></i></a>
+			</button> {{ $account->name }}</li><br>
+			@endforeach
+		</td>
+
 		<td class="table-list-left"> <b>{{ $user->name }} </b></td>
 		<td class="table-list-center"><b>{{ $email->storage}}</b></td>
 		<td class="table-list-center"><b>{{ $email->email_password }} </b></td>

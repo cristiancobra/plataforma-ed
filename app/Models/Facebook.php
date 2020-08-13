@@ -3,17 +3,22 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\User;
 
-class Facebook extends Model
-{
+class Facebook extends Model {
+
 	protected $table = 'facebooks';
-	
-    	protected $fillable = [
-		'id', 'user_id', 'name', 'status', 'page_name','linked_instagram','same_site_name','about','feed_content','harmonic_feed','SEO_descriptions','feed_images',
-			'stories','interaction','pay_ads', 'value_ads'
+	protected $fillable = [
+		'id', 'user_id', 'name', 'status', 'page_name', 'linked_instagram', 'same_site_name', 'about', 'feed_content', 'harmonic_feed', 'SEO_descriptions', 'feed_images',
+		'stories', 'interaction', 'pay_ads', 'value_ads', 'URL_name'
 	];
 
 	public function users() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
+
+	public function accounts() {
+		return $this->hasMany(Account::class, 'user_id', 'id');
+	}
+
 }

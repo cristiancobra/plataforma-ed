@@ -20,8 +20,7 @@ Acompanhe suas páginas do Face
 	<tr>
 		<td   class="table-list-header"><b>Nome da página</b></td>
 		<td   class="table-list-header"><b>Dono </b></td>
-		<td   class="table-list-header"><b>Empressa </b></td>
-		<td   class="table-list-header"><b>Senha</b></td>
+		<td   class="table-list-header"><b>Empresa </b></td>
 		<td   class="table-list-header"><b>Status</b></td>
 	</tr>
 
@@ -29,23 +28,26 @@ Acompanhe suas páginas do Face
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button">
-				<a href=" https://empresadigital.net.br/webmail" target="_blank"  style="text-decoration: none;color: black">
-					<i class='fa fa-envelope'></i></a>
+				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
+					<i class='fa fa-eye'></i></a>
 			</button>
-			
 			@if ($user->perfil == "administrador")
 			<button class="button">
-				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
 					<i class='fa fa-cogs'></i></a>
 			</button>
 			@endif
-			{{ $facebook->email}}
+			{{ $facebook->page_name}}
 		</td>
-		
-		
-		<td class="table-list-left"> <b>{{ $facebook->page_name }} </b></td>
-		<td class="table-list-center"><b>{{ $facebook->storage}}</b></td>
-		<td class="table-list-center"><b>{{ $facebook->email_password }} </b></td>
+		<td class="table-list-center"><b>{{ $facebook->users()->first()->name}}</b></td>
+		<td class="table-list-left">
+			@foreach ($accounts as $account)
+			<button class="button">
+				<a href=" {{ route('accounts.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
+					<i class='fa fa-eye'></i></a>
+			</button> {{ $account->name }}</li><br>
+			@endforeach
+		</td>
 		@if ($facebook->status == "desativado")
 		<td class="button-disable"><b>{{ $facebook->status  }}</b></td>
 		@elseif ($facebook->status == "ativo")

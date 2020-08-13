@@ -16,6 +16,8 @@ class CreateFacebooksTable extends Migration {
 			$table->id();
 			$table->foreignId('user_id')->constrained();
 			$table->string('page_name');
+			$table->string('URL_name');
+			$table->string('status');
 			$table->string('linked_instagram');
 			$table->string('same_site_name');
 			$table->string('about');

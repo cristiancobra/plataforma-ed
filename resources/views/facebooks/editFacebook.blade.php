@@ -1,28 +1,30 @@
 @extends('layouts/master')
 
-@section('title','ADICIONARNOVA PÁGINA')
+@section('title','EDITAR FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/colaborador.png') }} 
+{{ asset('imagens/email.png') }} 
 @endsection
 
 @section('description')
 
-Adiciona suas páginas do Face
-<a href="{{ route('facebook.index') }}"><br><br>
-	<button type="button" class="button-header">VER PÁGINAS</button> </a>
+Altere seu email
+<a href="/facebooks/"><br><br>
+	<button type="button" class="button-header">VER FACEBOOKS</button> </a>
 
 @endsection
 
 @section('main')
-<div>
-	<form action=" {{ route('facebook.store') }} " method="post" style="padding: 40px;color: #874983">
-		@csrf
+<br>
+<form action=" {{ route('facebook.update', ['facebook' =>$facebook->id]) }} " method="post" style="padding: 40px;color: #874983">
+	@csrf
+	@method('put')
+	<div style="padding-left: 6%">
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
-		<input type="text" name="page_name" size="20"><span class="fields"></span><br>
+		<input type="text" name="page_name" size="20" value="{{ $facebook->page_name }}"><span class="fields"></span><br>
 		<br>
 		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
-		<input type="text" name="URL_name" size="50"><span class="fields"></span><br>
+		<input type="text" name="URL_name" value="{{ $facebook->URL_name }}" size="50"><span class="fields"></span><br>
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="user_id">
@@ -108,13 +110,15 @@ Adiciona suas páginas do Face
 		</select>
 		<br>
 		<br>
-		<input class="button-header" type="submit" value="CADASTRAR PÁGINA">
-
+		<input class="button-header" type="submit" value="ATUALIZAR FACEBOOK">
 		@if ($user->perfil == "administrador")
-		<a href="https://acadia.mxroute.com:2096/"><br><br>
+		<a href="https://acadia.mxroute.com:2083/cpsess2438558906/frontend/manager/email_accounts/index.html#/list" target="_blank"><br><br>
 			<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
 		<center>login: solucoes</center>
 		@endif
-	</form>
+</form>
+
+
+
 </div>     
 @endsection
