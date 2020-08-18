@@ -16,8 +16,8 @@
 	@method('put')
 	<label class="labels" for="" >DONO: </label>
 	<select class="fields" name="user_id">
-		<option value="{{ $report->user_id }}">
-			{{ $user->name }}
+		<option value="{{ $report->users->id }}">
+			{{ $report->users->name }}
 		</option>
 		@foreach ($users as $user)
 		<option value="{{ $user->id }}">
@@ -53,8 +53,8 @@
 	<input type="radio" name="palette" value="good" checked="checked"><span class="fields">Sim</span><br>
 	<input type="radio" name="palette" value="bad"><span class="fields">Sim, mas precisa de adequações</span><br>
 	<input type="radio" name="palette" value="no"><span class="fields">Não possui</span><br>
-
-	<input type="submit" class="button" value="Atualizar dados">
+	<br>
+	<input type="submit" class="btn btn-secondary" value="Atualizar dados">
 </form>
 </div>     
 @endsection

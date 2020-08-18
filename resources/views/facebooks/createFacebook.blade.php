@@ -88,7 +88,7 @@
 		<input type="radio" name="interaction" value="no"><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
-		<input type="number" name="value_ads" step="10">
+		<input type="number" name="value_ads" step="10" value="0">
 		<br>
 		<br>
 		<label class="labels" for="">STATUS:</label>

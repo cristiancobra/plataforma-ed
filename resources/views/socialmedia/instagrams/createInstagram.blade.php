@@ -102,7 +102,7 @@
 		<input type="radio" name="pay_ads" value="no"><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
-		<input type="number" name="value_ads" step="10">
+		<input type="number" name="value_ads" step="10" value="0">
 		<br>
 		<br>
 		<label class="labels" for="">STATUS:</label>
@@ -114,12 +114,6 @@
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CADASTRAR PÁGINA">
-
-		@if ($user->perfil == "administrador")
-		<a href="https://acadia.mxroute.com:2096/"><br><br>
-			<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
-		<center>login: solucoes</center>
-		@endif
 	</form>
 </div>     
 @endsection

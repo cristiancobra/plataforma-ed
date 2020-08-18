@@ -75,7 +75,7 @@ class ReportController extends Controller {
 		$facebook = Facebook::where('user_id', '=', $request->user_id)->first();
 		if ($facebook == null) {
 			return Redirect::back()
-					->withErrors("Usuário não possui PÁGINA DE FACEBOOK cadastrada.");
+							->withErrors("Usuário não possui PÁGINA DE FACEBOOK cadastrada.");
 		}
 		$report->FB_page_name = ($facebook->page_name);
 		$report->FB_URL_name = ($facebook->URL_name);
@@ -94,7 +94,7 @@ class ReportController extends Controller {
 		$instagram = Instagram::where('user_id', '=', $request->user_id)->first();
 		if ($instagram == null) {
 			return Redirect::back()
-					->withErrors("Usuário não possui CONTA DE INSTAGRAM cadastrada.");
+							->withErrors("Usuário não possui CONTA DE INSTAGRAM cadastrada.");
 		}
 		$report->IG_page_name = ($instagram->page_name);
 		$report->IG_URL_name = ($instagram->URL_name);
@@ -156,27 +156,30 @@ class ReportController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Report $report) {
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
-		if ($user->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$reports = Report::where('id', '>=', 0)->orderBy('DATE', 'asc')->get();
-			$totalReports = $reports->count();
+		if ($userAuth->perfil == "administrador") {
+			$users = User::where('id', '>=', 0)
+					->orderBy('NAME', 'asc')
+					->get();
+			$reports = Report::where('id', '>=', 0)
+					->with('users')
+					->orderBy('DATE', 'asc')
+					->get();
 		} else {
-			$users = User::where('id', '=', $user->id)->with('accounts')->first();
-			$reports = Report::where('user_id', '=', $user->id)->with('users')->get();
-			$totalReports = $reports->count();
+			$users = User::where('id', '=', $userAuth->id)
+					->with('accounts')
+					->first();
+			$reports = Report::where('id', '>=', 0)
+					->with('users')
+					->orderBy('DATE', 'asc')
+					->get();
 		}
 
-//		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
 		return view('reports.editReport', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'users' => $users,
 			'report' => $report,
-			'reports' => $reports,
-			//		'accounts' => $accounts,
-			'totalReports' => $totalReports,
 		]);
 	}
 
@@ -208,7 +211,6 @@ class ReportController extends Controller {
 		$report->FB_feed_images = ($facebook->feed_images);
 		$report->FB_stories = ($facebook->stories);
 		$report->FB_interaction = ($facebook->interaction);
-		$report->FB_pay_ads = ($facebook->pay_ads);
 		$report->FB_value_ads = ($facebook->value_ads);
 
 		$instagram = Instagram::where('user_id', '=', $request->user_id)->with('users')->first();
@@ -225,15 +227,14 @@ class ReportController extends Controller {
 		$report->IG_feed_images = ($instagram->feed_images);
 		$report->IG_stories = ($instagram->stories);
 		$report->IG_interaction = ($instagram->interaction);
-		$report->IG_pay_ads = ($instagram->pay_ads);
 		$report->IG_value_ads = ($instagram->value_ads);
 		$report->save();
 
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
-		return view('facebooks.showFacebook', [
-			'user' => $user,
-			'$report' => $report,
+		return view('reports.showReport', [
+			'userAuth' => $userAuth,
+			'report' => $report,
 				//'emails' => $emails,
 		]);
 	}

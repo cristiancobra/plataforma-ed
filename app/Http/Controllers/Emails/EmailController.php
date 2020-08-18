@@ -119,21 +119,18 @@ class EmailController extends Controller {
 	public function edit(Email $email) {
 		$userAuth = Auth::user();
 		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-		$emails = Email::all();
 
 		if ($userAuth->perfil == "administrador") {
 			$emails = Email::where('id', '>=', 0)->orderBy('EMAIL', 'asc')->get();
-			$totalEmails = $emails->count();
 		} else {
 			$emails = Email::where('user_id', '=', $userAuth->id)->with('users')->get();
 		}
-
+			
 		return view('emails.editEmail', [
 			'userAuth' => $userAuth,
 			'users' => $users,
 			'email' => $email,
 			'emails' => $emails,
-			'totalEmails' => $totalEmails,
 		]);
 	}
 

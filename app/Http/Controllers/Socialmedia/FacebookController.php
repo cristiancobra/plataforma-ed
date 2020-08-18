@@ -17,21 +17,21 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$userAuthAuth = Auth::user();
-		if ($userAuthAuth->perfil == "administrador") {
+		$userAuth = Auth::user();
+		if ($userAuth->perfil == "administrador") {
 			$facebooks = Facebook::where('id', '>=', 0)->with('users')->orderBy('PAGE_NAME', 'asc')->get();
 			$totalFacebooks = $facebooks->count();
 		} else {
-			$facebooks = Facebook::where('user_id', '=', $userAuthAuth->id)->with('users')->get();
+			$facebooks = Facebook::where('user_id', '=', $userAuth->id)->with('users')->get();
 		}
 
-		$accounts = Account::where('id', '=', $userAuthAuth->id)->with('users')->get();
+		$accounts = Account::where('id', '=', $userAuth->id)->with('users')->get();
 
 		return view('facebooks.indexFacebooks', [
 			'facebooks' => $facebooks,
 			'accounts' => $accounts,
 			'totalFacebooks' => $totalFacebooks,
-			'userAuth' => $userAuthAuth,
+			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -43,13 +43,16 @@ class FacebookController extends Controller {
 	public function create() {
 		$facebook = new \App\Models\Facebook();
 		$userAuth = Auth::user();
-		$userAuths = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		if ($userAuth->perfil == "administrador") {
+			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		} else {
+			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+		}
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('facebooks.createFacebook', [
 			'userAuth' => $userAuth,
-			'users' => $userAuths,
-			'facebook' => $facebook,
+			'users' => $users,
 			'accounts' => $accounts,
 		]);
 	}
@@ -97,7 +100,7 @@ class FacebookController extends Controller {
 			$totalUsers = $userAuths->count();
 		} else {
 			$userAuths = User::where('id', '=', $userAuth->id)->with('accounts')->first();
-			$totalUsers = $userAuths->count();
+			$totalUsers = $userAuth->count();
 		}
 		$facebooks = Facebook::where('id', '=', $userAuth->id)->with('users')->get();
 //		$accounts = User::where('id', '=', $userAuth->id)->with('accounts')->get();
@@ -106,7 +109,7 @@ class FacebookController extends Controller {
 			'facebook' => $facebook,
 			'facebooks' => $facebooks,
 			'userAuth' => $userAuth,
-			'users' => $userAuths,
+			'users' => $userAuth,
 		]);
 	}
 

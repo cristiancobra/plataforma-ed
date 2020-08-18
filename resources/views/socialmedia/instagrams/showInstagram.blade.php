@@ -7,11 +7,7 @@
 @endsection
 
 @section('description')
-
-DETALHES DO instagram
-<a href="/instagrams"><br><br>
-	<button type="button" class="button-header">VER TODOS AS PÁGINAS</button> </a>
-
+<a class="btn btn-primary" href="{{route('instagram.index')}}">VER TODOS AS PÁGINAS</a>
 @endsection
 
 @section('main')
@@ -19,13 +15,13 @@ DETALHES DO instagram
 <div>
 	<h1 class="name">  {{$instagram->page_name}}  </h1>
 	<br>
-	<p class="labels">DONO:<span class="fields">{{ $user->name }}</span></p>
+	<p class="labels">DONO:<span class="fields">{{ $instagram->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $instagram->URL_name }}</span></p>
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Análise da página</b></td>
-			<td   class="table-list-header"><b>situação</b></td>
+			<td   class="table-list-header" style="width: 90%"><b>Análise da página</b></td>
+			<td   class="table-list-header" style="width: 10%"><b>situação</b></td>
 		</tr>
 		<tr>
 			<td   class="table-list-left"><b>Possui conta Business:</b></td>
@@ -130,8 +126,10 @@ DETALHES DO instagram
 	</table>
 
 	<div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-		<button class="button"><a href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }} "  style="text-decoration: none;color: black">
-				<i class='fa fa-edit'></i>Editar</a></button>
+		<a class="btn btn-secondary" href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }} "  style="text-decoration: none;color: black">
+			<i class='fa fa-edit'></i>
+			Editar
+		</a>
 	</div>
 	<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
 		<form action="{{ route('instagram.destroy', ['instagram' => $instagram->id]) }}" method="post">

@@ -19,11 +19,16 @@ class InstagramController extends Controller {
 	public function index() {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
-			$instagrams = Instagram::where('id', '>=', 0)->with('users')->orderBy('PAGE_NAME', 'asc')->get();
-			$totalInstagrams = $instagrams->count();
+			$instagrams = Instagram::where('id', '>=', 0)
+					->with('users')
+					->orderBy('PAGE_NAME', 'asc')
+					->get();
 		} else {
-			$instagrams = Instagram::where('user_id', '=', $userAuth->id)->with('users')->get();
+			$instagrams = Instagram::where('user_id', '=', $userAuth
+					->id)->with('users')
+					->get();
 		}
+					$totalInstagrams = $instagrams->count();
 
 	//	$accounts = Account::where('id', '=', $user->id)->with('users')->get();
 
@@ -101,7 +106,7 @@ class InstagramController extends Controller {
 			$users = User::where('id', '=', $userAuth->id)->with('accounts')->first();
 			$totalUsers = $users->count();
 		}
-		$instagrams = Instagram::where('id', '=', $user->id)->with('users')->get();
+		$instagrams = Instagram::where('id', '=', $userAuth->id)->with('users')->get();
 //		$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
 
 		return view('socialmedia.instagrams.showInstagram', [

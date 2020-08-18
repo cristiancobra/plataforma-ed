@@ -31,9 +31,12 @@
 	</p>
 	<br>
 	<table class="table-list">
-		<td   class="table-list-header"><b>Análise da página</b></td>
-		<td   class="table-list-header"><b>situação</b></td>
-		</tr>
+		<td   class="table-list-header" style="width: 90%">
+			<b>Análise da página</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>situação</b>
+		</td>
 		<tr>
 			<td   class="table-list-left"><b>Possui logomarca:</b></td>
 			@if ($report->logo === "yes")
@@ -54,16 +57,18 @@
 </div>
 <br>
 <div>
-	<p class="title-reports"><i class="fas fa-palette fa-fw"></i>IDENTIDADE VISUAL</p>
+	<p class="title-reports">
+		<i class="fas fa-palette fa-fw"></i>IDENTIDADE VISUAL
+	</p>
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Análise da página</b></td>
-			<td   class="table-list-header"><b>situação</b></td>
+			<td   class="table-list-header" style="width: 90%"><b>Análise da página</b></td>
+			<td   class="table-list-header" style="width: 10%"><b>situação</b></td>
 		</tr>
 		<tr>
 			<td   class="table-list-left">
-					POSSUI  LOGOMARCA:
+				POSSUI  LOGOMARCA:
 			</td>
 			@if ($report->logo === "good")
 			<td   class="button-active">
@@ -71,25 +76,108 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
+			<td colspan="2">
 				<p style="font-style:italic;text-align: justify">
-					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert, é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características á respeito da sua marca. Com técnicas de SEO e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar.  
+					<br>
+					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert,
+					é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras
+					características á respeito da sua marca. Com técnicas de SEO e UXdesign é possível realizar uma transformação digital e levar a sua marca para
+					outro patamar. 
+					<br>
+					<br>
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em mkt digital – R$ 200,00  
 				</p>
 			</td>
 		</tr>
+		@elseif ($report->logo === "bad")
+		<td   class="button-warning">
+			MELHORAR
+		</td>
+		<tr>
+			<td>
+				<p style="font-style:italic;text-align: justify">
+					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! As empresas mais valiosas do mundo
+					alteram constantemente sua logo para se adaptarem as novas tecnologias, portanto não tenha medo de alterar sua identidade visual. 
+					Sua logo do jeito que está não proporciona um bom visual nos dispositivos móveis e necessita modernização 
+					<br>
+					<br>
+					Criação de identidade visual - R$ 350, 00 
+				</p>
+			</td>
+		</tr>
 		@else
-		<td  class="btn btn-danger"><b>NÃO</b></td>
+		<td   class="button-delete">
+			NÃO
+		</td>
+		<tr>
+			<td>
+				<p style="font-style:italic;text-align: justify">
+					Se você não possui uma logomarca entenda que ela é o começo de tudo.
+					Nessa fase indicamos a contratação de um especialista em palavras chaves, para encontrar as melhores palavras para criar uma marca
+					com um volume de busca de peso. Depois indicamos a contratação de um designer para elaboração de logomarca responsiva e um kit de Ui. 
+					<br>
+					<br>
+					serviço de criação de marca R$ 350, 00 
+					<br>
+					Criação de identidade visual - R$ 350, 00 
+				</p>
+			</td>
+		</tr>
 		@endif
+		<tr>
+			<td   class="table-list-left">
+				POSSUI  PALETA DE CORES:
+			</td>
+			@if ($report->palette === "good")
+			<td   class="button-active">
+				<b>SIM</b>
+			</td>
 		</tr>
 		<tr>
-			<td   class="table-list-left"><b>Possui paleta de cores:</b></td>
-			@if ($report->palette === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
+			<td colspan="2">
+				<p style="font-style:italic;text-align: justify">
+					<br>
+					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente!
+					Talvez você ainda não seja um expert, é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz,
+					o gênero, entre uma infinidade de outras características á respeito da sua marca. Com técnicas de SEO e UXdesign é possível realizar
+					uma transformação digital e levar a sua marca para outro patamar.  
+					<br>
+					<br>
+					Leve sua marca para outro nível! Contrate uma consultoria especializada em mkt digital – R$ 200,00  
+				</p>
+			</td>
 		</tr>
+		@elseif ($report->palette === "bad")
+		<td   class="button-warning">
+			MELHORAR
+		</td>
+		<tr>
+			<td>
+				<p style="font-style:italic;text-align: justify">
+					nÃO TEM TEXTO
+					<br>
+					<br>
+					XXXX
+				</p>
+			</td>
+		</tr>
+		@else
+		<td   class="button-delete">
+			NÃO
+		</td>
+		<tr>
+			<td>
+				<p style="font-style:italic;text-align: justify">
+					Quando você não possui um kit de UI a identidade visual fica bagunçada. O objetivo em se ter um kit de UI é criar um estillo que vai além da
+					logomarca. Para criar uma identidade visual homogênia você deve: criar uma palleta de cores, estilos de fontes,  estilos de ícones,  estilos de
+					fotos, estilos de ilustração, estilos de botões 
+					<br>
+					<br>
+					Criação de identidade visual - R$ 350, 00 
+				</p>
+			</td>
+		</tr>
+		@endif
 	</table>
 </div>
 <br>
@@ -100,23 +188,68 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Análise da página</b></td>
-			<td   class="table-list-header"><b>situação</b></td>
+			<td   class="table-list-header" style="width: 90%"><b>Análise da página</b></td>
+			<td   class="table-list-header" style="width: 10%"><b>situação</b></td>
 		</tr>
 		<tr>
-			<td   class="table-list-left"><b>Conta Business vinculada com Instagram:</b></td>
+			<td   class="table-list-left">
+				Conta Business vinculada com Instagram:
+			</td>
 			@if ($report->FB_linked_instagram === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
+			<td   class="button-active">
+				<b>SIM</b>
+			</td>
 		</tr>
 		<tr>
-			<td   class="table-list-left"><b>Conta possui mesmo nome do site:</b></td>
+			<td colspan="2">
+				<p style="font-style:italic;text-align: justify">
+					<br>
+					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um
+					expert, é sempre possível colher mais dados para melhorar  sua performance e tráfego.
+					<br>
+					<br>
+					Leve seu FACEBOOKpara outro nível! Contrate uma consultoria especializada R$ 200,00  
+				</p>
+			</td>
+		</tr>
+		@else
+		<td   class="button-delete">
+			NÃO
+		</td>
+		<tr>
+			<td>
+				<p style="font-style:italic;text-align: justify">
+					O Facebook se tornou parte essencial da estratégia de marketing digital de muitas empresas. Isso porque ele é a maior rede social da atualidade,
+					com mais de 2 bilhões de usuários ativos.
+					Tanto é que, segundo a pesquisa do site HootSuite, o Facebook já conta com cerca de 50 milhões de empresas promovendo seus produtos ou
+					serviços com anúncios.
+					Afinal, expor a sua marca em uma vitrine dessas e sem pagar uma fortuna por isso é o sonho de todo empreendedor.
+					O gerenciador de anúncios Facebook Business é uma potente ferramenta para criar, gerenciar e verificar o desempenho de anúncios publicados
+					na plataforma.
+					Com ele também é possível direcionar seus anúncios a públicos específicos, definir o orçamento a ser destinados a eles, verificar seu desempenho
+					e ter um relatório sobre o retorno desse investimento.
+					Além disso, nas últimas atualizações do Facebook, a rede social disponibilizou o Power Editor, ferramenta que te permite gerenciar múltiplos 
+					anúncios simultaneamente, tornando a tarefa mais prática e eficaz.
+					Vale lembrar ainda que como o Facebook integra outras redes sociais, o gerenciador também te ajuda a administrar anúncios do Instagram Ads
+					e do Audience Network, uma rede de aplicativos para exibição de propagandas.
+					E isso é importante, afinal, com ela é possível fazer a mensagem ter um alcance maior, já que porque 72% das pessoas dizem que os posts nas
+					redes sociais são o principal formato de conteúdo consumido.
+				</p>
+			</td>
+		</tr>
+		@endif
+		<tr>
+			<td   class="table-list-left">
+				<b>Conta possui mesmo nome do site:</b>
+			</td>
 			@if ($report->FB_same_site_name === "yes")
-			<td   class="button-active"><b>SIM</b></td>
+			<td   class="button-active">
+				<b>SIM</b>
+			</td>
 			@else
-			<td   class="button-delete"><b>NÃO</b></td>
+			<td   class="button-delete">
+				<b>NÃO</b>
+			</td>
 			@endif
 		</tr>	
 		<tr>
@@ -196,8 +329,8 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Análise da página</b></td>
-			<td   class="table-list-header"><b>situação</b></td>
+			<td   class="table-list-header" style="width: 90%"><b>Análise da página</b></td>
+			<td   class="table-list-header" style="width: 10%"><b>situação</b></td>
 		</tr>
 		<tr>
 			<td   class="table-list-left"><b>Possui conta Business:</b></td>
