@@ -7,19 +7,12 @@
 @endsection
 
 @section('description')
-
-Configuraçoes adicionais da plataforma
-<a href="/emails/novo"><br><br>
-	<button type="button" class="button-header">SOLICITAR EMAIL</button> </a>
-
+<a class="btn btn-primary" 'href="{{route('email.create')}}">SOLICITAR USUÁRIO</a>
 @endsection
 
 @section('main')
-
             <div class="" style="padding: 20px">
-
 				<!------------------------------------------------------  EMAIL ------------------------------------------- -->
-
                 <ol>
                     <h2 class="subtitulo-roxo" style="text-align: left">CRIAR EMAIL PRINCIPAL</h2>
 					<br>

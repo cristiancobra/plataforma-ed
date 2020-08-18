@@ -84,7 +84,8 @@
 					<button class="sidebar-item">
 						<i class="fas fa-rocket"></i>
 						INÍCIO
-					</button></a>
+					</button>
+				</a>
 
 				<button class="dropdown-btn">
 					<i class='fa fa-comments'></i>

@@ -132,7 +132,6 @@ class ReportController extends Controller {
 
 			if ($userAuth->perfil == "administrador") {
 				$reports = Report::where('id', '>=', 0)->orderBy('DATE', 'asc')->get();
-				$totalReports = $reports->count();
 			} else {
 				$reports = Report::where('user_id', '=', $userAuth->id)->with('users')->get();
 			}
@@ -246,7 +245,8 @@ class ReportController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Report $report) {
-//
+		$report->delete();
+		return redirect()->route('report.index');
 	}
 
 	public function generatePDF(Report $report) {

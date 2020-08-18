@@ -33,7 +33,11 @@
 <p class="fields">Criado em  {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
 
 <div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-	<button class="btn btn-secondary"><a href=" {{ route('user.edit', ['user' => $user->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
+	<a class="btn btn-secondary" href=" {{ route('user.edit', ['user' => $user->id]) }}">
+			<i class='fa fa-edit'>	
+			</i>
+			Editar informações
+		</a>
 </div>
 <div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
 	<form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post">

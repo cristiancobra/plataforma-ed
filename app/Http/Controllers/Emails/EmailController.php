@@ -149,10 +149,10 @@ class EmailController extends Controller {
 		$email->status = $request->status;
 		$email->save();
 
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
 		return view('emails.showEmail', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'email' => $email,
 				//'emails' => $emails,
 		]);

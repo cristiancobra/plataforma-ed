@@ -18,12 +18,10 @@ class UserController extends Controller {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$totalUsers = $users->count();
 		}else{
 			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
-			$totalUsers = $users->count();
 		}
-		
+		$totalUsers = $users->count();
 		return view('usuarios.indexUsers', [
 			'users' => $users,
 			'userAuth' => $userAuth,
@@ -37,12 +35,12 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$newUser = new \App\User();
+		$user = new \App\User();
 		$userAuth = Auth::user();
 
 		return view('usuarios.createUser', [
 			'user' => $user,
-			'newUser' => $newUser,
+			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -53,6 +51,8 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		$userAuth = Auth::user();
+		
 		$user = new User();
 		$user->name = ucfirst($request->novo_nome) . " " . ucfirst($request->novo_sobrenome);
 		$user->perfil = $request->perfil;
@@ -70,7 +70,7 @@ class UserController extends Controller {
 			'senha' => $user->default_password,
 			'dominio' => $user->dominio,
 			'nome_usuario' => $nome_usuario,
-			'user' => Auth::user(),
+			'userAuth' => $userAuth,
 		]);
 	}
 

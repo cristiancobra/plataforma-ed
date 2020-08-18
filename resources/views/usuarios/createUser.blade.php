@@ -7,11 +7,7 @@
 @endsection
 
 @section('description')
-
-Solicite seu email
-<a href="/emails/"><br><br>
-	<button type="button" class="button-header">VER EMAILS</button> </a>
-
+<a class="btn btn-primary" href="{{route('user.index')}}">VER COLABORADORES</a>
 @endsection
 
 @section('main')
@@ -33,10 +29,10 @@ Solicite seu email
 	<br>
 	<br>
 	<label class="labels"for="">Senha do usuário: </label>
-	<input class="fields" type="password" name="password" value="{{ $newUser->gerarSenha(8, true, true, true, true) }}">   
+	<input class="fields" type="password" name="password" value="{{ $user->gerarSenha(8, true, true, true, true) }}">   
 	<br>
 	<br>
-	<input class="button-header" type="submit" value="CRIAR PLATAFORMA">
+	<input class="btn btn-secondary" type="submit" value="CRIAR PLATAFORMA">
 </form>
 </div>     
 @endsection

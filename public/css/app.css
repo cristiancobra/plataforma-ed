@@ -2756,6 +2756,8 @@ fieldset:disabled a.btn {
   color: white;
   background-color: #874983;
   border-color: #6c757d;
+    padding: 0.7rem 1rem;
+  font-size: 0.8rem;
 }
 
 .btn-secondary:hover {
