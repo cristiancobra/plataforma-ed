@@ -66,11 +66,13 @@
 					POSSUI  LOGOMARCA:
 			</td>
 			@if ($report->logo === "good")
-			<td   class="button-active"><b>SIM</b></td>
+			<td   class="button-active">
+				<b>SIM</b>
+			</td>
 		</tr>
 		<tr>
 			<td>
-				<p style="font-style:italic;text-align: left">
+				<p style="font-style:italic;text-align: justify">
 					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert, é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características á respeito da sua marca. Com técnicas de SEO e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar.  
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em mkt digital – R$ 200,00  
 				</p>

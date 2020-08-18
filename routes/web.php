@@ -64,7 +64,7 @@ Route::get('/perfil', function () {
 });
 
 
-// ------------------------------------------------ REDES SOCIAIS ------------------------------------------------
+// ------------------------------------------------ SOCIALMEDIA ------------------------------------------------
 Route::get('/redes-sociais', function () {
 	return view('socialmedia.workflowSocialmedia');
 });
