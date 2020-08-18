@@ -56,7 +56,7 @@
 
 							<!--Menu do usuário logado--> 
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="{{ route('user.show', $user->id) }} ">
+								<a class="dropdown-item" href="{{ route('user.show', $userAuth->id) }} ">
 									<i class="fas fa-user-astronaut" style="margin-right: 4px"></i>Perfil</a>
 								<a class="dropdown-item" href="https://financeiro.empresadigital.net.br" target="_blank">
 									<i class="fas fa-piggy-bank" style="margin-right: 4px"></i>Débitos e serviços</a>
@@ -128,6 +128,9 @@
 					<a class="sidebar-subitem"href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem"href="/editarsite" target="_blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
 					<a class="sidebar-subitem"href="/postarsite" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
+					<a class="sidebar-subitem" href="{{ route('facebook.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>FACEBOOK</a>
+					<a class="sidebar-subitem" href="{{ route('instagram.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>INSTAGRAM</a>
+					<a class="sidebar-subitem" href="{{ route('report.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>RELATÓRIOS</a>
 					<a class="sidebar-subitem"href="https://business.facebook.com/creatorstudio" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>PUBLICAR NO FACEBOOK</a>
 					<a class="sidebar-subitem"href="https://stories.freepik.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>DESENHAR STORIE</a>
 					<a class="sidebar-subitem"href="https://studio.youtube.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>ENVIAR VÍDEO YOUTUBE</a>
@@ -152,7 +155,7 @@
 					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>
 
-				@if ($user->perfil == "administrador")
+				@if ($userAuth->perfil == "administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-funnel-dollar'></i>
 					FINANCEIRO 
@@ -187,16 +190,6 @@
 					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 				</div>
 
-				<button class="dropdown-btn">
-					<i class='fas fa-funnel-dollar'></i>
-					REDES SOCIAIS 
-					<i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{ route('facebook.index') }}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FACEBOOK LOGIN</a>
-					<a class="sidebar-subitem" href="{{ route('facebook.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>FACEBOOK</a>
-				</div>
-
 				@endif
 
 				<a href="https://empresadigital.net.br/suporte/" target="_blank">
@@ -226,15 +219,16 @@
 
 
 			<div class="header">
+				<h1 style="padding: 0px;margin-bottom: -4px">
 				@yield('title')
-				<br>
-				<p class="destaque_amarelo" style="text-align: right">
+				</h1>
+				<p>
 					@yield('description')
 				</p>
 			</div>
 
 			<div class="image-header">
-				<img src= @yield('image-top') width="90px" height="90px">
+				<img src= @yield('image-top') width="70px" height="70px">
 			</div>
 
 			<div class="main">

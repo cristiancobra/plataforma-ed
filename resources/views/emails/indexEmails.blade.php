@@ -7,15 +7,16 @@
 @endsection
 
 @section('description')
-
-Precisa de um novo email?
-<a href="/emails/novo"><br><br>
-	<button type="button" class="button-header">SOLICITAR EMAIL</button> </a>
-
+<a class="btn btn-primary"  href="{{route('email.create')}}"">SOLICITAR EMAIL</a>
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Você possui <span class="labels">{{$totalEmails }} contas de email</span></p>
+<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
+	Você possui <span class="labels">{{$totalEmails }} contas </span>
+	<br>
+	com <span class="labels">{{$totalGBs }}GBs </span>
+</p>
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Conta</b></td>
@@ -33,25 +34,16 @@ Precisa de um novo email?
 					<i class='fa fa-envelope'></i></a>
 			</button>
 
-			@if ($user->perfil == "administrador")
+			@if ($userAuth->perfil == "administrador")
 			<button class="button">
-				<a href=" {{ route('emails.show', ['email' => $email->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('email.show', ['email' => $email->id]) }}" style="text-decoration: none;color: black">
 					<i class='fa fa-cogs'></i></a>
 			</button>
 			@endif
 			{{ $email->email}}
 		</td>
 
-		<td class="table-list-left">
-			@foreach ($user->accounts as $account)
-			<button class="button">
-				<a href=" {{ route('accounts.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
-					<i class='fa fa-eye'></i></a>
-			</button> {{ $account->name }}</li><br>
-			@endforeach
-		</td>
-
-		<td class="table-list-left"> <b>{{ $user->name }} </b></td>
+		<td class="table-list-left"> <b>{{ $email->users->name }} </b></td>
 		<td class="table-list-center"><b>{{ $email->storage}}</b></td>
 		<td class="table-list-center"><b>{{ $email->email_password }} </b></td>
 		@if ($email->status == "desativado")
@@ -64,4 +56,5 @@ Precisa de um novo email?
 	</tr>
 	@endforeach
 </table>
+<br>
 @endsection

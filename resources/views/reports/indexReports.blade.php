@@ -1,17 +1,13 @@
 @extends('layouts/master')
 
-@section('title','VER RELATÓRIOS')
+@section('title','RELATÓRIOS')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('imagens/report.png') }} 
 @endsection
 
 @section('description')
-
-Meus relatórios
-<a href="/relatorios/novo"><br><br>
-	<button type="button" class="button-header">CRIAR RELATÓRIO MATURIDADE DIGITAL</button> </a>
-
+<a class="btn btn-primary" href="{{route('report.create')}}">NOVO RELATÓRIO</a>
 @endsection
 
 @section('main')
@@ -21,9 +17,6 @@ Meus relatórios
 		<td   class="table-list-header"><b>VER</b></td>
 		<td   class="table-list-header"><b>TÍTULO</b></td>
 		<td   class="table-list-header"><b>DATA </b></td>
-		<td   class="table-list-header"><b>LOGOMARCA </b></td>
-		<td   class="table-list-header"><b>PALETA</b></td>
-		<td   class="table-list-header"><b>INSTAGRAM BUSINESS</b></td>
 		<td   class="table-list-header"><b>STATUS</b></td>
 	</tr>
 
@@ -31,15 +24,12 @@ Meus relatórios
 	<tr style="font-size: 16px">
 		<td class="table-list-center">
 			<button class="button">
-				<a href=" {{ route('reports.show', ['report' => $report->id]) }}"  style="text-decoration: none;color: black"><i class='fa fa-eye'></i></a>
+				<a href=" {{ route('report.show', ['report' => $report->id]) }}"  style="text-decoration: none;color: black"><i class='fa fa-eye'></i></a>
 			</button>
 		</td>
 
 		<td class="table-list-left"> <b>{{ $report->name}} </b></td>
-		<td class="table-list-left"> <b>{{ $report->date }} </b></td>
-		<td class="table-list-center"><b>{{ $report->logo}}</b></td>
-		<td class="table-list-center"><b>{{ $report->palette }} </b></td>
-		<td class="table-list-center"><b>{{ $report->instagram_businness }} </b></td>
+		<td class="table-list-center"> <b>{{ $report->date }} </b></td>
 		@if ($report->status == "desativado")
 		<td class="button-disable"><b>{{ $report->status  }}</b></td>
 		@elseif ($report->status == "ativo")

@@ -7,16 +7,12 @@
 @endsection
 
 @section('description')
-
-Altere seu email
-<a href="/emails/"><br><br>
-	<button type="button" class="button-header">VER EMAILS</button> </a>
-
+<a class='btn btn-primary' href="{{route('email.index')}}">VER EMAILS</a>
 @endsection
 
 @section('main')
 <div style="padding-left: 6%">
-<form action=" {{ route('emails.update', ['email' =>$email->id]) }} " method="post" style="padding: 40px;color: #874983">
+<form action=" {{ route('email.update', ['email' =>$email->id]) }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	@method('put')
 	<label class="labels" for="" >EMAIL: </label>
@@ -50,17 +46,15 @@ Altere seu email
 		<option value="ativo">ativo</option>
 		<option value="desativado">desativado</option>
 		@endif
-		
-	
-	
 	</select>
 	<br>
 	<br>
-	<input class="button-header" type="submit" value="ATUALIZAR EMAIL">
-	@if ($user->perfil == "administrador")
-	<a href="https://acadia.mxroute.com:2083/cpsess2438558906/frontend/manager/email_accounts/index.html#/list" target="_blank"><br><br>
-		<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
-		<center>login: solucoes</center>
+	<input class="btn btn-secondary" type="submit" value="ATUALIZAR EMAIL">
+	@if ($userAuth->perfil == "administrador")
+	<a class="btn btn-secondary" href="https://acadia.mxroute.com:2083/cpsess2438558906/frontend/manager/email_accounts/index.html#/list" target="_blank">
+		SERVIDOR DE EMAIL
+	</a>
+	login: solucoes
 	@endif
 </form>
 

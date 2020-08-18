@@ -3,19 +3,16 @@
 @section('title','PÁGINAS DO FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('imagens/facebook.png') }} 
 @endsection
 
 @section('description')
-
-Acompanhe suas páginas do Face
-<a href="{{ route('facebook.create') }}"><br><br>
-	<button type="button" class="button-header">CADASTRAR NOVA PÁGINA</button> </a>
-
+<a class="btn btn-primary" href="{{ route('facebook.create') }}">CADASTRAR NOVA PÁGINA</a>
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Você possui <span class="labels">{{$totalFacebooks }} contas de email</span></p>
+<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Você possui <span class="labels">{{$totalFacebooks }} página </span>de Facebook</p>
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Nome da página</b></td>
@@ -28,10 +25,14 @@ Acompanhe suas páginas do Face
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button">
+				<a href=" {{ $facebook->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+					<i class='fab fa-facebook'></i></a>
+			</button>
+			<button class="button">
 				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
 					<i class='fa fa-eye'></i></a>
 			</button>
-			@if ($user->perfil == "administrador")
+			@if ($userAuth->perfil == "administrador")
 			<button class="button">
 				<a href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
 					<i class='fa fa-cogs'></i></a>

@@ -26,7 +26,7 @@ class dashboardController extends Controller {
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function index() {
-		$user = Auth::user();
+		$userAuth = Auth::user();
 		$hoje = date("d/m/Y");
 		$user_crm = Auth::user()->idcrm;
 
@@ -61,7 +61,7 @@ class dashboardController extends Controller {
 				->sum('amount');
 
 		return view('usuarios/dashboardUser', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'hoje' => $hoje,
 			'totalTasks' => $totalTasks,
 			'totalLeads' => $totalLeads,

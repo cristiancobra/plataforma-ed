@@ -3,13 +3,11 @@
 @section('title','MEU PAINEL')
 
 @section('image-top')
-{{ asset('imagens/painel-progresso.png') }} 
+{{ asset('imagens/control-panel.png') }} 
 @endsection
 
 @section('description')
-
-Olá {{$user->name}}, hoje é {{ $hoje }}
-
+<span style="color: yellow;font-size: 22px">{{ $hoje }} </span>
 @endsection
 
 @section('main')
@@ -40,7 +38,8 @@ Olá {{$user->name}}, hoje é {{ $hoje }}
 </div>
 
 <div style="padding-top: 1%; padding-left: 4%; padding-right: 4%;display: inline-block">
-	<p style="color:purple; font-weight: 400;line-height: 2;padding-top: 2%;font-size: 28px"><b>O que você precisa fazer hoje? </b></p>
+	<br>	
+	<p style="color:purple; font-weight: 400;line-height: 2;padding-top: 2%;font-size: 28px"><b>Olá {{$userAuth->name}}, já organizou seu dia? </b></p>
 	<p style="color:purple; font-weight: 400;line-height: 2;padding-top: 2%;font-size: 18px">
 	Use os links do painel e não deixe suas tarefas acumularem. <br>Use o menu lateral para navegar através dos DEPARTAMENTOS.</p>
 </div>

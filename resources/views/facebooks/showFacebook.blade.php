@@ -3,14 +3,11 @@
 @section('title','DETALHES DO FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('imagens/facebook.png') }} 
 @endsection
 
 @section('description')
-
-DETALHES DO FACEBOOK
-<a href="/facebooks"><br><br>
-	<button type="button" class="button-header">VER TODOS AS PÁGINAS</button> </a>
+<a class="btn btn-primary" href="/facebooks">VER TODOS AS PÁGINAS </a>
 
 @endsection
 
@@ -19,7 +16,7 @@ DETALHES DO FACEBOOK
 <div>
 	<h1 class="name">  {{$facebook->page_name}}  </h1>
 	<br>
-	<p class="labels">DONO:<span class="fields">{{ $user->name }}</span></p>
+	<p class="labels">DONO:<span class="fields">{{ $facebook->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $facebook->URL_name }}</span></p>
 	<br>
 	<table class="table-list">
@@ -111,25 +108,17 @@ DETALHES DO FACEBOOK
 			<td   class="table-list-left"><b>Investimento em ADs:</b></td>
 			<td   class="table-list-money-income"><b> R$ {{ number_format($facebook->value_ads,2,",",".") }}</b></td>
 		</tr>
-		<tr>
-			<td   class="table-list-left"><b>STATUS:</b></td>
-			@if ($facebook->status === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
 	</table>
 
-	<div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-		<button class="button"><a href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
-	</div>
-	<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
-		<form action="{{ route('facebook.destroy', ['facebook' => $facebook->id]) }}" method="post">
+	<div style="text-align:right;padding: 2%">
+		<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('facebook.destroy', ['facebook' => $facebook->id]) }}" method="post">
 			@csrf
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
+		<a class="btn btn-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }} "    style="text-decoration: none;color: black;display: inline-block">
+			<i class='fa fa-edit'></i>Editar</a>
+				<a class="btn btn-primary" href="{{route('facebook.index')}}">VOLTAR</a>
 	</div>
 	<br>
 	<p style="text-align: left;margin-left: 30px;color: white;font-size: 14px">* se a <b>senha padrão</b> tiver sido alterada pelo usuário, atualize a senha novamente com a <b>senha padrão</b>. Peça para o usuário alterar sua senha no seu primeiro acesso.</p>

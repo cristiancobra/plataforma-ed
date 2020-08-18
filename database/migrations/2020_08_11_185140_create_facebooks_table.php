@@ -18,6 +18,7 @@ class CreateFacebooksTable extends Migration {
 			$table->string('page_name');
 			$table->string('URL_name');
 			$table->string('status');
+			$table->string('business');
 			$table->string('linked_instagram');
 			$table->string('same_site_name');
 			$table->string('about');
@@ -27,7 +28,6 @@ class CreateFacebooksTable extends Migration {
 			$table->string('feed_images');
 			$table->string('stories');
 			$table->string('interaction');
-			$table->string('pay_ads');
 			$table->string('value_ads');
 			$table->timestamps();
 		});

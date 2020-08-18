@@ -17,18 +17,25 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$user = Auth::user();
-		if ($user->perfil == "administrador") {
-			$emails = Email::where('id', '>=', 0)->orderBy('EMAIL', 'asc')->get();
-			$totalEmails = $emails->count();
+		$userAuth = Auth::user();
+		if ($userAuth->perfil == "administrador") {
+			$emails = Email::where('id', '>=', 0)
+					->with('users')
+					->orderBy('EMAIL', 'asc')
+					->get();
 		} else {
-			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
+			$emails = Email::where('user_id', '=', $userAuth->id)
+					->with('users')
+					->get();
 		}
+		$totalEmails = $emails->count();
+		$totalGBs = $emails->sum('storage');
 
 		return view('emails.indexEmails', [
 			'emails' => $emails,
 			'totalEmails' => $totalEmails,
-			'user' => $user,
+			'totalGBs' => $totalGBs,
+			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -39,12 +46,16 @@ class EmailController extends Controller {
 	 */
 	public function create() {
 		$email = new \App\Models\Email();
-		$user = Auth::user();
-		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$userAuth = Auth::user();
+		if ($userAuth->perfil == "administrador") {
+			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		} else {
+			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+		}
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('emails.createEmail', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'users' => $users,
 			'email' => $email,
 			'accounts' => $accounts,
@@ -89,13 +100,13 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Email $email) {
-		$user = Auth::user();
-		$emails = Email::where('id', '=', $user->id)->with('users')->get();
+		$userAuth = Auth::user();
+		$emails = Email::where('id', '=', $userAuth->id)->with('users')->get();
 		//	$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
-		return view('emails.detailsEmail', [
+		return view('emails.showEmail', [
 			'email' => $email,
 			'emails' => $emails,
-			'user' => $user,
+			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -106,19 +117,19 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Email $email) {
-		$user = Auth::user();
+		$userAuth = Auth::user();
 		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 		$emails = Email::all();
 
-		if ($user->perfil == "administrador") {
+		if ($userAuth->perfil == "administrador") {
 			$emails = Email::where('id', '>=', 0)->orderBy('EMAIL', 'asc')->get();
 			$totalEmails = $emails->count();
 		} else {
-			$emails = Email::where('user_id', '=', $user->id)->with('users')->get();
+			$emails = Email::where('user_id', '=', $userAuth->id)->with('users')->get();
 		}
 
 		return view('emails.editEmail', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'users' => $users,
 			'email' => $email,
 			'emails' => $emails,
@@ -143,7 +154,7 @@ class EmailController extends Controller {
 
 		$user = Auth::user();
 
-		return view('emails.detailsEmail', [
+		return view('emails.showEmail', [
 			'user' => $user,
 			'email' => $email,
 				//'emails' => $emails,

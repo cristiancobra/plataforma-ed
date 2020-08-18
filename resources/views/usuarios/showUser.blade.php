@@ -7,10 +7,7 @@
 @endsection
 
 @section('description')
-
-Dados do colaborador
-<a href=" {{ route('user.index') }}"><br><br>
-	<button type="button" class="button">VER COLABORADORES</button> </a>
+<a class="btn btn-primary" href=" {{ route('user.index') }}">VER COLABORADORES</a>
 
 @endsection
 
@@ -36,13 +33,13 @@ Dados do colaborador
 <p class="fields">Criado em  {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
 
 <div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-	<button class="button"><a href=" {{ route('user.edit', ['user' => $user->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
+	<button class="btn btn-secondary"><a href=" {{ route('user.edit', ['user' => $user->id]) }} "  style="text-decoration: none;color: black"><i class='fa fa-edit'></i>Editar informações</a></button>
 </div>
 <div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
 	<form action="{{ route('user.destroy', ['user' => $user->id]) }}" method="post">
 		@csrf
 		@method('delete')
-		<input class="button-delete" type="submit" value="APAGAR">
+		<input class="btn btn-danger" type="submit" value="APAGAR">
 	</form>
 </div>
 <br>

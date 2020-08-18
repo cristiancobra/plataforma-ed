@@ -36,7 +36,17 @@ Route::resource('accounts', 'Accounts\\AccountController')->names('accounts')->p
 Route::get('contacts', 'Contact\\ContactController@Index');
 
 // ================================ EMAILS ===================
-Route::resource('emails', 'Emails\\EmailController')->names('emails');
+Route::resource('emails', 'Emails\\EmailController')->names('email');
+
+// ================================ FACEBOOKS  ===================
+Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
+
+//Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
+//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
+//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
+
+// ================================ INSTAGRAMS  ===================
+Route::resource('instagrams', 'Socialmedia\\InstagramController')->names('instagram');
 
 // ================================ MENU ===================
 Route::get('/inicio', function () {
@@ -53,13 +63,15 @@ Route::get('/perfil', function () {
 	return view('perfil');
 });
 
+
 // ------------------------------------------------ REDES SOCIAIS ------------------------------------------------
 Route::get('/redes-sociais', function () {
 	return view('socialmedia.workflowSocialmedia');
 });
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
-Route::resource('relatorios', 'ReportController')->names('reports')->parameters(['relatorios' => 'report']);
+Route::get('/relatorios/{report}/pdf','ReportController@generatePDF')->name('report.pdf');
+Route::resource('relatorios', 'ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
@@ -76,9 +88,3 @@ Route::resource('transactions', 'Financial\\TransactionController')->names('tran
 
 // ================================ USUÁRIO ===================
 Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->parameters(['usuarios' => 'user']);
-
-
-Route::resource('facebooks', 'Facebook\\FacebookController')->names('facebook');
-//Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
-//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
-//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');

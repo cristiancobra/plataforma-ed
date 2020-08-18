@@ -7,14 +7,12 @@
 @endsection
 
 @section('description')
-Aumente sua EQUIPE
-<a href="/usuarios/novo"><br><br>
-<button type="button" class="button-header">ADICIONAR COLABORADOR</button> </a>
-
+<a class="btn btn-primary" href="{{route('user.create')}}">ADICIONAR COLABORADOR</a>
 @endsection
 
 @section('main')
 <p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Sua equipe possui atualmente <span class="labels">{{$totalUsers }} colaboradores</span></p>
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Colaborador </b></td>
@@ -53,7 +51,6 @@ Aumente sua EQUIPE
 		</td>
 	</tr>
 	@endforeach
-
 </table>
-
+<br>
 @endsection

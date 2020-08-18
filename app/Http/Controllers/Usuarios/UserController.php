@@ -15,18 +15,18 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$user = Auth::user();
-		if ($user->perfil == "administrador") {
+		$userAuth = Auth::user();
+		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 			$totalUsers = $users->count();
 		}else{
-			$users = User::where('id', '=', $user->id)->with('accounts')->get();
+			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
 			$totalUsers = $users->count();
 		}
 		
-		return view('usuarios.listAllUsers', [
+		return view('usuarios.indexUsers', [
 			'users' => $users,
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'totalUsers' => $totalUsers,
 		]);
 	}
@@ -38,7 +38,7 @@ class UserController extends Controller {
 	 */
 	public function create() {
 		$newUser = new \App\User();
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
 		return view('usuarios.createUser', [
 			'user' => $user,
@@ -86,9 +86,11 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(User $user) {
+		$userAuth = Auth::user();
 		$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
-		return view('usuarios.detailsUser', [
+		return view('usuarios.showUser', [
 			'user' => $user,
+			'userAuth' => $userAuth,
 			'accounts' => $accounts,
 		]);
 	}

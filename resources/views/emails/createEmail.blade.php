@@ -1,16 +1,13 @@
 @extends('layouts/master')
 
-@section('title','SOLICITAR NOVO EMAIL')
+@section('title','NOVO EMAIL')
 
 @section('image-top')
 {{ asset('imagens/colaborador.png') }} 
 @endsection
 
 @section('description')
-
-Solicite seu email
-<a href="/emails/"><br><br>
-	<button type="button" class="button-header">VER EMAILS</button> </a>
+<a class="btn btn-primary" href="{{route('email.index')}}">VER EMAILS</a>
 
 @endsection
 
@@ -18,7 +15,7 @@ Solicite seu email
 <br>
 <br>
 <div style="padding-left: 6%">
-	<form action=" {{ route('emails.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('email.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >EMAIL: </label>
 		<input class="fields" type="text" name="email" value="{{ $email->email }} ">
@@ -48,12 +45,7 @@ Solicite seu email
 		<input class="fields" type="number" name="storage" value="{{ $email->storage }}">   
 		<br>
 		<br>
-		<input class="button-header" type="submit" value="SOLICITAR EMAIL">
-		@if ($user->perfil == "administrador")
-		<a href="https://acadia.mxroute.com:2096/"><br><br>
-			<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
-		<center>login: solucoes</center>
-		@endif
+		<input class="btn btn-secondary" type="submit" value="SOLICITAR EMAIL">
 	</form>
 </div>     
 @endsection

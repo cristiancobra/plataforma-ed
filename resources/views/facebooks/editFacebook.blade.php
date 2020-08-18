@@ -99,7 +99,7 @@ Altere seu email
 		<input type="radio" name="pay_ads" value="no"><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
-		<input type="number" name="value_ads" step="10" value="0">
+		<input type="number" name="value_ads" step="10"  value="{{ $facebook->value_ads }}">
 		<br>
 		<br>
 		<label class="labels" for="">STATUS:</label>

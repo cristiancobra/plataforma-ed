@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Facebook;
+namespace App\Http\Controllers\Socialmedia;
 
 use App\Models\Facebook;
 use App\Models\Account;
@@ -17,21 +17,21 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$user = Auth::user();
-		if ($user->perfil == "administrador") {
+		$userAuthAuth = Auth::user();
+		if ($userAuthAuth->perfil == "administrador") {
 			$facebooks = Facebook::where('id', '>=', 0)->with('users')->orderBy('PAGE_NAME', 'asc')->get();
 			$totalFacebooks = $facebooks->count();
 		} else {
-			$facebooks = Facebook::where('user_id', '=', $user->id)->with('users')->get();
+			$facebooks = Facebook::where('user_id', '=', $userAuthAuth->id)->with('users')->get();
 		}
 
-		$accounts = Account::where('id', '=', $user->id)->with('users')->get();
+		$accounts = Account::where('id', '=', $userAuthAuth->id)->with('users')->get();
 
 		return view('facebooks.indexFacebooks', [
 			'facebooks' => $facebooks,
 			'accounts' => $accounts,
 			'totalFacebooks' => $totalFacebooks,
-			'user' => $user,
+			'userAuth' => $userAuthAuth,
 		]);
 	}
 
@@ -42,13 +42,13 @@ class FacebookController extends Controller {
 	 */
 	public function create() {
 		$facebook = new \App\Models\Facebook();
-		$user = Auth::user();
-		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$userAuth = Auth::user();
+		$userAuths = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('facebooks.createFacebook', [
-			'user' => $user,
-			'users' => $users,
+			'userAuth' => $userAuth,
+			'users' => $userAuths,
 			'facebook' => $facebook,
 			'accounts' => $accounts,
 		]);
@@ -74,15 +74,14 @@ class FacebookController extends Controller {
 		$facebook->feed_images = ($request->feed_images);
 		$facebook->stories = ($request->stories);
 		$facebook->interaction = ($request->interaction);
-		$facebook->pay_ads = ($request->pay_ads);
 		$facebook->value_ads = ($request->value_ads);
 		$facebook->status = ($request->status);
 		$facebook->save();
 
 		$facebooks = \App\Models\Facebook::all();
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
-		return redirect()->action('Facebook\\FacebookController@index');
+		return redirect()->action('Socialmedia\\FacebookController@index');
 	}
 
 	/**
@@ -92,22 +91,22 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Facebook $facebook) {
-		$user = Auth::user();
-		if ($user->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$totalUsers = $users->count();
+		$userAuth = Auth::user();
+		if ($userAuth->perfil == "administrador") {
+			$userAuths = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$totalUsers = $userAuths->count();
 		} else {
-			$users = User::where('id', '=', $user->id)->with('accounts')->first();
-			$totalUsers = $users->count();
+			$userAuths = User::where('id', '=', $userAuth->id)->with('accounts')->first();
+			$totalUsers = $userAuths->count();
 		}
-		$facebooks = Facebook::where('id', '=', $user->id)->with('users')->get();
-//		$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
+		$facebooks = Facebook::where('id', '=', $userAuth->id)->with('users')->get();
+//		$accounts = User::where('id', '=', $userAuth->id)->with('accounts')->get();
 
 		return view('facebooks.showFacebook', [
 			'facebook' => $facebook,
 			'facebooks' => $facebooks,
-			'user' => $user,
-			'users' => $users,
+			'userAuth' => $userAuth,
+			'users' => $userAuths,
 		]);
 	}
 
@@ -118,24 +117,24 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Facebook $facebook) {
-		$user = Auth::user();
+		$userAuth = Auth::user();
 		$facebooks = Facebook::all();
 
-		if ($user->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		if ($userAuth->perfil == "administrador") {
+			$userAuths = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 			$facebooks = Facebook::where('id', '>=', 0)->orderBy('PAGE_NAME', 'asc')->get();
 			$totalFacebooks = $facebooks->count();
 		} else {
-			$users = User::where('id', '=', $user->id)->with('accounts')->first();
-			$facebooks = Facebook::where('user_id', '=', $user->id)->with('users')->get();
+			$userAuths = User::where('id', '=', $userAuth->id)->with('accounts')->first();
+			$facebooks = Facebook::where('user_id', '=', $userAuth->id)->with('users')->get();
 			$totalFacebooks = $facebooks->count();
 		}
 
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('facebooks.editFacebook', [
-			'user' => $user,
-			'users' => $users,
+			'userAuth' => $userAuth,
+			'users' => $userAuths,
 			'facebook' => $facebook,
 			'facebooks' => $facebooks,
 			'accounts' => $accounts,
@@ -163,14 +162,14 @@ class FacebookController extends Controller {
 		$facebook->feed_images = ($request->feed_images);
 		$facebook->stories = ($request->stories);
 		$facebook->interaction = ($request->interaction);
-		$facebook->pay_ads = ($request->pay_ads);
 		$facebook->value_ads = ($request->value_ads);
 		$facebook->status = ($request->status);
-
-		$user = Auth::user();
+		$facebook->save();
+		
+		$userAuth = Auth::user();
 
 		return view('facebooks.showFacebook', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'facebook' => $facebook,
 				//'emails' => $emails,
 		]);
@@ -183,7 +182,7 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Facebook $facebook) {
-		//
+		$facebook->delete();
+		return redirect()->route('facebook.index');
 	}
-
 }
