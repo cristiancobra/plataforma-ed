@@ -18,7 +18,7 @@
 		<td   class="table-list-header"><b>Nome do perfil</b></td>
 		<td   class="table-list-header"><b>Dono </b></td>
 		<td   class="table-list-header"><b>Status</b></td>
-		<td   class="table-list-header"><b>Avaliação</b></td>
+		<td   class="table-list-header" style="width: 30%"><b>Avaliação</b></td>
 	</tr>
 
 	@foreach ($twitters as $twitter)
@@ -47,8 +47,8 @@
 		@endif
 
 		<td class="table-list-left">
-		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40"
-			 aria-valuemin="0" aria-valuemax="100" style="display: inline-block;margin-left: 1rem;width:40%">
+		<div class="progress-bar progress-bar-animated" role="progressbar" aria-valuenow="50"
+			 aria-valuemin="0" aria-valuemax="100" style="display: inline-block;margin-left: 1rem;margin-top:0.4rem;margin-bottom: -0.5rem;width:40%">
 			50%
 		</div>
 	</td>
