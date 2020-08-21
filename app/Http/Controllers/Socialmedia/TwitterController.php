@@ -150,6 +150,6 @@ class TwitterController extends Controller {
 	}
 
 	public function scoreBar($score) {
-		if ($score 
+		if ($score);
 	}
 }

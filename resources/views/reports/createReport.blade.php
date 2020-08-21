@@ -16,10 +16,16 @@
 <p class="alert-danger">
 	{{$errors->first()}}
 	<a href="{{route('facebook.create')}}" class="btn btn-secondary">
-		ADICIONAR FACE
+		FACEBOOK
 	</a>
 	<a href="{{route('instagram.create')}}" class="btn btn-secondary">
-		ADICIONAR INSTA
+		INSTAGRAM
+	</a>
+		<a href="{{route('facebook.create')}}" class="btn btn-secondary">
+		LINKEDIN
+	</a>
+	<a href="{{route('instagram.create')}}" class="btn btn-secondary">
+		TWITTER
 	</a>
 </p>
 <br>

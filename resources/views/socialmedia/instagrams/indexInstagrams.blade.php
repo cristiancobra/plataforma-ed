@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','CONTAS DO INSTAGRAM')
+@section('title','INSTAGRAM')
 
 @section('image-top')
 {{ asset('imagens/instagram.png') }} 

@@ -125,20 +125,17 @@
 		</tr>
 	</table>
 
-	<div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-		<a class="btn btn-secondary" href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }}"">
-			<i class='fa fa-edit'></i>
-			Editar
-		</a>
-	</div>
-	<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
-		<form action="{{ route('instagram.destroy', ['instagram' => $instagram->id]) }}" method="post">
+	<br>
+	<div style="text-align:right;padding: 2%">
+		<form  style="text-decoration: none;color: black;display: inline-block" action="{{ route('instagram.destroy', ['instagram' => $instagram->id]) }}" method="post">
 			@csrf
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
+		<a class="btn btn-secondary" href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }}">
+			<i class='fa fa-edit'></i>
+			Editar
+		</a>
 	</div>
-	<br>
-	<p style="text-align: left;margin-left: 30px;color: white;font-size: 14px">* se a <b>senha padrão</b> tiver sido alterada pelo usuário, atualize a senha novamente com a <b>senha padrão</b>. Peça para o usuário alterar sua senha no seu primeiro acesso.</p>
 </div>
 @endsection

@@ -20,14 +20,14 @@ class FacebookController extends Controller {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
 			$facebooks = Facebook::where('id', '>=', 0)->with('users')->orderBy('PAGE_NAME', 'asc')->get();
-			$totalFacebooks = $facebooks->count();
 		} else {
 			$facebooks = Facebook::where('user_id', '=', $userAuth->id)->with('users')->get();
 		}
+		$totalFacebooks = $facebooks->count();
 
 		$accounts = Account::where('id', '=', $userAuth->id)->with('users')->get();
 
-		return view('facebooks.indexFacebooks', [
+		return view('socialmedia.facebooks.indexFacebooks', [
 			'facebooks' => $facebooks,
 			'accounts' => $accounts,
 			'totalFacebooks' => $totalFacebooks,
@@ -50,7 +50,7 @@ class FacebookController extends Controller {
 		}
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
-		return view('facebooks.createFacebook', [
+		return view('socialmedia.facebooks.createFacebook', [
 			'userAuth' => $userAuth,
 			'users' => $users,
 			'accounts' => $accounts,
@@ -78,7 +78,7 @@ class FacebookController extends Controller {
 	public function show(Facebook $facebook) {
 		$userAuth = Auth::user();
 
-		return view('facebooks.showFacebook', [
+		return view('socialmedia.facebooks.showFacebook', [
 			'facebook' => $facebook,
 			'userAuth' => $userAuth,
 		]);
@@ -106,7 +106,7 @@ class FacebookController extends Controller {
 
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
-		return view('facebooks.editFacebook', [
+		return view('socialmedia.facebooks.editFacebook', [
 			'userAuth' => $userAuth,
 			'users' => $userAuths,
 			'facebook' => $facebook,
@@ -142,7 +142,7 @@ class FacebookController extends Controller {
 
 		$userAuth = Auth::user();
 
-		return view('facebooks.showFacebook', [
+		return view('socialmedia.facebooks.showFacebook', [
 			'userAuth' => $userAuth,
 			'facebook' => $facebook,
 				//'emails' => $emails,

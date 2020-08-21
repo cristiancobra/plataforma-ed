@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
-@section('title','ADICIONARNOVA PÁGINA')
+@section('title','NOVA PÁGINA')
 
 @section('image-top')
-{{ asset('imagens/colaborador.png') }} 
+{{ asset('imagens/facebook.png') }} 
 @endsection
 
 @section('description')

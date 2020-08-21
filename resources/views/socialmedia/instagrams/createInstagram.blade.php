@@ -1,23 +1,23 @@
 @extends('layouts/master')
 
-@section('title','NOVA PÁGINA')
+@section('title','NOVA CONTA')
 
 @section('image-top')
 {{ asset('imagens/instagram.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('instagram.index') }}">VER PÁGINAS</a>
+<a class="btn btn-primary" href="{{ route('instagram.index') }}">VER CONTAS</a>
 @endsection
 
 @section('main')
 <div>
 	<form action=" {{ route('instagram.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
-		<label class="labels" for="" >NOME DA PÁGINA:</label>
+		<label class="labels" for="" >NOME DA CONTA:</label>
 		<input type="text" name="page_name" size="20"><span class="fields"></span><br>
 		<br>
-		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
+		<label class="labels" for="" >ENDEREÇO DA CONTA:</label>
 		<input type="text" name="URL_name" size="50"><span class="fields"></span><br>
 		<br>
 		<label class="labels" for="" >DONO: </label>

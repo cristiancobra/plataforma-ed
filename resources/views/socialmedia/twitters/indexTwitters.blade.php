@@ -34,7 +34,9 @@
 			</button>
 			{{ $twitter->page_name}}
 		</td>
-		<td class="table-list-center"><b>{{ $twitter->users()->first()->name}}</b></td>
+		<td class="table-list-center">
+			<b>{{ $twitter->users()->first()->name}}</b>
+		</td>
 
 		@if ($twitter->status == "desativado")
 		<td class="button-disable"><b>{{ $twitter->status  }}</b></td>
@@ -44,13 +46,6 @@
 		<td class="button-delete"><b>{{ $twitter->status  }}</b></td>
 		@endif
 
-		@if ($twitter->score == "desativado")
-		<td class="button-disable"><b>{{ $twitter->status  }}</b></td>
-		@elseif ($twitter->status == "ativo")
-		<td class="button-active"><b>{{ $twitter->status  }}</b></td>
-		@else ($twitter->status == "pendente")
-		<td class="button-delete"><b>{{ $twitter->status  }}</b></td>
-		@endif
 	</tr>
 	@endforeach
 </table>

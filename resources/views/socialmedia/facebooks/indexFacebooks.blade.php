@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','PÁGINAS DO FACEBOOK')
+@section('title','FACEBOOK')
 
 @section('image-top')
 {{ asset('imagens/facebook.png') }} 
