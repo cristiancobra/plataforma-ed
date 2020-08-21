@@ -21,10 +21,10 @@
 	<a href="{{route('instagram.create')}}" class="btn btn-secondary">
 		INSTAGRAM
 	</a>
-		<a href="{{route('facebook.create')}}" class="btn btn-secondary">
+		<a href="{{route('linkedin.create')}}" class="btn btn-secondary">
 		LINKEDIN
 	</a>
-	<a href="{{route('instagram.create')}}" class="btn btn-secondary">
+	<a href="{{route('twitter.create')}}" class="btn btn-secondary">
 		TWITTER
 	</a>
 </p>

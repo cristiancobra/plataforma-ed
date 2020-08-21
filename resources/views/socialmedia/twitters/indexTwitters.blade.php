@@ -46,8 +46,14 @@
 		<td class="button-delete"><b>{{ $twitter->status  }}</b></td>
 		@endif
 
-	</tr>
-	@endforeach
+		<td class="table-list-left">
+		<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="40"
+			 aria-valuemin="0" aria-valuemax="100" style="display: inline-block;margin-left: 1rem;width:40%">
+			50%
+		</div>
+	</td>
+</tr>
+@endforeach
 </table>
 <br>
 @endsection

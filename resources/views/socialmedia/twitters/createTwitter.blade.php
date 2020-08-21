@@ -70,16 +70,6 @@
 		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Funcionários possuem perfil preenchido:</label>
-		<br>
-		<input type="radio" name="employee_profiles" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="employee_profiles" value="no"><span class="fields">Não</span><br>
-		<br>
-		<label class="labels" for="">Aceita/anuncia vagas:</label>
-		<br>
-		<input type="radio" name="offers_job" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="offers_job" value="no"><span class="fields">Não</span><br>
-		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10" value="0">
 		<br>
