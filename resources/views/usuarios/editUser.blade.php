@@ -7,11 +7,7 @@
 @endsection
 
 @section('description')
-
-Altere seu email
-<a href=" {{ route('user.index') }}"><br><br>
-	<button type="button" class="button">VER COLABORADORES</button> </a>
-
+<a class="btn btn-primary" href=" {{ route('user.index') }}">VER COLABORADORES</a>
 @endsection
 
 @section('main')

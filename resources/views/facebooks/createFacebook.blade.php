@@ -40,52 +40,55 @@
 		</select>
 		<br>
 		<br>
+		<label class="labels" for="">Possui conta Business: </label>
+		<br>
+		<input type="radio" name="business" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="business" value="não" ><span class="fields">Não</span><br>
+		<br>
 		<label class="labels" for="">Conta Business vinculada com Instagram: </label>
 		<br>
-		<input type="radio" name="linked_instagram" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="linked_instagram" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="linked_instagram" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="linked_instagram" value="nâo" ><span class="fields">Não</span><br>
 		<br>
-
-
 		<label class="labels" for="">Conta possui mesmo nome do site: </label>
 		<br>
-		<input type="radio" name="same_site_name" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="same_site_name" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="same_site_name" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="same_site_name" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Apresentação da página:</label>
 		<br>
-		<input type="radio" name="about" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="about" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="about" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="about" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Publica conteúdos no feed:</label>
 		<br>
-		<input type="radio" name="feed_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="feed_content" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="feed_content" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="feed_content" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Feed organizado:</label>
 		<br>
-		<input type="radio" name="harmonic_feed" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="harmonic_feed" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="harmonic_feed" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="harmonic_feed" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Publicações usam SEO:</label>
 		<br>
-		<input type="radio" name="SEO_descriptions" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="SEO_descriptions" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="SEO_descriptions" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="SEO_descriptions" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Imagens têm tamanho correto:</label>
 		<br>
-		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="feed_images" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="feed_images" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Publica Stories:</label>
 		<br>
-		<input type="radio" name="stories" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="stories" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="stories" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="stories" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Publicações com interação:</label>
 		<br>
-		<input type="radio" name="interaction" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="interaction" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="interaction" value="sim" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="interaction" value="não" ><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10" value="0">

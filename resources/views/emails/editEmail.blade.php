@@ -50,15 +50,6 @@
 	<br>
 	<br>
 	<input class="btn btn-secondary" type="submit" value="ATUALIZAR EMAIL">
-	@if ($userAuth->perfil == "administrador")
-	<a class="btn btn-secondary" href="https://acadia.mxroute.com:2083/cpsess2438558906/frontend/manager/email_accounts/index.html#/list" target="_blank">
-		SERVIDOR DE EMAIL
-	</a>
-	login: solucoes
-	@endif
 </form>
-
-	
-	
 </div>     
 @endsection

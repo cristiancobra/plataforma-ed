@@ -3,15 +3,11 @@
 @section('title','EDITAR FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('imagens/facebook.png') }} 
 @endsection
 
 @section('description')
-
-Altere seu email
-<a href="/facebooks/"><br><br>
-	<button type="button" class="button-header">VER FACEBOOKS</button> </a>
-
+<a class="btn btn-primary" href="{{route('facebook.index')}}">VER FACEBOOKS</a>
 @endsection
 
 @section('main')
@@ -28,6 +24,9 @@ Altere seu email
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="user_id">
+			<option  class="fields" value="{{ $facebook->user_id}}">
+				{{ $facebook->users->name }}
+			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
 				{{ $user->name }}
@@ -48,55 +47,154 @@ Altere seu email
 		<br>
 		<label class="labels" for="">Conta Business vinculada com Instagram: </label>
 		<br>
-		<input type="radio" name="linked_instagram" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="linked_instagram" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="linked_instagram" value="sim" @if ($facebook->linked_instagram == "sim" ) checked @endif>
+		<input type="radio" name="linked_instagram" value="não" checked="checked">
 		<br>
-
-
+		@endif
+		<br>
 		<label class="labels" for="">Conta possui mesmo nome do site: </label>
 		<br>
-		<input type="radio" name="same_site_name" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="same_site_name" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->same_site_name == "sim" )
+		<input type="radio" name="same_site_name" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="same_site_name" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="same_site_name" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="same_site_name" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Apresentação da página:</label>
 		<br>
-		<input type="radio" name="about" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="about" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->same_site_name == "sim" )
+		<input type="radio" name="about" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="about" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="about" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="about" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Publica conteúdos no feed:</label>
 		<br>
-		<input type="radio" name="feed_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="feed_content" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->feed_content == "sim" )
+		<input type="radio" name="feed_content" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="feed_content" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="feed_content" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="feed_content" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Feed organizado:</label>
 		<br>
-		<input type="radio" name="harmonic_feed" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="harmonic_feed" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->harmonic_feed == "sim" )
+		<input type="radio" name="harmonic_feed" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="harmonic_feed" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="harmonic_feed" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="harmonic_feed" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Publicações usam SEO:</label>
 		<br>
-		<input type="radio" name="SEO_descriptions" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="SEO_descriptions" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->SEO_descriptions == "sim" )
+		<input type="radio" name="SEO_descriptions" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="SEO_descriptions" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="SEO_descriptions" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="SEO_descriptions" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Imagens têm tamanho correto:</label>
 		<br>
-		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->feed_images == "sim" )
+		<input type="radio" name="feed_images" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="feed_images" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="feed_images" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="feed_images" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Publica Stories:</label>
 		<br>
-		<input type="radio" name="stories" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="stories" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->stories == "sim" )
+		<input type="radio" name="stories" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="stories" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="stories" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="stories" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Publicações com interação:</label>
 		<br>
-		<input type="radio" name="interaction" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="interaction" value="no"><span class="fields">Não</span><br>
+		@if ($facebook->stories == "sim" )
+		<input type="radio" name="interaction" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
 		<br>
-		<label class="labels" for="">Paga ADs:</label>
+		<input type="radio" name="interaction" value="não" >
+		<span class="fields">Não</span>
 		<br>
-		<input type="radio" name="pay_ads" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="pay_ads" value="no"><span class="fields">Não</span><br>
+		@else
+		<input type="radio" name="interaction" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="interaction" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
 		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10"  value="{{ $facebook->value_ads }}">
@@ -104,21 +202,24 @@ Altere seu email
 		<br>
 		<label class="labels" for="">STATUS:</label>
 		<select class="fields" name="status">
+			<option value="{{ $facebook->status }}">{{ $facebook->status}}</option>
+			@if ($facebook->status == "desativado")
 			<option value="ativo">ativo</option>
+			<option value="pendente">pendente</option>
+			@elseif  ($facebook->status == "ativo")
 			<option value="desativado">desativado</option>
 			<option value="pendente">pendente</option>
+			@elseif  ($facebook->status == "pendente")
+			<option value="ativo">ativo</option>
+			<option value="desativado">desativado</option>
+			@endif
 		</select>
 		<br>
 		<br>
-		<input class="button-header" type="submit" value="ATUALIZAR FACEBOOK">
-		@if ($user->perfil == "administrador")
-		<a href="https://acadia.mxroute.com:2083/cpsess2438558906/frontend/manager/email_accounts/index.html#/list" target="_blank"><br><br>
-			<button type="button" class="button-header">SERVIDOR DE EMAIL</button> </a><br>
-		<center>login: solucoes</center>
-		@endif
-</form>
+		<input class="btn btn-secondary" type="submit" value="ATUALIZAR FACEBOOK">
+		</form>
 
 
 
-</div>     
-@endsection
+	</div>     
+	@endsection

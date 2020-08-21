@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // ================================ SISTEMA ===================
 Auth::routes(['register' => false]);
 
-Route::get('/', 'dashboardController@index')->name('home');
+Route::get('/', 'DashboardController@home')->name('home')->middleware('auth');
 
 // ================================ ADMINISTRATIVO ===================
 Route::get('/admin/NovaPlataforma/form_plataforma', function () {
@@ -38,16 +38,6 @@ Route::get('contacts', 'Contact\\ContactController@Index');
 // ================================ EMAILS ===================
 Route::resource('emails', 'Emails\\EmailController')->names('email');
 
-// ================================ FACEBOOKS  ===================
-Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
-
-//Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
-//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
-//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
-
-// ================================ INSTAGRAMS  ===================
-Route::resource('instagrams', 'Socialmedia\\InstagramController')->names('instagram');
-
 // ================================ MENU ===================
 Route::get('/inicio', function () {
 	return view('inicio');
@@ -64,10 +54,29 @@ Route::get('/perfil', function () {
 });
 
 
-// ------------------------------------------------ SOCIALMEDIA ------------------------------------------------
-Route::get('/redes-sociais', function () {
-	return view('socialmedia.workflowSocialmedia');
-});
+// ================================ SOCIALMEDIA ===================
+//Route::get('/redes-sociais', function () {
+//	return view('socialmedia.dashboardSocialmedia');
+//});
+
+Route::get('/redes-sociais', 'DashboardController@socialmedia')->name('socialmedia')->middleware('auth');
+
+// ---------- FACEBOOKS
+Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
+
+//Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
+//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
+//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
+
+// ---------- INSTAGRAMS
+Route::resource('instagrams', 'Socialmedia\\InstagramController')->names('instagram');
+
+// ---------- LINKEDIN
+Route::resource('linkedins', 'Socialmedia\\LinkedinController')->names('linkedin');
+
+// ---------- TWITTER
+Route::resource('twitter', 'Socialmedia\\TwitterController')->names('twitter');
+
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
 Route::get('/relatorios/{report}/pdf','ReportController@generatePDF')->name('report.pdf');

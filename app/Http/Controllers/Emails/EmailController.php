@@ -45,8 +45,8 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$email = new \App\Models\Email();
 		$userAuth = Auth::user();
+		$email = new \App\Models\Email();
 		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 		} else {
@@ -101,11 +101,9 @@ class EmailController extends Controller {
 	 */
 	public function show(Email $email) {
 		$userAuth = Auth::user();
-		$emails = Email::where('id', '=', $userAuth->id)->with('users')->get();
-		//	$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
+
 		return view('emails.showEmail', [
 			'email' => $email,
-			'emails' => $emails,
 			'userAuth' => $userAuth,
 		]);
 	}
@@ -125,7 +123,7 @@ class EmailController extends Controller {
 		} else {
 			$emails = Email::where('user_id', '=', $userAuth->id)->with('users')->get();
 		}
-			
+
 		return view('emails.editEmail', [
 			'userAuth' => $userAuth,
 			'users' => $users,
@@ -142,14 +140,13 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Email $email) {
+		$userAuth = Auth::user();
 		$email->email = $request->email;
 		//$user->name = $request->name;
 		$email->email_password = $request->email_password;
 		$email->storage = $request->storage;
 		$email->status = $request->status;
 		$email->save();
-
-		$userAuth = Auth::user();
 
 		return view('emails.showEmail', [
 			'userAuth' => $userAuth,

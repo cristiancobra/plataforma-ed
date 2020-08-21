@@ -3,16 +3,16 @@
 @section('title','NOVA PÁGINA')
 
 @section('image-top')
-{{ asset('imagens/instagram.png') }} 
+{{ asset('imagens/twitter.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('instagram.index') }}">VER PÁGINAS</a>
+<a class="btn btn-primary" href="{{ route('twitter.index') }}">VER PÁGINAS</a>
 @endsection
 
 @section('main')
 <div>
-	<form action=" {{ route('instagram.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('twitter.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
 		<input type="text" name="page_name" size="20"><span class="fields"></span><br>
@@ -45,36 +45,20 @@
 		<input type="radio" name="business" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="business" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Conta vinculada com Facebook: </label>
-		<br>
-		<input type="radio" name="linked_facebook" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="linked_facebook" value="no"><span class="fields">Não</span><br>
-		<br>
-
 		<label class="labels" for="">Conta possui mesmo nome do site: </label>
 		<br>
 		<input type="radio" name="same_site_name" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="same_site_name" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Descrição da bio:</label>
+		<label class="labels" for="">Descrição do perfil:</label>
 		<br>
 		<input type="radio" name="about" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="about" value="no"><span class="fields">Não</span><br>
-		<br>
-		<label class="labels" for="">Linktree na bio:</label>
-		<br>
-		<input type="radio" name="linktree" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="linktree" value="no"><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Publica conteúdos no feed:</label>
 		<br>
 		<input type="radio" name="feed_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="feed_content" value="no"><span class="fields">Não</span><br>
-		<br>
-		<label class="labels" for="">Feed organizado:</label>
-		<br>
-		<input type="radio" name="harmonic_feed" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="harmonic_feed" value="no"><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Publicações usam SEO:</label>
 		<br>
@@ -86,15 +70,15 @@
 		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Publica Stories:</label>
+		<label class="labels" for="">Funcionários possuem perfil preenchido:</label>
 		<br>
-		<input type="radio" name="stories" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="stories" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="employee_profiles" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="employee_profiles" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Publicações com interação:</label>
+		<label class="labels" for="">Aceita/anuncia vagas:</label>
 		<br>
-		<input type="radio" name="interaction" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="interaction" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="offers_job" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="offers_job" value="no"><span class="fields">Não</span><br>
 		<br>
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10" value="0">

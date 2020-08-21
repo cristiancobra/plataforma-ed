@@ -7,7 +7,8 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('facebook.create') }}">CADASTRAR NOVA PÁGINA</a>
+<a class="btn btn-primary" href="{{ route('report.create') }}">NOVO RELATÓRIO</a>
+<a class="btn btn-primary" href="{{ route('facebook.create') }}">NOVA PÁGINA</a>
 @endsection
 
 @section('main')
@@ -32,12 +33,6 @@
 				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
 					<i class='fa fa-eye'></i></a>
 			</button>
-			@if ($userAuth->perfil == "administrador")
-			<button class="button">
-				<a href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
-					<i class='fa fa-cogs'></i></a>
-			</button>
-			@endif
 			{{ $facebook->page_name}}
 		</td>
 		<td class="table-list-center"><b>{{ $facebook->users()->first()->name}}</b></td>

@@ -5,12 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\User;
 
-class Facebook extends Model {
-
-	protected $table = 'facebooks';
+class Twitter extends Model
+{
+	protected $table = 'twitters';
 	protected $fillable = [
-		'id', 'user_id', 'status', 'page_name', 'linked_instagram', 'same_site_name', 'about', 'feed_content', 'harmonic_feed', 'SEO_descriptions', 'feed_images',
-		'stories', 'interaction', 'value_ads', 'URL_name', 'business'
+		'id', 'user_id', 'status', 'page_name','linked_facebook', 'linked_site', 'same_site_name', 'about', 'feed_content', 'value_ads', 'URL_name', 'business',
 	];
 
 	public function users() {
@@ -20,5 +19,4 @@ class Facebook extends Model {
 	public function accounts() {
 		return $this->hasMany(Account::class, 'user_id', 'id');
 	}
-
 }

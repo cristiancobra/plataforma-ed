@@ -20,7 +20,6 @@ class CreateReportsTable extends Migration {
 			$table->string('status');
 			$table->string('logo');
 			$table->string('palette');
-
 			$table->string('FB_page_name');
 			$table->string('FB_URL_name');
 			$table->string('FB_business');

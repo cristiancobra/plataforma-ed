@@ -25,16 +25,16 @@ class InstagramController extends Controller {
 					->get();
 		} else {
 			$instagrams = Instagram::where('user_id', '=', $userAuth
-					->id)->with('users')
+							->id)->with('users')
 					->get();
 		}
-					$totalInstagrams = $instagrams->count();
+		$totalInstagrams = $instagrams->count();
 
-	//	$accounts = Account::where('id', '=', $user->id)->with('users')->get();
+		//	$accounts = Account::where('id', '=', $user->id)->with('users')->get();
 
 		return view('socialmedia.instagrams.indexInstagrams', [
 			'instagrams' => $instagrams,
-	//		'accounts' => $accounts,
+			//		'accounts' => $accounts,
 			'totalInstagrams' => $totalInstagrams,
 			'userAuth' => $userAuth,
 		]);
@@ -46,9 +46,13 @@ class InstagramController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$instagram = new \App\Models\Instagram();
 		$userAuth = Auth::user();
-		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$instagram = new \App\Models\Instagram();
+		if ($userAuth->perfil == "administrador") {
+			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		} else {
+			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+		}
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('socialmedia.instagrams.createInstagram', [
@@ -66,27 +70,7 @@ class InstagramController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$instagram = new \App\Models\Instagram();
-		$instagram->user_id = ($request->user_id);
-		$instagram->page_name = ($request->page_name);
-		$instagram->URL_name = ($request->URL_name);
-		$instagram->business = ($request->business);
-		$instagram->linked_facebook = ($request->linked_facebook);
-		$instagram->same_site_name = ($request->same_site_name);
-		$instagram->about = ($request->about);
-		$instagram->linktree = ($request->linktree);
-		$instagram->feed_content = ($request->feed_content);
-		$instagram->harmonic_feed = ($request->harmonic_feed);
-		$instagram->SEO_descriptions = ($request->SEO_descriptions);
-		$instagram->feed_images = ($request->feed_images);
-		$instagram->stories = ($request->stories);
-		$instagram->interaction = ($request->interaction);
-		$instagram->value_ads = ($request->value_ads);
-		$instagram->status = ($request->status);
-		$instagram->save();
-
-		$instagrams = \App\Models\Instagram::all();
-		$userAuth = Auth::user();
+		Instagram::create($request->all());
 
 		return redirect()->action('Socialmedia\\InstagramController@index');
 	}
@@ -99,21 +83,10 @@ class InstagramController extends Controller {
 	 */
 	public function show(Instagram $instagram) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$totalUsers = $users->count();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->first();
-			$totalUsers = $users->count();
-		}
-		$instagrams = Instagram::where('id', '=', $userAuth->id)->with('users')->get();
-//		$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
 
 		return view('socialmedia.instagrams.showInstagram', [
 			'instagram' => $instagram,
-			'instagrams' => $instagrams,
 			'userAuth' => $userAuth,
-			'users' => $users,
 		]);
 	}
 
@@ -124,31 +97,23 @@ class InstagramController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Instagram $instagram) {
-		$user = Auth::user();
-		$instagrams = Instagram::all();
+		$userAuth = Auth::user();
 
-		if ($user->perfil == "administrador") {
+		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$instagrams = Instagram::where('id', '>=', 0)->orderBy('PAGE_NAME', 'asc')->get();
-			$totalInstagrams = $instagrams->count();
 		} else {
-			$users = User::where('id', '=', $user->id)->with('accounts')->first();
-			$instagrams = Instagram::where('user_id', '=', $user->id)->with('users')->get();
-			$totalInstagrams = $instagrams->count();
+			$users = User::where('id', '=', $userAuth->id)->with('accounts')->first();
 		}
 
 		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		return view('socialmedia.instagrams.editInstagram', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'users' => $users,
 			'instagram' => $instagram,
-			'instagrams' => $instagrams,
 			'accounts' => $accounts,
-			'totalEmails' => $totalInstagrams,
 		]);
 	}
-
 
 	/**
 	 * Update the specified resource in storage.
@@ -158,6 +123,8 @@ class InstagramController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Instagram $instagram) {
+		$userAuth = Auth::user();
+
 		$instagram->user_id = ($request->user_id);
 		$instagram->page_name = ($request->page_name);
 		$instagram->URL_name = ($request->URL_name);
@@ -175,11 +142,9 @@ class InstagramController extends Controller {
 		$instagram->value_ads = ($request->value_ads);
 		$instagram->status = ($request->status);
 		$instagram->save();
-		
-		$user = Auth::user();
 
 		return view('socialmedia.instagrams.showInstagram', [
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'instagram' => $instagram,
 				//'emails' => $emails,
 		]);

@@ -94,9 +94,9 @@
 				</button>
 
 				<div class="dropdown-container">
-					<a class="sidebar-subitem"href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
-					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
-					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/" target="_blank"><i class="fas cloud" style="margin-right: 8px"></i>NUVEM (ARQUIVOS)</a>
+					<a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/" target="_blank"><i class="fas cloud" style="margin-right: 8px"></i>NUVEM (ARQUIVOS)</a>
 				</div>
 
 				<a href="{{ route('user.index') }}">
@@ -126,11 +126,13 @@
 				</button>
 
 				<div class="dropdown-container">
-					<a class="sidebar-subitem"href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
+					<a class="sidebar-subitem" href="/redes-sociais"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem"href="/editarsite" target="_blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
 					<a class="sidebar-subitem"href="/postarsite" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
 					<a class="sidebar-subitem" href="{{ route('facebook.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>FACEBOOK</a>
 					<a class="sidebar-subitem" href="{{ route('instagram.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>INSTAGRAM</a>
+					<a class="sidebar-subitem" href="{{ route('linkedin.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>LINKEDIN</a>
+					<a class="sidebar-subitem" href="{{ route('twitter.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>TWITTER</a>
 					<a class="sidebar-subitem" href="{{ route('report.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>RELATÓRIOS</a>
 					<a class="sidebar-subitem"href="https://business.facebook.com/creatorstudio" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>PUBLICAR NO FACEBOOK</a>
 					<a class="sidebar-subitem"href="https://stories.freepik.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>DESENHAR STORIE</a>
@@ -176,7 +178,7 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="/redes-sociais" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
+					<a class="sidebar-subitem"href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR USUÁRIO</a>
@@ -221,7 +223,7 @@
 
 			<div class="header">
 				<h1 style="padding: 0px;margin-bottom: -4px">
-				@yield('title')
+					@yield('title')
 				</h1>
 				<p>
 					@yield('description')

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Report;
 use App\Models\Facebook;
 use App\Models\Instagram;
+use App\Models\Linkedin;
+use App\Models\Twitter;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +24,11 @@ class ReportController extends Controller {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
 			$reports = Report::where('id', '>=', 0)->orderBy('ID', 'asc')->get();
-			$totalReports = $reports->count();
 		} else {
 			$reports = Report::where('user_id', '=', $userAuth->id)->with('users')->get();
 		}
+
+		$totalReports = $reports->count();
 
 		return view('reports.indexReports', [
 			'reports' => $reports,
@@ -43,9 +46,13 @@ class ReportController extends Controller {
 		$report = new Report();
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$users = User::where('id', '>=', 0)
+					->orderBy('NAME', 'asc')
+					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+			$users = User::where('id', '=', $userAuth->id)
+					->with('accounts')
+					->get();
 		}
 //	$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
@@ -111,10 +118,39 @@ class ReportController extends Controller {
 		$report->IG_interaction = ($instagram->interaction);
 		$report->IG_value_ads = ($instagram->value_ads);
 
-		$report->save();
+		$linkedin = Linkedin::where('user_id', '=', $request->user_id)->first();
+		if ($linkedin == null) {
+			return Redirect::back()
+							->withErrors("Usuário não possui CONTA DE LINKEDIN cadastrada.");
+		}
+		$report->IN_page_name = ($linkedin->page_name);
+		$report->IN_URL_name = ($linkedin->URL_name);
+		$report->IN_business = ($linkedin->business);
+		$report->IN_same_site_name = ($linkedin->same_site_name);
+		$report->IN_about = ($linkedin->about);
+		$report->IN_feed_content = ($linkedin->feed_content);
+		$report->IN_SEO_descriptions = ($linkedin->SEO_descriptions);
+		$report->IN_feed_images = ($linkedin->feed_images);
+		$report->IN_employee_profiles = ($linkedin->employee_profiles);
+		$report->IN_offers_job = ($linkedin->offers_job);
+		$report->IN_value_ads = ($linkedin->value_ads);
 
-		$reports = \App\Models\Report::all();
-		$user = Auth::user();
+		$twitter = Twitter::where('user_id', '=', $request->user_id)->first();
+		if ($twitter == null) {
+			return Redirect::back()
+							->withErrors("Usuário não possui CONTA DE TWITTER cadastrada.");
+		}
+		$report->TW_page_name = ($twitter->page_name);
+		$report->TW_URL_name = ($twitter->URL_name);
+		$report->TW_business = ($twitter->business);
+		$report->TW_linked_facebook = ($twitter->linked_facebook);
+		$report->TW_linked_site = ($twitter->linked_site);
+		$report->TW_same_site_name = ($twitter->same_site_name);
+		$report->TW_about = ($twitter->about);
+		$report->TW_feed_content = ($twitter->feed_content);
+		$report->TW_value_ads = ($twitter->value_ads);
+
+		$report->save();
 
 		return redirect()->action('ReportController@index');
 	}
@@ -135,6 +171,7 @@ class ReportController extends Controller {
 			} else {
 				$reports = Report::where('user_id', '=', $userAuth->id)->with('users')->get();
 			}
+
 			$totalReports = $reports->count();
 
 			return view('reports.showReport', [

@@ -126,7 +126,7 @@
 	</table>
 
 	<div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-		<a class="btn btn-secondary" href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }} "  style="text-decoration: none;color: black">
+		<a class="btn btn-secondary" href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }}"">
 			<i class='fa fa-edit'></i>
 			Editar
 		</a>

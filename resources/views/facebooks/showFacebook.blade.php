@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="/facebooks">VER TODOS AS PÁGINAS </a>
+<a class="btn btn-primary" href="{{route('facebook.index')}}">VER TODOS AS PÁGINAS </a>
 
 @endsection
 
@@ -97,14 +97,6 @@
 			@endif
 		</tr>
 		<tr>
-			<td   class="table-list-left"><b>Paga ADs:</b></td>
-			@if ($facebook->pay_ads === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
 			<td   class="table-list-left"><b>Investimento em ADs:</b></td>
 			<td   class="table-list-money-income"><b> R$ {{ number_format($facebook->value_ads,2,",",".") }}</b></td>
 		</tr>
@@ -114,11 +106,11 @@
 		<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('facebook.destroy', ['facebook' => $facebook->id]) }}" method="post">
 			@csrf
 			@method('delete')
-			<input class="button-delete" type="submit" value="APAGAR">
+			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }} "    style="text-decoration: none;color: black;display: inline-block">
-			<i class='fa fa-edit'></i>Editar</a>
-				<a class="btn btn-primary" href="{{route('facebook.index')}}">VOLTAR</a>
+		<a class="btn btn-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}">
+			<i class='fa fa-edit'></i>EDITAR</a>
+				<a class="btn btn-secondary" href="{{route('facebook.index')}}">VOLTAR</a>
 	</div>
 	<br>
 	<p style="text-align: left;margin-left: 30px;color: white;font-size: 14px">* se a <b>senha padrão</b> tiver sido alterada pelo usuário, atualize a senha novamente com a <b>senha padrão</b>. Peça para o usuário alterar sua senha no seu primeiro acesso.</p>

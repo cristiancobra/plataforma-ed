@@ -64,25 +64,7 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$facebook = new \App\Models\Facebook();
-		$facebook->user_id = ($request->user_id);
-		$facebook->page_name = ($request->page_name);
-		$facebook->URL_name = ($request->URL_name);
-		$facebook->linked_instagram = ($request->linked_instagram);
-		$facebook->same_site_name = ($request->same_site_name);
-		$facebook->about = ($request->about);
-		$facebook->feed_content = ($request->feed_content);
-		$facebook->harmonic_feed = ($request->harmonic_feed);
-		$facebook->SEO_descriptions = ($request->SEO_descriptions);
-		$facebook->feed_images = ($request->feed_images);
-		$facebook->stories = ($request->stories);
-		$facebook->interaction = ($request->interaction);
-		$facebook->value_ads = ($request->value_ads);
-		$facebook->status = ($request->status);
-		$facebook->save();
-
-		$facebooks = \App\Models\Facebook::all();
-		$userAuth = Auth::user();
+		Facebook::create($request->all());
 
 		return redirect()->action('Socialmedia\\FacebookController@index');
 	}
@@ -95,21 +77,10 @@ class FacebookController extends Controller {
 	 */
 	public function show(Facebook $facebook) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$userAuths = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$totalUsers = $userAuths->count();
-		} else {
-			$userAuths = User::where('id', '=', $userAuth->id)->with('accounts')->first();
-			$totalUsers = $userAuth->count();
-		}
-		$facebooks = Facebook::where('id', '=', $userAuth->id)->with('users')->get();
-//		$accounts = User::where('id', '=', $userAuth->id)->with('accounts')->get();
 
 		return view('facebooks.showFacebook', [
 			'facebook' => $facebook,
-			'facebooks' => $facebooks,
 			'userAuth' => $userAuth,
-			'users' => $userAuth,
 		]);
 	}
 
@@ -168,7 +139,7 @@ class FacebookController extends Controller {
 		$facebook->value_ads = ($request->value_ads);
 		$facebook->status = ($request->status);
 		$facebook->save();
-		
+
 		$userAuth = Auth::user();
 
 		return view('facebooks.showFacebook', [
@@ -188,4 +159,5 @@ class FacebookController extends Controller {
 		$facebook->delete();
 		return redirect()->route('facebook.index');
 	}
+
 }

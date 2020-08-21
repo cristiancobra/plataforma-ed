@@ -1874,7 +1874,7 @@ pre code {
 }
 
 .table-hover .table-primary:hover {
-  background-color: #b0d4f1;
+  background-color: #c28dbf;
 }
 
 .table-hover .table-primary:hover > td,
@@ -2756,7 +2756,7 @@ fieldset:disabled a.btn {
   color: white;
   background-color: #874983;
   border-color: #6c757d;
-    padding: 0.7rem 1rem;
+  padding: 0.7rem 1rem;
   font-size: 0.8rem;
 }
 
@@ -2922,6 +2922,8 @@ fieldset:disabled a.btn {
   color: #fff;
   background-color: #e3342f;
   border-color: #e3342f;
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem;
 }
 
 .btn-danger:hover {
