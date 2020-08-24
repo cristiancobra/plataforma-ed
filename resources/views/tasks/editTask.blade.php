@@ -22,11 +22,9 @@
 		<label class="labels" for="" >CATEGORIA:</label>
 		<select class="fields" name="category">
 			<option value="{{ $task->category }}">{{ $task->category }}</option>
-			<option value="atendimento">atendimento</option>
 			<option value="desenvolvimento">desenvolvimento</option>
 			<option value="financeiro">financeiro</option>
 			<option value="marketing">marketing</option>
-			<option value="organização">organização</option>
 			<option value="planejamento">planejamento</option>
 			<option value="serviço">serviço</option>
 			<option value="suporte">suporte</option>

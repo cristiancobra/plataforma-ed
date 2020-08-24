@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class TaskController extends Controller {
 
@@ -120,11 +121,25 @@ class TaskController extends Controller {
 	 */
 	public function update(Request $request, task $task) {
 		$userAuth = Auth::user();
+//		$timeDifference = Carbon::parse($request->end_time->finish)->diffInMinutes(Carbon::parse($request->start_time->start));
+//		$duration->total = $timeDifference / 60; // decimal hours
 
+		$start_time = strtotime($request->start_time);
+		$end_time = strtotime($request->end_time);
+		$duration = $end_time - $start_time;
+		
+//		$duration = $end_time - $start_time;
+
+//		return $diff->format('H:i d/m/Y');
+//
 		$task->fill($request->all());
+		$task->duration = date("H:i", $duration);
 		$task->save();
+		
+//		$hours = $task->duration  / 3600; // decimal hours;
 
 		return view('tasks.showTask', [
+//			'hours' => $hours,
 			'task' => $task,
 			'userAuth' => $userAuth,
 		]);
@@ -139,6 +154,11 @@ class TaskController extends Controller {
 	public function destroy(task $task) {
 		$task->delete();
 		return redirect()->action('Tasks\\TaskController@index');
+	}
+
+	public function duration(start_time $start_time, end_time $end_time) {
+		$duration = $end_time - $start_time;
+		return $duration;
 	}
 
 }

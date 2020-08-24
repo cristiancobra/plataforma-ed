@@ -25,8 +25,8 @@ class CreateTasksTable extends Migration {
 			$table->string('contact_id')->nullable();
 			$table->string('status');
 			$table->string('priority');
-			$table->string('start_time')->nullable();
-			$table->string('end_time')->nullable();
+			$table->time('start_time', 0)->nullable();
+			$table->time('end_time', 0)->nullable();
 			$table->timestamps();
 		});
 	}

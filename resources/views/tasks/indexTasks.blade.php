@@ -14,17 +14,23 @@
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 25%">
-			<b>Nome</b>
-		</td>
 		<td   class="table-list-header" style="width: 50%">
-			<b>Descrição </b>
+			<b>NOME</b>
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>Responsável</b>
+			<b>RESPONSÁVEL</b>
 		</td>
+
 		<td   class="table-list-header" style="width: 10%">
-			<b>Status</b>
+			<b>PRAZO</b>
+		</td>
+
+		<td   class="table-list-header" style="width: 10%">
+			<b>EXECUÇÃO</b>
+		</td>
+		
+				<td   class="table-list-header" style="width: 10%">
+			<b>STATUS</b>
 		</td>
 	</tr>
 
@@ -35,68 +41,48 @@
 				<a href=" {{ route('task.show', ['task' => $task->id]) }}" style="text-decoration: none;color: black">
 					<i class='fa fa-eye'></i></a>
 			</button>
+			<button class="button">
+				<a href=" {{ route('task.edit', ['task' => $task->id]) }}" style="text-decoration: none;color: black">
+					<i class='fa fa-edit'></i></a>
+			</button>
 			{{ $task->name}}
-		</td>
-
-		<td class="table-list-left">
-			{{ $task->description}}
 		</td>
 
 		<td class="table-list-center">
 			{{ $task->users->name}}
 		</td>
 
+		<td class="table-list-center">
+			<label class="labels" for="" >
+				{{ $task->date_due }}
+			</label>
+		</td>
+
+		<td class="table-list-center" style="background-color: #874983">
+			<label class="labels" for="" style="color: white;text-align: center">
+				{{ $task->duration }}
+			</label>
+		</td>
+
 		@if ($task->status == "cancelada")
-		<td class="btn btn-dark"><b>{{ $task->status  }}</b></td>
+		<td class="btn btn-dark">
+			<b>{{ $task->status  }}</b>
+		</td>
 		@elseif ($task->status == "pendente")
-		<td class="btn btn-warning"><b>{{ $task->status  }}</b></td>
+		<td class="btn btn-warning">
+			<b>{{ $task->status  }}</b>
+		</td>
 		@elseif ($task->status == "fazendo agora")
-		<td class="btn btn-info"><b>{{ $task->status  }}</b></td>
+		<td class="btn btn-info">
+			<b>{{ $task->status  }}</b>
+		</td>
 		@elseif ($task->status == "concluida")
-		<td class="btn btn-success"><b>{{ $task->status  }}</b></td>
+		<td class="btn btn-success">
+			<b>{{ $task->status  }}</b>
+		</td>
 		@endif
-</tr>
-<tr>
-	<td class="table-list-center">
-		<label class="labels" for="" >
-			DATA DE CRIAÇÃO:
-			<br>
-			{{ $task->date_start }}
-		</label>
-	</td>
-
-	<td class="table-list-center">
-		<label class="labels" for="" >
-			PRAZO FINAL: 
-			<br>
-			{{ $task->date_due }}
-		</label>
-	</td>
-
-	<td class="table-list-center" style="background-color: #874983">
-		<label class="labels" for="" style="color: white;text-align: center">
-			INÍCIO: 
-			<br>
-			{{ $task->start_time }}
-		</label>
-	</td>
-
-	<td class="table-list-center" style="background-color: #874983">
-		<label class="labels" for="" style="color: white;text-align: center">
-			TÉRMINO: 
-			<br>
-			{{ $task->end_time }}
-		</label>
-	</td>
-
-</tr>
-<tr>
-	<td>
-		<br>
-		<br>
-	</td>
-</tr>
-@endforeach
+	</tr>
+	@endforeach
 </table>
 <br>
 @endsection

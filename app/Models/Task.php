@@ -20,7 +20,7 @@ class Task extends Model {
 	 *
 	 */
 	protected $fillable = [
-		'id', 'user_id', 'date_entered', 'created_by', 'name', 'category', 'description', 'responsible_id', 'date_due', 'date_start', 'contact_id', 'status', 'priority', 'start_time','end_time'
+		'id', 'user_id', 'date_entered', 'created_by', 'name', 'category', 'description', 'responsible_id', 'date_due', 'date_start', 'contact_id', 'status', 'priority', 'start_time','end_time', 'duration',
 	];
 
 	/**

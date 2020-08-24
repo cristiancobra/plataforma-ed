@@ -26,6 +26,8 @@
 	<br>
 	<p class="labels">INÍCIO:<span class="fields">  {{ $task->start_time }} </span></p>
 	<p class="labels">TÉRMINO:<span class="fields">  {{ $task->end_time }} </span></p>
+	<p class="labels">DURAÇÃO:<span class="fields">  {{ $task->duration }} hora(s)</span></p>
+	<br>
 	<p class="labels">SITUAÇAO:<span class="fields">  {{ $task->status }} </span></p>
 	<br>
 	<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }} </p>
