@@ -17,7 +17,7 @@ class TransactionController extends Controller {
 				->orderByDesc('id')
 				->get();
 		
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
 		$expenses = Transaction::where([
 					['deleted_at', '!=', 'null'],
@@ -42,7 +42,7 @@ class TransactionController extends Controller {
 			'totalIncomes' => $totalIncomes,
 			'expenses' => $expenses,
 			'incomes' => $incomes,
-			'user' => $user,
+			'userAuth' => $userAuth,
 			'total' => $total,
 		]);
 	}

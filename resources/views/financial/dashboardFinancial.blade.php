@@ -3,13 +3,11 @@
 @section('title','PAINEL FINANCEIRO')
 
 @section('image-top')
-{{ asset('imagens/colaborador.png') }} 
+{{ asset('imagens/financeiro.png') }} 
 @endsection
 
 @section('description')
-XXXXXX
-<a href="https://financeiro.empresadigital.net.br/"><br><br>
-	<button type="button" class="button">ABRIR GERENCIADOR</button> </a>
+<a class="btn btn-primary" href="https://financeiro.empresadigital.net.br/">ABRIR GERENCIADOR</a>
 
 @endsection
 
@@ -36,7 +34,7 @@ XXXXXX
 		</div>
 	</div>
 </center>
-
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>ID </b></td>

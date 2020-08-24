@@ -31,15 +31,11 @@ class DashboardController extends Controller {
 //	$user_crm = Auth::user()->idcrm;
 
 		if ($userAuth->perfil == "administrador") {
-			$tasks = Task::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->count();
-		} else {
-			$tasks = Task::where('id', '=', $userAuth->id)
-					->with('users')
+			$tasks = Task::where('user_id', '=', $userAuth->id)
+					->where('status', '=', "pendente")
+					->orwhere('status', '=', "em andamento")
 					->count();
 		}
-
 //		$totalTasks = Task::where([
 //					['assigned_user_id', $user_crm],
 //					['deleted', '=', '0']
