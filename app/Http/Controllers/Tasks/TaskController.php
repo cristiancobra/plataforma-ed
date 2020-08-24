@@ -95,19 +95,24 @@ class TaskController extends Controller {
 	 */
 	public function edit(task $task) {
 		$userAuth = Auth::user();
+
 		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
+			$users = User::where('id', '=', $userAuth
+					->id)->with('accounts')
+					->first();
 		}
 
+		$task = Task::find($task->id)
+				->with('users')
+				->first();
+
 		return view('tasks.editTask', [
-			'userAuth' => $userAuth,
 			'users' => $users,
+			'userAuth' => $userAuth,
 			'task' => $task,
 		]);
 	}
@@ -127,15 +132,14 @@ class TaskController extends Controller {
 		$start_time = strtotime($request->start_time);
 		$end_time = strtotime($request->end_time);
 		$duration = $end_time - $start_time;
-		
-//		$duration = $end_time - $start_time;
 
+//		$duration = $end_time - $start_time;
 //		return $diff->format('H:i d/m/Y');
 //
 		$task->fill($request->all());
 		$task->duration = date("H:i", $duration);
 		$task->save();
-		
+
 //		$hours = $task->duration  / 3600; // decimal hours;
 
 		return view('tasks.showTask', [

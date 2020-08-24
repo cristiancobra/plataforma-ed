@@ -34,6 +34,8 @@
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="user_id">
+			<option  class="fields" value="{{ $task->users->id }}">
+				{{ $task->users->name }}
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
 				{{ $user->name }}
