@@ -17,9 +17,13 @@ class UserController extends Controller {
 	public function index() {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$users = User::where('id', '>=', 0)
+					->orderBy('NAME', 'asc')
+					->get();
 		}else{
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+			$users = User::where('id', '=', $userAuth->id)
+					->with('accounts')
+					->get();
 		}
 		$totalUsers = $users->count();
 		return view('usuarios.indexUsers', [

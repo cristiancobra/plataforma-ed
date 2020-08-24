@@ -29,7 +29,7 @@
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
 		<a class="btn btn-secondary" href=" {{ route('email.edit', ['email' => $email->id]) }} "  style="text-decoration: none;color: black;display: inline-block">
-			<i class='fa fa-edit'></i>Editar informações</a>
+			<i class='fa fa-edit'></i>EDITAR</a>
 		<a class="btn btn-secondary" href="{{route('email.index')}}">VOLTAR</a>
 	</div>
 	<br>

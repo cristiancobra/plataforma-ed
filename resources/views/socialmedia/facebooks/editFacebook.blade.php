@@ -45,14 +45,43 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="">Conta Business vinculada com Instagram: </label>
+		<label class="labels" for="">Possui conta Business: </label>
 		<br>
-		<input type="radio" name="linked_instagram" value="sim" @if ($facebook->linked_instagram == "sim" ) checked @endif>
-		<input type="radio" name="linked_instagram" value="não" checked="checked">
+		@if ($facebook->business == "yes")
+		<input type="radio" name="business" value="yes" checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="business" value="no">
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="business" value="yes">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="business" value="no" checked="checked">
+		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
-		<label class="labels" for="">Conta possui mesmo nome do site: </label>
+		<label class="labels" for="">Conta Business vinculada com Instagram: </label>
+		<br>
+		@if ($facebook->linked_instagram == "sim" )
+		<input type="radio" name="linked_instagram" value="sim"  checked="checked">
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="linked_instagram" value="não" >
+		<span class="fields">Não</span>
+		<br>
+		@else
+		<input type="radio" name="linked_instagram" value="sim" >
+		<span class="fields">Sim</span>
+		<br>
+		<input type="radio" name="linked_instagram" value="não"  checked="checked">
+		<span class="fields">Não</span>
+		<br>
+		@endif
+		<br>
+		<label class="labels" for="">Conta com mesmo nome do site: </label>
 		<br>
 		@if ($facebook->same_site_name == "sim" )
 		<input type="radio" name="same_site_name" value="sim"  checked="checked">

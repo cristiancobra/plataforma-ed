@@ -14,19 +14,24 @@
 <center>
 	<div style="width: 100%;padding-top: 2%">
 		<div class="numbers">
-			<p class="numeros_painel">  {{ $totalTasks }}</p>
-			<p class="subtitulo-branco"> tarefas </p>
-			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DTasks%26action%3Dindex%26parentTab%3DAtividades" target="_blank" style="color: yellow">fazer</a></p>
+			<p class="numeros_painel">
+				{{ $tasks }}
+			</p>
+			<p class="subtitulo-branco">
+				tarefas
+			</p>
+			<p style="text-align: center; margin: 0px; padding: 0px">
+				<a href="{{route('task.index')}}" style="color: yellow">fazer</a></p>
 		</div>
 
 		<div class="numbers">
-			<p class="numeros_painel">  {{  $totalLeads }} </p>
+			<p class="numeros_painel"> XXXXX </p>
 			<p class="subtitulo-branco"> potenciais </p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">contatar</a></p>
 		</div>
 
 		<div class="numbers">
-			<p class="numeros_painel"  style="font-size: 26px">  R$ {{ number_format($totalOpportunities,2,",",".") }} </p>
+			<p class="numeros_painel"  style="font-size: 26px">  R$ XXXXX</p>
 			<p class="subtitulo-branco"> oportunidades</p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
 		</div>

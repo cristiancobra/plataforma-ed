@@ -164,20 +164,19 @@ class ReportController extends Controller {
 	public function show(Report $report) {
 		if (Auth::check() == true) {
 			$userAuth = Auth::user();
-			$reports = Report::where('id', '=', $userAuth->id)->with('users')->get();
 
-			if ($userAuth->perfil == "administrador") {
-				$reports = Report::where('id', '>=', 0)->orderBy('DATE', 'asc')->get();
-			} else {
-				$reports = Report::where('user_id', '=', $userAuth->id)->with('users')->get();
-			}
-
-			$totalReports = $reports->count();
+//			if ($userAuth->perfil == "administrador") {
+//				$reports = Report::where('id', '>=', 0)->orderBy('DATE', 'asc')->get();
+//			} else {
+//				$reports = Report::where('user_id', '=', $userAuth->id)->with('users')->get();
+//			}
+//
+//			$totalReports = $reports->count();
 
 			return view('reports.showReport', [
 				'report' => $report,
-				'reports' => $reports,
-				'totalReports' => $totalReports,
+//				'reports' => $reports,
+//				'totalReports' => $totalReports,
 				'userAuth' => $userAuth,
 			]);
 		} else {
@@ -227,53 +226,18 @@ class ReportController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Report $report) {
-		$report->user_id = ($request->user_id);
-		$report->name = ($request->name);
-		$report->date = ($request->date);
-		$report->status = ($request->status);
-		$report->logo = ($request->logo);
-		$report->palette = ($request->palette);
-
-		$facebook = Facebook::where('user_id', '=', $request->user_id)->with('users')->first();
-		$report->FB_page_name = ($facebook->page_name);
-		$report->FB_URL_name = ($facebook->URL_name);
-		$report->FB_business = ($facebook->business);
-		$report->FB_linked_instagram = ($facebook->linked_instagram);
-		$report->FB_same_site_name = ($facebook->same_site_name);
-		$report->FB_about = ($facebook->about);
-		$report->FB_feed_content = ($facebook->feed_content);
-		$report->FB_harmonic_feed = ($facebook->harmonic_feed);
-		$report->FB_SEO_descriptions = ($facebook->SEO_descriptions);
-		$report->FB_feed_images = ($facebook->feed_images);
-		$report->FB_stories = ($facebook->stories);
-		$report->FB_interaction = ($facebook->interaction);
-		$report->FB_value_ads = ($facebook->value_ads);
-
-		$instagram = Instagram::where('user_id', '=', $request->user_id)->with('users')->first();
-		$report->IG_page_name = ($instagram->page_name);
-		$report->IG_URL_name = ($instagram->URL_name);
-		$report->IG_business = ($instagram->business);
-		$report->IG_linked_facebook = ($instagram->linked_facebook);
-		$report->IG_same_site_name = ($instagram->same_site_name);
-		$report->IG_about = ($instagram->about);
-		$report->IG_linktree = ($instagram->linktree);
-		$report->IG_feed_content = ($instagram->feed_content);
-		$report->IG_harmonic_feed = ($instagram->harmonic_feed);
-		$report->IG_SEO_descriptions = ($instagram->SEO_descriptions);
-		$report->IG_feed_images = ($instagram->feed_images);
-		$report->IG_stories = ($instagram->stories);
-		$report->IG_interaction = ($instagram->interaction);
-		$report->IG_value_ads = ($instagram->value_ads);
-		$report->save();
-
 		$userAuth = Auth::user();
+		
+		$report->fill($request->all());
+		$report->save();
 
 		return view('reports.showReport', [
 			'userAuth' => $userAuth,
 			'report' => $report,
 				//'emails' => $emails,
 		]);
-	}
+		}
+
 
 	/**
 	 * Remove the specified resource from storage.

@@ -178,6 +178,7 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
+										<a class="sidebar-subitem"href="{{route('task.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>TAREFAS</a>
 					<a class="sidebar-subitem"href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>

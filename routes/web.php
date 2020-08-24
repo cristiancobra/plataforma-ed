@@ -87,9 +87,7 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
-Route::get('/minhas-tarefas', function () {
-	return view('tarefas.listAllTasks');
-});
+Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters(['tarefas' => 'task']);
 
 // ================================ TRANSAÇÕES AKAUNTING ===================
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');

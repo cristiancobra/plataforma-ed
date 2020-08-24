@@ -21,7 +21,7 @@
 	<a href="{{route('instagram.create')}}" class="btn btn-secondary">
 		INSTAGRAM
 	</a>
-		<a href="{{route('linkedin.create')}}" class="btn btn-secondary">
+	<a href="{{route('linkedin.create')}}" class="btn btn-secondary">
 		LINKEDIN
 	</a>
 	<a href="{{route('twitter.create')}}" class="btn btn-secondary">
@@ -57,7 +57,12 @@
 	</select>
 	<br>
 	<br>
-	<p class="title-reports">IDENTIDADE VISUAL </p>
+	<label  class="labels" for="">Recomendações gerais: </label>
+	<br>
+	<input class="fields" type="text" name="general" style="width: 100%;height: 200px">
+	<br>
+	<br>
+	<p class="title-reports">IDENTIDADE VISUAL</p>
 	<br>
 	<label class="labels" for="" >Possui logomarca: </label><br>
 	<input type="radio" name="logo" value="good" checked="checked"><span class="fields">Sim</span><br>
@@ -70,8 +75,6 @@
 	<input type="radio" name="palette" value="good" checked="checked"><span class="fields">Sim</span><br>
 	<input type="radio" name="palette" value="bad"><span class="fields">Sim, mas precisa de adequações</span><br>
 	<input type="radio" name="palette" value="no"><span class="fields">Não possui</span><br>
-	<br>
-	<input class="btn btn-secondary"  type="submit" value="Gerar relatório">
 	<br>
 	<br>
 	@endsection

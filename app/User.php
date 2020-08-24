@@ -39,12 +39,16 @@ class User extends Authenticatable {
 		'email_verified_at' => 'datetime',
 	];
 
+	public function accounts() {
+		return $this->hasMany(Account::class, 'user_id', 'id');
+	}
+
 	public function emails() {
 		return $this->hasMany(Models\Email::class, 'user_id', 'id');
 	}
 
-	public function accounts() {
-		return $this->hasMany(Account::class, 'user_id', 'id');
+	public function tasks() {
+		return $this->hasMany(Models\Task::class, 'user_id', 'id');
 	}
 
 	public function PegarIdCrm() {
