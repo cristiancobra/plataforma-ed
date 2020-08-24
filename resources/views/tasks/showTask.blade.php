@@ -15,7 +15,7 @@
 <div style="padding-left: 6%">
 	<h1 class="name"> {{ $task->name }}  </h1>
 	<p class="labels">CATEGORIA:<span class="fields">{{ $task->category }} </span></p>
-	<p class="labels">DONO:<span class="fields">{{ $task->users->name }} </span></p>
+	<p class="labels">RESPONSÁVEL:<span class="fields">{{ $task->users->name }} </span></p>
 	<br>
 	<p class="labels">DATA DE CRIAÇÃO:<span class="fields">  {{ $task->date_start }} </span></p>
 	<p class="labels">PRAZO FINAL:<span class="fields">  {{ $task->date_due }} </span></p>

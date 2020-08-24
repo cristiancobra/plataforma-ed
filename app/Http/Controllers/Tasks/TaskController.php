@@ -106,10 +106,6 @@ class TaskController extends Controller {
 					->first();
 		}
 
-		$task = Task::find($task->id)
-				->with('users')
-				->first();
-
 		return view('tasks.editTask', [
 			'users' => $users,
 			'userAuth' => $userAuth,
