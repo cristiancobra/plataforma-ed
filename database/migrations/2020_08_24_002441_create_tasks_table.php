@@ -22,11 +22,11 @@ class CreateTasksTable extends Migration {
 			$table->string('description');
 			$table->date('date_due');
 			$table->date('date_start');
-			$table->string('contact_id');
+			$table->string('contact_id')->nullable();
 			$table->string('status');
 			$table->string('priority');
-			$table->string('start_time');
-			$table->string('end_time');
+			$table->string('start_time')->nullable();
+			$table->string('end_time')->nullable();
 			$table->timestamps();
 		});
 	}

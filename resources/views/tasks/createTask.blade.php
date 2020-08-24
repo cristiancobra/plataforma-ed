@@ -31,7 +31,7 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
@@ -42,19 +42,29 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_start" size="20"><span class="fields"></span><br>
+		<input type="date" name="date_start" size="20"><span class="fields"></span>
+		<br>
 		<br>
 		<label class="labels" for="" >PRAZO FINAL:</label>
-		<input type="date" name="date_due" size="20"><span class="fields"></span><br>
+		<input type="date" name="date_due" size="20"><span class="fields"></span>
+		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
-		<input type="text" name="description" size="50" style="width: 100%;height: 200px"><span class="fields"></span><br>
+		<input type="text" name="description" size="50" style="width: 100%;height: 200px"><span class="fields"></span>
+		<br>
 		<br>
 		<label class="labels" for="" >CONTATO:</label>
-		<input type="text" name="contatc_id" size="50"><span class="fields"></span><br>
+		<input type="text" name="contact_id" size="50"><span class="fields"></span>
+		<br>
 		<br>
 		<label class="labels" for="" >PRIORIDADE:</label>
-		<input type="text" name="priority" size="50"><span class="fields"></span><br>
+		<select class="fields" name="priority">
+			<option value="baixa">baixa</option>
+			<option value="média">média</option>
+			<option value="alta">alta</option>
+			<option value="emergência">emergência</option>
+		</select>
+		<br>
 		<br>
 		<label class="labels" for="" >
 			INÍCIO: 
@@ -68,11 +78,12 @@
 		</label>
 		<input type="time" name="end_time" size="50"><span class="fields"></span>
 		<br>
-		<label class="labels" for="">STATUS:</label>
+		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
-			<option value="ativo">ativo</option>
-			<option value="desativado">desativado</option>
 			<option value="pendente">pendente</option>
+			<option value="fazendo agora">fazendo agora</option>
+			<option value="cancelada">cancelada</option>
+			<option value="concluida">concluida</option>
 		</select>
 		<br>
 		<br>

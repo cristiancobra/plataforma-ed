@@ -46,55 +46,57 @@
 			{{ $task->users->name}}
 		</td>
 
-		@if ($task->status == "desativado")
-		<td class="button-disable"><b>{{ $task->status  }}</b></td>
-		@elseif ($task->status == "ativo")
-		<td class="button-active"><b>{{ $task->status  }}</b></td>
-		@else ($task->status == "pendente")
-		<td class="button-delete"><b>{{ $task->status  }}</b></td>
+		@if ($task->status == "cancelada")
+		<td class="btn btn-dark"><b>{{ $task->status  }}</b></td>
+		@elseif ($task->status == "pendente")
+		<td class="btn btn-warning"><b>{{ $task->status  }}</b></td>
+		@elseif ($task->status == "fazendo agora")
+		<td class="btn btn-info"><b>{{ $task->status  }}</b></td>
+		@elseif ($task->status == "concluida")
+		<td class="btn btn-success"><b>{{ $task->status  }}</b></td>
 		@endif
-	</tr>
-	<tr>
-		<td class="table-list-center">
-			<label class="labels" for="" >
-				DATA DE CRIAÇÃO:
-				<br>
-				{{ $task->date_start }}
-			</label>
-		</td>
-		
-		<td class="table-list-center">
-			<label class="labels" for="" >
-				PRAZO FINAL: 
-				<br>
-				{{ $task->date_due }}
-			</label>
-		</td>
-		
-		<td class="table-list-center" style="background-color: #874983">
-			<label class="labels" for="" style="color: white;text-align: center">
-				INÍCIO: 
-				<br>
-				{{ $task->start_time }}
-			</label>
-		</td>
-		
-		<td class="table-list-center" style="background-color: #874983">
-			<label class="labels" for="" style="color: white;text-align: center">
-				TÉRMINO: 
-				<br>
-				{{ $task->end_time }}
-			</label>
-		</td>
-		
-	</tr>
-	<tr>
-		<td>
+</tr>
+<tr>
+	<td class="table-list-center">
+		<label class="labels" for="" >
+			DATA DE CRIAÇÃO:
 			<br>
+			{{ $task->date_start }}
+		</label>
+	</td>
+
+	<td class="table-list-center">
+		<label class="labels" for="" >
+			PRAZO FINAL: 
 			<br>
-		</td>
-	</tr>
-	@endforeach
+			{{ $task->date_due }}
+		</label>
+	</td>
+
+	<td class="table-list-center" style="background-color: #874983">
+		<label class="labels" for="" style="color: white;text-align: center">
+			INÍCIO: 
+			<br>
+			{{ $task->start_time }}
+		</label>
+	</td>
+
+	<td class="table-list-center" style="background-color: #874983">
+		<label class="labels" for="" style="color: white;text-align: center">
+			TÉRMINO: 
+			<br>
+			{{ $task->end_time }}
+		</label>
+	</td>
+
+</tr>
+<tr>
+	<td>
+		<br>
+		<br>
+	</td>
+</tr>
+@endforeach
 </table>
 <br>
 @endsection

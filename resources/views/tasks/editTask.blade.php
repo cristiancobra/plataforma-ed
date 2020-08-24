@@ -70,19 +70,12 @@
 		</label>
 		<input type="time" name="end_time" size="50"  value="{{ $task->end_time }}"><span class="fields"></span><br>
 		<br>
-		<label class="labels" for="">STATUS:</label>
+		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
 			<option value="{{ $task->status }}">{{ $task->status}}</option>
-			@if ($task->status == "desativado")
-			<option value="ativo">ativo</option>
-			<option value="pendente">pendente</option>
-			@elseif  ($task->status == "ativo")
-			<option value="desativado">desativado</option>
-			<option value="pendente">pendente</option>
-			@elseif  ($task->status == "pendente")
-			<option value="ativo">ativo</option>
-			<option value="desativado">desativado</option>
-			@endif
+			<option value="fazendo agora">fazendo agora</option>
+			<option value="cancelada">cancelada</option>
+			<option value="concluida">concluida</option>
 		</select>
 		<br>
 		<br>
