@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('task.index') }}">VER PÁGINAS</a>
+<a class="btn btn-primary" href="{{ route('task.index') }}">VER TAREFAS</a>
 @endsection
 
 @section('main')
@@ -31,6 +31,9 @@
 		<br>
 		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
+			<option  class="fields" value="{{ $userAuth->id }}">
+				{{ $userAuth->name }}
+			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
 				{{ $user->name }}

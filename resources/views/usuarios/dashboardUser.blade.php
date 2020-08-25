@@ -21,7 +21,7 @@
 				tarefas
 			</p>
 			<p style="text-align: center; margin: 0px; padding: 0px">
-				<a href="{{route('task.index')}}" style="color: yellow">fazer</a></p>
+				<a href="{{route('task.index')}}" style="color: yellow">ver</a></p>
 		</div>
 
 		<div class="numbers">

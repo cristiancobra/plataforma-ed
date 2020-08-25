@@ -21,7 +21,7 @@ class TaskController extends Controller {
 		if ($userAuth->perfil == "administrador") {
 			$tasks = Task::where('id', '>=', 0)
 					->with('users')
-					->orderByRaw('FIELD(status, "pendente") desc')
+					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
 					->get();
 		} else {
 			$tasks = Task::where('user_id', '=', $userAuth->id)

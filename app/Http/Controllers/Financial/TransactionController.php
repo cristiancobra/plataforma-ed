@@ -12,12 +12,12 @@ use Illuminate\Support\Facades\DB;
 class TransactionController extends Controller {
 
 	public function dashboard() {
+		$userAuth = Auth::user();
+
 		$transactions = Transaction::where('deleted_at', '!=', 'null')
 				->limit(8)
 				->orderByDesc('id')
 				->get();
-		
-		$userAuth = Auth::user();
 
 		$expenses = Transaction::where([
 					['deleted_at', '!=', 'null'],
@@ -53,6 +53,8 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$userAuth = Auth::user();
+
 		$transactions = Transaction::where('deleted_at', '!=', 'null')
 				->orderByDesc('id')
 				->get();
@@ -61,7 +63,7 @@ class TransactionController extends Controller {
 
 		return view('financial.transactions.indexTransactions', [
 			'transactions' => $transactions,
-			'user' => $user,
+			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -91,13 +93,16 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Transaction $transaction) {
-		$user = Auth::user();
-		$transactions = Email::where('id', '=', $user->id)->with('users')->get();
+		$userAuth = Auth::user();
+		$transactions = Transaction::where('id', '=', $userAuth->id)
+		//		->with('users')
+				->get();
 		//	$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
-		return view('emails.detailsEmail', [
-			'email' => $transaction,
-			'emails' => $transactions,
-			'user' => $user,
+		
+		return view('financial.transactions.showTransaction', [
+			'transaction' => $transaction,
+			'transactions' => $transactions,
+			'userAuth' => $userAuth,
 		]);
 	}
 
