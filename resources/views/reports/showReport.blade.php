@@ -18,13 +18,23 @@
 	<p class="fields" style="color: white;text-align: center">  {{ $report->date}} </span></p>
 </div>
 <br>
-<p>
-	O objetivo deste relatório é oferecer a você ferramentas e estratégias para aumentar e melhorar sua MATURIDADE DIGITAL.
-	Para alcançar a verdadeira TRANSFORMAÇÃO DIGITAL é necessário colocar seu cliente no centro dos seus processos e tomar decisões sempre baseadas em dados.
+<div>
+	<p>
+		O objetivo deste relatório é oferecer a você ferramentas e estratégias para aumentar e melhorar sua MATURIDADE DIGITAL.
+		Para alcançar a verdadeira TRANSFORMAÇÃO DIGITAL é necessário colocar seu cliente no centro dos seus processos e tomar decisões sempre baseadas em dados.
+	</p>
+<br>
+<p class="title-reports"><i class="fas fa-spinner fa-pulse fa-fw"></i>
+	RECOMENDAÇÕES GERAIS
 </p>
 <br>
 <div>
-	<p class="title-reports"><i class="fas fa-palette fa-fw"></i>PERFIL DO PÚBLICO-ALVO</p>
+	{!!html_entity_decode($report->general)!!}
+</div>
+<br>
+<br>
+<div>
+	<p class="title-reports"><i class="fa fa-users fa-fw"></i>PERFIL DO PÚBLICO-ALVO</p>
 	<br>
 	<p>
 		Conhecer o perfil das pessoas que devem ser alcançadas é essencial para direcionar as estratégias de marketing. Assim poderemos direcionar o marketing baseado em números, e não apenas em intuição.
@@ -39,8 +49,12 @@
 	<br>
 	<table class="table-hover">
 		<tr>
-			<td   class="table-list-header" style="width: 90%"><b>Análise da página</b></td>
-			<td   class="table-list-header" style="width: 10%"><b>situação</b></td>
+			<td   class="table-list-header" style="width: 90%">
+				<b>Análise da página</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>situação</b>
+			</td>
 		</tr>
 		<!--   ----------------------------------------------------------------------------------  LOGOMARCA  -----------------------------------------------------------------------------------  -->
 		<tr>
@@ -164,7 +178,7 @@
 					Quando você não possui um kit de UI, a identidade visual fica bagunçada. O objetivo em se ter um kit de UI é criar um estilo que vai além da logomarca. Para criar uma identidade visual homogênea você deve: criar uma paleta de cores, estilos de fontes, estilos de ícones, estilos de fotos, estilos de ilustração, estilos de botões entre outros itens que identificarão a sua marca.
 					<br>
 					Contrate a criação de identidade visual - R$ 350, 00 
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -205,7 +219,7 @@
 					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar sua performance e tráfego.
 					<br>
 					Leve seu FACEBOOK para outro nível! Contrate uma consultoria especializada por R$ 200,00  
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -294,7 +308,7 @@
 					Twiter @empresadigitalsc (evite usar siglas locais) 
 
 					Contrate a padronização de rede social - R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -320,7 +334,7 @@
 					Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar  o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características a respeito da sua biografia. Com técnicas de SEO, CANVAS, SWOT e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar. 
 
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00  
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -340,7 +354,7 @@
 					Sua biografia deve descrever claramente o que a sua empresa faz e quais são seus interesses.   Ela deve resumir todas informações da conta, trazendo ao visitante tudo que ele precisa saber sobre a pessoa ou empresa dona daquele perfil/página.
 
 					Contrate a padronização de rede social - R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -365,7 +379,7 @@
 					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar os números, a qualidade do conteúdo com técnicas de SEO e a harmonização do design através da experiência do usuário. 
 
 					Leve seu feed pra outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00 
-					
+
 				</p>
 			</td>
 		</tr>
@@ -408,7 +422,7 @@
 					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características a respeito do seu feed. Com técnicas de SEO, CANVAS, SWOT e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar.
 
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em mkt digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -446,7 +460,7 @@
 					Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características a respeito do seu feed. Com técnicas de SEO, CANVAS, SWOT e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar.
 
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -584,7 +598,7 @@
 					e levar a sua marca para outro patamar.
 					<br>
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -605,7 +619,7 @@
 					entre outros.
 					<br>
 					Contrate a criação de rede social - R$ 250,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -631,7 +645,7 @@
 					uma transformação digital e levar a sua marca para outro patamar.
 					<br>  
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -654,7 +668,7 @@
 					Twiter @empresadigitalsc (evite usar siglas locais) 
 					<br>
 					Contrate a padronização de rede social - R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -721,7 +735,7 @@
 					trazendo ao visitante tudo que ele precisa saber sobre a pessoa ou empresa dona daquele perfil do Instagram.
 					<br>
 					Contrate a padronização de redesocial - R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -746,7 +760,7 @@
 					UXwriter e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar.  
 					<br>
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em mkt digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -785,7 +799,7 @@
 					marca para outro patamar.
 					<br>
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -852,7 +866,7 @@
 					sua marca para outro patamar.
 					<br>
 					Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -875,7 +889,7 @@
 					diagramação, inserção de legendas entre outros detalhes que, se mal utilizados, podem transformar sua postagem em uma bagunça de informação. 
 					<br>
 					Ganhe tempo: contrate uma gestão em rede sociais – planos a partir de 400,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -902,7 +916,7 @@
 					sua marca para outro patamar. 
 					<br>
 					Leve seu IGTV para outro nível! Contrate uma consultoria especializada R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -947,7 +961,7 @@
 					sua marca para outro patamar. 
 					<br>
 					Leve seu IGTV para outro nível! Contrate uma consultoria especializada R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -989,7 +1003,7 @@
 					é sempre possível colher mais dados para melhorar sua performance e tráfego.
 					<br>
 					Leve seu Instagram para outro nível! Contrate uma consultoria especializada R$ 200,00
-										<br>
+					<br>
 					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
 						AVANÇAR
 					</a>
@@ -1295,12 +1309,12 @@
 						Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar sua performance e tráfego.
 						<br>
 						Leve seu FACEBOOK para outro nível! Contrate uma consultoria especializada por R$ 200,00
-											<br>
-					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
-						AVANÇAR
-					</a>
-					<br>
-					<br>
+						<br>
+						<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+							AVANÇAR
+						</a>
+						<br>
+						<br>
 					</p>
 				</td>
 			</tr>
@@ -1414,12 +1428,12 @@
 						Twiter @empresadigitalsc (evite usar siglas locais) 
 
 						Contrate a padronização de rede social - R$ 200,00
-											<br>
-					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
-						AVANÇAR
-					</a>
-					<br>
-					<br>
+						<br>
+						<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+							AVANÇAR
+						</a>
+						<br>
+						<br>
 					</p>
 				</td>
 			</tr>
@@ -1440,12 +1454,12 @@
 						Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar  o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características a respeito da sua biografia. Com técnicas de SEO, CANVAS, SWOT e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar. 
 
 						Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-											<br>
-					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
-						AVANÇAR
-					</a>
-					<br>
-					<br>
+						<br>
+						<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+							AVANÇAR
+						</a>
+						<br>
+						<br>
 
 					</p>
 				</td>
@@ -1460,12 +1474,12 @@
 						Sua biografia deve descrever claramente o que a sua empresa faz e quais são seus interesses.   Ela deve resumir todas informações da conta, trazendo ao visitante tudo que ele precisa saber sobre a pessoa ou empresa dona daquele perfil/página.
 
 						Contrate a padronização de rede social - R$ 200,00
-											<br>
-					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
-						AVANÇAR
-					</a>
-					<br>
-					<br>
+						<br>
+						<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+							AVANÇAR
+						</a>
+						<br>
+						<br>
 					</p>
 				</td>
 			</tr>
@@ -1485,12 +1499,12 @@
 						Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert e é sempre possível colher mais dados para melhorar os números, a qualidade do conteúdo com técnicas de SEO e a harmonização do design através da experiência do usuário. 
 
 						Leve seu feed pra outro nível! Contrate uma consultoria especializada em marketing digital – R$ 200,00
-											<br>
-					<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
-						AVANÇAR
-					</a>
-					<br>
-					<br>
+						<br>
+						<a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+							AVANÇAR
+						</a>
+						<br>
+						<br>
 					</p>
 				</td>
 			</tr>
@@ -1549,7 +1563,7 @@
 		<a class="btn btn-secondary" href=" {{ route('report.edit', ['report' => $report->id]) }}">
 			<i class='fa fa-edit'>
 			</i>
-			Editar informações
+			EDITAR
 		</a>
 		<a class="btn btn-secondary" href=" {{!! url('/relatorios', $report->id) !!}}">
 			PDF

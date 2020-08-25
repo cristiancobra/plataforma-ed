@@ -40,9 +40,20 @@
 	</select>
 	<br>
 	<br>
-	<label  class="labels" for="">Recomendações gerais: </label>
 	<br>
-	<input class="fields" type="text" name="general" style="width: 100%;height: 200px">
+	<p class="title-reports"><i class="fas fa-spinner fa-pulse fa-fw"></i>
+		RECOMENDAÇÕES GERAIS
+	</p>
+	<br>
+
+	<textarea id="general" name="general" rows="20" cols="90">
+		{{ $report->general }}
+	</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+	<script>
+CKEDITOR.replace('general');
+	</script>
 	<br>
 	<br>
 	<p class="title-reports">IDENTIDADE VISUAL </p>

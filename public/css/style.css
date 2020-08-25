@@ -13,7 +13,7 @@ and open the template in the editor.
 .grid-container {
 	display: grid;
 	background-color: #c28dbf;
-	 grid-template-columns: 15% auto auto auto auto;
+	 grid-template-columns: 20% 20% 20% 20% 20%;
 	grid-template-areas: 
 		"sidebar header header header image-header"
 		"sidebar main main main main"
