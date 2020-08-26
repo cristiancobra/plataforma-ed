@@ -19,13 +19,19 @@ class FacebookController extends Controller {
 	public function index() {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
-			$facebooks = Facebook::where('id', '>=', 0)->with('users')->orderBy('PAGE_NAME', 'asc')->get();
+			$facebooks = Facebook::where('id', '>=', 0)
+					->with('users')->orderBy('PAGE_NAME', 'asc')
+					->get();
 		} else {
-			$facebooks = Facebook::where('user_id', '=', $userAuth->id)->with('users')->get();
+			$facebooks = Facebook::where('user_id', '=', $userAuth->id)
+					->with('users')
+					->get();
 		}
 		$totalFacebooks = $facebooks->count();
 
-		$accounts = Account::where('id', '=', $userAuth->id)->with('users')->get();
+		$accounts = Account::where('id', '=', $userAuth->id)
+				->with('users')
+				->get();
 
 		return view('socialmedia.facebooks.indexFacebooks', [
 			'facebooks' => $facebooks,

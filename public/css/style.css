@@ -28,7 +28,7 @@ and open the template in the editor.
 	padding-left: 10px;
 	height: 100%;
 	width: 16%;
-	position: fixed;
+	position: absolute;
 }
 
 
@@ -89,11 +89,79 @@ and open the template in the editor.
 
 .main{
     grid-area: main;
-    margin-top:0px;
+    margin:0px;
     background-color: white;
 	padding-top: 1%;
 	padding-left: 4%;
 	padding-right: 4%;
+}
+
+/* ------------------------------------------------ GRID DASHBOARD -------------------------- */
+.grid-dashboard {
+	display: grid;
+	height: auto;
+	text-align: left;
+	margin-top: 2%;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: 
+		"facebook instagram linkedin"
+		"twitter area5 area6";
+	gap: 5% 2%;
+}
+
+.facebook {
+	grid-area: facebook;
+	color: white;
+	background-color: #3b5998;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.instagram {
+	grid-area: instagram;
+	color: white;
+	background-color: #c32aa3;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.linkedin {
+	grid-area: linkedin;
+	color: white;
+	background-color: #007bb5;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.twitter {
+	grid-area: twitter;
+	color: white;
+	background-color: #1da1f2;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.area5 {
+	grid-area: area5;
+	color: white;
+	background-color: #874983;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.area6 {
+	grid-area: area6;
+	color: white;
+	background-color: #874983;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.grid-image {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 50%;
 }
 
 /* ------------------------------------------------ realocar -------------------------- */

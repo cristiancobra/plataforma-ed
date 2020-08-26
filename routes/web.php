@@ -59,7 +59,7 @@ Route::get('/perfil', function () {
 //	return view('socialmedia.dashboardSocialmedia');
 //});
 
-Route::get('/redes-sociais', 'DashboardController@socialmedia')->name('socialmedia')->middleware('auth');
+Route::get('/redes-sociais', 'Socialmedia\\DashboardController@socialmedia')->name('socialmedia')->middleware('auth');
 
 // ---------- FACEBOOKS
 Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
