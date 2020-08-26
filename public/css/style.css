@@ -13,7 +13,8 @@ and open the template in the editor.
 .grid-container {
 	display: grid;
 	background-color: #c28dbf;
-	 grid-template-columns: 20% 20% 20% 20% 20%;
+	height: 100%;
+	grid-template-columns: 16% 21% 21% 21% 21%;
 	grid-template-areas: 
 		"sidebar header header header image-header"
 		"sidebar main main main main"
@@ -26,8 +27,8 @@ and open the template in the editor.
 	padding-top: 5vh;
 	padding-left: 10px;
 	height: 100%;
-	width: 15%;
-	position: absolute;
+	width: 16%;
+	position: fixed;
 }
 
 
@@ -572,7 +573,7 @@ and open the template in the editor.
 	vertical-align:super;
 	border-bottom: solid;
 	border-width: 2px;
-		font-weight: bolder;
+	font-weight: bolder;
 }
 
 .table-list-left ul{ 

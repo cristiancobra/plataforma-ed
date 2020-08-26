@@ -28,8 +28,11 @@ class TaskController extends Controller {
 					->with('users')
 					->get();
 		}
+		
+		$hoje = date("d/m/Y");
 
 		return view('tasks.indexTasks', [
+			'hoje' => $hoje,
 			'tasks' => $tasks,
 			'userAuth' => $userAuth,
 		]);

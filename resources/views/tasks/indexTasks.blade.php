@@ -60,7 +60,7 @@
 
 		<td class="table-list-center" style="background-color: #874983">
 			<label class="labels" for="" style="color: white;text-align: center">
-				{{ $task->duration }}
+				{{ date("H:i", strtotime($task->duration)) }}
 			</label>
 		</td>
 

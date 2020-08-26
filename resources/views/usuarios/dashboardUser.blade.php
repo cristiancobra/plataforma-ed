@@ -25,13 +25,13 @@
 		</div>
 
 		<div class="numbers">
-			<p class="numeros_painel"> XXXXX </p>
+			<p class="numeros_painel"> 0 </p>
 			<p class="subtitulo-branco"> potenciais </p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">contatar</a></p>
 		</div>
 
 		<div class="numbers">
-			<p class="numeros_painel"  style="font-size: 26px">  R$ XXXXX</p>
+			<p class="numeros_painel"  style="font-size: 26px">  R$ 0,00</p>
 			<p class="subtitulo-branco"> oportunidades</p>
 			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
 		</div>

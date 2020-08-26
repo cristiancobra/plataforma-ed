@@ -23,9 +23,13 @@ class ReportController extends Controller {
 	public function index() {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
-			$reports = Report::where('id', '>=', 0)->orderBy('ID', 'asc')->get();
+			$reports = Report::where('id', '>=', 0)
+					->orderBy('ID', 'asc')
+					->get();
 		} else {
-			$reports = Report::where('user_id', '=', $userAuth->id)->with('users')->get();
+			$reports = Report::where('user_id', '=', $userAuth
+					->id)->with('users')
+					->get();
 		}
 
 		$totalReports = $reports->count();
