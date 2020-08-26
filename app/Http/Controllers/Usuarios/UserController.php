@@ -25,7 +25,9 @@ class UserController extends Controller {
 					->with('accounts')
 					->get();
 		}
-		$totalUsers = $users->count();
+		$totalUsers = $users
+				->count();
+		
 		return view('usuarios.indexUsers', [
 			'users' => $users,
 			'userAuth' => $userAuth,

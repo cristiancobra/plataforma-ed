@@ -30,12 +30,11 @@ class DashboardController extends Controller {
 		$hoje = date("d/m/Y");
 //	$user_crm = Auth::user()->idcrm;
 
-		if ($userAuth->perfil == "administrador") {
 			$tasks = Task::where('user_id', '=', $userAuth->id)
 					->where('status', '=', "pendente")
 					->orwhere('status', '=', "em andamento")
 					->count();
-		}
+		
 //		$totalTasks = Task::where([
 //					['assigned_user_id', $user_crm],
 //					['deleted', '=', '0']
