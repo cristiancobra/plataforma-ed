@@ -486,6 +486,56 @@ and open the template in the editor.
     width:50%
 }
 
+.btn {
+	display: inline-block;
+	font-weight: bolder;
+	color: #212529;
+	text-align: center;
+	vertical-align: middle;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	background-color: transparent;
+	border: 1px solid transparent;
+	padding: 1rem 2rem;
+	font-size: 0.8rem;
+	line-height: 1.6;
+	border-radius: 1rem;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.btn {
+		transition: none;
+
+	}
+}
+
+.btn:hover {
+	color: #212529;
+	text-decoration: none;
+}
+
+.btn:focus,
+.btn.focus {
+	outline: 0;
+	box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+.btn.disabled,
+.btn:disabled {
+	opacity: 0.65;
+}
+
+.btn:not(:disabled):not(.disabled) {
+	cursor: pointer;
+}
+
+a.btn.disabled,
+fieldset:disabled a.btn {
+	pointer-events: none;
+}
 
 .botao-claro{
     background: #c28dbf;
@@ -510,10 +560,10 @@ and open the template in the editor.
 }
 
 .button {
-	background-color: #c28dbf;
+	background-color: #874983;
 	border: solid;
 	border-width: 2px;
-	border-color: #874983;
+	border-color: #c28dbf;
 	padding: 3px 6px;
 	text-align: center;
 	text-decoration: none;
