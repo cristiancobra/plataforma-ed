@@ -51,7 +51,14 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
-		<input type="text" name="description" size="50" style="width: 100%;height: 200px"><span class="fields"></span>
+		<textarea id="description" name="description" rows="20" cols="90">
+		{{ $task->description }}
+		</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+		<script>
+	CKEDITOR.replace('description');
+		</script>
 		<br>
 		<br>
 		<label class="labels" for="" >CONTATO:</label>
