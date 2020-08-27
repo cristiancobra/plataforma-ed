@@ -22,11 +22,11 @@ class TaskController extends Controller {
 			$tasks = Task::where('id', '>=', 0)
 					->with('users')
 					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
-					->paginate(15);
+					->simplePaginate(15);
 		} else {
 			$tasks = Task::where('user_id', '=', $userAuth->id)
 					->with('users')
-					->paginate(15);
+					->simplePaginate(15);
 		}
 		
 		$hoje = date("d/m/Y");
