@@ -101,5 +101,6 @@
 											</tr>
 											@endforeach
 											</table>
+{{ $tasks->links() }}
 											<br>
 											@endsection
