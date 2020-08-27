@@ -45,7 +45,6 @@
 		RECOMENDAÇÕES GERAIS
 	</p>
 	<br>
-
 	<textarea id="general" name="general" rows="20" cols="90">
 		{{ $report->general }}
 	</textarea>
