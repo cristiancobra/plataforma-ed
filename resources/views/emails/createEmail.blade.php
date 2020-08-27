@@ -3,7 +3,7 @@
 @section('title','NOVO EMAIL')
 
 @section('image-top')
-{{ asset('imagens/colaborador.png') }} 
+{{ asset('imagens/email.png') }} 
 @endsection
 
 @section('description')

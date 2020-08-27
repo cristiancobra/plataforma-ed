@@ -78,7 +78,7 @@ class EmailController extends Controller {
 		$email->save();
 
 		$emails = \App\Models\Email::all();
-		$user = Auth::user();
+		$userAuth = Auth::user();
 
 		return redirect()->action('Emails\\EmailController@index');
 

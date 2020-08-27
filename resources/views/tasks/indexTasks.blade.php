@@ -41,14 +41,16 @@
 	@foreach ($tasks as $task)
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
-			<button class="button">
-				<a href=" {{ route('task.show', ['task' => $task->id]) }}" style="text-decoration: none;color: black">
-					<i class='fa fa-eye'></i></a>
-			</button>
-			<button class="button">
-				<a href=" {{ route('task.edit', ['task' => $task->id]) }}" style="text-decoration: none;color: black">
-					<i class='fa fa-edit'></i></a>
-			</button>
+			<a class="white" href=" {{ route('task.show', ['task' => $task->id]) }}">
+				<button class="button">
+					<i class='fa fa-eye'></i>
+				</button>
+			</a>
+			<a href=" {{ route('task.edit', ['task' => $task->id]) }}">
+				<button class="button">
+					<i class='fa fa-edit'></i>
+				</button>
+			</a>
 			{{ $task->name}}
 		</td>
 
@@ -68,36 +70,36 @@
 			@if ($task->priority == "baixa")
 			<button class="btn btn-info">
 				<b>{{ $task->priority  }}</b>
-			@elseif ($task->priority == "média")
-		<button class="btn btn-warning">
-			<b>{{ $task->priority  }}</b>
-			@elseif ($task->priority == "alta")
-		<button class="btn btn-danger">
-			<b>{{ $task->priority  }}</b>
-			@elseif ($task->priority == "emergência")
-		<button class="btn btn-dark">
-			<b>{{ $task->priority  }}</b>
-			@endif
-			</button>
-		</td>
+				@elseif ($task->priority == "média")
+				<button class="btn btn-warning">
+					<b>{{ $task->priority  }}</b>
+					@elseif ($task->priority == "alta")
+					<button class="btn btn-danger">
+						<b>{{ $task->priority  }}</b>
+						@elseif ($task->priority == "emergência")
+						<button class="btn btn-dark">
+							<b>{{ $task->priority  }}</b>
+							@endif
+						</button>
+						</td>
 
-		<td class="table-list-center">
-		@if ($task->status == "cancelada")
-		<button class="btn btn-dark">
-			<b>{{ $task->status  }}</b>
-			@elseif ($task->status == "pendente")
-		<button class="btn btn-warning">
-			<b>{{ $task->status  }}</b>
-			@elseif ($task->status == "fazendo agora")
-		<button class="btn btn-info">
-			<b>{{ $task->status  }}</b>
-			@elseif ($task->status == "concluida")
-		<button class="btn btn-success">
-			<b>{{ $task->status  }}</b>
-			@endif
-		</td>
-	</tr>
-	@endforeach
-</table>
-<br>
-@endsection
+						<td class="table-list-center">
+							@if ($task->status == "cancelada")
+							<button class="btn btn-dark">
+								<b>{{ $task->status  }}</b>
+								@elseif ($task->status == "pendente")
+								<button class="btn btn-warning">
+									<b>{{ $task->status  }}</b>
+									@elseif ($task->status == "fazendo agora")
+									<button class="btn btn-info">
+										<b>{{ $task->status  }}</b>
+										@elseif ($task->status == "concluida")
+										<button class="btn btn-success">
+											<b>{{ $task->status  }}</b>
+											@endif
+											</td>
+											</tr>
+											@endforeach
+											</table>
+											<br>
+											@endsection

@@ -569,10 +569,14 @@ fieldset:disabled a.btn {
 	text-decoration: none;
 	display: inline-block;
 	font-size: 16px;
-	border-radius: 50%;
+	border-radius: 40%;
 	color: white;
 	transition-duration: 0.4s;
 	margin: 2px;
+}
+
+.button a {
+	color: white;
 }
 
 .button:hover {
