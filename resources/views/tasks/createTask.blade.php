@@ -15,7 +15,7 @@
 	<form action=" {{ route('task.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME DA TAREFA:</label>
-		<input type="text" name="name" size="20"><span class="fields"></span><br>
+		<input type="text" name="name" size="20"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >CATEGORIA:</label>
 		<select class="fields" name="category">
@@ -27,7 +27,6 @@
 			<option value="suporte">suporte</option>
 			<option value="venda">venda</option>
 		</select>
-		<br>
 		<br>
 		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
@@ -44,7 +43,6 @@
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_start" size="20"><span class="fields"></span>
-		<br>
 		<br>
 		<label class="labels" for="" >PRAZO FINAL:</label>
 		<input type="date" name="date_due" size="20"><span class="fields"></span>
@@ -64,7 +62,6 @@
 		<label class="labels" for="" >CONTATO:</label>
 		<input type="text" name="contact_id" size="50"><span class="fields"></span>
 		<br>
-		<br>
 		<label class="labels" for="" >PRIORIDADE:</label>
 		<select class="fields" name="priority">
 			<option value="baixa">baixa</option>
@@ -79,12 +76,12 @@
 		</label>
 		<input type="time" name="start_time" size="50"><span class="fields"></span>
 		<br>
-		<br>
 		<label class="labels" for="">
 			TÉRMINO: 
 			<br>
 		</label>
 		<input type="time" name="end_time" size="50"><span class="fields"></span>
+		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">

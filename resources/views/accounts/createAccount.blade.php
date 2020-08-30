@@ -7,26 +7,20 @@
 @endsection
 
 @section('description')
-
-solicite sua nova empresa
-<a href="/accounts"><br><br>
-	<button type="button" class="button">VER MINHAS EMPRESAS</button> </a>
+<a class="btn btn-primary" href="{{route('account.index')}}">VER EMPRESAS</a>
 @endsection
 
 @section('main')
-<form action=" {{ route('accounts.store') }} " method="post" style="padding: 40px;color: #874983">
+<form action=" {{ route('account.store') }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	<label for="" >Nome: </label>
 	<input type="text" name="name">
 	<br>
-	<br>
 	<label for="" >Email: </label>
 	<input type="text" name="email">
 	<br>
-	<br>
 	<label for="">Telefone: </label>
 	<input type="text" name="phone">   
-	<br>
 	<br>
 	<label for="">Site: </label>
 	<input type="text" name="site">   
@@ -35,14 +29,11 @@ solicite sua nova empresa
 	<label for="">Endereço: </label>
 	<input type="text" name="address">   
 	<br>
-	<br>
 	<label for="">Cidade: </label>
 	<input type="text" name="address_city">   
 	<br>
-	<br>
 	<label for="">Estado: </label>
 	<input type="text" name="address_state">   
-	<br>
 	<br>
 	<label for="">País: </label>
 	<input type="text" name="address_country">   
@@ -51,11 +42,19 @@ solicite sua nova empresa
 	<label for="">Tipo: </label>
 	<input type="text" name="type">   
 	<br>
-	<br>
 	<label for="">Qtde empregados: </label>
 	<input type="text" name="employees">   
 	<br>
+	<label class="labels" for="" >Colaboradores: </label>
 	<br>
-	<input type="submit" value="Solicitar empresa">
+	@foreach ($users as $user)
+	<p class="fields">
+		<input type="checkbox" name="users[]" value="{{ $user->id }}">
+		{{ $user->name }}
+	</p>
+	@endforeach
+	<br>
+	<br>
+	<input class="btn btn-secondary" type="submit" value="Solicitar empresa">
 </form>
 @endsection

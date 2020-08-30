@@ -40,7 +40,7 @@ class User extends Authenticatable {
 	];
 
 	public function accounts() {
-		return $this->hasMany(Account::class, 'user_id', 'id');
+		return $this->belongsToMany(Account::class,'users_accounts',  'user_id', 'account_id');
 	}
 
 	public function emails() {

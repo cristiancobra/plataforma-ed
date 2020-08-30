@@ -1,33 +1,63 @@
-@extends('layouts/create')
+@extends('layouts/master')
 
-@section('title','Adicionar usuário')
+@section('title','NOVO CONTATO')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/email.png') }} 
+@endsection
 
+@section('description')
+<a class="btn btn-primary" href="{{route('contact.index')}}">VER EMAILS</a>
+@endsection
 
-                    <br><br><br><p class="titulo-branco"> Criar nova Plataforma</p>
-                    <br>
-                    <form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: white">
-                        @csrf
-                        <label for="" >Primeiro nome: </label>
-                        <input type="text" name="novo_nome">
-                        <br>
-                        <br>
-		<label for="" >Último nome: </label>
-                        <input type="text" name="novo_sobrenome">
-                        <br>
-                        <br>
-                        <label for="">Senha do usuário: </label>
-                        <input type="password" name="password" value="">   
-                        <br>
-                        <br>
-                        <input type="submit" value="Criar plataforma">
-
-                    </form>
-                </div>     
-
-                <div class="imagem">
-                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-                </div>
-  
+@section('main')
+<br>
+<form action=" {{ route('contact.store') }} " method="post" style="padding: 40px;color: #874983">
+	@csrf
+	<label class="labels" for="" >DONO: </label>
+	<select name="user_id">
+		@foreach ($users as $user)
+		<option  class="fields" value="{{ $user->id }}">
+			{{ $user->name }}
+		</option>
+		@endforeach
+	</select>
+	<br>
+	<br>
+	<label for="" >Primeiro nome: </label>
+	<input type="text" name="first_name">
+	<br>
+	<label for="" >Sobrenome: </label>
+	<input type="text" name="last_name">
+	<br>
+	<label for="" >Email: </label>
+	<input type="text" name="email">
+	<br>
+	<label for="">Telefone: </label>
+	<input type="text" name="phone">   
+	<br>
+	<label for="">Site: </label>
+	<input type="text" name="site">   
+	<br>
+	<br>
+	<label for="">Endereço: </label>
+	<input type="text" name="address">   
+	<br>
+	<label for="">Cidade: </label>
+	<input type="text" name="address_city">   
+	<br>
+	<label for="">Estado: </label>
+	<input type="text" name="address_state">   
+	<br>
+	<label for="">País: </label>
+	<input type="text" name="address_country">   
+	<br>
+	<br>
+	<label for="">Tipo: </label>
+	<input type="text" name="type">   
+	<br>
+	<br>
+	<input class="btn btn-secondary" type="submit" value="Criar contato">
+</form>
+</div>     
 @endsection

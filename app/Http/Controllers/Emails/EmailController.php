@@ -48,11 +48,17 @@ class EmailController extends Controller {
 		$userAuth = Auth::user();
 		$email = new \App\Models\Email();
 		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$users = User::where('id', '>=', 0)
+					->orderBy('NAME', 'asc')
+					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+			$users = User::where('id', '=', $userAuth->id)
+					->with('accounts')
+					->get();
 		}
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$accounts = \App\Models\Account::where('id', '>=', 0)
+				->orderBy('NAME', 'asc')
+				->get();
 
 		return view('emails.createEmail', [
 			'userAuth' => $userAuth,

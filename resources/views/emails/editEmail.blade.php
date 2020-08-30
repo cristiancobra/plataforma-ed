@@ -28,7 +28,7 @@
 		</select>
 		<br>
 	<label class="labels" for="">SENHA PADRÃO: </label>
-	<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }} ">   
+	<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }}">
 	<br>
 	<label class="labels" for="">ESPAÇO (GB): </label>
 	<input class="fields" type="number" name="storage" value="{{ $email->storage }}">   

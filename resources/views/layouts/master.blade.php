@@ -94,6 +94,7 @@
 				</button>
 
 				<div class="dropdown-container">
+					<a class="sidebar-subitem" href="{{route('contact.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CONTATOS</a>
 					<a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
 					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
 					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/" target="_blank"><i class="fas cloud" style="margin-right: 8px"></i>NUVEM (ARQUIVOS)</a>
@@ -178,13 +179,11 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-										<a class="sidebar-subitem"href="{{route('task.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>TAREFAS</a>
+					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMPRESAS</a>
 					<a class="sidebar-subitem"href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR USUÁRIO</a>
-					<a class="sidebar-subitem" href="/usuarios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>USUÁRIOS</a>
-					<a class="sidebar-subitem" href="/accounts"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMPRESAS</a>
 					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL</a>			
 					login: solucoes
 					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES</a>
