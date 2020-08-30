@@ -18,16 +18,19 @@ class UserController extends Controller {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		}else{
-			$users = User::where('id', '=', $userAuth->id)
 					->with('accounts')
+					->orderBy('NAME', 'asc')
+					->paginate(20);
+		} else {
+			$users = User::whereHas('accounts', function ($query) {
+						return $query->where('users.id', '=', Auth::user()->id)
+						->with('accounts');
+					})
 					->get();
 		}
 		$totalUsers = $users
 				->count();
-		
+
 		return view('usuarios.indexUsers', [
 			'users' => $users,
 			'userAuth' => $userAuth,
@@ -58,7 +61,7 @@ class UserController extends Controller {
 	 */
 	public function store(Request $request) {
 		$userAuth = Auth::user();
-		
+
 		$user = new User();
 		$user->name = ucfirst($request->novo_nome) . " " . ucfirst($request->novo_sobrenome);
 		$user->perfil = $request->perfil;
@@ -93,11 +96,21 @@ class UserController extends Controller {
 	 */
 	public function show(User $user) {
 		$userAuth = Auth::user();
-		$accounts = User::where('id', '=', $user->id)->with('accounts')->get();
+
+		if ($userAuth->perfil == "administrador") {
+			$users = User::where('id', '>=', 0)
+					->with('accounts')
+					->orderBy('NAME', 'asc')
+					->get();
+		} else {
+			$users = User::where('id', '=', $userAuth->id)
+					->with('accounts')
+					->get();
+		}
+
 		return view('usuarios.showUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
-			'accounts' => $accounts,
 		]);
 	}
 
@@ -108,10 +121,12 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(User $user) {
+		$userAuth = Auth::user();
+
 		$accounts = $user->accounts()->get();
 		return view('usuarios.editUser', [
 			'user' => $user,
-			'accounts' => $accounts,
+			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -123,9 +138,10 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, User $user) {
+		$userAuth = Auth::user();
+
 		$user->name = $request->name;
 		$user->email = $request->email;
-		$user->accounts = $request->account;
 		$user->dominio = $request->dominio;
 		$user->perfil = $request->perfil;
 		$user->default_password = $request->default_password;
@@ -134,12 +150,12 @@ class UserController extends Controller {
 		}
 		$user->save();
 
-		return view('usuarios.detailsUser', [
+		return view('usuarios.showUser', [
 			'user' => $user,
 			'email' => $user->email,
 			'password' => $user->default_password,
 			'dominio' => $user->dominio,
-				//'nome_usuario' => $nome_usuario,
+			'userAuth' => $userAuth,
 		]);
 	}
 

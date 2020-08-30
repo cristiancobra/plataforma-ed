@@ -21,33 +21,41 @@
 	</tr>
 
 	@foreach ($users as $user)
-
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
-			<button class="button">
-				<a href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank" style="text-decoration: none;color: black">
-					<i class='fas fa-comment-dots'></i> </a>
-			</button>
-			<button class="button">
-				<a href=" {{ route('user.show', ['user' => $user->id]) }} "  style="text-decoration: none;color: black">
-					<i class='fa fa-eye'></i></a>
-			</button>
+			<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
+				<button class="button">
+					<i class='fas fa-comment-dots'></i>
+				</button>
+			</a>
+
+			<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
+				<button class="button">
+					<i class='fa fa-eye'></i>
+				</button>
+			</a>
 			{{ $user->name }}
 		</td>
 
 		<td class="table-list-left">
 			@foreach ($user->accounts as $account)
-			<button class="button">
-				<a href=" {{ route('accounts.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
-					<i class='fa fa-eye'></i></a>
-			</button> {{ $account->name }}</li><br>
+			<a class="white"  href=" {{ route('account.show', ['account' => $account->id]) }}">
+				<button class="button">
+					<i class='fa fa-eye'></i>
+				</button> 
+			</a>
+			{{ $account->name }}</li>
+			<br>
+			</a>
 			@endforeach
 		</td>
-		
-		<td class="table-list-left"><button class="button">
-				<a href=" mailto:{{ $user->email }} " target="_blank" style="text-decoration: none;color: black">
-					<i class='fa fa-envelope'></i> </a>
-			</button> {{ $user->email  }}
+
+		<td class="table-list-left">
+			<a  class="white"  href=" mailto:{{ $user->email }} " target="_blank">
+				<button class="button">
+					<i class='fa fa-envelope'></i>
+				</button> {{ $user->email  }}
+			</a>
 		</td>
 	</tr>
 	@endforeach

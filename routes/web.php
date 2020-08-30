@@ -30,10 +30,10 @@ Route::get('/funil-vendas', function () {
 });
 
 // ================================ ACCOUNTS ===================
-Route::resource('accounts', 'Accounts\\AccountController')->names('accounts')->parameters(['empresas' => 'accounts']);
+Route::resource('accounts', 'Accounts\\AccountController')->names('account')->parameters(['empresas' => 'accounts']);
 
 // ================================ CONTATOS / CONTACTS ===================
-Route::get('contacts', 'Contact\\ContactController@Index');
+Route::resource('contacts', 'Contact\\ContactController')->names('contact')->parameters(['contatos' => 'contacts']);
 
 // ================================ EMAILS ===================
 Route::resource('emails', 'Emails\\EmailController')->names('email');

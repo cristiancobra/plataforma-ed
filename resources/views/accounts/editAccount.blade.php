@@ -3,61 +3,68 @@
 @section('title','EDITAR EMPRESA')
 
 @section('image-top')
-{{ asset('imagens/novo-email.png') }} 
+{{ asset('imagens/empresa.png') }} 
 @endsection
 
 @section('description')
-
-Edite suas empresas
-
+<a class="btn btn-primary" href="{{route('account.index')}}">VER EMPRESAS</a>
 @endsection
 
 @section('main')
- 'adrress', 'adrress_city', 'adrress_state', 'adrress_country', 'type', 'employees'
-<form action=" {{ route('user.update', ['user' =>$user->id]) }} " method="post" style="padding: 40px;color: white">
+<form action=" {{ route('account.update', ['account' =>$account->id]) }} " method="post" style="padding: 40px;color: white">
 	@csrf
 	@method('put')
-	<label for="" >Nome: </label>
-	<input type="text" name="name">
+	<label class="labels" for="">Nome: </label>
+	<input type="text" name="name"  value="{{ $account->name }}">
 	<br>
 	<br>
-	<label for="" >Email: </label>
-	<input type="text" name="email">
+	<label class="labels" for="">Email: </label>
+	<input type="text" name="email" value="{{ $account->email }}">
+	<br>
+	<label class="labels" for="">Telefone: </label>
+	<input type="text" name="phone" value="{{ $account->phone }}">   
+	<br>
+	<label class="labels" for="">Site: </label>
+	<input type="text" name="site" value="{{ $account->site }}">   
 	<br>
 	<br>
-	<label for="">Telefone: </label>
-	<input type="text" name="phone">   
+	<label class="labels" for="">Endereço: </label>
+	<input type="text" name="address"  value="{{ $account->address }}">   
+	<br>
+	<label class="labels" for="">Cidade: </label>
+	<input type="text" name="address_city" value="{{ $account->address_city }}">   
+	<br>
+	<label class="labels" for="">Estado: </label>
+	<input type="text" name="address_state" value="{{ $account->address_state }}">   
+	<br>
+	<label class="labels" for="">País: </label>
+	<input type="text" name="address_country" value="{{ $account->address_country }}">   
 	<br>
 	<br>
-	<label for="">Site: </label>
-	<input type="text" name="site">   
+	<label class="labels" for="">Tipo: </label>
+	<input type="text" name="type" value="{{ $account->type }}">   
+	<br>
+	<label class="labels" for="">Qtde empregados: </label>
+	<input type="text" name="employees" value="{{ $account->employees }}">
 	<br>
 	<br>
-	<label for="">Endereço: </label>
-	<input type="text" name="address">   
+	<label class="labels" for="" >Colaboradores: </label>
+	<br>
+	@foreach ($users as $user)
+	<p class="fields">
+		<input type="checkbox" name="users[]" value="{{ $user->id }}"
+		@if (in_array($user->id, $idsAccount->toArray()))
+		checked
+		@else
+		""
+		@endif
+		>
+		{{ $user->name }}
+	</p>
+	@endforeach
 	<br>
 	<br>
-	<label for="">Cidade: </label>
-	<input type="text" name="address_city">   
-	<br>
-	<br>
-	<label for="">Estado: </label>
-	<input type="text" name="address_state">   
-	<br>
-	<br>
-	<label for="">País: </label>
-	<input type="text" name="address_country">   
-	<br>
-	<br>
-	<label for="">Tipo: </label>
-	<input type="text" name="type">   
-	<br>
-	<br>
-	<label for="">Qtde empregados: </label>
-	<input type="text" name="employees">   
-	<br>
-	<br>
-	<input type="submit" value="Atualizar dados do usuário">
+	<input class="btn btn-secondary" type="submit" value="Atualizar dados do usuário">
 
 </form>
 @endsection
