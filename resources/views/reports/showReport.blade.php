@@ -20,7 +20,7 @@
 <br>
 <div>
 	<p>
-		O objetivo deste relatório é oferecer a você ferramentas e estratégias para aumentar e melhorar sua MATURIDADE DIGITAL.
+		O objetivo deste relatório é oferecer um planejamento baseado em dados e estratégias para aumentar e melhorar sua MATURIDADE DIGITAL.
 		Para alcançar a verdadeira TRANSFORMAÇÃO DIGITAL é necessário colocar seu cliente no centro dos seus processos e tomar decisões sempre baseadas em dados.
 	</p>
 	<br>
