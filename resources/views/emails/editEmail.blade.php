@@ -52,7 +52,7 @@
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR EMAIL">
 	</form>
 	<a class="btn btn-secondary" href=" https://acadia.mxroute.com:2083/" target="_blank">
-		<i class='fa fa-edit'></i>EDITAR NO SERVIDOR
+		<i class='fa fa-edit'></i>EDITAR
 	</a>
 </div
 </div>     
