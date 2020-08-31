@@ -14,10 +14,17 @@
 <p class="subtitulo-roxo" style="text-align: right">Você possui <span class="labels">{{ $totalReports }} relatório(s)</span></p>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header"><b>VER</b></td>
-		<td   class="table-list-header"><b>TÍTULO</b></td>
-		<td   class="table-list-header"><b>DATA </b></td>
-		<td   class="table-list-header"><b>STATUS</b></td>
+		<td   class="table-list-header">
+			<b>VER</b>
+		</td>
+		<td   class="table-list-header">
+			<b>TÍTULO</b>
+		</td>
+		<td   class="table-list-header">
+			<b>DATA </b></td>
+		<td   class="table-list-header">
+			<b>STATUS</b>
+		</td>
 	</tr>
 
 	@foreach ($reports as $report)

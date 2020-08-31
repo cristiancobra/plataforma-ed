@@ -46,7 +46,7 @@
 				@if ($userAuth->perfil == "administrador")
 				<button class="button">
 					<a href=" {{ route('email.show', ['email' => $email->id]) }}" style="text-decoration: none;color: black">
-						<i class='fa fa-cogs'></i></a>
+						<i class='fa fa-eye'></i></a>
 				</button>
 				@endif
 				{{ $email->email}}

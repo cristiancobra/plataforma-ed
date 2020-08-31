@@ -113,6 +113,5 @@
 				<a class="btn btn-secondary" href="{{route('facebook.index')}}">VOLTAR</a>
 	</div>
 	<br>
-	<p style="text-align: left;margin-left: 30px;color: white;font-size: 14px">* se a <b>senha padrão</b> tiver sido alterada pelo usuário, atualize a senha novamente com a <b>senha padrão</b>. Peça para o usuário alterar sua senha no seu primeiro acesso.</p>
 </div>
 @endsection
