@@ -54,6 +54,7 @@
 	<a class="btn btn-secondary" href=" https://acadia.mxroute.com:2083/" target="_blank">
 		<i class='fa fa-edit'></i>EDITAR
 	</a>
-</div
-</div>     
+</div>
+<br>
+<br>
 @endsection
