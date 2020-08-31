@@ -77,4 +77,6 @@
 	<input type="radio" name="palette" value="no"><span class="fields">Não possui</span><br>
 	<br>
 	<br>
-	@endsection
+	<input class="btn btn-secondary" type="submit" value="CRIAR RELATÓRIO">
+</form>
+@endsection

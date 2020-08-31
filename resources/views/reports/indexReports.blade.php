@@ -24,7 +24,9 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-center">
 			<button class="button">
-				<a href=" {{ route('report.show', ['report' => $report->id]) }}"  style="text-decoration: none;color: black"><i class='fa fa-eye'></i></a>
+				<a href=" {{ route('report.show', ['report' => $report->id]) }}"  
+				   <i class='fa fa-eye'></i>
+				</a>
 			</button>
 		</td>
 
