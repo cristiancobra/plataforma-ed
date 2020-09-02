@@ -20,7 +20,7 @@ class UserController extends Controller {
 			$users = User::where('id', '>=', 0)
 					->with('accounts')
 					->orderBy('NAME', 'asc')
-					->paginate(20);
+					->paginate(5);
 		} else {
 			$users = User::whereHas('accounts', function ($query) {
 						return $query->where('users.id', '=', Auth::user()->id)

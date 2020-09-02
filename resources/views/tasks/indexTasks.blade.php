@@ -97,13 +97,14 @@
 										<button class="btn btn-success">
 											<b>{{ $task->status  }}</b>
 											@endif
-											</td>
-											</tr>
-											@endforeach
-											</table>
-<p style="text-align: right">
-	<br>
-	{{ $tasks->links() }}
-</p>
+										</button>
+										</td>
+										</tr>
+										@endforeach
+										</table>
+										<p style="text-align: right">
 											<br>
-											@endsection
+											{{ $tasks->links() }}
+										</p>
+										<br>
+										@endsection
