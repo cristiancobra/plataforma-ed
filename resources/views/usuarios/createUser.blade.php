@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','ADICIONAR COLABORADOR')
+@section('title','NOVO COLABORADOR')
 
 @section('image-top')
 {{ asset('imagens/colaborador.png') }} 
@@ -25,21 +25,21 @@
 		<br>
 		<br>
 		<label class="labels"'for="" >Perfil: </label>
-		<select name="user_id">
+		<select name="perfil">
 			<option  class="fields" value="cliente">
 				cliente
 			</option>
-			<option  class="fields" value="cliente">
+			<option  class="fields" value="administrador">
 				administrador
 			</option>
 		</select>
 		<br>
 		<br>
 		<label class="labels"for="">Senha do usuário: </label>
-		<input class="fields" type="password" name="password" value="{{ $user->gerarSenha(8, true, true, true, true) }}">   
+		<input class="fields" type="password" name="password" value="{{ gerarSenha(8, true, true, true, true) }}">   
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR PLATAFORMA">
+		<input class="btn btn-secondary" type="submit" value="SOLICITAR USUÁRIO">
 	</form>
 </div>     
 @endsection

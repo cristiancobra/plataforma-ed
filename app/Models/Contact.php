@@ -10,7 +10,7 @@ class Contact extends Model {
 
 	protected $table = 'contacts';
 	protected $fillable = [
-		'id', 'user_id', 'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type',
+		'id', 'account_id', 'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type',
 	];
 	protected $hidden = [
 	];
@@ -19,8 +19,8 @@ class Contact extends Model {
 		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
 	}
 
-	public function accounts() {
-		return $this->hasOne(Account::class, 'account_id', 'id');
+	public function account() {
+		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
 }

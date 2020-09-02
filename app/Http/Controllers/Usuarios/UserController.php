@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Usuarios;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
@@ -24,7 +25,7 @@ class UserController extends Controller {
 		} else {
 			$users = User::whereHas('accounts', function ($query) {
 						return $query->where('users.id', '=', Auth::user()->id)
-						->with('accounts');
+								->with('accounts');
 					})
 					->paginate(20);
 		}
@@ -73,12 +74,8 @@ class UserController extends Controller {
 
 		$nome_usuario = strtolower($request->novo_nome) . "." . strtolower($request->novo_sobrenome);
 
-		return view('admin.NovaPlataforma.tutorial_plataforma', [
-			'nome' => $user->name,
-			'email' => $user->email,
-			'senha' => $user->default_password,
-			'dominio' => $user->dominio,
-			'nome_usuario' => $nome_usuario,
+		return view('usuarios.showUser', [
+			'user' => $user,
 			'userAuth' => $userAuth,
 		]);
 	}
@@ -97,17 +94,6 @@ class UserController extends Controller {
 	public function show(User $user) {
 		$userAuth = Auth::user();
 
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->with('accounts')
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
-		}
-
 		return view('usuarios.showUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
@@ -124,9 +110,22 @@ class UserController extends Controller {
 		$userAuth = Auth::user();
 
 		$accounts = $user->accounts()->get();
+
+		if ($userAuth->perfil == "administrador") {
+			$accounts = Account::where('id', '>=', 0)
+					->orderBy('NAME', 'asc')
+					->get();
+		} else {
+			$accounts = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+		}
+
 		return view('usuarios.editUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
+			'accounts' => $accounts,
 		]);
 	}
 
@@ -138,25 +137,14 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, User $user) {
-		$userAuth = Auth::user();
+		$user->fill($request->all());
+		$user->accounts()->sync($request->accounts);
 
-		$user->name = $request->name;
-		$user->email = $request->email;
-		$user->dominio = $request->dominio;
-		$user->perfil = $request->perfil;
-		$user->default_password = $request->default_password;
 		if (!empty($request->password)) {
 			$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 		}
-		$user->save();
 
-		return view('usuarios.showUser', [
-			'user' => $user,
-			'email' => $user->email,
-			'password' => $user->default_password,
-			'dominio' => $user->dominio,
-			'userAuth' => $userAuth,
-		]);
+		return redirect()->route('user.index');
 	}
 
 	/**
@@ -170,7 +158,8 @@ class UserController extends Controller {
 		return redirect()->route('user.index');
 	}
 
-	public function emails() {
+	public
+			function emails() {
 		return $this->hasOne(App\Models\EmailModel::class, 'user_id', 'id');
 	}
 

@@ -2,14 +2,13 @@
 
 namespace App\Helpers;
 
-class Helper
-{
-    public static function shout(string $string)
-    {
-        return strtoupper($string);
-    }
+class Functions {
 
-public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
+	public static function shout(string $string) {
+		return strtoupper($string);
+	}
+
+	public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
 		$ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
 		$mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
 		$nu = "0123456789"; // $nu contem os números
@@ -17,7 +16,7 @@ public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbol
 
 		if ($maiusculas) {
 			// se $maiusculas for "true", a variável $ma é embaralhada e adicionada para a variável $senha
-			$senha .= str_shuffle($ma);
+			$senha = str_shuffle($ma);
 		}
 
 		if ($minusculas) {
@@ -38,4 +37,5 @@ public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbol
 		// retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
 		return substr(str_shuffle($senha), 0, $tamanho);
 	}
+
 }

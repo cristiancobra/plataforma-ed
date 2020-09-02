@@ -15,10 +15,10 @@
 <form action=" {{ route('contact.store') }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	<label class="labels" for="" >DONO: </label>
-	<select name="user_id">
-		@foreach ($users as $user)
-		<option  class="fields" value="{{ $user->id }}">
-			{{ $user->name }}
+	<select name="account_id">
+		@foreach ($accounts as $account)
+		<option  class="fields" value="{{ $account->id }}">
+			{{ $account->name }}
 		</option>
 		@endforeach
 	</select>

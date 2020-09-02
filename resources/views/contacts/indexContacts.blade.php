@@ -21,6 +21,7 @@
 			<td   class="table-list-header"><b>Nome</b></td>
 			<td   class="table-list-header"><b>Email </b></td>
 			<td   class="table-list-header"><b>Cidade </b></td>
+			<td   class="table-list-header"><b>Dono</b></td>
 			<td   class="table-list-header"><b>Status</b></td>
 		</tr>
 
@@ -43,10 +44,19 @@
 			</td>
 
 			<td class="table-list-left">
+				{{ $contact->account->name }}
+			</td>
+
+			<td class="table-list-left">
 				{{ $contact->status }}
 			</td>
 
 		</tr>
 		@endforeach
 	</table>
+	<p style="text-align: right">
+		<br>
+		{{ $contacts->links() }}
+	</p>
+	<br>
 	@endsection

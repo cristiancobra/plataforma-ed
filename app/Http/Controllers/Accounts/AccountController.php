@@ -23,8 +23,8 @@ class AccountController extends Controller {
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
+			$accounts = Account::where('id', '=', $userAuth->id)
+					->with('users')
 					->get();
 		}
 
