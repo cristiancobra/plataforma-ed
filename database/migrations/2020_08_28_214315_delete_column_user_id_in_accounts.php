@@ -13,7 +13,7 @@ class DeleteColumnUserIdInAccounts extends Migration {
 	 */
 	public function up() {
 		Schema::table('accounts', function (Blueprint $table) {
-//			$table->dropForeign(['user_id']);
+			$table->dropForeign(['user_id']);
 			$table->dropColumn(['user_id']);
 		});
 	}
@@ -25,7 +25,7 @@ class DeleteColumnUserIdInAccounts extends Migration {
 	 */
 	public function down() {
 		Schema::table('accounts', function (Blueprint $table) {
-//			$table->foreignId('user_id')->constrained;
+			$table->foreignId('user_id')->constrained;
 		});
 	}
 
