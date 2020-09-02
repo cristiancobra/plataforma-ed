@@ -39,13 +39,13 @@
 		<tr style="font-size: 16px">
 			<td class="table-list-left">
 				<button class="button">
-					<a href=" https://empresadigital.net.br/webmail" target="_blank"  style="text-decoration: none;color: black">
+					<a href=" https://empresadigital.net.br/webmail" target="_blank">
 						<i class='fa fa-envelope'></i></a>
 				</button>
 
 				@if ($userAuth->perfil == "administrador")
 				<button class="button">
-					<a href=" {{ route('email.show', ['email' => $email->id]) }}" style="text-decoration: none;color: black">
+					<a href=" {{ route('email.show', ['email' => $email->id]) }}">
 						<i class='fa fa-eye'></i></a>
 				</button>
 				@endif
