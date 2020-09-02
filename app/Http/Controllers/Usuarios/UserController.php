@@ -20,13 +20,13 @@ class UserController extends Controller {
 			$users = User::where('id', '>=', 0)
 					->with('accounts')
 					->orderBy('NAME', 'asc')
-					->paginate(5);
+					->paginate(20);
 		} else {
 			$users = User::whereHas('accounts', function ($query) {
 						return $query->where('users.id', '=', Auth::user()->id)
 						->with('accounts');
 					})
-					->get();
+					->paginate(20);
 		}
 		$totalUsers = $users
 				->count();

@@ -7,7 +7,9 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('user.create')}}">ADICIONAR COLABORADOR</a>
+<a class="btn btn-primary" href="{{route('user.create')}}">
+	ADICIONAR COLABORADOR
+</a>
 @endsection
 
 @section('main')
@@ -60,5 +62,10 @@
 	</tr>
 	@endforeach
 </table>
+<br>
+<p style="text-align: right">
+	<br>
+	{{ $users->links() }}
+</p>
 <br>
 @endsection
