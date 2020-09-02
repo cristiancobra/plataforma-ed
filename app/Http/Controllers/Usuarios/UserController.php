@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class UserController extends Controller {
 
 	/**
-	 * Display a listing of the resource.
+	 * Display a listing of the resource
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
