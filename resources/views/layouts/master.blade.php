@@ -88,6 +88,15 @@
 				</a>
 
 				<button class="dropdown-btn">
+					<i class='fas fa-funnel-dollar'></i>
+					ADMINISTRATIVO 
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>MINHA EMPRESA</a>
+				</div>
+
+				<button class="dropdown-btn">
 					<i class='fa fa-comments'></i>
 					COMUNICAÇÃO
 					<i class="fa fa-caret-down"></i>
@@ -179,7 +188,6 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMPRESAS</a>
 					<a class="sidebar-subitem"href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
