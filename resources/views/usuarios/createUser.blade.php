@@ -25,11 +25,11 @@
 		<br>
 		<br>
 		<label class="labels"'for="" >Perfil: </label>
-		<select name="user_id">
+		<select name="perfil">
 			<option  class="fields" value="cliente">
 				cliente
 			</option>
-			<option  class="fields" value="cliente">
+			<option  class="fields" value="administrador">
 				administrador
 			</option>
 		</select>
