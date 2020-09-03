@@ -3,7 +3,7 @@
 @section('title','Nova Empresa')
 
 @section('image-top')
-{{ asset('imagens/novo-email.png') }} 
+{{ asset('imagens/empresa.png') }} 
 @endsection
 
 @section('description')
@@ -36,7 +36,7 @@
 	<input type="text" name="address_state">   
 	<br>
 	<label for="">País: </label>
-	<input type="text" name="address_country">   
+	<input type="text" name="address_country" value="Brasil">   
 	<br>
 	<br>
 	<label for="">Tipo: </label>
