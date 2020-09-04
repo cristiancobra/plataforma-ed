@@ -48,23 +48,32 @@
 	<input type="text" name="employees" value="{{ $account->employees }}">
 	<br>
 	<br>
+	<label class="labels" for="status">SITUAÇÃO: </label>
+	<select class="fields" name="status">
+		<option value="{{ $account->status }}">{{ $account->status}}</option>
+		@if ($account->status == "desativado")
+		<option value="ativo">ativo</option>
+		<option value="pendente">pendente</option>
+		@elseif  ($account->status == "ativo")
+		<option value="desativado">desativado</option>
+		<option value="pendente">pendente</option>
+		@elseif  ($account->status == "pendente")
+		<option value="ativo">ativo</option>
+		<option value="desativado">desativado</option>
+		@endif
+	</select>
+	<br>
+	<br>
 	<label class="labels" for="" >Colaboradores: </label>
 	<br>
 	@foreach ($users as $user)
 	<p class="fields">
-		<input type="checkbox" name="users[]" value="{{ $user->id }}"
-		@if (in_array($user->id, $idsAccount->toArray()))
-		checked
-		@else
-		""
-		@endif
-		>
-		{{ $user->name }}
+		<input type="checkbox" name="users[]" value="{{ $user->id }}">	{{ $user->name }}
 	</p>
 	@endforeach
 	<br>
 	<br>
-	<input class="btn btn-secondary" type="submit" value="Atualizar dados do usuário">
+	<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
 
 </form>
 @endsection

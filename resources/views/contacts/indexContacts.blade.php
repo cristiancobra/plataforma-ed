@@ -3,7 +3,7 @@
 @section('title','CONTATOS')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('imagens/contact.png') }} 
 @endsection
 
 @section('description')

@@ -18,21 +18,21 @@
 <p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  Colaboradores: </b>
 </p>
-	@foreach ($account->users as $user)
-			<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
-				<button class="button">
-					<i class='fas fa-comment-dots'></i>
-				</button>
-			</a>
+@foreach ($account->users as $user)
+<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
+	<button class="button">
+		<i class='fas fa-comment-dots'></i>
+	</button>
+</a>
 
-			<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
-				<button class="button">
-					<i class='fa fa-eye'></i>
-				</button>
-			</a>
-			{{ $user->name }}
-			<br>
-			@endforeach	
+<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
+	<button class="button">
+		<i class='fa fa-eye'></i>
+	</button>
+</a>
+{{ $user->name }}
+<br>
+@endforeach	
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  Email: </b> {{ $account->email }}
@@ -61,6 +61,8 @@
 <p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  Qtde empregados: </b> {{ $account->employees }}
 </p>
+<br>
+<p class="labels">SITUAÇAO:<span class="fields">  {{ $account->status }} </span></p>
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
 	<b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($account->created_at)) }}

@@ -1,24 +1,44 @@
-@extends('layouts/details')
+@extends('layouts/master')
 
-@section('title','Usuário')
+@section('title','CONTATOS')
 
-@section('content')
+@section('image-top')
+{{ asset('imagens/contact.png') }} 
+@endsection
 
-                    <br><br><p class="titulo-branco"> Usuário</p>
-                    <br>
-                    <br>
+@section('description')
+<a class="btn btn-primary" href="{{route('contact.index')}}">VER CONTATOS</a>
+@endsection
 
-                    <h1 style="text-align:left;color: white;padding-left: 30px"><b> Nome: </b> {{ $user->name }} </h1>
-                    <p style="text-align:left;color: white;padding-left: 30px"> <b>  Email: </b> {{ $user->email }} </p>
-		<p style="text-align:left;color: white;padding-left: 30px"> <b>  Domínio: </b> {{ $user->dominiol }} </p>
-		<p style="text-align:left;color: white;padding-left: 30px"> <b>  ID da Plataforma: </b> {{ $user->id }} </p>
-		<p style="text-align:left;color: white;padding-left: 30px"> <b>  Senha: </b> {{ $user->password }} </p>
-		<p style="text-align:left;color: white;padding-left: 30px"> <b>  Perfil: </b> {{ $user->perfil }} </p>
-		<br>
-                    <p style="text-align:left;color: white;padding-left: 30px"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
+@section('main')
+<br>
+<h1 class="name">
+	<b> Nome: </b> {{ $contact->name }}
+</h1>
+<label for="" >Primeiro nome: </label> {{ $contact->first_name }}
+	<br>
+	<label for="" >Sobrenome: </label> {{ $contact->last_name }}
+	<br>
+	<label for="" >Email: </label> {{ $contact->email }}
+	<br>
+	<label for="">Telefone: </label> {{ $contact->phone }}
+	<br>
+	<label for="">Site: </label> {{ $contact->site }}
+	<br>
+	<br>
+	<label for="">Endereço: </label> {{ $contact->address }}
+	<br>
+	<label for="">Cidade: </label> {{ $contact->address_city }}
+	<br>
+	<label for="">Estado: </label> {{ $contact->address_state }}
+	<br>
+	<label for="">País: </label> {{ $contact->address_country }}
+	<br>
+	<br>
+	<label for="">Tipo: </label> {{ $contact->type }}
+	<br>
+	<br>
+<br>
+<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($contact->created_at)) }} </p>
 
-                <div class="imagem">
-                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="300px" height="300px">
-                </div>
-
-  @endsection
+@endsection

@@ -55,6 +55,14 @@
 	@endforeach
 	<br>
 	<br>
+	<label class="labels" for="status">SITUAÇÃO: </label>
+	<select class="fields" name="status">
+		<option value="pendente">pendente</option>
+		<option value="ativo">ativo</option>
+		<option value="desativado">desativado</option>
+	</select>
+	<br>
+	<br>
 	<input class="btn btn-secondary" type="submit" value="Solicitar empresa">
 </form>
 @endsection

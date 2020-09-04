@@ -158,8 +158,7 @@ class UserController extends Controller {
 		return redirect()->route('user.index');
 	}
 
-	public
-			function emails() {
+	public function emails() {
 		return $this->hasOne(App\Models\EmailModel::class, 'user_id', 'id');
 	}
 

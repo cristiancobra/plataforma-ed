@@ -156,7 +156,8 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Account $account) {
-		//
+		$account->delete();
+		return redirect()->route('account.index');
 	}
 
 }
