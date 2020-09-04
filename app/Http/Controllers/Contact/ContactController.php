@@ -84,12 +84,12 @@ class ContactController extends Controller {
 			$accounts = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->pluck('id');
+					->get();
 
-//		$contacts = Contact::whereHas('account', function($query) use($accounts) {
-//					$query->whereIn('account_id', $accounts);
-//				})
-//				->get();
+			$contacts = Contact::whereHas('account', function($query) use($accounts) {
+						$query->whereIn('account_id', $accounts);
+					})
+					->paginate(20);
 		}
 
 		return view('contacts.createContact', [
@@ -107,8 +107,6 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$userAuth = Auth::user();
-
 		$contact = new Contact();
 		$contact->fill($request->all());
 		$contact->save();
@@ -141,26 +139,20 @@ class ContactController extends Controller {
 	public function edit(Contact $contact) {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
+			$accounts = Account::where('id', '>=', 0)
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
+			$accounts = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 		}
-//
-////		$idsAccount = $account->users->toArray();
-//		$idsAccount = Account::find($account->id)
-//				->with('users')
-//				->orderBy('NAME', 'asc')
-//				->get();
 
-		return view('accounts.editAccount', [
+		return view('contacts.editContact', [
 			'userAuth' => $userAuth,
-			'users' => $users,
-//			'account' => $account,
-//			'idsAccount' => $idsAccount,
+			'accounts' => $accounts,
+			'contact' => $contact,
 		]);
 	}
 

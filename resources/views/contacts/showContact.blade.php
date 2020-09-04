@@ -41,4 +41,16 @@
 <br>
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($contact->created_at)) }} </p>
 
+	<div style="text-align:right;padding: 2%">
+		<form   style="text-decoration: none;display: inline-block" action="{{ route('contact.destroy', ['contact' => $contact->id]) }}" method="post">
+			@csrf
+			@method('delete')
+			<input class="btn btn-danger" type="submit" value="APAGAR">
+		</form>
+		<a class="btn btn-secondary" href=" {{ route('contact.edit', ['contact' => $contact->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
+			<i class='fa fa-edit'></i>EDITAR</a>
+		<a class="btn btn-secondary" href="{{route('contact.index')}}">VOLTAR</a>
+	</div>
+	<br>
+
 @endsection

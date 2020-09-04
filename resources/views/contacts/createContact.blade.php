@@ -3,11 +3,11 @@
 @section('title','NOVO CONTATO')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('imagens/contact.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('contact.index')}}">VER EMAILS</a>
+<a class="btn btn-primary" href="{{route('contact.index')}}">VER CONTATOS</a>
 @endsection
 
 @section('main')
@@ -43,7 +43,7 @@
 	<label for="">Endereço: </label>
 	<input type="text" name="address">   
 	<br>
-	<label for="">Cidade: </label>
+	<label for="address_city">Cidade: </label>
 	<input type="text" name="address_city">   
 	<br>
 	<label for="">Estado: </label>

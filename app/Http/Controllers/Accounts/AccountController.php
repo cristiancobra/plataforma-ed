@@ -19,13 +19,13 @@ class AccountController extends Controller {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
 			$accounts = Account::where('id', '>=', 0)
-					->with('users')
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$accounts = Account::where('id', '=', $userAuth->id)
-					->with('users')
-					->get();
+			$accounts = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->paginate(20);
 		}
 
 		return view('accounts.indexAccounts', [
