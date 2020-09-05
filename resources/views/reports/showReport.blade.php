@@ -32,10 +32,7 @@
         <li>   Apresentar números indicadores  sobre o seu mercado e comparar com a sua concorrência; </li>
         <li>   Identificar público-alvo e personas; </li>
         <li>   Criar um planejamento para melhorar a sua maturidade digital .   </li>
-    </ul>
-
-
-
+                   </ul>
 </p>
 <br>
 <p class="title-reports"><i class="fas fa-spinner fa-pulse fa-fw"></i>

@@ -10,7 +10,7 @@ class Instagram extends Model
 	protected $table = 'instagrams';
 	protected $fillable = [
 		'id', 'user_id', 'status', 'page_name', 'linked_instagram', 'same_site_name', 'about', 'feed_content', 'harmonic_feed', 'SEO_descriptions', 'feed_images',
-		'stories', 'interaction', 'value_ads', 'URL_name', 'business', 'linktree'
+		'stories', 'interaction', 'value_ads', 'URL_name', 'business', 'linktree',  'number_followers', 'number_location', 'age_rage',  'gender',   'most-like', 
 	];
 
 	public function users() {
