@@ -8,9 +8,9 @@ use App\User;
 class Pinterest extends Model
 {
  
-	protected $table = 'twitters';
+	protected $table = 'pinterests';
 	protected $fillable = [
-		'id', 'user_id', 'status', 'page_name', 'linked_site', 'same_site_name', 'about', 'pin_content', 'value_ads', 'URL_name', 'business',  'number_followers', 'number_location', 'age_rage',  'gender',   'most-pin', 
+		'id', 'user_id', 'status', 'page_name', 'same_site_name', 'about', 'pin_content', 'value_ads', 'URL_name', 'business',  'number_followers', 'number_location', 'age_rage',  'gender',   'most-pin', 
 	];
 
 	public function users() {
