@@ -105,7 +105,7 @@ and open the template in the editor.
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-areas: 
 		"facebook instagram linkedin"
-		"twitter area5 area6";
+		"twitter pinterest area6";
 	gap: 5% 2%;
 }
 
@@ -141,10 +141,10 @@ and open the template in the editor.
 	border-radius: 20px;
 }
 
-.area5 {
-	grid-area: area5;
+.pinterest {
+	grid-area: pinterest;
 	color: white;
-	background-color: #874983;
+	background-color:  #c8232c;
 	padding: 4%;
 	border-radius: 20px;
 }

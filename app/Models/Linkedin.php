@@ -10,7 +10,7 @@ class Linkedin extends Model
 	protected $table = 'linkedins';
 	protected $fillable = [
 		'id', 'user_id', 'status', 'page_name', 'same_site_name', 'about', 'feed_content', 'SEO_descriptions', 'feed_images',
-		'value_ads', 'URL_name', 'business', 'employee_profiles', 'offers_job'
+		'value_ads', 'URL_name', 'business', 'employee_profiles', 'offers_job',  'number_followers', 'number_location', 'age_rage',  'gender',   'most-like', 
 	];
 
 	public function users() {
