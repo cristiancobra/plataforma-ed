@@ -25,7 +25,7 @@ class CreateContactsTable extends Migration {
 			$table->string('address_city');
 			$table->string('address_state');
 			$table->string('address_country');
-			$table->string('type')->nullable();;
+			$table->string('type')->nullable();
 			$table->timestamps();
 		});
 	}

@@ -20,7 +20,7 @@ class AccountController extends Controller {
 		if ($userAuth->perfil == "administrador") {
 			$accounts = Account::where('id', '>=', 0)
 					->orderBy('NAME', 'asc')
-					->get();
+					->paginate(20);
 		} else {
 			$accounts = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
@@ -139,9 +139,8 @@ class AccountController extends Controller {
 		$userAuth = Auth::user();
 
 		$account->fill($request->all());
+		$account->save();
 		$account->users()->sync($request->users);
-
-//				dd($account);
 
 		return view('accounts.showAccount', [
 			'userAuth' => $userAuth,

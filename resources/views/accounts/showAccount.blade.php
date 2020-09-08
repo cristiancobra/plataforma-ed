@@ -16,6 +16,9 @@
 	<b> Nome: </b> {{ $account->name }}
 </h1>
 <p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>  Descrição: </b> {{ $account->description }}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  Colaboradores: </b>
 </p>
 @foreach ($account->users as $user)

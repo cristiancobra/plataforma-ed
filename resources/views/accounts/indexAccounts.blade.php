@@ -48,4 +48,9 @@
 		</td>
 		@endforeach
 </table>
+	<p style="text-align: right">
+		<br>
+		{{ $accounts->links() }}
+	</p>
+	<br>
 @endsection

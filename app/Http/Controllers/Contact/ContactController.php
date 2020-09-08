@@ -35,29 +35,6 @@ class ContactController extends Controller {
 					->paginate(20);
 		}
 
-//		$accounts = User::where('id', '=', $userAuth->id)
-//		->with('accounts')
-//		->pluck('id');
-//		->pluck('account_id');
-//
-//		echo $accounts;
-//		dd($accounts);
-//		$accounts = Contact::has('account')
-//				->with('users')
-//				->get();
-//		
-//		echo $userAuth->id;
-//		$accounts = array(5,1,8,9);
-//		if ($userAuth->perfil == "administrador") {
-//			$contacts = Contact::where('id', '>=', 0)
-//					->with('account')
-//					->orderBy('NAME', 'asc')
-//					->get();
-//		} else {
-//			$contacts = Contact::where('account_id', '=', $userAuth->id)
-//					->with('users')
-//					->get();
-//		}
 		$totalContacts = $contacts->count();
 
 		return view('contacts.indexContacts', [
@@ -111,6 +88,7 @@ class ContactController extends Controller {
 		$contact->fill($request->all());
 		$contact->save();
 		$contact->users()->sync($request->users);
+		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 
 		return redirect()->action('Contact\\ContactController@index');
 	}
@@ -164,7 +142,16 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Contact $contact) {
-		//
+		$userAuth = Auth::user();
+
+		$contact->fill($request->all());
+		$contact->save();
+		$contact->users()->sync($request->users);
+
+		return view('contacts.showContact', [
+			'userAuth' => $userAuth,
+			'contact' => $contact,
+		]);
 	}
 
 	/**

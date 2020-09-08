@@ -48,6 +48,16 @@
 	<input type="text" name="employees" value="{{ $account->employees }}">
 	<br>
 	<br>
+	<label class="labels" for="" >DESCRIÇÃO:</label>
+	<textarea id="description" name="description" rows="20" cols="90">
+		{{ $account->description }}
+	</textarea>
+	<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+	<script>
+CKEDITOR.replace('description');
+	</script>
+	<br>
 	<label class="labels" for="status">SITUAÇÃO: </label>
 	<select class="fields" name="status">
 		<option value="{{ $account->status }}">{{ $account->status}}</option>
