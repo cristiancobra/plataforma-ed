@@ -29,10 +29,9 @@ class TaskController extends Controller {
 		$tasks = Task::whereHas('account', function($query) use($accounts) {
 					$query->whereIn('account_id', $accounts);
 				})
+		//		->with('users')
+				->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
 				->paginate(20);
-
-//					->with('users')
-//					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
 
 		$hoje = date("d/m/Y");
 
@@ -170,8 +169,7 @@ class TaskController extends Controller {
 
 		$task->fill($request->all());
 		$task->save();
-	//	$task->users()->sync($request->users);
-		
+		//	$task->users()->sync($request->users);
 ////		$timeDifference = Carbon::parse($request->end_time->finish)->diffInMinutes(Carbon::parse($request->start_time->start));
 ////		$duration->total = $timeDifference / 60; // decimal hours
 //
@@ -185,7 +183,6 @@ class TaskController extends Controller {
 //		$task->fill($request->all());
 //		$task->duration = date("H:i", $duration);
 //		$task->save();
-
 //		$hours = $task->duration  / 3600; // decimal hours;
 
 		return view('tasks.showTask', [
