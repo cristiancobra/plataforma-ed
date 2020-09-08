@@ -59,25 +59,7 @@
 		<span class="fields">Não</span>
 		<br>
 		@endif
-		<br>
-		<label class="labels" for="">Conta vinculada com Facebook: </label>
-		<br>
-		@if ($pinterest->linked_facebook == "yes")
-		<input type="radio" name="linked_facebook" value="yes" checked="checked">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="linked_facebook" value="no">
-		<span class="fields">Não</span>
-		<br>
-		@else
-		<input type="radio" name="linked_facebook" value="yes">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="linked_facebook" value="no" checked="checked">
-		<span class="fields">Não</span>
-		<br>
-		@endif
-		<br>
+				<br>
 		<label class="labels" for="">Conta vinculada com site: </label>
 		<br>
 		@if ($pinterest->linked_site == "yes")
@@ -132,20 +114,20 @@
 		<br>
 		@endif
 		<br>
-		<label class="labels" for="">Publica conteúdos no feed:</label>
+		<label class="labels" for="">Possui pastas de ideias:</label>
 		<br>
-		@if ($pinterest->feed_content == "yes")
-		<input type="radio" name="feed_content" value="yes" checked="checked">
+		@if ($pinterest->pin_content == "yes")
+		<input type="radio" name="pin_content" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="feed_content" value="no">
+		<input type="radio" name="pin_content" value="no">
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="feed_content" value="yes">
+		<input type="radio" name="pin_content" value="yes">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="feed_content" value="no" checked="checked">
+		<input type="radio" name="pin_content" value="no" checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif

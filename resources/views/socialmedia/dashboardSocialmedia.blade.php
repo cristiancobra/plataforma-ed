@@ -17,16 +17,17 @@
         <br>
         @foreach ($facebooks as $facebook)
         <button class="button">
-            <a href=" {{ $facebook->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+            <a href=" {{ $facebook->URL_name}}" target="_blank" >
                 <i class='fab fa-facebook'></i></a>
         </button>
         <button class="button">
-            <a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
+            <a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" >
                 <i class='fa fa-eye'></i></a>
         </button>
         {{$facebook->page_name}}
         <br>
         @endforeach
+           <a href=" {{ route('facebook.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
     <div class="instagram">
@@ -34,16 +35,17 @@
         <br>
         @foreach ($instagrams as $instagram)
         <button class="button">
-            <a href=" {{ $instagram->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+            <a href=" {{ $instagram->URL_name}}" target="_blank" >
                 <i class='fab fa-facebook'></i></a>
         </button>
         <button class="button">
-            <a href=" {{ route('instagram.show', ['instagram' => $instagram->id]) }}" style="text-decoration: none;color: black">
+            <a href=" {{ route('instagram.show', ['instagram' => $instagram->id]) }}">
                 <i class='fa fa-eye'></i></a>
         </button>
         {{$instagram->page_name}}
         <br>
         @endforeach
+           <a href=" {{ route('instagram.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
     <div class="linkedin">
@@ -51,18 +53,19 @@
         <br>
         @foreach ($linkedins as $linkedin)
         <button class="button">
-            <a href=" {{ $linkedin->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+            <a href=" {{ $linkedin->URL_name}}" target="_blank" >
                 <i class='fab fa-linkedin-in'></i>
             </a>
         </button>
         <button class="button">
-            <a href=" {{ route('linkedin.show', ['linkedin' => $linkedin->id]) }}" style="text-decoration: none;color: black">
+            <a href=" {{ route('linkedin.show', ['linkedin' => $linkedin->id]) }}" >
                 <i class='fa fa-eye'></i>
             </a>
         </button>
         {{$linkedin->page_name}}
         <br>
         @endforeach
+           <a href=" {{ route('linkedin.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
     <div class="twitter">
@@ -70,16 +73,17 @@
         <br>
         @foreach ($twitters as $twitter)
         <button class="button">
-            <a href=" {{ $twitter->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+            <a href=" {{ $twitter->URL_name}}" target="_blank" >
                 <i class='fab fa-twitter'></i></a>
         </button>
         <button class="button">
-            <a href=" {{ route('twitter.show', ['twitter' => $twitter->id]) }}" style="text-decoration: none;color: black">
+            <a href=" {{ route('twitter.show', ['twitter' => $twitter->id]) }}">
                 <i class='fa fa-eye'></i></a>
         </button>
         {{$twitter->page_name}}
         <br>
         @endforeach
+           <a href=" {{ route('twitter.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
    	<div class="pinterest">
@@ -87,16 +91,17 @@
 		<br>
 		@foreach ($pinterests as $pinterest)
 		<button class="button">
-			<a href=" {{ $pinterest->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+			<a href=" {{ $pinterest->URL_name}}" target="_blank" >
 				<i class='fab fa-pinterest'></i></a>
 		</button>
 		<button class="button">
-			<a href=" {{ route('pinterest.show', ['pinterest' => $pinterest->id]) }}" style="text-decoration: none;color: black">
+			<a href=" {{ route('pinterest.show', ['pinterest' => $pinterest->id]) }}" >
 				<i class='fa fa-eye'></i></a>
 		</button>
 		{{$pinterest->page_name}}
 		<br>
 		@endforeach
+                   <a href=" {{ route('pinterest.create' ) }}" style=" color: white" > Adicionar nova conta</a> 
 	</div>
 
     <div class="area6">

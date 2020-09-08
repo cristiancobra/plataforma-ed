@@ -56,17 +56,9 @@
             <td   class="button-delete"><b>NÃO</b></td>
             @endif
         </tr>	
-        <tr>
-            <td   class="table-list-left"><b>Publica conteúdos no feed:</b></td>
-            @if ($pinterest->feed_content === "yes")
-            <td   class="button-active"><b>SIM</b></td>
-            @else
-            <td   class="button-delete"><b>NÃO</b></td>
-            @endif
-        </tr>	
-           <tr>
+                <tr>
             <td   class="table-list-left"><b>Possui pasta de ideias:</b></td>
-            @if ($pinterest->feed_content === "yes")
+            @if ($pinterest->pin_content === "yes")
             <td   class="button-active"><b>SIM</b></td>
             @else
             <td   class="button-delete"><b>NÃO</b></td>
