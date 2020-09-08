@@ -56,11 +56,17 @@
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 		<script>
-	CKEDITOR.replace('description');
+CKEDITOR.replace('description');
 		</script>
 		<br>
-		<label class="labels" for="" >CONTATO:</label>
-		<input type="text" name="contact_id" size="50"  value="{{ $task->contact_id }}"><span class="fields"></span>
+		<label class="labels" for="" >CONTATO: </label>
+		<select name="contact_id">
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{ $contact->id }}">
+				{{ $contact->name }}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<label class="labels" for="" >PRIORIDADE:</label>
 		<select class="fields" name="priority">

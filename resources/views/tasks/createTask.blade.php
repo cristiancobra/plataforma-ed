@@ -17,6 +17,16 @@
 		<label class="labels" for="" >NOME DA TAREFA:</label>
 		<input type="text" name="name" size="20"><span class="fields"></span>
 		<br>
+		<label class="labels" for="" >EMPRESA: </label>
+		<select name="account_id">
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{ $account->id }}">
+				{{ $account->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<br>
 		<label class="labels" for="" >CATEGORIA:</label>
 		<select class="fields" name="category">
 			<option value="desenvolvimento">desenvolvimento</option>
@@ -55,12 +65,18 @@
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 		<script>
-	CKEDITOR.replace('description');
+CKEDITOR.replace('description');
 		</script>
 		<br>
 		<br>
-		<label class="labels" for="" >CONTATO:</label>
-		<input type="text" name="contact_id" size="50"><span class="fields"></span>
+		<label class="labels" for="" >CONTATO: </label>
+		<select name="contact_id">
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{ $contact->id }}">
+				{{ $contact->name }}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<label class="labels" for="" >PRIORIDADE:</label>
 		<select class="fields" name="priority">

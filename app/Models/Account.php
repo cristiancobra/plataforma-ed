@@ -10,13 +10,18 @@ class Account extends Model {
 	protected $table = 'accounts';
 	protected $fillable = [
 		'id', 'user_id', 'name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type', 'employees', 'status',
-		];
+	];
 
 	public function users() {
-		return $this->belongsToMany(User::class, 'users_accounts',  'account_id', 'user_id');
+		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
 	}
-	
-		public function contacts() {
+
+	public function contacts() {
 		return $this->hasMany(Contact::class, 'id', 'account_id');
 	}
+
+	public function tasks() {
+		return $this->hasMany(Task::class, 'id', 'account_id');
+	}
+
 }

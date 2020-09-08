@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
+use App\Models\Account;
+use App\Models\Contact;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,17 +20,20 @@ class TaskController extends Controller {
 	 */
 	public function index() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$tasks = Task::where('id', '>=', 0)
-					->with('users')
-					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
-					->Paginate(20);
-		} else {
-			$tasks = Task::where('user_id', '=', $userAuth->id)
-					->with('users')
-					->Paginate(20);
-		}
-		
+
+		$accounts = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		$tasks = Task::whereHas('account', function($query) use($accounts) {
+					$query->whereIn('account_id', $accounts);
+				})
+				->paginate(20);
+
+//					->with('users')
+//					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
+
 		$hoje = date("d/m/Y");
 
 		return view('tasks.indexTasks', [
@@ -45,21 +50,40 @@ class TaskController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
-		}
-
 		$task = new Task();
 
-		$accounts = Task::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		$accounts = Account::whereHas('users', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->get();
+
+		$contacts = Contact::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->paginate(20);
+
+		$tasks = Task::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->paginate(20);
+
+		$users = User::whereHas('accounts', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->get();
 
 		return view('tasks.createTask', [
 			'userAuth' => $userAuth,
 			'users' => $users,
 			'task' => $task,
+			'tasks' => $tasks,
 			'accounts' => $accounts,
+			'contacts' => $contacts,
 		]);
 	}
 
@@ -99,20 +123,38 @@ class TaskController extends Controller {
 	public function edit(task $task) {
 		$userAuth = Auth::user();
 
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-			$users = User::where('id', '=', $userAuth
-					->id)->with('accounts')
-					->first();
-		}
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		$accounts = Account::whereHas('users', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->get();
+
+		$contacts = Contact::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->paginate(20);
+
+		$tasks = Task::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->paginate(20);
+
+		$users = User::whereHas('accounts', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->get();
 
 		return view('tasks.editTask', [
-			'users' => $users,
 			'userAuth' => $userAuth,
+			'users' => $users,
 			'task' => $task,
+			'tasks' => $tasks,
+			'accounts' => $accounts,
+			'contacts' => $contacts,
 		]);
 	}
 
@@ -125,19 +167,24 @@ class TaskController extends Controller {
 	 */
 	public function update(Request $request, task $task) {
 		$userAuth = Auth::user();
-//		$timeDifference = Carbon::parse($request->end_time->finish)->diffInMinutes(Carbon::parse($request->start_time->start));
-//		$duration->total = $timeDifference / 60; // decimal hours
 
-		$start_time = strtotime($request->start_time);
-		$end_time = strtotime($request->end_time);
-		$duration = $end_time - $start_time;
-
-//		$duration = $end_time - $start_time;
-//		return $diff->format('H:i d/m/Y');
-//
 		$task->fill($request->all());
-		$task->duration = date("H:i", $duration);
 		$task->save();
+	//	$task->users()->sync($request->users);
+		
+////		$timeDifference = Carbon::parse($request->end_time->finish)->diffInMinutes(Carbon::parse($request->start_time->start));
+////		$duration->total = $timeDifference / 60; // decimal hours
+//
+//		$start_time = strtotime($request->start_time);
+//		$end_time = strtotime($request->end_time);
+//		$duration = $end_time - $start_time;
+//
+////		$duration = $end_time - $start_time;
+////		return $diff->format('H:i d/m/Y');
+////
+//		$task->fill($request->all());
+//		$task->duration = date("H:i", $duration);
+//		$task->save();
 
 //		$hours = $task->duration  / 3600; // decimal hours;
 

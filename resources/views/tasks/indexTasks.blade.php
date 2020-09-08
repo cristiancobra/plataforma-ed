@@ -17,6 +17,11 @@
 		<td   class="table-list-header" style="width: 60%">
 			<b>NOME</b>
 		</td>
+
+		<td   class="table-list-header" style="width: 10%">
+			<b>EMPRESA</b>
+		</td>
+
 		<td   class="table-list-header" style="width: 10%">
 			<b>RESPONSÁVEL</b>
 		</td>
@@ -54,6 +59,10 @@
 			{{ $task->name}}
 		</td>
 
+		<td class="table-list-center">
+			{{ $task->account->name}}
+		</td>
+		
 		<td class="table-list-center">
 			{{ $task->users->name}}
 		</td>
