@@ -77,6 +77,8 @@ Route::resource('linkedins', 'Socialmedia\\LinkedinController')->names('linkedin
 // ---------- TWITTER
 Route::resource('twitter', 'Socialmedia\\TwitterController')->names('twitter');
 
+// ---------- PINTEREST
+Route::resource('pinterest', 'Socialmedia\\PinterestController')->names('pinterest');
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
 Route::get('/relatorios/{report}/pdf','ReportController@generatePDF')->name('report.pdf');
