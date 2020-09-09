@@ -15,12 +15,16 @@ class Contact extends Model {
 	protected $hidden = [
 	];
 
-	public function users() {
-		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
-	}
-
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
+	}
+
+	public function tasks() {
+		return $this->hasMany(Task::class, 'id', 'contact_id');
+	}
+
+	public function users() {
+		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
 	}
 
 }

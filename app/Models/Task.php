@@ -20,7 +20,8 @@ class Task extends Model {
 	 *
 	 */
 	protected $fillable = [
-		'id', 'user_id', 'date_entered', 'created_by', 'name', 'category', 'description', 'responsible_id', 'date_due', 'date_start', 'contact_id', 'status', 'priority', 'start_time', 'end_time', 'duration', 'account_id',
+		'id', 'user_id', 'date_entered', 'created_by', 'name', 'category', 'description', 'responsible_id', 'date_due', 'date_start', 'contact_id', 'status', 'priority', 'start_time', 
+		'end_time', 'duration', 'account_id',
 	];
 
 	/**
@@ -29,12 +30,15 @@ class Task extends Model {
 	protected $hidden = [
 	];
 
-	public function users() {
-		return $this->belongsTo(User::class, 'user_id', 'id');
-	}
-
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
+	public function contact() {
+		return $this->belongsTo(Contact::class, 'contact_id', 'id');
+	}
+	
+	public function users() {
+		return $this->belongsTo(User::class, 'user_id', 'id');
+	}
 }

@@ -52,6 +52,13 @@
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
 	</div>
+	<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
+		<a class="btn btn-success" href="https://www.4devs.com.br/gerador_de_senha"  target="_blank">
+			<i class='fa fa-edit'>	
+			</i>
+			GERADOR DE SENHA
+		</a>
+	</div>
 	<br>
 	<p style="text-align: left;margin-left: 30px;color: white;font-size: 14px">* se a <b>senha padrão</b> tiver sido alterada pelo usuário, atualize a senha novamente com a <b>senha padrão</b>. Peça para o usuário alterar sua senha no seu primeiro acesso.</p>
 </div>

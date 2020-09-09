@@ -28,52 +28,21 @@ class DashboardController extends Controller {
 	public function home() {
 		$userAuth = Auth::user();
 		$hoje = date("d/m/Y");
-//	$user_crm = Auth::user()->idcrm;
 
+		if (Auth::check()) {
 			$tasks = Task::where('user_id', '=', $userAuth->id)
 					->where('status', '=', "pendente")
 					->orwhere('status', '=', "em andamento")
 					->count();
-		
-//		$totalTasks = Task::where([
-//					['assigned_user_id', $user_crm],
-//					['deleted', '=', '0']
-//				])
-//				->Where(function($consultaStatus) {
-//					$consultaStatus->orwhere('status', '=', 'Not Started')
-//					->orwhere('status', '=', 'In Progress');
-//				})
-//				->count();
 
-//		$totalLeads = Lead::where([
-//					['assigned_user_id', $user_crm],
-//					['deleted', '=', '0']
-//				])
-//				->Where(function($consultaStatus) {
-//					$consultaStatus->orwhere('status', '=', 'New')
-//					->orwhere('status', '=', 'Assigned')
-//					->orwhere('status', '=', 'In Process')
-//					->orwhere('status', '=', 'Recycled');
-//				})
-//				->count();
-//
-//		$totalOpportunities = Opportunities::where([
-//					['assigned_user_id', $user_crm],
-//					['deleted', '=', '0'],
-//					['sales_stage', '!=', 'Closed Lost'],
-//					['sales_stage', '!=', 'Closed Won']
-//				])
-//				->sum('amount');
-		
-//		 {{ number_format($totalOpportunities,2,",",".") }}
-
-		return view('usuarios/dashboardUser', [
-			'userAuth' => $userAuth,
-			'hoje' => $hoje,
-			'tasks' => $tasks,
-//			'totalLeads' => $totalLeads,
-//			'totalOpportunities' => $totalOpportunities,
-		]);
+			return view('usuarios/dashboardUser', [
+				'userAuth' => $userAuth,
+				'hoje' => $hoje,
+				'tasks' => $tasks,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	public function socialmedia() {

@@ -21,25 +21,30 @@ class TaskController extends Controller {
 	public function index() {
 		$userAuth = Auth::user();
 
-		$accounts = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 
-		$tasks = Task::whereHas('account', function($query) use($accounts) {
-					$query->whereIn('account_id', $accounts);
-				})
-		//		->with('users')
-				->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
-				->paginate(20);
+			$tasks = Task::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('contact');
+					})
+					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
+					->paginate(20);
+//			dd($tasks);
 
-		$hoje = date("d/m/Y");
+			$hoje = date("d/m/Y");
 
-		return view('tasks.indexTasks', [
-			'hoje' => $hoje,
-			'tasks' => $tasks,
-			'userAuth' => $userAuth,
-		]);
+			return view('tasks.indexTasks', [
+				'hoje' => $hoje,
+				'tasks' => $tasks,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -49,41 +54,42 @@ class TaskController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		$task = new Task();
 
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
+		if (Auth::check()) {
+			$task = new Task();
 
-		$accounts = Account::whereHas('users', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->get();
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 
-		$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->paginate(20);
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
 
-		$tasks = Task::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->paginate(20);
+			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->paginate(20);
 
-		$users = User::whereHas('accounts', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->get();
+//		dd($contacts);
 
-		return view('tasks.createTask', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'task' => $task,
-			'tasks' => $tasks,
-			'accounts' => $accounts,
-			'contacts' => $contacts,
-		]);
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('tasks.createTask', [
+				'userAuth' => $userAuth,
+				'users' => $users,
+				'task' => $task,
+				'accounts' => $accounts,
+				'contacts' => $contacts,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**

@@ -14,8 +14,12 @@
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 60%">
+		<td   class="table-list-header" style="width: 50%">
 			<b>NOME</b>
+		</td>
+
+		<td   class="table-list-header" style="width: 10%">
+			<b>CONTATO</b>
 		</td>
 
 		<td   class="table-list-header" style="width: 10%">
@@ -60,9 +64,13 @@
 		</td>
 
 		<td class="table-list-center">
+			{{ $task->contact->first_name}}
+		</td>
+
+		<td class="table-list-center">
 			{{ $task->account->name}}
 		</td>
-		
+
 		<td class="table-list-center">
 			{{ $task->users->name}}
 		</td>
