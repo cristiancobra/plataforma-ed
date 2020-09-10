@@ -36,6 +36,14 @@
 					<i class='fa fa-eye'></i>
 				</button>
 			</a>
+			@auth
+						<a  class="white" href=" {{ route('tutorial_plataforma', ['user' => $user]) }}">
+							<button class="button" style="background-color: green">
+					<i class='fa fa-plus'></i>
+				</button>
+			</a>
+			@endauth
+			
 			{{ $user->name }}
 		</td>
 

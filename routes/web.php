@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // ================================ SISTEMA ===================
-Auth::routes(['register' => false]);
+Auth::routes();
 
 Route::get('/', 'DashboardController@home')->name('home')->middleware('auth');
 

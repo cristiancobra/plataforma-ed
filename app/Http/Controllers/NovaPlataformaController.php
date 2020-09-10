@@ -3,30 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 use Helper;
 
 class NovaPlataformaController extends Controller {
 
-	public function modelo(Request $request)
-	{
-	$nome = ucfirst($request->novo_nome)." ".ucfirst($request->novo_sobrenome);
-	$nome_usuario =  strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome);
-	$email = strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome."@empresadigital.net.br");
-	$dominio = strtolower($request->novo_nome).strtolower($request->novo_sobrenome."."."empresadigital.net.br");
-	
-	//if ($request->nova_senha != null) {
-		$senha = $request->nova_senha;
-	//}else{
-	//	$senha = Helper::gerarSenha(8, true, true, true, true);
-	//}
-				
-		return view('admin.NovaPlataforma.tutorial_plataforma', [
-			'nome' => $nome,
-			'nome_usuario' => $nome_usuario,
-			'senha' => $senha,
-			'email' => $email,
-			'dominio' => $dominio,
-		]);
+	public function modelo(User $user) {
+		$userAuth = Auth::user();		
+		$user = $user;
+
+		if (Auth::check()) {
+
+			$nome_usuario = "teste.testador";
+			
+			$senha = "123";
+
+
+			return view('admin.NovaPlataforma.tutorial_plataforma', [
+				'userAuth' => $userAuth,
+				'user' => $user,
+				'nome_usuario' => $nome_usuario,
+				'senha' => $senha,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
-	
+
 }

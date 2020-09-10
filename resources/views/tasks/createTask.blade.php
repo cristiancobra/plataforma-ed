@@ -15,7 +15,7 @@
 	<form action=" {{ route('task.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME DA TAREFA:</label>
-		<input type="text" name="name" size="20"><span class="fields"></span>
+		<input type="text" name="name" size="20" value="{{$task->name}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
