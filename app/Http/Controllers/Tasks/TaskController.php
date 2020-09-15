@@ -214,4 +214,62 @@ class TaskController extends Controller {
 		return $duration;
 	}
 
+	public function filter(Request $request, $filter) {
+		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$tasks = Task::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('contact');
+					})
+					->where('status', $filter)
+//					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
+					->paginate(20);
+//			dd($tasks);
+
+			$hoje = date("d/m/Y");
+
+			return view('tasks.indexTasks', [
+				'hoje' => $hoje,
+				'tasks' => $tasks,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
+	}
+//		public function order(Request $request, $order) {
+//		$userAuth = Auth::user();
+//
+//		if (Auth::check()) {
+//			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+//						$query->where('users.id', $userAuth->id);
+//					})
+//					->pluck('id');
+//
+//			$tasks = Task::whereHas('account', function($query) use($accountsID) {
+//						$query->whereIn('account_id', $accountsID)
+//						->with('contact');
+//					})
+//					->where('status', $filter)
+////					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
+//					->paginate(20);
+////			dd($tasks);
+//
+//			$hoje = date("d/m/Y");
+//
+//			return view('tasks.indexTasks', [
+//				'hoje' => $hoje,
+//				'tasks' => $tasks,
+//				'userAuth' => $userAuth,
+//			]);
+//		} else {
+//			return redirect('/');
+//		}
+//	}
 }

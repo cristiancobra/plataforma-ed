@@ -89,6 +89,8 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
+Route::get('/tarefas/{filter}', 'Tasks\\TaskController@filter')->name('task.filter');
+//Route::get('/tarefas/{order}', 'Tasks\\TaskController@order')->name('task.order');
 Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters(['tarefas' => 'task']);
 
 // ================================ TRANSAÇÕES AKAUNTING ===================

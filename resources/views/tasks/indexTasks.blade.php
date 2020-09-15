@@ -12,6 +12,19 @@
 
 @section('main')
 <br>
+<p style="text-align: right">Filtrar tarefas:
+	<a class="btn btn-success" href="{{ route('task.filter', ['filter' => 'concluida'])}}">
+		concluidas
+	</a>
+	<a class="btn btn-warning" href="{{ route('task.filter', ['filter' => 'pendente'])}}">
+		pendentes
+	<a class="btn btn-info" href="{{ route('task.filter', ['filter' => 'fazendo agora'])}}">
+		fazendo agora
+	</a>
+	<a class="btn btn-secondary" href="{{ route('task.index')}}">
+		TODAS
+	</a>
+</p>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 50%">
@@ -32,10 +45,6 @@
 
 		<td   class="table-list-header" style="width: 10%">
 			<b>PRAZO</b>
-		</td>
-
-		<td   class="table-list-header" style="width: 10%">
-			<b>EXECUÇÃO</b>
 		</td>
 
 		<td   class="table-list-header">
@@ -79,9 +88,6 @@
 			{{ $task->date_due }}
 		</td>
 
-		<td class="table-list-center" style="background-color: #874983;color: white">
-			{{ date("H:i", strtotime($task->duration)) }}
-		</td>
 
 		<td class="table-list-center">
 			@if ($task->priority == "baixa")
