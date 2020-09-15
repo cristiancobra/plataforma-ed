@@ -19,23 +19,27 @@ class ContactController extends Controller {
 	public function index() {
 		$userAuth = Auth::user();
 
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 
-		$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->paginate(20);
+			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->paginate(20);
 
-		$totalContacts = $contacts->count();
+			$totalContacts = $contacts->count();
 
-		return view('contacts.indexContacts', [
-			'contacts' => $contacts,
-			'totalContacts' => $totalContacts,
-			'userAuth' => $userAuth,
-		]);
+			return view('contacts.indexContacts', [
+				'contacts' => $contacts,
+				'totalContacts' => $totalContacts,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -139,6 +143,7 @@ class ContactController extends Controller {
 		$userAuth = Auth::user();
 
 		$contact->fill($request->all());
+		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 		$contact->save();
 		$contact->users()->sync($request->users);
 

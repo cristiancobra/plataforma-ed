@@ -2672,7 +2672,7 @@ textarea.form-control.is-invalid {
           user-select: none;
   background-color: transparent;
   border: 1px solid transparent;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
   font-size: 0.8rem;
   line-height: 1.6;
   border-radius: 1rem;

@@ -28,15 +28,15 @@
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 50%">
+		<td   class="table-list-header" style="width: 40%">
 			<b>NOME</b>
 		</td>
 
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 15%">
 			<b>CONTATO</b>
 		</td>
 
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 15%">
 			<b>EMPRESA</b>
 		</td>
 
@@ -48,17 +48,17 @@
 			<b>PRAZO</b>
 		</td>
 
-		<td   class="table-list-header">
+		<td   class="table-list-header" style="width: 5%">
 			<b>PRIORIDADE</b>
 		</td>
 
-		<td   class="table-list-header">
+		<td   class="table-list-header" style="width: 5%">
 			<b>STATUS</b>
 		</td>
 	</tr>
 
 	@foreach ($tasks as $task)
-	<tr style="font-size: 16px">
+	<tr style="font-size: 14px">
 		<td class="table-list-left">
 			<a class="white" href=" {{ route('task.show', ['task' => $task->id]) }}">
 				<button class="button">
@@ -74,7 +74,7 @@
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->contact->first_name}}
+			{{ $task->contact->name}}
 		</td>
 
 		<td class="table-list-center">

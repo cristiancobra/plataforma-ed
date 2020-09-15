@@ -32,7 +32,7 @@
 					<a href=" {{ route('contact.show', ['contact' => $contact->id]) }}">
 						<i class='fa fa-eye'></i></a>
 				</button>
-				{{ $contact->first_name }}
+				{{ $contact->name }}
 			</td>
 
 			<td class="table-list-left">
