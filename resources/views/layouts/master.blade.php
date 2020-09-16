@@ -174,12 +174,12 @@
 				</div>
 
 				<button class="dropdown-btn">
-					<i class='fas fa-funnel-dollar'></i>
+					<i class='fas fa-rocket'></i>
 					EMPRESA DIGITAL 
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
+					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fa fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL
 					<br>
 					login: solucoes
