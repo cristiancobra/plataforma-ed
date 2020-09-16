@@ -184,7 +184,7 @@
 
 				<button class="dropdown-btn">
 					<i class='fas fa-funnel-dollar'></i>
-					TESTES 
+					EMPRESA DIGITAL 
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
@@ -192,13 +192,25 @@
 					<a class="sidebar-subitem" href="/relatorios"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVO BRIFIENG</a>
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="http://127.0.0.1:8000/usuarios/novo" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOVA PLATAFORMA</a>
-					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL</a>			
+					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL
+					<br>
 					login: solucoes
-					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES</a>
+					</a>
+					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES
+					<br>
 					login: admin
+					</a>
 					<a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
+					<a class="sidebar-subitem" href="https://my.contabo.com/account/login" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>PAGAR SERVIDOR
+					<br>
+					login: admin
+					</a>
+					<a class="sidebar-subitem" href="http://saocarlos.ginfes.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOTA FISCAL
+					<br>
+					lnsc. Municipal : 58029
+					</a>
 					<a class="sidebar-subitem" href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FUNIL DE VENDAS</a>
-					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
+					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMAILS PENDENTES</a>
 				</div>
 
 				@endif

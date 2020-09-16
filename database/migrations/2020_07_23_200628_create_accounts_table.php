@@ -26,7 +26,8 @@ class CreateAccountsTable extends Migration
 	$table->string('address_country');
 	$table->string('type');
 	$table->tinyInteger('employees');
-	$table->text('description');			
+	$table->text('description');
+	$table->text('status');		// adicionado posteriormente, problema da migrations
             $table->timestamps();
         });
     }

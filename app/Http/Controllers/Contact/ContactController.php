@@ -83,9 +83,9 @@ class ContactController extends Controller {
 	public function store(Request $request) {
 		$contact = new Contact();
 		$contact->fill($request->all());
+		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 		$contact->save();
 		$contact->users()->sync($request->users);
-		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 
 		return redirect()->action('Contact\\ContactController@index');
 	}
