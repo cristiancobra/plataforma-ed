@@ -90,6 +90,7 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
 Route::get('/tarefas/filtros/{filter}', 'Tasks\\TaskController@filter')->name('task.filter');
+Route::get('/tarefas/filtros/all', 'Tasks\\TaskController@all')->name('task.all');
 //Route::get('/tarefas/{order}', 'Tasks\\TaskController@order')->name('task.order');
 Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters(['tarefas' => 'task']);
 

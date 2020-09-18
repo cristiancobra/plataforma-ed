@@ -31,9 +31,12 @@ class TaskController extends Controller {
 						$query->whereIn('account_id', $accountsID)
 						->with('contact');
 					})
-					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
+					->whereIn('status', ['fazendo agora', 'pendente'])
+					->where('user_id', $userAuth->id)
+					->orderByRaw('FIELD(status, "fazendo agora", "pendente") asc')
+					->orderByRaw('FIELD(priority, "emergência", "alta", "baixa", "média") asc')
+					->orderBy('date_due', 'ASC')
 					->paginate(20);
-//			dd($tasks);
 
 			$hoje = date("d/m/Y");
 
@@ -228,9 +231,9 @@ class TaskController extends Controller {
 						->with('contact');
 					})
 					->where('status', $filter)
-//					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
+					->where('user_id', $userAuth->id)
+					->orderBy('date_due', 'DESC')
 					->paginate(20);
-//			dd($tasks);
 
 			$hoje = date("d/m/Y");
 
@@ -243,33 +246,32 @@ class TaskController extends Controller {
 			return redirect('/');
 		}
 	}
-//		public function order(Request $request, $order) {
-//		$userAuth = Auth::user();
-//
-//		if (Auth::check()) {
-//			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-//						$query->where('users.id', $userAuth->id);
-//					})
-//					->pluck('id');
-//
-//			$tasks = Task::whereHas('account', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID)
-//						->with('contact');
-//					})
-//					->where('status', $filter)
-////					->orderByRaw('FIELD(status, "pendente", "fazendo agora") desc')
-//					->paginate(20);
-////			dd($tasks);
-//
-//			$hoje = date("d/m/Y");
-//
-//			return view('tasks.indexTasks', [
-//				'hoje' => $hoje,
-//				'tasks' => $tasks,
-//				'userAuth' => $userAuth,
-//			]);
-//		} else {
-//			return redirect('/');
-//		}
-//	}
+	
+	public function all() {
+		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$tasks = Task::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('contact');
+					})
+					->orderBy('date_due', 'DESC')
+					->paginate(20);
+
+			$hoje = date("d/m/Y");
+
+			return view('tasks.indexTasks', [
+				'hoje' => $hoje,
+				'tasks' => $tasks,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
+	}
 }
