@@ -35,6 +35,9 @@ Route::resource('accounts', 'Accounts\\AccountController')->names('account')->pa
 // ================================ CONTATOS / CONTACTS ===================
 Route::resource('contacts', 'Contact\\ContactController')->names('contact')->parameters(['contatos' => 'contacts']);
 
+// ================================ MARKET ===================
+Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
+
 // ================================ EMAILS ===================
 Route::resource('emails', 'Emails\\EmailController')->names('email');
 

@@ -128,6 +128,7 @@ class TaskController extends Controller {
 	public function edit(task $task) {
 		$userAuth = Auth::user();
 
+		if (Auth::check()) {
 		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 					$query->where('users.id', $userAuth->id);
 				})
@@ -160,7 +161,10 @@ class TaskController extends Controller {
 			'tasks' => $tasks,
 			'accounts' => $accounts,
 			'contacts' => $contacts,
-		]);
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
