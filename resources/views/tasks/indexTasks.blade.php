@@ -21,8 +21,8 @@
 	<a class="btn btn-info" href="{{ route('task.filter', ['filter' => 'fazendo agora'])}}">
 		fazendo agora
 	</a>
-	<a class="btn btn-secondary" href="{{ route('task.all')}}">
-		equipe
+	<a class="btn btn-secondary" href="{{ route('task.index')}}">
+		EQUIPE
 	</a>
 </p>
 <br>

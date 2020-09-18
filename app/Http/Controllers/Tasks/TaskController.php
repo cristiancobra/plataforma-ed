@@ -32,7 +32,6 @@ class TaskController extends Controller {
 						->with('contact');
 					})
 					->whereIn('status', ['fazendo agora', 'pendente'])
-					->where('user_id', $userAuth->id)
 					->orderByRaw('FIELD(status, "fazendo agora", "pendente") asc')
 					->orderByRaw('FIELD(priority, "emergência", "alta", "baixa", "média") asc')
 					->orderBy('date_due', 'ASC')
