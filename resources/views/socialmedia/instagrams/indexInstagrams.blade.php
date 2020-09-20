@@ -27,11 +27,11 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button" >
-				<a href=" {{ $instagram->URL_name}}"  target="_blank"  style="text-decoration: none;color: black">
+				<a href=" {{ $instagram->URL_name}}"  target="_blank">
 					<i class='fab fa-instagram-square'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('instagram.show', ['instagram' => $instagram->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('instagram.show', ['instagram' => $instagram->id]) }}">
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $instagram->page_name}}

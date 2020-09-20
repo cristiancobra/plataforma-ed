@@ -24,11 +24,11 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button" >
-				<a href=" {{ $linkedin->URL_name}}"  target="_blank"  style="text-decoration: none;color: black">
+				<a href=" {{ $linkedin->URL_name}}"  target="_blank">
 					<i class='fab fa-linkedin-in'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('linkedin.show', ['linkedin' => $linkedin->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('linkedin.show', ['linkedin' => $linkedin->id]) }}">
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $linkedin->page_name}}

@@ -26,11 +26,11 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button">
-				<a href=" {{ $facebook->URL_name}}" target="_blank" style="text-decoration: none;color: black">
+				<a href=" {{ $facebook->URL_name}}" target="_blank">
 					<i class='fab fa-facebook'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}">
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $facebook->page_name}}
@@ -39,7 +39,7 @@
 		<td class="table-list-left">
 			@foreach ($accounts as $account)
 			<button class="button">
-				<a href=" {{ route('account.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
+				<a href=" {{ route('account.show', ['account' => $account->id]) }} ">
 					<i class='fa fa-eye'></i></a>
 			</button> {{ $account->name }}</li><br>
 			@endforeach

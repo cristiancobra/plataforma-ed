@@ -29,7 +29,7 @@
 					<i class='fab fa-youtube'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('youtube.show', ['youtube' => $youtube->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('youtube.show', ['youtube' => $youtube->id]) }}">
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $youtube->page_name}}

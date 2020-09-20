@@ -25,11 +25,11 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button" >
-				<a href=" {{ $twitter->URL_name}}"  target="_blank"  style="text-decoration: none;color: black">
+				<a href=" {{ $twitter->URL_name}}"  target="_blank">
 					<i class='fab fa-twitter'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('twitter.show', ['twitter' => $twitter->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('twitter.show', ['twitter' => $twitter->id]) }}">
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $twitter->page_name}}
