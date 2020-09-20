@@ -25,7 +25,7 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button" >
-				<a href=" {{ $youtube->URL_name}}"  target="_blank"  style="text-decoration: none;color: black">
+				<a href=" {{ $youtube->URL_name}}"  target="_blank">
 					<i class='fab fa-youtube'></i></a>
 			</button>
 			<button class="button">
