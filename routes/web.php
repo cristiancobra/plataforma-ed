@@ -62,8 +62,8 @@ Route::get('/perfil', function () {
 Route::get('/redes-sociais', 'Socialmedia\\DashboardController@socialmedia')->name('socialmedia')->middleware('auth');
 
 // ---------- FACEBOOKS
+Route::get('/facebooks/all', 'Socialmedia\\FacebookController@all')->name('facebook.all');
 Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
-
 //Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
 //Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
 //Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
@@ -86,32 +86,7 @@ Route::resource('youtube', 'Socialmedia\\YoutubeController')->names('youtube');
 // ---------- SPOTIFY
 Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 
-// ---------- MEUNEGOCIO
-Route::resource('meunegocio', 'Socialmedia\\MeunegocioController')->names('meunegocio');
 
-// ---------- WHATSAPP
-Route::resource('whatsapp', 'Socialmedia\\WhatsappController')->names('whatsapp');
-
-// ---------- TELEGRAM
-Route::resource('telegram', 'Socialmedia\\TelegramController')->names('telegram');
-
-// ---------- SITE
-Route::resource('site', 'Marketing\\Site1Controller')->names('site');
-
-// ---------- LOJAVIRTUAL
-Route::resource('lojavirtual', 'Marketing\\LojavirtualController')->names('lojavirtual');
-
-// ---------- NUVEM
-Route::resource('nuvem', 'Marketing\\NuvemController')->names('nuvem');
-
-// ---------- EMAILCORPORATIVO
-Route::resource('emailcorporativo', 'Marketing\\EmailcorporativoController')->names('emailcorporativo');
-
-// ---------- EMAIMARKETING
-Route::resource('emailmarketing', 'Marketing\\Emailmarketing')->names('emailmarketing');
-
-// ---------- CRM
-Route::resource('crm', 'Marketing\\CrmController')->names('crm');
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
 Route::get('/relatorios/{report}/pdf','ReportController@generatePDF')->name('report.pdf');
