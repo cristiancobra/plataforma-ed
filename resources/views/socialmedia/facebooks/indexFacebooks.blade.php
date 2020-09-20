@@ -14,6 +14,14 @@
 @section('main')
 <p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Você possui <span class="labels">{{$totalFacebooks }} página </span>de Facebook</p>
 <br>
+@if ($userAuth->perfil == "administrador")
+<p style="text-align: right">Mostrar:
+	<a class="btn btn-secondary" href="{{ route('facebook.all')}}">
+		TODOS
+	</a>
+</p>
+@endif
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Nome da página</b></td>
@@ -35,15 +43,8 @@
 			</button>
 			{{ $facebook->page_name}}
 		</td>
-		<td class="table-list-center"><b>{{ $facebook->users()->first()->name}}</b></td>
-		<td class="table-list-left">
-			@foreach ($accounts as $account)
-			<button class="button">
-				<a href=" {{ route('account.show', ['account' => $account->id]) }} ">
-					<i class='fa fa-eye'></i></a>
-			</button> {{ $account->name }}</li><br>
-			@endforeach
-		</td>
+		<td class="table-list-center"><b>{{ $facebook->account->name}}</b></td>
+
 		@if ($facebook->status == "desativado")
 		<td class="button-disable"><b>{{ $facebook->status  }}</b></td>
 		@elseif ($facebook->status == "ativo")
