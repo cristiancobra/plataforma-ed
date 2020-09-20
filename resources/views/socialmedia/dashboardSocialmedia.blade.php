@@ -27,7 +27,7 @@
         {{$facebook->page_name}}
         <br>
         @endforeach
-           <a href=" {{ route('facebook.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
+        <a href=" {{ route('facebook.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
     <div class="instagram">
@@ -45,7 +45,7 @@
         {{$instagram->page_name}}
         <br>
         @endforeach
-           <a href=" {{ route('instagram.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
+        <a href=" {{ route('instagram.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
     <div class="linkedin">
@@ -65,7 +65,7 @@
         {{$linkedin->page_name}}
         <br>
         @endforeach
-           <a href=" {{ route('linkedin.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
+        <a href=" {{ route('linkedin.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
     <div class="twitter">
@@ -83,33 +83,65 @@
         {{$twitter->page_name}}
         <br>
         @endforeach
-           <a href=" {{ route('twitter.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
+        <a href=" {{ route('twitter.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
     </div>
 
-   	<div class="pinterest">
-		<img class="grid-image" src="{{ asset('imagens/pinterest.png') }} " style="width: 80px;height: 80px;text-align: center">
-		<br>
-		@foreach ($pinterests as $pinterest)
-		<button class="button">
-			<a href=" {{ $pinterest->URL_name}}" target="_blank" >
-				<i class='fab fa-pinterest'></i></a>
-		</button>
-		<button class="button">
-			<a href=" {{ route('pinterest.show', ['pinterest' => $pinterest->id]) }}" >
-				<i class='fa fa-eye'></i></a>
-		</button>
-		{{$pinterest->page_name}}
-		<br>
-		@endforeach
-                   <a href=" {{ route('pinterest.create' ) }}" style=" color: white" > Adicionar nova conta</a> 
-	</div>
-
-    <div class="area6">
-        <img class="grid-image" src="{{ asset('imagens/twitter.png') }} " style="width: 80px;height: 80px;text-align: center">
+    <div class="pinterest">
+        <img class="grid-image" src="{{ asset('imagens/pinterest.png') }} " style="width: 80px;height: 80px;text-align: center">
         <br>
+        @foreach ($pinterests as $pinterest)
+        <button class="button">
+            <a href=" {{ $pinterest->URL_name}}" target="_blank" >
+                <i class='fab fa-pinterest'></i></a>
+        </button>
+        <button class="button">
+            <a href=" {{ route('pinterest.show', ['pinterest' => $pinterest->id]) }}" >
+                <i class='fa fa-eye'></i></a>
+        </button>
+        {{$pinterest->page_name}}
+        <br>
+        @endforeach
+        <a href=" {{ route('pinterest.create' ) }}" style=" color: white" > Adicionar nova conta</a> 
+    </div>
 
+    <div class="youtube">
+        <img class="grid-image" src="{{ asset('imagens/youtube.png') }} " style="width: 80px;height: 80px;text-align: center">
+        <br>
+        @foreach ($youtubes as $youtube)
+        <button class="button">
+            <a href=" {{ $youtube->URL_name}}" target="_blank" >
+                <i class='fab fa-youtube'></i></a>
+        </button>
+        <button class="button">
+            <a href=" {{ route('youtube.show', ['youtube' => $youtube->id]) }}" >
+                <i class='fa fa-eye'></i></a>
+        </button>
+        {{$youtube->page_name}}
+        <br>
+        @endforeach
+        <a href=" {{ route('youtube.create' ) }}" style=" color: white" > Adicionar nova conta</a> 
     </div>
 </div>
+<br>
+<br>
+<div class="spotify">
+    <img class="grid-image" src="{{ asset('imagens/spotify.png') }}" style="width: 80px;height: 80px;text-align: center">
+    <br>
+    @foreach ($spotify as $spotify)
+    <button class="button">
+        <a href=" {{ $spotify->URL_name}}" target="_blank" >
+            <i class='fab fa-spotify'></i></a>
+    </button>
+    <button class="button">
+        <a href=" {{ route('spotify.show', ['spotify' => $spotify->id]) }}" >
+            <i class='fa fa-eye'></i></a>
+    </button>
+    {{$spotify->page_name}}
+    <br>
+    @endforeach
+    <a href=" {{ route('spotify.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
+</div>
+
 
 
 <div style="padding-top: 3%;padding-left: 2%; padding-right: 4%;display: inline-block;text-align: left;vertical-align: top">

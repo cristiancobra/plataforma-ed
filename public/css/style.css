@@ -105,7 +105,8 @@ and open the template in the editor.
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-areas: 
 		"facebook instagram linkedin"
-		"twitter pinterest area6";
+		"twitter pinterest youtube"
+		"spotify spotify spotify";
 	gap: 5% 2%;
 }
 
@@ -149,10 +150,18 @@ and open the template in the editor.
 	border-radius: 20px;
 }
 
-.area6 {
-	grid-area: area6;
+.youtube {
+	grid-area: youtube;
 	color: white;
-	background-color: #874983;
+	background-color: #c4302b;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.spotify {
+	grid-area: spotify;
+	color: white;
+	background-color: #1DB954;
 	padding: 4%;
 	border-radius: 20px;
 }
