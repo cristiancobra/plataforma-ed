@@ -14,6 +14,8 @@ use App\Models\Instagram;
 use App\Models\Linkedin;
 use App\Models\Twitter;
 use App\Models\Pinterest;
+use App\Models\Youtube;
+use App\Models\Spotify;
 
 class DashboardController extends Controller {
 
@@ -55,6 +57,14 @@ class DashboardController extends Controller {
                 ->with('users')
                 ->get();
 
+        $youtubes = Youtube::where('user_id', '=', $userAuth->id)
+                ->with('users')
+                ->get();
+
+
+        $spotifys = Youtube::where('user_id', '=', $userAuth->id)
+                ->with('users')
+                ->get();
 
         return view('socialmedia/dashboardSocialmedia', [
             'userAuth' => $userAuth,
@@ -63,7 +73,9 @@ class DashboardController extends Controller {
             'instagrams' => $instagrams,
             'linkedins' => $linkedins,
             'twitters' => $twitters,
-               'pinterests' => $pinterests,
+            'pinterests' => $pinterests,
+            'youtubes' => $youtubes,
+            'spotify' => $spotifys,
         ]);
     }
 

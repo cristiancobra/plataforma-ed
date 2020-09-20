@@ -80,6 +80,39 @@ Route::resource('twitter', 'Socialmedia\\TwitterController')->names('twitter');
 // ---------- PINTEREST
 Route::resource('pinterest', 'Socialmedia\\PinterestController')->names('pinterest');
 
+// ---------- YOUTUBE
+Route::resource('youtube', 'Socialmedia\\YoutubeController')->names('youtube');
+
+// ---------- SPOTIFY
+Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
+
+// ---------- MEUNEGOCIO
+Route::resource('meunegocio', 'Socialmedia\\MeunegocioController')->names('meunegocio');
+
+// ---------- WHATSAPP
+Route::resource('whatsapp', 'Socialmedia\\WhatsappController')->names('whatsapp');
+
+// ---------- TELEGRAM
+Route::resource('telegram', 'Socialmedia\\TelegramController')->names('telegram');
+
+// ---------- SITE
+Route::resource('site', 'Marketing\\Site1Controller')->names('site');
+
+// ---------- LOJAVIRTUAL
+Route::resource('lojavirtual', 'Marketing\\LojavirtualController')->names('lojavirtual');
+
+// ---------- NUVEM
+Route::resource('nuvem', 'Marketing\\NuvemController')->names('nuvem');
+
+// ---------- EMAILCORPORATIVO
+Route::resource('emailcorporativo', 'Marketing\\EmailcorporativoController')->names('emailcorporativo');
+
+// ---------- EMAIMARKETING
+Route::resource('emailmarketing', 'Marketing\\Emailmarketing')->names('emailmarketing');
+
+// ---------- CRM
+Route::resource('crm', 'Marketing\\CrmController')->names('crm');
+
 // ------------------------------------------------ REPORTS ------------------------------------------------
 Route::get('/relatorios/{report}/pdf','ReportController@generatePDF')->name('report.pdf');
 Route::resource('relatorios', 'ReportController')->names('report')->parameters(['relatorios' => 'report']);
