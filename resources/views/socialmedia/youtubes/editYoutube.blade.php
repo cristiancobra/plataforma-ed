@@ -148,7 +148,7 @@
         <input type="radio" name="feed_member" value="no" checked="checked">
         <span class="fields">Não</span>
         <br>
-
+          @endif
         <br>
         <label class="labels" for="">loja virtual está linkada  para loja do site:</label>
         <br>
@@ -166,7 +166,7 @@
         <input type="radio" name="liked_virtualstore" value="no" checked="checked">
         <span class="fields">Não</span>
         <br>
-
+          @endif
         <label class="labels" for="">videos possuem capa personalizada:</label>
         <br>
         @if ($youtube->video_banner == "yes")
@@ -183,6 +183,7 @@
         <input type="radio" name="video_banner" value="no" checked="checked">
         <span class="fields">Não</span>
         <br>
+          @endif
 
 
         <label class="labels" for="">Videos possuem legenda:</label>
@@ -204,6 +205,7 @@
        <br>
         <label class="labels" for="">Títulos e descrição usam SEO:</label>
         <br>
+          @endif
         @if ($youtube->seo_content == "yes")
         <input type="radio" name="seo_content" value="yes" checked="checked">
         <span class="fields">Sim</span>
