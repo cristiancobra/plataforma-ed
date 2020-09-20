@@ -26,11 +26,11 @@
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<button class="button" >
-				<a href=" {{ $spotify->URL_name}}"  target="_blank"  style="text-decoration: none;color: black">
+				<a href=" {{ $spotify->URL_name}}"  target="_blank" >
 					<i class='fab fa-spotify'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('spotify.show', ['spotify' => $spotify->id]) }}" style="text-decoration: none;color: black">
+				<a href=" {{ route('spotify.show', ['spotify' => $spotify->id]) }}" >
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $spotify->page_name}}

@@ -41,61 +41,8 @@
 			@endforeach
 		</select>
 		<br>
-		<br>
-		<label class="labels" for="">Possui conta Business: </label>
-		<br>
-		@if ($spotify->business == "yes")
-		<input type="radio" name="business" value="yes" checked="checked">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="business" value="no">
-		<span class="fields">Não</span>
-		<br>
-		@else
-		<input type="radio" name="business" value="yes">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="business" value="no" checked="checked">
-		<span class="fields">Não</span>
-		<br>
-		@endif
-		<br>
-		<label class="labels" for="">Conta vinculada com Facebook: </label>
-		<br>
-		@if ($spotify->linked_facebook == "yes")
-		<input type="radio" name="linked_facebook" value="yes" checked="checked">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="linked_facebook" value="no">
-		<span class="fields">Não</span>
-		<br>
-		@else
-		<input type="radio" name="linked_facebook" value="yes">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="linked_facebook" value="no" checked="checked">
-		<span class="fields">Não</span>
-		<br>
-		@endif
-		<br>
-		<label class="labels" for="">Conta vinculada com site: </label>
-		<br>
-		@if ($spotify->linked_site == "yes")
-		<input type="radio" name="linked_site" value="yes" checked="checked">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="linked_site" value="no">
-		<span class="fields">Não</span>
-		<br>
-		@else
-		<input type="radio" name="linked_site" value="yes">
-		<span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="linked_site" value="no" checked="checked">
-		<span class="fields">Não</span>
-		<br>
-		@endif
-		<br>
+	
+				<br>
 		<label class="labels" for="">Conta possui mesmo nome do site: </label>
 		<br>
 		@if ($spotify->same_site_name == "yes")
@@ -132,7 +79,7 @@
 		<br>
 		@endif
 		<br>
-		<label class="labels" for="">Publica conteúdos no feed:</label>
+		<label class="labels" for="">Publica podcast:</label>
 		<br>
 		@if ($spotify->feed_content == "yes")
 		<input type="radio" name="feed_content" value="yes" checked="checked">

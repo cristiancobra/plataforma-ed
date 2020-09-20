@@ -23,41 +23,8 @@
 			<td   class="table-list-header" style="width: 90%"><b>Análise da página</b></td>
 			<td   class="table-list-header" style="width: 10%"><b>situação</b></td>
 		</tr>
-		<tr>
-			<td   class="table-list-left"><b>Possui conta Business:</b></td>
-			@if ($spotify->business === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
-			<td   class="table-list-left">
-				<b>Possui conta Business 2:</b>
-			</td>
-			@if ($spotify->business === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
-			<td   class="table-list-left"><b>Conta vinculada com Facebook:</b></td>
-			@if ($spotify->linked_facebook === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
-			<td   class="table-list-left"><b>Conta vinculada com site: </b></td>
-			@if ($spotify->linked_site === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
+	
+				<tr>
 			<td   class="table-list-left"><b>Conta possui mesmo nome do site:</b></td>
 			@if ($spotify->same_site_name === "yes")
 			<td   class="button-active"><b>SIM</b></td>
@@ -74,7 +41,7 @@
 			@endif
 		</tr>	
 		<tr>
-			<td   class="table-list-left"><b>Publica conteúdos no feed:</b></td>
+			<td   class="table-list-left"><b>Publica podcast:</b></td>
 			@if ($spotify->feed_content === "yes")
 			<td   class="button-active"><b>SIM</b></td>
 			@else

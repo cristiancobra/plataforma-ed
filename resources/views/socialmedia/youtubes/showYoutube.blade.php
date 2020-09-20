@@ -35,7 +35,7 @@
 			<td   class="table-list-left">
 				<b>Botão da capa possui link para site:</b>
 			</td>
-			@if ($youtube->liked_site === "yes")
+			@if ($youtube->linked_site === "yes")
 			<td   class="button-active"><b>SIM</b></td>
 			@else
 			<td   class="button-delete"><b>NÃO</b></td>

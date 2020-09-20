@@ -62,7 +62,7 @@ class DashboardController extends Controller {
                 ->get();
 
 
-        $spotifys = Youtube::where('user_id', '=', $userAuth->id)
+        $spotifys = spotify::where('user_id', '=', $userAuth->id)
                 ->with('users')
                 ->get();
 

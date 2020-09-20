@@ -10,7 +10,7 @@ class Youtube extends Model
 {
 	protected $table = 'youtubes';
 	protected $fillable = [
-		'id', 'user_id', 'status', 'page_name','image_banner', 'liked_site', 'organized_playlists', 'about', 'feed_content', 'seo_content','value_ads', 'URL_name',  'feed_member', 'follow_channel', 'liked_virtualstore',  'video_banner',   'legend',  
+		'id', 'user_id', 'status', 'page_name','image_banner', 'linked_site', 'organized_playlists', 'about', 'feed_content', 'seo_content','value_ads', 'URL_name',  'feed_member', 'follow_channel', 'liked_virtualstore',  'video_banner',   'legend',  
 	];
 
 	public function users() {

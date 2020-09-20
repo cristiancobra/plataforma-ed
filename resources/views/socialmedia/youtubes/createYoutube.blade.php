@@ -40,36 +40,65 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="">Possui conta Business:</label>
+		<label class="labels" for="">Possui capa personalizada:</label>
 		<br>
-		<input type="radio" name="business" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="business" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="image_banner" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="image_banner" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Conta possui mesmo nome do site: </label>
+		<label class="labels" for="">Botão da capa possui link para site: </label>
 		<br>
-		<input type="radio" name="same_site_name" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="same_site_name" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="linked_site" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="linked_site" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Descrição do perfil:</label>
+		<label class="labels" for="">Canal está organizado por playlist:</label>
+		<br>
+		<input type="radio" name="organized_playlists" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="organized_playlists" value="no"><span class="fields">Não</span><br>
+		<br>
+		<label class="labels" for="">Possui biografia::</label>
 		<br>
 		<input type="radio" name="about" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="about" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Publica conteúdos no feed:</label>
+		<label class="labels" for="">segue outros canais:</label>
 		<br>
-		<input type="radio" name="feed_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="feed_content" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="follow_channel" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="follow_channel" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Publicações usam SEO:</label>
-		<br>
-		<input type="radio" name="SEO_descriptions" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="SEO_descriptions" value="no"><span class="fields">Não</span><br>
-		<br>
-		<label class="labels" for="">Imagens têm tamanho correto:</label>
+		<label class="labels" for="">conteúdo para membros:</label>
 		<br>
 		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>
 		<br>
+                
+                <br>
+		<label class="labels" for="">loja virtual está linkada  para loja do site:</label>
+		<br>
+		<input type="radio" name="liked_virtualstore" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="liked_virtualstore" value="no"><span class="fields">Não</span><br>
+		<br>
+                
+                <br>
+		<label class="labels" for="">videos possuem capa personalizada:</label>
+		<br>
+		<input type="radio" name="video_banner" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="video_banner" value="no"><span class="fields">Não</span><br>
+		<br>
+                
+                <br>
+		<label class="labels" for="">Videos possuem legenda:</label>
+		<br>
+		<input type="radio" name="legend" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="legend" value="no"><span class="fields">Não</span><br>
+		<br>
+                
+                
+		<label class="labels" for="">Títulos e descrição usam SEO:</label>
+		<br>
+		<input type="radio" name="seo_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="seo_content" value="no"><span class="fields">Não</span><br>
+		<br>
+                
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10" value="0">
 		<br>
@@ -86,3 +115,5 @@
 	</form>
 </div>     
 @endsection
+
+		
