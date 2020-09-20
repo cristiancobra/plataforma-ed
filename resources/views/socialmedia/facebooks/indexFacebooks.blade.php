@@ -39,7 +39,7 @@
 		<td class="table-list-left">
 			@foreach ($accounts as $account)
 			<button class="button">
-				<a href=" {{ route('accounts.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
+				<a href=" {{ route('account.show', ['account' => $account->id]) }} "  style="text-decoration: none;color: black">
 					<i class='fa fa-eye'></i></a>
 			</button> {{ $account->name }}</li><br>
 			@endforeach
