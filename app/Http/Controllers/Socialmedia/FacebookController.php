@@ -8,6 +8,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FacebookController extends Controller {
 
@@ -18,27 +19,29 @@ class FacebookController extends Controller {
 	 */
 	public function index() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$facebooks = Facebook::where('id', '>=', 0)
-					->with('users')->orderBy('PAGE_NAME', 'asc')
-					->get();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$facebooks = Facebook::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('account');
+					})
+					->paginate(20);
+
+			$totalFacebooks = $facebooks->count();
+
+			return view('socialmedia.facebooks.indexFacebooks', [
+				'facebooks' => $facebooks,
+				'totalFacebooks' => $totalFacebooks,
+				'userAuth' => $userAuth,
+			]);
 		} else {
-			$facebooks = Facebook::where('user_id', '=', $userAuth->id)
-					->with('users')
-					->get();
+			return redirect('/');
 		}
-		$totalFacebooks = $facebooks->count();
-
-		$accounts = Account::where('id', '=', $userAuth->id)
-				->with('users')
-				->get();
-
-		return view('socialmedia.facebooks.indexFacebooks', [
-			'facebooks' => $facebooks,
-			'accounts' => $accounts,
-			'totalFacebooks' => $totalFacebooks,
-			'userAuth' => $userAuth,
-		]);
 	}
 
 	/**
@@ -164,6 +167,27 @@ class FacebookController extends Controller {
 	public function destroy(Facebook $facebook) {
 		$facebook->delete();
 		return redirect()->route('facebook.index');
+	}
+
+	public function all() {
+		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			$facebooks = Facebook::where('id', '>=', 0)
+					->orderBy('PAGE_NAME', 'asc')
+					->with('account')
+					->paginate(40);
+
+			$totalFacebooks = $facebooks->count();
+
+			return view('socialmedia.facebooks.indexFacebooks', [
+				'facebooks' => $facebooks,
+				'totalFacebooks' => $totalFacebooks,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 }

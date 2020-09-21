@@ -20,6 +20,10 @@ class Account extends Model {
 		return $this->hasMany(Contact::class, 'id', 'account_id');
 	}
 
+	public function facebooks() {
+		return $this->hasMany(Facebook::class, 'id', 'account_id');
+	}
+	
 	public function tasks() {
 		return $this->hasMany(Task::class, 'id', 'account_id');
 	}
