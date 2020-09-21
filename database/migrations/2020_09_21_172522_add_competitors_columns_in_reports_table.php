@@ -14,9 +14,9 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 	public function up() {
 		Schema::table('reports', function (Blueprint $table) {
 			$table->string('account_id');
-			$table->string('CP1_name');
-			$table->string('CP1_description');
-			$table->string('CP1_site');
+			$table->string('CP1_name', 100);
+			$table->text('CP1_description');
+			$table->string('CP1_site', 50);
 			$table->string('CP1_site_keywords');
 			$table->string('CP1_site_organic_traffic');
 			$table->string('CP1_site_backlinks');
@@ -28,8 +28,8 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->decimal('CP1_ifood_score');
 			$table->mediumInteger('CP1_ifood_comments');
 			$table->string('CP1_spotify');
-			$table->string('CP1_city');
-			$table->string('CP1_state');
+			$table->string('CP1_city', 50);
+			$table->string('CP1_state', 50);
 			$table->string('CP1_type');
 			$table->mediumInteger('CP1_facebook_followers');
 			$table->mediumInteger('CP1_instagram_followers');
@@ -37,10 +37,10 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->mediumInteger('CP1_twitter_followers');
 			$table->mediumInteger('CP1_youtube_followers');
 			$table->mediumInteger('CP1_spotfy_followers');
-
-			$table->string('CP2_name');
-			$table->string('CP2_description');
-			$table->string('CP2_site');
+			
+			$table->string('CP2_name',100);
+			$table->text('CP2_description');
+			$table->string('CP2_site', 50);
 			$table->string('CP2_site_keywords');
 			$table->string('CP2_site_organic_traffic');
 			$table->string('CP2_site_backlinks');
@@ -52,8 +52,8 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP2_ifood_score');
 			$table->mediumInteger('CP2_ifood_comments');
 			$table->string('CP2_spotify');
-			$table->string('CP2_city');
-			$table->string('CP2_state');
+			$table->string('CP2_city', 50);
+			$table->string('CP2_state', 50);
 			$table->string('CP2_type');
 			$table->mediumInteger('CP2_facebook_followers');
 			$table->mediumInteger('CP2_instagram_followers');
@@ -63,9 +63,9 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->mediumInteger('CP2_youtube_followers');
 			$table->mediumInteger('CP2_spotfy_followers');
 
-			$table->string('CP3_name');
-			$table->string('CP3_description');
-			$table->string('CP3_site');
+			$table->string('CP3_name', 100);
+			$table->text('CP3_description');
+			$table->string('CP3_site', 50);
 			$table->string('CP3_site_keywords');
 			$table->string('CP3_site_organic_traffic');
 			$table->string('CP3_site_backlinks');
@@ -77,8 +77,8 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->decimal('CP3_ifood_score');
 			$table->mediumInteger('CP3_ifood_comments');
 			$table->string('CP3_spotify');
-			$table->string('CP3_city');
-			$table->string('CP3_state');
+			$table->string('CP3_city', 50);
+			$table->string('CP3_state', 50);
 			$table->string('CP3_type');
 			$table->mediumInteger('CP3_facebook_followers');
 			$table->mediumInteger('CP3_instagram_followers');
