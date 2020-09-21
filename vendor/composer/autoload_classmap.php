@@ -47,7 +47,7 @@ return array(
     'App\\Lead' => $baseDir . '/app/Lead.php',
     'App\\Models\\Account' => $baseDir . '/app/Models/Account.php',
     'App\\Models\\Banking\\Account' => $baseDir . '/app/Models/BankingAccount.php',
-    'App\\Models\\Competitors' => $baseDir . '/app/Models/Competitor.php',
+    'App\\Models\\Competitor' => $baseDir . '/app/Models/Competitor.php',
     'App\\Models\\Contact' => $baseDir . '/app/Models/Contact.php',
     'App\\Models\\Email' => $baseDir . '/app/Models/Email.php',
     'App\\Models\\Facebook' => $baseDir . '/app/Models/Facebook.php',

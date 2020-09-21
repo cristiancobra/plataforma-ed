@@ -612,7 +612,7 @@ class ComposerStaticInit8134e79a1d39964a595933a66a878b99
         'App\\Lead' => __DIR__ . '/../..' . '/app/Lead.php',
         'App\\Models\\Account' => __DIR__ . '/../..' . '/app/Models/Account.php',
         'App\\Models\\Banking\\Account' => __DIR__ . '/../..' . '/app/Models/BankingAccount.php',
-        'App\\Models\\Competitors' => __DIR__ . '/../..' . '/app/Models/Competitor.php',
+        'App\\Models\\Competitor' => __DIR__ . '/../..' . '/app/Models/Competitor.php',
         'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
         'App\\Models\\Email' => __DIR__ . '/../..' . '/app/Models/Email.php',
         'App\\Models\\Facebook' => __DIR__ . '/../..' . '/app/Models/Facebook.php',
