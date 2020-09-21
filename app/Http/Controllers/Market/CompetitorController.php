@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Contact;
+namespace App\Http\Controllers\Market;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
-use App\Models\Account;
+use App\Models\Competitor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
+use App\Models\Account;
 
-class ContactController extends Controller {
+class CompetitorController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -25,16 +24,16 @@ class ContactController extends Controller {
 					})
 					->pluck('id');
 
-			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
+			$competitors = Competitor::whereHas('account', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->paginate(20);
 
-			$totalContacts = $contacts->count();
+			$totalCompetitors = $competitors->count();
 
-			return view('contacts.indexContacts', [
-				'contacts' => $contacts,
-				'totalContacts' => $totalContacts,
+			return view('market.competitors.indexCompetitors', [
+				'competitors' => $competitors,
+				'totalCompetitors' => $totalCompetitors,
 				'userAuth' => $userAuth,
 			]);
 		} else {
@@ -49,7 +48,7 @@ class ContactController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		$contact = new Contact();
+		$competitor = new Competitor();
 
 		if (Auth::check()) {
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
@@ -62,15 +61,15 @@ class ContactController extends Controller {
 					})
 					->get();
 
-			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
+			$competitors = Competitor::whereHas('account', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->paginate(20);
 
-			return view('contacts.createContact', [
+			return view('market.competitors.createCompetitor', [
 				'userAuth' => $userAuth,
-				'contact' => $contact,
-				'contacts' => $contacts,
+				'competitor' => $competitor,
+				'competitors' => $competitors,
 				'accounts' => $accounts,
 			]);
 		} else {
@@ -85,27 +84,25 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$contact = new Contact();
-		$contact->fill($request->all());
-		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
-		$contact->save();
-		$contact->users()->sync($request->users);
+		$competitor = new Competitor();
+		$competitor->fill($request->all());
+		$competitor->save();
 
-		return redirect()->action('Contact\\ContactController@index');
+		return redirect()->action('Market\\CompetitorController@index');
 	}
 
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Models\Contact  $contact
+	 * @param  \App\Models\Competitor  $competitors
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Contact $contact) {
+	public function show(Competitor $competitor) {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
-			return view('contacts.showContact', [
-				'contact' => $contact,
+			return view('market.competitors.showCompetitor', [
+				'competitor' => $competitor,
 				'userAuth' => $userAuth,
 			]);
 		} else {
@@ -116,10 +113,10 @@ class ContactController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  \App\Models\Contact  $contact
+	 * @param  \App\Models\Competitor  $competitors
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Contact $contact) {
+	public function edit(Competitor $competitor) {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
@@ -133,10 +130,10 @@ class ContactController extends Controller {
 					})
 					->get();
 
-			return view('contacts.editContact', [
+			return view('market.competitors.editCompetitor', [
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
-				'contact' => $contact,
+				'competitor' => $competitor,
 				'accounts' => $accounts,
 			]);
 		} else {
@@ -148,32 +145,30 @@ class ContactController extends Controller {
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\Contact  $contact
+	 * @param  \App\Models\Competitor  $competitors
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Contact $contact) {
+	public function update(Request $request, Competitor $competitor) {
 		$userAuth = Auth::user();
 
-		$contact->fill($request->all());
-		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
-		$contact->save();
-		$contact->users()->sync($request->users);
+		$competitor->fill($request->all());
+		$competitor->save();
 
-		return view('contacts.showContact', [
+		return view('market.competitors.showCompetitor', [
 			'userAuth' => $userAuth,
-			'contact' => $contact,
+			'competitor' => $competitor,
 		]);
 	}
 
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Models\Contact  $contact
+	 * @param  \App\Models\Competitor  $competitors
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Contact $contact) {
-		$contact->delete();
-		return redirect()->route('contact.index');
+	public function destroy(Competitor $competitor) {
+		$competitor->delete();
+		return redirect()->route('competitor.index');
 	}
 
 }
