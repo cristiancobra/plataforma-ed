@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Auth;
 use App\Lead;
 use App\Models\Task;
+use App\Models\Account;
 use App\Opportunities;
 use App\Models\Facebook;
 use App\Models\Instagram;
@@ -19,64 +20,71 @@ use App\Models\Spotify;
 
 class DashboardController extends Controller {
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        $this->middleware('auth');
-    }
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
+	public function __construct() {
+		$this->middleware('auth');
+	}
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function socialmedia() {
-        $userAuth = Auth::user();
-        $hoje = date("d/m/Y");
+	/**
+	 * Show the application dashboard.
+	 *
+	 * @return \Illuminate\Contracts\Support\Renderable
+	 */
+	public function socialmedia() {
+		$userAuth = Auth::user();
+		$hoje = date("d/m/Y");
 
-        $facebooks = Facebook::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
 
-        $instagrams = Instagram::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$facebooks = Facebook::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
+				->get();
 
-        $linkedins = Linkedin::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$instagrams = Instagram::where('user_id', '=', $userAuth->id)
+				->with('users')
+				->get();
 
-        $twitters = Twitter::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$linkedins = Linkedin::where('user_id', '=', $userAuth->id)
+				->with('users')
+				->get();
 
-        $pinterests = Pinterest::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$twitters = Twitter::where('user_id', '=', $userAuth->id)
+				->with('users')
+				->get();
 
-        $youtubes = Youtube::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$pinterests = Pinterest::where('user_id', '=', $userAuth->id)
+				->with('users')
+				->get();
+
+		$youtubes = Youtube::where('user_id', '=', $userAuth->id)
+				->with('users')
+				->get();
 
 
-        $spotifys = spotify::where('user_id', '=', $userAuth->id)
-                ->with('users')
-                ->get();
+		$spotifys = spotify::where('user_id', '=', $userAuth->id)
+				->with('users')
+				->get();
 
-        return view('socialmedia/dashboardSocialmedia', [
-            'userAuth' => $userAuth,
-            'hoje' => $hoje,
-            'facebooks' => $facebooks,
-            'instagrams' => $instagrams,
-            'linkedins' => $linkedins,
-            'twitters' => $twitters,
-            'pinterests' => $pinterests,
-            'youtubes' => $youtubes,
-            'spotify' => $spotifys,
-        ]);
-    }
+		return view('socialmedia/dashboardSocialmedia', [
+			'userAuth' => $userAuth,
+			'hoje' => $hoje,
+			'facebooks' => $facebooks,
+			'instagrams' => $instagrams,
+			'linkedins' => $linkedins,
+			'twitters' => $twitters,
+			'pinterests' => $pinterests,
+			'youtubes' => $youtubes,
+			'spotify' => $spotifys,
+		]);
+	}
 
 }
