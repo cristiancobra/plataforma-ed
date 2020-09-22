@@ -49,8 +49,10 @@ class DashboardController extends Controller {
 				})
 				->get();
 
-		$instagrams = Instagram::where('user_id', '=', $userAuth->id)
-				->with('users')
+		$instagrams = Instagram::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
 				->get();
 
 		$linkedins = Linkedin::where('user_id', '=', $userAuth->id)
