@@ -61,6 +61,9 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
+			<option  class="fields" value="{{ $task->contact_id }}">
+				{{ $task->contact->name }}
+			</option>
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">
 				{{ $contact->name }}
@@ -70,10 +73,21 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >PRIORIDADE:</label>
 		<select class="fields" name="priority">
-			<option value="baixa">baixa</option>
-			<option value="média">média</option>
-			<option value="alta">alta</option>
-			<option value="emergência">emergência</option>
+			<option  class="fields" value="{{ $task->priority }}">
+				{{ $task->priority }}
+			</option>
+			<option value="baixa">
+				baixa
+			</option>
+			<option value="média">
+				média
+			</option>
+			<option value="alta">
+				alta
+			</option>
+			<option value="emergência">
+				emergência
+			</option>
 		</select>
 		<br>
 		<br>
