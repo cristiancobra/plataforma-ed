@@ -210,12 +210,9 @@
         </div>
         <div style="display: inline-block">
 			@if ($report->FB_page_name == '')
-			<a class="btn btn-secondary" href="{{ route('facebook.create')}}">
-				ADICIONAR FACEBOOK
-			</a>
-			<form action=" {{ route('report.FB_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983">
+			<form action=" {{ route('report.FB_save') }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >SALVAR CONTA EXISTENTE: </label>
+				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
 				<select name="account_id">
 					@foreach ($facebooks as $facebook)
 					<option  class="fields" value="{{ $facebook->id }}">
@@ -223,8 +220,11 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="SALVAR">
+				<input type="submit" class="btn btn-secondary" value="GERAR">
 			</form>
+			<a class="btn btn-secondary" href="{{ route('facebook.create')}}" style="display: inline-block">
+				ADICIONAR NOVA
+			</a>
 		</div>
 		@else
 		FACEBOOK
@@ -599,20 +599,17 @@
 @endif
 </div>
 <br>
-<!--   =========================================================  INSTAGRAM ===================================================-->
+<!--   =========================================================  INSTAGRAM ====================================================-->
 <div>
     <div class="instagram">
         <div style="display: inline-block">
             <img class="grid-image" src="{{ asset('imagens/instagram.png') }}" style="width: 80px;height: 80px;text-align: left">
         </div>
         <div style="display: inline-block">
-	@if ($report->IG_page_name == '')
-			<a class="btn btn-secondary" href="{{ route('instagram.create')}}">
-				ADICIONAR INSTAGRAM
-			</a>
-			<form action=" {{ route('report.IG_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983">
+			@if ($report->IG_page_name == '')
+			<form action=" {{ route('report.IG_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >SALVAR CONTA EXISTENTE: </label>
+				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA: </label>
 				<select name="account_id">
 					@foreach ($instagrams as $instagram)
 					<option  class="fields" value="{{ $instagram->id }}">
@@ -620,8 +617,11 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="SALVAR">
+				<input type="submit" class="btn btn-secondary" value="GERAR">
 			</form>
+			<a class="btn btn-secondary" href="{{ route('instagram.create')}}"  style="display: inline-block">
+				ADICIONAR NOVA
+			</a>
 		</div>
 		@else
 		INSTAGRAM
@@ -1093,13 +1093,10 @@
             <img class="grid-image" src="{{ asset('imagens/linkedin.png') }}" style="width: 80px;height: 80px;text-align: left">
         </div>
         <div style="display: inline-block">
-	@if ($report->IN_page_name == '')
-			<a class="btn btn-secondary" href="{{ route('linkedin.create')}}">
-				ADICIONAR LINKEDIN
-			</a>
-			<form action=" {{ route('report.IN_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983">
+			@if ($report->IN_page_name == '')
+			<form action=" {{ route('report.IN_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >SALVAR CONTA EXISTENTE: </label>
+				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
 				<select name="account_id">
 					@foreach ($linkedins as $linkedin)
 					<option  class="fields" value="{{ $linkedin->id }}">
@@ -1107,8 +1104,11 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="SALVAR">
+				<input type="submit" class="btn btn-secondary" value="GERAR">
 			</form>
+			<a class="btn btn-secondary" href="{{ route('linkedin.create')}}" style="display: inline-block">
+				ADICIONAR NOVA
+			</a>
 		</div>
 		@else
 		LINKEDIN
@@ -1375,12 +1375,9 @@
 		</div>
 		<div style="display: inline-block">
 			@if ($report->TW_name == '')
-			<a class="btn btn-secondary" href="{{ route('twitter.create')}}">
-				ADICIONAR TWITTER
-			</a>
-			<form action=" {{ route('report.TW_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983">
+			<form action=" {{ route('report.TW_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >SALVAR CONTA EXISTENTE: </label>
+				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
 				<select name="account_id">
 					@foreach ($twitters as $twitter)
 					<option  class="fields" value="{{ $twitter->id }}">
@@ -1388,8 +1385,11 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="SALVAR">
+				<input type="submit" class="btn btn-secondary" value="GERAR">
 			</form>
+			<a class="btn btn-secondary" href="{{ route('twitter.create')}}" style="display: inline-block">
+				ADICIONAR NOVA
+			</a>
 		</div>
 		@else
 		TWITTER
