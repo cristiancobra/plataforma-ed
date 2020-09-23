@@ -1110,6 +1110,7 @@
 				<input type="submit" class="btn btn-secondary" value="SALVAR">
 			</form>
 		</div>
+		@else
 		LINKEDIN
 		<br>
 		{{ $report->IN_page_name }}
@@ -1377,6 +1378,18 @@
 			<a class="btn btn-secondary" href="{{ route('twitter.create')}}">
 				ADICIONAR TWITTER
 			</a>
+			<form action=" {{ route('report.TW_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983">
+				@csrf
+				<label class="labels" style="color: white" for="account_id" >SALVAR CONTA EXISTENTE: </label>
+				<select name="account_id">
+					@foreach ($twitters as $twitter)
+					<option  class="fields" value="{{ $twitter->id }}">
+						{{ $twitter->page_name }}
+					</option>
+					@endforeach
+				</select>
+				<input type="submit" class="btn btn-secondary" value="SALVAR">
+			</form>
 		</div>
 		@else
 		TWITTER
