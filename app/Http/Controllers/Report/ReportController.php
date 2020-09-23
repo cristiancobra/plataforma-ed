@@ -204,7 +204,7 @@ class ReportController extends Controller {
 					'report' => $report,
 					'facebooks' => $facebooks,
 					'instagrams' => $instagrams,
-					'$linkedins' => $linkedins,
+					'linkedins' => $linkedins,
 					'twitters' => $twitters,
 					'pinterests' => $pinterests,
 					'youtubes' => $youtubes,
