@@ -9,11 +9,13 @@ use App\Models\Facebook;
 use App\Models\Instagram;
 use App\Models\Linkedin;
 use App\Models\Twitter;
+use App\Models\Pinterest;
+use App\Models\Youtube;
+use App\Models\Spotify;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
-use Redirect;
 
 class ReportController extends Controller {
 
@@ -92,6 +94,7 @@ class ReportController extends Controller {
 		$report->name = ($request->name);
 		$report->date = ($request->date);
 		$report->status = ($request->status);
+		$report->general = ($request->general);
 		$report->logo = ($request->logo);
 		$report->palette = ($request->palette);
 
@@ -197,7 +200,7 @@ class ReportController extends Controller {
 						->get();
 				$youtubes = Youtube::where('account_id', $report->account_id)
 						->get();
-				$spotfys = Spotfy::where('account_id', $report->account_id)
+				$spotifys = Spotify::where('account_id', $report->account_id)
 						->get();
 
 				return view('reports.showReport', [
@@ -208,7 +211,7 @@ class ReportController extends Controller {
 					'twitters' => $twitters,
 					'pinterests' => $pinterests,
 					'youtubes' => $youtubes,
-					'spotfys' => $spotfys,
+					'spotifys' => $spotifys,
 					'userAuth' => $userAuth,
 				]);
 			} else {
@@ -310,6 +313,162 @@ class ReportController extends Controller {
 		$report->FB_stories = $facebook->stories;
 		$report->FB_interaction = $facebook->interaction;
 		$report->FB_value_ads = $facebook->value_ads;
+
+		$report->save();
+		//	$contact->users()->sync($request->users);
+
+		return back();
+	}
+	
+		public function IG_save(Request $request, Report $report) {
+		$userAuth = Auth::user();
+		$instagram = Instagram::where('account_id', $request->account_id)
+				->first();
+		//		$facebook = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report->IG_page_name = $instagram->page_name;
+		$report->IG_URL_name = $instagram->URL_name;
+		$report->IG_business = $instagram->business;
+		$report->IG_linked_instagram = $instagram->linked_instagram;
+		$report->IG_same_site_name = $instagram->same_site_name;
+		$report->IG_about = $instagram->about;
+		$report->IG_feed_content = $instagram->feed_content;
+		$report->IG_harmonic_feed = $instagram->harmonic_feed;
+		$report->IG_SEO_descriptions = $instagram->SEO_descriptions;
+		$report->IG_feed_images = $instagram->feed_images;
+		$report->IG_stories = $instagram->stories;
+		$report->IG_interaction = $instagram->interaction;
+		$report->IG_value_ads = $instagram->value_ads;
+
+		$report->save();
+		//	$contact->users()->sync($request->users);
+
+		return back();
+	}
+	
+		public function IN_save(Request $request, Report $report) {
+		$userAuth = Auth::user();
+		$linkedin = Linkedin::where('account_id', $request->account_id)
+				->first();
+		//		$linkedin = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report->IN_page_name = $linkedin->page_name;
+		$report->IN_URL_name = $linkedin->URL_name;
+		$report->IN_business = $linkedin->business;
+		$report->IN_linked_instagram = $linkedin->linked_instagram;
+		$report->IN_same_site_name = $linkedin->same_site_name;
+		$report->IN_about = $linkedin->about;
+		$report->IN_feed_content = $linkedin->feed_content;
+		$report->IN_harmonic_feed = $linkedin->harmonic_feed;
+		$report->IN_SEO_descriptions = $linkedin->SEO_descriptions;
+		$report->IN_feed_images = $linkedin->feed_images;
+		$report->IN_stories = $linkedin->stories;
+		$report->IN_interaction = $linkedin->interaction;
+		$report->IN_value_ads = $linkedin->value_ads;
+
+		$report->save();
+		//	$contact->users()->sync($request->users);
+
+		return back();
+	}
+	
+		public function TW_save(Request $request, Report $report) {
+		$userAuth = Auth::user();
+		$twitter = Twitter::where('account_id', $request->account_id)
+				->first();
+		//		$twitter = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report->TW_page_name = $twitter->page_name;
+		$report->TW_URL_name = $twitter->URL_name;
+		$report->TW_business = $twitter->business;
+		$report->TW_linked_instagram = $twitter->linked_instagram;
+		$report->TW_same_site_name = $twitter->same_site_name;
+		$report->TW_about = $twitter->about;
+		$report->TW_feed_content = $twitter->feed_content;
+		$report->TW_harmonic_feed = $twitter->harmonic_feed;
+		$report->TW_SEO_descriptions = $twitter->SEO_descriptions;
+		$report->TW_feed_images = $twitter->feed_images;
+		$report->TW_stories = $twitter->stories;
+		$report->TW_interaction = $twitter->interaction;
+		$report->TW_value_ads = $twitter->value_ads;
+
+		$report->save();
+		//	$contact->users()->sync($request->users);
+
+		return back();
+	}
+	
+		public function PI_save(Request $request, Report $report) {
+		$userAuth = Auth::user();
+		$facebook = Pinterest::where('account_id', $request->account_id)
+				->first();
+		//		$facebook = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report->PI_page_name = $pinterest->page_name;
+		$report->PI_URL_name = $pinterest->URL_name;
+		$report->PI_business = $pinterest->business;
+		$report->PI_linked_instagram = $pinterest->linked_instagram;
+		$report->PI_same_site_name = $pinterest->same_site_name;
+		$report->PI_about = $pinterest->about;
+		$report->PI_feed_content = $pinterest->feed_content;
+		$report->PI_harmonic_feed = $pinterest->harmonic_feed;
+		$report->PI_SEO_descriptions = $pinterest->SEO_descriptions;
+		$report->PI_feed_images = $pinterest->feed_images;
+		$report->PI_stories = $pinterest->stories;
+		$report->PI_interaction = $pinterest->interaction;
+		$report->PI_value_ads = $pinterest->value_ads;
+
+		$report->save();
+		//	$contact->users()->sync($request->users);
+
+		return back();
+	}
+	
+		public function YO_save(Request $request, Report $report) {
+		$userAuth = Auth::user();
+		$youtube = Youtube::where('account_id', $request->account_id)
+				->first();
+		//		$youtube = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report->YO_page_name = $youtube->page_name;
+		$report->YO_URL_name = $youtube->URL_name;
+		$report->YO_business = $youtube->business;
+		$report->YO_linked_instagram = $youtube->linked_instagram;
+		$report->YO_same_site_name = $youtube->same_site_name;
+		$report->YO_about = $youtube->about;
+		$report->YO_feed_content = $youtube->feed_content;
+		$report->YO_harmonic_feed = $youtube->harmonic_feed;
+		$report->YO_SEO_descriptions = $youtube->SEO_descriptions;
+		$report->YO_feed_images = $youtube->feed_images;
+		$report->YO_stories = $youtube->stories;
+		$report->YO_interaction = $youtube->interaction;
+		$report->YO_value_ads = $youtube->value_ads;
+
+		$report->save();
+		//	$contact->users()->sync($request->users);
+
+		return back();
+	}
+	
+		public function SP_save(Request $request, Report $report) {
+		$userAuth = Auth::user();
+		$spotfy = Spotify::where('account_id', $request->account_id)
+				->first();
+		//		$spotfy = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report->SP_page_name = $spotfy->page_name;
+		$report->SP_URL_name = $spotfy->URL_name;
+		$report->SP_business = $spotfy->business;
+		$report->SP_linked_instagram = $spotfy->linked_instagram;
+		$report->SP_same_site_name = $spotfy->same_site_name;
+		$report->SP_about = $spotfy->about;
+		$report->SP_feed_content = $spotfy->feed_content;
+		$report->SP_harmonic_feed = $spotfy->harmonic_feed;
+		$report->SP_SEO_descriptions = $spotfy->SEO_descriptions;
+		$report->SP_feed_images = $spotfy->feed_images;
+		$report->SP_stories = $spotfy->stories;
+		$report->SP_interaction = $spotfy->interaction;
+		$report->SP_value_ads = $spotfy->value_ads;
 
 		$report->save();
 		//	$contact->users()->sync($request->users);
