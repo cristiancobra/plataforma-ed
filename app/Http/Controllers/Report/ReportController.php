@@ -171,8 +171,30 @@ class ReportController extends Controller {
 
 		$report->save();
 
+		$facebooks = Facebook::where('account_id', $report->account_id)
+				->get();
+		$instagrams = Instagram::where('account_id', $report->account_id)
+				->get();
+		$linkedins = Linkedin::where('account_id', $report->account_id)
+				->get();
+		$twitters = Twitter::where('account_id', $report->account_id)
+				->get();
+		$pinterests = Pinterest::where('account_id', $report->account_id)
+				->get();
+		$youtubes = Youtube::where('account_id', $report->account_id)
+				->get();
+		$spotifys = Spotify::where('account_id', $report->account_id)
+				->get();
+
 		return view('reports.showReport', [
 			'report' => $report,
+			'facebooks' => $facebooks,
+			'instagrams' => $instagrams,
+			'linkedins' => $linkedins,
+			'twitters' => $twitters,
+			'pinterests' => $pinterests,
+			'youtubes' => $youtubes,
+			'spotifys' => $spotifys,
 			'userAuth' => $userAuth,
 		]);
 	}
@@ -319,8 +341,8 @@ class ReportController extends Controller {
 
 		return back();
 	}
-	
-		public function IG_save(Request $request, Report $report) {
+
+	public function IG_save(Request $request, Report $report) {
 		$userAuth = Auth::user();
 		$instagram = Instagram::where('account_id', $request->account_id)
 				->first();
@@ -345,8 +367,8 @@ class ReportController extends Controller {
 
 		return back();
 	}
-	
-		public function IN_save(Request $request, Report $report) {
+
+	public function IN_save(Request $request, Report $report) {
 		$userAuth = Auth::user();
 		$linkedin = Linkedin::where('account_id', $request->account_id)
 				->first();
@@ -371,8 +393,8 @@ class ReportController extends Controller {
 
 		return back();
 	}
-	
-		public function TW_save(Request $request, Report $report) {
+
+	public function TW_save(Request $request, Report $report) {
 		$userAuth = Auth::user();
 		$twitter = Twitter::where('account_id', $request->account_id)
 				->first();
@@ -397,8 +419,8 @@ class ReportController extends Controller {
 
 		return back();
 	}
-	
-		public function PI_save(Request $request, Report $report) {
+
+	public function PI_save(Request $request, Report $report) {
 		$userAuth = Auth::user();
 		$facebook = Pinterest::where('account_id', $request->account_id)
 				->first();
@@ -423,8 +445,8 @@ class ReportController extends Controller {
 
 		return back();
 	}
-	
-		public function YO_save(Request $request, Report $report) {
+
+	public function YO_save(Request $request, Report $report) {
 		$userAuth = Auth::user();
 		$youtube = Youtube::where('account_id', $request->account_id)
 				->first();
@@ -449,8 +471,8 @@ class ReportController extends Controller {
 
 		return back();
 	}
-	
-		public function SP_save(Request $request, Report $report) {
+
+	public function SP_save(Request $request, Report $report) {
 		$userAuth = Auth::user();
 		$spotfy = Spotify::where('account_id', $request->account_id)
 				->first();
