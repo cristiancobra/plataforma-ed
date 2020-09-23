@@ -24,6 +24,30 @@ class Account extends Model {
 		return $this->hasMany(Facebook::class, 'id', 'account_id');
 	}
 	
+	public function instagrams() {
+		return $this->hasMany(Instagram::class, 'id', 'account_id');
+	}
+	
+	public function linkedins() {
+		return $this->hasMany(Linkedin::class, 'id', 'account_id');
+	}
+	
+	public function twitters() {
+		return $this->hasMany(Twitter::class, 'id', 'account_id');
+	}
+	
+	public function pinterests() {
+		return $this->hasMany(Pinterest::class, 'id', 'account_id');
+	}
+	
+	public function spotifys() {
+		return $this->hasMany(Spotify::class, 'id', 'account_id');
+	}
+	
+	public function youtubes() {
+		return $this->hasMany(Youtube::class, 'id', 'account_id');
+	}
+	
 	public function tasks() {
 		return $this->hasMany(Task::class, 'id', 'account_id');
 	}
