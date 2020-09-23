@@ -18,21 +18,32 @@ class LinkedinController extends Controller {
 	 */
 	public function index() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$linkedins = Linkedin::where('id', '>=', 0)
-					->with('users')
-					->orderBy('PAGE_NAME', 'asc')
-					->get();
-		} else {
-			$linkedins = Linkedin::where('user_id', '=', $userAuth->id)
-					->with('users')
-					->get();
-		}
 
-		return view('socialmedia.linkedins.indexLinkedins', [
-			'linkedins' => $linkedins,
-			'userAuth' => $userAuth,
-		]);
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$linkedins = Linkedin::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('account');
+					})
+					->paginate(20);
+
+			$totalLinkedin = $linkedins->count();
+			
+			$score = $twitters->count();
+
+			return view('socialmedia.linkedins.indexLinkedins', [
+				'linkedins' => $linkedins,
+				'totalLinkedin' => $totalLinkedin,
+				'score' => $score,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -140,4 +151,5 @@ class LinkedinController extends Controller {
 		$linkedin->delete();
 		return redirect()->action('Socialmedia\\LinkedinController@index');
 	}
+
 }
