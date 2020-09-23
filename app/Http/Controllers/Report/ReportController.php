@@ -185,25 +185,30 @@ class ReportController extends Controller {
 			$userAuth = Auth::user();
 
 			if (Auth::check()) {
-//				$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-//							$query->where('users.id', $userAuth->id);
-//						})
-//						->pluck('id');
-//
-//				$accounts = Account::whereHas('users', function($query) use($accountsID) {
-//							$query->whereIn('account_id', $accountsID);
-//						})
-//						->get();
 				$facebooks = Facebook::where('account_id', $report->account_id)
 						->get();
 				$instagrams = Instagram::where('account_id', $report->account_id)
 						->get();
+				$linkedins = Linkedin::where('account_id', $report->account_id)
+						->get();
+				$twitters = Twitter::where('account_id', $report->account_id)
+						->get();
+				$pinterests = Pinterest::where('account_id', $report->account_id)
+						->get();
+				$youtubes = Youtube::where('account_id', $report->account_id)
+						->get();
+				$spotfys = Spotfy::where('account_id', $report->account_id)
+						->get();
 
 				return view('reports.showReport', [
 					'report' => $report,
-//				'reports' => $reports,
 					'facebooks' => $facebooks,
 					'instagrams' => $instagrams,
+					'$linkedins' => $linkedins,
+					'twitters' => $twitters,
+					'pinterests' => $pinterests,
+					'youtubes' => $youtubes,
+					'spotfys' => $spotfys,
 					'userAuth' => $userAuth,
 				]);
 			} else {
