@@ -24,7 +24,7 @@ return array(
     'App\\Http\\Controllers\\Financial\\TransactionController' => $baseDir . '/app/Http/Controllers/Financial/TransactionController.php',
     'App\\Http\\Controllers\\Market\\CompetitorController' => $baseDir . '/app/Http/Controllers/Market/CompetitorController.php',
     'App\\Http\\Controllers\\NovaPlataformaController' => $baseDir . '/app/Http/Controllers/NovaPlataformaController.php',
-    'App\\Http\\Controllers\\ReportController' => $baseDir . '/app/Http/Controllers/ReportController.php',
+    'App\\Http\\Controllers\\Report\\ReportController' => $baseDir . '/app/Http/Controllers/Report/ReportController.php',
     'App\\Http\\Controllers\\SiteCliente' => $baseDir . '/app/Http/Controllers/SiteCliente.php',
     'App\\Http\\Controllers\\Socialmedia\\DashboardController' => $baseDir . '/app/Http/Controllers/Socialmedia/DashboardController.php',
     'App\\Http\\Controllers\\Socialmedia\\FacebookController' => $baseDir . '/app/Http/Controllers/Socialmedia/FacebookController.php',

@@ -589,7 +589,7 @@ class ComposerStaticInit8134e79a1d39964a595933a66a878b99
         'App\\Http\\Controllers\\Financial\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/TransactionController.php',
         'App\\Http\\Controllers\\Market\\CompetitorController' => __DIR__ . '/../..' . '/app/Http/Controllers/Market/CompetitorController.php',
         'App\\Http\\Controllers\\NovaPlataformaController' => __DIR__ . '/../..' . '/app/Http/Controllers/NovaPlataformaController.php',
-        'App\\Http\\Controllers\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/ReportController.php',
+        'App\\Http\\Controllers\\Report\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Report/ReportController.php',
         'App\\Http\\Controllers\\SiteCliente' => __DIR__ . '/../..' . '/app/Http/Controllers/SiteCliente.php',
         'App\\Http\\Controllers\\Socialmedia\\DashboardController' => __DIR__ . '/../..' . '/app/Http/Controllers/Socialmedia/DashboardController.php',
         'App\\Http\\Controllers\\Socialmedia\\FacebookController' => __DIR__ . '/../..' . '/app/Http/Controllers/Socialmedia/FacebookController.php',

@@ -92,8 +92,11 @@ Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
-Route::get('/relatorios/{report}/pdf','ReportController@generatePDF')->name('report.pdf');
-Route::resource('relatorios', 'ReportController')->names('report')->parameters(['relatorios' => 'report']);
+Route::post('/relatorios/facebook/save','Report\\ReportController@FB_save')->name('report.FB_save');
+Route::post('/relatorios/instagram/save','Report\\ReportController@IG_save')->name('report.IG_save');
+Route::post('/relatorios/linkedin/save','Report\\ReportController@IN_save')->name('report.IN_save');
+//Route::get('/relatorios/{report}/pdf','Report\\ReportController@generatePDF')->name('report.pdf');
+Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');

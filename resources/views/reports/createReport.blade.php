@@ -35,10 +35,10 @@
 <form action=" {{ route('report.store') }} " method="post">
 	@csrf
 	<label class="labels" for="" >DONO: </label>
-	<select class="fields" name="user_id">
-		@foreach ($users as $user)
-		<option value="{{ $user->id }}">
-			{{ $user->name }}
+	<select class="fields" name="account_id">
+		@foreach ($accounts as $account)
+		<option value="{{ $account->id }}">
+			{{ $account->name }}
 		</option>
 		@endforeach
 	</select>
@@ -59,7 +59,13 @@
 	<br>
 	<label  class="labels" for="">Recomendações gerais: </label>
 	<br>
-	<input class="fields" type="text" name="general" style="width: 100%;height: 200px">
+	<textarea id="general" name="general" rows="20" cols="90">
+	</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+	<script>
+CKEDITOR.replace('general');
+	</script>
 	<br>
 	<br>
 	<p class="title-reports">IDENTIDADE VISUAL</p>

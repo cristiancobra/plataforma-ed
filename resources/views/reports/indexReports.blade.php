@@ -21,7 +21,11 @@
 			<b>TÍTULO</b>
 		</td>
 		<td   class="table-list-header">
-			<b>DATA </b></td>
+			<b>DONO </b>
+		</td>
+		<td   class="table-list-header">
+			<b>DATA </b>
+		</td>
 		<td   class="table-list-header">
 			<b>STATUS</b>
 		</td>
@@ -37,16 +41,27 @@
 			</button>
 		</td>
 
-		<td class="table-list-left"> <b>{{ $report->name}} </b></td>
-		<td class="table-list-center"> <b>{{ $report->date }} </b></td>
+		<td class="table-list-left"> 
+			<b>{{ $report->name}} </b>
+		</td>
+		<td class="table-list-left">
+			<b>{{ $report->account->name}} </b>
+		</td>
+		<td class="table-list-center"> <b>{{ $report->date }} </b>
+		</td>
 		@if ($report->status == "desativado")
-		<td class="button-disable"><b>{{ $report->status  }}</b></td>
+		<td class="button-disable"><b>{{ $report->status  }}</b>
+		</td>
 		@elseif ($report->status == "ativo")
-		<td class="button-active"><b>{{ $report->status  }}</b></td>
+		<td class="button-active"><b>{{ $report->status  }}</b>
+		</td>
 		@else ($report->status == "pendente")
-		<td class="button-delete"><b>{{ $report->status  }}</b></td>
+		<td class="button-delete"><b>{{ $report->status  }}</b>
+		</td>
 		@endif
 	</tr>
 	@endforeach
 </table>
+<br>
+<br>
 @endsection

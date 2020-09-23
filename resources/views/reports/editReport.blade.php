@@ -48,7 +48,7 @@
 	<textarea id="general" name="general" rows="20" cols="90">
 		{{ $report->general }}
 	</textarea>
-		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<!------------------------------------------- SCRIPT CKEDITOR----------------------- -->
 	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 	<script>
 CKEDITOR.replace('general');
