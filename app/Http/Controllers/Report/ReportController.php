@@ -251,22 +251,25 @@ class ReportController extends Controller {
 	public function edit(Report $report) {
 		$userAuth = Auth::user();
 
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
 					->get();
-			$reports = Report::where('id', '>=', 0)
-					->with('users')
-					->orderBy('DATE', 'asc')
-					->get();
+					
+
+			return view('reports.editReport', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+				'report' => $report,
+			]);
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->first();
-			$reports = Report::where('id', '>=', 0)
-					->with('users')
-					->orderBy('DATE', 'asc')
-					->get();
+			return redirect('/');
 		}
 
 		return view('reports.editReport', [
