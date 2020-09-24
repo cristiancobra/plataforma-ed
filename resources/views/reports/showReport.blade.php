@@ -210,10 +210,10 @@
         </div>
         <div style="display: inline-block">
 			@if ($report->FB_page_name == '')
-			<form action=" {{ route('report.FB_save') }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
+			<form action=" {{ route('report.FB_save', ['id' => $report->id]) }}" method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
-				<select name="account_id">
+				<label class="labels" style="color: white" for="" >GERAR COM A CONTA:</label>
+				<select name="facebook_id">
 					@foreach ($facebooks as $facebook)
 					<option  class="fields" value="{{ $facebook->id }}">
 						{{ $facebook->page_name }}
@@ -607,10 +607,10 @@
         </div>
         <div style="display: inline-block">
 			@if ($report->IG_page_name == '')
-			<form action=" {{ route('report.IG_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
+			<form action=" {{ route('report.IG_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA: </label>
-				<select name="account_id">
+				<label class="labels" style="color: white" for="" >GERAR COM A CONTA: </label>
+				<select name="instagram_id">
 					@foreach ($instagrams as $instagram)
 					<option  class="fields" value="{{ $instagram->id }}">
 						{{ $instagram->page_name }}
@@ -1094,10 +1094,10 @@
         </div>
         <div style="display: inline-block">
 			@if ($report->IN_page_name == '')
-			<form action=" {{ route('report.IN_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
+			<form action=" {{ route('report.IN_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
-				<select name="account_id">
+				<label class="labels" style="color: white" for="" >GERAR COM A CONTA:</label>
+				<select name="linkedin_id">
 					@foreach ($linkedins as $linkedin)
 					<option  class="fields" value="{{ $linkedin->id }}">
 						{{ $linkedin->page_name }}
@@ -1374,11 +1374,12 @@
 			<img class="grid-image" src="{{ asset('imagens/twitter.png') }}" style="width: 80px;height: 80px;text-align: left">
 		</div>
 		<div style="display: inline-block">
-			@if ($report->TW_name == '')
-			<form action=" {{ route('report.TW_save', ['account_id', $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
+			@if ($report->TW_page_name == '')
+			<form action=" {{ route('report.TW_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
+				@method('patch')
 				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
-				<select name="account_id">
+				<select name="twitter_id">
 					@foreach ($twitters as $twitter)
 					<option  class="fields" value="{{ $twitter->id }}">
 						{{ $twitter->page_name }}
