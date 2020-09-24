@@ -38,7 +38,7 @@
 					<i class='fab fa-facebook'></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('facebook.show', ['facebook' => $facebook->id]) }}">
+				<a href=" {{ route('facebook.show', ['facebook' => $facebook]) }}">
 					<i class='fa fa-eye'></i></a>
 			</button>
 			{{ $facebook->page_name}}

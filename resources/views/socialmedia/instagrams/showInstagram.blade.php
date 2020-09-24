@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DO instagram')
+@section('title','INSTAGRAM')
 
 @section('image-top')
 {{ asset('imagens/email.png') }} 
@@ -15,7 +15,6 @@
 <div>
 	<h1 class="name">  {{$instagram->page_name}}  </h1>
 	<br>
-	<p class="labels">DONO:<span class="fields">{{ $instagram->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $instagram->URL_name }}</span></p>
 	<br>
 	<table class="table-list">
@@ -106,14 +105,6 @@
 		<tr>
 			<td   class="table-list-left"><b>Publicações com interação:</b></td>
 			@if ($instagram->interaction === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
-			<td   class="table-list-left"><b>Paga ADs:</b></td>
-			@if ($instagram->pay_ads === "yes")
 			<td   class="button-active"><b>SIM</b></td>
 			@else
 			<td   class="button-delete"><b>NÃO</b></td>

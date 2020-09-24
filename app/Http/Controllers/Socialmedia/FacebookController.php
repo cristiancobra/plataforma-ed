@@ -118,28 +118,27 @@ class FacebookController extends Controller {
 	 */
 	public function edit(Facebook $facebook) {
 		$userAuth = Auth::user();
-		$facebooks = Facebook::all();
 
-		if ($userAuth->perfil == "administrador") {
-			$userAuths = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-			$facebooks = Facebook::where('id', '>=', 0)->orderBy('PAGE_NAME', 'asc')->get();
-			$totalFacebooks = $facebooks->count();
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('socialmedia.facebooks.editFacebook', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+				'facebook' => $facebook,
+				'accounts' => $accounts,
+			]);
 		} else {
-			$userAuths = User::where('id', '=', $userAuth->id)->with('accounts')->first();
-			$facebooks = Facebook::where('user_id', '=', $userAuth->id)->with('users')->get();
-			$totalFacebooks = $facebooks->count();
+			return redirect('/');
 		}
-
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
-		return view('socialmedia.facebooks.editFacebook', [
-			'userAuth' => $userAuth,
-			'users' => $userAuths,
-			'facebook' => $facebook,
-			'facebooks' => $facebooks,
-			'accounts' => $accounts,
-			'totalEmails' => $totalFacebooks,
-		]);
 	}
 
 	/**
@@ -150,30 +149,18 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Facebook $facebook) {
-		$facebook->user_id = ($request->user_id);
-		$facebook->page_name = ($request->page_name);
-		$facebook->URL_name = ($request->URL_name);
-		$facebook->linked_instagram = ($request->linked_instagram);
-		$facebook->same_site_name = ($request->same_site_name);
-		$facebook->about = ($request->about);
-		$facebook->feed_content = ($request->feed_content);
-		$facebook->harmonic_feed = ($request->harmonic_feed);
-		$facebook->SEO_descriptions = ($request->SEO_descriptions);
-		$facebook->feed_images = ($request->feed_images);
-		$facebook->stories = ($request->stories);
-		$facebook->interaction = ($request->interaction);
-		$facebook->value_ads = ($request->value_ads);
-		$facebook->status = ($request->status);
-		$facebook->save();
-
 		$userAuth = Auth::user();
+
+		$facebook->fill($request->all());
+		$facebook->save();
+//		$contact->users()->sync($request->users);
 
 		return view('socialmedia.facebooks.showFacebook', [
 			'userAuth' => $userAuth,
 			'facebook' => $facebook,
-				//'emails' => $emails,
 		]);
 	}
+
 
 	/**
 	 * Remove the specified resource from storage.
