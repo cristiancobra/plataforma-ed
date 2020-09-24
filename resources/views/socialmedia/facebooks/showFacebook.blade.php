@@ -16,7 +16,6 @@
 <div>
 	<h1 class="name">  {{$facebook->page_name}}  </h1>
 	<br>
-	<p class="labels">DONO:<span class="fields">{{ $facebook->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $facebook->URL_name }}</span></p>
 	<br>
 	<table class="table-list">
