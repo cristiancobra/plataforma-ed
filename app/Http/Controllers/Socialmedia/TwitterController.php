@@ -18,25 +18,33 @@ class TwitterController extends Controller {
 	 */
 	public function index() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$twitters = Twitter::where('id', '>=', 0)
-					->with('users')
-					->orderBy('PAGE_NAME', 'asc')
-					->get();
-		} else {
-			$twitters = Twitter::where('user_id', '=', $userAuth->id)
-					->with('users')
-					->get();
-		}
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$twitters = Twitter::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('account');
+					})
+					->paginate(20);
+
+			$totalTwitters = $twitters->count();
 
 		$score = $twitters->count();
 //		$totalGBs = $emails->sum('storage');
 
 		return view('socialmedia.twitters.indexTwitters', [
 			'twitters' => $twitters,
+			'totalTwitters' => $totalTwitters,
 			'userAuth' => $userAuth,
 			'score' => $score,
 		]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**

@@ -34,9 +34,12 @@ class FacebookController extends Controller {
 
 			$totalFacebooks = $facebooks->count();
 
+			$score = $facebooks->count();
+
 			return view('socialmedia.facebooks.indexFacebooks', [
 				'facebooks' => $facebooks,
 				'totalFacebooks' => $totalFacebooks,
+				'score' => $score,
 				'userAuth' => $userAuth,
 			]);
 		} else {

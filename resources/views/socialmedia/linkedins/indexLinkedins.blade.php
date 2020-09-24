@@ -33,7 +33,7 @@
 			</button>
 			{{ $linkedin->page_name}}
 		</td>
-		<td class="table-list-center"><b>{{ $linkedin->users()->first()->name}}</b></td>
+		<td class="table-list-center"><b>{{ $linkedin->account->name}}</b></td>
 
 		@if ($linkedin->status == "desativado")
 		<td class="button-disable"><b>{{ $linkedin->status  }}</b></td>

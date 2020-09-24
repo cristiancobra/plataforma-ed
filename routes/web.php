@@ -91,14 +91,14 @@ Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
-Route::post('/relatorios/facebook/save','Report\\ReportController@FB_save')->name('report.FB_save');
-Route::post('/relatorios/instagram/save','Report\\ReportController@IG_save')->name('report.IG_save');
-Route::post('/relatorios/linkedin/save','Report\\ReportController@IN_save')->name('report.IN_save');
-Route::post('/relatorios/twitter/save','Report\\ReportController@TW_save')->name('report.TW_save');
 Route::post('/relatorios/pinterest/save','Report\\ReportController@PI_save')->name('report.PI_save');
 Route::post('/relatorios/youtube/save','Report\\ReportController@YO_save')->name('report.YO_save');
-Route::post('/relatorios/spotfy/save','Report\\ReportController@SP_save')->name('report.SP_save');
+Route::post('/relatorios/spotify/save','Report\\ReportController@SP_save')->name('report.SP_save');
 //Route::get('/relatorios/{report}/pdf','Report\\ReportController@generatePDF')->name('report.pdf');
+Route::post('/relatorios/facebook/{id}', 'Report\\ReportController@FB_save')->name('report.FB_save');
+Route::post('/relatorios/instagram/{id}','Report\\ReportController@IG_save')->name('report.IG_save');
+Route::post('/relatorios/linkedin/{id}','Report\\ReportController@IN_save')->name('report.IN_save');
+Route::post('/relatorios/twitter/{id}','Report\\ReportController@TW_save')->name('report.TW_save');
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // ------------------------------------------------ SITE  ------------------------------------------------

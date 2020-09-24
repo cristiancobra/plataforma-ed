@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Account;
 use App\User;
 
 class Twitter extends Model
@@ -16,7 +17,7 @@ class Twitter extends Model
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
 
-	public function accounts() {
-		return $this->hasMany(Account::class, 'user_id', 'id');
+	public function account() {
+		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 }

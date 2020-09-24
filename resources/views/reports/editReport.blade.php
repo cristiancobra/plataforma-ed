@@ -16,12 +16,12 @@
 	@method('put')
 	<label class="labels" for="" >DONO: </label>
 	<select class="fields" name="user_id">
-		<option value="{{ $report->users->id }}">
-			{{ $report->users->name }}
+		<option value="{{ $report->account->id }}">
+			{{ $report->account->name }}
 		</option>
-		@foreach ($users as $user)
-		<option value="{{ $user->id }}">
-			{{ $user->name }}
+		@foreach ($accounts as $account)
+		<option value="{{ $account->id }}">
+			{{ $account->name }}
 		</option>
 		@endforeach
 	</select>
@@ -78,10 +78,10 @@ CKEDITOR.replace('general');
 	</p>
 	<br>
 	<label class="labels" for="" >NOME DA PÁGINA:</label>
-	<input type="text" name="FB_page_name" size="20" value="{{ $report->FB_page_name }}"><span class="fields"></span><br>
+	<input type="text" name="FB_page_name" size="20" value="{{ $report->FB_page_name }}"><span class="fields">{{ $report->FB_page_name }}</span><br>
 	<br>
 	<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
-	<input type="text" name="FB_URL_name" value="{{ $report->FB_URL_name }}" size="50"><span class="fields"></span><br>
+	<input type="text" name="FB_URL_name" value="{{ $report->FB_URL_name }}" size="50"><span class="fields">{{ $report->FB_URL_name }}</span><br>
 	<br>
 	<br>
 	<label class="labels" for="">Possui conta Business: </label>
