@@ -261,7 +261,7 @@ class ReportController extends Controller {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->get();
-					
+
 
 			return view('reports.editReport', [
 				'userAuth' => $userAuth,
@@ -319,11 +319,12 @@ class ReportController extends Controller {
 		$pdf->download('relatorio.pdf');
 	}
 
-	public function FB_save(Request $request, Report $report) {
+	public function FB_save(Request $request, $id) {
 		$userAuth = Auth::user();
-		$facebook = Facebook::where('account_id', $request->account_id)
+		$facebook = Facebook::where('id', $request->facebook_id)
 				->first();
-		//		$facebook = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report = Report::find($id);
 
 		$report->FB_page_name = $facebook->page_name;
 		$report->FB_URL_name = $facebook->URL_name;
@@ -340,21 +341,21 @@ class ReportController extends Controller {
 		$report->FB_value_ads = $facebook->value_ads;
 
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}
 
-	public function IG_save(Request $request, Report $report) {
+	public function IG_save(Request $request, $id) {
 		$userAuth = Auth::user();
-		$instagram = Instagram::where('account_id', $request->account_id)
+		$instagram = Instagram::where('id', $request->instagram_id)
 				->first();
-		//		$facebook = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report = Report::find($id);
 
 		$report->IG_page_name = $instagram->page_name;
 		$report->IG_URL_name = $instagram->URL_name;
 		$report->IG_business = $instagram->business;
-		$report->IG_linked_instagram = $instagram->linked_instagram;
+		$report->IG_linked_facebook = $instagram->linked_facebook;
 		$report->IG_same_site_name = $instagram->same_site_name;
 		$report->IG_about = $instagram->about;
 		$report->IG_feed_content = $instagram->feed_content;
@@ -363,62 +364,53 @@ class ReportController extends Controller {
 		$report->IG_feed_images = $instagram->feed_images;
 		$report->IG_stories = $instagram->stories;
 		$report->IG_interaction = $instagram->interaction;
+		$report->IG_linktree = $instagram->linktree;
 		$report->IG_value_ads = $instagram->value_ads;
 
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}
 
-	public function IN_save(Request $request, Report $report) {
+	public function IN_save(Request $request, $id) {
 		$userAuth = Auth::user();
-		$linkedin = Linkedin::where('account_id', $request->account_id)
+		$linkedin = Linkedin::where('id', $request->linkedin_id)
 				->first();
-		//		$linkedin = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report = Report::find($id);
 
 		$report->IN_page_name = $linkedin->page_name;
 		$report->IN_URL_name = $linkedin->URL_name;
 		$report->IN_business = $linkedin->business;
-		$report->IN_linked_instagram = $linkedin->linked_instagram;
 		$report->IN_same_site_name = $linkedin->same_site_name;
 		$report->IN_about = $linkedin->about;
 		$report->IN_feed_content = $linkedin->feed_content;
-		$report->IN_harmonic_feed = $linkedin->harmonic_feed;
 		$report->IN_SEO_descriptions = $linkedin->SEO_descriptions;
 		$report->IN_feed_images = $linkedin->feed_images;
-		$report->IN_stories = $linkedin->stories;
-		$report->IN_interaction = $linkedin->interaction;
+		$report->IN_employee_profiles = $linkedin->employee_profiles;
 		$report->IN_value_ads = $linkedin->value_ads;
 
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}
 
-	public function TW_save(Request $request, Report $report) {
+	public function TW_save(Request $request, $id) {
 		$userAuth = Auth::user();
-		$twitter = Twitter::where('account_id', $request->account_id)
+		$twitter = Twitter::where('id', $request->twitter_id)
 				->first();
-		//		$twitter = Facebook::where('user_id', '=', $request->user_id)->first();
+
+		$report = Report::find($id);
 
 		$report->TW_page_name = $twitter->page_name;
 		$report->TW_URL_name = $twitter->URL_name;
 		$report->TW_business = $twitter->business;
-		$report->TW_linked_instagram = $twitter->linked_instagram;
+		$report->TW_linked_facebook = $twitter->linked_facebook;
 		$report->TW_same_site_name = $twitter->same_site_name;
 		$report->TW_about = $twitter->about;
 		$report->TW_feed_content = $twitter->feed_content;
-		$report->TW_harmonic_feed = $twitter->harmonic_feed;
-		$report->TW_SEO_descriptions = $twitter->SEO_descriptions;
-		$report->TW_feed_images = $twitter->feed_images;
-		$report->TW_stories = $twitter->stories;
-		$report->TW_interaction = $twitter->interaction;
 		$report->TW_value_ads = $twitter->value_ads;
-
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}
