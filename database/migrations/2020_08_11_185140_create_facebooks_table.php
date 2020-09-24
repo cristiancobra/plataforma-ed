@@ -14,7 +14,7 @@ class CreateFacebooksTable extends Migration {
 	public function up() {
 		Schema::create('facebooks', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('user_id')->constrained();
+			$table->foreignId('user_id');
 			$table->string('page_name');
 			$table->string('URL_name');
 			$table->string('status');

@@ -53,20 +53,34 @@ class FacebookController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$facebook = new \App\Models\Facebook();
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
-		}
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		$contact = new Facebook();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			$facebooks = Facebook::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->paginate(20);
 
 		return view('socialmedia.facebooks.createFacebook', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'accounts' => $accounts,
-		]);
+				'userAuth' => $userAuth,
+				'contact' => $contact,
+				'facebooks' => $facebooks,
+				'accounts' => $accounts,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
