@@ -55,22 +55,27 @@ class DashboardController extends Controller {
 				})
 				->get();
 
-		$linkedins = Linkedin::where('user_id', '=', $userAuth->id)
-				->with('users')
+		$linkedins = Linkedin::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
 				->get();
 
-		$twitters = Twitter::where('user_id', '=', $userAuth->id)
-				->with('users')
+		$twitters = Twitter::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
 				->get();
 
-		$pinterests = Pinterest::where('user_id', '=', $userAuth->id)
-				->with('users')
+		$pinterests = Pinterest::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
 				->get();
 
 		$youtubes = Youtube::where('user_id', '=', $userAuth->id)
 				->with('users')
 				->get();
-
 
 		$spotifys = spotify::where('user_id', '=', $userAuth->id)
 				->with('users')

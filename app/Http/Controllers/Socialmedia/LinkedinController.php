@@ -33,7 +33,7 @@ class LinkedinController extends Controller {
 
 			$totalLinkedin = $linkedins->count();
 			
-			$score = $twitters->count();
+			$score = $linkedins->count();
 
 			return view('socialmedia.linkedins.indexLinkedins', [
 				'linkedins' => $linkedins,
