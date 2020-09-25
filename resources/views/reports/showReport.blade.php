@@ -1153,7 +1153,7 @@
 	<!--   ----------------------------------------------------------------------------------  MESMO NOME DO SITE  -----------------------------------------------------------------------------------  -->
 	<tr>
 		<td   class="table-list-left"><b>Conta possui mesmo nome do site:</b></td>
-		@if ($report->IG_same_site_name === "yes")
+		@if ($report->IN_same_site_name === "yes")
 		<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
 			<b>SIM</b>
 		</td>
@@ -1181,7 +1181,7 @@
 	<!--   ----------------------------------------------------------------------------------  ABOUT  -----------------------------------------------------------------------------------  -->
 	<tr>
 		<td   class="table-list-left"><b>Descrição da bio:</b></td>
-		@if ($report->IG_about === "yes")
+		@if ($report->IN_about === "yes")
 		<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
 			<b>SIM</b>
 		</td>
@@ -1208,7 +1208,7 @@
 	<!--   ----------------------------------------------------------------------------------  CONTEUDOS FEED  -----------------------------------------------------------------------------------  -->
 	<tr>
 		<td   class="table-list-left"><b>Publica conteúdos no feed:</b></td>
-		@if ($report->IG_feed_content === "yes")
+		@if ($report->IN_feed_content === "yes")
 		<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
 			<b>SIM</b>
 		</td>
@@ -1235,7 +1235,7 @@
 	<!--   ----------------------------------------------------------------------------------  SEO DESCRIPTIONS  -----------------------------------------------------------------------------------  -->
 	<tr>
 		<td   class="table-list-left"><b>Publicações usam SEO:</b></td>
-		@if ($report->IG_SEO_descriptions === "yes")
+		@if ($report->IN_SEO_descriptions === "yes")
 		<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
 			<b>SIM</b>
 		</td>
@@ -1261,7 +1261,7 @@
 <!--   ----------------------------------------------------------------------------------  FEED IMAGES  -----------------------------------------------------------------------------------  -->
 <tr>
 	<td   class="table-list-left"><b>Imagens têm tamanho correto:</b></td>
-	@if ($report->IG_feed_images === "yes")
+	@if ($report->IN_feed_images === "yes")
 	<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
 		<b>SIM</b>
 	</td>
