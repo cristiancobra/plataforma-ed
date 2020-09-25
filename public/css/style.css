@@ -173,20 +173,41 @@ and open the template in the editor.
 	width: 50%;
 }
 
-/* ------------------------------------------------ realocar -------------------------- */
 
-.numbers{
-    margin-top:0px;
-    background-color: #874983;
-	padding-left: 1%;
-	padding-right: 1%;
-	padding-top: 2%;
-	padding-bottom: 2%;
-	margin-left: 2%;
-	margin-right: 2%;
-	display: inline-block;
+/* ------------------------------------------------ GRID INICIO -------------------------- */
+.grid-start {
+	display: grid;
+	height: auto;
+	text-align: left;
+	margin-top: 2%;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: 
+		"tasks-now tasks-pending tasks-my";
+	gap: 5% 2%;
+}
+
+.tasks-now{
+	grid-area: tasks-now;
+	color: white;
+	background-color: #4aa0e6;
+	padding: 4%;
 	border-radius: 20px;
-	width: 18%;
+}
+
+.tasks-pending {
+	grid-area: tasks-pending;
+	color: white;
+	background-color: #ffe924;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.tasks-my {
+	grid-area: tasks-my;
+	color: white;
+	background-color: #874983;
+	padding: 4%;
+	border-radius: 20px;
 }
 
 .destaque{
@@ -194,79 +215,6 @@ and open the template in the editor.
     background-color: white;
 }
 
-/* ------------------------------------------------ GRID ADMIN -------------------------- */
-.admin-blocks{
-    text-align: center;
-    color: white;
-    padding:2%;
-	width: 22%;
-	height: 100%;
-	display: inline-block;
-	vertical-align: middle
-}
-
-.financeiro{
-    grid-area: financeiro;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #c28dbf;
-}
-
-.contratos{
-    grid-area: contratos;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #c28dbf;
-}
-
-.nova-plataforma{
-    grid-area: nova-plataforma;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #874983;
-}
-.usuarios-plataforma{
-    grid-area: usuarios-plataforma;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #874983;
-}
-
-.emails{
-    grid-area: emails;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #874983;
-}
-
-.migracoes{
-    grid-area: migracoes;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #c28dbf;
-}
-
-.servidores{
-    grid-area: servidores;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #c28dbf;
-}
-
-.vendas{
-    grid-area: vendas;
-    text-align: center;
-    color: white;
-    padding:10%;
-    background-color: #874983;
-}
 
 /* ------------------------------------------------ MENU -------------------------- */
 .sidenav {
@@ -416,7 +364,7 @@ and open the template in the editor.
 
 .numeros_painel{
     text-align:center;
-    color:#ff0;
+    color:white;
     font-weight:600;
     line-height: 0px;
     font-size: 56px;

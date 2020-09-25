@@ -11,32 +11,45 @@
 @endsection
 
 @section('main')
-<center>
-	<div style="width: 100%;padding-top: 2%">
-		<div class="numbers">
+<div class="grid-start">
+    <div class="tasks-now">
 			<p class="numeros_painel">
-				{{ $tasks }}
+				{{ $tasks_now }}
 			</p>
 			<p class="subtitulo-branco">
-				tarefas
+				tarefas sendo executadas
 			</p>
 			<p style="text-align: center; margin: 0px; padding: 0px">
 				<a href="{{route('task.index')}}" style="color: yellow">ver</a></p>
 		</div>
-
-		<div class="numbers">
-			<p class="numeros_painel"> 0 </p>
-			<p class="subtitulo-branco"> potenciais </p>
-			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">contatar</a></p>
+	
+	
+    <div class="tasks-pending">
+			<p class="numeros_painel" style="color: #874983">
+				{{ $tasks_pending }}
+			</p>
+			<p class="subtitulo-branco"  style="color: #874983">
+				tarefas pendentes
+			</p>
+			<p style="text-align: center; margin: 0px; padding: 0px">
+				<a href="{{route('task.index')}}" style="color: #874983">ver</a></p>
 		</div>
-
-		<div class="numbers">
-			<p class="numeros_painel"  style="font-size: 26px">  R$ 0,00</p>
-			<p class="subtitulo-branco"> oportunidades</p>
-			<p style="text-align: center; margin: 0px; padding: 0px"><a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26parentTab%3DComercial" style="color: yellow">vender</a></p>
+	
+	
+    <div class="tasks-my">
+		<p class="numeros_painel" style="color: yellow">
+				{{ $tasks_my }}
+			</p>
+			<p class="subtitulo-branco">
+				minhas tarefas
+			</p>
+			<p style="text-align: center; margin: 0px; padding: 0px">
+				<a href="{{ route('task.index')}}" style="color: yellow">ver</a></p>
 		</div>
-	</div>
-</center>
+	
+	
+</div>
+	
 
 <div style="padding-top: 3%;padding-left: 2%; padding-right: 4%;display: inline-block;text-align: left;vertical-align: top">
 	<img src=" {{ asset('imagens/cao-astronauta-left.png') }} " width="150px" height="150px">
