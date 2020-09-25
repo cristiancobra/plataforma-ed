@@ -54,22 +54,25 @@ class TwitterController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
-		}
 
-		$twitter = new Twitter();
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
 
 		return view('socialmedia.twitters.createTwitter', [
 			'userAuth' => $userAuth,
-			'users' => $users,
-			'twitter' => $twitter,
 			'accounts' => $accounts,
 		]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -107,24 +110,26 @@ class TwitterController extends Controller {
 	 */
 	public function edit(Twitter $twitter) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
-		}
 
-		$accounts = Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
 
 		return view('socialmedia.twitters.editTwitter', [
 			'userAuth' => $userAuth,
-			'users' => $users,
 			'accounts' => $accounts,
 			'twitter' => $twitter,
-		]);
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**

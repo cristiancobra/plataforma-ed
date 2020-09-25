@@ -16,16 +16,22 @@
 	@csrf
 	@method('put')
 	<div style="padding-left: 6%">
-		<label class="labels" for="" >NOME DA PÁGINA:</label>
-		<input type="text" name="page_name" size="20" value="{{ $linkedin->page_name }}"><span class="fields"></span><br>
-		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
-		<input type="text" name="URL_name" value="{{ $linkedin->URL_name }}" size="50"><span class="fields"></span><br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >
+			NOME DA PÁGINA:
+		</label>
+		<input type="text" name="page_name" size="20" value="{{ $linkedin->page_name }}"><span class="fields"></span>
+		<label class="labels" for="" >
+			ENDEREÇO DA PÁGINA:
+		</label>
+		<input type="text" name="URL_name" value="{{ $linkedin->URL_name }}" size="50"><span class="fields"></span>
+		<label class="labels" for="" >
+			DONO:
+		</label>
 		<select name="account_id">
-			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $linkedin->account->id }}">
 				{{ $linkedin->account->name }}
 			</option>
+			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
 			</option>

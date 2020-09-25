@@ -35,7 +35,7 @@
 			{{ $twitter->page_name}}
 		</td>
 		<td class="table-list-center">
-			<b>{{ $twitter->users->name}}</b>
+			<b>{{ $twitter->account->name}}</b>
 		</td>
 
 		@if ($twitter->status == "desativado")

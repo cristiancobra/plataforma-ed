@@ -12,7 +12,6 @@ use App\Models\Twitter;
 use App\Models\Pinterest;
 use App\Models\Youtube;
 use App\Models\Spotify;
-use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PDF;
@@ -320,7 +319,6 @@ class ReportController extends Controller {
 	}
 
 	public function FB_save(Request $request, $id) {
-		$userAuth = Auth::user();
 		$facebook = Facebook::where('id', $request->facebook_id)
 				->first();
 
@@ -346,7 +344,6 @@ class ReportController extends Controller {
 	}
 
 	public function IG_save(Request $request, $id) {
-		$userAuth = Auth::user();
 		$instagram = Instagram::where('id', $request->instagram_id)
 				->first();
 
@@ -373,7 +370,6 @@ class ReportController extends Controller {
 	}
 
 	public function IN_save(Request $request, $id) {
-		$userAuth = Auth::user();
 		$linkedin = Linkedin::where('id', $request->linkedin_id)
 				->first();
 
@@ -396,7 +392,6 @@ class ReportController extends Controller {
 	}
 
 	public function TW_save(Request $request, $id) {
-		$userAuth = Auth::user();
 		$twitter = Twitter::where('id', $request->twitter_id)
 				->first();
 

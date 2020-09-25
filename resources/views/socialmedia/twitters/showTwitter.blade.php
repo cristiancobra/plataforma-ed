@@ -1,21 +1,19 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DO TWITTER')
+@section('title','TWITTER')
 
 @section('image-top')
-{{ asset('imagens/linkedin.png') }} 
+{{ asset('imagens/twitter.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('twitter.index')}}">VER TODOS AS PÁGINAS</a>
+<a class="btn btn-primary" href="{{route('twitter.index')}}">VER TODOS</a>
 @endsection
 
 @section('main')
 <br>
 <div>
 	<h1 class="name">  {{$twitter->page_name}}  </h1>
-	<br>
-	<p class="labels">DONO:<span class="fields">{{ $twitter->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $twitter->URL_name }}</span></p>
 	<br>
 	<table class="table-list">
@@ -25,16 +23,6 @@
 		</tr>
 		<tr>
 			<td   class="table-list-left"><b>Possui conta Business:</b></td>
-			@if ($twitter->business === "yes")
-			<td   class="button-active"><b>SIM</b></td>
-			@else
-			<td   class="button-delete"><b>NÃO</b></td>
-			@endif
-		</tr>
-		<tr>
-			<td   class="table-list-left">
-				<b>Possui conta Business 2:</b>
-			</td>
 			@if ($twitter->business === "yes")
 			<td   class="button-active"><b>SIM</b></td>
 			@else

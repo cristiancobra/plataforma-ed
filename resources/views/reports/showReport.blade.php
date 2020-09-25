@@ -1377,7 +1377,6 @@
 			@if ($report->TW_page_name == '')
 			<form action=" {{ route('report.TW_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
-				@method('patch')
 				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
 				<select name="twitter_id">
 					@foreach ($twitters as $twitter)

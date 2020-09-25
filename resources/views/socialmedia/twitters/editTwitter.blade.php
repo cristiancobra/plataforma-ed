@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','EDITAR TWITTER')
+@section('title','TWITTER')
 
 @section('image-top')
 {{ asset('imagens/twitter.png') }} 
@@ -16,26 +16,17 @@
 	@csrf
 	@method('put')
 	<div style="padding-left: 6%">
-		<label class="labels" for="" >NOME DA PÁGINA:</label>
+		<label class="labels" for="" >
+			NOME DA PÁGINA:
+		</label>
 		<input type="text" name="page_name" size="20" value="{{ $twitter->page_name }}"><span class="fields"></span><br>
-		<br>
-		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
+		<label class="labels" for="" >
+			ENDEREÇO DA PÁGINA:
+		</label>
 		<input type="text" name="URL_name" value="{{ $twitter->URL_name }}" size="50"><span class="fields"></span><br>
-		<br>
-		<label class="labels" for="" >DONO: </label>
-		<select name="user_id">
-			<option  class="fields" value="{{ $twitter->account->id }}">
-				{{ $twitter->account->name }}
-			</option>
-			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
-		<label class="labels" for="" >EMPRESA: </label>
+		<label class="labels" for="" >
+			DONO:
+		</label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
