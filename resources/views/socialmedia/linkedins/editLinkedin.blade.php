@@ -23,6 +23,9 @@
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
+			<option  class="fields" value="{{ $linkedin->account->id }}">
+				{{ $linkedin->account->name }}
+			</option>
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
 			</option>

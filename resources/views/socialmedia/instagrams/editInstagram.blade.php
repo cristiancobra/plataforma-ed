@@ -22,6 +22,9 @@
 		<input type="text" name="URL_name" value="{{ $instagram->URL_name }}" size="50"><span class="fields"></span><br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
+			<option  class="fields" value="{{ $instagram->account->id }}">
+				{{ $instagram->account->name }}
+			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
@@ -160,7 +163,7 @@
 		<br>
 		<br>
 		<label class="labels" for="">Publicações usam SEO:</label>
-			<br>
+		<br>
 		@if ($instagram->SEO_descriptions === "yes")
 		<input type="radio" name="SEO_descriptions" value="yes" checked="checked">
 		<span class="fields">Sim</span>
@@ -179,7 +182,7 @@
 		<br>
 		<br>
 		<label class="labels" for="">Imagens têm tamanho correto:</label>
-			<br>
+		<br>
 		@if ($instagram->feed_images === "yes")
 		<input type="radio" name="feed_images" value="yes" checked="checked">
 		<span class="fields">Sim</span>
@@ -198,7 +201,7 @@
 		<br>
 		<br>
 		<label class="labels" for="">Publica Stories:</label>
-				<br>
+		<br>
 		@if ($instagram->stories === "yes")
 		<input type="radio" name="stories" value="yes" checked="checked">
 		<span class="fields">Sim</span>
@@ -217,7 +220,7 @@
 		<br>
 		<br>
 		<label class="labels" for="">Publicações com interação:</label>
-					<br>
+		<br>
 		@if ($instagram->interaction === "yes")
 		<input type="radio" name="interaction" value="yes" checked="checked">
 		<span class="fields">Sim</span>
@@ -239,7 +242,7 @@
 		<input type="number" name="value_ads" step="10"  value="{{ $instagram->value_ads }}">
 		<br>
 		<br>
-	<label class="labels" for="">STATUS:</label>
+		<label class="labels" for="">STATUS:</label>
 		<select class="fields" name="status">
 			<option value="{{ $instagram->status }}">{{ $instagram->status}}</option>
 			@if ($instagram->status === "desativado")
