@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DO FACEBOOK')
+@section('title','FACEBOOK')
 
 @section('image-top')
 {{ asset('imagens/facebook.png') }} 
@@ -15,7 +15,6 @@
 <br>
 <div>
 	<h1 class="name">  {{$facebook->page_name}}  </h1>
-	<br>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $facebook->URL_name }}</span></p>
 	<br>
 	<table class="table-list">

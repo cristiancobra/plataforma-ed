@@ -18,7 +18,6 @@
 	<div style="padding-left: 6%">
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
 		<input type="text" name="page_name" size="20" value="{{ $facebook->page_name }}"><span class="fields"></span><br>
-		<br>
 		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
 		<input type="text" name="URL_name" value="{{ $facebook->URL_name }}" size="50"><span class="fields"></span><br>
 		<br>
@@ -35,7 +34,7 @@
 		<br>
 		<label class="labels" for="">Possui conta Business: </label>
 		<br>
-		@if ($facebook->business == "yes")
+		@if ($facebook->business === "yes")
 		<input type="radio" name="business" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -53,162 +52,162 @@
 		<br>
 		<label class="labels" for="">Conta Business vinculada com Instagram: </label>
 		<br>
-		@if ($facebook->linked_instagram == "sim" )
-		<input type="radio" name="linked_instagram" value="sim"  checked="checked">
+		@if ($facebook->linked_instagram === "yes" )
+		<input type="radio" name="linked_instagram" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="linked_instagram" value="não" >
+		<input type="radio" name="linked_instagram" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="linked_instagram" value="sim" >
+		<input type="radio" name="linked_instagram" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="linked_instagram" value="não"  checked="checked">
+		<input type="radio" name="linked_instagram" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Conta com mesmo nome do site: </label>
 		<br>
-		@if ($facebook->same_site_name == "sim" )
-		<input type="radio" name="same_site_name" value="sim"  checked="checked">
+		@if ($facebook->same_site_name === "yes" )
+		<input type="radio" name="same_site_name" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="same_site_name" value="não" >
+		<input type="radio" name="same_site_name" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="same_site_name" value="sim" >
+		<input type="radio" name="same_site_name" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="same_site_name" value="não"  checked="checked">
+		<input type="radio" name="same_site_name" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Apresentação da página:</label>
 		<br>
-		@if ($facebook->same_site_name == "sim" )
-		<input type="radio" name="about" value="sim"  checked="checked">
+		@if ($facebook->same_site_name === "yes" )
+		<input type="radio" name="about" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="about" value="não" >
+		<input type="radio" name="about" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="about" value="sim" >
+		<input type="radio" name="about" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="about" value="não"  checked="checked">
+		<input type="radio" name="about" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Publica conteúdos no feed:</label>
 		<br>
-		@if ($facebook->feed_content == "sim" )
-		<input type="radio" name="feed_content" value="sim"  checked="checked">
+		@if ($facebook->feed_content === "yes" )
+		<input type="radio" name="feed_content" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="feed_content" value="não" >
+		<input type="radio" name="feed_content" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="feed_content" value="sim" >
+		<input type="radio" name="feed_content" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="feed_content" value="não"  checked="checked">
+		<input type="radio" name="feed_content" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Feed organizado:</label>
 		<br>
-		@if ($facebook->harmonic_feed == "sim" )
-		<input type="radio" name="harmonic_feed" value="sim"  checked="checked">
+		@if ($facebook->harmonic_feed === "yes" )
+		<input type="radio" name="harmonic_feed" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="harmonic_feed" value="não" >
+		<input type="radio" name="harmonic_feed" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="harmonic_feed" value="sim" >
+		<input type="radio" name="harmonic_feed" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="harmonic_feed" value="não"  checked="checked">
+		<input type="radio" name="harmonic_feed" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Publicações usam SEO:</label>
 		<br>
-		@if ($facebook->SEO_descriptions == "sim" )
-		<input type="radio" name="SEO_descriptions" value="sim"  checked="checked">
+		@if ($facebook->SEO_descriptions === "yes" )
+		<input type="radio" name="SEO_descriptions" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="SEO_descriptions" value="não" >
+		<input type="radio" name="SEO_descriptions" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="SEO_descriptions" value="sim" >
+		<input type="radio" name="SEO_descriptions" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="SEO_descriptions" value="não"  checked="checked">
+		<input type="radio" name="SEO_descriptions" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Imagens têm tamanho correto:</label>
 		<br>
-		@if ($facebook->feed_images == "sim" )
-		<input type="radio" name="feed_images" value="sim"  checked="checked">
+		@if ($facebook->feed_images === "yes" )
+		<input type="radio" name="feed_images" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="feed_images" value="não" >
+		<input type="radio" name="feed_images" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="feed_images" value="sim" >
+		<input type="radio" name="feed_images" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="feed_images" value="não"  checked="checked">
+		<input type="radio" name="feed_images" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Publica Stories:</label>
 		<br>
-		@if ($facebook->stories == "sim" )
-		<input type="radio" name="stories" value="sim"  checked="checked">
+		@if ($facebook->stories === "yes" )
+		<input type="radio" name="stories" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="stories" value="não" >
+		<input type="radio" name="stories" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="stories" value="sim" >
+		<input type="radio" name="stories" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="stories" value="não"  checked="checked">
+		<input type="radio" name="stories" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
 		<br>
 		<label class="labels" for="">Publicações com interação:</label>
 		<br>
-		@if ($facebook->stories == "sim" )
-		<input type="radio" name="interaction" value="sim"  checked="checked">
+		@if ($facebook->stories === "yes" )
+		<input type="radio" name="interaction" value="yes"  checked="checked">
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="interaction" value="não" >
+		<input type="radio" name="interaction" value="no" >
 		<span class="fields">Não</span>
 		<br>
 		@else
-		<input type="radio" name="interaction" value="sim" >
+		<input type="radio" name="interaction" value="yes" >
 		<span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="interaction" value="não"  checked="checked">
+		<input type="radio" name="interaction" value="no"  checked="checked">
 		<span class="fields">Não</span>
 		<br>
 		@endif
@@ -220,13 +219,13 @@
 		<label class="labels" for="">STATUS:</label>
 		<select class="fields" name="status">
 			<option value="{{ $facebook->status }}">{{ $facebook->status}}</option>
-			@if ($facebook->status == "desativado")
+			@if ($facebook->status === "desativado")
 			<option value="ativo">ativo</option>
 			<option value="pendente">pendente</option>
-			@elseif  ($facebook->status == "ativo")
+			@elseif  ($facebook->status === "ativo")
 			<option value="desativado">desativado</option>
 			<option value="pendente">pendente</option>
-			@elseif  ($facebook->status == "pendente")
+			@elseif  ($facebook->status === "pendente")
 			<option value="ativo">ativo</option>
 			<option value="desativado">desativado</option>
 			@endif
