@@ -107,11 +107,19 @@
 					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
 				</div>
 
+				<a href="{{ route('contact.index') }}">
+					<button class="sidebar-item">
+						<i class="fas fa-bullhorn"></i> 
+						CONTATOS
+					</button>
+				</a>
+
 				<a href="{{ route('user.index') }}">
 					<button class="sidebar-item">
 						<i class="fa fa-users"></i> 
 						EQUIPE
-					</button></a>
+					</button>
+				</a>
 
 				<button class="dropdown-btn">
 					<i class='fas fa-angle-double-right'></i>
@@ -151,7 +159,6 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('contact.index')}}"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CONTATOS</a>
 					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
 					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
 					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCalls%26action%3DEditView%26return_module%3DCalls%26return_action%3DDetailView" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>REGISTRAR LIGAÇÃO</a>
@@ -182,21 +189,21 @@
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fa fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
 					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL
-					<br>
-					login: solucoes
+						<br>
+						login: solucoes
 					</a>
 					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES
-					<br>
-					login: admin
+						<br>
+						login: admin
 					</a>
 					<a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
 					<a class="sidebar-subitem" href="https://my.contabo.com/account/login" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>PAGAR SERVIDOR
-					<br>
-					login: admin
+						<br>
+						login: admin
 					</a>
 					<a class="sidebar-subitem" href="http://saocarlos.ginfes.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOTA FISCAL
-					<br>
-					lnsc. Municipal : 58029
+						<br>
+						lnsc. Municipal : 58029
 					</a>
 					<a class="sidebar-subitem" href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>TUTO VENDAS ANTIGO</a>
 					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMAILS PENDENTES</a>
