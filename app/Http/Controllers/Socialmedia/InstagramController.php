@@ -63,14 +63,8 @@ class InstagramController extends Controller {
 					})
 					->get();
 
-			$instagrams = Instagram::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->paginate(20);
-
 			return view('socialmedia.instagrams.createInstagram', [
 				'userAuth' => $userAuth,
-				'instagrams' => $instagrams,
 				'accounts' => $accounts,
 			]);
 		} else {

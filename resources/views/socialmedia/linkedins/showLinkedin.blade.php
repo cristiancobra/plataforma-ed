@@ -1,21 +1,19 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DO LINKEDIN')
+@section('title','LINKEDIN')
 
 @section('image-top')
 {{ asset('imagens/linkedin.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('linkedin.index')}}">VER TODOS AS PÁGINAS</a>
+<a class="btn btn-primary" href="{{route('linkedin.index')}}">VER TODOS</a>
 @endsection
 
 @section('main')
 <br>
 <div>
 	<h1 class="name">  {{$linkedin->page_name}}  </h1>
-	<br>
-	<p class="labels">DONO:<span class="fields">{{ $linkedin->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $linkedin->URL_name }}</span></p>
 	<br>
 	<table class="table-list">

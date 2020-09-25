@@ -32,7 +32,7 @@ class LinkedinController extends Controller {
 					->paginate(20);
 
 			$totalLinkedin = $linkedins->count();
-			
+
 			$score = $linkedins->count();
 
 			return view('socialmedia.linkedins.indexLinkedins', [
@@ -53,22 +53,25 @@ class LinkedinController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('socialmedia.linkedins.createLinkedin', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+			]);
 		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+			return redirect('/');
 		}
-
-		$linkedin = new Linkedin();
-
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
-		return view('socialmedia.linkedins.createLinkedin', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'linkedin' => $linkedin,
-			'accounts' => $accounts,
-		]);
 	}
 
 	/**
@@ -106,20 +109,26 @@ class LinkedinController extends Controller {
 	 */
 	public function edit(Linkedin $linkedin) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('socialmedia.linkedins.editLinkedin', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+				'linkedin' => $linkedin,
+			]);
 		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+			return redirect('/');
 		}
-
-		$accounts = Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
-		return view('socialmedia.linkedins.editLinkedin', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'accounts' => $accounts,
-			'linkedin' => $linkedin,
-		]);
 	}
 
 	/**

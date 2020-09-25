@@ -66,15 +66,8 @@ class FacebookController extends Controller {
 					})
 					->get();
 
-			$facebooks = Facebook::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->paginate(20);
-
 		return view('socialmedia.facebooks.createFacebook', [
 				'userAuth' => $userAuth,
-				'contact' => $contact,
-				'facebooks' => $facebooks,
 				'accounts' => $accounts,
 			]);
 		} else {
