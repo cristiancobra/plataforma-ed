@@ -18,21 +18,9 @@
 	<div style="padding-left: 6%">
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
 		<input type="text" name="page_name" size="20" value="{{ $instagram->page_name }}"><span class="fields"></span><br>
-		<br>
 		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
 		<input type="text" name="URL_name" value="{{ $instagram->URL_name }}" size="50"><span class="fields"></span><br>
-		<br>
 		<label class="labels" for="" >DONO: </label>
-		<select name="user_id">
-			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
-		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
@@ -44,7 +32,7 @@
 		<br>
 		<label class="labels" for="">Possui conta Business: </label>
 		<br>
-		@if ($instagram->business == "yes")
+		@if ($instagram->business === "yes")
 		<input type="radio" name="business" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -62,7 +50,7 @@
 		<br>
 		<label class="labels" for="">Conta vinculada com Facebook: </label>
 		<br>
-		@if ($instagram->linked_facebook == "yes")
+		@if ($instagram->linked_facebook === "yes")
 		<input type="radio" name="linked_facebook" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -80,7 +68,7 @@
 		<br>
 		<label class="labels" for="">Conta possui mesmo nome do site: </label>
 		<br>
-		@if ($instagram->same_site_name == "yes")
+		@if ($instagram->same_site_name === "yes")
 		<input type="radio" name="same_site_name" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -98,7 +86,7 @@
 		<br>
 		<label class="labels" for="">Descrição da bio:</label>
 		<br>
-		@if ($instagram->about == "yes")
+		@if ($instagram->about === "yes")
 		<input type="radio" name="about" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -116,7 +104,7 @@
 		<br>
 		<label class="labels" for="">Linktree na bio:</label>
 		<br>
-		@if ($instagram->linktree == "yes")
+		@if ($instagram->linktree === "yes")
 		<input type="radio" name="linktree" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -135,7 +123,7 @@
 		<br>
 		<label class="labels" for="">Publica conteúdos no feed:</label>
 		<br>
-		@if ($instagram->feed_content == "yes")
+		@if ($instagram->feed_content === "yes")
 		<input type="radio" name="feed_content" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -154,7 +142,7 @@
 		<br>
 		<label class="labels" for="">Feed organizado:</label>
 		<br>
-		@if ($instagram->harmonic_feed == "yes")
+		@if ($instagram->harmonic_feed === "yes")
 		<input type="radio" name="harmonic_feed" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -173,7 +161,7 @@
 		<br>
 		<label class="labels" for="">Publicações usam SEO:</label>
 			<br>
-		@if ($instagram->SEO_descriptions == "yes")
+		@if ($instagram->SEO_descriptions === "yes")
 		<input type="radio" name="SEO_descriptions" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -192,7 +180,7 @@
 		<br>
 		<label class="labels" for="">Imagens têm tamanho correto:</label>
 			<br>
-		@if ($instagram->feed_images == "yes")
+		@if ($instagram->feed_images === "yes")
 		<input type="radio" name="feed_images" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -211,7 +199,7 @@
 		<br>
 		<label class="labels" for="">Publica Stories:</label>
 				<br>
-		@if ($instagram->stories == "yes")
+		@if ($instagram->stories === "yes")
 		<input type="radio" name="stories" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -230,7 +218,7 @@
 		<br>
 		<label class="labels" for="">Publicações com interação:</label>
 					<br>
-		@if ($instagram->interaction == "yes")
+		@if ($instagram->interaction === "yes")
 		<input type="radio" name="interaction" value="yes" checked="checked">
 		<span class="fields">Sim</span>
 		<br>
@@ -254,13 +242,13 @@
 	<label class="labels" for="">STATUS:</label>
 		<select class="fields" name="status">
 			<option value="{{ $instagram->status }}">{{ $instagram->status}}</option>
-			@if ($instagram->status == "desativado")
+			@if ($instagram->status === "desativado")
 			<option value="ativo">ativo</option>
 			<option value="pendente">pendente</option>
-			@elseif  ($instagram->status == "ativo")
+			@elseif  ($instagram->status === "ativo")
 			<option value="desativado">desativado</option>
 			<option value="pendente">pendente</option>
-			@elseif  ($instagram->status == "pendente")
+			@elseif  ($instagram->status === "pendente")
 			<option value="ativo">ativo</option>
 			<option value="desativado">desativado</option>
 			@endif

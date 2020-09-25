@@ -15,7 +15,7 @@ class CreateInstagramsTable extends Migration
     {
         Schema::create('instagrams', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('user_id')->constrained();
+			$table->foreignId('user_id');
 			$table->string('page_name');
 			$table->string('URL_name');
 			$table->string('status');

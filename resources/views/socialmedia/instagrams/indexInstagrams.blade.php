@@ -12,9 +12,6 @@
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-	Você possui <span class="labels">{{$totalInstagrams }} contas de email</span>
-</p>
 <br>
 <table class="table-list">
 	<tr>
@@ -36,7 +33,7 @@
 			</button>
 			{{ $instagram->page_name}}
 		</td>
-		<td class="table-list-center"><b>{{ $instagram->users()->first()->name}}</b></td>
+		<td class="table-list-center"><b>{{ $instagram->account->name}}</b></td>
 
 		@if ($instagram->status == "desativado")
 		<td class="button-disable"><b>{{ $instagram->status  }}</b></td>

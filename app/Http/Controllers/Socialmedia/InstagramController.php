@@ -30,15 +30,15 @@ class InstagramController extends Controller {
 						->with('account');
 					})
 					->paginate(20);
-					
-		$totalInstagrams = $instagrams->count();
+
+			$totalInstagrams = $instagrams->count();
 
 
-		return view('socialmedia.instagrams.indexInstagrams', [
-			'instagrams' => $instagrams,
-			'totalInstagrams' => $totalInstagrams,
-			'userAuth' => $userAuth,
-				]);
+			return view('socialmedia.instagrams.indexInstagrams', [
+				'instagrams' => $instagrams,
+				'totalInstagrams' => $totalInstagrams,
+				'userAuth' => $userAuth,
+			]);
 		} else {
 			return redirect('/');
 		}
@@ -51,20 +51,31 @@ class InstagramController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		$instagram = new \App\Models\Instagram();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
-		}
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
-		return view('socialmedia.instagrams.createInstagram', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'instagram' => $instagram,
-			'accounts' => $accounts,
-		]);
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			$instagrams = Instagram::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->paginate(20);
+
+			return view('socialmedia.instagrams.createInstagram', [
+				'userAuth' => $userAuth,
+				'instagrams' => $instagrams,
+				'accounts' => $accounts,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -103,20 +114,25 @@ class InstagramController extends Controller {
 	public function edit(Instagram $instagram) {
 		$userAuth = Auth::user();
 
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('socialmedia.instagrams.editInstagram', [
+				'userAuth' => $userAuth,
+				'instagram' => $instagram,
+				'accounts' => $accounts,
+			]);
 		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->first();
+			return redirect('/');
 		}
-
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
-		return view('socialmedia.instagrams.editInstagram', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'instagram' => $instagram,
-			'accounts' => $accounts,
-		]);
 	}
 
 	/**

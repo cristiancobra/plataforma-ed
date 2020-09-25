@@ -54,7 +54,6 @@ class FacebookController extends Controller {
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		$contact = new Facebook();
 
 		if (Auth::check()) {
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
