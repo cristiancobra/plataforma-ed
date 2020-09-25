@@ -28,6 +28,9 @@
 			DONO:
 		</label>
 		<select name="account_id">
+			<option  class="fields" value="{{ $twitter->account->id }}">
+				{{ $twitter->account->name }}
+			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
@@ -164,7 +167,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR TWITTER">
+		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
 		</form>
 	</div>     
 	@endsection

@@ -401,6 +401,7 @@ class ReportController extends Controller {
 		$report->TW_URL_name = $twitter->URL_name;
 		$report->TW_business = $twitter->business;
 		$report->TW_linked_facebook = $twitter->linked_facebook;
+		$report->TW_linked_site = $twitter->linked_site;
 		$report->TW_same_site_name = $twitter->same_site_name;
 		$report->TW_about = $twitter->about;
 		$report->TW_feed_content = $twitter->feed_content;
