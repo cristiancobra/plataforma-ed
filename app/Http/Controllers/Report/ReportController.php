@@ -423,7 +423,6 @@ class ReportController extends Controller {
 		$report->PI_about = $pinterest->about;
 		$report->PI_pin_content = $pinterest->pin_content;
 		$report->PI_value_ads = $pinterest->value_ads;
-
 		$report->save();
 
 		return back();
