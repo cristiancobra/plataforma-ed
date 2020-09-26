@@ -3,7 +3,7 @@
 @section('title','SPOTIFY')
 
 @section('image-top')
-{{ asset('imagens/spotify\n\
+{{ asset('imagens/spotify.png
 .png') }} 
 @endsection
 
@@ -36,7 +36,7 @@
 			{{ $spotify->page_name}}
 		</td>
 		<td class="table-list-center">
-			<b>{{ $spotify->users->name}}</b>
+			<b>{{ $spotify->account->name}}</b>
 		</td>
 
 		@if ($spotify->status == "desativado")

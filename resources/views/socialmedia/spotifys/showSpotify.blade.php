@@ -1,21 +1,19 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DO SPOTIFY')
+@section('title','SPOTIFY')
 
 @section('image-top')
 {{ asset('imagens/spotify.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('spotify.index')}}">VER TODOS AS PÁGINAS</a>
+<a class="btn btn-primary" href="{{route('spotify.index')}}">VER TODOS</a>
 @endsection
 
 @section('main')
 <br>
 <div>
 	<h1 class="name">  {{$spotify->page_name}}  </h1>
-	<br>
-	<p class="labels">DONO:<span class="fields">{{ $spotify->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $spotify->URL_name }}</span></p>
 	<br>
 	<table class="table-list">

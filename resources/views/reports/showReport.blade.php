@@ -2053,7 +2053,7 @@
 <!--   ----------------------------------------------------------------------------------  PUBLICA NO FEED  -----------------------------------------------------------------------------------  -->
 <tr>
 	<td   class="table-list-left"><b>Possui pasta de ideias:</b></td>
-	@if ($report->PI_feed_content === "yes")
+	@if ($report->PI_pin_content === "yes")
 	<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
 		<b>SIM</b>
 	</td>
@@ -2126,8 +2126,8 @@
 			<img class="grid-image" src="{{ asset('imagens/youtube.png') }}" style="width: 80px;height: 80px;text-align: left">
 		</div>
 		<div style="display: inline-block">
-			@if ($report->YO_page_name == '')
-			<form action=" {{ route('report.YO_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
+			@if ($report->YT_page_name == '')
+			<form action=" {{ route('report.YT_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
 				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
 				<select name="youtube_id">
@@ -2746,7 +2746,7 @@
 			<form action=" {{ route('report.SP_save', ['id' => $report->id]) }} " method="post" style="padding: 40px;color: #874983;display: inline-block">
 				@csrf
 				<label class="labels" style="color: white" for="account_id" >GERAR COM A CONTA:</label>
-				<select name="spotfy_id">
+				<select name="spotify_id">
 					@foreach ($spotifys as $spotify)
 					<option  class="fields" value="{{ $spotify->id }}">
 						{{ $spotify->page_name }}
@@ -2807,37 +2807,6 @@
 				DETALHAMENTO DEMOGRÁFICO IDADEGÊNEROFeminino54%Masculino46%13-17 11%18-24 35%25-34 27%35-44 14%Mais de 45 13%Atinja um Público EngajadoO Spotify é o maior serviço de streaming de música no mundo.271M153M+40M+3B79mercadosde usuários ativos mensalmentede usuários ativos mensais que são impactados por anúnciosde músicasde playlists2,6A Inteligência de streaming nos ajuda a conhecer nosso público.horas de streaming dos usuários da versão gratuita em todos os dispositivos
 
 				FONTE: DADOS DE FIRST PARTY DO SPOTIFY, USUÁRIOS PREMIUM E IMPACTADOS POR ANÚNCIOS, GLOBAL, 2019*DADOS DE FIRST PARTY DO SPOTIFY, SOMENTE USUÁRIOS IMPACTADOS POR ANÚNCIOS EM VÁRIAS PLATAFORMAS, COM BASE EM HORAS DE CONTEÚDO DIÁRIO/USUÁRIOS ATIVOS DIARIAMENTE, GLOBAL, 2018
-			</p>
-		</td>
-	</tr>
-	@endif
-
-	<!--   ----------------------------------------------------------------------------------  CONTA VINCULADA SITE  -----------------------------------------------------------------------------------  -->
-	<tr>
-		<td   class="table-list-left">
-			Conta Business vinculada com Site:
-		</td>
-		@if ($report->SP_linked_site === "yes")
-		<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
-			<b>SIM</b>
-		</td>
-	</tr>
-	<tr>
-		<td colspan="2">
-			<p style="font-style:italic;text-align: justify">
-				<br>
-				Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! 
-			</p>
-		</td>
-	</tr>
-	@else
-	<td class="btn btn-danger" style="padding: 0.5rem 2rem;text-align: center">
-		NÃO
-	</td>
-	<tr>
-		<td colspan="2">
-			<p style="font-style:italic;text-align: justify">
-				Sua conta business no instagram preferencialmente deve estar vinculada a sua conta no facebook. Isso porque o instagram foi comprado pelo facebook e já existem algumas unificações que otimizam as suas postagens e a análise de dados, como a programação de postagens no facebook estudio tanto para sua conta do facebook como para sua conta no instagram para o dia/horário da sua escolha. Indicamos usar o mesmo número de whatsapp na criação de todas as contas, pelo mesmo motivo: o whatsapp foi comprado pelo facebook e algumas integrações com o instagram/facebook já estão previstas. 
 			</p>
 		</td>
 	</tr>

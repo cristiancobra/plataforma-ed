@@ -7,35 +7,42 @@ use App\Models\Spotify;
 use App\Models\Account;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;;
+use Illuminate\Support\Facades\Auth;
 
-class SpotifyController extends Controller{
-/**
+;
+
+class SpotifyController extends Controller {
+
+	/**
 	 * Display a listing of the resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-		public function index() {
+	public function index() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$spotifys = Spotify::where('id', '>=', 0)
-					->with('users')
-					->orderBy('PAGE_NAME', 'asc')
-					->get();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$spotifys = Spotify::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('account');
+					})
+					->paginate(20);
+
+			$score = $spotifys->count();
+
+			return view('socialmedia.spotifys.indexSpotifys', [
+				'spotifys' => $spotifys,
+				'userAuth' => $userAuth,
+				'score' => $score,
+			]);
 		} else {
-			$spotifys = Spotify::where('user_id', '=', $userAuth->id)
-					->with('users')
-					->get();
+			return redirect('/');
 		}
-
-		$score = $spotifys->count();
-//		$totalGBs = $emails->sum('storage');
-
-		return view('socialmedia.spotifys.indexSpotifys', [
-			'spotifys' => $spotifys,
-			'userAuth' => $userAuth,
-			'score' => $score,
-		]);
 	}
 
 	/**
@@ -45,22 +52,25 @@ class SpotifyController extends Controller{
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('socialmedia.spotifys.createSpotify', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+			]);
 		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
+			return redirect('/');
 		}
-
-		$spotify = new Spotify();
-
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
-		return view('socialmedia.spotifys.createSpotify', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'spotify' => $spotify,
-			'accounts' => $accounts,
-		]);
 	}
 
 	/**
@@ -98,24 +108,27 @@ class SpotifyController extends Controller{
 	 */
 	public function edit(Spotify $spotify) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
 					->get();
+
+
+			return view('socialmedia.spotifys.editSpotify', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+				'spotify' => $spotify,
+			]);
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
+			return redirect('/');
 		}
-
-		$accounts = Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-
-		return view('socialmedia.spotifys.editSpotify', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'accounts' => $accounts,
-			'spotify' => $spotify,
-		]);
 	}
 
 	/**
@@ -149,6 +162,8 @@ class SpotifyController extends Controller{
 	}
 
 	public function scoreBar($score) {
-		if ($score);
+		if ($score)
+			;
 	}
+
 }

@@ -273,7 +273,6 @@ class ReportController extends Controller {
 
 		return view('reports.editReport', [
 			'userAuth' => $userAuth,
-			'users' => $users,
 			'report' => $report,
 		]);
 	}
@@ -411,80 +410,62 @@ class ReportController extends Controller {
 		return back();
 	}
 
-	public function PI_save(Request $request, Report $report) {
-		$userAuth = Auth::user();
-		$facebook = Pinterest::where('account_id', $request->account_id)
+	public function PI_save(Request $request, $id) {
+		$pinterest = Pinterest::where('id', $request->pinterest_id)
 				->first();
-		//		$facebook = Facebook::where('user_id', '=', $request->user_id)->first();
+		$report = Report::find($id);
 
 		$report->PI_page_name = $pinterest->page_name;
 		$report->PI_URL_name = $pinterest->URL_name;
 		$report->PI_business = $pinterest->business;
-		$report->PI_linked_instagram = $pinterest->linked_instagram;
+		$report->PI_linked_site = $pinterest->linked_site;
 		$report->PI_same_site_name = $pinterest->same_site_name;
 		$report->PI_about = $pinterest->about;
-		$report->PI_feed_content = $pinterest->feed_content;
-		$report->PI_harmonic_feed = $pinterest->harmonic_feed;
-		$report->PI_SEO_descriptions = $pinterest->SEO_descriptions;
-		$report->PI_feed_images = $pinterest->feed_images;
-		$report->PI_stories = $pinterest->stories;
-		$report->PI_interaction = $pinterest->interaction;
+		$report->PI_pin_content = $pinterest->pin_content;
 		$report->PI_value_ads = $pinterest->value_ads;
 
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}
 
-	public function YO_save(Request $request, Report $report) {
-		$userAuth = Auth::user();
-		$youtube = Youtube::where('account_id', $request->account_id)
+	public function YT_save(Request $request, $id) {
+		$youtube = Youtube::where('id', $request->youtube_id)
 				->first();
-		//		$youtube = Facebook::where('user_id', '=', $request->user_id)->first();
 
-		$report->YO_page_name = $youtube->page_name;
-		$report->YO_URL_name = $youtube->URL_name;
-		$report->YO_business = $youtube->business;
-		$report->YO_linked_instagram = $youtube->linked_instagram;
-		$report->YO_same_site_name = $youtube->same_site_name;
-		$report->YO_about = $youtube->about;
-		$report->YO_feed_content = $youtube->feed_content;
-		$report->YO_harmonic_feed = $youtube->harmonic_feed;
-		$report->YO_SEO_descriptions = $youtube->SEO_descriptions;
-		$report->YO_feed_images = $youtube->feed_images;
-		$report->YO_stories = $youtube->stories;
-		$report->YO_interaction = $youtube->interaction;
-		$report->YO_value_ads = $youtube->value_ads;
+		$report = Report::find($id);
+
+		$report->YT_page_name = $youtube->page_name;
+		$report->YT_URL_name = $youtube->URL_name;
+		$report->YT_linked_site = $youtube->linked_site;
+		$report->YT_about = $youtube->about;
+		$report->YT_follow_channel = $youtube->follow_channel;
+		$report->YT_feed_member = $youtube->feed_member;
+		$report->YT_linked_virtualstore = $youtube->linked_virtualstore;
+		$report->YT_video_banner = $youtube->video_banner;
+		$report->YT_legend = $youtube->legend;
+		$report->YT_SEO_content = $youtube->SEO_content;
+		$report->YT_value_ads = $youtube->value_ads;
 
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}
 
-	public function SP_save(Request $request, Report $report) {
-		$userAuth = Auth::user();
-		$spotfy = Spotify::where('account_id', $request->account_id)
+	public function SP_save(Request  $request, $id) {
+		$spotify = Spotify::where('id', $request->spotify_id)
 				->first();
-		//		$spotfy = Facebook::where('user_id', '=', $request->user_id)->first();
 
-		$report->SP_page_name = $spotfy->page_name;
-		$report->SP_URL_name = $spotfy->URL_name;
-		$report->SP_business = $spotfy->business;
-		$report->SP_linked_instagram = $spotfy->linked_instagram;
-		$report->SP_same_site_name = $spotfy->same_site_name;
-		$report->SP_about = $spotfy->about;
-		$report->SP_feed_content = $spotfy->feed_content;
-		$report->SP_harmonic_feed = $spotfy->harmonic_feed;
-		$report->SP_SEO_descriptions = $spotfy->SEO_descriptions;
-		$report->SP_feed_images = $spotfy->feed_images;
-		$report->SP_stories = $spotfy->stories;
-		$report->SP_interaction = $spotfy->interaction;
-		$report->SP_value_ads = $spotfy->value_ads;
+		$report = Report::find($id);
+
+		$report->SP_page_name = $spotify->page_name;
+		$report->SP_URL_name = $spotify->URL_name;
+		$report->SP_same_site_name = $spotify->same_site_name;
+		$report->SP_about = $spotify->about;
+		$report->SP_feed_content = $spotify->feed_content;
+		$report->SP_value_ads = $spotify->value_ads;
 
 		$report->save();
-		//	$contact->users()->sync($request->users);
 
 		return back();
 	}

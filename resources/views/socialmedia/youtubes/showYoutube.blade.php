@@ -1,21 +1,19 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DO YOUTUBE')
+@section('title','YOUTUBE')
 
 @section('image-top')
 {{ asset('imagens/youtube.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('youtube.index')}}">VER TODOS AS PÁGINAS</a>
+<a class="btn btn-primary" href="{{route('youtube.index')}}">VER TODOS</a>
 @endsection
 
 @section('main')
 <br>
 <div>
 	<h1 class="name">  {{$youtube->page_name}}  </h1>
-	<br>
-	<p class="labels">DONO:<span class="fields">{{ $youtube->users->name }}</span></p>
 	<p class="labels">ENDEREÇO DA PÁGINA:<span class="fields">{{ $youtube->URL_name }}</span></p>
 	<br>
 	<table class="table-list">
@@ -66,7 +64,15 @@
 			@endif
 		</tr>	
 		<tr>
-			<td   class="table-list-left"><b>conteúdo para membros:</b></td>
+			<td   class="table-list-left"><b>Publica vídeos:</b></td>
+			@if ($youtube->feed_content === "yes")
+			<td   class="button-active"><b>SIM</b></td>
+			@else
+			<td   class="button-delete"><b>NÃO</b></td>
+			@endif
+		</tr>	
+		<tr>
+			<td   class="table-list-left"><b>Produz conteúdo para membros:</b></td>
 			@if ($youtube->feed_member === "yes")
 			<td   class="button-active"><b>SIM</b></td>
 			@else
@@ -81,8 +87,8 @@
 			<td   class="button-delete"><b>NÃO</b></td>
 			@endif
 		</tr>	
-                
-                <tr>
+
+		<tr>
 			<td   class="table-list-left"><b>videos possuem capa personalizada:</b></td>
 			@if ($youtube->video_banner === "yes")
 			<td   class="button-active"><b>SIM</b></td>
@@ -90,7 +96,7 @@
 			<td   class="button-delete"><b>NÃO</b></td>
 			@endif
 		</tr>
-<tr>
+		<tr>
 			<td   class="table-list-left"><b>Videos possuem legenda:</b></td>
 			@if ($youtube->legend === "yes")
 			<td   class="button-active"><b>SIM</b></td>
@@ -98,7 +104,7 @@
 			<td   class="button-delete"><b>NÃO</b></td>
 			@endif
 		</tr>
-                <tr>
+		<tr>
 			<td   class="table-list-left"><b>Títulos e descrição usam SEO:</b></td>
 			@if ($youtube->seo_content === "yes")
 			<td   class="button-active"><b>SIM</b></td>
@@ -106,9 +112,7 @@
 			<td   class="button-delete"><b>NÃO</b></td>
 			@endif
 		</tr>
-                
-                
-                <tr>
+		<tr>
 			<td   class="table-list-left"><b>Investimento em ADs:</b></td>
 			<td   class="table-list-money-income"><b> R$ {{ number_format($youtube->value_ads,2,",",".") }}</b></td>
 		</tr>

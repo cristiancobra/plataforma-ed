@@ -35,7 +35,7 @@
 			{{ $youtube->page_name}}
 		</td>
 		<td class="table-list-center">
-			<b>{{ $youtube->users->name}}</b>
+			<b>{{ $youtube->account->name}}</b>
 		</td>
 
 		@if ($youtube->status == "desativado")

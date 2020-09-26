@@ -16,21 +16,9 @@
 		@csrf
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
 		<input type="text" name="page_name" size="20"><span class="fields"></span><br>
-		<br>
 		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
 		<input type="text" name="URL_name" size="50"><span class="fields"></span><br>
-		<br>
 		<label class="labels" for="" >DONO: </label>
-		<select name="user_id">
-			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
-		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
@@ -65,40 +53,45 @@
 		<input type="radio" name="follow_channel" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="follow_channel" value="no"><span class="fields">Não</span><br>
 		<br>
+		<label class="labels" for="">Publica vídeos:</label>
+		<br>
+		<input type="radio" name="feed_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="feed_content" value="no"><span class="fields">Não</span><br>
+		<br>
 		<label class="labels" for="">conteúdo para membros:</label>
 		<br>
-		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
-		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>
+		<input type="radio" name="feed_members" value="yes" checked="checked"><span class="fields">Sim</span><br>
+		<input type="radio" name="feed_members" value="no"><span class="fields">Não</span><br>
 		<br>
-                
-                <br>
+
+		<br>
 		<label class="labels" for="">loja virtual está linkada  para loja do site:</label>
 		<br>
 		<input type="radio" name="liked_virtualstore" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="liked_virtualstore" value="no"><span class="fields">Não</span><br>
 		<br>
-                
-                <br>
+
+		<br>
 		<label class="labels" for="">videos possuem capa personalizada:</label>
 		<br>
 		<input type="radio" name="video_banner" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="video_banner" value="no"><span class="fields">Não</span><br>
 		<br>
-                
-                <br>
+
+		<br>
 		<label class="labels" for="">Videos possuem legenda:</label>
 		<br>
 		<input type="radio" name="legend" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="legend" value="no"><span class="fields">Não</span><br>
 		<br>
-                
-                
+
+
 		<label class="labels" for="">Títulos e descrição usam SEO:</label>
 		<br>
 		<input type="radio" name="seo_content" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="seo_content" value="no"><span class="fields">Não</span><br>
 		<br>
-                
+
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10" value="0">
 		<br>
@@ -111,9 +104,8 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CADASTRAR PÁGINA">
+		<input class="btn btn-secondary" type="submit" value="CADASTRAR">
 	</form>
 </div>     
 @endsection
 
-		

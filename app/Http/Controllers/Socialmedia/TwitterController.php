@@ -34,7 +34,6 @@ class TwitterController extends Controller {
 			$totalTwitters = $twitters->count();
 
 		$score = $twitters->count();
-//		$totalGBs = $emails->sum('storage');
 
 		return view('socialmedia.twitters.indexTwitters', [
 			'twitters' => $twitters,

@@ -18,25 +18,31 @@ class YoutubeController extends Controller
      */
    public function index() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$youtubes = Youtube::where('id', '>=', 0)
-					->with('users')
-					->orderBy('PAGE_NAME', 'asc')
-					->get();
-		} else {
-			$youtubes = Youtube::where('user_id', '=', $userAuth->id)
-					->with('users')
-					->get();
-		}
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$youtubes = Youtube::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID)
+						->with('account');
+					})
+					->paginate(20);
+
+			$totalYoutubes = $youtubes->count();
 
 		$score = $youtubes->count();
-//		$totalGBs = $emails->sum('storage');
 
 		return view('socialmedia.youtubes.indexYoutubes', [
 			'youtubes' => $youtubes,
 			'userAuth' => $userAuth,
 			'score' => $score,
 		]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -46,22 +52,25 @@ class YoutubeController extends Controller
 	 */
 	public function create() {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)->with('accounts')->get();
-		}
 
-		$youtube = new Youtube();
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 
-		$accounts = \App\Models\Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
 
 		return view('socialmedia.youtubes.createYoutube', [
 			'userAuth' => $userAuth,
-			'users' => $users,
-			'youtube' => $youtube,
 			'accounts' => $accounts,
 		]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -99,24 +108,26 @@ class YoutubeController extends Controller
 	 */
 	public function edit(Youtube $youtube) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
-		}
 
-		$accounts = Account::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
 
 		return view('socialmedia.youtubes.editYoutube', [
 			'userAuth' => $userAuth,
-			'users' => $users,
 			'accounts' => $accounts,
 			'youtube' => $youtube,
-		]);
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**

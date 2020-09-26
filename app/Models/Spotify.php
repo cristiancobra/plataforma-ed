@@ -10,7 +10,7 @@ class Spotify extends Model
 {
 	protected $table = 'spotifys';
 	protected $fillable = [
-		'id', 'user_id', 'status', 'page_name',  'same_site_name', 'about', 'feed_content', 'value_ads', 'URL_name',  
+		'id', 'user_id', 'account_id', 'status', 'page_name',  'same_site_name', 'about', 'feed_content', 'value_ads', 'URL_name',  'business'
 	];
 
 	public function users() {

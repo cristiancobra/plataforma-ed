@@ -35,7 +35,7 @@
 			{{ $pinterest->page_name}}
 		</td>
 		<td class="table-list-center">
-			<b>{{ $pinterest->users->name}}</b>
+			<b>{{ $pinterest->account->name}}</b>
 		</td>
 
 		@if ($pinterest->status == "desativado")
