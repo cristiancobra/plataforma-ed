@@ -73,9 +73,9 @@ class TaskController extends Controller {
 			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
-					->paginate(20);
+					->orderBy('NAME', 'ASC')
+					->get();
 
-//		dd($contacts);
 
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
@@ -144,7 +144,8 @@ class TaskController extends Controller {
 		$contacts = Contact::whereHas('account', function($query) use($accountsID) {
 					$query->whereIn('account_id', $accountsID);
 				})
-				->paginate(20);
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		$tasks = Task::whereHas('account', function($query) use($accountsID) {
 					$query->whereIn('account_id', $accountsID);
