@@ -32,22 +32,12 @@ class TaskController extends Controller {
 						'contact',
 						'user'
 					])
+					->whereIn('status', ['fazendo agora', 'pendente'])
+					->orderByRaw('FIELD(status, "fazendo agora", "pendente") asc')
+					->orderByRaw('FIELD(priority, "emergência", "alta", "baixa", "média") asc')
+					->orderBy('date_due', 'ASC')
 					->paginate(20);
-//dd($tasks);
-//			$tasks = Task::whereHas('account', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID)
-//													->with([
-//						'contact',
-//						'user'
-//						]);
-//					})
-//					->whereIn('status', ['fazendo agora', 'pendente'])
-//					->orderByRaw('FIELD(status, "fazendo agora", "pendente") asc')
-//					->orderByRaw('FIELD(priority, "emergência", "alta", "baixa", "média") asc')
-//					->orderBy('date_due', 'ASC')
-//
-//					->paginate(20);
-//					dd($tasks);
+
 			$hoje = date("d/m/Y");
 
 			return view('tasks.indexTasks', [
