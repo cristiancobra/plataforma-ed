@@ -82,13 +82,12 @@
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->users->name}}
+			{{ $task->user->name}}
 		</td>
 
 		<td class="table-list-center">
 			{{ $task->date_due }}
 		</td>
-
 
 		<td class="table-list-center">
 			@if ($task->priority == "baixa")

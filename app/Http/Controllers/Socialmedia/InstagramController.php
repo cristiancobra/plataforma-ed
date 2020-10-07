@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Socialmedia;
 
 use App\Models\Instagram;
 use App\Models\Account;
-use App\User;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

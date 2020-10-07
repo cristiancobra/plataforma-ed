@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 

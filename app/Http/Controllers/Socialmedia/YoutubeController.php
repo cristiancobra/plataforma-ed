@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Youtube;
 use Illuminate\Http\Request;
 use App\Models\Account;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class YoutubeController extends Controller

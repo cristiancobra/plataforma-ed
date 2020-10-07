@@ -1,15 +1,16 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Account;
 
 class User extends Authenticatable {
 
 	use Notifiable;
+	
+	protected $table = 'users';
 
 	/**
 	 * The attributes that are mass assignable.
@@ -17,7 +18,7 @@ class User extends Authenticatable {
 	 * @var array
 	 */
 	protected $fillable = [
-		'name', 'email', 'password', 'default_password', 'id', 'perfil', 'dominio', 'idcrm', 'accounts'
+		'id', 'name', 'email', 'password', 'default_password', 'perfil', 'dominio',
 	];
 
 	/**
@@ -47,11 +48,7 @@ class User extends Authenticatable {
 	}
 
 	public function tasks() {
-		return $this->hasMany(Models\Task::class, 'user_id', 'id');
-	}
-
-	public function PegarIdCrm() {
-		return $this->hasOne(UserCrm::class, 'id');
+		return $this->hasMany(Task::class, 'id', 'user_id');
 	}
 
 //	public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {

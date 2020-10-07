@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Emails;
 use App\Http\Controllers\Controller;
 use App\Models\Email;
 use App\Models\Account;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 

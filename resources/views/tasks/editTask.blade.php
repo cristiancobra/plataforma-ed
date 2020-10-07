@@ -32,8 +32,9 @@
 		<br>
 		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
-			<option  class="fields" value="{{ $task->users->id }}">
-				{{ $task->users->name }}
+			<option  class="fields" value="{{ $task->user->id }}">
+				{{ $task->user->name }}
+			</option>
 				@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
 				{{ $user->name }}

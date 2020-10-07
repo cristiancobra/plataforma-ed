@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\Account;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\User;
 
 class ContactController extends Controller {
 
