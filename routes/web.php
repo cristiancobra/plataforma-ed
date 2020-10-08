@@ -106,8 +106,7 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
-Route::get('/tarefas/filtros/{filter}', 'Tasks\\TaskController@filter')->name('task.filter');
-Route::get('/tarefas/filtros/all', 'Tasks\\TaskController@all')->name('task.all');
+Route::post('/tarefas/filtros/', 'Tasks\\TaskController@filter')->name('task.filter');
 //Route::get('/tarefas/{order}', 'Tasks\\TaskController@order')->name('task.order');
 Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters(['tarefas' => 'task']);
 
@@ -116,4 +115,4 @@ Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
 
 // ================================ USUÁRIO ====================
-Route::resource('usuarios', 'Usuarios\\UserController')->names('user')->parameters(['usuarios' => 'user']);
+Route::resource('usuarios', 'Users\\UserController')->names('user')->parameters(['usuarios' => 'user']);

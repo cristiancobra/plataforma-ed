@@ -34,17 +34,17 @@
 		DESCRIÇÃO:<span class="fields">{{$task->description}} </span>
 	</p>
 	<p class="labels">
-		CONTATO:<span class="fields">  {{ $task->contact_Id }} </span>
+		CONTATO:<span class="fields">  {{ $task->contact->name }}  </span>
 	</p>
 	<p class="labels">
 		PRIORIDADE:<span class="fields">  {{ $task->priority }} </span>
 	</p>
 	<br>
 	<p class="labels">
-		INÍCIO:<span class="fields">  {{ $task->start_time }} </span>
+		INÍCIO:<span class="fields">  {{ date('H:i', strtotime($task->start_time)) }} </span>
 	</p>
 	<p class="labels">
-		TÉRMINO:<span class="fields">  {{ $task->end_time }} </span>
+		TÉRMINO:<span class="fields">  {{ date('H:i', strtotime($task->end_time)) }} </span>
 	</p>
 	<p class="labels">
 		DURAÇÃO:<span class="fields">  {{ date('H:i', $task->duration) }} h(s)</span>

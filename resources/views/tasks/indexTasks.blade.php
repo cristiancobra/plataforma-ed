@@ -11,21 +11,36 @@
 @endsection
 
 @section('main')
-<br>
-<p style="text-align: right">Filtrar tarefas:
-	<a class="btn btn-success" href="{{ route('task.filter', ['filter' => 'concluida'])}}">
-		concluidas
-	</a>
-	<a class="btn btn-warning" href="{{ route('task.filter', ['filter' => 'pendente'])}}">
-		pendentes
-	<a class="btn btn-info" href="{{ route('task.filter', ['filter' => 'fazendo agora'])}}">
-		fazendo agora
-	</a>
-	<a class="btn btn-secondary" href="{{ route('task.index')}}">
-		EQUIPE
-	</a>
-</p>
-<br>
+<form action=" {{ route('task.filter') }} " method="post" style="padding: 40px;text-align: right;color: #874983">
+	@csrf
+	<label class="labels" for="" >SITUAÇÃO:</label>
+	<select name="status">
+		<option  class="fields" value="todos">
+			todos
+		</option>
+		<option  class="fields" value="fazendo agora">
+			fazendo agora
+		</option>
+		<option  class="fields" value="pendente">
+			pendentes
+		</option>
+		<option  class="fields" value="concluida">
+			concluidas
+		</option>
+	</select>
+	<label class="labels" for="" >CONTATO:</label>
+	<select name="contact_id">
+		<option  class="fields" value="todos">
+			todos
+		</option>
+		@foreach ($contacts as $contact)
+		<option  class="fields" value="{{ $contact->id }}">
+			{{ $contact->name }}
+		</option>
+		@endforeach
+	</select>
+	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+</form>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 40%">
