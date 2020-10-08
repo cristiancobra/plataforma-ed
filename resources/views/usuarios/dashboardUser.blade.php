@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-<span style="color: yellow;font-size: 22px">{{ $hoje }} </span>
+<span style="color: yellow;font-size: 22px">{{ date("d/m/Y", strtotime($today)) }} </span>
 @endsection
 
 @section('main')
@@ -23,7 +23,6 @@
 			<a href="{{route('task.index')}}" style="color: yellow">ver</a></p>
 	</div>
 
-
     <div class="tasks-pending">
 		<p class="numeros_painel" style="color: #874983">
 			{{ $tasks_pending }}
@@ -35,13 +34,24 @@
 			<a href="{{route('task.index')}}" style="color: #874983">ver</a></p>
 	</div>
 
-
     <div class="tasks-my">
 		<p class="numeros_painel" style="color: yellow">
 			{{ $tasks_my }}
 		</p>
 		<p class="subtitulo-branco">
 			minhas tarefas
+		</p>
+		<p style="text-align: center; margin: 0px; padding: 0px">
+			<a href="{{ route('task.filter', ['filter' => 'pendente'])}}" style="color: yellow">ver</a>
+		</p>
+	</div>
+
+    <div class="hours">
+		<p class="numeros_painel" style="color: yellow">
+			{{ $hoursToday / 3600 }}
+		</p>
+		<p class="subtitulo-branco">
+			horas concluidas hoje
 		</p>
 		<p style="text-align: center; margin: 0px; padding: 0px">
 			<a href="{{ route('task.filter', ['filter' => 'pendente'])}}" style="color: yellow">ver</a>

@@ -161,7 +161,7 @@ class UserController extends Controller {
 
 	public function dashboard() {
 		$userAuth = Auth::user();
-		$hoje = date("d/m/Y");
+		$today = date('Y-m-d');
 
 		if (Auth::check()) {
 
@@ -190,6 +190,11 @@ class UserController extends Controller {
 					->where('status', 'concluida')
 					->sum('duration');
 
+			$hoursToday = $tasks
+					->where('status', 'concluida')
+					->where('date_conclusion', $today)
+					->sum('duration');
+
 			$hoursSeptember = $tasks
 					->where('status', 'concluida')
 					->whereBetween('date_conclusion', ['2020-09-01', '2020-09-30'])
@@ -202,11 +207,12 @@ class UserController extends Controller {
 
 			return view('usuarios/dashboardUser', [
 				'userAuth' => $userAuth,
-				'hoje' => $hoje,
+				'today' => $today,
 				'tasks_now' => $tasks_now,
 				'tasks_pending' => $tasks_pending,
 				'tasks_my' => $tasks_my,
 				'hoursTotal' => $hoursTotal,
+				'hoursToday' => $hoursToday,
 				'hoursSeptember' => $hoursSeptember,
 				'hoursOctober' => $hoursOctober,
 			]);

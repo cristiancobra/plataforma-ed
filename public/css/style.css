@@ -180,9 +180,9 @@ and open the template in the editor.
 	height: auto;
 	text-align: left;
 	margin-top: 2%;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-areas: 
-		"tasks-now tasks-pending tasks-my";
+		"tasks-now tasks-pending tasks-my hours";
 	gap: 5% 2%;
 }
 
@@ -204,6 +204,14 @@ and open the template in the editor.
 
 .tasks-my {
 	grid-area: tasks-my;
+	color: white;
+	background-color: #c28dbf;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.hours {
+	grid-area: hours;
 	color: white;
 	background-color: #874983;
 	padding: 4%;
