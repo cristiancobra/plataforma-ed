@@ -197,7 +197,7 @@ class UserController extends Controller {
 			$hoursSeptember = Task::whereIn('account_id', $accountsID)
 					->where('status', '=', 'concluida')
 					->where('user_id', $userAuth->id)
-					->whereBetween('date_conclusion', ['2020-09-01', '2020-10-30'])
+					->whereBetween('date_conclusion', ['2020-09-01', '2020-09-30'])
 					->sum('duration');
 
 			$hoursOctober = Task::whereIn('account_id', $accountsID)
