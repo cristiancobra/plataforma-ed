@@ -65,6 +65,8 @@
 		<b>Olá {{$userAuth->name}}, já organizou seu dia? </b>
 	</p>
 	<p style="color:purple; font-weight: 400;line-height: 2;font-size: 18px">
+		Agosto: {{ number_format($hoursAugust / 3600, 1, ',','.')  }} horas
+		<br>
 		Setembro: {{ number_format($hoursSeptember / 3600, 1, ',','.')  }} horas
 		<br>
 		Outubro: {{ number_format($hoursOctober / 3600, 1, ',','.')  }} horas
