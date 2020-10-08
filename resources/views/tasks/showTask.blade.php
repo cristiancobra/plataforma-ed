@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','DETALHES DA TAREFA')
+@section('title','TAREFA')
 
 @section('image-top')
 {{ asset('imagens/tarefas.png') }} 
@@ -20,18 +20,18 @@
 		CATEGORIA:
 		<span class="fields">{{ $task->category }} </span></p>
 	<p class="labels">
-		RESPONSÁVEL:<span class="fields">{{ $task->users->name }} </span>
+		RESPONSÁVEL:<span class="fields">{{ $task->user->name }} </span>
 	</p>
 	<br>
 	<p class="labels">
-		DATA DE CRIAÇÃO:<span class="fields">  {{ $task->date_start }} </span>
+		DATA DE CRIAÇÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_start)) }} </span>
 	</p>
 	<p class="labels">
-		PRAZO FINAL:<span class="fields">  {{ $task->date_due }} </span>
+		PRAZO FINAL:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_due)) }} </span>
 	</p>
 	<br>
 	<p class="labels">
-		DESCRIÇÃO:<span class="fields">  	{!!html_entity_decode($task->description)!!} </span>
+		DESCRIÇÃO:<span class="fields">{{$task->description}} </span>
 	</p>
 	<p class="labels">
 		CONTATO:<span class="fields">  {{ $task->contact_Id }} </span>
@@ -47,7 +47,10 @@
 		TÉRMINO:<span class="fields">  {{ $task->end_time }} </span>
 	</p>
 	<p class="labels">
-		DURAÇÃO:<span class="fields">  {{ $task->duration }} hora(s)</span>
+		DURAÇÃO:<span class="fields">  {{ date('H:i', $task->duration) }} h(s)</span>
+	</p>
+	<p class="labels">
+		DATA DE CONCLUSÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_conclusion)) }} </span>
 	</p>
 	<br>
 	<p class="labels">

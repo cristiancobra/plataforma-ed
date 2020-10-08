@@ -183,21 +183,20 @@ class TaskController extends Controller {
 		$userAuth = Auth::user();
 
 		$task->fill($request->all());
+		$start_time = strtotime($request->start_time);
+		$end_time = strtotime($request->end_time);
+		$task->duration = $end_time - $start_time;
 		$task->save();
+
+
 		//	$task->users()->sync($request->users);
 ////		$timeDifference = Carbon::parse($request->end_time->finish)->diffInMinutes(Carbon::parse($request->start_time->start));
 ////		$duration->total = $timeDifference / 60; // decimal hours
 //
-//		$start_time = strtotime($request->start_time);
-//		$end_time = strtotime($request->end_time);
-//		$duration = $end_time - $start_time;
 //
 ////		$duration = $end_time - $start_time;
 ////		return $diff->format('H:i d/m/Y');
-////
-//		$task->fill($request->all());
-//		$task->duration = date("H:i", $duration);
-//		$task->save();
+//
 //		$hours = $task->duration  / 3600; // decimal hours;
 
 		return view('tasks.showTask', [
@@ -219,8 +218,8 @@ class TaskController extends Controller {
 	}
 
 	public function duration(start_time $start_time, end_time $end_time) {
-		$duration = $end_time - $start_time;
-		return $duration;
+		$this->$end_time->subHour(1);
+		return $this;
 	}
 
 	public function filter(Request $request, $filter) {

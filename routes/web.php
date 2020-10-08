@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // ================================ SISTEMA ===================
 Auth::routes();
 
-Route::get('/', 'DashboardController@home')->name('home')->middleware('auth');
+Route::get('/', 'Users\\UserController@dashboard')->name('home')->middleware('auth');
 
 // ================================ ADMINISTRATIVO ===================
 Route::get('/admin/NovaPlataforma/form_plataforma', function () {

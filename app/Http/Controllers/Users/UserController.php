@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Usuarios;
+namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller {
@@ -158,8 +159,59 @@ class UserController extends Controller {
 		return redirect()->route('user.index');
 	}
 
-	public function emails() {
-		return $this->hasOne(App\Models\EmailModel::class, 'user_id', 'id');
+	public function dashboard() {
+		$userAuth = Auth::user();
+		$hoje = date("d/m/Y");
+
+		if (Auth::check()) {
+
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$tasks_now = Task::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->where('status', 'fazendo agora')
+					->count();
+
+			$tasks_pending = Task::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->whereIn('status', ['fazendo agora', 'pendente'])
+					->count();
+
+			$tasks_my = Task::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->whereIn('status', ['fazendo agora', 'pendente'])
+					->where('user_id', $userAuth->id)
+					->count();
+
+			$hoursTotal = Task::whereIn('account_id', $accountsID)
+					->where('status', '=', 'concluida')
+					->where('user_id', $userAuth->id)
+					->sum('duration');
+
+			$hoursOctober = Task::whereIn('account_id', $accountsID)
+					->where('status', '=', 'concluida')
+					->where('user_id', $userAuth->id)
+					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
+					->sum('duration');
+
+			return view('usuarios/dashboardUser', [
+				'userAuth' => $userAuth,
+				'hoje' => $hoje,
+				'tasks_now' => $tasks_now,
+				'tasks_pending' => $tasks_pending,
+				'tasks_my' => $tasks_my,
+				'hoursTotal' => $hoursTotal,
+				'hoursOctober' => $hoursOctober,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 }

@@ -35,7 +35,7 @@
 			<option  class="fields" value="{{ $task->user->id }}">
 				{{ $task->user->name }}
 			</option>
-				@foreach ($users as $user)
+			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
 				{{ $user->name }}
 			</option>
@@ -95,13 +95,16 @@ CKEDITOR.replace('description');
 		<label class="labels" for="">
 			INÍCIO: 
 		</label>
-		<input type="time" name="start_time" size="50"  value="{{ $task->start_time }}"><span class="fields"></span>
+		<input type="time" name="start_time" size="50"  value="{{ date('H:i', strtotime($task->start_time )) }}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">
 			TÉRMINO: 
 			<br>
 		</label>
-		<input type="time" name="end_time" size="50"  value="{{ $task->end_time }}"><span class="fields"></span>
+		<input type="time" name="end_time" size="50"  value="{{ date('H:i', strtotime($task->start_time )) }}"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
+		<input type="date" name="date_conclusion" size="20" value="{{ $task->date_conclusion }}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
