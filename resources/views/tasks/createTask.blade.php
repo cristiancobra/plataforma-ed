@@ -98,6 +98,9 @@ CKEDITOR.replace('description');
 		</label>
 		<input type="time" name="end_time" size="50"><span class="fields"></span>
 		<br>
+		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
+		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
+		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">

@@ -61,6 +61,8 @@
 	<p style="color:purple; font-weight: 400;line-height: 2;font-size: 18px">
 		Horas trabalhadas: {{ date('H:i', $hoursTotal) }} h(s)
 		<br>
+		Setembro: {{ date('H:i', $hoursSeptember) }} h(s)
+		<br>
 		Outubro: {{ date('H:i', $hoursOctober) }} h(s)
 	</p>
 </div>
