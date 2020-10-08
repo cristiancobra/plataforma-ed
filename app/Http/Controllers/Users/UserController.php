@@ -170,39 +170,33 @@ class UserController extends Controller {
 					})
 					->pluck('id');
 
-			$tasks_now = Task::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
+			$tasks = Task::whereIn('account_id', $accountsID)
+					->get();
+
+			$tasks_now = $tasks
 					->where('status', 'fazendo agora')
 					->count();
 
-			$tasks_pending = Task::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
+			$tasks_pending = $tasks
 					->whereIn('status', ['fazendo agora', 'pendente'])
 					->count();
 
-			$tasks_my = Task::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
+			$tasks_my = $tasks
 					->whereIn('status', ['fazendo agora', 'pendente'])
 					->where('user_id', $userAuth->id)
 					->count();
 
-			$hoursTotal = Task::whereIn('account_id', $accountsID)
-					->where('status', '=', 'concluida')
-					->where('user_id', $userAuth->id)
+			$hoursTotal = $tasks
+					->where('status', 'concluida')
 					->sum('duration');
 
-			$hoursSeptember = Task::whereIn('account_id', $accountsID)
-					->where('status', '=', 'concluida')
-					->where('user_id', $userAuth->id)
+			$hoursSeptember = $tasks
+					->where('status', 'concluida')
 					->whereBetween('date_conclusion', ['2020-09-01', '2020-09-30'])
 					->sum('duration');
 
-			$hoursOctober = Task::whereIn('account_id', $accountsID)
-					->where('status', '=', 'concluida')
-					->where('user_id', $userAuth->id)
+			$hoursOctober = $tasks
+					->where('status', 'concluida')
 					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
 					->sum('duration');
 
