@@ -48,7 +48,7 @@
 
     <div class="hours">
 		<p class="numeros_painel" style="color: yellow">
-			{{ number_format($hoursToday / 3600, 1, ',','.')  }} horas
+			{{ number_format($hoursToday / 3600, 1, ',','.')  }}
 		</p>
 		<p class="subtitulo-branco">
 			horas concluidas hoje
