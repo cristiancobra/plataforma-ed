@@ -65,11 +65,12 @@
 		<b>Olá {{$userAuth->name}}, já organizou seu dia? </b>
 	</p>
 	<p style="color:purple; font-weight: 400;line-height: 2;font-size: 18px">
-		Horas trabalhadas: {{ date('H:i', $hoursTotal) }} h(s)
+		Setembro: {{ $hoursSeptember / 3600 }} horas
 		<br>
-		Setembro: {{ date('H:i', $hoursSeptember) }} h(s)
+		Outubro: {{ $hoursOctober / 3600 }} horas
 		<br>
-		Outubro: {{ date('H:i', $hoursOctober) }} h(s)
+		<b>Total: {{ $hoursTotal / 3600 }} horas </b>
+		<br>
 	</p>
 </div>
 @endsection
