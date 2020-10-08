@@ -188,20 +188,24 @@ class UserController extends Controller {
 
 			$hoursTotal = $tasks
 					->where('status', 'concluida')
+					->where('user_id', $userAuth->id)
 					->sum('duration');
 
 			$hoursToday = $tasks
 					->where('status', 'concluida')
+					->where('user_id', $userAuth->id)
 					->where('date_conclusion', $today)
 					->sum('duration');
 
 			$hoursSeptember = $tasks
 					->where('status', 'concluida')
+					->where('user_id', $userAuth->id)
 					->whereBetween('date_conclusion', ['2020-09-01', '2020-09-30'])
 					->sum('duration');
 
 			$hoursOctober = $tasks
 					->where('status', 'concluida')
+					->where('user_id', $userAuth->id)
 					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
 					->sum('duration');
 

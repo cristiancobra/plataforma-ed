@@ -52,10 +52,6 @@
 		</p>
 		<p class="subtitulo-branco">
 			horas concluidas hoje
-		</p>
-		<p style="text-align: center; margin: 0px; padding: 0px">
-			<a href="{{ route('task.filter', ['filter' => 'pendente'])}}" style="color: yellow">ver</a>
-		</p>
 	</div>
 </div>
 
