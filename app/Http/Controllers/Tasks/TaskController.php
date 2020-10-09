@@ -266,13 +266,13 @@ class TaskController extends Controller {
 						->where('user_id', $userAuth->id)
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
-			} else if ($request->status != "todos" and $request->contact_id == "todos") {
+			} else if ($request->status == "todos" and $request->contact_id != "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->with([
 							'contact',
 							'user'
 						])
-						->where('status', $request->status)
+						->where('contact_id', $request->contact_id)
 						->where('user_id', $userAuth->id)
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
