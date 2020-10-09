@@ -31,7 +31,7 @@
 	</p>
 	<br>
 	<p class="labels">
-		DESCRIÇÃO:<span class="fields">{{$task->description}} </span>
+		DESCRIÇÃO:<span class="fields">    {!!html_entity_decode($task->description)!!} </span>
 	</p>
 	<p class="labels">
 		CONTATO:<span class="fields">  {{ $task->contact->name }}  </span>
@@ -47,7 +47,7 @@
 		TÉRMINO:<span class="fields">  {{ date('H:i', strtotime($task->end_time)) }} </span>
 	</p>
 	<p class="labels">
-		DURAÇÃO:<span class="fields">  {{ date('H:i', strtotime($task->duration)) }} h(s)</span>
+		DURAÇÃO:<span class="fields">  {{ number_format($task->duration / 3600, 1, ',','.')  }} h(s)</span>
 	</p>
 	<p class="labels">
 		DATA DE CONCLUSÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_conclusion)) }} </span>
