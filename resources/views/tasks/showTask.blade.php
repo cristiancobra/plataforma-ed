@@ -20,6 +20,9 @@
 		CATEGORIA:
 		<span class="fields">{{ $task->category }} </span></p>
 	<p class="labels">
+		DONO:<span class="fields">{{ $task->account->name }} </span>
+	</p>
+	<p class="labels">
 		RESPONSÁVEL:<span class="fields">{{ $task->user->name }} </span>
 	</p>
 	<br>
@@ -55,7 +58,7 @@
 	@endif
 	
 	<p class="labels">
-		DURAÇÃO:<span class="fields">  {{ number_format($task->duration / 3600, 1, ',','.')  }} horas</span>
+		DURAÇÃO:<span class="fields">  {{ gmdate('H:i', $task->duration) }}</span>
 	</p>
 	
 	@if ($task->date_conclusion == null)

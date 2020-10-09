@@ -59,8 +59,9 @@
 	</div>
 
     <div class="hours">
+		<br>
 		<p class="numeros_painel" style="color: yellow">
-			{{ number_format($hoursToday / 3600, 1, ',','.')  }}
+			{{ gmdate('H:i', $hoursToday) }}
 		</p>
 		<p class="subtitulo-branco">
 			horas concluidas hoje
