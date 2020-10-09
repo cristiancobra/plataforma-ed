@@ -8,6 +8,7 @@
 
 @section('description')
 <span style="color: yellow;font-size: 22px">{{ date("d/m/Y", strtotime($today)) }} </span>
+<a class="btn btn-primary" href="{{ route('task.create') }}">CRIAR TAREFA</a>
 @endsection
 
 @section('main')

@@ -89,7 +89,6 @@ class ContactController extends Controller {
 		$contact->fill($request->all());
 		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 		$contact->save();
-		$contact->users()->sync($request->users);
 
 		return redirect()->action('Contact\\ContactController@index');
 	}
