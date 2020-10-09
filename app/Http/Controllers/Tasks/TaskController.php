@@ -83,7 +83,6 @@ class TaskController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
@@ -108,6 +107,9 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		if ($request->end_time == null) {
+			$request->duration = 0;
+		}
 		Task::create($request->all());
 
 		return redirect()->action('Tasks\\TaskController@index');
@@ -191,7 +193,13 @@ class TaskController extends Controller {
 		$task->fill($request->all());
 		$start_time = strtotime($request->start_time);
 		$end_time = strtotime($request->end_time);
-		$task->duration = $end_time - $start_time;
+
+		if ($request->end_time == null) {
+			$task->duration = 0;
+		} else {
+			$task->duration = $end_time - $start_time;
+		}
+
 		$task->save();
 
 
@@ -258,7 +266,6 @@ class TaskController extends Controller {
 						->where('user_id', $userAuth->id)
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
-				
 			} else if ($request->status != "todos" and $request->contact_id == "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->with([
@@ -269,7 +276,6 @@ class TaskController extends Controller {
 						->where('user_id', $userAuth->id)
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
-				
 			} else if ($request->status != "todos" and $request->contact_id != "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->with([
@@ -282,9 +288,9 @@ class TaskController extends Controller {
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
 			}
-				
+
 //				return redirect()->route('task.index')->with('status', 'Nenhum registro encontrado!');
-			
+
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -300,8 +306,7 @@ class TaskController extends Controller {
 		}
 	}
 
-	public
-			function all() {
+	public function all() {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {

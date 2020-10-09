@@ -98,10 +98,14 @@ CKEDITOR.replace('description');
 		<input type="time" name="start_time" size="50"  value="{{ date('H:i', strtotime($task->start_time)) }}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">
-			TÉRMINO: 
-			<br>
+			TÉRMINO: 			
 		</label>
+		
+		@if ($task->end_time == null)
+		<input type="time" name="end_time" size="50"><span class="fields"></span>
+		@else
 		<input type="time" name="end_time" size="50"  value="{{ date('H:i', strtotime($task->end_time)) }}"><span class="fields"></span>
+		@endif
 		<br>
 		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
 		<input type="date" name="date_conclusion" size="20" value="{{ $task->date_conclusion }}"><span class="fields"></span>

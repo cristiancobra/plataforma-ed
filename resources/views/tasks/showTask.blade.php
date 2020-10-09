@@ -43,15 +43,31 @@
 	<p class="labels">
 		INÍCIO:<span class="fields">  {{ date('H:i', strtotime($task->start_time)) }} </span>
 	</p>
+	
+	@if ($task->end_time == null)
+	<p class="labels">
+		TÉRMINO:<span class="fields">  0:00 </span>
+	</p>	
+	@else
 	<p class="labels">
 		TÉRMINO:<span class="fields">  {{ date('H:i', strtotime($task->end_time)) }} </span>
-	</p>
+	</p>	
+	@endif
+	
 	<p class="labels">
-		DURAÇÃO:<span class="fields">  {{ number_format($task->duration / 3600, 1, ',','.')  }} h(s)</span>
+		DURAÇÃO:<span class="fields">  {{ number_format($task->duration / 3600, 1, ',','.')  }} horas</span>
 	</p>
+	
+	@if ($task->date_conclusion == null)
+	<p class="labels">
+		DATA DE CONCLUSÃO:<span class="fields"></span>
+	</p>
+	@else
 	<p class="labels">
 		DATA DE CONCLUSÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_conclusion)) }} </span>
 	</p>
+	@endif
+	
 	<br>
 	<p class="labels">
 		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
