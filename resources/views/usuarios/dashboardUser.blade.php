@@ -19,8 +19,12 @@
 		<p class="subtitulo-branco">
 			tarefas sendo executadas
 		</p>
-		<p style="text-align: center; margin: 0px; padding: 0px">
-			<a href="{{route('task.index')}}" style="color: yellow">ver</a></p>
+		<form action=" {{ route('task.filter') }} " method="post" style="text-align: center;color: #874983">
+			@csrf
+			<input type="hidden" name="status" size="20" value="fazendo agora">
+			<input type="hidden" name="contact_id" size="20" value="todos">
+			<input class="btn btn-secondary" type="submit" value="VER">
+		</form>
 	</div>
 
     <div class="tasks-pending">
@@ -30,8 +34,12 @@
 		<p class="subtitulo-branco"  style="color: #874983">
 			tarefas pendentes
 		</p>
-		<p style="text-align: center; margin: 0px; padding: 0px">
-			<a href="{{route('task.index')}}" style="color: #874983">ver</a></p>
+		<form action=" {{ route('task.filter') }} " method="post" style="text-align: center;color: #874983">
+			@csrf
+			<input type="hidden" name="status" size="20" value="pendente">
+			<input type="hidden" name="contact_id" size="20" value="todos">
+			<input class="btn btn-secondary" type="submit" value="VER">
+		</form>
 	</div>
 
     <div class="tasks-my">
@@ -41,9 +49,12 @@
 		<p class="subtitulo-branco">
 			minhas tarefas
 		</p>
-		<p style="text-align: center; margin: 0px; padding: 0px">
-			<a href="{{ route('task.filter', ['filter' => 'pendente'])}}" style="color: yellow">ver</a>
-		</p>
+		<form action=" {{ route('task.filter') }} " method="post" style="text-align: center;color: #874983">
+			@csrf
+			<input type="hidden" name="status" size="20" value="pendente">
+			<input type="hidden" name="contact_id" size="20" value="todos">
+			<input class="btn btn-secondary" type="submit" value="VER">
+		</form>
 	</div>
 
     <div class="hours">
@@ -52,6 +63,7 @@
 		</p>
 		<p class="subtitulo-branco">
 			horas concluidas hoje
+		</p>
 	</div>
 </div>
 
