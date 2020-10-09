@@ -47,7 +47,7 @@
 		TÉRMINO:<span class="fields">  {{ date('H:i', strtotime($task->end_time)) }} </span>
 	</p>
 	<p class="labels">
-		DURAÇÃO:<span class="fields">  {{ date('H:i', $task->duration) }} h(s)</span>
+		DURAÇÃO:<span class="fields">  {{ date('H:i', strtotime($task->duration)) }} h(s)</span>
 	</p>
 	<p class="labels">
 		DATA DE CONCLUSÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_conclusion)) }} </span>
