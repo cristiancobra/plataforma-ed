@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 /*
   |--------------------------------------------------------------------------
-  | Web Routes ttt
+  | Web Routes
   |--------------------------------------------------------------------------
   |
   | Here is where you can register web routes for your application. These
@@ -114,5 +114,8 @@ Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters([
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
 
-// ================================ USUÁRIO ====================
+// ============================================== USUÁRIO =================================
 Route::resource('usuarios', 'Users\\UserController')->names('user')->parameters(['usuarios' => 'user']);
+
+// =============================================== VENDA ====================================
+Route::resource('produtos', 'Sales\\ProductController')->names('product')->parameters(['produtos' => 'product']);

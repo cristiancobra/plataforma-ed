@@ -19,7 +19,7 @@ class CreateTasksTable extends Migration {
 			$table->string('category');
 			$table->date('date_entered');
 			$table->string('created_by');
-			$table->string('description');
+			$table->text('description');
 			$table->date('date_due');
 			$table->date('date_start');
 			$table->string('contact_id')->nullable();
