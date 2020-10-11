@@ -32,7 +32,7 @@
 		@foreach ($products as $product)
 		<tr style="font-size: 14px">
 			<td class="table-list-right">
-				<image src="{{ $product->image }}" style="width:60px;height:60px; margin: 5px"></a>
+				<image src="{{ $product->image }}" style="width:50px;height:50px; margin: 5px"></a>
 			</td>
 			
 			<td class="table-list-left">

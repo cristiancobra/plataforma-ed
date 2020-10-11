@@ -109,31 +109,24 @@
 
 				<a href="{{ route('contact.index') }}">
 					<button class="sidebar-item">
-						<i class="fas fa-bullhorn"></i> 
+						<i class="fas fa-user-plus"></i> 
 						CONTATOS
 					</button>
 				</a>
 
 				<a href="{{ route('user.index') }}">
 					<button class="sidebar-item">
-						<i class="fa fa-users"></i> 
+						<i class="fa fa-id-card-alt"></i> 
 						EQUIPE
 					</button>
 				</a>
 
-				<button class="dropdown-btn">
-					<i class='fas fa-angle-double-right'></i>
-					ORGANIZAÇÃO
-					<i class="fa fa-caret-down"></i>
-				</button>
-
-				<div class="dropdown-container">
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?module=Home&action=index" target="_blank"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?module=Project&action=EditView&return_module=Project&return_action=DetailView" target="_blank"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
-					<a class="sidebar-subitem"href="{{route('task.index')}}"><i class="fas fa-calendar-check" style="margin-right: 8px"></i>TAREFAS</a>
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DMeetings%26action%3DEditView%26return_module%3DMeetings%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
-				</div>
-
+				<a href="{{ route('task.index') }}">
+					<button class="sidebar-item">
+						<i class="fa fa-calendar-check"></i> 
+						TAREFAS
+					</button>
+				</a>
 
 				<button class="dropdown-btn">
 					<i class='fas fa-bullhorn'></i>
@@ -160,10 +153,7 @@
 				</button>
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{ route('product.index') }}"><i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS</a>
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
-					<a class="sidebar-subitem"href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCalls%26action%3DEditView%26return_module%3DCalls%26return_action%3DDetailView" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>REGISTRAR LIGAÇÃO</a>
-					<a class="sidebar-subitem"href="https://financeiro.empresadigital.net.br/sales/invoices/create" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
+					<a class="sidebar-subitem"href="{{ route('opportunitie.index') }}" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
 					<a class="sidebar-subitem"href="https://painel.autentique.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CONTRATOS DIGITAIS</a>
 					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>

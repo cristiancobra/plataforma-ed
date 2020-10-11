@@ -107,9 +107,15 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		$start_time = strtotime($request->start_time);
+		$end_time = strtotime($request->end_time);
+
 		if ($request->end_time == null) {
-			$request->duration = 0;
+			$task->duration = 0;
+		} else {
+			$task->duration = $end_time - $start_time;
 		}
+
 		Task::create($request->all());
 
 		return redirect()->action('Tasks\\TaskController@index');

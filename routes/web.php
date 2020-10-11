@@ -101,6 +101,10 @@ Route::post('/relatorios/youtube/{id}','Report\\ReportController@YT_save')->name
 Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name('report.SP_save');
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
+// =============================================== SALES ====================================
+Route::resource('oportunidades', 'Sales\\OpportunitieController')->names('opportunitie')->parameters(['oportunidades' => 'opportunitie']);
+Route::resource('produtos', 'Sales\\ProductController')->names('product')->parameters(['produtos' => 'product']);
+
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
@@ -117,5 +121,3 @@ Route::resource('transactions', 'Financial\\TransactionController')->names('tran
 // ============================================== USUÁRIO =================================
 Route::resource('usuarios', 'Users\\UserController')->names('user')->parameters(['usuarios' => 'user']);
 
-// =============================================== VENDA ====================================
-Route::resource('produtos', 'Sales\\ProductController')->names('product')->parameters(['produtos' => 'product']);

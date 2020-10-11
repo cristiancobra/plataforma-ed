@@ -61,22 +61,10 @@ class ProductController extends Controller {
 					})
 					->get();
 
-//			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID);
-//					})
-//					->orderBy('NAME', 'ASC')
-//					->get();
-//			$users = User::whereHas('accounts', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID);
-//					})
-//					->get();
-
 			return view('sales.products.createProduct', [
 				'userAuth' => $userAuth,
-//				'users' => $users,
 				'product' => $product,
 				'accounts' => $accounts,
-//				'contacts' => $contacts,
 			]);
 		} else {
 			return redirect('/');
@@ -90,12 +78,6 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-//		$costs = $request->cost1 + $request->cost2 + $request->cost3;
-//		$tax = $request->price * $request->tax_rate / 100;
-////		$margin = $costs + $tax / $request->margin_rate;
-////		$request->margin_contribution = $margin;
-//		$request->price = $costs + $tax;
-		
 		Product::create($request->all());
 
 		return redirect()->action('Sales\\ProductController@index');
