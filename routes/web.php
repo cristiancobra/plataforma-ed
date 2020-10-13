@@ -41,6 +41,13 @@ Route::resource('competitors', 'Market\\CompetitorController')->names('competito
 // ================================ EMAILS ===================
 Route::resource('emails', 'Emails\\EmailController')->names('email');
 
+// ================================ FINANCIAL ===================
+Route::resource('oportunidades', 'Sales\\OpportunitieController')->names('opportunitie')->parameters(['oportunidades' => 'opportunitie']);
+Route::resource('planejamento', 'Financial\\PlanningController')->names('planning')->parameters(['planejamentos' => 'planning']);
+Route::get('financeiro', 'Financial\\TransactionController@dashboard');
+Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
+
+
 // ================================ MENU ===================
 Route::get('/inicio', function () {
 	return view('inicio');
@@ -113,10 +120,6 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 Route::post('/tarefas/filtros/', 'Tasks\\TaskController@filter')->name('task.filter');
 //Route::get('/tarefas/{order}', 'Tasks\\TaskController@order')->name('task.order');
 Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters(['tarefas' => 'task']);
-
-// ================================ TRANSAÇÕES AKAUNTING ===================
-Route::get('financeiro', 'Financial\\TransactionController@dashboard');
-Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
 
 // ============================================== USUÁRIO =================================
 Route::resource('usuarios', 'Users\\UserController')->names('user')->parameters(['usuarios' => 'user']);

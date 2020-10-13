@@ -94,6 +94,7 @@
 				</button>
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS</a>
+					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO</a>
 				</div>
 
 				<button class="dropdown-btn">
@@ -136,14 +137,14 @@
 
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="/redes-sociais"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>REDES SOCIAIS</a>
-					<a class="sidebar-subitem"href="/editarsite" target="_blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
-					<a class="sidebar-subitem"href="/postarsite" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
+					<a class="sidebar-subitem" href="/editarsite" target="_blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
+					<a class="sidebar-subitem" href="/postarsite" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
 					<a class="sidebar-subitem" href="{{ route('report.index') }}"><i class="fas fa-user-plus" style="margin-right: 8px"></i>RELATÓRIOS</a>
 					<a class="sidebar-subitem" href="{{ route('competitor.index') }}"><i class="fas fa-trophy" style="margin-right: 8px"></i>CONCORRENTES</a>
-					<a class="sidebar-subitem"href="https://business.facebook.com/creatorstudio" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>PUBLICAR NO FACEBOOK</a>
-					<a class="sidebar-subitem"href="https://stories.freepik.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>DESENHAR STORIE</a>
-					<a class="sidebar-subitem"href="https://studio.youtube.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>ENVIAR VÍDEO YOUTUBE</a>
-					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
+					<a class="sidebar-subitem" href="https://business.facebook.com/creatorstudio" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>PUBLICAR NO FACEBOOK</a>
+					<a class="sidebar-subitem" href="https://stories.freepik.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>DESENHAR STORIE</a>
+					<a class="sidebar-subitem" href="https://studio.youtube.com" target="_blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>ENVIAR VÍDEO YOUTUBE</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>
 
 				<button class="dropdown-btn">
@@ -153,9 +154,9 @@
 				</button>
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{ route('product.index') }}"><i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS</a>
-					<a class="sidebar-subitem"href="{{ route('opportunitie.index') }}" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
-					<a class="sidebar-subitem"href="https://painel.autentique.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CONTRATOS DIGITAIS</a>
-					<a class="sidebar-subitem"href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
+					<a class="sidebar-subitem" href="{{ route('opportunitie.index') }}" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
+					<a class="sidebar-subitem" href="https://painel.autentique.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CONTRATOS DIGITAIS</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>
 
 				@if ($userAuth->perfil == "administrador")
