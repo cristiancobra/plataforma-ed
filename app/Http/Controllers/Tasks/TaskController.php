@@ -106,17 +106,22 @@ class TaskController extends Controller {
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
+	
 	public function store(Request $request) {
-		$start_time = strtotime($request->start_time);
-		$end_time = strtotime($request->end_time);
+		$task = new Task();
+		$task->fill($request->all());
 
 		if ($request->end_time == null) {
 			$task->duration = 0;
 		} else {
-			$task->duration = $end_time - $start_time;
+			$start_time = strtotime($request->start_time);
+			$end_time = strtotime($request->end_time);
+			$duration = $end_time - $start_time;
+			$task->duration = $duration;
 		}
-
-		Task::create($request->all());
+			$task->save();
+		
+//		$tempo = gmdate('H:i:s', strtotime( $end_time ) - strtotime( $start_time ) );
 
 		return redirect()->action('Tasks\\TaskController@index');
 	}
