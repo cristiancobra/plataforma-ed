@@ -32,6 +32,7 @@
 		<br>
 		<label class="labels" for="" >TIPO:</label>
 		<select class="fields" name="type">
+			<option value="{{$product->type}}">{{$product->type}}</option>
 			<option value="produto">produto</option>
 			<option value="serviço">serviço</option>
 		</select>
@@ -92,6 +93,7 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
+			<option value="{{$product->status}}">{{$product->status}}</option>
 			<option value="pendente">pendente</option>
 			<option value="fazendo agora">fazendo agora</option>
 			<option value="cancelada">cancelada</option>
