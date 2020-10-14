@@ -18,6 +18,9 @@ class CreateOpportunitiesTable extends Migration {
 			$table->foreignId('contact_id');
 			$table->foreignId('product_id');
 			$table->string('name', 100);
+			$table->date('date_start')->nullable();
+			$table->date('date_conclusion')->nullable();
+			$table->date('pay_day')->nullable();
 			$table->text('description')->nullable();
 			$table->string('category', 50);
 			$table->string('stage', 50);

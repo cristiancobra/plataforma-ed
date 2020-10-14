@@ -15,7 +15,7 @@
 	<form action=" {{ route('opportunitie.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME:</label>
-		<input type="text" name="name" size="20" value="{{$opportunitie->name}}"><span class="fields"></span>
+		<input type="text" name="name" size="60" value="{{$opportunitie->name}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
@@ -46,6 +46,16 @@
 			</option>
 			@endforeach
 		</select>
+		<br>
+		<br>
+		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
+		<input type="date" name="date_start" size="20"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
+		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
+		<input type="date" name="pay_day" size="20"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
