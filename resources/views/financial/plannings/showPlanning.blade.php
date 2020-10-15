@@ -52,23 +52,23 @@
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($planning->$amount * $planning->$hours)}}
+			{{ number_format($planning->$hours)}}
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($planning->$amount * $planning->$cost, 2,",",".") }}
+			{{ number_format($planning->$cost, 2,",",".") }}
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($planning->$amount * $planning->$tax_rate, 2,",",".") }}
+			{{ number_format($planning->$tax_rate, 2,",",".") }}
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($planning->$amount * $planning->$price,2,",",".") }}
+			{{ number_format($planning->$price,2,",",".") }}
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($planning->$amount * ($planning->$price - $planning->$tax_rate - $planning->$cost), 2,",",".") }}
+			{{ number_format($planning->$price - $planning->$tax_rate - $planning->$cost, 2,",",".") }}
 		</td>
 
 		@php

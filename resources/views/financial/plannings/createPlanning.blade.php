@@ -80,7 +80,7 @@
 					</td>
 
 					<td class="table-list-center">
-						<input type="hidden" name="{{$hours++}}" size="4" value="{{ number_format($product->work_hours)}}">
+						<input type="hidden" name="{{$hours++}}" size="4" value="{{$product->work_hours}}">
 						{{ number_format($product->work_hours)}}
 					</td>
 
