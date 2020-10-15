@@ -64,7 +64,7 @@ class PlanningController extends Controller {
 
 			$names = Product::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
-					->paginate(20);
+					->get();
 
 			$name = "name0001";
 			$amount = "amount0001";
