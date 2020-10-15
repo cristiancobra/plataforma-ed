@@ -39,6 +39,7 @@
 		<br>
 		<label class="labels" for="" >CATEGORIA:</label>
 		<select class="fields" name="category">
+			<option value="{{$product->category}}">{{$product->category}}</option>
 			<option value="desenvolvimento">desenvolvimento</option>
 			<option value="financeiro">financeiro</option>
 			<option value="marketing">marketing</option>
@@ -70,12 +71,12 @@ CKEDITOR.replace('description');
 		<input type="decimal" name="cost1_description" size="40" value="{{$product->cost1_description}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >CUSTO 2:</label>
-		<input type="integer" name="cost2" size="5" value="{{$product->cost1}}"><span class="fields"></span>
+		<input type="integer" name="cost2" size="5" value="{{$product->cost2}}"><span class="fields"></span>
 		<label class="labels" for="" >descrição:</label>
 		<input type="decimal" name="cost2_description" size="40" value="{{$product->cost2_description}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >CUSTO 3:</label>
-		<input type="integer" name="cost3" size="5" value="{{$product->cost1}}"><span class="fields"></span>
+		<input type="integer" name="cost3" size="5" value="{{$product->cost3}}"><span class="fields"></span>
 		<label class="labels" for="" >descrição:</label>
 		<input type="decimal" name="cost3_description" size="40" value="{{$product->cost3_description}}"><span class="fields"></span>
 		<br>
