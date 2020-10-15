@@ -115,7 +115,7 @@ class PlanningController extends Controller {
 		$tax_rate = "tax_rate0001";
 		$price = "price0001";
 		$margin = "margin0001";
-		
+
 		$totalAmount = 0;
 		$totalHours = 0;
 		$totalCost = 0;
@@ -125,22 +125,22 @@ class PlanningController extends Controller {
 
 		while ($request->$name != null) {
 			$planning->$name = $request->$name;
-			
+
 			$planning->$amount = $request->$amount;
 			$totalAmount = $totalAmount + $request->$amount;
-			
+
 			$planning->$hours = $request->$hours * $request->$amount;
 			$totalHours = $totalHours + $planning->$hours;
-			
+
 			$planning->$cost = $request->$cost * $request->$amount;
 			$totalCost = $totalCost + $planning->$cost;
-			
+
 			$planning->$tax_rate = $request->$tax_rate * $request->$amount;
 			$totalTax_rate = $totalTax_rate + $planning->$tax_rate;
-			
+
 			$planning->$price = $request->$price * $request->$amount;
 			$totalPrice = $totalPrice + $planning->$price;
-			
+
 			$planning->$margin = $request->$margin * $request->$amount;
 			$totalMargin = $totalMargin + $planning->$margin;
 
@@ -201,7 +201,27 @@ class PlanningController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Planning $planning) {
-		//
+		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			return view('financial.plannings.editPlanning', [
+				'userAuth' => $userAuth,
+				'planning' => $planning,
+				'accounts' => $accounts,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
