@@ -7,7 +7,6 @@
 @endsection
 
 @section('description')
-<span style="color: yellow;font-size: 22px">{{ date("d/m/Y", strtotime($today)) }} </span>
 <a class="btn btn-primary" href="{{ route('task.create') }}">CRIAR TAREFA</a>
 @endsection
 
@@ -70,7 +69,7 @@
 </div>
 
 <div style="padding-top: 3%;padding-left: 2%; padding-right: 4%;display: inline-block;text-align: left;vertical-align: top">
-	<img src=" {{ asset('imagens/cao-astronauta-left.png') }} " width="150px" height="150px">
+	<img src=" {{ asset('imagens/start.jpg') }} " width="300px" height="215px">
 </div>
 
 <div style="padding-top: 1%; padding-left: 4%; padding-right: 4%;display: inline-block">
