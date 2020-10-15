@@ -43,7 +43,7 @@ Route::resource('emails', 'Emails\\EmailController')->names('email');
 
 // ================================ FINANCIAL ===================
 Route::resource('oportunidades', 'Sales\\OpportunitieController')->names('opportunitie')->parameters(['oportunidades' => 'opportunitie']);
-Route::resource('planejamento', 'Financial\\PlanningController')->names('planning')->parameters(['planejamentos' => 'planning']);
+Route::resource('planejamentos', 'Financial\\PlanningController')->names('planning')->parameters(['planejamentos' => 'planning']);
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
 

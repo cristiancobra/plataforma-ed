@@ -3,84 +3,208 @@
 namespace App\Http\Controllers\Financial;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Account;
 use App\Models\Planning;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class PlanningController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
+class PlanningController extends Controller {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$userAuth = Auth::user();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->get('id');
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Planning $planning)
-    {
-        //
-    }
+			$plannings = Planning::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->paginate(20);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Planning $planning)
-    {
-        //
-    }
+			$totalPlannings = $plannings->count();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Planning $planning)
-    {
-        //
-    }
+			return view('financial.plannings.indexPlannings', [
+				'plannings' => $plannings,
+				'totalPlannings' => $totalPlannings,
+				'userAuth' => $userAuth,
+			]);
+		} else {
+			return redirect('/');
+		}
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Planning  $planning
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Planning $planning)
-    {
-        //
-    }
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create() {
+		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			$planning = new Planning();
+
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			$names = Product::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->paginate(20);
+
+			$name = "name1";
+			$amount = "amount1";
+			$hours = "hours1";
+			$cost = "cost1";
+			$tax_rate = "tax_rate1";
+			$price = "price1";
+
+			return view('financial.plannings.createPlanning', [
+				'userAuth' => $userAuth,
+				'planning' => $planning,
+				'accounts' => $accounts,
+				'products' => $names,
+				'name' => $name,
+				'amount' => $amount,
+				'hours' => $hours,
+				'cost' => $cost,
+				'tax_rate' => $tax_rate,
+				'price' => $price,
+			]);
+		} else {
+			return redirect('/');
+		}
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request) {
+		$userAuth = Auth::user();
+
+		$planning = new Planning();
+		$planning->account_id = ($request->account_id);
+		$planning->name = ($request->name);
+		$planning->months = ($request->months);
+		$planning->expenses = ($request->expenses);
+		$planning->status = ($request->status);
+
+		$name = "name1";
+		while ($request->$name != null) {
+			$planning->$name = $request->$name;
+			$name++;
+		}
+
+		$amount = "amount1";
+		while ($request->$amount != null) {
+			$planning->$amount = $request->$amount;
+			$amount++;
+		}
+
+		$hours = "hours1";
+		while ($request->$hours != null) {
+			$planning->$hours = $request->$hours;
+			$hours++;
+		}
+
+		$cost = "cost1";
+		while ($request->$cost != null) {
+			$planning->$cost = $request->$cost;
+			$cost++;
+		}
+
+		$tax_rate = "tax_rate1";
+		while ($request->$tax_rate != null) {
+			$planning->$tax_rate = $request->$tax_rate;
+			$tax_rate++;
+		}
+
+		$price = "price1";
+		while ($request->$price != null) {
+			$planning->$price = $request->$price;
+			$price++;
+		}
+
+		$planning->save();
+
+		return redirect()->action('Financial\\PlanningController@index');
+	}
+
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\Planning  $planning
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Planning $planning) {
+		$userAuth = Auth::user();
+
+		$name = "name1";
+		$amount = "amount1";
+		$hours = "hours1";
+		$cost = "cost1";
+		$tax_rate = "tax_rate1";
+		$price = "price1";
+
+		return view('financial.plannings.showPlanning', [
+			'planning' => $planning,
+			'userAuth' => $userAuth,
+			'name' => $name,
+			'amount' => $amount,
+			'hours' => $hours,
+			'cost' => $cost,
+			'tax_rate' => $tax_rate,
+			'price' => $price,
+		]);
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\Planning  $planning
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(Planning $planning) {
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\Planning  $planning
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, Planning $planning) {
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\Planning  $planning
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(Planning $planning) {
+		$planning->delete();
+		return redirect()->action('Financial\\PlanningController@index');
+	}
+
 }

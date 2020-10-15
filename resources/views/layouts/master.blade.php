@@ -94,7 +94,7 @@
 				</button>
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS</a>
-					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO</a>
+					<a class="sidebar-subitem" href="{{route('planning.index')}}"><i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO</a>
 				</div>
 
 				<button class="dropdown-btn">

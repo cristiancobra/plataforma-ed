@@ -28,11 +28,11 @@ class ProductController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->paginate(20);
 
-			$totalProductss = $products->count();
+			$totalProducts = $products->count();
 
 			return view('sales.products.indexProducts', [
 				'products' => $products,
-				'totalProductss' => $totalProductss,
+				'totalProducts' => $totalProducts,
 				'userAuth' => $userAuth,
 			]);
 		} else {

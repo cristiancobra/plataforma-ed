@@ -84,11 +84,11 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">ETAPA DA VENDA:</label>
 		<select class="fields" name="stage">
-			<option value="prospecting">prospecção</option>
-			<option value="meeting">apresentação</option>
-			<option value="proposal">proposta</option>
-			<option value="won">ganhamos</option>
-			<option value="lose">perdemos</option>
+			<option value="prospecção">prospecção</option>
+			<option value="apresentação">apresentação</option>
+			<option value="proposta">proposta</option>
+			<option value="ganhamos">ganhamos</option>
+			<option value="perdemos">perdemos</option>
 		</select>
 		<br>
 		<br>

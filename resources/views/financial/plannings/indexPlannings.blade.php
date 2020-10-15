@@ -1,24 +1,23 @@
 @extends('layouts/master')
 
-@section('title','PRODUTOS')
+@section('title','PLANEJAMENTO')
 
 @section('image-top')
-{{ asset('imagens/products.png') }} 
+{{ asset('imagens/plannings.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('product.create')}}">NOVO PRODUTO</a>
+<a class="btn btn-primary"  href="{{route('planning.create')}}">NOVO PLANEJAMENTO</a>
 @endsection
 
 @section('main')
 <div>
 	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-		Você possui <span class="labels">{{$totalProducts }} produtos </span>
+		Você possui <span class="labels">{{$totalPlannings }} produtos </span>
 	</p>
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Foto</b></td>
 			<td   class="table-list-header"><b>Nome </b></td>
 			<td   class="table-list-header"><b>Tipo </b></td>
 			<td   class="table-list-header"><b>Entrega</b></td>
@@ -29,56 +28,52 @@
 			<td   class="table-list-header"><b>Preço</b></td>
 		</tr>
 
-		@foreach ($products as $product)
+		@foreach ($plannings as $planning)
 		<tr style="font-size: 14px">
-			<td class="table-list-right">
-				<image src="{{ $product->image }}" style="width:50px;height:50px; margin: 5px"></a>
-			</td>
-			
 			<td class="table-list-left">
 				<button class="button">
-					<a href=" {{ route('product.show', ['product' => $product->id]) }}">
+					<a href=" {{ route('planning.show', ['planning' => $planning->id]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
 				<button class="button">
-					<a href=" {{ route('product.edit', ['product' => $product->id]) }}">
+					<a href=" {{ route('planning.edit', ['planning' => $planning->id]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
-				{{ $product->name }}
+				{{ $planning->name }}
 			</td>
 
 			<td class="table-list-right">
-				{{ $product->type }}
+				{{ $planning->type }}
 			</td>
 
-			@if ($product->due_date == 0)
+			@if ($planning->due_date == 0)
 			<td class="table-list-right">
 				imediata
 			</td>
 			@else
 			<td class="table-list-right">
-				{{ $product->due_date }} dias
+				{{ $planning->due_date }} dias
 			</td>
 			@endif
 			
 			<td class="table-list-right">
-				{{ number_format($product->work_hours)}}
+				{{ number_format($planning->work_hours)}}
 			</td>
 
 			<td class="table-list-right">
-				R$ {{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".") }}
+				R$ {{ number_format($planning->cost1 + $planning->cost2 + $planning->cost3, 2,",",".") }}
 			</td>
 			
 			<td class="table-list-right">
-				R$ {{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}
+				R$ {{ number_format($planning->price * $planning->tax_rate / 100, 2,",",".") }}
 			</td>
 			
 			<td class="table-list-right">
-				R$ {{ number_format(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}
+				R$ {{ number_format(-$planning->price * $planning->tax_rate /100 - $planning->cost1 - $planning->cost2 - $planning->cost3 + $planning->price, 2,",",".") }}
 			</td>
 			
 			<td class="table-list-right">
-				R$ {{ number_format($product->price,2,",",".") }}
+				R$ {{ number_format($planning->price,2,",",".") }}
 			</td>
 
 		</tr>
@@ -86,7 +81,7 @@
 	</table>
 	<p style="text-align: right">
 		<br>
-		{{ $products->links() }}
+		{{ $plannings->links() }}
 	</p>
 	<br>
 	@endsection
