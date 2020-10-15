@@ -39,6 +39,14 @@ class CreatePlanningsTable extends Migration {
 			$counter++;
 			}
 			
+			$table->decimal('totalHours', 5, 1)->nullable();
+			$table->integer('totalAmount')->nullable();
+			$table->integer('totalCost')->nullable();
+			$table->integer('totalTax_rate')->nullable();
+			$table->integer('totalPrice')->nullable();
+			$table->integer('totalMargin')->nullable();
+			$table->integer('totalBalance')->nullable();
+					
 			$table->string('status', 50);
 			$table->timestamps();
 		});

@@ -653,13 +653,22 @@ fieldset:disabled a.btn {
 	border-width: 1px;
 }
 
+.table-list-right{ 
+	display: table-cell;  
+    padding:0.5%;
+	text-align: right;
+	vertical-align:super;
+	border-bottom: solid;
+	border-width: 1px;
+	font-weight: bolder;
+}
 .table-list-left{ 
 	display: table-cell;  
     padding:0.5%;
 	text-align: justify;
 	vertical-align:super;
 	border-bottom: solid;
-	border-width: 2px;
+	border-width: 1px;
 	font-weight: bolder;
 }
 
@@ -693,6 +702,14 @@ fieldset:disabled a.btn {
     padding-left: 13px;
 	padding-right: 13px;
 	text-align: center;
+	color: white;
+	vertical-align:super;
+	background-color: #c28dbf
+}
+
+.table-list-header-right{ 
+	display: table-cell;  
+	text-align: right;
 	color: white;
 	vertical-align:super;
 	background-color: #c28dbf

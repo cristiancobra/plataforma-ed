@@ -59,7 +59,7 @@
 				@foreach ($products as $product)
 				<tr style="font-size: 14px">
 					<td class="table-list-center">
-						<input type="integer" name="{{$amount++}}" size="4" value="1"><span class="fields"></span>
+						<input type="number" name="{{$amount++}}" size="4" value="1"><span class="fields"></span>
 					</td>
 
 					<td class="table-list-right">

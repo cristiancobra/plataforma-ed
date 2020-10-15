@@ -115,14 +115,34 @@ class PlanningController extends Controller {
 		$tax_rate = "tax_rate0001";
 		$price = "price0001";
 		$margin = "margin0001";
+		
+		$totalAmount = 0;
+		$totalHours = 0;
+		$totalCost = 0;
+		$totalTax_rate = 0;
+		$totalPrice = 0;
+		$totalMargin = 0;
 
 		while ($request->$name != null) {
 			$planning->$name = $request->$name;
+			
 			$planning->$amount = $request->$amount;
+			$totalAmount = $totalAmount + $request->$amount;
+			
 			$planning->$hours = $request->$hours * $request->$amount;
+			$totalHours = $totalHours + $planning->$hours;
+			
 			$planning->$cost = $request->$cost * $request->$amount;
+			$totalCost = $totalCost + $planning->$cost;
+			
 			$planning->$tax_rate = $request->$tax_rate * $request->$amount;
+			$totalTax_rate = $totalTax_rate + $planning->$tax_rate;
+			
 			$planning->$price = $request->$price * $request->$amount;
+			$totalPrice = $totalPrice + $planning->$price;
+			
+			$planning->$margin = $request->$margin * $request->$amount;
+			$totalMargin = $totalMargin + $planning->$margin;
 
 			$name++;
 			$amount++;
@@ -132,42 +152,13 @@ class PlanningController extends Controller {
 			$price++;
 			$margin++;
 		}
-
-//		$name = "name0001";
-//		while ($request->$name != null) {
-//			$planning->$name = $request->$name;
-//			$name++;
-//		}
-//		$amount = "amount0001";
-//		while ($request->$amount != null) {
-//			$planning->$amount = $request->$amount;
-//			$amount++;
-//		}
-//
-//		$hours = "hours0001";
-//		while ($request->$hours != null) {
-//			$planning->$hours = $request->$hours;
-//			$hours++;
-//		}
-//
-//		$cost = "cost0001";
-//		while ($request->$cost != null) {
-//			$planning->$cost = $request->$cost;
-//			$cost++;
-//		}
-//
-//		$tax_rate = "tax_rate0001";
-//		while ($request->$tax_rate != null) {
-//			$planning->$tax_rate = $request->$tax_rate;
-//			$tax_rate++;
-//		}
-//
-//		$price = "price0001";
-//		while ($request->$price != null) {
-//			$planning->$price = $request->$price;
-//			$price++;
-//		}
-//
+		$planning->totalAmount = $totalAmount;
+		$planning->totalHours = $totalHours;
+		$planning->totalCost = $totalCost;
+		$planning->totalTax_rate = $totalTax_rate;
+		$planning->totalPrice = $totalPrice;
+		$planning->totalMargin = $totalMargin;
+		$planning->totalBalance = $totalMargin - $planning->expenses;
 		$planning->save();
 
 		return redirect()->action('Financial\\PlanningController@index');

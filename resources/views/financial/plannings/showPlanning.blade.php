@@ -24,11 +24,9 @@
 <br>
 <p class="fields" for="" >Escolha a extensão do seu planejamento pela quantidade de meses (1 ano = 12, trimestre = 3, etc))</p>
 <br>
-<label class="labels" for="" >DESPESAS MENSAIS: R$</label>
-<input type="integer" name="expenses" size="5" value="{{$planning->expenses}}"><span class="fields"></span>
+<label class="labels" for="" >META DE VENDAS MENSAL</label>
 <br>
-<p class="fields" for="" >Todas as despesas fixas e variáveis (estimadas) mensais. (não incluir custos fixos de produtos)</p>
-<br>
+<p class="fields" for="" >Estabeleça uma META de vendas de cada produto que consiga pagar suas despensas  e gerar lucro. </p>
 <br>
 <table class="table-list">
 	<tr>
@@ -47,11 +45,11 @@
 			{{ $planning->$name }}
 		</td>
 
-		<td class="table-list-right">
+		<td class="table-list-center">
 			{{ $planning->$amount }}
 		</td>
 
-		<td class="table-list-right">
+		<td class="table-list-center">
 			{{ number_format($planning->$hours)}}
 		</td>
 
@@ -85,15 +83,35 @@
 		<td   class="table-list-header">
 			<b></b>
 		</td>
-		<td   class="table-list-header"><b>Quantidade </b></td>
-		<td   class="table-list-header"><b>Horas previstas</b></td>
-		<td   class="table-list-header"><b>Custos</b></td>
-		<td   class="table-list-header"><b>Imposto</b></td>
-		<td   class="table-list-header"><b>Margem</b></td>
-		<td   class="table-list-header"><b>Preço</b></td>
+		<td   class="table-list-header">
+			<b>{{$planning->totalAmount}}</b>
+		</td>
+		<td   class="table-list-header">
+			<b>{{number_format($planning->totalHours) }}</b>
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($planning->totalCost, 2,",",".") }}</b>
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($planning->totalTax_rate, 2,",",".") }}</b>
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($planning->totalPrice, 2,",",".") }}</b>
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($planning->totalMargin, 2,",",".") }}</b>
+		</td>
 	</tr>
 </table>
 <br>
+<p style="text-align: right">
+<label class="labels" for="">DESPESAS MENSAIS:</label>
+<span class="fields">R$ {{number_format($planning->expenses, 2,",",".") }}</span>
+</p>
+<p style="text-align: right">
+<label class="labels" for="">SALDO:</label>
+<span class="fields">R$ {{number_format($planning->totalBalance, 2,",",".") }}</span>
+</p>
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$planning->status }}</span>
 <br>
