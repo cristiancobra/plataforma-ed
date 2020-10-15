@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','PRODUTOS')
+@section('title','PLANEJAMENTO')
 
 @section('image-top')
 {{ asset('imagens/plannings.png') }} 

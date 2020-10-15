@@ -26,6 +26,7 @@ class CreatePlanningsTable extends Migration {
 			$cost = "cost0001";
 			$tax_rate = "tax_rate0001";
 			$price = "price0001";
+			$margin = "margin0001";
 
 			while ($counter < 101) {
 			$table->text($name++, 50)->nullable();
@@ -34,6 +35,7 @@ class CreatePlanningsTable extends Migration {
 			$table->integer($cost++)->nullable();
 			$table->integer($tax_rate++)->nullable();
 			$table->integer($price++)->nullable();
+			$table->integer($margin++)->nullable();
 			$counter++;
 			}
 			

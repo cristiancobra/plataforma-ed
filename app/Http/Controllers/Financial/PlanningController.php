@@ -72,6 +72,7 @@ class PlanningController extends Controller {
 			$cost = "cost0001";
 			$tax_rate = "tax_rate0001";
 			$price = "price0001";
+			$margin = "margin0001";
 
 			return view('financial.plannings.createPlanning', [
 				'userAuth' => $userAuth,
@@ -84,6 +85,7 @@ class PlanningController extends Controller {
 				'cost' => $cost,
 				'tax_rate' => $tax_rate,
 				'price' => $price,
+				'margin' => $margin,
 			]);
 		} else {
 			return redirect('/');
@@ -107,41 +109,65 @@ class PlanningController extends Controller {
 		$planning->status = ($request->status);
 
 		$name = "name0001";
+		$amount = "amount0001";
+		$hours = "hours0001";
+		$cost = "cost0001";
+		$tax_rate = "tax_rate0001";
+		$price = "price0001";
+		$margin = "margin0001";
+
 		while ($request->$name != null) {
 			$planning->$name = $request->$name;
-			$name++;
-		}
-
-		$amount = "amount0001";
-		while ($request->$amount != null) {
 			$planning->$amount = $request->$amount;
+			$planning->$hours = $request->$hours * $request->$amount;
+			$planning->$cost = $request->$cost * $request->$amount;
+			$planning->$tax_rate = $request->$tax_rate * $request->$amount;
+			$planning->$price = $request->$price * $request->$amount;
+
+			$name++;
 			$amount++;
-		}
-
-		$hours = "hours0001";
-		while ($request->$hours != null) {
-			$planning->$hours = $request->$hours;
 			$hours++;
-		}
-
-		$cost = "cost0001";
-		while ($request->$cost != null) {
-			$planning->$cost = $request->$cost;
 			$cost++;
-		}
-
-		$tax_rate = "tax_rate0001";
-		while ($request->$tax_rate != null) {
-			$planning->$tax_rate = $request->$tax_rate;
 			$tax_rate++;
-		}
-
-		$price = "price0001";
-		while ($request->$price != null) {
-			$planning->$price = $request->$price;
 			$price++;
+			$margin++;
 		}
 
+//		$name = "name0001";
+//		while ($request->$name != null) {
+//			$planning->$name = $request->$name;
+//			$name++;
+//		}
+//		$amount = "amount0001";
+//		while ($request->$amount != null) {
+//			$planning->$amount = $request->$amount;
+//			$amount++;
+//		}
+//
+//		$hours = "hours0001";
+//		while ($request->$hours != null) {
+//			$planning->$hours = $request->$hours;
+//			$hours++;
+//		}
+//
+//		$cost = "cost0001";
+//		while ($request->$cost != null) {
+//			$planning->$cost = $request->$cost;
+//			$cost++;
+//		}
+//
+//		$tax_rate = "tax_rate0001";
+//		while ($request->$tax_rate != null) {
+//			$planning->$tax_rate = $request->$tax_rate;
+//			$tax_rate++;
+//		}
+//
+//		$price = "price0001";
+//		while ($request->$price != null) {
+//			$planning->$price = $request->$price;
+//			$price++;
+//		}
+//
 		$planning->save();
 
 		return redirect()->action('Financial\\PlanningController@index');
@@ -162,6 +188,7 @@ class PlanningController extends Controller {
 		$cost = "cost0001";
 		$tax_rate = "tax_rate0001";
 		$price = "price0001";
+		$margin = "margin0001";
 
 		return view('financial.plannings.showPlanning', [
 			'planning' => $planning,
@@ -172,6 +199,7 @@ class PlanningController extends Controller {
 			'cost' => $cost,
 			'tax_rate' => $tax_rate,
 			'price' => $price,
+			'margin' => $margin,
 		]);
 	}
 

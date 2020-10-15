@@ -75,27 +75,33 @@
 							<a href=" {{ route('product.edit', ['product' => $product->id]) }}">
 								<i class='fa fa-edit' style="color:white"></i></a>
 						</button>
-						<input type="text" name="{{$name++}}" size="12" value="{{ $product->name }}"><span class="fields"></span>
+						<input type="hidden" name="{{$name++}}" size="16" value="{{ $product->name }}"><span class="fields"></span>
+						{{ $product->name }}
 					</td>
 
 					<td class="table-list-center">
-						<input type="integer" name="{{$hours++}}" size="4" value="{{ number_format($product->work_hours)}}" readonly>
+						<input type="hidden" name="{{$hours++}}" size="4" value="{{ number_format($product->work_hours)}}">
+						{{ number_format($product->work_hours)}}
 					</td>
 
 					<td class="table-list-right">
-						<input type="integer" name="{{$cost++}}" size="7" value="{{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".") }}" readonly>
+						<input type="hidden" name="{{$cost++}}" size="7" value="{{ $product->cost1 + $product->cost2 + $product->cost3}}" >
+						{{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".") }}
 					</td>
 
 					<td class="table-list-right">
-						<input type="integer" name="{{$tax_rate++}}" size="7" value="{{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}" readonly>
+						<input type="hidden" name="{{$tax_rate++}}" size="7" value="{{ $product->price * $product->tax_rate / 100 }}" >
+						{{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}
 					</td>
 
 					<td class="table-list-right">
-						<input type="integer" name="margin" size="7" value="{{ number_format(-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}" readonly>
+						<input type="hidden" name="{{$margin++}}" size="7" value="{{ -$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price }}" >
+						{{ number_format(-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}
 					</td>
 
 					<td class="table-list-right">
-						<input type="integer" name="{{$price++}}" size="8" value="{{ number_format($product->price,2,",",".") }}" readonly>
+						<input type="hidden" name="{{$price++}}" size="8" value="{{$product->price}}" >
+						{{ number_format($product->price,2,",",".") }}
 					</td>
 
 				</tr>
