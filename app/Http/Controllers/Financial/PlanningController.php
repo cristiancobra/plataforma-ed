@@ -66,12 +66,12 @@ class PlanningController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->paginate(20);
 
-			$name = "name1";
-			$amount = "amount1";
-			$hours = "hours1";
-			$cost = "cost1";
-			$tax_rate = "tax_rate1";
-			$price = "price1";
+			$name = "name0001";
+			$amount = "amount0001";
+			$hours = "hours0001";
+			$cost = "cost0001";
+			$tax_rate = "tax_rate0001";
+			$price = "price0001";
 
 			return view('financial.plannings.createPlanning', [
 				'userAuth' => $userAuth,
@@ -106,37 +106,37 @@ class PlanningController extends Controller {
 		$planning->expenses = ($request->expenses);
 		$planning->status = ($request->status);
 
-		$name = "name1";
+		$name = "name0001";
 		while ($request->$name != null) {
 			$planning->$name = $request->$name;
 			$name++;
 		}
 
-		$amount = "amount1";
+		$amount = "amount0001";
 		while ($request->$amount != null) {
 			$planning->$amount = $request->$amount;
 			$amount++;
 		}
 
-		$hours = "hours1";
+		$hours = "hours0001";
 		while ($request->$hours != null) {
 			$planning->$hours = $request->$hours;
 			$hours++;
 		}
 
-		$cost = "cost1";
+		$cost = "cost0001";
 		while ($request->$cost != null) {
 			$planning->$cost = $request->$cost;
 			$cost++;
 		}
 
-		$tax_rate = "tax_rate1";
+		$tax_rate = "tax_rate0001";
 		while ($request->$tax_rate != null) {
 			$planning->$tax_rate = $request->$tax_rate;
 			$tax_rate++;
 		}
 
-		$price = "price1";
+		$price = "price0001";
 		while ($request->$price != null) {
 			$planning->$price = $request->$price;
 			$price++;
@@ -156,12 +156,12 @@ class PlanningController extends Controller {
 	public function show(Planning $planning) {
 		$userAuth = Auth::user();
 
-		$name = "name1";
-		$amount = "amount1";
-		$hours = "hours1";
-		$cost = "cost1";
-		$tax_rate = "tax_rate1";
-		$price = "price1";
+		$name = "name0001";
+		$amount = "amount0001";
+		$hours = "hours0001";
+		$cost = "cost0001";
+		$tax_rate = "tax_rate0001";
+		$price = "price0001";
 
 		return view('financial.plannings.showPlanning', [
 			'planning' => $planning,
