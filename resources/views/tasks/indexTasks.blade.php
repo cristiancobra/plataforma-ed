@@ -11,9 +11,9 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('task.filter') }} " method="post" style="padding: 40px;text-align: right;color: #874983">
+<form action=" {{ route('task.index') }} " method="post" style="padding: 40px;text-align: right;color: #874983">
 	@csrf
-	<label class="labels" for="" >SITUAÇÃO:</label>
+	<label class="labels" for="" >situação:</label>
 	<select name="status">
 		<option  class="fields" value="todos">
 			todos
@@ -28,7 +28,7 @@
 			concluidas
 		</option>
 	</select>
-	<label class="labels" for="" >CONTATO:</label>
+	<label class="labels" for="" >contatos:</label>
 	<select name="contact_id">
 		<option  class="fields" value="todos">
 			todos
@@ -36,6 +36,20 @@
 		@foreach ($contacts as $contact)
 		<option  class="fields" value="{{ $contact->id }}">
 			{{ $contact->name }}
+		</option>
+		@endforeach
+	</select>
+	<label class="labels" for="" >responsável:</label>
+	<select name="user_id">
+		<option  class="fields" value="{{ $userAuth->id }}">
+			{{ $userAuth->name }}
+		</option>
+		<option  class="fields" value="todos">
+			TODOS
+		</option>
+		@foreach ($users as $user)
+		<option  class="fields" value="{{ $user->id }}">
+			{{ $user->name }}
 		</option>
 		@endforeach
 	</select>
@@ -61,6 +75,10 @@
 
 		<td   class="table-list-header" style="width: 10%">
 			<b>PRAZO</b>
+		</td>
+
+		<td   class="table-list-header" style="width: 10%">
+			<b>EXECUÇÃO</b>
 		</td>
 
 		<td   class="table-list-header" style="width: 5%">
@@ -102,6 +120,10 @@
 
 		<td class="table-list-center">
 			{{ $task->date_due }}
+		</td>
+
+		<td class="table-list-center" style="color:white;background-color: #874983">
+			{{ gmdate('H:i', $task->duration) }}
 		</td>
 
 		<td class="table-list-center">

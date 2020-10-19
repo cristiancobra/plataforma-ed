@@ -19,7 +19,7 @@
 		<p class="subtitulo-branco">
 			tarefas sendo executadas
 		</p>
-		<form action=" {{ route('task.filter') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" size="20" value="fazendo agora">
 			<input type="hidden" name="contact_id" size="20" value="todos">
@@ -34,7 +34,7 @@
 		<p class="subtitulo-branco"  style="color: #874983">
 			tarefas pendentes
 		</p>
-		<form action=" {{ route('task.filter') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" size="20" value="pendente">
 			<input type="hidden" name="contact_id" size="20" value="todos">
@@ -49,7 +49,7 @@
 		<p class="subtitulo-branco">
 			minhas tarefas
 		</p>
-		<form action=" {{ route('task.filter') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" size="20" value="pendente">
 			<input type="hidden" name="contact_id" size="20" value="todos">

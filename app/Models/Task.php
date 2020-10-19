@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use App\Models\User;
 
 class Task extends Model {
+	
+	use Filterable;
 
 	protected $table = 'tasks';
 	//  The primary key associated with the table.
@@ -20,7 +23,7 @@ class Task extends Model {
 	 *
 	 */
 	protected $fillable = [
-		'id', 'user_id', 'account_id', 'date_entered', 'created_by', 'name', 'category', 'description', 'date_due', 'date_start', 'date_conclusion', 'contact_id', 'status', 'priority', 'start_time', 
+		'id', 'user_id', 'account_id', 'date_entered', 'created_by', 'name', 'category', 'description', 'date_due', 'date_start', 'date_conclusion', 'contact_id', 'status', 'priority', 'start_time',
 		'end_time', 'duration',
 	];
 
@@ -37,9 +40,19 @@ class Task extends Model {
 	public function contact() {
 		return $this->belongsTo(Contact::class, 'contact_id', 'id');
 	}
-	
+
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
-	
+
+	private static $whiteListFilter = ['*'];
+//		'id',
+//		'username',
+//		'family',
+//		'email',
+//		'count_posts',
+//		'created_at',
+//		'updated_at',
+//	];
+
 }

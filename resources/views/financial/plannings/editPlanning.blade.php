@@ -43,29 +43,6 @@ CKEDITOR.replace('description');
 		<input type="decimal" name="work_hours" size="5" value="{{$planning->work_hours}}"><span class="fields"></span>
 		<br>
 		<br>
-		<label class="labels" for="" >CUSTO 1:</label>
-		<input type="integer" name="cost1" size="5" value="{{$planning->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost1_description" size="40" value="{{$planning->cost1_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 2:</label>
-		<input type="integer" name="cost2" size="5" value="{{$planning->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost2_description" size="40" value="{{$planning->cost2_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 3:</label>
-		<input type="integer" name="cost3" size="5" value="{{$planning->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost3_description" size="40" value="{{$planning->cost3_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >IMPOSTO (%):</label>
-		<input type="decimal" name="tax_rate" size="5" value="{{$planning->tax_rate}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >PREÇO:</label>
-		<input type="decimal" name="price" size="5" value="{{$planning->price}}"><span class="fields"></span>
-		<br>
-		<br>
 		<label class="labels" for="" >PRAZO DE ENTREGA:</label>
 		<input type="integer" name="due_date" size="5" value="{{$planning->due_date}}"><span class="fields"></span>
 		<br>
