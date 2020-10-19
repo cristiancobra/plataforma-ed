@@ -41,7 +41,7 @@ class TaskController extends Controller {
 //						])
 						->with(['contact', 'user'])
 						->orderBy('date_due', 'DESC')
-						->paginate(3, ['*'], 'page');
+						->paginate(20, ['*'], 'page');
 			} elseif ($request->status != "todos" and $request->contact_id == "todos" and $request->user_id == "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->filter([
@@ -49,7 +49,7 @@ class TaskController extends Controller {
 						])
 						->with(['contact', 'user'])
 						->orderBy('date_due', 'DESC')
-						->paginate(3, ['*'], 'page');
+						->paginate(20, ['*'], 'page');
 			} elseif ($request->status == "todos" and $request->contact_id != "todos" and $request->user_id == "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->filter([
@@ -57,7 +57,7 @@ class TaskController extends Controller {
 						])
 						->with(['contact', 'user'])
 						->orderBy('date_due', 'DESC')
-						->paginate(3, ['*'], 'page');
+						->paginate(20, ['*'], 'page');
 			} elseif ($request->status == "todos" and $request->contact_id == "todos" and $request->user_id != "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->filter([
@@ -65,7 +65,7 @@ class TaskController extends Controller {
 						])
 						->with(['contact', 'user'])
 						->orderBy('date_due', 'DESC')
-						->paginate(3, ['*'], 'page');
+						->paginate(20, ['*'], 'page');
 			}
 
 			$tasks->appends([
