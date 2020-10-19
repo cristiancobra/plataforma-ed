@@ -11,7 +11,7 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('task.index') }} " method="post" style="padding: 40px;text-align: right;color: #874983">
+<form action=" {{ route('task.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
 	@csrf
 	<label class="labels" for="" >situação:</label>
 	<select name="status">
@@ -61,7 +61,7 @@
 			<b>NOME</b>
 		</td>
 
-		<td   class="table-list-header" style="width: 15%">
+		<td   class="table-list-header" style="width: 13%">
 			<b>CONTATO</b>
 		</td>
 
@@ -77,7 +77,7 @@
 			<b>PRAZO</b>
 		</td>
 
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 3%">
 			<b>EXECUÇÃO</b>
 		</td>
 

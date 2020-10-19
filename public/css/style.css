@@ -92,8 +92,8 @@ and open the template in the editor.
     margin:0px;
     background-color: white;
 	padding-top: 1%;
-	padding-left: 4%;
-	padding-right: 4%;
+	padding-left: 2%;
+	padding-right: 2%;
 }
 
 /* ------------------------------------------------ GRID DASHBOARD -------------------------- */
@@ -529,11 +529,11 @@ fieldset:disabled a.btn {
 	border: solid;
 	border-width: 1px;
 	border-color: #c28dbf;
-	padding: 3px 6px;
+	padding: 2.5px 5px;
 	text-align: center;
 	text-decoration: none;
 	display: inline-block;
-	font-size: 16px;
+	font-size: 14px;
 	border-radius: 30%;
 	color: white;
 	transition-duration: 0.4s;
@@ -640,10 +640,10 @@ fieldset:disabled a.btn {
     text-align:center;
     display: table;
 	color:#874983;
-	font-size: 16px;
+	font-size: 14px;
 	border-bottom-style: solid;
 	border-width: 2px;
-	padding-top: 30%;
+	padding-top: 5%;
 }
 
 .table-list-center{ 
@@ -699,8 +699,8 @@ fieldset:disabled a.btn {
 
 .table-list-header{ 
 	display: table-cell;  
-    padding-left: 13px;
-	padding-right: 13px;
+    padding-left: 10px;
+	padding-right: 10px;
 	text-align: center;
 	color: white;
 	vertical-align:super;

@@ -61,7 +61,7 @@ class TaskController extends Controller {
 			} elseif ($request->status == "todos" and $request->contact_id == "todos" and $request->user_id != "todos") {
 				$tasks = Task::whereIn('account_id', $accountsID)
 						->filter([
-							'user_id' => $request->user_id_id,
+							'user_id' => $request->user_id,
 						])
 						->with(['contact', 'user'])
 						->orderBy('date_due', 'DESC')
