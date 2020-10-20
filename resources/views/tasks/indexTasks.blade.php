@@ -15,7 +15,7 @@
 	@csrf
 	<label class="labels" for="" >situação:</label>
 	<select name="status">
-		<option  class="fields" value="%">
+		<option  class="fields" value="todos">
 			todos
 		</option>
 		<option  class="fields" value="fazendo agora">
@@ -30,7 +30,7 @@
 	</select>
 	<label class="labels" for="" >contatos:</label>
 	<select name="contact_id">
-		<option  class="fields" value="%">
+		<option  class="fields" value="todos">
 			todos
 		</option>
 		@foreach ($contacts as $contact)
@@ -44,7 +44,7 @@
 		<option  class="fields" value="{{ $userAuth->id }}">
 			{{ $userAuth->name }}
 		</option>
-		<option  class="fields" value="%">
+		<option  class="fields" value="todos">
 			TODOS
 		</option>
 		@foreach ($users as $user)
