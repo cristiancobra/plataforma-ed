@@ -11,15 +11,18 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('task.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
+<form action=" {{ route('task.filter') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
 	@csrf
 	<label class="labels" for="" >situação:</label>
 	<select name="status">
-		<option  class="fields" value="pendente">
-			pendentes
+		<option  class="fields" value="%">
+			todos
 		</option>
 		<option  class="fields" value="fazendo agora">
 			fazendo agora
+		</option>
+		<option  class="fields" value="pendente">
+			pendentes
 		</option>
 		<option  class="fields" value="concluida">
 			concluidas
@@ -27,6 +30,9 @@
 	</select>
 	<label class="labels" for="" >contatos:</label>
 	<select name="contact_id">
+		<option  class="fields" value="%">
+			todos
+		</option>
 		@foreach ($contacts as $contact)
 		<option  class="fields" value="{{ $contact->id }}">
 			{{ $contact->name }}
@@ -37,6 +43,9 @@
 	<select name="user_id">
 		<option  class="fields" value="{{ $userAuth->id }}">
 			{{ $userAuth->name }}
+		</option>
+		<option  class="fields" value="%">
+			TODOS
 		</option>
 		@foreach ($users as $user)
 		<option  class="fields" value="{{ $user->id }}">

@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
@@ -27,57 +28,10 @@ class TaskController extends Controller {
 					})
 					->get('id');
 
-			// filtro de tarefas
-			if (empty($request->all())) {
-
-				$tasks = Task::whereIn('account_id', $accountsID)
-						->with(['contact', 'user'])
-						->orderBy('date_due', 'DESC')
-						->paginate(20, ['*'], 'page');
-			} else {
-				
-				$tasks = Task::whereIn('account_id', $accountsID)
-						->where('user_id',  $request->user_id)
-						->where('status',  $request->status)
-						->where('contact_id',  $request->contact_id)
-						->with(['contact', 'user'])
-						->orderBy('date_due', 'DESC')
-						->paginate(20, ['*'], 'page');
-			}
-
-//			} elseif ($request->status == "todos" and $request->contact_id == "todos" and $request->user_id == "todos") {
-//				$tasks = Task::whereIn('account_id', $accountsID)
-////						->filter([
-//////							'user_id' => $userAuth->id,
-////						])
-//						->with(['contact', 'user'])
-//						->orderBy('date_due', 'DESC')
-//						->paginate(20, ['*'], 'page');
-//			} elseif ($request->status != "todos" and $request->contact_id == "todos" and $request->user_id == "todos") {
-//				$tasks = Task::whereIn('account_id', $accountsID)
-//						->filter([
-//							'status' => $request->status,
-//						])
-//						->with(['contact', 'user'])
-//						->orderBy('date_due', 'DESC')
-//						->paginate(20, ['*'], 'page');
-//			} elseif ($request->status == "todos" and $request->contact_id != "todos" and $request->user_id == "todos") {
-//				$tasks = Task::whereIn('account_id', $accountsID)
-//						->filter([
-//							'contact_id' => $request->contact_id,
-//						])
-//						->with(['contact', 'user'])
-//						->orderBy('date_due', 'DESC')
-//						->paginate(20, ['*'], 'page');
-//			} elseif ($request->status == "todos" and $request->contact_id == "todos" and $request->user_id != "todos") {
-//				$tasks = Task::whereIn('account_id', $accountsID)
-//						->filter([
-//							'user_id' => $request->user_id,
-//						])
-//						->with(['contact', 'user'])
-//						->orderBy('date_due', 'DESC')
-//						->paginate(20, ['*'], 'page');
-//			}
+			$tasks = Task::whereIn('account_id', $accountsID)
+					->with(['contact', 'user'])
+					->orderBy('date_due', 'DESC')
+					->paginate(20, ['*'], 'page');
 
 			$tasks->appends([
 				'status' => $request->status,
@@ -301,110 +255,57 @@ class TaskController extends Controller {
 
 		if (Auth::check()) {
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			if ($request->status == "todos" and $request->contact_id == "todos") {
-//				$tasks = Task::whereIn('account_id', $accountsID)
-//						->with([
-//							'contact',
-//							'user'
-//						])
-//						->where('user_id', $userAuth->id)
-//						->orderBy('date_due', 'DESC')
-//						->paginate(2);
-
-				$tasks = Task::filter([
-							'account_id' => $accountsID,
-							'user_id' => $userAuth->id,
-						])
+			if (Auth::check()) {
+				$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+							$query->where('users.id', $userAuth->id);
+						})
+						->get('id');
+						
+								
+				$tasks = Task::whereIn('account_id', $accountsID)
 						->with(['contact', 'user'])
 						->orderBy('date_due', 'DESC')
-						->paginate(2, ['*'], 'page');
-			} else if ($request->status != "todos" and $request->contact_id == "todos") {
-				$tasks = Task::whereIn('account_id', $accountsID)
-						->with([
-							'contact',
-							'user'
-						])
-						->where('status', $request->status)
-						->where('user_id', $userAuth->id)
-						->orderBy('date_due', 'DESC')
-						->paginate(2);
-			} else if ($request->status == "todos" and $request->contact_id != "todos") {
-				$tasks = Task::whereIn('account_id', $accountsID)
-						->with([
-							'contact',
-							'user'
-						])
-						->where('contact_id', $request->contact_id)
-						->where('user_id', $userAuth->id)
-						->orderBy('date_due', 'DESC')
-						->paginate(2);
-			} else if ($request->status != "todos" and $request->contact_id != "todos") {
-//			$tasks = Task::whereIn('account_id', $accountsID)
-//					->with([
-//						'contact',
-//						'user'
-//					])
-//					->where('status', $request->status)
-//					->where('contact_id', $request->contact_id)
-//					->where('user_id', $userAuth->id)
-//					->orderBy('date_due', 'DESC')
-//					->paginate(2);
+						->paginate(20, ['*'], 'page');
 
-				$tasks = Task::filter([
-							'status', $request->status,
-							'user_id' => $userAuth->id,
-							'contact_id', $request->contact_id
-						])
-						->with(['contact', 'user'])
-						->orderBy('date_due', 'DESC')
-						->paginate(2, ['*'], 'page');
+
+				if ($request->status != "todos") {
+					return $tasks->where('status', $request->status)->get();
+				}
+				
+				if ($request->status != "contact_id") {
+					return $tasks->where('contact_id', $request->input('contact_id'))->get();
+				}
+				
+				if ($request->has('user_id')) {
+					return $tasks->where('user_id', $request->input('user_id'))->get();
+				}
+				
+
+				$tasks->appends([
+					'status' => $request->status,
+					'contact_id' => $request->contact_id,
+					'user_id' => $request->user_id,
+				]);
+
+				$contacts = Contact::whereIn('account_id', $accountsID)
+						->orderBy('NAME', 'ASC')
+						->get();
+
+				$users = User::whereHas('accounts', function($query) use($accountsID) {
+							$query->whereIn('account_id', $accountsID);
+						})
+						->orderBy('NAME', 'ASC')
+						->get();
+
+				return view('tasks.indexTasks', [
+					'tasks' => $tasks,
+					'contacts' => $contacts,
+					'users' => $users,
+					'userAuth' => $userAuth,
+				]);
+			} else {
+				return redirect('/');
 			}
-
-
-			$contacts = Contact::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->get();
-
-			return view('tasks.indexTasks', [
-				'tasks' => $tasks,
-				'contacts' => $contacts,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
-	}
-
-	public function all() {
-		$userAuth = Auth::user();
-
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$tasks = Task::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID)
-						->with('contact');
-					})
-					->orderBy('date_due', 'DESC')
-					->paginate(20);
-
-			$hoje = date("d/m/Y");
-
-			return view('tasks.indexTasks', [
-				'hoje' => $hoje,
-				'tasks' => $tasks,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
 		}
 	}
 
