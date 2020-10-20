@@ -19,10 +19,11 @@
 		<p class="subtitulo-branco">
 			tarefas sendo executadas
 		</p>
-		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{ route('task.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
-			<input type="hidden" name="status" size="20" value="fazendo agora">
-			<input type="hidden" name="contact_id" size="20" value="todos">
+			<input type="hidden" name="status"  value="fazendo agora">
+			<input type="hidden" name="contact_id" value="">
+			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
 			<input class="btn btn-secondary" type="submit" value="VER">
 		</form>
 	</div>
@@ -36,8 +37,9 @@
 		</p>
 		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
-			<input type="hidden" name="status" size="20" value="pendente">
-			<input type="hidden" name="contact_id" size="20" value="todos">
+			<input type="hidden" name="status" value="pendente">
+			<input type="hidden" name="contact_id" value="">
+			<input type="hidden" name="user_id" value="">
 			<input class="btn btn-secondary" type="submit" value="VER">
 		</form>
 	</div>
@@ -52,7 +54,8 @@
 		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" size="20" value="pendente">
-			<input type="hidden" name="contact_id" size="20" value="todos">
+			<input type="hidden" name="contact_id" value="">
+			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
 			<input class="btn btn-secondary" type="submit" value="VER">
 		</form>
 	</div>
