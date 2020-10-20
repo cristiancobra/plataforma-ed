@@ -44,6 +44,7 @@ class TaskController extends Controller {
 							$query->where('status', '=', $request->status);
 						}
 					})
+					->orderBy('date_due', 'DESC')
 					->paginate(20);
 
 			$tasks->appends([
