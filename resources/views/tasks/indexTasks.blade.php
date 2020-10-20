@@ -13,7 +13,7 @@
 @section('main')
 <form action=" {{ route('task.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
 	@csrf
-	<input type="text" name="name" placeholder="nome ou descrição" value="">
+	<input type="text" name="name" placeholder="nome da tarefa" value="">
 	<select class="select" name="status">
 		<option  class="fields" value="">
 			situação
@@ -107,7 +107,7 @@
 					<i class='fa fa-edit'></i>
 				</button>
 			</a>
-			{{ $task->name}}
+			<b>{{ $task->name}}</b>
 		</td>
 
 		<td class="table-list-center">
