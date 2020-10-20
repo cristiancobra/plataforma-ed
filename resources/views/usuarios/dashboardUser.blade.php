@@ -23,7 +23,7 @@
 			@csrf
 			<input type="hidden" name="status"  value="fazendo agora">
 			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
+			<input type="hidden" name="user_id" value="">
 			<input class="btn btn-secondary" type="submit" value="VER">
 		</form>
 	</div>
