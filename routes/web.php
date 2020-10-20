@@ -117,9 +117,9 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
-Route::post('/tarefas/filtros', 'Tasks\\TaskController@filter')->name('task.filter');
+Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')->name('task.index');
 //Route::get('/tarefas/{order}', 'Tasks\\TaskController@order')->name('task.order');
-Route::resource('tarefas', 'Tasks\\TaskController')->names('task')->parameters(['tarefas' => 'task']);
+Route::resource('tarefas', 'Tasks\\TaskController')->except(['index'])->names('task')->parameters(['tarefas' => 'task']);
 
 // ============================================== USUÁRIO =================================
 Route::resource('usuarios', 'Users\\UserController')->names('user')->parameters(['usuarios' => 'user']);

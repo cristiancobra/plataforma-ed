@@ -11,12 +11,15 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('task.filter') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
+<form action=" {{ route('task.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
 	@csrf
-	<label class="labels" for="" >situação:</label>
-	<select name="status">
-		<option  class="fields" value="todos">
-			todos
+	<input type="text" name="name" placeholder="nome ou descrição" value="">
+	<select class="select" name="status">
+		<option  class="fields" value="">
+			situação
+		</option>
+		<option  class="fields" value="">
+			TODAS
 		</option>
 		<option  class="fields" value="fazendo agora">
 			fazendo agora
@@ -28,10 +31,12 @@
 			concluidas
 		</option>
 	</select>
-	<label class="labels" for="" >contatos:</label>
-	<select name="contact_id">
-		<option  class="fields" value="todos">
-			todos
+	<select class="select" name="contact_id">
+		<option  class="fields" value="">
+			contatos
+		</option>
+		<option  class="fields" value="">
+			TODOS
 		</option>
 		@foreach ($contacts as $contact)
 		<option  class="fields" value="{{ $contact->id }}">
@@ -39,12 +44,11 @@
 		</option>
 		@endforeach
 	</select>
-	<label class="labels" for="" >responsável:</label>
-	<select name="user_id">
-		<option  class="fields" value="{{ $userAuth->id }}">
-			{{ $userAuth->name }}
+	<select class="select"name="user_id">
+		<option  class="fields" value="">
+			responsável
 		</option>
-		<option  class="fields" value="todos">
+		<option  class="fields" value="">
 			TODOS
 		</option>
 		@foreach ($users as $user)

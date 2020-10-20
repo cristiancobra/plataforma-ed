@@ -7,7 +7,7 @@ use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use App\Models\User;
 
 class Task extends Model {
-	
+
 	use Filterable;
 
 	protected $table = 'tasks';
@@ -44,15 +44,4 @@ class Task extends Model {
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
-
-	private static $whiteListFilter = ['*'];
-//		'id',
-//		'username',
-//		'family',
-//		'email',
-//		'count_posts',
-//		'created_at',
-//		'updated_at',
-//	];
-
 }
