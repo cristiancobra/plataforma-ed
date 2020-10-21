@@ -47,6 +47,9 @@ Route::resource('planejamentos', 'Financial\\PlanningController')->names('planni
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
 
+// =============================================== MARKETING ====================================
+Route::resource('sites', 'Marketing\\SiteController')->names('site');
+Route::resource('domains', 'Marketing\\DomainController')->names('domain')->parameters(['dominios' => 'domain']);
 
 // ================================ MENU ===================
 Route::get('/inicio', function () {

@@ -48,6 +48,7 @@ class TaskController extends Controller {
 					->paginate(20);
 
 			$tasks->appends([
+				'name' => $request->name,
 				'status' => $request->status,
 				'contact_id' => $request->contact_id,
 				'user_id' => $request->user_id,
