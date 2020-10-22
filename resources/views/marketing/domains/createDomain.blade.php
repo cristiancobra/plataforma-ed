@@ -14,7 +14,7 @@
 <div>
 	<form action=" {{ route('domain.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
-		<label class="labels" for="" >NOME:</label>
+		<label class="labels" for="" >DOMÍNIO:</label>
 		<input type="text" name="name" size="60" value="{{$domain->name}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DONO: </label>

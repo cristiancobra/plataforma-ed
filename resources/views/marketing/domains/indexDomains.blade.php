@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('domain.create')}}">NOVA OPORTUNIDADE</a>
+<a class="btn btn-primary"  href="{{route('domain.create')}}">NOVO DOMÌNIO</a>
 @endsection
 
 @section('main')
@@ -18,10 +18,11 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Nome </b></td>
-			<td   class="table-list-header"><b>Tipo </b></td>
-			<td   class="table-list-header"><b>PREÇO</b></td>
-			<td   class="table-list-header"><b>ETAPA DA VENDA</b></td>
+			<td   class="table-list-header"><b>DOMÍNIO </b></td>
+			<td   class="table-list-header"><b>DONO</b></td>
+			<td   class="table-list-header"><b>PROVEDOR</b></td>
+			<td   class="table-list-header"><b>DATA DE RENOVAÇÃO:</b></td>
+			<td   class="table-list-header"><b>SITUAÇÃO</b></td>
 		</tr>
 
 		@foreach ($domains as $domain)
@@ -39,15 +40,15 @@
 			</td>
 
 			<td class="table-list-right">
-				{{ $domain->type }}
+				{{ $account->name }}
 			</td>
 			
 			<td class="table-list-right">
-				R$ {{ number_format($domain->price,2,",",".") }}
+				{{ $domain->date_due }}
 			</td>
 			
 			<td class="table-list-right">
-				{{ $domain->stage }}
+				{{ $domain->status }}
 			</td>
 
 		</tr>
