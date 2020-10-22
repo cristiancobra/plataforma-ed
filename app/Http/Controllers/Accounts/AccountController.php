@@ -15,49 +15,51 @@ class AccountController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
-		    {
-		$userAuth = Auth::user();
+	public function index() { {
+			$userAuth = Auth::user();
 
-		if (Auth::check()) {
-			
-		if ($userAuth->perfil == "administrador") {
-			$accounts = Account::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->paginate(20);
-		} else {
-			$accounts = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->paginate(20);
-		}
-		
-		$totalAccounts= $accounts->count();
+			if (Auth::check()) {
 
-		return view('accounts.indexAccounts', [
-			'userAuth' => $userAuth,
-			'accounts' => $accounts,
-			'totalAccounts' => $totalAccounts,
-			]);
-		} else {
-			return redirect('/');
+				if ($userAuth->perfil == "administrador") {
+					$accounts = Account::where('id', '>=', 0)
+							->orderBy('NAME', 'asc')
+							->paginate(20);
+				} else {
+					$accounts = Account::whereHas('users', function($query) use($userAuth) {
+								$query->where('users.id', $userAuth->id);
+							})
+							->paginate(20);
+				}
+
+				$totalAccounts = $accounts->count();
+
+				return view('accounts.indexAccounts', [
+					'userAuth' => $userAuth,
+					'accounts' => $accounts,
+					'totalAccounts' => $totalAccounts,
+				]);
+			} else {
+				return redirect('/');
+			}
 		}
 	}
-	}
+
 	/**
 	 * Show the form for creating a new resource.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$userAuth = Auth::user();
+			$userAuth = Auth::user();
+
+			if (Auth::check()) {
 		$account = new Account();
 		if ($userAuth->perfil == "administrador") {
 			$users = User::where('id', '>=', 0)
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			
+
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
@@ -68,18 +70,15 @@ class AccountController extends Controller {
 					->get();
 		}
 
-		$accounts = \App\Models\Account::where('id', '>=', 0)
-				->orderBy('NAME', 'asc')
-				->get();
-
 		return view('accounts.createAccount', [
 			'userAuth' => $userAuth,
 			'users' => $users,
 			'account' => $account,
-			'accounts' => $accounts,
 		]);
-	}
-
+			} else {
+				return redirect('/');
+			}
+		}
 	/**
 	 * Store a newly created resource in storage.
 	 *
