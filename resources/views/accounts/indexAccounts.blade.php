@@ -11,7 +11,10 @@
 @endsection
 
 @section('main')
-<br>
+	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
+		Você possui <span class="labels">{{$totalAccounts }} empresas </span>
+	</p>
+	<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Empresa </b></td>

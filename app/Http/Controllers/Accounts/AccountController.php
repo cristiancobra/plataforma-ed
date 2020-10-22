@@ -16,7 +16,11 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		    {
 		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			
 		if ($userAuth->perfil == "administrador") {
 			$accounts = Account::where('id', '>=', 0)
 					->orderBy('NAME', 'asc')
@@ -27,14 +31,19 @@ class AccountController extends Controller {
 					})
 					->paginate(20);
 		}
+		
+		$totalAccounts= $accounts->count();
 
 		return view('accounts.indexAccounts', [
-//			'users' => $users,
 			'userAuth' => $userAuth,
 			'accounts' => $accounts,
-		]);
+			'totalAccounts' => $totalAccounts,
+			]);
+		} else {
+			return redirect('/');
+		}
 	}
-
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 *

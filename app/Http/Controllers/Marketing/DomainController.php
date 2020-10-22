@@ -100,7 +100,7 @@ class DomainController extends Controller
     {
 		$userAuth = Auth::user();
 
-			return view('marketing.domains.showDomain', [
+		return view('marketing.domains.showDomain', [
 			'domain' => $domain,
 			'userAuth' => $userAuth,
 		]);
