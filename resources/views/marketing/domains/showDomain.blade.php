@@ -15,61 +15,28 @@
 <h1 class="name">
 	{{ $domain->name }}
 </h1>
-<label class="labels" for="" >FOTO:</label>
-<span class="fields">{{$domain->image}}</span>
-<br>
 <label class="labels" for="" >DONO: </label>
-<span class="fields">{{$domain->account->name }}</span>
+<span class="fields">{{$domain->account_id }}</span>
 <br>
-<label class="labels" for="" >TIPO:</label>
-<span class="fields">{{$domain->type }}</span>
+<label class="labels" for="" >SITE:: </label>
+@foreach ($sites as $site)
+{{ $site->name }}
+@endforeach
 <br>
-<label class="labels" for="" >CATEGORIA:</label>
-<span class="fields">{{$domain->category }}</span>
+<label class="labels" for="" >NOME DO TITULAR:</label>
+<span class="fields">{{$domain->holder }}</span>
 <br>
-<label class="labels" for="" >DESCRIÇÃO:</label>
-<span class="fields">{!!html_entity_decode($domain->description )!!}</span>
+<label class="labels" for="" >PROVEDOR DO DOMÍNIO:</label>
+<span class="fields">{{$domain->provider }}</span>
 <br>
-<label class="labels" for="" >HORAS NECESSÁRIAS:</label>
-<span class="fields">{{$domain->work_hours }}</span>
+<label class="labels" for="" >LINK DO PROVEDOR:<:</label>
+<span class="fields">{{$domain->link_provider }}</span>
 <br>
+<label class="labels" for="" >SENHA DO PROVEDOR:</label>
+<span class="fields">{{$domain->provider_password }}</span>
 <br>
-<label class="labels" for="" >CUSTO 1:</label>
-<span class="fields">R$ {{ number_format($domain->cost1, 2,",",".") }}</span>
-<label class="labels" for="" >descrição:</label>
-<span class="fields">{{$domain->cost1_description }}</span>
-<br>
-<label class="labels" for="" >CUSTO 2:</label>
-<span class="fields">R$ {{ number_format($domain->cost2, 2,",",".") }}</span>
-<label class="labels" for="" >descrição:</label>
-<span class="fields">{{$domain->cost2_description }}</span>
-<br>
-<label class="labels" for="" >CUSTO 3:</label>
-<span class="fields">R$ {{ number_format($domain->cost3, 2,",",".") }}</span>
-<label class="labels" for="" >descrição:</label>
-<span class="fields">{{$domain->cost3_description }}</span>
-<br>
-<label class="labels" for="" >CUSTO TOTAL:</label>
-<span class="fields">R$ {{ number_format($domain->cost1 + $domain->cost2 +$domain->cost3, 2,",",".") }}</span>
-<br>
-<br>
-<label class="labels" for="" >MARGEM DE CONTRIBUIÇÃO (R$):</label>
-<span class="fields">R$ {{ number_format(-$domain->price * $domain->tax_rate /100 - $domain->cost1 - $domain->cost2 - $domain->cost3 + $domain->price, 2,",",".") }}</span>
-<br>
-<br>
-<label class="labels" for="" >IMPOSTO:</label>
-<span class="fields">{{$domain->tax_rate }} %</span>
-<br>
-<label class="labels" for="" >IMPOSTO:</label>
-<span class="fields">R$ {{ number_format($domain->price * $domain->tax_rate / 100, 2,",",".") }}</span>
-<br>
-<label class="labels" for="" >PREÇO:</label>
-<span class="fields">R$ {{ number_format($domain->price, 2,",",".") }}</span>
-<br>
-<br>
-<label class="labels" for="" >PRAZO DE ENTREGA:</label>
-<span class="fields">{{$domain->due_date }}</span>
-<br>
+<label class="labels" for="" >DATA DE VENCIMENTO:</label>
+<span class="fields">{{ date('d/m/Y', strtotime($domain->date_due)) }}</span>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$domain->status }}</span>
