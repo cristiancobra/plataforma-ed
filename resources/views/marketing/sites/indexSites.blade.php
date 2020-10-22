@@ -3,7 +3,7 @@
 @section('title','SITES')
 
 @section('image-top')
-{{ asset('imagens/financeiro.png') }} 
+{{ asset('imagens/site.png') }} 
 @endsection
 
 @section('description')
@@ -60,6 +60,10 @@
 				<button class="button">
 					<a href=" {{ $site->link_edit }}"  target="_blank">
 						<i class='fa fa-edit' style="color:white"></i></a>
+				</button>
+				<button class="button">
+					<a href=" {{ $site->link_hosting}}"  target="_blank">
+						<i class='fa fa-server' style="color:white"></i></a>
 				</button>
 			</td>
 

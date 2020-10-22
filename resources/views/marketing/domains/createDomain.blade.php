@@ -3,11 +3,11 @@
 @section('title','DOMÍNIOS')
 
 @section('image-top')
-{{ asset('imagens/financeiro.png') }} 
+{{ asset('imagens/domain.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('domain.index') }}">VER OPORTUNIDADES</a>
+<a class="btn btn-primary" href="{{ route('domain.index') }}">VER DOMÍNIOS</a>
 @endsection
 
 @section('main')

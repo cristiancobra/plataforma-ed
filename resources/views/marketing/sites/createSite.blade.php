@@ -3,7 +3,7 @@
 @section('title','SITES')
 
 @section('image-top')
-{{ asset('imagens/financeiro.png') }} 
+{{ asset('imagens/site.png') }} 
 @endsection
 
 @section('description')
