@@ -78,7 +78,12 @@ CKEDITOR.replace('description');
 	<br>
 	@foreach ($users as $user)
 	<p class="fields">
-		<input type="checkbox" name="users[]" value="{{ $user->id }}">	{{ $user->name }}
+		<input type="checkbox" name="users[]" value="{{ $user->id }}"
+			   @if (count($user->accounts))
+			   checked
+			   @endif
+			    >
+			   {{ $user->name }}
 	</p>
 	@endforeach
 	<br>
