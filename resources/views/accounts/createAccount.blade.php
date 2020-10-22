@@ -45,6 +45,7 @@
 	<label for="">Qtde empregados: </label>
 	<input type="text" name="employees">   
 	<br>
+	<br>
 	<label class="labels" for="" >Colaboradores: </label>
 	<br>
 	@foreach ($users as $user)
