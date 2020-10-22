@@ -32,7 +32,7 @@ class DomainController extends Controller
 
 			$totalDomains = $domains->count();
 
-			return view('marketing.sites.indexSites', [
+			return view('marketing.domains.indexDomains', [
 				'domains' => $domains,
 				'totalDomains' => $totalDomains,
 				'userAuth' => $userAuth,

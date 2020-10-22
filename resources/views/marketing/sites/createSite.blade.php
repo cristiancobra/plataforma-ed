@@ -48,7 +48,7 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_creation" size="20"><span class="fields"></span>
+		<input type="date" name="creation_date" size="20"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
