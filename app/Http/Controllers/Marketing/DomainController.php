@@ -85,7 +85,7 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-		Site::create($request->all());
+		Domain::create($request->all());
 
 		return redirect()->action('Marketing\\DomainController@index');
 	}
