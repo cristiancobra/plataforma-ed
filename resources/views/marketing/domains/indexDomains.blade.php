@@ -40,7 +40,7 @@
 			</td>
 
 			<td class="table-list-right">
-				{{ $account->name }}
+				{{ $domain->account->name }}
 			</td>
 			
 			<td class="table-list-right">
