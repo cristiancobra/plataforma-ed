@@ -57,10 +57,17 @@ class AccountController extends Controller {
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
+			
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$users = User::whereIn('id', $accountsID)
+					->orderBy('NAME', 'ASC')
 					->get();
 		}
+
 		$accounts = \App\Models\Account::where('id', '>=', 0)
 				->orderBy('NAME', 'asc')
 				->get();
@@ -123,7 +130,6 @@ class AccountController extends Controller {
 					->get();
 		}
 
-//		$idsAccount = $account->users->toArray();
 		$idsAccount = Account::find($account->id)
 				->with('users')
 				->orderBy('NAME', 'asc')
