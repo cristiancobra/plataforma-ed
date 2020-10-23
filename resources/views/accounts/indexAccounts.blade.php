@@ -7,7 +7,9 @@
 @endsection
 
 @section('description')
+@auth
 <a class="btn btn-primary" href="{{route('account.create')}}">ADICIONAR EMPRESA</a>
+@endauth
 @endsection
 
 @section('main')
