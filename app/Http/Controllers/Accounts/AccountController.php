@@ -50,35 +50,36 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-			$userAuth = Auth::user();
+		$userAuth = Auth::user();
 
-			if (Auth::check()) {
-		$account = new Account();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$users = User::whereIn('id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->get();
-		}
-
-		return view('accounts.createAccount', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'account' => $account,
-		]);
+		if (Auth::check()) {
+			$account = new Account();
+			if ($userAuth->perfil == "administrador") {
+				$users = User::where('id', '>=', 0)
+						->orderBy('NAME', 'asc')
+						->get();
 			} else {
-				return redirect('/');
+
+				$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+							$query->where('users.id', $userAuth->id);
+						})
+						->pluck('id');
+
+				$users = User::whereIn('id', $accountsID)
+						->orderBy('NAME', 'ASC')
+						->get();
 			}
+
+			return view('accounts.createAccount', [
+				'userAuth' => $userAuth,
+				'users' => $users,
+				'account' => $account,
+			]);
+		} else {
+			return redirect('/');
 		}
+	}
+
 	/**
 	 * Store a newly created resource in storage.
 	 *
@@ -117,29 +118,45 @@ class AccountController extends Controller {
 	 * @param  \App\Models\Account  $account
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Account $account) {
-		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-			$users = User::where('id', '=', $userAuth->id)
-					->with('accounts')
-					->get();
+	public function edit(Account $account) { {
+			$userAuth = Auth::user();
+
+			if (Auth::check()) {
+
+				if ($userAuth->perfil == "administrador") {
+
+					$users = User::where('id', '>=', 0)
+							->with('accounts')
+							->orderBy('NAME', 'asc')
+							->get();
+
+					$usersChecked = User::whereHas('accounts', function($query) use($account) {
+								$query->where('account_id', $account->id);
+							})
+							->pluck('id')
+							->toArray();
+				} else {
+					$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+								$query->where('users.id', $userAuth->id);
+							})
+							->pluck('id');
+
+					$users = User::whereIn('id', $accountsID)
+							->orderBy('NAME', 'ASC')
+							->get();
+				}
+
+				return view('accounts.editAccount', [
+					'userAuth' => $userAuth,
+					'users' => $users,
+					'usersChecked' => $usersChecked,
+					'account' => $account,
+//					'accountsID' => $accountsID,
+				]);
+			} else {
+				return redirect('/');
+			}
 		}
-
-		$idsAccount = Account::find($account->id)
-				->with('users')
-				->orderBy('NAME', 'asc')
-				->get();
-
-		return view('accounts.editAccount', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'account' => $account,
-			'idsAccount' => $idsAccount,
-		]);
 	}
 
 	/**
