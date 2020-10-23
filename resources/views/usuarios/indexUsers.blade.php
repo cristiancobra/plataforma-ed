@@ -7,9 +7,11 @@
 @endsection
 
 @section('description')
+@auth
 <a class="btn btn-primary" href="{{route('user.create')}}">
 	ADICIONAR COLABORADOR
 </a>
+@endauth
 @endsection
 
 @section('main')
