@@ -101,7 +101,12 @@ class OpportunitieController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Opportunitie $opportunitie) {
-		//
+		$userAuth = Auth::user();
+
+		return view('marketing.domains.showDomain', [
+			'opportunitie' => $opportunitie,
+			'userAuth' => $userAuth,
+		]);
 	}
 
 	/**
