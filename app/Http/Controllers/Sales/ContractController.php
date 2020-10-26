@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Marketing;
+namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contract;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
-use App\Models\Domain;
-use App\Models\Site;
+use App\Models\Contact;
+use App\Models\Opportunitie;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class DomainController extends Controller
+class ContractController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,15 +28,20 @@ class DomainController extends Controller
 					})
 					->get('id');
 
-			$domains = Domain::whereIn('account_id', $accountsID)
+			$contracts = Contract::whereIn('account_id', $accountsID)
+					->with([
+						'contact',
+						'account',
+//						'products'
+						])
 					->orderBy('NAME', 'ASC')
 					->paginate(20);
 
-			$totalDomains = $domains->count();
+			$totalContracts = $contracts->count();
 
-			return view('marketing.domains.indexDomains', [
-				'domains' => $domains,
-				'totalDomains' => $totalDomains,
+			return view('sales.contracts.indexContracts', [
+				'contracts' => $contracts,
+				'totalContracts' => $totalContracts,
 				'userAuth' => $userAuth,
 			]);
 		} else {
@@ -49,10 +56,10 @@ class DomainController extends Controller
      */
     public function create()
     {
-		$userAuth = Auth::user();
+   	$userAuth = Auth::user();
 
 		if (Auth::check()) {
-			$domain = new Domain();
+			$contract = new Contract();
 
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
@@ -63,20 +70,31 @@ class DomainController extends Controller
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$sites = Site::whereIn('account_id', $accountsID)
+			$contacts = Contact::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
+			
+			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
+			
+			$products = Product::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			return view('marketing.domains.createDomain', [
+			return view('sales.contracts.createContract', [
 				'userAuth' => $userAuth,
-				'domain' => $domain,
-				'sites' => $sites,
+				'contract' => $contract,
 				'accounts' => $accounts,
+				'opportunities' => $opportunities,
+				'contacts' => $contacts,
+				'products' => $products,
 			]);
 		} else {
 			return redirect('/');
 		}
 	}
+
     /**
      * Store a newly created resource in storage.
      *
@@ -85,23 +103,29 @@ class DomainController extends Controller
      */
     public function store(Request $request)
     {
-		Domain::create($request->all());
-
-		return redirect()->action('Marketing\\DomainController@index');
+        	$contract = new Contract;
+	$contract->name = $request->name;
+	$contract->account_id = $request->account_id;
+	$contract->contact_id = $request->contact_id;
+	$contract->witness1 = $request->witness1;
+	$contract->witness2 = $request->witness2;
+	$contract->save();
+	
+		return redirect()->action('Sales\\ContractController@index');
 	}
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Domain  $domain
+     * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function show(Domain $domain)
+    public function show(Contract $contract)
     {
 		$userAuth = Auth::user();
 
-		return view('marketing.domains.showDomain', [
-			'domain' => $domain,
+		return view('sales.contracts.showContract', [
+			'contract' => $contract,
 			'userAuth' => $userAuth,
 		]);
 	}
@@ -109,64 +133,37 @@ class DomainController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Domain  $domain
+     * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Domain $domain)
+    public function edit(Contract $contract)
     {
-		$userAuth = Auth::user();
-
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
-
-			return view('marketing.domains.editDomain', [
-				'userAuth' => $userAuth,
-				'domain' => $domain,
-				'accounts' => $accounts,
-			]);
-		} else {
-			return redirect('/');
-		}
-	}
+        //
+    }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Domain  $domain
+     * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Domain $domain)
+    public function update(Request $request, Contract $contract)
     {
-    {
-		$userAuth = Auth::user();
+        //
+    }
 
-		$domain->fill($request->all());
-		$domain->save();
-
-			return view('marketing.domains.showDomain', [
-			'domain' => $domain,
-			'userAuth' => $userAuth,
-		]);
-	}
-	}
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Domain  $domain
+     * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Domain $domain)
+    public function destroy(Contract $contract)
     {
-		$domain->delete();
-		return redirect()->action('Marketing\\DomainController@index');
+    {
+		$contract->delete();
+		return redirect()->action('Sales\\ContractController@index');
 	}
+}
 }

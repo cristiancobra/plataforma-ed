@@ -30,8 +30,7 @@ class UserController extends Controller {
 					})
 					->paginate(20);
 		}
-		$totalUsers = $users
-				->count();
+		$totalUsers = $users->count();
 
 		return view('usuarios.indexUsers', [
 			'users' => $users,

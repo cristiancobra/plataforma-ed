@@ -112,6 +112,7 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
+Route::resource('contratos', 'Sales\\ContractController')->names('contract')->parameters(['contratos' => 'contract']);
 Route::resource('oportunidades', 'Sales\\OpportunitieController')->names('opportunitie')->parameters(['oportunidades' => 'opportunitie']);
 Route::resource('produtos', 'Sales\\ProductController')->names('product')->parameters(['produtos' => 'product']);
 

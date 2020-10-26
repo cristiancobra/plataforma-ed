@@ -151,8 +151,9 @@
 				</button>
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{ route('product.index') }}"><i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS</a>
-					<a class="sidebar-subitem" href="{{ route('opportunitie.index') }}" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
-					<a class="sidebar-subitem" href="https://painel.autentique.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CONTRATOS DIGITAIS</a>
+					<a class="sidebar-subitem" href="{{ route('opportunitie.index') }}"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
+					<a class="sidebar-subitem" href="{{ route('contract.index') }}"> <i class="fas fa-file-signature" style="margin-right: 8px"></i>CONTRATOS</a>
+					<a class="sidebar-subitem" href="https://painel.autentique.com.br/" target="_blank"><i class="fas fa-file-signature" style="margin-right: 8px"></i>AUTENTICAÇÃO DIGITAL</a>
 					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>
 

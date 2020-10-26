@@ -19,6 +19,10 @@ class Contact extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
+	public function contracts() {
+		return $this->hasMany(Contract::class, 'id', 'contact_id');
+	}
+	
 	public function tasks() {
 		return $this->hasMany(Task::class, 'id', 'contact_id');
 	}
