@@ -165,7 +165,7 @@
 
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{route('bill.index')}}">
-						<i class="fas fa-bullhorn" style="margin-right: 8px"></i>
+						<i class="fas fa-receipt" style="margin-right: 8px"></i>
 						FATURAS
 					</a>
 				</div>

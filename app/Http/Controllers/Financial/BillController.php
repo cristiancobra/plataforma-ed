@@ -205,7 +205,7 @@ class BillController extends Controller {
 		return view('financial.bills.showBill', [
 			'bill' => $bill,
 			'userAuth' => $userAuth,
-						'name' => $name,
+			'name' => $name,
 			'amount' => $amount,
 			'hours' => $hours,
 			'cost' => $cost,
