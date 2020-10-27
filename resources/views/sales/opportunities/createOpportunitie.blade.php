@@ -54,8 +54,8 @@
 		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
 		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
 		<br>
-		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
-		<input type="date" name="pay_day" size="20"><span class="fields"></span>
+		<label class="labels" for="" >DATA DE PAGAMENTO:</label>
+		<input type="date" name="" size="20"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
@@ -67,19 +67,6 @@
 		<script>
 CKEDITOR.replace('description');
 		</script>
-		<br>
-		<br>
-		<label class="labels" for="" >PRODUTOS: </label>
-		@foreach ($products as $product)
-		<p class="fields">
-			<input type="checkbox" name="users[]" value="{{ $product->id }}">
-			{{ $product->name }}
-		</p>
-		@endforeach
-		<br>
-		<br>
-		<label class="labels" for="" >PREÇO:</label>
-		<input type="integer" name="price" size="5" value="{{$opportunitie->price}}"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">ETAPA DA VENDA:</label>
@@ -94,9 +81,9 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
-			<option value="pending">pendente</option>
-			<option value="disable">desativado</option>
-			<option value="active">ativo</option>
+			<option value="pendente">pendente</option>
+			<option value="desativado">desativado</option>
+			<option value="ativo">ativo</option>
 		</select>
 		<br>
 		<br>

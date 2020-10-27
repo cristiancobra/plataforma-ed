@@ -42,6 +42,88 @@ CKEDITOR.replace('description');
 		</script>
 		<br>
 		<br>
+		<label class="labels" for="" >PRODUTOS: </label>
+		<table class="table-list">
+			<tr>
+				<td   class="table-list-header">
+					<b>QTDE </b>
+				</td>
+				<td   class="table-list-header">
+					<b>FOTO </b>
+				</td>
+				<td   class="table-list-header">
+					<b>NOME </b>
+				</td>
+				<td   class="table-list-header">
+					<b>HORAS</b>
+				</td>
+				<td   class="table-list-header">
+					<b>CUSTOS</b>
+				</td>
+				<td   class="table-list-header">
+					<b>IMPOSTO</b>
+				</td>
+				<td   class="table-list-header">
+					<b>MARGEM</b>
+				</td>
+				<td   class="table-list-header">
+					<b>PREÇO</b>
+				</td>
+			</tr>
+
+			@foreach ($products as $product)
+			<tr style="font-size: 14px">
+				<td class="table-list-center">
+					<input type="number" name="{{$amount++}}" size="4"><span class="fields"></span>
+				</td>
+
+				<td class="table-list-right">
+					<image src="{{ $product->image }}" style="width:50px;height:50px; margin: 5px"></a>
+				</td>
+
+				<td class="table-list-left">
+					<button class="button">
+						<a href=" {{ route('product.show', ['product' => $product->id]) }}">
+							<i class='fa fa-eye' style="color:white"></i></a>
+					</button>
+					<button class="button">
+						<a href=" {{ route('product.edit', ['product' => $product->id]) }}">
+							<i class='fa fa-edit' style="color:white"></i></a>
+					</button>
+					<input type="hidden" name="{{$name++}}" size="16" value="{{ $product->name }}"><span class="fields"></span>
+					{{ $product->name }}
+				</td>
+
+				<td class="table-list-center">
+					<input type="hidden" name="{{$hours++}}" size="4" value="{{$product->work_hours}}">
+					{{ number_format($product->work_hours)}}
+				</td>
+
+				<td class="table-list-right">
+					<input type="hidden" name="{{$cost++}}" size="7" value="{{ $product->cost1 + $product->cost2 + $product->cost3}}" >
+					{{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".") }}
+				</td>
+
+				<td class="table-list-right">
+					<input type="hidden" name="{{$tax_rate++}}" size="7" value="{{ $product->price * $product->tax_rate / 100 }}" >
+					{{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}
+				</td>
+
+				<td class="table-list-right">
+					<input type="hidden" name="{{$margin++}}" size="7" value="{{ -$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price }}" >
+					{{ number_format(-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}
+				</td>
+
+				<td class="table-list-right">
+					<input type="hidden" name="{{$price++}}" size="8" value="{{$product->price}}" >
+					{{ number_format($product->price,2,",",".") }}
+				</td>
+
+			</tr>
+			@endforeach
+		</table>
+		<br>
+		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
 			<option value="pendente">pendente</option>

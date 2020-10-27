@@ -31,6 +31,64 @@
 <label class="labels" for="" >DATA DE PAGAMENTO:</label>
 <span class="fields">{{ date('d/m/Y', strtotime($bill->pay_day)) }}</span>
 <br>
+<br>
+<label class="labels" for="" >PRODUTOS:</label>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header"><b>Nome </b></td>
+		<td   class="table-list-header"><b>Quantidade </b></td>
+		<td   class="table-list-header"><b>Imposto</b></td>
+		<td   class="table-list-header"><b>Preço</b></td>
+	</tr>
+
+	@while ($bill->$name != null)
+	<tr style="font-size: 14px">
+		<td class="table-list-left">
+			{{ $bill->$name }}
+		</td>
+
+		<td class="table-list-center">
+			{{ $bill->$amount }}
+		</td>
+
+		<td class="table-list-right">
+			{{ number_format($bill->$tax_rate, 2,",",".") }}
+		</td>
+
+		<td class="table-list-right">
+			{{ number_format($bill->$price,2,",",".") }}
+		</td>
+
+		@php
+		$name++;
+		$amount++;
+		$hours++;
+		$cost++;
+		$tax_rate++;
+		$price++;
+		@endphp
+		@endwhile
+	</tr>
+	<tr>
+		<td   class="table-list-header">
+			<b></b>
+		</td>
+		<td   class="table-list-header">
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($bill->totalTax_rate, 2,",",".") }}</b>
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($bill->totalPrice, 2,",",".") }}</b>
+		</td>
+	</tr>
+</table>
+<br>
+<p style="text-align: right">
+	<label class="labels" for="">SALDO:</label>
+	<span class="fields">R$ {{number_format($bill->totalBalance, 2,",",".") }}</span>
+</p>
 <label class="labels" for="">OBSERVAÇÕES:</label>
 <span class="fields">{!!html_entity_decode($bill->description)!!}</span>
 <br>

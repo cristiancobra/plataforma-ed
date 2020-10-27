@@ -65,7 +65,7 @@ class OpportunitieController extends Controller {
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
-			
+
 			$products = Product::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -103,7 +103,7 @@ class OpportunitieController extends Controller {
 	public function show(Opportunitie $opportunitie) {
 		$userAuth = Auth::user();
 
-		return view('marketing.domains.showDomain', [
+		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
 			'userAuth' => $userAuth,
 		]);

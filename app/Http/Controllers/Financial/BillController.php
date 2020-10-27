@@ -31,7 +31,7 @@ class BillController extends Controller {
 					->with([
 						'contact',
 						'account',
-//						'products',
+						'products',
 					])
 					->orderBy('pay_day', 'DESC')
 					->paginate(20);
@@ -80,6 +80,14 @@ class BillController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$name = "name0001";
+			$amount = "amount0001";
+			$hours = "hours0001";
+			$cost = "cost0001";
+			$tax_rate = "tax_rate0001";
+			$price = "price0001";
+			$margin = "margin0001";
+
 			return view('financial.bills.createBill', [
 				'userAuth' => $userAuth,
 				'bill' => $bill,
@@ -87,6 +95,13 @@ class BillController extends Controller {
 				'opportunities' => $opportunities,
 				'contacts' => $contacts,
 				'products' => $products,
+				'name' => $name,
+				'amount' => $amount,
+				'hours' => $hours,
+				'cost' => $cost,
+				'tax_rate' => $tax_rate,
+				'price' => $price,
+				'margin' => $margin,
 			]);
 		} else {
 			return redirect('/');
@@ -100,16 +115,72 @@ class BillController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$bill = new Bill;
+		$bill = new Bill();
+				
 		$bill->opportunitie_id = $request->opportunitie_id;
-		$opportunitie = Opportunitie::find($bill->opportunitie_id)->with('account','contact')->first();
+		$opportunitie = Opportunitie::find($bill->opportunitie_id)->with('account')->first();
 		$bill->account_id = $opportunitie->account->id;
-		$opportunitie2 = Opportunitie::find($bill->opportunitie_id)->with('contact')->first();
-		$bill->contact_id = $opportunitie2->contact->id;
+//		$opportunitie2 = Opportunitie::find($bill->opportunitie_id)->with('contact')->first();
+//		$bill->contact_id = $opportunitie2->contact->id;
 		$bill->date_creation = $request->date_creation;
 		$bill->pay_day = $request->pay_day;
 		$bill->description = $request->description;
 		$bill->status = $request->status;
+		
+//		$bill->contact_id = ($request->contact_id);
+
+		$name = "name0001";
+		$amount = "amount0001";
+		$hours = "hours0001";
+		$cost = "cost0001";
+		$tax_rate = "tax_rate0001";
+		$price = "price0001";
+		$margin = "margin0001";
+
+		$totalAmount = 0;
+		$totalHours = 0;
+		$totalCost = 0;
+		$totalTax_rate = 0;
+		$totalPrice = 0;
+		$totalMargin = 0;
+
+		while ($request->$name != null) {
+			$bill->$name = $request->$name;
+
+			$bill->$amount = $request->$amount;
+			$totalAmount = $totalAmount + $request->$amount;
+
+			$bill->$hours = $request->$hours * $request->$amount;
+			$totalHours = $totalHours + $bill->$hours;
+
+			$bill->$cost = $request->$cost * $request->$amount;
+			$totalCost = $totalCost + $bill->$cost;
+
+			$bill->$tax_rate = $request->$tax_rate * $request->$amount;
+			$totalTax_rate = $totalTax_rate + $bill->$tax_rate;
+
+			$bill->$price = $request->$price * $request->$amount;
+			$totalPrice = $totalPrice + $bill->$price;
+
+			$bill->$margin = $request->$margin * $request->$amount;
+			$totalMargin = $totalMargin + $bill->$margin;
+
+			$name++;
+			$amount++;
+			$hours++;
+			$cost++;
+			$tax_rate++;
+			$price++;
+			$margin++;
+		}
+		$bill->totalAmount = $totalAmount;
+		$bill->totalHours = $totalHours;
+		$bill->totalCost = $totalCost;
+		$bill->totalTax_rate = $totalTax_rate;
+		$bill->totalPrice = $totalPrice;
+		$bill->totalMargin = $totalMargin;
+		$bill->totalBalance = $totalMargin - $bill->expenses;
+
 		$bill->save();
 
 		return redirect()->action('Financial\\BillController@index');
@@ -123,10 +194,24 @@ class BillController extends Controller {
 	 */
 	public function show(Bill $bill) {
 		$userAuth = Auth::user();
-
+		$name = "name0001";
+		$amount = "amount0001";
+		$hours = "hours0001";
+		$cost = "cost0001";
+		$tax_rate = "tax_rate0001";
+		$price = "price0001";
+		$margin = "margin0001";
+		
 		return view('financial.bills.showBill', [
 			'bill' => $bill,
 			'userAuth' => $userAuth,
+						'name' => $name,
+			'amount' => $amount,
+			'hours' => $hours,
+			'cost' => $cost,
+			'tax_rate' => $tax_rate,
+			'price' => $price,
+			'margin' => $margin,
 		]);
 	}
 
