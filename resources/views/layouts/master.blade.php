@@ -157,20 +157,20 @@
 					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
 				</div>
 
-				@if ($userAuth->perfil == "administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-funnel-dollar'></i>
 					FINANCEIRO 
 					<i class="fa fa-caret-down"></i>
 				</button>
+
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="/financeiro"><i class="fas fa-user-plus" style="margin-right: 8px"></i>PAINEL</a>
-					<a class="sidebar-subitem" href="/transactions"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
-					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/sales/invoices/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA VENDA</a>
-					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/purchases/bills/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA DESPESA</a>
-					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/administrativo/financeiro" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
+					<a class="sidebar-subitem" href="{{route('bill.index')}}">
+						<i class="fas fa-bullhorn" style="margin-right: 8px"></i>
+						FATURAS
+					</a>
 				</div>
 
+				@if ($userAuth->perfil == "administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-rocket'></i>
 					EMPRESA DIGITAL 
@@ -195,8 +195,19 @@
 						<br>
 						lnsc. Municipal : 58029
 					</a>
+					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/sales/invoices/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA VENDA</a>
+					<a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/purchases/bills/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA DESPESA</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/administrativo/financeiro" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS FINANCEIROS</a>
 					<a class="sidebar-subitem" href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>TUTO VENDAS ANTIGO</a>
 					<a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMAILS PENDENTES</a>
+					<a class="sidebar-subitem" href="/transactions">
+						<i class="fas fa-bullhorn" style="margin-right: 8px"></i>
+						ENTRADAS
+					</a>
+					<a class="sidebar-subitem" href="/financeiro">
+						<i class="fas fa-user-plus" style="margin-right: 8px"></i>
+						PAINEL
+					</a>
 				</div>
 
 				@endif

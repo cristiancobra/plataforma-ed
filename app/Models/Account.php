@@ -12,10 +12,6 @@ class Account extends Model {
 		'id', 'user_id', 'name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type', 'employees', 'status',
 	];
 
-	public function users() {
-		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
-	}
-
 	public function contacts() {
 		return $this->hasMany(Contact::class, 'id', 'account_id');
 	}
@@ -52,4 +48,7 @@ class Account extends Model {
 		return $this->hasMany(Task::class, 'id', 'account_id');
 	}
 
+	public function users() {
+		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
+	}
 }
