@@ -32,7 +32,7 @@ class UserController extends Controller {
 		}
 		$totalUsers = $users->count();
 
-		return view('usuarios.indexUsers', [
+		return view('users.indexUsers', [
 			'users' => $users,
 			'userAuth' => $userAuth,
 			'totalUsers' => $totalUsers,
@@ -45,10 +45,10 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$user = new \App\User();
+		$user = new User();
 		$userAuth = Auth::user();
 
-		return view('usuarios.createUser', [
+		return view('users.createUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 		]);
@@ -66,24 +66,17 @@ class UserController extends Controller {
 		$user = new User();
 		$user->name = ucfirst($request->novo_nome) . " " . ucfirst($request->novo_sobrenome);
 		$user->perfil = $request->perfil;
-		$user->email = strtolower($request->novo_nome) . "." . strtolower($request->novo_sobrenome . "@empresadigital.net.br");
+		$user->email = $request->email;
 		$user->default_password = $request->password;
 		$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-		$user->dominio = strtolower($request->novo_nome) . strtolower($request->novo_sobrenome . "." . "empresadigital.net.br");
+		$user->dominio = $request->domain;
 		$user->save();
 
-		$nome_usuario = strtolower($request->novo_nome) . "." . strtolower($request->novo_sobrenome);
-
-		return view('usuarios.showUser', [
+		return view('users.showUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 		]);
 	}
-
-	//	$nome = ucfirst($request->novo_nome)." ".ucfirst($request->novo_sobrenome);
-	// $nome_usuario =  strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome);
-//	$email = strtolower($request->novo_nome).".".strtolower($request->novo_sobrenome."@empresadigital.net.br");
-//	$dominio = strtolower($request->novo_nome).strtolower($request->novo_sobrenome."."."empresadigital.net.br");
 
 	/**
 	 * Display the specified resource.
@@ -94,7 +87,7 @@ class UserController extends Controller {
 	public function show(User $user) {
 		$userAuth = Auth::user();
 
-		return view('usuarios.showUser', [
+		return view('users.showUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 		]);
@@ -122,7 +115,7 @@ class UserController extends Controller {
 					->pluck('id');
 		}
 
-		return view('usuarios.editUser', [
+		return view('users.editUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 			'accounts' => $accounts,
@@ -214,7 +207,7 @@ class UserController extends Controller {
 					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
 					->sum('duration');
 
-			return view('usuarios/dashboardUser', [
+			return view('users/dashboardUser', [
 				'userAuth' => $userAuth,
 				'today' => $today,
 				'tasks_now' => $tasks_now,

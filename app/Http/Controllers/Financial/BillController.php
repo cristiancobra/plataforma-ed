@@ -106,7 +106,6 @@ class BillController extends Controller {
 		$bill->account_id = $opportunitie->account->id;
 		$opportunitie2 = Opportunitie::find($bill->opportunitie_id)->with('contact')->first();
 		$bill->contact_id = $opportunitie2->contact->id;
-//		$bill->contact_id = Contact::find($bill->opportunitie_id)->id;
 		$bill->date_creation = $request->date_creation;
 		$bill->pay_day = $request->pay_day;
 		$bill->description = $request->description;

@@ -3,7 +3,7 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{ asset('imagens/contract.png') }} 
+{{ asset('imagens/bill.png') }} 
 @endsection
 
 @section('description')
@@ -53,21 +53,21 @@
 			</td>
 
 			<td class="table-list-center">
-				{{ $bill->account->name}}
-			</td>
-			
-			<td class="table-list-center">
 				{{ $bill->contact->name}}
 			</td>
-			
+
+			<td class="table-list-center">
+				{{ $bill->account->name}}
+			</td>
+
 			<td class="table-list-center">
 				{{ $bill->pay_day }}
 			</td>
-			
+
 			<td class="table-list-center">
 				{{ $bill->price }}
 			</td>
-			
+
 			<td class="table-list-center">
 				{{ $bill->status }}
 			</td>

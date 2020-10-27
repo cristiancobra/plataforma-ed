@@ -21,6 +21,10 @@
 <label class="labels" for="" >OPORTUNIDADE:</label>
 <span class="fields">{{$bill->opportunitie->name}}</span>
 <br>
+<br>
+<label class="labels" for="" >CONTRATANTE:</label>
+<span class="fields">{{ $bill->contact->name}}</span>
+<br>
 <label class="labels" for="" >DATA DE CRIAÇÃO::</label>
 <span class="fields">{{ date('d/m/Y', strtotime($bill->date_creation)) }}</span>
 <br>

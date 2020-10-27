@@ -3,7 +3,7 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{ asset('imagens/bills.png') }} 
+{{ asset('imagens/bill.png') }} 
 @endsection
 
 @section('description')
