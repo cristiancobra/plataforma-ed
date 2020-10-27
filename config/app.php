@@ -166,7 +166,6 @@ return [
         /*
          * Package Service Providers...
          */
-eloquentFilter\ServiceProvider::class,
 		
         /*
          * Application Service Providers...
@@ -231,7 +230,6 @@ eloquentFilter\ServiceProvider::class,
         'View' => Illuminate\Support\Facades\View::class,
 	'Helper' => App\Helpers\Functionsr::class, // teste de helper
   'PDF' => Barryvdh\DomPDF\Facade::class,
-		'EloquentFilter' => eloquentFilter\Facade\EloquentFilter::class,
     ],
 
 ];
