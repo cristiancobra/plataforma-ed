@@ -43,11 +43,13 @@
 			<td class="table-list-left">
 				<button class="button">
 					<a href=" {{ route('bill.show', ['bill' => $bill->id]) }}">
-						<i class='fa fa-eye' style="color:white"></i></a>
+						<i class='fa fa-eye' style="color:white"></i>
+					</a>
 				</button>
 				<button class="button">
 					<a href=" {{ route('bill.edit', ['bill' => $bill->id]) }}">
-						<i class='fa fa-edit' style="color:white"></i></a>
+						<i class='fa fa-edit' style="color:white"></i>
+					</a>
 				</button>
 				{{ $bill->id }}
 			</td>

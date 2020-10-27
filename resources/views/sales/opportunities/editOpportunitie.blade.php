@@ -1,31 +1,38 @@
 @extends('layouts/master')
 
-@section('title','PRODUTOS')
+@section('title','OPORTUNIDADES')
 
 @section('image-top')
-{{ asset('imagens/products.png') }} 
+{{ asset('imagens/financeiro.png') }} 
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('product.index')}}">VER TODOS</a>
+<a class='btn btn-primary' href="{{route('opportunitie.index')}}">VER TODOS</a>
 @endsection
 
 @section('main')
 <div style="padding-left: 6%">
-	<form action=" {{ route('product.update', ['product' =>$product->id]) }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('opportunitie.update', ['opportunitie' =>$opportunitie->id]) }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >NOME:</label>
-		<input type="text" name="name" size="20" value="{{$product->name}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >FOTO:</label>
-		<input type="text" name="image" size="20" value="{{$product->image}}"><span class="fields"></span>
+		<input type="text" name="name" size="20" value="{{$opportunitie->name}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<br>
+		<label class="labels" for="" >CONTATO: </label>
+		<select name="account_id">
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{ $contact->id }}">
+				{{ $contact->name }}
 			</option>
 			@endforeach
 		</select>
@@ -49,18 +56,18 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_start" size="20" value="{{$product->date_start}}"><span class="fields"></span>
+		<input type="date" name="date_start" size="20" value="{{$opportunitie->date_start}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
-		<input type="date" name="date_conclusion" size="20" value="{{$product->date_conclusion}}"><span class="fields"></span>
+		<input type="date" name="date_conclusion" size="20" value="{{$opportunitie->date_conclusion}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
-		<input type="date" name="pay_day" size="20" value="{{$product->pay_day}}"><span class="fields"></span>
+		<input type="date" name="pay_day" size="20" value="{{$opportunitie->pay_day}}"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
-		{{ $product->description }}
+		{{ $opportunitie->description }}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
@@ -68,36 +75,16 @@
 CKEDITOR.replace('description');
 		</script>
 		<br>
-		<br>
-		<label class="labels" for="" >HORAS NECESSÁRIAS:</label>
-		<input type="decimal" name="work_hours" size="5" value="{{$product->work_hours}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >CUSTO 1:</label>
-		<input type="integer" name="cost1" size="5" value="{{$product->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost1_description" size="40" value="{{$product->cost1_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 2:</label>
-		<input type="integer" name="cost2" size="5" value="{{$product->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost2_description" size="40" value="{{$product->cost2_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 3:</label>
-		<input type="integer" name="cost3" size="5" value="{{$product->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost3_description" size="40" value="{{$product->cost3_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >IMPOSTO (%):</label>
-		<input type="decimal" name="tax_rate" size="5" value="{{$product->tax_rate}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >PREÇO:</label>
-		<input type="decimal" name="price" size="5" value="{{$product->price}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >PRAZO DE ENTREGA:</label>
-		<input type="integer" name="due_date" size="5" value="{{$product->due_date}}"><span class="fields"></span>
+		
+			<br>
+		<label class="labels" for="">ETAPA DA VENDA:</label>
+		<select class="fields" name="stage">
+			<option value="prospecção">prospecção</option>
+			<option value="apresentação">apresentação</option>
+			<option value="proposta">proposta</option>
+			<option value="ganhamos">ganhamos</option>
+			<option value="perdemos">perdemos</option>
+		</select>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

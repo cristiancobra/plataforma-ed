@@ -18,9 +18,8 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Nome </b></td>
-			<td   class="table-list-header"><b>Tipo </b></td>
-			<td   class="table-list-header"><b>PREÇO</b></td>
+			<td   class="table-list-header"><b>NOME </b></td>
+			<td   class="table-list-header"><b>CONTATO </b></td>
 			<td   class="table-list-header"><b>ETAPA DA VENDA</b></td>
 		</tr>
 
@@ -38,15 +37,11 @@
 				{{ $opportunitie->name }}
 			</td>
 
-			<td class="table-list-right">
-				{{ $opportunitie->type }}
+			<td class="table-list-center">
+				{{ $opportunitie->contact->name }}
 			</td>
-			
-			<td class="table-list-right">
-				R$ {{ number_format($opportunitie->price,2,",",".") }}
-			</td>
-			
-			<td class="table-list-right">
+
+			<td class="table-list-center">
 				{{ $opportunitie->stage }}
 			</td>
 

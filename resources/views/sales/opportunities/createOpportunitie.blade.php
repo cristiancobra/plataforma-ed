@@ -55,7 +55,7 @@
 		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DATA DE PAGAMENTO:</label>
-		<input type="date" name="" size="20"><span class="fields"></span>
+		<input type="date" name="pay_day" size="20"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>

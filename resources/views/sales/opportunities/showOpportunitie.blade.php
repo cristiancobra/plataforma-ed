@@ -3,7 +3,7 @@
 @section('title','OPORTUNIDADES')
 
 @section('image-top')
-{{ asset('imagens/opportunities.png') }} 
+{{ asset('imagens/financeiro.png') }} 
 @endsection
 
 @section('description')
@@ -19,7 +19,8 @@
 <span class="fields">{{$opportunitie->account->name }}</span>
 <br>
 <label class="labels" for="" >CONTATO: </label>
-<span class="fields">{{$opportunitie->contact_id}}</span>
+<span class="fields">{{$opportunitie->contact->name}}</span>
+<br>
 <br>
 <label class="labels" for="" >CATEGORIA:</label>
 <span class="fields">{{$opportunitie->category }}</span>
@@ -39,103 +40,12 @@
 <br>
 <br>
 <label class="labels" for="" >DESCRIÇÃO:</label>
-<span class="fields">{{$opportunitie->description }}</span>
+<span class="fields">    {!!html_entity_decode($opportunitie->description)!!}</span>
 <br>
 <br>
-<label class="labels" for="" >PRODUTOS: </label>
-<table class="table-list">
-	<tr>
-		<td   class="table-list-header"><b>Nome </b></td>
-		<td   class="table-list-header"><b>Quantidade </b></td>
-		<td   class="table-list-header"><b>Horas previstas</b></td>
-		<td   class="table-list-header"><b>Custos</b></td>
-		<td   class="table-list-header"><b>Imposto</b></td>
-		<td   class="table-list-header"><b>Preço</b></td>
-		<td   class="table-list-header"><b>Margem</b></td>
-	</tr>
-	
-	@while ($opportunitie->$name != null)
-	<tr style="font-size: 14px">
-		<td class="table-list-left">
-			{{ $opportunitie->$name }}
-		</td>
-
-		<td class="table-list-center">
-			{{ $opportunitie->$amount }}
-		</td>
-
-		<td class="table-list-center">
-			{{ number_format($opportunitie->$hours)}}
-		</td>
-
-		<td class="table-list-right">
-			{{ number_format($opportunitie->$cost, 2,",",".") }}
-		</td>
-
-		<td class="table-list-right">
-			{{ number_format($opportunitie->$tax_rate, 2,",",".") }}
-		</td>
-
-		<td class="table-list-right">
-			{{ number_format($opportunitie->$price,2,",",".") }}
-		</td>
-
-		<td class="table-list-right">
-			{{ number_format($opportunitie->$price - $opportunitie->$tax_rate - $opportunitie->$cost, 2,",",".") }}
-		</td>
-
-		@php
-		$name++;
-		$amount++;
-		$hours++;
-		$cost++;
-		$tax_rate++;
-		$price++;
-		@endphp
-		@endwhile
-	</tr>
-	<tr>
-		<td   class="table-list-header">
-			<b></b>
-		</td>
-		<td   class="table-list-header">
-			<b>{{$opportunitie->totalAmount}}</b>
-		</td>
-		<td   class="table-list-header">
-			<b>{{number_format($opportunitie->totalHours) }}</b>
-		</td>
-		<td   class="table-list-header-right">
-			<b>R$ {{number_format($opportunitie->totalCost, 2,",",".") }}</b>
-		</td>
-		<td   class="table-list-header-right">
-			<b>R$ {{number_format($opportunitie->totalTax_rate, 2,",",".") }}</b>
-		</td>
-		<td   class="table-list-header-right">
-			<b>R$ {{number_format($opportunitie->totalPrice, 2,",",".") }}</b>
-		</td>
-		<td   class="table-list-header-right">
-			<b>R$ {{number_format($opportunitie->totalMargin, 2,",",".") }}</b>
-		</td>
-	</tr>
-</table>
 <br>
-<p style="text-align: right">
-<label class="labels" for="">DESPESAS MENSAIS:</label>
-<span class="fields">R$ {{number_format($opportunitie->expenses, 2,",",".") }}</span>
-</p>
-<p style="text-align: right">
-<label class="labels" for="">SALDO:</label>
-<span class="fields">R$ {{number_format($opportunitie->totalBalance, 2,",",".") }}</span>
-</p>
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$opportunitie->status }}</span>
-<br>
-<br>
-<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($opportunitie->created_at)) }} </p>
-<br>
-<br>
-<label class="labels" for="" >PREÇO:</label>
-<span class="fields">{{$opportunitie->price }}</span>
 <br>
 <br>
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($opportunitie->created_at)) }} </p>

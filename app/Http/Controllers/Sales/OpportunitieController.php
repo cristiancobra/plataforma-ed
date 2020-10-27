@@ -116,9 +116,38 @@ class OpportunitieController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Opportunitie $opportunitie) {
-		//
-	}
+		$userAuth = Auth::user();
 
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
+			
+			$contacts = Contact::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			return view('sales.opportunities.editOpportunitie', [
+				'userAuth' => $userAuth,
+				'opportunitie' => $opportunitie,
+				'accounts' => $accounts,
+				'contacts' => $contacts,
+				'opportunities' => $opportunities,
+			]);
+		} else {
+			return redirect('/');
+		}
+	}
 	/**
 	 * Update the specified resource in storage.
 	 *
