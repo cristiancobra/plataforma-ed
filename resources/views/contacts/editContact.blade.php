@@ -70,7 +70,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR CONTATO">
+		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
 
 	</form>
 </div>
