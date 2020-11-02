@@ -164,7 +164,7 @@
 				</button>
 
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('bill.index')}}">
+					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>
 						FATURAS
 					</a>

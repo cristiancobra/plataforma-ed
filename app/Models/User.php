@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable {
 
 	use Notifiable;
-	
+
 	protected $table = 'users';
 
 	/**
@@ -40,11 +40,15 @@ class User extends Authenticatable {
 	];
 
 	public function accounts() {
-		return $this->belongsToMany(Account::class,'users_accounts',  'user_id', 'account_id');
+		return $this->belongsToMany(Account::class, 'users_accounts', 'user_id', 'account_id');
 	}
 
 	public function emails() {
 		return $this->hasMany(Models\Email::class, 'user_id', 'id');
+	}
+
+	public function invoices() {
+		return $this->hasMany(User::class, 'id', 'user_id');
 	}
 
 	public function tasks() {
@@ -80,5 +84,4 @@ class User extends Authenticatable {
 //		// retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
 //		return substr(str_shuffle($senha), 0, $tamanho);
 //	}
-
 }

@@ -42,7 +42,7 @@ Route::resource('competitors', 'Market\\CompetitorController')->names('competito
 Route::resource('emails', 'Emails\\EmailController')->names('email');
 
 // ================================ FINANCIAL ===================
-Route::resource('faturas', 'Financial\\BillController')->names('bill')->parameters(['faturas' => 'bill']);
+Route::resource('faturas', 'Financial\\InvoiceController')->names('invoice')->parameters(['faturas' => 'invoice']);
 Route::resource('planejamentos', 'Financial\\PlanningController')->names('planning')->parameters(['planejamentos' => 'planning']);
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
