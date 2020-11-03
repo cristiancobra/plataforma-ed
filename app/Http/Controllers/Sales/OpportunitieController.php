@@ -156,9 +156,16 @@ class OpportunitieController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Opportunitie $opportunitie) {
-		//
-	}
+		$userAuth = Auth::user();
 
+		$opportunitie->fill($request->all());
+		$opportunitie->save();
+
+		return view('sales.opportunities.showOpportunitie', [
+			'opportunitie' => $opportunitie,
+			'userAuth' => $userAuth,
+		]);
+	}
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -166,7 +173,7 @@ class OpportunitieController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Opportunitie $opportunitie) {
-		//
-	}
-
+			$opportunitie->delete();
+			return redirect()->action('Sales\\OpportunitieController@index');
+		}
 }

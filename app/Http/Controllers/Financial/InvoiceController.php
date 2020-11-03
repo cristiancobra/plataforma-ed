@@ -37,7 +37,7 @@ class InvoiceController extends Controller {
 					])
 					->orderBy('pay_day', 'DESC')
 					->paginate(20);
-
+//dd($invoices);
 			$totalInvoices = $invoices->count();
 
 			return view('financial.invoices.indexInvoices', [
@@ -112,7 +112,7 @@ class InvoiceController extends Controller {
 
 		$invoice->opportunitie_id = $request->opportunitie_id;
 		$invoice->user_id = $request->user_id;
-		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
+//		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
 		$invoice->account_id = $opportunitie->account->id;
 //		$opportunitie2 = Opportunitie::find($invoice->opportunitie_id)->with('contact')->first();
 //		$invoice->contact_id = $opportunitie2->contact->id;
