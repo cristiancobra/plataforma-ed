@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use eloquentFilter\QueryFilter\ModelFilters\Filterable;
+//use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use App\Models\User;
 
 class Task extends Model {
 
-	use Filterable;
+//	use Filterable;
 
 	protected $table = 'tasks';
 	//  The primary key associated with the table.
