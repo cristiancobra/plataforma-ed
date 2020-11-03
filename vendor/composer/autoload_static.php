@@ -150,6 +150,7 @@ class ComposerStaticInit21e8f9b39af10af75aa7f50aff2b9efb
             'Facebook\\' => 9,
             'Facade\\Ignition\\' => 16,
             'Facade\\IgnitionContracts\\' => 25,
+            'Facade\\FlareClient\\Tests\\' => 25,
             'Facade\\FlareClient\\' => 19,
         ),
         'E' => 
@@ -462,9 +463,14 @@ class ComposerStaticInit21e8f9b39af10af75aa7f50aff2b9efb
         array (
             0 => __DIR__ . '/..' . '/facade/ignition-contracts/src',
         ),
+        'Facade\\FlareClient\\Tests\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/tests',
+        ),
         'Facade\\FlareClient\\' => 
         array (
-            0 => __DIR__ . '/..' . '/facade/flare-client-php/src',
+            0 => __DIR__ . '/../..' . '/src',
+            1 => __DIR__ . '/..' . '/facade/flare-client-php/src',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
