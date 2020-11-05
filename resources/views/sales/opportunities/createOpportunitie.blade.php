@@ -34,7 +34,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secundary" href="{{ route('contact.create') }}">NOVO CONTATO</a>
+		<a class="btn btn-secondary" href="{{ route('contact.create') }}">NOVO CONTATO</a>
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>

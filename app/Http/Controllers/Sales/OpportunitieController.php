@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Invoice;
 use App\Models\Opportunitie;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -103,8 +104,13 @@ class OpportunitieController extends Controller {
 	public function show(Opportunitie $opportunitie) {
 		$userAuth = Auth::user();
 
+		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+//				->with('product')
+				->get();
+
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
+			'invoices' => $invoices,
 			'userAuth' => $userAuth,
 		]);
 	}
@@ -132,7 +138,7 @@ class OpportunitieController extends Controller {
 			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
-			
+
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -148,6 +154,7 @@ class OpportunitieController extends Controller {
 			return redirect('/');
 		}
 	}
+
 	/**
 	 * Update the specified resource in storage.
 	 *
@@ -166,6 +173,7 @@ class OpportunitieController extends Controller {
 			'userAuth' => $userAuth,
 		]);
 	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *
@@ -173,7 +181,8 @@ class OpportunitieController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Opportunitie $opportunitie) {
-			$opportunitie->delete();
-			return redirect()->action('Sales\\OpportunitieController@index');
-		}
+		$opportunitie->delete();
+		return redirect()->action('Sales\\OpportunitieController@index');
+	}
+
 }

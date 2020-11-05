@@ -43,6 +43,53 @@
 <span class="fields">    {!!html_entity_decode($opportunitie->description)!!}</span>
 <br>
 <br>
+<label class="labels" for="" >FATURAS:</label>
+
+@if ($invoices->count() == 0)
+<br>
+<a class="btn btn-secondary" href="{{ route('invoice.create') }}">
+	NOVA FATURA
+</a>
+<br>
+@else
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 5%">
+			<b>ID</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>DATA CRIAÇÃO </b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>DATA PAGAMENTO</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>VALOR TOTAL</b>
+		</td>
+	</tr>
+
+	@foreach ($invoices as $invoice)
+	<tr style="font-size: 14px">
+		<td class="table-list-center">
+			{{ $invoice->id }}
+		</td>
+
+		<td class="table-list-left">
+			{{ $invoice->date_creation}}
+		</td>
+
+		<td class="table-list-right">
+			{{ $invoice->pay_day}}
+		</td>
+
+		<td class="table-list-right">
+			{{ $invoice->totalBalance}}
+		</td>
+	</tr>
+	@endforeach
+</table>
+@endif
+<br>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$opportunitie->status }}</span>

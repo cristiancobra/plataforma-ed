@@ -129,6 +129,7 @@ class InvoiceController extends Controller {
 
 		if ($invoice->save()) {
 			foreach ($request->product_id as $key => $product_id) {
+				if ($request->product_amount [$key] != null) {
 				$data = array(
 					'invoice_id' => $invoice->id,
 					'product_id' => $request->product_id [$key],
@@ -139,6 +140,7 @@ class InvoiceController extends Controller {
 					'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
 				);
 				invoiceLine::insert($data);
+				}
 			}
 		}
 
