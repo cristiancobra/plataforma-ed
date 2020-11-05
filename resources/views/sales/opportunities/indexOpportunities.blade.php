@@ -18,9 +18,18 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>NOME </b></td>
-			<td   class="table-list-header"><b>CONTATO </b></td>
-			<td   class="table-list-header"><b>ETAPA DA VENDA</b></td>
+			<td   class="table-list-header">
+				<b>NOME </b>
+			</td>
+			<td   class="table-list-header">
+				<b>CONTATO </b>
+			</td>
+			<td   class="table-list-header">
+				<b>FAZER CONTATO </b>
+			</td>
+			<td   class="table-list-header">
+				<b>ETAPA DA VENDA</b>
+			</td>
 		</tr>
 
 		@foreach ($opportunities as $opportunitie)

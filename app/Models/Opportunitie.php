@@ -18,10 +18,6 @@ class Opportunitie extends Model
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 	
-	public function bills() {
-		return $this->hasMany(Bill::class, 'id', 'opportunitie_id');
-	}
-	
 	public function contact() {
 		return $this->belongsTo(Contact::class, 'contact_id', 'id');
 	}

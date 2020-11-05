@@ -20,7 +20,6 @@ class CreateInvoicesTable extends Migration {
 			$table->date('date_creation');
 			$table->date('pay_day');
 			$table->text('description')->nullable();
-			$table->string('category', 50);
 			$table->integer('discount');
 			$table->integer('subtotal');
 

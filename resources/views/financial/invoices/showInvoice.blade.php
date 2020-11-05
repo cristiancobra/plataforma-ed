@@ -26,7 +26,7 @@
 <br>
 <br>
 <label class="labels" for="" >CONTRATANTE:</label>
-<span class="fields">{{ $invoice->contact->name}}</span>
+<span class="fields">{{ $invoice->opportunitie->contact->name}}</span>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO::</label>
 <span class="fields">{{ date('d/m/Y', strtotime($invoice->date_creation)) }}</span>
@@ -39,47 +39,55 @@
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header"><b>Nome </b></td>
-		<td   class="table-list-header"><b>Quantidade </b></td>
-		<td   class="table-list-header"><b>Imposto</b></td>
-		<td   class="table-list-header"><b>Preço</b></td>
+		<td   class="table-list-header" style="width: 5%">
+			<b>QTDE
+			</b></td>
+		<td   class="table-list-header" style="width: 65%">
+			<b>NOME</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>IMPOSTO </b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>UNITÁRIO</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>TOTAL</b>
+		</td>
 	</tr>
 
-	@while ($invoice->$name != null)
+	@foreach ($invoiceLines as $invoiceLine)
 	<tr style="font-size: 14px">
-		<td class="table-list-left">
-			{{ $invoice->$name }}
-		</td>
-
 		<td class="table-list-center">
-			{{ $invoice->$amount }}
+			{{ $invoiceLine->amount }}
+		</td>
+
+		<td class="table-list-left">
+			{{ $invoiceLine->product->name}}
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($invoice->$tax_rate, 2,",",".") }}
+			{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($invoice->$price,2,",",".") }}
+			{{ number_format($invoiceLine->product->price,2,",",".") }}
 		</td>
 
-		@php
-		$name++;
-		$amount++;
-		$hours++;
-		$cost++;
-		$tax_rate++;
-		$price++;
-		@endphp
-		@endwhile
+		<td class="table-list-right">
+			{{ number_format($invoiceLine->subtotalPrice,2,",",".") }}
+		</td>
 	</tr>
+
+	<tr style="font-size: 12px">
+		<td class="table-list-left" colspan="4">
+		{{ $invoiceLine->product->name}}
+		</td>
+	</tr>
+	@endforeach
+
 	<tr>
-		<td   class="table-list-header">
-			<b></b>
-		</td>
-		<td   class="table-list-header">
-		</td>
-		<td   class="table-list-header-right">
+		<td   class="table-list-header-right" colspan="4">
 			<b>R$ {{number_format($invoice->totalTax_rate, 2,",",".") }}</b>
 		</td>
 		<td   class="table-list-header-right">

@@ -31,9 +31,9 @@ class InvoiceController extends Controller {
 
 			$invoices = Invoice::whereIn('account_id', $accountsID)
 					->with([
-						'contact',
+						'opportunitie',
+						'invoiceLines',
 						'account',
-						'products',
 					])
 					->orderBy('pay_day', 'DESC')
 					->paginate(20);
@@ -112,63 +112,35 @@ class InvoiceController extends Controller {
 
 		$invoice->opportunitie_id = $request->opportunitie_id;
 		$invoice->user_id = $request->user_id;
-//		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
+		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
 		$invoice->account_id = $opportunitie->account->id;
-//		$opportunitie2 = Opportunitie::find($invoice->opportunitie_id)->with('contact')->first();
-//		$invoice->contact_id = $opportunitie2->contact->id;
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
 		$invoice->description = $request->description;
-		$invoice->category = $request->category;
 		$invoice->status = $request->status;
 		$invoice->save();
-//		$product = "product0001";
 
-		while ($request->product_id != null) {
-			if ($request->product_amount != null) {
-				$invoiceLine = new InvoiceLine;
-				$invoiceLline = $request->invoiceLine;
+//		foreach($request->product_id as $invoiceLine) {
+//				$invoiceLine = new InvoiceLine;
+//				$invoiceLine->invoice_id = $request->opportunitie_id;
+//				$invoiceLine->amount = $request->amount;
+//				$invoiceLine->save();
+//			}
+
+		if ($invoice->save()) {
+			foreach ($request->product_id as $key => $product_id) {
+				$data = array(
+					'invoice_id' => $invoice->id,
+					'product_id' => $request->product_id [$key],
+					'amount' => $request->product_amount [$key],
+					'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+					'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
+					'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
+					'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
+				);
+				invoiceLine::insert($data);
 			}
 		}
-
-//		while ($request->$product != null) {
-//			$invoiceLine = new InvoiceLine();
-//			$invoiceLine->product1 = $request->product1;
-//		}
-//		$invoice->contact_id = ($request->contact_id);
-//		$totalAmount = 0;
-//		$totalHours = 0;
-//		$totalCost = 0;
-//		$totalTax_rate = 0;
-//		$totalPrice = 0;
-//		$totalMargin = 0;
-//
-//
-//			$invoice->$amount = $request->$amount;
-//			$totalAmount = $totalAmount + $request->$amount;
-//
-//			$invoice->$hours = $request->$hours * $request->$amount;
-//			$totalHours = $totalHours + $invoice->$hours;
-//
-//			$invoice->$cost = $request->$cost * $request->$amount;
-//			$totalCost = $totalCost + $invoice->$cost;
-//
-//			$invoice->$tax_rate = $request->$tax_rate * $request->$amount;
-//			$totalTax_rate = $totalTax_rate + $invoice->$tax_rate;
-//
-//			$invoice->$price = $request->$price * $request->$amount;
-//			$totalPrice = $totalPrice + $invoice->$price;
-//
-//			$invoice->$margin = $request->$margin * $request->$amount;
-//			$totalMargin = $totalMargin + $invoice->$margin;
-//		
-//		$invoice->totalAmount = $totalAmount;
-//		$invoice->totalHours = $totalHours;
-//		$invoice->totalCost = $totalCost;
-//		$invoice->totalTax_rate = $totalTax_rate;
-//		$invoice->totalPrice = $totalPrice;
-//		$invoice->totalMargin = $totalMargin;
-//		$invoice->totalBalance = $totalMargin - $invoice->expenses;
 
 		return redirect()->action('Financial\\InvoiceController@index');
 	}
@@ -181,24 +153,16 @@ class InvoiceController extends Controller {
 	 */
 	public function show(Invoice $invoice) {
 		$userAuth = Auth::user();
-		$name = "name0001";
-		$amount = "amount0001";
-		$hours = "hours0001";
-		$cost = "cost0001";
-		$tax_rate = "tax_rate0001";
-		$price = "price0001";
-		$margin = "margin0001";
-
+		
+		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+				->with('product')
+				->get();
+//		$invoiceLines = $invoice->invoiceLines();
+//dd($invoiceLines);
 		return view('financial.invoices.showInvoice', [
-			'invoice' => $invoice,
 			'userAuth' => $userAuth,
-			'name' => $name,
-			'amount' => $amount,
-			'hours' => $hours,
-			'cost' => $cost,
-			'tax_rate' => $tax_rate,
-			'price' => $price,
-			'margin' => $margin,
+			'invoice' => $invoice,
+			'invoiceLines' => $invoiceLines,
 		]);
 	}
 

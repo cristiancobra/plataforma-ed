@@ -19,15 +19,12 @@ class Contact extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
-	public function bills() {
-		return $this->hasMany(Bill::class, 'id', 'contact_id');
-	}
 	public function contracts() {
 		return $this->hasMany(Contract::class, 'id', 'contract_id');
 	}
 	
 	public function opportunitie() {
-		return $this->hasOne(Opportunitie::class, 'id', 'contact_id');
+		return $this->hasMany(Opportunitie::class, 'id', 'contact_id');
 	}
 	
 	public function tasks() {

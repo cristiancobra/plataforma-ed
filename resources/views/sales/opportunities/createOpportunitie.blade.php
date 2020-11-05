@@ -26,48 +26,6 @@
 			@endforeach
 		</select>
 		<br>
-		<label class="labels" for="" >CATEGORIA: </label>
-		<select name="category">
-			<option value="Agricultura">Agricultura</option>
-			<option value="Biotecnologia">Biotecnologia</option>
-			<option value="Química">Substâncias e produtos químicos</option>
-			<option value="Aeroespacial">Aeroespacial</option>
-			<option value="Computadores e hardware">Computadores e hardware</option>
-			<option value="Construção">Construção</option>
-			<option value="Consultoria">Consultoria</option>
-			<option value="Produtos de consumo">Produtos de consumo</option>
-			<option value="Serviços ao consumidor">Serviços ao consumidor</option>
-			<option value="Marketing digital">Marketing digital</option>
-			<option value="Educação">Educação</option>
-			<option value="Eletrônica">Eletrônica</option>
-			<option value="Moda">Moda</option>
-			<option value="Serviços financeiros">Serviços financeiros</option>
-			<option value="Alimentos e bebidas">Alimentos e bebidas</option>
-			<option value="Jogos">Jogos</option>
-			<option value="Serviços de saúde">Serviços de saúde</option>
-			<option value="Indústria">Indústria</option>
-			<option value="Internet/serviços da web">Internet/serviços da web</option>
-			<option value="Serviços de TI">Serviços de TI</option>
-			<option value="Jurídico">Jurídico</option>
-			<option value="Estilo de vida">Estilo de vida</option>
-			<option value="Marítimo">Marítimo</option>
-			<option value="Marketing/publicidade">Marketing/publicidade</option>
-			<option value="Mídias e entretenimento">Mídias e entretenimento</option>
-			<option value="Mineração">Mineração</option>
-			<option value="Petróleo e gás">Petróleo e gás</option>
-			<option value="Política">Política</option>
-			<option value="Imóveis">Imóveis</option>
-			<option value="Varejo/distribuição">Varejo/distribuição</option>
-			<option value="Segurança">Segurança</option>
-			<option value="Software">Software</option>
-			<option value="Esportes">Esportes</option>
-			<option value="Telecomunicações">Telecomunicações</option>
-			<option value="Transportes">Transportes</option>
-			<option value="Turismo">Turismo</option>
-			<option value="Outros">Outros</option>
-		</select>
-		<br>
-		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
 			@foreach ($contacts as $contact)
@@ -76,6 +34,7 @@
 			</option>
 			@endforeach
 		</select>
+		<a class="btn btn-secundary" href="{{ route('contact.create') }}">NOVO CONTATO</a>
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>

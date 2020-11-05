@@ -25,6 +25,9 @@
 				<b>CONTRATANTE </b>
 			</td>
 			<td   class="table-list-header">
+				<b>OPORTUNIDADE</b>
+			</td>
+			<td   class="table-list-header">
 				<b>EMPRESA</b>
 			</td>
 			<td   class="table-list-header">
@@ -55,7 +58,11 @@
 			</td>
 
 			<td class="table-list-center">
-				{{ $invoice->contact->name}}
+				{{ $invoice->opportunitie->name}}
+			</td>
+			
+			<td class="table-list-center">
+				{{ $invoice->opportunitie->contact->name}}
 			</td>
 
 			<td class="table-list-center">

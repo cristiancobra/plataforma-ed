@@ -8,7 +8,7 @@ class InvoiceLine extends Model {
 
 	protected $table = 'invoice_lines';
 	protected $fillable = [
-		'id', 'account_id', 'opportunitie_id', 'amount', 'subtotalHours', 'subtotalCost', 'subtotalTax_rate', 'subtotalPrice', 'subtotalMargin', 'invoice',
+		'id', 'account_id', 'opportunitie_id', 'amount', 'subtotalHours', 'subtotalCost', 'subtotalTax_rate', 'subtotalPrice', 'subtotalMargin', 'invoice_id',
 	];
 	protected $hidden = [
 	];
@@ -17,34 +17,18 @@ class InvoiceLine extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
-	public function contact() {
-		return $this->hasOneThrough(
-						Contact::class,
-						Opportunitie::class,
-						'contact_id', // Foreign key on Opportunitie table...
-						'id', // Foreign key on Contact table...
-						'id', // Local key on Bills table...
-						'id', // Local key on Opportunitie table...);
-		);
+	public function invoice() {
+		return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
 	}
-
-	public function products() {
-		return $this->hasManyThrough(
-						Product::class,
-						Opportunitie::class,
-						'product_id', // Foreign key on Opportunitie table...
-						'id', // Foreign key on Product table...
-						'id', // Local key on Bills table...
-						'id', // Local key on Opportunitie table...);
-		);
-	}
-
-	//		return $this->hasOneThrough('App\Owner', 'App\Car');
 
 	public function opportunitie() {
 		return $this->belongsTo(Opportunitie::class, 'opportunitie_id', 'id');
 	}
 
+	public function product() {
+		return $this->hasOne(Product::class, 'id', 'product_id');
+	}
+	
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
