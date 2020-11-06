@@ -12,6 +12,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
+use DB;
 
 class TaskController extends Controller {
 
@@ -44,7 +45,10 @@ class TaskController extends Controller {
 							$query->where('status', '=', $request->status);
 						}
 					})
-					->orderBy('date_due', 'DESC')
+					->where('status', '!=', 'concluida')
+					->orderByRaw(DB::raw("FIELD(priority, 'alta', 'baixa', 'pendente')"))
+					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
+					->orderBy('date_due', 'ASC')
 					->paginate(20);
 
 			$tasks->appends([
