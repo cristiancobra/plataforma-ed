@@ -16,6 +16,9 @@
 	<label for="" >Nome: </label>
 	<input type="text" name="name">
 	<br>
+	<label for="" >CNPJ: </label>
+	<input type="text" name="cnpj">
+	<br>
 	<label for="" >Email: </label>
 	<input type="text" name="email">
 	<br>
@@ -39,11 +42,52 @@
 	<input type="text" name="address_country" value="Brasil">   
 	<br>
 	<br>
-	<label for="">Tipo: </label>
-	<input type="text" name="type">   
+	<label for="">SEGMENTO: </label>
+	<select name="type">
+			<option value="agricultura">Agricultura</option>
+			<option value="biotecnologia">Biotecnologia</option>
+			<option value="química">Substâncias e produtos químicos</option>
+			<option value="aeroespacial">Aeroespacial</option>
+			<option value="hardware">Computadores e hardware</option>
+			<option value="construção">Construção</option>
+			<option value="consultoria">Consultoria</option>
+			<option value="produtos de consumo">Produtos de consumo</option>
+			<option value="serviços ao consumidor">Serviços ao consumidor</option>
+			<option value="marketing digital">Marketing digital</option>
+			<option value="educação">Educação</option>
+			<option value="eletrônica">Eletrônica</option>
+			<option value="moda">Moda</option>
+			<option value="serviços financeiros">Serviços financeiros</option>
+			<option value="alimentos e bebidas">Alimentos e bebidas</option>
+			<option value="jogos">Jogos</option>
+			<option value="serviços de saúde">Serviços de saúde</option>
+			<option value="indústria">Indústria</option>
+			<option value="internet/serviços da web">Internet/serviços da web</option>
+			<option value="serviços de TI">Serviços de TI</option>
+			<option value="jurídico">Jurídico</option>
+			<option value="estilo de vida">Estilo de vida</option>
+			<option value="marítimo">Marítimo</option>
+			<option value="marketing/publicidade">Marketing/publicidade</option>
+			<option value="mídias e entretenimento">Mídias e entretenimento</option>
+			<option value="mineração">Mineração</option>
+			<option value="petróleo e gás">Petróleo e gás</option>
+			<option value="política">Política</option>
+			<option value="imóveis">Imóveis</option>
+			<option value="varejo/distribuição">Varejo/distribuição</option>
+			<option value="segurança">Segurança</option>
+			<option value="software">Software</option>
+			<option value="esportes">Esportes</option>
+			<option value="telecomunicações">Telecomunicações</option>
+			<option value="transportes">Transportes</option>
+			<option value="turismo">Turismo</option>
+			<option value="outros">Outros</option>
+		</select>
 	<br>
 	<label for="">Qtde empregados: </label>
 	<input type="text" name="employees">   
+	<br>
+	<label for="">Faturamento: </label>
+	<input type="text" name="revenues">   
 	<br>
 	<br>
 	<label class="labels" for="" >Colaboradores: </label>
