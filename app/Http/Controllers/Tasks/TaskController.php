@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
 use DB;
@@ -31,7 +32,7 @@ class TaskController extends Controller {
 					->get('id');
 
 			$tasks = Task::where(function ($query) use ($accountsID, $request) {
-				$query->whereIn('account_id', $accountsID);
+						$query->whereIn('account_id', $accountsID);
 						if ($request->name != null) {
 							$query->where('name', 'like', "%$request->name%");
 						}
@@ -141,11 +142,28 @@ class TaskController extends Controller {
 			$duration = $end_time - $start_time;
 			$task->duration = $duration;
 		}
-		$task->save();
 
-//		$tempo = gmdate('H:i:s', strtotime( $end_time ) - strtotime( $start_time ) );
+		$messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:tasks',
+					'date_start' => 'required:tasks',
+					'date_due' => 'required:tasks',
+					'description' => 'required:tasks',
+						],
+						$messages);
 
-		return redirect()->action('Tasks\\TaskController@index');
+		if ($validator->fails()) {
+			return back()
+				->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+				->withErrors($validator)
+				->withInput();
+		} else {
+			$task->save();
+
+			return redirect()->action('Tasks\\TaskController@index');
+		}
 	}
 
 	/**
@@ -268,4 +286,5 @@ class TaskController extends Controller {
 		$this->$end_time->subHour(1);
 		return $this;
 	}
+
 }

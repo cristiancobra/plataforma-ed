@@ -11,11 +11,23 @@
 @endsection
 
 @section('main')
+
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+	{{ Session::get('failed') }}
+	@php
+	Session::forget('failed');
+	@endphp
+</div>
+@endif
 <div>
 	<form action=" {{ route('task.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME DA TAREFA:</label>
-		<input type="text" name="name" size="20" value="{{$task->name}}"><span class="fields"></span>
+		<input type="text" name="name" value="{{old('name')}}">
+		@if ($errors->has('name'))
+		<span class="text-danger">{{ $errors->first('name') }}</span>
+		@endif
 		<br>
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
@@ -52,14 +64,24 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_start" size="20"><span class="fields"></span>
+		<input type="date" name="date_start" value="{{old('date_start')}}">
+		@if ($errors->has('date_start'))
+		<span class="text-danger">{{ $errors->first('date_start') }}</span>
+		@endif
 		<br>
 		<label class="labels" for="" >PRAZO FINAL:</label>
-		<input type="date" name="date_due" size="20"><span class="fields"></span>
+		<input type="date" name="date_due" value="{{old('date_due')}}">
+		@if ($errors->has('date_due'))
+		<span class="text-danger">{{ $errors->first('date_due') }}</span>
+		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
-		<textarea id="description" name="description" rows="20" cols="90">
+		<br>
+		@if ($errors->has('description'))
+		<span class="text-danger">{{ $errors->first('description') }}</span>
+		@endif
+		<textarea id="description" name="description" rows="20" cols="90"  value="{{old('description')}}">
 		{{ $task->description }}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->

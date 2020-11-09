@@ -12,9 +12,19 @@
 
 @section('main')
 <br>
+
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+	{{ Session::get('failed') }}
+	@php
+	Session::forget('failed');
+	@endphp
+</div>
+@endif
+
 <form action=" {{ route('contact.store') }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
-	<label class="labels" for="" >DONO: </label>
+	<label for="" >DONO: </label>
 	<select name="account_id">
 		@foreach ($accounts as $account)
 		<option  class="fields" value="{{ $account->id }}">
@@ -58,10 +68,16 @@
 	<br>
 	<h2 class="name" for="">PESSOAL</h2>
 	<label for="" >Primeiro nome: </label>
-	<input type="text" name="first_name">
+	<input type="text" name="first_name" value="{{old('first_name')}}">
+	@if ($errors->has('first_name'))
+	<span class="text-danger">{{ $errors->first('first_name') }}</span>
+	@endif
 	<br>
 	<label for="" >Sobrenome: </label>
-	<input type="text" name="last_name">
+	<input type="text" name="last_name" value="{{old('last_name')}}">
+	@if ($errors->has('last_name'))
+	<span class="text-danger">{{ $errors->first('last_name') }}</span>
+	@endif
 	<br>
 	<label for="" >Data de Nascimento: </label>
 	<input type="date" name="date_birth">
@@ -109,7 +125,10 @@
 
 	<h2 class="name" for="">CONTATOS</h2>
 	<label for="" >Email: </label>
-	<input type="text" name="email">
+	<input type="text" name="email" value="{{old('email')}}">
+	@if ($errors->has('email'))
+	<span class="text-danger">{{ $errors->first('email') }}</span>
+	@endif
 	<br>
 	<label for="">Telefone: </label>
 	<input type="text" name="phone">   
@@ -156,13 +175,30 @@
 		<br>
 		<br>	
 		<label for="">Estado Civil: </label>
-		<input type="text" name="civil_state">   
+		<select name="civil_state">
+			<option  class="fields" value="solteiro">
+				solteiro(a)
+			</option>
+			<option  class="fields" value="casado">
+				casado(a)
+			</option>
+			<option  class="fields" value="divorciado">
+				divorciado(a)
+			</option>
+			<option  class="fields" value="união estável">
+				união estável
+			</option>
+			<option  class="fields" value="viúvo">
+				viúvo(a)
+			</option>
+		</select>
+
 		<br>
 		<label for="">Naturalidade: </label>
 		<input type="text" name="naturality">
 		<br>
 		<label for="">Filhos: </label>
-		<input type="text" name="kids">   
+		<input type="number" name="kids">   
 		<br>
 		<label for="">Hobbie: </label>
 		<input type="text" name="hobbie">   

@@ -10,7 +10,28 @@ class Contact extends Model {
 
 	protected $table = 'contacts';
 	protected $fillable = [
-		'id', 'account_id', 'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type',
+		'id', 'account_id', 'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type', 'company',
+			'cpf',
+			'neighborhood',
+			'job_position',
+			'acess_profile',
+			'date_birth',
+			'profession',
+			'religion',
+			'etinicity',
+			'naturality',
+			'sexual_orientation',
+			'schollarity',
+			'income',
+			'civil_state',
+			'kids',
+			'hobbie',
+			'instagram',
+			'facebook',
+			'linkedin',
+			'twitter',
+			'lead_source',
+		
 	];
 	protected $hidden = [
 	];

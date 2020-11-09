@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller {
 
@@ -88,7 +89,25 @@ class ContactController extends Controller {
 		$contact = new Contact();
 		$contact->fill($request->all());
 		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
-		$contact->save();
+
+		$messages = [
+			'unique' => 'Já existe um contato com este :attribute.',
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+			'email' => 'unique:emails',
+			'first_name' => 'required:tasks',
+			'last_name' => 'required:tasks',
+			], $messages);
+
+		if ($validator->fails()) {
+			return back()
+							->with('failed',  'Ops... alguns campos precisam ser preenchidos.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$contact->save();
+		}
 
 		return redirect()->action('Contact\\ContactController@index');
 	}

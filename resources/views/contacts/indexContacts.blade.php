@@ -13,7 +13,7 @@
 @section('main')
 <div>
 	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-		Você possui <span class="labels">{{$totalContacts }} contas </span>
+		Você possui <span class="labels">{{$totalContacts }} contatos </span>
 	</p>
 	<br>
 	<table class="table-list">
