@@ -16,6 +16,9 @@
 	<b> Nome: </b> {{ $account->name }}
 </h1>
 <p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>  CNPJ: </b> {{ $account->cnpj }}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  Descrição: </b> {{ $account->description }}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
@@ -58,11 +61,31 @@
 <p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  País: </b> {{ $account->address_country }}
 </p>
+<br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Tipo: </b> {{ $account->type }}
+	<b>  Segmento: </b> {{ $account->type }}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
 	<b>  Qtde empregados: </b> {{ $account->employees }}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>Faturamento: </b> {{ $account->revenues }}
+</p>
+<br>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>Logomarca: </b> <img src="{{ $account->logo }}" width="180px" height="60px">
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>Cor principal: </b>
+	<button type="button" style="color:white;background-color:{{ $account->principal_color}};display: inline-block;border-radius:50%">P</button> {{ $account->principal_color}}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>Cor complementar: </b>
+	<button type="button" style="color:white;background-color:{{ $account->complementary_color}};display: inline-block;border-radius:50%">C</button> {{ $account->complementary_color}}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>Cor oposta: </b>
+	<button type="button" style="color:{{ $account->principal_color}};background-color:{{ $account->opposite_color}};display: inline-block;border-radius:50%">O</button> {{ $account->opposite_color}}
 </p>
 <br>
 <p class="labels">SITUAÇAO:<span class="fields">  {{ $account->status }} </span></p>

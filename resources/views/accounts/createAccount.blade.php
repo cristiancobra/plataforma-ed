@@ -42,7 +42,7 @@
 	<input type="text" name="address_country" value="Brasil">   
 	<br>
 	<br>
-	<label for="">SEGMENTO: </label>
+	<label for="">Segmento: </label>
 	<select name="type">
 			<option value="agricultura">Agricultura</option>
 			<option value="biotecnologia">Biotecnologia</option>
@@ -88,6 +88,19 @@
 	<br>
 	<label for="">Faturamento: </label>
 	<input type="text" name="revenues">   
+	<br>
+	<br>
+	<label for="">Logomarca: </label>
+	<input type="text" name="logo">   
+	<br>
+	<label for="">Cor principal: </label>
+	<input type="text" name="principal_color">   
+	<br>
+	<label for="">Cor complementar: </label>
+	<input type="text" name="complementary_color">   
+	<br>
+	<label for="">Cor oposta: </label>
+	<input type="text" name="opposite_color">   
 	<br>
 	<br>
 	<label class="labels" for="" >Colaboradores: </label>

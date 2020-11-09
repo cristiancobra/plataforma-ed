@@ -129,7 +129,7 @@
 	<input type="text" name="lead_source">   
 	<br>
 	<br>
-	<input class="btn btn-secondary" type="submit" value="Criar contato">
+	<input class="btn btn-secondary" type="submit" value="CRIAR">
 </form>
 </div>     
 @endsection

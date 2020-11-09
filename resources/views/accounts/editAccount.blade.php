@@ -18,6 +18,9 @@
 	<input type="text" name="name"  value="{{ $account->name }}">
 	<br>
 	<br>
+	<label  class="labels" for="" >CNPJ: </label>
+	<input type="text" name="cnpj"  value="{{ $account->cnpj}}">
+	<br>
 	<label class="labels" for="">Email: </label>
 	<input type="text" name="email" value="{{ $account->email }}">
 	<br>
@@ -41,11 +44,63 @@
 	<input type="text" name="address_country" value="{{ $account->address_country }}">   
 	<br>
 	<br>
-	<label class="labels" for="">Tipo: </label>
-	<input type="text" name="type" value="{{ $account->type }}">   
+	<label class="labels" for="">Segmento: </label>
+	<select name="type">
+			<option value="{{ $account->type }}">{{ $account->type }}</option>
+			<option value="agricultura">Agricultura</option>
+			<option value="biotecnologia">Biotecnologia</option>
+			<option value="química">Substâncias e produtos químicos</option>
+			<option value="aeroespacial">Aeroespacial</option>
+			<option value="hardware">Computadores e hardware</option>
+			<option value="construção">Construção</option>
+			<option value="consultoria">Consultoria</option>
+			<option value="produtos de consumo">Produtos de consumo</option>
+			<option value="serviços ao consumidor">Serviços ao consumidor</option>
+			<option value="marketing digital">Marketing digital</option>
+			<option value="educação">Educação</option>
+			<option value="eletrônica">Eletrônica</option>
+			<option value="moda">Moda</option>
+			<option value="serviços financeiros">Serviços financeiros</option>
+			<option value="alimentos e bebidas">Alimentos e bebidas</option>
+			<option value="jogos">Jogos</option>
+			<option value="serviços de saúde">Serviços de saúde</option>
+			<option value="indústria">Indústria</option>
+			<option value="internet/serviços da web">Internet/serviços da web</option>
+			<option value="serviços de TI">Serviços de TI</option>
+			<option value="jurídico">Jurídico</option>
+			<option value="estilo de vida">Estilo de vida</option>
+			<option value="marítimo">Marítimo</option>
+			<option value="marketing/publicidade">Marketing/publicidade</option>
+			<option value="mídias e entretenimento">Mídias e entretenimento</option>
+			<option value="mineração">Mineração</option>
+			<option value="petróleo e gás">Petróleo e gás</option>
+			<option value="política">Política</option>
+			<option value="imóveis">Imóveis</option>
+			<option value="varejo/distribuição">Varejo/distribuição</option>
+			<option value="segurança">Segurança</option>
+			<option value="software">Software</option>
+			<option value="esportes">Esportes</option>
+			<option value="telecomunicações">Telecomunicações</option>
+			<option value="transportes">Transportes</option>
+			<option value="turismo">Turismo</option>
+			<option value="outros">Outros</option>
+		</select>
 	<br>
 	<label class="labels" for="">Qtde empregados: </label>
 	<input type="text" name="employees" value="{{ $account->employees }}">
+	<br>
+	<br>
+	<label class="labels" for="">Logomarca: </label>
+	<input type="text" name="logo" value="{{ $account->logo }}">   
+	<br>
+	<label class="labels" for="">Cor principal: </label>
+	<input type="text" name="principal_color" value="{{ $account->principal_color }}">   
+	<br>
+	<label class="labels" for="">Cor complementar: </label>
+	<input type="text" name="complementary_color" value="{{ $account->complementary_color }}">   
+	<br>
+	<label class="labels" for="">Cor oposta: </label>
+	<input type="text" name="opposite_color" value="{{ $account->opposite_color }}">   
 	<br>
 	<br>
 	<label class="labels" for="" >DESCRIÇÃO:</label>
@@ -80,11 +135,11 @@ CKEDITOR.replace('description');
 	<p class="fields">
 		<input type="checkbox" name="users[]" value="{{ $user->id}}"
 			   @if (in_array($user->id, $usersChecked))
-			   <br
-			  checked
-			  @endif
-			  >
-			   {{ $user->name }}
+		<br
+			checked
+			@endif
+			>
+		{{ $user->name }}
 	</p>
 	@endforeach
 	<br>
