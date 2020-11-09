@@ -156,7 +156,7 @@ class TaskController extends Controller {
 
 		if ($validator->fails()) {
 			return back()
-				->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+				->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
 				->withErrors($validator)
 				->withInput();
 		} else {
