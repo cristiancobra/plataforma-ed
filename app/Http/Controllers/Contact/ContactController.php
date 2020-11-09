@@ -102,9 +102,9 @@ class ContactController extends Controller {
 
 		if ($validator->fails()) {
 			return back()
-							->with('failed',  'Ops... alguns campos precisam ser preenchidos corretamente.')
-							->withErrors($validator)
-							->withInput();
+					->with('failed',  'Ops... alguns campos precisam ser preenchidos corretamente.')
+					->withErrors($validator)
+					->withInput();
 		} else {
 			$contact->save();
 		}
@@ -175,7 +175,7 @@ class ContactController extends Controller {
 		$contact->fill($request->all());
 		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 		$contact->save();
-		$contact->users()->sync($request->users);
+//		$contact->users()->sync($request->users);
 
 		return view('contacts.showContact', [
 			'userAuth' => $userAuth,

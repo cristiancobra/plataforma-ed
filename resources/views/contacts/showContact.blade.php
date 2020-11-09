@@ -12,34 +12,100 @@
 
 @section('main')
 <br>
-<h1 class="name">
-	<b> Nome: </b> {{ $contact->name }}
-</h1>
-<label for="" >Primeiro nome: </label> {{ $contact->first_name }}
+<div style="padding: 40px">
+	<h1 class="name">
+		<b> Nome: </b> {{ $contact->name }}
+	</h1>
+	<label class="labels" for="" >Dono: </label> {{ $contact->first_name }}
 	<br>
-	<label for="" >Sobrenome: </label> {{ $contact->last_name }}
-	<br>
-	<label for="" >Email: </label> {{ $contact->email }}
-	<br>
-	<label for="">Telefone: </label> {{ $contact->phone }}
-	<br>
-	<label for="">Site: </label> {{ $contact->site }}
+	<label class="labels"  for="" >Origem do contato: </label>{{ $contact->lead_source }}
 	<br>
 	<br>
-	<label for="">Endereço: </label> {{ $contact->address }}
 	<br>
-	<label for="">Cidade: </label> {{ $contact->address_city }}
+	<h2 class="name" for="">PESSOAL</h2>
+	<label class="labels"  for="" >Primeiro nome: </label> {{ $contact->first_name }}
 	<br>
-	<label for="">Estado: </label> {{ $contact->address_state }}
+	<label class="labels"  for="" >Sobrenome: </label> {{ $contact->last_name }}
 	<br>
-	<label for="">País: </label> {{ $contact->address_country }}
+	<label class="labels"  for="" >Data de nascimento: </label> {{ $contact->birth_date }}
+	<br>
+	<label class="labels"  for="" >CPF: </label> {{ $contact->cpf}}
+	<br>
+	<br>
+	<br>
+	<h2 class="name" for="">PROFISSIONAL</h2>
+	<label class="labels"  for="" >Profissão: </label> {{ $contact->profession }}
+	<br>
+	<label class="labels"  for="" >Empresa: </label> {{ $contact->company }}
+	<br>
+	<label class="labels"  for="" >Cargo: </label> {{ $contact->job_position }}
+	<br>
+	<label class="labels"  for="" >Escolaridade: </label> {{ $contact->schollarity }}
+	<br>
+	<br>
+	<br>
+	<h2 class="name" for="">CONTATOS</h2>
+	<label class="labels"  for="" >Email: </label> {{ $contact->email}}
+	<br>
+	<label class="labels"  for="">Telefone: </label> {{ $contact->phone}}
+	<br>
+	<label class="labels"  for="">Site: </label> {{ $contact->site}}
+	<br>
+	<label class="labels"  for="">Instagram: </label> {{ $contact->instagram}}
+	<br>
+	<label class="labels"  for="">Facebook: </label> {{ $contact->facebook}}
+	<br>
+	<label class="labels"  for="">Linkedin: </label> {{ $contact->linkedin}}
+	<br>
+	<label class="labels"  for="">Twitter: </label> {{ $contact->twitter}}
+	<br>
+	<br>
+	<br>
+	<h2 class="name" for="">LOCALIZAÇÃO</h2>
+	<label class="labels" for="">Endereço: </label> {{ $contact->address}}
+	<br>
+	<label class="labels" for="">Cidade: </label> {{ $contact->address_city}}
+	<br>
+	<label class="labels" for="">Bairro: </label> {{ $contact->neighborhood}}
+	<br>
+	<label class="labels"  for="">Estado: </label> {{ $contact->address_state}}
+	<br>
+	<label class="labels"  for="">País: </label> {{ $contact->address_country}}
+	<br>
+	<br>
+	<br>
+	<h2 class="name" for="">PERFIL</h2>
+	<label class="labels"  for="">Estado civil:  </label>
+	{{ $contact->civil_state}}
+	<br>
+	<label class="labels"  for="">Naturalidade:  </label>
+	{{ $contact->naturality}}
+	<br>
+	<label class="labels"  for="">Filhos:  </label>
+	{{ $contact->kids}}
+	<br>
+	<label class="labels"  for="">Hobbie:  </label>
+	{{ $contact->hobbie}}
+	<br>
+	<label class="labels"  for="">Renda:  </label>
+	{{ $contact->income}}
+	<br>
+	<label class="labels"  for="">Religião:  </label>
+	{{ $contact->religion}}
+	<br>
+	<label class="labels"  for="">Etinia:  </label>
+	{{ $contact->etinicity}}
+	<br>
+	<label class="labels"  for="">Orientação Sexual::  </label>
+	{{ $contact->sexual_orientation}}
 	<br>
 	<br>
 	<label for="">Tipo: </label> {{ $contact->type }}
 	<br>
+	<label for="">Stituação: </label> {{ $contact->status }}
 	<br>
-<br>
-<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($contact->created_at)) }} </p>
+	<br>
+	<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($contact->created_at)) }} </p>
 
 	<div style="text-align:right;padding: 2%">
 		<form   style="text-decoration: none;display: inline-block" action="{{ route('contact.destroy', ['contact' => $contact->id]) }}" method="post">
@@ -52,5 +118,5 @@
 		<a class="btn btn-secondary" href="{{route('contact.index')}}">VOLTAR</a>
 	</div>
 	<br>
-
+</div>
 @endsection
