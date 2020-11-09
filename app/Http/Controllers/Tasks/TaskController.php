@@ -46,7 +46,7 @@ class TaskController extends Controller {
 						}
 					})
 					->where('status', '!=', 'concluida')
-					->orderByRaw(DB::raw("FIELD(priority, 'alta', 'baixa', 'pendente')"))
+					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
 					->orderBy('date_due', 'ASC')
 					->paginate(20);
