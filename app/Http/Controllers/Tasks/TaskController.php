@@ -49,8 +49,8 @@ class TaskController extends Controller {
 							$query->where('status', '!=', 'concluida');
 						}
 					})
-					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
+					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 					->orderBy('date_due', 'ASC')
 					->paginate(20);
 
@@ -255,19 +255,7 @@ class TaskController extends Controller {
 
 		$task->save();
 
-
-		//	$task->users()->sync($request->users);
-////		$timeDifference = Carbon::parse($request->end_time->finish)->diffInMinutes(Carbon::parse($request->start_time->start));
-////		$duration->total = $timeDifference / 60; // decimal hours
-//
-//
-////		$duration = $end_time - $start_time;
-////		return $diff->format('H:i d/m/Y');
-//
-//		$hours = $task->duration  / 3600; // decimal hours;
-
 		return view('tasks.showTask', [
-//			'hours' => $hours,
 			'task' => $task,
 			'userAuth' => $userAuth,
 		]);
