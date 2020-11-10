@@ -57,14 +57,6 @@
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
-			<button class="button">
-				<a href=" {{ route('opportunitie.show', ['opportunitie' => $opportunitie->id]) }}">
-					<i class='fa fa-eye' style="color:white"></i></a>
-			</button>
-			<button class="button">
-				<a href=" {{ route('opportunitie.edit', ['opportunitie' => $opportunitie->id]) }}">
-					<i class='fa fa-edit' style="color:white"></i></a>
-			</button>
 			<b>ID</b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
@@ -81,6 +73,14 @@
 	@foreach ($invoices as $invoice)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
+			<button class="button">
+				<a href=" {{ route('opportunitie.show', ['opportunitie' => $opportunitie->id]) }}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button">
+				<a href=" {{ route('opportunitie.edit', ['opportunitie' => $opportunitie->id]) }}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
 			{{ $invoice->id }}
 		</td>
 

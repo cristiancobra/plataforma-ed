@@ -20,6 +20,14 @@
 <br>
 <label class="labels" for="" >OPORTUNIDADE:</label>
 <span class="fields">{{$invoice->opportunitie->name}}</span>
+			<button class="button">
+				<a href=" {{ route('opportunitie.show', ['opportunitie' => $invoice->opportunitie->id]) }}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button">
+				<a href=" {{ route('opportunitie.edit', ['opportunitie' => $invoice->opportunitie->id]) }}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
 <br>
 <label class="labels" for="" >VENDEDOR:</label>
 <span class="fields">{{$invoice->user->name}}</span>

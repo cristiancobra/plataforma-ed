@@ -157,7 +157,7 @@ class InvoiceController extends Controller {
 		$userAuth = Auth::user();
 		
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product')
+				->with('product','opportunitie')
 				->get();
 //		$invoiceLines = $invoice->invoiceLines();
 //dd($invoiceLines);
