@@ -74,11 +74,11 @@
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
 			<button class="button">
-				<a href=" {{ route('opportunitie.show', ['opportunitie' => $opportunitie->id]) }}">
+				<a href=" {{ route('invoice.show', ['invoice' => $invoice->id]) }}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('opportunitie.edit', ['opportunitie' => $opportunitie->id]) }}">
+				<a href=" {{ route('invoice.edit', ['invoice' => $invoice->id]) }}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
 			{{ $invoice->id }}
