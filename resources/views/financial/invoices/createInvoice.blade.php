@@ -25,6 +25,9 @@
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
+			<option  class="fields" value="{{ $userAuth->id}}" checked>
+				{{ $userAuth->name}}
+			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
 				{{ $user->name }}
