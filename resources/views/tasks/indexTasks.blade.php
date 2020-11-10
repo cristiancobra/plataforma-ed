@@ -90,7 +90,7 @@
 		</td>
 
 		<td   class="table-list-header" style="width: 5%">
-			<b>STATUS</b>
+			<b>SITUAÇÃO</b>
 		</td>
 	</tr>
 
@@ -123,7 +123,7 @@
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->date_due }}
+			{{ date('d/m/Y', strtotime($task->date_due)) }}
 		</td>
 
 		<td class="table-list-center" style="color:white;background-color: #874983">

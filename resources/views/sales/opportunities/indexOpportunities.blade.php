@@ -13,7 +13,7 @@
 @section('main')
 <div>
 	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-		Você possui <span class="labels">{{$totalOpportunities }} produtos </span>
+		Você possui <span class="labels">{{$totalOpportunities }} oportunidades </span>
 	</p>
 	<br>
 	<table class="table-list">
@@ -48,6 +48,10 @@
 
 			<td class="table-list-center">
 				{{ $opportunitie->contact->name }}
+			</td>
+
+			<td class="table-list-center">
+				{{ date('d/m/Y', strtotime($opportunitie->date_conclusion)) }}
 			</td>
 
 			<td class="table-list-center">

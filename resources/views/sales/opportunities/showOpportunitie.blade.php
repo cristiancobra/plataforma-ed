@@ -26,17 +26,19 @@
 <span class="fields">{{$opportunitie->category }}</span>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-<span class="fields">{{$opportunitie->date_start }}</span>
-<br>
-<label class="labels" for="" >DATA DE FECHAMENTO:</label>
-<span class="fields">{{$opportunitie->date_conclusion }}</span>
+<span class="fields">{{ date('d/m/Y', strtotime($opportunitie->date_start)) }}</span>
 <br>
 <label class="labels" for="" >DATA DE PAGAMENTO:</label>
-<span class="fields">{{$opportunitie->pay_day }}</span>
+<span class="fields">{{ date('d/m/Y', strtotime($opportunitie->pay_day)) }}</span>
 <br>
 <br>
-<label class="labels" for="" >ETAPA DA VENDA:</label>
-<span class="fields">{{$opportunitie->stage }}</span>
+<div style="background-color: #d7bde2 ;padding: 1%">
+	<label class="labels" for="" >ETAPA DA VENDA:</label>
+	<span class="fields">{{$opportunitie->stage }}</span>
+	<br>
+	<label class="labels" for="" >PRÓXIMO CONTATO:</label>
+	<span class="fields">{{ date('d/m/Y', strtotime($opportunitie->date_conclusion)) }}</span>
+</div>
 <br>
 <br>
 <label class="labels" for="" >DESCRIÇÃO:</label>
@@ -55,6 +57,14 @@
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
+			<button class="button">
+				<a href=" {{ route('opportunitie.show', ['opportunitie' => $opportunitie->id]) }}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button">
+				<a href=" {{ route('opportunitie.edit', ['opportunitie' => $opportunitie->id]) }}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
 			<b>ID</b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
@@ -75,11 +85,11 @@
 		</td>
 
 		<td class="table-list-left">
-			{{ $invoice->date_creation}}
+			{{ date('d/m/Y', strtotime($invoice->date_creation)) }}
 		</td>
 
 		<td class="table-list-right">
-			{{ $invoice->pay_day}}
+			{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
 		</td>
 
 		<td class="table-list-right">

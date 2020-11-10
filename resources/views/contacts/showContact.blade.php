@@ -105,7 +105,7 @@
 	<label for="">Stituação: </label> {{ $contact->status }}
 	<br>
 	<br>
-	<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($contact->created_at)) }} </p>
+	<p class="labels"> <b>Criado em:</b> {{ date('d/m/Y H:i', strtotime($contact->created_at)) }} </p>
 
 	<div style="text-align:right;padding: 2%">
 		<form   style="text-decoration: none;display: inline-block" action="{{ route('contact.destroy', ['contact' => $contact->id]) }}" method="post">

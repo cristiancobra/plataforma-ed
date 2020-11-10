@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('site.index') }}">VER OPORTUNIDADES</a>
+<a class="btn btn-primary" href="{{ route('site.index') }}">VER SITES</a>
 @endsection
 
 @section('main')
