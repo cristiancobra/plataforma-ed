@@ -3,16 +3,16 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{ asset('imagens/bill.png') }} 
+{{ asset('imagens/invoice.png') }} 
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('bill.index')}}">VER FATURAS</a>
+<a class='btn btn-primary' href="{{route('invoice.index')}}">VER FATURAS</a>
 @endsection
 
 @section('main')
 <div style="padding-left: 6%">
-	<form action=" {{ route('bill.update', ['bill' =>$bill->id]) }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('invoice.update', ['invoice' =>$invoice->id]) }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >OPORTUNIDADE: </label>
@@ -26,15 +26,15 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_creation" size="20" value="{{$bill->date_creation}}"><span class="fields"></span>
+		<input type="date" name="date_creation" size="20" value="{{$invoice->date_creation}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
-		<input type="date" name="pay_day" size="20" value="{{$bill->pay_day}}"><span class="fields"></span>
+		<input type="date" name="pay_day" size="20" value="{{$invoice->pay_day}}"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
-		{{ $bill->description }}
+		{{ $invoice->description }}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
@@ -76,8 +76,8 @@ CKEDITOR.replace('description');
 			<tr style="font-size: 14px">
 				<td class="table-list-center">
 					<input type="number" name="{{$product++}}" size="4"
-						   @if ($bill->$product++ == $product->name)
-					value="{{$bill->$amount}}"
+						   @if ($invoice->$product++ == $product->name)
+					value="{{$invoice->$amount}}"
 					@endif
 					>
 					<span class="fields"></span>
