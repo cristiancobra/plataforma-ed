@@ -46,7 +46,8 @@ class TaskController extends Controller {
 							$query->where('status', '=', $request->status);
 						}
 						else {
-							$query->where('status', '!=', 'concluida');
+							$query->where('status', '!=', 'concluida')
+								->where('status', '!=', 'cancelada');
 						}
 					})
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
