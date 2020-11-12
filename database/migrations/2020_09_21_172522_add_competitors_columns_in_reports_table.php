@@ -17,12 +17,11 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP1_name', 100);
 			$table->text('CP1_description');
 			$table->string('CP1_site', 50);
-			$table->string('CP1_site_keywords');
 			$table->string('CP1_site_organic_traffic');
 			$table->string('CP1_site_backlinks');
 			$table->decimal('CP1_site_domain_score');
 			$table->string('CP1_google_business');
-			$table->string('CP1_google_business_score');
+			$table->decimal('CP1_google_business_score');
 			$table->mediumInteger('CP1_google_business_comments');
 			$table->string('CP1_ifood');
 			$table->decimal('CP1_ifood_score');
@@ -30,7 +29,7 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP1_spotify');
 			$table->string('CP1_city', 50);
 			$table->string('CP1_state', 50);
-			$table->string('CP1_type');
+			$table->string('CP1_type', 50);
 			$table->mediumInteger('CP1_facebook_followers');
 			$table->mediumInteger('CP1_instagram_followers');
 			$table->mediumInteger('CP1_linkedin_followers');
@@ -41,7 +40,6 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP2_name',100);
 			$table->text('CP2_description');
 			$table->string('CP2_site', 50);
-			$table->string('CP2_site_keywords');
 			$table->string('CP2_site_organic_traffic');
 			$table->string('CP2_site_backlinks');
 			$table->decimal('CP2_site_domain_score');
@@ -54,7 +52,7 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP2_spotify');
 			$table->string('CP2_city', 50);
 			$table->string('CP2_state', 50);
-			$table->string('CP2_type');
+			$table->string('CP2_type', 50);
 			$table->mediumInteger('CP2_facebook_followers');
 			$table->mediumInteger('CP2_instagram_followers');
 			$table->mediumInteger('CP2_linkedin_followers');
@@ -66,10 +64,9 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP3_name', 100);
 			$table->text('CP3_description');
 			$table->string('CP3_site', 50);
-			$table->string('CP3_site_keywords');
 			$table->string('CP3_site_organic_traffic');
 			$table->string('CP3_site_backlinks');
-			$table->string('CP3_site_domain_score');
+			$table->decimal('CP3_site_domain_score');
 			$table->string('CP3_google_business');
 			$table->decimal('CP3_google_business_score');
 			$table->mediumInteger('CP3_google_business_comments');
@@ -79,7 +76,7 @@ class AddCompetitorsColumnsInReportsTable extends Migration {
 			$table->string('CP3_spotify');
 			$table->string('CP3_city', 50);
 			$table->string('CP3_state', 50);
-			$table->string('CP3_type');
+			$table->string('CP3_type', 50);
 			$table->mediumInteger('CP3_facebook_followers');
 			$table->mediumInteger('CP3_instagram_followers');
 			$table->mediumInteger('CP3_linkedin_followers');
