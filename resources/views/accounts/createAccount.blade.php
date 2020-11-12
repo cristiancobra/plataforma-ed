@@ -105,6 +105,10 @@
 	<br>
 	<label class="labels" for="" >Colaboradores: </label>
 	<br>
+	<p class="fields">
+		<input type="checkbox" name="users[]" value="{{ $userAuth->id }}" checked>
+		{{ $userAuth->name }}
+	</p>
 	@foreach ($users as $user)
 	<p class="fields">
 		<input type="checkbox" name="users[]" value="{{ $user->id }}">
