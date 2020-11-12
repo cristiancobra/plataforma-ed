@@ -33,6 +33,10 @@ class TaskController extends Controller {
 
 			$tasks = Task::where(function ($query) use ($accountsID, $request) {
 						$query->whereIn('account_id', $accountsID);
+						if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null){
+							$query->where('status', '!=', 'concluida')
+								->where('status', '!=', 'cancelada');
+						} else {
 						if ($request->name != null) {
 							$query->where('name', 'like', "%$request->name%");
 						}
@@ -45,9 +49,6 @@ class TaskController extends Controller {
 						if ($request->status != null) {
 							$query->where('status', '=', $request->status);
 						}
-						else {
-							$query->where('status', '!=', 'concluida')
-								->where('status', '!=', 'cancelada');
 						}
 					})
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
