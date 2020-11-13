@@ -70,7 +70,7 @@
 			</td>
 
 			<td class="table-list-center">
-				{{ $invoice->pay_day }}
+				{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
 			</td>
 
 			<td class="table-list-center">
