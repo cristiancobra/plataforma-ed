@@ -7,14 +7,12 @@
 @endsection
 
 @section('description')
+<a class="btn btn-primary" href="{{ route('invoice.pdf', ['invoice' => $invoice]) }}">PDF</a>
 <a class="btn btn-primary" href="{{route('invoice.index')}}">VER FATURAS</a>
 @endsection
 
 @section('main')
 <br>
-<h1 class="name">
-	{{ $invoice->name }}
-</h1>
 <label class="labels" for="" >DONO:</label>
 <span class="fields">{{$invoice->account->name}}</span>
 <br>
@@ -88,15 +86,26 @@
 	</tr>
 
 	<tr style="font-size: 12px">
-		<td class="table-list-left" colspan="4">
+		<td class="table-list-left" colspan="5">
 		{{ $invoiceLine->product->name}}
 		</td>
 	</tr>
 	@endforeach
 
 	<tr>
-		<td   class="table-list-header-right" colspan="4">
-			<b>R$ {{number_format($invoice->totalTax_rate, 2,",",".") }}</b>
+		<td   class="table-list-header-right" colspan="3"></td>
+		<td   class="table-list-header-right">
+			desconto: 
+		</td>
+		<td   class="table-list-header-right">
+			<b>- {{number_format($invoice->discount, 2,",",".") }}</b>
+		</td>
+	</tr>
+	<tr>
+		<td   class="table-list-header-right" colspan="3">
+					<td   class="table-list-header-right">
+			TOTAL: 
+		</td>
 		</td>
 		<td   class="table-list-header-right">
 			<b>R$ {{number_format($invoice->totalPrice, 2,",",".") }}</b>
@@ -104,10 +113,6 @@
 	</tr>
 </table>
 <br>
-<p style="text-align: right">
-	<label class="labels" for="">SALDO:</label>
-	<span class="fields">R$ {{number_format($invoice->totalBalance, 2,",",".") }}</span>
-</p>
 <label class="labels" for="">OBSERVAÇÕES:</label>
 <span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
 <br>

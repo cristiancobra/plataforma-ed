@@ -1,0 +1,63 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12 de nov. de 2020, 00:26:32
+    Author     : cobra
+*/
+
+.body{
+	padding: 0;
+	margin:0;
+}
+
+.grid-invoice {
+	display: grid;
+	background-color: #c28dbf;
+	height: 100%;
+	grid-template-columns:  1fr 1fr 1fr;
+	grid-template-areas: 
+		"header header image-header"
+		"main main main"
+		"main main main";
+}
+
+.header{
+	grid-area: header;
+	height: 120px;
+    background-color: red;
+    color: white;
+	padding: 0;
+	margin-top: 0px;
+	margin-left: -0px;
+	margin-right: 0px;
+	padding-right: 0px;
+	text-align: right;
+    font-weight:700;
+    font-size:24px;
+	display: inline-block;
+}
+
+.image-header{
+	grid-area: image-header;
+	height: 120px;
+	margin-top: 0px;
+	margin-left: 0px;
+	padding-left: 0px;
+	padding-top: 0px;
+    margin-right: 0px;
+    background-color: red;
+    text-align: center;
+	display: inline-block;
+}
+
+.main{
+	grid-area: main;
+    margin:0px;
+    background-color: white;
+	padding-top: 1%;
+	padding-left: 2%;
+	padding-right: 2%;
+}

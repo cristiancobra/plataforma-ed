@@ -12,6 +12,8 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use PDF;
 
 class InvoiceController extends Controller {
 
@@ -117,34 +119,51 @@ class InvoiceController extends Controller {
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
 		$invoice->description = $request->description;
+		$invoice->discount = $request->discount;
 		$invoice->status = $request->status;
-		$invoice->save();
 
-//		foreach($request->product_id as $invoiceLine) {
-//				$invoiceLine = new InvoiceLine;
-//				$invoiceLine->invoice_id = $request->opportunitie_id;
-//				$invoiceLine->amount = $request->amount;
-//				$invoiceLine->save();
-//			}
+		$messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
 
-		if ($invoice->save()) {
+		$validator = Validator::make($request->all(), [
+					'pay_day' => 'required:invoices',
+					'date_creation' => 'required:invoices',
+						],
+						$messages);
+
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$invoice->save();
+			$totalPrice = 0;
+			$totalTaxrate = 0;
+
 			foreach ($request->product_id as $key => $product_id) {
 				if ($request->product_amount [$key] != null) {
-				$data = array(
-					'invoice_id' => $invoice->id,
-					'product_id' => $request->product_id [$key],
-					'amount' => $request->product_amount [$key],
-					'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
-					'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
-					'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
-					'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
-				);
-				invoiceLine::insert($data);
+					$data = array(
+						'invoice_id' => $invoice->id,
+						'product_id' => $request->product_id [$key],
+						'amount' => $request->product_amount [$key],
+						'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+						'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
+						'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
+						'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
+						'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
+					);
+					$totalPrice = $totalPrice + $data['subtotalPrice'];
+					$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+					invoiceLine::insert($data);
 				}
 			}
-		}
+			$invoice->totalPrice = $totalPrice - $request->discount;
+			$invoice->update();
 
-		return redirect()->action('Financial\\InvoiceController@index');
+			return redirect()->action('Financial\\InvoiceController@index');
+		}
 	}
 
 	/**
@@ -155,9 +174,9 @@ class InvoiceController extends Controller {
 	 */
 	public function show(Invoice $invoice) {
 		$userAuth = Auth::user();
-		
+
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product','opportunitie')
+				->with('product', 'opportunitie')
 				->get();
 //		$invoiceLines = $invoice->invoiceLines();
 //dd($invoiceLines);
@@ -310,10 +329,26 @@ class InvoiceController extends Controller {
 	 * @param  \App\Models\Invoice  $invoice
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Invoice $invoice) { {
-			$invoice->delete();
-			return redirect()->action('Financial\\InvoiceController@index');
-		}
+	public function destroy(Invoice $invoice) {
+		$invoice->delete();
+		return redirect()->action('Financial\\InvoiceController@index');
+	}
+
+// Generate PDF
+	public function createPDF(Invoice $invoice) {
+
+
+		$data = [
+			'invoiceName' => $invoice->account->name,
+		];
+//dd($data);
+// share data to view
+//		view()->share('financial/invoices/pdfInvoice', $data);
+
+		$pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
+
+// download PDF file with download method
+		return $pdf->stream('teste.pdf');
 	}
 
 }

@@ -11,6 +11,15 @@
 @endsection
 
 @section('main')
+
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+	{{ Session::get('failed') }}
+	@php
+	Session::forget('failed');
+	@endphp
+</div>
+@endif
 <div>
 	<form action=" {{ route('invoice.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
@@ -35,11 +44,18 @@
 			@endforeach
 		</select>
 		<br>
+		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_creation" size="20"><span class="fields"></span>
+		<input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>
+		@if ($errors->has('date_creation'))
+		<span class="text-danger">{{ $errors->first('date_creation') }}</span>
+		@endif
 		<br>
 		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
-		<input type="date" name="pay_day" size="20"><span class="fields"></span>
+		<input type="date" name="pay_day" size="20" value="{{old('pay_day')}}"><span class="fields"></span>
+		@if ($errors->has('pay_day'))
+		<span class="text-danger">{{ $errors->first('pay_day') }}</span>
+		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
@@ -118,7 +134,7 @@ CKEDITOR.replace('description');
 			</td>
 
 			<td class="table-list-right">
-				<input type="hidden" name="BACKUP" size="7" value="{{ $product->price * $product->tax_rate / 100 }}" >
+				<input type="hidden" name="product_tax_rate[]" size="7" value="{{ $product->price * $product->tax_rate / 100 }}" >
 				{{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}
 			</td>
 
@@ -135,6 +151,10 @@ CKEDITOR.replace('description');
 			</tr>
 			@endforeach
 		</table>
+		<br>
+		<br>
+		<label class="labels" for="" >DESCONTO:</label>
+		<input type="number" min="1" step="any" name="discount" size="20"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

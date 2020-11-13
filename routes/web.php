@@ -42,6 +42,7 @@ Route::resource('competitors', 'Market\\CompetitorController')->names('competito
 Route::resource('emails', 'Emails\\EmailController')->names('email');
 
 // ================================ FINANCIAL ===================
+Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')->name('invoice.pdf');
 Route::resource('faturas', 'Financial\\InvoiceController')->names('invoice')->parameters(['faturas' => 'invoice']);
 Route::resource('planejamentos', 'Financial\\PlanningController')->names('planning')->parameters(['planejamentos' => 'planning']);
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
