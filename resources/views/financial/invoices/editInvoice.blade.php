@@ -138,6 +138,11 @@ CKEDITOR.replace('description');
 		</table>
 		<br>
 		<br>
+		<label class="labels" for="" >DESCONTO:</label>
+		<input type="number" min="1" step="any" name="discount" size="20"><span class="fields"></span>
+		<br>
+		<br>
+		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
 			<option value="pendente">pendente</option>
