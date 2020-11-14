@@ -339,7 +339,24 @@ class InvoiceController extends Controller {
 
 
 		$data = [
-			'invoiceName' => $invoice->account->name,
+			'accountLogo' => $invoice->account->logo,
+			'accountName' => $invoice->account->name,
+			'accountEmail' => $invoice->account->email,
+			'accountPhone' => $invoice->account->phone,
+			'accountAddress' => $invoice->account->adress,
+			'accountAddressCity' => $invoice->account->city,
+			'accountAddressState' => $invoice->account->state,
+			'accountAddressCountry' => $invoice->account->country,
+			'invoiceId' => $invoice->id,
+			'customerName' => $invoice->opportunitie->contact->name,
+			'customerEmail' => $invoice->opportunitie->contact->email,
+			'customerPhone' => $invoice->opportunitie->contact->phone,
+			'customerAddress' => $invoice->opportunitie->contact->address,
+			'customerAddressCity' => $invoice->opportunitie->contact->city,
+			'customerAddressState' => $invoice->opportunitie->contact->state,
+			'customerAddressCountry' => $invoice->opportunitie->contact->country,
+
+				
 		];
 //dd($data);
 // share data to view

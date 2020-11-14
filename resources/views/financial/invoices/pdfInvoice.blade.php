@@ -12,28 +12,64 @@
 		<link href="{{ asset('css/pdf.css') }}" rel="stylesheet">
     </head>
     <body>
-		<div style="padding: 0;margin-top: -50px; margin-left: -50px;background-color:#874983;width: 115%;height: 100px;position: absolute">
-			<div class="header">
-				<h1 style="padding: 0px;margin-bottom: -2px">
-					proposta comercial
-				</h1>
+		<div class="container">
+			<div class="logo">
+				<img src="{{$data['accountLogo']}}" height="50px" width="150px">
 			</div>
-			<div class="image-header">
-				<br>
-				<br>
-				<img src= "{{ asset('imagens/invoice.png') }}"  width="50px" height=50px">
-			</div>
-		</div>
-
-
-			<div class="main">
-				<p>
-					Dono: {{$data['invoiceName']}}
+			<div class="account">
+				<p style="text-align: left">
+					{{$data['accountEmail']}}
 				</p>
-				te
-				t
-				ert
-				etertert
+				<p style="text-align: left">
+					{{$data['accountPhone']}}
+				</p>
+				<p style="text-align: left">
+					{{$data['accountAddress']}}
+				</p>
+				<p style="text-align: left">
+					{{$data['accountAddressCity']}}
+				</p>
+				<p style="text-align: left">
+					{{$data['accountAddressState']}}
+				</p>
+				<p style="text-align: left">
+					{{$data['accountAddressCountry']}}
+				</p>
 			</div>
+</div>
+
+		<div class="main">
+			<!-- Dados das empresa--> 
+			<h2>
+				{{$data['accountName']}}
+			</h2>
+			<p style="text-align: left">
+				{{$data['invoiceId']}}
+			</p>
+
+			<!-- Dados do cliente--> 
+			<p style="text-align: left">
+				{{$data['customerName']}}
+			</p>
+			<p style="text-align: left">
+				{{$data['customerEmail']}}
+			</p>
+			<p style="text-align: left">
+				{{$data['customerPhone']}}
+			</p>
+			<p style="text-align: left">
+				{{$data['customerAddress']}}
+			</p>
+			<p style="text-align: left">
+				{{$data['customerAddressCity']}}
+			</p>
+			<p style="text-align: left">
+				{{$data['customerAddressState']}}
+			</p>
+			<p style="text-align: left">
+				{{$data['customerAddressCountry']}}
+			</p>
+
+		</div>
 	</body>
 </html>
