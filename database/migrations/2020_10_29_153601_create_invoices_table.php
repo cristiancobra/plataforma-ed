@@ -20,7 +20,7 @@ class CreateInvoicesTable extends Migration {
 			$table->date('date_creation');
 			$table->date('pay_day');
 			$table->text('description')->nullable();
-			$table->integer('discount');
+			$table->integer('discount')->nullable();
 			$table->integer('subtotal');
 
 			$table->decimal('totalHours', 5, 1)->nullable();

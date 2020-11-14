@@ -46,14 +46,8 @@
 <br>
 <br>
 <label class="labels" for="" >FATURAS:</label>
-
-@if ($invoices->count() == 0)
 <br>
-<a class="btn btn-secondary" href="{{ route('invoice.create') }}">
-	NOVA FATURA
-</a>
 <br>
-@else
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
@@ -67,6 +61,9 @@
 		</td>
 		<td   class="table-list-header" style="width: 10%">
 			<b>VALOR TOTAL</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>SITUAÇÃO</b>
 		</td>
 	</tr>
 
@@ -84,21 +81,44 @@
 			{{ $invoice->id }}
 		</td>
 
-		<td class="table-list-left">
+		<td class="table-list-center">
 			{{ date('d/m/Y', strtotime($invoice->date_creation)) }}
 		</td>
 
-		<td class="table-list-right">
+		<td class="table-list-center">
 			{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
 		</td>
 
 		<td class="table-list-right">
-			{{ $invoice->totalBalance}}
+			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
+		</td>
+
+		<td class="table-list-center">
+			@if ($invoice->status == "cancelada")
+			<button class="btn btn-dark">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "pendente")
+			<button class="btn btn-warning">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "fazendo agora")
+			<button class="btn btn-info">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "concluida")
+			<button class="btn btn-success">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@endif
 		</td>
 	</tr>
 	@endforeach
 </table>
-@endif
+<br>
+<a class="btn btn-secondary" href="{{ route('invoice.create') }}">
+	NOVA FATURA
+</a>
 <br>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>

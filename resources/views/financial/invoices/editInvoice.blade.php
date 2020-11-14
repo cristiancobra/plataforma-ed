@@ -146,8 +146,9 @@ CKEDITOR.replace('description');
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
 			<option value="pendente">pendente</option>
-			<option value="desativado">desativado</option>
-			<option value="ativo">ativo</option>
+			<option value="aprovada">aprovada</option>
+			<option value="concluida">concluida</option>
+			<option value="cancelada">cancelada</option>
 		</select>
 		<br>
 		<br>

@@ -33,22 +33,22 @@ class TaskController extends Controller {
 
 			$tasks = Task::where(function ($query) use ($accountsID, $request) {
 						$query->whereIn('account_id', $accountsID);
-						if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null){
+						if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null) {
 							$query->where('status', '!=', 'concluida')
-								->where('status', '!=', 'cancelada');
+							->where('status', '!=', 'cancelada');
 						} else {
-						if ($request->name != null) {
-							$query->where('name', 'like', "%$request->name%");
-						}
-						if ($request->user_id != null) {
-							$query->where('user_id', '=', $request->user_id);
-						}
-						if ($request->contact_id != null) {
-							$query->where('contact_id', '=', $request->contact_id);
-						}
-						if ($request->status != null) {
-							$query->where('status', '=', $request->status);
-						}
+							if ($request->name != null) {
+								$query->where('name', 'like', "%$request->name%");
+							}
+							if ($request->user_id != null) {
+								$query->where('user_id', '=', $request->user_id);
+							}
+							if ($request->contact_id != null) {
+								$query->where('contact_id', '=', $request->contact_id);
+							}
+							if ($request->status != null) {
+								$query->where('status', '=', $request->status);
+							}
 						}
 					})
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
@@ -135,6 +135,8 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		$userAuth = Auth::user();
+		
 		$task = new Task();
 		$task->fill($request->all());
 
@@ -160,13 +162,16 @@ class TaskController extends Controller {
 
 		if ($validator->fails()) {
 			return back()
-				->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-				->withErrors($validator)
-				->withInput();
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
 		} else {
 			$task->save();
 
-			return redirect()->action('Tasks\\TaskController@index');
+			return view('tasks.showTask', [
+				'task' => $task,
+				'userAuth' => $userAuth,
+			]);
 		}
 	}
 

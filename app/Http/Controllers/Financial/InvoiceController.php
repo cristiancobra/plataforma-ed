@@ -110,6 +110,8 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
+		$userAuth = Auth::user();
+
 		$invoice = new Invoice();
 
 		$invoice->opportunitie_id = $request->opportunitie_id;
@@ -162,7 +164,15 @@ class InvoiceController extends Controller {
 			$invoice->totalPrice = $totalPrice - $request->discount;
 			$invoice->update();
 
-			return redirect()->action('Financial\\InvoiceController@index');
+			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+					->with('product', 'opportunitie')
+					->get();
+
+			return view('financial.invoices.showInvoice', [
+				'invoice' => $invoice,
+				'invoiceLines' => $invoiceLines,
+				'userAuth' => $userAuth,
+			]);
 		}
 	}
 
@@ -261,67 +271,68 @@ class InvoiceController extends Controller {
 	public function update(Request $request, Invoice $invoice) {
 		$userAuth = Auth::user();
 
-		$name = "name0001";
-		$amount = "amount0001";
-		$hours = "hours0001";
-		$cost = "cost0001";
-		$tax_rate = "tax_rate0001";
-		$price = "price0001";
-		$margin = "margin0001";
+		$invoice->opportunitie_id = $request->opportunitie_id;
+		$invoice->user_id = $request->user_id;
+		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
+		$invoice->account_id = $opportunitie->account->id;
+		$invoice->date_creation = $request->date_creation;
+		$invoice->pay_day = $request->pay_day;
+		$invoice->description = $request->description;
+		$invoice->discount = $request->discount;
+		$invoice->status = $request->status;
+		
+	$messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
 
-		$totalAmount = 0;
-		$totalHours = 0;
-		$totalCost = 0;
-		$totalTax_rate = 0;
-		$totalPrice = 0;
-		$totalMargin = 0;
+		$validator = Validator::make($request->all(), [
+					'pay_day' => 'required:invoices',
+					'date_creation' => 'required:invoices',
+						],
+						$messages);
 
-		$invoice->fill($request->all());
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$invoice->save();
+			$totalPrice = 0;
+			$totalTaxrate = 0;
 
-		while ($request->$name != null) {
-			$invoice->$name = $request->$name;
+			foreach ($request->product_id as $key => $product_id) {
+				if ($request->product_amount [$key] != null) {
+					$data = array(
+						'invoice_id' => $invoice->id,
+						'product_id' => $request->product_id [$key],
+						'amount' => $request->product_amount [$key],
+						'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+						'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
+						'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
+						'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
+						'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
+					);
+					$totalPrice = $totalPrice + $data['subtotalPrice'];
+					$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+					invoiceLine::insert($data);
+				}
+			}
+			$invoice->totalPrice = $totalPrice - $request->discount;
+			$invoice->update();
 
-			$invoice->$amount = $request->$amount;
-			$totalAmount = $totalAmount + $request->$amount;
+			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+					->with('product', 'opportunitie')
+					->get();
 
-			$invoice->$hours = $request->$hours * $request->$amount;
-			$totalHours = $totalHours + $invoice->$hours;
-
-			$invoice->$cost = $request->$cost * $request->$amount;
-			$totalCost = $totalCost + $invoice->$cost;
-
-			$invoice->$tax_rate = $request->$tax_rate * $request->$amount;
-			$totalTax_rate = $totalTax_rate + $invoice->$tax_rate;
-
-			$invoice->$price = $request->$price * $request->$amount;
-			$totalPrice = $totalPrice + $invoice->$price;
-
-			$invoice->$margin = $request->$margin * $request->$amount;
-			$totalMargin = $totalMargin + $invoice->$margin;
-
-			$name++;
-			$amount++;
-			$hours++;
-			$cost++;
-			$tax_rate++;
-			$price++;
-			$margin++;
+			return view('financial.invoices.showInvoice', [
+				'invoice' => $invoice,
+				'invoiceLines' => $invoiceLines,
+				'userAuth' => $userAuth,
+			]);
 		}
-
-		$invoice->save();
-
-		return view('financial.invoices.showInvoice', [
-			'invoice' => $invoice,
-			'userAuth' => $userAuth,
-			'name' => $name,
-			'amount' => $amount,
-			'hours' => $hours,
-			'cost' => $cost,
-			'tax_rate' => $tax_rate,
-			'price' => $price,
-			'margin' => $margin,
-		]);
 	}
+
 
 	/**
 	 * Remove the specified resource from storage.
@@ -355,8 +366,6 @@ class InvoiceController extends Controller {
 			'customerAddressCity' => $invoice->opportunitie->contact->city,
 			'customerAddressState' => $invoice->opportunitie->contact->state,
 			'customerAddressCountry' => $invoice->opportunitie->contact->country,
-
-				
 		];
 //dd($data);
 // share data to view

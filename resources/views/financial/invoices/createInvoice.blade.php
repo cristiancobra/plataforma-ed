@@ -31,6 +31,7 @@
 			</option>
 			@endforeach
 		</select>
+		<a class="btn btn-secondary" href="{{ route('opportunitie.create') }}">CRIAR</a>
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
@@ -154,14 +155,15 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >DESCONTO:</label>
-		<input type="number" min="1" step="any" name="discount" size="20"><span class="fields"></span>
+		<input type="number" min="0" step="any" name="discount" size="20"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
 			<option value="pendente">pendente</option>
-			<option value="desativado">desativado</option>
-			<option value="ativo">ativo</option>
+			<option value="aprovada">aprovada</option>
+			<option value="concluida">concluida</option>
+			<option value="cancelada">cancelada</option>
 		</select>
 		<br>
 		<br>

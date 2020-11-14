@@ -90,9 +90,14 @@ class OpportunitieController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		Opportunitie::create($request->all());
+		$userAuth = Auth::user();
 
-		return redirect()->action('Sales\\OpportunitieController@index');
+		$opportunitie = Opportunitie::create($request->all());
+
+		return view('sales.opportunities.showOpportunitie', [
+			'opportunitie' => $opportunitie,
+			'userAuth' => $userAuth,
+		]);
 	}
 
 	/**
