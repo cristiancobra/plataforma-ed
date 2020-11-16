@@ -348,17 +348,26 @@ class InvoiceController extends Controller {
 // Generate PDF
 	public function createPDF(Invoice $invoice) {
 
+		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+				->with('product', 'opportunitie')
+				->get();
+//		dd($invoiceLines);
 
 		$data = [
 			'accountLogo' => $invoice->account->logo,
 			'accountName' => $invoice->account->name,
 			'accountEmail' => $invoice->account->email,
 			'accountPhone' => $invoice->account->phone,
-			'accountAddress' => $invoice->account->adress,
-			'accountAddressCity' => $invoice->account->city,
-			'accountAddressState' => $invoice->account->state,
-			'accountAddressCountry' => $invoice->account->country,
+			'accountAddress' => $invoice->account->address,
+			'accountAddressCity' => $invoice->account->address_city,
+			'accountAddressState' => $invoice->account->address_state,
+			'accountAddressCountry' => $invoice->account->address_country,
+			'accountCnpj' => $invoice->account->cnpj,
 			'invoiceId' => $invoice->id,
+			'invoiceDescription' => $invoice->description,
+			'invoiceDiscount' => $invoice->discount,
+			'invoicePayday' => $invoice->pay_day,
+			'invoiceTotalPrice' => $invoice->totalPrice,
 			'customerName' => $invoice->opportunitie->contact->name,
 			'customerEmail' => $invoice->opportunitie->contact->email,
 			'customerPhone' => $invoice->opportunitie->contact->phone,
@@ -366,10 +375,9 @@ class InvoiceController extends Controller {
 			'customerAddressCity' => $invoice->opportunitie->contact->city,
 			'customerAddressState' => $invoice->opportunitie->contact->state,
 			'customerAddressCountry' => $invoice->opportunitie->contact->country,
+			
+			'invoiceLines' => $invoiceLines,
 		];
-//dd($data);
-// share data to view
-//		view()->share('financial/invoices/pdfInvoice', $data);
 
 		$pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
 
