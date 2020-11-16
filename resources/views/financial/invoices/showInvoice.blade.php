@@ -87,7 +87,7 @@
 
 	<tr style="font-size: 12px">
 		<td class="table-list-left" colspan="5">
-			{!!html_entity_decode($invoiceLine->product->name)!!}
+			{!!html_entity_decode($invoiceLine->product->description)!!}
 		</td>
 	</tr>
 	@endforeach
