@@ -228,7 +228,6 @@ class InvoiceController extends Controller {
 			$productsChecked = Invoice::find($invoice->id);
 
 			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-					->with('invoiceLines')
 					->get();
 
 			return view('financial.invoices.editInvoice', [

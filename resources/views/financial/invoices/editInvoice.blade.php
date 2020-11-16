@@ -72,12 +72,12 @@ CKEDITOR.replace('description');
 				</td>
 			</tr>
 
-			@foreach ($products as $product)
+			@foreach ($invoiceLines as $invoiceLine)
 			<tr style="font-size: 14px">
 				<td class="table-list-center">
 					<input type="number" name="{{$product++}}" size="4"
 						   @if ($invoice->$product++ == $product->name)
-					value="{{$invoice->$amount}}"
+					value="{{$invoiceLine->$amount}}"
 					@endif
 					>
 					<span class="fields"></span>
