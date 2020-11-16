@@ -227,34 +227,18 @@ class InvoiceController extends Controller {
 
 			$productsChecked = Invoice::find($invoice->id);
 
-//			$productsChecked = Opportunitie::whereHas('accounts', function($query) use($account) {
-//						$query->where('account_id', $account->id);
-//					})
-//					->pluck('id')
-//					->toArray();
-
-			$name = "name0001";
-			$amount = "amount0001";
-			$hours = "hours0001";
-			$cost = "cost0001";
-			$tax_rate = "tax_rate0001";
-			$price = "price0001";
-			$margin = "margin0001";
+			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+					->with('invoiceLines')
+					->get();
 
 			return view('financial.invoices.editInvoice', [
 				'userAuth' => $userAuth,
 				'invoice' => $invoice,
+				'invoiceLines' => $invoiceLines,
 				'accounts' => $accounts,
 				'opportunities' => $opportunities,
 				'products' => $products,
 				'productsChecked' => $productsChecked,
-				'name' => $name,
-				'amount' => $amount,
-				'hours' => $hours,
-				'cost' => $cost,
-				'tax_rate' => $tax_rate,
-				'price' => $price,
-				'margin' => $margin,
 			]);
 		} else {
 			return redirect('/');
@@ -382,7 +366,7 @@ class InvoiceController extends Controller {
 		$pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
 
 // download PDF file with download method
-		return $pdf->stream('teste.pdf');
+		return $pdf->stream('fatura.pdf');
 	}
 
 }
