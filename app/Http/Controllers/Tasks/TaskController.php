@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Journey;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -183,9 +184,12 @@ class TaskController extends Controller {
 	 */
 	public function show(task $task) {
 		$userAuth = Auth::user();
+		
+		$journeys = Journey::where('task_id', $task->id)->get();
 
 		return view('tasks.showTask', [
 			'task' => $task,
+			'journeys' => $journeys,
 			'userAuth' => $userAuth,
 		]);
 	}

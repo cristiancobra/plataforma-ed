@@ -29,6 +29,7 @@ class ContactController extends Controller {
 			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
+					->orderBy('NAME', 'ASC')
 					->paginate(20);
 
 			$totalContacts = $contacts->count();

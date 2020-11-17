@@ -27,6 +27,7 @@ class CreateTasksTable extends Migration {
 			$table->string('priority');
 			$table->time('start_time', 0)->nullable();
 			$table->time('end_time', 0)->nullable();
+			$table->integer('duration')->nullable();
 			$table->timestamps();
 		});
 	}

@@ -109,9 +109,7 @@ class OpportunitieController extends Controller {
 	public function show(Opportunitie $opportunitie) {
 		$userAuth = Auth::user();
 
-		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
-//				->with('product')
-				->get();
+		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)->get();
 
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,

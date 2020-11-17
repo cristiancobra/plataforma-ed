@@ -67,6 +67,8 @@ Route::get('/perfil', function () {
 	return view('perfil');
 });
 
+// ------------------------------------------------ OPERATIONAL  ------------------------------------------------
+Route::resource('journeys', 'Operational\\JourneyController')->names('journey')->parameters(['jornadas' => 'journey']);
 
 // ================================ SOCIALMEDIA ===================
 //Route::get('/redes-sociais', function () {

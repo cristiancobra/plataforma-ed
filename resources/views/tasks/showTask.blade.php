@@ -26,6 +26,7 @@
 		RESPONSÁVEL:<span class="fields">{{ $task->user->name }} </span>
 	</p>
 	<br>
+	<br>
 	<p class="labels">
 		DATA DE CRIAÇÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_start)) }} </span>
 	</p>
@@ -36,6 +37,7 @@
 	<p class="labels">
 		DESCRIÇÃO:<span class="fields">    {!!html_entity_decode($task->description)!!} </span>
 	</p>
+	<br>
 	<p class="labels">
 		CONTATO:<span class="fields">  {{ $task->contact->name }}  </span>
 	</p>
@@ -43,34 +45,75 @@
 		PRIORIDADE:<span class="fields">  {{ $task->priority }} </span>
 	</p>
 	<br>
-	<p class="labels">
-		INÍCIO:<span class="fields">  {{ date('H:i', strtotime($task->start_time)) }} </span>
-	</p>
-	
-	@if ($task->end_time == null)
-	<p class="labels">
-		TÉRMINO:<span class="fields">  0:00 </span>
-	</p>	
-	@else
-	<p class="labels">
-		TÉRMINO:<span class="fields">  {{ date('H:i', strtotime($task->end_time)) }} </span>
-	</p>	
-	@endif
-	
-	<p class="labels">
-		DURAÇÃO:<span class="fields">  {{ gmdate('H:i', $task->duration) }}</span>
-	</p>
-	
-	@if ($task->date_conclusion == null)
-	<p class="labels">
-		DATA DE CONCLUSÃO:<span class="fields"></span>
-	</p>
-	@else
-	<p class="labels">
-		DATA DE CONCLUSÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_conclusion)) }} </span>
-	</p>
-	@endif
-	
+	<br>
+	<label class="labels" for="" >EXECUÇÃO:</label>
+	<br>
+	<table class="table-list">
+		<tr>
+			<td   class="table-list-header" style="width: 5%">
+				<b>ID</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>DATA </b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>TEMPO</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>SITUAÇÃO</b>
+			</td>
+		</tr>
+
+		@foreach ($journeys as $journey)
+		<tr style="font-size: 14px">
+			<td class="table-list-center">
+				<button class="button">
+					<a href=" {{ route('journey.show', ['journey' => $journey->id]) }}">
+						<i class='fa fa-eye' style="color:white"></i></a>
+				</button>
+				<button class="button">
+					<a href=" {{ route('journey.edit', ['journey' => $journey->id]) }}">
+						<i class='fa fa-edit' style="color:white"></i></a>
+				</button>
+				{{ $journey->id }}
+			</td>
+
+			<td class="table-list-center">
+				{{ date('d/m/Y', strtotime($journey->date)) }}
+			</td>
+
+			<td class="table-list-center">
+				{{ gmdate('H:i', $journey->duration) }}
+			</td>
+
+			<td class="table-list-center">
+				@if ($journey->status == "cancelada")
+				<button class="btn btn-dark">
+					<b>{{ $journey->status  }}</b>
+				</button>
+				@elseif ($journey->status == "pendente")
+				<button class="btn btn-warning">
+					<b>{{ $journey->status  }}</b>
+				</button>
+				@elseif ($journey->status == "fazendo agora")
+				<button class="btn btn-info">
+					<b>{{ $journey->status  }}</b>
+				</button>
+				@elseif ($journey->status == "concluida")
+				<button class="btn btn-success">
+					<b>{{ $journey->status  }}</b>
+				</button>
+				@endif
+			</td>
+		</tr>
+		@endforeach
+	</table>
+	<br>
+	<a class="btn btn-secondary" href="{{ route('journey.create') }}">
+		NOVA JORNADA
+	</a>
+	<br>
+	<br>
 	<br>
 	<p class="labels">
 		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>

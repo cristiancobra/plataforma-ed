@@ -25,6 +25,10 @@ class Account extends Model {
 		return $this->hasMany(Instagram::class, 'id', 'account_id');
 	}
 	
+		public function journeys() {
+		return $this->hasMany(Journey::class, 'id', 'user_id');
+	}
+	
 	public function linkedins() {
 		return $this->hasMany(Linkedin::class, 'id', 'account_id');
 	}
