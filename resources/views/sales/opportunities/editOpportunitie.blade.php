@@ -20,6 +20,9 @@
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
+			<option  class="fields" value="{{ $opportunitie->account->id }}">
+				{{ $opportunitie->account->name }}
+			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
@@ -36,13 +39,6 @@
 			</option>
 			@endforeach
 		</select>
-		<br>
-		<label class="labels" for="" >TIPO:</label>
-		<select class="fields" name="type">
-			<option value="produto">produto</option>
-			<option value="serviço">serviço</option>
-		</select>
-		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_start" size="20" value="{{$opportunitie->date_start}}"><span class="fields"></span>
@@ -65,6 +61,7 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">ETAPA DA VENDA:</label>
 		<select class="fields" name="stage">
+			<option value="{{$opportunitie->stage}}">{{$opportunitie->stage}}</option>
 			<option value="prospecção">prospecção</option>
 			<option value="apresentação">apresentação</option>
 			<option value="proposta">proposta</option>
@@ -78,6 +75,7 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
+			<option value="{{$opportunitie->status}}">{{$opportunitie->status}}</option>
 			<option value="pendente">pendente</option>
 			<option value="fazendo agora">fazendo agora</option>
 			<option value="cancelada">cancelada</option>
@@ -85,9 +83,21 @@ CKEDITOR.replace('description');
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
-
+		<div style="text-align: right">
+			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">	
+			<a class="btn btn-secondary" href=" {{route('opportunitie.index')}} "  style="text-decoration: none;color: white;display: inline-block">
+				<i class='fas fa-arrow-alt-circle-left'></i>  VOLTAR
+			</a>
+		</div>
 	</form>
+	<div style="text-align:right">
+		<form   style="text-decoration: none;display: inline-block" action="{{ route('opportunitie.destroy', ['opportunitie' => $opportunitie->id]) }}" method="post">
+			@csrf
+			@method('delete')
+			<input class="btn btn-danger" type="submit" value="APAGAR">
+		</form>
+	</div>
+	<br>
 </div>
 <br>
 <br>

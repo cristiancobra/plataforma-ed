@@ -23,6 +23,9 @@
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
+			<option  class="fields" value="{{ $product->account->id }}">
+				{{ $product->account->name }}
+			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}

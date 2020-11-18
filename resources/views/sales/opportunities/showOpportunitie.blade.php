@@ -22,9 +22,6 @@
 <span class="fields">{{$opportunitie->contact->name}}</span>
 <br>
 <br>
-<label class="labels" for="" >CATEGORIA:</label>
-<span class="fields">{{$opportunitie->category }}</span>
-<br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 <span class="fields">{{ date('d/m/Y', strtotime($opportunitie->date_start)) }}</span>
 <br>

@@ -109,7 +109,9 @@ class OpportunitieController extends Controller {
 	public function show(Opportunitie $opportunitie) {
 		$userAuth = Auth::user();
 
-		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)->get();
+		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+					->orderBy('PAY_DAY', 'ASC')
+					->get();
 
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
@@ -146,12 +148,17 @@ class OpportunitieController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+					->orderBy('PAY_DAY', 'ASC')
+					->get();
+
 			return view('sales.opportunities.editOpportunitie', [
 				'userAuth' => $userAuth,
 				'opportunitie' => $opportunitie,
 				'accounts' => $accounts,
 				'contacts' => $contacts,
 				'opportunities' => $opportunities,
+				'invoices' => $invoices,
 			]);
 		} else {
 			return redirect('/');
@@ -170,9 +177,14 @@ class OpportunitieController extends Controller {
 
 		$opportunitie->fill($request->all());
 		$opportunitie->save();
+		
+		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+					->orderBy('PAY_DAY', 'ASC')
+					->get();
 
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
+			'invoices' => $invoices,
 			'userAuth' => $userAuth,
 		]);
 	}
