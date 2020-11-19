@@ -11,7 +11,6 @@
 @endsection
 
 @section('main')
-
 @if(Session::has('failed'))
 <div class="alert alert-danger">
 	{{ Session::get('failed') }}
@@ -112,16 +111,16 @@ CKEDITOR.replace('description');
 		<label class="labels" for="" >
 			INÍCIO: 
 		</label>
-		<input type="time" name="start_time" size="50"><span class="fields"></span>
+		<input type="time" name="start_time" size="50">{{old('start_time')}}<span class="fields"></span>
 		<br>
 		<label class="labels" for="">
 			TÉRMINO: 
 			<br>
 		</label>
-		<input type="time" name="end_time" size="50"><span class="fields"></span>
+		<input type="time" name="end_time" size="50">{{old('end_time')}}<span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
-		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
+		<input type="date" name="date_conclusion" size="20">{{old('date_conclusion')}}<span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

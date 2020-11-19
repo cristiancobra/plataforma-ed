@@ -11,12 +11,24 @@
 @endsection
 
 @section('main')
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+	{{ Session::get('failed') }}
+	@php
+	Session::forget('failed');
+	@endphp
+</div>
+@endif
 <div style="padding-left: 6%">
 	<form action=" {{ route('opportunitie.update', ['opportunitie' =>$opportunitie->id]) }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="20" value="{{$opportunitie->name}}"><span class="fields"></span>
+		@if ($errors->has('name'))
+		<span class="text-danger">{{ $errors->first('name') }}</span>
+		@endif
+		<br>
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
@@ -32,7 +44,7 @@
 		<br>
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
-		<select name="account_id">
+		<select name="contact_id">
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">
 				{{ $contact->name }}

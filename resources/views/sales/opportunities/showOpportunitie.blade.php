@@ -23,10 +23,18 @@
 <br>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
+@if($opportunitie->date_start == null)
+indefinida
+@else
 <span class="fields">{{ date('d/m/Y', strtotime($opportunitie->date_start)) }}</span>
+@endif
 <br>
 <label class="labels" for="" >DATA DE PAGAMENTO:</label>
+@if($opportunitie->pay_day == null)
+indefinida
+@else
 <span class="fields">{{ date('d/m/Y', strtotime($opportunitie->pay_day)) }}</span>
+@endif
 <br>
 <br>
 <div style="background-color: #d7bde2 ;padding: 1%">
@@ -34,7 +42,11 @@
 	<span class="fields">{{$opportunitie->stage }}</span>
 	<br>
 	<label class="labels" for="" >PRÓXIMO CONTATO:</label>
+@if($opportunitie->date_conclusion == null)
+indefinido
+@else
 	<span class="fields">{{ date('d/m/Y', strtotime($opportunitie->date_conclusion)) }}</span>
+	@endif
 </div>
 <br>
 <br>

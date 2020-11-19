@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Invoice;
@@ -92,12 +93,37 @@ class OpportunitieController extends Controller {
 	public function store(Request $request) {
 		$userAuth = Auth::user();
 
-		$opportunitie = Opportunitie::create($request->all());
+		$opportunitie = new Opportunitie();
+		$opportunitie->fill($request->all());
 
-		return view('sales.opportunities.showOpportunitie', [
-			'opportunitie' => $opportunitie,
-			'userAuth' => $userAuth,
-		]);
+		$messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:opportunities',
+					'date_start' => 'required:opportunities',
+					'description' => 'required:opportunities',
+						],
+						$messages);
+
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$opportunitie->save();
+
+			$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+					->orderBy('PAY_DAY', 'ASC')
+					->get();
+
+			return view('sales.opportunities.showOpportunitie', [
+				'opportunitie' => $opportunitie,
+				'invoices' => $invoices,
+				'userAuth' => $userAuth,
+			]);
+		}
 	}
 
 	/**
@@ -110,8 +136,8 @@ class OpportunitieController extends Controller {
 		$userAuth = Auth::user();
 
 		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
-					->orderBy('PAY_DAY', 'ASC')
-					->get();
+				->orderBy('PAY_DAY', 'ASC')
+				->get();
 
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
@@ -148,7 +174,7 @@ class OpportunitieController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+			$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
 
@@ -177,10 +203,10 @@ class OpportunitieController extends Controller {
 
 		$opportunitie->fill($request->all());
 		$opportunitie->save();
-		
+
 		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
-					->orderBy('PAY_DAY', 'ASC')
-					->get();
+				->orderBy('PAY_DAY', 'ASC')
+				->get();
 
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
