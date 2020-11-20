@@ -43,6 +43,10 @@
 		</td>
 
 		<td class="table-list-left">
+			<button class="button">
+				<a href=" {{ route('task.show', ['task' => $journey->task_id]) }}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
 			{{ $journey->task->name}}
 		</td>
 

@@ -109,7 +109,7 @@
 		@endforeach
 	</table>
 	<br>
-	<a class="btn btn-secondary" href="{{ route('journey.create', ['taskName' => $task->user->name, 'taskUser' => $task->user->name])}}">
+	<a class="btn btn-secondary" href="{{ route('journey.create', ['taskName' => $task->name, 'taskId' => $task->id,'taskUserName' => $task->user->name,'taskUserId' => $task->user->id, 'taskAccountName' => $task->account->name,'taskAccountId' => $task->account->id])}}">
 		NOVA JORNADA
 	</a>
 	<br>

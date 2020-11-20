@@ -25,6 +25,9 @@
 		@csrf
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
+			<option  class="fields" value="{{app('request')->input('taskAccountId')}}">
+				{{app('request')->input('taskAccountName')}}
+			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
@@ -33,11 +36,10 @@
 		</select>
 		<br>
 		<label class="labels" for="" >FUNCIONÁRIO: </label>
-		@if(isset($task))
-		{{app('request')->input('taskUser')}}
-		<input type="hidden" name="name" value="{{app('request')->input('taskUser')}}">
-		@else
 		<select name="user_id">
+			<option  class="fields" value="{{app('request')->input('taskUserId')}}">
+				{{app('request')->input('taskUserName')}}
+			</option>
 			<option  class="fields" value="{{ $userAuth->id }}">
 				{{ $userAuth->name }}
 			</option>
@@ -47,7 +49,6 @@
 			</option>
 			@endforeach
 		</select>
-		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >TAREFA: </label>
@@ -56,6 +57,9 @@
 		<input type="hidden" name="name" value="{{app('request')->input('taskName')}}">
 		@else
 		<select name="task_id">
+			<option  class="fields" value="{{app('request')->input('taskId')}}">
+				{{app('request')->input('taskName')}}
+			</option>
 			@foreach ($tasks as $task)
 			<option  class="fields" value="{{ $task->id }}">
 				{{ $task->name }}

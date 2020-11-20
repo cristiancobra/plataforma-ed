@@ -268,9 +268,12 @@ class TaskController extends Controller {
 		}
 
 		$task->save();
+		
+		$journeys = Journey::where('task_id', $task->id)->get();
 
 		return view('tasks.showTask', [
 			'task' => $task,
+			'journeys' => $journeys,
 			'userAuth' => $userAuth,
 		]);
 	}
