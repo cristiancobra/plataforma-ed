@@ -3,7 +3,7 @@
 @section('title','JORNADAS')
 
 @section('image-top')
-{{ asset('imagens/journeys.png') }} 
+{{ asset('imagens/journey.png') }} 
 @endsection
 
 @section('description')

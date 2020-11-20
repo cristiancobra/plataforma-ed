@@ -33,7 +33,7 @@
 		</select>
 		<br>
 		<label class="labels" for="" >FUNCIONÁRIO: </label>
-		@if(!isset($task))
+		@if(isset($task))
 		{{app('request')->input('taskUser')}}
 		<input type="hidden" name="name" value="{{app('request')->input('taskUser')}}">
 		@else
@@ -51,7 +51,7 @@
 		<br>
 		<br>
 		<label class="labels" for="" >TAREFA: </label>
-		@if(!isset($task))
+		@if(isset($task))
 		{{app('request')->input('taskName')}}
 		<input type="hidden" name="name" value="{{app('request')->input('taskName')}}">
 		@else

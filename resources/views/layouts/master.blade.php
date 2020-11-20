@@ -124,7 +124,7 @@
 				
 				<a href="{{ route('journey.index') }}">
 					<button class="sidebar-item">
-						<i class="fa fa-id-card-alt"></i> 
+						<i class="fas fa-mug-hot"></i> 
 						JORNADAS
 					</button>
 				</a>
