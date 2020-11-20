@@ -45,6 +45,9 @@
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
+			<option  class="fields" value="{{ $opportunitie->contact_id }}">
+				{{ $opportunitie->contact->name }}
+			</option>
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">
 				{{ $contact->name }}
