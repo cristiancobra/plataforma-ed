@@ -69,9 +69,16 @@ class JourneyController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->orderBy('NAME', 'ASC')
+					->get();
+
 			return view('operational.journey.createJourney', [
 				'userAuth' => $userAuth,
 				'journey' => $journey,
+				'users' => $users,
 				'accounts' => $accounts,
 				'tasks' => $tasks,
 			]);
@@ -184,7 +191,7 @@ class JourneyController extends Controller {
 		$userAuth = Auth::user();
 
 		$journey->fill($request->all());
-		
+
 		if ($request->end_time == null) {
 			$journey->duration = 0;
 		} else {
@@ -215,16 +222,16 @@ class JourneyController extends Controller {
 			]);
 		}
 	}
-		/**
-		 * Remove the specified resource from storage.
-		 *
-		 * @param  \App\Models\Journey  $journey
-		 * @return \Illuminate\Http\Response
-		 */
-		public function destroy(Journey $journey) {
-			$journey->delete();
-			return redirect()->action('Operational\\JourneyController@index');
-		}
 
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\Journey  $journey
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(Journey $journey) {
+		$journey->delete();
+		return redirect()->action('Operational\\JourneyController@index');
 	}
-	
+
+}

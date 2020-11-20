@@ -68,7 +68,8 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
-Route::resource('journeys', 'Operational\\JourneyController')->names('journey')->parameters(['jornadas' => 'journey']);
+Route::any('/jornadas/novo', 'Operational\\JourneyController@create')->name('journey.create');
+Route::resource('jornadas', 'Operational\\JourneyController')->names('journey')->parameters(['jornadas' => 'journey']);
 
 // ================================ SOCIALMEDIA ===================
 //Route::get('/redes-sociais', function () {

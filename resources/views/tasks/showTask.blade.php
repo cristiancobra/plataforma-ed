@@ -18,31 +18,31 @@
 	</h1>
 	<p class="labels">
 		CATEGORIA:
-		<span class="fields">{{ $task->category }} </span></p>
+		<span class="fields">{{ $task->category }}</span></p>
 	<p class="labels">
-		DONO:<span class="fields">{{ $task->account->name }} </span>
+		DONO:<span class="fields">{{ $task->account->name }}</span>
 	</p>
 	<p class="labels">
-		RESPONSÁVEL:<span class="fields">{{ $task->user->name }} </span>
-	</p>
-	<br>
-	<br>
-	<p class="labels">
-		DATA DE CRIAÇÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_start)) }} </span>
-	</p>
-	<p class="labels">
-		PRAZO FINAL:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_due)) }} </span>
+		RESPONSÁVEL:<span class="fields">{{ $task->user->name }}</span>
 	</p>
 	<br>
+	<br>
 	<p class="labels">
-		DESCRIÇÃO:<span class="fields">    {!!html_entity_decode($task->description)!!} </span>
+		DATA DE CRIAÇÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_start))}}</span>
+	</p>
+	<p class="labels">
+		PRAZO FINAL:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_due))}}</span>
 	</p>
 	<br>
 	<p class="labels">
-		CONTATO:<span class="fields">  {{ $task->contact->name }}  </span>
+		DESCRIÇÃO:<span class="fields">  {!!html_entity_decode($task->description)!!} </span>
+	</p>
+	<br>
+	<p class="labels">
+		CONTATO:<span class="fields">  {{$task->contact->nam}}</span>
 	</p>
 	<p class="labels">
-		PRIORIDADE:<span class="fields">  {{ $task->priority }} </span>
+		PRIORIDADE:<span class="fields">  {{$task->priority}}</span>
 	</p>
 	<br>
 	<br>
@@ -109,7 +109,7 @@
 		@endforeach
 	</table>
 	<br>
-	<a class="btn btn-secondary" href="{{ route('journey.create') }}">
+	<a class="btn btn-secondary" href="{{ route('journey.create', ['taskName' => $task->user->name, 'taskUser' => $task->user->name])}}">
 		NOVA JORNADA
 	</a>
 	<br>

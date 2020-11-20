@@ -16,6 +16,7 @@ class CreateJourneysTable extends Migration
         Schema::create('journeys', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('account_id');
+			$table->foreignId('user_id');
 			$table->foreignId('task_id');
 			$table->text('description')->nullable();
 			$table->date('date');

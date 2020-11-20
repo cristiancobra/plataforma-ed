@@ -121,6 +121,13 @@
 						EQUIPE
 					</button>
 				</a>
+				
+				<a href="{{ route('journey.index') }}">
+					<button class="sidebar-item">
+						<i class="fa fa-id-card-alt"></i> 
+						JORNADAS
+					</button>
+				</a>
 
 				<a href="{{ route('task.index') }}">
 					<button class="sidebar-item">
