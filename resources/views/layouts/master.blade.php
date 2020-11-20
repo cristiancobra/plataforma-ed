@@ -93,8 +93,19 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('account.index')}}"><i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS</a>
-					<a class="sidebar-subitem" href="{{route('planning.index')}}"><i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO</a>
+					<a class="sidebar-subitem" href="{{route('account.index')}}">
+						<i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
+					</a>
+					<a class="sidebar-subitem" href="{{route('user.index')}}">
+						<i class="fa fa-id-card-alt" style="margin-right: 8px"></i>EQUIPE
+					</a>
+					<a class="sidebar-subitem" href="{{route('planning.index')}}">
+						<i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO
+					</a>
+					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
+						<i class="fas fa-receipt" style="margin-right: 8px"></i>
+						FATURAS
+					</a>
 				</div>
 
 				<button class="dropdown-btn">
@@ -102,46 +113,16 @@
 					COMUNICAÇÃO
 					<i class="fa fa-caret-down"></i>
 				</button>
-
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
 					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
 				</div>
-
-				<a href="{{ route('contact.index') }}">
-					<button class="sidebar-item">
-						<i class="fas fa-user-plus"></i> 
-						CONTATOS
-					</button>
-				</a>
-
-				<a href="{{ route('user.index') }}">
-					<button class="sidebar-item">
-						<i class="fa fa-id-card-alt"></i> 
-						EQUIPE
-					</button>
-				</a>
-				
-				<a href="{{ route('journey.index') }}">
-					<button class="sidebar-item">
-						<i class="fas fa-mug-hot"></i> 
-						JORNADAS
-					</button>
-				</a>
-
-				<a href="{{ route('task.index') }}">
-					<button class="sidebar-item">
-						<i class="fa fa-calendar-check"></i> 
-						TAREFAS
-					</button>
-				</a>
 
 				<button class="dropdown-btn">
 					<i class='fas fa-bullhorn'></i>
 					MARKETING
 					<i class="fa fa-caret-down"></i>
 				</button>
-
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="/redes-sociais"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>REDES SOCIAIS</a>
 					<a class="sidebar-subitem" href="{{ route('site.index') }}"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES</a>
@@ -157,11 +138,14 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
+					<a class="sidebar-subitem" href="{{ route('contact.index') }}">
+						<i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS
+					</a>
 					<a class="sidebar-subitem" href="{{ route('product.index') }}">
 						<i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS
 					</a>
 					<a class="sidebar-subitem" href="{{ route('opportunitie.index') }}">
-						<i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES
+						<i class="fas fa-donate" style="margin-right: 8px"></i>OPORTUNIDADES
 					</a>
 					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>
@@ -179,15 +163,18 @@
 				</div>
 
 				<button class="dropdown-btn">
-					<i class='fas fa-funnel-dollar'></i>
-					FINANCEIRO 
+					<i class='fas fa-check-circle'></i>
+					OPERACIONAL 
 					<i class="fa fa-caret-down"></i>
 				</button>
-
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>
-						FATURAS
+					<a class="sidebar-subitem" href="{{route('task.index')}}">
+						<i class="fa fa-calendar-check" style="margin-right: 8px"></i>
+						TAREFAS
+					</a>
+					<a class="sidebar-subitem" href="{{route('journey.index')}}">
+						<i class="fas fa-mug-hot" style="margin-right: 8px"></i>
+						JORNADAS
 					</a>
 				</div>
 
@@ -198,21 +185,33 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fa fa-bullhorn" style="margin-right: 8px"></i>ENTRADAS</a>
-					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>CRIAR EMAIL
+					<a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fa fa-bullhorn" style="margin-right: 8px">
+
+						</i>ENTRADAS
+					</a>
+					<a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+						</i>CRIAR EMAIL
 						<br>
 						login: solucoes
 					</a>
-					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR APLICAÇÕES
+					<a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+						</i>SERVIDOR APLICAÇÕES
 						<br>
 						login: admin
 					</a>
-					<a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>SERVIDOR NUVEM</a>
-					<a class="sidebar-subitem" href="https://my.contabo.com/account/login" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>PAGAR SERVIDOR
+					<a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+						</i>SERVIDOR NUVEM</a>
+					<a class="sidebar-subitem" href="https://my.contabo.com/account/login" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+						</i>PAGAR SERVIDOR
 						<br>
 						login: admin
 					</a>
-					<a class="sidebar-subitem" href="http://saocarlos.ginfes.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>NOTA FISCAL
+					<a class="sidebar-subitem" href="http://saocarlos.ginfes.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+						</i>NOTA FISCAL
 						<br>
 						lnsc. Municipal : 58029
 					</a>
