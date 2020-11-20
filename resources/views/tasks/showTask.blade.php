@@ -50,23 +50,23 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header" style="width: 5%">
+			<td   class="table-list-header" style="width: 10%">
 				<b>ID</b>
 			</td>
-			<td   class="table-list-header" style="width: 10%">
+			<td   class="table-list-header" style="width: 70%">
 				<b>DATA </b>
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>TEMPO</b>
+				<b>SITUAÇÃO</b>
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>SITUAÇÃO</b>
+				<b>TEMPO</b>
 			</td>
 		</tr>
 
 		@foreach ($journeys as $journey)
 		<tr style="font-size: 14px">
-			<td class="table-list-center">
+			<td class="table-list-left">
 				<button class="button">
 					<a href=" {{ route('journey.show', ['journey' => $journey->id]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
@@ -80,10 +80,6 @@
 
 			<td class="table-list-center">
 				{{ date('d/m/Y', strtotime($journey->date)) }}
-			</td>
-
-			<td class="table-list-center">
-				{{ gmdate('H:i', $journey->duration) }}
 			</td>
 
 			<td class="table-list-center">
@@ -103,34 +99,56 @@
 				<button class="btn btn-success">
 					<b>{{ $journey->status  }}</b>
 				</button>
-				@endif
+
+			<td class="table-list-center">
+				{{ gmdate('H:i', $journey->duration) }}
+			</td>
+
+			@endif
 			</td>
 		</tr>
+		@php
+		$totalDuration =  $journey->duration;
+		@endphp
 		@endforeach
-	</table>
-	<br>
-	<a class="btn btn-secondary" href="{{ route('journey.create', ['taskName' => $task->name, 'taskId' => $task->id,'taskUserName' => $task->user->name,'taskUserId' => $task->user->id, 'taskAccountName' => $task->account->name,'taskAccountId' => $task->account->id])}}">
-		NOVA JORNADA
-	</a>
-	<br>
-	<br>
-	<br>
-	<p class="labels">
-		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
-	</p>
-	<br>
-	<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }}
-	</p>
+		<table class="table-list">
+			<tr>
+				<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 30px;font-size: 18px">
+					<b>TOTAL:</b>   {{gmdate('H:i', $totalDuration)}}
+					<br>
+				</td>
+			</tr>
+		</table>
+		<br>
+		<a class="btn btn-secondary" href="{{ route('journey.create', [
+				'taskName' => $task->name,
+				'taskId' => $task->id,
+				'taskUserName' => $task->user->name,
+				'taskUserId' => $task->user->id,
+				'taskAccountName' => $task->account->name,
+				'taskAccountId' => $task->account->id,
+				])}}">
+			NOVA JORNADA
+		</a>
+		<br>
+		<br>
+		<br>
+		<p class="labels">
+			SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
+		</p>
+		<br>
+		<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }}
+		</p>
 
-	<div style="text-align:right;padding: 2%">
-		<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">
-			@csrf
-			@method('delete')
-			<input class="btn btn-danger" type="submit" value="APAGAR">
-		</form>
-		<a class="btn btn-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
-			<i class='fa fa-edit'></i>EDITAR</a>
-		<a class="btn btn-secondary" href="{{route('task.index')}}">VOLTAR</a>
-	</div>
+		<div style="text-align:right;padding: 2%">
+			<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">
+				@csrf
+				@method('delete')
+				<input class="btn btn-danger" type="submit" value="APAGAR">
+			</form>
+			<a class="btn btn-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
+				<i class='fa fa-edit'></i>EDITAR</a>
+			<a class="btn btn-secondary" href="{{route('task.index')}}">VOLTAR</a>
+		</div>
 </div>
 @endsection
