@@ -207,6 +207,12 @@ class UserController extends Controller {
 					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
 					->sum('duration');
 
+			$hoursNovember = $tasks
+					->where('status', 'concluida')
+					->where('user_id', $userAuth->id)
+					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
+					->sum('duration');
+
 			return view('users/dashboardUser', [
 				'userAuth' => $userAuth,
 				'today' => $today,
@@ -218,6 +224,7 @@ class UserController extends Controller {
 				'hoursAugust' => $hoursAugust,
 				'hoursSeptember' => $hoursSeptember,
 				'hoursOctober' => $hoursOctober,
+				'hoursNovember' => $hoursNovember,
 			]);
 		} else {
 			return redirect('/');

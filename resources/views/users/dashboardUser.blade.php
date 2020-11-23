@@ -87,6 +87,8 @@
 		<br>
 		Outubro: {{ number_format($hoursOctober / 3600, 1, ',','.')  }} horas
 		<br>
+		Novembro: {{ number_format($hoursNovember / 3600, 1, ',','.')  }} horas
+		<br>
 		<b>Total: {{ number_format($hoursTotal / 3600, 1, ',','.')  }} horas</b>
 		<br>
 	</p>
