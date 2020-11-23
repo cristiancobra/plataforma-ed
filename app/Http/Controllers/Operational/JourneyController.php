@@ -35,6 +35,7 @@ class JourneyController extends Controller {
 						'task',
 						'user',
 					])
+					->orderBy('DATE', 'DESC')
 					->paginate(20);
 			
 			return view('operational.journey.indexJourneys', [
