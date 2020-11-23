@@ -40,7 +40,7 @@
 	</p>
 	<br>
 	<p class="labels">
-		DATA:<span class="fields">  {{ date('d/m/Y', strtotime($journey->date)) }} </span>
+		DATA:<span class="fields">  {{date('d/m/Y', strtotime($journey->date))}} </span>
 	</p>
 	<p class="labels">
 		INÍCIO:<span class="fields">  {{ date('H:i', strtotime($journey->start_time)) }} </span>
