@@ -38,11 +38,11 @@
 	<tr style="font-size: 14px">
 		<td class="table-list-left">
 			<button class="button">
-				<a href=" {{ route('journey.show', ['journey' => $journey->id]) }}">
+				<a href=" {{ route('journey.show', ['journey' => $journey]) }}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
 			<button class="button">
-				<a href=" {{ route('journey.edit', ['journey' => $journey->id]) }}">
+				<a href=" {{ route('journey.edit', ['journey' => $journey]) }}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
 			{{ $journey->date }}
