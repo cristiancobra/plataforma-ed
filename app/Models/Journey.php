@@ -9,7 +9,7 @@ class Journey extends Model
 	protected $table = 'journeys';
 
 	protected $fillable = [
-		'id', 'account_id', 'task_id', 'date', 'description', 'status', 'start_time', 'end_time', 'duration', 
+		'id', 'account_id', 'task_id', 'user_id',  'date', 'description', 'status', 'start_time', 'end_time', 'duration', 
 	];
 
 	protected $hidden = [

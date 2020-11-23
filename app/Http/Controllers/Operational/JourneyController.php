@@ -99,6 +99,8 @@ class JourneyController extends Controller {
 
 		$journey = new Journey();
 		$journey->fill($request->all());
+		
+		dd($journey->user_id);
 
 		if ($request->end_time == null) {
 			$journey->duration = 0;
