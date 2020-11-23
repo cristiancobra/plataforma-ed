@@ -95,13 +95,10 @@ class JourneyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$userAuth = Auth::user();
 
 		$journey = new Journey();
 		$journey->fill($request->all());
 		
-		dd($journey->user_id);
-
 		if ($request->end_time == null) {
 			$journey->duration = 0;
 		} else {
