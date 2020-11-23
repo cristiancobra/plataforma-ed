@@ -188,7 +188,9 @@ class TaskController extends Controller {
 	public function show(task $task) {
 		$userAuth = Auth::user();
 		
-		$journeys = Journey::where('task_id', $task->id)->get();
+		$journeys = Journey::where('task_id', $task->id)
+				->with('user')
+				->get();
 
 		return view('tasks.showTask', [
 			'task' => $task,

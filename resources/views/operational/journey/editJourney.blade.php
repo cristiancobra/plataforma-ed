@@ -30,6 +30,19 @@
 					@endforeach
 				</select>
 				<br>
+				<label class="labels" for="" >FUNCIONÁRIO: </label>
+				<select name="user_id">
+					<option  class="fields" value="{{$journey->user_id}}">
+						{{$journey->user->name}}
+					</option>
+					@foreach ($users as $user)
+					<option  class="fields" value="{{ $user->id }}">
+						{{ $user->name }}
+					</option>
+					@endforeach
+				</select>
+				<br>
+				<br>
 				<label class="labels" for="" >TAREFA: </label>
 				<select name="task_id">
 					<option value="{{ $journey->task->id }}">{{ $journey->task->name }}</option>

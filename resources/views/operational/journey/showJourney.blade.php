@@ -39,7 +39,6 @@
 		CONTATO:<span class="fields">  {{ $journey->task->contact->name }}  </span>
 	</p>
 	<br>
-	<br>
 	<p class="labels">
 		DATA:<span class="fields">  {{ date('d/m/Y', strtotime($journey->date)) }} </span>
 	</p>

@@ -53,7 +53,10 @@
 			<td   class="table-list-header" style="width: 10%">
 				<b>ID</b>
 			</td>
-			<td   class="table-list-header" style="width: 70%">
+			<td   class="table-list-header" style="width: 50%">
+				<b>FUNCIONÁRIO</b>
+			</td>
+			<td   class="table-list-header" style="width: 20%">
 				<b>DATA </b>
 			</td>
 			<td   class="table-list-header" style="width: 10%">
@@ -68,14 +71,18 @@
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
 				<button class="button">
-					<a href=" {{ route('journey.show', ['journey' => $journey->id]) }}">
+					<a href=" {{ route('journey.show', ['journey' => $journey]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
 				<button class="button">
-					<a href=" {{ route('journey.edit', ['journey' => $journey->id]) }}">
+					<a href=" {{ route('journey.edit', ['journey' => $journey]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
 				{{ $journey->id }}
+			</td>
+
+			<td class="table-list-center">
+				{{ $journey->user->name }}
 			</td>
 
 			<td class="table-list-center">

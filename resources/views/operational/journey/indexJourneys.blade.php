@@ -21,6 +21,12 @@
 			<b>TAREFA </b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
+			<b>INÍCIO </b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>TÉRMINO </b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
 			<b>DURAÇÃO </b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
@@ -41,7 +47,6 @@
 			</button>
 			{{ $journey->date }}
 		</td>
-
 		<td class="table-list-left">
 			<button class="button">
 				<a href=" {{ route('task.show', ['task' => $journey->task_id]) }}">
@@ -49,7 +54,12 @@
 			</button>
 			{{ $journey->task->name}}
 		</td>
-
+		<td class="table-list-center">
+			{{ date('H:i', strtotime($journey->start_time)) }}
+		</td>
+		<td class="table-list-center">
+			{{ date('H:i', strtotime($journey->end_time)) }}
+		</td>
 		<td class="table-list-center" style="color:white;background-color: #874983">
 			{{ gmdate('H:i', $journey->duration) }}
 		</td>

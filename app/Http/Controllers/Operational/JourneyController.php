@@ -33,9 +33,10 @@ class JourneyController extends Controller {
 					->with([
 						'account',
 						'task',
+						'user',
 					])
 					->paginate(20);
-//dd($journeys);
+			
 			return view('operational.journey.indexJourneys', [
 				'journeys' => $journeys,
 				'userAuth' => $userAuth,
@@ -169,11 +170,22 @@ class JourneyController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$journey = Journey::where('id', $journey->id)
+					->with('user')
+					->orderBy('DATE', 'DESC')
+					->get();
+
+			$users = User::whereHas('journeys', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
 			return view('operational.journey.editJourney', [
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
 				'journey' => $journey,
 				'tasks' => $tasks,
+				'users' => $users,
 			]);
 		} else {
 			return redirect('/');
