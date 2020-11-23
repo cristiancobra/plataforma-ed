@@ -24,31 +24,22 @@
 	<form action=" {{ route('journey.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >EMPRESA: </label>
+		@if(!empty(app('request')->input('taskAccountId')))
+		{{app('request')->input('taskAccountName')}}
+		<input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">
+		@else
 		<select name="account_id">
-			<option  class="fields" value="{{app('request')->input('taskAccountId')}}">
-				{{app('request')->input('taskAccountName')}}
-			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
 			</option>
 			@endforeach
+			@endif
 		</select>
 		<br>
 		<label class="labels" for="" >FUNCIONÁRIO: </label>
-		<select name="user_id">
-			<option  class="fields" value="{{app('request')->input('taskUserId')}}">
-				{{app('request')->input('taskUserName')}}
-			</option>
-			<option  class="fields" value="{{ $userAuth->id }}">
-				{{ $userAuth->name }}
-			</option>
-			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
-			</option>
-			@endforeach
-		</select>
+		{{$userAuth->name}}
+		<input type="hidden" name="user_id" value="{{$userAuth->id}}">
 		<br>
 		<br>
 		<label class="labels" for="" >TAREFA: </label>
