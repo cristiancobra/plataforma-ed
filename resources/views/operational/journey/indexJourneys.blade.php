@@ -61,10 +61,14 @@
 			{{$journey->user->name}}
 		</td>
 		<td class="table-list-center">
-			{{ date('H:i', strtotime($journey->start_time)) }}
+			{{date('H:i', strtotime($journey->start_time))}}
 		</td>
 		<td class="table-list-center">
-			{{ date('H:i', strtotime($journey->end_time)) }}
+			@if($journey->end_time == null)
+			--
+			@else
+			{{date('H:i', strtotime($journey->end_time))}}
+			@endif
 		</td>
 		<td class="table-list-center" style="color:white;background-color: #874983">
 			{{ gmdate('H:i', $journey->duration) }}
