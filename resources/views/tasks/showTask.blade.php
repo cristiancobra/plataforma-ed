@@ -114,20 +114,10 @@
 			@endif
 			</td>
 		</tr>
-		@php
-		$totalDuration =  $journey->duration;
-		@endphp
 		@endforeach
-		<table class="table-list">
-			<tr>
-				<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 30px;font-size: 18px">
-					<b>TOTAL:</b>   {{gmdate('H:i', $totalDuration)}}
-					<br>
-				</td>
-			</tr>
-		</table>
-		<br>
-		<a class="btn btn-secondary" href="{{ route('journey.create', [
+	</table>
+	<br>
+	<a class="btn btn-secondary" href="{{ route('journey.create', [
 				'taskName' => $task->name,
 				'taskId' => $task->id,
 				'taskUserName' => $task->user->name,
@@ -135,27 +125,27 @@
 				'taskAccountName' => $task->account->name,
 				'taskAccountId' => $task->account->id,
 				])}}">
-			NOVA JORNADA
-		</a>
-		<br>
-		<br>
-		<br>
-		<p class="labels">
-			SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
-		</p>
-		<br>
-		<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }}
-		</p>
+		NOVA JORNADA
+	</a>
+	<br>
+	<br>
+	<br>
+	<p class="labels">
+		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
+	</p>
+	<br>
+	<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }}
+	</p>
 
-		<div style="text-align:right;padding: 2%">
-			<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">
-				@csrf
-				@method('delete')
-				<input class="btn btn-danger" type="submit" value="APAGAR">
-			</form>
-			<a class="btn btn-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
-				<i class='fa fa-edit'></i>EDITAR</a>
-			<a class="btn btn-secondary" href="{{route('task.index')}}">VOLTAR</a>
-		</div>
+	<div style="text-align:right;padding: 2%">
+		<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">
+			@csrf
+			@method('delete')
+			<input class="btn btn-danger" type="submit" value="APAGAR">
+		</form>
+		<a class="btn btn-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
+			<i class='fa fa-edit'></i>EDITAR</a>
+		<a class="btn btn-secondary" href="{{route('task.index')}}">VOLTAR</a>
+	</div>
 </div>
 @endsection
