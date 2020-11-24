@@ -56,6 +56,9 @@
 			<td   class="table-list-header" style="width: 35%">
 				<b>FUNCIONÁRIO</b>
 			</td>
+			<td   class="table-list-header" style="width: 35%">
+				<b>OBSERVAÇÕES</b>
+			</td>
 			<td   class="table-list-header" style="width: 10%">
 				<b>DATA </b>
 			</td>
@@ -87,6 +90,9 @@
 			</td>
 			<td class="table-list-center">
 				{{$journey->user->name}}
+			</td>
+			<td class="table-list-center">
+				{{$journey->description}}
 			</td>
 			<td class="table-list-center">
 				{{date('d/m/Y', strtotime($journey->date))}}
