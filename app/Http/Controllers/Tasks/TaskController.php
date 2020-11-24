@@ -52,11 +52,12 @@ class TaskController extends Controller {
 							}
 						}
 					})
+					->with('journeys')
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
 					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 					->orderBy('date_due', 'ASC')
 					->paginate(20);
-
+//dd($tasks);
 			$tasks->appends([
 				'name' => $request->name,
 				'status' => $request->status,
@@ -143,7 +144,7 @@ class TaskController extends Controller {
 	 */
 	public function store(Request $request) {
 		$userAuth = Auth::user();
-		
+
 		$task = new Task();
 		$task->fill($request->all());
 
@@ -174,7 +175,7 @@ class TaskController extends Controller {
 							->withInput();
 		} else {
 			$task->save();
-			
+
 			$journeys = Journey::where('task_id', $task->id)->get();
 
 			return view('tasks.showTask', [
@@ -193,7 +194,7 @@ class TaskController extends Controller {
 	 */
 	public function show(task $task) {
 		$userAuth = Auth::user();
-		
+
 		$journeys = Journey::where('task_id', $task->id)
 				->with('user')
 				->get();
@@ -276,7 +277,7 @@ class TaskController extends Controller {
 		}
 
 		$task->save();
-		
+
 		$journeys = Journey::where('task_id', $task->id)->get();
 
 		return view('tasks.showTask', [

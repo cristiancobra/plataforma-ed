@@ -68,8 +68,11 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
+Route::any('/jornadas/filtros', 'Operational\\JourneyController@index')->name('journey.index');
 Route::any('/jornadas/novo', 'Operational\\JourneyController@create')->name('journey.create');
-Route::resource('jornadas', 'Operational\\JourneyController')->names('journey')->parameters(['jornadas' => 'journey']);
+Route::resource('jornadas', 'Operational\\JourneyController')->except(['index'])->names('journey')->parameters(['jornadas' => 'journey']);
+
+Route::resource('tarefas', 'Tasks\\TaskController')->except(['index'])->names('task')->parameters(['tarefas' => 'task']);
 
 // ================================ SOCIALMEDIA ===================
 //Route::get('/redes-sociais', function () {
@@ -126,7 +129,6 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
 Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')->name('task.index');
-//Route::get('/tarefas/{order}', 'Tasks\\TaskController@order')->name('task.order');
 Route::resource('tarefas', 'Tasks\\TaskController')->except(['index'])->names('task')->parameters(['tarefas' => 'task']);
 
 // ============================================== USUÁRIO =================================

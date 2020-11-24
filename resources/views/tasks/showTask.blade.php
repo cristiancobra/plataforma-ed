@@ -12,7 +12,7 @@
 
 @section('main')
 <br>
-<div style="padding-left: 6%">
+<div style="padding-left: 2%">
 	<h1 class="name">
 		{{ $task->name }}
 	</h1>
@@ -53,20 +53,25 @@
 			<td   class="table-list-header" style="width: 10%">
 				<b>ID</b>
 			</td>
-			<td   class="table-list-header" style="width: 50%">
+			<td   class="table-list-header" style="width: 35%">
 				<b>FUNCIONÁRIO</b>
 			</td>
-			<td   class="table-list-header" style="width: 20%">
+			<td   class="table-list-header" style="width: 10%">
 				<b>DATA </b>
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>SITUAÇÃO</b>
+				<b>INÍCIO </b>
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>TEMPO</b>
+				<b>TÉRMINO </b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>DURAÇÃO</b>
 			</td>
 		</tr>
-
+		@php
+		$totalDuration = 0;
+		@endphp
 		@foreach ($journeys as $journey)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
@@ -78,43 +83,38 @@
 					<a href=" {{ route('journey.edit', ['journey' => $journey]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
-				{{ $journey->id }}
+				{{$journey->id}}
 			</td>
-
 			<td class="table-list-center">
-				{{ $journey->user->name }}
+				{{$journey->user->name}}
 			</td>
-
 			<td class="table-list-center">
-				{{ date('d/m/Y', strtotime($journey->date)) }}
+				{{date('d/m/Y', strtotime($journey->date))}}
 			</td>
-
-			<td class="table-list-center">
-				@if ($journey->status == "cancelada")
-				<button class="btn btn-dark">
-					<b>{{ $journey->status  }}</b>
-				</button>
-				@elseif ($journey->status == "pendente")
-				<button class="btn btn-warning">
-					<b>{{ $journey->status  }}</b>
-				</button>
-				@elseif ($journey->status == "fazendo agora")
-				<button class="btn btn-info">
-					<b>{{ $journey->status  }}</b>
-				</button>
-				@elseif ($journey->status == "concluida")
-				<button class="btn btn-success">
-					<b>{{ $journey->status  }}</b>
-				</button>
-
-			<td class="table-list-center">
+		<td class="table-list-center">
+			{{date('H:i', strtotime($journey->start_time))}}
+		</td>
+		<td class="table-list-center">
+			@if($journey->end_time == null)
+			--
+			@else
+			{{date('H:i', strtotime($journey->end_time))}}
+			@endif
+		</td>
+			<td class="table-list-center" style="color:white;background-color: #874983">
 				{{ gmdate('H:i', $journey->duration) }}
 			</td>
-
-			@endif
-			</td>
 		</tr>
+		@php
+		$totalDuration = $totalDuration + $journey->duration;
+		@endphp
 		@endforeach
+			<tr>
+				<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 45px;font-size: 16px" colspan="7">
+					<b>Tempo total:</b>   {{gmdate('H:i', $totalDuration)}}
+					<br>
+				</td>
+			</tr>
 	</table>
 	<br>
 	<a class="btn btn-secondary" href="{{ route('journey.create', [
@@ -129,16 +129,16 @@
 	</a>
 	<br>
 	<br>
-		<p class="labels">
+	<p class="labels">
 		inicio:<span class="fields">  {{$task->start_time}} </span>
 	</p>
-		<p class="labels">
+	<p class="labels">
 		termino:<span class="fields">  {{$task->end_time}} </span>
 	</p>
-		<p class="labels">
+	<p class="labels">
 		data de conclusao:<span class="fields">  {{$task->date_conclusion}} </span>
 	</p>
-	
+
 	<br>
 	<p class="labels">
 		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>

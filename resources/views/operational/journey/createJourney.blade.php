@@ -97,15 +97,6 @@ CKEDITOR.replace('description');
 		<input type="time" name="end_time" size="50"><span class="fields"></span>
 		<br>
 		<br>
-		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			<option value="pendente">pendente</option>
-			<option value="fazendo agora">fazendo agora</option>
-			<option value="cancelada">cancelada</option>
-			<option value="concluida">concluida</option>
-		</select>
-		<br>
-		<br>
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
 	</form>
 </div>     

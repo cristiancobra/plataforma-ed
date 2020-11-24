@@ -11,7 +11,23 @@
 @endsection
 
 @section('main')
-<br>
+<form action=" {{ route('journey.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
+	@csrf
+	<select class="select"name="user_id">
+		<option  class="fields" value="">
+			funcionário
+		</option>
+		<option  class="fields" value="">
+			TODOS
+		</option>
+		@foreach ($users as $user)
+		<option  class="fields" value="{{ $user->id }}">
+			{{ $user->name }}
+		</option>
+		@endforeach
+	</select>
+	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+</form>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 20%">
@@ -31,9 +47,6 @@
 		</td>
 		<td   class="table-list-header" style="width: 5%">
 			<b>DURAÇÃO </b>
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			<b>SITUAÇÃO</b>
 		</td>
 	</tr>
 
@@ -73,31 +86,12 @@
 		<td class="table-list-center" style="color:white;background-color: #874983">
 			{{ gmdate('H:i', $journey->duration) }}
 		</td>
-		<td class="table-list-center">
-			@if ($journey->status == "cancelada")
-			<button class="btn btn-dark">
-				<b>{{ $journey->status  }}</b>
-			</button>
-			@elseif ($journey->status == "pendente")
-			<button class="btn btn-warning">
-				<b>{{ $journey->status  }}</b>
-			</button>
-			@elseif ($journey->status == "fazendo agora")
-			<button class="btn btn-info">
-				<b>{{ $journey->status  }}</b>
-			</button>
-			@elseif ($journey->status == "concluida")
-			<button class="btn btn-success">
-				<b>{{ $journey->status  }}</b>
-			</button>
-			@endif
-		</td>
 	</tr>
 	@endforeach
 </table>
 <p style="text-align: right">
 	<br>
-	{{ $journeys->links() }}
+	
 </p>
 <br>
 @endsection

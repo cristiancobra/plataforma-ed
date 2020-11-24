@@ -30,14 +30,14 @@
 					@endforeach
 				</select>
 				<br>
-				<label class="labels" for="" >FUNCIONÁRIO: </label>
+				<label class="labels" for="" >FUNCIONÁRIO:</label>
 				<select name="user_id">
 					<option  class="fields" value="{{$journey->user_id}}">
 						{{$journey->user->name}}
 					</option>
 					@foreach ($users as $user)
 					<option  class="fields" value="{{ $user->id }}">
-						{{ $user->name }}
+						{{$user->name}}
 					</option>
 					@endforeach
 				</select>
@@ -45,7 +45,7 @@
 				<br>
 				<label class="labels" for="" >TAREFA: </label>
 				<select name="task_id">
-					<option value="{{ $journey->task->id }}">{{ $journey->task->name }}</option>
+					<option value="{{$journey->task->id}}">{{$journey->task->name}}</option>
 					@foreach ($tasks as $task)
 					<option  class="fields" value="{{ $task->id }}">
 						{{ $task->name }}
@@ -93,15 +93,6 @@ CKEDITOR.replace('description');
 				@else
 				<input type="time" name="end_time" size="50"  value="{{ date('H:i', strtotime($journey->end_time)) }}"><span class="fields"></span>
 				@endif
-				<br>
-				<br>
-				<label class="labels" for="">SITUAÇÃO:</label>
-				<select class="fields" name="status">
-					<option value="pendente">pendente</option>
-					<option value="fazendo agora">fazendo agora</option>
-					<option value="cancelada">cancelada</option>
-					<option value="concluida">concluida</option>
-				</select>
 				<br>
 				<br>
 				<input class="btn btn-secondary" type="submit" value="ATUALIZAR">

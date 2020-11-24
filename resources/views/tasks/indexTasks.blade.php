@@ -124,7 +124,17 @@
 			{{ gmdate('H:i', $task->duration) }}
 		</td>
 		<td class="table-list-center" style="color:white;background-color: #c28dbf">
-			{{ gmdate('H:i', $task->duration) }}
+			@php
+			$totalDuration = 0;
+			@endphp
+			@foreach($task->journeys as $journey)
+			{{$journey->duration}}
+			<br>
+			@php
+			$totalDuration = $totalDuration + $journey->duration;
+			@endphp
+			@endforeach
+			{{ gmdate('H:i', $totalDuration) }}
 		</td>
 		<td class="table-list-center">
 			@if ($task->priority == "baixa")
