@@ -92,7 +92,7 @@
 				{{$journey->user->name}}
 			</td>
 			<td class="table-list-left">
-				{{$journey->description}}
+				 {!!html_entity_decode($journey->description)!!}
 			</td>
 			<td class="table-list-center">
 				{{date('d/m/Y', strtotime($journey->date))}}
