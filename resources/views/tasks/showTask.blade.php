@@ -50,13 +50,13 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header" style="width: 10%">
+			<td   class="table-list-header" style="width: 15%">
 				<b>ID</b>
 			</td>
 			<td   class="table-list-header" style="width: 20%">
 				<b>FUNCIONÁRIO</b>
 			</td>
-			<td   class="table-list-header" style="width: 50%">
+			<td   class="table-list-header" style="width: 45%">
 				<b>OBSERVAÇÕES</b>
 			</td>
 			<td   class="table-list-header" style="width: 5%">
@@ -116,8 +116,8 @@
 		@endphp
 		@endforeach
 			<tr>
-				<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 45px;font-size: 16px" colspan="7">
-					<b>Tempo total:</b>   {{gmdate('H:i', $totalDuration)}}
+				<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 25px;font-size: 16px" colspan="7">
+					<b>Tempo total:</b>   {{ number_format($totalDuration / 3600, 1, ',','.')  }}
 					<br>
 				</td>
 			</tr>
