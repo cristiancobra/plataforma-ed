@@ -95,7 +95,11 @@
 				 {!!html_entity_decode($journey->description)!!}
 			</td>
 			<td class="table-list-center">
+				@if($today == $journey->date)
+				hoje
+				@else
 				{{date('d/m/Y', strtotime($journey->date))}}
+				@endif
 			</td>
 		<td class="table-list-center">
 			{{date('H:i', strtotime($journey->start_time))}}
