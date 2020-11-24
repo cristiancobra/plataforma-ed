@@ -72,8 +72,6 @@ Route::any('/jornadas/filtros', 'Operational\\JourneyController@index')->name('j
 Route::any('/jornadas/novo', 'Operational\\JourneyController@create')->name('journey.create');
 Route::resource('jornadas', 'Operational\\JourneyController')->except(['index'])->names('journey')->parameters(['jornadas' => 'journey']);
 
-Route::resource('tarefas', 'Tasks\\TaskController')->except(['index'])->names('task')->parameters(['tarefas' => 'task']);
-
 // ================================ SOCIALMEDIA ===================
 //Route::get('/redes-sociais', function () {
 //	return view('socialmedia.dashboardSocialmedia');
