@@ -53,22 +53,22 @@
 			<td   class="table-list-header" style="width: 10%">
 				<b>ID</b>
 			</td>
-			<td   class="table-list-header" style="width: 35%">
+			<td   class="table-list-header" style="width: 20%">
 				<b>FUNCIONÁRIO</b>
 			</td>
-			<td   class="table-list-header" style="width: 35%">
+			<td   class="table-list-header" style="width: 50%">
 				<b>OBSERVAÇÕES</b>
 			</td>
-			<td   class="table-list-header" style="width: 10%">
+			<td   class="table-list-header" style="width: 5%">
 				<b>DATA </b>
 			</td>
-			<td   class="table-list-header" style="width: 10%">
+			<td   class="table-list-header" style="width: 5%">
 				<b>INÍCIO </b>
 			</td>
-			<td   class="table-list-header" style="width: 10%">
+			<td   class="table-list-header" style="width: 5%">
 				<b>TÉRMINO </b>
 			</td>
-			<td   class="table-list-header" style="width: 10%">
+			<td   class="table-list-header" style="width: 5%">
 				<b>DURAÇÃO</b>
 			</td>
 		</tr>
@@ -91,7 +91,7 @@
 			<td class="table-list-center">
 				{{$journey->user->name}}
 			</td>
-			<td class="table-list-center">
+			<td class="table-list-left">
 				{{$journey->description}}
 			</td>
 			<td class="table-list-center">
