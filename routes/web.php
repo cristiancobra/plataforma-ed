@@ -69,6 +69,7 @@ Route::get('/perfil', function () {
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
 Route::any('/jornadas/filtros', 'Operational\\JourneyController@index')->name('journey.index');
+Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport')->name('journey.reports');
 Route::any('/jornadas/novo', 'Operational\\JourneyController@create')->name('journey.create');
 Route::resource('jornadas', 'Operational\\JourneyController')->except(['index'])->names('journey')->parameters(['jornadas' => 'journey']);
 

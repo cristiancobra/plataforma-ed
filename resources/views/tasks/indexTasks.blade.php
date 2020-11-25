@@ -64,7 +64,7 @@
 		<td   class="table-list-header" style="width: 40%">
 			<b>NOME</b>
 		</td>
-		<td   class="table-list-header" style="width: 13%">
+		<td   class="table-list-header" style="width: 15%">
 			<b>CONTATO</b>
 		</td>
 		<td   class="table-list-header" style="width: 15%">
@@ -75,12 +75,6 @@
 		</td>
 		<td   class="table-list-header" style="width: 10%">
 			<b>PRAZO</b>
-		</td>
-		<td   class="table-list-header" style="width: 3%">
-			<b>EXECUÇÃO</b>
-		</td>
-		<td   class="table-list-header" style="width: 3%">
-			<b>EXECUÇÃO</b>
 		</td>
 		<td   class="table-list-header" style="width: 5%">
 			<b>PRIORIDADE</b>
@@ -119,22 +113,6 @@
 		</td>
 		<td class="table-list-center">
 			{{ date('d/m/Y', strtotime($task->date_due)) }}
-		</td>
-		<td class="table-list-center" style="color:white;background-color: #874983">
-			{{ gmdate('H:i', $task->duration) }}
-		</td>
-		<td class="table-list-center" style="color:white;background-color: #c28dbf">
-			@php
-			$totalDuration = 0;
-			@endphp
-			@foreach($task->journeys as $journey)
-			{{$journey->duration}}
-			<br>
-			@php
-			$totalDuration = $totalDuration + $journey->duration;
-			@endphp
-			@endforeach
-			{{ gmdate('H:i', $totalDuration) }}
 		</td>
 		<td class="table-list-center">
 			@if ($task->priority == "baixa")

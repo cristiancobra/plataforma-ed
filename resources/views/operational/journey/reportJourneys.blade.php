@@ -11,30 +11,23 @@
 @endsection
 
 @section('main')
-<div style="text-align:right;padding: 2%">
-	<form action=" {{ route('journey.index') }} " method="post" style="padding: 20px;color: #874983;display: inline-block">
-		@csrf
-		<select class="select"name="user_id">
-			<option  class="fields" value="">
-				funcionário
-			</option>
-			<option  class="fields" value="">
-				TODOS
-			</option>
-			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
-			</option>
-			@endforeach
-		</select>
-		<input class="btn btn-secondary" type="submit" value="FILTRAR">
-	</form>
-	<form action=" {{route('journey.reports')}} " method="post" style="padding: 20px;color: #874983;display: inline-block">
-		@csrf
-		<input type="hidden" value="mensal">
-		<input class="btn btn-secondary" type="submit" value="MENSAL">
-	</form>
-</div>
+<form action=" {{ route('journey.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
+	@csrf
+	<select class="select"name="user_id">
+		<option  class="fields" value="">
+			funcionário
+		</option>
+		<option  class="fields" value="">
+			TODOS
+		</option>
+		@foreach ($users as $user)
+		<option  class="fields" value="{{ $user->id }}">
+			{{ $user->name }}
+		</option>
+		@endforeach
+	</select>
+	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+</form>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 20%">
@@ -98,7 +91,7 @@
 </table>
 <p style="text-align: right">
 	<br>
-
+	
 </p>
 <br>
 @endsection

@@ -52,13 +52,12 @@ class TaskController extends Controller {
 							}
 						}
 					})
-					->with('journeys')
 					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
 					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 					->orderBy('date_due', 'ASC')
 					->paginate(20);
-//dd($tasks);
-			$tasks->appends([
+
+					$tasks->appends([
 				'name' => $request->name,
 				'status' => $request->status,
 				'contact_id' => $request->contact_id,
@@ -194,12 +193,14 @@ class TaskController extends Controller {
 	 */
 	public function show(task $task) {
 		$userAuth = Auth::user();
+		$today = date('Y-m-d'); 
 
 		$journeys = Journey::where('task_id', $task->id)
 				->with('user')
 				->get();
 
 		return view('tasks.showTask', [
+			'today' => $today,
 			'task' => $task,
 			'journeys' => $journeys,
 			'userAuth' => $userAuth,

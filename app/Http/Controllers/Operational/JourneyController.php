@@ -263,4 +263,47 @@ class JourneyController extends Controller {
 		return redirect()->action('Operational\\JourneyController@index');
 	}
 
+	public function monthlyReport() {
+		$userAuth = Auth::user();
+
+		if (Auth::check()) {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->get('id');
+
+			$journeys = Journey::where(function ($query) use ($accountsID, $request) {
+						$query->whereIn('account_id', $accountsID);
+						if ($request->user_id != null) {
+							$query->where('user_id', '=', $request->user_id);
+						}
+					})
+					->with([
+						'account',
+						'task',
+						'user',
+					])
+					->orderBy('DATE', 'DESC')
+					->paginate(20);
+					
+//			$journeys->appends([
+//				'user_id' => $request->user_id,
+//			]);
+
+		$users = User::whereHas('accounts', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID);
+				})
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		return view('operational.journey.indexJourneys', [
+			'journeys' => $journeys,
+			'users' => $users,
+			'userAuth' => $userAuth,
+		]);
+		} else {
+			return redirect('/');
+		}
+	}
+
 }
