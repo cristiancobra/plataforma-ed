@@ -45,8 +45,8 @@
 		@endforeach
 	</select>
 	<select class="select"name="user_id">
-		<option  class="fields" value="">
-			responsável
+		<option  class="fields" value="{{$userAuth->id}}">
+			minhas tarefas
 		</option>
 		<option  class="fields" value="">
 			TODOS
