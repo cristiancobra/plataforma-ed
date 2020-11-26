@@ -32,12 +32,20 @@ class TaskController extends Controller {
 					})
 					->get('id');
 
-			$tasks = Task::where(function ($query) use ($accountsID, $request) {
-						$query->whereIn('account_id', $accountsID);
-						if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null) {
+			if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null) {
+				$tasks = Task::where(function ($query) use ($accountsID, $request) {
+							$query->whereIn('account_id', $accountsID);
 							$query->where('status', '!=', 'concluida')
 							->where('status', '!=', 'cancelada');
-						} else {
+						})
+						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
+						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+						->orderBy('date_due', 'ASC')
+						->paginate(20);
+			} elseif ($request->status == "concluida") {
+				$tasks = Task::where(function ($query) use ($accountsID, $request) {
+							$query->whereIn('account_id', $accountsID)
+							->where('status', '=', 'concluida');
 							if ($request->name != null) {
 								$query->where('name', 'like', "%$request->name%");
 							}
@@ -50,17 +58,53 @@ class TaskController extends Controller {
 							if ($request->contact_id != null) {
 								$query->where('contact_id', '=', $request->contact_id);
 							}
-							if ($request->status != null) {
+						})
+						->orderBy('date_due', 'DESC')
+						->paginate(20);
+			} elseif ($request->status == null) {
+				$tasks = Task::where(function ($query) use ($accountsID, $request) {
+							$query->whereIn('account_id', $accountsID);
+							if ($request->name != null) {
+								$query->where('name', 'like', "%$request->name%");
+							}
+							if ($request->user_id != null) {
+								$query->where('user_id', '=', $request->user_id);
+							}
+							if ($request->account_id != null) {
+								$query->where('account_id', '=', $request->account_id);
+							}
+							if ($request->contact_id != null) {
+								$query->where('contact_id', '=', $request->contact_id);
+							}
+						})
+						->orderBy('date_due', 'DESC')
+						->paginate(20);
+			}else{
+				$tasks = Task::where(function ($query) use ($accountsID, $request) {
+							$query->whereIn('account_id', $accountsID);
+							if ($request->name != null) {
+								$query->where('name', 'like', "%$request->name%");
+							}
+							if ($request->user_id != null) {
+								$query->where('user_id', '=', $request->user_id);
+							}
+							if ($request->account_id != null) {
+								$query->where('account_id', '=', $request->account_id);
+							}
+							if ($request->contact_id != null) {
+								$query->where('contact_id', '=', $request->contact_id);
+							}
+							if($request->status != null) {
 								$query->where('status', '=', $request->status);
 							}
-						}
-					})
-					->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
-					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-					->orderBy('date_due', 'ASC')
-					->paginate(20);
+						})
+						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
+						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+						->orderBy('date_due', 'ASC')
+						->paginate(20);
+			}
 
-					$tasks->appends([
+			$tasks->appends([
 				'name' => $request->name,
 				'status' => $request->status,
 				'contact_id' => $request->contact_id,
@@ -70,7 +114,7 @@ class TaskController extends Controller {
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
-			
+
 			$accounts = Account::whereIn('id', $accountsID)
 					->orderBy('ID', 'ASC')
 					->get();
@@ -201,7 +245,7 @@ class TaskController extends Controller {
 	 */
 	public function show(task $task) {
 		$userAuth = Auth::user();
-		$today = date('Y-m-d'); 
+		$today = date('Y-m-d');
 
 		$journeys = Journey::where('task_id', $task->id)
 				->with('user')
