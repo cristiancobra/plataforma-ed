@@ -25,6 +25,9 @@
 		</option>
 	</select>
 	<select class="select" name="contact_id">
+		<option  class="fields" value="">
+			TODOS
+		</option>
 		@foreach ($contacts as $contact)
 		<option  class="fields" value="{{ $contact->id }}">
 			{{ $contact->name }}
