@@ -24,6 +24,16 @@
 			todas
 		</option>
 	</select>
+	<select class="select" name="contact_id">
+		@foreach ($contacts as $contact)
+		<option  class="fields" value="{{ $contact->id }}">
+			{{ $contact->name }}
+		</option>
+		@endforeach
+		<option  class="fields" value="">
+			todas
+		</option>
+	</select>
 	<select class="select"name="user_id">
 		<option  class="fields" value="{{$userAuth->id}}">
 			minhas tarefas
