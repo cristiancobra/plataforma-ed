@@ -155,17 +155,20 @@
 		<label for="">Endereço: </label>
 		<input type="text" name="address">   
 		<br>
-		<label for="address_city">Cidade: </label>
-		<input type="text" name="address_city">   
+		<label for="city">Cidade: </label>
+		<input type="text" name="city">   
 		<br>
 		<label for="">Bairro: </label>
 		<input type="text" name="neighborhood">   
 		<br>
 		<label for="">Estado: </label>
-		<input type="text" name="address_state">   
+		<select name="state">
+			{{createSelect($states)}}
+		</select>
+		<br>
 		<br>
 		<label for="">País: </label>
-		<input type="text" name="address_country" value="Brasil">   
+		<input type="text" name="country" value="Brasil">   
 		<br>
 		<br>
 		<br>

@@ -38,7 +38,7 @@
 	<input type="text" name="address_city" value="{{ $account->address_city }}">   
 	<br>
 	<label class="labels" for="">Estado: </label>
-	<input type="text" name="address_state" value="{{ $account->address_state }}">   
+	{{$stateSelect}}
 	<br>
 	<label class="labels" for="">País: </label>
 	<input type="text" name="address_country" value="{{ $account->address_country }}">   

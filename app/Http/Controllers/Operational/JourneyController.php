@@ -42,22 +42,28 @@ class JourneyController extends Controller {
 					])
 					->orderBy('DATE', 'DESC')
 					->paginate(20);
-					
+
 //			$journeys->appends([
 //				'user_id' => $request->user_id,
 //			]);
 
-		$users = User::whereHas('accounts', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->orderBy('NAME', 'ASC')
-				->get();
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->orderBy('NAME', 'ASC')
+					->get();
 
-		return view('operational.journey.indexJourneys', [
-			'journeys' => $journeys,
-			'users' => $users,
-			'userAuth' => $userAuth,
-		]);
+			$accounts = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->paginate(20);
+
+			return view('operational.journey.indexJourneys', [
+				'journeys' => $journeys,
+				'users' => $users,
+				'accounts' => $accounts,
+				'userAuth' => $userAuth,
+			]);
 		} else {
 			return redirect('/');
 		}
@@ -263,7 +269,7 @@ class JourneyController extends Controller {
 		return redirect()->action('Operational\\JourneyController@index');
 	}
 
-	public function monthlyReport() {
+	public function monthlyReport(Request $request) {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
@@ -277,6 +283,9 @@ class JourneyController extends Controller {
 						if ($request->user_id != null) {
 							$query->where('user_id', '=', $request->user_id);
 						}
+						if ($request->account_id != null) {
+							$query->where('account_id', '=', $request->account_id);
+						}
 					})
 					->with([
 						'account',
@@ -285,22 +294,22 @@ class JourneyController extends Controller {
 					])
 					->orderBy('DATE', 'DESC')
 					->paginate(20);
-					
+
 //			$journeys->appends([
 //				'user_id' => $request->user_id,
 //			]);
 
-		$users = User::whereHas('accounts', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->orderBy('NAME', 'ASC')
-				->get();
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->orderBy('NAME', 'ASC')
+					->get();
 
-		return view('operational.journey.indexJourneys', [
-			'journeys' => $journeys,
-			'users' => $users,
-			'userAuth' => $userAuth,
-		]);
+			return view('operational.journey.reportsJourneys', [
+				'journeys' => $journeys,
+				'users' => $users,
+				'userAuth' => $userAuth,
+			]);
 		} else {
 			return redirect('/');
 		}

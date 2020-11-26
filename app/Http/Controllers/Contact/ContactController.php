@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\ServiceProvider;
 
 class ContactController extends Controller {
 
@@ -68,12 +69,43 @@ class ContactController extends Controller {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->paginate(20);
+					
+						$states = array(
+				'AC' => 'Acre',
+				'AL' => 'Alagoas',
+				'AP' => 'Amapá',
+				'AM' => 'Amazonas',
+				'BA' => 'Bahia',
+				'CE' => 'Ceará',
+				'DF' => 'Distrito Federal',
+				'ES' => 'Espirito Santo',
+				'GO' => 'Goiás',
+				'MA' => 'Maranhão',
+				'MS' => 'Mato Grosso do Sul',
+				'MT' => 'Mato Grosso',
+				'MG' => 'Minas Gerais',
+				'PA' => 'Pará',
+				'PB' => 'Paraíba',
+				'PR' => 'Paraná',
+				'PE' => 'Pernambuco',
+				'PI' => 'Piauí',
+				'RJ' => 'Rio de Janeiro',
+				'RN' => 'Rio Grande do Norte',
+				'RS' => 'Rio Grande do Sul',
+				'RO' => 'Rondônia',
+				'RR' => 'Roraima',
+				'SC' => 'Santa Catarina',
+				'SP' => 'São Paulo',
+				'SE' => 'Sergipe',
+				'TO' => 'Tocantins',
+			);
 
 			return view('contacts.createContact', [
 				'userAuth' => $userAuth,
 				'contact' => $contact,
 				'contacts' => $contacts,
 				'accounts' => $accounts,
+				'states' => $states,
 			]);
 		} else {
 			return redirect('/');
@@ -96,16 +128,16 @@ class ContactController extends Controller {
 			'required' => '*preenchimento obrigatório.',
 		];
 		$validator = Validator::make($request->all(), [
-			'email' => 'unique:emails',
-			'first_name' => 'required:tasks',
-			'last_name' => 'required:tasks',
-			], $messages);
+					'email' => 'unique:emails',
+					'first_name' => 'required:tasks',
+					'last_name' => 'required:tasks',
+						], $messages);
 
 		if ($validator->fails()) {
 			return back()
-					->with('failed',  'Ops... alguns campos precisam ser preenchidos corretamente.')
-					->withErrors($validator)
-					->withInput();
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
 		} else {
 			$contact->save();
 		}
@@ -152,11 +184,42 @@ class ContactController extends Controller {
 					})
 					->get();
 
+			$states = array(
+				'AC' => 'Acre',
+				'AL' => 'Alagoas',
+				'AP' => 'Amapá',
+				'AM' => 'Amazonas',
+				'BA' => 'Bahia',
+				'CE' => 'Ceará',
+				'DF' => 'Distrito Federal',
+				'ES' => 'Espirito Santo',
+				'GO' => 'Goiás',
+				'MA' => 'Maranhão',
+				'MS' => 'Mato Grosso do Sul',
+				'MT' => 'Mato Grosso',
+				'MG' => 'Minas Gerais',
+				'PA' => 'Pará',
+				'PB' => 'Paraíba',
+				'PR' => 'Paraná',
+				'PE' => 'Pernambuco',
+				'PI' => 'Piauí',
+				'RJ' => 'Rio de Janeiro',
+				'RN' => 'Rio Grande do Norte',
+				'RS' => 'Rio Grande do Sul',
+				'RO' => 'Rondônia',
+				'RR' => 'Roraima',
+				'SC' => 'Santa Catarina',
+				'SP' => 'São Paulo',
+				'SE' => 'Sergipe',
+				'TO' => 'Tocantins',
+			);
+			
 			return view('contacts.editContact', [
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
 				'contact' => $contact,
 				'accounts' => $accounts,
+				'states' => $states,
 			]);
 		} else {
 			return redirect('/');
@@ -174,6 +237,7 @@ class ContactController extends Controller {
 		$userAuth = Auth::user();
 
 		$contact->fill($request->all());
+//		dd($contact);
 		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 		$contact->save();
 //		$contact->users()->sync($request->users);

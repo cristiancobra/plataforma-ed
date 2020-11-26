@@ -1,14 +1,30 @@
 <?php
 
-namespace App\Helpers;
+if (!function_exists('shout')) {
 
-class Functions {
-
-	public static function shout(string $string) {
+	function shout(string $string) {
 		return strtoupper($string);
 	}
 
-	public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
+}
+
+if (!function_exists('createSelect')) {
+
+	function createSelect(array $list) {
+		foreach ($list as $key => $value) {
+			echo "<option value=\"$key\">$value</option><br>";
+		}
+//		 foreach ($list as $key => $value){
+//			 echo "<option class='fields' value=\"$key\" >$value</option>";
+//			 echo "<option value=\"$key\" >$value</option>";
+//		 }
+	}
+
+}
+
+if (!function_exists('gerarSenha')) {
+
+	function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
 		$ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
 		$mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
 		$nu = "0123456789"; // $nu contem os números

@@ -44,6 +44,9 @@ class TaskController extends Controller {
 							if ($request->user_id != null) {
 								$query->where('user_id', '=', $request->user_id);
 							}
+							if ($request->account_id != null) {
+								$query->where('account_id', '=', $request->account_id);
+							}
 							if ($request->contact_id != null) {
 								$query->where('contact_id', '=', $request->contact_id);
 							}
@@ -67,6 +70,10 @@ class TaskController extends Controller {
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
+			
+			$accounts = Account::whereIn('id', $accountsID)
+					->orderBy('ID', 'ASC')
+					->get();
 
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
@@ -83,6 +90,7 @@ class TaskController extends Controller {
 			return view('tasks.indexTasks', [
 				'tasks' => $tasks,
 				'contacts' => $contacts,
+				'accounts' => $accounts,
 				'users' => $users,
 				'userAuth' => $userAuth,
 			]);

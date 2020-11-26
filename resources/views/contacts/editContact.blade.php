@@ -12,21 +12,21 @@
 
 @section('main')
 <div>
-    <form action=" {{ route('contact.update', ['contact' =>$contact->id]) }} " method="post" style="padding: 40px;color: #874983">
-        @csrf
-        @method('put')
-        <label for="" >DONO: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{ $contact->account->id }}">
-                {{ $contact->account->name }}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{ $account->id }}">
-                {{ $account->name }}
-            </option>
-            @endforeach
-        </select>
-        <br>
+	<form action="{{route('contact.update', ['contact' =>$contact])}}" method="post" style="padding: 40px;color: #874983">
+		@csrf
+		@method('put')
+		<label for="" >DONO: </label>
+		<select name="account_id">
+			<option  class="fields" value="{{ $contact->account->id }}">
+				{{ $contact->account->name }}
+			</option>
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{ $account->id }}">
+				{{ $account->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<label for="">Origem do contato: </label>
 		<select name="lead_source">
 			<option  class="fields" value="{{ $contact->lead_source }}">
@@ -64,32 +64,31 @@
 		<br>
 		<br>
 		<h2 class="name" for="">PESSOAL</h2>
-        <label for="" >Primeiro nome: </label>
-        <input type="text" name="first_name" value="{{ $contact->first_name }}">
-        <br>
-        <label for="" >Sobrenome: </label>
-        <input type="text" name="last_name" value="{{ $contact->last_name }}">
-        <br>
+		<label for="" >Primeiro nome: </label>
+		<input type="text" name="first_name" value="{{ $contact->first_name }}">
+		<br>
+		<label for="" >Sobrenome: </label>
+		<input type="text" name="last_name" value="{{ $contact->last_name }}">
+		<br>
 		<label for="" >Data de Nascimento: </label>
-        <input type="date" name="date_birth"value="{{ $contact->date_birth }}">
-        <br>
-        <label for="" >CPF: </label>
-        <input type="text" name="cpf" value="{{ $contact->cpf }}">
+		<input type="date" name="date_birth" value="{{ $contact->date_birth }}">
+		<br>
+		<label for="" >CPF: </label>
+		<input type="text" name="cpf" value="{{ $contact->cpf }}">
 		<br>
 		<br>
 		<br>
-
 		<h2 class="name" for="">PROFISSIONAL</h2>
 		<label for="">Profissão: </label>
-        <input type="text" name="profession" value="{{ $contact->profession }}">
-        <br>
+		<input type="text" name="profession" value="{{ $contact->profession }}">
+		<br>
 		<label for="">Empresa: </label>
-        <input type="text" name="company" value="{{ $contact->company }}">   
-        <br>
-        <label for="">Cargo: </label>
-        <input type="text" name="job_position" value="{{ $contact->job_position }}">
-        <br>
-        <label for="">Escolaridade: </label>
+		<input type="text" name="company" value="{{ $contact->company }}">   
+		<br>
+		<label for="">Cargo: </label>
+		<input type="text" name="job_position" value="{{ $contact->job_position }}">
+		<br>
+		<label for="">Escolaridade: </label>
 		<select name="schollarity">
 			<option  class="fields" value="{{$contact->schollarity}}">
 				{{$contact->schollarity}}
@@ -144,70 +143,74 @@
 
 		<h2 class="name" for="">LOCALIZAÇÃO</h2>
 		<label for="">Endereço: </label>
-        <input type="text" name="address" value="{{ $contact->address }}">   
-        <br>
-        <label  for="address_city">Cidade: </label>
-        <input type="text" name="address_city" value="{{ $contact->address_city }}">
-        <br>
-        <label for="">Bairro: </label>
-        <input type="text" name="neighborhood"value="{{ $contact->neighborhood }}">
-        <br>
-        <label  for="">Estado: </label>
-        <input type="text" name="address_state"  value="{{ $contact->address_state }}">
-        <br>
-        <label  for="">País: </label>
-        <input type="text" name="address_country" value="{{ $contact->address_country }}">
-        <br>
-        <br>
-        <br>
-
+		<input type="text" name="address" value="{{ $contact->address }}">   
+		<br>
+		<label  for="">Cidade: </label>
+		<input type="text" name="city" value="{{ $contact->city }}">
+		<br>
+		<label for="">Bairro: </label>
+		<input type="text" name="neighborhood" value="{{ $contact->neighborhood }}">
+		<br>
+		<label  for="">Estado: </label>
+		<select name="state">
+			<option  class="fields" value="{{ $contact->state}}">
+				{{ $contact->address_state}}
+			</option>
+			{{createSelect($states)}}
+		</select>
+		<br>
+		<label  for="">País: </label>
+		<input type="text" name="country" value="{{ $contact->country }}">
+		<br>
+		<br>
+		<br>
 		<h2 class="name" for="">PERFIL</h2>
 		<p>Utilize esses dados apenas com permissão dos contatos e se você for importante para seu modelo de negócio, obedecendo o previsto na
 			<a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709.htm">
 				Lei Geral de Proteção de Dados
-			</a>.
-			<br>
-			<br>	
-			<label for="">Estado Civil: </label>
-			<input type="text" name="civil_state" value="{{ $contact->civil_state }}"> 
-			<br>
-			<label for="">Naturalidade: </label>
-			<input type="text" name="naturality" value="{{ $contact->naturality }}">
-			<br>
-			<label for="">Filhos: </label>
-			<input type="text" name="kids" value="{{ $contact->kids }}"> 
-			<br>
-			<label for="">Hobbie: </label>
-			<input type="text" name="hobbie"  value="{{ $contact->hobbie }}">    
-			<br>
-			<label for="">Renda: </label>
-			<input type="text" name="income" value="{{ $contact->income }}">    
-			<br>
-			<label for="">Religião: </label>
-			<input type="text" name="religion" value="{{ $contact->religion }}">
-			<br>
-			<label for="">Etinia: </label>
-			<input type="text" name="etinicity" value="{{ $contact->etinicity }}">    
-			<br>
-			<label for="">Orientação Sexual: </label>
-			<input type="text" name="sexual_orientation" value="{{ $contact->sexual_orientation }}">    
-			<br>
-			<br>
-			<label  for="">Tipo: </label>
-			<input type="text" name="type" value="{{ $contact->type }}">
-			<br>
-			<br>
-			<label for="status">SITUAÇÃO: </label>
-			<select class="fields" name="status">
-				<option value="{{ $contact->status }}">{{ $contact->status}}</option>
-				<option value="ativo">ativo</option>
-				<option value="pendente">pendente</option>
-				<option value="desativado">desativado</option>
-			</select>
-			<br>
-			<br>
-			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
-
+			</a>
+		</p>
+		<br>
+		<br>	
+		<label for="">Estado Civil: </label>
+		<input type="text" name="civil_state" value="{{ $contact->civil_state }}"> 
+		<br>
+		<label for="">Naturalidade: </label>
+		<input type="text" name="naturality" value="{{ $contact->naturality }}">
+		<br>
+		<label for="">Filhos: </label>
+		<input type="text" name="kids" value="{{ $contact->kids }}"> 
+		<br>
+		<label for="">Hobbie: </label>
+		<input type="text" name="hobbie"  value="{{ $contact->hobbie }}">    
+		<br>
+		<label for="">Renda: </label>
+		<input type="text" name="income" value="{{ $contact->income }}">    
+		<br>
+		<label for="">Religião: </label>
+		<input type="text" name="religion" value="{{ $contact->religion }}">
+		<br>
+		<label for="">Etinia: </label>
+		<input type="text" name="etinicity" value="{{ $contact->etinicity }}">    
+		<br>
+		<label for="">Orientação Sexual: </label>
+		<input type="text" name="sexual_orientation" value="{{$contact->sexual_orientation}}">    
+		<br>
+		<br>
+		<label  for="">Tipo: </label>
+		<input type="text" name="type" value="{{ $contact->type }}">
+		<br>
+		<br>
+		<label for="status">SITUAÇÃO: </label>
+		<select class="fields" name="status">
+			<option value="{{ $contact->status }}">{{ $contact->status}}</option>
+			<option value="ativo">ativo</option>
+			<option value="pendente">pendente</option>
+			<option value="desativado">desativado</option>
+		</select>
+		<br>
+		<br>
+		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
     </form>
 </div>
 <br>

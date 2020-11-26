@@ -64,13 +64,13 @@
 	<h2 class="name" for="">LOCALIZAÇÃO</h2>
 	<label class="labels" for="">Endereço: </label> {{ $contact->address}}
 	<br>
-	<label class="labels" for="">Cidade: </label> {{ $contact->address_city}}
+	<label class="labels" for="">Cidade: </label> {{ $contact->city}}
 	<br>
 	<label class="labels" for="">Bairro: </label> {{ $contact->neighborhood}}
 	<br>
-	<label class="labels"  for="">Estado: </label> {{ $contact->address_state}}
+	<label class="labels"  for="">Estado: </label> {{ $contact->state}}
 	<br>
-	<label class="labels"  for="">País: </label> {{ $contact->address_country}}
+	<label class="labels"  for="">País: </label> {{ $contact->country}}
 	<br>
 	<br>
 	<br>

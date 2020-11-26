@@ -14,6 +14,29 @@
 <form action=" {{ route('task.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da tarefa" value="">
+	<select class="select" name="account_id">
+		@foreach ($accounts as $account)
+		<option  class="fields" value="{{ $account->id }}">
+			{{ $account->name }}
+		</option>
+		@endforeach
+		<option  class="fields" value="">
+			todas
+		</option>
+	</select>
+	<select class="select"name="user_id">
+		<option  class="fields" value="{{$userAuth->id}}">
+			minhas tarefas
+		</option>
+		<option  class="fields" value="">
+			TODOS
+		</option>
+		@foreach ($users as $user)
+		<option  class="fields" value="{{ $user->id }}">
+			{{ $user->name }}
+		</option>
+		@endforeach
+	</select>
 	<select class="select" name="status">
 		<option  class="fields" value="">
 			situação
@@ -30,32 +53,6 @@
 		<option  class="fields" value="concluida">
 			concluidas
 		</option>
-	</select>
-	<select class="select" name="contact_id">
-		<option  class="fields" value="">
-			contatos
-		</option>
-		<option  class="fields" value="">
-			TODOS
-		</option>
-		@foreach ($contacts as $contact)
-		<option  class="fields" value="{{ $contact->id }}">
-			{{ $contact->name }}
-		</option>
-		@endforeach
-	</select>
-	<select class="select"name="user_id">
-		<option  class="fields" value="{{$userAuth->id}}">
-			minhas tarefas
-		</option>
-		<option  class="fields" value="">
-			TODOS
-		</option>
-		@foreach ($users as $user)
-		<option  class="fields" value="{{ $user->id }}">
-			{{ $user->name }}
-		</option>
-		@endforeach
 	</select>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
@@ -112,47 +109,58 @@
 			{{ $task->user->name}}
 		</td>
 		<td class="table-list-center">
-			{{ date('d/m/Y', strtotime($task->date_due)) }}
+			@if($task->date_due == date('Y-m-d'))
+			hoje
+			@else
+			{{date('d/m/Y', strtotime($task->date_due))}}
+			@endif
 		</td>
-		<td class="table-list-center">
-			@if ($task->priority == "baixa")
-			<button class="btn btn-info">
-				<b>{{ $task->priority  }}</b>
-				@elseif ($task->priority == "média")
-				<button class="btn btn-warning">
-					<b>{{ $task->priority  }}</b>
-					@elseif ($task->priority == "alta")
-					<button class="btn btn-danger">
-						<b>{{ $task->priority  }}</b>
-						@elseif ($task->priority == "emergência")
-						<button class="btn btn-dark">
-							<b>{{ $task->priority  }}</b>
-							@endif
-						</button>
-						</td>
 
-						<td class="table-list-center">
-							@if ($task->status == "cancelada")
-							<button class="btn btn-dark">
-								<b>{{ $task->status  }}</b>
-								@elseif ($task->status == "pendente")
-								<button class="btn btn-warning">
-									<b>{{ $task->status  }}</b>
-									@elseif ($task->status == "fazendo agora")
-									<button class="btn btn-info">
-										<b>{{ $task->status  }}</b>
-										@elseif ($task->status == "concluida")
-										<button class="btn btn-success">
-											<b>{{ $task->status  }}</b>
-											@endif
-										</button>
-										</td>
-										</tr>
-										@endforeach
-										</table>
-										<p style="text-align: right">
-											<br>
-											{{ $tasks->links() }}
-										</p>
-										<br>
-										@endsection
+		@if ($task->priority == "baixa")
+		<td class="td-low">
+			baixa
+		</td>
+		@elseif ($task->priority == "média")
+		<td class="td-medium">
+			média
+		</td>
+		@elseif ($task->priority == "alta")
+		<td class="td-high">
+			alta
+		</td>
+		@elseif ($task->priority == "emergência")
+		<td class="td-emergency">
+			emergência
+		</td>
+		@endif
+
+		@if ($task->status == "cancelada")
+		<td class="td-low">
+			cancelada
+		</td>
+		@elseif ($task->status == "pendente")
+		<td class="td-toDo">
+			fazer
+		</td>
+		@elseif ($task->status == "fazendo agora")
+		<td class="td-doing">
+			fazendo
+		</td>
+		@elseif ($task->status == "concluida")
+		<td class="td-done">
+			feito
+		</td>
+		@elseif ($task->status == "aguardando")
+		<td class="td-stuck">
+			aguardar
+		</td>
+		@endif
+	</tr>
+	@endforeach
+</table>
+<p style="text-align: right">
+	<br>
+	{{ $tasks->links() }}
+</p>
+<br>
+@endsection

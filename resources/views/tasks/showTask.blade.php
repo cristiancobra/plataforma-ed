@@ -92,25 +92,25 @@
 				{{$journey->user->name}}
 			</td>
 			<td class="table-list-left">
-				 {!!html_entity_decode($journey->description)!!}
+				{!!html_entity_decode($journey->description)!!}
 			</td>
 			<td class="table-list-center">
-				@if($today == $journey->date)
+				@if($journey->date == date('Y-m-d'))
 				hoje
 				@else
 				{{date('d/m/Y', strtotime($journey->date))}}
 				@endif
 			</td>
-		<td class="table-list-center">
-			{{date('H:i', strtotime($journey->start_time))}}
-		</td>
-		<td class="table-list-center">
-			@if($journey->end_time == null)
-			--
-			@else
-			{{date('H:i', strtotime($journey->end_time))}}
-			@endif
-		</td>
+			<td class="table-list-center">
+				{{date('H:i', strtotime($journey->start_time))}}
+			</td>
+			<td class="table-list-center">
+				@if($journey->end_time == null)
+				--
+				@else
+				{{date('H:i', strtotime($journey->end_time))}}
+				@endif
+			</td>
 			<td class="table-list-center" style="color:white;background-color: #874983">
 				{{ gmdate('H:i', $journey->duration) }}
 			</td>
@@ -119,12 +119,12 @@
 		$totalDuration = $totalDuration + $journey->duration;
 		@endphp
 		@endforeach
-			<tr>
-				<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 25px;font-size: 16px" colspan="7">
-					<b>Tempo total:</b>   {{ number_format($totalDuration / 3600, 1, ',','.')  }}
-					<br>
-				</td>
-			</tr>
+		<tr>
+			<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 25px;font-size: 16px" colspan="7">
+				<b>Tempo total:</b>   {{ number_format($totalDuration / 3600, 1, ',','.')  }}
+				<br>
+			</td>
+		</tr>
 	</table>
 	<br>
 	<a class="btn btn-secondary" href="{{ route('journey.create', [

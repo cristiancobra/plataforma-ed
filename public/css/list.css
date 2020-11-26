@@ -1,0 +1,203 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 24 de nov. de 2020, 17:54:57
+    Author     : nathalia
+*/
+
+
+table{ 
+    width: 100%;
+    text-align:center;
+    display: table;
+    color:#874983;
+    font-size: 14px;
+    border-bottom-style: solid;
+    border-width: 2px;
+    padding-top: 5%;
+}
+
+.table-center{ 
+    display: table-cell;
+    vertical-align:super;
+    border-bottom: solid;
+    border-width: 1px;
+}
+
+.table-right{ 
+    display: table-cell;  
+    padding:0.5%;
+    text-align: right;
+    vertical-align:super;
+    border-bottom: solid;
+    border-width: 1px;
+    font-weight: bolder;
+}
+.table-left{ 
+    display: table-cell;  
+    padding:0.5%;
+    text-align: justify;
+    vertical-align:super;
+    border-bottom: solid;
+    border-width: 1px;
+    font-weight: bolder;
+}
+
+.table-left ul{ 
+    list-style-type : circle;
+    list-style-position: outside;
+}
+
+.table-money-expense{ 
+    display: table-cell;  
+    padding:0.5%;
+    text-align: right;
+    vertical-align:super;
+    border-bottom: solid;
+    border-width: 1px;
+    color: red;
+}
+
+.table-money-income{ 
+    display: table-cell;  
+    padding:0.5%;
+    text-align: right;
+    vertical-align:super;
+    border-bottom: solid;
+    border-width: 1px;
+    color: blue;
+}
+
+.table-header{ 
+    display: table-cell;  
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    color: white;
+    vertical-align:super;
+    background-color: #c28dbf
+}
+
+.table-header-right{ 
+    display: table-cell;  
+    text-align: right;
+    color: white;
+    vertical-align:super;
+    background-color: #c28dbf
+}
+
+td {
+    display: table-cell;  
+    padding-left: 10px;
+    padding-right: 10px;
+    text-align: center;
+    font-weight:  900;
+    vertical-align:super;
+}
+
+.td-low{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color:#B9A4D0;
+    border-style: solid;
+      border-width: 1px; 
+}
+
+
+.td-medium{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #9A8ABF;
+    border-style: solid;
+      border-width: 1px; 
+}
+
+.td-high{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #6357A1;
+    border-style: solid;
+      border-width: 1px; 
+}
+
+.td-emergency{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #392F6D;
+    border-style: solid;
+      border-width: 1px; 
+}
+
+
+
+.td-done{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #A5D9CC;
+    border-style: solid;
+       border-width: 1px; 
+    border-color: white;
+}
+
+.td-doing{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #92C4D4;
+    border-style: solid;
+       border-width: 1px; 
+    border-color: white;
+}
+
+
+.td-toDo{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #F2E28C;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-stuck{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #F7AFB4;
+    border-style: solid;
+       border-width: 1px; 
+    border-color: white;
+}
+
+.td-canceled{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #E5E5E5;
+    border-style: solid;
+       border-width: 1px; 
+    border-color: white;
+}
