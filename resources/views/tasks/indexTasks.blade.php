@@ -85,12 +85,12 @@
 	<tr style="font-size: 14px">
 		<td class="table-list-left">
 			<a class="white" href=" {{ route('task.show', ['task' => $task->id]) }}">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-eye'></i>
 				</button>
 			</a>
 			<a href=" {{ route('task.edit', ['task' => $task->id]) }}">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-edit'></i>
 				</button>
 			</a>

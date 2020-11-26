@@ -105,7 +105,7 @@ td {
     color: white;
     background-color:#B9A4D0;
     border-style: solid;
-      border-width: 1px; 
+    border-width: 1px; 
 }
 
 
@@ -116,7 +116,7 @@ td {
     color: white;
     background-color: #9A8ABF;
     border-style: solid;
-      border-width: 1px; 
+    border-width: 1px; 
 }
 
 .td-high{
@@ -126,7 +126,7 @@ td {
     color: white;
     background-color: #6357A1;
     border-style: solid;
-      border-width: 1px; 
+    border-width: 1px; 
 }
 
 .td-emergency{
@@ -136,7 +136,7 @@ td {
     color: white;
     background-color: #392F6D;
     border-style: solid;
-      border-width: 1px; 
+    border-width: 1px; 
 }
 
 
@@ -149,7 +149,7 @@ td {
     vertical-align:super;
     background-color: #A5D9CC;
     border-style: solid;
-       border-width: 1px; 
+    border-width: 1px; 
     border-color: white;
 }
 
@@ -161,7 +161,7 @@ td {
     vertical-align:super;
     background-color: #92C4D4;
     border-style: solid;
-       border-width: 1px; 
+    border-width: 1px; 
     border-color: white;
 }
 
@@ -176,6 +176,7 @@ td {
     border-style: solid;
     border-width: 1px; 
     border-color: white;
+
 }
 
 .td-stuck{
@@ -186,7 +187,7 @@ td {
     vertical-align:super;
     background-color: #F7AFB4;
     border-style: solid;
-       border-width: 1px; 
+    border-width: 1px; 
     border-color: white;
 }
 
@@ -198,6 +199,176 @@ td {
     vertical-align:super;
     background-color: #E5E5E5;
     border-style: solid;
-       border-width: 1px; 
+    border-width: 1px; 
     border-color: white;
+}
+
+
+.td-paid{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: A5D9CC;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-invoice{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #A5D9CC;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+
+.td-invoice{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #92C4D4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-aproved{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #F2E28C;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-bill{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #F7AFB4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-denied{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #E5E5E5;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+
+
+.td-active{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #E5E5E5;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-pending{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #E5E5E5;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+
+
+.td-winner{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #A5D9CC;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-prospecting{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #92C4D4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-presentation{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #F2E28C;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+
+.td-negociation{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #C18996;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+
+
+
+
+.button-round {
+    /* Ellipse 1 */
+ 
+    width: 28px;
+    height: 28px;
+    background: #A497C2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: solid;
+    border-width: 1px;
+    border-color: #6357A1;
+    padding: 2.5px 2.5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 100%;
+    color: white;
+    transition-duration: 0.4s;
+    margin: 2px;
+}
+
+.button-round:hover {
+    background-color: #6357A1;
+    border-color: #6357A1;
+    color: white;
 }
