@@ -249,6 +249,7 @@ class TaskController extends Controller {
 
 		$journeys = Journey::where('task_id', $task->id)
 				->with('user')
+				->orderBy('DATE', 'ASC')
 				->get();
 
 		return view('tasks.showTask', [
