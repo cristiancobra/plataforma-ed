@@ -38,11 +38,11 @@
 		@endforeach
 	</select>
 	<select class="select" name="status">
-		<option  class="fields" value="fazendo agora">
-			fazendo
-		</option>
 		<option  class="fields" value="pendente">
 			fazer
+		</option>
+		<option  class="fields" value="fazendo agora">
+			fazendo
 		</option>
 		<option  class="fields" value="stuck">
 			aguardar
