@@ -38,20 +38,20 @@
 		@endforeach
 	</select>
 	<select class="select" name="status">
-		<option  class="fields" value="">
-			situação
+		<option  class="fields" value="fazendo agora">
+			fazendo
+		</option>
+		<option  class="fields" value="pendente">
+			fazer
+		</option>
+		<option  class="fields" value="stuck">
+			aguardar
+		</option>
+		<option  class="fields" value="concluida">
+			feito
 		</option>
 		<option  class="fields" value="">
 			TODAS
-		</option>
-		<option  class="fields" value="fazendo agora">
-			fazendo agora
-		</option>
-		<option  class="fields" value="pendente">
-			pendentes
-		</option>
-		<option  class="fields" value="concluida">
-			concluidas
 		</option>
 	</select>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
