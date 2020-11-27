@@ -31,7 +31,7 @@ class CreateInvoicesTable extends Migration {
 			$table->integer('totalMargin')->nullable();
 			$table->integer('totalBalance')->nullable();
 
-			$table->string('receipt');
+			$table->string('receipt')->nullable();
 			$table->string('status', 50);
 			$table->timestamps();
 		});

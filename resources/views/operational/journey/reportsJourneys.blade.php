@@ -15,83 +15,75 @@
 	@csrf
 	<select class="select"name="user_id">
 		<option  class="fields" value="">
-			funcionário
+			2020
 		</option>
-		<option  class="fields" value="">
-			TODOS
-		</option>
-		@foreach ($users as $user)
-		<option  class="fields" value="{{ $user->id }}">
-			{{ $user->name }}
-		</option>
-		@endforeach
 	</select>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 20%">
-			<b>DATA </b>
+		<td   class="table-list-header" style="width: 50%">
+			<b>FUNCIONÁRIO </b>
 		</td>
-		<td   class="table-list-header" style="width: 35%">
-			<b>TAREFA </b>
+		@foreach ($months as $month)
+		<td   class="table-list-header" style="width: 10%">
+			{{$month}}
 		</td>
-		<td   class="table-list-header" style="width: 15%">
-			<b>RESPONSÁVEL </b>
-		</td>
-		<td   class="table-list-header" style="width: 5%">
-			<b>INÍCIO </b>
-		</td>
-		<td   class="table-list-header" style="width: 5%">
-			<b>TÉRMINO </b>
-		</td>
-		<td   class="table-list-header" style="width: 5%">
-			<b>DURAÇÃO </b>
+		@endforeach
+		<td   class="table-list-header" style="width: 10%">
+			<b>TOTAL </b>
 		</td>
 	</tr>
 
-	@foreach ($journeys as $journey)
+	@foreach ($users as $user)
 	<tr style="font-size: 14px">
 		<td class="table-list-left">
-			<button class="button">
-				<a href=" {{ route('journey.show', ['journey' => $journey]) }}">
-					<i class='fa fa-eye' style="color:white"></i></a>
-			</button>
-			<button class="button">
-				<a href=" {{ route('journey.edit', ['journey' => $journey]) }}">
-					<i class='fa fa-edit' style="color:white"></i></a>
-			</button>
-			{{date('d/m/Y', strtotime($journey->date))}}
+			{{$user->name}}
 		</td>
 		<td class="table-list-left">
-			<button class="button">
-				<a href=" {{ route('task.show', ['task' => $journey->task_id]) }}">
-					<i class='fa fa-eye' style="color:white"></i></a>
-			</button>
-			{{$journey->task->name}}
+			{{number_format($user->janeiro / 3600, 1, ',','.')}}
 		</td>
 		<td class="table-list-center">
-			{{$journey->user->name}}
+			{{number_format($user->fevereiro / 3600, 1, ',','.')}}
 		</td>
 		<td class="table-list-center">
-			{{date('H:i', strtotime($journey->start_time))}}
+			{{number_format($user->março / 3600, 1, ',','.')}}
 		</td>
 		<td class="table-list-center">
-			@if($journey->end_time == null)
-			--
-			@else
-			{{date('H:i', strtotime($journey->end_time))}}
-			@endif
+{{number_format($user->abril / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->maio / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->junho / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->julho / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->agosto / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->setembro / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->outubro / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+{{number_format($user->novembro / 3600, 1, ',','.')}}
+		</td>
+		<td class="table-list-center">
+			{{number_format($user->dezembro / 3600, 1, ',','.')}}
 		</td>
 		<td class="table-list-center" style="color:white;background-color: #874983">
-			{{ gmdate('H:i', $journey->duration) }}
 		</td>
 	</tr>
 	@endforeach
 </table>
 <p style="text-align: right">
 	<br>
-	
+
 </p>
 <br>
 @endsection

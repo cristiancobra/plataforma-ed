@@ -14,14 +14,111 @@ if (!function_exists('createSelect')) {
 		foreach ($list as $key => $value) {
 			echo "<option value=\"$key\">$value</option><br>";
 		}
-//		 foreach ($list as $key => $value){
-//			 echo "<option class='fields' value=\"$key\" >$value</option>";
-//			 echo "<option value=\"$key\" >$value</option>";
-//		 }
 	}
 
 }
+// retorna os meses do ano
+if (!function_exists('returnMonths')) {
 
+	function returnMonths() {
+		return $months = array(
+			'1' => 'Janeiro',
+			'2' => 'Fevereiro',
+			'3' => 'Março',
+			'4' => 'Abril',
+			'5' => 'Maio',
+			'6' => 'Junho',
+			'7' => 'Julho',
+			'8' => 'Agosto',
+			'9' => 'Setembro',
+			'10' => 'Outubro',
+			'11' => 'Novembro',
+			'12' => 'Dezembro',
+		);
+	}
+
+}
+// retorna o nome do mês selecionado
+if (!function_exists('returnMonth')) {
+
+	function returnMonth(int $number) {
+		if ($number == 1) {
+			$month = "Janeiro";
+		}
+		if ($number == 2) {
+			$month =  "Fevereiro";
+		}
+		if ($number == 3) {
+			$month =  "Março";
+		}
+		if ($number == 4) {
+			$month =  "Abril";
+		}
+		if ($number == 5) {
+			$month =  "Maio";
+		}
+		if ($number == 6) {
+			$month =  "Junho";
+		}
+		if ($number == 7) {
+			$month =  "Julho";
+		}
+		if ($number == 8) {
+			$month =  "Agosto";
+		}
+		if ($number == 9) {
+			$month =  "Setembro";
+		}
+		if ($number == 10) {
+			$month =  "Outubro";
+		}
+		if ($number == 11) {
+			$month =  "Novembro";
+		}
+		if ($number == 12) {
+			$month =  "Dezembro";
+		}
+		
+		print_r($month);
+	}
+
+}
+// retorna os estados do Brasil
+if (!function_exists('returnStates')) {
+
+	function returnStates() {
+		return $states = array([
+				'AC' => 'Acre',
+				'AL' => 'Alagoas',
+				'AP' => 'Amapá',
+				'AM' => 'Amazonas',
+				'BA' => 'Bahia',
+				'CE' => 'Ceará',
+				'DF' => 'Distrito Federal',
+				'ES' => 'Espirito Santo',
+				'GO' => 'Goiás',
+				'MA' => 'Maranhão',
+				'MS' => 'Mato Grosso do Sul',
+				'MT' => 'Mato Grosso',
+				'MG' => 'Minas Gerais',
+				'PA' => 'Pará',
+				'PB' => 'Paraíba',
+				'PR' => 'Paraná',
+				'PE' => 'Pernambuco',
+				'PI' => 'Piauí',
+				'RJ' => 'Rio de Janeiro',
+				'RN' => 'Rio Grande do Norte',
+				'RS' => 'Rio Grande do Sul',
+				'RO' => 'Rondônia',
+				'RR' => 'Roraima',
+				'SC' => 'Santa Catarina',
+				'SP' => 'São Paulo',
+				'SE' => 'Sergipe',
+				'TO' => 'Tocantins',
+		]);
+	}
+
+}
 if (!function_exists('gerarSenha')) {
 
 	function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {

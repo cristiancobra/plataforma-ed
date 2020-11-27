@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\Journey;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
@@ -165,6 +166,9 @@ class UserController extends Controller {
 			$tasks = Task::whereIn('account_id', $accountsID)
 					->get();
 
+			$journeys = Journey::whereIn('account_id', $accountsID)
+					->get();
+
 			$tasks_now = $tasks
 					->where('status', 'fazendo agora')
 					->count();
@@ -213,6 +217,12 @@ class UserController extends Controller {
 					->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
 					->sum('duration');
 
+			$hoursNovember2 = $journeys
+					->where('status', 'concluida')
+					->where('user_id', $userAuth->id)
+					->whereBetween('date', ['2020-10-01', '2020-10-31'])
+					->sum('duration');
+
 			return view('users/dashboardUser', [
 				'userAuth' => $userAuth,
 				'today' => $today,
@@ -225,6 +235,7 @@ class UserController extends Controller {
 				'hoursSeptember' => $hoursSeptember,
 				'hoursOctober' => $hoursOctober,
 				'hoursNovember' => $hoursNovember,
+				'hoursNovember2' => $hoursNovember2,
 			]);
 		} else {
 			return redirect('/');

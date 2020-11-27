@@ -273,31 +273,11 @@ class JourneyController extends Controller {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
+			$months = returnMonths();
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->get('id');
-
-			$journeys = Journey::where(function ($query) use ($accountsID, $request) {
-						$query->whereIn('account_id', $accountsID);
-						if ($request->user_id != null) {
-							$query->where('user_id', '=', $request->user_id);
-						}
-						if ($request->account_id != null) {
-							$query->where('account_id', '=', $request->account_id);
-						}
-					})
-					->with([
-						'account',
-						'task',
-						'user',
-					])
-					->orderBy('DATE', 'DESC')
-					->paginate(20);
-
-//			$journeys->appends([
-//				'user_id' => $request->user_id,
-//			]);
+					->pluck('id');
 
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
@@ -305,9 +285,72 @@ class JourneyController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			foreach ($users as $user) {
+				$user->janeiro = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-01-01', '2020-01-31'])
+					->sum('duration');
+				
+				$user->fevereiro = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-02-01', '2020-02-31'])
+					->sum('duration');
+				
+				$user->março = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-03-01', '2020-03-31'])
+					->sum('duration');
+				
+				$user->abril = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-04-01', '2020-04-31'])
+					->sum('duration');
+				
+				$user->maio = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-05-01', '2020-05-31'])
+					->sum('duration');
+				
+				$user->junho = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-06-01', '2020-06-31'])
+					->sum('duration');
+				
+				$user->julho = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-07-01', '2020-07-31'])
+					->sum('duration');
+				
+				$user->agosto = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-08-01', '2020-08-31'])
+					->sum('duration');
+				
+				$user->setembro = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-09-01', '2020-09-31'])
+					->sum('duration');
+				
+				$user->outubro = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-10-01', '2020-10-31'])
+					->sum('duration');
+				
+				$user->novembro = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-11-01', '2020-11-31'])
+					->sum('duration');
+				
+				$user->dezembro = Journey::where('status', 'concluida')
+					->where('user_id', $user->id)
+					->whereBetween('date', ['2020-12-01', '2020-12-31'])
+					->sum('duration');
+				
+			}
+
 			return view('operational.journey.reportsJourneys', [
-				'journeys' => $journeys,
 				'users' => $users,
+				'months' => $months,
 				'userAuth' => $userAuth,
 			]);
 		} else {
