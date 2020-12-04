@@ -28,17 +28,16 @@
 		<input class="fields" type="text" name="email">
 		<br>
 		<br>
-		<label class="labels"for="" >Domínio: </label>
-		<input class="fields" type="text" name="doma">
-		<br>
-		<br>
 		<label class="labels"'for="" >Perfil: </label>
 		<select name="perfil">
 			<option  class="fields" value="cliente">
-				cliente
+				super administrador
 			</option>
 			<option  class="fields" value="administrador">
 				administrador
+			</option>
+			<option  class="fields" value="administrador">
+				funcionário
 			</option>
 		</select>
 		<br>

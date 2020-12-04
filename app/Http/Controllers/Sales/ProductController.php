@@ -26,7 +26,7 @@ class ProductController extends Controller {
 
 			$products = Product::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
-					->paginate(20);
+					->paginate(50);
 
 			$totalProducts = $products->count();
 

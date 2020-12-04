@@ -79,7 +79,7 @@ if (!function_exists('returnMonth')) {
 			$month =  "Dezembro";
 		}
 		
-		print_r($month);
+		return($month);
 	}
 
 }

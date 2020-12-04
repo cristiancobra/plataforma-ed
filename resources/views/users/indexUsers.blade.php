@@ -7,40 +7,49 @@
 @endsection
 
 @section('description')
-@auth
-<a class="btn btn-primary" href="{{route('user.create')}}">
-	ADICIONAR COLABORADOR
+Total: <span class="labels">{{$totalUsers}} </span>
+@endsection
+
+@section('buttons')
+<a class="button-secondary"  href="{{route('user.index')}}">
+	VOLTAR
 </a>
-@endauth
+<a class="button-primary"  href="{{route('user.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">Sua equipe possui atualmente <span class="labels">{{$totalUsers }} colaboradores</span></p>
-<br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header"><b>Colaborador </b></td>
-		<td   class="table-list-header"> <b>Empresa </b></td>
-		<td   class="table-list-header"> <b> Email</b></td>
+		<td   class="table-list-header">
+			<b>Colaborador </b>
+		</td>
+		<td   class="table-list-header"> 
+			<b>Empresa </b>
+		</td>
+		<td   class="table-list-header">
+			<b> Email</b>
+		</td>
 	</tr>
 
 	@foreach ($users as $user)
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
-				<button class="button">
+				<button class="button-round">
 					<i class='fas fa-comment-dots'></i>
 				</button>
 			</a>
 
 			<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-eye'></i>
 				</button>
 			</a>
 			@auth
 			<a  class="white" href=" {{ route('tutorial_plataforma', ['user' => $user]) }}">
-							<button class="button" style="background-color: green">
+							<button class="button-round" style="background-color: green">
 					<i class='fa fa-plus'></i>
 				</button>
 			</a>
@@ -52,7 +61,7 @@
 		<td class="table-list-left">
 			@foreach ($user->accounts as $account)
 			<a class="white"  href=" {{ route('account.show', ['account' => $account->id]) }}">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-eye'></i>
 				</button> 
 			</a>
@@ -64,7 +73,7 @@
 
 		<td class="table-list-left">
 			<a  class="white"  href=" mailto:{{ $user->email }} " target="_blank">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-envelope'></i>
 				</button> {{ $user->email  }}
 			</a>

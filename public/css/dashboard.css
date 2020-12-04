@@ -1,0 +1,85 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 2 de dez. de 2020, 18:35:48
+    Author     : cobra
+*/
+
+/* ------------------------------------------------ GRID INICIO -------------------------- */
+.grid-administrator {
+	display: grid;
+	height: auto;
+	text-align: left;
+	margin-top: 2%;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-areas: 
+		"tasks-toDo tasks-my tasks-now"
+		"hours tasks-team tasks-team";
+/*		"tasks-my tasks-team tasks-team tasks-team",
+		"tasks-now tasks-team tasks-team tasks-team";*/
+	gap: 5% 2%;
+}
+
+.tasks-now{
+	grid-area: tasks-now;
+	color: white;
+	height: 100%;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.tasks-toDo {
+	grid-area: tasks-toDo;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+	background-color: #F2E28C;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.tasks-my {
+	grid-area: tasks-my;
+	color: white;
+	background-color: #c28dbf;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.tasks-team {
+	grid-area: tasks-team;
+    width: 100%;
+    text-align:center;
+    display: table;
+    color:#874983;
+    font-size: 14px;
+    border-bottom-style: solid;
+    border-width: 2px;
+    padding-top: 5%;
+}
+
+.hoursToday {
+	grid-area: hours;
+	color: white;
+	background-color: #874983;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.destaque{
+    margin-top:0px;
+    background-color: white;
+}
+ /*fim do GRID*/
+
+.numeros_painel{
+    text-align:center;
+    color:white;
+    font-weight:600;
+    line-height: 0px;
+    font-size: 56px;
+    margin: 0px;
+    padding-top: 10%;
+}

@@ -18,7 +18,7 @@ class CreateProductsTable extends Migration
 	$table->foreignId('account_id');
 	$table->string('name', 100);
 	$table->text('description')->nullable();
-	$table->string('image');
+	$table->string('image')->nullable();
 	$table->string('type', 50);
 	$table->string('category', 50);
 	$table->decimal('work_hours', 5, 1);

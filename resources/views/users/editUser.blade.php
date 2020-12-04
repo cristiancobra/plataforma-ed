@@ -29,10 +29,6 @@
 	<input type="text" name="email" value="{{ $user->email }} ">
 	<br>
 	<br>
-	<label for="">Domínio: </label>
-	<input type="text" name="dominio" value="{{ $user->dominio }} ">   
-	<br>
-	<br>
 	<label class="labels" for="" >Perfil:</label>
 	<select class="fields" name="perfil">
 		<option value="{{ $user->perfil }}">{{ $user->perfil }}</option>

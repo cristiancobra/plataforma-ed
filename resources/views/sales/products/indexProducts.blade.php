@@ -7,26 +7,49 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('product.create')}}">NOVO PRODUTO</a>
+Total: <span class="labels">{{$totalProducts }} </span>
+@endsection
+
+@section('buttons')
+<a class="button-secondary"  href="{{route('product.index')}}">
+	VOLTAR
+</a>
+<a class="button-primary"  href="{{route('product.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
 <div>
-	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-		Você possui <span class="labels">{{$totalProducts }} produtos </span>
-	</p>
-	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Foto</b></td>
-			<td   class="table-list-header"><b>Nome </b></td>
-			<td   class="table-list-header"><b>Tipo </b></td>
-			<td   class="table-list-header"><b>Entrega</b></td>
-			<td   class="table-list-header"><b>Horas previstas</b></td>
-			<td   class="table-list-header"><b>Custos</b></td>
-			<td   class="table-list-header"><b>Imposto</b></td>
-			<td   class="table-list-header"><b>Margem</b></td>
-			<td   class="table-list-header"><b>Preço</b></td>
+			<td   class="table-list-header" style="width: 5%">
+				<b>Foto</b>
+			</td>
+			<td   class="table-list-header" style="width: 30%">
+				<b>Nome </b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>Tipo </b>
+			</td>
+			<td   class="table-list-header" style="width: 5%">
+				<b>Entrega</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>Horas</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>Custos</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>Imposto</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>Margem</b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				<b>Preço</b>
+			</td>
 		</tr>
 
 		@foreach ($products as $product)
@@ -34,7 +57,7 @@
 			<td class="table-list-right">
 				<image src="{{ $product->image }}" style="width:50px;height:50px; margin: 5px"></a>
 			</td>
-			
+
 			<td class="table-list-left">
 				<button class="button">
 					<a href=" {{ route('product.show', ['product' => $product->id]) }}">
@@ -60,23 +83,23 @@
 				{{ $product->due_date }} dias
 			</td>
 			@endif
-			
-			<td class="table-list-right">
+
+			<td class="table-list-center">
 				{{ number_format($product->work_hours)}}
 			</td>
 
 			<td class="table-list-right">
 				R$ {{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".") }}
 			</td>
-			
+
 			<td class="table-list-right">
 				R$ {{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}
 			</td>
-			
+
 			<td class="table-list-right">
 				R$ {{ number_format(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}
 			</td>
-			
+
 			<td class="table-list-right">
 				R$ {{ number_format($product->price,2,",",".") }}
 			</td>
@@ -88,5 +111,6 @@
 		<br>
 		{{ $products->links() }}
 	</p>
+</div>
 	<br>
 	@endsection

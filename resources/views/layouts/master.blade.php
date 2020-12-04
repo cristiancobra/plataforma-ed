@@ -11,6 +11,7 @@
 
 		<!-- Styles -->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+		<link href="{{ asset('css/dashboard.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/list.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 		<link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -98,7 +99,7 @@
 						<i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
 					</a>
 					<a class="sidebar-subitem" href="{{route('user.index')}}">
-						<i class="fa fa-id-card-alt" style="margin-right: 8px"></i>EQUIPE
+						<i class="fa fa-id-card-alt" style="margin-right: 8px"></i>FUNCIONÁRIOS
 					</a>
 					<a class="sidebar-subitem" href="{{route('planning.index')}}">
 						<i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO
@@ -260,21 +261,30 @@
 
 
 			<div class="header">
-				<h1 style="padding: 0px;margin-bottom: -4px">
-					@yield('title')
-				</h1>
-				<p>
-					@yield('description')
-				</p>
-			</div>
+				<table style="border-style: none">
+					<tr>
+						<td id="image" style="text-align: center;width: 40px;margin: 0;padding: 0;vertical-align: top">
+							<img src= @yield('image-top') width="40px" height="40px">
+						</td>
+						<td id="title">
+							<h1 style="text-align: left;padding: 0px;margin-bottom: -4px">
+								@yield('title')
+							</h1>
+						</td>
 
-			<div class="image-header">
-				<img src= @yield('image-top') width="70px" height="70px">
+						<td id="button" style="text-align: right;padding-right: 25px">
+							@yield('buttons')
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3" style="text-align: left">
+							@yield('description')
+						</td>
+					</tr>
+				</table>
 			</div>
-
 			<div class="main">
 				@yield('main')
 			</div>
-		</div>
 	</body>
 </html>
