@@ -27,7 +27,7 @@ class DashboardController extends Controller {
 		$journeys = Journey::whereIn('account_id', $accountsID)
 				->get();
 
-		if ($request['role'] === "superAdministrator") {
+		if ($request['role'] === "superAdmin") {
 			$month = returnMonth(date('m'));
 			$monthStart = date('Y-m-01');
 			$monthEnd = date('Y-m-t');
