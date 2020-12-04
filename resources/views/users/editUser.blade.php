@@ -1,13 +1,22 @@
 @extends('layouts/master')
 
-@section('title','EDITAR COLABORADOR')
+@section('title','FUNCIONÁRIOS')
 
 @section('image-top')
 {{ asset('imagens/colaborador.png') }} 
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href=" {{ route('user.index') }}">VER COLABORADORES</a>
+
+@endsection
+
+@section('buttons')
+<a class="button-secondary"  href="{{route('user.index')}}">
+	VOLTAR
+</a>
+<a class="button-primary"  href="{{route('user.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')

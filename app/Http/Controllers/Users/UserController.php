@@ -102,18 +102,10 @@ class UserController extends Controller {
 	public function edit(User $user) {
 		$userAuth = Auth::user();
 
-		$accounts = $user->accounts()->get();
-
-		if ($userAuth->perfil == "administrador") {
-			$accounts = Account::where('id', '>=', 0)
-					->orderBy('NAME', 'asc')
-					->get();
-		} else {
-			$accounts = Account::whereHas('users', function($query) use($userAuth) {
+		$accounts = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->pluck('id');
-		}
+					->get();
 
 		return view('users.editUser', [
 			'user' => $user,
