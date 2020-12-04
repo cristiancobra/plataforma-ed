@@ -7,16 +7,16 @@
 @endsection
 
 @section('description')
-@auth
-<a class="btn btn-primary" href="{{route('account.create')}}">ADICIONAR EMPRESA</a>
-@endauth
+Total: <span class="labels">{{$totalAccounts}} </span>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('account.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-	Você possui <span class="labels">{{$totalAccounts }} empresas </span>
-</p>
-<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header"><b>Empresa </b></td>

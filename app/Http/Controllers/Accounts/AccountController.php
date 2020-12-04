@@ -20,7 +20,7 @@ class AccountController extends Controller {
 
 			if (Auth::check()) {
 
-				if ($userAuth->perfil == "administrador") {
+				if ($userAuth->perfil == "superAdmin") {
 					$accounts = Account::where('id', '>=', 0)
 							->orderBy('NAME', 'asc')
 							->paginate(20);

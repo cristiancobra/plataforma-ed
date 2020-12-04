@@ -89,6 +89,7 @@
 					</button>
 				</a>
 
+				@if ($userAuth->perfil == "super administrador" OR $userAuth->perfil == "administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-users-cog'></i>
 					ADMINISTRATIVO 
@@ -109,6 +110,7 @@
 						FATURAS
 					</a>
 				</div>
+				@endif
 
 				<button class="dropdown-btn">
 					<i class='fa fa-comments'></i>
@@ -180,7 +182,7 @@
 					</a>
 				</div>
 
-				@if ($userAuth->perfil == "administrador")
+				@if ($userAuth->perfil == "super administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-rocket'></i>
 					EMPRESA DIGITAL 

@@ -27,6 +27,61 @@ class DashboardController extends Controller {
 		$journeys = Journey::whereIn('account_id', $accountsID)
 				->get();
 
+		if ($request['role'] === "superAdministrator") {
+			$month = returnMonth(date('m'));
+			$monthStart = date('Y-m-01');
+			$monthEnd = date('Y-m-t');
+
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			foreach ($users as $user) {
+				$user->hoursMonthly = Journey::where('user_id', $user->id)
+						->whereBetween('date', [$monthStart, $monthEnd])
+						->sum('duration');
+				$user->hoursToday = Journey::where('user_id', $user->id)
+						->where('date', $today)
+						->sum('duration');
+			}
+
+			$todayTotal = Journey::whereIn('account_id', $accountsID)
+						->where('date', $today)
+						->sum('duration');
+			
+			$monthTotal = Journey::whereIn('account_id', $accountsID)
+						->whereBetween('date', [$monthStart, $monthEnd])
+						->sum('duration');
+
+			$tasks_now = $tasks
+					->where('status', 'fazendo agora')
+					->count();
+
+			$tasks_pending = $tasks
+					->whereIn('status', ['fazendo agora', 'pendente'])
+					->count();
+
+			$tasks_my = $tasks
+					->whereIn('status', ['fazendo agora', 'pendente'])
+					->where('user_id', $userAuth->id)
+					->count();
+
+
+
+			return view('dashboards/superAdministratorDashboard', [
+				'userAuth' => $userAuth,
+				'month' => $month,
+				'users' => $users,
+				'today' => $today,
+				'tasks_now' => $tasks_now,
+				'tasks_pending' => $tasks_pending,
+				'tasks_my' => $tasks_my,
+				'todayTotal' => $todayTotal,
+				'monthTotal' => $monthTotal,
+			]);
+		}
 		if ($request['role'] === "administrator") {
 			$month = returnMonth(date('m'));
 			$monthStart = date('Y-m-01');

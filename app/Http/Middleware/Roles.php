@@ -16,6 +16,9 @@ class Roles
      */
     public function handle($request, Closure $next)
     {
+		if(Auth::user()->perfil === 'super administrador') {
+			$role = "superAdmin";
+		}
 		if(Auth::user()->perfil === 'administrador') {
 			$role = "administrator";
 		}
