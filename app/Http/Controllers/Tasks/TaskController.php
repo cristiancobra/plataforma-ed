@@ -103,6 +103,8 @@ class TaskController extends Controller {
 						->orderBy('date_due', 'ASC')
 						->paginate(20);
 			}
+			
+						$totalTasks = $tasks->count();
 
 			$tasks->appends([
 				'name' => $request->name,
@@ -133,6 +135,7 @@ class TaskController extends Controller {
 
 			return view('tasks.indexTasks', [
 				'tasks' => $tasks,
+				'totalTasks' => $totalTasks,
 				'contacts' => $contacts,
 				'accounts' => $accounts,
 				'users' => $users,
