@@ -7,15 +7,17 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('contact.create')}}"">NOVO CONTATO</a>
+Total: <span class="labels">{{$totalContacts }} </span>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contact.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
 <div>
-	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-		Você possui <span class="labels">{{$totalContacts }} contatos </span>
-	</p>
-	<br>
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header"><b>Nome</b></td>
