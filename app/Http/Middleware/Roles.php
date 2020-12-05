@@ -16,17 +16,22 @@ class Roles
      */
     public function handle($request, Closure $next)
     {
-		if(Auth::user()->perfil === 'super administrador') {
+		if(Auth::user() == false){
+			return redirect('login');
+		}
+		elseif(Auth::user()->perfil == 'super administrador') {
 			$role = "superAdmin";
 		}
-		if(Auth::user()->perfil === 'administrador') {
+		elseif(Auth::user()->perfil == 'administrador') {
 			$role = "administrator";
 		}
-		if(Auth::user()->perfil === 'funcionario') {
+		elseif(Auth::user()->perfil == 'funcionario') {
 			$role = "employee";
 		}
-		if(Auth::user()->perfil === 'cliente') {
+		elseif(Auth::user()->perfil == 'cliente') {
 			$role = "customer";
+		}else{
+			return redirect('painel');
 		}
 		
 		$request->merge(['role' => $role]);

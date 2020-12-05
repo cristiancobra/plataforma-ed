@@ -127,12 +127,6 @@ class TaskController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-//			$totalDuration = Journey::whereHas('accounts', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID);
-//					})
-//					->orderBy('NAME', 'ASC')
-//					->get();
-
 			return view('tasks.indexTasks', [
 				'tasks' => $tasks,
 				'totalTasks' => $totalTasks,

@@ -17,20 +17,28 @@ class UserController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
-					->with('accounts')
-					->orderBy('NAME', 'asc')
-					->paginate(20);
-		} else {
-			$users = User::whereHas('accounts', function ($query) {
-						return $query->where('users.id', '=', Auth::user()->id)
-								->with('accounts');
+		
+			$masterAccount = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
 					})
-					->paginate(20);
+					->first('id');
+		
+			if ($request['role'] === "superAdmin") {
+				$users = User::where('id', '>', 0)
+						->orderBy('NAME', 'asc')
+						->paginate(20);
+			}
+			elseif ($request['role'] === "administrator") {
+				$users = User::whereHas('accounts', function($query) use($masterAccount) {
+							$query->where('accounts.id', $masterAccount->id);
+						})
+						->paginate(20);
+		} else {
+			return redirect('/login');
 		}
+
 		$totalUsers = $users->count();
 
 		return view('users.indexUsers', [

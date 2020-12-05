@@ -20,6 +20,18 @@ Total: <span class="labels">{{$totalUsers}} </span>
 @endsection
 
 @section('main')
+	<form action=" {{route('journey.reports')}} " method="post" style="padding: 20px;color: #874983;display: inline-block">
+		@csrf
+		<select class="select"name="account_id">
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{ $account->id }}">
+				{{ $account->name }}
+			</option>
+			@endforeach
+		</select>
+		<input type="hidden" value="mensal">
+		<input class="btn btn-secondary" type="submit" value="MENSAL">
+	</form>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header">

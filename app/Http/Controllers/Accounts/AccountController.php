@@ -15,32 +15,30 @@ class AccountController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() { {
+	public function index(Request $request) { {
 			$userAuth = Auth::user();
 
-			if (Auth::check()) {
-
-				if ($userAuth->perfil == "superAdmin") {
-					$accounts = Account::where('id', '>=', 0)
-							->orderBy('NAME', 'asc')
-							->paginate(20);
-				} else {
-					$accounts = Account::whereHas('users', function($query) use($userAuth) {
-								$query->where('users.id', $userAuth->id);
-							})
-							->paginate(20);
-				}
-
-				$totalAccounts = $accounts->count();
-
-				return view('accounts.indexAccounts', [
-					'userAuth' => $userAuth,
-					'accounts' => $accounts,
-					'totalAccounts' => $totalAccounts,
-				]);
-			} else {
-				return redirect('/');
+			if ($request['role'] === "superAdmin") {
+				$accounts = Account::where('id', '>', 0)
+						->orderBy('NAME', 'asc')
+						->paginate(20);
 			}
+			elseif ($request['role'] === "administrator") {
+				$accounts = Account::whereHas('users', function($query) use($userAuth) {
+							$query->where('users.id', $userAuth->id);
+						})
+						->paginate(20);
+		} else {
+			return redirect('/painel');
+		}
+
+			$totalAccounts = $accounts->count();
+
+			return view('accounts.indexAccounts', [
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+				'totalAccounts' => $totalAccounts,
+			]);
 		}
 	}
 

@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 // ================================ SISTEMA ===================
 Auth::routes();
 
-Route::get('/', 'DashboardController@index')->name('dashboard')->middleware('auth', 'roles');
+Route::get('/', 'DashboardController@index')
+		->name('dashboard')
+		->middleware('roles');
+
 //Route::get('/', 'Users\\UserController@dashboardAdministrator')->name('home.administrator')->middleware('administrator');
 
 // ================================ ADMINISTRATIVO ===================
@@ -31,7 +34,10 @@ Route::get('/funil-vendas', function () {
 });
 
 // ================================ ACCOUNTS ===================
-Route::resource('accounts', 'Accounts\\AccountController')->names('account')->parameters(['empresas' => 'accounts']);
+Route::resource('accounts', 'Accounts\\AccountController')
+		->names('account')
+		->parameters(['empresas' => 'accounts'])
+		->middleware('roles');
 
 // ================================ CONTATOS / CONTACTS ===================
 Route::resource('contacts', 'Contact\\ContactController')->names('contact')->parameters(['contatos' => 'contacts']);
@@ -131,6 +137,8 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')->name('task.index');
 Route::resource('tarefas', 'Tasks\\TaskController')->except(['index'])->names('task')->parameters(['tarefas' => 'task']);
 
-// ============================================== USUÁRIO =================================
-Route::resource('usuarios', 'Users\\UserController')->names('user')->parameters(['usuarios' => 'user']);
-
+// ============================================== USERS =================================
+Route::resource('usuarios', 'Users\\UserController')
+		->names('user')
+		->parameters(['usuarios' => 'user'])
+		->middleware('roles');
