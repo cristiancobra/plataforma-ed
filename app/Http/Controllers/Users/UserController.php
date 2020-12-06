@@ -19,11 +19,11 @@ class UserController extends Controller {
 	 */
 	public function index(Request $request) {
 		$userAuth = Auth::user();
-		
-			$masterAccount = Account::whereHas('users', function($query) use($userAuth) {
+				
+			$accounts = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->first('id');
+					->get();
 		
 			if ($request['role'] === "superAdmin") {
 				$users = User::where('id', '>', 0)
@@ -31,8 +31,8 @@ class UserController extends Controller {
 						->paginate(20);
 			}
 			elseif ($request['role'] === "administrator") {
-				$users = User::whereHas('accounts', function($query) use($masterAccount) {
-							$query->where('accounts.id', $masterAccount->id);
+				$users = User::whereHas('accounts', function($query) use($accounts) {
+							$query->where('accounts.id', $accounts->first()->id);
 						})
 						->paginate(20);
 		} else {
@@ -43,6 +43,7 @@ class UserController extends Controller {
 
 		return view('users.indexUsers', [
 			'users' => $users,
+			'accounts' => $accounts,
 			'userAuth' => $userAuth,
 			'totalUsers' => $totalUsers,
 		]);
@@ -329,5 +330,5 @@ class UserController extends Controller {
 			return redirect('/');
 		}
 	}
-
+//	public function filterUsers(Request $request) {
 }

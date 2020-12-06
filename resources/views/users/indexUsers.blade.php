@@ -1,6 +1,21 @@
 @extends('layouts/master')
 
-@section('title','FUNCIONÁRIOS')
+@section('title')
+<h1 style="text-align: left">
+	FUNCIONÁRIOS
+<form action="{{route('user.index')}}" method="post" style="color: #874983;display: inline-block">
+	@csrf
+	<select class="select"name="account_id">
+		@foreach ($accounts as $account)
+		<option  class="fields" value="{{ $account->id }}">
+			{{ $account->name }}
+		</option>
+		@endforeach
+	</select>
+	<input class="button-secondary" type="submit" value="FILTRAR">
+</form>
+	</h1>
+@endsection
 
 @section('image-top')
 {{ asset('imagens/colaborador.png') }} 
@@ -20,18 +35,6 @@ Total: <span class="labels">{{$totalUsers}} </span>
 @endsection
 
 @section('main')
-	<form action=" {{route('journey.reports')}} " method="post" style="padding: 20px;color: #874983;display: inline-block">
-		@csrf
-		<select class="select"name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
-			</option>
-			@endforeach
-		</select>
-		<input type="hidden" value="mensal">
-		<input class="btn btn-secondary" type="submit" value="MENSAL">
-	</form>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header">
@@ -61,12 +64,12 @@ Total: <span class="labels">{{$totalUsers}} </span>
 			</a>
 			@auth
 			<a  class="white" href=" {{ route('tutorial_plataforma', ['user' => $user]) }}">
-							<button class="button-round" style="background-color: green">
+				<button class="button-round" style="background-color: green">
 					<i class='fa fa-plus'></i>
 				</button>
 			</a>
 			@endauth
-			
+
 			{{ $user->name }}
 		</td>
 
