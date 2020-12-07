@@ -46,35 +46,34 @@ class AccountController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
+	public function create(Request $request) {
 		$userAuth = Auth::user();
 
-		if (Auth::check()) {
-			$account = new Account();
-			if ($userAuth->perfil == "administrador") {
-				$users = User::where('id', '>=', 0)
-						->orderBy('NAME', 'asc')
-						->get();
-			} else {
+		$states = returnStates();
 
-				$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-							$query->where('users.id', $userAuth->id);
-						})
-						->pluck('id');
+		if ($request['role'] === "superAdmin") {
+			$users = User::where('id', '>', 0)
+					->orderBy('NAME', 'asc')
+					->get();
+		} elseif ($request['role'] === "administrator") {
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
 
-				$users = User::whereIn('id', $accountsID)
-						->orderBy('NAME', 'ASC')
-						->get();
-			}
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->where('accounts.id', $accountsID->first());
+					})
+					->get();
+		} else {
+			return redirect('/login');
+		}
 
 			return view('accounts.createAccount', [
 				'userAuth' => $userAuth,
 				'users' => $users,
-				'account' => $account,
+//				'account' => $account,
 			]);
-		} else {
-			return redirect('/');
-		}
 	}
 
 	/**
@@ -118,8 +117,6 @@ class AccountController extends Controller {
 	public function edit(Account $account, Request $request) { {
 			$userAuth = Auth::user();
 
-			if (Auth::check()) {
-
 				$usersChecked = User::whereHas('accounts', function($query) use($account) {
 							$query->where('account_id', $account->id);
 						})
@@ -146,28 +143,11 @@ class AccountController extends Controller {
 					return redirect('/login');
 				}
 
-//				if ($userAuth->perfil == "administrador") {
-//
-//					$users = User::where('id', '>=', 0)
-//							->with('accounts')
-//							->orderBy('NAME', 'asc')
-//							->get();
-//
 				$usersChecked = User::whereHas('accounts', function($query) use($account) {
 							$query->where('account_id', $account->id);
 						})
 						->pluck('id')
 						->toArray();
-//				} else {
-//					$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-//								$query->where('users.id', $userAuth->id);
-//							})
-//							->pluck('id');
-//
-//					$users = User::whereIn('id', $accountsID)
-//							->orderBy('NAME', 'ASC')
-//							->get();
-//				}
 
 				return view('accounts.editAccount', [
 					'userAuth' => $userAuth,
@@ -175,11 +155,7 @@ class AccountController extends Controller {
 					'usersChecked' => $usersChecked,
 					'account' => $account,
 					'states' => $states,
-//					'accountsID' => $accountsID,
 				]);
-			} else {
-				return redirect('/');
-			}
 		}
 	}
 
