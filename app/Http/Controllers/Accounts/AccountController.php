@@ -139,7 +139,7 @@ class AccountController extends Controller {
 							->pluck('id');
 
 					$users = User::whereHas('accounts', function($query) use($accountsID) {
-								$query->where('accounts.id', $accountsID->first()->);
+								$query->where('accounts.id', $accountsID->first());
 							})
 							->get();
 				} else {
