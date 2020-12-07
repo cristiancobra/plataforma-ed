@@ -14,9 +14,6 @@
 <a class="button-secondary"  href="{{route('user.index')}}">
 	VOLTAR
 </a>
-<a class="button-primary"  href="{{route('user.create')}}">
-	CRIAR
-</a>
 @endsection
 
 @section('main')

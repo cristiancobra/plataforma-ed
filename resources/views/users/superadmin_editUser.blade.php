@@ -14,9 +14,6 @@
 <a class="button-secondary"  href="{{route('user.index')}}">
 	VOLTAR
 </a>
-<a class="button-primary"  href="{{route('user.create')}}">
-	CRIAR
-</a>
 @endsection
 
 @section('main')
@@ -49,6 +46,16 @@
 	<br>
 	<label for="">Senha padrão: </label>
 	<input type="text" name="default_password" value="{{ $user->default_password }} ">   
+	<br>
+	<br>
+		<div style="text-align:right;color: #874983;display: inline-block">
+			<a class="button-secondary" href="https://www.4devs.com.br/gerador_de_senha"  target="_blank">
+				<i class='fa fa-edit'>	
+				</i>
+				GERADOR DE SENHA
+			</a>
+		</div>
+	<br>
 	<br>
 	<br>
 	<label for="">Alterar senha: </label>
