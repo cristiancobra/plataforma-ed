@@ -29,6 +29,7 @@ class UserController extends Controller {
 			$users = User::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
 					->paginate(20);
+			
 		} elseif ($request['role'] === "administrator") {
 			$users = User::whereHas('accounts', function($query) use($accounts) {
 						$query->where('accounts.id', $accounts->first()->id);
@@ -141,7 +142,7 @@ class UserController extends Controller {
 	 * @param  \App\User  $user
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(User $user) {
+	public function edit(User $user, Request $request) {
 		$userAuth = Auth::user();
 
 		$accounts = Account::whereHas('users', function($query) use($userAuth) {
