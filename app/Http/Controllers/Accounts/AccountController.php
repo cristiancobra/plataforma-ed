@@ -22,15 +22,14 @@ class AccountController extends Controller {
 				$accounts = Account::where('id', '>', 0)
 						->orderBy('NAME', 'asc')
 						->paginate(20);
-			}
-			elseif ($request['role'] === "administrator") {
+			} elseif ($request['role'] === "administrator") {
 				$accounts = Account::whereHas('users', function($query) use($userAuth) {
 							$query->where('users.id', $userAuth->id);
 						})
 						->paginate(20);
-		} else {
-			return redirect('/painel');
-		}
+			} else {
+				return redirect('/painel');
+			}
 
 			$totalAccounts = $accounts->count();
 
@@ -116,39 +115,61 @@ class AccountController extends Controller {
 	 * @param  \App\Models\Account  $account
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Account $account) { {
+	public function edit(Account $account, Request $request) { {
 			$userAuth = Auth::user();
 
 			if (Auth::check()) {
 
-				if ($userAuth->perfil == "administrador") {
+				$usersChecked = User::whereHas('accounts', function($query) use($account) {
+							$query->where('account_id', $account->id);
+						})
+						->pluck('id')
+						->toArray();
+				
+				$states = returnStates();
 
-					$users = User::where('id', '>=', 0)
-							->with('accounts')
+				if ($request['role'] === "superAdmin") {
+					$users = User::where('id', '>', 0)
 							->orderBy('NAME', 'asc')
-							->get();
-
-					$usersChecked = User::whereHas('accounts', function($query) use($account) {
-								$query->where('account_id', $account->id);
+							->paginate(20);
+				} elseif ($request['role'] === "administrator") {
+					$users = User::whereHas('accounts', function($query) use($accounts) {
+								$query->where('accounts.id', $accounts->first()->id);
 							})
-							->pluck('id')
-							->toArray();
+							->paginate(20);
 				} else {
-					$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-								$query->where('users.id', $userAuth->id);
-							})
-							->pluck('id');
-
-					$users = User::whereIn('id', $accountsID)
-							->orderBy('NAME', 'ASC')
-							->get();
+					return redirect('/login');
 				}
+
+//				if ($userAuth->perfil == "administrador") {
+//
+//					$users = User::where('id', '>=', 0)
+//							->with('accounts')
+//							->orderBy('NAME', 'asc')
+//							->get();
+//
+				$usersChecked = User::whereHas('accounts', function($query) use($account) {
+							$query->where('account_id', $account->id);
+						})
+						->pluck('id')
+						->toArray();
+//				} else {
+//					$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+//								$query->where('users.id', $userAuth->id);
+//							})
+//							->pluck('id');
+//
+//					$users = User::whereIn('id', $accountsID)
+//							->orderBy('NAME', 'ASC')
+//							->get();
+//				}
 
 				return view('accounts.editAccount', [
 					'userAuth' => $userAuth,
 					'users' => $users,
 					'usersChecked' => $usersChecked,
 					'account' => $account,
+					'states' => $states,
 //					'accountsID' => $accountsID,
 				]);
 			} else {

@@ -12,6 +12,8 @@ if (!function_exists('createSelect')) {
 
 	function createSelect(array $list) {
 		foreach ($list as $key => $value) {
+//			$key = print_r($key);
+//			$value = print_r($value);
 			echo "<option value=\"$key\">$value</option><br>";
 		}
 	}
@@ -87,7 +89,7 @@ if (!function_exists('returnMonth')) {
 if (!function_exists('returnStates')) {
 
 	function returnStates() {
-		return $states = array([
+		return $states = array(
 				'AC' => 'Acre',
 				'AL' => 'Alagoas',
 				'AP' => 'Amapá',
@@ -115,7 +117,7 @@ if (!function_exists('returnStates')) {
 				'SP' => 'São Paulo',
 				'SE' => 'Sergipe',
 				'TO' => 'Tocantins',
-		]);
+		);
 	}
 
 }

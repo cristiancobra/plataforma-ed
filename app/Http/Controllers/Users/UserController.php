@@ -19,22 +19,21 @@ class UserController extends Controller {
 	 */
 	public function index(Request $request) {
 		$userAuth = Auth::user();
-				
-			$accounts = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
+
+		$accounts = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->get();
+
+		if ($request['role'] === "superAdmin") {
+			$users = User::where('id', '>', 0)
+					->orderBy('NAME', 'asc')
+					->paginate(20);
+		} elseif ($request['role'] === "administrator") {
+			$users = User::whereHas('accounts', function($query) use($accounts) {
+						$query->where('accounts.id', $accounts->first()->id);
 					})
-					->get();
-		
-			if ($request['role'] === "superAdmin") {
-				$users = User::where('id', '>', 0)
-						->orderBy('NAME', 'asc')
-						->paginate(20);
-			}
-			elseif ($request['role'] === "administrator") {
-				$users = User::whereHas('accounts', function($query) use($accounts) {
-							$query->where('accounts.id', $accounts->first()->id);
-						})
-						->paginate(20);
+					->paginate(20);
 		} else {
 			return redirect('/login');
 		}
@@ -54,11 +53,43 @@ class UserController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
+	public function create(Request $request) {
 		$user = new User();
 		$userAuth = Auth::user();
 
-		return view('users.createUser', [
+		if ($request['role'] === "superAdmin") {
+			$accounts = Account::where('id', '>', 0)
+					->orderBy('NAME', 'asc')
+					->paginate(20);
+
+			return view('users.superAdmin_createUser', [
+				'user' => $user,
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+			]);
+			
+		} elseif ($request['role'] === "administrator") {
+			
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->get('id');
+					
+			$accounts = Account::whereIn('id', $accountsID)
+					->orderBy('ID', 'ASC')
+					->get();
+
+			return view('users.administrator_createUser', [
+				'user' => $user,
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+			]);
+		} else {
+			return redirect('/login');
+		}
+
+
+		return view('users.superAdmin_createUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 		]);
@@ -80,6 +111,8 @@ class UserController extends Controller {
 		$user->default_password = $request->password;
 		$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 		$user->save();
+		
+		$user->accounts()->sync($request->accounts);
 
 		return view('users.showUser', [
 			'user' => $user,
@@ -112,9 +145,9 @@ class UserController extends Controller {
 		$userAuth = Auth::user();
 
 		$accounts = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get();
+					$query->where('users.id', $userAuth->id);
+				})
+				->get();
 
 		return view('users.editUser', [
 			'user' => $user,
@@ -241,6 +274,7 @@ class UserController extends Controller {
 			return redirect('/');
 		}
 	}
+
 	public function dashboardAdministrator() {
 		$userAuth = Auth::user();
 		$today = date('Y-m-d');
@@ -330,5 +364,6 @@ class UserController extends Controller {
 			return redirect('/');
 		}
 	}
+
 //	public function filterUsers(Request $request) {
 }
