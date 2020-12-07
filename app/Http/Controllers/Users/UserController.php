@@ -25,7 +25,7 @@ class UserController extends Controller {
 				})
 				->get();
 
-		if ($request['role'] === "superAdmin") {
+		if ($request['role'] === "superadmin") {
 			$users = User::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
 					->paginate(20);
@@ -57,12 +57,12 @@ class UserController extends Controller {
 		$user = new User();
 		$userAuth = Auth::user();
 
-		if ($request['role'] === "superAdmin") {
+		if ($request['role'] === "superadmin") {
 			$accounts = Account::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
 					->paginate(20);
 
-			return view('users.superAdmin_createUser', [
+			return view('users.superadmin_createUser', [
 				'user' => $user,
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
@@ -89,7 +89,7 @@ class UserController extends Controller {
 		}
 
 
-		return view('users.superAdmin_createUser', [
+		return view('users.superadmin_createUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 		]);

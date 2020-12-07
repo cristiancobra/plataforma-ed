@@ -20,7 +20,7 @@ class Roles
 			return redirect('login');
 		}
 		elseif(Auth::user()->perfil == 'super administrador') {
-			$role = "superAdmin";
+			$role = "superadmin";
 		}
 		elseif(Auth::user()->perfil == 'administrador') {
 			$role = "administrator";

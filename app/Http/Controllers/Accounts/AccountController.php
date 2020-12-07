@@ -18,7 +18,7 @@ class AccountController extends Controller {
 	public function index(Request $request) { {
 			$userAuth = Auth::user();
 
-			if ($request['role'] === "superAdmin") {
+			if ($request['role'] === "superadmin") {
 				$accounts = Account::where('id', '>', 0)
 						->orderBy('NAME', 'asc')
 						->paginate(20);
@@ -51,10 +51,15 @@ class AccountController extends Controller {
 
 		$states = returnStates();
 
-		if ($request['role'] === "superAdmin") {
+		if ($request['role'] === "superadmin") {
 			$users = User::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
 					->get();
+
+			return view('accounts.superadmin_createAccount', [
+				'userAuth' => $userAuth,
+				'users' => $users,
+			]);
 		} elseif ($request['role'] === "administrator") {
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
@@ -65,15 +70,19 @@ class AccountController extends Controller {
 						$query->where('accounts.id', $accountsID->first());
 					})
 					->get();
+
+			return view('accounts.administrator_createAccount', [
+				'userAuth' => $userAuth,
+				'users' => $users,
+			]);
 		} else {
 			return redirect('/login');
 		}
 
-			return view('accounts.createAccount', [
-				'userAuth' => $userAuth,
-				'users' => $users,
-//				'account' => $account,
-			]);
+		return view('accounts.createAccount', [
+			'userAuth' => $userAuth,
+			'users' => $users,
+		]);
 	}
 
 	/**
@@ -117,45 +126,53 @@ class AccountController extends Controller {
 	public function edit(Account $account, Request $request) { {
 			$userAuth = Auth::user();
 
-				$usersChecked = User::whereHas('accounts', function($query) use($account) {
-							$query->where('account_id', $account->id);
-						})
-						->pluck('id')
-						->toArray();
+			$usersChecked = User::whereHas('accounts', function($query) use($account) {
+						$query->where('account_id', $account->id);
+					})
+					->pluck('id')
+					->toArray();
 
-				$states = returnStates();
+			$states = returnStates();
 
-				if ($request['role'] === "superAdmin") {
-					$users = User::where('id', '>', 0)
-							->orderBy('NAME', 'asc')
-							->get();
-				} elseif ($request['role'] === "administrator") {
-					$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-								$query->where('users.id', $userAuth->id);
-							})
-							->pluck('id');
+			if ($request['role'] === "superadmin") {
+				$users = User::where('id', '>', 0)
+						->orderBy('NAME', 'asc')
+						->get();
 
-					$users = User::whereHas('accounts', function($query) use($accountsID) {
-								$query->where('accounts.id', $accountsID->first());
-							})
-							->get();
-				} else {
-					return redirect('/login');
-				}
-
-				$usersChecked = User::whereHas('accounts', function($query) use($account) {
-							$query->where('account_id', $account->id);
-						})
-						->pluck('id')
-						->toArray();
-
-				return view('accounts.editAccount', [
+				return view('accounts.superadmin_editAccount', [
 					'userAuth' => $userAuth,
 					'users' => $users,
 					'usersChecked' => $usersChecked,
 					'account' => $account,
 					'states' => $states,
 				]);
+			} elseif ($request['role'] === "administrator") {
+				$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+							$query->where('users.id', $userAuth->id);
+						})
+						->pluck('id');
+
+				$users = User::whereHas('accounts', function($query) use($accountsID) {
+							$query->where('accounts.id', $accountsID->first());
+						})
+						->get();
+			} else {
+				return redirect('/login');
+			}
+
+			$usersChecked = User::whereHas('accounts', function($query) use($account) {
+						$query->where('account_id', $account->id);
+					})
+					->pluck('id')
+					->toArray();
+
+			return view('accounts.administrator_editAccount', [
+				'userAuth' => $userAuth,
+				'users' => $users,
+				'usersChecked' => $usersChecked,
+				'account' => $account,
+				'states' => $states,
+			]);
 		}
 	}
 
