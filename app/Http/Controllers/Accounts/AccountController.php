@@ -131,7 +131,7 @@ class AccountController extends Controller {
 				if ($request['role'] === "superAdmin") {
 					$users = User::where('id', '>', 0)
 							->orderBy('NAME', 'asc')
-							->paginate(20);
+							->get();
 				} elseif ($request['role'] === "administrator") {
 					$users = User::whereHas('accounts', function($query) use($accounts) {
 								$query->where('accounts.id', $accounts->first()->id);
