@@ -125,7 +125,7 @@ class AccountController extends Controller {
 						})
 						->pluck('id')
 						->toArray();
-				
+
 				$states = returnStates();
 
 				if ($request['role'] === "superAdmin") {
@@ -133,10 +133,15 @@ class AccountController extends Controller {
 							->orderBy('NAME', 'asc')
 							->get();
 				} elseif ($request['role'] === "administrator") {
-					$users = User::whereHas('accounts', function($query) use($accounts) {
-								$query->where('accounts.id', $accounts->first()->id);
+					$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+								$query->where('users.id', $userAuth->id);
 							})
-							->paginate(20);
+							->pluck('id');
+
+					$users = User::whereHas('accounts', function($query) use($accountsID) {
+								$query->where('accounts.id', $accountsID->first()->id);
+							})
+							->get();
 				} else {
 					return redirect('/login');
 				}
