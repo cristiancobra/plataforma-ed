@@ -25,9 +25,13 @@
 	<br>
 	<br>
 	<label for="" >Empresas: </label>
-	@foreach ($accounts as $account)
+		@foreach ($accounts as $account)
 	<p class="fields">
-		<input type="checkbox" name="accounts[]" value="{{ $account->id }}">
+		<input type="checkbox" name="accounts[]" value="{{ $account->id}}"
+			   @if (in_array($account->id, $accountsChecked))
+			checked
+			@endif
+			>
 		{{ $account->name }}
 	</p>
 	@endforeach

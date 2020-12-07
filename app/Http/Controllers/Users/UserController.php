@@ -29,7 +29,6 @@ class UserController extends Controller {
 			$users = User::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
 					->paginate(20);
-			
 		} elseif ($request['role'] === "administrator") {
 			$users = User::whereHas('accounts', function($query) use($accounts) {
 						$query->where('accounts.id', $accounts->first()->id);
@@ -68,14 +67,13 @@ class UserController extends Controller {
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
 			]);
-			
 		} elseif ($request['role'] === "administrator") {
-			
+
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
 					->get('id');
-					
+
 			$accounts = Account::whereIn('id', $accountsID)
 					->orderBy('ID', 'ASC')
 					->get();
@@ -112,7 +110,7 @@ class UserController extends Controller {
 		$user->default_password = $request->password;
 		$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 		$user->save();
-		
+
 		$user->accounts()->sync($request->accounts);
 
 		return view('users.showUser', [
@@ -145,11 +143,17 @@ class UserController extends Controller {
 	public function edit(User $user, Request $request) {
 		$userAuth = Auth::user();
 
+		$accountsChecked = Account::whereHas('users', function($query) use($user) {
+					$query->where('users.id', $user->id);
+				})
+				->pluck('id')
+				->toArray();
+
 		$accounts = Account::whereHas('users', function($query) use($userAuth) {
 					$query->where('users.id', $userAuth->id);
 				})
 				->get();
-				
+
 		if ($request['role'] === "superadmin") {
 			$accounts = Account::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
@@ -159,27 +163,29 @@ class UserController extends Controller {
 				'user' => $user,
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
+				'accountsChecked' => $accountsChecked,
 			]);
-			
 		} elseif ($request['role'] === "administrator") {
-			
+
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
 					->get('id');
-					
+
 			$accounts = Account::whereIn('id', $accountsID)
 					->orderBy('ID', 'ASC')
 					->get();
 
 
 			return view('users.administrator_editUser', [
-			'user' => $user,
-			'userAuth' => $userAuth,
-			'accounts' => $accounts,
-		]);
+				'user' => $user,
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+				'accountsChecked' => $accountsChecked,
+			]);
+		}
 	}
-}
+
 	/**
 	 * Update the specified resource in storage.
 	 *

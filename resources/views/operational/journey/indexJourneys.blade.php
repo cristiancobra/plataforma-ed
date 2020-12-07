@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('journey.create')}}">NOVA JORNADA</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('journey.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
