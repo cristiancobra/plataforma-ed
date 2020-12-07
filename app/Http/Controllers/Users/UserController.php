@@ -199,6 +199,7 @@ class UserController extends Controller {
 
 		if (!empty($request->password)) {
 			$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+			$user->save();
 		}
 
 		return redirect()->route('user.index');
