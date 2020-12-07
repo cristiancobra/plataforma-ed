@@ -148,14 +148,37 @@ class UserController extends Controller {
 					$query->where('users.id', $userAuth->id);
 				})
 				->get();
+				
+		if ($request['role'] === "superadmin") {
+			$accounts = Account::where('id', '>', 0)
+					->orderBy('NAME', 'asc')
+					->paginate(20);
 
-		return view('users.editUser', [
+			return view('users.superadmin_editUser', [
+				'user' => $user,
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+			]);
+			
+		} elseif ($request['role'] === "administrator") {
+			
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->get('id');
+					
+			$accounts = Account::whereIn('id', $accountsID)
+					->orderBy('ID', 'ASC')
+					->get();
+
+
+			return view('users.administrator_editUser', [
 			'user' => $user,
 			'userAuth' => $userAuth,
 			'accounts' => $accounts,
 		]);
 	}
-
+}
 	/**
 	 * Update the specified resource in storage.
 	 *

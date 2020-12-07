@@ -30,7 +30,8 @@
 	<label for="" >Empresas: </label>
 	@foreach ($accounts as $account)
 	<p class="fields">
-		<input type="checkbox" name="accounts[]" value="{{ $account->id }}">	{{ $account->name }}
+		<input type="checkbox" name="accounts[]" value="{{ $account->id }}">
+		{{ $account->name }}
 	</p>
 	@endforeach
 	<br>

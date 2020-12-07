@@ -12,9 +12,7 @@
 @endsection
 
 @section('main')
-<br>
-<br>
-<div style="padding-left: 6%">
+<div>
 	<h1 class="name">{{ $user->name }} </h1>
 	<br>
 	<p class="labels">EMPRESAS: </p>
@@ -31,7 +29,6 @@
 	<br>
 	<br>
 	<p class="labels"> EMAIL:<span class="fields"> {{ $user->email }} </span></p>
-	<p class="labels"> DOMÍNIO:<span class="fields">  {{ $user->dominio }} </span></p>
 	<p class="labels"> ID PLATAFORMA:<span class="fields"> {{ $user->id }} </span></p>
 	<p class="labels"> SENHA: <span class="fields"> {{ $user->default_password }} </span></p>
 	<p class="labels"> PERFIL: <span class="fields">  {{ $user->perfil }} </span></p>
