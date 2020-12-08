@@ -183,6 +183,13 @@ class UserController extends Controller {
 				'accounts' => $accounts,
 				'accountsChecked' => $accountsChecked,
 			]);
+		}elseif ($request['role'] === "employee") {
+
+			return view('users.employee_editUser', [
+				'user' => $user,
+				'userAuth' => $userAuth,
+				'accounts' => $accounts,
+			]);
 		}
 	}
 

@@ -7,11 +7,10 @@
 @endsection
 
 @section('description')
-
 @endsection
 
 @section('buttons')
-<a class="button-secondary"  href="{{route('user.index')}}">
+<a class="button-primary"  href="{{route('user.index')}}">
 	VOLTAR
 </a>
 @endsection
@@ -43,8 +42,9 @@
 	<label class="labels" for="" >Perfil:</label>
 	<select class="fields" name="perfil">
 		<option value="{{ $user->perfil }}">{{ $user->perfil }}</option>
-		<option value="cliente">cliente</option>
-		<option value="administrador">administrador</option>
+		<option value="employee">funcionário</option>
+		<option value="administrator">administrador</option>
+		<option value="superadmin">super administrador</option>
 	</select>
 	<br>
 	<br>
