@@ -42,8 +42,8 @@
 	<label class="labels" for="" >Perfil:</label>
 	<select class="fields" name="perfil">
 		<option value="{{ $user->perfil }}">{{ $user->perfil }}</option>
-		<option value="employee">funcionário</option>
-		<option value="administrator">administrador</option>
+		<option value="funcionario">funcionário</option>
+		<option value="administrador">administrador</option>
 	</select>
 	<br>
 	<br>

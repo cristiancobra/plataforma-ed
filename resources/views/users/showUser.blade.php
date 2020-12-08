@@ -32,12 +32,21 @@
 	@endforeach
 	<br>
 	<br>
-	<p class="labels"> EMAIL:<span class="fields"> {{ $user->email }} </span></p>
-	<p class="labels"> ID PLATAFORMA:<span class="fields"> {{ $user->id }} </span></p>
-	<p class="labels"> SENHA: <span class="fields"> {{ $user->default_password }} </span></p>
-	<p class="labels"> PERFIL: <span class="fields">  {{ $user->perfil }} </span></p>
+	<p class="labels">
+		EMAIL:<span class="fields"> {{$user->email}} </span>
+	</p>
+	<p class="labels">
+		ID PLATAFORMA:<span class="fields"> {{$user->id}} </span>
+	</p>
+	<p class="labels">
+		SENHA: <span class="fields"> {{$user->default_password}} </span>
+	</p>
+	<p class="labels">
+		PERFIL: <span class="fields">  {{$user->perfil}} </span>
+	</p>
 	<br>
-	<p class="fields">Criado em  {{ date('d/m/Y H:i', strtotime($user->created_at)) }} </p>
+	<p class="fields">Criado em  {{date('d/m/Y H:i', strtotime($user->created_at))}}
+	</p>
 
 	<div style="text-align: right">
 		<div style="text-align:right;color: #874983; display: inline-block">

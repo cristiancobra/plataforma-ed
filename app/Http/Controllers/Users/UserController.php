@@ -183,7 +183,7 @@ class UserController extends Controller {
 				'accounts' => $accounts,
 				'accountsChecked' => $accountsChecked,
 			]);
-		}elseif ($request['role'] === "employee") {
+		} elseif ($request['role'] === "employee") {
 
 			return view('users.employee_editUser', [
 				'user' => $user,
@@ -201,12 +201,20 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, User $user) {
-		$user->fill($request->all());
-		$user->accounts()->sync($request->accounts);
-
+		$user->name = $request->name;
+		
+		if (!empty($request->perfil)) {
+			$user->perfil = $request->perfil;
+		}
+		$user->email = $request->email;
+		$user->default_password = $request->default_password;
 		if (!empty($request->password)) {
 			$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-			$user->save();
+		}
+		$user->update();
+
+		if (!empty($request->accounts)) {
+			$user->accounts()->sync($request->accounts);
 		}
 
 		return redirect()->route('user.index');
