@@ -87,7 +87,10 @@
 				<a href=" {{ route('task.show', ['task' => $journey->task_id]) }}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
+			@isset($journey->task)
 			{{$journey->task->name}}
+			@endisset
+
 		</td>
 		<td class="table-list-center">
 			{{$journey->user->name}}
