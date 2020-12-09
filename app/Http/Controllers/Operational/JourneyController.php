@@ -41,10 +41,10 @@ class JourneyController extends Controller {
 					])
 					->orderBy('DATE', 'DESC')
 					->paginate(20);
-dd($journeys);
-//			$journeys->appends([
-//				'user_id' => $request->user_id,
-//			]);
+					
+			$journeys->appends([
+				'user_id' => $request->user_id,
+			]);
 
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);

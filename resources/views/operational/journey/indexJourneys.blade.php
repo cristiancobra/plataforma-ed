@@ -113,7 +113,7 @@
 </table>
 <p style="text-align: right">
 	<br>
-
+	{{ $journeys->links() }}
 </p>
 <br>
 @endsection
