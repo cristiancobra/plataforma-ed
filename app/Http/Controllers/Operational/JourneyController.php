@@ -41,7 +41,7 @@ class JourneyController extends Controller {
 					])
 					->orderBy('DATE', 'DESC')
 					->paginate(20);
-
+dd($journeys);
 //			$journeys->appends([
 //				'user_id' => $request->user_id,
 //			]);
