@@ -23,11 +23,10 @@ class JourneyController extends Controller {
 	public function index(Request $request) {
 		$userAuth = Auth::user();
 
-		if (Auth::check()) {
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->get('id');
+					->pluck('id');
 
 			$journeys = Journey::where(function ($query) use ($accountsID, $request) {
 						$query->whereIn('account_id', $accountsID);
@@ -64,9 +63,6 @@ class JourneyController extends Controller {
 				'accounts' => $accounts,
 				'userAuth' => $userAuth,
 			]);
-		} else {
-			return redirect('/');
-		}
 	}
 
 	/**
