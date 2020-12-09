@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('invoice.create')}}">NOVA FATURA</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('invoice.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
@@ -22,10 +27,10 @@
 				<b>ID</b>
 			</td>
 			<td   class="table-list-header">
-				<b>CONTRATANTE </b>
+				<b>OPORTUNIDADE</b>
 			</td>
 			<td   class="table-list-header">
-				<b>OPORTUNIDADE</b>
+				<b>CONTRATANTE </b>
 			</td>
 			<td   class="table-list-header">
 				<b>EMPRESA</b>
@@ -56,47 +61,40 @@
 				</button>
 				{{ $invoice->id }}
 			</td>
-
 			<td class="table-list-center">
 				{{ $invoice->opportunitie->name}}
 			</td>
-			
 			<td class="table-list-center">
 				{{ $invoice->opportunitie->contact->name}}
 			</td>
-
 			<td class="table-list-center">
 				{{ $invoice->account->name}}
 			</td>
-
 			<td class="table-list-center">
 				{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
 			</td>
-
 			<td class="table-list-center">
 				R$ {{number_format($invoice->totalPrice, 2,",",".") }}
 			</td>
-
-		<td class="table-list-center">
-			@if ($invoice->status == "cancelada")
-			<button class="btn btn-dark">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "pendente")
-			<button class="btn btn-warning">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "fazendo agora")
-			<button class="btn btn-info">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "concluida")
-			<button class="btn btn-success">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@endif
-		</td>
-
+			<td class="table-list-center">
+				@if ($invoice->status == "cancelada")
+				<button class="btn btn-dark">
+					<b>{{ $invoice->status  }}</b>
+				</button>
+				@elseif ($invoice->status == "pendente")
+				<button class="btn btn-warning">
+					<b>{{ $invoice->status  }}</b>
+				</button>
+				@elseif ($invoice->status == "fazendo agora")
+				<button class="btn btn-info">
+					<b>{{ $invoice->status  }}</b>
+				</button>
+				@elseif ($invoice->status == "concluida")
+				<button class="btn btn-success">
+					<b>{{ $invoice->status  }}</b>
+				</button>
+				@endif
+			</td>
 		</tr>
 		@endforeach
 	</table>

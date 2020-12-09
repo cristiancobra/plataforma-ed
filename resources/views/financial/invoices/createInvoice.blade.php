@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('invoice.index') }}">VER FATURAS</a>
+<a class="btn btn-primary" href="{{route('invoice.index')}}">VER FATURAS</a>
 @endsection
 
 @section('main')
@@ -21,13 +21,13 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('invoice.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{route('invoice.store')}} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels" for="" >OPORTUNIDADE: </label>
 		<select name="opportunitie_id">
 			@foreach ($opportunities as $opportunitie)
-			<option  class="fields" value="{{ $opportunitie->id }}">
-				{{ $opportunitie->name }}
+			<option  class="fields" value="{{$opportunitie->id}}">
+				{{$opportunitie->name}}
 			</option>
 			@endforeach
 		</select>

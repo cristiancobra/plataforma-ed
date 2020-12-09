@@ -7,8 +7,15 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('invoice.pdf', ['invoice' => $invoice]) }}">PDF</a>
-<a class="btn btn-primary" href="{{route('invoice.index')}}">VER FATURAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-secondary"  href="{{route('invoice.index')}}">
+	VOLTAR
+</a>
+<a class="button-secondary" href="{{ route('invoice.pdf', ['invoice' => $invoice]) }}">
+	PDF
+</a>
 @endsection
 
 @section('main')
@@ -18,17 +25,19 @@
 <br>
 <label class="labels" for="" >OPORTUNIDADE:</label>
 <span class="fields">{{$invoice->opportunitie->name}}</span>
-			<button class="button">
-				<a href=" {{ route('opportunitie.show', ['opportunitie' => $invoice->opportunitie->id]) }}">
-					<i class='fa fa-eye' style="color:white"></i></a>
-			</button>
-			<button class="button">
-				<a href=" {{ route('opportunitie.edit', ['opportunitie' => $invoice->opportunitie->id]) }}">
-					<i class='fa fa-edit' style="color:white"></i></a>
-			</button>
+<button class="button">
+	<a href=" {{ route('opportunitie.show', ['opportunitie' => $invoice->opportunitie->id]) }}">
+		<i class='fa fa-eye' style="color:white"></i>
+	</a>
+</button>
+<button class="button">
+	<a href=" {{ route('opportunitie.edit', ['opportunitie' => $invoice->opportunitie->id]) }}">
+		<i class='fa fa-edit' style="color:white"></i>
+	</a>
+</button>
 <br>
 <label class="labels" for="" >VENDEDOR:</label>
-<span class="fields">{{$invoice->user->name}}</span>
+<span class="fields">{{$invoice->opportunitie->name}}</span>
 <br>
 <br>
 <label class="labels" for="" >CONTRATANTE:</label>
@@ -103,7 +112,7 @@
 	</tr>
 	<tr>
 		<td   class="table-list-header-right" colspan="3">
-					<td   class="table-list-header-right">
+		<td   class="table-list-header-right">
 			TOTAL: 
 		</td>
 		</td>

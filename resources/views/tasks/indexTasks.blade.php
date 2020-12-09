@@ -11,9 +11,6 @@ Total: <span class="labels">{{$totalTasks}} </span>
 @endsection
 
 @section('buttons')
-<a class="button-secondary"  href="{{route('task.index')}}">
-	VOLTAR
-</a>
 <a class="button-primary"  href="{{route('task.create')}}">
 	CRIAR
 </a>
