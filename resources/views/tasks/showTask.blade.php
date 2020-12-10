@@ -7,12 +7,17 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('task.index')}}">VER TAREFAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('task.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
 <br>
-<div style="padding-left: 2%">
+<div>
 	<h1 class="name">
 		{{ $task->name }}
 	</h1>
@@ -78,11 +83,11 @@
 		@foreach ($journeys as $journey)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('journey.show', ['journey' => $journey]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('journey.edit', ['journey' => $journey]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>

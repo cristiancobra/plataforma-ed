@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('opportunitie.index')}}">VER OPORTUNIDADES</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('opportunitie.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -42,9 +47,9 @@ indefinida
 	<span class="fields">{{$opportunitie->stage }}</span>
 	<br>
 	<label class="labels" for="" >PRÓXIMO CONTATO:</label>
-@if($opportunitie->date_conclusion == null)
-indefinido
-@else
+	@if($opportunitie->date_conclusion == null)
+	indefinido
+	@else
 	<span class="fields">{{ date('d/m/Y', strtotime($opportunitie->date_conclusion)) }}</span>
 	@endif
 </div>
@@ -79,11 +84,11 @@ indefinido
 	@foreach ($invoices as $invoice)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
-			<button class="button">
+			<button class="button-round">
 				<a href=" {{ route('invoice.show', ['invoice' => $invoice->id]) }}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
-			<button class="button">
+			<button class="button-round">
 				<a href=" {{ route('invoice.edit', ['invoice' => $invoice->id]) }}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
@@ -125,7 +130,15 @@ indefinido
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{ route('invoice.create') }}">
+<a class="btn btn-secondary" href="{{ route('invoice.create', [
+				'opportunitieName' => $opportunitie->name,
+				'opportunitieId' => $opportunitie->id,
+				'opportunitieDescription' => $opportunitie->description,
+//				'opportunitieUserName' => $opportunitie->user->name,
+//				'opportunitieUserId' => $opportunitie->user->id,
+//				'opportunitieAccountName' => $opportunitie->account->name,
+//				'opportunitieAccountId' => $opportunitie->account->id,
+				])}}">
 	NOVA FATURA
 </a>
 <br>

@@ -25,19 +25,19 @@
 <br>
 <label class="labels" for="" >OPORTUNIDADE:</label>
 <span class="fields">{{$invoice->opportunitie->name}}</span>
-<button class="button">
+<button class="button-round">
 	<a href=" {{ route('opportunitie.show', ['opportunitie' => $invoice->opportunitie->id]) }}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
-<button class="button">
+<button class="button-round">
 	<a href=" {{ route('opportunitie.edit', ['opportunitie' => $invoice->opportunitie->id]) }}">
 		<i class='fa fa-edit' style="color:white"></i>
 	</a>
 </button>
 <br>
 <label class="labels" for="" >VENDEDOR:</label>
-<span class="fields">{{$invoice->opportunitie->name}}</span>
+<span class="fields">{{$invoice->user->name}}</span>
 <br>
 <br>
 <label class="labels" for="" >CONTRATANTE:</label>

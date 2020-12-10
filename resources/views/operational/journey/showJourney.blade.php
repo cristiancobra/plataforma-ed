@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('journey.index')}}">VER JORNADAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('journey.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -21,12 +26,12 @@
 	</p>
 	<p class="labels">
 		TAREFA:
-		<span class="fields">{{ $journey->task->name }} </span>
-			<button class="button">
+		<span class="fields">{{$journey->task->name}} </span>
+			<button class="button-round">
 				<a href=" {{ route('task.show', ['task' => $journey->task]) }}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
-			<button class="button">
+			<button class="button-round">
 				<a href=" {{ route('task.edit', ['task' => $journey->task]) }}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>

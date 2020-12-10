@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('opportunitie.index')}}">VER TODOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('opportunitie.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -19,7 +24,7 @@
 	@endphp
 </div>
 @endif
-<div style="padding-left: 6%">
+<div>
 	<form action=" {{ route('opportunitie.update', ['opportunitie' =>$opportunitie->id]) }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		@method('put')
@@ -28,7 +33,6 @@
 		@if ($errors->has('name'))
 		<span class="text-danger">{{ $errors->first('name') }}</span>
 		@endif
-		<br>
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">

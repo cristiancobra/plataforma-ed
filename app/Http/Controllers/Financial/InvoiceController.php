@@ -36,6 +36,7 @@ class InvoiceController extends Controller {
 						'opportunitie',
 						'invoiceLines',
 						'account',
+						'user',
 					])
 					->orderBy('pay_day', 'DESC')
 					->paginate(20);
@@ -188,7 +189,7 @@ class InvoiceController extends Controller {
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 				->with('product', 'opportunitie')
 				->get();
-
+//dd($invoice->user);
 		return view('financial.invoices.showInvoice', [
 			'userAuth' => $userAuth,
 			'invoice' => $invoice,
@@ -212,6 +213,11 @@ class InvoiceController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->get();
+
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->get();
@@ -244,6 +250,7 @@ class InvoiceController extends Controller {
 				'invoice' => $invoice,
 				'invoiceLines' => $invoiceLines,
 				'accounts' => $accounts,
+				'users' => $users,
 				'opportunities' => $opportunities,
 				'products' => $products,
 				'productsChecked' => $productsChecked,
@@ -300,65 +307,66 @@ class InvoiceController extends Controller {
 		} else {
 			$invoice->save();
 		}
-			
-			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-					->with('product', 'opportunitie')
-					->get();
-					
-			$totalPrice = 0;
-			$totalTaxrate = 0;
 
-			$id = 'id001';
-			$productId = 'productId001';
-			$name = 'name001';
-			$amount = 'amount001';
-			$hours = 'hours001';
-			$cost = 'cost001';
-			$taxRate = 'taxRate001';
-			$margin = 'margin001';
-			$price = 'price001';
+		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+				->with('product', 'opportunitie')
+				->get();
 
-			while ($request->$name != null) {
+		$totalPrice = 0;
+		$totalTaxrate = 0;
+
+		$id = 'id001';
+		$productId = 'productId001';
+		$name = 'name001';
+		$amount = 'amount001';
+		$hours = 'hours001';
+		$cost = 'cost001';
+		$taxRate = 'taxRate001';
+		$margin = 'margin001';
+		$price = 'price001';
+
+		while ($request->$name != null) {
 //			foreach ($request->product_id as $key => $product_id) {
-				$data = array(
-					'id' => $request->$id,
-					'invoice_id' => $invoice->id,
-					'product_id' => $request->$productId,
-					'amount' => $request->$amount,
-					'subtotalHours' => $request->$amount * $request->$hours,
-					'subtotalCost' => $request->$amount * $request->$cost,
-					'subtotalTax_rate' => $request->$amount * $request->$taxRate,
-					'subtotalMargin' => $request->$amount * $request->$margin,
-					'subtotalPrice' => $request->$amount * $request->$price,
-				);
-				$totalPrice = $totalPrice + $data['subtotalPrice'];
-				$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-				
-				if($request->$amount <= 0){
-				invoiceLine::where('id', $request->$id)->delete();
-				}else{
-				invoiceLine::where('id', $request->$id)->update($data);
-				}
-				
-				$id++;
-				$productId++;
-				$name++;
-				$amount++;
-				$hours++;
-				$cost++;
-				$taxRate++;
-				$margin++;
-				$price++;
-			}
-			$invoice->totalPrice = $totalPrice - $request->discount;
-			$invoice->update();
+			$data = array(
+				'id' => $request->$id,
+				'invoice_id' => $invoice->id,
+				'product_id' => $request->$productId,
+				'amount' => $request->$amount,
+				'subtotalHours' => $request->$amount * $request->$hours,
+				'subtotalCost' => $request->$amount * $request->$cost,
+				'subtotalTax_rate' => $request->$amount * $request->$taxRate,
+				'subtotalMargin' => $request->$amount * $request->$margin,
+				'subtotalPrice' => $request->$amount * $request->$price,
+			);
+			$totalPrice = $totalPrice + $data['subtotalPrice'];
+			$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
 
-			return view('financial.invoices.showInvoice', [
-				'invoice' => $invoice,
-				'invoiceLines' => $invoiceLines,
-				'userAuth' => $userAuth,
-			]);
+			if ($request->$amount <= 0) {
+				invoiceLine::where('id', $request->$id)->delete();
+			} else {
+				invoiceLine::where('id', $request->$id)->update($data);
+			}
+
+			$id++;
+			$productId++;
+			$name++;
+			$amount++;
+			$hours++;
+			$cost++;
+			$taxRate++;
+			$margin++;
+			$price++;
 		}
+		$invoice->totalPrice = $totalPrice - $request->discount;
+		$invoice->update();
+
+		return view('financial.invoices.showInvoice', [
+			'invoice' => $invoice,
+			'invoiceLines' => $invoiceLines,
+			'userAuth' => $userAuth,
+		]);
+	}
+
 	/**
 	 * Remove the specified resource from storage.
 	 *

@@ -7,19 +7,31 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('invoice.index')}}">VER FATURAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('invoice.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<div style="padding-left: 6%">
-	<form action=" {{ route('invoice.update', ['invoice' =>$invoice->id]) }} " method="post" style="padding: 40px;color: #874983">
+<div>
+	<form action=" {{ route('invoice.update', ['invoice' =>$invoice]) }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >OPORTUNIDADE: </label>
-		<select name="opportunitie_id">
-			@foreach ($opportunities as $opportunitie)
-			<option  class="fields" value="{{ $opportunitie->id }}">
-				{{ $opportunitie->name }}
+		<input type="hidden" name="opportunitie_id" value="{{$invoice->opportunitie_id}}">
+		<span class="fields">{{$invoice->opportunitie->name}}</span>
+		<br>
+		<label class="labels" for="" >VENDEDOR: </label>
+		<select name="user_id">
+			<option  class="fields" value="{{$invoice->user->id}}">
+				{{$invoice->user->name}}
+			</option>
+			@foreach ($users as $user)
+			<option  class="fields" value="{{ $user->id }}">
+				{{ $user->name }}
 			</option>
 			@endforeach
 		</select>

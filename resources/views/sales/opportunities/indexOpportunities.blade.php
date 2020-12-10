@@ -7,12 +7,18 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('opportunitie.create')}}">NOVA OPORTUNIDADE</a>
+Total: <span class="labels">{{$totalOpportunities}} </span>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('opportunitie.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
 <div>
-	<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
+	<p class="subtitulo-roxo" style="text-align: right;padding-right: 6%">
 		Você possui <span class="labels">{{$totalOpportunities }} oportunidades </span>
 	</p>
 	<br>
@@ -35,11 +41,11 @@
 		@foreach ($opportunities as $opportunitie)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('opportunitie.show', ['opportunitie' => $opportunitie->id]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('opportunitie.edit', ['opportunitie' => $opportunitie->id]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>

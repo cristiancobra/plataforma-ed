@@ -1,5 +1,10 @@
----
-applications:
+ applications:
  - name: PlataformaED
-   random-route: true
    memory: 256M
+   buildpack: https://github.com/cristiancobra/plataforma-ed.git
+#   buildpack: Specify the dedicated buildback.[ https://github.com/cloudfoundry/php-buildpack ]
+   random-route: true  #For testing purposes a newly generated URL will be used instead of specifying a dedicated one.
+   env:
+     APP_DEBUG: true
+     CF_STAGING_TIMEOUT: 15
+     CF_STARTUP_TIMEOUT: 15

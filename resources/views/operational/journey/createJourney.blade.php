@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('journey.index') }}">VER JORNADAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('journey.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')

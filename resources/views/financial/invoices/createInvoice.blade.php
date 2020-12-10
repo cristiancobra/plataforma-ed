@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('invoice.index')}}">VER FATURAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('invoice.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -23,15 +28,23 @@
 <div>
 	<form action=" {{route('invoice.store')}} " method="post" style="padding: 40px;color: #874983">
 		@csrf
-		<label class="labels" for="" >OPORTUNIDADE: </label>
+		<label class="labels" for="" >OPORTUNIDADE:</label>
+		@if(!empty(app('request')->input('opportunitieName')))
+		{{app('request')->input('opportunitieName')}}
+		<input type="hidden" name="opportunitie_id" value="{{app('request')->input('opportunitieId')}}">
+		@else
 		<select name="opportunitie_id">
+			<option  class="fields" value="selecione">
+				selecione
+			</option>
 			@foreach ($opportunities as $opportunitie)
 			<option  class="fields" value="{{$opportunitie->id}}">
 				{{$opportunitie->name}}
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{ route('opportunitie.create') }}">CRIAR</a>
+		<a class="btn btn-secondary" href="{{route('opportunitie.create')}}">CRIAR</a>
+		@endif
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
@@ -58,6 +71,11 @@
 		<span class="text-danger">{{ $errors->first('pay_day') }}</span>
 		@endif
 		<br>
+		<br>
+		<label class="labels" for="">BRIFIENG:</label>
+		@if(!empty(app('request')->input('opportunitieDescription')))
+		<span class="fields">{!!html_entity_decode(app('request')->input('opportunitieDescription'))!!}</span>
+		@endif
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
