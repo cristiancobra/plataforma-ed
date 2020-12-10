@@ -105,6 +105,9 @@ CKEDITOR.replace('description');
 					<b>HORAS</b>
 				</td>
 				<td   class="table-list-header">
+					<b>ENTREGA</b>
+				</td>
+				<td   class="table-list-header">
 					<b>CUSTOS</b>
 				</td>
 				<td   class="table-list-header">
@@ -131,21 +134,27 @@ CKEDITOR.replace('description');
 			</td>
 
 			<td class="table-list-left">
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('product.show', ['product' => $product->id]) }}">
-						<i class='fa fa-eye' style="color:white"></i></a>
+						<i class='fa fa-eye' style="color:white"></i>
+					</a>
 				</button>
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('product.edit', ['product' => $product->id]) }}">
-						<i class='fa fa-edit' style="color:white"></i></a>
+						<i class='fa fa-edit' style="color:white"></i>
+					</a>
 				</button>
 				<input type="hidden" name="product_name[]" size="16" value="{{ $product->name }}"><span class="fields"></span>
-				{{ $product->name }}
+				{{$product->name}}
 			</td>
 
 			<td class="table-list-center">
+				<input type="hidden" name="product_due_date[]" size="4" value="{{$product->due_date}}">
+				{{number_format($product->due_date)}}
+			</td>
+			<td class="table-list-center">
 				<input type="hidden" name="product_work_hours[]" size="4" value="{{$product->work_hours}}">
-				{{ number_format($product->work_hours)}}
+				{{number_format($product->work_hours)}} dia(s)
 			</td>
 
 			<td class="table-list-right">

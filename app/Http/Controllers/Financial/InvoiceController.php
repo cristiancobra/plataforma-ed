@@ -152,6 +152,7 @@ class InvoiceController extends Controller {
 						'product_id' => $request->product_id [$key],
 						'amount' => $request->product_amount [$key],
 						'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+						'subtotalDeadline' => $request->product_amount [$key] * $request->product_due_date [$key],
 						'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
 						'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
 						'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
@@ -384,7 +385,19 @@ class InvoiceController extends Controller {
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 				->with('product', 'opportunitie')
 				->get();
-//		dd($invoiceLines);
+		
+//		$deadline = Product::where('invoice_id', $invoice->id)
+////				->with('product', 'opportunitie')
+//				->sum('due_date');
+//		
+//		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+//						$query->where('users.id', $userAuth->id);
+//					})
+//					->pluck('id');
+					
+					
+//dd($invoiceLines);
+//		$deadline = $invoiceLines->product->sum('due_date');
 
 		$data = [
 			'accountLogo' => $invoice->account->logo,
@@ -409,6 +422,7 @@ class InvoiceController extends Controller {
 			'customerState' => $invoice->opportunitie->contact->state,
 			'customerCountry' => $invoice->opportunitie->contact->country,
 			'invoiceLines' => $invoiceLines,
+//			'deadline' => $deadline,
 		];
 
 		$pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));

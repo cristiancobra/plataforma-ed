@@ -60,8 +60,11 @@
 		<td   class="table-list-header" style="width: 5%">
 			<b>QTDE
 			</b></td>
-		<td   class="table-list-header" style="width: 65%">
+		<td   class="table-list-header" style="width: 55%">
 			<b>NOME</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>PRAZO</b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
 			<b>IMPOSTO </b>
@@ -77,13 +80,14 @@
 	@foreach ($invoiceLines as $invoiceLine)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
-			{{ $invoiceLine->amount }}
+			{{$invoiceLine->amount}}
 		</td>
-
 		<td class="table-list-left">
-			{{ $invoiceLine->product->name}}
+			{{$invoiceLine->product->name}}
 		</td>
-
+		<td class="table-list-center">
+			{{$invoiceLine->product->due_date}} dia(s)
+		</td>
 		<td class="table-list-right">
 			{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
 		</td>
@@ -105,7 +109,8 @@
 	@endforeach
 
 	<tr>
-		<td   class="table-list-header-right" colspan="3"></td>
+		<td   class="table-list-header-right" colspan="4">
+		</td>
 		<td   class="table-list-header-right">
 			desconto: 
 		</td>
@@ -114,7 +119,8 @@
 		</td>
 	</tr>
 	<tr>
-		<td   class="table-list-header-right" colspan="3">
+		<td   class="table-list-header-right" colspan="4">
+			
 		<td   class="table-list-header-right">
 			TOTAL: 
 		</td>

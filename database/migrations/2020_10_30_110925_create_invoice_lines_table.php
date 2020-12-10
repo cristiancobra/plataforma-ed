@@ -18,6 +18,7 @@ class CreateInvoiceLinesTable extends Migration {
 			$table->foreignId('product_id');
 			$table->integer('amount');
 			$table->decimal('subtotalHours', 5, 1);
+			$table->integer('subtotalDeadline');
 			$table->integer('subtotalCost');
 			$table->integer('subtotalTax_rate');
 			$table->integer('subtotalPrice');

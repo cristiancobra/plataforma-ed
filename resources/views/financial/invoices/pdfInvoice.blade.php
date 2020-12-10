@@ -75,8 +75,11 @@
 				<td class="table-list-header" style="width: 10%">
 					QTDE
 				</td>
-				<td   class="table-list-header" style="width: 60%">
+				<td   class="table-list-header" style="width: 50%">
 					NOME
+				</td>
+				<td   class="table-list-header" style="width: 10%">
+					ENTREGA
 				</td>
 				<td   class="table-list-header" style="width: 10%">
 					IMPOSTO
@@ -94,49 +97,51 @@
 				<td class="table-list-center">
 					{{ $invoiceLine->amount }}
 				</td>
-
 				<td class="table-list-left">
 					{{ $invoiceLine->product->name}}
 				</td>
-
+				<td class="table-list-center">
+					{{$invoiceLine->amount * $invoiceLine->product->due_date}} dia(s)
+				</td>
 				<td class="table-list-right">
 					{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
 				</td>
-
 				<td class="table-list-right">
 					{{ number_format($invoiceLine->product->price,2,",",".") }}
 				</td>
-
 				<td class="table-list-right">
 					{{ number_format($invoiceLine->subtotalPrice,2,",",".") }}
 				</td>
 			</tr>
-
 			<tr style="font-size: 12px">
-				<td class="table-list-left" colspan="5">
+				<td class="table-list-left" colspan="6">
 					{!!html_entity_decode($invoiceLine->product->description)!!}
 				</td>
 			</tr>
 			@endforeach
 
 			<tr>
-				<td   class="table-list-header-right" colspan="2"></td>
+				<td   class="table-list-header-right" colspan="3">
+				</td>
 				<td   class="table-list-header-right" style="font-size: 14px">
 					desconto: 
 				</td>
-				<td   class="table-list-header-right" style="font-size: 14px" colspan="2">
+				<td   class="table-list-header-right" style="font-size: 14px" colspan="3">
 					<b>- {{number_format($data['invoiceDiscount'], 2,",",".") }}</b>
 				</td>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right" colspan="2">
+				<td   class="table-list-header-right" colspan="3">
 				<td   class="table-list-header-right"  style="font-size: 14px">
 					TOTAL: 
 				</td>
 				</td>
-				<td   class="table-list-header-right"   style="font-size: 14px" colspan="2">
+				<td   class="table-list-header-right"   style="font-size: 14px" colspan="3">
 					<b>R$ {{number_format($data['invoiceTotalPrice'], 2,",",".") }}</b>
 				</td>
+			</tr>
+			<tr>
+				tttt
 			</tr>
 		</table>
 		<table  class="table-list" style="width: 100%">
