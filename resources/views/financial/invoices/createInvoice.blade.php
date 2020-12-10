@@ -72,10 +72,11 @@
 		@endif
 		<br>
 		<br>
-		<label class="labels" for="">BRIFIENG:</label>
+		<label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunitieDescription')))
 		<span class="fields">{!!html_entity_decode(app('request')->input('opportunitieDescription'))!!}</span>
 		@endif
+		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
 		<textarea id="description" name="description" rows="20" cols="90">

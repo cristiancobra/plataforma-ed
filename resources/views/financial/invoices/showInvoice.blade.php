@@ -43,12 +43,15 @@
 <label class="labels" for="" >CONTRATANTE:</label>
 <span class="fields">{{ $invoice->opportunitie->contact->name}}</span>
 <br>
-<label class="labels" for="" >DATA DE CRIAÇÃO::</label>
+<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 <span class="fields">{{ date('d/m/Y', strtotime($invoice->date_creation)) }}</span>
 <br>
 <label class="labels" for="" >DATA DE PAGAMENTO:</label>
 <span class="fields">{{ date('d/m/Y', strtotime($invoice->pay_day)) }}</span>
 <br>
+<br>
+<label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
+<span class="fields">{!!html_entity_decode($invoice->opportunitie->description)!!}</span>
 <br>
 <label class="labels" for="" >PRODUTOS:</label>
 <br>

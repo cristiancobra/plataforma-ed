@@ -398,6 +398,7 @@ class InvoiceController extends Controller {
 			'accountCnpj' => $invoice->account->cnpj,
 			'invoiceId' => $invoice->id,
 			'invoiceDescription' => $invoice->description,
+			'opportunitieDescription' => $invoice->opportunitie->description,
 			'invoiceDiscount' => $invoice->discount,
 			'invoicePayday' => $invoice->pay_day,
 			'invoiceTotalPrice' => $invoice->totalPrice,

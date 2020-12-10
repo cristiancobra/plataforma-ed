@@ -44,12 +44,10 @@
 		</table>
 
 		<div>
-
-			<h3>
+			<h4>
 				<br>
 				PARA:
-			</h3>
-
+			</h4>
 			<!-- Dados do cliente--> 
 			<p style="text-align: left">
 				{{$data['customerName']}}
@@ -73,7 +71,12 @@
 				{{$data['customerAddressCountry']}}
 			</p>
 		</div>
-		<br>
+		<h4>
+			DESCRIÇÃO:
+		</h4>
+		<p style="text-align: left">
+			{!!html_entity_decode($data['opportunitieDescription'])!!}
+		</p>
 		<table  class="table-list" style="width: 100%">
 			<tr>
 				<td class="table-list-header" style="width: 10%">
@@ -118,7 +121,7 @@
 
 			<tr style="font-size: 12px">
 				<td class="table-list-left" colspan="5">
-			{!!html_entity_decode($invoiceLine->product->description)!!}
+					{!!html_entity_decode($invoiceLine->product->description)!!}
 				</td>
 			</tr>
 			@endforeach
@@ -144,6 +147,18 @@
 			</tr>
 		</table>
 		<table  class="table-list" style="width: 100%">
+			<tr>
+				<td style="text-align: left" colspan="2">
+					<h4>
+						OBSERVAÇÕES:
+					</h4>
+					<p>
+						{!!html_entity_decode($data['invoiceDescription'])!!}
+					</p>
+					<br>
+					<hr>
+				</td>
+			</tr>
 			<tr>
 				<td>
 					<h4>
@@ -174,15 +189,5 @@
 		</table>
 		<br>
 		<br>
-		<br>
-		<div>
-			<h3>
-				OBSERVAÇÕES:
-			</h3>
-			<p>
-				{!!html_entity_decode($data['invoiceDescription'])!!}
-			</p>
-		</div>
-
 	</body>
 </html>
