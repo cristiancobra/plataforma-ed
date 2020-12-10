@@ -24,11 +24,8 @@
 					<br>
 					{{$data['accountAddress']}}
 					<br>
-					{{$data['accountAddressCity']}}
-					<br>
+					{{$data['accountAddressCity']}} / 
 					{{$data['accountAddressState']}}
-					<br>
-					{{$data['accountAddressCountry']}}
 					<br>
 					CNPJ: {{$data['accountCnpj']}}
 				</td>
@@ -59,22 +56,18 @@
 				{{$data['customerPhone']}}
 			</p>
 			<p style="text-align: left">
-				{{$data['customerAddress']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerAddressCity']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerAddressState']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerAddressCountry']}}
+				{{$data['customerAddress']}} - 
+				{{$data['customerCity']}} /
+				{{$data['customerState']}} - 
+				{{$data['customerCountry']}}
+				<br>
+				<br>
 			</p>
 		</div>
 		<h4>
 			DESCRIÇÃO:
 		</h4>
-		<p style="text-align: left">
+		<p style="text-align: left;margin-top: 0px;">
 			{!!html_entity_decode($data['opportunitieDescription'])!!}
 		</p>
 		<table  class="table-list" style="width: 100%">

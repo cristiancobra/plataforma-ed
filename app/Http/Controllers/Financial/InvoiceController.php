@@ -394,7 +394,6 @@ class InvoiceController extends Controller {
 			'accountAddress' => $invoice->account->address,
 			'accountAddressCity' => $invoice->account->address_city,
 			'accountAddressState' => $invoice->account->address_state,
-			'accountAddressCountry' => $invoice->account->address_country,
 			'accountCnpj' => $invoice->account->cnpj,
 			'invoiceId' => $invoice->id,
 			'invoiceDescription' => $invoice->description,
@@ -406,9 +405,9 @@ class InvoiceController extends Controller {
 			'customerEmail' => $invoice->opportunitie->contact->email,
 			'customerPhone' => $invoice->opportunitie->contact->phone,
 			'customerAddress' => $invoice->opportunitie->contact->address,
-			'customerAddressCity' => $invoice->opportunitie->contact->city,
-			'customerAddressState' => $invoice->opportunitie->contact->state,
-			'customerAddressCountry' => $invoice->opportunitie->contact->country,
+			'customerCity' => $invoice->opportunitie->contact->city,
+			'customerState' => $invoice->opportunitie->contact->state,
+			'customerCountry' => $invoice->opportunitie->contact->country,
 			'invoiceLines' => $invoiceLines,
 		];
 
