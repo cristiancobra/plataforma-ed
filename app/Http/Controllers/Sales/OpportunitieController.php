@@ -29,7 +29,7 @@ class OpportunitieController extends Controller {
 					->get('id');
 
 			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
+					->orderBy('DATE_CONCLUSION', 'ASC')
 					->paginate(20);
 
 			$totalOpportunities = $opportunities->count();
