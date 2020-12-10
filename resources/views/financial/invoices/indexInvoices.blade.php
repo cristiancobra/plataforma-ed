@@ -49,12 +49,12 @@
 		@foreach ($invoices as $invoice)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('invoice.show', ['invoice' => $invoice]) }}">
 						<i class='fa fa-eye' style="color:white"></i>
 					</a>
 				</button>
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('invoice.edit', ['invoice' => $invoice]) }}">
 						<i class='fa fa-edit' style="color:white"></i>
 					</a>
