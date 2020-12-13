@@ -20,17 +20,27 @@
 	@csrf
 	@method('put')
 	<label for="" >Nome: </label>
-	<input type="text" name="name" value="{{ $user->name }}">
+	{{$user->contact->name}}
+		<a class="white" href=" {{route('contact.show', ['contact' => $user->contact->id])}}">
+				<button class="button-round">
+					<i class='fa fa-eye'></i>
+				</button>
+			</a>
+			<a href=" {{route('contact.edit', ['contact' => $user->contact->id])}}">
+				<button class="button-round">
+					<i class='fa fa-edit'></i>
+				</button>
+			</a>
 	<br>
 	<br>
 	<label for="" >Empresas: </label>
-	@foreach ($accounts as $account)
+		@foreach ($accounts as $account)
 	<p class="fields">
 		<input type="checkbox" name="accounts[]" value="{{ $account->id}}"
 			   @if (in_array($account->id, $accountsChecked))
-		checked
-		@endif
-		>
+			checked
+			@endif
+			>
 		{{ $account->name }}
 	</p>
 	@endforeach
@@ -48,7 +58,18 @@
 	<br>
 	<br>
 	<label for="">Senha padrão: </label>
-	<span class="fields"> {{ $user->default_password }}</span>
+	<input type="text" name="default_password" value="{{ $user->default_password }} ">   
+	<br>
+	<br>
+		<div style="text-align:right;color: #874983;display: inline-block">
+			<a class="button-secondary" href="https://www.4devs.com.br/gerador_de_senha"  target="_blank">
+				<i class='fa fa-edit'>	
+				</i>
+				GERADOR DE SENHA
+			</a>
+		</div>
+	<br>
+	<br>
 	<br>
 	<label for="">Alterar senha: </label>
 	<input type="text" name="password" value="">   

@@ -31,13 +31,17 @@
 	<form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		<label class="labels"'for="" >Empresa: </label>
-		<select name="accounts[]">
-			@foreach($accounts as $account)
-			<option  class="fields" value="{{$account->id}}">
-				{{$account->name}}
-			</option>
-			@endforeach
-		</select>
+		<label for="" >Empresas: </label>
+		@foreach ($accounts as $account)
+		<p class="fields">
+			<input type="checkbox" name="accounts[]" value="{{ $account->id}}"
+				   @if (in_array($account->id, $accountsChecked))
+			checked
+			@endif
+			>
+			{{ $account->name }}
+		</p>
+		@endforeach
 		<br>
 		<label class="labels"'for="" >Contato: </label>
 		<select name="contact_id">

@@ -19,17 +19,43 @@
 @endsection
 
 @section('main')
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+	{{ Session::get('failed') }}
+	@php
+	Session::forget('failed');
+	@endphp
+</div>
+@endif
 <div>
 	<form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
-		<label class="labels" for="" >Primeiro nome: </label>
-		<input class="fields" type="text" name="novo_nome">
+		<label for="" >Empresas: </label>
+		@foreach ($accounts as $account)
+		<p class="fields">
+			<input type="checkbox" name="accounts[]" value="{{ $account->id}}"
+				   @if (in_array($account->id, $accountsChecked))
+			checked
+			@endif
+			>
+			{{ $account->name }}
+		</p>
+		@endforeach
 		<br>
-		<label class="labels"for="" >Último nome: </label>
-		<input class="fields" type="text" name="novo_sobrenome">
+		<label class="labels"'for="" >Contato: </label>
+		<select name="contact_id">
+			@foreach($contacts as $contact)
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<label class="labels"for="" >Email (login): </label>
-		<input class="fields" type="text" name="email">
+		<input class="fields" type="text" name="email" value="{{old('email')}}">
+		@if ($errors->has('email'))
+		<span class="text-danger">{{ $errors->first('email') }}</span>
+		@endif
 		<br>
 		<br>
 		<label class="labels"'for="" >Perfil: </label>
@@ -37,22 +63,17 @@
 			<option  class="fields" value="administrador">
 				administrador
 			</option>
-			<option  class="fields" value="administrador">
+			<option  class="fields" value="funcionario">
 				funcionário
 			</option>
 		</select>
 		<br>
 		<label class="labels"for="">Senha do usuário: </label>
-		<input class="fields" type="password" name="password">   
+		<input class="fields" type="password" name="password" value="{{old('password')}}">
+		@if ($errors->has('password'))
+		<span class="text-danger">{{ $errors->first('password') }}</span>
+		@endif
 		<br>
-		<br>
-		<label class="labels"'for="" >Empresa: </label>
-		@foreach($accounts as $account)
-		<p class="fields">
-			<input type="checkbox" name="accounts[]" value="{{ $account->id }}">
-			{{ $account->name }}
-		</p>
-		@endforeach
 		<br>
 		<input class="btn btn-secondary" type="submit" value="SOLICITAR USUÁRIO">
 		<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">

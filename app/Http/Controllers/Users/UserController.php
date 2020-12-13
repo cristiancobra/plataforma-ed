@@ -61,6 +61,12 @@ class UserController extends Controller {
 		$user = new User();
 		$userAuth = Auth::user();
 
+		$accountsChecked = Account::whereHas('users', function($query) use($user) {
+					$query->where('users.id', $user->id);
+				})
+				->pluck('id')
+				->toArray();
+
 		if ($request['role'] === "superadmin") {
 			$accounts = Account::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
@@ -74,6 +80,7 @@ class UserController extends Controller {
 				'user' => $user,
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
+				'accountsChecked' => $accountsChecked,
 				'contacts' => $contacts,
 			]);
 		} elseif ($request['role'] === "administrator") {
@@ -86,8 +93,8 @@ class UserController extends Controller {
 			$accounts = Account::whereIn('id', $accountsID)
 					->orderBy('ID', 'ASC')
 					->get();
-			
-			$contacts = Contact::whereIn('id', $accountsID)
+
+			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('ID', 'ASC')
 					->get();
 
@@ -95,17 +102,13 @@ class UserController extends Controller {
 				'user' => $user,
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
+				'accountsChecked' => $accountsChecked,
 				'contacts' => $contacts,
+				
 			]);
 		} else {
 			return redirect('/login');
 		}
-
-
-		return view('users.superadmin_createUser', [
-			'user' => $user,
-			'userAuth' => $userAuth,
-		]);
 	}
 
 	/**
