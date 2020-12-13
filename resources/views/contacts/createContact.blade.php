@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('contact.create')}}">
+<a class="button-primary"  href="{{route('contact.index')}}">
 	VOLTAR
 </a>
 @endsection
