@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('contact.index')}}">VER CONTATOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contact.create')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -22,7 +27,7 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('contact.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('contact.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label for="" >DONO: </label>
 		<select name="account_id">
