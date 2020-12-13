@@ -20,7 +20,17 @@
 	@csrf
 	@method('put')
 	<label for="" >Nome: </label>
-	<input type="text" name="name" value="{{ $user->name }}">
+	{{$user->contact->name}}
+		<a class="white" href=" {{route('contact.show', ['contact' => $user->contact->id])}}">
+				<button class="button-round">
+					<i class='fa fa-eye'></i>
+				</button>
+			</a>
+			<a href=" {{route('contact.edit', ['contact' => $user->contact->id])}}">
+				<button class="button-round">
+					<i class='fa fa-edit'></i>
+				</button>
+			</a>
 	<br>
 	<br>
 	<label for="" >Empresas: </label>

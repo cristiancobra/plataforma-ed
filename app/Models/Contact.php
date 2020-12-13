@@ -35,21 +35,20 @@ class Contact extends Model {
 	];
 	protected $hidden = [
 	];
-
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
-
 	public function contracts() {
 		return $this->hasMany(Contract::class, 'id', 'contract_id');
-	}
-	
+	}	
 	public function opportunitie() {
 		return $this->hasMany(Opportunitie::class, 'id', 'contact_id');
 	}
-	
 	public function tasks() {
 		return $this->hasMany(Task::class, 'id', 'contact_id');
+	}
+	public function user() {
+		return $this->belongsTo(Models\User::class, 'id', 'contact_id');
 	}
 //
 //	public function users() {

@@ -105,6 +105,8 @@
 		<br>
 		<label for="">Escolaridade: </label>
 		<select name="schollarity">
+			<option  class="fields" value="">
+			</option>
 			<option  class="fields" value="fundamental">
 				ensino fundamental
 			</option>

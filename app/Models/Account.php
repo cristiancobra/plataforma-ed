@@ -9,8 +9,8 @@ class Account extends Model {
 
 	protected $table = 'accounts';
 	protected $fillable = [
-		'id', 'user_id', 'name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type', 'employees', 'status', 'cnpj', 'revenues', 'logo',
-		'principal_color', 'complementary_color', 'opposite_color',
+		'id', 'user_id', 'name', 'email', 'phone', 'site', 'address', 'address _city', 'address _state', 'address _country', 'type',
+		'employees', 'status', 'cnpj', 'revenues', 'logo',	'principal_color', 'complementary_color', 'opposite_color',
 	];
 
 	public function contacts() {

@@ -17,7 +17,7 @@
 
 @section('main')
 <div>
-	<h1 class="name">{{ $user->name }} </h1>
+	<h1 class="name">{{ $user->contact->name }} </h1>
 	<br>
 	<p class="labels">EMPRESAS: </p>
 
@@ -27,7 +27,7 @@
 			<i class='fa fa-eye'></i>
 		</button>
 	</a>
-	{{ $account->name }} 
+	{{$account->name}}
 	<br>
 	@endforeach
 	<br>

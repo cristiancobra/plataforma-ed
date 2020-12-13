@@ -38,7 +38,7 @@ Total: <span class="labels">{{$totalUsers}} </span>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header">
-			<b>Colaborador </b>
+			<b>Nome </b>
 		</td>
 		<td   class="table-list-header"> 
 			<b>Empresa </b>
@@ -69,8 +69,7 @@ Total: <span class="labels">{{$totalUsers}} </span>
 				</button>
 			</a>
 			@endauth
-
-			{{ $user->name }}
+			{{$user->contact->name}}
 		</td>
 
 		<td class="table-list-left">

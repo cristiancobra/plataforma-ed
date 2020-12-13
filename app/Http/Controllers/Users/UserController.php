@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Users;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Contact;
 use App\Models\Account;
 use App\Models\Journey;
 use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller {
 
@@ -27,17 +29,19 @@ class UserController extends Controller {
 
 		if ($request['role'] === "superadmin") {
 			$users = User::where('id', '>', 0)
+					->with('contact')
 					->orderBy('NAME', 'asc')
 					->paginate(20);
 		} elseif ($request['role'] === "administrator") {
 			$users = User::whereHas('accounts', function($query) use($accounts) {
 						$query->where('accounts.id', $accounts->first()->id);
 					})
+					->with('contact')
 					->paginate(20);
 		} else {
 			return redirect('/login');
 		}
-
+//dd($users);
 		$totalUsers = $users->count();
 
 		return view('users.indexUsers', [
@@ -62,10 +66,15 @@ class UserController extends Controller {
 					->orderBy('NAME', 'asc')
 					->paginate(20);
 
+			$contacts = Contact::where('id', '>', 0)
+					->orderBy('NAME', 'asc')
+					->paginate(20);
+
 			return view('users.superadmin_createUser', [
 				'user' => $user,
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
+				'contacts' => $contacts,
 			]);
 		} elseif ($request['role'] === "administrator") {
 
@@ -77,11 +86,16 @@ class UserController extends Controller {
 			$accounts = Account::whereIn('id', $accountsID)
 					->orderBy('ID', 'ASC')
 					->get();
+			
+			$contacts = Contact::whereIn('id', $accountsID)
+					->orderBy('ID', 'ASC')
+					->get();
 
 			return view('users.administrator_createUser', [
 				'user' => $user,
 				'userAuth' => $userAuth,
 				'accounts' => $accounts,
+				'contacts' => $contacts,
 			]);
 		} else {
 			return redirect('/login');
@@ -104,19 +118,37 @@ class UserController extends Controller {
 		$userAuth = Auth::user();
 
 		$user = new User();
-		$user->name = ucfirst($request->novo_nome) . " " . ucfirst($request->novo_sobrenome);
+		$user->contact_id = $request->contact_id;
 		$user->perfil = $request->perfil;
 		$user->email = $request->email;
 		$user->default_password = $request->password;
 		$user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-		$user->save();
 
-		$user->accounts()->sync($request->accounts);
+		$messages = [
+			'required' => '*preenchimento obrigatório.',
+			'unique' => '*já existe um usuário cadastrado com este email.',
+		];
+		$validator = Validator::make($request->all(), [
+					'email' => 'required|unique:users',
+					'password' => 'required:users',
+						],
+						$messages);
 
-		return view('users.showUser', [
-			'user' => $user,
-			'userAuth' => $userAuth,
-		]);
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$user->save();
+
+			$user->accounts()->sync($request->accounts);
+
+			return view('users.showUser', [
+				'user' => $user,
+				'userAuth' => $userAuth,
+			]);
+		}
 	}
 
 	/**
@@ -202,7 +234,7 @@ class UserController extends Controller {
 	 */
 	public function update(Request $request, User $user) {
 		$user->name = $request->name;
-		
+
 		if (!empty($request->perfil)) {
 			$user->perfil = $request->perfil;
 		}
