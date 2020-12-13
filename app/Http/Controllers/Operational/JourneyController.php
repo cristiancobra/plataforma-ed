@@ -188,13 +188,8 @@ class JourneyController extends Controller {
 			$tasks = Task::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
-
-//			$journey = Journey::where('id', $journey->id)
-//					->with('user')
-//					->orderBy('DATE', 'DESC')
-//					->get();
-
-			$users = User::whereHas('journeys', function($query) use($accountsID) {
+					
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->get();
