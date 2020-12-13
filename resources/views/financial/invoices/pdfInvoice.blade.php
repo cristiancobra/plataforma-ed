@@ -127,7 +127,7 @@
 					desconto: 
 				</td>
 				<td   class="table-list-header-right" style="font-size: 14px" colspan="3">
-					<b>- {{number_format($data['invoiceDiscount'], 2,",",".") }}</b>
+					<b>R$ - {{number_format($data['invoiceDiscount'], 2,",",".") }}</b>
 				</td>
 			</tr>
 			<tr>

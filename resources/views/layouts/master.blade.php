@@ -102,6 +102,9 @@
 					<a class="sidebar-subitem" href="{{route('user.index')}}">
 						<i class="fa fa-id-card-alt" style="margin-right: 8px"></i>FUNCIONÁRIOS
 					</a>
+					<a class="sidebar-subitem" href="{{route('journey.reports', ['accountId' => 1])}}">
+						<i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIO DE PRODUTIVIDADE
+					</a>
 					<a class="sidebar-subitem" href="{{route('planning.index')}}">
 						<i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO
 					</a>
@@ -128,12 +131,24 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="/redes-sociais"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>REDES SOCIAIS</a>
-					<a class="sidebar-subitem" href="{{ route('site.index') }}"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES</a>
-					<a class="sidebar-subitem" href="{{ route('report.index') }}"><i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIOS</a>
-					<a class="sidebar-subitem" href="{{ route('competitor.index') }}"><i class="fas fa-trophy" style="margin-right: 8px"></i>CONCORRENTES</a>
-					<a class="sidebar-subitem" href="https://stories.freepik.com" target="_blank"><i class="fas fa-paint-brush" style="margin-right: 8px"></i>CRIAR ARTES</a>
-					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
+					<a class="sidebar-subitem" href="/redes-sociais">
+						<i class="fas fa-bullhorn" style="margin-right: 8px"></i>REDES SOCIAIS
+					</a>
+					<a class="sidebar-subitem" href="{{ route('site.index') }}">
+						<i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES
+					</a>
+					<a class="sidebar-subitem" href="{{ route('report.index') }}">
+						<i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIOS
+					</a>
+					<a class="sidebar-subitem" href="{{ route('competitor.index') }}">
+						<i class="fas fa-trophy" style="margin-right: 8px"></i>CONCORRENTES
+					</a>
+					<a class="sidebar-subitem" href="https://stories.freepik.com" target="_blank">
+						<i class="fas fa-paint-brush" style="margin-right: 8px"></i>CRIAR ARTES
+					</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank">
+						<i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS
+					</a>
 				</div>
 
 				<button class="dropdown-btn">

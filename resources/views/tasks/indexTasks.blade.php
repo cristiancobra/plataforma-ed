@@ -22,8 +22,8 @@ Total: <span class="labels">{{$totalTasks}} </span>
 	<input type="text" name="name" placeholder="nome da tarefa" value="">
 	<select class="select" name="account_id">
 		@foreach ($accounts as $account)
-		<option  class="fields" value="{{ $account->id }}">
-			{{ $account->name }}
+		<option  class="fields" value="{{$account->id}}">
+			{{$account->name}}
 		</option>
 		@endforeach
 		<option  class="fields" value="">
@@ -35,8 +35,8 @@ Total: <span class="labels">{{$totalTasks}} </span>
 			TODOS
 		</option>
 		@foreach ($contacts as $contact)
-		<option  class="fields" value="{{ $contact->id }}">
-			{{ $contact->name }}
+		<option  class="fields" value="{{$contact->id}}">
+			{{$contact->name}}
 		</option>
 		@endforeach
 		<option  class="fields" value="">

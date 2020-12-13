@@ -40,7 +40,7 @@ if (!function_exists('returnMonths')) {
 	}
 
 }
-// retorna o nome do mês selecionado
+// retorna o nome do mês a partir do parâmetro recebido
 if (!function_exists('returnMonth')) {
 
 	function returnMonth(int $number) {
@@ -119,7 +119,21 @@ if (!function_exists('returnStates')) {
 				'TO' => 'Tocantins',
 		);
 	}
+}
+// retorna categorias de tarefs/jornadas
+if (!function_exists('returnCategories')) {
 
+	function returnCategories() {
+		return $states = array(
+			 'desenvolvimento',
+			'financeiro',
+			'marketing',
+			'planejamento',
+			'serviço',
+			'suporte',
+			'venda',
+		);
+	}
 }
 if (!function_exists('gerarSenha')) {
 

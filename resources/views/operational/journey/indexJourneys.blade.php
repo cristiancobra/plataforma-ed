@@ -16,7 +16,7 @@
 @endsection
 
 @section('main')
-<div style="text-align:right;padding: 2%">
+<div style="text-align:right">
 	<form action=" {{ route('journey.index') }} " method="post" style="padding: 20px;color: #874983;display: inline-block">
 		@csrf
 		<select class="select"name="user_id">
@@ -28,23 +28,11 @@
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
+				{{$user->name}}
 			</option>
 			@endforeach
 		</select>
 		<input class="btn btn-secondary" type="submit" value="FILTRAR">
-	</form>
-	<form action=" {{route('journey.reports')}} " method="post" style="padding: 20px;color: #874983;display: inline-block">
-		@csrf
-		<select class="select"name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
-			</option>
-			@endforeach
-		</select>
-		<input type="hidden" value="mensal">
-		<input class="btn btn-secondary" type="submit" value="MENSAL">
 	</form>
 </div>
 <table class="table-list">
