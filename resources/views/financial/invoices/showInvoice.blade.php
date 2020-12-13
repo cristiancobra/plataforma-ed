@@ -86,7 +86,7 @@
 			{{$invoiceLine->product->name}}
 		</td>
 		<td class="table-list-center">
-			{{$invoiceLine->product->due_date}} dia(s)
+			{{$invoiceLine->subtotalDeadline}} dia(s)
 		</td>
 		<td class="table-list-right">
 			{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
