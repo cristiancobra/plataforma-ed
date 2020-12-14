@@ -16,18 +16,25 @@ class EmailController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 		$userAuth = Auth::user();
-		if ($userAuth->perfil == "administrador") {
-			$emails = Email::where('id', '>=', 0)
-					->with('user')
-					->orderBy('EMAIL', 'asc')
+
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
+			$emails = Email::whereHas('account', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
 					->get();
 		} else {
 			$emails = Email::where('user_id', '=', $userAuth->id)
 					->with('user')
 					->get();
 		}
+//		dd($emails);
 		$totalEmails = $emails->count();
 		$totalGBs = $emails->sum('storage');
 

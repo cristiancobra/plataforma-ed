@@ -46,7 +46,9 @@ Route::resource('contacts', 'Contact\\ContactController')->names('contact')->par
 Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
 
 // ================================ EMAILS ===================
-Route::resource('emails', 'Emails\\EmailController')->names('email');
+Route::resource('emails', 'Emails\\EmailController')
+		->names('email')
+		->middleware('roles');
 
 // ================================ FINANCIAL ===================
 Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')->name('invoice.pdf');

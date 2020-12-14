@@ -45,7 +45,7 @@ class User extends Authenticatable {
 		return $this->belongsTo(Contact::class, 'contact_id', 'id');
 	}
 	public function emails() {
-		return $this->hasMany(Models\Email::class, 'user_id', 'id');
+		return $this->hasMany(Models\Email::class, 'id', 'user_id');
 	}
 	public function invoices() {
 		return $this->hasMany(User::class, 'id', 'user_id');

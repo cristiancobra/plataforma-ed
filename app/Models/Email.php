@@ -12,7 +12,9 @@ class Email extends Model
     	protected $fillable = [
 		'id', 'user_id', 'account_id', 'storage', 'email', 'email_password', 'status'
 	];
-
+	public function account() {
+		return $this->belongsTo(Account::class, 'account_id', 'id');
+	}
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}

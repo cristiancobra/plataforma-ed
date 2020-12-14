@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('email.create')}}"">SOLICITAR EMAIL</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('email.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
@@ -48,29 +53,37 @@
 		@foreach ($emails as $email)
 		<tr style="font-size: 16px">
 			<td class="table-list-left">
-				<button class="button">
-					<a href=" https://empresadigital.net.br/webmail" target="_blank">
-						<i class='fa fa-envelope'></i></a>
-				</button>
+					<a class="button-round" href=" https://empresadigital.net.br/webmail" target="_blank">
+						<i class='fa fa-envelope'></i>
+					</a>
 
 				@if ($userAuth->perfil == "administrador")
-				<button class="button">
-					<a href=" {{ route('email.show', ['email' => $email->id]) }}">
-						<i class='fa fa-eye'></i></a>
-				</button>
+					<a class="button-round" href=" {{ route('email.show', ['email' => $email->id]) }}">
+						<i class='fa fa-eye'></i>
+					</a>
 				@endif
 				{{ $email->email}}
 			</td>
-
-			<td class="table-list-left"> <b>{{ $email->user->contact->name }} </b></td>
-			<td class="table-list-center"><b>{{ $email->storage}}</b></td>
-			<td class="table-list-center"><b>{{ $email->email_password }} </b></td>
+			<td class="table-list-left">
+			</td>
+			<td class="table-list-center">
+				<b>{{ $email->storage}}</b>
+			</td>
+			<td class="table-list-center">
+				<b>{{ $email->email_password }} </b>
+			</td>
 			@if ($email->status == "desativado")
-			<td class="button-disable"><b>{{ $email->status  }}</b></td>
+			<td class="button-disable">
+				<b>{{ $email->status  }}</b>
+			</td>
 			@elseif ($email->status == "ativo")
-			<td class="button-active"><b>{{ $email->status  }}</b></td>
+			<td class="button-active">
+				<b>{{ $email->status  }}</b>
+			</td>
 			@else ($email->status == "pendente")
-			<td class="button-delete"><b>{{ $email->status  }}</b></td>
+			<td class="button-delete">
+				<b>{{ $email->status  }}</b>
+			</td>
 			@endif
 		</tr>
 		@endforeach
