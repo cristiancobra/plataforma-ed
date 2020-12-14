@@ -73,12 +73,16 @@ class DashboardController extends Controller {
 				})
 				->get();
 
-		$youtubes = Youtube::where('user_id', '=', $userAuth->id)
-				->with('users')
+		$youtubes = Youtube::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
 				->get();
 
-		$spotifys = spotify::where('user_id', '=', $userAuth->id)
-				->with('users')
+		$spotifys = Spotify::whereHas('account', function($query) use($accountsID) {
+					$query->whereIn('account_id', $accountsID)
+					->with('account');
+				})
 				->get();
 
 		return view('socialmedia/dashboardSocialmedia', [
