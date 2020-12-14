@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('domain.index')}}">VER PRODUTOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('domain.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -16,30 +21,30 @@
 	{{ $domain->name }}
 </h1>
 <label class="labels" for="" >DONO: </label>
-<span class="fields">{{$domain->account_id }}</span>
+<span class="fields">{{$domain->account->name }}</span>
 <br>
-<label class="labels" for="" >SITE:: </label>
+<label class="labels" for="" >SITE:</label>
 @foreach ($sites as $site)
 {{ $site->name }}
 @endforeach
 <br>
 <label class="labels" for="" >NOME DO TITULAR:</label>
-<span class="fields">{{$domain->holder }}</span>
+<span class="fields">{{$domain->holder}}</span>
 <br>
 <label class="labels" for="" >PROVEDOR DO DOMÍNIO:</label>
-<span class="fields">{{$domain->provider }}</span>
+<span class="fields">{{$domain->provider}}</span>
 <br>
-<label class="labels" for="" >LINK DO PROVEDOR:<:</label>
-<span class="fields">{{$domain->link_provider }}</span>
+<label class="labels" for="" >LINK DO PROVEDOR:</label>
+<span class="fields">{{$domain->link_provider}}</span>
 <br>
 <label class="labels" for="" >SENHA DO PROVEDOR:</label>
-<span class="fields">{{$domain->provider_password }}</span>
+<span class="fields">{{$domain->provider_password}}</span>
 <br>
 <label class="labels" for="" >DATA DE VENCIMENTO:</label>
-<span class="fields">{{ date('d/m/Y', strtotime($domain->date_due)) }}</span>
+<span class="fields">{{date('d/m/Y', strtotime($domain->due_date))}}</span>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
-<span class="fields">{{$domain->status }}</span>
+<span class="fields">{{$domain->status}}</span>
 <br>
 <br>
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($domain->created_at)) }} </p>

@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('site.index')}}">VER SITES</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('site.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')

@@ -28,11 +28,21 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>Conta</b></td>
-			<td   class="table-list-header"><b>Dono </b></td>
-			<td   class="table-list-header"><b>Espaço </b></td>
-			<td   class="table-list-header"><b>Senha</b></td>
-			<td   class="table-list-header"><b>Status</b></td>
+			<td   class="table-list-header">
+				<b>Conta</b>
+			</td>
+			<td   class="table-list-header">
+				<b>Dono </b>
+			</td>
+			<td   class="table-list-header">
+				<b>Espaço </b>
+			</td>
+			<td   class="table-list-header">
+				<b>Senha</b>
+			</td>
+			<td   class="table-list-header">
+				<b>Status</b>
+			</td>
 		</tr>
 
 		@foreach ($emails as $email)
@@ -52,7 +62,7 @@
 				{{ $email->email}}
 			</td>
 
-			<td class="table-list-left"> <b>{{ $email->users->name }} </b></td>
+			<td class="table-list-left"> <b>{{ $email->user->contact->name }} </b></td>
 			<td class="table-list-center"><b>{{ $email->storage}}</b></td>
 			<td class="table-list-center"><b>{{ $email->email_password }} </b></td>
 			@if ($email->status == "desativado")

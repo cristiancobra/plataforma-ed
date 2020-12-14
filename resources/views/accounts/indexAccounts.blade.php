@@ -19,8 +19,12 @@ Total: <span class="labels">{{$totalAccounts}} </span>
 @section('main')
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header"><b>Empresa </b></td>
-		<td   class="table-list-header"><b>Usuários </b></td>
+		<td   class="table-list-header">
+			<b>Empresa </b>
+		</td>
+		<td   class="table-list-header">
+			<b>Usuários </b>
+		</td>
 	</tr>
 
 	@foreach ($accounts as $account)

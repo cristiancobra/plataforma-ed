@@ -9,7 +9,8 @@ class Site extends Model
 {
   protected $table = 'sites';
 	protected $fillable = [
-		'id', 'account_id', 'name', 'link_view', 'link_edit', 'site_password', 'hosting', 'link_hosting', 'hosting_password', 'creation_date', 'status',
+		'id', 'account_id', 'name', 'link_view', 'link_edit', 'site_password', 'hosting', 'link_hosting', 'hosting_password',
+		'creation_date', 'status',
 	];
 	
 	protected $hidden = [
@@ -20,6 +21,6 @@ class Site extends Model
 	}
 	
 	public function domains() {
-		return $this->hasMany(Domain::class, 'id', 'site_id');
+		return $this->hasMany(Domain::class, 'site_id', 'id');
 	}
 }

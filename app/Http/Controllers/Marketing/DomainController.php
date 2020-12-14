@@ -9,15 +9,14 @@ use App\Models\Domain;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
-class DomainController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
+class DomainController extends Controller {
+
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
@@ -42,13 +41,12 @@ class DomainController extends Controller
 		}
 	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create() {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
@@ -77,43 +75,51 @@ class DomainController extends Controller
 			return redirect('/');
 		}
 	}
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request) {
 		Domain::create($request->all());
 
 		return redirect()->action('Marketing\\DomainController@index');
 	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Domain  $domain
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Domain $domain)
-    {
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\Domain  $domain
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Domain $domain) {
 		$userAuth = Auth::user();
+
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		$sites = Site::whereIn('account_id', $accountsID)
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		return view('marketing.domains.showDomain', [
 			'domain' => $domain,
+			'sites' => $sites,
 			'userAuth' => $userAuth,
 		]);
 	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Domain  $domain
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Domain $domain)
-    {
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\Domain  $domain
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(Domain $domain) {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
@@ -127,9 +133,14 @@ class DomainController extends Controller
 					})
 					->get();
 
+			$sites = Site::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
+
 			return view('marketing.domains.editDomain', [
 				'userAuth' => $userAuth,
 				'domain' => $domain,
+				'sites' => $sites,
 				'accounts' => $accounts,
 			]);
 		} else {
@@ -137,36 +148,45 @@ class DomainController extends Controller
 		}
 	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Domain  $domain
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Domain $domain)
-    {
-    {
-		$userAuth = Auth::user();
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\Domain  $domain
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, Domain $domain) { {
+			$userAuth = Auth::user();
 
-		$domain->fill($request->all());
-		$domain->save();
+			$domain->fill($request->all());
+			$domain->save();
+
+			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+						$query->where('users.id', $userAuth->id);
+					})
+					->pluck('id');
+
+			$sites = Site::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
 
 			return view('marketing.domains.showDomain', [
-			'domain' => $domain,
-			'userAuth' => $userAuth,
-		]);
+				'domain' => $domain,
+				'sites' => $sites,
+				'userAuth' => $userAuth,
+			]);
+		}
 	}
-	}
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Domain  $domain
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Domain $domain)
-    {
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\Domain  $domain
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(Domain $domain) {
 		$domain->delete();
 		return redirect()->action('Marketing\\DomainController@index');
 	}
+
 }

@@ -7,11 +7,16 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('domain.index')}}">VER TODOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('domain.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<div style="padding-left: 6%">
+<div>
 	<form action=" {{ route('domain.update', ['domain' =>$domain->id]) }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
 		@method('put')
@@ -52,7 +57,7 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE VENCIMENTO:</label>
-		<input type="date" name="date_due" size="20"><span class="fields"></span>
+		<input type="date" name="due_date" size="20" value="{{$domain->due_date}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">

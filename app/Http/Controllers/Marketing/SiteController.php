@@ -23,13 +23,13 @@ class SiteController extends Controller
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->get('id');
+					->pluck('id');
 
 			$sites = Site::whereIn('account_id', $accountsID)
 					->with('domains')
 					->orderBy('NAME', 'ASC')
 					->paginate(20);
-
+//dd($sites);
 			$totalSites = $sites->count();
 
 			return view('marketing.sites.indexSites', [

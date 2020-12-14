@@ -13,7 +13,7 @@ class Email extends Model
 		'id', 'user_id', 'account_id', 'storage', 'email', 'email_password', 'status'
 	];
 
-	public function users() {
+	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
 }

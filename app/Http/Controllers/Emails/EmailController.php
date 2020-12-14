@@ -20,12 +20,12 @@ class EmailController extends Controller {
 		$userAuth = Auth::user();
 		if ($userAuth->perfil == "administrador") {
 			$emails = Email::where('id', '>=', 0)
-					->with('users')
+					->with('user')
 					->orderBy('EMAIL', 'asc')
 					->get();
 		} else {
 			$emails = Email::where('user_id', '=', $userAuth->id)
-					->with('users')
+					->with('user')
 					->get();
 		}
 		$totalEmails = $emails->count();
@@ -125,9 +125,13 @@ class EmailController extends Controller {
 		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
 		if ($userAuth->perfil == "administrador") {
-			$emails = Email::where('id', '>=', 0)->orderBy('EMAIL', 'asc')->get();
+			$emails = Email::where('id', '>=', 0)
+					->orderBy('EMAIL', 'asc')
+					->get();
 		} else {
-			$emails = Email::where('user_id', '=', $userAuth->id)->with('users')->get();
+			$emails = Email::where('user_id', '=', $userAuth->id)
+					->with('user')
+					->get();
 		}
 
 		return view('emails.editEmail', [
