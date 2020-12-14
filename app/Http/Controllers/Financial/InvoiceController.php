@@ -30,7 +30,7 @@ class InvoiceController extends Controller {
 						$query->where('users.id', $userAuth->id);
 					})
 					->pluck('id');
-
+//dd($accountsID);
 			$invoices = Invoice::whereIn('account_id', $accountsID)
 					->with([
 						'opportunitie',

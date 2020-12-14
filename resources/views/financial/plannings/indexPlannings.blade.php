@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('planning.create')}}">NOVO PLANEJAMENTO</a>
+@endsection
+
+@section('buttons')
+<a class="button-secondary"  href="{{route('planning.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')

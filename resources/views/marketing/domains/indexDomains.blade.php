@@ -7,7 +7,15 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('domain.create')}}">NOVO DOMÌNIO</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('site.index')}}">
+	SITES
+</a>
+<a class="button-primary"  href="{{route('domain.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')

@@ -141,20 +141,6 @@
     @endforeach
     <a href=" {{ route('spotify.create' ) }}"style=" color: white" > Adicionar nova conta</a> 
 </div>
-
-
-
-<div style="padding-top: 3%;padding-left: 2%; padding-right: 4%;display: inline-block;text-align: left;vertical-align: top">
-    <img src=" {{ asset('imagens/cao-astronauta-left.png') }} " width="150px" height="150px">
-</div>
-
-<div style="padding-top: 1%; padding-left: 4%; padding-right: 4%;display: inline-block">
-    <br>	
-    <p style="color:purple; font-weight: 400;line-height: 2;padding-top: 2%;font-size: 28px">
-        <b>Olá {{$userAuth->name}}, já organizou seu dia?</b>
-    </p>
-    <p style="color:purple; font-weight: 400;line-height: 2;padding-top: 2%;font-size: 18px">
-        Use os links do painel e não deixe suas tarefas acumularem. <br>Use o menu lateral para navegar através dos DEPARTAMENTOS.
-    </p>
-</div>
+<br>
+<br>
 @endsection

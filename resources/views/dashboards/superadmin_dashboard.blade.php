@@ -107,7 +107,7 @@
 			@foreach ($users as $user)
 			<tr style="font-size: 14px">
 				<td class="table-list-left">
-					{{$user->name}}
+					{{$user->contact->name}}
 				</td>
 				<td class="table-list-center">
 					{{number_format($user->hoursToday / 3600, 1, ',','.')}}

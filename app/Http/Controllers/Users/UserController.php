@@ -39,6 +39,7 @@ class UserController extends Controller {
 						$query->whereIn('accounts.id', $accountsId);
 					})
 					->with('contact')
+					->orderBy('NAME', 'asc')
 					->paginate(20);
 		} else {
 			return redirect('/login');
