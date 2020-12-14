@@ -20,13 +20,11 @@
 <h1 class="name">
 	{{ $domain->name }}
 </h1>
-<label class="labels" for="" >DONO: </label>
+<label class="labels" for="" >EMPRESA: </label>
 <span class="fields">{{$domain->account->name }}</span>
 <br>
 <label class="labels" for="" >SITE:</label>
-@foreach ($sites as $site)
-{{ $site->name }}
-@endforeach
+<span class="fields">{{$domain->holder}}</span>
 <br>
 <label class="labels" for="" >NOME DO TITULAR:</label>
 <span class="fields">{{$domain->holder}}</span>
