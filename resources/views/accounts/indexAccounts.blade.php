@@ -27,11 +27,11 @@ Total: <span class="labels">{{$totalAccounts}} </span>
 	<tr style="font-size: 16px">
 		<td class="table-list-left">
 			<a  class="white" href=" {{ route('account.show', ['account' => $account->id]) }}">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-eye'></i>
 				</button>
 				<a href=" {{ route('account.edit', ['account' => $account->id]) }}">
-					<button class="button">
+					<button class="button-round">
 						<i class='fa fa-edit'></i>
 					</button>
 				</a>
@@ -42,13 +42,13 @@ Total: <span class="labels">{{$totalAccounts}} </span>
 		<td class="table-list-left">
 			@foreach ($account->users as $user)
 			<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
-				<button class="button">
+				<button class="button-round">
 					<i class='fas fa-comment-dots'></i>
 				</button>
 			</a>
 
 			<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
-				<button class="button">
+				<button class="button-round">
 					<i class='fa fa-eye'></i>
 				</button>
 			</a>
