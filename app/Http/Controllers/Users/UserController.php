@@ -26,6 +26,8 @@ class UserController extends Controller {
 					$query->where('users.id', $userAuth->id);
 				})
 				->get();
+				
+		$accountsId = $accounts->pluck('id');
 
 		if ($request['role'] === "superadmin") {
 			$users = User::where('id', '>', 0)
@@ -33,8 +35,8 @@ class UserController extends Controller {
 					->orderBy('NAME', 'asc')
 					->paginate(20);
 		} elseif ($request['role'] === "administrator") {
-			$users = User::whereHas('accounts', function($query) use($accounts) {
-						$query->whereIn('accounts.id', $accounts->id);
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
+						$query->whereIn('accounts.id', $accountsId);
 					})
 					->with('contact')
 					->paginate(20);
