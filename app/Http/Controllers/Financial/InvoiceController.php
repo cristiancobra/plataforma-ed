@@ -241,6 +241,7 @@ class InvoiceController extends Controller {
 			$name = 'name001';
 			$amount = 'amount001';
 			$hours = 'hours001';
+			$dueDate = 'dueDate001';
 			$cost = 'cost001';
 			$taxRate = 'taxRate001';
 			$margin = 'margin001';
@@ -260,6 +261,7 @@ class InvoiceController extends Controller {
 				'name' => $name,
 				'amount' => $amount,
 				'hours' => $hours,
+				'dueDate' => $dueDate,
 				'cost' => $cost,
 				'taxRate' => $taxRate,
 				'margin' => $margin,
@@ -321,6 +323,7 @@ class InvoiceController extends Controller {
 		$name = 'name001';
 		$amount = 'amount001';
 		$hours = 'hours001';
+		$dueDate = 'dueDate001';
 		$cost = 'cost001';
 		$taxRate = 'taxRate001';
 		$margin = 'margin001';
@@ -334,6 +337,7 @@ class InvoiceController extends Controller {
 				'product_id' => $request->$productId,
 				'amount' => $request->$amount,
 				'subtotalHours' => $request->$amount * $request->$hours,
+				'subtotalDeadline' => $request->$amount * $request->$dueDate,
 				'subtotalCost' => $request->$amount * $request->$cost,
 				'subtotalTax_rate' => $request->$amount * $request->$taxRate,
 				'subtotalMargin' => $request->$amount * $request->$margin,
@@ -353,6 +357,7 @@ class InvoiceController extends Controller {
 			$name++;
 			$amount++;
 			$hours++;
+			$dueDate++;
 			$cost++;
 			$taxRate++;
 			$margin++;

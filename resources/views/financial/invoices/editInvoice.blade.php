@@ -71,6 +71,9 @@ CKEDITOR.replace('description');
 					<b>HORAS</b>
 				</td>
 				<td   class="table-list-header">
+					<b>PRAZO</b>
+				</td>
+				<td   class="table-list-header">
 					<b>CUSTOS</b>
 				</td>
 				<td   class="table-list-header">
@@ -108,6 +111,10 @@ CKEDITOR.replace('description');
 				<span class="fields">{{$invoiceLine->product->name}}</span>
 			</td>
 			<td class="table-list-center">
+				<input type="hidden" name="{{$dueDate}}" size="4" value="{{$invoiceLine->product->due_date}}">
+				{{ number_format($invoiceLine->product->due_date)}}
+			</td>
+			<td class="table-list-center">
 				<input type="hidden" name="{{$hours}}" size="4" value="{{$invoiceLine->product->work_hours}}">
 				{{ number_format($invoiceLine->product->work_hours)}}
 			</td>
@@ -134,6 +141,7 @@ CKEDITOR.replace('description');
 			$name++;
 			$amount++;
 			$hours++;
+			$dueDate++;
 			$cost++;
 			$taxRate++;
 			$margin++;
@@ -141,7 +149,7 @@ CKEDITOR.replace('description');
 			@endphp
 			@endforeach
 			<tr>
-				<td   class="table-list-header-right" colspan="6"></td>
+				<td   class="table-list-header-right" colspan="7"></td>
 				<td   class="table-list-header-right">
 					desconto: 
 				</td>
@@ -150,7 +158,7 @@ CKEDITOR.replace('description');
 				</td>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right" colspan="6">
+				<td   class="table-list-header-right" colspan="7">
 				<td   class="table-list-header-right">
 					TOTAL: 
 				</td>
