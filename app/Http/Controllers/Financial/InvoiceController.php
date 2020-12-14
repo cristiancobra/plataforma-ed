@@ -29,7 +29,7 @@ class InvoiceController extends Controller {
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
 					})
-					->get('id');
+					->pluck('id');
 
 			$invoices = Invoice::whereIn('account_id', $accountsID)
 					->with([
