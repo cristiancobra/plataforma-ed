@@ -34,7 +34,7 @@ class UserController extends Controller {
 					->paginate(20);
 		} elseif ($request['role'] === "administrator") {
 			$users = User::whereHas('accounts', function($query) use($accounts) {
-						$query->where('accounts.id', $accounts->first()->id);
+						$query->whereIn('accounts.id', $accounts->id);
 					})
 					->with('contact')
 					->paginate(20);
