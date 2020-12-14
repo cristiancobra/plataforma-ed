@@ -7,15 +7,17 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('email.index')}}">VER EMAILS</a>
+@endsection
 
+@section('buttons')
+<a class="button-primary"  href="{{route('email.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<br>
-<br>
-<div style="padding-left: 6%">
-	<form action=" {{ route('email.store') }} " method="post" style="padding: 40px;color: #874983">
+<div>
+	<form action=" {{ route('email.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >EMAIL: </label>
 		<input class="fields" type="text" name="email" value="{{ $email->email }} ">

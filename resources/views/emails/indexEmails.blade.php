@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','Emails Extras')
+@section('title','EMAILS')
 
 @section('image-top')
 {{ asset('imagens/email.png') }} 
@@ -56,15 +56,13 @@
 					<a class="button-round" href=" https://empresadigital.net.br/webmail" target="_blank">
 						<i class='fa fa-envelope'></i>
 					</a>
-
-				@if ($userAuth->perfil == "administrador")
-					<a class="button-round" href=" {{ route('email.show', ['email' => $email->id]) }}">
+					<a class="button-round" href=" {{ route('email.show', ['email' => $email]) }}">
 						<i class='fa fa-eye'></i>
 					</a>
-				@endif
-				{{ $email->email}}
+				{{$email->email}}
 			</td>
-			<td class="table-list-left">
+			<td class="table-list-center">
+				{{$email->user->contact->name}}
 			</td>
 			<td class="table-list-center">
 				<b>{{ $email->storage}}</b>

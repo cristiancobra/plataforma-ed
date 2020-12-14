@@ -7,22 +7,42 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('email.index')}}">VER EMAILS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('email.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<div style="padding-left: 6%">
-	<form action=" {{ route('email.update', ['email' =>$email->id]) }} " method="post" style="padding: 40px;color: #874983">
+<div>
+	<form action=" {{ route('email.update', ['email' =>$email->id]) }} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >EMAIL: </label>
 		<input class="fields" type="text" name="email" value="{{ $email->email }} ">
 		<br>
+		<label class="labels" for="" >EMPRESA:</label>
+		<select name="account_id">
+			<option  class="fields" value="{{$email->account_id}}">
+				{{$email->account->name}}
+			</option>
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="user_id">
+			<option  class="fields" value="{{ $email->user_id }}">
+				{{ $email->user->name }}
+			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
+				{{ $user->contact->name }}
 			</option>
 			@endforeach
 		</select>

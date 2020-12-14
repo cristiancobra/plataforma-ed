@@ -28,10 +28,11 @@ class EmailController extends Controller {
 			$emails = Email::whereHas('account', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
+					->with('user', 'account')
 					->get();
 		} else {
 			$emails = Email::where('user_id', '=', $userAuth->id)
-					->with('user')
+					->with('user', 'account')
 					->get();
 		}
 //		dd($emails);
@@ -51,21 +52,32 @@ class EmailController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
+	public function create(Request $request) {
 		$userAuth = Auth::user();
 		$email = new \App\Models\Email();
-		if ($userAuth->perfil == "administrador") {
-			$users = User::where('id', '>=', 0)
+
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		$accounts = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->orderBy('NAME', 'asc')
+				->get();
+
+		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
 					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$users = User::where('id', '=', $userAuth->id)
+			$users = User::where('user_id', '=', $userAuth->id)
 					->with('accounts')
 					->get();
 		}
-		$accounts = \App\Models\Account::where('id', '>=', 0)
-				->orderBy('NAME', 'asc')
-				->get();
 
 		return view('emails.createEmail', [
 			'userAuth' => $userAuth,
@@ -84,6 +96,7 @@ class EmailController extends Controller {
 	public function store(Request $request) {
 		$email = new \App\Models\Email();
 		$email->user_id = ($request->user_id);
+		$email->account_id = $request->account_id;
 		$email->email = ($request->email);
 		$email->email_password = ($request->email_password);
 		$email->storage = ($request->storage);
@@ -127,17 +140,29 @@ class EmailController extends Controller {
 	 * @param  \App\Models\Email  $email
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Email $email) {
+	public function edit(Email $email, Request $request) {
 		$userAuth = Auth::user();
-		$users = User::where('id', '>=', 0)->orderBy('NAME', 'asc')->get();
 
-		if ($userAuth->perfil == "administrador") {
-			$emails = Email::where('id', '>=', 0)
-					->orderBy('EMAIL', 'asc')
+		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->pluck('id');
+
+		$accounts = Account::whereHas('users', function($query) use($userAuth) {
+					$query->where('users.id', $userAuth->id);
+				})
+				->orderBy('NAME', 'asc')
+				->get();
+
+		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->orderBy('NAME', 'asc')
 					->get();
 		} else {
-			$emails = Email::where('user_id', '=', $userAuth->id)
-					->with('user')
+			$users = User::where('user_id', '=', $userAuth->id)
+					->with('accounts')
 					->get();
 		}
 
@@ -145,7 +170,7 @@ class EmailController extends Controller {
 			'userAuth' => $userAuth,
 			'users' => $users,
 			'email' => $email,
-			'emails' => $emails,
+			'accounts' => $accounts,
 		]);
 	}
 
@@ -158,8 +183,9 @@ class EmailController extends Controller {
 	 */
 	public function update(Request $request, Email $email) {
 		$userAuth = Auth::user();
+		$email->user_id = ($request->user_id);
+		$email->account_id = $request->account_id;
 		$email->email = $request->email;
-		//$user->name = $request->name;
 		$email->email_password = $request->email_password;
 		$email->storage = $request->storage;
 		$email->status = $request->status;

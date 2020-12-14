@@ -7,20 +7,37 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('email.index')}}">VER EMAILS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('email.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<br>
-<br>
-<div style="padding-left: 6%">
-	<h1 class="name"> {{ $email->email }}  </h1>
-	<p class="labels">DONO:<span class="fields">{{ $email->users->name }} </span></p>
-	<p class="labels">SENHA PADRÃO:<span class="fields">  {{ $email->email_password }} </span></p>
-	<p class="labels">ESPAÇO (GB):<span class="fields">  {{ $email->storage }} </span></p>
-	<p class="labels">SITUAÇAO:<span class="fields">  {{ $email->status }} </span></p>
+<div>
+	<h1 class="name">
+		{{$email->email}}
+	</h1>
+	<p class="labels">
+		DONO:<span class="fields">{{$email->user->contact->name}}</span>
+	</p>
+	<p class="labels">
+		EMPRESA:<span class="fields">{{$email->account->name}}</span>
+	</p>
+	<p class="labels">
+		SENHA PADRÃO:<span class="fields">{{$email->email_password}}</span>
+	</p>
+	<p class="labels">
+		ESPAÇO (GB):<span class="fields"> {{$email->storage}}</span>
+	</p>
+	<p class="labels">
+		SITUAÇAO:<span class="fields">{{$email->status}}</span>
+	</p>
 	<br>
-	<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($email->created_at)) }} </p>
+	<p class="fields">Criado em:  {{date('d/m/Y H:i', strtotime($email->created_at))}}
+	</p>
 
 	<div style="text-align:right;padding: 2%">
 		<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('email.destroy', ['email' => $email->id]) }}" method="post">
