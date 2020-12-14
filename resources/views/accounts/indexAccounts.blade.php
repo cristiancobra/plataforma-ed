@@ -52,7 +52,7 @@ Total: <span class="labels">{{$totalAccounts}} </span>
 					<i class='fa fa-eye'></i>
 				</button>
 			</a>
-			{{ $user->name }}
+			{{$user->contact->name}}
 			<br>
 			@endforeach	
 		</td>
