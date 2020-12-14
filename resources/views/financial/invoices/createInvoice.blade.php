@@ -26,8 +26,23 @@
 </div>
 @endif
 <div>
-	<form action=" {{route('invoice.store')}} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
+		<label class="labels" for="" >EMPRESA:</label>
+		@if(!empty(app('request')->input('opportunitieAccountName')))
+		{{app('request')->input('opportunitieAccountName')}}
+		<input type="hidden" name="account_id" value="{{app('request')->input('opportunitieAccountId')}}">
+		@else
+		<select name="account_id">
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
+			</option>
+			@endforeach
+		</select>
+		@endif
+		<br>
+		<br>
 		<label class="labels" for="" >OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunitieName')))
 		{{app('request')->input('opportunitieName')}}
@@ -197,5 +212,7 @@ CKEDITOR.replace('description');
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR FATURA">
 	</form>
-</div>     
+</div>
+br>
+		<br>
 @endsection

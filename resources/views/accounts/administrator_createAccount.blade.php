@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('account.index')}}">VER EMPRESAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('account.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -37,8 +42,6 @@
 	<br>
 	<label for="">Estado: </label>
 	<select name="state">
-		<option value="">
-		</option>
 		{{createSelect($states)}}
 	</select>
 	<br>
@@ -108,7 +111,7 @@
 	<input type="text" name="opposite_color">   
 	<br>
 	<br>
-	<label class="labels" for="" >Colaboradores: </label>
+	<label class="labels" for="" >Funcionário:</label>
 	<br>
 	@foreach ($users as $user)
 	<p class="fields">

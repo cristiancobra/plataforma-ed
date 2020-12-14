@@ -139,7 +139,7 @@ CKEDITOR.replace('description');
 	</select>
 	<br>
 	<br>
-	<label class="labels" for="" >Colaboradores: </label>
+	<label class="labels" for="" >Funcionários:</label>
 	<br>
 	@foreach ($users as $user)
 	<p class="fields">

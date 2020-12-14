@@ -51,6 +51,7 @@
 	<br>
 	<label for="">Segmento: </label>
 	<select name="type">
+			<option value=""></option>
 			<option value="agricultura">Agricultura</option>
 			<option value="biotecnologia">Biotecnologia</option>
 			<option value="química">Substâncias e produtos químicos</option>

@@ -136,8 +136,8 @@ indefinida
 				'opportunitieDescription' => $opportunitie->description,
 //				'opportunitieUserName' => $opportunitie->user->name,
 //				'opportunitieUserId' => $opportunitie->user->id,
-//				'opportunitieAccountName' => $opportunitie->account->name,
-//				'opportunitieAccountId' => $opportunitie->account->id,
+				'opportunitieAccountName' => $opportunitie->account->name,
+				'opportunitieAccountId' => $opportunitie->account->id,
 				])}}">
 	NOVA FATURA
 </a>

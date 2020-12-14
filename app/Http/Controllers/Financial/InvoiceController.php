@@ -117,8 +117,8 @@ class InvoiceController extends Controller {
 
 		$invoice->opportunitie_id = $request->opportunitie_id;
 		$invoice->user_id = $request->user_id;
-		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
-		$invoice->account_id = $opportunitie->account->id;
+//		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
+		$invoice->account_id = $request->account_id;
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
 		$invoice->description = $request->description;

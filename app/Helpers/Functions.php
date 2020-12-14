@@ -90,6 +90,7 @@ if (!function_exists('returnStates')) {
 
 	function returnStates() {
 		return $states = array(
+				'' => '',
 				'AC' => 'Acre',
 				'AL' => 'Alagoas',
 				'AP' => 'Amapá',
