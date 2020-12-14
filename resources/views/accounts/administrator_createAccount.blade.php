@@ -36,7 +36,9 @@
 	<input type="text" name="address_city">   
 	<br>
 	<label for="">Estado: </label>
-	<input type="text" name="address_state">   
+		<select name="state">
+			{{createSelect($states)}}
+		</select>
 	<br>
 	<label for="">País: </label>
 	<input type="text" name="address_country" value="Brasil">   

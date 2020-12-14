@@ -7,7 +7,9 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('task.index') }}">VER TAREFAS</a>
+<a class="btn btn-primary" href="{{ route('task.index') }}">
+	VER TAREFAS
+</a>
 @endsection
 
 @section('main')

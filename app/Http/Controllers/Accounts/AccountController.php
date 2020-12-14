@@ -59,6 +59,7 @@ class AccountController extends Controller {
 			return view('accounts.superadmin_createAccount', [
 				'userAuth' => $userAuth,
 				'users' => $users,
+				'states' => $states,
 			]);
 		} elseif ($request['role'] === "administrator") {
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
@@ -67,22 +68,18 @@ class AccountController extends Controller {
 					->pluck('id');
 
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->where('accounts.id', $accountsID->first());
+						$query->whereIn('accounts.id', $accountsID);
 					})
 					->get();
 
 			return view('accounts.administrator_createAccount', [
 				'userAuth' => $userAuth,
 				'users' => $users,
+				'states' => $states,
 			]);
 		} else {
 			return redirect('/login');
 		}
-
-		return view('accounts.createAccount', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-		]);
 	}
 
 	/**

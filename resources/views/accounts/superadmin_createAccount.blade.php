@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('account.index')}}">VER EMPRESAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('account.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -36,7 +41,9 @@
 	<input type="text" name="address_city">   
 	<br>
 	<label for="">Estado: </label>
-	<input type="text" name="address_state">   
+		<select name="state">
+			{{createSelect($states)}}
+		</select>
 	<br>
 	<label for="">País: </label>
 	<input type="text" name="address_country" value="Brasil">   
@@ -103,16 +110,12 @@
 	<input type="text" name="opposite_color">   
 	<br>
 	<br>
-	<label class="labels" for="" >Colaboradores: </label>
+	<label class="labels" for="" >Funcionários: </label>
 	<br>
-	<p class="fields">
-		<input type="checkbox" name="users[]" value="{{ $userAuth->id }}" checked>
-		{{ $userAuth->name }}
-	</p>
 	@foreach ($users as $user)
 	<p class="fields">
 		<input type="checkbox" name="users[]" value="{{ $user->id }}">
-		{{ $user->name }}
+		{{ $user->contact->name }}
 	</p>
 	@endforeach
 	<br>

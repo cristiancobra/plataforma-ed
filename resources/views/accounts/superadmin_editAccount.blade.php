@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('account.index')}}">VER EMPRESAS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('account.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -144,7 +149,7 @@ CKEDITOR.replace('description');
 			checked
 			@endif
 			>
-		{{ $user->name }}
+		{{ $user->contact->name }}
 	</p>
 	@endforeach
 	<br>

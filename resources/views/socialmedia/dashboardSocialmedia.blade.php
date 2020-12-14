@@ -60,7 +60,7 @@
         {{$linkedin->page_name}}
         <br>
         @endforeach
-        <a href=" {{ route('linkedin.create' ) }}"style=" color: white" >
+		<a href=" {{ route('linkedin.create' ) }}"style=" color: white" >
 			Adicionar nova conta
 		</a> 
     </div>
@@ -92,7 +92,7 @@
         {{$pinterest->page_name}}
         <br>
         @endforeach
-        <a  href="{{route('pinterest.create')}}" style=" color: white" >
+		<a  href="{{route('pinterest.create')}}" style=" color: white" >
 			Adicionar nova conta
 		</a> 
     </div>
@@ -104,7 +104,7 @@
 		<a class="button-round"  href=" {{ $youtube->URL_name}}" target="_blank" >
 			<i class='fab fa-youtube'></i>
 		</a>
-		<a href=" {{ route('youtube.show', ['youtube' => $youtube->id]) }}" >
+		<a  class="button-round" href=" {{ route('youtube.show', ['youtube' => $youtube->id]) }}" >
 			<i class='fa fa-eye'></i>
 		</a>
         {{$youtube->page_name}}
