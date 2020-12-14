@@ -36,7 +36,7 @@
 		<i class='fa fa-eye'></i>
 	</button>
 </a>
-{{ $user->name }}
+{{ $user->contact->name }}
 <br>
 @endforeach	
 <br>
