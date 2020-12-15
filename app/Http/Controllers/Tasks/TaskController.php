@@ -170,6 +170,7 @@ class TaskController extends Controller {
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
+					->with('contact')
 					->get();
 
 			return view('tasks.createTask', [
