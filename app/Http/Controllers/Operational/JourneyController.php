@@ -188,7 +188,7 @@ class JourneyController extends Controller {
 			$tasks = Task::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
-					
+
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
@@ -336,16 +336,15 @@ class JourneyController extends Controller {
 			$counterArray = 1;
 			foreach ($categories as $category) {
 				$counterMonth = 1;
-//				while ($counterArray <= count($categories)*12) {
 				while ($counterMonth <= 12) {
-					$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($category) {
+					$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($category, $accountsID) {
+								$query->whereIn('account_id', $accountsID);
 								$query->where('category', 'LIKE', $category);
 							})
-//							->whereBetween('date', ["2020-11-01", "2020-11-31"])
-							->whereBetween('date', ["2020-".str_pad($counterMonth, 2, "0", STR_PAD_LEFT)."-01", "2020-".str_pad($counterMonth, 2, "0", STR_PAD_LEFT)."-31"])
+							->whereBetween('date', ["2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01", "2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31"])
 							->sum('duration');
-							$counterMonth++;
-							$counterArray++;
+					$counterMonth++;
+					$counterArray++;
 				}
 			}
 
