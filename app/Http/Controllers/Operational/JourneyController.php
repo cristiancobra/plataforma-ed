@@ -333,32 +333,30 @@ class JourneyController extends Controller {
 //			$monthStart = date('Y-m-01');
 //			$monthEnd = date('Y-m-t');
 
+			$counterArray = 1;
 			foreach ($categories as $category) {
-				$counter = 01;
-				while ($counter <= 12) {
-					$resultCategories = $category . returnMonth($counter);
-					$$resultCategories[] = Journey::whereHas('task', function($query) use($category) {
+				$counterMonth = 1;
+//				while ($counterArray <= count($categories)*12) {
+				while ($counterMonth <= 12) {
+					$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($category) {
 								$query->where('category', 'LIKE', $category);
 							})
-							->whereBetween('date', ["2020-".str_pad($counter, 2, "0", STR_PAD_LEFT)."-01", "2020-".str_pad($counter, 2, "0", STR_PAD_LEFT)."-31"])
+//							->whereBetween('date', ["2020-11-01", "2020-11-31"])
+							->whereBetween('date', ["2020-".str_pad($counterMonth, 2, "0", STR_PAD_LEFT)."-01", "2020-".str_pad($counterMonth, 2, "0", STR_PAD_LEFT)."-31"])
 							->sum('duration');
-							$counter++;
+							$counterMonth++;
+							$counterArray++;
 				}
 			}
-			
-$counter = 01;
-//				$accounts = Journey::whereHas('users', function($query) use($userAuth) {
-//						$query->where('users.id', $userAuth->id);
-//					})
-//					->get();
 
 			return view('operational.journey.reportsJourneys', [
 				'users' => $users,
 				'accounts' => $accounts,
 				'accountsID' => $accountsID,
 				'months' => $months,
-				'counter' => $counter,
 				'categories' => $categories,
+				'counterMonth' => $counterMonth,
+				'counterArray' => $counterArray,
 				'resultCategories' => $resultCategories,
 				'userAuth' => $userAuth,
 			]);

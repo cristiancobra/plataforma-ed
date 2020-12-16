@@ -104,27 +104,25 @@
 		</td>
 	</tr>
 	@php
-	$counterArray = 1;
+	$counterColumn = 12;
+	$counterRow = 1;
 
-	foreach ($categories as $category) {
-	$counterMonth = 1;
-
-	echo "<tr style='font-size: 14px'>
-		<td class='table-list-left'>
+	foreach($categories as $category) {
+	echo '<tr style="font-size: 14px">
+		<td class="table-list-left">
 			$category
-		</td>
-		";
-		while ($counterMonth <= 12) {
-		echo "<td class='table-list-center'>";
-		echo number_format($resultCategories[$counterArray] / 3600, 1, ',','.');			
-		echo "</td>";
-		$counterMonth++;
-		$counterArray++;
+			</td>';
+		while($counterColumn <= 12) {
+		echo '<td class="table-list-center">
+			number_format($resultCategories[$counterColumn++] / 3600, 1, ',','.')
+			</td>';
+			$counterColumn++
+		$counterRow++;
+		echo "$counterColumn - $counterRow <br>";
 		}
-	echo "<td class='table-list-center' style='color:white;background-color: #874983'>
-			total
+		echo '<td class="table-list-center" style="color:white;background-color: #874983">
 		</td>
-		</tr>";
+		</tr>';
 	}
 	@endphp
 </table>
