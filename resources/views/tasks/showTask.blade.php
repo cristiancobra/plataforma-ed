@@ -28,7 +28,7 @@
 		DONO:<span class="fields">{{ $task->account->name }}</span>
 	</p>
 	<p class="labels">
-		RESPONSÁVEL:<span class="fields">{{ $task->user->name }}</span>
+		RESPONSÁVEL:<span class="fields">{{ $task->user->contact->name }}</span>
 	</p>
 	<br>
 	<br>
