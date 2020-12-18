@@ -49,7 +49,7 @@
 
 	echo "<tr style='font-size: 14px'>
 		<td class='table-list-left'>
-			$user->name
+			$user->contact->name
 		</td>
 		";
 		while ($counterMonth <= 12) {
