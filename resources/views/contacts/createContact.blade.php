@@ -17,14 +17,14 @@
         <label class="labels" for="" >EMPRESA: </label>
         <select name="account_id">
             @foreach ($accounts as $account)
-            <option  class="fields" value="{{ $account->id }}">
-                {{ $account->name }}
+            <option  class="fields" value="{{$account->id}}">
+                {{$account->name}}
             </option>
             @endforeach
         </select>
         <br>
         <br>
-        <label class="labels" for="" >OPORTUNIDADE: </label>
+        <label class="labels" for="" >OPORTUNIDADE:</label>
         <select name="opportunitie">
             @foreach ($opportunities as $opportunitie)
             <option  class="fields" value="{{ $opportunitie->id }}">
