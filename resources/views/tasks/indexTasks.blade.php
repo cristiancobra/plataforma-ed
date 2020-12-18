@@ -52,7 +52,7 @@ Total: <span class="labels">{{$totalTasks}} </span>
 		</option>
 		@foreach ($users as $user)
 		<option  class="fields" value="{{ $user->id }}">
-			{{ $user->name }}
+			{{ $user->contact->name }}
 		</option>
 		@endforeach
 	</select>
@@ -117,7 +117,11 @@ Total: <span class="labels">{{$totalTasks}} </span>
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->contact->name}}
+			@if(isset($task->contact->name))
+			{{$task->contact->name}}
+			@else
+			não possui
+			@endif
 		</td>
 
 		<td class="table-list-center">
