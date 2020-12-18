@@ -20,6 +20,53 @@ if (!function_exists('createSelect')) {
 
 }
 // retorna os meses do ano
+if (!function_exists('returnAccountType')) {
+
+    function returnAccountType() {
+        return $type = array(
+            '1' => '',
+            '2' => 'Agricultura',
+            '3' => 'Biotecnologia',
+            '4' => 'Quimica',
+            '5' => 'Aeroespacial',
+            '6' => 'Computadores e hardware',
+            '7' => 'Construção',
+            '8' => 'Consultoria',
+            '9' => 'Produtos de consumo',
+            '10' => 'Esportes',
+            '11' => 'Serviços ao consumidor',
+            '12' => 'Marketing digital',
+            '13' => 'Educação',
+            '14' => 'Eletrônica',
+            '15' => 'Eletrônica',
+            '16' => 'Moda',
+            '17' => 'Serviços financeiros',
+            '18' => 'Alimentos e bebidas',
+            '19' => 'Jogos',
+            '20' => 'serviços de saúde',
+            '21' => 'Indústria',
+            '22' => 'Internet/serviços da web',
+            '23' => 'Serviços de TI',
+            '24' => 'Jurídico',
+            '25' => 'Estilo de vida',
+            '26' => 'Marítimo',
+            '27' => 'Marketing/publicidade',
+            '28' => 'Mídias e entretenimento',
+            '29' => 'Mineração',
+            '30' => 'Petróleo e gás',
+            '31' => 'Política',
+            '32' => 'Imóveis',
+            '33' => 'Varejo/distribuição',
+            '34' => 'Segurança',
+            '35' => 'Software',
+            '36' => 'Telecomunicações',
+            '37' => 'Transportes',
+            '38' => 'Turismo',
+            '39' => 'Outros',
+        );
+    }
+}
+// retorna os meses do ano
 if (!function_exists('returnMonths')) {
 
 	function returnMonths() {
