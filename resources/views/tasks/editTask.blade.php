@@ -15,7 +15,7 @@
 <form action=" {{ route('task.update', ['task' =>$task->id]) }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	@method('put')
-	<div style="padding-left: 6%">
+	<div>
 		<label class="labels" for="" >NOME DA TAREFA:</label>
 		<input type="text" name="name" size="20" value="{{ $task->name }}"><span class="fields"></span><br>
 		<label class="labels" for="" >CATEGORIA:</label>
@@ -30,7 +30,7 @@
 			<option value="venda">venda</option>
 		</select>
 		<br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
 			<option  class="fields" value="{{ $task->account->id }}">
 				{{ $task->account->name }}
@@ -49,7 +49,7 @@
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->name }}
+				{{ $user->contact->name }}
 			</option>
 			@endforeach
 		</select>
