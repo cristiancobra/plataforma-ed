@@ -278,60 +278,19 @@ class JourneyController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$counterArray = 1;
 			foreach ($users as $user) {
-				$user->janeiro = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-01-01', '2020-01-31'])
-						->sum('duration');
-
-				$user->fevereiro = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-02-01', '2020-02-31'])
-						->sum('duration');
-
-				$user->março = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-03-01', '2020-03-31'])
-						->sum('duration');
-
-				$user->abril = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-04-01', '2020-04-31'])
-						->sum('duration');
-
-				$user->maio = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-05-01', '2020-05-31'])
-						->sum('duration');
-
-				$user->junho = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-06-01', '2020-06-31'])
-						->sum('duration');
-
-				$user->julho = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-07-01', '2020-07-31'])
-						->sum('duration');
-
-				$user->agosto = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-08-01', '2020-08-31'])
-						->sum('duration');
-
-				$user->setembro = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-09-01', '2020-09-31'])
-						->sum('duration');
-
-				$user->outubro = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-10-01', '2020-10-31'])
-						->sum('duration');
-
-				$user->novembro = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-11-01', '2020-11-31'])
-						->sum('duration');
-
-				$user->dezembro = Journey::where('user_id', $user->id)
-						->whereBetween('date', ['2020-12-01', '2020-12-31'])
-						->sum('duration');
+				$counterMonth = 1;
+				while ($counterMonth <= 12) {
+					$resultUsers[$counterArray] = Journey::where('user_id', $user->id)
+							->whereBetween('date', ["2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01", "2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31"])
+							->sum('duration');
+					$counterMonth++;
+					$counterArray++;
+				}
 			}
 
 			$categories = returnCategories();
-
-//			$monthStart = date('Y-m-01');
-//			$monthEnd = date('Y-m-t');
 
 			$counterArray = 1;
 			foreach ($categories as $category) {
@@ -356,6 +315,7 @@ class JourneyController extends Controller {
 				'categories' => $categories,
 				'counterMonth' => $counterMonth,
 				'counterArray' => $counterArray,
+				'resultUsers' => $resultUsers,
 				'resultCategories' => $resultCategories,
 				'userAuth' => $userAuth,
 			]);

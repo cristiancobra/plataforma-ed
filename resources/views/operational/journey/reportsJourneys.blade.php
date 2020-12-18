@@ -40,52 +40,32 @@
 		</td>
 	</tr>
 	<br>
+	@php
+	$counterArray = 1;
 
-	@foreach ($users as $user)
-	<tr style="font-size: 14px">
-		<td class="table-list-left">
-			{{$user->contact->name}}
+	foreach ($users as $user) {
+	$counterMonth = 1;
+	$totalUser = 0;
+
+	echo "<tr style='font-size: 14px'>
+		<td class='table-list-left'>
+			$user->name
 		</td>
-		<td class="table-list-left">
-			{{number_format($user->janeiro / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->fevereiro / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->março / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->abril / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->maio / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->junho / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->julho / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->agosto / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->setembro / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->outubro / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->novembro / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center">
-			{{number_format($user->dezembro / 3600, 1, ',','.')}}
-		</td>
-		<td class="table-list-center" style="color:white;background-color: #874983">
-		</td>
-	</tr>
-	@endforeach
+		";
+		while ($counterMonth <= 12) {
+		echo "<td class='table-list-center'>";
+		echo number_format($resultUsers[$counterArray] / 3600, 1, ',','.');
+		echo "</td>";
+		$totalUser = $totalUser + $resultUsers[$counterArray];
+		$counterMonth++;
+		$counterArray++;
+		}
+	echo "<td class='table-list-center' style='color:white;background-color: #874983'>";
+		echo number_format($totalUser / 3600, 1, ',','.');
+	echo "</td>
+		</tr>";
+	}
+	@endphp
 </table>
 <br>
 
@@ -108,6 +88,7 @@
 
 	foreach ($categories as $category) {
 	$counterMonth = 1;
+	$totalCategory = 0;
 
 	echo "<tr style='font-size: 14px'>
 		<td class='table-list-left'>
@@ -116,14 +97,15 @@
 		";
 		while ($counterMonth <= 12) {
 		echo "<td class='table-list-center'>";
-		echo number_format($resultCategories[$counterArray] / 3600, 1, ',','.');			
+		echo number_format($resultCategories[$counterArray] / 3600, 1, ',','.');
 		echo "</td>";
+		$totalCategory = $totalCategory + $resultCategories[$counterArray];
 		$counterMonth++;
 		$counterArray++;
 		}
-	echo "<td class='table-list-center' style='color:white;background-color: #874983'>
-			total
-		</td>
+	echo "<td class='table-list-center' style='color:white;background-color: #874983'>";
+		echo number_format($totalCategory / 3600, 1, ',','.');
+	echo "</td>
 		</tr>";
 	}
 	@endphp

@@ -17,7 +17,7 @@
 
 @section('main')
 <br>
-<div style="padding-left: 6%">
+<div>
 	<p class="labels">
 		DONO:<span class="fields">{{ $journey->account->name }} </span>
 	</p>

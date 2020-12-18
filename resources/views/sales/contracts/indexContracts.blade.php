@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary"  href="{{route('contract.create')}}">NOVO CONTRATO</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contract.create')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
@@ -18,19 +23,25 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header"><b>TÍTULO </b></td>
-			<td   class="table-list-header"><b>CONTRATANTE </b></td>
-			<td   class="table-list-header"><b>SITUAÇÃO</b></td>
+			<td   class="table-list-header">
+				<b>TÍTULO </b>
+			</td>
+			<td   class="table-list-header">
+				<b>CONTRATANTE </b>
+			</td>
+			<td   class="table-list-header">
+				<b>SITUAÇÃO</b>
+			</td>
 		</tr>
 
 		@foreach ($contracts as $contract)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('contract.show', ['contract' => $contract->id]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
-				<button class="button">
+				<button class="button-round">
 					<a href=" {{ route('contract.edit', ['contract' => $contract->id]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>

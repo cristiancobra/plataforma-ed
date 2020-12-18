@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('contract.index')}}">VER CONTRATOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contract.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
