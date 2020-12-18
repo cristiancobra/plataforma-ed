@@ -33,8 +33,8 @@
         <label class="labels" for="" >OPORTUNIDADE:</label>
         <select name="opportunitie">
             @foreach ($opportunities as $opportunitie)
-            <option  class="fields" value="{{ $opportunitie->id }}">
-                {{ $opportunitie->name }}
+            <option  class="fields" value="{{$opportunitie->id}}">
+                {{$opportunitie->name}}
             </option>
             @endforeach
         </select>
