@@ -125,7 +125,7 @@ Total: <span class="labels">{{$totalTasks}} </span>
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->user->name}}
+			{{ $task->user->contact->name}}
 		</td>
 		<td class="table-list-center">
 			@if($task->date_due == date('Y-m-d'))
