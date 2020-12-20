@@ -18,8 +18,8 @@
 	<div>
 		<label class="labels" for="" >NOME DA TAREFA:</label>
 		<input type="text" name="name" size="20" value="{{ $task->name }}"><span class="fields"></span><br>
-		<label class="labels" for="" >CATEGORIA:</label>
-		<select class="fields" name="category">
+		<label class="labels" for="" >DEPARTAMENTO:</label>
+		<select class="fields" name="department">
 			<option value="{{ $task->category }}">{{ $task->category }}</option>
 			<option value="desenvolvimento">desenvolvimento</option>
 			<option value="financeiro">financeiro</option>

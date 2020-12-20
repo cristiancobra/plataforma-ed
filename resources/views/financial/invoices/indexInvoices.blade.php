@@ -85,7 +85,7 @@
 				<button class="btn btn-warning">
 					<b>{{ $invoice->status  }}</b>
 				</button>
-				@elseif ($invoice->status == "fazendo agora")
+				@elseif ($invoice->status == "aprovada")
 				<button class="btn btn-info">
 					<b>{{ $invoice->status  }}</b>
 				</button>

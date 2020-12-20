@@ -168,6 +168,31 @@ if (!function_exists('returnStates')) {
 		);
 	}
 }
+// retorna categorias de faturas, oportunidades,  etc
+if (!function_exists('invoiceStatus')) {
+
+	function invoiceStatus() {
+		return $states = array(
+			 'enviar',
+			'aprovada',
+			'aprovada',
+			'concluida',
+		);
+	}
+}
+// retorna status de tarefas etc
+if (!function_exists('taskStatus')) {
+
+	function taskStatus() {
+		return $states = array(
+			 'fazer',
+			'fazendo',
+			'aguardar',
+			'feito',
+			'cancelado',
+		);
+	}
+}
 // retorna categorias de tarefs/jornadas
 if (!function_exists('returnCategories')) {
 

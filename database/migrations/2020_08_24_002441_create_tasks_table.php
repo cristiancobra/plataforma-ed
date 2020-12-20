@@ -16,7 +16,7 @@ class CreateTasksTable extends Migration {
 			$table->id();
 			$table->foreignId('user_id');
 			$table->string('name');
-			$table->string('category');
+			$table->string('department');
 			$table->date('date_entered');
 			$table->string('created_by');
 			$table->text('description');

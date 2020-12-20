@@ -40,8 +40,8 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >CATEGORIA:</label>
-		<select class="fields" name="category">
+		<label class="labels" for="" >DEPARTAMENTO:</label>
+		<select class="fields" name="department">
 			<option value="desenvolvimento">desenvolvimento</option>
 			<option value="financeiro">financeiro</option>
 			<option value="marketing">marketing</option>

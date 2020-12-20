@@ -19,11 +19,11 @@
 <br>
 <div>
 	<h1 class="name">
-		{{ $task->name }}
+		{{$task->name}}
 	</h1>
 	<p class="labels">
-		CATEGORIA:
-		<span class="fields">{{ $task->category }}</span></p>
+		DEPARTAMENTO:
+		<span class="fields">{{$task->department}}</span></p>
 	<p class="labels">
 		DONO:<span class="fields">{{ $task->account->name }}</span>
 	</p>
