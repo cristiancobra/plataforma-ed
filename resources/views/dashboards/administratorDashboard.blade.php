@@ -107,6 +107,11 @@
 			@foreach ($users as $user)
 			<tr style="font-size: 14px">
 				<td class="table-list-left">
+					<a class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
+						<button class="button-round">
+							<i class='fa fa-eye'></i>
+						</button>
+					</a>
 					{{$user->contact->name}}
 				</td>
 				<td class="table-list-center">

@@ -68,7 +68,7 @@
 	<div class="hours">
 		<br>
 		<p class="numeros_painel" style="color: yellow">
-			
+
 		</p>
 		<p class="subtitulo-branco">
 			horas hoje
@@ -107,6 +107,11 @@
 			@foreach ($users as $user)
 			<tr style="font-size: 14px">
 				<td class="table-list-left">
+					<a class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
+						<button class="button-round">
+							<i class='fa fa-eye'></i>
+						</button>
+					</a>
 					{{$user->contact->name}}
 				</td>
 				<td class="table-list-center">
