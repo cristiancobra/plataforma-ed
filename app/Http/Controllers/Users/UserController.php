@@ -73,11 +73,11 @@ class UserController extends Controller {
 		if ($request['role'] === "superadmin") {
 			$accounts = Account::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
-					->paginate(20);
+					->get();
 
 			$contacts = Contact::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
-					->paginate(20);
+					->get();
 
 			return view('users.superadmin_createUser', [
 				'user' => $user,
@@ -195,7 +195,7 @@ class UserController extends Controller {
 		if ($request['role'] === "superadmin") {
 			$accounts = Account::where('id', '>', 0)
 					->orderBy('NAME', 'asc')
-					->paginate(20);
+					->get();
 
 			return view('users.superadmin_editUser', [
 				'user' => $user,
