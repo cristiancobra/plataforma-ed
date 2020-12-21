@@ -19,8 +19,7 @@
 		"laravel/framework": "^7.0",
 		"laravel/socialite": "^4.4",
 		"laravel/tinker": "^2.0",
-		"laravel/ui": "^2.0",
-		"nesbot/carbon": "^2.37.0"
+		"laravel/ui": "^2.0"
 	},
 	"require-dev": {
 		"barryvdh/laravel-debugbar": "^3.4",
