@@ -136,7 +136,7 @@ indefinida
 				'opportunitieId' => $opportunitie->id,
 				'opportunitieName' => $opportunitie->name,
 				'opportunitieContactName' => $opportunitie->contact->name,
-				'taskContactId' => $opportunitie->contact->id,
+				'opportunitieContactId' => $opportunitie->contact->id,
 				'taskAccountName' => $opportunitie->account->name,
 				'taskAccountId' => $opportunitie->account->id,
 				])}}">
