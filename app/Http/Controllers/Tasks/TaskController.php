@@ -172,6 +172,11 @@ class TaskController extends Controller {
 					})
 					->with('contact')
 					->get();
+					
+			$today = date("Y-m-d");
+			$departments = returnDepartments();
+			$status = returnStatus();
+			$priorities = returnPriorities();
 
 			return view('tasks.createTask', [
 				'userAuth' => $userAuth,
@@ -179,6 +184,10 @@ class TaskController extends Controller {
 				'task' => $task,
 				'accounts' => $accounts,
 				'contacts' => $contacts,
+				'today' => $today,
+				'departments' => $departments,
+				'status' => $status,
+				'priorities' => $priorities,
 			]);
 		} else {
 			return redirect('/');

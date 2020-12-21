@@ -17,7 +17,7 @@
 
 @section('main')
 <div style="text-align:right">
-	<form action=" {{ route('journey.index') }} " method="post" style="padding: 20px;color: #874983;display: inline-block">
+	<form action=" {{ route('journey.index') }} " method="post" style="color: #874983;display: inline-block">
 		@csrf
 		<select class="select"name="user_id">
 			<option  class="fields" value="">

@@ -169,9 +169,9 @@ if (!function_exists('returnStates')) {
 	}
 }
 // retorna categorias de faturas, oportunidades,  etc
-if (!function_exists('invoiceStatus')) {
+if (!function_exists('returnInvoiceStatus')) {
 
-	function invoiceStatus() {
+	function returnInvoiceStatus() {
 		return $states = array(
 			 'enviar',
 			'aprovada',
@@ -180,10 +180,33 @@ if (!function_exists('invoiceStatus')) {
 		);
 	}
 }
-// retorna status de tarefas etc
-if (!function_exists('taskStatus')) {
+// retorna os estágios das oportunidades
+if (!function_exists('returnOpportunitieStage')) {
 
-	function taskStatus() {
+	function returnOpportunitieStage() {
+		return $states = array(
+			 'x',
+			'x',
+			'x',
+			'x',
+		);
+	}
+}
+// retorna prioridade
+if (!function_exists('returnPriorities')) {
+
+	function returnPriorities() {
+		return $states = array(
+			 'baixa',
+			'média',
+			'alta',
+			'emergência',
+		);
+	}
+}
+if (!function_exists('returnStatus')) {
+
+	function returnStatus() {
 		return $states = array(
 			 'fazer',
 			'fazendo',
@@ -193,18 +216,18 @@ if (!function_exists('taskStatus')) {
 		);
 	}
 }
-// retorna categorias de tarefs/jornadas
-if (!function_exists('returnCategories')) {
+// retorna os departamentos de tarefas/jornadas
+if (!function_exists('returnDepartments')) {
 
-	function returnCategories() {
+	function returnDepartments() {
 		return $states = array(
 			 'desenvolvimento',
 			'financeiro',
 			'marketing',
-			'planejamento',
-			'serviço',
-			'suporte',
-			'venda',
+			'administrativo',
+			'produção',
+			'atendimento',
+			'vendas',
 		);
 	}
 }

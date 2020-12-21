@@ -86,13 +86,13 @@
 	@php
 	$counterArray = 1;
 
-	foreach ($categories as $category) {
+	foreach ($departments as $department) {
 	$counterMonth = 1;
 	$totalCategory = 0;
 
 	echo "<tr style='font-size: 14px'>
 		<td class='table-list-left'>
-			$category
+			$department
 		</td>
 		";
 		while ($counterMonth <= 12) {

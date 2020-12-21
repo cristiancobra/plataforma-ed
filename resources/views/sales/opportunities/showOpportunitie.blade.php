@@ -59,6 +59,93 @@ indefinida
 <span class="fields">    {!!html_entity_decode($opportunitie->description)!!}</span>
 <br>
 <br>
+<label class="labels" for="" >PROSPECÇÃO:</label>
+<br>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 5%">
+			<b>ID</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>DATA CRIAÇÃO </b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>DATA PAGAMENTO</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>VALOR TOTAL</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>SITUAÇÃO</b>
+		</td>
+	</tr>
+
+	@foreach ($invoices as $invoice)
+	<tr style="font-size: 14px">
+		<td class="table-list-center">
+			<button class="button-round">
+				<a href=" {{ route('invoice.show', ['invoice' => $invoice->id]) }}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button-round">
+				<a href=" {{ route('invoice.edit', ['invoice' => $invoice->id]) }}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
+			{{ $invoice->id }}
+		</td>
+
+		<td class="table-list-center">
+			{{ date('d/m/Y', strtotime($invoice->date_creation)) }}
+		</td>
+
+		<td class="table-list-center">
+			{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
+		</td>
+
+		<td class="table-list-right">
+			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
+		</td>
+
+		<td class="table-list-center">
+			@if ($invoice->status == "cancelada")
+			<button class="btn btn-dark">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "pendente")
+			<button class="btn btn-warning">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "fazendo agora")
+			<button class="btn btn-info">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "concluida")
+			<button class="btn btn-success">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@endif
+		</td>
+	</tr>
+	@endforeach
+</table>
+<br>
+<br>
+<a class="btn btn-secondary" href="{{ route('task.create', [
+				'taskName' =>"Prospecção",
+				'opportunitieId' => $opportunitie->id,
+				'opportunitieName' => $opportunitie->name,
+//				'taskDescription' => $task->description,
+//				'taskUserName' => $task->user->name,
+//				'taskUserId' => $task->user->id,
+				'taskAccountName' => $opportunitie->account->name,
+				'taskAccountId' => $opportunitie->account->id,
+				])}}">
+	NOVA TAREFA
+</a>
+<br>
+<br>
+<br>
 <label class="labels" for="" >FATURAS:</label>
 <br>
 <br>
