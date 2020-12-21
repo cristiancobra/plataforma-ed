@@ -206,15 +206,6 @@ class TaskController extends Controller {
 		$task = new Task();
 		$task->fill($request->all());
 
-//		if ($request->end_time == null) {
-//			$task->duration = 0;
-//		} else {
-//			$start_time = strtotime($request->start_time);
-//			$end_time = strtotime($request->end_time);
-//			$duration = $end_time - $start_time;
-//			$task->duration = $duration;
-//		}
-
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
 		];

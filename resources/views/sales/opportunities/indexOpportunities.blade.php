@@ -11,7 +11,7 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('opportunitie.create')}}">
+<a class="button-primary"  href="{{route('opportunity.create')}}">
 	CRIAR
 </a>
 @endsection
@@ -38,30 +38,30 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 			</td>
 		</tr>
 
-		@foreach ($opportunities as $opportunitie)
+		@foreach ($opportunities as $opportunity)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
 				<button class="button-round">
-					<a href=" {{ route('opportunitie.show', ['opportunitie' => $opportunitie->id]) }}">
+					<a href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
 				<button class="button-round">
-					<a href=" {{ route('opportunitie.edit', ['opportunitie' => $opportunitie->id]) }}">
+					<a href=" {{ route('opportunity.edit', ['opportunity' => $opportunity->id]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
-				{{ $opportunitie->name }}
+				{{ $opportunity->name }}
 			</td>
 
 			<td class="table-list-center">
-				{{ $opportunitie->contact->name }}
+				{{ $opportunity->contact->name }}
 			</td>
 
 			<td class="table-list-center">
-				{{ date('d/m/Y', strtotime($opportunitie->date_conclusion)) }}
+				{{ date('d/m/Y', strtotime($opportunity->date_conclusion)) }}
 			</td>
 
 			<td class="table-list-center">
-				{{ $opportunitie->stage }}
+				{{ $opportunity->stage }}
 			</td>
 
 		</tr>

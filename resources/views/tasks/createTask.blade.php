@@ -37,8 +37,8 @@
 		<input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">
 		<br>
 		<label class="labels" for="" >OPORTUNIDADE:</label>
-		{{app('request')->input('opportunitieName')}}
-		<input type="hidden" name="opportunitie_id" value="{{app('request')->input('opportunitieId')}}">
+		{{app('request')->input('opportunityName')}}
+		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
 		<br>
 		<br>
 		<label class="labels" for="" >DEPARTAMENTO:</label>
@@ -110,9 +110,9 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
-			@if(!empty(app('request')->input('opportunitieContactName')))
-			<option  class="fields" value="{{app('request')->input('opportunitieContactId')}}">
-				{{app('request')->input('opportunitieContactName')}}
+			@if(!empty(app('request')->input('opportunityContactName')))
+			<option  class="fields" value="{{app('request')->input('opportunityContactId')}}">
+				{{app('request')->input('opportunityContactName')}}
 			</option>
 			@endif
 			@foreach ($contacts as $contact)

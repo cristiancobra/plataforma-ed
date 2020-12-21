@@ -131,7 +131,7 @@ Route::resource('relatorios', 'Report\\ReportController')->names('report')->para
 
 // =============================================== SALES ====================================
 Route::resource('contratos', 'Sales\\ContractController')->names('contract')->parameters(['contratos' => 'contract']);
-Route::resource('oportunidades', 'Sales\\OpportunitieController')->names('opportunitie')->parameters(['oportunidades' => 'opportunitie']);
+Route::resource('oportunidades', 'Sales\\OpportunityController')->names('opportunity')->parameters(['oportunidades' => 'opportunity']);
 Route::resource('produtos', 'Sales\\ProductController')->names('product')->parameters(['produtos' => 'product']);
 
 // ------------------------------------------------ SITE  ------------------------------------------------

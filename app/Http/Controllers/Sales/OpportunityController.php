@@ -8,12 +8,12 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Invoice;
-use App\Models\Opportunitie;
+use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
-class OpportunitieController extends Controller {
+class OpportunityController extends Controller {
 
 	/**
 	 * Display a listing of the resource.
@@ -29,7 +29,7 @@ class OpportunitieController extends Controller {
 					})
 					->get('id');
 
-			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::whereIn('account_id', $accountsID)
 					->orderBy('DATE_CONCLUSION', 'ASC')
 					->paginate(20);
 
@@ -54,7 +54,7 @@ class OpportunitieController extends Controller {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
-			$opportunitie = new Opportunitie();
+			$opportunity = new Opportunity();
 
 			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
 						$query->where('users.id', $userAuth->id);
@@ -73,9 +73,9 @@ class OpportunitieController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			return view('sales.opportunities.createOpportunitie', [
+			return view('sales.opportunities.createOpportunity', [
 				'userAuth' => $userAuth,
-				'opportunitie' => $opportunitie,
+				'$opportunity' => $opportunity,
 				'accounts' => $accounts,
 				'contacts' => $contacts,
 				'products' => $products,
@@ -94,8 +94,8 @@ class OpportunitieController extends Controller {
 	public function store(Request $request) {
 		$userAuth = Auth::user();
 
-		$opportunitie = new Opportunitie();
-		$opportunitie->fill($request->all());
+		$opportunity = new Opportunity();
+		$opportunity->fill($request->all());
 
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
@@ -113,14 +113,14 @@ class OpportunitieController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
-			$opportunitie->save();
+			$opportunity->save();
 
-			$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
 
-			return view('sales.opportunities.showOpportunitie', [
-				'opportunitie' => $opportunitie,
+			return view('sales.opportunities.showOpportunity', [
+				'opportunity' => $opportunity,
 				'invoices' => $invoices,
 				'userAuth' => $userAuth,
 			]);
@@ -130,22 +130,22 @@ class OpportunitieController extends Controller {
 	/**
 	 * Display the specified resource.
 	 *
-	 * @param  \App\Models\Opportunitie  $opportunitie
+	 * @param  \App\Models\Opportunity  $opportunity
 	 * @return \Illuminate\Http\Response
 	 */
-	public function show(Opportunitie $opportunitie) {
+	public function show(Opportunity $opportunity) {
 		$userAuth = Auth::user();
 
-		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+		$invoices = Invoice::where('opportunitie_id', $opportunity->id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
 
-		$tasks = Task::where('opportunitie_id', $opportunitie->id)
+		$tasks = Task::where('opportunity_id', $opportunity->id)
 //				->orderBy('PAY_DAY', 'ASC')
 				->get();
 
-		return view('sales.opportunities.showOpportunitie', [
-			'opportunitie' => $opportunitie,
+		return view('sales.opportunities.showOpportunity', [
+			'opportunity' => $opportunity,
 			'invoices' => $invoices,
 			'tasks' => $tasks,
 			'userAuth' => $userAuth,
@@ -155,10 +155,10 @@ class OpportunitieController extends Controller {
 	/**
 	 * Show the form for editing the specified resource.
 	 *
-	 * @param  \App\Models\Opportunitie  $opportunitie
+	 * @param  \App\Models\Opportunity  $opportunity
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Opportunitie $opportunitie) {
+	public function edit(Opportunity $opportunity) {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
@@ -172,7 +172,7 @@ class OpportunitieController extends Controller {
 					})
 					->get();
 
-			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
 
@@ -180,13 +180,13 @@ class OpportunitieController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
 
-			return view('sales.opportunities.editOpportunitie', [
+			return view('sales.opportunities.editOpportunity', [
 				'userAuth' => $userAuth,
-				'opportunitie' => $opportunitie,
+				'opportunity' => $opportunity,
 				'accounts' => $accounts,
 				'contacts' => $contacts,
 				'opportunities' => $opportunities,
@@ -201,21 +201,21 @@ class OpportunitieController extends Controller {
 	 * Update the specified resource in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\Opportunitie  $opportunitie
+	 * @param  \App\Models\Opportunity  $opportunity
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(Request $request, Opportunitie $opportunitie) {
+	public function update(Request $request, Opportunity $opportunity) {
 		$userAuth = Auth::user();
 
-		$opportunitie->fill($request->all());
-		$opportunitie->save();
+		$opportunity->fill($request->all());
+		$opportunity->save();
 
-		$invoices = Invoice::where('opportunitie_id', $opportunitie->id)
+		$invoices = Invoice::where('opportunity_id', $opportunity->id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
 
-		return view('sales.opportunities.showOpportunitie', [
-			'opportunitie' => $opportunitie,
+		return view('sales.opportunities.showOpportunity', [
+			'opportunity' => $opportunity,
 			'invoices' => $invoices,
 			'userAuth' => $userAuth,
 		]);
@@ -224,12 +224,12 @@ class OpportunitieController extends Controller {
 	/**
 	 * Remove the specified resource from storage.
 	 *
-	 * @param  \App\Models\Opportunitie  $opportunitie
+	 * @param  \App\Models\Opportunity  $opportunity
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Opportunitie $opportunitie) {
-		$opportunitie->delete();
-		return redirect()->action('Sales\\OpportunitieController@index');
+	public function destroy(Opportunity $opportunity) {
+		$opportunity->delete();
+		return redirect()->action('Sales\\OpportunityController@index');
 	}
 
 }

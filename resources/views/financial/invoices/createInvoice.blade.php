@@ -46,9 +46,9 @@
 		<label class="labels" for="" >OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunitieName')))
 		{{app('request')->input('opportunitieName')}}
-		<input type="hidden" name="opportunitie_id" value="{{app('request')->input('opportunitieId')}}">
+		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
 		@else
-		<select name="opportunitie_id">
+		<select name="opportunity_id">
 			<option  class="fields" value="selecione">
 				selecione
 			</option>

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Opportunitie extends Model
+class Opportunity extends Model
 {
   protected $table = 'opportunities';
 	protected $fillable = [
@@ -23,6 +23,6 @@ class Opportunitie extends Model
 	}
 	
 	public function invoices() {
-		return $this->hasMany(Invoice::class, 'id', 'opportunitie_id');
+		return $this->hasMany(Invoice::class, 'id', 'opportunity_id');
 	}
 }

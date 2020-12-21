@@ -163,7 +163,7 @@
 					<a class="sidebar-subitem" href="{{ route('product.index') }}">
 						<i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS
 					</a>
-					<a class="sidebar-subitem" href="{{ route('opportunitie.index') }}">
+					<a class="sidebar-subitem" href="{{ route('opportunity.index') }}">
 						<i class="fas fa-donate" style="margin-right: 8px"></i>OPORTUNIDADES
 					</a>
 					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
