@@ -43,7 +43,7 @@
 		<br>
 		<label class="labels" for="" >DEPARTAMENTO:</label>
 		Vendas
-		<input type="hidden" name="name"value="vendas">
+		<input type="hidden" name="department"value="vendas">
 		@if ($errors->has('name'))
 		<span class="text-danger">{{ $errors->first('name') }}</span>
 		@endif
