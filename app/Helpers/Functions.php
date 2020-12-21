@@ -7,7 +7,7 @@ if (!function_exists('shout')) {
 	}
 
 }
-
+// cria as opções de um select recebendo um array com duas posições
 if (!function_exists('createSelect')) {
 
 	function createSelect(array $list) {
@@ -18,6 +18,14 @@ if (!function_exists('createSelect')) {
 		}
 	}
 
+}
+if (!function_exists('createSimpleSelect')) {
+// cria as opções de um select recebendo um array com 1 posição
+	function createSimpleSelect(array $options) {
+		foreach ($options as $option) {
+			echo "<option value=\"$option\">$option</option><br>";
+		}
+	}
 }
 // retorna os meses do ano
 if (!function_exists('returnAccountType')) {

@@ -20,7 +20,7 @@
 <h1 class="name">
 	{{ $opportunitie->name }}
 </h1>
-<label class="labels" for="" >DONO: </label>
+<label class="labels" for="" >EMPRESA: </label>
 <span class="fields">{{$opportunitie->account->name }}</span>
 <br>
 <label class="labels" for="" >CONTATO: </label>
@@ -81,48 +81,48 @@ indefinida
 		</td>
 	</tr>
 
-	@foreach ($invoices as $invoice)
+	@foreach ($tasks as $task)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
 			<button class="button-round">
-				<a href=" {{ route('invoice.show', ['invoice' => $invoice->id]) }}">
+				<a href=" {{ route('task.show', ['task' => $task->id]) }}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
 			<button class="button-round">
-				<a href=" {{ route('invoice.edit', ['invoice' => $invoice->id]) }}">
+				<a href=" {{ route('task.edit', ['task' => $task->id]) }}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
-			{{ $invoice->id }}
+			{{ $task->id }}
 		</td>
 
 		<td class="table-list-center">
-			{{ date('d/m/Y', strtotime($invoice->date_creation)) }}
+			{{ date('d/m/Y', strtotime($task->date_creation)) }}
 		</td>
 
 		<td class="table-list-center">
-			{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
+			{{ date('d/m/Y', strtotime($task->pay_day)) }}
 		</td>
 
 		<td class="table-list-right">
-			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
+			R$ {{number_format($task->totalPrice, 2,",",".") }}
 		</td>
 
 		<td class="table-list-center">
-			@if ($invoice->status == "cancelada")
+			@if ($task->status == "cancelada")
 			<button class="btn btn-dark">
-				<b>{{ $invoice->status  }}</b>
+				<b>{{ $task->status  }}</b>
 			</button>
-			@elseif ($invoice->status == "pendente")
+			@elseif ($task->status == "pendente")
 			<button class="btn btn-warning">
-				<b>{{ $invoice->status  }}</b>
+				<b>{{ $task->status  }}</b>
 			</button>
-			@elseif ($invoice->status == "fazendo agora")
+			@elseif ($task->status == "fazendo agora")
 			<button class="btn btn-info">
-				<b>{{ $invoice->status  }}</b>
+				<b>{{ $task->status  }}</b>
 			</button>
-			@elseif ($invoice->status == "concluida")
+			@elseif ($task->status == "concluida")
 			<button class="btn btn-success">
-				<b>{{ $invoice->status  }}</b>
+				<b>{{ $task->status  }}</b>
 			</button>
 			@endif
 		</td>

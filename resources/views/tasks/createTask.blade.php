@@ -63,7 +63,7 @@
 		<br>
 		<label class="labels" for="" >DEPARTAMENTO:</label>
 		<select class="fields" name="department">
-		{{createSelect($departments)}}
+		{{createSimpleSelect($departments)}}
 		</select>
 		@endif
 		<br>
@@ -119,7 +119,7 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >PRIORIDADE:</label>
 		<select class="fields" name="priority">
-		{{createSelect($priorities)}}
+		{{createSimpleSelect($priorities)}}
 		</select>
 		<br>
 		<br>
@@ -129,7 +129,7 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
-		{{createSelect($status)}}
+		{{createSimpleSelect($status)}}
 		</select>
 		<br>
 		<br>

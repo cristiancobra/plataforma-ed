@@ -10,6 +10,7 @@ use App\Models\Contact;
 use App\Models\Invoice;
 use App\Models\Opportunitie;
 use App\Models\Product;
+use App\Models\Task;
 use Illuminate\Http\Request;
 
 class OpportunitieController extends Controller {
@@ -139,9 +140,14 @@ class OpportunitieController extends Controller {
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
 
+		$tasks = Task::where('opportunitie_id', $opportunitie->id)
+//				->orderBy('PAY_DAY', 'ASC')
+				->get();
+
 		return view('sales.opportunities.showOpportunitie', [
 			'opportunitie' => $opportunitie,
 			'invoices' => $invoices,
+			'tasks' => $tasks,
 			'userAuth' => $userAuth,
 		]);
 	}

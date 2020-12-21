@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('opportunitie.index') }}">VER OPORTUNIDADES</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('opportunitie.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -20,7 +25,7 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('opportunitie.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('opportunitie.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="60" value="{{old('name')}}"><span class="fields"></span>
@@ -28,7 +33,7 @@
 		<span class="text-danger">{{ $errors->first('name') }}</span>
 		@endif
 		<br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{$account->id }}">

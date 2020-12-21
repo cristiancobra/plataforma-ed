@@ -176,9 +176,6 @@
 					<a class="sidebar-subitem" href="https://painel.autentique.com.br/" target="_blank">
 						<i class="fas fa-file-signature" style="margin-right: 8px"></i>AUTENTICAÇÃO DIGITAL
 					</a>
-					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Vendas" target="_blank">
-						<i class="fas fa-cloud-upload-alt" style="margin-right: 8px">	</i>ARQUIVOS
-					</a>
 				</div>
 
 				<button class="dropdown-btn">
