@@ -40,6 +40,7 @@ class JourneyController extends Controller {
 					'user',
 				])
 				->orderBy('DATE', 'DESC')
+				->orderBy('START_TIME', 'DESC')
 				->paginate(20);
 
 		$journeys->appends([
@@ -290,15 +291,15 @@ class JourneyController extends Controller {
 				}
 			}
 
-			$categories = returnCategories();
+			$departments = returnDepartments();
 
 			$counterArray = 1;
-			foreach ($categories as $category) {
+			foreach ($departments as $department) {
 				$counterMonth = 1;
 				while ($counterMonth <= 12) {
-					$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($category, $accountsID) {
+					$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($department, $accountsID) {
 								$query->whereIn('account_id', $accountsID);
-								$query->where('category', 'LIKE', $category);
+								$query->where('department', 'LIKE', $department);
 							})
 							->whereBetween('date', ["2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01", "2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31"])
 							->sum('duration');
@@ -312,7 +313,7 @@ class JourneyController extends Controller {
 				'accounts' => $accounts,
 				'accountsID' => $accountsID,
 				'months' => $months,
-				'categories' => $categories,
+				'departments' => $departments,
 				'counterMonth' => $counterMonth,
 				'counterArray' => $counterArray,
 				'resultUsers' => $resultUsers,
