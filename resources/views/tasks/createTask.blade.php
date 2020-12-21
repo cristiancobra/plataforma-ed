@@ -111,7 +111,7 @@ CKEDITOR.replace('description');
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
 			@if(!empty(app('request')->input('opportunitieContactName')))
-			<option  class="fields" value="{{app('request')->input('opportunitieContactName')}}">
+			<option  class="fields" value="{{app('request')->input('opportunitieContactId')}}">
 				{{app('request')->input('opportunitieContactName')}}
 			</option>
 			@endif
