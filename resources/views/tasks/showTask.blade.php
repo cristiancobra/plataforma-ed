@@ -44,7 +44,7 @@
 	</p>
 	<br>
 	<p class="labels">
-		CONTATO:<span class="fields">  {{$task->contact->nam}}</span>
+		CONTATO:<span class="fields">  {{$task->contact->name}}</span>
 	</p>
 	<p class="labels">
 		PRIORIDADE:<span class="fields">  {{$task->priority}}</span>

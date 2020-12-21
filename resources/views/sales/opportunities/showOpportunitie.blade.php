@@ -135,9 +135,8 @@ indefinida
 				'taskName' =>"Prospecção",
 				'opportunitieId' => $opportunitie->id,
 				'opportunitieName' => $opportunitie->name,
-//				'taskDescription' => $task->description,
-//				'taskUserName' => $task->user->name,
-//				'taskUserId' => $task->user->id,
+				'opportunitieContactName' => $opportunitie->contact->name,
+				'taskContactId' => $opportunitie->contact->id,
 				'taskAccountName' => $opportunitie->account->name,
 				'taskAccountId' => $opportunitie->account->id,
 				])}}">

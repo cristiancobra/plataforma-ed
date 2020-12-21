@@ -110,9 +110,14 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
+			@if(!empty(app('request')->input('taskContactName')))
+			<option  class="fields" value="{{taskContactId}}">
+				{{taskContactName}}
+			</option>
+			@endif
 			@foreach ($contacts as $contact)
-			<option  class="fields" value="{{ $contact->id }}">
-				{{ $contact->name }}
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
 			</option>
 			@endforeach
 		</select>
