@@ -50,7 +50,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{ route('contact.create') }}">NOVO CONTATO</a>
+		<a class="btn btn-secondary" href="{{ route('contact.create') }}" target="_blank">NOVO CONTATO</a>
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
@@ -88,5 +88,5 @@ CKEDITOR.replace('description');
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR OPORTUNIDADE">
 	</form>
-</div>     
+</div>
 @endsection
