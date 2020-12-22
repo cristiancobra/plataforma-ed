@@ -102,7 +102,6 @@ class ContactController extends Controller {
 			'required' => '*preenchimento obrigatório.',
 		];
 		$validator = Validator::make($request->all(), [
-					'email' => 'required:emails',
 					'first_name' => 'required:tasks',
 					'last_name' => 'required:tasks',
 						], $messages);
