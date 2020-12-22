@@ -75,6 +75,7 @@ Total: <span class="labels">{{$totalTasks}} </span>
 	</select>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 40%">
@@ -138,46 +139,8 @@ Total: <span class="labels">{{$totalTasks}} </span>
 			{{date('d/m/Y', strtotime($task->date_due))}}
 			@endif
 		</td>
-
-		@if ($task->priority == "baixa")
-		<td class="td-low">
-			baixa
-		</td>
-		@elseif ($task->priority == "média")
-		<td class="td-medium">
-			média
-		</td>
-		@elseif ($task->priority == "alta")
-		<td class="td-high">
-			alta
-		</td>
-		@elseif ($task->priority == "emergência")
-		<td class="td-emergency">
-			emergência
-		</td>
-		@endif
-
-		@if ($task->status == "cancelado")
-		<td class="td-low">
-			cancelada
-		</td>
-		@elseif ($task->status == "fazer")
-		<td class="td-toDo">
-			fazer
-		</td>
-		@elseif ($task->status == "fazendo")
-		<td class="td-doing">
-			fazendo
-		</td>
-		@elseif ($task->status == "feito")
-		<td class="td-done">
-			feito
-		</td>
-		@elseif ($task->status == "aguardar")
-		<td class="td-stuck">
-			aguardar
-		</td>
-		@endif
+		{{formatPriority($task)}}
+		{{formatStatus($task)}}
 	</tr>
 	@endforeach
 </table>

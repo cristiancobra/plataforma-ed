@@ -67,7 +67,7 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 			<td class="table-list-center">
 				{{$opportunity->stage}}
 			</td>
-			{{formatStatus($opportunity->status)}}
+			{{formatStatus($opportunity)}}
 		</tr>
 		@endforeach
 	</table>

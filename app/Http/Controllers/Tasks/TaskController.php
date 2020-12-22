@@ -39,6 +39,7 @@ class TaskController extends Controller {
 							->where('status', '!=', 'cancelado');
 						})
 //						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
+						->with('opportunity')
 						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 						->orderBy('date_due', 'ASC')
 						->paginate(20);
@@ -59,6 +60,7 @@ class TaskController extends Controller {
 								$query->where('contact_id', '=', $request->contact_id);
 							}
 						})
+						->with('opportunity')
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
 			} elseif ($request->status == null) {
@@ -77,6 +79,7 @@ class TaskController extends Controller {
 								$query->where('contact_id', '=', $request->contact_id);
 							}
 						})
+						->with('opportunity')
 						->orderBy('date_due', 'DESC')
 						->paginate(20);
 			}else{
@@ -98,6 +101,7 @@ class TaskController extends Controller {
 								$query->where('status', '=', $request->status);
 							}
 						})
+						->with('opportunity')
 						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
 						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 						->orderBy('date_due', 'ASC')

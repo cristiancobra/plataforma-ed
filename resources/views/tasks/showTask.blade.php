@@ -22,10 +22,24 @@
 		{{$task->name}}
 	</h1>
 	<p class="labels">
-		DEPARTAMENTO:
-		<span class="fields">{{$task->department}}</span></p>
+		EMPRESA:<span class="fields">{{ $task->account->name }}</span>
+	</p>
 	<p class="labels">
-		DONO:<span class="fields">{{ $task->account->name }}</span>
+		DEPARTAMENTO:
+		<span class="fields">{{$task->department}}</span>
+	</p>
+	<p class="labels">
+		OPORTUNIDADE:
+		@isset($task->opportunity->id)
+		<span class="fields">{{$task->opportunity->name}}</span>
+		<button class="button-round">
+			<a href=" {{route('opportunity.show', ['opportunity' => $task->opportunity])}}">
+				<i class='fa fa-eye' style="color:white"></i>
+			</a>
+		</button>
+		@else
+		Não possui
+		@endisset
 	</p>
 	<p class="labels">
 		RESPONSÁVEL:<span class="fields">{{ $task->user->contact->name }}</span>

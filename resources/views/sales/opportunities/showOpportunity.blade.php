@@ -54,7 +54,6 @@ indefinida
 	@endif
 </div>
 <br>
-<br>
 <label class="labels" for="" >DESCRIÇÃO:</label>
 <span class="fields">{!!html_entity_decode($opportunity->description)!!}</span>
 <br>
@@ -75,7 +74,10 @@ indefinida
 		<td   class="table-list-header" style="width: 15%">
 			<b>VALOR TOTAL</b>
 		</td>
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 5%">
+			<b>PRIORIDADE</b>
+		</td>
+		<td   class="table-list-header" style="width: 5%">
 			<b>SITUAÇÃO</b>
 		</td>
 	</tr>
@@ -102,29 +104,8 @@ indefinida
 		<td class="table-list-right">
 			R$ {{number_format($task->totalPrice, 2,",",".")}}
 		</td>
-		<td class="table-list-center">
-			@if ($task->status == "cancelado")
-			<button class="btn btn-dark">
-				<b>{{ $task->status  }}</b>
-			</button>
-			@elseif ($task->status == "fazer")
-			<button class="btn btn-warning">
-				<b>{{ $task->status  }}</b>
-			</button>
-			@elseif ($task->status == "fazendo")
-			<button class="btn btn-info">
-				<b>{{ $task->status  }}</b>
-			</button>
-			@elseif ($task->status == "aguardar")
-			<button class="btn btn-success">
-				<b>{{ $task->status  }}</b>
-			</button>
-			@elseif ($task->status == "feito")
-			<button class="btn btn-success">
-				<b>{{ $task->status  }}</b>
-			</button>
-			@endif
-		</td>
+		{{formatPriority($task)}}
+		{{formatStatus($task)}}
 	</tr>
 	@endforeach
 </table>
@@ -144,7 +125,6 @@ indefinida
 <br>
 <br>
 <label class="labels" for="" >FATURAS:</label>
-<br>
 <br>
 <table class="table-list">
 	<tr>

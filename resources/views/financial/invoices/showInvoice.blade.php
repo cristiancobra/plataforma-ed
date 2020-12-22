@@ -24,14 +24,14 @@
 <span class="fields">{{$invoice->account->name}}</span>
 <br>
 <label class="labels" for="" >OPORTUNIDADE:</label>
-<span class="fields">{{$invoice->opportunitie->name}}</span>
+<span class="fields">{{$invoice->opportunity->name}}</span>
 <button class="button-round">
-	<a href=" {{ route('opportunitie.show', ['opportunitie' => $invoice->opportunitie->id]) }}">
+	<a href=" {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
 <button class="button-round">
-	<a href=" {{ route('opportunitie.edit', ['opportunitie' => $invoice->opportunitie->id]) }}">
+	<a href=" {{route('opportunity.edit', ['opportunity' => $invoice->opportunity])}}">
 		<i class='fa fa-edit' style="color:white"></i>
 	</a>
 </button>
@@ -41,7 +41,7 @@
 <br>
 <br>
 <label class="labels" for="" >CONTRATANTE:</label>
-<span class="fields">{{ $invoice->opportunitie->contact->name}}</span>
+<span class="fields">{{ $invoice->opportunity->contact->name}}</span>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 <span class="fields">{{ date('d/m/Y', strtotime($invoice->date_creation)) }}</span>
@@ -51,7 +51,7 @@
 <br>
 <br>
 <label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
-<span class="fields">{!!html_entity_decode($invoice->opportunitie->description)!!}</span>
+<span class="fields">{!!html_entity_decode($invoice->opportunity->description)!!}</span>
 <br>
 <label class="labels" for="" >PRODUTOS:</label>
 <br>

@@ -207,6 +207,26 @@ if (!function_exists('returnOpportunitieStage')) {
 	}
 
 }
+// gera um botão com a formatação para PRIORIDADE da tarefa  a partir de  $model
+if (!function_exists('formatPriority')) {
+
+	function formatPriority($model) {
+		switch ($model->priority) {
+			case 'baixa':
+				echo '<td class="td-low">baixa</td>';
+				break;
+			case 'média':
+				echo '<td class="td-medium">média</td>';
+				break;
+			case 'alta':
+				echo '<td class="td-high">alta</td>';
+				break;
+			case 'emergência':
+				echo '<td class="td-emergency">emergência</td>';
+				break;
+		}
+	}
+}
 // retorna prioridade
 if (!function_exists('returnPriorities')) {
 
@@ -220,11 +240,11 @@ if (!function_exists('returnPriorities')) {
 	}
 
 }
-// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa 
+// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatStatus')) {
 
-	function formatStatus($status) {
-		switch ($status) {
+	function formatStatus($model) {
+		switch ($model->status) {
 			case 'cancelado':
 				echo '<td class="td-low">cancelada</td>';
 				break;
