@@ -17,7 +17,7 @@ Total: <span class="labels">{{$totalTasks}} </span>
 @endsection
 
 @section('main')
-<form action=" {{ route('task.index') }} " method="post" style="padding: 20px;text-align: right;color: #874983">
+<form action=" {{ route('task.index') }} " method="post" style="text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da tarefa" value="">
 	<select class="select" name="account_id">
@@ -57,16 +57,16 @@ Total: <span class="labels">{{$totalTasks}} </span>
 		@endforeach
 	</select>
 	<select class="select" name="status">
-		<option  class="fields" value="pendente">
+		<option  class="fields" value="fazer">
 			fazer
 		</option>
-		<option  class="fields" value="fazendo agora">
+		<option  class="fields" value="fazendo">
 			fazendo
 		</option>
-		<option  class="fields" value="stuck">
+		<option  class="fields" value="aguardar">
 			aguardar
 		</option>
-		<option  class="fields" value="concluida">
+		<option  class="fields" value="feito">
 			feito
 		</option>
 		<option  class="fields" value="">
