@@ -123,10 +123,14 @@ class OpportunityController extends Controller {
 			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
+			
+			$tasks = Task::where('opportunity_id', $opportunity->id)
+				->get();
 
 			return view('sales.opportunities.showOpportunity', [
 				'opportunity' => $opportunity,
 				'invoices' => $invoices,
+				'tasks' => $tasks,
 				'userAuth' => $userAuth,
 			]);
 		}
@@ -146,7 +150,6 @@ class OpportunityController extends Controller {
 				->get();
 
 		$tasks = Task::where('opportunity_id', $opportunity->id)
-//				->orderBy('PAY_DAY', 'ASC')
 				->get();
 
 		return view('sales.opportunities.showOpportunity', [
