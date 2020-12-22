@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('opportunitie.index')}}">
+<a class="button-primary"  href="{{route('opportunity.index')}}">
 	VOLTAR
 </a>
 @endsection
