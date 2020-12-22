@@ -40,11 +40,11 @@ Total: <span class="labels">{{$totalContacts }} </span>
 		@foreach ($contacts as $contact)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
-				<button class="button-round">
-					<a  href=" {{route('contact.show', ['contact' => $contact->id])}}">
+				<a class="white" href=" {{route('contact.show', ['contact' => $contact])}}">
+					<button class="button-round">
 						<i class='fa fa-eye'></i>
-					</a>
-				</button>
+					</button>
+				</a>
 				{{$contact->name}}
 			</td>
 			<td class="table-list-left">

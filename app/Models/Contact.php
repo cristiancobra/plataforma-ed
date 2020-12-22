@@ -10,7 +10,9 @@ class Contact extends Model {
 
 	protected $table = 'contacts';
 	protected $fillable = [
-		'id', 'account_id', 'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'city', 'state', 'country', 'type', 'company',
+		'id',
+		'account_id',
+		'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'city', 'state', 'country', 'type', 'company',
 			'cpf',
 			'neighborhood',
 			'job_position',
@@ -41,8 +43,8 @@ class Contact extends Model {
 	public function contracts() {
 		return $this->hasMany(Contract::class, 'id', 'contract_id');
 	}	
-	public function opportunitie() {
-		return $this->hasMany(Opportunitie::class, 'id', 'contact_id');
+	public function opportunities() {
+		return $this->hasMany(Opportunity::class, 'contact_id', 'id');
 	}
 	public function tasks() {
 		return $this->hasMany(Task::class, 'id', 'contact_id');

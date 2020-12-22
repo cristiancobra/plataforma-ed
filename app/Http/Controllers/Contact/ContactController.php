@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use App\Models\Account;
+use App\Models\Opportunity;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,9 +31,10 @@ class ContactController extends Controller {
 			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
+					->with('opportunities')
 					->orderBy('NAME', 'ASC')
 					->paginate(20);
-
+//dd($contacts);
 			$totalContacts = $contacts->count();
 
 			return view('contacts.indexContacts', [

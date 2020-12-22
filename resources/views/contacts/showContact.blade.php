@@ -7,19 +7,29 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('contact.index')}}">VER CONTATOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contact.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
 <br>
-<div style="padding: 40px">
+<div>
 	<h1 class="name">
 		<b> Nome: </b> {{ $contact->name }}
 	</h1>
-	<label class="labels" for="" >Dono: </label> {{ $contact->first_name }}
+	<label class="labels" for="" >
+		Dono:
+	</label>
+	{{$contact->first_name}}
 	<br>
-	<label class="labels"  for="" >Origem do contato: </label>{{ $contact->lead_source }}
-	<br>
+	<label class="labels"  for="" >
+		Origem do contato:
+	</label>
+	{{$contact->lead_source}}
 	<br>
 	<br>
 	<h2 class="name" for="">PESSOAL</h2>
@@ -31,6 +41,19 @@
 	<br>
 	<label class="labels"  for="" >CPF: </label> {{ $contact->cpf}}
 	<br>
+	<br>
+	<h2 class="name" for="">
+		OPORTUNIDADES:
+	</h2>
+	@foreach ($contact->opportunities as $opportunity)
+	<a  class="white" href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
+		<button class="button-round">
+			<i class='fa fa-eye'></i>
+		</button>
+	</a>
+	{{ $opportunity->name }}
+	<br>
+	@endforeach	
 	<br>
 	<br>
 	<h2 class="name" for="">PROFISSIONAL</h2>
