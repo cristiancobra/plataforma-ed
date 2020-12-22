@@ -25,7 +25,7 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('opportunitie.store') }} " method="post" style="color: #874983">
+	<form action=" {{ route('opportunity.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="60" value="{{old('name')}}"><span class="fields"></span>
