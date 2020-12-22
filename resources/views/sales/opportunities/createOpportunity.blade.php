@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('opportunitie.index')}}">
+<a class="button-primary"  href="{{route('opportunity.index')}}">
 	VOLTAR
 </a>
 @endsection
@@ -68,7 +68,7 @@
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<textarea id="description" name="description" rows="20" cols="90" value="{{old('description')}}">
-		{{ $opportunitie->description }}
+		{{$opportunity->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

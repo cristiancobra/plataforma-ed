@@ -157,23 +157,23 @@ Total: <span class="labels">{{$totalTasks}} </span>
 		</td>
 		@endif
 
-		@if ($task->status == "cancelada")
+		@if ($task->status == "cancelado")
 		<td class="td-low">
 			cancelada
 		</td>
-		@elseif ($task->status == "pendente")
+		@elseif ($task->status == "fazer")
 		<td class="td-toDo">
 			fazer
 		</td>
-		@elseif ($task->status == "fazendo agora")
+		@elseif ($task->status == "fazendo")
 		<td class="td-doing">
 			fazendo
 		</td>
-		@elseif ($task->status == "concluida")
+		@elseif ($task->status == "feito")
 		<td class="td-done">
 			feito
 		</td>
-		@elseif ($task->status == "aguardando")
+		@elseif ($task->status == "aguardar")
 		<td class="td-stuck">
 			aguardar
 		</td>
