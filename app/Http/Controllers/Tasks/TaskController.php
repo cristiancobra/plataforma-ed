@@ -35,17 +35,17 @@ class TaskController extends Controller {
 			if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null) {
 				$tasks = Task::where(function ($query) use ($accountsID, $request) {
 							$query->whereIn('account_id', $accountsID);
-							$query->where('status', '!=', 'concluida')
-							->where('status', '!=', 'cancelada');
+							$query->where('status', '!=', 'feito')
+							->where('status', '!=', 'cancelado');
 						})
 //						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
 						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 						->orderBy('date_due', 'ASC')
 						->paginate(20);
-			} elseif ($request->status == "concluida") {
+			} elseif ($request->status == "feito") {
 				$tasks = Task::where(function ($query) use ($accountsID, $request) {
 							$query->whereIn('account_id', $accountsID)
-							->where('status', '=', 'concluida');
+							->where('status', '=', 'feito');
 							if ($request->name != null) {
 								$query->where('name', 'like', "%$request->name%");
 							}
