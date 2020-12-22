@@ -20,59 +20,62 @@ if (!function_exists('createSelect')) {
 
 }
 if (!function_exists('createSimpleSelect')) {
+
 // cria as opções de um select recebendo um array com 1 posição
 	function createSimpleSelect(array $options) {
 		foreach ($options as $option) {
 			echo "<option value=\"$option\">$option</option><br>";
 		}
 	}
+
 }
 // retorna os meses do ano
 if (!function_exists('returnAccountType')) {
 
-    function returnAccountType() {
-        return $type = array(
-            '1' => '',
-            '2' => 'Agricultura',
-            '3' => 'Biotecnologia',
-            '4' => 'Quimica',
-            '5' => 'Aeroespacial',
-            '6' => 'Computadores e hardware',
-            '7' => 'Construção',
-            '8' => 'Consultoria',
-            '9' => 'Produtos de consumo',
-            '10' => 'Esportes',
-            '11' => 'Serviços ao consumidor',
-            '12' => 'Marketing digital',
-            '13' => 'Educação',
-            '14' => 'Eletrônica',
-            '15' => 'Eletrônica',
-            '16' => 'Moda',
-            '17' => 'Serviços financeiros',
-            '18' => 'Alimentos e bebidas',
-            '19' => 'Jogos',
-            '20' => 'serviços de saúde',
-            '21' => 'Indústria',
-            '22' => 'Internet/serviços da web',
-            '23' => 'Serviços de TI',
-            '24' => 'Jurídico',
-            '25' => 'Estilo de vida',
-            '26' => 'Marítimo',
-            '27' => 'Marketing/publicidade',
-            '28' => 'Mídias e entretenimento',
-            '29' => 'Mineração',
-            '30' => 'Petróleo e gás',
-            '31' => 'Política',
-            '32' => 'Imóveis',
-            '33' => 'Varejo/distribuição',
-            '34' => 'Segurança',
-            '35' => 'Software',
-            '36' => 'Telecomunicações',
-            '37' => 'Transportes',
-            '38' => 'Turismo',
-            '39' => 'Outros',
-        );
-    }
+	function returnAccountType() {
+		return $type = array(
+			'1' => '',
+			'2' => 'Agricultura',
+			'3' => 'Biotecnologia',
+			'4' => 'Quimica',
+			'5' => 'Aeroespacial',
+			'6' => 'Computadores e hardware',
+			'7' => 'Construção',
+			'8' => 'Consultoria',
+			'9' => 'Produtos de consumo',
+			'10' => 'Esportes',
+			'11' => 'Serviços ao consumidor',
+			'12' => 'Marketing digital',
+			'13' => 'Educação',
+			'14' => 'Eletrônica',
+			'15' => 'Eletrônica',
+			'16' => 'Moda',
+			'17' => 'Serviços financeiros',
+			'18' => 'Alimentos e bebidas',
+			'19' => 'Jogos',
+			'20' => 'serviços de saúde',
+			'21' => 'Indústria',
+			'22' => 'Internet/serviços da web',
+			'23' => 'Serviços de TI',
+			'24' => 'Jurídico',
+			'25' => 'Estilo de vida',
+			'26' => 'Marítimo',
+			'27' => 'Marketing/publicidade',
+			'28' => 'Mídias e entretenimento',
+			'29' => 'Mineração',
+			'30' => 'Petróleo e gás',
+			'31' => 'Política',
+			'32' => 'Imóveis',
+			'33' => 'Varejo/distribuição',
+			'34' => 'Segurança',
+			'35' => 'Software',
+			'36' => 'Telecomunicações',
+			'37' => 'Transportes',
+			'38' => 'Turismo',
+			'39' => 'Outros',
+		);
+	}
+
 }
 // retorna os meses do ano
 if (!function_exists('returnMonths')) {
@@ -103,39 +106,39 @@ if (!function_exists('returnMonth')) {
 			$month = "Janeiro";
 		}
 		if ($number == 2) {
-			$month =  "Fevereiro";
+			$month = "Fevereiro";
 		}
 		if ($number == 3) {
-			$month =  "Março";
+			$month = "Março";
 		}
 		if ($number == 4) {
-			$month =  "Abril";
+			$month = "Abril";
 		}
 		if ($number == 5) {
-			$month =  "Maio";
+			$month = "Maio";
 		}
 		if ($number == 6) {
-			$month =  "Junho";
+			$month = "Junho";
 		}
 		if ($number == 7) {
-			$month =  "Julho";
+			$month = "Julho";
 		}
 		if ($number == 8) {
-			$month =  "Agosto";
+			$month = "Agosto";
 		}
 		if ($number == 9) {
-			$month =  "Setembro";
+			$month = "Setembro";
 		}
 		if ($number == 10) {
-			$month =  "Outubro";
+			$month = "Outubro";
 		}
 		if ($number == 11) {
-			$month =  "Novembro";
+			$month = "Novembro";
 		}
 		if ($number == 12) {
-			$month =  "Dezembro";
+			$month = "Dezembro";
 		}
-		
+
 		return($month);
 	}
 
@@ -145,131 +148,162 @@ if (!function_exists('returnStates')) {
 
 	function returnStates() {
 		return $states = array(
-				'' => '',
-				'AC' => 'Acre',
-				'AL' => 'Alagoas',
-				'AP' => 'Amapá',
-				'AM' => 'Amazonas',
-				'BA' => 'Bahia',
-				'CE' => 'Ceará',
-				'DF' => 'Distrito Federal',
-				'ES' => 'Espirito Santo',
-				'GO' => 'Goiás',
-				'MA' => 'Maranhão',
-				'MS' => 'Mato Grosso do Sul',
-				'MT' => 'Mato Grosso',
-				'MG' => 'Minas Gerais',
-				'PA' => 'Pará',
-				'PB' => 'Paraíba',
-				'PR' => 'Paraná',
-				'PE' => 'Pernambuco',
-				'PI' => 'Piauí',
-				'RJ' => 'Rio de Janeiro',
-				'RN' => 'Rio Grande do Norte',
-				'RS' => 'Rio Grande do Sul',
-				'RO' => 'Rondônia',
-				'RR' => 'Roraima',
-				'SC' => 'Santa Catarina',
-				'SP' => 'São Paulo',
-				'SE' => 'Sergipe',
-				'TO' => 'Tocantins',
+			'' => '',
+			'AC' => 'Acre',
+			'AL' => 'Alagoas',
+			'AP' => 'Amapá',
+			'AM' => 'Amazonas',
+			'BA' => 'Bahia',
+			'CE' => 'Ceará',
+			'DF' => 'Distrito Federal',
+			'ES' => 'Espirito Santo',
+			'GO' => 'Goiás',
+			'MA' => 'Maranhão',
+			'MS' => 'Mato Grosso do Sul',
+			'MT' => 'Mato Grosso',
+			'MG' => 'Minas Gerais',
+			'PA' => 'Pará',
+			'PB' => 'Paraíba',
+			'PR' => 'Paraná',
+			'PE' => 'Pernambuco',
+			'PI' => 'Piauí',
+			'RJ' => 'Rio de Janeiro',
+			'RN' => 'Rio Grande do Norte',
+			'RS' => 'Rio Grande do Sul',
+			'RO' => 'Rondônia',
+			'RR' => 'Roraima',
+			'SC' => 'Santa Catarina',
+			'SP' => 'São Paulo',
+			'SE' => 'Sergipe',
+			'TO' => 'Tocantins',
 		);
 	}
+
 }
 // retorna categorias de faturas, oportunidades,  etc
 if (!function_exists('returnInvoiceStatus')) {
 
 	function returnInvoiceStatus() {
 		return $states = array(
-			 'enviar',
+			'enviar',
 			'aprovada',
 			'aprovada',
 			'concluida',
 		);
 	}
+
 }
 // retorna os estágios das oportunidades
 if (!function_exists('returnOpportunitieStage')) {
 
 	function returnOpportunitieStage() {
 		return $states = array(
-			 'prospecção',
+			'prospecção',
 			'apresentação',
 			'proposta',
 			'ganhamos',
 			'perdemos',
 		);
 	}
+
 }
 // retorna prioridade
 if (!function_exists('returnPriorities')) {
 
 	function returnPriorities() {
 		return $states = array(
-			 'baixa',
+			'baixa',
 			'média',
 			'alta',
 			'emergência',
 		);
 	}
-}
-if (!function_exists('returnStatus')) {
 
-	function returnStatus() {
-		return $states = array(
-			 'fazer',
-			'fazendo',
-			'aguardar',
-			'feito',
-			'cancelado',
-		);
+}
+// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa 
+if (!function_exists('formatStatus')) {
+
+	function formatStatus($status) {
+		switch ($status) {
+			case 'cancelado':
+				echo '<td class="td-low">cancelada</td>';
+				break;
+			case 'fazer':
+				echo '<td class="td-toDo">fazer</td>';
+				break;
+			case 'fazendo':
+				echo '<td class="td-doing">fazendo</td>';
+				break;
+			case 'feito':
+				echo '<td class="td-done">feito</td>';
+				break;
+			case 'aguardar':
+				echo '<td class="td-stuck">aguardar</td>';
+				break;
+		}
 	}
 }
+// retorna o STATUS / SITUAÇÃO da tarefa 
+	if (!function_exists('returnStatus')) {
+
+		function returnStatus() {
+			return $states = array(
+				'fazer',
+				'fazendo',
+				'aguardar',
+				'feito',
+				'cancelado',
+			);
+		}
+
+	}
 // retorna os departamentos de tarefas/jornadas
-if (!function_exists('returnDepartments')) {
+	if (!function_exists('returnDepartments')) {
 
-	function returnDepartments() {
-		return $states = array(
-			 'desenvolvimento',
-			'financeiro',
-			'marketing',
-			'administrativo',
-			'produção',
-			'atendimento',
-			'vendas',
-		);
+		function returnDepartments() {
+			return $states = array(
+				'desenvolvimento',
+				'financeiro',
+				'marketing',
+				'administrativo',
+				'produção',
+				'atendimento',
+				'vendas',
+			);
+		}
+
 	}
-}
-if (!function_exists('gerarSenha')) {
+	if (!function_exists('gerarSenha')) {
 
-	function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
-		$ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
-		$mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
-		$nu = "0123456789"; // $nu contem os números
-		$si = "!@#$%¨&*()_+="; // $si contem os símbolos
+		function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
+			$ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
+			$mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
+			$nu = "0123456789"; // $nu contem os números
+			$si = "!@#$%¨&*()_+="; // $si contem os símbolos
 
-		if ($maiusculas) {
-			// se $maiusculas for "true", a variável $ma é embaralhada e adicionada para a variável $senha
-			$senha = str_shuffle($ma);
+			if ($maiusculas) {
+				// se $maiusculas for "true", a variável $ma é embaralhada e adicionada para a variável $senha
+				$senha = str_shuffle($ma);
+			}
+
+			if ($minusculas) {
+				// se $minusculas for "true", a variável $mi é embaralhada e adicionada para a variável $senha
+				$senha .= str_shuffle($mi);
+			}
+
+			if ($numeros) {
+				// se $numeros for "true", a variável $nu é embaralhada e adicionada para a variável $senha
+				$senha .= str_shuffle($nu);
+			}
+
+			if ($simbolos) {
+				// se $simbolos for "true", a variável $si é embaralhada e adicionada para a variável $senha
+				$senha .= str_shuffle($si);
+			}
+
+			// retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
+			return substr(str_shuffle($senha), 0, $tamanho);
 		}
 
-		if ($minusculas) {
-			// se $minusculas for "true", a variável $mi é embaralhada e adicionada para a variável $senha
-			$senha .= str_shuffle($mi);
-		}
-
-		if ($numeros) {
-			// se $numeros for "true", a variável $nu é embaralhada e adicionada para a variável $senha
-			$senha .= str_shuffle($nu);
-		}
-
-		if ($simbolos) {
-			// se $simbolos for "true", a variável $si é embaralhada e adicionada para a variável $senha
-			$senha .= str_shuffle($si);
-		}
-
-		// retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
-		return substr(str_shuffle($senha), 0, $tamanho);
 	}
-
-}
+	

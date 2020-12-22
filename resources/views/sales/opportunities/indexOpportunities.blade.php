@@ -36,6 +36,9 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 			<td   class="table-list-header">
 				<b>ETAPA DA VENDA</b>
 			</td>
+			<td   class="table-list-header">
+				<b>STATUS</b>
+			</td>
 		</tr>
 
 		@foreach ($opportunities as $opportunity)
@@ -51,19 +54,20 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 				</button>
 				{{ $opportunity->name }}
 			</td>
-
 			<td class="table-list-center">
 				{{ $opportunity->contact->name }}
 			</td>
-
 			<td class="table-list-center">
-				{{ date('d/m/Y', strtotime($opportunity->date_conclusion)) }}
+				@isset($opportunity->date_conclusion)
+				{{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
+				@else
+				sem data
+				@endisset
 			</td>
-
 			<td class="table-list-center">
-				{{ $opportunity->stage }}
+				{{$opportunity->stage}}
 			</td>
-
+			{{formatStatus($opportunity->status)}}
 		</tr>
 		@endforeach
 	</table>
