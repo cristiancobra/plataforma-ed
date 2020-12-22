@@ -7,7 +7,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceLine;
 use App\Models\Account;
 use App\Models\Contact;
-use App\Models\Opportunitie;
+use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -33,7 +33,7 @@ class InvoiceController extends Controller {
 //dd($accountsID);
 			$invoices = Invoice::whereIn('account_id', $accountsID)
 					->with([
-						'opportunitie',
+						'opportunity',
 						'invoiceLines',
 						'account',
 						'user',
@@ -77,7 +77,7 @@ class InvoiceController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
 
@@ -115,9 +115,9 @@ class InvoiceController extends Controller {
 
 		$invoice = new Invoice();
 
-		$invoice->opportunitie_id = $request->opportunitie_id;
+		$invoice->opportunity_id = $request->opportunity_id;
 		$invoice->user_id = $request->user_id;
-//		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
+//		$opportunity = Opportunity::find($invoice->opportunity_id)->with('account')->first();
 		$invoice->account_id = $request->account_id;
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
@@ -167,7 +167,7 @@ class InvoiceController extends Controller {
 			$invoice->update();
 
 			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-					->with('product', 'opportunitie')
+					->with('product', 'opportunity')
 					->get();
 
 			return view('financial.invoices.showInvoice', [
@@ -188,7 +188,7 @@ class InvoiceController extends Controller {
 		$userAuth = Auth::user();
 
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product', 'opportunitie')
+				->with('product', 'opportunity')
 				->get();
 //dd($invoice->user);
 		return view('financial.invoices.showInvoice', [
@@ -223,7 +223,7 @@ class InvoiceController extends Controller {
 					})
 					->get();
 
-			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
 
@@ -282,10 +282,10 @@ class InvoiceController extends Controller {
 	public function update(Request $request, Invoice $invoice) {
 		$userAuth = Auth::user();
 
-		$invoice->opportunitie_id = $request->opportunitie_id;
+		$invoice->opportunity_id = $request->opportunity_id;
 		$invoice->user_id = $request->user_id;
-		$opportunitie = Opportunitie::find($invoice->opportunitie_id)->with('account')->first();
-		$invoice->account_id = $opportunitie->account->id;
+		$opportunity = Opportunity::find($invoice->opportunity_id)->with('account')->first();
+		$invoice->account_id = $opportunity->account->id;
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
 		$invoice->description = $request->description;
@@ -312,7 +312,7 @@ class InvoiceController extends Controller {
 		}
 
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product', 'opportunitie')
+				->with('product', 'opportunity')
 				->get();
 
 		$totalPrice = 0;
@@ -388,11 +388,11 @@ class InvoiceController extends Controller {
 	public function createPDF(Invoice $invoice) {
 
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product', 'opportunitie')
+				->with('product', 'opportunity')
 				->get();
 		
 //		$deadline = Product::where('invoice_id', $invoice->id)
-////				->with('product', 'opportunitie')
+////				->with('product', 'opportunity')
 //				->sum('due_date');
 //		
 //		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
@@ -415,17 +415,17 @@ class InvoiceController extends Controller {
 			'accountCnpj' => $invoice->account->cnpj,
 			'invoiceId' => $invoice->id,
 			'invoiceDescription' => $invoice->description,
-			'opportunitieDescription' => $invoice->opportunitie->description,
+			'opportunityDescription' => $invoice->opportunity->description,
 			'invoiceDiscount' => $invoice->discount,
 			'invoicePayday' => $invoice->pay_day,
 			'invoiceTotalPrice' => $invoice->totalPrice,
-			'customerName' => $invoice->opportunitie->contact->name,
-			'customerEmail' => $invoice->opportunitie->contact->email,
-			'customerPhone' => $invoice->opportunitie->contact->phone,
-			'customerAddress' => $invoice->opportunitie->contact->address,
-			'customerCity' => $invoice->opportunitie->contact->city,
-			'customerState' => $invoice->opportunitie->contact->state,
-			'customerCountry' => $invoice->opportunitie->contact->country,
+			'customerName' => $invoice->opportunity->contact->name,
+			'customerEmail' => $invoice->opportunity->contact->email,
+			'customerPhone' => $invoice->opportunity->contact->phone,
+			'customerAddress' => $invoice->opportunity->contact->address,
+			'customerCity' => $invoice->opportunity->contact->city,
+			'customerState' => $invoice->opportunity->contact->state,
+			'customerCountry' => $invoice->opportunity->contact->country,
 			'invoiceLines' => $invoiceLines,
 //			'deadline' => $deadline,
 		];

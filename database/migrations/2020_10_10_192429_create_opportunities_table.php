@@ -20,7 +20,6 @@ class CreateOpportunitiesTable extends Migration {
 			$table->string('name', 100);
 			$table->date('date_start')->nullable();
 			$table->date('date_conclusion')->nullable();
-			$table->date('pay_day')->nullable();
 			$table->text('description')->nullable();
 			$table->string('stage', 50);
 			$table->integer('price')->nullable();

@@ -8,7 +8,7 @@ class Invoice extends Model {
 
 	protected $table = 'invoices';
 	protected $fillable = [
-		'id', 'account_id', 'opportunitie_id', 'contact_id', 'description', 'date_creation', 'pay_day', 'price', 'status', 'category', 'receipt',
+		'id', 'account_id', 'opportunity_id', 'contact_id', 'description', 'date_creation', 'pay_day', 'price', 'status', 'category', 'receipt',
 	];
 	protected $hidden = [
 	];
@@ -21,8 +21,8 @@ class Invoice extends Model {
 		return $this->hasMany(InvoiceLine::class, 'id', 'invoice_id');
 	}
 
-	public function opportunitie() {
-		return $this->belongsTo(Opportunitie::class, 'opportunitie_id', 'id');
+	public function opportunity() {
+		return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
 	}
 
 	public function user() {

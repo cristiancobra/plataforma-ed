@@ -72,6 +72,9 @@ class OpportunityController extends Controller {
 			$products = Product::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
+			
+			$status = returnStatus();
+			$stages = returnOpportunitieStage();
 
 			return view('sales.opportunities.createOpportunity', [
 				'userAuth' => $userAuth,
@@ -79,6 +82,8 @@ class OpportunityController extends Controller {
 				'accounts' => $accounts,
 				'contacts' => $contacts,
 				'products' => $products,
+				'status' => $status,
+				'stages' => $stages,
 			]);
 		} else {
 			return redirect('/');

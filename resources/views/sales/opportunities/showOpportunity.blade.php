@@ -178,19 +178,12 @@ indefinida
 			</button>
 			{{ $invoice->id }}
 		</td>
-
 		<td class="table-list-center">
 			{{ date('d/m/Y', strtotime($invoice->date_creation)) }}
 		</td>
-
-		<td class="table-list-center">
-			{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
-		</td>
-
 		<td class="table-list-right">
 			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
 		</td>
-
 		<td class="table-list-center">
 			@if ($invoice->status == "cancelada")
 			<button class="btn btn-dark">

@@ -193,10 +193,11 @@ if (!function_exists('returnOpportunitieStage')) {
 
 	function returnOpportunitieStage() {
 		return $states = array(
-			 'x',
-			'x',
-			'x',
-			'x',
+			 'prospecção',
+			'apresentação',
+			'proposta',
+			'ganhamos',
+			'perdemos',
 		);
 	}
 }

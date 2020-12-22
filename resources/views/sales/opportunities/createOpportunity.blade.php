@@ -62,9 +62,6 @@
 		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
 		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
 		<br>
-		<label class="labels" for="" >DATA DE PAGAMENTO:</label>
-		<input type="date" name="pay_day" size="20"><span class="fields"></span>
-		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<textarea id="description" name="description" rows="20" cols="90" value="{{old('description')}}">
@@ -79,19 +76,13 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">ETAPA DA VENDA:</label>
 		<select class="fields" name="stage">
-			<option value="prospecção">prospecção</option>
-			<option value="apresentação">apresentação</option>
-			<option value="proposta">proposta</option>
-			<option value="ganhamos">ganhamos</option>
-			<option value="perdemos">perdemos</option>
+		{{createSimpleSelect($stages)}}
 		</select>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
-			<option value="pendente">pendente</option>
-			<option value="desativado">desativado</option>
-			<option value="ativo">ativo</option>
+		{{createSimpleSelect($status)}}
 		</select>
 		<br>
 		<br>

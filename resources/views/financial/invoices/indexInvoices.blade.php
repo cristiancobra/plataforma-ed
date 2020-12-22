@@ -62,10 +62,10 @@
 				{{ $invoice->id }}
 			</td>
 			<td class="table-list-center">
-				{{ $invoice->opportunitie->name}}
+				{{ $invoice->opportunity->name}}
 			</td>
 			<td class="table-list-center">
-				{{ $invoice->opportunitie->contact->name}}
+				{{ $invoice->opportunity->contact->name}}
 			</td>
 			<td class="table-list-center">
 				{{ $invoice->account->name}}
