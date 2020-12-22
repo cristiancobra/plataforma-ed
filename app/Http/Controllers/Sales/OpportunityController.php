@@ -191,6 +191,8 @@ class OpportunityController extends Controller {
 			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
+			
+			$status = returnStatus();
 
 			return view('sales.opportunities.editOpportunity', [
 				'userAuth' => $userAuth,
@@ -199,6 +201,7 @@ class OpportunityController extends Controller {
 				'contacts' => $contacts,
 				'opportunities' => $opportunities,
 				'invoices' => $invoices,
+				'status' => $status,
 			]);
 		} else {
 			return redirect('/');
