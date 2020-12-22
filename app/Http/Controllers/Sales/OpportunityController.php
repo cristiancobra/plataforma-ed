@@ -141,7 +141,7 @@ class OpportunityController extends Controller {
 	public function show(Opportunity $opportunity) {
 		$userAuth = Auth::user();
 
-		$invoices = Invoice::where('opportunitie_id', $opportunity->id)
+		$invoices = Invoice::where('opportunity_id', $opportunity->id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
 
