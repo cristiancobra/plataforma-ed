@@ -70,7 +70,7 @@
 		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{ $userAuth->id }}">
-				{{ $userAuth->name }}
+				Eu
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">

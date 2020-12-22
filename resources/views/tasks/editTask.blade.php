@@ -2,32 +2,27 @@
 
 @section('title','EDITAR TAREFA')
 
-@section('image-top')
-{{ asset('imagens/tarefas.png') }} 
+@section('description')
 @endsection
 
-@section('description')
-<a class="btn btn-primary" href="{{route('task.index')}}">VER TAREFAS</a>
+@section('buttons')
+<a class="button-primary"  href="{{route('task.index')}}">
+	CRIAR
+</a>
 @endsection
 
 @section('main')
 <br>
-<form action=" {{ route('task.update', ['task' =>$task->id]) }} " method="post" style="padding: 40px;color: #874983">
+<form action=" {{route('task.update', ['task' =>$task->id])}} " method="post" style="color: #874983">
 	@csrf
 	@method('put')
 	<div>
 		<label class="labels" for="" >NOME DA TAREFA:</label>
-		<input type="text" name="name" size="20" value="{{ $task->name }}"><span class="fields"></span><br>
+		<input type="text" name="name" size="20" value="{{$task->name}}"><span class="fields"></span><br>
 		<label class="labels" for="" >DEPARTAMENTO:</label>
 		<select class="fields" name="department">
-			<option value="{{ $task->category }}">{{ $task->category }}</option>
-			<option value="desenvolvimento">desenvolvimento</option>
-			<option value="financeiro">financeiro</option>
-			<option value="marketing">marketing</option>
-			<option value="planejamento">planejamento</option>
-			<option value="serviço">serviço</option>
-			<option value="suporte">suporte</option>
-			<option value="venda">venda</option>
+			<option value="{{$task->department}}">{{$task->department}}</option>
+		{{createSimpleSelect($departments)}}
 		</select>
 		<br>
 		<label class="labels" for="" >EMPRESA: </label>
@@ -89,18 +84,7 @@ CKEDITOR.replace('description');
 			<option  class="fields" value="{{ $task->priority }}">
 				{{ $task->priority }}
 			</option>
-			<option value="baixa">
-				baixa
-			</option>
-			<option value="média">
-				média
-			</option>
-			<option value="alta">
-				alta
-			</option>
-			<option value="emergência">
-				emergência
-			</option>
+			{{createSimpleSelect($priorities)}}
 		</select>
 		<br>
 		<br>
@@ -110,10 +94,7 @@ CKEDITOR.replace('description');
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
 			<option value="{{ $task->status }}">{{ $task->status}}</option>
-			<option value="pendente">pendente</option>
-			<option value="fazendo agora">fazendo agora</option>
-			<option value="cancelada">cancelada</option>
-			<option value="concluida">concluida</option>
+		{{createSimpleSelect($status)}}
 		</select>
 		<br>
 		<br>

@@ -294,6 +294,10 @@ class TaskController extends Controller {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->get();
+					
+			$departments = returnDepartments();
+			$status = returnStatus();
+			$priorities = returnPriorities();
 
 			return view('tasks.editTask', [
 				'userAuth' => $userAuth,
@@ -302,6 +306,9 @@ class TaskController extends Controller {
 				'tasks' => $tasks,
 				'accounts' => $accounts,
 				'contacts' => $contacts,
+				'departments' => $departments,
+				'status' => $status,
+				'priorities' => $priorities,
 			]);
 		} else {
 			return redirect('/');
