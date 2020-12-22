@@ -75,7 +75,7 @@ class OpportunityController extends Controller {
 
 			return view('sales.opportunities.createOpportunity', [
 				'userAuth' => $userAuth,
-				'$opportunity' => $opportunity,
+				'opportunity' => $opportunity,
 				'accounts' => $accounts,
 				'contacts' => $contacts,
 				'products' => $products,
