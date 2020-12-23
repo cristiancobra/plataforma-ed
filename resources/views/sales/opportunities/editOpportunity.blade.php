@@ -25,7 +25,7 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('opportunity.update', ['opportunity' =>$opportunity->id]) }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('opportunity.update', ['opportunity' =>$opportunity->id]) }} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >NOME:</label>
@@ -34,14 +34,26 @@
 		<span class="text-danger">{{ $errors->first('name') }}</span>
 		@endif
 		<br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
-			<option  class="fields" value="{{ $opportunity->account->id }}">
-				{{ $opportunity->account->name }}
+			<option  class="fields" value="{{$opportunity->account->id}}">
+				{{$opportunity->account->name}}
 			</option>
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<label class="labels" for="" >RESPONSÁVEL: </label>
+		<select name="user_id">
+			<option  class="fields" value="{{$opportunity->user_id}}">
+				{{$opportunity->user->name}}
+			</option>
+			@foreach ($users as $user)
+			<option  class="fields" value="{{$user->id}}">
+				{{$user->name}}
 			</option>
 			@endforeach
 		</select>
@@ -49,8 +61,8 @@
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
-			<option  class="fields" value="{{ $opportunity->contact_id }}">
-				{{ $opportunity->contact->name }}
+			<option  class="fields" value="{{$opportunity->contact_id}}">
+				{{$opportunity->contact->name}}
 			</option>
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">

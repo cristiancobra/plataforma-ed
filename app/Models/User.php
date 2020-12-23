@@ -53,6 +53,9 @@ class User extends Authenticatable {
 	public function journeys() {
 		return $this->hasMany(Journey::class, 'id', 'user_id');
 	}
+	public function opportunities() {
+		return $this->hasMany(Opportunity::class, 'user_id', 'id');
+	}
 	public function tasks() {
 		return $this->hasMany(Task::class, 'id', 'user_id');
 	}

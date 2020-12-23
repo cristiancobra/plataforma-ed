@@ -23,6 +23,9 @@
 <label class="labels" for="" >EMPRESA: </label>
 <span class="fields">{{$opportunity->account->name }}</span>
 <br>
+<label class="labels" for="" >RESPONSÁVEL: </label>
+<span class="fields">{{$opportunity->user->name }}</span>
+<br>
 <label class="labels" for="" >CONTATO: </label>
 <span class="fields">{{$opportunity->contact->name}}</span>
 <br>

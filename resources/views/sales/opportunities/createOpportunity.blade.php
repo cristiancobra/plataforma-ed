@@ -37,7 +37,19 @@
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{$account->id }}">
-				{{ $account->name }}
+				{{$account->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<label class="labels" for="" >RESPONSÁVEL: </label>
+		<select name="user_id">
+			<option  class="fields" value="{{$userAuth->id}}">
+				Eu
+			</option>
+			@foreach ($users as $user)
+			<option  class="fields" value="{{$user->id}}">
+				{{$user->name}}
 			</option>
 			@endforeach
 		</select>
@@ -45,8 +57,8 @@
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
 			@foreach ($contacts as $contact)
-			<option  class="fields" value="{{ $contact->id }}">
-				{{ $contact->name }}
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
 			</option>
 			@endforeach
 		</select>
@@ -78,17 +90,19 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="">ETAPA DA VENDA:</label>
 		<select class="fields" name="stage">
-		{{createSimpleSelect($stages)}}
+			{{createSimpleSelect($stages)}}
 		</select>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
-		{{createSimpleSelect($status)}}
+			{{createSimpleSelect($status)}}
 		</select>
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR OPORTUNIDADE">
 	</form>
 </div>
+<br>
+<br>
 @endsection

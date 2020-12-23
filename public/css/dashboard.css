@@ -17,9 +17,8 @@ and open the template in the editor.
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-template-areas: 
 		"tasks-toDo tasks-my tasks-now"
+		"opportunities-toDo opportunities-my opportunities-now"
 		"hours tasks-team tasks-team";
-/*		"tasks-my tasks-team tasks-team tasks-team",
-		"tasks-now tasks-team tasks-team tasks-team";*/
 	gap: 5% 2%;
 }
 
@@ -42,6 +41,30 @@ and open the template in the editor.
 
 .tasks-my {
 	grid-area: tasks-my;
+	color: white;
+	background-color: #c28dbf;
+	padding: 4%;
+	border-radius: 20px;
+}
+.opportunities-now{
+	grid-area: opportunities-now;
+	color: white;
+	height: 100%;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.opportunities-toDo {
+	grid-area: opportunities-toDo;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+	background-color: #F2E28C;
+	padding: 4%;
+	border-radius: 20px;
+}
+
+.opportunities-my {
+	grid-area: opportunities-my;
 	color: white;
 	background-color: #c28dbf;
 	padding: 4%;

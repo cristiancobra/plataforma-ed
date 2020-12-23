@@ -11,6 +11,7 @@ use App\Models\Invoice;
 use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class OpportunityController extends Controller {
@@ -30,6 +31,7 @@ class OpportunityController extends Controller {
 					->get('id');
 
 			$opportunities = Opportunity::whereIn('account_id', $accountsID)
+					->with('user')
 					->orderBy('DATE_CONCLUSION', 'ASC')
 					->paginate(20);
 
@@ -65,6 +67,13 @@ class OpportunityController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->with('contact')
+					->orderBy('NAME', 'ASC')
+					->get();
+
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -72,7 +81,7 @@ class OpportunityController extends Controller {
 			$products = Product::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
-			
+
 			$status = returnStatus();
 			$stages = returnOpportunitieStage();
 
@@ -80,6 +89,7 @@ class OpportunityController extends Controller {
 				'userAuth' => $userAuth,
 				'opportunity' => $opportunity,
 				'accounts' => $accounts,
+				'users' => $users,
 				'contacts' => $contacts,
 				'products' => $products,
 				'status' => $status,
@@ -118,14 +128,15 @@ class OpportunityController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
+			$opportunity->user()->associate($request->user_id);
 			$opportunity->save();
 
 			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
-			
+
 			$tasks = Task::where('opportunity_id', $opportunity->id)
-				->get();
+					->get();
 
 			return view('sales.opportunities.showOpportunity', [
 				'opportunity' => $opportunity,
@@ -184,6 +195,13 @@ class OpportunityController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->with('contact')
+					->orderBy('NAME', 'ASC')
+					->get();
+
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -191,13 +209,15 @@ class OpportunityController extends Controller {
 			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
-			
+
+
 			$status = returnStatus();
 
 			return view('sales.opportunities.editOpportunity', [
 				'userAuth' => $userAuth,
 				'opportunity' => $opportunity,
 				'accounts' => $accounts,
+				'users' => $users,
 				'contacts' => $contacts,
 				'opportunities' => $opportunities,
 				'invoices' => $invoices,
@@ -219,13 +239,14 @@ class OpportunityController extends Controller {
 		$userAuth = Auth::user();
 
 		$opportunity->fill($request->all());
+		$opportunity->user()->associate($request->user_id);
 		$opportunity->save();
 
 		$invoices = Invoice::where('opportunity_id', $opportunity->id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
-		
-			$tasks = Task::where('opportunity_id', $opportunity->id)
+
+		$tasks = Task::where('opportunity_id', $opportunity->id)
 				->get();
 
 		return view('sales.opportunities.showOpportunity', [

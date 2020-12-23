@@ -31,6 +31,9 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 				<b>CONTATO </b>
 			</td>
 			<td   class="table-list-header">
+				<b>RESPONSÁVEL </b>
+			</td>
+			<td   class="table-list-header">
 				<b>FAZER CONTATO </b>
 			</td>
 			<td   class="table-list-header">
@@ -56,6 +59,9 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 			</td>
 			<td class="table-list-center">
 				{{ $opportunity->contact->name }}
+			</td>
+			<td class="table-list-center">
+				{{ $opportunity->user->name }}
 			</td>
 			<td class="table-list-center">
 				@isset($opportunity->date_conclusion)

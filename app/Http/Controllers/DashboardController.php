@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Account;
 use App\Models\Journey;
 use App\Models\Task;
+use App\Models\Opportunity;
 use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller {
@@ -22,6 +23,9 @@ class DashboardController extends Controller {
 				->pluck('id');
 
 		$tasks = Task::whereIn('account_id', $accountsID)
+				->get();
+		
+		$opportunities = Opportunity::whereIn('account_id', $accountsID)
 				->get();
 
 		$journeys = Journey::whereIn('account_id', $accountsID)
@@ -56,15 +60,28 @@ class DashboardController extends Controller {
 						->sum('duration');
 
 			$tasks_now = $tasks
-					->where('status', 'fazendo agora')
+					->where('status', 'fazendo')
 					->count();
 
 			$tasks_pending = $tasks
-					->whereIn('status', ['fazendo agora', 'pendente'])
+					->whereIn('status', ['fazendo', 'fazer'])
 					->count();
 
 			$tasks_my = $tasks
-					->whereIn('status', ['fazendo agora', 'pendente'])
+					->whereIn('status', ['fazendo', 'fazer'])
+					->where('user_id', $userAuth->id)
+					->count();
+
+			$opportunities_now = $opportunities
+					->where('status', 'fazendo')
+					->count();
+
+			$opportunities_pending = $opportunities
+					->whereIn('status', ['fazendo', 'fazer'])
+					->count();
+
+			$opportunities_my = $opportunities
+					->whereIn('status', ['fazendo', 'fazer'])
 					->where('user_id', $userAuth->id)
 					->count();
 
@@ -78,6 +95,9 @@ class DashboardController extends Controller {
 				'tasks_now' => $tasks_now,
 				'tasks_pending' => $tasks_pending,
 				'tasks_my' => $tasks_my,
+				'opportunities_now' => $opportunities_now,
+				'opportunities_pending' => $opportunities_pending,
+				'opportunities_my' => $opportunities_my,
 				'todayTotal' => $todayTotal,
 				'monthTotal' => $monthTotal,
 			]);
@@ -111,15 +131,15 @@ class DashboardController extends Controller {
 						->sum('duration');
 
 			$tasks_now = $tasks
-					->where('status', 'fazendo agora')
+					->where('status', 'fazendo')
 					->count();
 
 			$tasks_pending = $tasks
-					->whereIn('status', ['fazendo agora', 'pendente'])
+					->whereIn('status', ['fazendo', 'fazer'])
 					->count();
 
 			$tasks_my = $tasks
-					->whereIn('status', ['fazendo agora', 'pendente'])
+					->whereIn('status', ['fazendo', 'fazer'])
 					->where('user_id', $userAuth->id)
 					->count();
 

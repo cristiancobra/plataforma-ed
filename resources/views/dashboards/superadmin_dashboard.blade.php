@@ -19,6 +19,52 @@
 <div class="grid-administrator">
 	<div class="tasks-toDo">
 		<p class="numeros_painel">
+			{{$opportunities_pending}}
+		</p>
+		<p class="subtitulo-branco">
+			oportunidades
+		</p>
+		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+			@csrf
+			<input type="hidden" name="status" value="fazer">
+			<input type="hidden" name="contact_id" value="">
+			<input type="hidden" name="user_id" value="">
+			<input class="btn btn-secondary" type="submit" value="VER">
+		</form>
+	</div>
+	<div class="tasks-my">
+		<p class="numeros_painel" style="color: yellow">
+			{{$opportunities_my}}
+		</p>
+		<p class="subtitulo-branco">
+			minhas oportunidades
+		</p>
+		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
+			@csrf
+			<input type="hidden" name="status" size="20" value="fazer">
+			<input type="hidden" name="contact_id" value="">
+			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
+			<input class="btn btn-secondary" type="submit" value="VER">
+		</form>
+	</div>
+	<div class="tasks-now">
+		<p class="numeros_painel">
+			{{$opportunities_now}}
+		</p>
+		<p class="subtitulo-branco">
+			oportunidades sendo executadas
+		</p>
+		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
+			@csrf
+			<input type="hidden" name="status"  value="fazendo">
+			<input type="hidden" name="contact_id" value="">
+			<input type="hidden" name="user_id" value="">
+			<input class="btn btn-secondary" type="submit" value="VER">
+		</form>
+	</div>
+	
+	<div class="opportunities-toDo">
+		<p class="numeros_painel">
 			{{ $tasks_pending }}
 		</p>
 		<p class="subtitulo-branco">
@@ -26,15 +72,13 @@
 		</p>
 		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
-			<input type="hidden" name="status" value="pendente">
+			<input type="hidden" name="status" value="fazer">
 			<input type="hidden" name="contact_id" value="">
 			<input type="hidden" name="user_id" value="">
 			<input class="btn btn-secondary" type="submit" value="VER">
 		</form>
 	</div>
-
-
-	<div class="tasks-my">
+	<div class="opportunities-my">
 		<p class="numeros_painel" style="color: yellow">
 			{{ $tasks_my }}
 		</p>
@@ -43,14 +87,14 @@
 		</p>
 		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
-			<input type="hidden" name="status" size="20" value="pendente">
+			<input type="hidden" name="status" size="20" value="fazer">
 			<input type="hidden" name="contact_id" value="">
 			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
 			<input class="btn btn-secondary" type="submit" value="VER">
 		</form>
 	</div>
 
-	<div class="tasks-now">
+	<div class="opportunities-now">
 		<p class="numeros_painel">
 			{{ $tasks_now }}
 		</p>
@@ -59,7 +103,7 @@
 		</p>
 		<form action=" {{ route('task.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
-			<input type="hidden" name="status"  value="fazendo agora">
+			<input type="hidden" name="status"  value="fazendo">
 			<input type="hidden" name="contact_id" value="">
 			<input type="hidden" name="user_id" value="">
 			<input class="btn btn-secondary" type="submit" value="VER">
@@ -125,4 +169,6 @@
 		</table>
 	</div>
 </div>
+<br>
+<br>
 @endsection
