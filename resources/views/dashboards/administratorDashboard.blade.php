@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','PAINEL')
+@section('title','ADMINISTRADOR')
 
 @section('image-top')
 {{ asset('imagens/control-panel.png') }} 

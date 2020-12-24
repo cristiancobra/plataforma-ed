@@ -12,63 +12,87 @@ and open the template in the editor.
 .grid-administrator {
 	display: grid;
 	height: auto;
+	color: white;
 	text-align: left;
 	margin-top: 2%;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-areas: 
-		"tasks-toDo tasks-my tasks-now"
-		"opportunities-toDo opportunities-my opportunities-now"
-		"hours tasks-team tasks-team";
+		"tasks-title tasks-toDo-my tasks-toDo tasks-doing"
+		"opportunities-title opportunities-my opportunities-toDo opportunities-now"
+		"hours tasks-team tasks-team tasks-team";
 	gap: 5% 2%;
 }
 
-.tasks-now{
-	grid-area: tasks-now;
-	color: white;
+.tasks-title{
+	grid-area: tasks-title;
 	height: 100%;
 	padding: 4%;
 	border-radius: 20px;
+	text-align: center;
+	color: #874983;
+}
+
+.tasks-doing{
+	grid-area: tasks-doing;
+	text-shadow: 2px 2px 4px #000000;
+	background-color: #92C4D4;
+	height: 100%;
+	padding: 4%;
+	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .tasks-toDo {
 	grid-area: tasks-toDo;
     text-shadow: 2px 2px 4px #000000;
-    color: white;
 	background-color: #F2E28C;
 	padding: 4%;
 	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.tasks-my {
-	grid-area: tasks-my;
-	color: white;
-	background-color: #c28dbf;
+.tasks-toDo-my {
+	grid-area: tasks-toDo-my;
+	text-shadow: 2px 2px 4px #000000;
+	background-color: #D8C2DB;
 	padding: 4%;
 	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.opportunities-now{
-	grid-area: opportunities-now;
-	color: white;
+.opportunities-title{
+	grid-area: opportunities-title;
 	height: 100%;
 	padding: 4%;
 	border-radius: 20px;
+	text-align: center;
+	color: #874983;
+}
+.opportunities-now{
+	grid-area: opportunities-now;
+	text-shadow: 2px 2px 4px #000000;
+	background-color: #92C4D4;
+	height: 100%;
+	padding: 4%;
+	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .opportunities-toDo {
 	grid-area: opportunities-toDo;
     text-shadow: 2px 2px 4px #000000;
-    color: white;
 	background-color: #F2E28C;
 	padding: 4%;
 	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .opportunities-my {
 	grid-area: opportunities-my;
-	color: white;
-	background-color: #c28dbf;
+	text-shadow: 2px 2px 4px #000000;
+	background-color: #D8C2DB;
 	padding: 4%;
 	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .tasks-team {
@@ -76,33 +100,59 @@ and open the template in the editor.
     width: 100%;
     text-align:center;
     display: table;
-    color:#874983;
+	background-color: #E2FAF4;
     font-size: 14px;
     border-bottom-style: solid;
     border-width: 2px;
-    padding-top: 5%;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .hoursToday {
 	grid-area: hours;
-	color: white;
-	background-color: #874983;
+	text-shadow: 2px 2px 4px #000000;
+	background-color: #D8C2DB;
 	padding: 4%;
 	border-radius: 20px;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .destaque{
     margin-top:0px;
     background-color: white;
 }
- /*fim do GRID*/
+/*fim do GRID*/
 
 .numeros_painel{
     text-align:center;
     color:white;
     font-weight:600;
     line-height: 0px;
-    font-size: 56px;
+    font-size: 36px;
     margin: 0px;
     padding-top: 10%;
+}
+
+.button-panel {
+    width: 50px;
+    height: 28px;
+    background: #A497C2;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: solid;
+    border-width: 1px;
+    border-color: #c28dbf;
+    padding: 2.5px 2.5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 40%;
+    color: white;
+    transition-duration: 0.4s;
+    margin: 2px;
+}
+
+.button-panel:hover {
+    background-color: #6357A1;
+    border-color: #6357A1;
+    color: white;
 }
