@@ -25,90 +25,31 @@ class TaskController extends Controller {
 	 */
 	public function index(Request $request) {
 		$userAuth = Auth::user();
+		$today = date('Y-m-d');
 
 		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get('id');
+			$accountsID = userAccounts();
 
-			if ($request->name == null && $request->user_id == null && $request->contact_id == null && $request->status == null) {
-				$tasks = Task::where(function ($query) use ($accountsID, $request) {
-							$query->whereIn('account_id', $accountsID);
-							$query->where('status', '!=', 'feito')
-							->where('status', '!=', 'cancelado');
-						})
-//						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
-						->with('opportunity')
-						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-						->orderBy('date_due', 'ASC')
-						->paginate(20);
-			} elseif ($request->status == "feito") {
-				$tasks = Task::where(function ($query) use ($accountsID, $request) {
-							$query->whereIn('account_id', $accountsID)
-							->where('status', '=', 'feito');
-							if ($request->name != null) {
-								$query->where('name', 'like', "%$request->name%");
-							}
-							if ($request->user_id != null) {
-								$query->where('user_id', '=', $request->user_id);
-							}
-							if ($request->account_id != null) {
-								$query->where('account_id', '=', $request->account_id);
-							}
-							if ($request->contact_id != null) {
-								$query->where('contact_id', '=', $request->contact_id);
-							}
-						})
-						->with('opportunity')
-						->orderBy('date_due', 'DESC')
-						->paginate(20);
-			} elseif ($request->status == null) {
-				$tasks = Task::where(function ($query) use ($accountsID, $request) {
-							$query->whereIn('account_id', $accountsID);
-							if ($request->name != null) {
-								$query->where('name', 'like', "%$request->name%");
-							}
-							if ($request->user_id != null) {
-								$query->where('user_id', '=', $request->user_id);
-							}
-							if ($request->account_id != null) {
-								$query->where('account_id', '=', $request->account_id);
-							}
-							if ($request->contact_id != null) {
-								$query->where('contact_id', '=', $request->contact_id);
-							}
-						})
-						->with('opportunity')
-						->orderBy('date_due', 'DESC')
-						->paginate(20);
-			}else{
-				$tasks = Task::where(function ($query) use ($accountsID, $request) {
-							$query->whereIn('account_id', $accountsID);
-							if ($request->name != null) {
-								$query->where('name', 'like', "%$request->name%");
-							}
-							if ($request->user_id != null) {
-								$query->where('user_id', '=', $request->user_id);
-							}
-							if ($request->account_id != null) {
-								$query->where('account_id', '=', $request->account_id);
-							}
-							if ($request->contact_id != null) {
-								$query->where('contact_id', '=', $request->contact_id);
-							}
-							if($request->status != null) {
-								$query->where('status', '=', $request->status);
-							}
-						})
-						->with('opportunity')
-						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
-						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-						->orderBy('date_due', 'ASC')
-						->paginate(20);
-			}
-			
-						$totalTasks = $tasks->count();
+			$tasks = Task::where(function ($query) use ($accountsID, $request) {
+						$query->whereIn('account_id', $accountsID);
+						if ($request->name) {
+							$query->where('name', 'like', "%$request->name%");
+						}
+						if ($request->user_id) {
+							$query->where('user_id', '=', $request->user_id);
+						}
+						if ($request->contact_id) {
+							$query->where('contact_id', '=', $request->contact_id);
+						}
+						if ($request->status) {
+							$query->where('status', '=', $request->status);
+						}
+					})
+					->with('opportunity')
+					->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'feito', 'cancelado', 'fazendo')"))
+					->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+					->orderBy('date_due', 'ASC')
+					->paginate(20);
 
 			$tasks->appends([
 				'name' => $request->name,
@@ -133,10 +74,10 @@ class TaskController extends Controller {
 
 			return view('tasks.indexTasks', [
 				'tasks' => $tasks,
-				'totalTasks' => $totalTasks,
 				'contacts' => $contacts,
 				'accounts' => $accounts,
 				'users' => $users,
+				'today' => $today,
 				'userAuth' => $userAuth,
 			]);
 		} else {
@@ -176,7 +117,7 @@ class TaskController extends Controller {
 					})
 					->with('contact')
 					->get();
-					
+
 			$today = date("Y-m-d");
 			$departments = returnDepartments();
 			$status = returnStatus();
@@ -209,6 +150,7 @@ class TaskController extends Controller {
 
 		$task = new Task();
 		$task->fill($request->all());
+		$task->status = 'fazer';
 
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
@@ -298,7 +240,7 @@ class TaskController extends Controller {
 						$query->whereIn('account_id', $accountsID);
 					})
 					->get();
-					
+
 			$departments = returnDepartments();
 			$status = returnStatus();
 			$priorities = returnPriorities();
@@ -328,17 +270,18 @@ class TaskController extends Controller {
 	 */
 	public function update(Request $request, task $task) {
 		$userAuth = Auth::user();
+		$today = date('Y-m-d');
 
 		$task->fill($request->all());
-		$start_time = strtotime($request->start_time);
-		$end_time = strtotime($request->end_time);
 
-		if ($request->end_time == null) {
-			$task->duration = 0;
-		} else {
-			$task->duration = $end_time - $start_time;
+		if(isset($request->cancel)) {
+			$task->status = 'cancelado';
+		}elseif($request->date_conclusion >= $today){
+			$task->status = 'fazer';
+		}else{
+			$task->status = 'feito';
 		}
-
+			
 		$task->save();
 
 		$journeys = Journey::where('task_id', $task->id)->get();

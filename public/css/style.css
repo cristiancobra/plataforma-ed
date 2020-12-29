@@ -187,13 +187,13 @@ and open the template in the editor.
 	gap: 5% 2%;
 }
 
-.tasks-now{
+/*.tasks-now{
 	grid-area: tasks-now;
 	color: white;
 	background-color: #4aa0e6;
 	padding: 4%;
 	border-radius: 20px;
-}
+}*/
 
 .tasks-pending {
 	grid-area: tasks-pending;
@@ -203,13 +203,13 @@ and open the template in the editor.
 	border-radius: 20px;
 }
 
-.tasks-my {
+/*.tasks-my {
 	grid-area: tasks-my;
 	color: white;
 	background-color: #c28dbf;
 	padding: 4%;
 	border-radius: 20px;
-}
+}*/
 
 .hours {
 	grid-area: hours;
@@ -1416,7 +1416,7 @@ input[type=button].btn-block {
 }
 
 .select{
-font-size:16px;	
+font-size:14px;
 }
 
 .button-primary {

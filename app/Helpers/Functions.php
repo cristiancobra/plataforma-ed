@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Account;
+use Illuminate\Support\Facades\Auth;
+
 if (!function_exists('shout')) {
 
 	function shout(string $string) {
@@ -29,247 +32,279 @@ if (!function_exists('createSimpleSelect')) {
 	}
 
 }
-// retorna os meses do ano
-if (!function_exists('returnAccountType')) {
+//if (!function_exists('filterTasks')) {
 
-	function returnAccountType() {
-		return $type = array(
-			'1' => '',
-			'2' => 'Agricultura',
-			'3' => 'Biotecnologia',
-			'4' => 'Quimica',
-			'5' => 'Aeroespacial',
-			'6' => 'Computadores e hardware',
-			'7' => 'Construção',
-			'8' => 'Consultoria',
-			'9' => 'Produtos de consumo',
-			'10' => 'Esportes',
-			'11' => 'Serviços ao consumidor',
-			'12' => 'Marketing digital',
-			'13' => 'Educação',
-			'14' => 'Eletrônica',
-			'15' => 'Eletrônica',
-			'16' => 'Moda',
-			'17' => 'Serviços financeiros',
-			'18' => 'Alimentos e bebidas',
-			'19' => 'Jogos',
-			'20' => 'serviços de saúde',
-			'21' => 'Indústria',
-			'22' => 'Internet/serviços da web',
-			'23' => 'Serviços de TI',
-			'24' => 'Jurídico',
-			'25' => 'Estilo de vida',
-			'26' => 'Marítimo',
-			'27' => 'Marketing/publicidade',
-			'28' => 'Mídias e entretenimento',
-			'29' => 'Mineração',
-			'30' => 'Petróleo e gás',
-			'31' => 'Política',
-			'32' => 'Imóveis',
-			'33' => 'Varejo/distribuição',
-			'34' => 'Segurança',
-			'35' => 'Software',
-			'36' => 'Telecomunicações',
-			'37' => 'Transportes',
-			'38' => 'Turismo',
-			'39' => 'Outros',
-		);
+// filtro das tarefas
+//	function filterTasks(array $filters) {
+//		if ($filters->name == null && $filters->user_id == null && $filters->contact_id == null && $filters->status == null) {
+//				$tasks = Task::where(function ($query) use ($accountsID, $request) {
+//							$query->whereIn('account_id', $accountsID);
+//							$query->where('status', '!=', 'feito')
+//							->where('status', '!=', 'cancelado');
+//						})
+////						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
+//						->with('opportunity')
+//						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+//						->orderBy('date_due', 'ASC')
+//						->paginate(20);
+//		}
+//	}
+
+	if (!function_exists('userAccounts')) {
+
+//  retorna o ID das empresas ao qual o usuário pertence
+		function userAccounts() {
+			$accountsID = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
+					})
+					->get('id');
+
+			return $accountsID;
+		}
+
 	}
-
-}
 // retorna os meses do ano
-if (!function_exists('returnMonths')) {
+	if (!function_exists('returnAccountType')) {
 
-	function returnMonths() {
-		return $months = array(
-			'1' => 'Janeiro',
-			'2' => 'Fevereiro',
-			'3' => 'Março',
-			'4' => 'Abril',
-			'5' => 'Maio',
-			'6' => 'Junho',
-			'7' => 'Julho',
-			'8' => 'Agosto',
-			'9' => 'Setembro',
-			'10' => 'Outubro',
-			'11' => 'Novembro',
-			'12' => 'Dezembro',
-		);
+		function returnAccountType() {
+			return $type = array(
+				'1' => '',
+				'2' => 'Agricultura',
+				'3' => 'Biotecnologia',
+				'4' => 'Quimica',
+				'5' => 'Aeroespacial',
+				'6' => 'Computadores e hardware',
+				'7' => 'Construção',
+				'8' => 'Consultoria',
+				'9' => 'Produtos de consumo',
+				'10' => 'Esportes',
+				'11' => 'Serviços ao consumidor',
+				'12' => 'Marketing digital',
+				'13' => 'Educação',
+				'14' => 'Eletrônica',
+				'15' => 'Eletrônica',
+				'16' => 'Moda',
+				'17' => 'Serviços financeiros',
+				'18' => 'Alimentos e bebidas',
+				'19' => 'Jogos',
+				'20' => 'serviços de saúde',
+				'21' => 'Indústria',
+				'22' => 'Internet/serviços da web',
+				'23' => 'Serviços de TI',
+				'24' => 'Jurídico',
+				'25' => 'Estilo de vida',
+				'26' => 'Marítimo',
+				'27' => 'Marketing/publicidade',
+				'28' => 'Mídias e entretenimento',
+				'29' => 'Mineração',
+				'30' => 'Petróleo e gás',
+				'31' => 'Política',
+				'32' => 'Imóveis',
+				'33' => 'Varejo/distribuição',
+				'34' => 'Segurança',
+				'35' => 'Software',
+				'36' => 'Telecomunicações',
+				'37' => 'Transportes',
+				'38' => 'Turismo',
+				'39' => 'Outros',
+			);
+		}
+
 	}
+// retorna os meses do ano
+	if (!function_exists('returnMonths')) {
 
-}
+		function returnMonths() {
+			return $months = array(
+				'1' => 'Janeiro',
+				'2' => 'Fevereiro',
+				'3' => 'Março',
+				'4' => 'Abril',
+				'5' => 'Maio',
+				'6' => 'Junho',
+				'7' => 'Julho',
+				'8' => 'Agosto',
+				'9' => 'Setembro',
+				'10' => 'Outubro',
+				'11' => 'Novembro',
+				'12' => 'Dezembro',
+			);
+		}
+
+	}
 // retorna o nome do mês a partir do parâmetro recebido
-if (!function_exists('returnMonth')) {
+	if (!function_exists('returnMonth')) {
 
-	function returnMonth(int $number) {
-		if ($number == 1) {
-			$month = "Janeiro";
-		}
-		if ($number == 2) {
-			$month = "Fevereiro";
-		}
-		if ($number == 3) {
-			$month = "Março";
-		}
-		if ($number == 4) {
-			$month = "Abril";
-		}
-		if ($number == 5) {
-			$month = "Maio";
-		}
-		if ($number == 6) {
-			$month = "Junho";
-		}
-		if ($number == 7) {
-			$month = "Julho";
-		}
-		if ($number == 8) {
-			$month = "Agosto";
-		}
-		if ($number == 9) {
-			$month = "Setembro";
-		}
-		if ($number == 10) {
-			$month = "Outubro";
-		}
-		if ($number == 11) {
-			$month = "Novembro";
-		}
-		if ($number == 12) {
-			$month = "Dezembro";
+		function returnMonth(int $number) {
+			if ($number == 1) {
+				$month = "Janeiro";
+			}
+			if ($number == 2) {
+				$month = "Fevereiro";
+			}
+			if ($number == 3) {
+				$month = "Março";
+			}
+			if ($number == 4) {
+				$month = "Abril";
+			}
+			if ($number == 5) {
+				$month = "Maio";
+			}
+			if ($number == 6) {
+				$month = "Junho";
+			}
+			if ($number == 7) {
+				$month = "Julho";
+			}
+			if ($number == 8) {
+				$month = "Agosto";
+			}
+			if ($number == 9) {
+				$month = "Setembro";
+			}
+			if ($number == 10) {
+				$month = "Outubro";
+			}
+			if ($number == 11) {
+				$month = "Novembro";
+			}
+			if ($number == 12) {
+				$month = "Dezembro";
+			}
+
+			return($month);
 		}
 
-		return($month);
 	}
-
-}
 // retorna os estados do Brasil
-if (!function_exists('returnStates')) {
+	if (!function_exists('returnStates')) {
 
-	function returnStates() {
-		return $states = array(
-			'' => '',
-			'AC' => 'Acre',
-			'AL' => 'Alagoas',
-			'AP' => 'Amapá',
-			'AM' => 'Amazonas',
-			'BA' => 'Bahia',
-			'CE' => 'Ceará',
-			'DF' => 'Distrito Federal',
-			'ES' => 'Espirito Santo',
-			'GO' => 'Goiás',
-			'MA' => 'Maranhão',
-			'MS' => 'Mato Grosso do Sul',
-			'MT' => 'Mato Grosso',
-			'MG' => 'Minas Gerais',
-			'PA' => 'Pará',
-			'PB' => 'Paraíba',
-			'PR' => 'Paraná',
-			'PE' => 'Pernambuco',
-			'PI' => 'Piauí',
-			'RJ' => 'Rio de Janeiro',
-			'RN' => 'Rio Grande do Norte',
-			'RS' => 'Rio Grande do Sul',
-			'RO' => 'Rondônia',
-			'RR' => 'Roraima',
-			'SC' => 'Santa Catarina',
-			'SP' => 'São Paulo',
-			'SE' => 'Sergipe',
-			'TO' => 'Tocantins',
-		);
+		function returnStates() {
+			return $states = array(
+				'' => '',
+				'AC' => 'Acre',
+				'AL' => 'Alagoas',
+				'AP' => 'Amapá',
+				'AM' => 'Amazonas',
+				'BA' => 'Bahia',
+				'CE' => 'Ceará',
+				'DF' => 'Distrito Federal',
+				'ES' => 'Espirito Santo',
+				'GO' => 'Goiás',
+				'MA' => 'Maranhão',
+				'MS' => 'Mato Grosso do Sul',
+				'MT' => 'Mato Grosso',
+				'MG' => 'Minas Gerais',
+				'PA' => 'Pará',
+				'PB' => 'Paraíba',
+				'PR' => 'Paraná',
+				'PE' => 'Pernambuco',
+				'PI' => 'Piauí',
+				'RJ' => 'Rio de Janeiro',
+				'RN' => 'Rio Grande do Norte',
+				'RS' => 'Rio Grande do Sul',
+				'RO' => 'Rondônia',
+				'RR' => 'Roraima',
+				'SC' => 'Santa Catarina',
+				'SP' => 'São Paulo',
+				'SE' => 'Sergipe',
+				'TO' => 'Tocantins',
+			);
+		}
+
 	}
-
-}
 // retorna categorias de faturas, oportunidades,  etc
-if (!function_exists('returnInvoiceStatus')) {
+	if (!function_exists('returnInvoiceStatus')) {
 
-	function returnInvoiceStatus() {
-		return $states = array(
-			'enviar',
-			'aprovada',
-			'aprovada',
-			'concluida',
-		);
+		function returnInvoiceStatus() {
+			return $states = array(
+				'enviar',
+				'aprovada',
+				'aprovada',
+				'concluida',
+			);
+		}
+
 	}
-
-}
 // retorna os estágios das oportunidades
-if (!function_exists('returnOpportunitieStage')) {
+	if (!function_exists('returnOpportunitieStage')) {
 
-	function returnOpportunitieStage() {
-		return $states = array(
-			'prospecção',
-			'apresentação',
-			'proposta',
-			'ganhamos',
-			'perdemos',
-		);
+		function returnOpportunitieStage() {
+			return $states = array(
+				'prospecção',
+				'apresentação',
+				'proposta',
+				'ganhamos',
+				'perdemos',
+			);
+		}
+
 	}
-
-}
 // gera um botão com a formatação para PRIORIDADE da tarefa  a partir de  $model
-if (!function_exists('formatPriority')) {
+	if (!function_exists('formatPriority')) {
 
-	function formatPriority($model) {
-		switch ($model->priority) {
-			case 'baixa':
-				echo '<td class="td-low">baixa</td>';
-				break;
-			case 'média':
-				echo '<td class="td-medium">média</td>';
-				break;
-			case 'alta':
-				echo '<td class="td-high">alta</td>';
-				break;
-			case 'emergência':
-				echo '<td class="td-emergency">emergência</td>';
-				break;
+		function formatPriority($model) {
+			switch ($model->priority) {
+				case 'baixa':
+					echo '<td class="td-low">baixa</td>';
+					break;
+				case 'média':
+					echo '<td class="td-medium">média</td>';
+					break;
+				case 'alta':
+					echo '<td class="td-high">alta</td>';
+					break;
+				case 'emergência':
+					echo '<td class="td-emergency">emergência</td>';
+					break;
+			}
 		}
+
 	}
-}
 // retorna prioridade
-if (!function_exists('returnPriorities')) {
+	if (!function_exists('returnPriorities')) {
 
-	function returnPriorities() {
-		return $states = array(
-			'baixa',
-			'média',
-			'alta',
-			'emergência',
-		);
-	}
-
-}
-// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
-if (!function_exists('formatStatus')) {
-
-	function formatStatus($model) {
-		switch ($model->status) {
-			case 'cancelado':
-				echo '<td class="td-low">cancelada</td>';
-				break;
-			case 'fazer':
-				echo '<td class="td-toDo">fazer</td>';
-				break;
-			case 'fazendo':
-				echo '<td class="td-doing">fazendo</td>';
-				break;
-			case 'feito':
-				echo '<td class="td-done">feito</td>';
-				break;
-			case 'aguardar':
-				echo '<td class="td-stuck">aguardar</td>';
-				break;
+		function returnPriorities() {
+			return $states = array(
+				'baixa',
+				'média',
+				'alta',
+				'emergência',
+			);
 		}
+
 	}
-}
+// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
+	if (!function_exists('formatStatus')) {
+
+		function formatStatus($model) {
+			switch ($model->status) {
+				case 'cancelado':
+					echo '<td class="td-low">cancelada</td>';
+					break;
+				case 'fazer':
+					echo '<td class="td-toDo">fazer</td>';
+					break;
+				case 'fazendo':
+					echo '<td class="td-doing">fazendo</td>';
+					break;
+				case 'feito':
+					echo '<td class="td-done">feito</td>';
+					break;
+				case 'aguardar':
+					echo '<td class="td-stuck">aguardar</td>';
+					break;
+			}
+		}
+
+	}
 // retorna o STATUS / SITUAÇÃO da tarefa 
 	if (!function_exists('returnStatus')) {
 
 		function returnStatus() {
 			return $states = array(
 				'fazer',
-				'fazendo',
 				'aguardar',
 				'feito',
 				'cancelado',

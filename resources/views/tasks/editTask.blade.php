@@ -2,6 +2,10 @@
 
 @section('title','EDITAR TAREFA')
 
+@section('image-top')
+{{ asset('imagens/tarefas.png') }} 
+@endsection
+
 @section('description')
 @endsection
 
@@ -90,15 +94,19 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
 		<input type="date" name="date_conclusion" size="20" value="{{ $task->date_conclusion }}"><span class="fields"></span>
+		@if($task->status == "cancelado")
+		<input type="checkbox" name="cancel" value="cancelado" checked="checked">
+		@else
+		<input type="checkbox" name="cancel" value="cancelado">
+		@endif
+		cancelada
 		<br>
-		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			<option value="{{ $task->status }}">{{ $task->status}}</option>
-		{{createSimpleSelect($status)}}
-		</select>
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR TAREFA">
 		</form>
+		<br>
+		<br>
+		<br>
 	</div>     
 	@endsection

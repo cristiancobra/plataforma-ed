@@ -23,9 +23,9 @@
 		<br>
 		TAREFAS
 	</div>
-	<div class="opportunities-toDo">
+	<div class="tasks-toDo">
 		<p class="numeros_painel">
-			{{ $tasks_pending }}
+			{{$tasks_pending}}
 		</p>
 		<p class="subtitulo-branco">
 			fazer
@@ -38,14 +38,14 @@
 			<input class="button-panel" type="submit" value="VER">
 		</form>
 	</div>
-	<div class="opportunities-my">
+	<div class="tasks-my">
 		<p class="numeros_painel">
-			{{ $tasks_my }}
+			{{$tasks_my}}
 		</p>
 		<p class="subtitulo-branco">
 			minhas
 		</p>
-		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" size="20" value="fazer">
 			<input type="hidden" name="contact_id" value="">
@@ -54,7 +54,7 @@
 		</form>
 	</div>
 
-	<div class="opportunities-now">
+	<div class="tasks-now">
 		<p class="numeros_painel">
 			{{ $tasks_now }}
 		</p>
@@ -76,14 +76,14 @@
 		<br>
 		OPORTUNIDADES
 	</div>
-	<div class="tasks-toDo">
+	<div class="opportunities-toDo">
 		<p class="numeros_painel">
 			{{$opportunities_pending}}
 		</p>
 		<p class="subtitulo-branco">
 			fazer
 		</p>
-		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{ route('opportunity.index') }} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" value="fazer">
 			<input type="hidden" name="contact_id" value="">
@@ -91,14 +91,14 @@
 			<input class="button-panel" type="submit" value="VER">
 		</form>
 	</div>
-	<div class="tasks-toDo-my">
+	<div class="opportunities-my">
 		<p class="numeros_painel">
 			{{$opportunities_my}}
 		</p>
 		<p class="subtitulo-branco">
 			minhas
 		</p>
-		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{route('opportunity.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" size="20" value="fazer">
 			<input type="hidden" name="contact_id" value="">
@@ -106,14 +106,14 @@
 			<input class="button-panel" type="submit" value="VER">
 		</form>
 	</div>
-	<div class="tasks-doing">
+	<div class="opportunities-now">
 		<p class="numeros_painel">
 			{{$opportunities_now}}
 		</p>
 		<p class="subtitulo-branco">
 			fazendo
 		</p>
-		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{route('opportunity.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status"  value="fazendo">
 			<input type="hidden" name="contact_id" value="">

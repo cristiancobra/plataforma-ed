@@ -17,7 +17,7 @@ and open the template in the editor.
 	margin-top: 2%;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-template-areas: 
-		"tasks-title tasks-toDo-my tasks-toDo tasks-doing"
+		"tasks-title tasks-my tasks-toDo tasks-now"
 		"opportunities-title opportunities-my opportunities-toDo opportunities-now"
 		"hours tasks-team tasks-team tasks-team";
 	gap: 5% 2%;
@@ -27,18 +27,18 @@ and open the template in the editor.
 	grid-area: tasks-title;
 	height: 100%;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	text-align: center;
 	color: #874983;
 }
 
-.tasks-doing{
-	grid-area: tasks-doing;
+.tasks-now{
+	grid-area: tasks-now;
 	text-shadow: 2px 2px 4px #000000;
 	background-color: #92C4D4;
 	height: 100%;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -47,23 +47,23 @@ and open the template in the editor.
     text-shadow: 2px 2px 4px #000000;
 	background-color: #F2E28C;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.tasks-toDo-my {
-	grid-area: tasks-toDo-my;
+.tasks-my {
+	grid-area: tasks-my;
 	text-shadow: 2px 2px 4px #000000;
 	background-color: #D8C2DB;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .opportunities-title{
 	grid-area: opportunities-title;
 	height: 100%;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	text-align: center;
 	color: #874983;
 }
@@ -73,7 +73,7 @@ and open the template in the editor.
 	background-color: #92C4D4;
 	height: 100%;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -82,7 +82,7 @@ and open the template in the editor.
     text-shadow: 2px 2px 4px #000000;
 	background-color: #F2E28C;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -91,7 +91,7 @@ and open the template in the editor.
 	text-shadow: 2px 2px 4px #000000;
 	background-color: #D8C2DB;
 	padding: 4%;
-	border-radius: 20px;
+	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 

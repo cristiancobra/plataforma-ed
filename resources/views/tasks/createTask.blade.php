@@ -128,16 +128,7 @@ CKEDITOR.replace('description');
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
-		<input type="date" name="date_conclusion" size="20" value="{{old('date_conclusion')}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-		{{createSimpleSelect($status)}}
-		</select>
-		<br>
-		<br>
+
 		<input class="btn btn-secondary" type="submit" value="CRIAR TAREFA">
 	</form>
 </div>

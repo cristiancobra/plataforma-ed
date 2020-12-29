@@ -7,7 +7,6 @@
 @endsection
 
 @section('description')
-Total: <span class="labels">{{$totalTasks}} </span>
 @endsection
 
 @section('buttons')
@@ -21,21 +20,24 @@ Total: <span class="labels">{{$totalTasks}} </span>
 	@csrf
 	<input type="text" name="name" placeholder="nome da tarefa" value="">
 	<select class="select" name="account_id">
+		<option  class="select" value="">
+			Qualquer empresa
+		</option>
 		@foreach ($accounts as $account)
-		<option  class="fields" value="{{$account->id}}">
+		<option  class="select" value="{{$account->id}}">
 			{{$account->name}}
 		</option>
 		@endforeach
-		<option  class="fields" value="">
+		<option  class="select" value="">
 			todas
 		</option>
 	</select>
 	<select class="select" name="contact_id">
-		<option  class="fields" value="">
-			TODOS
+		<option  class="select" value="">
+			Qualquer contato
 		</option>
 		@foreach ($contacts as $contact)
-		<option  class="fields" value="{{$contact->id}}">
+		<option  class="select" value="{{$contact->id}}">
 			{{$contact->name}}
 		</option>
 		@endforeach
@@ -44,33 +46,27 @@ Total: <span class="labels">{{$totalTasks}} </span>
 		</option>
 	</select>
 	<select class="select"name="user_id">
-		<option  class="fields" value="{{$userAuth->id}}">
-			minhas tarefas
-		</option>
-		<option  class="fields" value="">
-			TODOS
+		<option  class="select" value="">
+			Qualquer funcionário
 		</option>
 		@foreach ($users as $user)
-		<option  class="fields" value="{{ $user->id }}">
+		<option  class="select" value="{{ $user->id }}">
 			{{ $user->contact->name }}
 		</option>
 		@endforeach
 	</select>
 	<select class="select" name="status">
-		<option  class="fields" value="fazer">
+		<option  class="select" value="">
+			Todas situações
+		</option>
+		<option  class="select" value="fazer">
 			fazer
 		</option>
-		<option  class="fields" value="fazendo">
-			fazendo
-		</option>
-		<option  class="fields" value="aguardar">
+		<option  class="select" value="aguardar">
 			aguardar
 		</option>
-		<option  class="fields" value="feito">
+		<option  class="select" value="feito">
 			feito
-		</option>
-		<option  class="fields" value="">
-			TODAS
 		</option>
 	</select>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
@@ -140,7 +136,13 @@ Total: <span class="labels">{{$totalTasks}} </span>
 			@endif
 		</td>
 		{{formatPriority($task)}}
+		@if($task->status == 'fazer' AND $task->date_due <= $today)
+		<td>
+			atrasada
+		</td>
+		@else
 		{{formatStatus($task)}}
+		@endif
 	</tr>
 	@endforeach
 </table>
