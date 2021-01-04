@@ -99,10 +99,10 @@ indefinida
 			{{date('d/m/Y', strtotime($task->date_start))}}
 		</td>
 		<td class="table-list-left">
-			{!!html_entity_decode($task->description)!!}
+			{{$task->name}}
 		</td>
 		<td class="table-list-left">
-			{{$task->name}}
+			{!!html_entity_decode($task->description)!!}
 		</td>
 		<td class="table-list-center">
 			@isset($task->date_conclusion)
