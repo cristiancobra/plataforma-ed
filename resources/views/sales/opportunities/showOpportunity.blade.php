@@ -188,7 +188,10 @@ indefinida
 			{{ $invoice->id }}
 		</td>
 		<td class="table-list-center">
-			{{ date('d/m/Y', strtotime($invoice->date_creation)) }}
+			{{date('d/m/Y', strtotime($invoice->date_creation))}}
+		</td>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($invoice->pay_day))}}
 		</td>
 		<td class="table-list-right">
 			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
@@ -224,8 +227,18 @@ indefinida
 //				'opportunityUserId' => $opportunity->user->id,
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
+				'invoiceStatus' => 'pendente',
 				])}}">
-	NOVA FATURA
+	GERAR ORÇAMENTO
+</a>
+<a class="btn btn-secondary" href="{{ route('invoice.create', [
+				'opportunityName' => $opportunity->name,
+				'opportunityId' => $opportunity->id,
+				'opportunityDescription' => $opportunity->description,
+				'opportunityAccountName' => $opportunity->account->name,
+				'opportunityAccountId' => $opportunity->account->id,
+				])}}">
+	GERAR FATURA
 </a>
 <br>
 <br>

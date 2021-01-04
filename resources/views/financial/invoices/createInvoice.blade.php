@@ -202,12 +202,17 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
+		@if(!empty(app('request')->input('invoiceStatus')))
+		<input type="hidden" name="status" value="{{app('request')->input('invoiceStatus')}}">
+		{{app('request')->input('invoiceStatus')}}
+		@else
 		<select class="fields" name="status">
 			<option value="pendente">pendente</option>
 			<option value="aprovada">aprovada</option>
 			<option value="concluida">concluida</option>
 			<option value="cancelada">cancelada</option>
 		</select>
+		@endif
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR FATURA">

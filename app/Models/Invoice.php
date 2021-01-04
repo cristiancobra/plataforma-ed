@@ -8,7 +8,17 @@ class Invoice extends Model {
 
 	protected $table = 'invoices';
 	protected $fillable = [
-		'id', 'account_id', 'opportunity_id', 'contact_id', 'description', 'date_creation', 'pay_day', 'price', 'status', 'category', 'receipt',
+		'id',
+		'account_id',
+		'opportunity_id',
+		'contact_id',
+		'description',
+		'date_creation',
+		'pay_day',
+		'price',
+		'status',
+		'category',
+		'receipt',
 	];
 	protected $hidden = [
 	];
