@@ -66,7 +66,10 @@
 			aguardar
 		</option>
 		<option  class="select" value="feito">
-			feito
+			feitas
+		</option>
+		<option  class="select" value="cancelado">
+			canceladas
 		</option>
 	</select>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
@@ -136,8 +139,8 @@
 			@endif
 		</td>
 		{{formatPriority($task)}}
-		@if($task->status == 'fazer' AND $task->date_due >= $today)
-		<td>
+		@if($task->status == 'fazer' AND $task->date_due <= $today)
+		<td class="td-late">
 			atrasada
 		</td>
 		@else

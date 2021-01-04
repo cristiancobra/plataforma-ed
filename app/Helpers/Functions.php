@@ -281,7 +281,7 @@ if (!function_exists('createSimpleSelect')) {
 		function formatStatus($model) {
 			switch ($model->status) {
 				case 'cancelado':
-					echo '<td class="td-low">cancelada</td>';
+					echo '<td class="td-canceled">cancelada</td>';
 					break;
 				case 'fazer':
 					echo '<td class="td-toDo">fazer</td>';
