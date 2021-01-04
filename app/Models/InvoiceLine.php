@@ -21,8 +21,8 @@ class InvoiceLine extends Model {
 		return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
 	}
 
-	public function opportunitie() {
-		return $this->belongsTo(Opportunitie::class, 'opportunitie_id', 'id');
+	public function opportunity() {
+		return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
 	}
 
 	public function product() {

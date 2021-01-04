@@ -23,7 +23,6 @@ class CreateOpportunitiesTable extends Migration {
 			$table->text('description')->nullable();
 			$table->string('stage', 50);
 			$table->integer('price')->nullable();
-			$table->string('status', 50);
 			$table->timestamps();
 		});
 	}

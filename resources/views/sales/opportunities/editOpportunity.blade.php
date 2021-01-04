@@ -101,13 +101,6 @@ CKEDITOR.replace('description');
 		<input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>
 		<br>
 		<br>
-		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			<option value="{{$opportunity->status}}">{{$opportunity->status}}</option>
-			{{createSimpleSelect($status)}}
-		</select>
-		<br>
-		<br>
 		<div style="text-align: right">
 			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">	
 			<a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">

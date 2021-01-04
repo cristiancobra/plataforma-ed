@@ -94,12 +94,6 @@ CKEDITOR.replace('description');
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			{{createSimpleSelect($status)}}
-		</select>
-		<br>
-		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR OPORTUNIDADE">
 	</form>
 </div>

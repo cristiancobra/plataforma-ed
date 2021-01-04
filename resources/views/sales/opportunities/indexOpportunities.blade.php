@@ -39,9 +39,6 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 			<td   class="table-list-header">
 				<b>ETAPA DA VENDA</b>
 			</td>
-			<td   class="table-list-header">
-				<b>STATUS</b>
-			</td>
 		</tr>
 
 		@foreach ($opportunities as $opportunity)
@@ -73,7 +70,6 @@ Total: <span class="labels">{{$totalOpportunities}} </span>
 			<td class="table-list-center">
 				{{$opportunity->stage}}
 			</td>
-			{{formatStatus($opportunity)}}
 		</tr>
 		@endforeach
 	</table>

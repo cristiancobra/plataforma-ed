@@ -30,7 +30,18 @@ class OpportunityController extends Controller {
 					})
 					->get('id');
 
-			$opportunities = Opportunity::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::where(function ($query) use ($accountsID, $request) {
+						$query->whereIn('account_id', $accountsID);
+						if ($request->name) {
+							$query->where('name', 'like', "%$request->name%");
+						}
+						if ($request->user_id) {
+							$query->where('user_id', '=', $request->user_id);
+						}
+						if ($request->contact_id) {
+							$query->where('contact_id', '=', $request->contact_id);
+						}
+					})
 					->with('user')
 					->orderBy('DATE_CONCLUSION', 'ASC')
 					->paginate(20);
@@ -82,7 +93,6 @@ class OpportunityController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$status = returnStatus();
 			$stages = returnOpportunitieStage();
 
 			return view('sales.opportunities.createOpportunity', [
@@ -92,7 +102,6 @@ class OpportunityController extends Controller {
 				'users' => $users,
 				'contacts' => $contacts,
 				'products' => $products,
-				'status' => $status,
 				'stages' => $stages,
 			]);
 		} else {
@@ -210,9 +219,6 @@ class OpportunityController extends Controller {
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
 
-
-			$status = returnStatus();
-
 			return view('sales.opportunities.editOpportunity', [
 				'userAuth' => $userAuth,
 				'opportunity' => $opportunity,
@@ -221,7 +227,6 @@ class OpportunityController extends Controller {
 				'contacts' => $contacts,
 				'opportunities' => $opportunities,
 				'invoices' => $invoices,
-				'status' => $status,
 			]);
 		} else {
 			return redirect('/');

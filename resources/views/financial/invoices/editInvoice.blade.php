@@ -21,8 +21,8 @@
 		@csrf
 		@method('put')
 		<label class="labels" for="" >OPORTUNIDADE: </label>
-		<input type="hidden" name="opportunitie_id" value="{{$invoice->opportunitie_id}}">
-		<span class="fields">{{$invoice->opportunitie->name}}</span>
+		<input type="hidden" name="opportunity_id" value="{{$invoice->opportunity_id}}">
+		<span class="fields">{{$invoice->opportunity->name}}</span>
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
