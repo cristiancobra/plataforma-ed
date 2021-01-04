@@ -83,7 +83,7 @@
 		<p class="subtitulo-branco">
 			fazer
 		</p>
-		<form action=" {{ route('opportunity.index') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{route('opportunity.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" value="fazer">
 			<input type="hidden" name="contact_id" value="">

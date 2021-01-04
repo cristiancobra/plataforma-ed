@@ -89,17 +89,17 @@
 		<label class="labels" for="" >PRAZO FINAL:</label>
 		<input type="date" name="date_due" value="{{old('date_due')}}">
 		@if ($errors->has('date_due'))
-		<span class="text-danger">{{ $errors->first('date_due') }}</span>
+		<span class="text-danger">{{$errors->first('date_due')}}</span>
 		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<br>
 		@if ($errors->has('description'))
-		<span class="text-danger">{{ $errors->first('description') }}</span>
+		<span class="text-danger">{{$errors->first('description')}}</span>
 		@endif
 		<textarea id="description" name="description" rows="20" cols="90"  value="{{old('description')}}">
-		{{ $task->description }}
+		{{$task->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
