@@ -21,7 +21,7 @@ class OpportunityController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 		$userAuth = Auth::user();
 
 		if (Auth::check()) {
