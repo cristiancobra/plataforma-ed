@@ -48,11 +48,28 @@ class OpportunityController extends Controller {
 
 			$totalOpportunities = $opportunities->count();
 
-			return view('sales.opportunities.indexOpportunities', [
-				'opportunities' => $opportunities,
-				'totalOpportunities' => $totalOpportunities,
-				'userAuth' => $userAuth,
-			]);
+			$contacts = Contact::whereIn('account_id', $accountsID)
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			$accounts = Account::whereIn('id', $accountsID)
+					->orderBy('ID', 'ASC')
+					->get();
+
+			$users = User::whereHas('accounts', function($query) use($accountsID) {
+						$query->whereIn('account_id', $accountsID);
+					})
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			return view('sales.opportunities.indexOpportunities', compact(
+					'opportunities',
+					'totalOpportunities',
+					'userAuth',
+					'contacts',
+					'accounts',
+					'users',
+					));
 		} else {
 			return redirect('/');
 		}
@@ -218,6 +235,8 @@ class OpportunityController extends Controller {
 			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
+			
+			$stages = returnOpportunitieStage();
 
 			return view('sales.opportunities.editOpportunity', [
 				'userAuth' => $userAuth,
@@ -227,6 +246,7 @@ class OpportunityController extends Controller {
 				'contacts' => $contacts,
 				'opportunities' => $opportunities,
 				'invoices' => $invoices,
+				'stages' => $stages,
 			]);
 		} else {
 			return redirect('/');

@@ -88,14 +88,7 @@ CKEDITOR.replace('description');
 
 		<br>
 		<label class="labels" for="">ETAPA DA VENDA:</label>
-		<select class="fields" name="stage">
-			<option value="{{$opportunity->stage}}">{{$opportunity->stage}}</option>
-			<option value="prospecção">prospecção</option>
-			<option value="apresentação">apresentação</option>
-			<option value="proposta">proposta</option>
-			<option value="ganhamos">ganhamos</option>
-			<option value="perdemos">perdemos</option>
-		</select>
+		{{editSelect('stage', 'fields', $stages, $opportunity->stage)}}
 		<br>
 		<label class="labels" for="" >PRÓXIMO CONTATO:</label>
 		<input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>
