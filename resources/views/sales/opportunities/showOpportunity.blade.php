@@ -242,10 +242,6 @@ indefinida
 </a>
 <br>
 <br>
-<label class="labels" for="">SITUAÇÃO:</label>
-<span class="fields">{{$opportunity->status }}</span>
-<br>
-<br>
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
 
 <div style="text-align:right;padding: 2%">
