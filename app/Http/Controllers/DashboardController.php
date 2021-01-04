@@ -24,7 +24,7 @@ class DashboardController extends Controller {
 
 		$tasks = Task::whereIn('account_id', $accountsID)
 				->get();
-		
+
 		$opportunities = Opportunity::whereIn('account_id', $accountsID)
 				->get();
 
@@ -52,12 +52,12 @@ class DashboardController extends Controller {
 			}
 
 			$todayTotal = Journey::whereIn('account_id', $accountsID)
-						->where('date', $today)
-						->sum('duration');
-			
+					->where('date', $today)
+					->sum('duration');
+
 			$monthTotal = Journey::whereIn('account_id', $accountsID)
-						->whereBetween('date', [$monthStart, $monthEnd])
-						->sum('duration');
+					->whereBetween('date', [$monthStart, $monthEnd])
+					->sum('duration');
 
 			$tasks_now = $tasks
 					->where('status', 'fazendo')
@@ -84,8 +84,6 @@ class DashboardController extends Controller {
 					->whereIn('status', ['fazendo', 'fazer'])
 					->where('user_id', $userAuth->id)
 					->count();
-
-
 
 			return view('dashboards/superadmin_dashboard', [
 				'userAuth' => $userAuth,
@@ -123,12 +121,12 @@ class DashboardController extends Controller {
 			}
 
 			$todayTotal = Journey::whereIn('account_id', $accountsID)
-						->where('date', $today)
-						->sum('duration');
-			
+					->where('date', $today)
+					->sum('duration');
+
 			$monthTotal = Journey::whereIn('account_id', $accountsID)
-						->whereBetween('date', [$monthStart, $monthEnd])
-						->sum('duration');
+					->whereBetween('date', [$monthStart, $monthEnd])
+					->sum('duration');
 
 			$tasks_now = $tasks
 					->where('status', 'fazendo')
@@ -143,7 +141,18 @@ class DashboardController extends Controller {
 					->where('user_id', $userAuth->id)
 					->count();
 
+			$opportunities_now = $opportunities
+					->where('status', 'fazendo')
+					->count();
 
+			$opportunities_pending = $opportunities
+					->whereIn('status', ['fazendo', 'fazer'])
+					->count();
+
+			$opportunities_my = $opportunities
+					->whereIn('status', ['fazendo', 'fazer'])
+					->where('user_id', $userAuth->id)
+					->count();
 
 			return view('dashboards/administratorDashboard', [
 				'userAuth' => $userAuth,
@@ -153,6 +162,9 @@ class DashboardController extends Controller {
 				'tasks_now' => $tasks_now,
 				'tasks_pending' => $tasks_pending,
 				'tasks_my' => $tasks_my,
+				'opportunities_now' => $opportunities_now,
+				'opportunities_pending' => $opportunities_pending,
+				'opportunities_my' => $opportunities_my,
 				'todayTotal' => $todayTotal,
 				'monthTotal' => $monthTotal,
 			]);
