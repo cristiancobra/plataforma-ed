@@ -276,9 +276,9 @@ class TaskController extends Controller {
 
 		if(isset($request->cancel)) {
 			$task->status = 'cancelado';
-		}elseif(isset($request->date_due)) {
+		}elseif(isset($request->date_conclusion)) {
 			$task->status = 'feito';
-		}elseif($request->date_conclusion >= $today){
+		}else{
 			$task->status = 'fazer';
 		}
 			
