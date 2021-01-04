@@ -136,7 +136,7 @@
 			@endif
 		</td>
 		{{formatPriority($task)}}
-		@if($task->status == 'fazer' AND $task->date_due <= $today)
+		@if($task->status == 'fazer' AND $task->date_due >= $today)
 		<td>
 			atrasada
 		</td>
