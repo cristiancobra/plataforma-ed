@@ -17,7 +17,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 @endsection
 
 @section('main')
-<form action=" {{ route('opportunity.index') }} " method="post" style="text-align: right;color: #874983">
+<form action="{{route('opportunity.index')}} " method="post" style="text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da oportunidade" value="">
 	<select class="select" name="account_id">
@@ -88,9 +88,6 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 			<b>RESPONSÁVEL </b>
 		</td>
 		<td   class="table-list-header">
-			<b>FAZER CONTATO </b>
-		</td>
-		<td   class="table-list-header">
 			<b>ETAPA DA VENDA</b>
 		</td>
 	</tr>
@@ -113,13 +110,6 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 		</td>
 		<td class="table-list-center">
 			{{ $opportunity->user->name }}
-		</td>
-		<td class="table-list-center">
-			@isset($opportunity->date_conclusion)
-			{{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
-			@else
-			sem data
-			@endisset
 		</td>
 		{{formatStage($opportunity)}}
 	</tr>

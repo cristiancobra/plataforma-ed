@@ -29,9 +29,9 @@
 	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >EMPRESA:</label>
-		@if(!empty(app('request')->input('opportunitieAccountName')))
-		{{app('request')->input('opportunitieAccountName')}}
-		<input type="hidden" name="account_id" value="{{app('request')->input('opportunitieAccountId')}}">
+		@if(!empty(app('request')->input('opportunityAccountName')))
+		{{app('request')->input('opportunityAccountName')}}
+		<input type="hidden" name="account_id" value="{{app('request')->input('opportunityAccountId')}}">
 		@else
 		<select name="account_id">
 			@foreach ($accounts as $account)
@@ -44,21 +44,21 @@
 		<br>
 		<br>
 		<label class="labels" for="" >OPORTUNIDADE:</label>
-		@if(!empty(app('request')->input('opportunitieName')))
-		{{app('request')->input('opportunitieName')}}
+		@if(!empty(app('request')->input('opportunityName')))
+		{{app('request')->input('opportunityName')}}
 		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
 		@else
 		<select name="opportunity_id">
 			<option  class="fields" value="selecione">
 				selecione
 			</option>
-			@foreach ($opportunities as $opportunitie)
-			<option  class="fields" value="{{$opportunitie->id}}">
-				{{$opportunitie->name}}
+			@foreach ($opportunities as $opportunity)
+			<option  class="fields" value="{{$opportunity->id}}">
+				{{$opportunity->name}}
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{route('opportunitie.create')}}">CRIAR</a>
+		<a class="btn btn-secondary" href="{{route('opportunity.create')}}">CRIAR</a>
 		@endif
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
@@ -88,8 +88,8 @@
 		<br>
 		<br>
 		<label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
-		@if(!empty(app('request')->input('opportunitieDescription')))
-		<span class="fields">{!!html_entity_decode(app('request')->input('opportunitieDescription'))!!}</span>
+		@if(!empty(app('request')->input('opportunityDescription')))
+		<span class="fields">{!!html_entity_decode(app('request')->input('opportunityDescription'))!!}</span>
 		@endif
 		<br>
 		<br>

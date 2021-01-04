@@ -61,21 +61,21 @@ indefinida
 <span class="fields">{!!html_entity_decode($opportunity->description)!!}</span>
 <br>
 <br>
-<label class="labels" for="" >PROSPECÇÃO:</label>
+<label class="labels" for="" >TAREFAS DA VENDA:</label>
 <br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 20%">
 			<b>DATA CRIAÇÃO </b>
 		</td>
-		<td   class="table-list-header" style="width: 40%">
+		<td   class="table-list-header" style="width: 20%">
+			<b>TAREFA </b>
+		</td>
+		<td   class="table-list-header" style="width: 35%">
 			<b>DESCRIÇÃO </b>
 		</td>
-		<td   class="table-list-header" style="width: 15%">
-			<b>DATA CONCLUSÃO</b>
-		</td>
-		<td   class="table-list-header" style="width: 15%">
-			<b>VALOR TOTAL</b>
+		<td   class="table-list-header" style="width: 5%">
+			<b>CONCLUSÃO</b>
 		</td>
 		<td   class="table-list-header" style="width: 5%">
 			<b>PRIORIDADE</b>
@@ -101,11 +101,15 @@ indefinida
 		<td class="table-list-left">
 			{!!html_entity_decode($task->description)!!}
 		</td>
-		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($task->date_conclusion))}}
+		<td class="table-list-left">
+			{{$task->name}}
 		</td>
-		<td class="table-list-right">
-			R$ {{number_format($task->totalPrice, 2,",",".")}}
+		<td class="table-list-center">
+			@isset($task->date_conclusion)
+			{{date('d/m/Y', strtotime($task->date_conclusion))}}
+			@else
+			em aberto
+			@endisset
 		</td>
 		{{formatPriority($task)}}
 		{{formatStatus($task)}}
@@ -114,7 +118,7 @@ indefinida
 </table>
 <br>
 <a class="btn btn-secondary" href="{{ route('task.create', [
-				'taskName' =>"Prospecção",
+				'taskName' =>"Enviar material",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
 				'opportunityContactName' => $opportunity->contact->name,
@@ -122,7 +126,29 @@ indefinida
 				'taskAccountName' => $opportunity->account->name,
 				'taskAccountId' => $opportunity->account->id,
 				])}}">
-	NOVA TAREFA
+	ENVIAR MATERIAL
+</a>
+<a class="btn btn-secondary" href="{{ route('task.create', [
+				'taskName' =>"Agendar reunião",
+				'opportunityId' => $opportunity->id,
+				'opportunityName' => $opportunity->name,
+				'opportunityContactName' => $opportunity->contact->name,
+				'opportunityContactId' => $opportunity->contact->id,
+				'taskAccountName' => $opportunity->account->name,
+				'taskAccountId' => $opportunity->account->id,
+				])}}">
+	AGENDAR REUNIÃO
+</a>
+<a class="btn btn-secondary" href="{{ route('task.create', [
+				'taskName' =>"Fazer proposta",
+				'opportunityId' => $opportunity->id,
+				'opportunityName' => $opportunity->name,
+				'opportunityContactName' => $opportunity->contact->name,
+				'opportunityContactId' => $opportunity->contact->id,
+				'taskAccountName' => $opportunity->account->name,
+				'taskAccountId' => $opportunity->account->id,
+				])}}">
+	FAZER PROPOSTA
 </a>
 <br>
 <br>
