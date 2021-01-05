@@ -68,7 +68,7 @@
 			DESCRIÇÃO:
 		</h4>
 		<p style="text-align: left;margin-top: 0px;">
-			{!!html_entity_decode($data['opportunitieDescription'])!!}
+			{!!html_entity_decode($data['opportunityDescription'])!!}
 		</p>
 		<table  class="table-list" style="width: 100%">
 			<tr>
