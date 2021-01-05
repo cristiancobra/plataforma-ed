@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contract;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Contract;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Opportunitie;

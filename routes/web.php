@@ -130,18 +130,39 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
-Route::resource('contratos', 'Sales\\ContractController')->names('contract')->parameters(['contratos' => 'contract']);
-Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@index')->name('opportunity.index');
-Route::resource('oportunidades', 'Sales\\OpportunityController')->except(['index'])->names('opportunity')->parameters(['oportunidades' => 'opportunity']);
-Route::resource('produtos', 'Sales\\ProductController')->names('product')->parameters(['produtos' => 'product']);
+Route::resource('contratos', 'Sales\\ContractController')
+		->names('contract')
+		->parameters(['contratos' => 'contract']);
+
+Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
+		->names('contractTemplate')
+		->parameters(['contratos' => 'contract']);
+
+Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@index')
+		->name('opportunity.index');
+
+Route::resource('oportunidades', 'Sales\\OpportunityController')
+		->except(['index'])
+		->names('opportunity')
+		->parameters(['oportunidades' => 'opportunity']);
+
+Route::resource('produtos', 'Sales\\ProductController')
+		->names('product')
+		->parameters(['produtos' => 'product']);
 
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
 Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
-Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')->name('task.index');
-Route::resource('tarefas', 'Tasks\\TaskController')->except(['index'])->names('task')->parameters(['tarefas' => 'task']);
+Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')
+		->name('task.index');
+
+Route::resource('tarefas', 'Tasks\\TaskController')
+		->except(['index'])
+		->names('task')
+		->parameters(['tarefas' => 'task'])
+		->middleware('roles');;
 
 // ============================================== USERS =================================
 Route::resource('usuarios', 'Users\\UserController')

@@ -169,9 +169,7 @@
 		<input type="text" name="neighborhood">   
 		<br>
 		<label for="">Estado: </label>
-		<select name="state">
-			{{createSelect($states)}}
-		</select>
+			{{createDoubleSelect('state', 'fields', $states)}}
 		<br>
 		<br>
 		<label for="">País: </label>

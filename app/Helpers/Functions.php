@@ -34,6 +34,18 @@ if (!function_exists('createSelect')) {
 	}
 
 }
+if (!function_exists('createDoubleSelect')) {
+
+// cria as opções de um select recebendo NOME, CLASSE e array com DUAS POSIÇÕES de OPÇÕES
+	function createDoubleSelect($name, $class, array $options) {
+		echo "<select class = '$class' name = '$name'>";
+		foreach ($options as $key => $value) {
+			echo "<option value=\"$key\">$value</option><br>";
+		}
+		echo "</select>";
+	}
+
+}
 if (!function_exists('editSelect')) {
 
 /* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES

@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('contact.index')}}">VER CONTATOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contact.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -141,7 +146,7 @@
         <br>
         <br>
 
-		<h2 class="name" for="">LOCALIZAÇÃO</h2>
+	<h2 class="name" for="">LOCALIZAÇÃO</h2>
 		<label for="">Endereço: </label>
 		<input type="text" name="address" value="{{ $contact->address }}">   
 		<br>
@@ -151,13 +156,9 @@
 		<label for="">Bairro: </label>
 		<input type="text" name="neighborhood" value="{{ $contact->neighborhood }}">
 		<br>
-		<label  for="">Estado: </label>
-		<select name="state">
-			<option  class="fields" value="{{ $contact->state}}">
-				{{ $contact->address_state}}
-			</option>
-			{{createSelect($states)}}
-		</select>
+		<label for="">Estado: </label>
+			{{createDoubleSelect('state', 'fields', $states)}}
+		<br>
 		<br>
 		<label  for="">País: </label>
 		<input type="text" name="country" value="{{ $contact->country }}">

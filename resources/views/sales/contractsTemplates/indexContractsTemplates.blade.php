@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','CONTRATOS')
+@section('title','MODELOS DE CONTRATOS')
 
 @section('image-top')
 {{ asset('imagens/contract.png') }} 
@@ -11,9 +11,9 @@
 
 @section('buttons')
 <a class="button-primary"  href="{{route('contractTemplate.index')}}">
-	MODELOS
+	VER CONTRATOS
 </a>
-<a class="button-primary"  href="{{route('contract.create')}}">
+<a class="button-primary"  href="{{route('contractTemplate.create')}}">
 	CRIAR
 </a>
 @endsection
@@ -33,26 +33,26 @@
 			</td>
 		</tr>
 
-		@foreach ($contracts as $contract)
+		@foreach ($contractsTemplates as $contractTemplate)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
 				<button class="button-round">
-					<a href=" {{ route('contract.show', ['contract' => $contract->id]) }}">
+					<a href=" {{ route('contractTemplate.show', ['contractTemplate' => $contractTemplate->id]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
 				<button class="button-round">
-					<a href=" {{ route('contract.edit', ['contract' => $contract->id]) }}">
+					<a href=" {{ route('contractTemplate.edit', ['contractTemplate' => $contractTemplate->id]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
-				{{ $contract->name }}
+				{{ $contractTemplate->name }}
 			</td>
 
 			<td class="table-list-right">
-				{{ $contract->contact->name}}
+				{{ $contractTemplate->contact->name}}
 			</td>
 			
 			<td class="table-list-right">
-				{{ $contract->status }}
+				{{ $contractTemplate->status }}
 			</td>
 
 		</tr>
@@ -60,7 +60,7 @@
 	</table>
 	<p style="text-align: right">
 		<br>
-		{{ $contracts->links() }}
+		{{ $contractsTemplates->links() }}
 	</p>
 	<br>
 	@endsection
