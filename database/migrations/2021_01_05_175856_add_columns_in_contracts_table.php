@@ -4,29 +4,30 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnsInContractsTable extends Migration
-{
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
-    public function up()
-    {
-        Schema::table('contracts', function (Blueprint $table) {
-            $table->text('text');
-        });
-    }
+class AddColumnsInContractsTable extends Migration {
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::table('contracts', function (Blueprint $table) {
-                        $table->dropColumn('text');
-        });
-    }
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up() {
+		Schema::table('contracts', function (Blueprint $table) {
+			$table->foreignId('user_id');
+			$table->text('text');
+		});
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down() {
+		Schema::table('contracts', function (Blueprint $table) {
+			$table->dropColumn('user_id');
+			$table->dropColumn('text');
+		});
+	}
+
 }

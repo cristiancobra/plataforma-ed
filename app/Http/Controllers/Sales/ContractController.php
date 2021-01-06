@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contract;
 use App\Models\ContractTemplate;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Opportunity;
-use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class ContractController extends Controller {
 
@@ -113,11 +113,18 @@ class ContractController extends Controller {
 
 		$account = Account::find($contract->account_id);
 		$contact = Contact::find($contract->contact_id);
+		$user = User::find($contract->user_id)
+				->with('contact')
+				->get();
+		
+//		$user = $contract->userContact();
+		dd($user);
 		
 		return view('sales.contracts.showContract', compact(
 			'contract',
 			'contact',
 			'account',
+			'user',
 		));
 	}
 

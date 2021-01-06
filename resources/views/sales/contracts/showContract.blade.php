@@ -32,25 +32,69 @@
 	Identificação das partes
 </h3>
 <p>
-    São partes deste contrato a contratada {{$account->name}} inscrita no CNPJ sob o XXXXXXXXXXXXX tendo como responsável ,
-	inscrito no CPF sob o nº XXXXXXXXX. Localizada na XXXXXXXXXX, no XXXXXXXXXXXX, em XXXXXXX – XXXXXXXXXX,
-	CEP XXXXXXXX E XXXXXXXXXX, daqui em diante denominado apenas como cliente, inscrito no no CPF sob o nº XXXXXXXXXXXxxx.
-	Localizado na , CEP XXXXX , XXXX e
+	São partes deste contrato a contratada 
+	<span class="labels">{{$account->name}}</span>
+	inscrita no CNPJ sob o nº
+	<span class="labels">{{$account->cnpj}}</span>.
+	Localizada na
+	<span class="labels">{{$account->address}}</span>,
+	em
+	<span class="labels">{{$account->address_city}}</span>,
+	–
+	<span class="labels">{{$account->address_state}}</span>,
+	CEP
+	XXXXXXXX,
+	representada por
+	<span class="labels">{{$user->contact->name}}</span>,
+	inscrito no no CPF sob o nº
+	<span class="labels">{{$user->contact->cpf}}</span>,
+	residente em
+	<span class="labels">{{$user->contact->address}}</span>,
+	em
+	<span class="labels">{{$user->contact->address_city}}</span>,
+	–
+	<span class="labels">{{$user->contact->address_state}}</span>,
+	CEP
+	XXXXXXXX.
 </p>
+<br>
 <p>
-    a contratante {{$contact->name}} inscrita no CNPJ sob o XXXXXXXXXXXXX tendo como responsável ,
-	inscrito no CPF sob o nº XXXXXXXXX. Localizada na XXXXXXXXXX, no XXXXXXXXXXXX, em XXXXXXX – XXXXXXXXXX,
-	CEP XXXXXXXX E XXXXXXXXXX, daqui em diante denominado apenas como cliente, inscrito no no CPF sob o nº XXXXXXXXXXXxxx.
-	Localizado na , CEP XXXXX , XXXX e
+	a contratante
+	<span class="labels">{{$contact->name}}</span>.
+	inscrita no CNPJ sob o nº
+	XXXXXXXXXXXXXXXXXXXXXXXXXXX
+	Localizada na
+	XXXXXXXXXX,
+	no
+	XXXXXXXXXXXX,
+	em
+	XXXXXXX
+	–
+	XXXXXXXXXX,
+	CEP
+	XXXXXXXX
+	E
+	XXXXXXXXXX,
+	daqui em diante denominado apenas como cliente, inscrito no no CPF sob o nº
+	XXXXXXXXXXXxxx.
+	Localizado na
+	XXXXXXXXXXXXXXXXXX,
+	CEP
+	XXXXX,
+	XXXX.
+	tendo como responsável
+	XXXXXXXXXXXXXXXXXXXXXXXXXXX
+	inscrito(a) no CPF sob o nº
+	XXXXXXXXX.
 </p>
 <p>
 	{!!html_entity_decode($contract->text)!!}
 </p>
 <br>
 <br>
-<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($contract->created_at)) }} </p>
+<p class="labels"> <b> Criado em:  </b>{{date('d/m/Y H:i', strtotime($contract->created_at))}}</p>
 
-<div style="text-align:right;padding: 2%">
+<div style="text-align:right">
 	<form   style="text-decoration: none;display: inline-block" action="{{ route('contract.destroy', ['contract' => $contract->id]) }}" method="post">
 		@csrf
 		@method('delete')

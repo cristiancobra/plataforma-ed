@@ -159,7 +159,7 @@
 	<br>
 	<br>
 	<p class="labels">
-		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
+		SITUAÇAO:<span class="fields">  {{$task->status}}</span>
 	</p>
 	<br>
 	<p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }}
