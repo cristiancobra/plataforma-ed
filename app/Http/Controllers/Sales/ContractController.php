@@ -64,6 +64,11 @@ class ContractController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$users = User::whereHas('accounts', function($query) use($accountsId){
+						$query->whereIn('accounts.id', $accountsId);
+					})
+					->get();
+
 			$contacts = Contact::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -79,6 +84,7 @@ class ContractController extends Controller {
 			return view('sales.contracts.createContract', compact(
 							'contract',
 							'accounts',
+							'users',
 							'opportunities',
 							'contacts',
 							'contractsTemplates',

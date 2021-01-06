@@ -28,6 +28,15 @@
 			@endforeach
 		</select>
 		<br>
+		<label class="labels" for="" >RESPONSÁVEL NA MINHA EMPRESA: </label>
+		<select name="user_id">
+			@foreach ($users as $user)
+			<option  class="fields" value="{{$user->id}}">
+				{{$user->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<label class="labels" for="" >OPORTUNIDADE: </label>
 		<select name="opportunitie_id">
 			@foreach ($opportunities as $opportunity)
@@ -38,7 +47,7 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >CLIENTE / RESPONSÁVEL: </label>
+		<label class="labels" for="" >CLIENTE RESPONSÁVEL: </label>
 		<select name="contact_id">
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">

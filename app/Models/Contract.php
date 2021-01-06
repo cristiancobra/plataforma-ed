@@ -11,6 +11,7 @@ class Contract extends Model {
 	protected $fillable = [
 		'name',
 		'account_id',
+		'user_id',
 		'opportunitie_id',
 		'product_id',
 		'contact_id',
