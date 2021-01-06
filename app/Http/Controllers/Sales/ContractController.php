@@ -115,10 +115,10 @@ class ContractController extends Controller {
 		$contact = Contact::find($contract->contact_id);
 		$user = User::find($contract->user_id)
 				->with('contact')
-				->get();
+				->first();
 		
 //		$user = $contract->userContact();
-		dd($user);
+//		dd($user);
 		
 		return view('sales.contracts.showContract', compact(
 			'contract',
