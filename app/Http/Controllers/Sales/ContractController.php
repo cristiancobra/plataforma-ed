@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Sales;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contract;
+use App\Models\ContractTemplate;
 use App\Models\Account;
 use App\Models\Contact;
-use App\Models\Opportunitie;
+use App\Models\Opportunity;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -19,11 +20,9 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$userAuth = Auth::user();
-
 		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
+			$accountsID = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
 					})
 					->get('id');
 
@@ -41,7 +40,6 @@ class ContractController extends Controller {
 			return view('sales.contracts.indexContracts', [
 				'contracts' => $contracts,
 				'totalContracts' => $totalContracts,
-				'userAuth' => $userAuth,
 			]);
 		} else {
 			return redirect('/');
@@ -54,40 +52,37 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$userAuth = Auth::user();
-
 		if (Auth::check()) {
 			$contract = new Contract();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
+			$accountsId = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
 					})
 					->pluck('id');
 
-			$accounts = Account::whereIn('id', $accountsID)
+			$accounts = Account::whereIn('id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$contacts = Contact::whereIn('account_id', $accountsID)
+			$contacts = Contact::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$opportunities = Opportunitie::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$products = Product::whereIn('account_id', $accountsID)
+			$contractsTemplates = ContractTemplate::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			return view('sales.contracts.createContract', [
-				'userAuth' => $userAuth,
-				'contract' => $contract,
-				'accounts' => $accounts,
-				'opportunities' => $opportunities,
-				'contacts' => $contacts,
-				'products' => $products,
-			]);
+			return view('sales.contracts.createContract', compact(
+							'contract',
+							'accounts',
+							'opportunities',
+							'contacts',
+							'contractsTemplates',
+			));
 		} else {
 			return redirect('/');
 		}
@@ -101,11 +96,8 @@ class ContractController extends Controller {
 	 */
 	public function store(Request $request) {
 		$contract = new Contract;
-		$contract->name = $request->name;
-		$contract->account_id = $request->account_id;
-		$contract->contact_id = $request->contact_id;
-		$contract->witness1 = $request->witness1;
-		$contract->witness2 = $request->witness2;
+		$contract->fill($request->all());
+		$contract->text = ContractTemplate::find($request->contractTemplate_id)->pluck('text');
 		$contract->save();
 
 		return redirect()->action('Sales\\ContractController@index');
@@ -118,12 +110,15 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Contract $contract) {
-		$userAuth = Auth::user();
 
-		return view('sales.contracts.showContract', [
-			'contract' => $contract,
-			'userAuth' => $userAuth,
-		]);
+		$account = Account::find($contract->account_id);
+		$contact = Contact::find($contract->contact_id);
+		
+		return view('sales.contracts.showContract', compact(
+			'contract',
+			'contact',
+			'account',
+		));
 	}
 
 	/**
@@ -133,7 +128,47 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Contract $contract) {
-		//
+		if (Auth::check()) {
+
+			$accountsId = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
+					})
+					->pluck('id');
+
+			$accounts = Account::whereIn('id', $accountsId)
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			$contacts = Contact::whereIn('account_id', $accountsId)
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			$witness1 = Contact::find($contract->witness1);
+			$witnessName1 = $witness1->name;
+
+			$witness2 = Contact::find($contract->witness2);
+			$witnessName2 = $witness2->name;
+
+			$opportunities = Opportunity::whereIn('account_id', $accountsId)
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			$contractsTemplates = ContractTemplate::whereIn('account_id', $accountsId)
+					->orderBy('NAME', 'ASC')
+					->get();
+
+			return view('sales.contracts.editContract', compact(
+							'contract',
+							'accounts',
+							'opportunities',
+							'contacts',
+							'witnessName1',
+							'witnessName2',
+							'contractsTemplates',
+			));
+		} else {
+			return redirect('/');
+		}
 	}
 
 	/**
@@ -144,7 +179,10 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Contract $contract) {
-		//
+		$contract->fill($request->all());
+		$contract->save();
+
+		return view('sales.contracts.showContract', compact('contract'));
 	}
 
 	/**

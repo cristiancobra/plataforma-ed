@@ -29,23 +29,18 @@
         </select>
         <br>
         <br>
+		<label class="labels" for="" >NOME DO MODELO:</label>
+		<input type="text" name="name"value="">
+		<br>
         <label class="labels" for="" >TEXTO DO CONTRATO:</label>
         <textarea id="text" name="text" rows="20" cols="90">
 		{{$contractTemplate->text}}
         </textarea>
-<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
         <script>
 CKEDITOR.replace('text');
         </script>
-        <br>
-        <br>
-        <label class="labels" for="">SITUAÇÃO:</label>
-        <select class="fields" name="status">
-            <option value="pending">pendente</option>
-            <option value="disable">desativado</option>
-            <option value="active">ativo</option>
-        </select>
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="CRIAR">

@@ -159,17 +159,6 @@
 	<br>
 	<br>
 	<p class="labels">
-		inicio:<span class="fields">  {{$task->start_time}} </span>
-	</p>
-	<p class="labels">
-		termino:<span class="fields">  {{$task->end_time}} </span>
-	</p>
-	<p class="labels">
-		data de conclusao:<span class="fields">  {{$task->date_conclusion}} </span>
-	</p>
-
-	<br>
-	<p class="labels">
 		SITUAÇAO:<span class="fields">  {{ $task->status }} </span>
 	</p>
 	<br>

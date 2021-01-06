@@ -136,7 +136,7 @@ Route::resource('contratos', 'Sales\\ContractController')
 
 Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
 		->names('contractTemplate')
-		->parameters(['contratos' => 'contract']);
+		->parameters(['modelos-de-contratos' => 'contractTemplate']);
 
 Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@index')
 		->name('opportunity.index');
@@ -162,7 +162,7 @@ Route::resource('tarefas', 'Tasks\\TaskController')
 		->except(['index'])
 		->names('task')
 		->parameters(['tarefas' => 'task'])
-		->middleware('roles');;
+		->middleware('roles');
 
 // ============================================== USERS =================================
 Route::resource('usuarios', 'Users\\UserController')

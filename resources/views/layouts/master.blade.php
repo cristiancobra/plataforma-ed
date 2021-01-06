@@ -21,7 +21,6 @@
 		<script src="{{ asset('js/menu.js') }}" async defer></script>
     </head>
     <body>
-
 		<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
 			<div class="container">
 
@@ -58,7 +57,7 @@
 
 							<!--Menu do usuário logado--> 
 							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="{{ route('user.show', $userAuth->id) }} ">
+								<a class="dropdown-item" href="{{ route('user.show', Auth::user()->id) }} ">
 									<i class="fas fa-user-astronaut" style="margin-right: 4px"></i>Perfil</a>
 								<a class="dropdown-item" href="https://financeiro.empresadigital.net.br" target="_blank">
 									<i class="fas fa-piggy-bank" style="margin-right: 4px"></i>Débitos e serviços</a>
@@ -89,7 +88,7 @@
 					</button>
 				</a>
 
-				@if ($userAuth->perfil == "super administrador" OR $userAuth->perfil == "administrador")
+				@if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-users-cog'></i>
 					ADMINISTRATIVO 
@@ -194,7 +193,7 @@
 					</a>
 				</div>
 
-				@if ($userAuth->perfil == "super administrador")
+				@if (Auth::user()->perfil == "super administrador")
 				<button class="dropdown-btn">
 					<i class='fas fa-rocket'></i>
 					EMPRESA DIGITAL 

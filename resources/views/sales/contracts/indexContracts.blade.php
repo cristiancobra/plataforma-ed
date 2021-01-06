@@ -46,15 +46,9 @@
 				</button>
 				{{ $contract->name }}
 			</td>
-
 			<td class="table-list-right">
 				{{ $contract->contact->name}}
 			</td>
-			
-			<td class="table-list-right">
-				{{ $contract->status }}
-			</td>
-
 		</tr>
 		@endforeach
 	</table>

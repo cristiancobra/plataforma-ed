@@ -9,7 +9,15 @@ class Contract extends Model
 	{
   protected $table = 'contracts';
 	protected $fillable = [
-		'name', 'account_id', 'opportunitie_id', 'product_id', 'contact_id', 'observations', 'status',' witness1', 'witness2',
+		'name',
+		'account_id',
+		'opportunitie_id',
+		'product_id',
+		'contact_id',
+		'observations',
+		'status',
+		'witness1',
+		'witness2',
 	];
 	
 	protected $hidden = [
@@ -18,11 +26,12 @@ class Contract extends Model
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
-	
 	public function contact() {
 		return $this->belongsTo(Contact::class,'contact_id', 'id');
 	}
-	
+	public function opportunity() {
+		return $this->hasOne(Opportunity::class,'id', 'opportunitie_id');
+	}
 	public function products() {
 		return $this->hasMany(Product::class,'contract_product');
 	}

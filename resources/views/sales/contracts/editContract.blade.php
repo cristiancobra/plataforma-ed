@@ -3,26 +3,28 @@
 @section('title','CONTRATOS')
 
 @section('image-top')
-{{ asset('imagens/contracts.png') }} 
+{{ asset('imagens/contract.png') }} 
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('contract.index')}}">VER TODOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('contract.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<div style="padding-left: 6%">
-	<form action=" {{ route('contract.update', ['contract' =>$contract->id]) }} " method="post" style="padding: 40px;color: #874983">
+<div>
+	<form action=" {{route('contract.update', ['contract' => $contract->id])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
-		<label class="labels" for="" >NOME:</label>
-		<input type="text" name="name" size="20" value="{{$contract->name}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >FOTO:</label>
-		<input type="text" name="image" size="20" value="{{$contract->image}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
+			<option  class="fields" value="{{ $contract->id }}">
+				{{ $contract->account->name }}
+			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
 				{{ $account->name }}
@@ -30,87 +32,105 @@
 			@endforeach
 		</select>
 		<br>
-		<label class="labels" for="" >TIPO:</label>
-		<select class="fields" name="type">
-			<option value="produto">produto</option>
-			<option value="serviço">serviço</option>
-		</select>
-		<br>
-		<label class="labels" for="" >CATEGORIA:</label>
-		<select class="fields" name="category">
-			<option value="desenvolvimento">desenvolvimento</option>
-			<option value="financeiro">financeiro</option>
-			<option value="marketing">marketing</option>
-			<option value="planejamento">planejamento</option>
-			<option value="serviço">serviço</option>
-			<option value="suporte">suporte</option>
-			<option value="venda">venda</option>
+		<label class="labels" for="" >OPORTUNIDADE: </label>
+		<select name="opportunity">
+			<option  class="fields" value="{{$contract->opportunitie_id}}">
+				{{$contract->opportunity->name}}
+			</option>
+			@foreach ($opportunities as $opportunity)
+			<option  class="fields" value="{{$opportunity->id}}">
+				{{$opportunity->name}}
+			</option>
+			@endforeach
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_start" size="20" value="{{$contract->date_start}}"><span class="fields"></span>
+		<label class="labels" for="" >CONTATO: </label>
+		<select name="contact_id">
+			<option  class="fields" value="{{$contract->contact_id}}">
+				{{$contract->contact->name}}
+			</option>
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{ $contact->id }}">
+				{{$contact->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
-		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
-		<input type="date" name="date_conclusion" size="20" value="{{$contract->date_conclusion}}"><span class="fields"></span>
+		<label class="labels" for="" >PRIMEIRA TESTEMUNHA: </label>
+		<select name="witness1">
+			<option  class="fields" value="{{$contract->witness1}}">
+				{{$witnessName1}}
+			</option>
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
-		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
-		<input type="date" name="pay_day" size="20" value="{{$contract->pay_day}}"><span class="fields"></span>
+		<label class="labels" for="" >SEGUNDA TESTEMUNHA: </label>
+		<select name="witness2">
+			<option  class="fields" value="{{$contract->witness2}}">
+				{{$witnessName2}}
+			</option>
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >DESCRIÇÃO:</label>
-		<textarea id="description" name="description" rows="20" cols="90">
-		{{ $contract->description }}
+		<label class="labels" for="" >DATA DE INICIO:</label>
+		<input type="date" name="date_start" size="20"><span class="fields"></span>
+		<br>
+		<br>
+		<label class="labels" for="" >MODELO DO CONTRATO: </label>
+		<select name="contractTemplate_id">
+			@foreach ($contractsTemplates as $contractTemplate)
+			<option  class="fields" value="{{ $contractTemplate->id }}">
+				{{ $contractTemplate->name }}
+			</option>
+			@endforeach
+		</select>
+		<br>
+		<label class="labels" for="" >NOME:</label>
+		<input type="text" name="name" size="20" value="{{$contract->name}}"><span class="fields"></span>
+		<br>
+		<br>
+		<label class="labels" for="" >TEXTO DO CONTRATO:</label>
+		<textarea id="text" name="text" rows="10" cols="90">
+		{!!html_entity_decode($contract->text)!!}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 		<script>
-CKEDITOR.replace('description');
+CKEDITOR.replace('text');
 		</script>
 		<br>
 		<br>
-		<label class="labels" for="" >HORAS NECESSÁRIAS:</label>
-		<input type="decimal" name="work_hours" size="5" value="{{$contract->work_hours}}"><span class="fields"></span>
+		<label class="labels" for="" >OBSERVAÇÕES:</label>
+		<textarea id="observations" name="observations" rows="10" cols="90">
+		{!!html_entity_decode($contract->observations)!!}
+		</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+		<script>
+CKEDITOR.replace('observations');
+		</script>
 		<br>
-		<br>
-		<label class="labels" for="" >CUSTO 1:</label>
-		<input type="integer" name="cost1" size="5" value="{{$contract->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost1_description" size="40" value="{{$contract->cost1_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 2:</label>
-		<input type="integer" name="cost2" size="5" value="{{$contract->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost2_description" size="40" value="{{$contract->cost2_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 3:</label>
-		<input type="integer" name="cost3" size="5" value="{{$contract->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost3_description" size="40" value="{{$contract->cost3_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >IMPOSTO (%):</label>
-		<input type="decimal" name="tax_rate" size="5" value="{{$contract->tax_rate}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >PREÇO:</label>
-		<input type="decimal" name="price" size="5" value="{{$contract->price}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >PRAZO DE ENTREGA:</label>
-		<input type="integer" name="due_date" size="5" value="{{$contract->due_date}}"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		<select class="fields" name="status">
-			<option value="pendente">pendente</option>
-			<option value="fazendo agora">fazendo agora</option>
-			<option value="cancelada">cancelada</option>
-			<option value="concluida">concluida</option>
+			<option value="pending">pendente</option>
+			<option value="disable">desativado</option>
+			<option value="active">ativo</option>
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
-
+		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
 	</form>
 </div>
 <br>

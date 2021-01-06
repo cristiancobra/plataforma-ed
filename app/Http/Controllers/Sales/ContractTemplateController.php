@@ -8,21 +8,17 @@ use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\ContractTemplate;
 
+class ContractTemplateController extends Controller {
 
-class ContractTemplateController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-		$userAuth = Auth::user();
-
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
 		if (Auth::check()) {
-			$accountsId = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
+			$accountsId = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
 					})
 					->get('id');
 
@@ -31,30 +27,23 @@ class ContractTemplateController extends Controller
 					->orderBy('NAME', 'ASC')
 					->paginate(20);
 
-
-			return view('sales.contractsTemplates.indexContractsTemplates', compact(
-				'contractsTemplates',
-				'userAuth',
-			));
+			return view('sales.contractsTemplates.indexContractsTemplates', compact('contractsTemplates'));
 		} else {
 			return redirect('/');
 		}
 	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-	$userAuth = Auth::user();
-
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create() {
 		if (Auth::check()) {
 			$contractTemplate = new ContractTemplate();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
+			$accountsID = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
 					})
 					->pluck('id');
 
@@ -63,68 +52,82 @@ class ContractTemplateController extends Controller
 					->get();
 
 			return view('sales.contractsTemplates.createContractTemplate', compact(
-				'contractTemplate',
-				'userAuth',
-				'accounts',
+							'contractTemplate',
+							'accounts',
 			));
 		} else {
 			return redirect('/');
 		}
 	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request) {
+		$contractTemplate = new ContractTemplate();
+		$contractTemplate->fill($request->all());
+		$contractTemplate->save();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\ContractTemplate  $contractTemplate
-     * @return \Illuminate\Http\Response
-     */
-    public function show(ContractTemplate $contractTemplate)
-    {
-        //
-    }
+		return redirect()->action('Sales\\ContractTemplateController@index');
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ContractTemplate  $contractTemplate
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(ContractTemplate $contractTemplate)
-    {
-        //
-    }
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\ContractTemplate  $contractTemplate
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(ContractTemplate $contractTemplate) {
+		return view('sales.contractsTemplates.showContractTemplate', compact('contractTemplate'));
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ContractTemplate  $contractTemplate
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, ContractTemplate $contractTemplate)
-    {
-        //
-    }
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\ContractTemplate  $contractTemplate
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(ContractTemplate $contractTemplate) {
+		$accountsId = Account::whereHas('users', function($query) {
+					$query->where('users.id', Auth::user()->id);
+				})
+				->pluck('id');
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\ContractTemplate  $contractTemplate
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(ContractTemplate $contractTemplate)
-    {
-        //
-    }
+		$accounts = Account::whereIn('id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		return view('sales.contractsTemplates.editContractTemplate', compact(
+						'contractTemplate',
+						'accounts',
+		));
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\ContractTemplate  $contractTemplate
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, ContractTemplate $contractTemplate) {
+		$contractTemplate->fill($request->all());
+		$contractTemplate->save();
+
+		return view('sales.contractsTemplates.showContractTemplate', compact('contractTemplate'));
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\ContractTemplate  $contractTemplate
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(ContractTemplate $contractTemplate) {
+			$contractTemplate->delete();
+			return redirect()->action('Sales\\ContractTemplateController@index');
+	}
 }
