@@ -49,11 +49,22 @@ Route::resource('emails', 'Emails\\EmailController')
 		->middleware('roles');
 
 // ================================ FINANCIAL ===================
-Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')->name('invoice.pdf');
-Route::resource('faturas', 'Financial\\InvoiceController')->names('invoice')->parameters(['faturas' => 'invoice']);
-Route::resource('planejamentos', 'Financial\\PlanningController')->names('planning')->parameters(['planejamentos' => 'planning']);
+Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
+		->name('invoice.pdf');
+
+Route::resource('faturas', 'Financial\\InvoiceController')
+		->names('invoice')
+		->parameters(['faturas' => 'invoice']);
+
+Route::resource('planejamentos', 'Financial\\PlanningController')
+		->names('planning')
+		->parameters(['planejamentos' => 'planning']);
+
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
-Route::resource('transactions', 'Financial\\TransactionController')->names('transaction')->parameters(['transacoes' => 'transaction']);
+
+Route::resource('transactions', 'Financial\\TransactionController')
+		->names('transaction')
+		->parameters(['transacoes' => 'transaction']);
 
 // =============================================== MARKETING ====================================
 Route::resource('sites', 'Marketing\\SiteController')->names('site');

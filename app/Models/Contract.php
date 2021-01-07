@@ -21,6 +21,7 @@ class Contract extends Model {
 		'status',
 		'witness1',
 		'witness2',
+		'text',
 	];
 	protected $hidden = [
 	];
@@ -43,14 +44,4 @@ class Contract extends Model {
 	public function user() {
 		return $this->belongsTo(User::class, 'id', 'contact_id');
 	}
-
-//	public function userContact() {
-//		return $this->hasOneThrough(Contact::class, User::class, // o model que eu QUERO através do que eu TENHO
-//						'contact_id', // Foreign key on the TENHO table...
-//						'id', // Foreign key on the QUERO table...
-//						'user_id', // Local key on the ESTOU table...
-//						'id' // Local key on the TENHO table...
-//		);
-//	}
-
 }

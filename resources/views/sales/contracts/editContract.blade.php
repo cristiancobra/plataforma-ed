@@ -22,7 +22,7 @@
 		@method('put')
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
-			<option  class="fields" value="{{ $contract->id }}">
+			<option  class="fields" value="{{ $contract->account_id }}">
 				{{$contract->account->name}}
 			</option>
 			@foreach ($accounts as $account)
@@ -125,7 +125,7 @@
 		<br>
 		<label class="labels" for="" >TEXTO DO CONTRATO:</label>
 		<textarea id="text" name="text" rows="10" cols="90">
-		{!!html_entity_decode($contract->text)!!}
+		{{$contract->text}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

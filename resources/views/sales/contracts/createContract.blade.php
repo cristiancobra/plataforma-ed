@@ -47,7 +47,7 @@
 		</select>
 		<br>
 		<br>
-			<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
 		<select name="company_id">
 			@foreach ($companies as $company)
 			<option  class="fields" value="{{ $company->id }}">
@@ -55,6 +55,11 @@
 			</option>
 			@endforeach
 		</select>
+		<a class="white" href=" {{route('company.create')}}">
+			<button class="button-round">
+				<i class='fa fa-plus'></i>
+			</button>
+		</a>
 		<br>
 		<label class="labels" for="" >CLIENTE RESPONSÁVEL: </label>
 		<select name="contact_id">
