@@ -391,19 +391,6 @@ class InvoiceController extends Controller {
 				->with('product', 'opportunity')
 				->get();
 		
-//		$deadline = Product::where('invoice_id', $invoice->id)
-////				->with('product', 'opportunity')
-//				->sum('due_date');
-//		
-//		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-//						$query->where('users.id', $userAuth->id);
-//					})
-//					->pluck('id');
-					
-					
-//dd($invoiceLines);
-//		$deadline = $invoiceLines->product->sum('due_date');
-
 		$data = [
 			'accountLogo' => $invoice->account->logo,
 			'accountName' => $invoice->account->name,

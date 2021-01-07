@@ -226,5 +226,44 @@ class ContractController extends Controller {
 			return redirect()->action('Sales\\ContractController@index');
 		}
 	}
+	
+// Generate PDF
+	public function createPDF(Invoice $invoice) {
+
+		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+				->with('product', 'opportunity')
+				->get();
+		
+		$data = [
+			'accountLogo' => $invoice->account->logo,
+			'accountName' => $invoice->account->name,
+			'accountEmail' => $invoice->account->email,
+			'accountPhone' => $invoice->account->phone,
+			'accountAddress' => $invoice->account->address,
+			'accountAddressCity' => $invoice->account->address_city,
+			'accountAddressState' => $invoice->account->address_state,
+			'accountCnpj' => $invoice->account->cnpj,
+			'invoiceId' => $invoice->id,
+			'invoiceDescription' => $invoice->description,
+			'opportunityDescription' => $invoice->opportunity->description,
+			'invoiceDiscount' => $invoice->discount,
+			'invoicePayday' => $invoice->pay_day,
+			'invoiceTotalPrice' => $invoice->totalPrice,
+			'customerName' => $invoice->opportunity->contact->name,
+			'customerEmail' => $invoice->opportunity->contact->email,
+			'customerPhone' => $invoice->opportunity->contact->phone,
+			'customerAddress' => $invoice->opportunity->contact->address,
+			'customerCity' => $invoice->opportunity->contact->city,
+			'customerState' => $invoice->opportunity->contact->state,
+			'customerCountry' => $invoice->opportunity->contact->country,
+			'invoiceLines' => $invoiceLines,
+//			'deadline' => $deadline,
+		];
+
+		$pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
+
+// download PDF file with download method
+		return $pdf->stream('fatura.pdf');
+	}
 
 }

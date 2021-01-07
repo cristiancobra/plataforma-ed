@@ -143,6 +143,9 @@ Route::resource('contacts', 'Contact\\ContactController')
 		->names('contact')
 		->parameters(['contatos' => 'contacts']);
 
+Route::get('contratos/pdf/{contract}', 'Sales\\ContractController@createPDF')
+		->name('contract.pdf');
+
 Route::resource('contratos', 'Sales\\ContractController')
 		->names('contract')
 		->parameters(['contratos' => 'contract'])
