@@ -71,6 +71,10 @@ class ContractController extends Controller {
 		$contractsTemplates = ContractTemplate::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
+		
+		$companies = Company::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		return view('sales.contracts.createContract', compact(
 						'contract',
@@ -79,6 +83,7 @@ class ContractController extends Controller {
 						'opportunities',
 						'contacts',
 						'contractsTemplates',
+						'companies',
 		));
 	}
 
