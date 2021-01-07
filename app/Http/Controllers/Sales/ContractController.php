@@ -20,7 +20,6 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		if (Auth::check()) {
 			$accountsID = Account::whereHas('users', function($query) {
 						$query->where('users.id', Auth::user()->id);
 					})
@@ -37,13 +36,10 @@ class ContractController extends Controller {
 
 			$totalContracts = $contracts->count();
 
-			return view('sales.contracts.indexContracts', [
-				'contracts' => $contracts,
-				'totalContracts' => $totalContracts,
-			]);
-		} else {
-			return redirect('/');
-		}
+			return view('sales.contracts.indexContracts', compact(
+							'contracts',
+							'totalContracts',
+			));
 	}
 
 	/**
@@ -52,7 +48,6 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		if (Auth::check()) {
 			$contract = new Contract();
 
 			$accountsId = Account::whereHas('users', function($query) {
@@ -64,7 +59,7 @@ class ContractController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsId){
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
 						$query->whereIn('accounts.id', $accountsId);
 					})
 					->get();
@@ -89,9 +84,6 @@ class ContractController extends Controller {
 							'contacts',
 							'contractsTemplates',
 			));
-		} else {
-			return redirect('/');
-		}
 	}
 
 	/**
@@ -119,18 +111,17 @@ class ContractController extends Controller {
 
 		$account = Account::find($contract->account_id);
 		$contact = Contact::find($contract->contact_id);
-		$user = User::find($contract->user_id)
+		$user = User::where('id', $contract->user_id)
 				->with('contact')
 				->first();
-		
 //		$user = $contract->userContact();
 //		dd($user);
-		
+
 		return view('sales.contracts.showContract', compact(
-			'contract',
-			'contact',
-			'account',
-			'user',
+						'contract',
+						'contact',
+						'account',
+						'user',
 		));
 	}
 
@@ -170,6 +161,16 @@ class ContractController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
+						$query->whereIn('accounts.id', $accountsId);
+					})
+					->get();
+
+			$user = User::where('id', $contract->user_id)
+					->with('contact')
+					->first();
+
+
 			return view('sales.contracts.editContract', compact(
 							'contract',
 							'accounts',
@@ -178,6 +179,8 @@ class ContractController extends Controller {
 							'witnessName1',
 							'witnessName2',
 							'contractsTemplates',
+							'users',
+							'user',
 			));
 		} else {
 			return redirect('/');
@@ -195,7 +198,18 @@ class ContractController extends Controller {
 		$contract->fill($request->all());
 		$contract->save();
 
-		return view('sales.contracts.showContract', compact('contract'));
+		$account = Account::find($contract->account_id);
+		$contact = Contact::find($contract->contact_id);
+		$user = User::where('id', $contract->user_id)
+				->with('contact')
+				->first();
+
+		return view('sales.contracts.showContract', compact(
+						'contract',
+						'account',
+						'contact',
+						'user',
+		));
 	}
 
 	/**

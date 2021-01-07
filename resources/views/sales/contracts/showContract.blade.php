@@ -45,7 +45,12 @@
 	CEP
 	XXXXXXXX,
 	representada por
-	<span class="labels">{{$user->contact->name}}</span>,
+	<span class="labels">{{$user->contact->name}}</span>
+	<button class="button-round">
+		<a href=" {{ route('contact.edit', ['contact' => $user->contact_id]) }}">
+			<i class='fa fa-edit' style="color:white"></i></a>
+	</button>
+	,
 	inscrito no no CPF sob o nº
 	<span class="labels">{{$user->contact->cpf}}</span>,
 	residente em
@@ -55,7 +60,7 @@
 	–
 	<span class="labels">{{$user->contact->address_state}}</span>,
 	CEP
-	XXXXXXXX.
+	<span class="labels">{{$user->contact->cep}}</span>.
 </p>
 <br>
 <p>

@@ -41,7 +41,7 @@ class Task extends Model {
 		return $this->belongsTo(Contact::class, 'contact_id', 'id');
 	}
 	public function journeys() {
-		return $this->hasMany(Journey::class, 'id', 'task_id');
+		return $this->hasMany(Journey::class, 'task_id', 'id');
 	}
 	public function opportunity() {
 		return $this->hasOne(Opportunity::class, 'id', 'opportunity_id');

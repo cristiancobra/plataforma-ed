@@ -14,6 +14,7 @@ class Contact extends Model {
 		'account_id',
 		'name', 'first_name', 'last_name', 'email', 'phone', 'site', 'address', 'city', 'state', 'country', 'type', 'company',
 			'cpf',
+			'cep',
 			'neighborhood',
 			'job_position',
 			'acess_profile',

@@ -16,7 +16,7 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('task.index') }} " method="post" style="text-align: right;color: #874983">
+<form action="{{route('task.index')}}" method="post" style="text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da tarefa" value="">
 	<select class="select" name="account_id">
@@ -125,11 +125,11 @@
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->account->name}}
+			{{$task->account->name}}
 		</td>
 
 		<td class="table-list-center">
-			{{ $task->user->contact->name}}
+			{{$task->user->contact->name}}
 		</td>
 		<td class="table-list-center">
 			@if($task->date_due == date('Y-m-d'))
@@ -139,7 +139,11 @@
 			@endif
 		</td>
 		{{formatPriority($task)}}
-		@if($task->status == 'fazer' AND $task->date_due <= $today)
+		@if($task->journeys()->exists())
+		<td class="td-doing">
+			andamento
+		</td>
+		@elseif($task->status == 'fazer' AND $task->date_due <= $today)
 		<td class="td-late">
 			atrasada
 		</td>

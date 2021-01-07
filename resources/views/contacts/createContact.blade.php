@@ -90,6 +90,8 @@
 		<label for="" >CPF: </label>
 		<input type="text" name="cpf">
 		<br>
+		<label for="" >CEP: </label>
+		<input type="text" name="cep" value="{{$contact->cep}}">
 		<br>
 		<br>
 

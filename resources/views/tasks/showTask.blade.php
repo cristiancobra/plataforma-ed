@@ -94,7 +94,7 @@
 		@php
 		$totalDuration = 0;
 		@endphp
-		@foreach ($journeys as $journey)
+		@foreach ($task->journeys as $journey)
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
 				<button class="button-round">

@@ -33,20 +33,22 @@
 	<br>
 	<br>
 	<h2 class="name" for="">PESSOAL</h2>
-	<label class="labels"  for="" >Primeiro nome: </label> {{ $contact->first_name }}
+	<label class="labels"  for="" >Primeiro nome: </label> {{$contact->first_name}}
 	<br>
-	<label class="labels"  for="" >Sobrenome: </label> {{ $contact->last_name }}
+	<label class="labels"  for="" >Sobrenome: </label> {{$contact->last_name}}
 	<br>
-	<label class="labels"  for="" >Data de nascimento: </label> {{ $contact->birth_date }}
+	<label class="labels"  for="" >Data de nascimento: </label> {{$contact->birth_date}}
 	<br>
-	<label class="labels"  for="" >CPF: </label> {{ $contact->cpf}}
+	<label class="labels"  for="" >CPF: </label> {{$contact->cpf}}
+	<br>
+	<label class="labels"  for="" >CEP: </label> {{$contact->cep}}
 	<br>
 	<br>
 	<h2 class="name" for="">
 		OPORTUNIDADES:
 	</h2>
 	@foreach ($contact->opportunities as $opportunity)
-	<a  class="white" href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
+	<a  class="white" href=" {{route('opportunity.show', ['opportunity' => $opportunity->id])}}">
 		<button class="button-round">
 			<i class='fa fa-eye'></i>
 		</button>

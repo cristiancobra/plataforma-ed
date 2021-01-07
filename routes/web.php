@@ -39,8 +39,6 @@ Route::resource('accounts', 'Accounts\\AccountController')
 		->parameters(['empresas' => 'accounts'])
 		->middleware('roles');
 
-// ================================ CONTATOS / CONTACTS ===================
-Route::resource('contacts', 'Contact\\ContactController')->names('contact')->parameters(['contatos' => 'contacts']);
 
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
@@ -130,9 +128,19 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
+Route::resource('contacts', 'Contact\\ContactController')
+		->names('contact')
+		->parameters(['contatos' => 'contacts']);
+
 Route::resource('contratos', 'Sales\\ContractController')
 		->names('contract')
-		->parameters(['contratos' => 'contract']);
+		->parameters(['contratos' => 'contract'])
+		->middleware('roles');
+
+Route::resource('empresas', 'Sales\\CompanyController')
+		->names('company')
+		->parameters(['empresas' => 'company'])
+		->middleware('roles');
 
 Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
 		->names('contractTemplate')
@@ -156,7 +164,8 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
 
 // ================================ TASKS ===================
 Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')
-		->name('task.index');
+		->name('task.index')
+		->middleware('roles');
 
 Route::resource('tarefas', 'Tasks\\TaskController')
 		->except(['index'])

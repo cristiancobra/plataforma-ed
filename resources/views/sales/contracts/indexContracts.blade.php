@@ -23,13 +23,19 @@
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header">
-				<b>TÍTULO </b>
+				TÍTULO
 			</td>
 			<td   class="table-list-header">
-				<b>CONTRATANTE </b>
+				CONTRATADA
 			</td>
 			<td   class="table-list-header">
-				<b>SITUAÇÃO</b>
+				CONTRATANTE
+			</td>
+			<td   class="table-list-header">
+				RESPONSÁVEL
+			</td>
+			<td   class="table-list-header">
+				SITUAÇÃO
 			</td>
 		</tr>
 
@@ -44,10 +50,16 @@
 					<a href=" {{ route('contract.edit', ['contract' => $contract->id]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
-				{{ $contract->name }}
+				{{$contract->name}}
 			</td>
-			<td class="table-list-right">
-				{{ $contract->contact->name}}
+			<td class="table-list-center">
+				{{$contract->account->name}}
+			</td>
+			<td class="table-list-center">
+				{{$contract->contact->name}}
+			</td>
+			<td class="table-list-center">
+				{{$contract->contact->name}}
 			</td>
 		</tr>
 		@endforeach

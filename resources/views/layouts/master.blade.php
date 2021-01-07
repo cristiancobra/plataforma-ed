@@ -96,7 +96,7 @@
 				</button>
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{route('account.index')}}">
-						<i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
+						<i class="fas fa-store" style="margin-right: 8px"></i>MINHAS EMPRESAS
 					</a>
 					<a class="sidebar-subitem" href="{{route('user.index')}}">
 						<i class="fa fa-id-card-alt" style="margin-right: 8px"></i>FUNCIONÁRIOS
@@ -158,6 +158,9 @@
 				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{ route('contact.index') }}">
 						<i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS
+					</a>
+					<a class="sidebar-subitem" href="{{ route('company.index') }}">
+						<i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
 					</a>
 					<a class="sidebar-subitem" href="{{ route('product.index') }}">
 						<i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS
