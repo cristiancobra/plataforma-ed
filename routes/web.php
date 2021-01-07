@@ -50,7 +50,8 @@ Route::resource('emails', 'Emails\\EmailController')
 
 // ================================ FINANCIAL ===================
 Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
-		->name('invoice.pdf');
+		->name('invoice.pdf')
+		->middleware('roles');
 
 Route::resource('faturas', 'Financial\\InvoiceController')
 		->names('invoice')
@@ -144,7 +145,8 @@ Route::resource('contacts', 'Contact\\ContactController')
 		->parameters(['contatos' => 'contacts']);
 
 Route::get('contratos/pdf/{contract}', 'Sales\\ContractController@createPDF')
-		->name('contract.pdf');
+		->name('contract.pdf')
+		->middleware('roles');
 
 Route::resource('contratos', 'Sales\\ContractController')
 		->names('contract')
