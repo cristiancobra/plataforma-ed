@@ -23,7 +23,7 @@
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
 			<option  class="fields" value="{{ $contract->id }}">
-				{{ $contract->account->name }}
+				{{$contract->account->name}}
 			</option>
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{ $account->id }}">
@@ -35,7 +35,7 @@
 		<label class="labels" for="" >RESPONSÁVEL NA MINHA EMPRESA: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{$contract->user_id}}">
-				{{$user->name}}
+				{{$userContact->name}}
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{$user->id}}">
@@ -56,6 +56,18 @@
 			@endforeach
 		</select>
 		<br>
+		<br>
+		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+		<select name="company_id">
+			<option  class="fields" value="{{$contract->company_id}}">
+				{{$contract->company->name}}
+			</option>
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{ $company->id }}">
+				{{$company->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<label class="labels" for="" >CLIENTE RESPONSÁVEL: </label>
 		<select name="contact_id">

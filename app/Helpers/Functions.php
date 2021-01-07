@@ -1,27 +1,9 @@
 <?php
 
-use App\Models\Account;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Account;
+use App\Models\User;
 
-if (!function_exists('shout')) {
-
-	function shout(string $string) {
-		return strtoupper($string);
-	}
-
-}
-// cria as opções de um select recebendo um array com duas posições
-//if (!function_exists('createSelect')) {
-//
-//	function createSelect(array $list) {
-//		foreach ($list as $key => $value) {
-////			$key = print_r($key);
-////			$value = print_r($value);
-//			echo "<option value=\"$key\">$value</option><br>";
-//		}
-//	}
-//
-//}
 if (!function_exists('createSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
@@ -48,13 +30,29 @@ if (!function_exists('createDoubleSelect')) {
 }
 if (!function_exists('editSelect')) {
 
-/* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
-e retorna o valor a editar */
+	/* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
+	  e retorna o valor a editar */
+
 	function editSelect($name, $class, array $options, $currentValue) {
 		echo "<select class = '$class' name = '$name'>";
 		echo "<option value='$currentValue'>$currentValue</option>";
 		foreach ($options as $option) {
 			echo "<option value=\"$option\">$option</option><br>";
+		}
+		echo "</select>";
+	}
+
+}
+if (!function_exists('editDoubleSelect')) {
+
+	/* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
+	  e retorna o valor a editar  com DUAS POSIÇÕES */
+
+	function editDoubleSelect($name, $class, array $options, $currentValue1, $currentValue2) {
+		echo "<select class = '$class' name = '$name'>";
+		echo "<option value='$currentValue1'>$currentValue2</option>";
+		foreach ($options as $key => $value) {
+			echo "<option value=\"$key\">$value</option><br>";
 		}
 		echo "</select>";
 	}
@@ -97,6 +95,18 @@ if (!function_exists('userAccounts')) {
 				->get('id');
 
 		return $accountsID;
+	}
+
+}
+if (!function_exists('userContact')) {
+
+//  retorna os dados do relacionamento Contatos a partir do ID de um usuário
+	function userContact($id) {
+		$userContact = User::where('id', $id)
+				->with('contact')
+				->first();
+
+		return $userContact;
 	}
 
 }
@@ -248,6 +258,97 @@ if (!function_exists('returnStates')) {
 			'SE' => 'Sergipe',
 			'TO' => 'Tocantins',
 		);
+	}
+
+}
+// retorna o nome COMPLETO DO ESTADO a partir da sigla
+if (!function_exists('returnStateName')) {
+
+	function returnStateName($state) {
+		switch ($state) {
+			case 'AC':
+				$state = 'Acre';
+				break;
+			case 'AL':
+				$state = 'Alagoas';
+				break;
+			case 'AP':
+				$state = 'Amapá';
+				break;
+			case 'AM':
+				$state = 'Amazonas';
+				break;
+			case 'BA':
+				$state = 'Bahia';
+				break;
+			case 'CE':
+				$state = 'Ceará';
+				break;
+			case 'DF':
+				$state = 'Distrito Federal';
+				break;
+			case 'ES':
+				$state = 'Espirito Santo';
+				break;
+			case 'GO':
+				$state = 'Goiás';
+				break;
+			case 'MA':
+				$state = 'Maranhão';
+				break;
+			case 'MS':
+				$state = 'Mato Grosso do Sul';
+				break;
+			case 'MT':
+				$state = 'Mato Grosso';
+				break;
+			case 'MG':
+				$state = 'Minas Gerais';
+				break;
+			case 'PA':
+				$state = 'Pará';
+				break;
+			case 'PB':
+				$state = 'Paraíba';
+				break;
+			case 'PR':
+				$state = 'Paraná';
+				break;
+			case 'PE':
+				$state = 'Pernambuco';
+				break;
+			case 'PI':
+				$state = 'Piauí';
+				break;
+			case 'RJ':
+				$state = 'Rio de Janeiro';
+				break;
+			case 'RN':
+				$state = 'Rio Grande do Norte';
+				break;
+			case 'RS':
+				$state = 'Rio Grande do Sul';
+				break;
+			case 'RO':
+				$state = 'Rondônia';
+				break;
+			case 'RR':
+				$state = 'Roraima';
+				break;
+			case 'SC':
+				$state = 'Santa Catarina';
+				break;
+			case 'SP':
+				$state = 'São Paulo';
+				break;
+			case 'SE':
+				$state = 'Sergipe';
+				break;
+			case 'TO':
+				$state = 'Tocantins';
+				break;
+		}
+		return($state);
 	}
 
 }
@@ -421,5 +522,39 @@ if (!function_exists('gerarSenha')) {
 		return substr(str_shuffle($senha), 0, $tamanho);
 	}
 
-}
-	
+// retorna número no formato de CEP
+	if (!function_exists('formatZipCode')) {
+
+		function formatZipCode($zipCode) {
+			$startNumbers = substr($zipCode, 0, 5);
+			$endNumbers = substr($zipCode, 5, 8);
+			echo $startNumbers . "-" . $endNumbers;
+		}
+
+	}
+// retorna número no formato de CPF
+	if (!function_exists('formatCpf')) {
+
+		function formatCpf($cpf) {
+			$part1 = substr($cpf, 0, 3);
+			$part2 = substr($cpf, 3, 3);
+			$part3 = substr($cpf, 6, 3);
+			$part4 = substr($cpf, 9, 2);
+			echo $part1 . "." . $part2 . "." . $part3 . "-" . $part4;
+		}
+
+	}
+// retorna número no formato de CNPJ
+	if (!function_exists('formatCnpj')) {
+
+		function formatCnpj($cnpj) {
+			$part1 = substr($cnpj, 0, 2);
+			$part2 = substr($cnpj, 2, 3);
+			$part3 = substr($cnpj, 5, 3);
+			$part4 = substr($cnpj, 8, 4);
+			$part5 = substr($cnpj, -2);
+			echo $part1 . "." . $part2 . "." . $part3 . "/" . $part4 . "-" . $part5;
+		}
+
+	}
+}	

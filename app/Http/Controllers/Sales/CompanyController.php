@@ -16,14 +16,10 @@ class CompanyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$accountsId = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
-				})
-				->get('id');
+		$accountsId = userAccounts();
 
 		$companies = Company::whereIn('account_id', $accountsId)
 				->with([
-					'company',
 					'account',
 				])
 				->orderBy('NAME', 'ASC')
@@ -72,17 +68,9 @@ class CompanyController extends Controller {
 		$company->fill($request->all());
 		$company->save();
 
-//		$account = Account::find($company->account_id);
-//		$contact = Contact::find($contract->contact_id);
-//		$user = User::where('id', $contract->user_id)
-//				->with('contact')
-//				->first();
 
 		return view('sales.companies.showCompany', compact(
 						'company',
-//						'account',
-//						'contact',
-//						'user',
 		));
 	}
 
@@ -93,7 +81,9 @@ class CompanyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Company $company) {
-		//
+		return view('sales.companies.showCompany', compact(
+						'company',
+		));
 	}
 
 	/**
@@ -103,7 +93,18 @@ class CompanyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Company $company) {
-		//
+		$accountsId = userAccounts();
+		$states = returnStates();
+
+		$accounts = Account::whereIn('id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		return view('sales.companies.editCompany', compact(
+						'company',
+						'accounts',
+						'states',
+		));
 	}
 
 	/**
@@ -114,7 +115,13 @@ class CompanyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Company $company) {
-		//
+		$company->fill($request->all());
+		$company->save();
+
+
+		return view('sales.companies.showCompany', compact(
+						'company',
+		));
 	}
 
 	/**
@@ -124,7 +131,7 @@ class CompanyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Company $company) {
-		//
+			$company->delete();
+			return redirect()->action('Sales\\CompanyController@index');
+		}
 	}
-
-}

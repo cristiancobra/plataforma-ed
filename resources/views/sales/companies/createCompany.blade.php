@@ -32,8 +32,8 @@
 		<label for="" >DONO: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
 			</option>
 			@endforeach
 		</select>
@@ -99,12 +99,15 @@
 		<label for="">Estado: </label>
 			{{createDoubleSelect('state', 'fields', $states)}}
 		<br>
-		<br>
 		<label for="">País: </label>
 		<input type="text" name="country" value="Brasil">   
 		<br>
 		<br>
 		<br>
+			<h2 class="name" for="">PERFIL</h2>
+			<label for="">Quantidade de empregados: </label>
+			<input type="number" name="employees">
+			<br>
 			<label for="">Tipo: </label>
 			<input type="text" name="type">
 			<br>
@@ -120,4 +123,6 @@
 			<input class="btn btn-secondary" type="submit" value="CRIAR">
 	</form>
 </div>
+		<br>
+		<br>
 @endsection

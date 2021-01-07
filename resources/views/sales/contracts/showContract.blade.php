@@ -32,65 +32,75 @@
 	Identificação das partes
 </h3>
 <p>
-	São partes deste contrato a contratada 
-	<span class="labels">{{$account->name}}</span>
+	São partes deste contrato a empresa contratada 
+	<span class="labels">{{$contract->account->name}}</span>
+		<button class="button-round">
+		<a href=" {{ route('account.edit', ['account' => $contract->account->id]) }}">
+			<i class='fa fa-edit' style="color:white"></i></a>
+	</button>
 	inscrita no CNPJ sob o nº
-	<span class="labels">{{$account->cnpj}}</span>.
+	<span class="labels">{{formatCnpj($contract->account->cnpj)}}</span>.
 	Localizada na
-	<span class="labels">{{$account->address}}</span>,
+	<span class="labels">{{$contract->account->address}}</span>,
 	em
-	<span class="labels">{{$account->address_city}}</span>,
+	<span class="labels">{{$contract->account->city}}</span>,
 	–
-	<span class="labels">{{$account->address_state}}</span>,
+	<span class="labels">{{$contract->account->state}}</span>,
 	CEP
-	XXXXXXXX,
+	<span class="labels">{{formatZipCode($contract->account->zip_code)}}</span>,
 	representada por
-	<span class="labels">{{$user->contact->name}}</span>
+	<span class="labels">{{$userContact->name}}</span>
 	<button class="button-round">
-		<a href=" {{ route('contact.edit', ['contact' => $user->contact_id]) }}">
+		<a href=" {{ route('contact.edit', ['contact' => $userContact->contact_id]) }}">
 			<i class='fa fa-edit' style="color:white"></i></a>
 	</button>
 	,
-	inscrito no no CPF sob o nº
-	<span class="labels">{{$user->contact->cpf}}</span>,
+	inscrito no CPF sob o nº
+	<span class="labels">{{formatCpf($userContact->contact->cpf)}}</span>,
 	residente em
-	<span class="labels">{{$user->contact->address}}</span>,
+	<span class="labels">{{$userContact->contact->address}}</span>,
 	em
-	<span class="labels">{{$user->contact->address_city}}</span>,
-	–
-	<span class="labels">{{$user->contact->address_state}}</span>,
-	CEP
-	<span class="labels">{{$user->contact->cep}}</span>.
+	<span class="labels">{{$userContact->contact->city}}</span>,
+	/
+	<span class="labels">{{$userContact->contact->state}}</span>,
+	CEP:
+	<span class="labels">{{formatZipCode($userContact->contact->zip_code)}}</span> e,
 </p>
 <br>
 <p>
-	a contratante
-	<span class="labels">{{$contact->name}}</span>.
+	a empresa contratante
+	<span class="labels">{{$contract->company->name}}</span>
+		<button class="button-round">
+		<a href=" {{ route('company.edit', ['company' => $contract->company->id]) }}">
+			<i class='fa fa-edit' style="color:white"></i></a>
+	</button>
 	inscrita no CNPJ sob o nº
-	XXXXXXXXXXXXXXXXXXXXXXXXXXX
+	<span class="labels">{{formatCnpj($contract->company->cnpj)}}</span>.
 	Localizada na
-	XXXXXXXXXX,
-	no
-	XXXXXXXXXXXX,
+	<span class="labels">{{$contract->company->address}}</span>,
 	em
-	XXXXXXX
+	<span class="labels">{{$contract->company->city}}</span>,
 	–
-	XXXXXXXXXX,
+	<span class="labels">{{$contract->company->state}}</span>,
 	CEP
-	XXXXXXXX
-	E
-	XXXXXXXXXX,
-	daqui em diante denominado apenas como cliente, inscrito no no CPF sob o nº
-	XXXXXXXXXXXxxx.
-	Localizado na
-	XXXXXXXXXXXXXXXXXX,
-	CEP
-	XXXXX,
-	XXXX.
-	tendo como responsável
-	XXXXXXXXXXXXXXXXXXXXXXXXXXX
-	inscrito(a) no CPF sob o nº
-	XXXXXXXXX.
+	<span class="labels">{{formatZipCode($contract->company->zip_code)}}</span>,
+	representada por
+	<span class="labels">{{$contract->contact->name}}</span>
+	<button class="button-round">
+		<a href=" {{route('contact.edit', ['contact' => $contract->contact->id])}}">
+			<i class='fa fa-edit' style="color:white"></i></a>
+	</button>
+	,
+	inscrito no CPF sob o nº
+	<span class="labels">{{formatCpf($contract->contact->cpf)}}</span>,
+	residente em
+	<span class="labels">{{$contract->contact->address}}</span>,
+	em
+	<span class="labels">{{$contract->contact->address_city}}</span>,
+	/
+	<span class="labels">{{$contract->contact->address_state}}</span>,
+	CEP:
+	<span class="labels">{{formatZipCode($contract->contact->zip_code)}}</span>.
 </p>
 <p>
 	{!!html_entity_decode($contract->text)!!}

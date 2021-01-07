@@ -181,14 +181,12 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Account $account) {
-		$userAuth = Auth::user();
 
 		$account->fill($request->all());
 		$account->save();
 		$account->users()->sync($request->users);
 
 		return view('accounts.showAccount', [
-			'userAuth' => $userAuth,
 			'account' => $account,
 		]);
 	}

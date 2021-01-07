@@ -56,14 +56,17 @@
 	<br>
 	<label class="labels" for="">Bairro: </label> {{$company->neighborhood}}
 	<br>
-	<label class="labels"  for="">Estado: </label> {{$company->state}}
+	<label class="labels"  for="">Estado: </label> {{returnStateName($company->state)}}
 	<br>
 	<label class="labels"  for="">País: </label> {{$company->country}}
 	<br>
 	<br>
-	<label for="">Tipo: </label> {{ $company->type }}
+	<h2 class="name" for="">PERFIL</h2>
+	<label class="labels" for="">Quantidade de empregados: </label> {{$company->employees}}
 	<br>
-	<label for="">Stituação: </label> {{ $company->status }}
+	<label class="labels" for="">Tipo: </label> {{ $company->type }}
+	<br>
+	<label class="labels" for="">Stituação: </label> {{$company->status}}
 	<br>
 	<br>
 	<p class="labels"> <b>Criado em:</b> {{ date('d/m/Y H:i', strtotime($company->created_at)) }} </p>

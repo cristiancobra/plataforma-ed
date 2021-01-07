@@ -41,8 +41,6 @@
 	<br>
 	<label class="labels"  for="" >CPF: </label> {{$contact->cpf}}
 	<br>
-	<label class="labels"  for="" >CEP: </label> {{$contact->cep}}
-	<br>
 	<br>
 	<h2 class="name" for="">
 		OPORTUNIDADES:
@@ -96,6 +94,8 @@
 	<label class="labels"  for="">Estado: </label> {{ $contact->state}}
 	<br>
 	<label class="labels"  for="">País: </label> {{ $contact->country}}
+	<br>
+	<label class="labels"  for="">CEP: </label> {{ $contact->zip_code}}
 	<br>
 	<br>
 	<br>

@@ -40,61 +40,60 @@
 	<input type="text" name="address"  value="{{ $account->address }}">   
 	<br>
 	<label class="labels" for="">Cidade: </label>
-	<input type="text" name="address_city" value="{{ $account->address_city }}">   
+	<input type="text" name="city" value="{{ $account->address_city }}">   
 	<br>
 	<label class="labels" for="">Estado: </label>
-		<select name="address_state">
-			<option  class="fields" value="{{ $account->address_state}}">
-				{{$account->address_state}}
-			</option>
-			{{createSelect($states)}}
-		</select>
+	{{editDoubleSelect('state', 'fields', $states, $account->state, returnStateName($account->state))}}
 	<br>
 	<label class="labels" for="">País: </label>
-	<input type="text" name="address_country" value="{{ $account->address_country }}">   
+	<input type="text" name="country" value="{{ $account->address_country }}">   
+	<br>
+	<label class="labels" for="">CEP: </label>
+	<input type="text" name="zip_code" value="{{$account->zip_code}}">
+	<br>
 	<br>
 	<br>
 	<label class="labels" for="">Segmento: </label>
 	<select name="type">
-			<option value="{{ $account->type }}">{{ $account->type }}</option>
-			<option value="agricultura">Agricultura</option>
-			<option value="biotecnologia">Biotecnologia</option>
-			<option value="química">Substâncias e produtos químicos</option>
-			<option value="aeroespacial">Aeroespacial</option>
-			<option value="hardware">Computadores e hardware</option>
-			<option value="construção">Construção</option>
-			<option value="consultoria">Consultoria</option>
-			<option value="produtos de consumo">Produtos de consumo</option>
-			<option value="serviços ao consumidor">Serviços ao consumidor</option>
-			<option value="marketing digital">Marketing digital</option>
-			<option value="educação">Educação</option>
-			<option value="eletrônica">Eletrônica</option>
-			<option value="moda">Moda</option>
-			<option value="serviços financeiros">Serviços financeiros</option>
-			<option value="alimentos e bebidas">Alimentos e bebidas</option>
-			<option value="jogos">Jogos</option>
-			<option value="serviços de saúde">Serviços de saúde</option>
-			<option value="indústria">Indústria</option>
-			<option value="internet/serviços da web">Internet/serviços da web</option>
-			<option value="serviços de TI">Serviços de TI</option>
-			<option value="jurídico">Jurídico</option>
-			<option value="estilo de vida">Estilo de vida</option>
-			<option value="marítimo">Marítimo</option>
-			<option value="marketing/publicidade">Marketing/publicidade</option>
-			<option value="mídias e entretenimento">Mídias e entretenimento</option>
-			<option value="mineração">Mineração</option>
-			<option value="petróleo e gás">Petróleo e gás</option>
-			<option value="política">Política</option>
-			<option value="imóveis">Imóveis</option>
-			<option value="varejo/distribuição">Varejo/distribuição</option>
-			<option value="segurança">Segurança</option>
-			<option value="software">Software</option>
-			<option value="esportes">Esportes</option>
-			<option value="telecomunicações">Telecomunicações</option>
-			<option value="transportes">Transportes</option>
-			<option value="turismo">Turismo</option>
-			<option value="outros">Outros</option>
-		</select>
+		<option value="{{ $account->type }}">{{ $account->type }}</option>
+		<option value="agricultura">Agricultura</option>
+		<option value="biotecnologia">Biotecnologia</option>
+		<option value="química">Substâncias e produtos químicos</option>
+		<option value="aeroespacial">Aeroespacial</option>
+		<option value="hardware">Computadores e hardware</option>
+		<option value="construção">Construção</option>
+		<option value="consultoria">Consultoria</option>
+		<option value="produtos de consumo">Produtos de consumo</option>
+		<option value="serviços ao consumidor">Serviços ao consumidor</option>
+		<option value="marketing digital">Marketing digital</option>
+		<option value="educação">Educação</option>
+		<option value="eletrônica">Eletrônica</option>
+		<option value="moda">Moda</option>
+		<option value="serviços financeiros">Serviços financeiros</option>
+		<option value="alimentos e bebidas">Alimentos e bebidas</option>
+		<option value="jogos">Jogos</option>
+		<option value="serviços de saúde">Serviços de saúde</option>
+		<option value="indústria">Indústria</option>
+		<option value="internet/serviços da web">Internet/serviços da web</option>
+		<option value="serviços de TI">Serviços de TI</option>
+		<option value="jurídico">Jurídico</option>
+		<option value="estilo de vida">Estilo de vida</option>
+		<option value="marítimo">Marítimo</option>
+		<option value="marketing/publicidade">Marketing/publicidade</option>
+		<option value="mídias e entretenimento">Mídias e entretenimento</option>
+		<option value="mineração">Mineração</option>
+		<option value="petróleo e gás">Petróleo e gás</option>
+		<option value="política">Política</option>
+		<option value="imóveis">Imóveis</option>
+		<option value="varejo/distribuição">Varejo/distribuição</option>
+		<option value="segurança">Segurança</option>
+		<option value="software">Software</option>
+		<option value="esportes">Esportes</option>
+		<option value="telecomunicações">Telecomunicações</option>
+		<option value="transportes">Transportes</option>
+		<option value="turismo">Turismo</option>
+		<option value="outros">Outros</option>
+	</select>
 	<br>
 	<label class="labels" for="">Qtde empregados: </label>
 	<input type="text" name="employees" value="{{ $account->employees }}">

@@ -40,18 +40,16 @@
 	<input type="text" name="address"  value="{{ $account->address }}">   
 	<br>
 	<label class="labels" for="">Cidade: </label>
-	<input type="text" name="address_city" value="{{ $account->address_city }}">   
+	<input type="text" name="city" value="{{$account->city}}">   
 	<br>
 	<label class="labels" for="">Estado: </label>
-		<select name="address_state">
-			<option  class="fields" value="{{ $account->address_state}}">
-				{{$account->address_state}}
-			</option>
-			{{createSelect($states)}}
-		</select>
+		{{editDoubleSelect('state', 'fields', $states, $account->state, returnStateName($account->state))}}
 	<br>
 	<label class="labels" for="">País: </label>
-	<input type="text" name="address_country" value="{{ $account->address_country }}">   
+	<input type="text" name="country" value="{{$account->country}}">
+	<br>
+	<label class="labels" for="">CEP: </label>
+	<input type="text" name="zip_code" value="{{$account->zip_code}}">
 	<br>
 	<br>
 	<label class="labels" for="">Segmento: </label>
@@ -97,7 +95,7 @@
 		</select>
 	<br>
 	<label class="labels" for="">Qtde empregados: </label>
-	<input type="text" name="employees" value="{{ $account->employees }}">
+	<input type="number" style="text-align: right" name="employees" value="{{$account->employees}} ">
 	<br>
 	<br>
 	<label class="labels" for="">Logomarca: </label>

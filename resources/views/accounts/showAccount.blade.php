@@ -55,16 +55,19 @@
 	<b>  Site: </b> {{ $account->site }}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Endereço: </b> {{ $account->address }}
+	<b>  Endereço: </b> {{$account->address}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Cidade: </b> {{ $account->address_city }}
+	<b>  Cidade: </b> {{$account->city}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Estado: </b> {{ $account->address_state }}
+	<b>  Estado: </b> {{returnStateName($account->state)}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  País: </b> {{ $account->address_country }}
+	<b>  País: </b> {{$account->country}}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	<b>  CEP: </b> {{$account->zip_code}}
 </p>
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">

@@ -81,9 +81,6 @@
 		<label for="" >CPF: </label>
 		<input type="text" name="cpf" value="{{$contact->cpf}}">
 		<br>
-		<label for="" >CEP: </label>
-		<input type="text" name="cep" value="{{$contact->cep}}">
-		<br>
 		<br>
 		<br>
 		<h2 class="name" for="">PROFISSIONAL</h2>
@@ -162,10 +159,11 @@
 		<label for="">Estado: </label>
 			{{createDoubleSelect('state', 'fields', $states)}}
 		<br>
-		<br>
 		<label  for="">País: </label>
-		<input type="text" name="country" value="{{ $contact->country }}">
+		<input type="text" name="country" value="{{$contact->country}}">
 		<br>
+		<label for="" >CEP: </label>
+		<input type="text" name="zip_code" value="{{$contact->zip_code}}">
 		<br>
 		<br>
 		<h2 class="name" for="">PERFIL</h2>

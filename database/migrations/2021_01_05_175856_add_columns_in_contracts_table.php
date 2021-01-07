@@ -14,6 +14,7 @@ class AddColumnsInContractsTable extends Migration {
 	public function up() {
 		Schema::table('contracts', function (Blueprint $table) {
 			$table->foreignId('user_id');
+			$table->foreignId('company_id');
 			$table->text('text');
 		});
 	}
@@ -26,6 +27,7 @@ class AddColumnsInContractsTable extends Migration {
 	public function down() {
 		Schema::table('contracts', function (Blueprint $table) {
 			$table->dropColumn('user_id');
+			$table->dropColumn('company_id');
 			$table->dropColumn('text');
 		});
 	}

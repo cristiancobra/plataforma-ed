@@ -90,9 +90,6 @@
 		<label for="" >CPF: </label>
 		<input type="text" name="cpf">
 		<br>
-		<label for="" >CEP: </label>
-		<input type="text" name="cep" value="{{$contact->cep}}">
-		<br>
 		<br>
 
 		<h2 class="name" for="">PROFISSIONAL</h2>
@@ -176,6 +173,9 @@
 		<br>
 		<label for="">País: </label>
 		<input type="text" name="country" value="Brasil">   
+		<br>
+		<label for="" >CEP: </label>
+		<input type="text" name="zip_code">
 		<br>
 		<br>
 		<br>

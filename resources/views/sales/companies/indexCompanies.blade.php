@@ -45,6 +45,11 @@ Total: <span class="labels">{{$totalCompanies}} </span>
 						<i class='fa fa-eye'></i>
 					</button>
 				</a>
+				<a class="white" href=" {{route('company.edit', ['company' => $company])}}">
+					<button class="button-round">
+						<i class='fa fa-edit'></i>
+					</button>
+				</a>
 				{{$company->name}}
 			</td>
 			<td class="table-list-left">

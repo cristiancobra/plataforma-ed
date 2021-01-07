@@ -38,15 +38,17 @@
 	<input type="text" name="address">   
 	<br>
 	<label for="">Cidade: </label>
-	<input type="text" name="address_city">   
+	<input type="text" name="city">   
 	<br>
 	<label for="">Estado: </label>
-	<select name="state">
-		{{createSelect($states)}}
-	</select>
+	{{createDoubleSelect('state', 'fields', $states)}}
 	<br>
 	<label for="">País: </label>
-	<input type="text" name="address_country" value="Brasil">   
+	<input type="text" name="country" value="Brasil">   
+	<br>
+	<label class="labels" for="">CEP: </label>
+	<input type="text" name="zip_code">
+	<br>
 	<br>
 	<br>
 	<label for="">Segmento: </label>

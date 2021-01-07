@@ -21,9 +21,9 @@ class CreateAccountsTable extends Migration
 	$table->string('phone');
 	$table->string('site');
 	$table->string('address');
-	$table->string('address_city');
-	$table->string('address_state');
-	$table->string('address_country');
+	$table->string('city');
+	$table->string('state');
+	$table->string('country');
 	$table->string('type');
 	$table->tinyInteger('employees');
 	$table->text('description');
