@@ -13,7 +13,7 @@
 <a class="button-primary"  href="{{route('contract.index')}}">
 	VOLTAR
 </a>
-<a class="button-primary"  href="{{route('contract.pdf')}}">
+<a class="button-primary"  href="">
 	PDF
 </a>
 @endsection
