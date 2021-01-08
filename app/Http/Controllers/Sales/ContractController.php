@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sales;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 use App\Models\Contract;
 use App\Models\ContractTemplate;
 use App\Models\Account;
@@ -228,39 +229,39 @@ class ContractController extends Controller {
 	}
 	
 // Generate PDF
-	public function createPDF(Invoice $invoice) {
+	public function createPDF(Contract $contract) {
 
-		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product', 'opportunity')
-				->get();
+//		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+//				->with('product', 'opportunity')
+//				->get();
 		
 		$data = [
-			'accountLogo' => $invoice->account->logo,
-			'accountName' => $invoice->account->name,
-			'accountEmail' => $invoice->account->email,
-			'accountPhone' => $invoice->account->phone,
-			'accountAddress' => $invoice->account->address,
-			'accountAddressCity' => $invoice->account->address_city,
-			'accountAddressState' => $invoice->account->address_state,
-			'accountCnpj' => $invoice->account->cnpj,
-			'invoiceId' => $invoice->id,
-			'invoiceDescription' => $invoice->description,
-			'opportunityDescription' => $invoice->opportunity->description,
-			'invoiceDiscount' => $invoice->discount,
-			'invoicePayday' => $invoice->pay_day,
-			'invoiceTotalPrice' => $invoice->totalPrice,
-			'customerName' => $invoice->opportunity->contact->name,
-			'customerEmail' => $invoice->opportunity->contact->email,
-			'customerPhone' => $invoice->opportunity->contact->phone,
-			'customerAddress' => $invoice->opportunity->contact->address,
-			'customerCity' => $invoice->opportunity->contact->city,
-			'customerState' => $invoice->opportunity->contact->state,
-			'customerCountry' => $invoice->opportunity->contact->country,
-			'invoiceLines' => $invoiceLines,
+			'accountLogo' => $contract->account->logo,
+			'accountName' => $contract->account->name,
+			'accountEmail' => $contract->account->email,
+			'accountPhone' => $contract->account->phone,
+			'accountAddress' => $contract->account->address,
+			'accountAddressCity' => $contract->account->address_city,
+			'accountAddressState' => $contract->account->address_state,
+			'accountCnpj' => $contract->account->cnpj,
+			'contractId' => $contract->id,
+			'contractObservations' => $contract->observations,
+			'contractText' => $contract->text,
+//			'invoiceDiscount' => $invoice->discount,
+			'contractDateDue' => $contract->date_due,
+//			'invoiceTotalPrice' => $invoice->totalPrice,
+			'customerName' => $contract->contact->name,
+			'customerEmail' => $contract->contact->email,
+			'customerPhone' => $contract->contact->phone,
+			'customerAddress' => $contract->contact->address,
+			'customerCity' => $contract->contact->city,
+			'customerState' => $contract->contact->state,
+			'customerCountry' => $contract->contact->country,
+//			'invoiceLines' => $invoiceLines,
 //			'deadline' => $deadline,
 		];
 
-		$pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
+		$pdf = PDF::loadView('sales.contracts.pdfContract', compact('data'));
 
 // download PDF file with download method
 		return $pdf->stream('fatura.pdf');

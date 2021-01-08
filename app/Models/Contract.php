@@ -17,6 +17,8 @@ class Contract extends Model {
 		'product_id',
 		'contact_id',
 		'company_id',
+		'date_start',
+		'date_due',
 		'observations',
 		'status',
 		'witness1',
@@ -42,6 +44,6 @@ class Contract extends Model {
 		return $this->hasMany(Product::class, 'contract_product');
 	}
 	public function user() {
-		return $this->belongsTo(User::class, 'id', 'contact_id');
+		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
 }

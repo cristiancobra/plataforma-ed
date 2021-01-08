@@ -140,7 +140,7 @@ indefinida
 	AGENDAR REUNIÃO
 </a>
 <a class="btn btn-secondary" href="{{ route('task.create', [
-				'taskName' =>"Fazer proposta",
+				'taskName' =>"Fazer orçamento",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
 				'opportunityContactName' => $opportunity->contact->name,
@@ -148,7 +148,7 @@ indefinida
 				'taskAccountName' => $opportunity->account->name,
 				'taskAccountId' => $opportunity->account->id,
 				])}}">
-	FAZER PROPOSTA
+	FAZER ORÇAMENTO
 </a>
 <br>
 <br>

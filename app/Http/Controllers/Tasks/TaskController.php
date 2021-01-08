@@ -13,7 +13,6 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Collection;
-use Carbon\Carbon;
 use DB;
 
 class TaskController extends Controller {

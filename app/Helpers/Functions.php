@@ -352,19 +352,6 @@ if (!function_exists('returnStateName')) {
 	}
 
 }
-// retorna categorias de faturas, oportunidades,  etc
-if (!function_exists('returnInvoiceStatus')) {
-
-	function returnInvoiceStatus() {
-		return $states = array(
-			'enviar',
-			'aprovada',
-			'aprovada',
-			'concluida',
-		);
-	}
-
-}
 // retorna os estágios das oportunidades
 if (!function_exists('returnOpportunitieStage')) {
 
@@ -399,6 +386,19 @@ if (!function_exists('formatPriority')) {
 		}
 	}
 
+}
+// retorna métodos de pagamento
+if (!function_exists('returnPaymentMethods')) {
+
+	function returnPaymentMethods() {
+		return $states = array(
+			'dinheiro',
+			'transferência bancária',
+			'boleto',
+			'cartão de crédito',
+			'pix',
+		);
+	}
 }
 // retorna prioridade
 if (!function_exists('returnPriorities')) {
@@ -437,6 +437,27 @@ if (!function_exists('formatStage')) {
 	}
 
 }
+// gera um botão com a formatação para STATUS / SITUAÇÃO do CONTRATO  a partir de  $model
+if (!function_exists('formatContractStatus')) {
+
+	function formatContractStatus($model) {
+		switch ($model->status) {
+			case 'cancelado':
+				echo '<td class="td-canceled">cancelado</td>';
+				break;
+			case 'rascunho':
+				echo '<td class="td-toDo">rascunho</td>';
+				break;
+			case 'enviado':
+				echo '<td class="td-stuck">enviado</td>';
+				break;
+			case 'assinado':
+				echo '<td class="td-done">assinado</td>';
+				break;
+		}
+	}
+
+}
 // gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatStatus')) {
 
@@ -465,11 +486,37 @@ if (!function_exists('formatStatus')) {
 if (!function_exists('returnStatus')) {
 
 	function returnStatus() {
-		return $states = array(
+		return $status = array(
 			'fazer',
 			'aguardar',
 			'feito',
 			'cancelado',
+		);
+	}
+
+}
+// retorna o STATUS / SITUAÇÃO do contrato 
+if (!function_exists('returnContractStatus')) {
+
+	function returnContractStatus() {
+		return $status = array(
+			'rascunho',
+			'enviado',
+			'assinado',
+			'cancelado',
+		);
+	}
+
+}
+// retorna o STATUS / SITUAÇÃO da fatura 
+if (!function_exists('returnInvoiceStatus')) {
+
+	function returnInvoiceStatus() {
+		return $status = array(
+			'rascunho',
+			'orçamento',
+			'cancelado',
+			'aprovado',
 		);
 	}
 

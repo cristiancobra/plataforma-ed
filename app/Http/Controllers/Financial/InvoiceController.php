@@ -205,29 +205,25 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Invoice $invoice) {
-		$userAuth = Auth::user();
 
 		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+			$accountsId = userAccounts();
 
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+			$accounts = Account::whereHas('users', function($query) use($accountsId) {
+						$query->whereIn('account_id', $accountsId);
 					})
 					->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
+						$query->whereIn('account_id', $accountsId);
 					})
 					->get();
 
-			$opportunities = Opportunity::whereIn('account_id', $accountsID)
+			$opportunities = Opportunity::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$products = Product::whereIn('account_id', $accountsID)
+			$products = Product::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
@@ -247,26 +243,25 @@ class InvoiceController extends Controller {
 			$margin = 'margin001';
 			$price = 'price001';
 
-			return view('financial.invoices.editInvoice', [
-				'userAuth' => $userAuth,
-				'invoice' => $invoice,
-				'invoiceLines' => $invoiceLines,
-				'accounts' => $accounts,
-				'users' => $users,
-				'opportunities' => $opportunities,
-				'products' => $products,
-				'productsChecked' => $productsChecked,
-				'id' => $id,
-				'productId' => $productId,
-				'name' => $name,
-				'amount' => $amount,
-				'hours' => $hours,
-				'dueDate' => $dueDate,
-				'cost' => $cost,
-				'taxRate' => $taxRate,
-				'margin' => $margin,
-				'price' => $price,
-			]);
+			return view('financial.invoices.editInvoice', compact(
+							'invoice',
+							'invoiceLines',
+							'accounts',
+							'users',
+							'opportunities',
+							'products',
+							'productsChecked',
+							'id',
+							'productId',
+							'name',
+							'amount',
+							'hours',
+							'dueDate',
+							'cost',
+							'taxRate',
+							'margin',
+							'price',
+			));
 		} else {
 			return redirect('/');
 		}
@@ -280,16 +275,18 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Invoice $invoice) {
-		$userAuth = Auth::user();
-
 		$invoice->opportunity_id = $request->opportunity_id;
 		$invoice->user_id = $request->user_id;
-		$opportunity = Opportunity::find($invoice->opportunity_id)->with('account')->first();
+		$opportunity = Opportunity::find($invoice->opportunity_id)
+				->with('account')
+				->first();
 		$invoice->account_id = $opportunity->account->id;
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
 		$invoice->description = $request->description;
 		$invoice->discount = $request->discount;
+		$invoice->payment_method = $request->payment_method;
+		$invoice->number_installments = $request->number_installments;
 		$invoice->status = $request->status;
 
 		$messages = [
@@ -363,13 +360,12 @@ class InvoiceController extends Controller {
 			$margin++;
 			$price++;
 		}
-		$invoice->totalPrice = $totalPrice - $request->discount;
+		$invoice->totalPrice = ($totalPrice - $request->discount) / $request->number_installments;
 		$invoice->update();
 
 		return view('financial.invoices.showInvoice', [
 			'invoice' => $invoice,
 			'invoiceLines' => $invoiceLines,
-			'userAuth' => $userAuth,
 		]);
 	}
 
@@ -390,7 +386,7 @@ class InvoiceController extends Controller {
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 				->with('product', 'opportunity')
 				->get();
-		
+
 		$data = [
 			'accountLogo' => $invoice->account->logo,
 			'accountName' => $invoice->account->name,

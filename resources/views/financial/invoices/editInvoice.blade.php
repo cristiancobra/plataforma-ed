@@ -27,7 +27,7 @@
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{$invoice->user->id}}">
-				{{$invoice->user->name}}
+				{{$invoice->user->contact->name}}
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
@@ -169,19 +169,19 @@ CKEDITOR.replace('description');
 			</tr>
 		</table>
 		<br>
-		<br>
 		<label class="labels" for="" >DESCONTO:</label>
 		<input type="number" min="0" step="any" name="discount" size="20" value="{{$invoice->discount}}"><span class="fields"></span>
 		<br>
 		<br>
+		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+		{{createSelect('payment_method', 'fields', returnPaymentMethods())}}
+		<br>
+		<label class="labels" for="" >PARCELAMENTO: </label>
+		<input type="number"  class="fields" style="text-align: right" name="number_installments" value="{{$invoice->number_installments}}">
+		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			<option value="pendente">pendente</option>
-			<option value="aprovada">aprovada</option>
-			<option value="concluida">concluida</option>
-			<option value="cancelada">cancelada</option>
-		</select>
+		{{createSelect('status', 'fields', returnInvoiceStatus())}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

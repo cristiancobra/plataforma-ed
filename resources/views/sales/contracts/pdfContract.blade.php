@@ -30,12 +30,12 @@
 					CNPJ: {{$data['accountCnpj']}}
 				</td>
 				<td class="image-header">
-					FATURA {{$data['invoiceId']}}
+					FATURA {{$data['contractId']}}
 					<br>
 					<br>
 					VENCIMENTO
 					<br>
-					{{ date('d/m/Y', strtotime($data['invoicePayday'])) }}
+					{{ date('d/m/Y', strtotime($data['contractDateDue'])) }}
 				</td>
 			</tr>
 		</table>
@@ -68,9 +68,11 @@
 			DESCRIÇÃO:
 		</h4>
 		<p style="text-align: left;margin-top: 0px;">
-			{!!html_entity_decode($data['opportunityDescription'])!!}
+			{!!html_entity_decode($data['contractText'])!!}
 		</p>
-		<table  class="table-list" style="width: 100%">
+	
+		
+			<table  class="table-list" style="width: 100%">
 			<tr>
 				<td class="table-list-header" style="width: 10%">
 					QTDE
@@ -144,6 +146,8 @@
 				tttt
 			</tr>
 		</table>
+		
+		
 		<table  class="table-list" style="width: 100%">
 			<tr>
 				<td style="text-align: left" colspan="2">
@@ -151,7 +155,7 @@
 						OBSERVAÇÕES:
 					</h4>
 					<p>
-						{!!html_entity_decode($data['invoiceDescription'])!!}
+						{!!html_entity_decode($data['contractObservations'])!!}
 					</p>
 					<br>
 					<hr>

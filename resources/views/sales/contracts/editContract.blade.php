@@ -22,12 +22,12 @@
 		@method('put')
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
-			<option  class="fields" value="{{ $contract->account_id }}">
+			<option  class="fields" value="{{$contract->account_id}}">
 				{{$contract->account->name}}
 			</option>
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
 			</option>
 			@endforeach
 		</select>
@@ -106,8 +106,11 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >DATA DE INICIO:</label>
-		<input type="date" name="date_start" size="20"><span class="fields"></span>
+				<label class="labels" for="" >DATA DE INICIO:</label>
+		<input type="date" name="date_start" size="20" value="{{$contract->date_start}}"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >DATA DO VENCIMENTO:</label>
+		<input type="date" name="date_due" size="20" value="{{$contract->date_due}}"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >MODELO DO CONTRATO: </label>
@@ -147,11 +150,7 @@ CKEDITOR.replace('observations');
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			<option value="pending">pendente</option>
-			<option value="disable">desativado</option>
-			<option value="active">ativo</option>
-		</select>
+{{editSelect('status','fields', returnContractStatus(), $contract->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">

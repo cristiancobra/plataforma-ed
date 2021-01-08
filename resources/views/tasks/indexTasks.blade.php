@@ -139,7 +139,7 @@
 			@endif
 		</td>
 		{{formatPriority($task)}}
-		@if($task->journeys()->exists())
+		@if($task->status == 'fazer' AND $task->journeys()->exists())
 		<td class="td-doing">
 			andamento
 		</td>

@@ -120,7 +120,7 @@
 	</tr>
 	<tr>
 		<td   class="table-list-header-right" colspan="4">
-			
+
 		<td   class="table-list-header-right">
 			TOTAL: 
 		</td>
@@ -131,11 +131,22 @@
 	</tr>
 </table>
 <br>
+<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+<span class="fields">{{$invoice->payment_method}}</span>
+<br>
+<label class="labels" for="" >PARCELAMENTO: </label>
+@if($invoice->number_installments == 1)
+<span class="fields">À vista</span>
+@else
+<span class="fields">{{$invoice->number_installments}} parcelas</span>
+@endif
+<br>
+<br>
 <label class="labels" for="">OBSERVAÇÕES:</label>
 <span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
-<span class="fields">{{$invoice->status }}</span>
+<span class="fields">{{$invoice->status}}</span>
 <br>
 <br>
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($invoice->created_at)) }} </p>

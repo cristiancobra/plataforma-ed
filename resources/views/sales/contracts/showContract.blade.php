@@ -99,11 +99,17 @@
 	residente em
 	<span class="labels">{{$contract->contact->address}}</span>,
 	em
-	<span class="labels">{{$contract->contact->address_city}}</span>,
+	<span class="labels">{{$contract->contact->city}}</span>,
 	/
-	<span class="labels">{{$contract->contact->address_state}}</span>,
+	<span class="labels">{{$contract->contact->state}}</span>,
 	CEP:
 	<span class="labels">{{formatZipCode($contract->contact->zip_code)}}</span>.
+</p>
+<h3>
+	Serviços/produtos contratados
+</h3>
+<p>
+	Segue abaixo a lista de itens contratados e suas especificidades:
 </p>
 <p>
 	{!!html_entity_decode($contract->text)!!}
