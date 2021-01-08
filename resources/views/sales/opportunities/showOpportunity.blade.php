@@ -112,7 +112,18 @@ indefinida
 			@endisset
 		</td>
 		{{formatPriority($task)}}
+		
+		@if($task->status == 'fazer' AND $task->journeys()->exists())
+		<td class="td-doing">
+			andamento
+		</td>
+		@elseif($task->status == 'fazer' AND $task->date_due <= $today)
+		<td class="td-late">
+			atrasada
+		</td>
+		@else
 		{{formatStatus($task)}}
+		@endif
 	</tr>
 	@endforeach
 </table>
@@ -140,7 +151,7 @@ indefinida
 	AGENDAR REUNIÃO
 </a>
 <a class="btn btn-secondary" href="{{ route('task.create', [
-				'taskName' =>"Fazer orçamento",
+				'taskName' =>"Fazer proposta",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
 				'opportunityContactName' => $opportunity->contact->name,
@@ -196,17 +207,25 @@ indefinida
 		<td class="table-list-right">
 			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
 		</td>
-		@if($invoice->status == 'fazer' AND $task->journeys()->exists())
-		<td class="td-doing">
-			andamento
+		<td class="table-list-center">
+			@if ($invoice->status == "cancelada")
+			<button class="btn btn-dark">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "pendente")
+			<button class="btn btn-warning">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "fazendo agora")
+			<button class="btn btn-info">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@elseif ($invoice->status == "concluida")
+			<button class="btn btn-success">
+				<b>{{ $invoice->status  }}</b>
+			</button>
+			@endif
 		</td>
-		@elseif($invoice->status == 'fazer' AND $task->date_due <= $today)
-		<td class="td-late">
-			atrasada
-		</td>
-		@else
-		{{formatStatus($invoice)}}
-		@endif
 	</tr>
 	@endforeach
 </table>
