@@ -168,7 +168,8 @@ Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@index')
 Route::resource('oportunidades', 'Sales\\OpportunityController')
 		->except(['index'])
 		->names('opportunity')
-		->parameters(['oportunidades' => 'opportunity']);
+		->parameters(['oportunidades' => 'opportunity'])
+		->middleware('roles');
 
 Route::resource('produtos', 'Sales\\ProductController')
 		->names('product')
