@@ -196,25 +196,17 @@ indefinida
 		<td class="table-list-right">
 			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
 		</td>
-		<td class="table-list-center">
-			@if ($invoice->status == "cancelada")
-			<button class="btn btn-dark">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "pendente")
-			<button class="btn btn-warning">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "fazendo agora")
-			<button class="btn btn-info">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "concluida")
-			<button class="btn btn-success">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@endif
+		@if($invoice->status == 'fazer' AND $task->journeys()->exists())
+		<td class="td-doing">
+			andamento
 		</td>
+		@elseif($invoice->status == 'fazer' AND $task->date_due <= $today)
+		<td class="td-late">
+			atrasada
+		</td>
+		@else
+		{{formatStatus($invoice)}}
+		@endif
 	</tr>
 	@endforeach
 </table>
