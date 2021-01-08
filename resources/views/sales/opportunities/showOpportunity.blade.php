@@ -117,7 +117,7 @@ indefinida
 		<td class="td-doing">
 			andamento
 		</td>
-		@elseif($task->status == 'fazer' AND $task->date_due <= $today)
+		@elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
 		<td class="td-late">
 			atrasada
 		</td>
