@@ -37,7 +37,7 @@
 </button>
 <br>
 <label class="labels" for="" >VENDEDOR:</label>
-<span class="fields">{{$invoice->user->name}}</span>
+<span class="fields">{{$invoice->user->contact->name}}</span>
 <br>
 <br>
 <label class="labels" for="" >CONTRATANTE:</label>

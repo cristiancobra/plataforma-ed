@@ -515,8 +515,8 @@ if (!function_exists('returnInvoiceStatus')) {
 		return $status = array(
 			'rascunho',
 			'orçamento',
-			'cancelado',
-			'aprovado',
+			'cancelada',
+			'aprovada',
 		);
 	}
 

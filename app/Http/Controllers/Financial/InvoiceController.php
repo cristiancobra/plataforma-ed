@@ -286,7 +286,7 @@ class InvoiceController extends Controller {
 		$invoice->description = $request->description;
 		$invoice->discount = $request->discount;
 		$invoice->payment_method = $request->payment_method;
-		$invoice->number_installments = $request->number_installments;
+		$invoice->number_installment = $request->number_installment;
 		$invoice->status = $request->status;
 
 		$messages = [
@@ -360,7 +360,7 @@ class InvoiceController extends Controller {
 			$margin++;
 			$price++;
 		}
-		$invoice->totalPrice = ($totalPrice - $request->discount) / $request->number_installments;
+		$invoice->totalPrice = ($totalPrice - $request->discount) / $request->number_installment;
 		$invoice->update();
 
 		return view('financial.invoices.showInvoice', [
