@@ -14,7 +14,7 @@ class AddZipCodeColumnInAccountsTable extends Migration
     public function up()
     {
         Schema::table('accounts', function (Blueprint $table) {
-            $table->string('zip_code');
+            $table->string('zip_code')->nullable();
         });
     }
 

@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Contact;
 
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
-use App\Models\Account;
-use App\Models\Opportunity;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Company;
+use App\Models\Opportunity;
+use App\Models\User;
 
 class ContactController extends Controller {
 
@@ -20,31 +21,21 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$userAuth = Auth::user();
+		$accountsId = userAccounts();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->with('opportunities')
-					->orderBy('NAME', 'ASC')
-					->paginate(20);
+		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->with('opportunities', 'companies')
+				->orderBy('NAME', 'ASC')
+				->paginate(20);
 //dd($contacts);
-			$totalContacts = $contacts->count();
+		$totalContacts = $contacts->count();
 
-			return view('contacts.indexContacts', [
-				'contacts' => $contacts,
-				'totalContacts' => $totalContacts,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('contacts.indexContacts', [
+			'contacts' => $contacts,
+			'totalContacts' => $totalContacts,
+		]);
 	}
 
 	/**
@@ -53,37 +44,34 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$userAuth = Auth::user();
 		$contact = new Contact();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+		$accountsId = userAccounts();
 
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
+		$accounts = Account::whereHas('users', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->get();
 
-			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->paginate(20);
-					
-			$states =returnStates();
+		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->paginate(20);
 
-			return view('contacts.createContact', [
-				'userAuth' => $userAuth,
-				'contact' => $contact,
-				'contacts' => $contacts,
-				'accounts' => $accounts,
-				'states' => $states,
-			]);
-		} else {
-			return redirect('/');
-		}
+		$companies = Company::whereHas('account', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->paginate(20);
+
+		$states = returnStates();
+
+		return view('contacts.createContact', compact(
+						'contact',
+						'contacts',
+						'accounts',
+						'states',
+						'companies',
+		));
 	}
 
 	/**
@@ -113,6 +101,7 @@ class ContactController extends Controller {
 							->withInput();
 		} else {
 			$contact->save();
+			$contact->companies()->sync($request->companies);
 		}
 
 		return redirect()->action('Contact\\ContactController@index');
@@ -125,16 +114,10 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Contact $contact) {
-		$userAuth = Auth::user();
 
-		if (Auth::check()) {
-			return view('contacts.showContact', [
-				'contact' => $contact,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('contacts.showContact', [
+			'contact' => $contact,
+		]);
 	}
 
 	/**
@@ -144,31 +127,36 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Contact $contact) {
-		$userAuth = Auth::user();
+		$accountsId = userAccounts();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+		$accounts = Account::whereHas('users', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->get();
 
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
+		$companies = Company::whereHas('account', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->paginate(20);
 
-			$states =returnStates();
-			
-			return view('contacts.editContact', [
-				'userAuth' => $userAuth,
-				'accounts' => $accounts,
-				'contact' => $contact,
-				'accounts' => $accounts,
-				'states' => $states,
-			]);
-		} else {
-			return redirect('/');
-		}
+		$companiesChecked = Company::whereHas('contacts', function($query) use($contact) {
+					$query->where('contact_id', $contact->id);
+				})
+				->pluck('id')
+				->toArray();
+				
+//			$companiesChecked = Company::with('contacts')->get();
+
+		$states = returnStates();
+
+		return view('contacts.editContact', compact(
+						'accounts',
+						'contact',
+						'accounts',
+						'companies',
+						'companiesChecked',
+						'states',
+		));
 	}
 
 	/**
@@ -179,16 +167,12 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Contact $contact) {
-		$userAuth = Auth::user();
-
 		$contact->fill($request->all());
-//		dd($contact);
 		$contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 		$contact->save();
-//		$contact->users()->sync($request->users);
+		$contact->companies()->sync($request->companies);
 
 		return view('contacts.showContact', [
-			'userAuth' => $userAuth,
 			'contact' => $contact,
 		]);
 	}

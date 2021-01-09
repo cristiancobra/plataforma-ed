@@ -88,7 +88,14 @@
 		<input type="text" name="profession" value="{{ $contact->profession }}">
 		<br>
 		<label for="">Empresa: </label>
-		<input type="text" name="company" value="{{ $contact->company }}">   
+		<br>
+		@foreach ($companies as $company)
+		<p class="fields">
+			<input type="checkbox" name="companies[]" value="{{$company->id}}">
+			{{$company->name}}
+		</p>
+		@endforeach
+		<br>
 		<br>
 		<label for="">Cargo: </label>
 		<input type="text" name="job_position" value="{{ $contact->job_position }}">

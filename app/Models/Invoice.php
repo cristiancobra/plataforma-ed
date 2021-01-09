@@ -21,6 +21,7 @@ class Invoice extends Model {
 		'receipt',
 		'payment_method',
 		'number_installment',
+		'installment_value',
 	];
 	protected $hidden = [
 	];

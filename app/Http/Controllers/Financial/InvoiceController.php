@@ -360,7 +360,8 @@ class InvoiceController extends Controller {
 			$margin++;
 			$price++;
 		}
-		$invoice->totalPrice = ($totalPrice - $request->discount) / $request->number_installment;
+		$invoice->totalPrice = $totalPrice - $request->discount
+		$invoice->$request->number_installment;
 		$invoice->update();
 
 		return view('financial.invoices.showInvoice', [

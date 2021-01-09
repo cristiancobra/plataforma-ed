@@ -66,6 +66,23 @@
 	<label class="labels"  for="" >Escolaridade: </label> {{ $contact->schollarity }}
 	<br>
 	<br>
+		<h2 class="name" for="">
+		EMPRESAS ONDE TRABALHA:
+	</h2>
+	@if(!$contact->companies()->exists())
+	Não possui empresa cadastrada
+	@else
+	@foreach ($contact->companies as $company)
+	<a  class="white" href=" {{route('company.show', ['company' => $company->id])}}">
+		<button class="button-round">
+			<i class='fa fa-eye'></i>
+		</button>
+	</a>
+	{{$company->name}}
+	<br>
+	@endforeach	
+	@endif
+	<br>
 	<br>
 	<h2 class="name" for="">CONTATOS</h2>
 	<label class="labels"  for="" >Email: </label> {{ $contact->email}}

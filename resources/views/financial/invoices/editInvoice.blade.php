@@ -177,7 +177,10 @@ CKEDITOR.replace('description');
 		{{createSelect('payment_method', 'fields', returnPaymentMethods())}}
 		<br>
 		<label class="labels" for="" >PARCELAMENTO: </label>
-		<input type="number"  class="fields" style="text-align: right" name="number_installments" value="{{$invoice->number_installments}}">
+		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="{{$invoice->number_installment_total}}">
+		<br>
+		<label class="labels" for="" >NÚMERO DESTA PARCELA: </label>
+		<input type="number"  class="fields" style="text-align: right" name="number_installment" value="{{$invoice->number_installment}}">
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

@@ -180,8 +180,6 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Opportunity $opportunity) {
-		$userAuth = Auth::user();
-
 		$invoices = Invoice::where('opportunity_id', $opportunity->id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
@@ -193,7 +191,6 @@ class OpportunityController extends Controller {
 			'opportunity' => $opportunity,
 			'invoices' => $invoices,
 			'tasks' => $tasks,
-			'userAuth' => $userAuth,
 		]);
 	}
 

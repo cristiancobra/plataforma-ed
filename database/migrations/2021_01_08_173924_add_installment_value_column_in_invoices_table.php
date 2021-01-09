@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddNumberInstallmentTotalColumnInInvoicesTable extends Migration
+class AddInstallmentValueColumnInInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddNumberInstallmentTotalColumnInInvoicesTable extends Migration
     public function up()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->tinyInteger('number_installment_total');
+            $table->integer('installment_value')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddNumberInstallmentTotalColumnInInvoicesTable extends Migration
     public function down()
     {
         Schema::table('invoices', function (Blueprint $table) {
-            $table->dropColumn('number_installment_total');
+            $table->dropColumn('installment_value');
         });
     }
 }

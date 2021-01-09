@@ -97,7 +97,13 @@
 		<input type="text" name="profession">   
 		<br>
 		<label for="">Empresa: </label>
-		<input type="text" name="company">   
+		<br>
+		@foreach ($companies as $company)
+		<p class="fields">
+			<input type="checkbox" name="companies[]" value="{{$company->id}}">
+			{{$company->name}}
+		</p>
+		@endforeach
 		<br>
 		<label for="">Cargo: </label>
 		<input type="text" name="job_position">   
@@ -168,7 +174,7 @@
 		<input type="text" name="neighborhood">   
 		<br>
 		<label for="">Estado: </label>
-			{{createDoubleSelect('state', 'fields', $states)}}
+		{{createDoubleSelect('state', 'fields', $states)}}
 		<br>
 		<br>
 		<label for="">País: </label>

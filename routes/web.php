@@ -142,7 +142,8 @@ Route::resource('relatorios', 'Report\\ReportController')->names('report')->para
 // =============================================== SALES ====================================
 Route::resource('contacts', 'Contact\\ContactController')
 		->names('contact')
-		->parameters(['contatos' => 'contacts']);
+		->parameters(['contatos' => 'contacts'])
+		->middleware('roles');
 
 Route::get('contratos/pdf/{contract}', 'Sales\\ContractController@createPDF')
 		->name('contract.pdf')

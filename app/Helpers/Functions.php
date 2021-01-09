@@ -28,6 +28,18 @@ if (!function_exists('createDoubleSelect')) {
 	}
 
 }
+if (!function_exists('createDoubleSelectIdName')) {
+
+// cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
+	function createDoubleSelectIdName($name, $class, $models) {
+		echo "<select class = '$class' name = '$name'>";
+		foreach ($models as $model) {
+			echo "<option value=\"$model->id\">$model->name</option><br>";
+		}
+		echo "</select>";
+	}
+
+}
 if (!function_exists('editSelect')) {
 
 	/* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES

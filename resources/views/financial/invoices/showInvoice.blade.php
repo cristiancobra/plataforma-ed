@@ -135,10 +135,10 @@
 <span class="fields">{{$invoice->payment_method}}</span>
 <br>
 <label class="labels" for="" >PARCELAMENTO: </label>
-@if($invoice->number_installments == 1)
+@if($invoice->number_installment == 1)
 <span class="fields">À vista</span>
 @else
-<span class="fields">{{$invoice->number_installments}} parcelas</span>
+<span class="fields">{{$invoice->number_installment}} x {{$invoice->number_installment_value}}</span>
 @endif
 <br>
 <br>

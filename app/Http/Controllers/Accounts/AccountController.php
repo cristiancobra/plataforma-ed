@@ -89,8 +89,6 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$userAuth = Auth::user();
-
 		$account = new \App\Models\Account();
 		$account->fill($request->all());
 		$account->save();
