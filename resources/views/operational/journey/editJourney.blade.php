@@ -7,12 +7,17 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('journey.index')}}">VER TODOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('journey.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
 <div style="padding-left: 6%">
-	<form action=" {{ route('journey.update', ['journey' =>$journey->id]) }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('journey.update', ['journey' =>$journey->id]) }} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
 		<div>
