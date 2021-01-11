@@ -30,7 +30,7 @@ Total: <span class="labels">{{$totalProducts }} </span>
 				<b>Nome </b>
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Tipo </b>
+				<b>Categoria </b>
 			</td>
 			<td   class="table-list-header" style="width: 5%">
 				<b>Entrega</b>
@@ -70,8 +70,8 @@ Total: <span class="labels">{{$totalProducts }} </span>
 				{{ $product->name }}
 			</td>
 
-			<td class="table-list-right">
-				{{ $product->type }}
+			<td class="table-list-center">
+				{{ $product->category }}
 			</td>
 
 			@if ($product->due_date == 0)

@@ -7,12 +7,17 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{ route('product.index') }}">VER PRODUTOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('product.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
 <div>
-	<form action=" {{ route('product.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{ route('product.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="20" value="{{$product->name}}"><span class="fields"></span>
@@ -29,27 +34,13 @@
 			@endforeach
 		</select>
 		<br>
-		<label class="labels" for="" >TIPO:</label>
-		<select class="fields" name="type">
-			<option value="produto">produto</option>
-			<option value="serviço">serviço</option>
-		</select>
-		<br>
 		<label class="labels" for="" >CATEGORIA:</label>
-		<select class="fields" name="category">
-			<option value="desenvolvimento">desenvolvimento</option>
-			<option value="financeiro">financeiro</option>
-			<option value="marketing">marketing</option>
-			<option value="planejamento">planejamento</option>
-			<option value="serviço">serviço</option>
-			<option value="suporte">suporte</option>
-			<option value="venda">venda</option>
-		</select>
+		{{createSelect('category', 'fields', returnProductCategory())}}
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
-		{{ $product->description }}
+		{{$product->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

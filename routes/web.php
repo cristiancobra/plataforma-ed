@@ -174,7 +174,8 @@ Route::resource('oportunidades', 'Sales\\OpportunityController')
 
 Route::resource('produtos', 'Sales\\ProductController')
 		->names('product')
-		->parameters(['produtos' => 'product']);
+		->parameters(['produtos' => 'product'])
+		->middleware('roles');
 
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');

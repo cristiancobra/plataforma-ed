@@ -19,9 +19,8 @@ class CreateProductsTable extends Migration
 	$table->string('name', 100);
 	$table->text('description')->nullable();
 	$table->string('image')->nullable();
-	$table->string('type', 50);
 	$table->string('category', 50);
-	$table->decimal('work_hours', 5, 1);
+	$table->decimal('work_hours', 5, 1)->nullable();
 	$table->integer('cost1')->nullable();
 	$table->string('cost1_description', 100)->nullable();
 	$table->integer('cost2')->nullable();

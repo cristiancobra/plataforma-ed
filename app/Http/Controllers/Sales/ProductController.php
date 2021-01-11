@@ -105,47 +105,20 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Product $product) {
-		$userAuth = Auth::user();
-
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
+			$accountsId = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
 					})
 					->pluck('id');
 
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+			$accounts = Account::whereHas('users', function($query) use($accountsId) {
+						$query->whereIn('account_id', $accountsId);
 					})
 					->get();
 
-//			$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID);
-//					})
-//					->orderBy('NAME', 'ASC')
-//					->get();
-//
-//			$tasks = Task::whereHas('account', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID);
-//					})
-//					->with('contact')
-//					->paginate(20);
-//
-//			$users = User::whereHas('accounts', function($query) use($accountsID) {
-//						$query->whereIn('account_id', $accountsID);
-//					})
-//					->get();
-
-			return view('sales.products.editProduct', [
-				'userAuth' => $userAuth,
-//				'users' => $users,
-				'product' => $product,
-//				'tasks' => $tasks,
-				'accounts' => $accounts,
-//				'contacts' => $contacts,
-			]);
-		} else {
-			return redirect('/');
-		}
+			return view('sales.products.editProduct', compact(
+				'product',
+				'accounts',
+			));
 	}
 
 	/**
@@ -156,14 +129,11 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Product $product) {
-		$userAuth = Auth::user();
-
 		$product->fill($request->all());
 		$product->save();
-
+//dd($product);
 		return view('sales.products.showProduct', [
 			'product' => $product,
-			'userAuth' => $userAuth,
 		]);
 	}
 

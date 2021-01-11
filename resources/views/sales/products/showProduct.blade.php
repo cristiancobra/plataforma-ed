@@ -7,7 +7,12 @@
 @endsection
 
 @section('description')
-<a class="btn btn-primary" href="{{route('product.index')}}">VER PRODUTOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('product.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
@@ -20,9 +25,6 @@
 <br>
 <label class="labels" for="" >DONO: </label>
 <span class="fields">{{$product->account->name }}</span>
-<br>
-<label class="labels" for="" >TIPO:</label>
-<span class="fields">{{$product->type }}</span>
 <br>
 <label class="labels" for="" >CATEGORIA:</label>
 <span class="fields">{{$product->category }}</span>

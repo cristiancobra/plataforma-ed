@@ -549,6 +549,18 @@ if (!function_exists('returnDepartments')) {
 	}
 
 }
+// retorna a CATEGORIA do produto
+if (!function_exists('returnProductCategory')) {
+
+	function returnProductCategory() {
+		return $status = array(
+			'serviço',
+			'produto físico',
+			'produto digital',
+		);
+	}
+
+}
 if (!function_exists('gerarSenha')) {
 
 	function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {

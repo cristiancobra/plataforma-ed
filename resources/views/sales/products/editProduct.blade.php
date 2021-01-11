@@ -7,12 +7,17 @@
 @endsection
 
 @section('description')
-<a class='btn btn-primary' href="{{route('product.index')}}">VER TODOS</a>
+@endsection
+
+@section('buttons')
+<a class="button-primary"  href="{{route('product.index')}}">
+	VOLTAR
+</a>
 @endsection
 
 @section('main')
-<div style="padding-left: 6%">
-	<form action=" {{ route('product.update', ['product' =>$product->id]) }} " method="post" style="padding: 40px;color: #874983">
+<div>
+	<form action=" {{route('product.update', ['product' =>$product->id])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >NOME:</label>
@@ -23,39 +28,23 @@
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
-			<option  class="fields" value="{{ $product->account->id }}">
-				{{ $product->account->name }}
+			<option  class="fields" value="{{$product->account->id}}">
+				{{$product->account->name}}
 			</option>
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
 			</option>
 			@endforeach
 		</select>
 		<br>
-		<label class="labels" for="" >TIPO:</label>
-		<select class="fields" name="type">
-			<option value="{{$product->type}}">{{$product->type}}</option>
-			<option value="produto">produto</option>
-			<option value="serviço">serviço</option>
-		</select>
-		<br>
 		<label class="labels" for="" >CATEGORIA:</label>
-		<select class="fields" name="category">
-			<option value="{{$product->category}}">{{$product->category}}</option>
-			<option value="desenvolvimento">desenvolvimento</option>
-			<option value="financeiro">financeiro</option>
-			<option value="marketing">marketing</option>
-			<option value="planejamento">planejamento</option>
-			<option value="serviço">serviço</option>
-			<option value="suporte">suporte</option>
-			<option value="venda">venda</option>
-		</select>
+		{{editSelect('category', 'fields', returnProductCategory(), $product->category)}}
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
-		{{ $product->description }}
+		{{$product->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
