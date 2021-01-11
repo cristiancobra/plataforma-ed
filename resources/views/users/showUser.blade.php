@@ -22,7 +22,7 @@
 	<p class="labels">EMPRESAS: </p>
 
 	@foreach ($user->accounts as $account)
-	<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
+	<a  class="white" href=" {{route('account.show', ['account' => $account->id])}}">
 		<button class="button-round">
 			<i class='fa fa-eye'></i>
 		</button>
