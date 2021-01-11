@@ -52,6 +52,14 @@
 	<p class="labels">
 		PRAZO FINAL:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_due))}}</span>
 	</p>
+	<p class="labels">
+		DATA DE CONCLUSÃO:<span class="fields">
+	@if($task->date_conclusion)
+	{{date('d/m/Y', strtotime($task->date_conclusion))}}</span>
+	@else
+	não concluída
+	@endif
+	</p>
 	<br>
 	<p class="labels">
 		DESCRIÇÃO:<span class="fields">  {!!html_entity_decode($task->description)!!} </span>

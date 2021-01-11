@@ -237,12 +237,14 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, task $task) {
-		$today = date('Y-m-d');
-
 		$task->fill($request->all());
 
-		if (isset($request->cancel)) {
+		if (isset($request->cancelado)) {
 			$task->status = 'cancelado';
+			$task->date_conclusion = "";
+		} elseif (isset($request->aguardar)) {
+			$task->status = 'aguardar';
+			$task->date_conclusion = "";
 		} elseif (isset($request->date_conclusion)) {
 			$task->status = 'feito';
 		} else {

@@ -26,7 +26,7 @@
 		<label class="labels" for="" >DEPARTAMENTO:</label>
 		<select class="fields" name="department">
 			<option value="{{$task->department}}">{{$task->department}}</option>
-		{{createSimpleSelect($departments)}}
+			{{createSimpleSelect($departments)}}
 		</select>
 		<br>
 		<label class="labels" for="" >EMPRESA: </label>
@@ -44,7 +44,7 @@
 		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{ $task->user->id }}">
-				{{ $task->user->name }}
+				{{ $task->user->contact->name }}
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
@@ -59,6 +59,21 @@
 		<br>
 		<label class="labels" for="" >PRAZO FINAL:</label>
 		<input type="date" name="date_due" size="20" value="{{ $task->date_due }}"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
+		<input type="date" name="date_conclusion" size="20" value="{{$task->date_conclusion}}"><span class="fields"></span>
+		<input type="checkbox" name="cancelado" value="cancelado"
+			   @if($task->status == "cancelado")
+		checked="checked"
+		@endif
+		>
+		cancelada
+		<input type="checkbox" name="aguardar" value="aguardar"
+			   @if($task->status == "aguardar")
+		checked="checked"
+		@endif
+		>
+		aguardar
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
@@ -90,17 +105,6 @@ CKEDITOR.replace('description');
 			</option>
 			{{createSimpleSelect($priorities)}}
 		</select>
-		<br>
-		<br>
-		<label class="labels" for="" >DATA DE CONCLUSÃO:</label>
-		<input type="date" name="date_conclusion" size="20" value="{{ $task->date_conclusion }}"><span class="fields"></span>
-		@if($task->status == "cancelado")
-		<input type="checkbox" name="cancel" value="cancelado" checked="checked">
-		@else
-		<input type="checkbox" name="cancel" value="cancelado">
-		@endif
-		cancelada
-		<br>
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR TAREFA">
