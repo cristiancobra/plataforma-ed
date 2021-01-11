@@ -74,7 +74,7 @@
 <br>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
-<span class="fields">{{$product->status }}</span>
+<span class="fields">{{$product->status}}</span>
 <br>
 <br>
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($product->created_at)) }} </p>

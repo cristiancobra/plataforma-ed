@@ -549,7 +549,7 @@ if (!function_exists('returnDepartments')) {
 	}
 
 }
-// retorna a CATEGORIA do produto
+// retorna a CATEGORIA do PRODUTO
 if (!function_exists('returnProductCategory')) {
 
 	function returnProductCategory() {
@@ -557,6 +557,17 @@ if (!function_exists('returnProductCategory')) {
 			'serviço',
 			'produto físico',
 			'produto digital',
+		);
+	}
+
+}
+// retorna a SITUAÇÃO do PRODUTO
+if (!function_exists('returnProductStatus')) {
+
+	function returnProductStatus() {
+		return $status = array(
+			'disponível',
+			'indisponível',
 		);
 	}
 

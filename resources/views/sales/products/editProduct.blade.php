@@ -85,13 +85,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-			<option value="{{$product->status}}">{{$product->status}}</option>
-			<option value="pendente">pendente</option>
-			<option value="fazendo agora">fazendo agora</option>
-			<option value="cancelada">cancelada</option>
-			<option value="concluida">concluida</option>
-		</select>
+		{{editSelect('status', 'fields', returnProductStatus(), $product->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
