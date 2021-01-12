@@ -98,6 +98,8 @@ td {
     vertical-align:super;
 }
 
+/*  ----Status---- */
+
 .td-low{
     display: table-cell;  
     font-size: 14px;
@@ -212,6 +214,7 @@ td {
     border-color: white;
 }
 
+/*-------FATURAS-----*/
 
 .td-paid{
     display: table-cell;  
@@ -305,13 +308,26 @@ td {
 }
 
 
-
-.td-winner{
+/*  Oportunidades / Stage */
+.td-won{
     display: table-cell;  
     font-size: 14px;
-    color: black;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
     vertical-align:super;
-    background-color: #A5D9CC;
+    background-color: #A3FDE6;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-lost{
+    display: table-cell;  
+    font-size: 14px;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #FDDBDD;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
@@ -320,9 +336,10 @@ td {
 .td-prospecting{
     display: table-cell;  
     font-size: 14px;
-    color: black;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
     vertical-align:super;
-    background-color: #92C4D4;
+    background-color: #8B2485;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
@@ -331,29 +348,32 @@ td {
 .td-presentation{
     display: table-cell;  
     font-size: 14px;
-    color: black;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
     vertical-align:super;
-    background-color: #F2E28C;
+    background-color: #957799;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
 }
 
-
-.td-negociation{
+.td-proposal{
     display: table-cell;  
     font-size: 14px;
-    color: black;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
     vertical-align:super;
-    background-color: #C18996;
+    background-color: #EDB4F4;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
 }
+
+/*  Oportunidades / Stage */
 
 .button-round {
     /* Ellipse 1 */
- 
+
     width: 28px;
     height: 28px;
     background: #A497C2;
@@ -377,3 +397,4 @@ td {
     border-color: #6357A1;
     color: white;
 }
+

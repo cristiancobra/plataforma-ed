@@ -431,19 +431,19 @@ if (!function_exists('formatStage')) {
 	function formatStage($model) {
 		switch ($model->stage) {
 			case 'prospecção':
-				echo '<td class="td-canceled">prospecção</td>';
+				echo '<td class="td-prospecting">prospecção</td>';
 				break;
 			case 'apresentação':
-				echo '<td class="td-low">apresentação</td>';
+				echo '<td class="td-presentation">apresentação</td>';
 				break;
 			case 'proposta':
-				echo '<td class="td-toDo">proposta</td>';
+				echo '<td class="td-proposal">proposta</td>';
 				break;
 			case 'ganhamos':
-				echo '<td class="td-doing">ganhamos</td>';
+				echo '<td class="td-won">ganhamos</td>';
 				break;
 			case 'perdemos':
-				echo '<td class="td-done">perdemos</td>';
+				echo '<td class="td-lost">perdemos</td>';
 				break;
 		}
 	}

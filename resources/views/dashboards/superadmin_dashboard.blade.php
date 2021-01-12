@@ -30,7 +30,7 @@
 		<p class="subtitulo-branco">
 			fazer
 		</p>
-		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status" value="fazer">
 			<input type="hidden" name="contact_id" value="">
@@ -56,12 +56,12 @@
 
 	<div class="tasks-now">
 		<p class="numeros_painel">
-			{{ $tasks_now }}
+			{{$tasks_now}}
 		</p>
 		<p class="subtitulo-branco">
 			fazendo
 		</p>
-		<form action=" {{ route('task.index')}} " method="post" style="text-align: center;color: #874983">
+		<form action=" {{route('task.index')}} " method="post" style="text-align: center;color: #874983">
 			@csrf
 			<input type="hidden" name="status"  value="fazendo">
 			<input type="hidden" name="contact_id" value="">
@@ -76,78 +76,34 @@
 		<br>
 		OPORTUNIDADES
 	</div>
-	<div class="opportunities-toDo">
-		<p class="numeros_painel">
-			{{$opportunities_pending}}
-		</p>
-		<p class="subtitulo-branco">
-			fazer
-		</p>
-		<form action=" {{route('opportunity.index')}} " method="post" style="text-align: center;color: #874983">
-			@csrf
-			<input type="hidden" name="status" value="fazer">
-			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="">
-			<input class="button-panel" type="submit" value="VER">
-		</form>
+	<div class="opportunities-funnel">
+		<div class="funnel-bar-prospecting">
+			PROSPECÇÃO: 12
+		</div>
+		<div class="funnel-bar-presentation">
+			APRESENTAÇÃO: 6
+		</div>
+		<div class="funnel-bar-proposal">
+			PROPOSTA: 3
+		</div>
 	</div>
-	<div class="opportunities-my">
-		<p class="numeros_painel">
-			{{$opportunities_my}}
+	<div class="balance-won">
+		<p style="position: absolute; top: -10px; right: 0px;left:-16px;font-size: 22px">
+		<br>
+		14
+		<br>
+		ganhamos
 		</p>
-		<p class="subtitulo-branco">
-			minhas
-		</p>
-		<form action=" {{route('opportunity.index')}} " method="post" style="text-align: center;color: #874983">
-			@csrf
-			<input type="hidden" name="status" size="20" value="fazer">
-			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
-			<input class="button-panel" type="submit" value="VER">
-		</form>
 	</div>
-	<div class="opportunities-now">
-		<p class="numeros_painel">
-			{{$opportunities_now}}
+	<div class="balance-lost">
+		<p style="position: absolute; top: -130px; right: 0px;left: -14px;font-size: 22px">
+		<br>
+		7
+		<br>
+		perdemos
 		</p>
-		<p class="subtitulo-branco">
-			fazendo
-		</p>
-		<form action=" {{route('opportunity.index')}} " method="post" style="text-align: center;color: #874983">
-			@csrf
-			<input type="hidden" name="status"  value="fazendo">
-			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="">
-			<input class="button-panel" type="submit" value="VER">
-		</form>
 	</div>
 	<br>
-	<br>
-	<div class="hoursToday">
-		<br>
-		<p class="numeros_painel">
-
-		</p>
-		<p class="subtitulo-branco">
-			horas hoje
-		</p>
-	</div>
-	<div class="hoursToday">
-		<br>
-		<p class="numeros_painel">
-			{{number_format($todayTotal / 3600)}}
-		</p>
-		<p class="subtitulo-branco">
-			total hoje
-		</p>
-		<br>
-		<p class="numeros_painel">
-			{{number_format($monthTotal / 3600)}}
-		</p>
-		<p class="subtitulo-branco">
-			total {{$month}}
-		</p>
-	</div>
 	<div class="tasks-team">
 		<table class="table-list">
 			<tr>

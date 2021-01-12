@@ -15,18 +15,19 @@ and open the template in the editor.
 	color: white;
 	text-align: left;
 	margin-top: 2%;
-	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-columns: 1fr 2fr 2fr 2fr;
 	grid-template-areas: 
 		"tasks-title tasks-my tasks-toDo tasks-now"
-		"opportunities-title opportunities-my opportunities-toDo opportunities-now"
-		"hours tasks-team tasks-team tasks-team";
-	gap: 5% 2%;
+		"opportunities-title opportunities-funnel opportunities-now opportunities-lost"
+		"journeys-title tasks-team tasks-team tasks-team";
+	gap: 15% 2%;
 }
 
 .tasks-title{
 	grid-area: tasks-title;
 	height: 100%;
 	padding: 4%;
+	vertical-align: middle;
 	border-radius: 10px;
 	text-align: center;
 	color: #874983;
@@ -36,29 +37,44 @@ and open the template in the editor.
 	grid-area: tasks-now;
 	text-shadow: 2px 2px 4px #000000;
 	background-color: #92C4D4;
-	height: 100%;
 	padding: 4%;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	text-decoration:none;
 }
-
+.tasks-now:hover{
+	background-color: #27ACD7;
+}
 .tasks-toDo {
 	grid-area: tasks-toDo;
     text-shadow: 2px 2px 4px #000000;
 	background-color: #F2E28C;
 	padding: 4%;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	text-decoration:none;
 }
-
+.tasks-toDo:hover{
+	background-color: #FAD300;
+}
 .tasks-my {
 	grid-area: tasks-my;
 	text-shadow: 2px 2px 4px #000000;
 	background-color: #D8C2DB;
 	padding: 4%;
+	padding-top: 10%;
+	padding-bottom: 10%;
 	border-radius: 10px;
 	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
+.tasks-my:hover{
+	background-color: #AC56B8;
+}
+
 .opportunities-title{
 	grid-area: opportunities-title;
 	height: 100%;
@@ -66,16 +82,106 @@ and open the template in the editor.
 	border-radius: 10px;
 	text-align: center;
 	color: #874983;
+	vertical-align: middle;
 }
-.opportunities-now{
-	grid-area: opportunities-now;
+.opportunities-funnel{
+	grid-area: opportunities-funnel;
+	height: 100%;
+	border-radius: 10px;
+	text-align: center;
+	color: #874983;
+}
+
+.funnel-bar-prospecting{
+	background-color: #8B2485;
+	color: white;
+	text-align: left;
+	width: 100%;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px; 
 	text-shadow: 2px 2px 4px #000000;
-	background-color: #92C4D4;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	font-size: 14px;
+}
+.funnel-bar-prospecting:hover{
+	background-color: #F905E9;
+}
+.funnel-bar-presentation{
+	background-color: #957799;
+	color: white;
+	text-align: left;
+	width: 70%;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 8px;
+	text-shadow: 2px 2px 4px #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	font-size: 14px;
+}
+.funnel-bar-presentation:hover{
+	background-color: #DF0FFC;
+}
+.funnel-bar-proposal{
+	background-color: #EDB4F4;
+	color: white;
+	text-align: left;
+	width: 50%;
+	padding-left: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	margin-top: 8px;
+	text-shadow: 2px 2px 4px #000000;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	border-radius: 10px;
+	font-size: 14px;
+}
+.funnel-bar-proposal:hover{
+	background-color: #892996;
+}
+.balance-won{
+	width: 0;
+	height: 0;
+	border-left: 120px solid transparent;
+	border-right: 120px solid transparent;
+	border-bottom: 120px solid #A3FDE6;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	position: relative;
+	padding-left: 70px;
+}
+.balance-won:hover{
+	border-bottom: 120px solid #10DAA7;
+}
+.balance-lost{
+	width: 0;
+	height: 0;
+	border-left: 120px solid transparent;
+	border-right: 120px solid transparent;
+	border-top: 120px solid #FDDBDD;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	position: relative;
+	padding-left: 70px;
+}
+.balance-lost:hover{
+	border-top: 120px solid #DF4650;
+	color: white;
+}
+.journeys-title{
+	grid-area: journeys-title;
 	height: 100%;
 	padding: 4%;
-	border-radius: 10px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	text-align: center;
+	color: #874983;
 }
+
+/*                       ------------ fim do grid administrator---------           */
 
 .opportunities-toDo {
 	grid-area: opportunities-toDo;
