@@ -38,11 +38,11 @@
 				<label class="labels" for="" >FUNCIONÁRIO:</label>
 				<select name="user_id">
 					<option  class="fields" value="{{$journey->user_id}}">
-						{{$journey->user->name}}
+						{{$journey->user->contact->name}}
 					</option>
 					@foreach ($users as $user)
-					<option  class="fields" value="{{ $user->id }}">
-						{{$user->name}}
+					<option  class="fields" value="{{$user->id}}">
+						{{$user->contact->name}}
 					</option>
 					@endforeach
 				</select>
