@@ -22,16 +22,10 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$userAuth = Auth::user();
+			$accountsId = userAccounts();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get('id');
-
-			$opportunities = Opportunity::where(function ($query) use ($accountsID, $request) {
-						$query->whereIn('account_id', $accountsID);
+			$opportunities = Opportunity::where(function ($query) use ($accountsId, $request) {
+						$query->whereIn('account_id', $accountsId);
 						if ($request->name) {
 							$query->where('name', 'like', "%$request->name%");
 						}
@@ -41,6 +35,9 @@ class OpportunityController extends Controller {
 						if ($request->contact_id) {
 							$query->where('contact_id', '=', $request->contact_id);
 						}
+						if ($request->stage) {
+							$query->where('stage', '=', $request->stage);
+						}
 					})
 					->with('user')
 					->orderBy('DATE_CONCLUSION', 'ASC')
@@ -48,16 +45,16 @@ class OpportunityController extends Controller {
 
 			$totalOpportunities = $opportunities->count();
 
-			$contacts = Contact::whereIn('account_id', $accountsID)
+			$contacts = Contact::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$accounts = Account::whereIn('id', $accountsID)
+			$accounts = Account::whereIn('id', $accountsId)
 					->orderBy('ID', 'ASC')
 					->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
+						$query->whereIn('account_id', $accountsId);
 					})
 					->orderBy('NAME', 'ASC')
 					->get();
@@ -65,14 +62,10 @@ class OpportunityController extends Controller {
 			return view('sales.opportunities.indexOpportunities', compact(
 					'opportunities',
 					'totalOpportunities',
-					'userAuth',
 					'contacts',
 					'accounts',
 					'users',
 					));
-		} else {
-			return redirect('/');
-		}
 	}
 
 	/**

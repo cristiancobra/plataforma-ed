@@ -174,14 +174,14 @@ and open the template in the editor.
     color:white;
     font-weight:600;
     line-height: 0px;
-    font-size: 46px;
+    font-size: 36px;
 	position: absolute;
-	top: 35px;
+	top: 50px;
 	right: 0px;
-	left:0px;
+	left:40px;
 	text-shadow: 2px 2px 4px #000000;
 }
-.balance_label{
+.balance_label_won{
     text-align:center;
     color:white;
     font-weight:600;
@@ -189,9 +189,22 @@ and open the template in the editor.
     font-size: 18px;
     padding-top: 10%;
 	position: absolute;
-	top: 40px;
+	top: 55px;
 	right: 0px;
-	left:0px;
+	left:40px;
+	text-shadow: 2px 2px 4px #000000;
+}
+.balance_label_lost{
+    text-align:center;
+    color:white;
+    font-weight:600;
+    line-height: 0px;
+    font-size: 18px;
+    padding-top: 10%;
+	position: absolute;
+	top: -5px;
+	right: 0px;
+	left:40px;
 	text-shadow: 2px 2px 4px #000000;
 }
 .journeys-title{

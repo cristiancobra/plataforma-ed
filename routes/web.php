@@ -164,7 +164,8 @@ Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
 		->parameters(['modelos-de-contratos' => 'contractTemplate']);
 
 Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@index')
-		->name('opportunity.index');
+		->name('opportunity.index')
+		->middleware('roles');
 
 Route::resource('oportunidades', 'Sales\\OpportunityController')
 		->except(['index'])
