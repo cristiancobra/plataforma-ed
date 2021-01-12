@@ -122,8 +122,9 @@ class DashboardController extends Controller {
 					->whereBetween('date', [$monthStart, $monthEnd])
 					->sum('duration');
 
-			$tasks_now = $tasks
-					->where('status', 'fazendo')
+			$tasksDone = $tasks
+					->where('status', 'feito')
+					->whereBetween('date_conclusion', [$monthStart, $monthEnd])
 					->count();
 
 			$tasks_pending = $tasks
@@ -161,7 +162,7 @@ class DashboardController extends Controller {
 			return view('dashboards/administratorDashboard', compact(
 				'month',
 				'users',
-				'tasks_now',
+				'tasksDone',
 				'tasks_pending',
 				'tasks_my',
 				'opportunitiesProspecting',

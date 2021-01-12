@@ -113,7 +113,7 @@
 					<i class='fa fa-edit'></i>
 				</button>
 			</a>
-			<b>{{ $task->name}}</b>
+			<b>{{$task->name}}</b>
 		</td>
 
 		<td class="table-list-center">
@@ -155,7 +155,7 @@
 </table>
 <p style="text-align: right">
 	<br>
-	{{ $tasks->links() }}
+	{{$tasks->links()}}
 </p>
 <br>
 @endsection

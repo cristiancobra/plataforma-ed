@@ -61,7 +61,7 @@
 				])}}">
 		<div class="tasks-now">
 			<p class="numeros_painel">
-				{{$tasks_now}}
+				{{$tasksDone}}
 			</p>
 			<p class="subtitulo-branco">
 				fazendo
@@ -86,63 +86,67 @@
 			PROPOSTA: {{$opportunitiesProposal}}
 		</div>
 	</div>
-	<div class="balance-won">
-		<p style="position: absolute; top: -10px; right: 0px;left:-16px;font-size: 22px">
-			<br>
+	<div id="triangle-text"  style="display: inline-block;position: relative">
+		<div class="balance-won">
+		</div>
+		<p class="balance_number">
 			{{$opportunitiesWon}}
-			<br>
+		</p>
+		<p class="balance_label">
 			ganhamos
 		</p>
 	</div>
-	<div class="balance-lost">
-		<p style="position: absolute; top: -130px; right: 0px;left: -14px;font-size: 22px">
-			<br>
+	<div id="triangle-text"  style="display: inline-block;position: relative">
+		<div class="balance-lost">
+		</div>
+		<p class="balance_number">
 			{{$opportunitiesLost}}
-			<br>
+		</p>
+		<p class="balance_label">
 			perdemos
 		</p>
 	</div>
+<br>
+<div class="journeys-title">
+	<img src="{{asset('imagens/journey.png')}}" width="50" height="50">
 	<br>
-	<div class="journeys-title">
-		<img src="{{asset('imagens/journey.png')}}" width="50" height="50">
-		<br>
-		<br>
-		JORNADAS
-	</div>
-	<div class="tasks-team">
-		<table class="table-list">
-			<tr>
-				<td   class="table-list-header" style="width: 50%">
-					<b>FUNCIONÁRIO </b>
-				</td>
-				<td   class="table-list-header" style="width: 10%">
-					HOJE					
-				</td>
-				<td   class="table-list-header" style="width: 10%">
-					{{strtoupper($month)}}
-				</td>
-			</tr>
+	<br>
+	JORNADAS
+</div>
+<div class="tasks-team">
+	<table class="table-list">
+		<tr>
+			<td   class="table-list-header" style="width: 50%">
+				<b>FUNCIONÁRIO </b>
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				HOJE					
+			</td>
+			<td   class="table-list-header" style="width: 10%">
+				{{strtoupper($month)}}
+			</td>
+		</tr>
 
-			@foreach ($users as $user)
-			<tr style="font-size: 14px">
-				<td class="table-list-left">
-					<a class="white" href=" {{route('user.show', ['user' => $user->id])}}">
-						<button class="button-round">
-							<i class='fa fa-eye'></i>
-						</button>
-					</a>
-					{{$user->contact->name}}
-				</td>
-				<td class="table-list-center">
-					{{number_format($user->hoursToday / 3600, 1, ',','.')}}
-				</td>
-				<td class="table-list-center">
-					{{number_format($user->hoursMonthly / 3600, 1, ',','.')}}
-				</td>
-			</tr>
-			@endforeach
-		</table>
-	</div>
+		@foreach ($users as $user)
+		<tr style="font-size: 14px">
+			<td class="table-list-left">
+				<a class="white" href=" {{route('user.show', ['user' => $user->id])}}">
+					<button class="button-round">
+						<i class='fa fa-eye'></i>
+					</button>
+				</a>
+				{{$user->contact->name}}
+			</td>
+			<td class="table-list-center">
+				{{number_format($user->hoursToday / 3600, 1, ',','.')}}
+			</td>
+			<td class="table-list-center">
+				{{number_format($user->hoursMonthly / 3600, 1, ',','.')}}
+			</td>
+		</tr>
+		@endforeach
+	</table>
+</div>
 </div>
 <br>
 <br>

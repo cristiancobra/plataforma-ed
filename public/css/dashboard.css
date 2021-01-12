@@ -20,7 +20,7 @@ and open the template in the editor.
 		"tasks-title tasks-my tasks-toDo tasks-now"
 		"opportunities-title opportunities-funnel opportunities-now opportunities-lost"
 		"journeys-title tasks-team tasks-team tasks-team";
-	gap: 15% 2%;
+	gap: 12% 2%;
 }
 
 .tasks-title{
@@ -145,33 +145,54 @@ and open the template in the editor.
 .balance-won{
 	width: 0;
 	height: 0;
-	border-left: 120px solid transparent;
-	border-right: 120px solid transparent;
-	border-bottom: 120px solid #A3FDE6;
+	border-left: 100px solid transparent;
+	border-right: 100px solid transparent;
+	border-bottom: 100px solid #A3FDE6;
 	text-align: center;
-	vertical-align: middle;
 	display: inline-block;
-	position: relative;
-	padding-left: 70px;
+	margin-left: 40px;
 }
 .balance-won:hover{
-	border-bottom: 120px solid #10DAA7;
+	border-bottom: 100px solid #10DAA7;
 }
 .balance-lost{
 	width: 0;
 	height: 0;
-	border-left: 120px solid transparent;
-	border-right: 120px solid transparent;
-	border-top: 120px solid #FDDBDD;
+	border-left: 100px solid transparent;
+	border-right: 100px solid transparent;
+	border-top: 100px solid #FDDBDD;
 	text-align: center;
-	vertical-align: middle;
 	display: inline-block;
-	position: relative;
-	padding-left: 70px;
+	margin-left: 40px;
 }
 .balance-lost:hover{
-	border-top: 120px solid #DF4650;
+	border-top: 100px solid #DF4650;
 	color: white;
+}
+.balance_number{
+    text-align:center;
+    color:white;
+    font-weight:600;
+    line-height: 0px;
+    font-size: 46px;
+	position: absolute;
+	top: 35px;
+	right: 0px;
+	left:0px;
+	text-shadow: 2px 2px 4px #000000;
+}
+.balance_label{
+    text-align:center;
+    color:white;
+    font-weight:600;
+    line-height: 0px;
+    font-size: 18px;
+    padding-top: 10%;
+	position: absolute;
+	top: 40px;
+	right: 0px;
+	left:0px;
+	text-shadow: 2px 2px 4px #000000;
 }
 .journeys-title{
 	grid-area: journeys-title;
