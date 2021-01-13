@@ -39,7 +39,7 @@
 		</div>
 	</a>
 
-	<a href="{{route('task.index', [
+	<a style="text-decoration:none" href="{{route('task.index', [
 				'status' =>"fazer",
 				'contact_id' => "",
 				'user_id' => Auth::user()->id,
@@ -54,7 +54,7 @@
 		</div>
 	</a>
 
-	<a href="{{route('task.index', [
+	<a style="text-decoration:none" href="{{route('task.index', [
 				'status' =>"feito",
 				'contact_id' => "",
 				'user_id' => "",
@@ -76,7 +76,7 @@
 		OPORTUNIDADES
 	</div>
 	<div class="opportunities-funnel">
-		<a href="{{route('opportunity.index', [
+		<a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"prospecção",
 				'contact_id' => "",
 				'user_id' => "",
@@ -85,7 +85,7 @@
 				PROSPECTAR: {{$opportunitiesProspecting}}
 			</div>
 		</a>
-		<a href="{{route('opportunity.index', [
+		<a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"apresentação",
 				'contact_id' => "",
 				'user_id' => "",
@@ -94,7 +94,7 @@
 				APRESENTAR: {{$opportunitiesPresentation}}
 			</div>
 		</a>
-		<a href="{{route('opportunity.index', [
+		<a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"proposta",
 				'contact_id' => "",
 				'user_id' => "",
@@ -104,7 +104,7 @@
 			</div>
 		</a>
 	</div>
-	<a href="{{route('opportunity.index', [
+	<a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"ganhamos",
 				'contact_id' => "",
 				'user_id' => "",
@@ -120,7 +120,7 @@
 			</p>
 		</div>
 	</a>
-	<a href="{{route('opportunity.index', [
+	<a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"perdemos",
 				'contact_id' => "",
 				'user_id' => "",

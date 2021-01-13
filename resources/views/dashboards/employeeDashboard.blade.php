@@ -3,7 +3,7 @@
 @section('title','FUNCIONÁRIO')
 
 @section('image-top')
-{{ asset('imagens/control-panel.png') }} 
+{{asset('imagens/control-panel.png')}}
 @endsection
 
 @section('description')
@@ -16,83 +16,168 @@
 @endsection
 
 @section('main')
-<div class="grid-start">
-    <div class="tasks-now">
-		<p class="numeros_painel">
-			{{ $tasks_now }}
-		</p>
-		<p class="subtitulo-branco">
-			tarefas sendo executadas
-		</p>
-		<form action=" {{ route('task.index')}} " method="post" style="text-align: center;color: #874983">
-			@csrf
-			<input type="hidden" name="status"  value="fazendo agora">
-			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="">
-			<input class="btn btn-secondary" type="submit" value="VER">
-		</form>
-	</div>
-
-    <div class="tasks-pending">
-		<p class="numeros_painel" style="color: #874983">
-			{{ $tasks_pending }}
-		</p>
-		<p class="subtitulo-branco"  style="color: #874983">
-			tarefas pendentes
-		</p>
-		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
-			@csrf
-			<input type="hidden" name="status" value="pendente">
-			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="">
-			<input class="btn btn-secondary" type="submit" value="VER">
-		</form>
-	</div>
-
-    <div class="tasks-my">
-		<p class="numeros_painel" style="color: yellow">
-			{{ $tasks_my }}
-		</p>
-		<p class="subtitulo-branco">
-			fazer
-		</p>
-		<form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
-			@csrf
-			<input type="hidden" name="status" size="20" value="pendente">
-			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
-			<input class="btn btn-secondary" type="submit" value="VER">
-		</form>
-	</div>
-
-    <div class="hours">
+<div class="grid-employee">
+	<div class="tasks-title">
+		<img src="{{asset('imagens/tarefas.png')}}" width="50" height="50">
 		<br>
-		<p class="numeros_painel" style="color: yellow">
-			{{ gmdate('H:i', $hoursToday) }}
-		</p>
-		<p class="subtitulo-branco">
-			horas concluidas hoje
-		</p>
+		<br>
+		TAREFAS
+	</div>
+
+	<a style="text-decoration:none" href="{{route('task.index', [
+				'status' =>"fazer",
+				'contact_id' => "",
+				'user_id' => Auth::user()->id,
+				])}}">
+		<div class="tasks-delayed">
+			<p class="numeros_painel">
+				{{$tasks_pending}}
+			</p>
+			<p class="subtitulo-branco">
+				atrasadas
+			</p>
+		</div>
+	</a>
+
+	<a href="{{route('task.index', [
+				'status' =>"fazer",
+				'contact_id' => "",
+				'user_id' => Auth::user()->id,
+				])}}">
+		<div class="tasks-my">
+			<p class="numeros_painel">
+				{{$tasks_my}}
+			</p>
+			<p class="subtitulo-branco">
+				minhas
+			</p>
+		</div>
+	</a>
+
+	<a href="{{route('task.index', [
+				'status' =>"feito",
+				'contact_id' => "",
+				'user_id' => Auth::user()->id,
+				])}}">
+		<div class="tasks-now">
+			<p class="numeros_painel">
+				{{$tasksDone}}
+			</p>
+			<p class="subtitulo-branco">
+				feitas
+			</p>
+		</div>
+	</a>
+
+	<div class="opportunities-title">
+		<img src="{{asset('imagens/financeiro.png')}}" width="50" height="50">
+		<br>
+		<br>
+		OPORTUNIDADES
+	</div>
+	<div class="opportunities-funnel">
+		<a href="{{route('opportunity.index', [
+				'stage' =>"prospecção",
+				'contact_id' => "",
+				'user_id' => Auth::user()->id,
+				])}}">
+			<div class="funnel-bar-prospecting">
+				PROSPECTAR: {{$opportunitiesProspecting}}
+			</div>
+		</a>
+		<a href="{{route('opportunity.index', [
+				'stage' =>"apresentação",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+			<div class="funnel-bar-presentation">
+				APRESENTAR: {{$opportunitiesPresentation}}
+			</div>
+		</a>
+		<a href="{{route('opportunity.index', [
+				'stage' =>"proposta",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+			<div class="funnel-bar-proposal">
+				PROPOSTA: {{$opportunitiesProposal}}
+			</div>
+		</a>
+	</div>
+	<a href="{{route('opportunity.index', [
+				'stage' =>"ganhamos",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+		<div id="triangle-text"  style="display: inline-block;position: relative">
+			<div class="balance-won">
+			</div>
+			<p class="balance_number">
+				{{$opportunitiesWon}}
+			</p>
+			<p class="balance_label_won">
+				ganhamos
+			</p>
+		</div>
+	</a>
+	<a href="{{route('opportunity.index', [
+				'stage' =>"perdemos",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+		<div id="triangle-text"  style="display: inline-block;position: relative">
+			<div class="balance-lost">
+			</div>
+			<p class="balance_number">
+				{{$opportunitiesLost}}
+			</p>
+			<p class="balance_label_lost">
+				perdemos
+			</p>
+		</div>
+	</a>
+	<br>
+	<div class="journeys-title">
+		<img src="{{asset('imagens/journey.png')}}" width="50" height="50">
+		<br>
+		<br>
+		JORNADAS
+	</div>
+	<div class="tasks-team">
+		<table class="table-list">
+			<tr>
+				<td   class="table-list-header" style="width: 50%">
+					<b>FUNCIONÁRIO </b>
+				</td>
+				<td   class="table-list-header" style="width: 10%">
+					HOJE					
+				</td>
+				<td   class="table-list-header" style="width: 10%">
+					{{strtoupper($month)}}
+				</td>
+			</tr>
+
+			@foreach ($departments as $department)
+			<tr style="font-size: 14px">
+				<td class="table-list-left">
+					<a class="white" href=" ">
+						<button class="button-round">
+							<i class='fa fa-eye'></i>
+						</button>
+					</a>
+					{{$department}}
+				</td>
+				<td class="table-list-center">
+					{{number_format($departmentsToday[$department] / 3600, 1, ',','.')}}
+				</td>
+				<td class="table-list-center">
+					{{number_format($departmentsMonthly[$department] / 3600, 1, ',','.')}}
+				</td>
+			</tr>
+			@endforeach
+		</table>
 	</div>
 </div>
-
-<div style="padding-top: 3%;padding-left: 2%; padding-right: 4%;display: inline-block;text-align: left;vertical-align: top">
-	<img src=" {{ asset('imagens/start.jpg') }} " width="300px" height="215px">
-</div>
-
-<div style="padding-top: 1%; padding-left: 4%; padding-right: 4%;display: inline-block">
-	<br>	
-	<p style="color:purple; font-weight: 400;line-height: 2;font-size: 18px">
-		Agosto: {{ number_format($hoursAugust / 3600, 1, ',','.')  }} horas
-		<br>
-		Setembro: {{ number_format($hoursSeptember / 3600, 1, ',','.')  }} horas
-		<br>
-		Outubro: {{ number_format($hoursOctober / 3600, 1, ',','.')  }} horas
-		<br>
-		Novembro: {{ number_format($hoursNovember / 3600, 1, ',','.')  }} horas
-		<br>
-		<b>Total: {{ number_format($hoursTotal / 3600, 1, ',','.')  }} horas</b>
-		<br>
-	</p>
-</div>
+<br>
+<br>
 @endsection
