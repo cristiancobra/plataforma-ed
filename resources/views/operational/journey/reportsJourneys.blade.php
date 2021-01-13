@@ -72,7 +72,7 @@
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 50%">
-			<b>CATEGORIA </b>
+			<b>DEPARTAMENTOS </b>
 		</td>
 		@foreach ($months as $month)
 		<td   class="table-list-header" style="width: 10%">
