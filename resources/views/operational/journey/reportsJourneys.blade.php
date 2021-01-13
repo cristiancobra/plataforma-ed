@@ -18,8 +18,11 @@
 @section('main')
 <form action=" {{route('journey.reports')}} " method="post" style="text-align: right;color: #874983">
 	@csrf
-	<select class="select"name="user_id">
-		<option  class="fields" value="">
+	<select class="select"name="year">
+		<option  class="fields" value="2021">
+			2021
+		</option>
+		<option  class="fields" value="2020">
 			2020
 		</option>
 	</select>

@@ -360,7 +360,7 @@ class InvoiceController extends Controller {
 			$margin++;
 			$price++;
 		}
-		$invoice->totalPrice = $totalPrice - $request->discount
+		$invoice->totalPrice = $totalPrice - $request->discount;
 		$invoice->$request->number_installment;
 		$invoice->update();
 

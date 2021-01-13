@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Operational;
 use App\Http\Controllers\Controller;
 use App\Models\Journey;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use DB;
+use Carbon\Carbon;
 use App\Models\Task;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use DB;
 
 class JourneyController extends Controller {
 
@@ -262,67 +263,58 @@ class JourneyController extends Controller {
 	}
 
 	public function monthlyReport(Request $request) {
-		$userAuth = Auth::user();
+		$months = returnMonths();
 
-		if (Auth::check()) {
-			$months = returnMonths();
-			$accounts = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get();
-
-			$accountsID = $accounts->pluck('id');
-
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->orderBy('NAME', 'ASC')
-					->get();
-
-			$counterArray = 1;
-			foreach ($users as $user) {
-				$counterMonth = 1;
-				while ($counterMonth <= 12) {
-					$resultUsers[$counterArray] = Journey::where('user_id', $user->id)
-							->whereBetween('date', ["2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01", "2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31"])
-							->sum('duration');
-					$counterMonth++;
-					$counterArray++;
-				}
-			}
-
-			$departments = returnDepartments();
-
-			$counterArray = 1;
-			foreach ($departments as $department) {
-				$counterMonth = 1;
-				while ($counterMonth <= 12) {
-					$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($department, $accountsID) {
-								$query->whereIn('account_id', $accountsID);
-								$query->where('department', 'LIKE', $department);
-							})
-							->whereBetween('date', ["2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01", "2020-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31"])
-							->sum('duration');
-					$counterMonth++;
-					$counterArray++;
-				}
-			}
-
-			return view('operational.journey.reportsJourneys', [
-				'users' => $users,
-				'accounts' => $accounts,
-				'accountsID' => $accountsID,
-				'months' => $months,
-				'departments' => $departments,
-				'counterMonth' => $counterMonth,
-				'counterArray' => $counterArray,
-				'resultUsers' => $resultUsers,
-				'resultCategories' => $resultCategories,
-				'userAuth' => $userAuth,
-			]);
+		if (isset($request->year)) {
+			$year = $request->year;
 		} else {
-			return redirect('/');
+			$year = date('y');
 		}
+
+		$users = myUsers();
+
+		$counterArray = 1;
+		foreach ($users as $user) {
+			$counterMonth = 1;
+			while ($counterMonth <= 12) {
+				$initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
+				$finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
+				$resultUsers[$counterArray] = Journey::where('user_id', $user->id)
+						->whereBetween('date', [$initialDate, $finalDate])
+						->sum('duration');
+				$counterMonth++;
+				$counterArray++;
+			}
+		}
+
+		$departments = returnDepartments();
+
+		$counterArray = 1;
+		foreach ($departments as $department) {
+			$counterMonth = 1;
+			while ($counterMonth <= 12) {
+				$initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
+				$finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
+				$resultCategories[$counterArray] = Journey::whereHas('task', function($query) use($department) {
+							$query->whereIn('account_id', userAccounts());
+							$query->where('department', 'LIKE', $department);
+						})
+						->whereBetween('date', [$initialDate, $finalDate])
+						->sum('duration');
+				$counterMonth++;
+				$counterArray++;
+			}
+		}
+
+		return view('operational.journey.reportsJourneys', compact(
+						'users',
+						'months',
+						'departments',
+						'counterMonth',
+						'counterArray',
+						'resultUsers',
+						'resultCategories',
+		));
 	}
 
 }
