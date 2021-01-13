@@ -29,7 +29,7 @@ class CreateProductsTable extends Migration
 	$table->string('cost3_description', 100)->nullable();
 	$table->integer('tax_rate');
 	$table->integer('price');
-	$table->integer('due_date');
+	$table->integer('due_date')->nullable();
 	$table->string('status', 50);
            $table->timestamps();
         });

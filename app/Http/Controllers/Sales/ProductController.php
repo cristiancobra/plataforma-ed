@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Product;
@@ -78,9 +79,28 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		Product::create($request->all());
+		$product = new Product();
+		$product->fill($request->all());
 
-		return redirect()->action('Sales\\ProductController@index');
+		$messages = [
+			'unique' => 'Já existe um contato com este :attribute.',
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:products',
+					'price' => 'required:products',
+						], $messages);
+
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$product->save();
+			
+			return redirect()->action('Sales\\ProductController@index');
+		}
 	}
 
 	/**
@@ -105,20 +125,20 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Product $product) {
-			$accountsId = Account::whereHas('users', function($query) {
-						$query->where('users.id', Auth::user()->id);
-					})
-					->pluck('id');
+		$accountsId = Account::whereHas('users', function($query) {
+					$query->where('users.id', Auth::user()->id);
+				})
+				->pluck('id');
 
-			$accounts = Account::whereHas('users', function($query) use($accountsId) {
-						$query->whereIn('account_id', $accountsId);
-					})
-					->get();
+		$accounts = Account::whereHas('users', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->get();
 
-			return view('sales.products.editProduct', compact(
-				'product',
-				'accounts',
-			));
+		return view('sales.products.editProduct', compact(
+						'product',
+						'accounts',
+		));
 	}
 
 	/**
@@ -147,4 +167,5 @@ class ProductController extends Controller {
 		$product->delete();
 		return redirect()->action('Sales\\ProductController@index');
 	}
+
 }
