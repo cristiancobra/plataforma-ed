@@ -161,12 +161,14 @@ class DashboardController extends Controller {
 			$departmentsMonthly[$department] = Journey::whereHas('task', function($query) use($department) {
 						$query->where('department', $department);
 					})
+					->where('user_id', Auth::user()->id)
 					->whereBetween('date', [$monthStart, $monthEnd])
 					->sum('duration');
 
 			$departmentsToday[$department] = Journey::whereHas('task', function($query) use($department) {
 						$query->where('department', $department);
 					})
+					->where('user_id', Auth::user()->id)
 					->where('date', date('Y-m-d'))
 					->sum('duration');
 		}
