@@ -576,13 +576,22 @@ if (!function_exists('returnProductStatus')) {
 // retorna todos os usuários  das minhas empresas (accounts)
 if (!function_exists('myUsers')) {
 
-	function myUsers() {
-		$users = User::whereHas('accounts', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->orderBy('NAME', 'ASC')
-				->get();
-		
+	function myUsers(array $relationships) {
+
+		if (isset($relationships)) {
+			$users = User::whereHas('accounts', function($query) {
+						$query->whereIn('account_id', userAccounts());
+					})
+					->with($relationships)
+					->orderBy('NAME', 'ASC')
+					->get();
+		} else {
+			$users = User::whereHas('accounts', function($query) {
+						$query->whereIn('account_id', userAccounts());
+					})
+					->orderBy('NAME', 'ASC')
+					->get();
+		}
 		return $users;
 	}
 

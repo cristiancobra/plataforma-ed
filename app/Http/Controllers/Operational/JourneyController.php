@@ -270,7 +270,7 @@ class JourneyController extends Controller {
 			$year = date('y');
 		}
 
-		$users = myUsers();
+		$users = myUsers(['contact']);
 
 		$counterArray = 1;
 		foreach ($users as $user) {
