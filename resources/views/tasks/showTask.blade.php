@@ -116,7 +116,7 @@
 				{{$journey->id}}
 			</td>
 			<td class="table-list-center">
-				{{$journey->user->name}}
+				{{$journey->user->contact->name}}
 			</td>
 			<td class="table-list-left">
 				{!!html_entity_decode($journey->description)!!}
