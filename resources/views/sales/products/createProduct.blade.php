@@ -28,7 +28,7 @@
 	<form action=" {{ route('product.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME:</label>
-		<input type="text" name="name" size="20" value="{{$product->name}}"><span class="fields"></span>
+		<input type="text" name="name" size="20" value="{{old('name')}}"><span class="fields"></span>
 		@if ($errors->has('name'))
 		<span class="text-danger">{{ $errors->first('name') }}</span>
 		@endif
