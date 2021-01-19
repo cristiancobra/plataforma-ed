@@ -20,25 +20,25 @@
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:15%">
 				<b>ID</b>
 			</td>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:20%">
 				<b>OPORTUNIDADE</b>
 			</td>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:15%">
 				<b>CONTRATANTE </b>
 			</td>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:15%">
 				<b>EMPRESA</b>
 			</td>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:10%">
 				<b>VENCIMENTO</b>
 			</td>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:10%">
 				<b>VALOR</b>
 			</td>
-			<td   class="table-list-header">
+			<td   class="table-list-header" style="width:10%">
 				<b>SITUAÇÃO</b>
 			</td>
 		</tr>

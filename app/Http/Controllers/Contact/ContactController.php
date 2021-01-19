@@ -26,7 +26,7 @@ class ContactController extends Controller {
 		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
-				->with('opportunities', 'companies')
+				->with('opportunities', 'companies','user')
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 //dd($contacts);
@@ -137,15 +137,13 @@ class ContactController extends Controller {
 		$companies = Company::whereHas('account', function($query) use($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
-				->paginate(20);
+				->get();
 
 		$companiesChecked = Company::whereHas('contacts', function($query) use($contact) {
 					$query->where('contact_id', $contact->id);
 				})
 				->pluck('id')
 				->toArray();
-				
-//			$companiesChecked = Company::with('contacts')->get();
 
 		$states = returnStates();
 

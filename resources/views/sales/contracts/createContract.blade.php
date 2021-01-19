@@ -69,6 +69,10 @@
 			</option>
 			@endforeach
 		</select>
+		<button class="button-round">
+			<a href=" {{route('contact.create')}}">
+				<i class='fa fa-plus' style="color:white"></i></a>
+		</button>
 		<br>
 		<label class="labels" for="" >PRIMEIRA TESTEMUNHA: </label>
 		<select name="witness1">
@@ -78,6 +82,10 @@
 			</option>
 			@endforeach
 		</select>
+		<button class="button-round">
+			<a href=" {{route('contact.create')}}">
+				<i class='fa fa-plus' style="color:white"></i></a>
+		</button>
 		<br>
 		<label class="labels" for="" >SEGUNDA TESTEMUNHA: </label>
 		<select name="witness2">
@@ -87,6 +95,10 @@
 			</option>
 			@endforeach
 		</select>
+		<button class="button-round">
+			<a href=" {{route('contact.create')}}">
+				<i class='fa fa-plus' style="color:white"></i></a>
+		</button>
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE INICIO:</label>
@@ -99,11 +111,15 @@
 		<label class="labels" for="" >MODELO DO CONTRATO: </label>
 		<select name="contractTemplate_id">
 			@foreach ($contractsTemplates as $contractTemplate)
-			<option  class="fields" value="{{ $contractTemplate->id }}">
-				{{ $contractTemplate->name }}
+			<option  class="fields" value="{{$contractTemplate->id}}">
+				{{$contractTemplate->name}}
 			</option>
 			@endforeach
 		</select>
+		<button class="button-round">
+			<a href=" {{route('contractTemplate.create')}}">
+				<i class='fa fa-plus' style="color:white"></i></a>
+		</button>
 		<br>
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="20" value=""><span class="fields"></span>

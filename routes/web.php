@@ -55,7 +55,8 @@ Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
 
 Route::resource('faturas', 'Financial\\InvoiceController')
 		->names('invoice')
-		->parameters(['faturas' => 'invoice']);
+		->parameters(['faturas' => 'invoice'])
+		->middleware('roles');
 
 Route::resource('planejamentos', 'Financial\\PlanningController')
 		->names('planning')

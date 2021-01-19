@@ -57,7 +57,7 @@ class Contact extends Model {
 		return $this->hasMany(Contract::class, 'id', 'contract_id');
 	}
 	public function companies() {
-		return $this->belongsToMany(Company::class, 'contacts_companies', 'contact_id', 'company_id');
+		return $this->belongsToMany(Company::class);
 	}
 	public function opportunities() {
 		return $this->hasMany(Opportunity::class, 'contact_id', 'id');

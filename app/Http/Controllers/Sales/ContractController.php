@@ -30,6 +30,7 @@ class ContractController extends Controller {
 					'account',
 					'company',
 					'user',
+					'userContact',
 				])
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
@@ -72,7 +73,7 @@ class ContractController extends Controller {
 		$contractsTemplates = ContractTemplate::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
-		
+
 		$companies = Company::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
@@ -128,9 +129,9 @@ class ContractController extends Controller {
 		$opportunities = Opportunity::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
-		
+
 		$userContact = userContact($contract->user_id);
-		
+
 		return view('sales.contracts.showContract', compact(
 						'contract',
 						'accounts',
@@ -180,7 +181,7 @@ class ContractController extends Controller {
 					$query->whereIn('accounts.id', $accountsId);
 				})
 				->get();
-				
+
 		$userContact = userContact($contract->user_id);
 
 		return view('sales.contracts.editContract', compact(
@@ -227,14 +228,14 @@ class ContractController extends Controller {
 			return redirect()->action('Sales\\ContractController@index');
 		}
 	}
-	
+
 // Generate PDF
 	public function createPDF(Contract $contract) {
 
 //		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 //				->with('product', 'opportunity')
 //				->get();
-		
+
 		$data = [
 			'accountLogo' => $contract->account->logo,
 			'accountName' => $contract->account->name,

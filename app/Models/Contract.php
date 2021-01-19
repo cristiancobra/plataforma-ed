@@ -46,4 +46,14 @@ class Contract extends Model {
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
+	public function userContact() {
+		return $this->hasOneThrough(
+				Contact::class, //model final
+				User::class, //model intermediario
+				'id', //nome da chave estrangeira no modelo intermediário
+				'id', //nome da chave estrangeira no modelo final
+				'user_id', // chave local
+				'contact_id' // chave local do modelo intermediário
+				);
+	}
 }

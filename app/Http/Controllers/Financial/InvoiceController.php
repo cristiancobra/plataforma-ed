@@ -23,34 +23,29 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$userAuth = Auth::user();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+		$accountsID = Account::whereHas('users', function($query) {
+					$query->where('users.id', Auth::user()->id);
+				})
+				->pluck('id');
 //dd($accountsID);
-			$invoices = Invoice::whereIn('account_id', $accountsID)
-					->with([
-						'opportunity',
-						'invoiceLines',
-						'account',
-						'user',
-					])
-					->orderBy('pay_day', 'DESC')
-					->paginate(20);
+		$invoices = Invoice::whereIn('account_id', $accountsID)
+				->with([
+					'opportunity',
+					'invoiceLines',
+					'account',
+					'user',
+				])
+				->orderBy('pay_day', 'DESC')
+				->paginate(20);
 //dd($invoices);
-			$totalInvoices = $invoices->count();
+		$totalInvoices = $invoices->count();
 
-			return view('financial.invoices.indexInvoices', [
-				'invoices' => $invoices,
-				'totalInvoices' => $totalInvoices,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('financial.invoices.indexInvoices', [
+			'invoices' => $invoices,
+			'totalInvoices' => $totalInvoices,
+			'userAuth' => $userAuth,
+		]);
 	}
 
 	/**

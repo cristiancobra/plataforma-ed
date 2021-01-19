@@ -65,7 +65,7 @@
 				{{$contract->contact->name}}
 			</td>
 			<td class="table-list-center">
-				{{$contract->user->contact->name}}
+				{{$contract->userContact->name}}
 			</td>
 			<td class="table-list-center">
 				{{date('d/m/Y', strtotime($contract->date_start))}}

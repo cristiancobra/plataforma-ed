@@ -85,20 +85,24 @@
 		<br>
 		<h2 class="name" for="">PROFISSIONAL</h2>
 		<label for="">Profissão: </label>
-		<input type="text" name="profession" value="{{ $contact->profession }}">
+		<input type="text" name="profession" value="{{$contact->profession}}">
 		<br>
 		<label for="">Empresa: </label>
 		<br>
 		@foreach ($companies as $company)
 		<p class="fields">
-			<input type="checkbox" name="companies[]" value="{{$company->id}}">
+			<input type="checkbox" name="companies[]" value="{{$company->id}}"
+				   @if (in_array($company->id, $companiesChecked))
+			checked
+			@endif
+			>
 			{{$company->name}}
 		</p>
 		@endforeach
 		<br>
 		<br>
 		<label for="">Cargo: </label>
-		<input type="text" name="job_position" value="{{ $contact->job_position }}">
+		<input type="text" name="job_position" value="{{$contact->job_position}}">
 		<br>
 		<label for="">Escolaridade: </label>
 		<select name="schollarity">
@@ -153,7 +157,7 @@
         <br>
         <br>
 
-	<h2 class="name" for="">LOCALIZAÇÃO</h2>
+		<h2 class="name" for="">LOCALIZAÇÃO</h2>
 		<label for="">Endereço: </label>
 		<input type="text" name="address" value="{{ $contact->address }}">   
 		<br>
@@ -164,7 +168,7 @@
 		<input type="text" name="neighborhood" value="{{ $contact->neighborhood }}">
 		<br>
 		<label for="">Estado: </label>
-			{{createDoubleSelect('state', 'fields', $states)}}
+		{{createDoubleSelect('state', 'fields', $states)}}
 		<br>
 		<label  for="">País: </label>
 		<input type="text" name="country" value="{{$contact->country}}">

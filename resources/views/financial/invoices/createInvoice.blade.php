@@ -63,12 +63,12 @@
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
-			<option  class="fields" value="{{ $userAuth->id}}" checked>
-				{{ $userAuth->name}}
+			<option  class="fields" value="{{Auth::user()->id}}" checked>
+				{{Auth::user()->contact->name}}
 			</option>
 			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->contact->name }}
+			<option  class="fields" value="{{$user->id}}">
+				{{$user->contact->name}}
 			</option>
 			@endforeach
 		</select>

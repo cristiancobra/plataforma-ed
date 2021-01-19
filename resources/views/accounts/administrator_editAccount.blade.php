@@ -16,7 +16,7 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('account.update', ['account' =>$account->id]) }} " method="post" style="padding: 40px;color: white">
+<form action=" {{ route('account.update', ['account' =>$account->id]) }} " method="post" style="color: white">
 	@csrf
 	@method('put')
 	<label class="labels" for="">Nome: </label>

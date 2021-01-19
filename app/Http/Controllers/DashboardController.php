@@ -37,7 +37,7 @@ class DashboardController extends Controller {
 			$users = User::whereHas('accounts', function($query) use($accountsId) {
 						$query->whereIn('account_id', $accountsId);
 					})
-					->orderBy('NAME', 'ASC')
+					->orderBy('ID', 'ASC')
 					->get();
 
 			foreach ($users as $user) {

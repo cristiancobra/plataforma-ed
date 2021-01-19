@@ -37,7 +37,7 @@
 <p>
 	São partes deste contrato a empresa contratada 
 	<span class="labels">{{$contract->account->name}}</span>
-		<button class="button-round">
+	<button class="button-round">
 		<a href=" {{ route('account.edit', ['account' => $contract->account->id]) }}">
 			<i class='fa fa-edit' style="color:white"></i></a>
 	</button>
@@ -52,28 +52,28 @@
 	CEP
 	<span class="labels">{{formatZipCode($contract->account->zip_code)}}</span>,
 	representada por
-	<span class="labels">{{$userContact->name}}</span>
+	<span class="labels">{{$contract->userContact->name}}</span>
 	<button class="button-round">
-		<a href=" {{ route('contact.edit', ['contact' => $userContact->contact_id]) }}">
+		<a href=" {{route('contact.edit', ['contact' => $contract->userContact->id])}}">
 			<i class='fa fa-edit' style="color:white"></i></a>
 	</button>
 	,
 	inscrito no CPF sob o nº
-	<span class="labels">{{formatCpf($userContact->contact->cpf)}}</span>,
+	<span class="labels">{{formatCpf($contract->userContact->cpf)}}</span>,
 	residente em
-	<span class="labels">{{$userContact->contact->address}}</span>,
+	<span class="labels">{{$contract->userContact->address}}</span>,
 	em
-	<span class="labels">{{$userContact->contact->city}}</span>,
+	<span class="labels">{{$contract->userContact->city}}</span>,
 	/
-	<span class="labels">{{$userContact->contact->state}}</span>,
+	<span class="labels">{{$contract->userContact->state}}</span>,
 	CEP:
-	<span class="labels">{{formatZipCode($userContact->contact->zip_code)}}</span> e,
+	<span class="labels">{{formatZipCode($contract->userContact->zip_code)}}</span> e,
 </p>
 <br>
 <p>
 	a empresa contratante
 	<span class="labels">{{$contract->company->name}}</span>
-		<button class="button-round">
+	<button class="button-round">
 		<a href=" {{ route('company.edit', ['company' => $contract->company->id]) }}">
 			<i class='fa fa-edit' style="color:white"></i></a>
 	</button>
