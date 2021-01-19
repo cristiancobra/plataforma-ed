@@ -73,25 +73,7 @@
 			<td class="table-list-center">
 				R$ {{number_format($invoice->totalPrice, 2,",",".") }}
 			</td>
-			<td class="table-list-center">
-				@if ($invoice->status == "cancelada")
-				<button class="btn btn-dark">
-					<b>{{ $invoice->status  }}</b>
-				</button>
-				@elseif ($invoice->status == "pendente")
-				<button class="btn btn-warning">
-					<b>{{ $invoice->status  }}</b>
-				</button>
-				@elseif ($invoice->status == "aprovada")
-				<button class="btn btn-info">
-					<b>{{ $invoice->status  }}</b>
-				</button>
-				@elseif ($invoice->status == "concluida")
-				<button class="btn btn-success">
-					<b>{{ $invoice->status  }}</b>
-				</button>
-				@endif
-			</td>
+			{{formatInvoiceStatus($invoice)}}
 		</tr>
 		@endforeach
 	</table>

@@ -215,36 +215,12 @@ td {
 }
 
 /*-------FATURAS-----*/
-
-.td-paid{
+.td-draft{
     display: table-cell;  
     font-size: 14px;
     color: black;
     vertical-align:super;
-    background-color: A5D9CC;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
-}
-
-.td-invoice{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
-    background-color: #A5D9CC;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
-}
-
-
-.td-invoice{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
-    background-color: #92C4D4;
+    background-color: #F9D0FF;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
@@ -255,42 +231,18 @@ td {
     font-size: 14px;
     color: black;
     vertical-align:super;
-    background-color: #F2E28C;
+    background-color: #C3FEEF;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
 }
 
-.td-bill{
+.td-paid{
     display: table-cell;  
     font-size: 14px;
     color: black;
     vertical-align:super;
-    background-color: #F7AFB4;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
-}
-
-.td-denied{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
-    background-color: #E5E5E5;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
-}
-
-
-
-.td-active{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
-    background-color: #E5E5E5;
+    background-color: #09FBBE;
     border-style: solid;
     border-width: 1px; 
     border-color: white;

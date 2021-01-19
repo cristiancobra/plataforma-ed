@@ -495,6 +495,30 @@ if (!function_exists('formatStatus')) {
 	}
 
 }
+// gera um botão com a formatação para STATUS / SITUAÇÃO da Fatura  a partir de  $model
+if (!function_exists('formatInvoiceStatus')) {
+
+	function formatInvoiceStatus($model) {
+		switch ($model->status) {
+			case 'rascunho':
+				echo '<td class="td-draft">rascunho</td>';
+				break;
+			case 'orçamento':
+				echo '<td class="td-pending">orçamento</td>';
+				break;
+			case 'cancelada':
+				echo '<td class="td-canceled">cancelada</td>';
+				break;
+			case 'aprovada':
+				echo '<td class="td-aproved">aprovada</td>';
+				break;
+			case 'paga':
+				echo '<td class="td-paid">paga</td>';
+				break;
+		}
+	}
+
+}
 // retorna o STATUS / SITUAÇÃO da tarefa 
 if (!function_exists('returnStatus')) {
 
@@ -530,6 +554,7 @@ if (!function_exists('returnInvoiceStatus')) {
 			'orçamento',
 			'cancelada',
 			'aprovada',
+			'paga',
 		);
 	}
 

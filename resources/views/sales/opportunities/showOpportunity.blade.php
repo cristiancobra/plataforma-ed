@@ -189,14 +189,14 @@ indefinida
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
 			<button class="button-round">
-				<a href=" {{ route('invoice.show', ['invoice' => $invoice->id]) }}">
+				<a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
 			<button class="button-round">
-				<a href=" {{ route('invoice.edit', ['invoice' => $invoice->id]) }}">
+				<a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
-			{{ $invoice->id }}
+			{{$invoice->id}}
 		</td>
 		<td class="table-list-center">
 			{{date('d/m/Y', strtotime($invoice->date_creation))}}
@@ -205,7 +205,7 @@ indefinida
 			{{date('d/m/Y', strtotime($invoice->pay_day))}}
 		</td>
 		<td class="table-list-right">
-			R$ {{number_format($invoice->totalPrice, 2,",",".") }}
+			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
 		</td>
 		<td class="table-list-center">
 			@if ($invoice->status == "cancelada")
