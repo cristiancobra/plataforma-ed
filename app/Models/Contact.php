@@ -66,7 +66,7 @@ class Contact extends Model {
 		return $this->hasMany(Task::class, 'id', 'contact_id');
 	}
 	public function user() {
-		return $this->belongsTo(Models\User::class, 'id', 'contact_id');
+		return $this->belongsTo(User::class, 'id', 'contact_id');
 	}
 
 //
