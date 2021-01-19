@@ -41,11 +41,10 @@ class InvoiceController extends Controller {
 //dd($invoices);
 		$totalInvoices = $invoices->count();
 
-		return view('financial.invoices.indexInvoices', [
-			'invoices' => $invoices,
-			'totalInvoices' => $totalInvoices,
-			'userAuth' => $userAuth,
-		]);
+		return view('financial.invoices.indexInvoices', compact(
+			'invoices',
+			'totalInvoices',
+		));
 	}
 
 	/**
