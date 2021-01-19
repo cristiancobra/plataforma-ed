@@ -32,14 +32,14 @@ class UserController extends Controller {
 		if ($request['role'] === "superadmin") {
 			$users = User::where('id', '>', 0)
 					->with('contact')
-					->orderBy('NAME', 'asc')
+//					->orderBy('NAME', 'asc')
 					->paginate(20);
 		} elseif ($request['role'] === "administrator") {
 			$users = User::whereHas('accounts', function($query) use($accountsId) {
 						$query->whereIn('accounts.id', $accountsId);
 					})
 					->with('contact')
-					->orderBy('NAME', 'asc')
+//					->orderBy('NAME', 'asc')
 					->paginate(20);
 		} else {
 			return redirect('/login');
