@@ -41,20 +41,20 @@ Total: <span class="labels">{{$totalContacts }} </span>
 <div>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header">
-				<b>Nome</b>
+			<td   class="table-list-header" style="width: 25%">
+				<b>NOME</b>
 			</td>
-			<td   class="table-list-header">
-				<b>Email</b>
+			<td   class="table-list-header" style="width: 20%">
+				<b>EMPRESA</b>
 			</td>
-			<td   class="table-list-header">
-				<b>Telefone</b>
+			<td   class="table-list-header" style="width: 20%">
+				<b>EMAIL</b>
 			</td>
-			<td   class="table-list-header">
-				<b>Cidade </b>
+			<td   class="table-list-header" style="width: 20%">
+				<b>TELEFONE</b>
 			</td>
-			<td   class="table-list-header">
-				<b>Dono</b>
+			<td   class="table-list-header" style="width: 15%">
+				<b>DONO</b>
 			</td>
 		</tr>
 
@@ -74,13 +74,28 @@ Total: <span class="labels">{{$totalContacts }} </span>
 				{{$contact->name}}
 			</td>
 			<td class="table-list-left">
+				@foreach ($contact->companies as $company)
+		<tr style="font-size: 14px">
+			<td class="table-list-left">
+				<a class="white" href=" {{route('company.show', ['company' => $company->id])}}">
+					<button class="button-round">
+						<i class='fa fa-eye'></i>
+					</button>
+				</a>
+				<a class="white" href=" {{route('company.edit', ['company' => $company->id])}}">
+					<button class="button-round">
+						<i class='fa fa-edit'></i>
+					</button>
+				</a>
+				{{$contact->company->name}}
+				<br>
+				@endforeach
+			</td>
+			<td class="table-list-left">
 				{{$contact->email}}
 			</td>
 			<td class="table-list-right">
 				{{$contact->phone}}
-			</td>
-			<td class="table-list-center">
-				{{$contact->city}}
 			</td>
 			<td class="table-list-center">
 				{{$contact->account->name}}

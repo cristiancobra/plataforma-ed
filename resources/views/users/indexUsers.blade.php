@@ -27,7 +27,7 @@ Total: <span class="labels">{{$totalUsers}} </span>
 <div style="text-align: right">
 	<form action="{{route('user.index')}}" method="post" style="color: #874983;display: inline-block">
 		@csrf
-		<input type="text" name="user_name" placeholder="nome do contato" value="">
+		<input type="text" name="user_name" placeholder="nome ou sobrenome" value="">
 		<select class="select" name="account_id">
 			<option  class="select" value="">
 				Qualquer empresa
