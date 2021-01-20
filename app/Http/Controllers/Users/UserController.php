@@ -21,16 +21,21 @@ class UserController extends Controller {
 	 */
 	public function index(Request $request) {
 
-		$accounts = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
+		$accounts = Account::whereHas('users', function($query) use($request) {
+					if ($request['role'] === "superadmin") {
+						$query->where('users.id', '>', 0);
+					} elseif ($request['role'] === "administrator" OR $request['role'] === "employee") {
+						$query->where('users.id', Auth::user()->id);
+					}
 				})
 				->get();
 
+
 		$accountsId = $accounts->pluck('id');
-		
+
 		$users = User::with('contact')
 				->whereHas('accounts', function($query) use($accountsId, $request) {
-					if ($request['role'] !== "superadmin") {
+					if ($request['role'] === "superadmin") {
 						$query->where('accounts.id', '>', 0);
 					} elseif ($request['role'] === "administrator" OR $request['role'] === "employee") {
 						$query->whereIn('accounts.id', $accountsId);
@@ -43,11 +48,9 @@ class UserController extends Controller {
 				})
 				->whereHas('contact', function($query) use ($request) {
 					if (!isset($request->contact_name)) {
-							$query->where('contacts.name', 'like', "%$request->user_name%");
-							
+						$query->where('contacts.name', 'like', "%$request->user_name%");
 					}
 				})
-						
 				->paginate(20);
 
 		$users->appends([
