@@ -17,6 +17,27 @@ Total: <span class="labels">{{$totalContacts }} </span>
 @endsection
 
 @section('main')
+<div style="text-align: right">
+	<form action="{{route('contact.index')}}" method="post" style="color: #874983;display: inline-block">
+		@csrf
+		<input type="text" name="name" placeholder="nome do contato" value="">
+		<select class="select" name="account_id">
+			<option  class="select" value="">
+				Qualquer empresa
+			</option>
+			@foreach ($accounts as $account)
+			<option  class="select" value="{{$account->id}}">
+				{{$account->name}}
+			</option>
+			@endforeach
+			<option  class="select" value="">
+				todas
+			</option>
+		</select>
+		<input class="btn btn-secondary" type="submit" value="FILTRAR">
+	</form>
+</div>
+<br>
 <div>
 	<table class="table-list">
 		<tr>

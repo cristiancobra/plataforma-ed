@@ -20,39 +20,48 @@ class UserController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$userAuth = Auth::user();
 
-		$accounts = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
+		$accounts = Account::whereHas('users', function($query) {
+					$query->where('users.id', Auth::user()->id);
 				})
 				->get();
-				
+
 		$accountsId = $accounts->pluck('id');
-
-		if ($request['role'] === "superadmin") {
-			$users = User::where('id', '>', 0)
-					->with('contact')
-//					->orderBy('NAME', 'asc')
-					->paginate(20);
-		} elseif ($request['role'] === "administrator") {
-			$users = User::whereHas('accounts', function($query) use($accountsId) {
+		
+		$users = User::with('contact')
+				->whereHas('accounts', function($query) use($accountsId, $request) {
+					if ($request['role'] !== "superadmin") {
+						$query->where('accounts.id', '>', 0);
+					} elseif ($request['role'] === "administrator" OR $request['role'] === "employee") {
 						$query->whereIn('accounts.id', $accountsId);
-					})
-					->with('contact')
-//					->orderBy('NAME', 'asc')
-					->paginate(20);
-		} else {
-			return redirect('/login');
-		}
-//dd($users);
-		$totalUsers = $users->count();
+					}
+					if (isset($request->account_id)) {
+						$query->where('account_id', '=', $request->account_id);
+					} else {
+						$query->where('accounts.id', '>', 0);
+					}
+				})
+				->whereHas('contact', function($query) use ($request) {
+					if (!isset($request->contact_name)) {
+							$query->where('contacts.name', 'like', "%$request->user_name%");
+							
+					}
+				})
+						
+				->paginate(20);
 
-		return view('users.indexUsers', [
-			'users' => $users,
-			'accounts' => $accounts,
-			'userAuth' => $userAuth,
-			'totalUsers' => $totalUsers,
+		$users->appends([
+			'name' => $request->name,
+			'account_id' => $request->account_id,
 		]);
+
+		$totalUsers = $users->total();
+
+		return view('users.indexUsers', compact(
+						'users',
+						'accounts',
+						'totalUsers',
+		));
 	}
 
 	/**
@@ -107,7 +116,6 @@ class UserController extends Controller {
 				'accounts' => $accounts,
 				'accountsChecked' => $accountsChecked,
 				'contacts' => $contacts,
-				
 			]);
 		} else {
 			return redirect('/login');

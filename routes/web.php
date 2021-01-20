@@ -151,7 +151,12 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
+Route::any('/contatos/filtros', 'Contact\\ContactController@index')
+		->name('contact.index')
+		->middleware('roles');
+
 Route::resource('contacts', 'Contact\\ContactController')
+		->except(['index'])
 		->names('contact')
 		->parameters(['contatos' => 'contacts'])
 		->middleware('roles');
@@ -190,8 +195,11 @@ Route::resource('produtos', 'Sales\\ProductController')
 		->middleware('roles');
 
 // ------------------------------------------------ SITE  ------------------------------------------------
-Route::get('/editarsite', 'SiteCliente@EditarSite')->name('editar-site');
-Route::get('/postarsite', 'SiteCliente@PostarSite')->name('postar-site');
+Route::get('/editarsite', 'SiteCliente@EditarSite')
+		->name('editar-site');
+
+Route::get('/postarsite', 'SiteCliente@PostarSite')
+		->name('postar-site');
 
 // ================================ TASKS ===================
 Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')
@@ -205,7 +213,12 @@ Route::resource('tarefas', 'Tasks\\TaskController')
 		->middleware('roles');
 
 // ============================================== USERS =================================
+Route::any('/usuarios/filtros', 'Users\\UserController@index')
+		->name('user.index')
+		->middleware('roles');
+
 Route::resource('usuarios', 'Users\\UserController')
+		->except(['index'])
 		->names('user')
 		->parameters(['usuarios' => 'user'])
 		->middleware('roles');

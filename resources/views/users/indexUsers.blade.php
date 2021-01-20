@@ -3,18 +3,7 @@
 @section('title')
 <h1 style="text-align: left">
 	FUNCIONÁRIOS
-<form action="{{route('user.index')}}" method="post" style="color: #874983;display: inline-block">
-	@csrf
-	<select class="select"name="account_id">
-		@foreach ($accounts as $account)
-		<option  class="fields" value="{{ $account->id }}">
-			{{ $account->name }}
-		</option>
-		@endforeach
-	</select>
-	<input class="button-secondary" type="submit" value="FILTRAR">
-</form>
-	</h1>
+</h1>
 @endsection
 
 @section('image-top')
@@ -35,6 +24,27 @@ Total: <span class="labels">{{$totalUsers}} </span>
 @endsection
 
 @section('main')
+<div style="text-align: right">
+	<form action="{{route('user.index')}}" method="post" style="color: #874983;display: inline-block">
+		@csrf
+		<input type="text" name="user_name" placeholder="nome do contato" value="">
+		<select class="select" name="account_id">
+			<option  class="select" value="">
+				Qualquer empresa
+			</option>
+			@foreach ($accounts as $account)
+			<option  class="select" value="{{$account->id}}">
+				{{$account->name}}
+			</option>
+			@endforeach
+			<option  class="select" value="">
+				todas
+			</option>
+		</select>
+		<input class="btn btn-secondary" type="submit" value="FILTRAR">
+	</form>
+</div>
+<br>
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header">

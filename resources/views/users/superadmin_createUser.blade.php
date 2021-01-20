@@ -28,7 +28,7 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('user.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{route('user.store')}} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels"'for="" >Empresa: </label>
 		<label for="" >Empresas: </label>
@@ -39,7 +39,7 @@
 			checked
 			@endif
 			>
-			{{ $account->name }}
+			{{$account->name}}
 		</p>
 		@endforeach
 		<br>

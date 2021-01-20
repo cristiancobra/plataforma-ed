@@ -20,22 +20,39 @@ class ContactController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 		$accountsId = userAccounts();
-
+		
 		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
-				->with('opportunities', 'companies','user')
+				->whereHas('account', function($query) use($request) {
+					if(isset($request->account_id)) {
+						$query->where('account_id', '=', $request->account_id);
+					}else{
+						$query->where('accounts.id', '>', 0);
+					}
+				})
+				->where(function($query) use($request) {
+					if ($request->name) {
+						$query->where('name', 'like', "%$request->name%");
+					}
+				})
+				->with('opportunities', 'companies', 'user')
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
-//dd($contacts);
-		$totalContacts = $contacts->count();
 
-		return view('contacts.indexContacts', [
-			'contacts' => $contacts,
-			'totalContacts' => $totalContacts,
-		]);
+		$accounts = Account::whereIn('id', $accountsId)
+				->orderBy('ID', 'ASC')
+				->get();
+
+		$totalContacts = $contacts->total();
+
+		return view('contacts.indexContacts', compact(
+			'contacts',
+			'accounts',
+			'totalContacts',
+		));
 	}
 
 	/**
