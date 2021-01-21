@@ -35,11 +35,11 @@
 		<label class="labels" for="" >RESPONSÁVEL NA MINHA EMPRESA: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{$contract->user_id}}">
-				{{$userContact->name}}
+				{{$contract->user->contact->name}}
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{$user->id}}">
-				{{$user->name}}
+				{{$user->contact->name}}
 			</option>
 			@endforeach
 		</select>
@@ -55,6 +55,9 @@
 			</option>
 			@endforeach
 		</select>
+		<br>
+		<label class="labels" for="" >FATURA: </label>
+			{{editSelect('invoice_id', 'fields', $invoices, $contract->invoice_id)}}
 		<br>
 		<br>
 		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>

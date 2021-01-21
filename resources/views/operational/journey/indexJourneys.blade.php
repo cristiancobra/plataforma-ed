@@ -17,7 +17,7 @@
 
 @section('main')
 <div style="text-align:right">
-	<form action=" {{ route('journey.index') }} " method="post" style="color: #874983;display: inline-block">
+	<form action=" {{route('journey.index')}} " method="post" style="color: #874983;display: inline-block">
 		@csrf
 		<select class="select"name="user_id">
 			<option  class="fields" value="">
@@ -27,7 +27,7 @@
 				TODOS
 			</option>
 			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
+			<option  class="fields" value="{{$user->id}}">
 				{{$user->name}}
 			</option>
 			@endforeach
@@ -81,7 +81,7 @@
 
 		</td>
 		<td class="table-list-center">
-			{{$journey->user->name}}
+			{{$journey->user->contact->name}}
 		</td>
 		<td class="table-list-center">
 			{{date('H:i', strtotime($journey->start_time))}}

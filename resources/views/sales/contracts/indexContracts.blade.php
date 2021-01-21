@@ -62,7 +62,7 @@
 				{{$contract->account->name}}
 			</td>
 			<td class="table-list-center">
-				{{$contract->contact->name}}
+				{{$contract->company->name}}
 			</td>
 			<td class="table-list-center">
 				{{$contract->userContact->name}}

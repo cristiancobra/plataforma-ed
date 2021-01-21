@@ -24,12 +24,9 @@ class InvoiceController extends Controller {
 	 */
 	public function index() {
 
-		$accountsID = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
-				})
-				->pluck('id');
-//dd($accountsID);
-		$invoices = Invoice::whereIn('account_id', $accountsID)
+		$accountsId = userAccounts();
+
+		$invoices = Invoice::whereIn('account_id', $accountsId)
 				->with([
 					'opportunity',
 					'invoiceLines',
@@ -38,12 +35,12 @@ class InvoiceController extends Controller {
 				])
 				->orderBy('pay_day', 'DESC')
 				->paginate(20);
-//dd($invoices);
+
 		$totalInvoices = $invoices->count();
 
 		return view('financial.invoices.indexInvoices', compact(
-			'invoices',
-			'totalInvoices',
+						'invoices',
+						'totalInvoices',
 		));
 	}
 
@@ -179,17 +176,14 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Invoice $invoice) {
-		$userAuth = Auth::user();
-
 		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 				->with('product', 'opportunity')
 				->get();
-//dd($invoice->user);
-		return view('financial.invoices.showInvoice', [
-			'userAuth' => $userAuth,
-			'invoice' => $invoice,
-			'invoiceLines' => $invoiceLines,
-		]);
+
+		return view('financial.invoices.showInvoice', compact(
+			'invoice',
+			'invoiceLines',
+		));
 	}
 
 	/**

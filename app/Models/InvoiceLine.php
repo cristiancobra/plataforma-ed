@@ -8,7 +8,16 @@ class InvoiceLine extends Model {
 
 	protected $table = 'invoice_lines';
 	protected $fillable = [
-		'id', 'account_id', 'opportunitie_id', 'amount', 'subtotalHours', 'subtotalCost', 'subtotalTax_rate', 'subtotalPrice', 'subtotalMargin', 'invoice_id',
+		'id',
+		'account_id',
+		'opportunitie_id',
+		'invoice_id',
+		'amount',
+		'subtotalHours',
+		'subtotalCost',
+		'subtotalTax_rate',
+		'subtotalPrice',
+		'subtotalMargin',
 	];
 	protected $hidden = [
 	];

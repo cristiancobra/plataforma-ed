@@ -105,12 +105,104 @@
 	CEP:
 	<span class="labels">{{formatZipCode($contract->contact->zip_code)}}</span>.
 </p>
+<br>
 <h3>
 	Serviços/produtos contratados
 </h3>
 <p>
 	Segue abaixo a lista de itens contratados e suas especificidades:
 </p>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 5%">
+			<b>QTDE
+			</b></td>
+		<td   class="table-list-header" style="width: 55%">
+			<b>NOME</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>PRAZO</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>IMPOSTO </b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>UNITÁRIO</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>TOTAL</b>
+		</td>
+	</tr>
+
+	@foreach ($invoiceLines as $invoiceLine)
+	<tr style="font-size: 14px">
+		<td class="table-list-center">
+			{{$invoiceLine->amount}}
+		</td>
+		<td class="table-list-left">
+			{{$invoiceLine->product->name}}
+		</td>
+		<td class="table-list-center">
+			{{$invoiceLine->subtotalDeadline}} dia(s)
+		</td>
+		<td class="table-list-right">
+			{{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
+		</td>
+		<td class="table-list-right">
+			{{number_format($invoiceLine->product->price,2,",",".")}}
+		</td>
+		<td class="table-list-right">
+			{{number_format($invoiceLine->subtotalPrice,2,",",".")}}
+		</td>
+	</tr>
+
+	<tr style="font-size: 12px">
+		<td class="table-list-left" colspan="5">
+			{!!html_entity_decode($invoiceLine->product->description)!!}
+		</td>
+	</tr>
+	@endforeach
+
+	<tr>
+		<td   class="table-list-header-right" colspan="4">
+		</td>
+		<td   class="table-list-header-right">
+			desconto: 
+		</td>
+		<td   class="table-list-header-right">
+			<b>- {{number_format($contract->invoice->discount, 2,",",".") }}</b>
+		</td>
+	</tr>
+	<tr>
+		<td   class="table-list-header-right" colspan="4">
+
+		<td   class="table-list-header-right">
+			TOTAL: 
+		</td>
+		</td>
+		<td   class="table-list-header-right">
+			<b>R$ {{number_format($contract->invoice->totalPrice, 2,",",".") }}</b>
+		</td>
+	</tr>
+</table>
+<br>
+<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+<span class="fields">{{$contract->invoice->payment_method}}</span>
+<br>
+<label class="labels" for="" >PARCELAMENTO: </label>
+@if($contract->invoice->number_installment == 1)
+<span class="fields">À vista</span>
+@else
+<span class="fields">{{$contract->invoice->number_installment}} x {{$contract->invoice->number_installment_value}}</span>
+@endif
+<br>
+<br>
+</p>
+<br>
+<h3>
+	Condições gerais
+</h3>
 <p>
 	{!!html_entity_decode($contract->text)!!}
 </p>

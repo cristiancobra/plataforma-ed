@@ -47,11 +47,7 @@ class JourneyController extends Controller {
 			'user_id' => $request->user_id,
 		]);
 
-		$users = User::whereHas('accounts', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
-				})
-				->orderBy('NAME', 'ASC')
-				->get();
+		$users = myUsers();
 
 		$accounts = Account::whereHas('users', function($query) use($userAuth) {
 					$query->where('users.id', $userAuth->id);

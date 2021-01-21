@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','JORNADAS')
+@section('title','PRODUTIVIDADE')
 
 @section('image-top')
 {{ asset('imagens/journey.png') }} 

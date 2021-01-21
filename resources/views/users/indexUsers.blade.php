@@ -1,10 +1,6 @@
 @extends('layouts/master')
 
-@section('title')
-<h1 style="text-align: left">
-	FUNCIONÁRIOS
-</h1>
-@endsection
+@section('title', 'FUNCIONÁRIOS')
 
 @section('image-top')
 {{ asset('imagens/colaborador.png') }} 

@@ -29,17 +29,16 @@ class Invoice extends Model {
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
-
+	public function contract() {
+		return $this->belongsTo(Contract::class);
+	}
 	public function invoiceLines() {
 		return $this->hasMany(InvoiceLine::class, 'id', 'invoice_id');
 	}
-
 	public function opportunity() {
 		return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
 	}
-
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
-
 }

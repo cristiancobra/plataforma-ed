@@ -11,6 +11,8 @@ use App\Models\ContractTemplate;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Models\Invoice;
+use App\Models\InvoiceLine;
 use App\Models\Opportunity;
 use App\Models\User;
 
@@ -31,10 +33,13 @@ class ContractController extends Controller {
 					'company',
 					'user',
 					'userContact',
+//					'invoice',
+					'invoice.invoiceLines.product',
 				])
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
+//		dd($contracts);
 		$totalContracts = $contracts->count();
 
 		return view('sales.contracts.indexContracts', compact(
@@ -129,6 +134,10 @@ class ContractController extends Controller {
 		$opportunities = Opportunity::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
+		
+		$invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
+				->with('product', 'opportunity')
+				->get();
 
 		$userContact = userContact($contract->user_id);
 
@@ -138,6 +147,7 @@ class ContractController extends Controller {
 						'users',
 						'opportunities',
 						'contacts',
+						'invoiceLines',
 						'userContact',
 		));
 	}
@@ -162,6 +172,11 @@ class ContractController extends Controller {
 		$companies = Company::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
+
+		$invoices = Invoice::whereIn('account_id', $accountsId)
+				->orderBy('ID', 'ASC')
+				->pluck('id')
+				->toArray();
 
 		$witness1 = Contact::find($contract->witness1);
 		$witnessName1 = $witness1->name;
@@ -190,6 +205,7 @@ class ContractController extends Controller {
 						'opportunities',
 						'contacts',
 						'companies',
+						'invoices',
 						'witnessName1',
 						'witnessName2',
 						'contractsTemplates',
