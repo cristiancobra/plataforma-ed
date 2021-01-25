@@ -129,6 +129,7 @@
 		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
+		<p>Informações internas, não aparecerão no contrato final (PDF).</p>
 		<textarea id="observations" name="observations" rows="20" cols="90">
 {{$contract->observations}}
 		</textarea>

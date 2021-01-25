@@ -206,6 +206,15 @@
 <p>
 	{!!html_entity_decode($contract->text)!!}
 </p>
+<h3>
+	Observações
+</h3>
+		<p>
+			Informações internas, não aparecerão no contrato final (PDF).
+		</p>
+<p>
+	{!!html_entity_decode($contract->observations)!!}
+</p>
 <br>
 <br>
 <p class="labels"> <b> Criado em:  </b>{{date('d/m/Y H:i', strtotime($contract->created_at))}}</p>
