@@ -56,22 +56,22 @@
 						<i class='fa fa-edit' style="color:white"></i>
 					</a>
 				</button>
-				{{ $invoice->id }}
+				{{$invoice->identifier}}
 			</td>
 			<td class="table-list-center">
-				{{ $invoice->opportunity->name}}
+				{{$invoice->opportunity->name}}
 			</td>
 			<td class="table-list-center">
-				{{ $invoice->opportunity->contact->name}}
+				{{$invoice->opportunity->contact->name}}
 			</td>
 			<td class="table-list-center">
-				{{ $invoice->account->name}}
+				{{$invoice->account->name}}
 			</td>
 			<td class="table-list-center">
-				{{ date('d/m/Y', strtotime($invoice->pay_day)) }}
+				{{date('d/m/Y', strtotime($invoice->pay_day))}}
 			</td>
 			<td class="table-list-center">
-				R$ {{number_format($invoice->totalPrice, 2,",",".") }}
+				R$ {{number_format($invoice->installment_value, 2,",",".")}}
 			</td>
 			{{formatInvoiceStatus($invoice)}}
 		</tr>

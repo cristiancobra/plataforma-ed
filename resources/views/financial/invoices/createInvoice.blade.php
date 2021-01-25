@@ -49,7 +49,7 @@
 		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
 		@else
 		<select name="opportunity_id">
-			<option  class="fields" value="selecione">
+			<option  class="fields" value="">
 				selecione
 			</option>
 			@foreach ($opportunities as $opportunity)
@@ -59,6 +59,9 @@
 			@endforeach
 		</select>
 		<a class="btn btn-secondary" href="{{route('opportunity.create')}}">CRIAR</a>
+		@endif
+		@if ($errors->has('opportunity_id'))
+		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
 		@endif
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
@@ -208,7 +211,7 @@ CKEDITOR.replace('description');
 		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1">
 		<br>
 		<label class="labels" for="" >NÚMERO DESTA PARCELA: </label>
-		<input type="number"  class="fields" style="text-align: right" name="number_installment" value="{{$invoice->number_installment}}">
+		<input type="number"  class="fields" style="text-align: right" name="number_installment" value="1">
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

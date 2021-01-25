@@ -33,13 +33,11 @@ class ContractController extends Controller {
 					'company',
 					'user',
 					'userContact',
-//					'invoice',
 					'invoice.invoiceLines.product',
 				])
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
-//		dd($contracts);
 		$totalContracts = $contracts->count();
 
 		return view('sales.contracts.indexContracts', compact(
