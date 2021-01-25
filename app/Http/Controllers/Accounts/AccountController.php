@@ -130,7 +130,7 @@ class AccountController extends Controller {
 			$states = returnStates();
 
 			if ($request['role'] === "superadmin") {
-				$users = User::where('id', '>', 0)
+				$users = User::where('users.id', '>', 0)
 						->join('contacts', 'contacts.id', '=', 'users.contact_id')
 						->orderBy('NAME', 'asc')
 						->get();
