@@ -231,10 +231,15 @@ class ContractController extends Controller {
 		$contract->fill($request->all());
 		$contract->save();
 
+		$invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
+				->with('product', 'opportunity')
+				->get();
+
 		$userContact = userContact($contract->user_id);
 
 		return view('sales.contracts.showContract', compact(
 						'contract',
+						'invoiceLines',
 						'userContact',
 		));
 	}
