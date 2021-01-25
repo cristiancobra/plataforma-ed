@@ -204,14 +204,15 @@
 	Condições gerais
 </h3>
 <p>
-	{!!html_entity_decode($contract->text)!!}
+	{{$contract->text)}}
 </p>
+<br>
 <h3>
 	Observações
 </h3>
-		<p>
-			Informações internas, não aparecerão no contrato final (PDF).
-		</p>
+<p>
+	Informações internas, não aparecerão no contrato final (PDF).
+</p>
 <p>
 	{!!html_entity_decode($contract->observations)!!}
 </p>
