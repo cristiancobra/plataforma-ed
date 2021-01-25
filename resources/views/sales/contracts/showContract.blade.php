@@ -204,7 +204,7 @@
 	Condições gerais
 </h3>
 <p>
-	{{$contract->text)}}
+	{{$contract->text}}
 </p>
 <br>
 <h3>
