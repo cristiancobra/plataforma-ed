@@ -96,7 +96,11 @@ class OpportunityController extends Controller {
 			$users = User::whereHas('accounts', function($query) use($accountsID) {
 						$query->whereIn('account_id', $accountsID);
 					})
-					->with('contact')
+					->join('contacts', 'contacts.id', '=', 'users.contact_id')
+					->select(
+							'users.id as id',
+							'contacts.name as name',
+					)
 					->orderBy('NAME', 'ASC')
 					->get();
 
