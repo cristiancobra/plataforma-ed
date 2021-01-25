@@ -119,55 +119,50 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Account $account, Request $request) {
-			$userAuth = Auth::user();
 
-			$usersChecked = User::whereHas('accounts', function($query) use($account) {
-						$query->where('account_id', $account->id);
-					})
-					->pluck('id')
-					->toArray();
+		$usersChecked = User::whereHas('accounts', function($query) use($account) {
+					$query->where('account_id', $account->id);
+				})
+				->pluck('id')
+				->toArray();
 
-			$states = returnStates();
+		$states = returnStates();
 
-			if ($request['role'] === "superadmin") {
-				$users = User::where('users.id', '>', 0)
-						->join('contacts', 'contacts.id', '=', 'users.contact_id')
-						->orderBy('NAME', 'asc')
-						->get();
+		if ($request['role'] === "superadmin") {
+			$users = User::where('users.id', '>', 0)
+					->join('contacts', 'contacts.id', '=', 'users.contact_id')
+					->select(
+							'users.id as id',
+							'contacts.name as name',
+					)
+					->orderBy('NAME', 'asc')
+					->get();
 
-				return view('accounts.superadmin_editAccount', compact(
-					'users',
-					'usersChecked',
-					'account',
-					'states',
-				));
-			} elseif ($request['role'] === "administrator") {
-				$accountsID = Account::whereHas('users', function($query) {
-							$query->where('users.id', Auth::user()->id);
-						})
-						->pluck('id');
-
-				$users = User::whereHas('accounts', function($query) use($accountsID) {
-							$query->where('accounts.id', $accountsID->first());
-						})
-						->get();
-			} else {
-				return redirect('/login');
-			}
-
-			$usersChecked = User::whereHas('accounts', function($query) use($account) {
-						$query->where('account_id', $account->id);
-					})
-					->pluck('id')
-					->toArray();
-
-			return view('accounts.administrator_editAccount', compact(
-				'users',
-				'usersChecked',
-				'account',
-				'states',
+			return view('accounts.superadmin_editAccount', compact(
+							'users',
+							'usersChecked',
+							'account',
+							'states',
 			));
+		} elseif ($request['role'] === "administrator") {
+			$accountsId = Account::whereHas('users', function($query) {
+						$query->where('users.id', Auth::user()->id);
+					})
+					->pluck('id');
+
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
+						$query->where('accounts.id', $accountsId->first());
+					})
+					->join('contacts', 'contacts.id', '=', 'users.contact_id')
+					->select(
+							'users.id as id',
+							'contacts.name as name',
+					)
+					->get();
+		} else {
+			return redirect('/login');
 		}
+	}
 
 	/**
 	 * Update the specified resource in storage.
