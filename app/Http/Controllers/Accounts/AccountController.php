@@ -118,7 +118,7 @@ class AccountController extends Controller {
 	 * @param  \App\Models\Account  $account
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Account $account, Request $request) { {
+	public function edit(Account $account, Request $request) {
 			$userAuth = Auth::user();
 
 			$usersChecked = User::whereHas('accounts', function($query) use($account) {
@@ -168,7 +168,6 @@ class AccountController extends Controller {
 				'states',
 			));
 		}
-	}
 
 	/**
 	 * Update the specified resource in storage.
