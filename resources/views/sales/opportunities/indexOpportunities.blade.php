@@ -103,13 +103,13 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 				<a href=" {{ route('opportunity.edit', ['opportunity' => $opportunity->id]) }}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
-			{{ $opportunity->name }}
+			{{$opportunity->name}}
 		</td>
 		<td class="table-list-center">
-			{{ $opportunity->contact->name }}
+			{{$opportunity->contact->name}}
 		</td>
 		<td class="table-list-center">
-			{{ $opportunity->user->name }}
+			{{$opportunity->user->contact->name}}
 		</td>
 		{{formatStage($opportunity)}}
 	</tr>
@@ -117,7 +117,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 </table>
 <p style="text-align: right">
 	<br>
-	{{ $opportunities->links() }}
+	{{$opportunities->links()}}
 </p>
 <br>
 @endsection
