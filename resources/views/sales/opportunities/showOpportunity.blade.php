@@ -168,17 +168,20 @@ indefinida
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 5%">
+		<td   class="table-list-header" style="width: 10%">
 			<b>ID</b>
 		</td>
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 20%">
 			<b>DATA CRIAÇÃO </b>
 		</td>
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 20%">
 			<b>DATA PAGAMENTO</b>
 		</td>
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 20%">
 			<b>VALOR TOTAL</b>
+		</td>
+		<td   class="table-list-header" style="width: 20%">
+			<b>VALOR DA PARCELA</b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
 			<b>SITUAÇÃO</b>
@@ -196,7 +199,7 @@ indefinida
 				<a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
-			{{$invoice->id}}
+			{{$invoice->identifier}}
 		</td>
 		<td class="table-list-center">
 			{{date('d/m/Y', strtotime($invoice->date_creation))}}
@@ -207,25 +210,10 @@ indefinida
 		<td class="table-list-right">
 			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
 		</td>
-		<td class="table-list-center">
-			@if ($invoice->status == "cancelada")
-			<button class="btn btn-dark">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "pendente")
-			<button class="btn btn-warning">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "fazendo agora")
-			<button class="btn btn-info">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@elseif ($invoice->status == "concluida")
-			<button class="btn btn-success">
-				<b>{{ $invoice->status  }}</b>
-			</button>
-			@endif
+		<td class="table-list-right">
+			R$ {{number_format($invoice->installment_value, 2,",",".")}}
 		</td>
+	{{formatInvoiceStatus($invoice)}}
 	</tr>
 	@endforeach
 </table>
