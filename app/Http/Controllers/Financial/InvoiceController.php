@@ -126,11 +126,7 @@ class InvoiceController extends Controller {
 				$invoice->user_id = $request->user_id;
 				$invoice->account_id = $request->account_id;
 				$invoice->date_creation = $request->date_creation;
-				if ($counter == 1) {
-					$invoice->pay_day = $request->pay_day;
-				} else {
-					$invoice->pay_day = date("Y-m-d", strtotime("+" . $counter . " month", strtotime($request->pay_day)));
-				}
+				$invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter -1). " month", strtotime($request->pay_day)));
 				$invoice->description = $request->description;
 				$invoice->discount = $request->discount;
 				$invoice->status = $request->status;
