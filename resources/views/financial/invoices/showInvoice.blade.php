@@ -19,6 +19,8 @@
 @endsection
 
 @section('main')
+<label class="labels" for="" >IDENTIFICADOR:</label>
+<span class="fields">{{$invoice->identifier}}</span>
 <br>
 <label class="labels" for="" >DONO:</label>
 <span class="fields">{{$invoice->account->name}}</span>
@@ -115,7 +117,7 @@
 			desconto: 
 		</td>
 		<td   class="table-list-header-right">
-			<b>- {{number_format($invoice->discount, 2,",",".") }}</b>
+			<b>- {{number_format($invoice->discount, 2,",",".")}}</b>
 		</td>
 	</tr>
 	<tr>
@@ -126,7 +128,7 @@
 		</td>
 		</td>
 		<td   class="table-list-header-right">
-			<b>R$ {{number_format($invoice->totalPrice, 2,",",".") }}</b>
+			<b>R$ {{number_format($invoice->totalPrice, 2,",",".")}}</b>
 		</td>
 	</tr>
 </table>
@@ -135,10 +137,10 @@
 <span class="fields">{{$invoice->payment_method}}</span>
 <br>
 <label class="labels" for="" >PARCELAMENTO: </label>
-@if($invoice->number_installment == 1)
+@if($invoice->number_installment_total == 1)
 <span class="fields">À vista</span>
 @else
-<span class="fields">{{$invoice->number_installment}} x {{$invoice->number_installment_value}}</span>
+<span class="fields">{{$invoice->number_installment_total}} x R$ {{number_format($invoice->installment_value, 2,",",".")}}</span>
 @endif
 <br>
 <br>

@@ -201,6 +201,16 @@ CKEDITOR.replace('description');
 		<input type="number" min="0" step="any" name="discount" size="20"><span class="fields"></span>
 		<br>
 		<br>
+		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+		{{editSelect('payment_method', 'fields', returnPaymentMethods(), $invoice->payment_method)}}
+		<br>
+		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
+		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1">
+		<br>
+		<label class="labels" for="" >NÚMERO DESTA PARCELA: </label>
+		<input type="number"  class="fields" style="text-align: right" name="number_installment" value="{{$invoice->number_installment}}">
+		<br>
+		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		@if(!empty(app('request')->input('invoiceStatus')))
 		<input type="hidden" name="status" value="{{app('request')->input('invoiceStatus')}}">

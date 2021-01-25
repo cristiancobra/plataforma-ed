@@ -71,6 +71,11 @@ class ContractController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->get();
 
+		$invoices = Invoice::whereIn('account_id', $accountsId)
+				->orderBy('ID', 'DESC')
+				->pluck('id')
+				->toArray();
+
 		$opportunities = Opportunity::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
@@ -87,6 +92,7 @@ class ContractController extends Controller {
 						'contract',
 						'accounts',
 						'users',
+						'invoices',
 						'opportunities',
 						'contacts',
 						'contractsTemplates',
@@ -134,7 +140,7 @@ class ContractController extends Controller {
 		$opportunities = Opportunity::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
-		
+
 		$invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
 				->with('product', 'opportunity')
 				->get();
@@ -174,7 +180,7 @@ class ContractController extends Controller {
 				->get();
 
 		$invoices = Invoice::whereIn('account_id', $accountsId)
-				->orderBy('ID', 'ASC')
+				->orderBy('ID', 'DESC')
 				->pluck('id')
 				->toArray();
 

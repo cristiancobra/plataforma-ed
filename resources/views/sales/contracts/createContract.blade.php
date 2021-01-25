@@ -32,7 +32,7 @@
 		<select name="user_id">
 			@foreach ($users as $user)
 			<option  class="fields" value="{{$user->id}}">
-				{{$user->name}}
+				{{$user->contact->name}}
 			</option>
 			@endforeach
 		</select>
@@ -45,6 +45,9 @@
 			</option>
 			@endforeach
 		</select>
+		<br>
+		<label class="labels" for="" >FATURA: </label>
+		{{createSelect('invoice_id', 'fields', $invoices)}}
 		<br>
 		<br>
 		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
