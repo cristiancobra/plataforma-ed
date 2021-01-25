@@ -28,7 +28,7 @@
 	Objeto do contrato
 </h3>
 <p>
-    É objeto deste contrato a {{$contract->name}} nos termos aqui descritos.
+    É objeto deste contrato o/a {{$contract->name}} nos termos aqui descritos.
 </p>
 <br>
 <h3>

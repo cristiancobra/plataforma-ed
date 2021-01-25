@@ -141,13 +141,12 @@ CKEDITOR.replace('description');
 	<br>
 	@foreach ($users as $user)
 	<p class="fields">
-		<input type="checkbox" name="users[]" value="{{ $user->id}}"
+		<input type="checkbox" name="users[]" value="{{$user->id}}"
 			   @if (in_array($user->id, $usersChecked))
-		<br
 			checked
 			@endif
 			>
-		{{ $user->contact->name }}
+		{{$user->name}}
 	</p>
 	@endforeach
 	<br>
