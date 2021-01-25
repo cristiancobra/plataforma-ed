@@ -22,50 +22,55 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-			$accountsId = userAccounts();
+		$accountsId = userAccounts();
 
-			$opportunities = Opportunity::where(function ($query) use ($accountsId, $request) {
-						$query->whereIn('account_id', $accountsId);
-						if ($request->name) {
-							$query->where('name', 'like', "%$request->name%");
-						}
-						if ($request->user_id) {
-							$query->where('user_id', '=', $request->user_id);
-						}
-						if ($request->contact_id) {
-							$query->where('contact_id', '=', $request->contact_id);
-						}
-						if ($request->stage) {
-							$query->where('stage', '=', $request->stage);
-						}
-					})
-					->with('user')
-					->orderBy('DATE_CONCLUSION', 'ASC')
-					->paginate(20);
+		$opportunities = Opportunity::where(function ($query) use ($accountsId, $request) {
+					$query->whereIn('account_id', $accountsId);
+					if ($request->name) {
+						$query->where('name', 'like', "%$request->name%");
+					}
+					if ($request->user_id) {
+						$query->where('user_id', '=', $request->user_id);
+					}
+					if ($request->contact_id) {
+						$query->where('contact_id', '=', $request->contact_id);
+					}
+					if ($request->stage) {
+						$query->where('stage', '=', $request->stage);
+					}
+				})
+				->with('user')
+				->orderBy('DATE_CONCLUSION', 'ASC')
+				->paginate(20);
 
-			$totalOpportunities = $opportunities->count();
+		$totalOpportunities = $opportunities->count();
 
-			$contacts = Contact::whereIn('account_id', $accountsId)
-					->orderBy('NAME', 'ASC')
-					->get();
+		$contacts = Contact::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$accounts = Account::whereIn('id', $accountsId)
-					->orderBy('ID', 'ASC')
-					->get();
+		$accounts = Account::whereIn('id', $accountsId)
+				->orderBy('ID', 'ASC')
+				->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsId) {
-						$query->whereIn('account_id', $accountsId);
-					})
-					->orderBy('NAME', 'ASC')
-					->get();
+		$users = User::whereHas('accounts', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->join('contacts', 'contacts.id', '=', 'users.contact_id')
+				->select(
+						'users.id as id',
+						'contacts.name as name',
+				)
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			return view('sales.opportunities.indexOpportunities', compact(
-					'opportunities',
-					'totalOpportunities',
-					'contacts',
-					'accounts',
-					'users',
-					));
+		return view('sales.opportunities.indexOpportunities', compact(
+						'opportunities',
+						'totalOpportunities',
+						'contacts',
+						'accounts',
+						'users',
+		));
 	}
 
 	/**
@@ -225,7 +230,7 @@ class OpportunityController extends Controller {
 			$invoices = Invoice::where('opportunity_id', $opportunity->id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
-			
+
 			$stages = returnOpportunitieStage();
 
 			return view('sales.opportunities.editOpportunity', [
