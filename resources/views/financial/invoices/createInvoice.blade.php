@@ -216,12 +216,7 @@ CKEDITOR.replace('description');
 		<input type="hidden" name="status" value="{{app('request')->input('invoiceStatus')}}">
 		{{app('request')->input('invoiceStatus')}}
 		@else
-		<select class="fields" name="status">
-			<option value="pendente">pendente</option>
-			<option value="aprovada">aprovada</option>
-			<option value="concluida">concluida</option>
-			<option value="cancelada">cancelada</option>
-		</select>
+			{{createSelect('status', 'fields', returnInvoiceStatus())}}
 		@endif
 		<br>
 		<br>
