@@ -131,19 +131,19 @@ class AccountController extends Controller {
 
 			if ($request['role'] === "superadmin") {
 				$users = User::where('id', '>', 0)
+						->join('contacts', 'contacts.id', '=', 'users.contact_id')
 						->orderBy('NAME', 'asc')
 						->get();
 
-				return view('accounts.superadmin_editAccount', [
-					'userAuth' => $userAuth,
-					'users' => $users,
-					'usersChecked' => $usersChecked,
-					'account' => $account,
-					'states' => $states,
-				]);
+				return view('accounts.superadmin_editAccount', compact(
+					'users',
+					'usersChecked',
+					'account',
+					'states',
+				));
 			} elseif ($request['role'] === "administrator") {
-				$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-							$query->where('users.id', $userAuth->id);
+				$accountsID = Account::whereHas('users', function($query) {
+							$query->where('users.id', Auth::user()->id);
 						})
 						->pluck('id');
 
@@ -161,13 +161,12 @@ class AccountController extends Controller {
 					->pluck('id')
 					->toArray();
 
-			return view('accounts.administrator_editAccount', [
-				'userAuth' => $userAuth,
-				'users' => $users,
-				'usersChecked' => $usersChecked,
-				'account' => $account,
-				'states' => $states,
-			]);
+			return view('accounts.administrator_editAccount', compact(
+				'users',
+				'usersChecked',
+				'account',
+				'states',
+			));
 		}
 	}
 
