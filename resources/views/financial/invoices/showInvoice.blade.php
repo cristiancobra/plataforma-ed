@@ -22,6 +22,9 @@
 <label class="labels" for="" >IDENTIFICADOR:</label>
 <span class="fields">{{$invoice->identifier}}</span>
 <br>
+<label class="labels" for="" >PARCELA:</label>
+<span class="fields">{{$invoice->number_installment}} de {{$invoice->number_installment_total}}</span>
+<br>
 <label class="labels" for="" >DONO:</label>
 <span class="fields">{{$invoice->account->name}}</span>
 <br>
