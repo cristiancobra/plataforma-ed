@@ -37,6 +37,8 @@ class OpportunityController extends Controller {
 					}
 					if ($request->stage) {
 						$query->where('stage', '=', $request->stage);
+					}else{
+						$query->where('stage', '!=', 'ganhamos');
 					}
 				})
 				->with('user')
@@ -89,7 +91,7 @@ class OpportunityController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$stages = returnOpportunitieStage();
+			$stages = returnOpportunitiesStage();
 
 			return view('sales.opportunities.createOpportunity', compact(
 				'opportunity',
@@ -203,7 +205,7 @@ class OpportunityController extends Controller {
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
 
-			$stages = returnOpportunitieStage();
+			$stages = returnOpportunitiesStage();
 
 			return view('sales.opportunities.editOpportunity', [
 				'userAuth' => $userAuth,

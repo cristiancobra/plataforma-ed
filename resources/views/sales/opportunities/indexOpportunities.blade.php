@@ -56,23 +56,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 		</option>
 		@endforeach
 	</select>
-	<select class="select" name="stage">
-		<option  class="select" value="">
-			Todas etapas
-		</option>
-		<option  class="select" value="fazer">
-			fazer
-		</option>
-		<option  class="select" value="aguardar">
-			aguardar
-		</option>
-		<option  class="select" value="feito">
-			feitas
-		</option>
-		<option  class="select" value="cancelado">
-			canceladas
-		</option>
-	</select>
+	{{createFilterSelect('stage', 'select', returnOpportunitiesStage())}}
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
 <br>
@@ -115,7 +99,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 			{{$opportunity->user->contact->name}}
 		</td>
 		<td class="table-list-center">
-			{{$opportunity->date_conclusion}}
+			{{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
 		</td>
 		{{formatStage($opportunity)}}
 	</tr>

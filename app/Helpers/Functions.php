@@ -4,6 +4,21 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\User;
 
+if (!function_exists('createFilterSelect')) {
+
+// cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
+	function createFilterSelect($name, $class, array $options) {
+		echo "<select class = '$class' name = '$name'>";
+		echo "<option  class='select' value=''>
+			todos
+		</option>";
+		foreach ($options as $option) {
+			echo "<option value=\"$option\">$option</option><br>";
+		}
+		echo "</select>";
+	}
+
+}
 if (!function_exists('createSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
@@ -365,9 +380,9 @@ if (!function_exists('returnStateName')) {
 
 }
 // retorna os estágios das oportunidades
-if (!function_exists('returnOpportunitieStage')) {
+if (!function_exists('returnOpportunitiesStage')) {
 
-	function returnOpportunitieStage() {
+	function returnOpportunitiesStage() {
 		return $states = array(
 			'prospecção',
 			'apresentação',

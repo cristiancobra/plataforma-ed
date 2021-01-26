@@ -34,14 +34,14 @@
 @if($opportunity->date_start == null)
 indefinida
 @else
-<span class="fields">{{ date('d/m/Y', strtotime($opportunity->date_start)) }}</span>
+<span class="fields">{{date('d/m/Y', strtotime($opportunity->date_start))}}</span>
 @endif
 <br>
 <label class="labels" for="" >PRÓXIMO CONTATO:</label>
 @if($opportunity->pay_day == null)
 indefinida
 @else
-<span class="fields">{{ date('d/m/Y', strtotime($opportunity->pay_day)) }}</span>
+<span class="fields">{{date('d/m/Y', strtotime($opportunity->pay_day))}}</span>
 @endif
 <br>
 <br>
