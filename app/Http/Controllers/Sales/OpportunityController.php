@@ -45,7 +45,7 @@ class OpportunityController extends Controller {
 				->orderBy('DATE_CONCLUSION', 'ASC')
 				->paginate(20);
 
-		$totalOpportunities = $opportunities->count();
+		$totalOpportunities = $opportunities->total();
 
 		$contacts = Contact::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')

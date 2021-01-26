@@ -19,10 +19,10 @@
 <br>
 <div>
 	<p class="labels">
-		DONO:<span class="fields">{{ $journey->account->name }} </span>
+		DONO:<span class="fields">{{$journey->account->name}} </span>
 	</p>
 	<p class="labels">
-		RESPONSÁVEL:<span class="fields">{{ $journey->task->user->name }} </span>
+		RESPONSÁVEL:<span class="fields">{{$journey->task->user->contact->name}} </span>
 	</p>
 	<p class="labels">
 		TAREFA:
