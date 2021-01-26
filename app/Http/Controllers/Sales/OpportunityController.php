@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Contract;
 use App\Models\Invoice;
 use App\Models\Opportunity;
 use App\Models\Product;
@@ -164,11 +165,15 @@ class OpportunityController extends Controller {
 		$tasks = Task::where('opportunity_id', $opportunity->id)
 				->get();
 
-		return view('sales.opportunities.showOpportunity', [
-			'opportunity' => $opportunity,
-			'invoices' => $invoices,
-			'tasks' => $tasks,
-		]);
+		$contracts = Contract::where('opportunity_id', $opportunity->id)
+				->get();
+
+		return view('sales.opportunities.showOpportunity', compact(
+			'opportunity',
+			'invoices',
+			'tasks',
+			'contracts',
+		));
 	}
 
 	/**

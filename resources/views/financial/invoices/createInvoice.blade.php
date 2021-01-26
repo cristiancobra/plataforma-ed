@@ -210,9 +210,6 @@ CKEDITOR.replace('description');
 		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
 		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1">
 		<br>
-		<label class="labels" for="" >NÚMERO DESTA PARCELA: </label>
-		<input type="number"  class="fields" style="text-align: right" name="number_installment" value="1">
-		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		@if(!empty(app('request')->input('invoiceStatus')))

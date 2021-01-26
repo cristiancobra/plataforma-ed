@@ -3,7 +3,7 @@
 @section('title','OPORTUNIDADES')
 
 @section('image-top')
-{{ asset('imagens/financeiro.png') }} 
+{{asset('imagens/financeiro.png')}}
 @endsection
 
 @section('description')
@@ -61,7 +61,11 @@ indefinida
 <span class="fields">{!!html_entity_decode($opportunity->description)!!}</span>
 <br>
 <br>
-<label class="labels" for="" >TAREFAS DA VENDA:</label>
+<div style="display: inline-block">
+		<img src="{{asset('imagens/tarefas.png')}}" width="40px" alt="40px">
+		<label class="labels" for="" >TAREFAS DA VENDA:</label>
+</div>
+<br>
 <br>
 <table class="table-list">
 	<tr>
@@ -112,7 +116,7 @@ indefinida
 			@endisset
 		</td>
 		{{formatPriority($task)}}
-		
+
 		@if($task->status == 'fazer' AND $task->journeys()->exists())
 		<td class="td-doing">
 			andamento
@@ -175,7 +179,11 @@ indefinida
 <br>
 <br>
 <br>
-<label class="labels" for="" >FATURAS:</label>
+<div style="display: inline-block">
+		<img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
+		<label class="labels" for="" >FATURAS:</label>
+</div>
+<br>
 <br>
 <table class="table-list">
 	<tr>
@@ -224,7 +232,7 @@ indefinida
 		<td class="table-list-right">
 			R$ {{number_format($invoice->installment_value, 2,",",".")}}
 		</td>
-	{{formatInvoiceStatus($invoice)}}
+		{{formatInvoiceStatus($invoice)}}
 	</tr>
 	@endforeach
 </table>
@@ -249,6 +257,82 @@ indefinida
 				'opportunityAccountId' => $opportunity->account->id,
 				])}}">
 	GERAR FATURA
+</a>
+<br>
+<br>
+<br>
+<div style="display: inline-block">
+		<img src="{{asset('imagens/contract.png')}}" width="40px" alt="40px">
+		<label class="labels" for="" >CONTRATOS:</label>
+</div>
+<br>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 20%">
+			<b>TÍTULO</b>
+		</td>
+		<td   class="table-list-header" style="width: 20%">
+			<b>CONTRATADA</b>
+		</td>
+		<td   class="table-list-header" style="width: 20%">
+			<b>CONTRATANTE</b>
+		</td>
+		<td   class="table-list-header" style="width: 15%">
+			<b>RESPONSÁVEL</b>
+		</td>
+		<td   class="table-list-header" style="width: 15%">
+			<b>DATA DE ÍNICIO</b>
+		</td>
+		<td   class="table-list-header" style="width: 15%">
+			<b>DATA DE VENCIMENTO</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>SITUAÇÃO</b>
+		</td>
+	</tr>
+
+	@foreach ($contracts as $contract)
+	<tr style="font-size: 14px">
+		<td class="table-list-left">
+			<button class="button-round">
+				<a href=" {{route('contract.show', ['contract' => $contract->id])}}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button-round">
+				<a href=" {{route('contract.edit', ['contract' => $contract->id])}}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
+			{{$contract->identifier}}
+		</td>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($contract->date_creation))}}
+		</td>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($contract->pay_day))}}
+		</td>
+		<td class="table-list-right">
+			R$ {{number_format($contract->totalPrice, 2,",",".")}}
+		</td>
+		<td class="table-list-right">
+			R$ {{number_format($contract->installment_value, 2,",",".")}}
+		</td>
+		{{formatInvoiceStatus($contract)}}
+	</tr>
+	@endforeach
+</table>
+<br>
+<a class="btn btn-secondary" href="{{ route('contract.create', [
+				'opportunityName' => $opportunity->name,
+				'opportunityId' => $opportunity->id,
+				'opportunityDescription' => $opportunity->description,
+//				'opportunityUserName' => $opportunity->user->name,
+//				'opportunityUserId' => $opportunity->user->id,
+				'opportunityAccountName' => $opportunity->account->name,
+				'opportunityAccountId' => $opportunity->account->id,
+				'contractStatus' => 'pendente',
+				])}}">
+	GERAR CONTRATO
 </a>
 <br>
 <br>

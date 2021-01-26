@@ -109,13 +109,13 @@ class InvoiceController extends Controller {
 							->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
 							->withErrors($validator)
 							->withInput();
-		}else{
+		} else {
 			$lastInvoice = Invoice::where('account_id', $request->account_id)
 					->latest('id')
 					->first();
 
 			$counter = 1;
-			while($counter <= $request->number_installment_total - $request->number_installment + 1) {
+			while ($counter <= $request->number_installment_total) {
 				$invoice = new Invoice();
 				if ($lastInvoice != null) {
 					$invoice->identifier = $lastInvoice->identifier + $counter;
@@ -126,15 +126,12 @@ class InvoiceController extends Controller {
 				$invoice->user_id = $request->user_id;
 				$invoice->account_id = $request->account_id;
 				$invoice->date_creation = $request->date_creation;
-				$invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter -1). " month", strtotime($request->pay_day)));
+				$invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter - 1) . " month", strtotime($request->pay_day)));
 				$invoice->description = $request->description;
 				$invoice->discount = $request->discount;
 				$invoice->status = $request->status;
 				$invoice->save();
-				$counter++;
-//				
-//				dd($invoice);
-//
+
 				$totalPrice = 0;
 				$totalTaxrate = 0;
 
@@ -157,10 +154,11 @@ class InvoiceController extends Controller {
 					}
 				}
 				$invoice->totalPrice = $totalPrice - $request->discount;
-				$invoice->number_installment = $request->number_installment;
+				$invoice->number_installment = $counter;
 				$invoice->number_installment_total = $request->number_installment_total;
 				$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
 				$invoice->update();
+				$counter++;
 			}
 		}
 
@@ -225,6 +223,12 @@ class InvoiceController extends Controller {
 			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 					->get();
 
+//			$productExisting = InvoiceLine::whereHas('invoice', function($query) use($user) {
+//					$query->where('invoices.id', $invoice->id);
+//				})
+//				->pluck('product_id')
+//				->toArray();
+
 			$id = 'id001';
 			$productId = 'productId001';
 			$name = 'name001';
@@ -239,6 +243,7 @@ class InvoiceController extends Controller {
 			return view('financial.invoices.editInvoice', compact(
 							'invoice',
 							'invoiceLines',
+//							'productExisting',
 							'accounts',
 							'users',
 							'opportunities',
@@ -279,7 +284,7 @@ class InvoiceController extends Controller {
 		$invoice->description = $request->description;
 		$invoice->discount = $request->discount;
 		$invoice->payment_method = $request->payment_method;
-		$invoice->number_installment = $request->number_installment;
+		$invoice->number_installment = $invoice->number_installment;
 		$invoice->status = $request->status;
 
 		$messages = [
@@ -353,9 +358,29 @@ class InvoiceController extends Controller {
 			$margin++;
 			$price++;
 		}
+
+		foreach ($request->new_product_id as $key => $product_id) {
+			if ($request->product_amount [$key] != null) {
+				$data = array(
+					'invoice_id' => $invoice->id,
+					'product_id' => $request->new_product_id [$key],
+					'amount' => $request->product_amount [$key],
+					'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+					'subtotalDeadline' => $request->product_amount [$key] * $request->product_due_date [$key],
+					'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
+					'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
+					'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
+					'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
+				);
+				$totalPrice = $totalPrice + $data['subtotalPrice'];
+				$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+				invoiceLine::insert($data);
+			}
+		}
+
 		$invoice->totalPrice = $totalPrice - $request->discount;
-		$invoice->number_installment = $request->number_installment;
-		$invoice->number_installment_total = $request->number_installment_total;
+//		$invoice->number_installment = $request->number_installment;
+//		$invoice->number_installment_total = $request->number_installment_total;
 		$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
 		$invoice->update();
 

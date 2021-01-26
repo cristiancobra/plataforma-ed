@@ -94,13 +94,11 @@
 			{{$invoiceLine->subtotalDeadline}} dia(s)
 		</td>
 		<td class="table-list-right">
-			{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
+			{{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
 		</td>
-
 		<td class="table-list-right">
-			{{ number_format($invoiceLine->product->price,2,",",".") }}
+			{{number_format($invoiceLine->product->price,2,",",".")}}
 		</td>
-
 		<td class="table-list-right">
 			{{number_format($invoiceLine->subtotalPrice,2,",",".")}}
 		</td>
@@ -114,37 +112,45 @@
 	@endforeach
 
 	<tr>
-		<td   class="table-list-header-right" colspan="4">
+		<td   class="table-list-header-right" colspan="3">
 		</td>
-		<td   class="table-list-header-right">
+		<td   class="table-list-header-right"
 			desconto: 
 		</td>
-		<td   class="table-list-header-right">
+		<td   class="table-list-header-right" colspan="2">
 			<b>- {{number_format($invoice->discount, 2,",",".")}}</b>
 		</td>
 	</tr>
 	<tr>
-		<td   class="table-list-header-right" colspan="4">
+		<td   class="table-list-header-right" colspan="3">
 
 		<td   class="table-list-header-right">
 			TOTAL: 
 		</td>
 		</td>
-		<td   class="table-list-header-right">
+		<td   class="table-list-header-right" colspan="2">
 			<b>R$ {{number_format($invoice->totalPrice, 2,",",".")}}</b>
+		</td>
+	</tr>
+	<tr>
+		<td   class="table-list-header-right" colspan="3">
+
+		<td   class="table-list-header-right">
+			PARCELAMENTO: 
+		</td>
+		</td>
+		<td   class="table-list-header-right" colspan="2">
+			@if($invoice->number_installment_total == 1)
+			À vista
+			@else
+			{{$invoice->number_installment_total}} x R$ {{number_format($invoice->installment_value, 2,",",".")}}
+			@endif
 		</td>
 	</tr>
 </table>
 <br>
 <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
 <span class="fields">{{$invoice->payment_method}}</span>
-<br>
-<label class="labels" for="" >PARCELAMENTO: </label>
-@if($invoice->number_installment_total == 1)
-<span class="fields">À vista</span>
-@else
-<span class="fields">{{$invoice->number_installment_total}} x R$ {{number_format($invoice->installment_value, 2,",",".")}}</span>
-@endif
 <br>
 <br>
 <label class="labels" for="">OBSERVAÇÕES:</label>

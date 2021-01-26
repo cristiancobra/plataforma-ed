@@ -17,7 +17,7 @@ class CreateContractsTable extends Migration {
 			$table->string('name', 100);
 			$table->foreignId('account_id');
 			$table->foreignId('contact_id');
-			$table->foreignId('opportunitie_id');
+			$table->foreignId('opportunity_id');
 			$table->foreignId('product_id');
 			$table->string('witness1', 100);
 			$table->string('witness2', 100);
