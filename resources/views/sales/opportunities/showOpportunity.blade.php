@@ -168,7 +168,7 @@ indefinida
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 10%">
+		<td   class="table-list-header" style="width: 20%">
 			<b>ID</b>
 		</td>
 		<td   class="table-list-header" style="width: 20%">
@@ -177,10 +177,10 @@ indefinida
 		<td   class="table-list-header" style="width: 20%">
 			<b>DATA PAGAMENTO</b>
 		</td>
-		<td   class="table-list-header" style="width: 20%">
+		<td   class="table-list-header" style="width: 15%">
 			<b>VALOR TOTAL</b>
 		</td>
-		<td   class="table-list-header" style="width: 20%">
+		<td   class="table-list-header" style="width: 15%">
 			<b>VALOR DA PARCELA</b>
 		</td>
 		<td   class="table-list-header" style="width: 10%">
@@ -190,7 +190,7 @@ indefinida
 
 	@foreach ($invoices as $invoice)
 	<tr style="font-size: 14px">
-		<td class="table-list-center">
+		<td class="table-list-left">
 			<button class="button-round">
 				<a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
 					<i class='fa fa-eye' style="color:white"></i></a>

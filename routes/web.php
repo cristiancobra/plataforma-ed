@@ -60,7 +60,8 @@ Route::resource('faturas', 'Financial\\InvoiceController')
 
 Route::resource('planejamentos', 'Financial\\PlanningController')
 		->names('planning')
-		->parameters(['planejamentos' => 'planning']);
+		->parameters(['planejamentos' => 'planning'])
+		->middleware('roles');
 
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Financial;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
+use App\Models\Invoice;
 use App\Models\Planning;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -17,28 +18,27 @@ class PlanningController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$userAuth = Auth::user();
+		$accountsId = userAccounts();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get('id');
+		$month = returnMonth(date('m'));
+		$monthStart = date('Y-m-01');
+		$monthEnd = date('Y-m-t');
 
-			$plannings = Planning::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->paginate(20);
+		$plannings = Planning::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->paginate(20);
 
-			$totalPlannings = $plannings->count();
+		$totalCredit = Invoice::whereIn('account_id', $accountsId)
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('installment_value');
 
-			return view('financial.plannings.indexPlannings', [
-				'plannings' => $plannings,
-				'totalPlannings' => $totalPlannings,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		$totalPlannings = $plannings->count();
+
+		return view('financial.plannings.indexPlannings', compact(
+						'plannings',
+						'totalPlannings',
+						'totalCredit',
+		));
 	}
 
 	/**

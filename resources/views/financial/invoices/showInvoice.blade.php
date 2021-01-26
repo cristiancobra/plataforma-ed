@@ -102,7 +102,7 @@
 		</td>
 
 		<td class="table-list-right">
-			{{ number_format($invoiceLine->subtotalPrice,2,",",".") }}
+			{{number_format($invoiceLine->subtotalPrice,2,",",".")}}
 		</td>
 	</tr>
 

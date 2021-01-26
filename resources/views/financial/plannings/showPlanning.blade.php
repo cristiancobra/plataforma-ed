@@ -30,13 +30,27 @@
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header"><b>Nome </b></td>
-		<td   class="table-list-header"><b>Quantidade </b></td>
-		<td   class="table-list-header"><b>Horas previstas</b></td>
-		<td   class="table-list-header"><b>Custos</b></td>
-		<td   class="table-list-header"><b>Imposto</b></td>
-		<td   class="table-list-header"><b>Preço</b></td>
-		<td   class="table-list-header"><b>Margem</b></td>
+		<td   class="table-list-header" style="width: 40%">
+			<b>Nome </b>
+		</td>
+		<td   class="table-list-header" style="width: 5%">
+			<b>Quantidade </b>
+		</td>
+		<td   class="table-list-header" style="width: 5%">
+			<b>Horas previstas</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>Custos</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>Imposto</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>Preço</b>
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			<b>Margem</b>
+		</td>
 	</tr>
 
 	@while ($planning->$name != null)
