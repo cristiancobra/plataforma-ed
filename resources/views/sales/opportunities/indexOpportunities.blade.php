@@ -88,6 +88,9 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 			<b>RESPONSÁVEL </b>
 		</td>
 		<td   class="table-list-header">
+			<b>PRÓXIMO CONTATO</b>
+		</td>
+		<td   class="table-list-header">
 			<b>ETAPA DA VENDA</b>
 		</td>
 	</tr>
@@ -110,6 +113,9 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 		</td>
 		<td class="table-list-center">
 			{{$opportunity->user->contact->name}}
+		</td>
+		<td class="table-list-center">
+			{{$opportunity->date_conclusion}}
 		</td>
 		{{formatStage($opportunity)}}
 	</tr>

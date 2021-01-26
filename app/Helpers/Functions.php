@@ -609,6 +609,10 @@ if (!function_exists('myUsers')) {
 					})
 					->with($relationships)
 					->join('contacts', 'contacts.id', '=', 'users.contact_id')
+					->select(
+							'users.id as id',
+							'contacts.name as name',
+					)
 					->orderBy('NAME', 'ASC')
 					->get();
 		} else {
@@ -616,10 +620,13 @@ if (!function_exists('myUsers')) {
 						$query->whereIn('account_id', userAccounts());
 					})
 					->join('contacts', 'contacts.id', '=', 'users.contact_id')
+					->select(
+							'users.id as id',
+							'contacts.name as name',
+					)
 					->orderBy('NAME', 'ASC')
 					->get();
 		}
-//		dd($users);
 		return $users;
 	}
 

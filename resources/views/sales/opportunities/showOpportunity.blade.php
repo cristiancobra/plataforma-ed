@@ -37,7 +37,7 @@ indefinida
 <span class="fields">{{ date('d/m/Y', strtotime($opportunity->date_start)) }}</span>
 @endif
 <br>
-<label class="labels" for="" >DATA DE PAGAMENTO:</label>
+<label class="labels" for="" >PRÓXIMO CONTATO:</label>
 @if($opportunity->pay_day == null)
 indefinida
 @else
