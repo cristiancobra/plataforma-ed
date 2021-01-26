@@ -53,16 +53,7 @@ class OpportunityController extends Controller {
 				->orderBy('ID', 'ASC')
 				->get();
 
-		$users = User::whereHas('accounts', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
-				})
-				->join('contacts', 'contacts.id', '=', 'users.contact_id')
-				->select(
-						'users.id as id',
-						'contacts.name as name',
-				)
-				->orderBy('NAME', 'ASC')
-				->get();
+		$users = myUsers();
 
 		return view('sales.opportunities.indexOpportunities', compact(
 						'opportunities',
@@ -79,53 +70,35 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$userAuth = Auth::user();
 
-		if (Auth::check()) {
 			$opportunity = new Opportunity();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+			$accountsId = userAccounts();
 
-			$accounts = Account::whereIn('id', $accountsID)
+			$accounts = Account::whereIn('id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->join('contacts', 'contacts.id', '=', 'users.contact_id')
-					->select(
-							'users.id as id',
-							'contacts.name as name',
-					)
+			$users = myUsers();
+
+			$contacts = Contact::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$contacts = Contact::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->get();
-
-			$products = Product::whereIn('account_id', $accountsID)
+			$products = Product::whereIn('account_id', $accountsId)
 					->orderBy('NAME', 'ASC')
 					->get();
 
 			$stages = returnOpportunitieStage();
 
-			return view('sales.opportunities.createOpportunity', [
-				'userAuth' => $userAuth,
-				'opportunity' => $opportunity,
-				'accounts' => $accounts,
-				'users' => $users,
-				'contacts' => $contacts,
-				'products' => $products,
-				'stages' => $stages,
-			]);
-		} else {
-			return redirect('/');
-		}
+			return view('sales.opportunities.createOpportunity', compact(
+				'opportunity',
+				'accounts',
+				'users',
+				'contacts',
+				'products',
+				'stages',
+			));
 	}
 
 	/**
@@ -220,12 +193,7 @@ class OpportunityController extends Controller {
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->with('contact')
-					->orderBy('NAME', 'ASC')
-					->get();
+			$users = myUsers();
 
 			$contacts = Contact::whereIn('account_id', $accountsID)
 					->orderBy('NAME', 'ASC')
