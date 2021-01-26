@@ -18,7 +18,7 @@
 @section('main')
 <br>
 <h1 class="name">
-	{{ $opportunity->name }}
+	{{$opportunity->name}}
 </h1>
 <label class="labels" for="" >EMPRESA: </label>
 <span class="fields">{{$opportunity->account->name }}</span>
@@ -160,6 +160,17 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				])}}">
 	FAZER ORÇAMENTO
+</a>
+<a class="btn btn-secondary" href="{{ route('task.create', [
+				'taskName' =>"Fazer contrato",
+				'opportunityId' => $opportunity->id,
+				'opportunityName' => $opportunity->name,
+				'opportunityContactName' => $opportunity->contact->name,
+				'opportunityContactId' => $opportunity->contact->id,
+				'taskAccountName' => $opportunity->account->name,
+				'taskAccountId' => $opportunity->account->id,
+				])}}">
+	FAZER CONTRATO
 </a>
 <br>
 <br>
