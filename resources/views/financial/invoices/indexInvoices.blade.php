@@ -116,7 +116,7 @@
 			<td class="table-list-center">
 				R$ {{number_format($invoice->installment_value, 2,",",".")}}
 			</td>
-			@if($invoice->status == 'aprovada' AND $invoice->pay_day > date('Y-m-d'))
+			@if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
 			<td class="td-late">
 				atrasada
 			</td>
