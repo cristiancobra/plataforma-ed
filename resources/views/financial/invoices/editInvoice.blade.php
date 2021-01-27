@@ -24,6 +24,18 @@
 		<input type="hidden" name="opportunity_id" value="{{$invoice->opportunity_id}}">
 		<span class="fields">{{$invoice->opportunity->name}}</span>
 		<br>
+		<label class="labels" for="" >EMPRESA: </label>
+		<select name="account_id">
+			<option  class="fields" value="{{$invoice->account_id}}">
+				{{$invoice->account->name}}
+			</option>
+			@foreach ($accounts as $account)
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{$invoice->user->id}}">

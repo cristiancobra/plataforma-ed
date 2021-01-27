@@ -275,10 +275,7 @@ class InvoiceController extends Controller {
 	public function update(Request $request, Invoice $invoice) {
 		$invoice->opportunity_id = $request->opportunity_id;
 		$invoice->user_id = $request->user_id;
-		$opportunity = Opportunity::find($invoice->opportunity_id)
-				->with('account')
-				->first();
-		$invoice->account_id = $opportunity->account->id;
+		$invoice->account_id = $request->account_id;
 		$invoice->date_creation = $request->date_creation;
 		$invoice->pay_day = $request->pay_day;
 		$invoice->description = $request->description;
