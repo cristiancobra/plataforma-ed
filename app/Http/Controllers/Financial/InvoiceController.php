@@ -27,16 +27,15 @@ class InvoiceController extends Controller {
 		$accountsId = userAccounts();
 
 		$invoices = Invoice::where(function ($query) use ($accountsId, $request) {
-				$query->whereIn('account_id', $accountsId);
+					$query->whereIn('account_id', $accountsId);
 					if ($request->user_id) {
 						$query->where('user_id', '=', $request->user_id);
 					}
 					if ($request->contact_id) {
 						$query->whereHas('opportunity', function($query) use($request) {
 							$query->where('contact_id', $request->contact_id);
-				})
-				->get();
-						
+						})
+						->get();
 					}
 					if ($request->status) {
 						$query->where('status', '=', $request->status);
@@ -50,7 +49,13 @@ class InvoiceController extends Controller {
 				])
 				->orderBy('pay_day', 'DESC')
 				->paginate(20);
-		
+
+		$invoices->appends([
+			'status' => $request->status,
+			'contact_id' => $request->contact_id,
+			'user_id' => $request->user_id,
+		]);
+
 		$contacts = Contact::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
