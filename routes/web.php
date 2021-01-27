@@ -49,6 +49,12 @@ Route::resource('emails', 'Emails\\EmailController')
 		->middleware('roles');
 
 // ================================ FINANCIAL ===================
+Route::get('faturas/enviar', function() {
+	return new \App\Mail\invoices();
+})
+		->name('invoice.email')
+		->middleware('roles');
+
 Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
 		->name('invoice.pdf')
 		->middleware('roles');

@@ -3,21 +3,18 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{asset('imagens/invoice.png')}} 
+{{ asset('imagens/invoice.png') }} 
 @endsection
 
 @section('description')
 @endsection
 
 @section('buttons')
-<a class="button-secondary" href="{{route('invoice.pdf', ['invoice' => $invoice])}}">
-	PDF
-</a>
-<a class="button-secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
-	EMAIL
-</a>
 <a class="button-secondary"  href="{{route('invoice.index')}}">
 	VOLTAR
+</a>
+<a class="button-secondary" href="{{ route('invoice.pdf', ['invoice' => $invoice]) }}">
+	PDF
 </a>
 @endsection
 

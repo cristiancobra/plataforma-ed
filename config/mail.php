@@ -36,14 +36,14 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
+            'host' => env('MAIL_HOST', 'acadia.mxroute.com'),
+            'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'username' => env('contato@empresadigital.net.br'),
+            'password' => env('megaDigital3$'),
             'timeout' => null,
             'auth_mode' => null,
-        ],
+			        ],
 
         'ses' => [
             'transport' => 'ses',

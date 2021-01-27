@@ -245,7 +245,7 @@ indefinida
 //				'opportunityUserId' => $opportunity->user->id,
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
-				'invoiceStatus' => 'pendente',
+				'invoiceStatus' => 'orçamento',
 				])}}">
 	GERAR ORÇAMENTO
 </a>
