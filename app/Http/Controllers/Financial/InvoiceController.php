@@ -32,7 +32,11 @@ class InvoiceController extends Controller {
 						$query->where('user_id', '=', $request->user_id);
 					}
 					if ($request->contact_id) {
-						$query->where('contact_id', '=', $request->contact_id);
+						$query->whereHas('opportunity', function($query) use($request) {
+							$query->where('contact_id', $request->contact_id);
+				})
+				->get();
+						
 					}
 					if ($request->status) {
 						$query->where('status', '=', $request->status);
