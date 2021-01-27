@@ -62,11 +62,7 @@ class TaskController extends Controller {
 				->orderBy('ID', 'ASC')
 				->get();
 
-		$users = User::whereHas('accounts', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
-				})
-//				->orderBy('NAME', 'ASC')
-				->get();
+		$users = myUsers();
 
 		return view('tasks.indexTasks', compact(
 						'tasks',

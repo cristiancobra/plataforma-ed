@@ -51,7 +51,7 @@
 		</option>
 		@foreach ($users as $user)
 		<option  class="select" value="{{ $user->id }}">
-			{{ $user->contact->name }}
+			{{ $user->name }}
 		</option>
 		@endforeach
 	</select>

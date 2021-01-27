@@ -22,11 +22,22 @@ class InvoiceController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
+	public function index(Request $request) {
 
 		$accountsId = userAccounts();
 
-		$invoices = Invoice::whereIn('account_id', $accountsId)
+		$invoices = Invoice::where(function ($query) use ($accountsId, $request) {
+				$query->whereIn('account_id', $accountsId);
+					if ($request->user_id) {
+						$query->where('user_id', '=', $request->user_id);
+					}
+					if ($request->contact_id) {
+						$query->where('contact_id', '=', $request->contact_id);
+					}
+					if ($request->status) {
+						$query->where('status', '=', $request->status);
+					}
+				})
 				->with([
 					'opportunity',
 					'invoiceLines',
@@ -35,11 +46,24 @@ class InvoiceController extends Controller {
 				])
 				->orderBy('pay_day', 'DESC')
 				->paginate(20);
+		
+		$contacts = Contact::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		$accounts = Account::whereIn('id', $accountsId)
+				->orderBy('ID', 'ASC')
+				->get();
+
+		$users = myUsers();
 
 		$totalInvoices = $invoices->count();
 
 		return view('financial.invoices.indexInvoices', compact(
 						'invoices',
+						'contacts',
+						'accounts',
+						'users',
 						'totalInvoices',
 		));
 	}

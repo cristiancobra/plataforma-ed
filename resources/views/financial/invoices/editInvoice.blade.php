@@ -281,11 +281,11 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-		{{editSelect('payment_method', 'fields', returnPaymentMethods(), $invoice->payment_method)}}
+		{{editSelect('payment_method', 'fields', returnPaymentMethods(),$invoice->payment_method)}}
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		{{createSelect('status', 'fields', returnInvoiceStatus())}}
+		{{editSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

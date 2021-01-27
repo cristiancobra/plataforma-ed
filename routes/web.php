@@ -59,7 +59,12 @@ Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
 		->name('invoice.pdf')
 		->middleware('roles');
 
+Route::any('/faturas/filtros', 'Financial\\InvoiceController@index')
+		->name('invoice.index')
+		->middleware('roles');
+
 Route::resource('faturas', 'Financial\\InvoiceController')
+		->except(['index'])
 		->names('invoice')
 		->parameters(['faturas' => 'invoice'])
 		->middleware('roles');
