@@ -235,8 +235,6 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Opportunity $opportunity) {
-		$userAuth = Auth::user();
-
 		$opportunity->fill($request->all());
 		$opportunity->user()->associate($request->user_id);
 		$opportunity->save();
@@ -247,13 +245,17 @@ class OpportunityController extends Controller {
 
 		$tasks = Task::where('opportunity_id', $opportunity->id)
 				->get();
+		
+		
+		$contracts = Contract::where('opportunity_id', $opportunity->id)
+				->get();
 
-		return view('sales.opportunities.showOpportunity', [
-			'opportunity' => $opportunity,
-			'invoices' => $invoices,
-			'userAuth' => $userAuth,
-			'tasks' => $tasks,
-		]);
+		return view('sales.opportunities.showOpportunity', compact(
+			'opportunity',
+			'invoices',
+			'tasks',
+			'contracts',
+		));
 	}
 
 	/**
