@@ -19,14 +19,14 @@
 
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-	{{ Session::get('failed') }}
+	{{Session::get('failed')}}
 	@php
 	Session::forget('failed');
 	@endphp
 </div>
 @endif
 <div>
-	<form action=" {{ route('journey.store') }} " method="post" style="padding: 40px;color: #874983">
+	<form action=" {{route('journey.store')}} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >EMPRESA: </label>
 		@if(!empty(app('request')->input('taskAccountId')))
@@ -43,8 +43,8 @@
 		</select>
 		<br>
 		<label class="labels" for="" >FUNCIONÁRIO: </label>
-		{{$userAuth->name}}
-		<input type="hidden" name="user_id" value="{{$userAuth->id}}">
+		{{Auth::user()->contact->name}}
+		<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 		<br>
 		<br>
 		<label class="labels" for="" >TAREFA: </label>
