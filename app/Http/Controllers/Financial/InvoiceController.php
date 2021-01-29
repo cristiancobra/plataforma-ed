@@ -65,7 +65,7 @@ class InvoiceController extends Controller {
 
 		$users = myUsers();
 
-		$totalInvoices = $invoices->count();
+		$totalInvoices = $invoices->total();
 
 		return view('financial.invoices.indexInvoices', compact(
 						'invoices',
@@ -146,7 +146,7 @@ class InvoiceController extends Controller {
 					->latest('id')
 					->first();
 
-			if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
+			if ($request->status == 'rascunho' OR $request->status == 'orçamento' OR $request->status == 'cancelada') {
 				$installment = 1;
 			} else {
 				$installment = $request->number_installment_total;
@@ -192,7 +192,7 @@ class InvoiceController extends Controller {
 					}
 				}
 				$invoice->totalPrice = $totalPrice - $request->discount;
-				if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
+				if ($request->status == 'rascunho' OR $request->status == 'orçamento' OR $request->status == 'cancelada') {
 					$invoice->number_installment = 0;
 				} else {
 					$invoice->number_installment = $counter;
@@ -238,32 +238,30 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Invoice $invoice) {
+		$accountsId = userAccounts();
 
-		if (Auth::check()) {
-			$accountsId = userAccounts();
+		$accounts = Account::whereHas('users', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->get();
 
-			$accounts = Account::whereHas('users', function($query) use($accountsId) {
-						$query->whereIn('account_id', $accountsId);
-					})
-					->get();
+		$users = User::whereHas('accounts', function($query) use($accountsId) {
+					$query->whereIn('account_id', $accountsId);
+				})
+				->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsId) {
-						$query->whereIn('account_id', $accountsId);
-					})
-					->get();
+		$opportunities = Opportunity::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$opportunities = Opportunity::whereIn('account_id', $accountsId)
-					->orderBy('NAME', 'ASC')
-					->get();
+		$products = Product::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$products = Product::whereIn('account_id', $accountsId)
-					->orderBy('NAME', 'ASC')
-					->get();
+		$productsChecked = Invoice::find($invoice->id);
 
-			$productsChecked = Invoice::find($invoice->id);
-
-			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-					->get();
+		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+				->get();
 
 //			$productExisting = InvoiceLine::whereHas('invoice', function($query) use($user) {
 //					$query->where('invoices.id', $invoice->id);
@@ -271,40 +269,37 @@ class InvoiceController extends Controller {
 //				->pluck('product_id')
 //				->toArray();
 
-			$id = 'id001';
-			$productId = 'productId001';
-			$name = 'name001';
-			$amount = 'amount001';
-			$hours = 'hours001';
-			$dueDate = 'dueDate001';
-			$cost = 'cost001';
-			$taxRate = 'taxRate001';
-			$margin = 'margin001';
-			$price = 'price001';
+		$id = 'id001';
+		$productId = 'productId001';
+		$name = 'name001';
+		$amount = 'amount001';
+		$hours = 'hours001';
+		$dueDate = 'dueDate001';
+		$cost = 'cost001';
+		$taxRate = 'taxRate001';
+		$margin = 'margin001';
+		$price = 'price001';
 
-			return view('financial.invoices.editInvoice', compact(
-							'invoice',
-							'invoiceLines',
+		return view('financial.invoices.editInvoice', compact(
+						'invoice',
+						'invoiceLines',
 //							'productExisting',
-							'accounts',
-							'users',
-							'opportunities',
-							'products',
-							'productsChecked',
-							'id',
-							'productId',
-							'name',
-							'amount',
-							'hours',
-							'dueDate',
-							'cost',
-							'taxRate',
-							'margin',
-							'price',
-			));
-		} else {
-			return redirect('/');
-		}
+						'accounts',
+						'users',
+						'opportunities',
+						'products',
+						'productsChecked',
+						'id',
+						'productId',
+						'name',
+						'amount',
+						'hours',
+						'dueDate',
+						'cost',
+						'taxRate',
+						'margin',
+						'price',
+		));
 	}
 
 	/**
@@ -315,17 +310,6 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Invoice $invoice) {
-		$invoice->opportunity_id = $request->opportunity_id;
-		$invoice->user_id = $request->user_id;
-		$invoice->account_id = $request->account_id;
-		$invoice->date_creation = $request->date_creation;
-		$invoice->pay_day = $request->pay_day;
-		$invoice->description = $request->description;
-		$invoice->discount = $request->discount;
-		$invoice->payment_method = $request->payment_method;
-		$invoice->number_installment = $invoice->number_installment;
-		$invoice->status = $request->status;
-
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
 		];
@@ -342,91 +326,128 @@ class InvoiceController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
-			$invoice->save();
-		}
+			$lastInvoice = Invoice::where('account_id', $request->account_id)
+					->latest('id')
+					->first();
 
-		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product', 'opportunity')
-				->get();
-
-		$totalPrice = 0;
-		$totalTaxrate = 0;
-
-		$id = 'id001';
-		$productId = 'productId001';
-		$name = 'name001';
-		$amount = 'amount001';
-		$hours = 'hours001';
-		$dueDate = 'dueDate001';
-		$cost = 'cost001';
-		$taxRate = 'taxRate001';
-		$margin = 'margin001';
-		$price = 'price001';
-
-		while ($request->$name != null) {
-//			foreach ($request->product_id as $key => $product_id) {
-			$data = array(
-				'id' => $request->$id,
-				'invoice_id' => $invoice->id,
-				'product_id' => $request->$productId,
-				'amount' => $request->$amount,
-				'subtotalHours' => $request->$amount * $request->$hours,
-				'subtotalDeadline' => $request->$amount * $request->$dueDate,
-				'subtotalCost' => $request->$amount * $request->$cost,
-				'subtotalTax_rate' => $request->$amount * $request->$taxRate,
-				'subtotalMargin' => $request->$amount * $request->$margin,
-				'subtotalPrice' => $request->$amount * $request->$price,
-			);
-			$totalPrice = $totalPrice + $data['subtotalPrice'];
-			$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-
-			if ($request->$amount <= 0) {
-				invoiceLine::where('id', $request->$id)->delete();
+			if ($request->status == 'rascunho' OR $request->status == 'orçamento' OR $request->status == 'cancelada') {
+				$installment = 1;
 			} else {
-				invoiceLine::where('id', $request->$id)->update($data);
+				$installment = $request->number_installment_total;
 			}
 
-			$id++;
-			$productId++;
-			$name++;
-			$amount++;
-			$hours++;
-			$dueDate++;
-			$cost++;
-			$taxRate++;
-			$margin++;
-			$price++;
-		}
+			$counter = 1;
+			while ($counter <= $installment) {
+				if ($counter > 1) {
+					$invoice = new Invoice();
+					if ($lastInvoice != null) {
+						$invoice->identifier = $lastInvoice->identifier + ($counter -1);
+					} else {
+						$invoice->identifier = $counter;
+					}
+				}
+				$invoice->opportunity_id = $request->opportunity_id;
+				$invoice->user_id = $request->user_id;
+				$invoice->account_id = $request->account_id;
+				$invoice->date_creation = $request->date_creation;
+				$invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter - 1) . " month", strtotime($request->pay_day)));
+				$invoice->description = $request->description;
+				$invoice->discount = $request->discount;
+				$invoice->status = $request->status;
+				if ($counter > 1) {
+					$invoice->save();
+				} else {
+					$invoice->update();
+				}
 
-		foreach ($request->new_product_id as $key => $product_id) {
-			if ($request->product_amount [$key] != null) {
-				$data = array(
-					'invoice_id' => $invoice->id,
-					'product_id' => $request->new_product_id [$key],
-					'amount' => $request->product_amount [$key],
-					'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
-					'subtotalDeadline' => $request->product_amount [$key] * $request->product_due_date [$key],
-					'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
-					'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
-					'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
-					'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
-				);
-				$totalPrice = $totalPrice + $data['subtotalPrice'];
-				$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-				invoiceLine::insert($data);
+				$totalPrice = 0;
+				$totalTaxrate = 0;
+
+				$id = 'id001';
+				$productId = 'productId001';
+				$name = 'name001';
+				$amount = 'amount001';
+				$hours = 'hours001';
+				$dueDate = 'dueDate001';
+				$cost = 'cost001';
+				$taxRate = 'taxRate001';
+				$margin = 'margin001';
+				$price = 'price001';
+
+				while ($request->$name != null) {
+//			foreach ($request->product_id as $key => $product_id) {
+					$data = array(
+						'id' => $request->$id,
+						'invoice_id' => $invoice->id,
+						'product_id' => $request->$productId,
+						'amount' => $request->$amount,
+						'subtotalHours' => $request->$amount * $request->$hours,
+						'subtotalDeadline' => $request->$amount * $request->$dueDate,
+						'subtotalCost' => $request->$amount * $request->$cost,
+						'subtotalTax_rate' => $request->$amount * $request->$taxRate,
+						'subtotalMargin' => $request->$amount * $request->$margin,
+						'subtotalPrice' => $request->$amount * $request->$price,
+					);
+					$totalPrice = $totalPrice + $data['subtotalPrice'];
+					$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+
+					if ($request->$amount <= 0) {
+						invoiceLine::where('id', $request->$id)->delete();
+					} else {
+						invoiceLine::where('id', $request->$id)->update($data);
+					}
+
+					$id++;
+					$productId++;
+					$name++;
+					$amount++;
+					$hours++;
+					$dueDate++;
+					$cost++;
+					$taxRate++;
+					$margin++;
+					$price++;
+				}
+
+				foreach ($request->new_product_id as $key => $product_id) {
+					if ($request->product_amount [$key] != null) {
+						$data = array(
+							'invoice_id' => $invoice->id,
+							'product_id' => $request->new_product_id [$key],
+							'amount' => $request->product_amount [$key],
+							'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+							'subtotalDeadline' => $request->product_amount [$key] * $request->product_due_date [$key],
+							'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
+							'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
+							'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
+							'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
+						);
+						$totalPrice = $totalPrice + $data['subtotalPrice'];
+						$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+						invoiceLine::insert($data);
+					}
+				}
+				$invoice->totalPrice = $totalPrice - $request->discount;
+				if ($request->status == 'rascunho' OR $request->status == 'orçamento' OR $request->status == 'cancelada') {
+					$invoice->number_installment = 0;
+				} else {
+					$invoice->number_installment = $counter;
+				}
+				$invoice->number_installment_total = $request->number_installment_total;
+				$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
+				$invoice->update();
+				$counter++;
 			}
+
+			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+					->with('product', 'opportunity')
+					->get();
+
+			return view('financial.invoices.showInvoice', [
+				'invoice' => $invoice,
+				'invoiceLines' => $invoiceLines,
+			]);
 		}
-
-		$invoice->totalPrice = $totalPrice - $request->discount;
-//		$invoice->number_installment = $request->number_installment;
-//		$invoice->number_installment_total = $request->number_installment_total;
-		$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
-		$invoice->update();
-
-		return view('financial.invoices.showInvoice', [
-			'invoice' => $invoice,
-			'invoiceLines' => $invoiceLines,
-		]);
 	}
 
 	/**
