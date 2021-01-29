@@ -238,6 +238,7 @@ indefinida
 		</td>
 		@else
 		{{formatInvoiceStatus($invoice)}}
+		@endif
 	</tr>
 	@endforeach
 </table>
