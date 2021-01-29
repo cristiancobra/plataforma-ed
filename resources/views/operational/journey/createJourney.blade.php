@@ -72,7 +72,6 @@
 		<span class="text-danger">{{ $errors->first('description') }}</span>
 		@endif
 		<textarea id="description" name="description" rows="10" cols="90"  value="{{old('description')}}">
-		{{ $journey->description }}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

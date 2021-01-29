@@ -19,20 +19,20 @@
 <br>
 <div>
 	<p class="labels">
-		DONO:<span class="fields">{{$journey->account->name}} </span>
+		DONO:<span class="fields">{{$journey->account->name}}</span>
 	</p>
 	<p class="labels">
-		RESPONSÁVEL:<span class="fields">{{$journey->task->user->contact->name}} </span>
+		RESPONSÁVEL:<span class="fields">{{$journey->task->user->contact->name}}</span>
 	</p>
 	<p class="labels">
 		TAREFA:
 		<span class="fields">{{$journey->task->name}} </span>
 			<button class="button-round">
-				<a href=" {{ route('task.show', ['task' => $journey->task]) }}">
+				<a href=" {{route('task.show', ['task' => $journey->task])}}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
 			<button class="button-round">
-				<a href=" {{ route('task.edit', ['task' => $journey->task]) }}">
+				<a href=" {{route('task.edit', ['task' => $journey->task])}}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
 	</p>

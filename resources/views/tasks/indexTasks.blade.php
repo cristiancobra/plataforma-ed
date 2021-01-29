@@ -120,17 +120,19 @@
 			@if(isset($task->contact->name))
 			{{$task->contact->name}}
 			@else
-			não possui
+			contato excluído
 			@endif
 		</td>
-
 		<td class="table-list-center">
 			{{$task->account->name}}
 		</td>
-
 		<td class="table-list-center">
+			@if(isset($task->user->contact->name))
 			{{$task->user->contact->name}}
-		</td>
+			@else
+			funcionário excluído
+			@endif
+		</td>	
 		<td class="table-list-center">
 			@if($task->date_due == date('Y-m-d'))
 			hoje

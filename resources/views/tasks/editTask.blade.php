@@ -43,14 +43,20 @@
 		<br>
 		<label class="labels" for="" >RESPONSÁVEL: </label>
 		<select name="user_id">
-			<option  class="fields" value="{{ $task->user->id }}">
-				{{ $task->user->contact->name }}
+			@if(!isset($task->user->contact->name))
+			<option  class="fields" value="">
+				contato excluído
+			</option>
+			@else
+			<option  class="fields" value="{{$task->user->id}}">
+				{{$task->user->contact->name}}
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->contact->name }}
+				{{$user->contact->name}}
 			</option>
 			@endforeach
+			@endif
 		</select>
 		<br>
 		<br>
@@ -88,9 +94,15 @@ CKEDITOR.replace('description');
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
+			@if(!isset($task->contact->name))
+			<option  class="fields" value="">
+				contato excluído
+			</option>
+			@else
 			<option  class="fields" value="{{ $task->contact_id }}">
 				{{ $task->contact->name }}
 			</option>
+			@endif
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">
 				{{ $contact->name }}

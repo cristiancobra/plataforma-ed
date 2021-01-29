@@ -42,7 +42,11 @@
 		@endisset
 	</p>
 	<p class="labels">
-		RESPONSÁVEL:<span class="fields">{{ $task->user->contact->name }}</span>
+		@if(isset($task->user->name))
+		RESPONSÁVEL:<span class="fields">  {{$task->user->contact->name}}</span>
+		@else
+		RESPONSÁVEL:<span class="fields"> foi excluído</span>
+		@endif
 	</p>
 	<br>
 	<br>
@@ -54,11 +58,11 @@
 	</p>
 	<p class="labels">
 		DATA DE CONCLUSÃO:<span class="fields">
-	@if($task->date_conclusion)
-	{{date('d/m/Y', strtotime($task->date_conclusion))}}</span>
-	@else
-	não concluída
-	@endif
+			@if($task->date_conclusion)
+			{{date('d/m/Y', strtotime($task->date_conclusion))}}</span>
+		@else
+		não concluída
+		@endif
 	</p>
 	<br>
 	<p class="labels">
@@ -66,7 +70,11 @@
 	</p>
 	<br>
 	<p class="labels">
+		@if(isset($task->contact->name))
 		CONTATO:<span class="fields">  {{$task->contact->name}}</span>
+		@else
+		CONTATO:<span class="fields"> foi excluído</span>
+		@endif
 	</p>
 	<p class="labels">
 		PRIORIDADE:<span class="fields">  {{$task->priority}}</span>
@@ -154,11 +162,9 @@
 		</tr>
 	</table>
 	<br>
-	<a class="btn btn-secondary" href="{{ route('journey.create', [
+	<a class="btn btn-secondary" href="{{route('journey.create', [
 				'taskName' => $task->name,
 				'taskId' => $task->id,
-				'taskUserName' => $task->user->name,
-				'taskUserId' => $task->user->id,
 				'taskAccountName' => $task->account->name,
 				'taskAccountId' => $task->account->id,
 				])}}">

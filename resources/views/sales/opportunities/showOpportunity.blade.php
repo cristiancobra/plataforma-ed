@@ -62,8 +62,8 @@ indefinida
 <br>
 <br>
 <div style="display: inline-block">
-		<img src="{{asset('imagens/tarefas.png')}}" width="40px" alt="40px">
-		<label class="labels" for="" >TAREFAS DA VENDA:</label>
+	<img src="{{asset('imagens/tarefas.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >TAREFAS DA VENDA:</label>
 </div>
 <br>
 <br>
@@ -180,8 +180,8 @@ indefinida
 <br>
 <br>
 <div style="display: inline-block">
-		<img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
-		<label class="labels" for="" >FATURAS:</label>
+	<img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >FATURAS:</label>
 </div>
 <br>
 <br>
@@ -232,6 +232,11 @@ indefinida
 		<td class="table-list-right">
 			R$ {{number_format($invoice->installment_value, 2,",",".")}}
 		</td>
+		@if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+		<td class="td-late">
+			atrasada
+		</td>
+		@else
 		{{formatInvoiceStatus($invoice)}}
 	</tr>
 	@endforeach
@@ -262,8 +267,8 @@ indefinida
 <br>
 <br>
 <div style="display: inline-block">
-		<img src="{{asset('imagens/contract.png')}}" width="40px" alt="40px">
-		<label class="labels" for="" >CONTRATOS:</label>
+	<img src="{{asset('imagens/contract.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >CONTRATOS:</label>
 </div>
 <br>
 <br>
