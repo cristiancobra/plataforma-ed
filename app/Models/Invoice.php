@@ -29,16 +29,32 @@ class Invoice extends Model {
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
+
 	public function contract() {
 		return $this->belongsTo(Contract::class);
 	}
+
 	public function invoiceLines() {
 		return $this->hasMany(InvoiceLine::class, 'id', 'invoice_id');
 	}
+
+	// this is a recommended way to declare event handlers
+	public static function boot() {
+		parent::boot();
+		self::deleting(function($invoice) { // before delete() method call this
+			$invoice->invoiceLines()->each(function($invoiceLines) {
+				$invoiceLines->delete(); // <-- direct deletion
+			});
+			// do the rest of the cleanup...
+		});
+	}
+
 	public function opportunity() {
 		return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
 	}
+
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');
 	}
+
 }

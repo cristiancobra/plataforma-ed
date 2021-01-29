@@ -23,7 +23,6 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-
 		$accountsId = userAccounts();
 
 		$invoices = Invoice::where(function ($query) use ($accountsId, $request) {
@@ -147,8 +146,14 @@ class InvoiceController extends Controller {
 					->latest('id')
 					->first();
 
+			if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
+				$installment = 1;
+			} else {
+				$installment = $request->number_installment_total;
+			}
+
 			$counter = 1;
-			while ($counter <= $request->number_installment_total) {
+			while ($counter <= $installment) {
 				$invoice = new Invoice();
 				if ($lastInvoice != null) {
 					$invoice->identifier = $lastInvoice->identifier + $counter;
@@ -187,7 +192,11 @@ class InvoiceController extends Controller {
 					}
 				}
 				$invoice->totalPrice = $totalPrice - $request->discount;
-				$invoice->number_installment = $counter;
+				if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
+					$invoice->number_installment = 0;
+				} else {
+					$invoice->number_installment = $counter;
+				}
 				$invoice->number_installment_total = $request->number_installment_total;
 				$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
 				$invoice->update();
@@ -427,7 +436,12 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Invoice $invoice) {
-		$invoice->delete();
+
+		$invoice = Invoice::find($invoice);
+dd($invoice);		
+		$invoice->invoiceLines()->delete();
+//		$invoice->delete();
+
 		return redirect()->action('Financial\\InvoiceController@index');
 	}
 

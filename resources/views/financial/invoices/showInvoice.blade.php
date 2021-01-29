@@ -26,7 +26,13 @@
 <span class="fields">{{$invoice->identifier}}</span>
 <br>
 <label class="labels" for="" >PARCELA:</label>
+@if($invoice->status == 'rascunho')
+<span class="fields">rascunho</span>
+@elseif($invoice->status == 'orçamento')
+<span class="fields">orçamento</span>
+@else
 <span class="fields">{{$invoice->number_installment}} de {{$invoice->number_installment_total}}</span>
+@endif
 <br>
 <label class="labels" for="" >DONO:</label>
 <span class="fields">{{$invoice->account->name}}</span>
@@ -118,8 +124,8 @@
 		<td   class="table-list-header-right" colspan="3">
 		</td>
 		<td   class="table-list-header-right"
-			desconto: 
-		</td>
+			  desconto: 
+			  </td>
 		<td   class="table-list-header-right" colspan="2">
 			<b>- {{number_format($invoice->discount, 2,",",".")}}</b>
 		</td>
@@ -151,6 +157,20 @@
 		</td>
 	</tr>
 </table>
+@if($invoice->status == 'rascunho' OR $invoice->status == 'rascunho')
+<br>
+<label class="labels" for="" >OPÇÕES DE PARCELAMENTO: </label>
+<br>
+@php
+$counter = 1;
+while($counter <= $invoice->number_installment_total) {
+echo "$counter x = R$ ".number_format($invoice->totalPrice / $counter, 2,",",".");
+echo "<br>";
+$counter++;
+}
+@endphp
+@endif
+<br>
 <br>
 <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
 <span class="fields">{{$invoice->payment_method}}</span>
@@ -166,7 +186,7 @@
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($invoice->created_at)) }} </p>
 
 <div style="text-align:right;padding: 2%">
-	<form   style="text-decoration: none;display: inline-block" action="{{ route('invoice.destroy', ['invoice' => $invoice->id]) }}" method="post">
+	<form   style="text-decoration: none;display: inline-block" action="{{ route('invoice.destroy', ['invoice' => $invoice]) }}" method="post">
 		@csrf
 		@method('delete')
 		<input class="btn btn-danger" type="submit" value="APAGAR">

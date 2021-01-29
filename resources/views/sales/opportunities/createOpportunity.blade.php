@@ -68,17 +68,24 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-		<input type="date" name="date_start" size="20"><span class="fields"></span>
+		<input type="date" name="date_start" size="20"  value="{{old('date_start')}}"><span class="fields"></span>
 		@if ($errors->has('date_start'))
-		<span class="text-danger">{{ $errors->first('date_start') }}</span>
+		<span class="text-danger">{{$errors->first('date_start')}}</span>
 		@endif
 		<br>
 		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
-		<input type="date" name="date_conclusion" size="20"><span class="fields"></span>
+		<input type="date" name="date_conclusion" size="20" value="{{old('date_conclusion')}}"><span class="fields"></span>
+		@if ($errors->has('date_conclusion'))
+		<span class="text-danger">{{$errors->first('date_conclusion')}}</span>
+		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
+		@if ($errors->has('description'))
+		<span class="text-danger">{{$errors->first('description')}}</span>
+		@endif
 		<textarea id="description" name="description" rows="20" cols="90" value="{{old('description')}}">
+
 		{{$opportunity->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->

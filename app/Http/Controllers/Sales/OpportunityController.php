@@ -111,8 +111,6 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$userAuth = Auth::user();
-
 		$opportunity = new Opportunity();
 		$opportunity->fill($request->all());
 
@@ -122,6 +120,7 @@ class OpportunityController extends Controller {
 		$validator = Validator::make($request->all(), [
 					'name' => 'required:opportunities',
 					'date_start' => 'required:opportunities',
+					'date_conclusion' => 'required:opportunities',
 					'description' => 'required:opportunities',
 						],
 						$messages);
@@ -142,12 +141,15 @@ class OpportunityController extends Controller {
 			$tasks = Task::where('opportunity_id', $opportunity->id)
 					->get();
 
-			return view('sales.opportunities.showOpportunity', [
-				'opportunity' => $opportunity,
-				'invoices' => $invoices,
-				'tasks' => $tasks,
-				'userAuth' => $userAuth,
-			]);
+			$contracts = Contract::where('opportunity_id', $opportunity->id)
+					->get();
+
+			return view('sales.opportunities.showOpportunity', compact(
+				'opportunity',
+				'invoices',
+				'tasks',
+				'contracts',
+			));
 		}
 	}
 
