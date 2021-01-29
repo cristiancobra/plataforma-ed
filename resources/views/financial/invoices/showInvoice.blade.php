@@ -91,7 +91,7 @@
 		</td>
 	</tr>
 
-	@foreach ($invoiceLines as $invoiceLine)
+	@foreach ($invoice->invoiceLines as $invoiceLine)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
 			{{$invoiceLine->amount}}
@@ -186,7 +186,7 @@ $counter++;
 <p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($invoice->created_at)) }} </p>
 
 <div style="text-align:right;padding: 2%">
-	<form   style="text-decoration: none;display: inline-block" action="{{ route('invoice.destroy', ['invoice' => $invoice]) }}" method="post">
+	<form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">
 		@csrf
 		@method('delete')
 		<input class="btn btn-danger" type="submit" value="APAGAR">

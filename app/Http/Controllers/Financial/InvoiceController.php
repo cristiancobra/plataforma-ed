@@ -221,13 +221,13 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Invoice $invoice) {
-		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-				->with('product', 'opportunity')
-				->get();
+		$invoice = Invoice::where('id', $invoice->id)
+				->with('invoiceLines')
+				->first();
 
 		return view('financial.invoices.showInvoice', compact(
 						'invoice',
-						'invoiceLines',
+//						'invoiceLines',
 		));
 	}
 
@@ -436,11 +436,8 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Invoice $invoice) {
-
-		$invoice = Invoice::find($invoice);
-dd($invoice);		
 		$invoice->invoiceLines()->delete();
-//		$invoice->delete();
+		$invoice->delete();
 
 		return redirect()->action('Financial\\InvoiceController@index');
 	}

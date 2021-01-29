@@ -35,7 +35,7 @@ class Invoice extends Model {
 	}
 
 	public function invoiceLines() {
-		return $this->hasMany(InvoiceLine::class, 'id', 'invoice_id');
+		return $this->hasMany(InvoiceLine::class, 'invoice_id', 'id');
 	}
 
 	// this is a recommended way to declare event handlers
