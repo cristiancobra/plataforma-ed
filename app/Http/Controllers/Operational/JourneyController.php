@@ -122,12 +122,6 @@ class JourneyController extends Controller {
 
 			$journey->save();
 		}
-		
-		$journey = Journey::find($journey->id)
-				->with('task.user')
-				->first();
-		
-//		dd($journey);
 
 		return view('operational.journey.showJourney', compact(
 						'journey',
