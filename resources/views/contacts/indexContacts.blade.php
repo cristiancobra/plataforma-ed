@@ -87,7 +87,7 @@ Total: <span class="labels">{{$totalContacts}}</span>
 						<i class='fa fa-edit'></i>
 					</button>
 				</a>
-				{{$contact->company->name}}
+				{{$company->name}}
 				<br>
 				@endforeach
 			</td>
