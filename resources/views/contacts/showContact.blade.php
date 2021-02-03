@@ -66,11 +66,16 @@
 	<label class="labels"  for="" >Escolaridade: </label> {{ $contact->schollarity }}
 	<br>
 	<br>
-		<h2 class="name" for="">
+	<h2 class="name" for="">
 		EMPRESAS ONDE TRABALHA:
 	</h2>
 	@if(!$contact->companies()->exists())
 	Não possui empresa cadastrada
+	<br>
+	<a class="btn btn-secondary" href="{{ route('company.create')}}">
+		CRIAR EMPRESA
+	</a>
+	<br>
 	@else
 	@foreach ($contact->companies as $company)
 	<a  class="white" href=" {{route('company.show', ['company' => $company->id])}}">

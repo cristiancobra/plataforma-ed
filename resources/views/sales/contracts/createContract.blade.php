@@ -61,6 +61,10 @@
 		<br>
 		<br>
 		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+		@if(!empty(app('request')->input('contactCompanyNames')))
+		{{app('request')->input('contactCompanyNames')}}
+		<input type="hidden" name="company_id" value="{{app('request')->input('contactCompanyIds')}}">
+		@else
 		<select name="company_id">
 			@foreach ($companies as $company)
 			<option  class="fields" value="{{ $company->id }}">
@@ -73,8 +77,13 @@
 				<i class='fa fa-plus'></i>
 			</button>
 		</a>
+		@endif
 		<br>
 		<label class="labels" for="" >CLIENTE RESPONSÁVEL: </label>
+		@if(!empty(app('request')->input('opportunityContactName')))
+		{{app('request')->input('opportunityContactName')}}
+		<input type="hidden" name="contact_id" value="{{app('request')->input('opportunityContactId')}}">
+		@else
 		<select name="contact_id">
 			@foreach ($contacts as $contact)
 			<option  class="fields" value="{{ $contact->id }}">
@@ -86,6 +95,7 @@
 			<a href=" {{route('contact.create')}}">
 				<i class='fa fa-plus' style="color:white"></i></a>
 		</button>
+		@endif
 		<br>
 		<label class="labels" for="" >PRIMEIRA TESTEMUNHA: </label>
 		<select name="witness1">

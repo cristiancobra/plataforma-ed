@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Contract;
+use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Opportunity;
 use App\Models\Product;
@@ -160,6 +161,11 @@ class OpportunityController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Opportunity $opportunity) {
+		$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
+			$query->where('contacts.id', $opportunity->contact_id);
+		})
+				->get();
+//		dd($contactCompanies);
 		$invoices = Invoice::where('opportunity_id', $opportunity->id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
@@ -175,6 +181,7 @@ class OpportunityController extends Controller {
 			'invoices',
 			'tasks',
 			'contracts',
+			'contactCompanies',
 		));
 	}
 

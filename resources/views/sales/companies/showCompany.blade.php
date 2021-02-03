@@ -61,12 +61,32 @@
 	<label class="labels"  for="">País: </label> {{$company->country}}
 	<br>
 	<br>
+	<br>
 	<h2 class="name" for="">PERFIL</h2>
 	<label class="labels" for="">Quantidade de empregados: </label> {{$company->employees}}
 	<br>
 	<label class="labels" for="">Tipo: </label> {{ $company->type }}
 	<br>
 	<label class="labels" for="">Stituação: </label> {{$company->status}}
+	<br>
+	<br>
+	<br>
+	<h2 class="name" for="">FUNCIONÁRIOS</h2>
+	@foreach ($company->contacts as $contact)
+	<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
+		<button class="button-round">
+			<i class='fas fa-comment-dots'></i>
+		</button>
+	</a>
+
+	<a  class="white" href=" {{ route('contact.show', ['contact' => $contact->id]) }}">
+		<button class="button-round">
+			<i class='fa fa-eye'></i>
+		</button>
+	</a>
+	{{$contact->name}}
+	@endforeach	
+	<br>
 	<br>
 	<br>
 	<p class="labels"> <b>Criado em:</b> {{ date('d/m/Y H:i', strtotime($company->created_at)) }} </p>

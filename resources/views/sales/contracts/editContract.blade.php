@@ -66,7 +66,7 @@
 				{{$contract->company->name}}
 			</option>
 			@foreach ($companies as $company)
-			<option  class="fields" value="{{ $company->id }}">
+			<option  class="fields" value="{{$company->id}}">
 				{{$company->name}}
 			</option>
 			@endforeach

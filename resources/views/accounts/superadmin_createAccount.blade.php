@@ -16,7 +16,7 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('account.store') }} " method="post" style="padding: 40px;color: #874983">
+<form action=" {{ route('account.store') }} " method="post" style="color: #874983">
 	@csrf
 	<label for="" >Nome: </label>
 	<input type="text" name="name">

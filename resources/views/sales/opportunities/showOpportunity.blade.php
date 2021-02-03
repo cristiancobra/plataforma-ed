@@ -332,10 +332,12 @@ indefinida
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
 				'opportunityDescription' => $opportunity->description,
-//				'opportunityUserName' => $opportunity->user->name,
-//				'opportunityUserId' => $opportunity->user->id,
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
+				'opportunityContactName' => $opportunity->contact->name,
+				'opportunityContactId' => $opportunity->contact_id,
+				'contactCompanyNames' => $contactCompanies,
+				'contactCompanyIds' => $contactCompanies,
 				'contractStatus' => 'pendente',
 				])}}">
 	GERAR CONTRATO

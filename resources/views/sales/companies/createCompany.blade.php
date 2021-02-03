@@ -97,32 +97,42 @@
 		<input type="text" name="neighborhood">   
 		<br>
 		<label for="">Estado: </label>
-			{{createDoubleSelect('state', 'fields', $states)}}
+		{{createDoubleSelect('state', 'fields', $states)}}
 		<br>
 		<label for="">País: </label>
 		<input type="text" name="country" value="Brasil">   
 		<br>
 		<br>
 		<br>
-			<h2 class="name" for="">PERFIL</h2>
-			<label for="">Quantidade de empregados: </label>
-			<input type="number" name="employees">
-			<br>
-			<label for="">Tipo: </label>
-			<input type="text" name="type">
-			<br>
-			<br>
-			<label for="status">SITUAÇÃO: </label>
-			<select class="fields" name="status">
-				<option value="ativo">ativo</option>
-				<option value="pendente">pendente</option>
-				<option value="desativado">desativado</option>
-			</select>
-			<br>
-			<br>
-			<input class="btn btn-secondary" type="submit" value="CRIAR">
+		<h2 class="name" for="">PERFIL</h2>
+		<label for="">Quantidade de empregados: </label>
+		<input type="number" name="employees">
+		<br>
+		<label for="">Tipo: </label>
+		<input type="text" name="type">
+		<br>
+		<br>
+		<br>
+		<h2 class="name" for="">FUNCIONÁRIOS</h2>
+		@foreach ($contacts as $contact)
+		<p class="fields">
+			<input type="checkbox" name="contacts[]" value="{{$contact->id}}">
+			{{$contact->name}}
+		</p>
+		@endforeach
+		<br>
+		<br>
+		<label for="status">SITUAÇÃO: </label>
+		<select class="fields" name="status">
+			<option value="ativo">ativo</option>
+			<option value="pendente">pendente</option>
+			<option value="desativado">desativado</option>
+		</select>
+		<br>
+		<br>
+		<input class="btn btn-secondary" type="submit" value="CRIAR">
 	</form>
 </div>
-		<br>
-		<br>
+<br>
+<br>
 @endsection

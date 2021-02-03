@@ -47,38 +47,30 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
-		$userAuth = Auth::user();
-
 		$states = returnStates();
 
 		if ($request['role'] === "superadmin") {
-			$users = User::where('id', '>', 0)
+			$users = User::where('users.id', '>', 0)
+					->join('contacts', 'contacts.id', '=', 'users.contact_id')
 					->orderBy('NAME', 'asc')
 					->get();
 
-			return view('accounts.superadmin_createAccount', [
-				'userAuth' => $userAuth,
-				'users' => $users,
-				'states' => $states,
-			]);
+			return view('accounts.superadmin_createAccount', compact(
+				'users',
+				'states',
+			));
 		} elseif ($request['role'] === "administrator") {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+			$accountsId = userAccounts();
 
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('accounts.id', $accountsID);
+			$users = User::whereHas('accounts', function($query) use($accountsId) {
+						$query->whereIn('accounts.id', $accountsId);
 					})
 					->get();
 
-			return view('accounts.administrator_createAccount', [
-				'userAuth' => $userAuth,
-				'users' => $users,
-				'states' => $states,
-			]);
-		} else {
-			return redirect('/login');
+			return view('accounts.administrator_createAccount', compact(
+				'users',
+				'states',
+			));
 		}
 	}
 

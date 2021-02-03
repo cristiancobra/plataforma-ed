@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Company;
 
 class CompanyController extends Controller {
@@ -40,12 +41,13 @@ class CompanyController extends Controller {
 	 */
 	public function create() {
 
-		$accountsId = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
-				})
-				->pluck('id');
-
+		$accountsId = userAccounts();
+		
 		$accounts = Account::whereIn('id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		$contacts = Contact::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -53,6 +55,7 @@ class CompanyController extends Controller {
 
 		return view('sales.companies.createCompany', compact(
 						'accounts',
+						'contacts',
 						'states',
 		));
 	}
@@ -67,7 +70,7 @@ class CompanyController extends Controller {
 		$company = new Company();
 		$company->fill($request->all());
 		$company->save();
-
+		$company->contacts()->sync($request->contacts);
 
 		return view('sales.companies.showCompany', compact(
 						'company',
