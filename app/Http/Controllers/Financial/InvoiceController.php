@@ -106,7 +106,6 @@ class InvoiceController extends Controller {
 				->get();
 
 		return view('financial.invoices.createInvoice', compact(
-						'invoice',
 						'accounts',
 						'opportunities',
 						'contacts',
