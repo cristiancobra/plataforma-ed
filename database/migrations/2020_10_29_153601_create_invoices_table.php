@@ -15,7 +15,7 @@ class CreateInvoicesTable extends Migration {
 		Schema::create('invoices', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('account_id');
-			$table->foreignId('opportunitie_id');
+			$table->foreignId('opportunity_id');
 			$table->foreignId('user_id');
 			$table->date('date_creation');
 			$table->date('pay_day');

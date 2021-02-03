@@ -10,7 +10,7 @@ class InvoiceLine extends Model {
 	protected $fillable = [
 		'id',
 		'account_id',
-		'opportunitie_id',
+		'opportunity_id',
 		'invoice_id',
 		'amount',
 		'subtotalHours',

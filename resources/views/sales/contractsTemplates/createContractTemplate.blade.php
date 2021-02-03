@@ -34,7 +34,6 @@
 		<br>
         <label class="labels" for="" >TEXTO DO CONTRATO:</label>
         <textarea id="text" name="text" rows="20" cols="90">
-		{{$contractTemplate->text}}
         </textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

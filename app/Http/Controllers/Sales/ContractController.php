@@ -31,6 +31,7 @@ class ContractController extends Controller {
 					'contact',
 					'account',
 					'company',
+					'opportunity',
 					'user',
 					'userContact',
 					'invoice.invoiceLines.product',
@@ -107,7 +108,8 @@ class ContractController extends Controller {
 	public function store(Request $request) {
 		$contract = new Contract;
 		$contract->fill($request->all());
-		$contract->text = ContractTemplate::find($request->contractTemplate_id)->pluck('text');
+		$contractTemplate = ContractTemplate::find($request->contractTemplate_id)->first();
+		$contract->text = $contractTemplate->text;
 		$contract->save();
 
 		return redirect()->action('Sales\\ContractController@index');
@@ -163,6 +165,10 @@ class ContractController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Contract $contract) {
+		$contract = Contract::find($contract->id)
+				->with('opportunity')
+				->first();
+
 		$accountsId = userAccounts();
 
 		$accounts = Account::whereIn('id', $accountsId)

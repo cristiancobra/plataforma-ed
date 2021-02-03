@@ -49,11 +49,11 @@
 		<tr style="font-size: 14px">
 			<td class="table-list-left">
 				<button class="button-round">
-					<a href=" {{ route('contract.show', ['contract' => $contract->id]) }}">
+					<a href=" {{ route('contract.show', ['contract' => $contract]) }}">
 						<i class='fa fa-eye' style="color:white"></i></a>
 				</button>
 				<button class="button-round">
-					<a href=" {{ route('contract.edit', ['contract' => $contract->id]) }}">
+					<a href=" {{ route('contract.edit', ['contract' => $contract]) }}">
 						<i class='fa fa-edit' style="color:white"></i></a>
 				</button>
 				{{$contract->name}}

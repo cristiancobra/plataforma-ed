@@ -13,7 +13,7 @@ class Contract extends Model {
 		'name',
 		'account_id',
 		'user_id',
-		'opportunitie_id',
+		'opportunity_id',
 		'product_id',
 		'contact_id',
 		'company_id',
@@ -42,7 +42,7 @@ class Contract extends Model {
 		return $this->hasOne(Invoice::class, 'id', 'invoice_id');
 	}
 	public function opportunity() {
-		return $this->hasOne(Opportunity::class, 'id', 'opportunitie_id');
+		return $this->hasOne(Opportunity::class, 'id', 'opportunity_id');
 	}
 	public function products() {
 		return $this->hasMany(Product::class, 'contract_product');
