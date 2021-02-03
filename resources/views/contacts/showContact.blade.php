@@ -24,7 +24,7 @@
 	<label class="labels" for="" >
 		Dono:
 	</label>
-	{{$contact->first_name}}
+	{{$contact->account->name}}
 	<br>
 	<label class="labels"  for="" >
 		Origem do contato:
