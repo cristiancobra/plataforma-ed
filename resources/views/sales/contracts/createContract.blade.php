@@ -20,6 +20,10 @@
 	<form action=" {{route('contract.store')}} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >EMPRESA: </label>
+		@if(!empty(app('request')->input('opportunityAccountName')))
+		{{app('request')->input('opportunityAccountName')}}
+		<input type="hidden" name="account_id" value="{{app('request')->input('opportunityAccountId')}}">
+		@else
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{$account->id}}">
@@ -27,6 +31,7 @@
 			</option>
 			@endforeach
 		</select>
+		@endif
 		<br>
 		<label class="labels" for="" >RESPONSÁVEL NA MINHA EMPRESA: </label>
 		<select name="user_id">
@@ -38,6 +43,10 @@
 		</select>
 		<br>
 		<label class="labels" for="" >OPORTUNIDADE: </label>
+		@if(!empty(app('request')->input('opportunityName')))
+		{{app('request')->input('opportunityName')}}
+		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
+		@else
 		<select name="opportunity_id">
 			@foreach ($opportunities as $opportunity)
 			<option  class="fields" value="{{$opportunity->id}}">
@@ -45,6 +54,7 @@
 			</option>
 			@endforeach
 		</select>
+		@endif
 		<br>
 		<label class="labels" for="" >FATURA: </label>
 		{{createSelect('invoice_id', 'fields', $invoices)}}

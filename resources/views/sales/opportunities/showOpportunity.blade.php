@@ -132,7 +132,7 @@ indefinida
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{ route('task.create', [
+<a class="btn btn-secondary" href="{{route('task.create', [
 				'taskName' =>"Enviar material",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -143,7 +143,7 @@ indefinida
 				])}}">
 	ENVIAR MATERIAL
 </a>
-<a class="btn btn-secondary" href="{{ route('task.create', [
+<a class="btn btn-secondary" href="{{route('task.create', [
 				'taskName' =>"Agendar reunião",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -154,7 +154,7 @@ indefinida
 				])}}">
 	AGENDAR REUNIÃO
 </a>
-<a class="btn btn-secondary" href="{{ route('task.create', [
+<a class="btn btn-secondary" href="{{route('task.create', [
 				'taskName' =>"Fazer proposta",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -165,7 +165,7 @@ indefinida
 				])}}">
 	FAZER ORÇAMENTO
 </a>
-<a class="btn btn-secondary" href="{{ route('task.create', [
+<a class="btn btn-secondary" href="{{route('task.create', [
 				'taskName' =>"Fazer contrato",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -243,7 +243,7 @@ indefinida
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{ route('invoice.create', [
+<a class="btn btn-secondary" href="{{route('invoice.create', [
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
 				'opportunityDescription' => $opportunity->description,
@@ -255,7 +255,7 @@ indefinida
 				])}}">
 	GERAR ORÇAMENTO
 </a>
-<a class="btn btn-secondary" href="{{ route('invoice.create', [
+<a class="btn btn-secondary" href="{{route('invoice.create', [
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
 				'opportunityDescription' => $opportunity->description,
