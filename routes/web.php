@@ -49,6 +49,11 @@ Route::resource('emails', 'Emails\\EmailController')
 		->middleware('roles');
 
 // ================================ FINANCIAL ===================
+Route::resource('contas-bancarias', 'Financial\\BankAccountController')
+		->names('bankAccount')
+		->parameters(['contas-bancarias' => 'bankAccount'])
+		->middleware('roles');
+
 Route::get('faturas/enviar', function() {
 	return new \App\Mail\invoices();
 })

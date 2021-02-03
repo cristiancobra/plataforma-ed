@@ -49,13 +49,6 @@ class DashboardController extends Controller {
 						->sum('duration');
 			}
 
-//			$todayTotal = Journey::whereIn('account_id', $accountsId)
-//					->where('date', date('Y-m-d'))
-//					->sum('duration');
-//
-//			$monthTotal = Journey::whereIn('account_id', $accountsId)
-//					->whereBetween('date', [$monthStart, $monthEnd])
-//					->sum('duration');
 			$view = 'dashboards/administratorDashboard';
 
 			$departments = "";
@@ -93,47 +86,6 @@ class DashboardController extends Controller {
 		$opportunitiesProspecting = $opportunities
 				->where('stage', 'prospecção')
 				->count();
-
-//		$hoursTotal = $tasks
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->sum('duration');
-//
-//		$hoursToday = $tasks
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->where('date_conclusion', date('Y-m-d'))
-//				->sum('duration');
-//
-//		$hoursAugust = $tasks
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->whereBetween('date_conclusion', ['2020-08-01', '2020-08-31'])
-//				->sum('duration');
-//
-//		$hoursSeptember = $tasks
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->whereBetween('date_conclusion', ['2020-09-01', '2020-09-30'])
-//				->sum('duration');
-//
-//		$hoursOctober = $tasks
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
-//				->sum('duration');
-//
-//		$hoursNovember = $tasks
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->whereBetween('date_conclusion', ['2020-10-01', '2020-10-31'])
-//				->sum('duration');
-//
-//		$hoursNovember2 = $journeys
-//				->where('status', 'concluida')
-//				->where('user_id', Auth::user()->id)
-//				->whereBetween('date', ['2020-10-01', '2020-10-31'])
-//				->sum('duration');
 
 		$opportunitiesProspecting = $opportunities
 				->where('stage', 'prospecção')

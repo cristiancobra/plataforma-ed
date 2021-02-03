@@ -158,7 +158,6 @@ class UserController extends Controller {
 							->withInput();
 		} else {
 			$user->save();
-
 			$user->accounts()->sync($request->accounts);
 
 			return view('users.showUser', [

@@ -82,8 +82,6 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$invoice = new Invoice();
-
 		$accountsId = userAccounts();
 
 		$accounts = Account::whereIn('id', $accountsId)
@@ -337,12 +335,12 @@ class InvoiceController extends Controller {
 			}
 
 			$counter = 1;
-			while ($counter <= $installment) {
-				if ($counter > 1) {
+			while($counter <= $installment) {
+				if($counter > 1) {
 					$invoice = new Invoice();
-					if ($lastInvoice != null) {
+					if($lastInvoice != null) {
 						$invoice->identifier = $lastInvoice->identifier + ($counter -1);
-					} else {
+					}else{
 						$invoice->identifier = $counter;
 					}
 				}

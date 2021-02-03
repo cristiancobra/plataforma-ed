@@ -111,6 +111,10 @@
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>
 						FATURAS
 					</a>
+					<a class="sidebar-subitem" href="{{route('bankAccount.index')}}">
+						<i class="fas fa-receipt" style="margin-right: 8px"></i>
+						CONTAS BANCÁRIAS
+					</a>
 				</div>
 				@endif
 

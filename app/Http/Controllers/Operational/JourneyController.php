@@ -119,7 +119,6 @@ class JourneyController extends Controller {
 				$end_time = strtotime($request->end_time);
 				$journey->duration = $end_time - $start_time;
 			}
-
 			$journey->save();
 		}
 
