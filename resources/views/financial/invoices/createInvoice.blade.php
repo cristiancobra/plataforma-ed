@@ -204,7 +204,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-		{{editSelect('payment_method', 'fields', returnPaymentMethods(), $invoice->payment_method)}}
+		{{createSelect('payment_method', 'fields', returnPaymentMethods())}}
 		<br>
 		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
 		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1">
