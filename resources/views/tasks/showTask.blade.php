@@ -51,7 +51,7 @@
 	<br>
 	<br>
 	<p class="labels">
-		DATA DE CRIAÇÃO:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_start))}}</span>
+		DATA DE CRIAÇÃO:<span class="fields">  {{date('d/m/Y', strtotime($task->date_start))}}</span>
 	</p>
 	<p class="labels">
 		PRAZO FINAL:<span class="fields">  {{ date('d/m/Y', strtotime($task->date_due))}}</span>

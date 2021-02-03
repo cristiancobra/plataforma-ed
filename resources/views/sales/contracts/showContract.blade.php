@@ -28,14 +28,14 @@
 	Objeto do contrato
 </h3>
 <p>
-    É objeto deste contrato o/a {{$contract->name}} nos termos aqui descritos.
+    1. É objeto deste contrato o/a {{$contract->name}} nos termos aqui descritos.
 </p>
 <br>
 <h3>
 	Identificação das partes
 </h3>
 <p>
-	São partes deste contrato a empresa contratada 
+	2. São partes deste contrato a empresa contratada 
 	<span class="labels">{{$contract->account->name}}</span>
 	<button class="button-round">
 		<a href=" {{ route('account.edit', ['account' => $contract->account->id]) }}">
@@ -110,7 +110,7 @@
 	Serviços/produtos contratados
 </h3>
 <p>
-	Segue abaixo a lista de itens contratados e suas especificidades:
+	3. Os produtos/serviços contratados e suas especificidades são:
 </p>
 <br>
 <table class="table-list">
@@ -206,6 +206,50 @@
 <p>
 	{!!html_entity_decode($contract->text)!!}
 </p>
+<br>
+<br>
+<p style="text-align: center">
+	Assinam esse contrato no dia {{date('d/m/Y', strtotime($contract->date_start))}}
+</p>
+<br>
+<div style="text-align: center;display: inline-block;width: 100%">
+	<div>
+		<p style="text-align: center;display: inline-block;padding: 5%">
+			________________________________________________
+			<br>
+			<span class="labels">{{$contract->userContact->name}}</span> - <span class="labels">{{$contract->account->name}}</span>
+			<br>
+			contratada
+			<br>
+		</p>
+		<p style="text-align: center;display: inline-block;padding: 5%">
+			<br>
+			________________________________________________
+			<br>
+			<span class="labels">{{$contract->contact->name}}</span> - <span class="labels">{{$contract->company->name}}</span>
+			<br>
+			contratante
+			<br>
+		</p>
+		<br>
+	</div>
+	<div>
+		<p style="text-align: center;display: inline-block;padding: 5%">
+			________________________________________________
+			<br>
+			<span class="labels">{{$witnessName1}}</span> - testemunha 1
+			<br>
+		</p>
+		<p style="text-align: center;display: inline-block;padding: 5%">
+			________________________________________________
+			<br>
+			<span class="labels">{{$witnessName2}}</span> - testemunha 2
+			<br>
+		</p>
+		<br>
+	</div>
+</div>
+<br>
 <br>
 <h3>
 	Observações

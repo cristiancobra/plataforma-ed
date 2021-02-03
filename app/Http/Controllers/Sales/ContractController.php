@@ -147,6 +147,12 @@ class ContractController extends Controller {
 
 		$userContact = userContact($contract->user_id);
 
+		$witness1 = Contact::find($contract->witness1);
+		$witnessName1 = $witness1->name;
+
+		$witness2 = Contact::find($contract->witness2);
+		$witnessName2 = $witness2->name;
+
 		return view('sales.contracts.showContract', compact(
 						'contract',
 						'accounts',
@@ -155,6 +161,8 @@ class ContractController extends Controller {
 						'contacts',
 						'invoiceLines',
 						'userContact',
+						'witnessName1',
+						'witnessName2',
 		));
 	}
 
@@ -241,10 +249,18 @@ class ContractController extends Controller {
 
 		$userContact = userContact($contract->user_id);
 
+		$witness1 = Contact::find($contract->witness1);
+		$witnessName1 = $witness1->name;
+
+		$witness2 = Contact::find($contract->witness2);
+		$witnessName2 = $witness2->name;
+
 		return view('sales.contracts.showContract', compact(
 						'contract',
 						'invoiceLines',
 						'userContact',
+						'witnessName1',
+						'witnessName2',
 		));
 	}
 
