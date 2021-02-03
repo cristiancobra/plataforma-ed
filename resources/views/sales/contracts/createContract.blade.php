@@ -38,7 +38,7 @@
 		</select>
 		<br>
 		<label class="labels" for="" >OPORTUNIDADE: </label>
-		<select name="opportunitie_id">
+		<select name="opportunity_id">
 			@foreach ($opportunities as $opportunity)
 			<option  class="fields" value="{{$opportunity->id}}">
 				{{$opportunity->name}}
