@@ -143,12 +143,18 @@ class OpportunityController extends Controller {
 
 			$contracts = Contract::where('opportunity_id', $opportunity->id)
 					->get();
+			
+			$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
+					$query->where('contacts.id', $opportunity->contact_id);
+				})
+				->get();
 
 			return view('sales.opportunities.showOpportunity', compact(
 							'opportunity',
 							'invoices',
 							'tasks',
 							'contracts',
+							'contactCompanies',
 			));
 		}
 	}

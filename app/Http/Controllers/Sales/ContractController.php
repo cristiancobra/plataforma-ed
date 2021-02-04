@@ -279,25 +279,71 @@ class ContractController extends Controller {
 // Generate PDF
 	public function createPDF(Contract $contract) {
 
-//		$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+		$invoice = Invoice::where('id', $contract->invoice_id)
 //				->with('product', 'opportunity')
-//				->get();
+				->get();
 
+		$invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
+				->with('product', 'opportunity')
+				->get();
+
+		$witness1 = Contact::find($contract->witness1);
+		$witnessName1 = $witness1->name;
+
+		$witness2 = Contact::find($contract->witness2);
+		$witnessName2 = $witness2->name;
+
+
+		$invoice->discount = 0;
+		$invoice->totalPrice = 0;
 		$data = [
+			// dados da empresa contratada
 			'accountLogo' => $contract->account->logo,
 			'accountName' => $contract->account->name,
+			'accountId' => $contract->account->id,
 			'accountEmail' => $contract->account->email,
 			'accountPhone' => $contract->account->phone,
 			'accountAddress' => $contract->account->address,
-			'accountAddressCity' => $contract->account->address_city,
-			'accountAddressState' => $contract->account->address_state,
+			'accountCity' => $contract->account->city,
+			'accountState' => $contract->account->state,
+			'accountZipCode' => $contract->account->zip_code,
 			'accountCnpj' => $contract->account->cnpj,
+			// dados do RESPONSAVEL pela empresa contratada
+			'userName' => $contract->user->contact->name,
+			'userId' => $contract->user->id,
+			'userAddress' => $contract->user->contact->address,
+			'userCity' => $contract->user->contact->city,
+			'userState' => $contract->user->contact->state,
+			'userZipCode' => $contract->user->contact->zip_code,
+			'userCpf' => $contract->user->contact->cpf,
+			// dados da empresa contratante
+			'companyName' => $contract->company->name,
+			'companyId' => $contract->company->id,
+			'companyAddress' => $contract->company->address,
+			'companyCity' => $contract->company->city,
+			'companyState' => $contract->company->state,
+			'companyZipCode' => $contract->company->zip_code,
+			'companyCnpj' => $contract->company->cnpj,
+			// dados do RESPONSAVEL pela empresa contratante
+			'contactName' => $contract->contact->name,
+			'contactId' => $contract->contact->id,
+			'contactAddress' => $contract->contact->address,
+			'contactCity' => $contract->contact->city,
+			'contactState' => $contract->contact->state,
+			'contactZipCode' => $contract->contact->zip_code,
+			'contactCpf' => $contract->contact->cpf,
+			// dados do Contrato
 			'contractId' => $contract->id,
 			'contractObservations' => $contract->observations,
+			'contractName' => $contract->name,
 			'contractText' => $contract->text,
-//			'invoiceDiscount' => $invoice->discount,
 			'contractDateDue' => $contract->date_due,
-//			'invoiceTotalPrice' => $invoice->totalPrice,
+			'contractDateStart' => $contract->date_start,
+			'contractWitness1' => $witnessName1,
+			'contractWitness2' => $witnessName2,
+			// outros dados
+			'invoiceDiscount' => $invoice->discount,
+			'invoiceTotalPrice' => $invoice->totalPrice,
 			'customerName' => $contract->contact->name,
 			'customerEmail' => $contract->contact->email,
 			'customerPhone' => $contract->contact->phone,
@@ -305,7 +351,7 @@ class ContractController extends Controller {
 			'customerCity' => $contract->contact->city,
 			'customerState' => $contract->contact->state,
 			'customerCountry' => $contract->contact->country,
-//			'invoiceLines' => $invoiceLines,
+			'invoiceLines' => $invoiceLines,
 //			'deadline' => $deadline,
 		];
 

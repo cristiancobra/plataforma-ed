@@ -83,7 +83,8 @@ Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
 Route::resource('transactions', 'Financial\\TransactionController')
 		->names('transaction')
-		->parameters(['transacoes' => 'transaction']);
+		->parameters(['transacoes' => 'transaction'])
+		->middleware('roles');
 
 // =============================================== MARKETING ====================================
 Route::resource('sites', 'Marketing\\SiteController')->names('site');

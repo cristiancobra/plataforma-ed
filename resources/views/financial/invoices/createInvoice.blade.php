@@ -200,7 +200,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >DESCONTO:</label>
-		<input type="number" min="0" step="any" name="discount" size="20"><span class="fields"></span>
+		<input type="decimal" name="discount" size="20" value="0"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>

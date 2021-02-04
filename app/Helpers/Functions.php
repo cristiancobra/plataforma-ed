@@ -116,12 +116,12 @@ if (!function_exists('userAccounts')) {
 
 //  retorna o ID das empresas ao qual o usuário pertence
 	function userAccounts() {
-		$accountsID = Account::whereHas('users', function($query) {
+		$accountsId = Account::whereHas('users', function($query) {
 					$query->where('users.id', Auth::user()->id);
 				})
 				->get('id');
 
-		return $accountsID;
+		return $accountsId;
 	}
 
 }

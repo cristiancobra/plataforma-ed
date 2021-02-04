@@ -24,13 +24,13 @@
 					<br>
 					{{$data['accountAddress']}}
 					<br>
-					{{$data['accountAddressCity']}} / 
-					{{$data['accountAddressState']}}
+					{{$data['accountCity']}} / 
+					{{$data['accountState']}}
 					<br>
 					CNPJ: {{$data['accountCnpj']}}
 				</td>
 				<td class="image-header">
-					FATURA {{$data['contractId']}}
+					CONTRATO {{$data['contractId']}}
 					<br>
 					<br>
 					VENCIMENTO
@@ -39,40 +39,81 @@
 				</td>
 			</tr>
 		</table>
-
-		<div>
-			<h4>
-				<br>
-				PARA:
-			</h4>
-			<!-- Dados do cliente--> 
-			<p style="text-align: left">
-				{{$data['customerName']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerEmail']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerPhone']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerAddress']}} - 
-				{{$data['customerCity']}} /
-				{{$data['customerState']}} - 
-				{{$data['customerCountry']}}
-				<br>
-				<br>
-			</p>
-		</div>
-		<h4>
-			DESCRIÇÃO:
-		</h4>
-		<p style="text-align: left;margin-top: 0px;">
-			{!!html_entity_decode($data['contractText'])!!}
+		<h2 style="text-align: center">
+			{{$data['contractName']}}
+		</h2>
+		<br>
+		<h3 style="text-align: center">
+			Objeto do contrato
+		</h3>
+		<p>
+			1. É objeto deste contrato o/a {{$data['contractName']}} nos termos aqui descritos.
 		</p>
-	
-		
-			<table  class="table-list" style="width: 100%">
+		<br>
+		<h3 style="text-align: center">
+			Identificação das partes
+		</h3>
+		<p>
+			2. São partes deste contrato a empresa contratada 
+			<span class="labels">{{$data['accountName']}}</span>
+			inscrita no CNPJ sob o nº
+			<span class="labels">{{$data['accountCnpj']}}</span>.
+			Localizada na
+			<span class="labels">{{$data['accountAddress']}}</span>,
+			em
+			<span class="labels">{{$data['accountCity']}}</span>,
+			–
+			<span class="labels">{{$data['accountState']}}</span>,
+			CEP
+			<span class="labels">{{$data['accountZipCode']}}</span>,
+			representada por
+			<span class="labels">{{$data['userName']}}</span>,
+			inscrito no CPF sob o nº
+			<span class="labels">{{$data['userCpf']}}</span>,
+			residente em
+			<span class="labels">{{$data['userAddress']}}</span>,
+			em
+			<span class="labels">{{$data['userCity']}}</span>,
+			/
+			<span class="labels">{{$data['userState']}}</span>,
+			CEP:
+			<span class="labels">{{formatZipCode($data['userZipCode'])}}</span> e,
+		</p>
+		<p>
+			a empresa contratante
+			<span class="labels">{{$data['companyName']}}</span>
+			inscrita no CNPJ sob o nº
+			<span class="labels">{{$data['companyCnpj']}}</span>.
+			Localizada na
+			<span class="labels">{{$data['companyAddress']}}</span>,
+			em
+			<span class="labels">{{$data['companyCity']}}</span>,
+			–
+			<span class="labels">{{$data['companyState']}}</span>,
+			CEP
+			<span class="labels">{{$data['companyZipCode']}}</span>,
+			representada por
+			<span class="labels">{{$data['contactName']}}</span>,
+			inscrito no CPF sob o nº
+			<span class="labels">{{$data['contactCpf']}}</span>,
+			residente em
+			<span class="labels">{{$data['contactAddress']}}</span>,
+			em
+			<span class="labels">{{$data['contactCity']}}</span>,
+			/
+			<span class="labels">{{$data['contactState']}}</span>,
+			CEP:
+			<span class="labels">{{formatZipCode($data['contactZipCode'])}}</span>.
+		</p>
+		<br>
+		<h3 style="text-align: center">
+			Serviços/produtos contratados
+		</h3>
+		<p>
+			3. Os produtos/serviços contratados e suas especificidades são:
+		</p>
+		<br>
+		<table  class="table-list" style="width: 100%">
 			<tr>
 				<td class="table-list-header" style="width: 10%">
 					QTDE
@@ -146,50 +187,56 @@
 				tttt
 			</tr>
 		</table>
-		
-		
-		<table  class="table-list" style="width: 100%">
-			<tr>
-				<td style="text-align: left" colspan="2">
-					<h4>
-						OBSERVAÇÕES:
-					</h4>
-					<p>
-						{!!html_entity_decode($data['contractObservations'])!!}
-					</p>
-					<br>
-					<hr>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<h4>
-						FORMAS DE PAGAMENTO:
-					</h4>
-					<p>
-						À  VISTA: por boleto ou transferência bancária
-						<br>
-						PARCELADO: no cartão de crédito em até 12x
-						<br>
-					</p>
-				</td>
-				<td style="text-align: center">
-					<h4>
-						DADOS PARA PAGAMENTO:
-					</h4>
-					<p>
-						Banco Inter
-						<br>
-						Agência: 0001
-						<br>
-						Conta: 2303763-6
-						<br>
-						CNPJ: {{$data['accountCnpj']}}
-					</p>
-				</td>
-			</tr>
-		</table>
+		<p style="text-align: left;margin-top: 0px;">
+			{!!html_entity_decode($data['contractText'])!!}
+		</p>
 		<br>
+		<br>
+		<br>
+		<p style="text-align: center">
+			Assinam esse contrato no dia {{date('d/m/Y', strtotime($data['contractDateStart']))}}
+		</p>
+		<br>
+		<br>
+		<div style="text-align: center;width: 100%">
+			<div style="text-align: center;display: inline-block;padding-left: 2%;width: 45%">
+				<p style="text-align: center">
+					<br>
+					______________________________________
+					<br>
+					<span class="labels">{{$data['userName']}}</span> - <span class="labels">{{$data['accountName']}}</span>
+					<br>
+					contratada
+				</p>
+			</div>
+			<div style="text-align: center;display: inline-block;padding-left: 2%;width: 45%">
+				<p style="text-align: center">
+					______________________________________
+					<br>
+					<span class="labels">{{$data['contactName']}}</span> - <span class="labels">{{$data['companyName']}}</span>
+					<br>
+					contratante
+				</p>
+			</div>
+		</div>
+		<br>
+		<br>
+		<div style="text-align: center;width: 100%">
+			<div style="text-align: center;display: inline-block;padding-left: 2%;width: 45%">
+				<p style="text-align: center">
+					______________________________________
+					<br>
+					<span class="labels">{{$data['contractWitness1']}}</span> - testemunha 1
+				</p>
+			</div>
+			<div style="text-align: center;display: inline-block;padding-left: 2%;width: 45%">
+				<p style="text-align: center">
+					______________________________________
+					<br>
+					<span class="labels">{{$data['contractWitness2']}}</span> - testemunha 2
+				</p>
+			</div>
+		</div>
 		<br>
 	</body>
 </html>

@@ -115,6 +115,10 @@
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>
 						CONTAS BANCÁRIAS
 					</a>
+					<a class="sidebar-subitem" href="{{route('transaction.index')}}">
+						<i class="fas fa-receipt" style="margin-right: 8px"></i>
+						TRANSAÇÕES
+					</a>
 				</div>
 				@endif
 
@@ -137,13 +141,13 @@
 					<a class="sidebar-subitem" href="/redes-sociais">
 						<i class="fas fa-bullhorn" style="margin-right: 8px"></i>REDES SOCIAIS
 					</a>
-					<a class="sidebar-subitem" href="{{ route('site.index') }}">
+					<a class="sidebar-subitem" href="{{route('site.index')}}">
 						<i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES
 					</a>
-					<a class="sidebar-subitem" href="{{ route('report.index') }}">
+					<a class="sidebar-subitem" href="{{route('report.index')}}">
 						<i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIOS
 					</a>
-					<a class="sidebar-subitem" href="{{ route('competitor.index') }}">
+					<a class="sidebar-subitem" href="{{route('competitor.index')}}">
 						<i class="fas fa-trophy" style="margin-right: 8px"></i>CONCORRENTES
 					</a>
 					<a class="sidebar-subitem" href="https://stories.freepik.com" target="_blank">
@@ -173,8 +177,7 @@
 						<i class="fas fa-donate" style="margin-right: 8px"></i>OPORTUNIDADES
 					</a>
 					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>
-						FATURAS
+						<i class="fas fa-receipt" style="margin-right: 8px"></i>FATURAS
 					</a>
 					<a class="sidebar-subitem" href="{{ route('contract.index') }}">
 						<i class="fas fa-file-signature" style="margin-right: 8px"></i>CONTRATOS

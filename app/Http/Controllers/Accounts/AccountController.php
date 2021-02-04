@@ -16,15 +16,13 @@ class AccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) { {
-			$userAuth = Auth::user();
-
 			if ($request['role'] === "superadmin") {
 				$accounts = Account::where('id', '>', 0)
 						->orderBy('NAME', 'asc')
 						->paginate(20);
 			} elseif ($request['role'] === "administrator") {
-				$accounts = Account::whereHas('users', function($query) use($userAuth) {
-							$query->where('users.id', $userAuth->id);
+				$accounts = Account::whereHas('users', function($query) {
+							$query->where('users.id', Auth::user()->id);
 						})
 						->paginate(20);
 			} else {
@@ -33,11 +31,10 @@ class AccountController extends Controller {
 
 			$totalAccounts = $accounts->count();
 
-			return view('accounts.indexAccounts', [
-				'userAuth' => $userAuth,
-				'accounts' => $accounts,
-				'totalAccounts' => $totalAccounts,
-			]);
+			return view('accounts.indexAccounts', compact(
+				'accounts',
+				'totalAccounts',
+			));
 		}
 	}
 
