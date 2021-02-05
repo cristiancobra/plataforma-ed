@@ -21,17 +21,20 @@ Total: <span class="labels"></span>
 <div>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header" style="width: 25%">
-				<b>NOME</b>
-			</td>
 			<td   class="table-list-header" style="width: 20%">
-				<b>AGENCIA</b>
+				<b>DATA</b>
 			</td>
 			<td   class="table-list-header" style="width: 20%">
 				<b>CONTA</b>
 			</td>
-			<td   class="table-list-header" style="width: 15%">
-				<b>DONO</b>
+			<td   class="table-list-header" style="width: 20%">
+				<b>EMPRESA</b>
+			</td>
+			<td   class="table-list-header" style="width: 20%">
+				<b>FATURA</b>
+			</td>
+			<td   class="table-list-header" style="width: 20%">
+				<b>VALOR</b>
 			</td>
 		</tr>
 
@@ -48,16 +51,19 @@ Total: <span class="labels"></span>
 						<i class='fa fa-edit'></i>
 					</button>
 				</a>
-				{{$transaction->name}}
+				{{$transaction->pay_day}}
 			</td>
 			<td class="table-list-center">
-				{{$transaction->agency}}
-			</td>
-			<td class="table-list-center">
-				{{$transaction->account_number}}
+				{{$transaction->bankAccount->name}}
 			</td>
 			<td class="table-list-center">
 				{{$transaction->account->name}}
+			</td>
+			<td class="table-list-center">
+				{{$transaction->invoice_id}}
+			</td>
+			<td class="table-list-right">
+				R$ {{number_format($transaction->value,2,",",".")}}
 			</td>
 		</tr>
 		@endforeach

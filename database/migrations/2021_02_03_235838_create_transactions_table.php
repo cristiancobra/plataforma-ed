@@ -15,8 +15,9 @@ class CreateTransactionsTable extends Migration {
 		Schema::create('transactions', function (Blueprint $table) {
 			$table->id();
 			$table->foreignId('account_id');
-			$table->foreignId('bank_account_id');
 			$table->foreignId('user_id');
+			$table->foreignId('bank_account_id');
+			$table->foreignId('invoice_id');
 			$table->string('type');
 			$table->date('pay_day');
 			$table->integer('value')->nullable();
