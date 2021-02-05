@@ -131,22 +131,22 @@
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
-			<b>QTDE
-			</b></td>
+			QTDE
+			</td>
 		<td   class="table-list-header" style="width: 55%">
-			<b>NOME</b>
+			NOME
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>PRAZO</b>
+			PRAZO
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>IMPOSTO </b>
+			IMPOSTO 
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>UNITÁRIO</b>
+			UNITÁRIO
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>TOTAL</b>
+			TOTAL
 		</td>
 	</tr>
 
@@ -186,7 +186,7 @@
 			desconto: 
 		</td>
 		<td   class="table-list-header-right">
-			<b>- {{number_format($contract->invoice->discount, 2,",",".") }}</b>
+			- {{number_format($contract->invoice->discount, 2,",",".") }}
 		</td>
 	</tr>
 	<tr>
@@ -197,7 +197,7 @@
 		</td>
 		</td>
 		<td   class="table-list-header-right">
-			<b>R$ {{number_format($contract->invoice->totalPrice, 2,",",".") }}</b>
+			R$ {{number_format($contract->invoice->totalPrice, 2,",",".") }}
 		</td>
 	</tr>
 </table>
@@ -206,7 +206,7 @@
 @if($contract->invoice->number_installment == 1)
 <span class="fields">À vista</span>
 @else
-<span class="fields">{{$contract->invoice->number_installment}} x {{$contract->invoice->number_installment_value}}</span>
+<span class="fields">{{$contract->invoice->number_installment_total}} x R$ {{number_format($contract->invoice->installment_value, 2,",",".") }}</span>
 @endif
 <br>
 <br>
@@ -274,7 +274,7 @@
 </p>
 <br>
 <br>
-<p class="labels"> <b> Criado em:  </b>{{date('d/m/Y H:i', strtotime($contract->created_at))}}</p>
+<p class="labels">Criado em:  {{date('d/m/Y H:i', strtotime($contract->created_at))}}</p>
 
 <div style="text-align:right">
 	<form   style="text-decoration: none;display: inline-block" action="{{ route('contract.destroy', ['contract' => $contract->id]) }}" method="post">

@@ -71,8 +71,8 @@ class ContractController extends Controller {
 				->get();
 
 		$invoices = Invoice::whereIn('account_id', $accountsId)
-				->orderBy('ID', 'DESC')
-				->pluck('id')
+				->orderBy('IDENTIFIER', 'DESC')
+				->pluck('identifier')
 				->toArray();
 
 		$opportunities = Opportunity::whereIn('account_id', $accountsId)
