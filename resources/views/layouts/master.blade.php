@@ -95,14 +95,17 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>FATURAS
+					<a class="sidebar-subitem" href="{{route('account.index')}}">
+						<i class="fas fa-store" style="margin-right: 8px"></i>MINHAS EMPRESAS
 					</a>
-					<a class="sidebar-subitem" href="{{route('bankAccount.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>CONTAS BANCÁRIAS
+					<a class="sidebar-subitem" href="{{route('user.index')}}">
+						<i class="fa fa-id-card-alt" style="margin-right: 8px"></i>FUNCIONÁRIOS
 					</a>
-					<a class="sidebar-subitem" href="{{route('transaction.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>MOVIMENTAÇÕES
+					<a class="sidebar-subitem" href="{{route('journey.reports', ['accountId' => 1])}}">
+						<i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIO DE PRODUTIVIDADE
+					</a>
+					<a class="sidebar-subitem" href="{{route('planning.index')}}">
+						<i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO
 					</a>
 				</div>
 				
@@ -112,11 +115,11 @@
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="{{route('bankAccount.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>CONTAS BANCÁRIAS
-					</a>
 					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>FATURAS
+					</a>
+					<a class="sidebar-subitem" href="{{route('bankAccount.index')}}">
+						<i class="fas fa-receipt" style="margin-right: 8px"></i>CONTAS BANCÁRIAS
 					</a>
 					<a class="sidebar-subitem" href="{{route('transaction.index')}}">
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>MOVIMENTAÇÕES
