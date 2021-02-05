@@ -209,7 +209,6 @@
 <span class="fields">{{$contract->invoice->number_installment_total}} x R$ {{number_format($contract->invoice->installment_value, 2,",",".") }}</span>
 @endif
 <br>
-<br>
 </p>
 <br>
 <h3>

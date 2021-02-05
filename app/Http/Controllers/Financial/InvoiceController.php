@@ -170,6 +170,7 @@ class InvoiceController extends Controller {
 				$invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter - 1) . " month", strtotime($request->pay_day)));
 				$invoice->description = $request->description;
 				$invoice->discount = $request->discount;
+				$invoice->payment_method = $request->payment_method;
 				$invoice->status = $request->status;
 				$invoice->save();
 
@@ -215,11 +216,14 @@ class InvoiceController extends Controller {
 					$query->where('invoice_id', $invoice->id);
 				})
 				->get();
+				
+		$balance = $invoice->installment_value - $transactions->sum('value');
 
 		return view('financial.invoices.showInvoice', compact(
 						'invoice',
 						'invoiceLines',
 						'transactions',
+						'balance',
 		));
 	}
 
@@ -370,6 +374,7 @@ class InvoiceController extends Controller {
 				$invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter - 1) . " month", strtotime($request->pay_day)));
 				$invoice->description = $request->description;
 				$invoice->discount = $request->discount;
+				$invoice->payment_method = $request->payment_method;
 				$invoice->status = $request->status;
 				if ($counter > 1) {
 					$invoice->save();
@@ -465,10 +470,13 @@ class InvoiceController extends Controller {
 					})
 					->get();
 
+			$balance = $invoice->installment_value - $transactions->sum('value');
+
 			return view('financial.invoices.showInvoice', compact(
 							'invoice',
 							'invoiceLines',
 							'transactions',
+							'balance',
 			));
 		}
 	}
