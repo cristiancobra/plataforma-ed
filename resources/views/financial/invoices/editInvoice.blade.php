@@ -283,9 +283,11 @@ CKEDITOR.replace('description');
 		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
 		{{editSelect('payment_method', 'fields', returnPaymentMethods(),$invoice->payment_method)}}
 		<br>
+		@if($invoice->status == 'rascunho' OR $invoice->status == 'esboço')
 		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
 		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="{{$invoice->number_installment_total}}">
 		<br>
+		@endif
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
 		{{editSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}

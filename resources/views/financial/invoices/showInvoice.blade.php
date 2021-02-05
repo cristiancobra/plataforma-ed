@@ -72,22 +72,23 @@
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
-			<b>QTDE
-			</b></td>
+			QTDE
+
+		</td>
 		<td   class="table-list-header" style="width: 55%">
-			<b>NOME</b>
+			NOME
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>PRAZO</b>
+			PRAZO
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>IMPOSTO </b>
+			IMPOSTO 
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>UNITÁRIO</b>
+			UNITÁRIO
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>TOTAL</b>
+			TOTAL
 		</td>
 	</tr>
 
@@ -123,22 +124,22 @@
 	<tr>
 		<td   class="table-list-header-right" colspan="3">
 		</td>
-		<td   class="table-list-header-right"
-			  desconto: 
-			  </td>
+		<td   class="table-list-header-right">
+			desconto: 
+		</td>
 		<td   class="table-list-header-right" colspan="2">
-			<b>- {{number_format($invoice->discount, 2,",",".")}}</b>
+			- {{number_format($invoice->discount, 2,",",".")}}
 		</td>
 	</tr>
 	<tr>
 		<td   class="table-list-header-right" colspan="3">
-
+		</td>
 		<td   class="table-list-header-right">
 			TOTAL: 
 		</td>
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			<b>R$ {{number_format($invoice->totalPrice, 2,",",".")}}</b>
+			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
 		</td>
 	</tr>
 	<tr>
@@ -183,7 +184,59 @@ $counter++;
 <span class="fields">{{$invoice->status}}</span>
 <br>
 <br>
-<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($invoice->created_at)) }} </p>
+<br>
+<div style="display: inline-block">
+	<img src="{{asset('imagens/financeiro.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >PAGAMENTOS:</label>
+</div>
+<br>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 5%">
+			DATA
+		</td>
+		<td   class="table-list-header" style="width: 55%">
+			RESPONSÁVEL
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			CONTA
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			VALOR
+		</td>
+	</tr>
+	@foreach($transactions as $transaction)
+	<tr>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($transaction->pay_day))}}
+		</td>
+		<td class="table-list-center">
+			{{$transaction->user->contact->name}}
+		</td>
+		<td class="table-list-center">
+			{{$transaction->bankAccount->name}}
+		</td>
+		<td class="table-list-right">
+			R$ {{number_format($transaction->value,2,",",".")}}
+		</td>
+	</tr>
+	@endforeach
+	<tr>
+		<td   class="table-list-header-right" colspan="1">
+		</td>
+		<td   class="table-list-header-right"colspan="2">
+			SALDO DA FATURA:
+		</td>
+		</td>
+		<td   class="table-list-header-right" colspan="2">
+			R$ {{number_format($invoice->balance, 2,",",".")}}
+		</td>
+	</tr>
+</table>
+<br>
+<br>
+<p class="labels">  Criado em:   {{ date('d/m/Y H:i', strtotime($invoice->created_at)) }} </p>
 
 <div style="text-align:right;padding: 2%">
 	<form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">

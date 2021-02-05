@@ -9,6 +9,7 @@ use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Opportunity;
 use App\Models\Product;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -205,9 +206,15 @@ class InvoiceController extends Controller {
 				->with('product', 'opportunity')
 				->get();
 
+		$transactions = Transaction::whereHas('invoice', function($query) use($invoice) {
+					$query->where('invoice_id', $invoice->id);
+				})
+				->get();
+
 		return view('financial.invoices.showInvoice', compact(
 						'invoice',
 						'invoiceLines',
+						'transactions',
 		));
 	}
 
@@ -222,9 +229,17 @@ class InvoiceController extends Controller {
 				->with('invoiceLines')
 				->first();
 
+		$transactions = Transaction::whereHas('invoice', function($query) use($invoice) {
+					$query->where('invoice_id', $invoice->id);
+				})
+				->get();
+				
+		$balance = $transactions->sum('value');
+
 		return view('financial.invoices.showInvoice', compact(
 						'invoice',
-//						'invoiceLines',
+						'transactions',
+						'balance',
 		));
 	}
 
@@ -334,12 +349,12 @@ class InvoiceController extends Controller {
 			}
 
 			$counter = 1;
-			while($counter <= $installment) {
-				if($counter > 1) {
+			while ($counter <= $installment) {
+				if ($counter > 1) {
 					$invoice = new Invoice();
-					if($lastInvoice != null) {
-						$invoice->identifier = $lastInvoice->identifier + ($counter -1);
-					}else{
+					if ($lastInvoice != null) {
+						$invoice->identifier = $lastInvoice->identifier + ($counter - 1);
+					} else {
 						$invoice->identifier = $counter;
 					}
 				}
@@ -440,10 +455,16 @@ class InvoiceController extends Controller {
 					->with('product', 'opportunity')
 					->get();
 
-			return view('financial.invoices.showInvoice', [
-				'invoice' => $invoice,
-				'invoiceLines' => $invoiceLines,
-			]);
+			$transactions = Transaction::whereHas('invoice', function($query) use($invoice) {
+						$query->where('invoice_id', $invoice->id);
+					})
+					->get();
+
+			return view('financial.invoices.showInvoice', compact(
+							'invoice',
+							'invoiceLines',
+							'transactions',
+			));
 		}
 	}
 

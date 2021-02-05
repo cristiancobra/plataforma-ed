@@ -60,6 +60,11 @@ Total: <span class="labels"></span>
 				{{$transaction->account->name}}
 			</td>
 			<td class="table-list-center">
+				<a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
+					<button class="button-round">
+						<i class='fa fa-eye'></i>
+					</button>
+				</a>
 				{{$transaction->invoice_id}}
 			</td>
 			<td class="table-list-right">
