@@ -19,7 +19,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @section('main')
 <form action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
 	@csrf
-	<input type="text" name="name" placeholder="nome da tarefa" value="">
+	<input type="text" name="name" placeholder="nome da oportunidade" value="">
 	<select class="select" name="account_id">
 		<option  class="select" value="">
 			Qualquer empresa
@@ -65,25 +65,25 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header" style="width:15%">
-				<b>ID</b>
+				ID
 			</td>
 			<td   class="table-list-header" style="width:20%">
-				<b>OPORTUNIDADE</b>
+				OPORTUNIDADE
 			</td>
 			<td   class="table-list-header" style="width:15%">
-				<b>CONTRATANTE </b>
+				CONTRATANTE 
 			</td>
 			<td   class="table-list-header" style="width:15%">
-				<b>EMPRESA</b>
+				EMPRESA
 			</td>
 			<td   class="table-list-header" style="width:10%">
-				<b>VENCIMENTO</b>
+				VENCIMENTO
 			</td>
 			<td   class="table-list-header" style="width:10%">
-				<b>VALOR</b>
+				VALOR
 			</td>
 			<td   class="table-list-header" style="width:10%">
-				<b>SITUAÇÃO</b>
+				SITUAÇÃO
 			</td>
 		</tr>
 

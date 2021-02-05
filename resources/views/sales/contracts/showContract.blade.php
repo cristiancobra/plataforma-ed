@@ -19,7 +19,22 @@
 @endsection
 
 @section('main')
-<br>
+<p>
+	<br>
+	<label class="labels" for="" >OPORTUNIDADE:</label>
+	<span class="fields">{{$contract->opportunity->name}}</span>
+	<button class="button-round">
+		<a href=" {{route('opportunity.show', ['opportunity' => $contract->opportunity])}}">
+			<i class='fa fa-eye' style="color:white"></i>
+		</a>
+	</button>
+	<button class="button-round">
+		<a href=" {{route('opportunity.edit', ['opportunity' => $contract->opportunity])}}">
+			<i class='fa fa-edit' style="color:white"></i>
+		</a>
+	</button>
+	<br>
+	<br>
 <h1 class="name" style="text-align: center">
 	{{$contract->name}}
 </h1>
@@ -186,9 +201,6 @@
 		</td>
 	</tr>
 </table>
-<br>
-<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-<span class="fields">{{$contract->invoice->payment_method}}</span>
 <br>
 <label class="labels" for="" >PARCELAMENTO: </label>
 @if($contract->invoice->number_installment == 1)

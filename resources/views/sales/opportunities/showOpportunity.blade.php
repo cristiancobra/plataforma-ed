@@ -70,22 +70,22 @@ indefinida
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 20%">
-			<b>DATA CRIAÇÃO </b>
+			DATA CRIAÇÃO 
 		</td>
 		<td   class="table-list-header" style="width: 20%">
-			<b>TAREFA </b>
+			TAREFA 
 		</td>
 		<td   class="table-list-header" style="width: 35%">
-			<b>DESCRIÇÃO </b>
+			DESCRIÇÃO 
 		</td>
 		<td   class="table-list-header" style="width: 5%">
-			<b>CONCLUSÃO</b>
+			CONCLUSÃO
 		</td>
 		<td   class="table-list-header" style="width: 5%">
-			<b>PRIORIDADE</b>
+			PRIORIDADE
 		</td>
 		<td   class="table-list-header" style="width: 5%">
-			<b>SITUAÇÃO</b>
+			SITUAÇÃO
 		</td>
 	</tr>
 
@@ -140,17 +140,19 @@ indefinida
 				'opportunityContactId' => $opportunity->contact->id,
 				'taskAccountName' => $opportunity->account->name,
 				'taskAccountId' => $opportunity->account->id,
+				'department' => "vendas",
 				])}}">
 	ENVIAR MATERIAL
 </a>
 <a class="btn btn-secondary" href="{{route('task.create', [
-				'taskName' =>"Agendar reunião",
+				'taskName' =>"Reunião",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
 				'opportunityContactName' => $opportunity->contact->name,
 				'opportunityContactId' => $opportunity->contact->id,
 				'taskAccountName' => $opportunity->account->name,
 				'taskAccountId' => $opportunity->account->id,
+				'department' => "vendas",
 				])}}">
 	AGENDAR REUNIÃO
 </a>
@@ -162,6 +164,7 @@ indefinida
 				'opportunityContactId' => $opportunity->contact->id,
 				'taskAccountName' => $opportunity->account->name,
 				'taskAccountId' => $opportunity->account->id,
+				'department' => "vendas",
 				])}}">
 	FAZER ORÇAMENTO
 </a>
@@ -173,9 +176,11 @@ indefinida
 				'opportunityContactId' => $opportunity->contact->id,
 				'taskAccountName' => $opportunity->account->name,
 				'taskAccountId' => $opportunity->account->id,
+				'department' => "vendas",
 				])}}">
 	FAZER CONTRATO
 </a>
+<br>
 <br>
 <br>
 <br>
@@ -188,22 +193,22 @@ indefinida
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 20%">
-			<b>ID</b>
+			ID
 		</td>
 		<td   class="table-list-header" style="width: 20%">
-			<b>DATA CRIAÇÃO </b>
+			DATA CRIAÇÃO 
 		</td>
 		<td   class="table-list-header" style="width: 20%">
-			<b>DATA PAGAMENTO</b>
+			DATA PAGAMENTO
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>VALOR TOTAL</b>
+			VALOR TOTAL
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>VALOR DA PARCELA</b>
+			VALOR DA PARCELA
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>SITUAÇÃO</b>
+			SITUAÇÃO
 		</td>
 	</tr>
 
@@ -252,6 +257,7 @@ indefinida
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
 				'invoiceStatus' => 'orçamento',
+				'department' => "vendas",
 				])}}">
 	GERAR ORÇAMENTO
 </a>
@@ -261,9 +267,11 @@ indefinida
 				'opportunityDescription' => $opportunity->description,
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
+				'department' => "vendas",
 				])}}">
 	GERAR FATURA
 </a>
+<br>
 <br>
 <br>
 <br>
@@ -276,25 +284,25 @@ indefinida
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 20%">
-			<b>TÍTULO</b>
+			TÍTULO
 		</td>
 		<td   class="table-list-header" style="width: 20%">
-			<b>CONTRATADA</b>
+			CONTRATADA
 		</td>
 		<td   class="table-list-header" style="width: 20%">
-			<b>CONTRATANTE</b>
+			CONTRATANTE
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>RESPONSÁVEL</b>
+			RESPONSÁVEL
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>DATA DE ÍNICIO</b>
+			DATA DE ÍNICIO
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>DATA DE VENCIMENTO</b>
+			DATA DE VENCIMENTO
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>SITUAÇÃO</b>
+			SITUAÇÃO
 		</td>
 	</tr>
 
@@ -339,12 +347,113 @@ indefinida
 				'contactCompanyNames' => $contactCompanies,
 				'contactCompanyIds' => $contactCompanies,
 				'contractStatus' => 'pendente',
+				'department' => "vendas",
 				])}}">
 	GERAR CONTRATO
 </a>
 <br>
 <br>
-<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
+<br>
+<br>
+<div style="display: inline-block">
+	<img src="{{asset('imagens/production.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >PRODUÇÃO:</label>
+</div>
+<br>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 20%">
+			DATA CRIAÇÃO 
+		</td>
+		<td   class="table-list-header" style="width: 20%">
+			TAREFA 
+		</td>
+		<td   class="table-list-header" style="width: 35%">
+			DESCRIÇÃO 
+		</td>
+		<td   class="table-list-header" style="width: 5%">
+			CONCLUSÃO
+		</td>
+		<td   class="table-list-header" style="width: 5%">
+			PRIORIDADE
+		</td>
+		<td   class="table-list-header" style="width: 5%">
+			SITUAÇÃO
+		</td>
+	</tr>
+
+	@foreach ($tasks as $task)
+	<tr style="font-size: 14px">
+		<td class="table-list-left">
+			<button class="button-round">
+				<a href=" {{ route('task.show', ['task' => $task->id]) }}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button-round">
+				<a href=" {{ route('task.edit', ['task' => $task->id]) }}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
+			{{date('d/m/Y', strtotime($task->date_start))}}
+		</td>
+		<td class="table-list-left">
+			{{$task->name}}
+		</td>
+		<td class="table-list-left">
+			{!!html_entity_decode($task->description)!!}
+		</td>
+		<td class="table-list-center">
+			@isset($task->date_conclusion)
+			{{date('d/m/Y', strtotime($task->date_conclusion))}}
+			@else
+			em aberto
+			@endisset
+		</td>
+		{{formatPriority($task)}}
+
+		@if($task->status == 'fazer' AND $task->journeys()->exists())
+		<td class="td-doing">
+			andamento
+		</td>
+		@elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+		<td class="td-late">
+			atrasada
+		</td>
+		@else
+		{{formatStatus($task)}}
+		@endif
+	</tr>
+	@endforeach
+</table>
+<br>
+<a class="btn btn-secondary" href="{{route('task.create', [
+				'taskName' =>"PRODUZIR: $opportunity->name",
+				'opportunityId' => $opportunity->id,
+				'opportunityName' => $opportunity->name,
+				'opportunityContactName' => $opportunity->contact->name,
+				'opportunityContactId' => $opportunity->contact->id,
+				'taskAccountName' => $opportunity->account->name,
+				'taskAccountId' => $opportunity->account->id,
+				'department' => "produção",
+				])}}">
+	SOLICITAR  PRODUÇÃO
+</a>
+<a class="btn btn-secondary" href="{{route('task.create', [
+				'taskName' =>"ENTREGAR: $opportunity->name",
+				'opportunityId' => $opportunity->id,
+				'opportunityName' => $opportunity->name,
+				'opportunityContactName' => $opportunity->contact->name,
+				'opportunityContactId' => $opportunity->contact->id,
+				'taskAccountName' => $opportunity->account->name,
+				'taskAccountId' => $opportunity->account->id,
+				'department' => "vendas",
+				])}}">
+	REALIZAR ENTREGA
+</a>
+<br>
+<br>
+<br>
+<p class="labels">  Criado em:   {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
 
 <div style="text-align:right;padding: 2%">
 	<form   style="text-decoration: none;display: inline-block" action="{{ route('opportunity.destroy', ['opportunity' => $opportunity->id]) }}" method="post">

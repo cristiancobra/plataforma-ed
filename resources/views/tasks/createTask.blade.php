@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','NOVA TAREFA')
+@section('title','TAREFAS')
 
 @section('image-top')
 {{ asset('imagens/tarefas.png') }} 
@@ -27,31 +27,19 @@
 <div>
 	<form action=" {{ route('task.store') }} " method="post" style="color: #874983">
 		@csrf
+		<label class="labels" for="" >NOME:</label>
 		@if(!empty(app('request')->input('taskName')))
-		<label class="labels" for="" >NOME DA TAREFA:</label>
 		{{app('request')->input('taskName')}}
 		<input type="hidden" name="name"value="{{app('request')->input('taskName')}}">
+		@else
+		<input type="text" name="name" value="{{old('name')}}">
+		@endif
 		<br>
 		<label class="labels" for="" >EMPRESA:</label>
+		@if(!empty(app('request')->input('taskAccountName')))
 		{{app('request')->input('taskAccountName')}}
 		<input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">
-		<br>
-		<label class="labels" for="" >OPORTUNIDADE:</label>
-		{{app('request')->input('opportunityName')}}
-		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
-		<br>
-		<br>
-		<label class="labels" for="" >DEPARTAMENTO:</label>
-		Vendas
-		<input type="hidden" name="department"value="vendas">
-		@if ($errors->has('name'))
-		<span class="text-danger">{{ $errors->first('name') }}</span>
-		@endif
 		@else
-		<label class="labels" for="" >NOME DA TAREFA:</label>
-		<input type="text" name="name" value="{{old('name')}}">
-		<br>
-		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{$account->id}}">
@@ -59,9 +47,21 @@
 			</option>
 			@endforeach
 		</select>
+		@endif
 		<br>
+		@if(!empty(app('request')->input('opportunityName')))
+		<label class="labels" for="" >OPORTUNIDADE:</label>
+		{{app('request')->input('opportunityName')}}
+		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
 		<br>
+		@endif
 		<label class="labels" for="" >DEPARTAMENTO:</label>
+		@if(!empty(app('request')->input('department')))
+		{{app('request')->input('department')}}
+		<input type="hidden" name="department"value="{{app('request')->input('department')}}">
+		@elseif($errors->has('department'))
+		<span class="text-danger">{{$errors->first('department')}}</span>
+		@else
 		<select class="fields" name="department">
 		{{createSimpleSelect($departments)}}
 		</select>

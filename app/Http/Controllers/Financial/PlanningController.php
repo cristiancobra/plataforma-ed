@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Financial;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Invoice;
 use App\Models\Planning;
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\Transaction;
 
 class PlanningController extends Controller {
 
@@ -27,10 +28,10 @@ class PlanningController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
-		$revenueMonthly = Invoice::whereIn('account_id', $accountsId)
-				->where('status', 'paga')
+		$revenueMonthly = Transaction::whereIn('account_id', $accountsId)
+				->where('type', 'crédito')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
-				->sum('installment_value');
+				->sum('value');
 
 		$estimatedRevenueMonthly = Invoice::whereIn('account_id', $accountsId)
 				->where('status', 'aprovada')

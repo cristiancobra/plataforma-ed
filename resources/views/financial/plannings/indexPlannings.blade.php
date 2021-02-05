@@ -27,7 +27,7 @@
 				RECEITAS:
 			</td>
 			<td class="table-list-right" style="width: 30%">
-				R$ {{number_format($revenueMonthly, 2,",",".")}}
+				R$ {{number_format($estimatedRevenueMonthly, 2,",",".")}}
 			</td>
 		</tr>
 	</table>
@@ -41,7 +41,7 @@
 				RECEITAS:
 			</td>
 			<td class="table-list-right" style="width: 30%">
-				R$ {{number_format($estimatedRevenueMonthly, 2,",",".")}}
+				R$ {{number_format($revenueMonthly, 2,",",".")}}
 			</td>
 		</tr>
 	</table>

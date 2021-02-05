@@ -73,7 +73,6 @@
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
 			QTDE
-
 		</td>
 		<td   class="table-list-header" style="width: 55%">
 			NOME
@@ -230,7 +229,7 @@ $counter++;
 		</td>
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			R$ {{number_format($invoice->balance, 2,",",".")}}
+			R$ {{number_format($balance, 2,",",".")}}
 		</td>
 	</tr>
 </table>

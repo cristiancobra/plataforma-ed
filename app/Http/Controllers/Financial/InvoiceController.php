@@ -28,6 +28,11 @@ class InvoiceController extends Controller {
 
 		$invoices = Invoice::where(function ($query) use ($accountsId, $request) {
 					$query->whereIn('account_id', $accountsId);
+					if ($request->name) {
+						$query->whereHas('opportunity', function($query) use($request) {
+							$query->where('name', 'like', "%$request->name%");
+						});
+					}
 					if ($request->user_id) {
 						$query->where('user_id', '=', $request->user_id);
 					}
@@ -233,8 +238,8 @@ class InvoiceController extends Controller {
 					$query->where('invoice_id', $invoice->id);
 				})
 				->get();
-				
-		$balance = $transactions->sum('value');
+
+		$balance = $invoice->installment_value - $transactions->sum('value');
 
 		return view('financial.invoices.showInvoice', compact(
 						'invoice',
