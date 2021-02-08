@@ -42,7 +42,7 @@
 		@endisset
 	</p>
 	<p class="labels">
-		@if(isset($task->user->name))
+		@if(isset($task->user->contact->name))
 		RESPONSÁVEL:<span class="fields">  {{$task->user->contact->name}}</span>
 		@else
 		RESPONSÁVEL:<span class="fields"> foi excluído</span>
