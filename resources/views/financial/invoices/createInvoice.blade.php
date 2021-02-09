@@ -66,7 +66,7 @@
 		<br>
 		<label class="labels" for="" >VENDEDOR: </label>
 		<select name="user_id">
-			<option  class="fields" value="{{Auth::user()->id}}" checked>
+			<option  class="fields" value="{{Auth::user()->id}}">
 				{{Auth::user()->contact->name}}
 			</option>
 			@foreach ($users as $user)
@@ -141,7 +141,7 @@ CKEDITOR.replace('description');
 			@foreach ($products as $product)
 			<tr style="font-size: 14px">
 
-			<input type="hidden" name="product_id[]" value="{{ $product->id }}"><span class="fields"></span>
+			<input type="hidden" name="product_id[]" value="{{$product->id}}"><span class="fields"></span>
 			<td class="table-list-center">
 				<input type="number" name="product_amount[]" size="4"><span class="fields"></span>
 			</td>
@@ -152,16 +152,16 @@ CKEDITOR.replace('description');
 
 			<td class="table-list-left">
 				<button class="button-round">
-					<a href=" {{ route('product.show', ['product' => $product->id]) }}">
+					<a href=" {{route('product.show', ['product' => $product->id])}}">
 						<i class='fa fa-eye' style="color:white"></i>
 					</a>
 				</button>
 				<button class="button-round">
-					<a href=" {{ route('product.edit', ['product' => $product->id]) }}">
+					<a href=" {{route('product.edit', ['product' => $product->id])}}">
 						<i class='fa fa-edit' style="color:white"></i>
 					</a>
 				</button>
-				<input type="hidden" name="product_name[]" size="16" value="{{ $product->name }}"><span class="fields"></span>
+				<input type="hidden" name="product_name[]" size="16" value="{{$product->name}}"><span class="fields"></span>
 				{{$product->name}}
 			</td>
 

@@ -1430,6 +1430,7 @@ border-radius: 20px;
 margin-left: 4px;
 margin-right: 4px;
 margin-top: -20px;
+text-decoration: none;
 }
 
 .button-secondary {
@@ -1442,4 +1443,36 @@ box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0p
 border-radius: 20px;
 margin-left: 4px;
 margin-right: 4px;
+text-decoration: none;
+}
+.button-secondary a {
+text-decoration: none;
+}
+.button-secondary a:hover {
+text-decoration: none;
+}
+
+.button-round:hover {
+	text-decoration: none;
+    background-color: #6357A1;
+    border-color: #6357A1;
+    color: white;
+}
+
+.button-delete {
+  color: black;
+  background-color: #FDDBDD;
+  border-color: #6c757d;
+  padding: 0.7rem 1rem;
+  font-size: 0.8rem;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+border-radius: 20px;
+margin-left: 4px;
+margin-right: 4px;
+text-decoration: none;
+}
+
+.button-delete:hover{
+	background-color: #DF4650;
+	color: white;
 }

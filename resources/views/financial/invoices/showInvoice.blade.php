@@ -44,11 +44,18 @@
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
+<br>
+<label class="labels" for="" >CONTRATO:</label>
+@if(!isset($invoice->contract_id))
+Sem contrato
+@else
+<span class="fields">{{$invoice->contract->name}}</span>
 <button class="button-round">
-	<a href=" {{route('opportunity.edit', ['opportunity' => $invoice->opportunity])}}">
-		<i class='fa fa-edit' style="color:white"></i>
+	<a href=" {{route('contract.show', ['contract' => $invoice->contract_id])}}">
+		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
+@endif
 <br>
 <label class="labels" for="" >VENDEDOR:</label>
 <span class="fields">{{$invoice->user->contact->name}}</span>
@@ -67,7 +74,11 @@
 <label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
 <span class="fields">{!!html_entity_decode($invoice->opportunity->description)!!}</span>
 <br>
-<label class="labels" for="" >PRODUTOS:</label>
+<div style="display: inline-block">
+	<img src="{{asset('imagens/products.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >ITENS DA FATURA:</label>
+</div>
+<br>
 <br>
 <table class="table-list">
 	<tr>
@@ -157,6 +168,23 @@
 		</td>
 	</tr>
 </table>
+<br>
+@if($totalInvoices > 1)
+
+@elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga')
+<p  style="text-align: right">
+	<a class="button-secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
+		GERAR FATURAS DO PARCELAMENTO
+	</a>
+</p>
+@else
+<p  style="text-align: right">
+	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice])}}">
+		APROVAR PARA LIBERAR PARCELAMENTO
+	</a>
+</p>
+@endif
+<br>
 @if($invoice->status == 'rascunho' OR $invoice->status == 'rascunho')
 <br>
 <label class="labels" for="" >OPÇÕES DE PARCELAMENTO: </label>
@@ -169,7 +197,74 @@ echo "<br>";
 $counter++;
 }
 @endphp
+<br>
+<br>
+<br>
 @endif
+<div style="display: inline-block">
+	<img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
+	<label class="labels" for="" >TODAS AS FATURAS:</label>
+</div>
+<br>
+<br>
+<table class="table-list">
+	<tr>
+		<td   class="table-list-header" style="width: 20%">
+			IDENTIFICADOR
+		</td>
+		<td   class="table-list-header" style="width: 20%">
+			DATA CRIAÇÃO 
+		</td>
+		<td   class="table-list-header" style="width: 20%">
+			DATA PAGAMENTO
+		</td>
+		<td   class="table-list-header" style="width: 15%">
+			VALOR TOTAL
+		</td>
+		<td   class="table-list-header" style="width: 15%">
+			VALOR DA PARCELA
+		</td>
+		<td   class="table-list-header" style="width: 10%">
+			SITUAÇÃO
+		</td>
+	</tr>
+	@if($invoices)
+	@foreach ($invoices as $invoice)
+	<tr style="font-size: 14px">
+		<td class="table-list-left">
+			<button class="button-round">
+				<a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
+					<i class='fa fa-eye' style="color:white"></i></a>
+			</button>
+			<button class="button-round">
+				<a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
+					<i class='fa fa-edit' style="color:white"></i></a>
+			</button>
+			FATURA {{$invoice->identifier}}
+		</td>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($invoice->date_creation))}}
+		</td>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($invoice->pay_day))}}
+		</td>
+		<td class="table-list-right">
+			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
+		</td>
+		<td class="table-list-right">
+			R$ {{number_format($invoice->installment_value, 2,",",".")}}
+		</td>
+		@if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+		<td class="td-late">
+			atrasada
+		</td>
+		@else
+		{{formatInvoiceStatus($invoice)}}
+		@endif
+	</tr>
+	@endforeach
+	@endif
+</table>
 <br>
 <br>
 <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
@@ -241,11 +336,11 @@ $counter++;
 	<form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">
 		@csrf
 		@method('delete')
-		<input class="btn btn-danger" type="submit" value="APAGAR">
+		<input class="button-delete" type="submit" value="APAGAR">
 	</form>
-	<a class="btn btn-secondary" href=" {{ route('invoice.edit', ['invoice' => $invoice->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
+	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
+	<a class="button-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
 </div>
 <br>
 

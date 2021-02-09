@@ -123,6 +123,10 @@
 <br>
 <h3>
 	Serviços/produtos contratados
+	<button class="button-round">
+		<a href=" {{ route('invoice.edit', ['invoice' => $contract->invoice_id]) }}">
+			<i class='fa fa-edit' style="color:white"></i></a>
+	</button>
 </h3>
 <p>
 	3. Os produtos/serviços contratados e suas especificidades são:
@@ -132,7 +136,7 @@
 	<tr>
 		<td   class="table-list-header" style="width: 5%">
 			QTDE
-			</td>
+		</td>
 		<td   class="table-list-header" style="width: 55%">
 			NOME
 		</td>
