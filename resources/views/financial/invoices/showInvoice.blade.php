@@ -46,7 +46,7 @@
 </button>
 <br>
 <label class="labels" for="" >CONTRATO:</label>
-@if(!isset($invoice->contract_id))
+@if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
 Sem contrato
 @else
 <span class="fields">{{$invoice->contract->name}}</span>
