@@ -20,9 +20,8 @@
 	<form action=" {{route('invoice.update', ['invoice' =>$invoice])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
-		<label class="labels" for="" >OPORTUNIDADE: </label>
-		<input type="hidden" name="opportunity_id" value="{{$invoice->opportunity_id}}">
-		<span class="fields">{{$invoice->opportunity->name}}</span>
+		<label class="labels" for="" >IDENTIFICADOR:</label>
+		<span class="fields">{{$invoice->identifier}}</span>
 		<br>
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
@@ -47,6 +46,25 @@
 			</option>
 			@endforeach
 		</select>
+		<br>
+		<br>
+		<label class="labels" for="" >OPORTUNIDADE: </label>
+		<input type="hidden" name="opportunity_id" value="{{$invoice->opportunity_id}}">
+		<span class="fields">{{$invoice->opportunity->name}}</span>
+		<br>
+		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
+		<span class="fields">{{$invoice->opportunity->company->name}}</span>
+		<button class="button-round">
+			<a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
+				<i class='fa fa-eye' style="color:white"></i>
+			</a>
+		</button>
+		<br>
+		<label class="labels" for="" >CONTATO:</label>
+		<span class="fields">{{$invoice->opportunity->contact->name}}</span>
+		<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
+			<i class='fa fa-eye' style="color:white"></i>
+		</a>
 		<br>
 		<label class="labels" for="" >CONTRATO: </label>
 		<select name="contract_id">
@@ -80,44 +98,54 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >PRODUTOS ATUAIS:</label>
+		@if($invoice->status != "rascunho" AND $invoice->status != "esboço")
+		<br>
+		<span class="fa fa-exclamation-triangle"></span>  Itens de faturas aprovadas não podem ser alteradas.
+		<br>
+		<br>
+		@endif
 		<table class="table-list">
 			<tr>
 				<td   class="table-list-header">
-					<b>QTDE</b>
+					QTDE
 				</td>
 				<td   class="table-list-header">
-					<b>FOTO</b>
+					FOTO
 				</td>
 				<td   class="table-list-header">
-					<b>NOME</b>
+					NOME
 				</td>
 				<td   class="table-list-header">
-					<b>HORAS</b>
+					HORAS
 				</td>
 				<td   class="table-list-header">
-					<b>PRAZO</b>
+					PRAZO
 				</td>
 				<td   class="table-list-header">
-					<b>CUSTOS</b>
+					CUSTOS
 				</td>
 				<td   class="table-list-header">
-					<b>IMPOSTO</b>
+					IMPOSTO
 				</td>
 				<td   class="table-list-header">
-					<b>MARGEM</b>
+					MARGEM
 				</td>
 				<td   class="table-list-header">
-					<b>PREÇO</b>
+					PREÇO
 				</td>
 			</tr>
 
 			@foreach ($invoiceLines as $invoiceLine)
 			<tr style="font-size: 14px">
-			<input type="hidden" name="id[]" size="16" value="{{$invoiceLine->id}}">
+			<input type="hidden" name="invoiceLine_id[]" size="16" value="{{$invoiceLine->id}}">
 			<input type="hidden" name="product_id[]" size="16" value="{{$invoiceLine->product->id}}">
 			<td class="table-list-center">
+				@if($invoice->status != "rascunho" AND $invoice->status != "esboço")
+				{{$invoiceLine->amount}}
+				@else
 				<input type="number" name="product_amount[]" size="4" value="{{$invoiceLine->amount}}">
 				<span class="fields"></span>
+				@endif
 			</td>
 			<td class="table-list-right">
 				<image src="{{$invoiceLine->product->image}}" style="width:50px;height:50px; margin: 5px"></a>
@@ -165,7 +193,7 @@ CKEDITOR.replace('description');
 					desconto: 
 				</td>
 				<td   class="table-list-header-right">
-					<b>- {{number_format($invoice->discount, 2,",",".")}}</b>
+					- {{number_format($invoice->discount, 2,",",".")}}
 				</td>
 			</tr>
 			<tr>
@@ -175,42 +203,43 @@ CKEDITOR.replace('description');
 				</td>
 				</td>
 				<td   class="table-list-header-right">
-					<b>R$ {{number_format($invoice->totalPrice, 2,",",".") }}</b>
+					R$ {{number_format($invoice->totalPrice, 2,",",".") }}
 				</td>
 			</tr>
 		</table>
 		<br>
 		<br>
 		<br>
+		@if($invoice->status == "rascunho" OR $invoice->status == "esboço")
 		<label class="labels" for="" >ADICIONAR PRODUTOS:</label>
 		<table class="table-list">
 			<tr>
 				<td   class="table-list-header">
-					<b>QTDE</b>
+					QTDE
 				</td>
 				<td   class="table-list-header">
-					<b>FOTO</b>
+					FOTO
 				</td>
 				<td   class="table-list-header">
-					<b>NOME</b>
+					NOME
 				</td>
 				<td   class="table-list-header">
-					<b>HORAS</b>
+					HORAS
 				</td>
 				<td   class="table-list-header">
-					<b>PRAZO</b>
+					PRAZO
 				</td>
 				<td   class="table-list-header">
-					<b>CUSTOS</b>
+					CUSTOS
 				</td>
 				<td   class="table-list-header">
-					<b>IMPOSTO</b>
+					IMPOSTO
 				</td>
 				<td   class="table-list-header">
-					<b>MARGEM</b>
+					MARGEM
 				</td>
 				<td   class="table-list-header">
-					<b>PREÇO</b>
+					PREÇO
 				</td>
 			</tr>
 
@@ -272,6 +301,7 @@ CKEDITOR.replace('description');
 			</tr>
 			@endforeach
 		</table>
+		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >DESCONTO:</label>

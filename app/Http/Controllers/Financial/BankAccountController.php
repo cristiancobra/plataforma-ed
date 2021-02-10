@@ -91,8 +91,8 @@ class BankAccountController extends Controller {
 //		$bankCode = array_keys(returnBanks(), $bankAccount->bank_code);
 		$bankCode = array_search($bankAccount->bank_code, array_keys(returnBanks()));
 //		$bankName = array_search($bankAccount->bank_code, $banks);
-		dd($bankCode );
-		
+		dd($bankCode);
+
 		return view('financial.bankAccounts.showBankAccount', compact(
 						'bankAccount',
 						'banks',
@@ -108,7 +108,7 @@ class BankAccountController extends Controller {
 	 */
 	public function edit(BankAccount $bankAccount) {
 		$accounts = userAccounts();
-		
+
 		return view('financial.bankAccounts.editBankAccount', compact(
 						'bankAccount',
 						'accounts',
@@ -123,7 +123,12 @@ class BankAccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, BankAccount $bankAccount) {
-		//
+		$bankAccount->fill($request->all());
+		$bankAccount->save();
+
+		return view('financial.bankAccounts.showBankAccount', compact(
+						'bankAccount',
+		));
 	}
 
 	/**

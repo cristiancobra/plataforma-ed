@@ -37,6 +37,10 @@
 <label class="labels" for="" >DONO:</label>
 <span class="fields">{{$invoice->account->name}}</span>
 <br>
+<label class="labels" for="" >VENDEDOR:</label>
+<span class="fields">{{$invoice->user->contact->name}}</span>
+<br>
+<br>
 <label class="labels" for="" >OPORTUNIDADE:</label>
 <span class="fields">{{$invoice->opportunity->name}}</span>
 <button class="button-round">
@@ -51,24 +55,32 @@ Sem contrato
 @else
 <span class="fields">{{$invoice->contract->name}}</span>
 <button class="button-round">
-	<a href=" {{route('contract.show', ['contract' => $invoice->contract_id])}}">
+	<a href="{{route('contract.show', ['contract' => $invoice->contract_id])}}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
 @endif
 <br>
-<label class="labels" for="" >VENDEDOR:</label>
-<span class="fields">{{$invoice->user->contact->name}}</span>
+<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
+<span class="fields">{{$invoice->opportunity->company->name}}</span>
+<button class="button-round">
+	<a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
+		<i class='fa fa-eye' style="color:white"></i>
+	</a>
+</button>
 <br>
+<label class="labels" for="" >CONTATO:</label>
+<span class="fields">{{$invoice->opportunity->contact->name}}</span>
+	<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
+		<i class='fa fa-eye' style="color:white"></i>
+	</a>
 <br>
-<label class="labels" for="" >CONTRATANTE:</label>
-<span class="fields">{{ $invoice->opportunity->contact->name}}</span>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-<span class="fields">{{ date('d/m/Y', strtotime($invoice->date_creation)) }}</span>
+<span class="fields">{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>
 <br>
 <label class="labels" for="" >DATA DE PAGAMENTO:</label>
-<span class="fields">{{ date('d/m/Y', strtotime($invoice->pay_day)) }}</span>
+<span class="fields">{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
 <br>
 <br>
 <label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
@@ -102,7 +114,7 @@ Sem contrato
 		</td>
 	</tr>
 
-	@foreach ($invoice->invoiceLines as $invoiceLine)
+	@foreach ($invoiceLines as $invoiceLine)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
 			{{$invoiceLine->amount}}
@@ -209,7 +221,7 @@ $counter++;
 <br>
 <table class="table-list">
 	<tr>
-		<td   class="table-list-header" style="width: 20%">
+		<td   class="table-list-header" style="width: 30%">
 			IDENTIFICADOR
 		</td>
 		<td   class="table-list-header" style="width: 20%">
@@ -218,10 +230,10 @@ $counter++;
 		<td   class="table-list-header" style="width: 20%">
 			DATA PAGAMENTO
 		</td>
-		<td   class="table-list-header" style="width: 15%">
+		<td   class="table-list-header" style="width: 10%">
 			VALOR TOTAL
 		</td>
-		<td   class="table-list-header" style="width: 15%">
+		<td   class="table-list-header" style="width: 10%">
 			VALOR DA PARCELA
 		</td>
 		<td   class="table-list-header" style="width: 10%">
@@ -240,7 +252,7 @@ $counter++;
 				<a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
-			FATURA {{$invoice->identifier}}
+			FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$invoice->number_installment_total}}
 		</td>
 		<td class="table-list-center">
 			{{date('d/m/Y', strtotime($invoice->date_creation))}}

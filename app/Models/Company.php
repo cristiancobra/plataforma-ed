@@ -40,6 +40,10 @@ class Company extends Model {
 	public function contacts() {
 		return $this->belongsToMany(Contact::class);
 	}
+	
+	public function invoices() {
+		return $this->hasMany(Invoice::class, 'id', 'company_id');
+	}
 //	public function contracts() {
 //		return $this->hasMany(Contract::class, 'id', 'contract_id');
 //	}	

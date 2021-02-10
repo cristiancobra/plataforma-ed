@@ -22,16 +22,19 @@ Total: <span class="labels"></span>
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header" style="width: 25%">
-				<b>NOME</b>
+				NOME
 			</td>
 			<td   class="table-list-header" style="width: 20%">
-				<b>AGENCIA</b>
+				AGÊNCIA
 			</td>
 			<td   class="table-list-header" style="width: 20%">
-				<b>CONTA</b>
+				CONTA
 			</td>
 			<td   class="table-list-header" style="width: 15%">
-				<b>DONO</b>
+				DONO
+			</td>
+			<td   class="table-list-header" style="width: 15%">
+				SITUAÇÃO
 			</td>
 		</tr>
 
@@ -59,6 +62,7 @@ Total: <span class="labels"></span>
 			<td class="table-list-center">
 				{{$bankAccount->account->name}}
 			</td>
+			{{formatBankAccountStatus($bankAccount)}}
 		</tr>
 		@endforeach
 	</table>

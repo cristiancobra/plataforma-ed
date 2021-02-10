@@ -510,7 +510,7 @@ if (!function_exists('formatStatus')) {
 	}
 
 }
-// gera um botão com a formatação para STATUS / SITUAÇÃO da Fatura  a partir de  $model
+// gera uma coluna TD com a formatação para STATUS / SITUAÇÃO da Fatura  a partir de  $model
 if (!function_exists('formatInvoiceStatus')) {
 
 	function formatInvoiceStatus($model) {
@@ -529,6 +529,24 @@ if (!function_exists('formatInvoiceStatus')) {
 				break;
 			case 'paga':
 				echo '<td class="td-paid">paga</td>';
+				break;
+		}
+	}
+
+}
+// gera uma coluna TD  com a formatação para STATUS / SITUAÇÃO da Conta Bancaria  a partir de  $model
+if (!function_exists('formatBankAccountStatus')) {
+
+	function formatBankAccountStatus($model) {
+		switch ($model->status) {
+			case 'desativada':
+				echo '<td class="td-canceled">desativada</td>';
+				break;
+			case 'ativa':
+				echo '<td class="td-aproved">ativa</td>';
+				break;
+			case 'recebendo':
+				echo '<td class="td-paid">recebendo</td>';
 				break;
 		}
 	}
@@ -837,6 +855,18 @@ if (!function_exists('returnBanks')) {
 			'371' => 'WARREN CORRETORA DE VALORES MOBILIÁRIOS E CÂMBIO LTDA.',
 			'102' => 'XP Investimentos S.A.',
 			'359' => 'ZEMA CRÉDITO, FINANCIAMENTO E INVESTIMENTO S/A',
+		);
+	}
+
+}
+// retorna o status da CONTA BANCÁRIA
+if (!function_exists('returnBankAccountStatus')) {
+
+	function returnBankAccountStatus() {
+		return $status = array(
+			'ativa',
+			'desativada',
+			'recebendo',
 		);
 	}
 

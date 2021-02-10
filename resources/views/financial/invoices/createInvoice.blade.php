@@ -42,6 +42,18 @@
 		</select>
 		@endif
 		<br>
+		<label class="labels" for="" >VENDEDOR: </label>
+		<select name="user_id">
+			<option  class="fields" value="{{Auth::user()->id}}">
+				{{Auth::user()->contact->name}}
+			</option>
+			@foreach ($users as $user)
+			<option  class="fields" value="{{$user->id}}">
+				{{$user->contact->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<br>
 		<label class="labels" for="" >OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunityName')))
@@ -64,14 +76,11 @@
 		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
 		@endif
 		<br>
-		<label class="labels" for="" >VENDEDOR: </label>
-		<select name="user_id">
-			<option  class="fields" value="{{Auth::user()->id}}">
-				{{Auth::user()->contact->name}}
-			</option>
-			@foreach ($users as $user)
-			<option  class="fields" value="{{$user->id}}">
-				{{$user->contact->name}}
+		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+		<select name="company_id">
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{$company->id}}">
+				{{$company->name}}
 			</option>
 			@endforeach
 		</select>
@@ -110,31 +119,31 @@ CKEDITOR.replace('description');
 		<table class="table-list">
 			<tr>
 				<td   class="table-list-header">
-					<b>QTDE </b>
+					QTDE 
 				</td>
 				<td   class="table-list-header">
-					<b>FOTO </b>
+					FOTO 
 				</td>
 				<td   class="table-list-header">
-					<b>NOME </b>
+					NOME 
 				</td>
 				<td   class="table-list-header">
-					<b>HORAS</b>
+					HORAS
 				</td>
 				<td   class="table-list-header">
-					<b>ENTREGA</b>
+					ENTREGA
 				</td>
 				<td   class="table-list-header">
-					<b>CUSTOS</b>
+					CUSTOS
 				</td>
 				<td   class="table-list-header">
-					<b>IMPOSTO</b>
+					IMPOSTO
 				</td>
 				<td   class="table-list-header">
-					<b>MARGEM</b>
+					MARGEM
 				</td>
 				<td   class="table-list-header">
-					<b>PREÇO</b>
+					PREÇO
 				</td>
 			</tr>
 
@@ -215,7 +224,7 @@ CKEDITOR.replace('description');
 		<input type="hidden" name="status" value="{{app('request')->input('invoiceStatus')}}">
 		{{app('request')->input('invoiceStatus')}}
 		@else
-			{{createSelect('status', 'fields', returnInvoiceStatus())}}
+		{{createSelect('status', 'fields', returnInvoiceStatus())}}
 		@endif
 		<br>
 		<br>

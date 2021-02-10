@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
 use App\Models\Account;
+use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Contract;
 use App\Models\Opportunity;
@@ -95,6 +96,10 @@ class InvoiceController extends Controller {
 		$accounts = Account::whereIn('id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
+		
+		$companies = Company::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		$contacts = Contact::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
@@ -122,6 +127,7 @@ class InvoiceController extends Controller {
 						'opportunities',
 						'contacts',
 //						'contracts',
+						'companies',
 						'products',
 						'users',
 		));
@@ -243,9 +249,15 @@ class InvoiceController extends Controller {
 		$invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
-		
+
+		$invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
+					$query->where('opportunity_id', $invoice->opportunity_id);
+				})
+				->get();
+//		dd($invoice->opportunity_id);
+
 		$totalInvoices = $invoices->count();
-		
+
 		$transactions = Transaction::whereHas('invoice', function($query) use($invoice) {
 					$query->where('invoice_id', $invoice->id);
 				})
@@ -256,6 +268,7 @@ class InvoiceController extends Controller {
 		return view('financial.invoices.showInvoice', compact(
 						'invoice',
 						'invoices',
+						'invoiceLines',
 						'totalInvoices',
 						'transactions',
 						'balance',
@@ -270,7 +283,7 @@ class InvoiceController extends Controller {
 	 */
 	public function edit(Invoice $invoice) {
 		$accountsId = userAccounts();
-
+		
 		$accounts = Account::whereHas('users', function($query) use($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
@@ -282,6 +295,10 @@ class InvoiceController extends Controller {
 				->get();
 
 		$opportunities = Opportunity::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		$companies = Company::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -305,6 +322,7 @@ class InvoiceController extends Controller {
 						'accounts',
 						'users',
 						'opportunities',
+						'companies',
 						'products',
 						'productsChecked',
 		));
@@ -338,6 +356,8 @@ class InvoiceController extends Controller {
 					->latest('id')
 					->first();
 
+			$invoiceStatus = $invoice->status;
+
 			$invoice->fill($request->all());
 
 			if ($invoice->identifier == 0 AND $request->status == "aprovada" OR $request->status == "paga") {
@@ -346,71 +366,74 @@ class InvoiceController extends Controller {
 				} else {
 					$invoice->identifier = 1;
 				}
-			} else {
-				$invoice->identifier = $request->identifier;
 			}
-//			dd($lastInvoice);
 			$invoice->save();
-//dd($request);
+
 			$totalPrice = 0;
 			$totalTaxrate = 0;
 			$products = $request['product_id'];
 //	dd($request);
-			if (isset($products)) {
-				foreach ($products as $key => $id) {
-					$data = array(
-						'id' => $request->id[$key],
-						'invoice_id' => $invoice->id,
-						'product_id' => $request->product_id[$key],
-						'amount' => $request->product_amount[$key],
-						'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
-						'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
-						'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
-						'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
-						'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
-						'subtotalPrice' => $request->product_amount[$key] * $request->product_price[$key],
-					);
-					$totalPrice = $totalPrice + $data['subtotalPrice'];
-					$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-					if ($request->product_amount[$key] <= 0) {
-						invoiceLine::where('id', $request->id)->delete();
-					} else {
-						invoiceLine::where('id', $request->id[$key])->update($data);
+			if ($invoiceStatus == "rascunho" OR $invoice->status == "esboço") {
+				if (isset($products)) {
+					foreach ($products as $key => $id) {
+						$data = array(
+							'id' => $request->invoiceLine_id[$key],
+							'invoice_id' => $invoice->id,
+							'product_id' => $request->product_id[$key],
+							'amount' => $request->product_amount[$key],
+							'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
+							'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
+							'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
+							'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
+							'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
+							'subtotalPrice' => $request->product_amount[$key] * $request->product_price[$key],
+						);
+						$totalPrice = $totalPrice + $data['subtotalPrice'];
+						$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+						if ($request->product_amount[$key] <= 0) {
+							invoiceLine::where('id', $request->invoiceLine_id)->delete();
+						} else {
+							invoiceLine::where('id', $request->invoiceLine_id[$key])->update($data);
+						}
+					}
+				}
+				$totalPrice = 0;
+				$totalTaxrate = 0;
+
+				$newProducts = $request['new_product_id'];
+				foreach ($newProducts as $key => $newProductId) {
+					if ($request->new_product_amount[$key] > 0) {
+						$data = array(
+							'invoice_id' => $invoice->id,
+							'product_id' => $request->new_product_id [$key],
+							'amount' => $request->new_product_amount [$key],
+							'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
+							'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
+							'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
+							'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
+							'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
+							'subtotalPrice' => $request->new_product_amount [$key] * $request->new_product_price [$key],
+						);
+						$totalPrice = $totalPrice + $data['subtotalPrice'];
+						$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+						invoiceLine::insert($data);
 					}
 				}
 			}
-			$totalPrice = 0;
-			$totalTaxrate = 0;
-
-			$newProducts = $request['new_product_id'];
-			foreach ($newProducts as $key => $newProductId) {
-				if ($request->new_product_amount[$key] > 0) {
-					$data = array(
-						'invoice_id' => $invoice->id,
-						'product_id' => $request->new_product_id [$key],
-						'amount' => $request->new_product_amount [$key],
-						'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
-						'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
-						'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
-						'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
-						'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
-						'subtotalPrice' => $request->new_product_amount [$key] * $request->new_product_price [$key],
-					);
-					$totalPrice = $totalPrice + $data['subtotalPrice'];
-					$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-					invoiceLine::insert($data);
-				}
-			}
-
 			$invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
-			
+
 			$totalInvoices = $invoices->count();
 
 			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 					->with('product', 'opportunity')
 					->get();
+
+//			$invoice->totalPrice = $invoiceLines->sum('subtotalPrice');
+//			$invoice->installment_value = $invoice->totalPrice / $invoi;
+
+			$invoice->save();
 
 			$transactions = Transaction::whereHas('invoice', function($query) use($invoice) {
 						$query->where('invoice_id', $invoice->id);
@@ -461,19 +484,21 @@ class InvoiceController extends Controller {
 			'accountAddressCity' => $invoice->account->address_city,
 			'accountAddressState' => $invoice->account->address_state,
 			'accountCnpj' => $invoice->account->cnpj,
-			'invoiceId' => $invoice->id,
+			'invoiceIdentifier' => $invoice->identifier,
 			'invoiceDescription' => $invoice->description,
 			'opportunityDescription' => $invoice->opportunity->description,
 			'invoiceDiscount' => $invoice->discount,
 			'invoicePayday' => $invoice->pay_day,
 			'invoiceTotalPrice' => $invoice->totalPrice,
 			'customerName' => $invoice->opportunity->contact->name,
-			'customerEmail' => $invoice->opportunity->contact->email,
-			'customerPhone' => $invoice->opportunity->contact->phone,
-			'customerAddress' => $invoice->opportunity->contact->address,
-			'customerCity' => $invoice->opportunity->contact->city,
-			'customerState' => $invoice->opportunity->contact->state,
-			'customerCountry' => $invoice->opportunity->contact->country,
+			'companyName' => $invoice->opportunity->company->name,
+			'companyCnpj' => $invoice->opportunity->company->cnpj,
+			'companyEmail' => $invoice->opportunity->company->email,
+			'companyPhone' => $invoice->opportunity->company->phone,
+			'companyAddress' => $invoice->opportunity->company->address,
+			'companyCity' => $invoice->opportunity->company->city,
+			'companyState' => $invoice->opportunity->company->state,
+			'companyCountry' => $invoice->opportunity->company->country,
 			'invoiceLines' => $invoiceLines,
 //			'deadline' => $deadline,
 		];
@@ -527,23 +552,23 @@ class InvoiceController extends Controller {
 			$invoiceNew->status = $invoice->status;
 			$invoiceNew->save();
 
-			foreach ($invoiceLines as $invoiceLine) {
-				$data = array(
-					'invoice_id' => $invoice->id + $counter,
-					'product_id' => $invoiceLine->product_id,
-					'amount' => $invoiceLine->amount,
-					'subtotalHours' => $invoiceLine->subtotalHours,
-					'subtotalDeadline' => $invoiceLine->subtotalDeadline,
-					'subtotalCost' => $invoiceLine->subtotalCost,
-					'subtotalTax_rate' => $invoiceLine->subtotalTax_rate,
-					'subtotalMargin' => $invoiceLine->subtotalMargin,
-					'subtotalPrice' => $invoiceLine->subtotalPrice,
-				);
-				invoiceLine::insert($data);
-			}
+//			foreach ($invoiceLines as $invoiceLine) {
+//				$data = array(
+//					'invoice_id' => $invoice->id + $counter,
+//					'product_id' => $invoiceLine->product_id,
+//					'amount' => $invoiceLine->amount,
+//					'subtotalHours' => $invoiceLine->subtotalHours,
+//					'subtotalDeadline' => $invoiceLine->subtotalDeadline,
+//					'subtotalCost' => $invoiceLine->subtotalCost,
+//					'subtotalTax_rate' => $invoiceLine->subtotalTax_rate,
+//					'subtotalMargin' => $invoiceLine->subtotalMargin,
+//					'subtotalPrice' => $invoiceLine->subtotalPrice,
+//				);
+//				invoiceLine::insert($data);
+//			}
 			$counter++;
 		}
-			return redirect()->action('Financial\\InvoiceController@index');
+		return redirect()->action('Financial\\InvoiceController@index');
 	}
 
 }

@@ -12,6 +12,7 @@ class Invoice extends Model {
 		'account_id',
 		'user_id',
 		'opportunity_id',
+		'company_id',
 		'contact_id',
 		'description',
 		'date_creation',
@@ -39,6 +40,10 @@ class Invoice extends Model {
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
+
+//	public function company() {
+//		return $this->belongsTo(Company::class, 'company_id', 'id');
+//	}
 
 	public function contract() {
 		return $this->belongsTo(Contract::class);

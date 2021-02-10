@@ -30,7 +30,7 @@
 					CNPJ: {{$data['accountCnpj']}}
 				</td>
 				<td class="image-header">
-					FATURA {{$data['invoiceId']}}
+					FATURA {{$data['invoiceIdentifier']}}
 					<br>
 					<br>
 					VENCIMENTO
@@ -48,22 +48,31 @@
 			<!-- Dados do cliente--> 
 			<p style="text-align: left">
 				{{$data['customerName']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerEmail']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerPhone']}}
-			</p>
-			<p style="text-align: left">
-				{{$data['customerAddress']}} - 
-				{{$data['customerCity']}} /
-				{{$data['customerState']}} - 
-				{{$data['customerCountry']}}
 				<br>
+				{{$data['companyName']}}
+				@if(isset($data['companyCnpj']))
 				<br>
+				cnpj: {{$data['companyCnpj']}}
+				@endif
+				@if(isset($data['companyEmail']))
+				<br>
+				{{$data['companyEmail']}}
+				@endif
+				@if(isset($data['companyPhone']))
+				<br>
+				{{$data['companyPhone']}}
+				@endif
+				@if(isset($data['companyAddress']))
+				<br>
+				{{$data['companyAddress']}}
+				<br>
+				{{$data['companyCity']}} / 
+				{{$data['companyState']}} -
+				{{$data['companyCountry']}}
+				@endif
 			</p>
 		</div>
+		<br>
 		<h4>
 			DESCRIÇÃO:
 		</h4>
