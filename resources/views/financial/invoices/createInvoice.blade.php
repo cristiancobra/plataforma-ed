@@ -76,15 +76,6 @@
 		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
 		@endif
 		<br>
-		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
-		<select name="company_id">
-			@foreach ($companies as $company)
-			<option  class="fields" value="{{$company->id}}">
-				{{$company->name}}
-			</option>
-			@endforeach
-		</select>
-		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>
