@@ -950,6 +950,32 @@ if (!function_exists('returnProductStatus')) {
 	}
 
 }
+//if (!function_exists('selectOneCollection')) {
+//
+//// cria as opções de um select recebendo NOME, CLASSE e 1 collection que é duplicada  em value e na label
+//	function selectOneCollection($name, $class, $options) {
+//		echo "<select class = '$class' name = '$name'  value='old('$name')>";
+//		foreach ($options as $option) {
+//			echo "<option value=\"$option\">$option</option><br>";
+//		}
+//		echo "</select>";
+//	}
+//
+//}
+if (!function_exists('createSelectCollection')) {
+
+// cria as opções de um select recebendo NOME, CLASSE, COLLECTION e 1 parâmetro para VALUE e outro para a LABEL
+	function createSelectCollection($name, $class, $values, $labels) {
+		echo "<select class = '$class' name = '$name'  value='old('$name')>";
+		foreach ($values as $value) {
+			foreach ($labels as $label) {
+				echo "<option value=\"$value\">$label</option><br>";
+			}
+		}
+		echo "</select>";
+	}
+
+}
 // retorna todos os usuários  das minhas empresas (accounts)
 if (!function_exists('myUsers')) {
 

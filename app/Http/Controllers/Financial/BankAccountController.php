@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
+use App\Models\Bank;
 use App\Models\BankAccount;
 
 class BankAccountController extends Controller {
@@ -108,10 +109,14 @@ class BankAccountController extends Controller {
 	 */
 	public function edit(BankAccount $bankAccount) {
 		$accounts = userAccounts();
+		
+		$banks = Bank::all();
+		dd($banks);
 
 		return view('financial.bankAccounts.editBankAccount', compact(
 						'bankAccount',
 						'accounts',
+						'banks',
 		));
 	}
 
