@@ -33,7 +33,7 @@
 		</select>
 		<br>
 		<label for="" >Banco: </label>
-		{{createSelectCollection('bank_id', 'fields', $banks->id, $banks->name)}}
+		{{createSelectIdName('bank_id', 'fields', $banks)}}
 		<br>
 		<br>
 		<label for="" >Tipo de conta: </label>

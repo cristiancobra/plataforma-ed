@@ -13,7 +13,7 @@ class BankAccount extends Model {
 		'name',
 		'type',
 		'observations',
-		'bank_code',
+		'bank_id',
 		'agency',
 		'account_number',
 		'opening_balance',
@@ -24,6 +24,10 @@ class BankAccount extends Model {
 
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
+	}
+
+	public function bank() {
+		return $this->belongsTo(Bank::class, 'bank_id', 'id');
 	}
 
 }

@@ -21,7 +21,10 @@ class BankAccountController extends Controller {
 		$bankAccounts = BankAccount::whereHas('account', function($query) {
 					$query->whereIn('id', userAccounts());
 				})
-				->with('account')
+				->with([
+					'account',
+					'bank',
+					])
 				->get();
 
 //				dd($bankAccounts);
@@ -40,9 +43,14 @@ class BankAccountController extends Controller {
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
+		
+				$banks = Bank::where('id', '>', 0)
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		return view('financial.bankAccounts.createBankAccount', compact(
 						'accounts',
+						'banks',
 		));
 	}
 
@@ -88,16 +96,9 @@ class BankAccountController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(BankAccount $bankAccount) {
-//		$banks = returnBanks();
-//		$bankCode = array_keys(returnBanks(), $bankAccount->bank_code);
-		$bankCode = array_search($bankAccount->bank_code, array_keys(returnBanks()));
-//		$bankName = array_search($bankAccount->bank_code, $banks);
-		dd($bankCode);
 
 		return view('financial.bankAccounts.showBankAccount', compact(
 						'bankAccount',
-						'banks',
-						'bankName',
 		));
 	}
 
@@ -110,8 +111,10 @@ class BankAccountController extends Controller {
 	public function edit(BankAccount $bankAccount) {
 		$accounts = userAccounts();
 		
-		$banks = Bank::all();
-		dd($banks);
+		$banks = Bank::where('id', '>', 0)
+				->orderBy('NAME', 'ASC')
+				->get();
+//		dd($banks);
 
 		return view('financial.bankAccounts.editBankAccount', compact(
 						'bankAccount',

@@ -47,7 +47,7 @@
 		@endif
 		<br>
 		<label for="" >Banco: </label>
-		{{createDoubleSelect('bank_code', 'fields', returnBanks())}}
+		{{createSelectIdName('bank_id', 'fields', $banks)}}
 		<br>
 		<label for="" >Número da agência:</label>
 		<input type="text" name="agency" value="{{old('agency')}}">
@@ -71,6 +71,9 @@ CKEDITOR.replace('observations');
 		<br>
 		<label for="">Tipo: </label>
 		{{createSelect('type', 'fields', returnBankAccountType())}}
+		<br>
+		<label for="">Situação: </label>
+		{{createSelect('status', 'fields', returnBankAccountStatus())}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR">

@@ -18,7 +18,7 @@ class CreateBankAccountsTable extends Migration {
 			$table->string('name');
 			$table->string('type')->nullable();
 			$table->string('observations')->nullable();
-			$table->string('bank_code')->nullable();
+			$table->string('bank_id')->nullable();
 			$table->string('agency')->nullable();
 			$table->string('account_number')->nullable();
 			$table->string('opening_balance');

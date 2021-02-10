@@ -27,7 +27,7 @@
 	{{$bankAccount->account->name}}
 	<br>
 	<br>
-	<label class="labels"  for="" >Banco: </label> {{$bankAccount->bank_code}} - {{$bankName}}
+	<label class="labels"  for="" >Banco: </label> {{$bankAccount->bank->name}} - código {{$bankAccount->bank->bank_code}}
 	<br>
 	<label class="labels"  for="" >Tipo de conta: </label> {{$bankAccount->type}}
 	<br>

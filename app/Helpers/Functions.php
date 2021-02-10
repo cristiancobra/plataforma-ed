@@ -962,15 +962,13 @@ if (!function_exists('returnProductStatus')) {
 //	}
 //
 //}
-if (!function_exists('createSelectCollection')) {
+if (!function_exists('createSelectIdName')) {
 
-// cria as opções de um select recebendo NOME, CLASSE, COLLECTION e 1 parâmetro para VALUE e outro para a LABEL
-	function createSelectCollection($name, $class, $values, $labels) {
+// cria as opções de um select recebendo NOME, CLASSE, COLLECTION e aplica ID em VALUE e NAME no label
+	function createSelectIdName($name, $class, $models) {
 		echo "<select class = '$class' name = '$name'  value='old('$name')>";
-		foreach ($values as $value) {
-			foreach ($labels as $label) {
-				echo "<option value=\"$value\">$label</option><br>";
-			}
+		foreach ($models as $model) {
+				echo "<option value=\"$model->id\">$model->name</option><br>";
 		}
 		echo "</select>";
 	}
