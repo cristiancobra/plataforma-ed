@@ -26,6 +26,10 @@
 <label class="labels" for="" >RESPONSÁVEL: </label>
 <span class="fields">{{$opportunity->user->contact->name }}</span>
 <br>
+<br>
+<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+<span class="fields">{{$opportunity->company->name }}</span>
+<br>
 <label class="labels" for="" >CONTATO: </label>
 <span class="fields">{{$opportunity->contact->name}}</span>
 <br>

@@ -83,6 +83,10 @@ class OpportunityController extends Controller {
 				->get();
 
 		$users = myUsers();
+		
+		$companies = Company::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		$contacts = Contact::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
@@ -98,6 +102,7 @@ class OpportunityController extends Controller {
 						'opportunity',
 						'accounts',
 						'users',
+						'companies',
 						'contacts',
 						'products',
 						'stages',
@@ -213,6 +218,10 @@ class OpportunityController extends Controller {
 
 		$users = myUsers();
 
+		$companies = Company::whereIn('account_id', $accountsId)
+				->orderBy('NAME', 'ASC')
+				->get();
+
 		$contacts = Contact::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
@@ -228,6 +237,7 @@ class OpportunityController extends Controller {
 						'accounts',
 						'users',
 						'contacts',
+						'companies',
 						'opportunities',
 						'invoices',
 						'stages',

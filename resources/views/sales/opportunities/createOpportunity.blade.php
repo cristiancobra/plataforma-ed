@@ -54,6 +54,16 @@
 			@endforeach
 		</select>
 		<br>
+		<br>
+				<label class="labels" for="" >EMPRESA CONTRANTE: </label>
+		<select name="company_id">
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{$company->id }}">
+				{{$company->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
 			@foreach ($contacts as $contact)

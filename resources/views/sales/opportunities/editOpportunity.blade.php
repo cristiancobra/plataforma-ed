@@ -59,6 +59,18 @@
 		</select>
 		<br>
 		<br>
+		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+		<select name="company_id">
+			<option  class="fields" value="{{$opportunity->company_id}}">
+				{{$opportunity->company->name}}
+			</option>
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{$company->id}}">
+				{{$company->name}}
+			</option>
+			@endforeach
+		</select>
+		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
 			<option  class="fields" value="{{$opportunity->contact_id}}">
@@ -94,22 +106,20 @@ CKEDITOR.replace('description');
 		<input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>
 		<br>
 		<br>
-		<div style="text-align: right">
-			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">	
+		<div style="display: inline-block">
+			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
+			</form>
 			<a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
 				<i class='fas fa-arrow-alt-circle-left'></i>  VOLTAR
 			</a>
+			<form   style="text-decoration: none;display: inline-block" action="{{ route('opportunity.destroy', ['opportunity' => $opportunity->id]) }}" method="post">
+				@csrf
+				@method('delete')
+				<input class="btn btn-danger" type="submit" value="APAGAR">
+			</form>
 		</div>
-	</form>
-	<div style="text-align:right">
-		<form   style="text-decoration: none;display: inline-block" action="{{ route('opportunity.destroy', ['opportunity' => $opportunity->id]) }}" method="post">
-			@csrf
-			@method('delete')
-			<input class="btn btn-danger" type="submit" value="APAGAR">
-		</form>
-	</div>
-	<br>
-</div>
-<br>
-<br>
-@endsection
+		<br>
+		</div>
+		<br>
+		<br>
+		@endsection
