@@ -57,7 +57,16 @@
 		</select>
 		<br>
 		<label class="labels" for="" >FATURA: </label>
-			{{editSelect('invoice_id', 'fields', $invoices, $contract->invoice_id)}}
+		<select name="invoice_id">
+			<option  class="fields" value="{{$contract->invoice_id}}">
+				{{$contract->invoice->identifier}} - {{$contract->invoice->opportunity->company->name}} - {{formatCurrencyReal($contract->invoice->totalPrice)}}
+			</option>
+			@foreach ($invoices as $invoice)
+			<option  class="fields" value="{{$invoice->id}}">
+				{{$invoice->identifier}} - {{$invoice->opportunity->company->name}} - {{formatCurrencyReal($invoice->totalPrice)}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<br>
 		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
@@ -109,7 +118,7 @@
 		</select>
 		<br>
 		<br>
-				<label class="labels" for="" >DATA DE INICIO:</label>
+		<label class="labels" for="" >DATA DE INICIO:</label>
 		<input type="date" name="date_start" size="20" value="{{$contract->date_start}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DATA DO VENCIMENTO:</label>
@@ -153,7 +162,7 @@ CKEDITOR.replace('observations');
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-{{editSelect('status','fields', returnContractStatus(), $contract->status)}}
+		{{editSelect('status','fields', returnContractStatus(), $contract->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">

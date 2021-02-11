@@ -51,9 +51,9 @@ class InvoiceController extends Controller {
 				})
 				->with([
 					'opportunity',
-					'invoiceLines',
+					'invoiceLines.product',
 					'account.bankAccounts',
-					'user',
+					'user.contact',
 					'contract',
 				])
 				->orderBy('pay_day', 'DESC')
@@ -242,9 +242,9 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Invoice $invoice) {
-		$invoice = Invoice::where('id', $invoice->id)
-				->with(['invoiceLines.product', 'contract', 'user.contact'])
-				->first();
+//		$invoice = Invoice::where('id', $invoice->id)
+//				->with(['invoiceLines.product', 'contract', 'user.contact'])
+//				->first();
 //		dd($invoice);
 
 		$invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)

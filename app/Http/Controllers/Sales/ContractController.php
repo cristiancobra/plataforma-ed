@@ -191,9 +191,8 @@ class ContractController extends Controller {
 				->get();
 
 		$invoices = Invoice::whereIn('account_id', $accountsId)
-				->orderBy('ID', 'DESC')
-				->pluck('id')
-				->toArray();
+				->orderBy('IDENTIFIER', 'DESC')
+				->get();
 
 		$witness1 = Contact::find($contract->witness1);
 		$witnessName1 = $witness1->name;
