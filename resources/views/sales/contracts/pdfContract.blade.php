@@ -194,6 +194,9 @@
 		</table>
 		<br>
 		<br>
+		<h3 style="text-align: center">
+			Condições gerais
+		</h3>
 		<p style="text-align: left;margin-top: 0px;">
 			{!!html_entity_decode($data['contractText'])!!}
 		</p>
