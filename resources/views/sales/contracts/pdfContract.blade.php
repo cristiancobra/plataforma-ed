@@ -176,7 +176,7 @@
 					TOTAL: 
 				</td>
 				<td   class="table-list-header-right"   style="font-size: 14px" colspan="2">
-					 {{formatCurrencyReal($data['invoiceTotalPrice'])}}
+					{{formatCurrencyReal($data['invoiceTotalPrice'])}}
 				</td>
 			</tr>
 			<tr>
@@ -192,6 +192,8 @@
 				</td>
 			</tr>
 		</table>
+		<br>
+		<br>
 		<p style="text-align: left;margin-top: 0px;">
 			{!!html_entity_decode($data['contractText'])!!}
 		</p>
