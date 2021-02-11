@@ -184,7 +184,7 @@
 					PARCELAMENTO: 
 				</td>
 				<td   class="table-list-header-right" colspan="2">
-					@if($data['invoiceNumberInstallmentTotal'] != 1)
+					@if($data['invoiceNumberInstallmentTotal'] == 1)
 					À vista
 					@else
 					{{$data['invoiceNumberInstallmentTotal']}} x  {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
