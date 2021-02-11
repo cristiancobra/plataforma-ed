@@ -88,9 +88,20 @@
 					</button>
 				</a>
 
+				<button class="dropdown-btn">
+					<i class='fa fa-comments'></i>
+					COMUNICAÇÃO
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
+					<a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
+					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
+				</div>
+
+
 				@if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador")
 				<button class="dropdown-btn">
-					<i class='fas fa-users-cog'></i>
+					<i class='fas fa-user-tie'></i>
 					ADMINISTRATIVO 
 					<i class="fa fa-caret-down"></i>
 				</button>
@@ -108,9 +119,9 @@
 						<i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO
 					</a>
 				</div>
-				
+
 				<button class="dropdown-btn">
-					<i class='fas fa-users-cog'></i>
+					<i class='fas fa-money-bill'></i>
 					FINANCEIRO 
 					<i class="fa fa-caret-down"></i>
 				</button>
@@ -119,23 +130,13 @@
 						<i class="fas fa-receipt" style="margin-right: 8px"></i>FATURAS
 					</a>
 					<a class="sidebar-subitem" href="{{route('bankAccount.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>CONTAS BANCÁRIAS
+						<i class="fas fa-piggy-bank" style="margin-right: 8px"></i>CONTAS BANCÁRIAS
 					</a>
 					<a class="sidebar-subitem" href="{{route('transaction.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>MOVIMENTAÇÕES
+						<i class="fas fa-sync-alt" style="margin-right: 8px"></i>MOVIMENTAÇÕES
 					</a>
 				</div>
 				@endif
-
-				<button class="dropdown-btn">
-					<i class='fa fa-comments'></i>
-					COMUNICAÇÃO
-					<i class="fa fa-caret-down"></i>
-				</button>
-				<div class="dropdown-container">
-					<a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
-					<a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
-				</div>
 
 				<button class="dropdown-btn">
 					<i class='fas fa-bullhorn'></i>
@@ -181,11 +182,22 @@
 					<a class="sidebar-subitem" href="{{ route('opportunity.index') }}">
 						<i class="fas fa-donate" style="margin-right: 8px"></i>OPORTUNIDADES
 					</a>
+				</div>
+
+				<button class="dropdown-btn">
+					<i class='fas fa-shield-alt'></i>
+					JURÍDICO 
+					<i class="fa fa-caret-down"></i>
+				</button>
+				<div class="dropdown-container">
 					<a class="sidebar-subitem" href="{{ route('contract.index') }}">
-						<i class="fas fa-file-signature" style="margin-right: 8px"></i>CONTRATOS
+						<i class="fas fa-handshake" style="margin-right: 8px"></i>CONTRATOS
+					</a>
+					<a class="sidebar-subitem" href="{{ route('contractTemplate.index') }}">
+						<i class="fas fa-file-signature" style="margin-right: 8px"></i>MODELOS DE CONTRATO
 					</a>
 					<a class="sidebar-subitem" href="https://painel.autentique.com.br/" target="_blank">
-						<i class="fas fa-file-signature" style="margin-right: 8px"></i>AUTENTICAÇÃO DIGITAL
+						<i class="fas fa-certificate" style="margin-right: 8px"></i>AUTENTICAÇÃO DIGITAL
 					</a>
 				</div>
 
