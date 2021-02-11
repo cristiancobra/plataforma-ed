@@ -30,7 +30,7 @@
 					CNPJ: {{$data['accountCnpj']}}
 				</td>
 				<td class="image-header">
-					CONTRATO {{$data['contractId']}}
+					CONTRATO {{$data['contractIdentifier']}}
 					<br>
 					<br>
 					VENCIMENTO

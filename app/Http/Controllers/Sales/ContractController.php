@@ -328,7 +328,7 @@ class ContractController extends Controller {
 			'contactZipCode' => $contract->contact->zip_code,
 			'contactCpf' => $contract->contact->cpf,
 			// dados do Contrato
-			'contractId' => $contract->id,
+			'contractIdentifier' => $contract->identifier,
 			'contractObservations' => $contract->observations,
 			'contractName' => $contract->name,
 			'contractText' => $contract->text,
@@ -355,7 +355,7 @@ class ContractController extends Controller {
 		$pdf = PDF::loadView('sales.contracts.pdfContract', compact('data'));
 
 // download PDF file with download method
-		return $pdf->stream('fatura.pdf');
+		return $pdf->stream("Contrato-$contract->company->name.pdf");
 	}
 
 }
