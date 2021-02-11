@@ -191,7 +191,7 @@
 
 				<button class="dropdown-btn">
 					<i class='fas fa-check-circle'></i>
-					OPERACIONAL 
+					PRODUÇÃO 
 					<i class="fa fa-caret-down"></i>
 				</button>
 				<div class="dropdown-container">
