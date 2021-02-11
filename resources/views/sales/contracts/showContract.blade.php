@@ -204,16 +204,23 @@
 			R$ {{number_format($contract->invoice->totalPrice, 2,",",".") }}
 		</td>
 	</tr>
+	<tr>
+		<td   class="table-list-header-right" colspan="4">
+		</td>
+		<td   class="table-list-header-right">
+			PARCELAMENTO: 
+		</td>
+
+		<td   class="table-list-header-right" colspan="2">
+			@if($contract->invoice->number_installment_total == 1)
+			À vista
+			@else
+			{{$contract->invoice->number_installment_total}} x {{formatCurrencyReal($contract->invoice->installment_value)}}
+			@endif
+		</td>
+	</tr>
 </table>
 <br>
-<label class="labels" for="" >CONDIÇÕES DE PAGAMENTO: </label>
-@if($contract->invoice->number_installment_total == 1)
-<span class="fields">À vista</span>
-@else
-<span class="fields">{{$contract->invoice->number_installment_total}} x {{formatCurrencyReal($contract->invoice->installment_value)}}</span>
-@endif
-<br>
-</p>
 <br>
 <h3>
 	Condições gerais

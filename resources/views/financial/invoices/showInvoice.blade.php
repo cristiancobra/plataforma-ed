@@ -71,9 +71,9 @@ Sem contrato
 <br>
 <label class="labels" for="" >CONTATO:</label>
 <span class="fields">{{$invoice->opportunity->contact->name}}</span>
-	<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
+<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
+	<i class='fa fa-eye' style="color:white"></i>
+</a>
 <br>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
@@ -166,16 +166,16 @@ Sem contrato
 	</tr>
 	<tr>
 		<td   class="table-list-header-right" colspan="3">
-
+		</td>
 		<td   class="table-list-header-right">
 			PARCELAMENTO: 
 		</td>
-		</td>
+
 		<td   class="table-list-header-right" colspan="2">
 			@if($invoice->number_installment_total == 1)
 			À vista
 			@else
-			{{$invoice->number_installment_total}} x R$ {{number_format($invoice->installment_value, 2,",",".")}}
+			{{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
 			@endif
 		</td>
 	</tr>

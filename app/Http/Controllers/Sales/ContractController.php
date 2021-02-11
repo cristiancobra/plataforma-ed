@@ -292,9 +292,6 @@ class ContractController extends Controller {
 		$witness2 = Contact::find($contract->witness2);
 		$witnessName2 = $witness2->name;
 
-
-		$invoice->discount = 0;
-		$invoice->totalPrice = 0;
 		$data = [
 			// dados da empresa contratada
 			'accountLogo' => $contract->account->logo,
@@ -341,8 +338,10 @@ class ContractController extends Controller {
 			'contractWitness1' => $witnessName1,
 			'contractWitness2' => $witnessName2,
 			// outros dados
-			'invoiceDiscount' => $invoice->discount,
-			'invoiceTotalPrice' => $invoice->totalPrice,
+			'invoiceDiscount' => $contract->invoice->discount,
+			'invoiceInstallmentValue' => $contract->invoice->installment_value,
+			'invoiceNumberInstallmentTotal' => $contract->invoice->number_installment_total,
+			'invoiceTotalPrice' => $contract->invoice->totalPrice,
 			'customerName' => $contract->contact->name,
 			'customerEmail' => $contract->contact->email,
 			'customerPhone' => $contract->contact->phone,
@@ -353,7 +352,7 @@ class ContractController extends Controller {
 			'invoiceLines' => $invoiceLines,
 //			'deadline' => $deadline,
 		];
-
+		
 		$pdf = PDF::loadView('sales.contracts.pdfContract', compact('data'));
 
 // download PDF file with download method
