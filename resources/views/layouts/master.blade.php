@@ -181,9 +181,6 @@
 					<a class="sidebar-subitem" href="{{ route('opportunity.index') }}">
 						<i class="fas fa-donate" style="margin-right: 8px"></i>OPORTUNIDADES
 					</a>
-					<a class="sidebar-subitem" href="{{route('invoice.index')}}">
-						<i class="fas fa-receipt" style="margin-right: 8px"></i>FATURAS
-					</a>
 					<a class="sidebar-subitem" href="{{ route('contract.index') }}">
 						<i class="fas fa-file-signature" style="margin-right: 8px"></i>CONTRATOS
 					</a>
