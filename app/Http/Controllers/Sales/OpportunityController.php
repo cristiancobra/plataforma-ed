@@ -43,7 +43,12 @@ class OpportunityController extends Controller {
 						$query->where('stage', '!=', 'ganhamos');
 					}
 				})
-				->with('user')
+				->with([
+					'user',
+					'account',
+					'company',
+					'contact',
+					])
 				->orderBy('DATE_CONCLUSION', 'ASC')
 				->paginate(20);
 

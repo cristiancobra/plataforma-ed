@@ -287,22 +287,25 @@ indefinida
 <br>
 <table class="table-list">
 	<tr>
+		<td   class="table-list-header" style="width: 5%">
+			IDENTIFICADOR
+		</td>
 		<td   class="table-list-header" style="width: 20%">
 			TÍTULO
 		</td>
-		<td   class="table-list-header" style="width: 20%">
+		<td   class="table-list-header" style="width: 15%">
 			CONTRATADA
 		</td>
-		<td   class="table-list-header" style="width: 20%">
+		<td   class="table-list-header" style="width: 15%">
 			CONTRATANTE
 		</td>
 		<td   class="table-list-header" style="width: 15%">
 			RESPONSÁVEL
 		</td>
-		<td   class="table-list-header" style="width: 15%">
+		<td   class="table-list-header" style="width: 10%">
 			DATA DE ÍNICIO
 		</td>
-		<td   class="table-list-header" style="width: 15%">
+		<td   class="table-list-header" style="width: 10%">
 			DATA DE VENCIMENTO
 		</td>
 		<td   class="table-list-header" style="width: 10%">
@@ -324,16 +327,22 @@ indefinida
 			{{$contract->identifier}}
 		</td>
 		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($contract->date_creation))}}
+			{{$contract->name}}
+		</td>
+		<td class="table-list-center">
+			{{$contract->account->name}}
+		</td>
+		<td class="table-list-center">
+			{{$contract->company->name}}
+		</td>
+		<td class="table-list-center">
+			{{$contract->contact->name}}
+		</td>
+		<td class="table-list-center">
+			{{date('d/m/Y', strtotime($contract->date_start))}}
 		</td>
 		<td class="table-list-center">
 			{{date('d/m/Y', strtotime($contract->pay_day))}}
-		</td>
-		<td class="table-list-right">
-			R$ {{number_format($contract->totalPrice, 2,",",".")}}
-		</td>
-		<td class="table-list-right">
-			R$ {{number_format($contract->installment_value, 2,",",".")}}
 		</td>
 		{{formatInvoiceStatus($contract)}}
 	</tr>
