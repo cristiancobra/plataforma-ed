@@ -968,7 +968,7 @@ if (!function_exists('createSelectIdName')) {
 	function createSelectIdName($name, $class, $models) {
 		echo "<select class = '$class' name = '$name'  value='old('$name')>";
 		foreach ($models as $model) {
-				echo "<option value=\"$model->id\">$model->name</option><br>";
+			echo "<option value=\"$model->id\">$model->name</option><br>";
 		}
 		echo "</select>";
 	}
@@ -1074,4 +1074,13 @@ if (!function_exists('gerarSenha')) {
 		}
 
 	}
-}	
+}
+// formata valor inteiro em moeda real
+if (!function_exists('formatCurrencyReal')) {
+
+	function formatCurrencyReal($value) {
+		number_format($value, 2, ",", ".");
+
+		echo "R$ $value";
+	}
+}

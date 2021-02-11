@@ -57,7 +57,13 @@
 		@endif
 		<br>
 		<label class="labels" for="" >FATURA: </label>
-		{{createSelect('invoice_id', 'fields', $invoices)}}
+		<select name="invoice_id">
+			@foreach ($invoices as $invoice)
+			<option  class="fields" value="{{$invoice->id}}">
+				{{$invoice->identifier}} - {{$invoice->account->name}} - {{formatCurrencyReal($invoice->totalPrice)}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<br>
 		<label class="labels" for="" >EMPRESA CONTRATANTE: </label>
