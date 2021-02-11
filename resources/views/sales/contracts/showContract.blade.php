@@ -206,11 +206,11 @@
 	</tr>
 </table>
 <br>
-<label class="labels" for="" >PARCELAMENTO: </label>
-@if($contract->invoice->number_installment == 1)
+<label class="labels" for="" >CONDIÇÕES DE PAGAMENTO: </label>
+@if($contract->invoice->number_installment_total == 1)
 <span class="fields">À vista</span>
 @else
-<span class="fields">{{$contract->invoice->number_installment_total}} x R$ {{number_format($contract->invoice->installment_value, 2,",",".") }}</span>
+<span class="fields">{{$contract->invoice->number_installment_total}} x {{formatCurrencyReal($contract->invoice->installment_value)}}</span>
 @endif
 <br>
 </p>
