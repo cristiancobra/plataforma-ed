@@ -60,7 +60,7 @@
 		<select name="invoice_id">
 			@foreach ($invoices as $invoice)
 			<option  class="fields" value="{{$invoice->id}}">
-				{{$invoice->identifier}} - {{$invoice->account->name}} - {{formatCurrencyReal($invoice->totalPrice)}}
+				{{$invoice->identifier}} - {{$invoice->opportunity->company->name}} - {{formatCurrencyReal($invoice->totalPrice)}}
 			</option>
 			@endforeach
 		</select>
