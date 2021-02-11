@@ -342,7 +342,7 @@ $counter++;
 </table>
 <br>
 <br>
-<p class="labels">  Criado em:   {{ date('d/m/Y H:i', strtotime($invoice->created_at)) }} </p>
+<p class="labels">  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>
 
 <div style="text-align:right;padding: 2%">
 	<form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">

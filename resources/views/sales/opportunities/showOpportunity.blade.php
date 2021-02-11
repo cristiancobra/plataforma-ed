@@ -342,7 +342,7 @@ indefinida
 			{{date('d/m/Y', strtotime($contract->date_start))}}
 		</td>
 		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($contract->pay_day))}}
+			{{date('d/m/Y', strtotime($contract->date_due))}}
 		</td>
 		{{formatInvoiceStatus($contract)}}
 	</tr>
