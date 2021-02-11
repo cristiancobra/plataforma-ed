@@ -31,6 +31,9 @@ class Account extends Model {
 		'opposite_color',
 	];
 
+	public function bankAccounts() {
+		return $this->hasMany(BankAccount::class, 'id', 'account_id');
+	}
 	public function contacts() {
 		return $this->hasMany(Contact::class, 'id', 'account_id');
 	}

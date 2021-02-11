@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
 use App\Models\Account;
+use App\Models\BankAccount;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Contract;
@@ -51,7 +52,7 @@ class InvoiceController extends Controller {
 				->with([
 					'opportunity',
 					'invoiceLines',
-					'account',
+					'account.bankAccounts',
 					'user',
 					'contract',
 				])
@@ -96,7 +97,7 @@ class InvoiceController extends Controller {
 		$accounts = Account::whereIn('id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
-		
+
 		$companies = Company::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
@@ -283,7 +284,7 @@ class InvoiceController extends Controller {
 	 */
 	public function edit(Invoice $invoice) {
 		$accountsId = userAccounts();
-		
+
 		$accounts = Account::whereHas('users', function($query) use($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
@@ -475,6 +476,16 @@ class InvoiceController extends Controller {
 				->with('product', 'opportunity')
 				->get();
 
+		$bankAccounts = BankAccount::whereHas('account', function($query) {
+					$query->whereIn('id', userAccounts());
+				})
+				->where('status', 'LIKE', 'recebendo')
+				->with([
+					'account',
+					'bank',
+				])
+				->get();
+
 		$data = [
 			'accountLogo' => $invoice->account->logo,
 			'accountName' => $invoice->account->name,
@@ -484,6 +495,7 @@ class InvoiceController extends Controller {
 			'accountAddressCity' => $invoice->account->address_city,
 			'accountAddressState' => $invoice->account->address_state,
 			'accountCnpj' => $invoice->account->cnpj,
+			'bankAccounts' => $bankAccounts,
 			'invoiceIdentifier' => $invoice->identifier,
 			'invoiceDescription' => $invoice->description,
 			'opportunityDescription' => $invoice->opportunity->description,

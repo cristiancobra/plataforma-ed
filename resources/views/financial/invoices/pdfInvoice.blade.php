@@ -153,9 +153,9 @@
 				tttt
 			</tr>
 		</table>
-		<table  class="table-list" style="width: 100%">
+		<table  class="table-list" style="width: 100%;text-align:left">
 			<tr>
-				<td style="text-align: left" colspan="2">
+				<td>
 					<h4>
 						OBSERVAÇÕES:
 					</h4>
@@ -168,9 +168,13 @@
 			</tr>
 			<tr>
 				<td>
-					<h4>
+					<h4 style="margin-bottom: 0px">
 						FORMAS DE PAGAMENTO:
 					</h4>
+				</td>
+			</tr>
+			<tr>
+				<td>
 					<p>
 						À  VISTA: por boleto ou transferência bancária
 						<br>
@@ -178,21 +182,29 @@
 						<br>
 					</p>
 				</td>
-				<td style="text-align: center">
-					<h4>
+			</tr>
+			<tr>
+				<td>
+					<h4 style="margin-bottom: 0px">
 						DADOS PARA PAGAMENTO:
 					</h4>
+				</td>
+			</tr>
+			@foreach ($data['bankAccounts'] as $bankAccount)
+			<tr>
+				<td>
 					<p>
-						Banco Inter
+						{{$bankAccount->name}} - {{$bankAccount->bank_code}}
 						<br>
-						Agência: 0001
+						Agência: {{$bankAccount->agency}}
 						<br>
-						Conta: 2303763-6
+						Conta: {{$bankAccount->account_number}}
 						<br>
 						CNPJ: {{$data['accountCnpj']}}
 					</p>
 				</td>
 			</tr>
+			@endforeach			
 		</table>
 		<br>
 		<br>

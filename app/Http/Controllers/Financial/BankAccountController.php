@@ -24,7 +24,7 @@ class BankAccountController extends Controller {
 				->with([
 					'account',
 					'bank',
-					])
+				])
 				->get();
 
 //				dd($bankAccounts);
@@ -43,8 +43,8 @@ class BankAccountController extends Controller {
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
-		
-				$banks = Bank::where('id', '>', 0)
+
+		$banks = Bank::where('id', '>', 0)
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -110,7 +110,7 @@ class BankAccountController extends Controller {
 	 */
 	public function edit(BankAccount $bankAccount) {
 		$accounts = userAccounts();
-		
+
 		$banks = Bank::where('id', '>', 0)
 				->orderBy('NAME', 'ASC')
 				->get();
