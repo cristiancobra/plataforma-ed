@@ -53,38 +53,23 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
-		$userAuth = Auth::user();
-		$email = new \App\Models\Email();
 
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
-
-		$accounts = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->orderBy('NAME', 'asc')
+		$accounts = Account::whereIn('id', userAccounts())
+				->orderBy('ID', 'ASC')
 				->get();
 
 		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->orderBy('NAME', 'asc')
-					->get();
+			$users = myUsers();
 		} else {
-			$users = User::where('user_id', '=', $userAuth->id)
-					->with('accounts')
+			$users = User::where('user_id', '=', auth::user()->id)
+					->with(['accounts', 'contact'])
 					->get();
 		}
-
-		return view('emails.createEmail', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'email' => $email,
-			'accounts' => $accounts,
-		]);
+//		dd($accounts);
+		return view('emails.createEmail', compact(
+						'users',
+						'accounts',
+		));
 	}
 
 	/**
