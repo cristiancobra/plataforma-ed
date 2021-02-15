@@ -20,13 +20,13 @@
 	<form action=" {{ route('email.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >EMAIL: </label>
-		<input class="fields" type="text" name="email" value="{{ $email->email }} ">
+		<input class="fields" type="text" name="email" value="">
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="user_id">
 			@foreach ($users as $user)
 			<option  class="fields" value="{{ $user->id }}">
-				{{$user->contact->name}}
+				{{$user->name}}
 			</option>
 			@endforeach
 		</select>
@@ -41,10 +41,10 @@
 		</select>
 		<br>
 		<label class="labels" for="">SENHA PADRÃO: </label>
-		<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }} ">   
+		<input class="fields"  type="text" name="email_password" value="">
 		<br>
 		<label class="labels" for="">ESPAÇO (GB): </label>
-		<input class="fields" type="number" name="storage" value="{{ $email->storage }}">   
+		<input class="fields" type="number" name="storage" value="">
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="SOLICITAR EMAIL">
