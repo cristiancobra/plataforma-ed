@@ -126,37 +126,23 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Email $email, Request $request) {
-		$userAuth = Auth::user();
-
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
-
-		$accounts = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->orderBy('NAME', 'asc')
+		$accounts = Account::whereIn('id', userAccounts())
+				->orderBy('ID', 'ASC')
 				->get();
 
 		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->orderBy('NAME', 'asc')
-					->get();
+			$users = myUsers();
 		} else {
-			$users = User::where('user_id', '=', $userAuth->id)
-					->with('accounts')
+			$users = User::where('user_id', '=', auth::user()->id)
+					->with(['accounts', 'contact'])
 					->get();
 		}
 
-		return view('emails.editEmail', [
-			'userAuth' => $userAuth,
-			'users' => $users,
-			'email' => $email,
-			'accounts' => $accounts,
-		]);
+		return view('emails.editEmail', compact(
+			'users',
+			'email',
+			'accounts',
+		));
 	}
 
 	/**
