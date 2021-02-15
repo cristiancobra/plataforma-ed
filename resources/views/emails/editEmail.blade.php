@@ -37,12 +37,12 @@
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="user_id">
-			<option  class="fields" value="{{ $email->user_id }}">
-				{{ $email->user->name }}
+			<option  class="fields" value="{{$email->user_id}}">
+				{{$email->user->name}}
 			</option>
 			@foreach ($users as $user)
-			<option  class="fields" value="{{ $user->id }}">
-				{{ $user->contact->name }}
+			<option  class="fields" value="{{$user->id}}">
+				{{$user->name}}
 			</option>
 			@endforeach
 		</select>
@@ -69,11 +69,13 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR EMAIL">
-	</form>
-	<a class="btn btn-secondary" href=" https://acadia.mxroute.com:2083/" target="_blank">
-		<i class='fa fa-edit'></i>EDITAR
-	</a>
+		<div>
+			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR EMAIL">
+			</form>
+			<a class="btn btn-secondary" style="display:inline-block" href=" https://acadia.mxroute.com:2083/" target="_blank">
+				<i class='fa fa-edit'></i>EDITAR
+			</a>
+		</div>
 </div>
 <br>
 <br>
