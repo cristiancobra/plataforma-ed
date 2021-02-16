@@ -65,7 +65,7 @@ Sem contrato
 </button>
 @endif
 <br>
-@if($invoice->type == 'receita')
+@if(isset($invoice->opportunity_id))
 <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 <span class="fields">{{$invoice->opportunity->company->name}}</span>
 <button class="button-round">
@@ -83,7 +83,7 @@ Sem contrato
 </button>
 @endif
 <br>
-@if($invoice->type == 'receita')
+@if(isset($invoice->opportunity_id))
 <label class="labels" for="" >CONTATO:</label>
 <span class="fields">{{$invoice->opportunity->contact->name}}</span>
 <a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
@@ -99,7 +99,7 @@ Sem contrato
 <span class="fields">{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
 <br>
 <br>
-@if($invoice->type == 'receita')
+@if(isset($invoice->opportunity_id))
 <label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
 <span class="fields">{!!html_entity_decode($invoice->opportunity->description)!!}</span>
 <br>
