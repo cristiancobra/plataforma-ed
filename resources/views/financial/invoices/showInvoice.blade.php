@@ -41,14 +41,16 @@
 <span class="fields">{{$invoice->user->contact->name}}</span>
 <br>
 <br>
-@if($invoice->type == 'receita')
 <label class="labels" for="" >OPORTUNIDADE:</label>
+@if(isset($invoice->opportunity_id))
 <span class="fields">{{$invoice->opportunity->name}}</span>
 <button class="button-round">
 	<a href=" {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
+@else
+não possui
 <br>
 @endif
 <label class="labels" for="" >CONTRATO:</label>
