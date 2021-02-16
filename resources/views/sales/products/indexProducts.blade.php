@@ -18,7 +18,7 @@ Total: <span class="labels">{{$totalProducts }} </span>
 <a class="button-secondary"  href="{{route('product.index')}}">
 	VOLTAR
 </a>
-<a class="button-primary"  href="{{route('product.create')}}">
+<a class="button-primary"  href="{{route('product.create', ['type' => 'receita'])}}">
 	CRIAR
 </a>
 @endsection

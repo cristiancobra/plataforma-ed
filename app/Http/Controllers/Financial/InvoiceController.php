@@ -134,7 +134,7 @@ class InvoiceController extends Controller {
 				->get();
 
 		$type = $request->input('type');
-
+dd($type);
 		$products = Product::whereHas('account', function($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
