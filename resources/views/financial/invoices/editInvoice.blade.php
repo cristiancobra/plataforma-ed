@@ -48,14 +48,14 @@
 		</select>
 		<br>
 		<br>
-		@if($type == 'receita')
+		@if(isset($invoice->opportunity_id))
 		<label class="labels" for="" >OPORTUNIDADE: </label>
 		<input type="hidden" name="opportunity_id" value="{{$invoice->opportunity_id}}">
 		<span class="fields">{{$invoice->opportunity->name}}</span>
 		<br>
 		@endif
 		<label class="labels" for="">EMPRESA CONTRATANTE:</label>
-		@if($type == 'receita')
+		@if(isset($invoice->opportunity_id))
 		<span class="fields">{{$invoice->opportunity->company->name}}</span>
 		<button class="button-round">
 			<a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
@@ -77,7 +77,7 @@
 			<i class='fa fa-eye' style="color:white"></i>
 		</a>
 		<br>
-		@if($type == 'receita')
+		@if(isset($invoice->opportunity_id))
 		<label class="labels" for="" >CONTRATO: </label>
 		<select name="contract_id">
 			<option  class="fields" value="{{$invoice->contract_id}}">

@@ -32,7 +32,7 @@
 <div>
 	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
-		@if($type == 'receita')
+		@if(isset($invoice->opportunity_id))
 		<input type="hidden" name="type" value="receita">
 		@else
 		<input type="hidden" name="type" value="despesa">
@@ -64,7 +64,7 @@
 		</select>
 		<br>
 		<br>
-		@if($type == 'receita')
+		@if(isset($invoice->opportunity_id))
 		<label class="labels" for="" >OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunityName')))
 		{{app('request')->input('opportunityName')}}
@@ -115,7 +115,7 @@
 		@endif
 		<br>
 		<br>
-		@if($type == 'receita')
+		@if(isset($invoice->opportunity_id))
 		<label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunityDescription')))
 		<span class="fields">{!!html_entity_decode(app('request')->input('opportunityDescription'))!!}</span>
