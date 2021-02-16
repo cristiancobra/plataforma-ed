@@ -81,7 +81,7 @@ Route::any('/faturas/filtros', 'Financial\\InvoiceController@index')
 Route::resource('faturas', 'Financial\\InvoiceController')
 		->except(['index'])
 		->names('invoice')
-		->parameters(['receitas' => 'invoice'])
+		->parameters(['faturas' => 'invoice'])
 		->middleware('roles');
 
 Route::resource('planejamentos', 'Financial\\PlanningController')
