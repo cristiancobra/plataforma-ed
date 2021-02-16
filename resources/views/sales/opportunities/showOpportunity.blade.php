@@ -260,6 +260,8 @@ indefinida
 //				'opportunityUserId' => $opportunity->user->id,
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
+				'opportunityCompanyName' => $opportunity->company->name,
+				'opportunityCompanyId' => $opportunity->company->id,
 				'invoiceStatus' => 'orçamento',
 				'department' => "vendas",
 				])}}">
@@ -272,6 +274,8 @@ indefinida
 				'opportunityDescription' => $opportunity->description,
 				'opportunityAccountName' => $opportunity->account->name,
 				'opportunityAccountId' => $opportunity->account->id,
+				'opportunityCompanyName' => $opportunity->company->name,
+				'opportunityCompanyId' => $opportunity->company->id,
 				'department' => "vendas",
 				])}}">
 	GERAR FATURA

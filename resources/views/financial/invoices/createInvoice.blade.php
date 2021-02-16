@@ -64,16 +64,14 @@
 		</select>
 		<br>
 		<br>
-		@if(isset($invoice->opportunity_id))
 		<label class="labels" for="" >OPORTUNIDADE:</label>
 		@if(!empty(app('request')->input('opportunityName')))
 		{{app('request')->input('opportunityName')}}
 		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
+		@elseif($type == 'despesa')
+		não possui
 		@else
 		<select name="opportunity_id">
-			<option  class="fields" value="">
-				não possui
-			</option>
 			@foreach ($opportunities as $opportunity)
 			<option  class="fields" value="{{$opportunity->id}}">
 				{{$opportunity->name}}
@@ -87,10 +85,10 @@
 		@endif
 		<br>
 		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
-		@if(!empty(app('request')->input('company_id')))
-		{{app('request')->input('company_id')}}
-		<input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
-		@else
+		@if(!empty(app('request')->input('opportunityCompanyName')))
+		{{app('request')->input('opportunityCompanyName')}}
+		<input type="hidden" name="company_id" value="{{app('request')->input('opportunityCompanyId')}}">
+		@elseif($type == 'despesa')
 		<select name="company_id">
 			@foreach ($companies as $company)
 			<option  class="fields" value="{{$company->id}}">
@@ -98,10 +96,11 @@
 			</option>
 			@endforeach
 		</select>
+		@else
+		automático
 		@endif
 		<br>
 		<br>
-		@endif
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>
 		@if ($errors->has('date_creation'))
