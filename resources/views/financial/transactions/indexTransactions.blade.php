@@ -100,7 +100,7 @@ Total: <span class="labels"></span>
 				{{$bankAccount->name}}
 			</td>
 			<td class="table-list-right" style="width: 30%">
-				{{formatCurrencyReal($estimatedRevenueMonthly)}}
+				{{formatCurrencyReal($bankAccount->opening_balance)}}
 			</td>
 		</tr>
 		@endforeach
