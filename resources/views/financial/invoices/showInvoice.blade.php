@@ -51,8 +51,8 @@
 </button>
 @else
 não possui
-<br>
 @endif
+<br>
 <label class="labels" for="" >CONTRATO:</label>
 @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
 Sem contrato
