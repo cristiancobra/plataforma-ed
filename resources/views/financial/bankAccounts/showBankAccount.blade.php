@@ -27,26 +27,26 @@
 	{{$bankAccount->account->name}}
 	<br>
 	<br>
-	<label class="labels"  for="" >Banco: </label> {{$bankAccount->bank->name}} - código {{$bankAccount->bank->bank_code}}
+	<label class="labels"  for="" >BANCO: </label> {{$bankAccount->bank->name}} - código {{$bankAccount->bank->bank_code}}
 	<br>
-	<label class="labels"  for="" >Data de abertura: </label> {{date('d/m/Y', strtotime($bankAccount->date_creation))}}
+	<label class="labels"  for="" >DATA DE ABERTURA: </label> {{date('d/m/Y', strtotime($bankAccount->date_creation))}}
 	<br>
-	<label class="labels"  for="" >Data de fechamento: </label> {{date('d/m/Y', strtotime($bankAccount->date_closing))}}
+	<label class="labels"  for="" >DATA DE FECHAMENTO: </label> {{date('d/m/Y', strtotime($bankAccount->date_closing))}}
 	<br>
-	<label class="labels"  for="" >Tipo de conta: </label> {{$bankAccount->type}}
+	<label class="labels"  for="" >TIPO DE CONTA: </label> {{$bankAccount->type}}
 	<br>
-	<label class="labels"  for="" >Número da agencia: </label> {{$bankAccount->agency}}
+	<label class="labels"  for="" >NÚMERO DA AGÊNCIA: </label> {{$bankAccount->agency}}
 	<br>
-	<label class="labels"  for="" >Número da conta: </label> {{$bankAccount->account_number}}
+	<label class="labels"  for="" >NÚMERO DA CONTA: </label> {{$bankAccount->account_number}}
 	<br>
-	<label class="labels"  for="" >Saldo inicial: </label> R$ {{$bankAccount->opening_balance}}
+	<label class="labels"  for="" >SALDO INICIAL: </label> R$ {{$bankAccount->opening_balance}}
 	<br>
 	<br>
 		<p class="labels">
 		DESCRIÇÃO:<span class="fields"> {!!html_entity_decode($bankAccount->observations)!!} </span>
 	</p>
 	<br>
-	<label for="">Stituação: </label> {{$bankAccount->status}}
+	<label for="">SITUAÇÃO: </label> {{$bankAccount->status}}
 	<br>
 	<br>
 	<p class="labels"> <b>Criado em:</b> {{ date('d/m/Y H:i', strtotime($bankAccount->created_at)) }} </p>

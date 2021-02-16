@@ -22,7 +22,7 @@
 		@method('put')
 		<label for="" >DONO: </label>
 		<select name="account_id">
-			<option  class="fields" value="{{$bankAccount->account->id}}">
+			<option  class="fields" value="{{$bankAccount->account_id}}">
 				{{$bankAccount->account->name}}
 			</option>
 			@foreach ($accounts as $account)
@@ -32,6 +32,13 @@
 			@endforeach
 		</select>
 		<br>
+		<label for="" >Nome / apelido: </label>
+		<input type="text" name="name" value="{{$bankAccount->name}}">
+		@if ($errors->has('name'))
+		<span class="text-danger">{{$errors->first('name')}}</span>
+		@endif
+		<br>
+		<br>
 		<label for="" >Banco: </label>
 		{{createSelectIdName('bank_id', 'fields', $banks)}}
 		<br>
@@ -39,7 +46,7 @@
 		<input type="date" name="date_creation" value="{{$bankAccount->date_creation}}">
 		<br>
 		<label for="" >Data de fechamento: </label>
-		<input type="date" name="date_creation" value="{{$bankAccount->date_creation}}">
+		<input type="date" name="date_closing" value="{{$bankAccount->date_closing}}">
 		<br>
 		<br>
 		<br>
