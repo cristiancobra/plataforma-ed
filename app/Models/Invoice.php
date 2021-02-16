@@ -27,6 +27,7 @@ class Invoice extends Model {
 		'totalMargin',
 		'totalBalance',
 		'receipt',
+		'type',
 		'status',
 		'category',
 		'receipt',

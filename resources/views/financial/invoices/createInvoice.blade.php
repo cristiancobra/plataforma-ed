@@ -35,7 +35,7 @@
 		@if($type == 'receita')
 		<input type="hidden" name="type" value="receita">
 		@else
-		<input type="hidden" name="type" value="expense">
+		<input type="hidden" name="type" value="despesa">
 		@endif
 		<label class="labels" for="" >EMPRESA:</label>
 		@if(!empty(app('request')->input('opportunityAccountName')))

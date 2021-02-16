@@ -204,6 +204,7 @@ class InvoiceController extends Controller {
 			} else {
 				$invoice->identifier = 1;
 			}
+//			dd($invoice->type);
 			$invoice->save();
 
 			$totalPrice = 0;
@@ -579,6 +580,7 @@ class InvoiceController extends Controller {
 			$invoiceNew->user_id = $invoice->user_id;
 			$invoiceNew->account_id = $invoice->account_id;
 			$invoiceNew->contract_id = $invoice->contract_id;
+			$invoiceNew->company_id = $invoice->company_id;
 			$invoiceNew->date_creation = $invoice->date_creation;
 			$invoiceNew->pay_day = date("Y-m-d", strtotime("+" . ($counter) . " month", strtotime($invoice->pay_day)));
 			$invoiceNew->description = $invoice->description;
@@ -594,6 +596,7 @@ class InvoiceController extends Controller {
 			$invoiceNew->number_installment = $counter + 1;
 			$invoiceNew->number_installment_total = $invoice->number_installment_total;
 			$invoiceNew->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
+			$invoiceNew->type = $invoice->type;
 			$invoiceNew->status = $invoice->status;
 			$invoiceNew->save();
 
