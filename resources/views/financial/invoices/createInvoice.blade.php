@@ -72,7 +72,7 @@
 		@else
 		<select name="opportunity_id">
 			<option  class="fields" value="">
-				selecione
+				não possui
 			</option>
 			@foreach ($opportunities as $opportunity)
 			<option  class="fields" value="{{$opportunity->id}}">
@@ -84,6 +84,20 @@
 		@endif
 		@if ($errors->has('opportunity_id'))
 		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
+		@endif
+		<br>
+		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
+		@if(!empty(app('request')->input('company_id')))
+		{{app('request')->input('company_id')}}
+		<input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
+		@else
+		<select name="company_id">
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{$company->id}}">
+				{{$company->name}}
+			</option>
+			@endforeach
+		</select>
 		@endif
 		<br>
 		<br>
