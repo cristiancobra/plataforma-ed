@@ -81,10 +81,10 @@ Sem contrato
 </button>
 @endif
 <br>
-<label class="labels" for="" >CONTATO:</label>
 @if($invoice->type == 'receita')
-<span class="fields">{{$invoice->contact->name}}</span>
-<a href="{{route('contact.show', ['contact' => $invoice->contact_id])}}">
+<label class="labels" for="" >CONTATO:</label>
+<span class="fields">{{$invoice->opportunity->contact->name}}</span>
+<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
 	<i class='fa fa-eye' style="color:white"></i>
 </a>
 @endif
