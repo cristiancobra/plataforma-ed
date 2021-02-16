@@ -29,6 +29,10 @@
 	<br>
 	<label class="labels"  for="" >Banco: </label> {{$bankAccount->bank->name}} - código {{$bankAccount->bank->bank_code}}
 	<br>
+	<label class="labels"  for="" >Data de abertura: </label> {{date('d/m/Y', strtotime($bankAccount->date_creation))}}
+	<br>
+	<label class="labels"  for="" >Data de fechamento: </label> {{date('d/m/Y', strtotime($bankAccount->date_closing))}}
+	<br>
 	<label class="labels"  for="" >Tipo de conta: </label> {{$bankAccount->type}}
 	<br>
 	<label class="labels"  for="" >Número da agencia: </label> {{$bankAccount->agency}}

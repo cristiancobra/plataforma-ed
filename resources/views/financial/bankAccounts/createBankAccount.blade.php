@@ -39,12 +39,25 @@
 		</select>
 		<br>
 		<br>
-		<br>
 		<label for="" >Nome / apelido: </label>
 		<input type="text" name="name" value="{{old('name')}}">
 		@if ($errors->has('name'))
 		<span class="text-danger">{{$errors->first('name')}}</span>
 		@endif
+		<br>
+		<br>
+		<label class="labels" for="" >DATA DE ABERTURA:</label>
+		<input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>
+		@if ($errors->has('date_creation'))
+		<span class="text-danger">{{ $errors->first('date_creation') }}</span>
+		@endif
+		<br>
+		<label class="labels" for="" >DATA DE FECHAMENTO:</label>
+		<input type="date" name="date_closing" size="20" value="{{old('date_closing')}}"><span class="fields"></span>
+		@if ($errors->has('date_closing'))
+		<span class="text-danger">{{ $errors->first('date_closing') }}</span>
+		@endif
+		<br>
 		<br>
 		<label for="" >Banco: </label>
 		{{createSelectIdName('bank_id', 'fields', $banks)}}

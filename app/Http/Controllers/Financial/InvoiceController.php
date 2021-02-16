@@ -94,7 +94,7 @@ class InvoiceController extends Controller {
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
-
+//dd($invoices);
 		return view('financial.invoices.indexInvoices', compact(
 						'invoices',
 						'contacts',

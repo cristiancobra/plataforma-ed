@@ -35,6 +35,13 @@
 		<label for="" >Banco: </label>
 		{{createSelectIdName('bank_id', 'fields', $banks)}}
 		<br>
+		<label for="" >Data de abertura: </label>
+		<input type="date" name="date_creation" value="{{$bankAccount->date_creation}}">
+		<br>
+		<label for="" >Data de fechamento: </label>
+		<input type="date" name="date_creation" value="{{$bankAccount->date_creation}}">
+		<br>
+		<br>
 		<br>
 		<label for="" >Tipo de conta: </label>
 		<input type="text" name="type" value="{{$bankAccount->type}}">
@@ -51,6 +58,7 @@
 		<br>
 		<label for="" >Observações: </label>
 		<textarea id="observations" name="observations" rows="10" cols="90" value="{{$bankAccount->opening_balance}}">
+{{$bankAccount->observations}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

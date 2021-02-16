@@ -11,6 +11,8 @@ class BankAccount extends Model {
 		'id',
 		'account_id',
 		'name',
+		'date_creation',
+		'date_closing',
 		'type',
 		'observations',
 		'bank_id',
