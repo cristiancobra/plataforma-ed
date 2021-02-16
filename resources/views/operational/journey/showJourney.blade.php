@@ -40,6 +40,7 @@
 	<p class="labels">
 		DESCRIÇÃO:<span class="fields"> {!!html_entity_decode($journey->description)!!} </span>
 	</p>
+	<br>
 	<p class="labels">
 		CONTATO:<span class="fields">  {{ $journey->task->contact->name }}  </span>
 	</p>

@@ -3,103 +3,72 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{asset('imagens/invoice.png')}} 
+{{asset('imagens/bill.png')}} 
 @endsection
 
 @section('description')
 @endsection
 
 @section('buttons')
-<a class="button-secondary" href="{{route('invoice.pdf', ['invoice' => $invoice])}}">
-	PDF
-</a>
-<a class="button-secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
-	EMAIL
-</a>
-<a class="button-secondary"  href="{{route('invoice.index')}}">
+<a class="button-secondary"  href="{{route('bill.index')}}">
 	VOLTAR
 </a>
 @endsection
 
 @section('main')
 <label class="labels" for="" >IDENTIFICADOR:</label>
-<span class="fields">{{$invoice->identifier}}</span>
+<span class="fields">{{$bill->identifier}}</span>
 <br>
 <label class="labels" for="" >PARCELA:</label>
-@if($invoice->status == 'rascunho')
+@if($bill->status == 'rascunho')
 <span class="fields">rascunho</span>
-@elseif($invoice->status == 'orçamento')
+@elseif($bill->status == 'orçamento')
 <span class="fields">orçamento</span>
 @else
-<span class="fields">{{$invoice->number_installment}} de {{$invoice->number_installment_total}}</span>
+<span class="fields">{{$bill->number_installment}} de {{$bill->number_installment_total}}</span>
 @endif
 <br>
 <label class="labels" for="" >DONO:</label>
-<span class="fields">{{$invoice->account->name}}</span>
+<span class="fields">{{$bill->account->name}}</span>
 <br>
 <label class="labels" for="" >VENDEDOR:</label>
-<span class="fields">{{$invoice->user->contact->name}}</span>
+<span class="fields">{{$bill->user->contact->name}}</span>
 <br>
 <br>
-@if($invoice->type == 'receita')
-<label class="labels" for="" >OPORTUNIDADE:</label>
-<span class="fields">{{$invoice->opportunity->name}}</span>
-<button class="button-round">
-	<a href=" {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
-</button>
-<br>
-@endif
 <label class="labels" for="" >CONTRATO:</label>
-@if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
+@if(!isset($bill->contract_id) OR $bill->contract_id == 0)
 Sem contrato
 @else
-<span class="fields">{{$invoice->contract->name}}</span>
+<span class="fields">{{$bill->contract->name}}</span>
 <button class="button-round">
-	<a href="{{route('contract.show', ['contract' => $invoice->contract_id])}}">
+	<a href="{{route('contract.show', ['contract' => $bill->contract_id])}}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
 @endif
 <br>
-@if($invoice->type == 'receita')
 <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
-<span class="fields">{{$invoice->opportunity->company->name}}</span>
+<span class="fields">{{$bill->company->name}}</span>
 <button class="button-round">
-	<a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
+	<a href="{{route('company.show', ['company' => $bill->company_id])}}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
-@else
-<label class="labels" for="" >FORNECEDOR:</label>
-<span class="fields">{{$invoice->company->name}}</span>
-<button class="button-round">
-	<a href="{{route('company.show', ['company' => $invoice->company_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
-</button>
-@endif
 <br>
 <label class="labels" for="" >CONTATO:</label>
-<span class="fields">{{$invoice->opportunity->contact->name}}</span>
-<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
+<span class="fields">{{$bill->contact->name}}</span>
+<a href="{{route('contact.show', ['contact' => $bill->contact_id])}}">
 	<i class='fa fa-eye' style="color:white"></i>
 </a>
 <br>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-<span class="fields">{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>
+<span class="fields">{{date('d/m/Y', strtotime($bill->date_creation))}}</span>
 <br>
 <label class="labels" for="" >DATA DE PAGAMENTO:</label>
-<span class="fields">{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
+<span class="fields">{{date('d/m/Y', strtotime($bill->pay_day))}}</span>
 <br>
 <br>
-@if($invoice->type == 'receita')
-<label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
-<span class="fields">{!!html_entity_decode($invoice->opportunity->description)!!}</span>
-<br>
-@endif
 <div style="display: inline-block">
 	<img src="{{asset('imagens/products.png')}}" width="40px" alt="40px">
 	<label class="labels" for="" >ITENS DA FATURA:</label>
@@ -128,31 +97,31 @@ Sem contrato
 		</td>
 	</tr>
 
-	@foreach ($invoiceLines as $invoiceLine)
+	@foreach ($billLines as $billLine)
 	<tr style="font-size: 14px">
 		<td class="table-list-center">
-			{{$invoiceLine->amount}}
+			{{$billLine->amount}}
 		</td>
 		<td class="table-list-left">
-			{{$invoiceLine->product->name}}
+			{{$billLine->product->name}}
 		</td>
 		<td class="table-list-center">
-			{{$invoiceLine->subtotalDeadline}} dia(s)
+			{{$billLine->subtotalDeadline}} dia(s)
 		</td>
 		<td class="table-list-right">
-			{{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
+			{{number_format($billLine->subtotalTax_rate, 2,",",".")}}
 		</td>
 		<td class="table-list-right">
-			{{number_format($invoiceLine->product->price,2,",",".")}}
+			{{number_format($billLine->product->price,2,",",".")}}
 		</td>
 		<td class="table-list-right">
-			{{number_format($invoiceLine->subtotalPrice,2,",",".")}}
+			{{number_format($billLine->subtotalPrice,2,",",".")}}
 		</td>
 	</tr>
 
 	<tr style="font-size: 12px">
 		<td class="table-list-left" colspan="5">
-			{!!html_entity_decode($invoiceLine->product->description)!!}
+			{!!html_entity_decode($billLine->product->description)!!}
 		</td>
 	</tr>
 	@endforeach
@@ -164,7 +133,7 @@ Sem contrato
 			desconto: 
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			- {{number_format($invoice->discount, 2,",",".")}}
+			- {{number_format($bill->discount, 2,",",".")}}
 		</td>
 	</tr>
 	<tr>
@@ -175,7 +144,7 @@ Sem contrato
 		</td>
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
+			R$ {{number_format($bill->totalPrice, 2,",",".")}}
 		</td>
 	</tr>
 	<tr>
@@ -186,10 +155,10 @@ Sem contrato
 		</td>
 
 		<td   class="table-list-header-right" colspan="2">
-			@if($invoice->number_installment_total == 1)
+			@if($bill->number_installment_total == 1)
 			À vista
 			@else
-			{{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
+			{{$bill->number_installment_total}} x {{formatCurrencyReal($bill->installment_value)}}
 			@endif
 		</td>
 	</tr>
@@ -197,28 +166,28 @@ Sem contrato
 <br>
 @if($totalInvoices > 1)
 
-@elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga')
+@elseif($bill->status == 'aprovada' OR $bill->status == 'paga')
 <p  style="text-align: right">
-	<a class="button-secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
+	<a class="button-secondary" href="{{route('bill.installment', ['bill' => $bill])}}">
 		GERAR FATURAS DO PARCELAMENTO
 	</a>
 </p>
 @else
 <p  style="text-align: right">
-	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice])}}">
+	<a class="button-secondary" href="{{route('bill.edit', ['bill' => $bill])}}">
 		APROVAR PARA LIBERAR PARCELAMENTO
 	</a>
 </p>
 @endif
 <br>
-@if($invoice->status == 'rascunho' OR $invoice->status == 'rascunho')
+@if($bill->status == 'rascunho' OR $bill->status == 'rascunho')
 <br>
 <label class="labels" for="" >OPÇÕES DE PARCELAMENTO: </label>
 <br>
 @php
 $counter = 1;
-while($counter <= $invoice->number_installment_total) {
-echo "$counter x = R$ ".number_format($invoice->totalPrice / $counter, 2,",",".");
+while($counter <= $bill->number_installment_total) {
+echo "$counter x = R$ ".number_format($bill->totalPrice / $counter, 2,",",".");
 echo "<br>";
 $counter++;
 }
@@ -228,7 +197,7 @@ $counter++;
 <br>
 @endif
 <div style="display: inline-block">
-	<img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
+	<img src="{{asset('imagens/bill.png')}}" width="40px" alt="40px">
 	<label class="labels" for="" >TODAS AS FATURAS:</label>
 </div>
 <br>
@@ -254,38 +223,38 @@ $counter++;
 			SITUAÇÃO
 		</td>
 	</tr>
-	@if($invoices)
-	@foreach ($invoices as $invoice)
+	@if($bills)
+	@foreach ($bills as $bill)
 	<tr style="font-size: 14px">
 		<td class="table-list-left">
 			<button class="button-round">
-				<a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
+				<a href=" {{route('bill.show', ['bill' => $bill->id])}}">
 					<i class='fa fa-eye' style="color:white"></i></a>
 			</button>
 			<button class="button-round">
-				<a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
+				<a href=" {{route('bill.edit', ['bill' => $bill->id])}}">
 					<i class='fa fa-edit' style="color:white"></i></a>
 			</button>
-			FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$invoice->number_installment_total}}
+			FATURA {{$bill->identifier}}: parcela {{$bill->number_installment}} de {{$bill->number_installment_total}}
 		</td>
 		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($invoice->date_creation))}}
+			{{date('d/m/Y', strtotime($bill->date_creation))}}
 		</td>
 		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($invoice->pay_day))}}
+			{{date('d/m/Y', strtotime($bill->pay_day))}}
 		</td>
 		<td class="table-list-right">
-			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
+			R$ {{number_format($bill->totalPrice, 2,",",".")}}
 		</td>
 		<td class="table-list-right">
-			R$ {{number_format($invoice->installment_value, 2,",",".")}}
+			R$ {{number_format($bill->installment_value, 2,",",".")}}
 		</td>
-		@if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+		@if($bill->status == 'aprovada' AND $bill->pay_day < date('Y-m-d'))
 		<td class="td-late">
 			atrasada
 		</td>
 		@else
-		{{formatInvoiceStatus($invoice)}}
+		{{formatInvoiceStatus($bill)}}
 		@endif
 	</tr>
 	@endforeach
@@ -294,14 +263,14 @@ $counter++;
 <br>
 <br>
 <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-<span class="fields">{{$invoice->payment_method}}</span>
+<span class="fields">{{$bill->payment_method}}</span>
 <br>
 <br>
 <label class="labels" for="">OBSERVAÇÕES:</label>
-<span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
+<span class="fields">{!!html_entity_decode($bill->description)!!}</span>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
-<span class="fields">{{$invoice->status}}</span>
+<span class="fields">{{$bill->status}}</span>
 <br>
 <br>
 <br>
@@ -356,17 +325,17 @@ $counter++;
 </table>
 <br>
 <br>
-<p class="labels">  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>
+<p class="labels">  Criado em:   {{date('d/m/Y H:i', strtotime($bill->created_at))}} </p>
 
 <div style="text-align:right;padding: 2%">
-	<form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">
+	<form   style="text-decoration: none;display: inline-block" action="{{route('bill.destroy', ['bill' => $bill])}}" method="post">
 		@csrf
 		@method('delete')
 		<input class="button-delete" type="submit" value="APAGAR">
 	</form>
-	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
+	<a class="button-secondary" href="{{route('bill.edit', ['bill' => $bill->id])}}"  style="display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="button-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
+	<a class="button-secondary" href="{{route('bill.index')}}">VOLTAR</a>
 </div>
 <br>
 

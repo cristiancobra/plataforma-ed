@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
+@if($type == 'receita')
 @section('title','PRODUTOS')
+@else
+@section('title','ITENS DE DESPESA')
+@endif
 
 @section('image-top')
 {{ asset('imagens/products.png') }} 
@@ -20,6 +24,27 @@ Total: <span class="labels">{{$totalProducts }} </span>
 @endsection
 
 @section('main')
+<form action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
+	@csrf
+	<input type="text" name="name" placeholder="nome da oportunidade" value="">
+	<select class="select" name="account_id">
+		<option  class="select" value="">
+			Qualquer empresa
+		</option>
+		@foreach ($accounts as $account)
+		<option  class="select" value="{{$account->id}}">
+			{{$account->name}}
+		</option>
+		@endforeach
+		<option  class="select" value="">
+			todas
+		</option>
+	</select>
+	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
+	{{returnType('status', 'select', 'invoice')}}
+	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+</form>
+<br>
 <div>
 	<table class="table-list">
 		<tr>

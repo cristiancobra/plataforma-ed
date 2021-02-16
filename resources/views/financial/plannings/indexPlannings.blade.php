@@ -16,36 +16,6 @@
 @endsection
 
 @section('main')
-<div>
-	<br>
-	<p style="text-align: left">
-		<label class="labels" for="">PREVISÃO:</label>
-	</p>
-	<table class="table-list">
-		<tr>
-			<td class="table-list-left" style="width: 70%">
-				RECEITAS:
-			</td>
-			<td class="table-list-right" style="width: 30%">
-				R$ {{number_format($estimatedRevenueMonthly, 2,",",".")}}
-			</td>
-		</tr>
-	</table>
-	<br>
-	<p style="text-align: left">
-		<label class="labels" for="">FLUXO DE CAIXA:</label>
-	</p>
-	<table class="table-list">
-		<tr>
-			<td class="table-list-left" style="width: 70%">
-				RECEITAS:
-			</td>
-			<td class="table-list-right" style="width: 30%">
-				R$ {{number_format($revenueMonthly, 2,",",".")}}
-			</td>
-		</tr>
-	</table>
-	<br>
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header" style="width: 40%">

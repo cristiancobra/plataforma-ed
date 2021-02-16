@@ -35,7 +35,7 @@
 		FATURA:<span class="fields">{{$transaction->invoice_id}}</span>
 	</p>
 	<p class="labels">
-		VALOR:<span class="fields">R$ {{number_format($transaction->value,2,",",".")}}</span>
+		VALOR:<span class="fields">{{formatCurrencyReal($transaction->value)}}</span>
 	</p>
 	<br>
 	<p class="labels">

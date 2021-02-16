@@ -30,6 +30,12 @@
 	<form action=" {{route('company.update', ['company' => $company->id])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
+		<label for="status">TIPO: </label>
+		<select class="fields" name="type">
+			<option value="cliente">cliente</option>
+			<option value="fornecedor">fornecedor</option>
+		</select>
+		<br>
 		<label for="" >DONO: </label>
 		<select name="account_id">
 			<option  class="fields" value="{{$company->account_id}}">

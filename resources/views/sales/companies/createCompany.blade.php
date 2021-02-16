@@ -27,8 +27,13 @@
 </div>
 @endif
 <div>
-	<form action=" {{ route('company.store') }} " method="post" style="color: #874983">
+	<form action=" {{route('company.store')}} " method="post" style="color: #874983">
 		@csrf
+		@if($type == 'cliente')
+		<input type="hidden" name="type" value="cliente">
+		@else
+		<input type="hidden" name="type" value="fornecedor">
+		@endif
 		<label for="" >DONO: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
@@ -107,9 +112,6 @@
 		<h2 class="name" for="">PERFIL</h2>
 		<label for="">Quantidade de empregados: </label>
 		<input type="number" name="employees">
-		<br>
-		<label for="">Tipo: </label>
-		<input type="text" name="type">
 		<br>
 		<br>
 		<br>

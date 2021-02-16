@@ -18,13 +18,44 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
+		$monthStart = date('Y-m-01');
+		$monthEnd = date('Y-m-t');
+		
+		$bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+				->get();
+//dd($bankAccounts);
 		$transactions = Transaction::whereIn('account_id', userAccounts())
 				->with(['user', 'bankAccount', 'invoice'])
 				->orderBy('PAY_DAY', 'ASC')
 				->paginate(20);
+		
+		$revenueMonthly = Transaction::whereIn('account_id', userAccounts())
+				->where('type', 'crédito')
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('value');
+
+		$estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+				->where('status', 'aprovada')
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('installment_value');
+		
+		$expenseMonthly = Transaction::whereIn('account_id', userAccounts())
+				->where('type', 'débito')
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('value');
+
+		$estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+				->where('status', 'aprovada')
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('installment_value');
 
 		return view('financial.transactions.indexTransactions', compact(
+						'bankAccounts',
 						'transactions',
+						'revenueMonthly',
+						'estimatedRevenueMonthly',
+						'expenseMonthly',
+						'estimatedExpenseMonthly',
 		));
 	}
 
@@ -42,11 +73,16 @@ class TransactionController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
+		$invoices = Invoice::whereIn('account_id', userAccounts())
+//				->orderBy('NAME', 'ASC')
+				->paginate(20);
+
 		$users = myUsers();
 
 		return view('financial.transactions.createTransaction', compact(
 						'accounts',
 						'bankAccounts',
+						'invoices',
 						'users',
 		));
 	}
@@ -110,7 +146,7 @@ class TransactionController extends Controller {
 		$bankAccounts = BankAccount::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
-		
+
 		$invoices = Invoice::whereIn('account_id', userAccounts())
 				->orderBy('ID', 'DESC')
 				->get();

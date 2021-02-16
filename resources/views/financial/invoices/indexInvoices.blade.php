@@ -11,8 +11,11 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('invoice.create')}}">
-	CRIAR
+<a class="button-primary"  href="{{route('invoice.create', ['type' => 'receita'])}}">
+	CRIAR RECEITA
+</a>
+<a class="button-primary"  href="{{route('invoice.create', ['type' => 'despesa'])}}">
+	CRIAR DESPESA
 </a>
 @endsection
 
@@ -57,17 +60,54 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 		@endforeach
 	</select>
 	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
+	{{returnType('status', 'select', 'invoice')}}
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
 <br>
 <div>
+	<table class="table-list">
+		<tr>
+			<td>
+				<br>
+				<p style="text-align: left">
+					<label class="labels" for="">PREVISÃO:</label>
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td class="table-list-left" style="width: 70%">
+				RECEITAS:
+			</td>
+			<td class="table-list-right" style="width: 30%">
+				+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
+			</td>
+		</tr>
+		<tr>
+			<td class="table-list-left" style="width: 70%">
+				DESPESAS:
+			</td>
+			<td class="table-list-right" style="width: 30%;color:red">
+				- {{formatCurrencyReal($estimatedExpenseMonthly)}}
+			</td>
+		</tr>
+		<tr>
+			<td class="table-list-left" style="width: 70%">
+				SALDO:
+			</td>
+			<td class="table-list-right" style="width: 30%">
+				{{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+			</td>
+		</tr>
+	</table>
+</div>
+<div>
 	<br>
 	<table class="table-list">
 		<tr>
-			<td   class="table-list-header" style="width:15%">
+			<td   class="table-list-header" style="width:10%">
 				ID
 			</td>
-			<td   class="table-list-header" style="width:20%">
+			<td   class="table-list-header" style="width:30%">
 				OPORTUNIDADE
 			</td>
 			<td   class="table-list-header" style="width:15%">
@@ -102,21 +142,36 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 				</button>
 				{{$invoice->identifier}}
 			</td>
+			@if($invoice->type == 'receita')
 			<td class="table-list-center">
 				{{$invoice->opportunity->name}}
 			</td>
 			<td class="table-list-center">
 				{{$invoice->opportunity->contact->name}}
 			</td>
+			@else
+			<td class="table-list-center">
+				Compra de produto
+			</td>
+			<td class="table-list-center">
+				sem contato
+			</td>
+			@endif
 			<td class="table-list-center">
 				{{$invoice->account->name}}
 			</td>
 			<td class="table-list-center">
 				{{date('d/m/Y', strtotime($invoice->pay_day))}}
 			</td>
-			<td class="table-list-center">
-				R$ {{number_format($invoice->installment_value, 2,",",".")}}
+			@if($invoice->type == 'receita')
+			<td class="table-list-right">
+				{{formatCurrencyReal($invoice->installment_value)}}
 			</td>
+			@else
+			<td class="table-list-right" style="color: red">
+				- {{formatCurrencyReal($invoice->installment_value)}}
+			</td>
+			@endif
 			@if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
 			<td class="td-late">
 				atrasada

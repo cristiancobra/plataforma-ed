@@ -41,9 +41,9 @@ class Invoice extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
-//	public function company() {
-//		return $this->belongsTo(Company::class, 'company_id', 'id');
-//	}
+	public function company() {
+		return $this->belongsTo(Company::class, 'company_id', 'id');
+	}
 
 	public function contract() {
 		return $this->belongsTo(Contract::class);

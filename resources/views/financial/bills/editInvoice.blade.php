@@ -41,35 +41,24 @@
 				{{$invoice->user->contact->name}}
 			</option>
 			@foreach ($users as $user)
-			<option  class="fields" value="{{$user->id}}">
-				{{$user->contact->name}}
+			<option  class="fields" value="{{ $user->id }}">
+				{{ $user->contact->name }}
 			</option>
 			@endforeach
 		</select>
 		<br>
 		<br>
-		@if($type == 'receita')
 		<label class="labels" for="" >OPORTUNIDADE: </label>
 		<input type="hidden" name="opportunity_id" value="{{$invoice->opportunity_id}}">
 		<span class="fields">{{$invoice->opportunity->name}}</span>
 		<br>
-		@endif
-		<label class="labels" for="">EMPRESA CONTRATANTE:</label>
-		@if($type == 'receita')
+		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 		<span class="fields">{{$invoice->opportunity->company->name}}</span>
 		<button class="button-round">
 			<a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
 				<i class='fa fa-eye' style="color:white"></i>
 			</a>
 		</button>
-		@else
-		<span class="fields">{{$invoice->company->name}}</span>
-		<button class="button-round">
-			<a href="{{route('company.show', ['company' => $invoice->company_id])}}">
-				<i class='fa fa-eye' style="color:white"></i>
-			</a>
-		</button>
-		@endif
 		<br>
 		<label class="labels" for="" >CONTATO:</label>
 		<span class="fields">{{$invoice->opportunity->contact->name}}</span>
@@ -77,21 +66,19 @@
 			<i class='fa fa-eye' style="color:white"></i>
 		</a>
 		<br>
-		@if($type == 'receita')
 		<label class="labels" for="" >CONTRATO: </label>
 		<select name="contract_id">
 			<option  class="fields" value="{{$invoice->contract_id}}">
 				{{$invoice->contract_id}}
 			</option>
 			@foreach ($contracts as $contract)
-			<option  class="fields" value="{{$contract->id}}">
-				{{$contract->id}} - {{$contract->name}}
+			<option  class="fields" value="{{ $contract->id }}">
+				{{ $contract->id }} - {{ $contract->name }}
 			</option>
 			@endforeach
 		</select>
 		<br>
 		<br>
-		@endif
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_creation" size="20" value="{{$invoice->date_creation}}"><span class="fields"></span>
 		<br>
@@ -258,13 +245,16 @@ CKEDITOR.replace('description');
 
 			@foreach($products as $product)
 			<tr style="font-size: 14px">
+
 			<input type="hidden" name="new_product_id[]" value="{{$product->id}}"><span class="fields"></span>
 			<td class="table-list-center">
 				<input type="number" name="new_product_amount[]" size="4"><span class="fields"></span>
 			</td>
+
 			<td class="table-list-right">
 				<image src="{{$product->image}}" style="width:50px;height:50px; margin: 5px"></a>
 			</td>
+
 			<td class="table-list-left">
 				<button class="button-round">
 					<a href=" {{ route('product.show', ['product' => $product->id]) }}">
@@ -278,6 +268,7 @@ CKEDITOR.replace('description');
 				</button>
 				{{$product->name}}
 			</td>
+
 			<td class="table-list-center">
 				<input type="hidden" name="new_product_due_date[]" size="4" value="{{$product->due_date}}">
 				{{number_format($product->due_date)}}

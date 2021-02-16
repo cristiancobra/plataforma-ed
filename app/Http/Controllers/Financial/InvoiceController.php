@@ -48,6 +48,9 @@ class InvoiceController extends Controller {
 					if ($request->status) {
 						$query->where('status', '=', $request->status);
 					}
+					if ($request->type) {
+						$query->where('type', '=', $request->type);
+					}
 				})
 				->with([
 					'opportunity',
@@ -76,6 +79,21 @@ class InvoiceController extends Controller {
 		$users = myUsers();
 
 		$totalInvoices = $invoices->total();
+		
+		$monthStart = date('Y-m-01');
+		$monthEnd = date('Y-m-t');
+		
+		$estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+				->where('type', 'receita')
+				->where('status', 'aprovada')
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('installment_value');
+		
+		$estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+				->where('type', 'despesa')
+				->where('status', 'aprovada')
+				->whereBetween('pay_day', [$monthStart, $monthEnd])
+				->sum('installment_value');
 
 		return view('financial.invoices.indexInvoices', compact(
 						'invoices',
@@ -83,47 +101,50 @@ class InvoiceController extends Controller {
 						'accounts',
 						'users',
 						'totalInvoices',
+						'estimatedRevenueMonthly',
+						'estimatedExpenseMonthly',
 		));
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new INVOICE type credit.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
-		$accountsId = userAccounts();
-
-		$accounts = Account::whereIn('id', $accountsId)
+	public function create(Request $request) {
+		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$companies = Company::whereIn('account_id', $accountsId)
+		$companies = Company::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
+		$contacts = Contact::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-//		$contracts = Contact::whereIn('account_id', userAccounts())
-//				->orderBy('NAME', 'ASC')
-//				->get();
-
-		$opportunities = Opportunity::whereIn('account_id', $accountsId)
+		$opportunities = Opportunity::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$products = Product::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
-
-		$users = User::whereHas('accounts', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$users = User::whereHas('accounts', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
+		$type = $request->input('type');
+
+		$products = Product::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
+				})
+				->where('type', 'LIKE', $type)
+				->orderBy('NAME', 'ASC')
+				->get();
+				
+//		dd($products);
 		return view('financial.invoices.createInvoice', compact(
+						'request',
 						'accounts',
 						'opportunities',
 						'contacts',
@@ -131,11 +152,12 @@ class InvoiceController extends Controller {
 						'companies',
 						'products',
 						'users',
+						'type',
 		));
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Store a newly created Revenue in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
@@ -146,13 +168,22 @@ class InvoiceController extends Controller {
 			'required' => '*preenchimento obrigatório.',
 		];
 
+		if($request->status == 'receita') {
 		$validator = Validator::make($request->all(), [
 					'pay_day' => 'required:invoices',
 					'date_creation' => 'required:invoices',
 					'opportunity_id' => 'required:invoices',
 						],
 						$messages);
-
+		}else{
+		$validator = Validator::make($request->all(), [
+					'pay_day' => 'required:invoices',
+					'date_creation' => 'required:invoices',
+//					'opportunity_id' => 'required:invoices',
+						],
+						$messages);
+		}
+		
 		if ($validator->fails()) {
 			return back()
 							->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
@@ -203,6 +234,7 @@ class InvoiceController extends Controller {
 			$invoice->update();
 
 			$invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
+					->with('company')
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
 
@@ -283,27 +315,25 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Invoice $invoice) {
-		$accountsId = userAccounts();
-
-		$accounts = Account::whereHas('users', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$users = User::whereHas('accounts', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$users = User::whereHas('accounts', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$opportunities = Opportunity::whereIn('account_id', $accountsId)
+		$opportunities = Opportunity::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$companies = Company::whereIn('account_id', $accountsId)
+		$companies = Company::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$products = Product::whereIn('account_id', $accountsId)
+		$products = Product::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -315,6 +345,8 @@ class InvoiceController extends Controller {
 		$contracts = Contract::where('invoice_id', $invoice->id)
 				->orderBy('ID', 'ASC')
 				->get();
+		
+		$type = $invoice->type;
 
 		return view('financial.invoices.editInvoice', compact(
 						'invoice',
@@ -326,6 +358,7 @@ class InvoiceController extends Controller {
 						'companies',
 						'products',
 						'productsChecked',
+						'type',
 		));
 	}
 

@@ -49,6 +49,12 @@ Route::resource('emails', 'Emails\\EmailController')
 		->middleware('roles');
 
 // ================================ FINANCIAL ===================
+//Route::resource('despesas', 'Financial\\BillController')
+//		->except(['index'])
+//		->names('bill')
+//		->parameters(['despesas' => 'bill'])
+//		->middleware('roles');
+
 Route::resource('contas-bancarias', 'Financial\\BankAccountController')
 		->names('bankAccount')
 		->parameters(['contas-bancarias' => 'bankAccount'])
@@ -75,7 +81,7 @@ Route::any('/faturas/filtros', 'Financial\\InvoiceController@index')
 Route::resource('faturas', 'Financial\\InvoiceController')
 		->except(['index'])
 		->names('invoice')
-		->parameters(['faturas' => 'invoice'])
+		->parameters(['receitas' => 'invoice'])
 		->middleware('roles');
 
 Route::resource('planejamentos', 'Financial\\PlanningController')

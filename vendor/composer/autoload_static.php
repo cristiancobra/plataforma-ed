@@ -580,6 +580,7 @@ class ComposerStaticInit21e8f9b39af10af75aa7f50aff2b9efb
         'App\\Http\\Controllers\\Emails\\EmailController' => __DIR__ . '/../..' . '/app/Http/Controllers/Emails/EmailController.php',
         'App\\Http\\Controllers\\Financial\\BankAccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/BankAccountController.php',
         'App\\Http\\Controllers\\Financial\\BankController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/BankController.php',
+        'App\\Http\\Controllers\\Financial\\BillController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/BillController.php',
         'App\\Http\\Controllers\\Financial\\InvoiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/InvoiceController.php',
         'App\\Http\\Controllers\\Financial\\PlanningController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/PlanningController.php',
         'App\\Http\\Controllers\\Financial\\TransactionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Financial/TransactionController.php',

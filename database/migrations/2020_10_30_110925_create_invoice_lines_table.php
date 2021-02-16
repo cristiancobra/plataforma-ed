@@ -14,7 +14,7 @@ class CreateInvoiceLinesTable extends Migration {
 	public function up() {
 		Schema::create('invoice_lines', function (Blueprint $table) {
 			$table->id();
-			$table->foreignId('invoice_id');
+			$table->foreignId('invoice_id')->nullable();
 			$table->foreignId('product_id');
 			$table->integer('amount');
 			$table->decimal('subtotalHours', 5, 1);

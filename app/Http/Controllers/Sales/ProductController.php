@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Product;
 
 class ProductController extends Controller {
@@ -16,29 +17,50 @@ class ProductController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
-		$userAuth = Auth::user();
+	public function index(Request $request) {
+		$products = Product::where(function ($query) use ($request) {
+					$query->whereIn('account_id', userAccounts());
+					if ($request->name) {
+							$query->where('name', 'like', "%$request->name%");
+					}
+					if ($request->status) {
+						$query->where('status', '=', $request->status);
+					}
+					if ($request->type) {
+						$query->where('type', '=', $request->type);
+					}
+				})
+				->orderBy('name', 'DESC')
+				->paginate(20);
+//dd($invoices);
+		$products->appends([
+			'status' => $request->status,
+			'contact_id' => $request->contact_id,
+			'user_id' => $request->user_id,
+		]);
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get('id');
+		$contacts = Contact::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$products = Product::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->paginate(50);
+		$accounts = Account::whereIn('id', userAccounts())
+				->orderBy('ID', 'ASC')
+				->get();
 
-			$totalProducts = $products->count();
+		$users = myUsers();
 
-			return view('sales.products.indexProducts', [
-				'products' => $products,
-				'totalProducts' => $totalProducts,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		$totalProducts = $products->total();
+		
+		$type = $request->type;
+
+		return view('sales.products.indexProducts', compact(
+						'products',
+						'contacts',
+						'accounts',
+						'users',
+						'totalProducts',
+						'type',
+		));
 	}
 
 	/**
@@ -46,30 +68,46 @@ class ProductController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
-		$userAuth = Auth::user();
+public function create(Request $request) {
+		$accounts = Account::whereIn('id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-		if (Auth::check()) {
-			$product = new Product();
+//		$companies = Company::whereIn('account_id', userAccounts())
+//				->orderBy('NAME', 'ASC')
+//				->get();
+//
+//		$contacts = Contact::whereIn('account_id', userAccounts())
+//				->orderBy('NAME', 'ASC')
+//				->get();
+//
+//		$opportunities = Opportunity::whereIn('account_id', userAccounts())
+//				->orderBy('NAME', 'ASC')
+//				->get();
+//
+//		$users = User::whereHas('accounts', function($query) {
+//					$query->whereIn('account_id', userAccounts());
+//				})
+//				->get();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+		$type = $request->input('type');
 
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
-
-			return view('sales.products.createProduct', [
-				'userAuth' => $userAuth,
-				'product' => $product,
-				'accounts' => $accounts,
-			]);
-		} else {
-			return redirect('/');
-		}
+		$products = Product::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
+				})
+				->where('type', 'LIKE', $type)
+				->orderBy('NAME', 'ASC')
+				->get();
+				
+		return view('sales.products.createProduct', compact(
+						'accounts',
+//						'opportunities',
+//						'contacts',
+//						'companies',
+						'products',
+//						'users',
+						'type',
+		));
 	}
 
 	/**
@@ -99,8 +137,13 @@ class ProductController extends Controller {
 		} else {
 			$product->save();
 			
-			return redirect()->action('Sales\\ProductController@index');
-		}
+			$type = $product->type;
+			
+			return view('sales.products.showProduct', compact(
+							'product',
+							'type',
+			));
+	}
 	}
 
 	/**
@@ -110,12 +153,10 @@ class ProductController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Product $product) {
-		$userAuth = Auth::user();
 
-		return view('sales.products.showProduct', [
-			'product' => $product,
-			'userAuth' => $userAuth,
-		]);
+		return view('sales.products.showProduct', compact(
+			'product',
+		));
 	}
 
 	/**

@@ -1,20 +1,16 @@
 @extends('layouts/master')
 
-@if($type == 'receita')
-@section('title','RECEITA')
-@else
 @section('title','DESPESA')
-@endif
 
 @section('image-top')
-{{ asset('imagens/invoice.png') }} 
+{{ asset('imagens/bill.png') }} 
 @endsection
 
 @section('description')
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('invoice.index')}}">
+<a class="button-primary"  href="{{route('bill.index')}}">
 	VOLTAR
 </a>
 @endsection
@@ -30,13 +26,8 @@
 </div>
 @endif
 <div>
-	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
+	<form action=" {{route('bill.store')}} " method="post" style="color: #874983">
 		@csrf
-		@if($type == 'receita')
-		<input type="hidden" name="type" value="receita">
-		@else
-		<input type="hidden" name="type" value="expense">
-		@endif
 		<label class="labels" for="" >EMPRESA:</label>
 		@if(!empty(app('request')->input('opportunityAccountName')))
 		{{app('request')->input('opportunityAccountName')}}
@@ -51,7 +42,7 @@
 		</select>
 		@endif
 		<br>
-		<label class="labels" for="" >VENDEDOR: </label>
+		<label class="labels" for="" >REGISTRADO POR: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{Auth::user()->id}}">
 				{{Auth::user()->contact->name}}
@@ -64,48 +55,38 @@
 		</select>
 		<br>
 		<br>
-		@if($type == 'receita')
-		<label class="labels" for="" >OPORTUNIDADE:</label>
-		@if(!empty(app('request')->input('opportunityName')))
-		{{app('request')->input('opportunityName')}}
-		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
-		@else
-		<select name="opportunity_id">
-			<option  class="fields" value="">
-				selecione
-			</option>
-			@foreach ($opportunities as $opportunity)
-			<option  class="fields" value="{{$opportunity->id}}">
-				{{$opportunity->name}}
+		<label class="labels" for="" >FORNECEDOR:</label>
+		<select name="company_id">
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{$company->id}}">
+				{{$company->name}}
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{route('opportunity.create')}}">CRIAR</a>
-		@endif
-		@if ($errors->has('opportunity_id'))
-		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
-		@endif
+		<br>
+		<label class="labels" for="" >CONTATO:</label>
+		<select name="contact_id">
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<br>
-		@endif
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>
 		@if ($errors->has('date_creation'))
 		<span class="text-danger">{{ $errors->first('date_creation') }}</span>
 		@endif
 		<br>
-		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
+		<label class="labels" for="" >PAGAR EM:</label>
 		<input type="date" name="pay_day" size="20" value="{{old('pay_day')}}"><span class="fields"></span>
 		@if ($errors->has('pay_day'))
 		<span class="text-danger">{{ $errors->first('pay_day') }}</span>
 		@endif
 		<br>
 		<br>
-		@if($type == 'receita')
-		<label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
-		@if(!empty(app('request')->input('opportunityDescription')))
-		<span class="fields">{!!html_entity_decode(app('request')->input('opportunityDescription'))!!}</span>
-		@else
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
 		</textarea>
@@ -114,10 +95,8 @@
 		<script>
 CKEDITOR.replace('description');
 		</script>
-		@endif
+			<br>
 		<br>
-		<br>
-		@endif
 		<label class="labels" for="" >PRODUTOS: </label>
 		<table class="table-list">
 			<tr>
@@ -223,9 +202,9 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		@if(!empty(app('request')->input('invoiceStatus')))
-		<input type="hidden" name="status" value="{{app('request')->input('invoiceStatus')}}">
-		{{app('request')->input('invoiceStatus')}}
+		@if(!empty(app('request')->input('billStatus')))
+		<input type="hidden" name="status" value="{{app('request')->input('billStatus')}}">
+		{{app('request')->input('billStatus')}}
 		@else
 		{{createSelect('status', 'fields', returnInvoiceStatus())}}
 		@endif

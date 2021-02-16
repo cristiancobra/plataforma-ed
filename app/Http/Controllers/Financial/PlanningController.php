@@ -21,30 +21,15 @@ class PlanningController extends Controller {
 	public function index() {
 		$accountsId = userAccounts();
 
-		$monthStart = date('Y-m-01');
-		$monthEnd = date('Y-m-t');
-
 		$plannings = Planning::whereIn('account_id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
-
-		$revenueMonthly = Transaction::whereIn('account_id', $accountsId)
-				->where('type', 'crédito')
-				->whereBetween('pay_day', [$monthStart, $monthEnd])
-				->sum('value');
-
-		$estimatedRevenueMonthly = Invoice::whereIn('account_id', $accountsId)
-				->where('status', 'aprovada')
-				->whereBetween('pay_day', [$monthStart, $monthEnd])
-				->sum('installment_value');
 
 		$totalPlannings = $plannings->count();
 
 		return view('financial.plannings.indexPlannings', compact(
 						'plannings',
 						'totalPlannings',
-						'estimatedRevenueMonthly',
-						'revenueMonthly',
 		));
 	}
 

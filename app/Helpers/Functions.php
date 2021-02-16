@@ -565,6 +565,27 @@ if (!function_exists('returnStatus')) {
 	}
 
 }
+// retorna o TIPO de um model
+if (!function_exists('returnType')) {
+
+	function returnType($name, $class,$model) {
+			switch ($model) {
+			case 'invoice':
+				$all = 'todos os tipos';
+				$types = array('receita', 'despesa');
+				break;
+			}
+		echo "<select class = '$class' name = '$name'>";
+		echo "<option  class='select' value=''>
+			$all
+		</option>";
+		foreach ($types as $type) {
+			echo "<option value=\"$type\">$type</option><br>";
+		}
+		echo "</select>";
+	}
+
+}
 // retorna os nomes e códigos dos BANCOS BRASILEIROS
 if (!function_exists('returnBanks')) {
 
@@ -906,7 +927,6 @@ if (!function_exists('returnInvoiceStatus')) {
 			'orçamento',
 			'cancelada',
 			'aprovada',
-			'paga',
 		);
 	}
 
@@ -1079,8 +1099,6 @@ if (!function_exists('gerarSenha')) {
 if (!function_exists('formatCurrencyReal')) {
 
 	function formatCurrencyReal($value) {
-		number_format($value, 2, ",", ".");
-
-		echo "R$ $value";
+		return 'R$ '.number_format($value, 2, ",", ".");
 	}
 }

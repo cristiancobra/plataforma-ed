@@ -28,6 +28,8 @@ class AccountController extends Controller {
 			} else {
 				return redirect('/painel');
 			}
+			
+			
 
 			$totalAccounts = $accounts->count();
 

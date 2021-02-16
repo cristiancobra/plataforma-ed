@@ -41,7 +41,6 @@
 <span class="fields">{{$invoice->user->contact->name}}</span>
 <br>
 <br>
-@if($invoice->type == 'receita')
 <label class="labels" for="" >OPORTUNIDADE:</label>
 <span class="fields">{{$invoice->opportunity->name}}</span>
 <button class="button-round">
@@ -50,7 +49,6 @@
 	</a>
 </button>
 <br>
-@endif
 <label class="labels" for="" >CONTRATO:</label>
 @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
 Sem contrato
@@ -63,7 +61,6 @@ Sem contrato
 </button>
 @endif
 <br>
-@if($invoice->type == 'receita')
 <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 <span class="fields">{{$invoice->opportunity->company->name}}</span>
 <button class="button-round">
@@ -71,15 +68,6 @@ Sem contrato
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
-@else
-<label class="labels" for="" >FORNECEDOR:</label>
-<span class="fields">{{$invoice->company->name}}</span>
-<button class="button-round">
-	<a href="{{route('company.show', ['company' => $invoice->company_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
-</button>
-@endif
 <br>
 <label class="labels" for="" >CONTATO:</label>
 <span class="fields">{{$invoice->opportunity->contact->name}}</span>
@@ -95,11 +83,9 @@ Sem contrato
 <span class="fields">{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
 <br>
 <br>
-@if($invoice->type == 'receita')
 <label class="labels" for="">DESCRIÇÃO DA OPORTUNIDADE:</label>
 <span class="fields">{!!html_entity_decode($invoice->opportunity->description)!!}</span>
 <br>
-@endif
 <div style="display: inline-block">
 	<img src="{{asset('imagens/products.png')}}" width="40px" alt="40px">
 	<label class="labels" for="" >ITENS DA FATURA:</label>

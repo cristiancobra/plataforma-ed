@@ -62,9 +62,6 @@
 		<br>
 		<label for="" >FATURA: </label>
 		<select name="invoice_id">
-			<option  class="fields" value="{{$transaction->invoice_id}}">
-				{{$transaction->invoice_id}}
-			</option>
 			@foreach ($invoices as $invoice)
 			<option  class="fields" value="{{$invoice->id}}">
 				{{$invoice->id}}

@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
+@if($type == 'receita')
 @section('title','PRODUTOS')
+@else
+@section('title','ITENS DE DESPESA')
+@endif
 
 @section('image-top')
 {{ asset('imagens/products.png') }} 
@@ -27,6 +31,11 @@
 <div>
 	<form action=" {{ route('product.store') }} " method="post" style="color: #874983">
 		@csrf
+		@if($type == 'receita')
+		<input type="hidden" name="type" value="receita">
+		@else
+		<input type="hidden" name="type" value="expense">
+		@endif
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="20" value="{{old('name')}}"><span class="fields"></span>
 		@if ($errors->has('name'))
@@ -34,13 +43,13 @@
 		@endif
 		<br>
 		<label class="labels" for="" >FOTO:</label>
-		<input type="text" name="image" size="20" value="{{$product->image}}"><span class="fields"></span>
+		<input type="text" name="image" size="20" value=""><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
 			</option>
 			@endforeach
 		</select>
@@ -51,7 +60,6 @@
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
 		<textarea id="description" name="description" rows="20" cols="90">
-		{{$product->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
@@ -60,38 +68,25 @@ CKEDITOR.replace('description');
 		</script>
 		<br>
 		<br>
+		@if($type == 'receita')
 		<label class="labels" for="" >HORAS NECESSÁRIAS:</label>
-		<input type="decimal" name="work_hours" size="5" value="{{$product->work_hours}}"><span class="fields"></span>
+		<input type="decimal" name="work_hours" size="5" value=""><span class="fields"></span>
 		<br>
-		<br>
-		<label class="labels" for="" >CUSTO 1:</label>
-		<input type="integer" name="cost1" size="5" value="{{$product->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost1_description" size="40" value="{{$product->cost1_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 2:</label>
-		<input type="integer" name="cost2" size="5" value="{{$product->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost2_description" size="40" value="{{$product->cost2_description}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >CUSTO 3:</label>
-		<input type="integer" name="cost3" size="5" value="{{$product->cost1}}"><span class="fields"></span>
-		<label class="labels" for="" >descrição:</label>
-		<input type="decimal" name="cost3_description" size="40" value="{{$product->cost3_description}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >IMPOSTO (%):</label>
-		<input type="decimal" name="tax_rate" size="5" value="{{$product->tax_rate}}"><span class="fields"></span>
+		<input type="decimal" name="tax_rate" size="5" value=""><span class="fields"></span>
 		<br>
 		<br>
+		@endif
 		<label class="labels" for="" >PREÇO:</label>
-		<input type="integer" name="price" size="5" value="{{$product->price}}"><span class="fields"></span>
+		<input type="integer" name="price" size="5" value=""><span class="fields"></span>
 		@if ($errors->has('price'))
 		<span class="text-danger">{{ $errors->first('price') }}</span>
 		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >PRAZO DE ENTREGA:</label>
-		<input type="integer" name="due_date" size="5" value="{{$product->due_date}}"><span class="fields"></span>
+		<input type="integer" name="due_date" size="5" value=""><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
