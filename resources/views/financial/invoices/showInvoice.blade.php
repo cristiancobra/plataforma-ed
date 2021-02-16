@@ -201,7 +201,7 @@ Sem contrato
 <br>
 @if($totalInvoices > 1)
 
-@elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga' AND invoice->number_installment_total > 1)
+@elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga' AND $invoice->number_installment_total > 1)
 <p  style="text-align: right">
 	<a class="button-secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
 		GERAR FATURAS DO PARCELAMENTO
