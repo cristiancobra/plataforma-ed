@@ -32,7 +32,7 @@
 <div>
 	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
-		@elseif($type == 'receita')
+		@if($type == 'receita')
 		<input type="hidden" name="type" value="receita">
 		@else
 		<input type="hidden" name="type" value="despesa">
