@@ -111,7 +111,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >PRODUTOS ATUAIS:</label>
-		@if($invoice->status != "rascunho" AND $invoice->status != "esboço")
+		@if($invoice->status != "rascunho" AND $invoice->status != "esboço" AND $invoice->status != "orçamento")
 		<br>
 		<span class="fa fa-exclamation-triangle"></span>  Itens de faturas aprovadas não podem ser alteradas.
 		<br>
