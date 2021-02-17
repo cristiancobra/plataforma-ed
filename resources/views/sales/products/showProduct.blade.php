@@ -18,7 +18,7 @@
 @section('main')
 <br>
 <h1 class="name">
-	{{ $product->name }}
+	{{$product->name}}
 </h1>
 <label class="labels" for="" >FOTO:</label>
 <span class="fields">{{$product->image}}</span>
@@ -56,7 +56,7 @@
 <br>
 <br>
 <label class="labels" for="" >MARGEM DE CONTRIBUIÇÃO (R$):</label>
-<span class="fields">R$ {{ number_format(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}</span>
+<span class="fields">{{formatCurrencyReal(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price)}}</span>
 <br>
 <br>
 <label class="labels" for="" >IMPOSTO:</label>

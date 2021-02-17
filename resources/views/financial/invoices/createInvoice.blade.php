@@ -32,11 +32,7 @@
 <div>
 	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
-		@if($type == 'receita')
-		<input type="hidden" name="type" value="receita">
-		@else
-		<input type="hidden" name="type" value="despesa">
-		@endif
+		<input type="hidden" name="type" value="{{$type}}">
 		<label class="labels" for="" >EMPRESA:</label>
 		@if(!empty(app('request')->input('opportunityAccountName')))
 		{{app('request')->input('opportunityAccountName')}}

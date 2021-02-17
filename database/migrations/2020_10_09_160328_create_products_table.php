@@ -21,14 +21,14 @@ class CreateProductsTable extends Migration
 	$table->string('image')->nullable();
 	$table->string('category', 50);
 	$table->decimal('work_hours', 5, 1)->nullable();
-	$table->integer('cost1')->nullable();
+	$table->decimal('cost1', 8,2)->nullable();
 	$table->string('cost1_description', 100)->nullable();
-	$table->integer('cost2')->nullable();
+	$table->decimal('cost2', 8,2)->nullable();
 	$table->string('cost2_description', 100)->nullable();
-	$table->integer('cost3')->nullable();
+	$table->decimal('cost3', 8,2)->nullable();
 	$table->string('cost3_description', 100)->nullable();
 	$table->integer('tax_rate');
-	$table->integer('price');
+	$table->decimal('price', 8,2);
 	$table->integer('due_date')->nullable();
 	$table->string('status', 50);
            $table->timestamps();

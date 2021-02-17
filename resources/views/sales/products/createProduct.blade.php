@@ -86,7 +86,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="" >PRAZO DE ENTREGA:</label>
-		<input type="integer" name="due_date" size="5" value=""><span class="fields"></span>
+		<input type="integer" name="due_date" size="5" value="0"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

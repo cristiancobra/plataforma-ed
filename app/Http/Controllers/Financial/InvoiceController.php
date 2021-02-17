@@ -94,7 +94,22 @@ class InvoiceController extends Controller {
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
-//dd($invoices);
+		
+		$yearStart = date('Y-01-01');
+		$yearEnd = date('Y-12-31');
+//		dd($yearEnd);
+		$estimatedRevenueYearly = Invoice::whereIn('account_id', userAccounts())
+				->where('type', 'receita')
+				->where('status', 'aprovada')
+				->whereBetween('pay_day', [$yearStart, $yearEnd])
+				->sum('installment_value');
+		
+		$estimatedExpenseYearly  = Invoice::whereIn('account_id', userAccounts())
+				->where('type', 'despesa')
+				->where('status', 'aprovada')
+				->whereBetween('pay_day', [$yearStart, $yearEnd])
+				->sum('installment_value');
+
 		return view('financial.invoices.indexInvoices', compact(
 						'invoices',
 						'contacts',
@@ -103,6 +118,8 @@ class InvoiceController extends Controller {
 						'totalInvoices',
 						'estimatedRevenueMonthly',
 						'estimatedExpenseMonthly',
+						'estimatedRevenueYearly',
+						'estimatedExpenseYearly',
 		));
 	}
 

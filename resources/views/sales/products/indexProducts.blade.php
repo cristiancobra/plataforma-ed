@@ -24,7 +24,7 @@ Total: <span class="labels">{{$totalProducts }} </span>
 @endsection
 
 @section('main')
-<form action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
+<form action="{{route('product.index')}}" method="post" style="text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da oportunidade" value="">
 	<select class="select" name="account_id">

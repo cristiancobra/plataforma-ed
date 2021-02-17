@@ -30,7 +30,7 @@ class ProductController extends Controller {
 						$query->where('type', '=', $request->type);
 					}
 				})
-				->orderBy('name', 'DESC')
+				->orderBy('name', 'ASC')
 				->paginate(20);
 //dd($invoices);
 		$products->appends([
@@ -135,6 +135,8 @@ public function create(Request $request) {
 							->withErrors($validator)
 							->withInput();
 		} else {
+			$product->type = $request->type;
+//			dd($request);
 			$product->save();
 			
 			$type = $product->type;

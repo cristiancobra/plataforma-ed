@@ -73,29 +73,50 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 					<label class="labels" for="">PREVISÃO:</label>
 				</p>
 			</td>
+			<td>
+				<br>
+				<p style="text-align: right">
+					<label class="labels" for="">MÊS:</label>
+				</p>
+			</td>
+			<td>
+				<br>
+				<p style="text-align: right">
+					<label class="labels" for="">ANO:</label>
+				</p>
+			</td>
 		</tr>
 		<tr>
-			<td class="table-list-left" style="width: 70%">
+			<td class="table-list-left" style="width: 80%">
 				RECEITAS:
 			</td>
-			<td class="table-list-right" style="width: 30%">
+			<td class="table-list-right" style="width: 10%">
 				+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
 			</td>
+			<td class="table-list-right" style="width: 10%">
+				+ {{formatCurrencyReal($estimatedRevenueYearly)}}
+			</td>
 		</tr>
 		<tr>
-			<td class="table-list-left" style="width: 70%">
+			<td class="table-list-left" style="width: 80%">
 				DESPESAS:
 			</td>
-			<td class="table-list-right" style="width: 30%;color:red">
+			<td class="table-list-right" style="width: 10%;color:red">
 				- {{formatCurrencyReal($estimatedExpenseMonthly)}}
+			</td>
+			<td class="table-list-right" style="width: 10%;color:red">
+				- {{formatCurrencyReal($estimatedExpenseYearly)}}
 			</td>
 		</tr>
 		<tr>
-			<td class="table-list-left" style="width: 70%">
+			<td class="table-list-left" style="width: 80%">
 				SALDO:
 			</td>
-			<td class="table-list-right" style="width: 30%">
+			<td class="table-list-right" style="width: 10%">
 				{{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+			</td>
+			<td class="table-list-right" style="width: 10%">
+				{{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
 			</td>
 		</tr>
 	</table>
@@ -147,7 +168,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 				{{$invoice->opportunity->name}}
 			</td>
 			<td class="table-list-center">
-				{{$invoice->opportunity->contact->name}}
+				{{$invoice->opportunity->company->name}}
 			</td>
 			@else
 			<td class="table-list-center">
