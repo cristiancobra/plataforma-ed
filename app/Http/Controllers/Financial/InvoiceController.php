@@ -27,19 +27,21 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$accountsId = userAccounts();
+		$monthStart = date('Y-m-01');
+		$monthEnd = date('Y-m-t');
+		$yearStart = date('Y-01-01');
+		$yearEnd = date('Y-12-31');
 
-		$invoices = Invoice::where(function ($query) use ($accountsId, $request) {
-					$query->whereIn('account_id', $accountsId);
+		$invoices = Invoice::where(function ($query) use ($request) {
+					$query->whereIn('account_id', userAccounts());
 					if ($request->name) {
 						$query->whereHas('opportunity', function($query) use($request) {
 							$query->where('name', 'like', "%$request->name%");
 						});
 					}
-//					if ($request->pay_day) {
-//					->whereBetween('pay_day', [$monthStart, $monthEnd]);
-//					
-//					}
+					if ($request->pay_day) {
+						$query->whereMonth('pay_day', $request->pay_day);
+					}
 					if ($request->contact_id) {
 						$query->whereHas('opportunity', function($query) use($request) {
 							$query->where('contact_id', $request->contact_id);
@@ -69,43 +71,37 @@ class InvoiceController extends Controller {
 			'user_id' => $request->user_id,
 		]);
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
+		$contacts = Contact::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$accounts = Account::whereIn('id', $accountsId)
+		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('ID', 'ASC')
 				->get();
 
 		$users = myUsers();
 
 		$totalInvoices = $invoices->total();
-		
-		$monthStart = date('Y-m-01');
-		$monthEnd = date('Y-m-t');
-		
+
 		$estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
 				->where('type', 'receita')
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
-		
+
 		$estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
 				->where('type', 'despesa')
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
-		
-		$yearStart = date('Y-01-01');
-		$yearEnd = date('Y-12-31');
-//		dd($yearEnd);
+
 		$estimatedRevenueYearly = Invoice::whereIn('account_id', userAccounts())
 				->where('type', 'receita')
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$yearStart, $yearEnd])
 				->sum('installment_value');
-		
-		$estimatedExpenseYearly  = Invoice::whereIn('account_id', userAccounts())
+
+		$estimatedExpenseYearly = Invoice::whereIn('account_id', userAccounts())
 				->where('type', 'despesa')
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$yearStart, $yearEnd])
@@ -160,7 +156,7 @@ class InvoiceController extends Controller {
 				->where('type', 'LIKE', $typeInvoices)
 				->orderBy('NAME', 'ASC')
 				->get();
-				
+
 //		dd($products);
 		return view('financial.invoices.createInvoice', compact(
 						'request',
@@ -187,22 +183,22 @@ class InvoiceController extends Controller {
 			'required' => '*preenchimento obrigatório.',
 		];
 
-		if($request->status == 'receita') {
-		$validator = Validator::make($request->all(), [
-					'pay_day' => 'required:invoices',
-					'date_creation' => 'required:invoices',
-					'opportunity_id' => 'required:invoices',
-						],
-						$messages);
-		}else{
-		$validator = Validator::make($request->all(), [
-					'pay_day' => 'required:invoices',
-					'date_creation' => 'required:invoices',
+		if ($request->status == 'receita') {
+			$validator = Validator::make($request->all(), [
+						'pay_day' => 'required:invoices',
+						'date_creation' => 'required:invoices',
+						'opportunity_id' => 'required:invoices',
+							],
+							$messages);
+		} else {
+			$validator = Validator::make($request->all(), [
+						'pay_day' => 'required:invoices',
+						'date_creation' => 'required:invoices',
 //					'opportunity_id' => 'required:invoices',
-						],
-						$messages);
+							],
+							$messages);
 		}
-		
+
 		if ($validator->fails()) {
 			return back()
 							->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
@@ -365,7 +361,7 @@ class InvoiceController extends Controller {
 		$contracts = Contract::where('invoice_id', $invoice->id)
 				->orderBy('ID', 'ASC')
 				->get();
-		
+
 		$variation = $invoice->type;
 
 		return view('financial.invoices.editInvoice', compact(

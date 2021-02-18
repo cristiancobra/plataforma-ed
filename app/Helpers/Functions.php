@@ -75,9 +75,9 @@ if (!function_exists('editDoubleSelect')) {
 	/* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
 	  e retorna o valor a editar  com DUAS POSIÇÕES */
 
-	function editDoubleSelect($name, $class, array $options, $currentValue1, $currentValue2) {
+	function editDoubleSelect($name, $class, array $options, $currentValue, $currentLabel) {
 		echo "<select class = '$class' name = '$name'>";
-		echo "<option value='$currentValue1'>$currentValue2</option>";
+		echo "<option value='$currentValue'>$currentLabel</option>";
 		foreach ($options as $key => $value) {
 			echo "<option value=\"$key\">$value</option><br>";
 		}
@@ -210,46 +210,46 @@ if (!function_exists('returnMonths')) {
 if (!function_exists('returnMonth')) {
 
 	function returnMonth(int $number) {
-		if ($number == 1) {
-			$month = "Janeiro";
+		switch ($number) {
+		case '1':
+		$month = 'Janeiro';
+		break;
+		case '2':
+		$month = 'Fevereiro';
+		break;
+		case '3':
+		$month = 'Março';
+		break;
+		case '4':
+		$month = 'Abril';
+		break;
+		case '5':
+		$month = 'Maio';
+		break;
+		case '6':
+		$month = 'Junho';
+		break;
+		case '7':
+		$month = 'Julho';
+		break;
+		case '8':
+		$month = 'Agosto';
+		break;
+		case '9':
+		$month = 'Setembro';
+		break;
+		case '10':
+		$month = 'Outubro';
+		break;
+		case '11':
+		$month = 'Novembro';
+		break;
+		case '12':
+		$month = 'Dezembro';
+		break;
 		}
-		if ($number == 2) {
-			$month = "Fevereiro";
-		}
-		if ($number == 3) {
-			$month = "Março";
-		}
-		if ($number == 4) {
-			$month = "Abril";
-		}
-		if ($number == 5) {
-			$month = "Maio";
-		}
-		if ($number == 6) {
-			$month = "Junho";
-		}
-		if ($number == 7) {
-			$month = "Julho";
-		}
-		if ($number == 8) {
-			$month = "Agosto";
-		}
-		if ($number == 9) {
-			$month = "Setembro";
-		}
-		if ($number == 10) {
-			$month = "Outubro";
-		}
-		if ($number == 11) {
-			$month = "Novembro";
-		}
-		if ($number == 12) {
-			$month = "Dezembro";
-		}
-
 		return($month);
 	}
-
 }
 // retorna os estados do Brasil
 if (!function_exists('returnStates')) {
@@ -568,8 +568,8 @@ if (!function_exists('returnStatus')) {
 // retorna o TIPO de um model
 if (!function_exists('returnType')) {
 
-	function returnType($name, $class,$model) {
-			switch ($model) {
+	function returnType($name, $class, $model) {
+		switch ($model) {
 			case 'invoice':
 				$all = 'todos os tipos';
 				$types = array('receita', 'despesa');
@@ -578,7 +578,7 @@ if (!function_exists('returnType')) {
 				$all = 'todos os tipos';
 				$types = array('receita', 'despesa');
 				break;
-			}
+		}
 		echo "<select class = '$class' name = '$name'>";
 		echo "<option  class='select' value=''>
 			$all
@@ -1103,6 +1103,7 @@ if (!function_exists('gerarSenha')) {
 if (!function_exists('formatCurrencyReal')) {
 
 	function formatCurrencyReal($value) {
-		return 'R$ '.number_format($value, 2, ",", ".");
+		return 'R$ ' . number_format($value, 2, ",", ".");
 	}
+
 }

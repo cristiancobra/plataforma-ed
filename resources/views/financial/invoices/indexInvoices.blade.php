@@ -23,6 +23,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 <form action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da oportunidade" value="">
+	{{editDoubleSelect('pay_day', 'select', returnMonths(), null, 'qualquer vencimento', )}}
 	<select class="select" name="account_id">
 		<option  class="select" value="">
 			Qualquer empresa
