@@ -60,7 +60,13 @@
 		<select name="invoice_id">
 			@foreach ($invoices as $invoice)
 			<option  class="fields" value="{{$invoice->id}}">
-				{{$invoice->identifier}} - {{$invoice->opportunity->company->name}} - {{formatCurrencyReal($invoice->totalPrice)}}
+				{{$invoice->identifier}} -
+				@if(isset($invoice->opportunity))
+				{{$invoice->opportunity->company->name}}
+				@else
+				sem oportunidade
+				@endif
+				- {{formatCurrencyReal($invoice->totalPrice)}}
 			</option>
 			@endforeach
 		</select>
@@ -78,11 +84,11 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="white" href=" {{route('company.create')}}">
-			<button class="button-round">
-				<i class='fa fa-plus'></i>
-			</button>
-		</a>
+		<button class="button-round">
+			<a href="{{route('company.create', ['typeCompanies' => 'cliente'])}}">
+				<i class='fa fa-plus' style="color:white"></i>
+			</a>
+		</button>
 		@endif
 		<br>
 		<label class="labels" for="" >CLIENTE RESPONSÁVEL: </label>
@@ -99,7 +105,8 @@
 		</select>
 		<button class="button-round">
 			<a href=" {{route('contact.create')}}">
-				<i class='fa fa-plus' style="color:white"></i></a>
+				<i class='fa fa-plus' style="color:white"></i>
+			</a>
 		</button>
 		@endif
 		<br>
@@ -113,7 +120,8 @@
 		</select>
 		<button class="button-round">
 			<a href=" {{route('contact.create')}}">
-				<i class='fa fa-plus' style="color:white"></i></a>
+				<i class='fa fa-plus' style="color:white"></i>
+			</a>
 		</button>
 		<br>
 		<label class="labels" for="" >SEGUNDA TESTEMUNHA: </label>
@@ -126,7 +134,8 @@
 		</select>
 		<button class="button-round">
 			<a href=" {{route('contact.create')}}">
-				<i class='fa fa-plus' style="color:white"></i></a>
+				<i class='fa fa-plus' style="color:white"></i>
+			</a>
 		</button>
 		<br>
 		<br>

@@ -55,7 +55,7 @@
 		</select>
 		<br>
 		<br>
-				<label class="labels" for="" >EMPRESA CONTRANTE: </label>
+		<label class="labels" for="" >EMPRESA CONTRANTE: </label>
 		<select name="company_id">
 			@foreach ($companies as $company)
 			<option  class="fields" value="{{$company->id }}">
@@ -63,6 +63,7 @@
 			</option>
 			@endforeach
 		</select>
+		{{createButtonAdd('company.create', 'typeCompanies', 'cliente')}}
 		<br>
 		<label class="labels" for="" >CONTATO: </label>
 		<select name="contact_id">
@@ -72,9 +73,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{ route('contact.create') }}">
-			NOVO CONTATO
-		</a>
+		{{createButtonAdd('contact.create')}}
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
