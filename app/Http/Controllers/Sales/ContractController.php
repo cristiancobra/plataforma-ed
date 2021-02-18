@@ -355,7 +355,7 @@ class ContractController extends Controller {
 		$pdf = PDF::loadView('sales.contracts.pdfContract', compact('data'));
 
 // download PDF file with download method
-		return $pdf->stream("Contrato-$contract->company->name.pdf");
+		return $pdf->stream("Contrato-".$contract->company->name.".pdf");
 	}
 
 }
