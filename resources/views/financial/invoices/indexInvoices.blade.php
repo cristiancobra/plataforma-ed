@@ -20,10 +20,61 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @endsection
 
 @section('main')
+<div>
+	<table class="table-list">
+		<tr>
+			<td   class="table-list-header" style="width:70%">
+				PREVISÃO
+			</td>
+			<td   class="table-list-header" style="width:15%">
+				MÊS
+			</td>
+			<td   class="table-list-header" style="width:15%">
+				ANO
+			</td>
+		</tr>
+		<tr>
+			<td class="table-list-left">
+				RECEITAS:
+			</td>
+			<td class="table-list-right">
+				+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
+			</td>
+			<td class="table-list-right">
+				+ {{formatCurrencyReal($estimatedRevenueYearly)}}
+			</td>
+		</tr>
+		<tr>
+			<td class="table-list-left">
+				DESPESAS:
+			</td>
+			<td class="table-list-right">
+				- {{formatCurrencyReal($estimatedExpenseMonthly)}}
+			</td>
+			<td class="table-list-right">
+				- {{formatCurrencyReal($estimatedExpenseYearly)}}
+			</td>
+		</tr>
+		<tr>
+			<td class="table-list-left">
+				SALDO:
+			</td>
+			<td class="table-list-right">
+				{{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+			</td>
+			<td class="table-list-right">
+				{{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
+			</td>
+		</tr>
+	</table>
+</div>
+<br>
+<br>
 <form action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
 	@csrf
 	<input type="text" name="name" placeholder="nome da oportunidade" value="">
-	{{editDoubleSelect('pay_day', 'select', returnMonths(), null, 'qualquer vencimento', )}}
+	<input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
+	<input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
 	<select class="select" name="account_id">
 		<option  class="select" value="">
 			Qualquer empresa
@@ -54,64 +105,6 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 	{{returnType('status', 'select', 'invoice')}}
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
-<br>
-<div>
-	<table class="table-list">
-		<tr>
-			<td>
-				<br>
-				<p style="text-align: left">
-					<label class="labels" for="">PREVISÃO:</label>
-				</p>
-			</td>
-			<td>
-				<br>
-				<p style="text-align: right">
-					<label class="labels" for="">MÊS:</label>
-				</p>
-			</td>
-			<td>
-				<br>
-				<p style="text-align: right">
-					<label class="labels" for="">ANO:</label>
-				</p>
-			</td>
-		</tr>
-		<tr>
-			<td class="table-list-left" style="width: 70%">
-				RECEITAS:
-			</td>
-			<td class="table-list-right" style="width: 15%">
-				+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
-			</td>
-			<td class="table-list-right" style="width: 15%">
-				+ {{formatCurrencyReal($estimatedRevenueYearly)}}
-			</td>
-		</tr>
-		<tr>
-			<td class="table-list-left" style="width: 70%">
-				DESPESAS:
-			</td>
-			<td class="table-list-right" style="width: 10%;color:red">
-				- {{formatCurrencyReal($estimatedExpenseMonthly)}}
-			</td>
-			<td class="table-list-right" style="width: 10%;color:red">
-				- {{formatCurrencyReal($estimatedExpenseYearly)}}
-			</td>
-		</tr>
-		<tr>
-			<td class="table-list-left" style="width: 70%">
-				SALDO:
-			</td>
-			<td class="table-list-right" style="width: 15%">
-				{{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
-			</td>
-			<td class="table-list-right" style="width: 15%">
-				{{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
-			</td>
-		</tr>
-	</table>
-</div>
 <div>
 	<br>
 	<table class="table-list">

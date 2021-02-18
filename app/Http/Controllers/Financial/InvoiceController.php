@@ -39,8 +39,8 @@ class InvoiceController extends Controller {
 							$query->where('name', 'like', "%$request->name%");
 						});
 					}
-					if ($request->pay_day) {
-						$query->whereMonth('pay_day', $request->pay_day);
+					if ($request->date_start AND $request->date_end) {
+						$query->whereBetween('pay_day', [$request->date_start, $request->date_end]);
 					}
 					if ($request->contact_id) {
 						$query->whereHas('opportunity', function($query) use($request) {
