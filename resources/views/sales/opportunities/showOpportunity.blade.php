@@ -253,6 +253,7 @@ indefinida
 </table>
 <br>
 <a class="btn btn-secondary" href="{{route('invoice.create', [
+				'typeInvoices' => 'receita',
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
 				'opportunityDescription' => $opportunity->description,
@@ -268,7 +269,7 @@ indefinida
 	GERAR ORÇAMENTO
 </a>
 <a class="btn btn-secondary" href="{{route('invoice.create', [
-				'type' => 'receita',
+				'typeInvoices' => 'receita',
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
 				'opportunityDescription' => $opportunity->description,

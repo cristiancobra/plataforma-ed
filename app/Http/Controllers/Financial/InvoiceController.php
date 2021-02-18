@@ -36,9 +36,10 @@ class InvoiceController extends Controller {
 							$query->where('name', 'like', "%$request->name%");
 						});
 					}
-					if ($request->user_id) {
-						$query->where('user_id', '=', $request->user_id);
-					}
+//					if ($request->pay_day) {
+//					->whereBetween('pay_day', [$monthStart, $monthEnd]);
+//					
+//					}
 					if ($request->contact_id) {
 						$query->whereHas('opportunity', function($query) use($request) {
 							$query->where('contact_id', $request->contact_id);
@@ -129,14 +130,14 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
-		$variation = $request->input('variation');
+		$typeInvoices = $request->input('typeInvoices');
 
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
 		$companies = Company::whereIn('account_id', userAccounts())
-				->where('type', $variation)
+				->where('type', $typeInvoices)
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -156,7 +157,7 @@ class InvoiceController extends Controller {
 		$products = Product::whereHas('account', function($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
-				->where('type', 'LIKE', $variation)
+				->where('type', 'LIKE', $typeInvoices)
 				->orderBy('NAME', 'ASC')
 				->get();
 				
@@ -170,7 +171,7 @@ class InvoiceController extends Controller {
 						'companies',
 						'products',
 						'users',
-						'variation',
+						'typeInvoices',
 		));
 	}
 

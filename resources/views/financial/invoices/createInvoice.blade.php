@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@if($variation == 'receita')
+@if($typeInvoices == 'receita')
 @section('title','RECEITA')
 @else
 @section('title','DESPESA')
@@ -14,7 +14,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('invoice.index')}}">
+<a class="button-primary"  href="{{route('invoice.index', ['typeInvoices' => $typeInvoices])}}">
 	VOLTAR
 </a>
 @endsection
@@ -32,7 +32,7 @@
 <div>
 	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
-		<input type="hidden" name="type" value="{{$variation}}">
+		<input type="hidden" name="type" value="{{$typeInvoices}}">
 		<label class="labels" for="" >EMPRESA:</label>
 		@if(!empty(app('request')->input('opportunityAccountName')))
 		{{app('request')->input('opportunityAccountName')}}

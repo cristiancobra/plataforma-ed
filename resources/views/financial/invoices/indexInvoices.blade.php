@@ -49,16 +49,6 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 			todas
 		</option>
 	</select>
-	<select class="select"name="user_id">
-		<option  class="select" value="">
-			Qualquer funcionário
-		</option>
-		@foreach ($users as $user)
-		<option  class="select" value="{{$user->id}}">
-			{{$user->name}}
-		</option>
-		@endforeach
-	</select>
 	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
 	{{returnType('status', 'select', 'invoice')}}
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
