@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@if($type == 'receita')
+@if($variation == 'receita')
 @section('title','PRODUTOS')
 @else
 @section('title','ITENS DE DESPESA')
@@ -18,7 +18,7 @@ Total: <span class="labels">{{$totalProducts }} </span>
 <a class="button-secondary"  href="{{route('product.index')}}">
 	VOLTAR
 </a>
-<a class="button-primary"  href="{{route('product.create', ['type' => $type])}}">
+<a class="button-primary"  href="{{route('product.create', ['variation' => $variation])}}">
 	CRIAR
 </a>
 @endsection
@@ -41,7 +41,7 @@ Total: <span class="labels">{{$totalProducts }} </span>
 		</option>
 	</select>
 	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
-	{{returnType('status', 'select', 'invoice')}}
+	{{returnType('type', 'select', 'product')}}
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
 <br>
@@ -49,31 +49,31 @@ Total: <span class="labels">{{$totalProducts }} </span>
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header" style="width: 5%">
-				<b>Foto</b>
+				Foto
 			</td>
 			<td   class="table-list-header" style="width: 30%">
-				<b>Nome </b>
+				Nome 
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Categoria </b>
+				Categoria 
 			</td>
 			<td   class="table-list-header" style="width: 5%">
-				<b>Entrega</b>
+				Entrega
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Horas</b>
+				Horas
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Custos</b>
+				Custos
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Imposto</b>
+				Imposto
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Margem</b>
+				Margem
 			</td>
 			<td   class="table-list-header" style="width: 10%">
-				<b>Preço</b>
+				Preço
 			</td>
 		</tr>
 

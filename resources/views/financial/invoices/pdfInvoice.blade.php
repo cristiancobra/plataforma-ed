@@ -130,27 +130,33 @@
 			@endforeach
 
 			<tr>
-				<td   class="table-list-header-right" colspan="3">
-				</td>
-				<td   class="table-list-header-right" style="font-size: 14px">
+				<td   class="table-list-header-right" style="font-size: 14px" colspan="4">
 					desconto: 
 				</td>
-				<td   class="table-list-header-right" style="font-size: 14px" colspan="3">
-					<b>R$ - {{number_format($data['invoiceDiscount'], 2,",",".") }}</b>
+				<td   class="table-list-header-right" style="font-size: 14px" colspan="2">
+					- {{formatCurrencyReal($data['invoiceDiscount'])}}
 				</td>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right" colspan="3">
-				<td   class="table-list-header-right"  style="font-size: 14px">
+				<td   class="table-list-header-right"  style="font-size: 14px" colspan="4">
 					TOTAL: 
 				</td>
-				</td>
-				<td   class="table-list-header-right"   style="font-size: 14px" colspan="3">
-					<b>R$ {{number_format($data['invoiceTotalPrice'], 2,",",".") }}</b>
+				<td   class="table-list-header-right"   style="font-size: 14px" colspan="2">
+					{{formatCurrencyReal($data['invoiceTotalPrice'])}}
 				</td>
 			</tr>
+			</tr>
 			<tr>
-				tttt
+				<td   class="table-list-header-right" colspan="4">
+					PARCELAMENTO: 
+				</td>
+				<td   class="table-list-header-right" colspan="2">
+					@if($data['invoiceNumberInstallmentTotal'] == 1)
+					À vista
+					@else
+					{{$data['invoiceNumberInstallmentTotal']}} x  {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
+					@endif
+				</td>
 			</tr>
 		</table>
 		<table  class="table-list" style="width: 100%;text-align:left">

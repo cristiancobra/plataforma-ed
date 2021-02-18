@@ -574,6 +574,10 @@ if (!function_exists('returnType')) {
 				$all = 'todos os tipos';
 				$types = array('receita', 'despesa');
 				break;
+			case 'product':
+				$all = 'todos os tipos';
+				$types = array('receita', 'despesa');
+				break;
 			}
 		echo "<select class = '$class' name = '$name'>";
 		echo "<option  class='select' value=''>

@@ -28,6 +28,8 @@ class ProductController extends Controller {
 					}
 					if ($request->type) {
 						$query->where('type', '=', $request->type);
+					}else{
+						$query->where('type', '=', $request->variation);
 					}
 				})
 				->orderBy('name', 'ASC')
@@ -37,6 +39,7 @@ class ProductController extends Controller {
 			'status' => $request->status,
 			'contact_id' => $request->contact_id,
 			'user_id' => $request->user_id,
+			'variation' => $request->variation,
 		]);
 
 		$contacts = Contact::whereIn('account_id', userAccounts())
@@ -51,7 +54,7 @@ class ProductController extends Controller {
 
 		$totalProducts = $products->total();
 		
-		$type = $request->type;
+		$variation = $request->variation;
 
 		return view('sales.products.indexProducts', compact(
 						'products',
@@ -59,7 +62,7 @@ class ProductController extends Controller {
 						'accounts',
 						'users',
 						'totalProducts',
-						'type',
+						'variation',
 		));
 	}
 
@@ -90,12 +93,12 @@ public function create(Request $request) {
 //				})
 //				->get();
 
-		$type = $request->input('type');
+		$variation = $request->input('variation');
 
 		$products = Product::whereHas('account', function($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
-				->where('type', 'LIKE', $type)
+				->where('type', 'LIKE', $variation)
 				->orderBy('NAME', 'ASC')
 				->get();
 				
@@ -106,7 +109,7 @@ public function create(Request $request) {
 //						'companies',
 						'products',
 //						'users',
-						'type',
+						'variation',
 		));
 	}
 

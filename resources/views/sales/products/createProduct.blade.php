@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@if($type == 'receita')
+@if($variation == 'receita')
 @section('title','PRODUTOS')
 @else
 @section('title','ITENS DE DESPESA')
@@ -14,7 +14,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('product.index')}}">
+<a class="button-primary"  href="{{route('product.index', ['variation' => $variation])}}">
 	VOLTAR
 </a>
 @endsection
@@ -31,7 +31,7 @@
 <div>
 	<form action=" {{ route('product.store') }} " method="post" style="color: #874983">
 		@csrf
-		@if($type == 'receita')
+		@if($variation == 'receita')
 		<input type="hidden" name="type" value="receita">
 		@else
 		<input type="hidden" name="type" value="expense">
@@ -68,7 +68,7 @@ CKEDITOR.replace('description');
 		</script>
 		<br>
 		<br>
-		@if($type == 'receita')
+		@if($variation == 'receita')
 		<label class="labels" for="" >HORAS NECESSÁRIAS:</label>
 		<input type="decimal" name="work_hours" size="5" value=""><span class="fields"></span>
 		<br>

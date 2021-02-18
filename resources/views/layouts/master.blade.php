@@ -135,10 +135,10 @@
 					<a class="sidebar-subitem" href="{{route('transaction.index')}}">
 						<i class="fas fa-sync-alt" style="margin-right: 8px"></i>FLUXO DE CAIXA
 					</a>
-					<a class="sidebar-subitem" href="{{route('company.index', ['type' => 'fornecedor'])}}">
+					<a class="sidebar-subitem" href="{{route('company.index', ['variation' => 'fornecedor'])}}">
 						<i class="fas fa-truck" style="margin-right: 8px"></i>FORNECEDORES
 					</a>
-					<a class="sidebar-subitem" href="{{route('product.index', ['type' => 'despesa'])}}">
+					<a class="sidebar-subitem" href="{{route('product.index', ['variation' => 'despesa'])}}">
 						<i class="fas fa-boxes" style="margin-right: 8px"></i>ITENS DE DESPESA
 					</a>
 				</div>
@@ -179,10 +179,10 @@
 					<a class="sidebar-subitem" href="{{route('contact.index')}}">
 						<i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS
 					</a>
-					<a class="sidebar-subitem" href="{{route('company.index', ['type' => 'cliente'])}}">
+					<a class="sidebar-subitem" href="{{route('company.index', ['variation' => 'cliente'])}}">
 						<i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
 					</a>
-					<a class="sidebar-subitem" href="{{route('product.index', ['type' => 'receita'])}}">
+					<a class="sidebar-subitem" href="{{route('product.index', ['variation' => 'receita'])}}">
 						<i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS
 					</a>
 					<a class="sidebar-subitem" href="{{route('opportunity.index')}}">
