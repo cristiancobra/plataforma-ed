@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
+@if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
+@else
+@section('title','FORNECEDORES')
+@endif
 
 @section('image-top')
 {{ asset('imagens/empresa.png') }} 
@@ -11,7 +15,7 @@ Total: <span class="labels">{{$totalCompanies}} </span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('company.create')}}">
+<a class="button-primary"  href="{{route('company.create', ['typeCompanies' => $typeCompanies])}}">
 	CRIAR
 </a>
 @endsection

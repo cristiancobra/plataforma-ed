@@ -129,11 +129,14 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
+		$variation = $request->input('variation');
+
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
 		$companies = Company::whereIn('account_id', userAccounts())
+				->where('type', $variation)
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -150,12 +153,10 @@ class InvoiceController extends Controller {
 				})
 				->get();
 
-		$type = $request->input('type');
-//dd($type);
 		$products = Product::whereHas('account', function($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
-				->where('type', 'LIKE', $type)
+				->where('type', 'LIKE', $variation)
 				->orderBy('NAME', 'ASC')
 				->get();
 				
@@ -169,7 +170,7 @@ class InvoiceController extends Controller {
 						'companies',
 						'products',
 						'users',
-						'type',
+						'variation',
 		));
 	}
 
@@ -364,7 +365,7 @@ class InvoiceController extends Controller {
 				->orderBy('ID', 'ASC')
 				->get();
 		
-		$type = $invoice->type;
+		$variation = $invoice->type;
 
 		return view('financial.invoices.editInvoice', compact(
 						'invoice',
@@ -376,7 +377,7 @@ class InvoiceController extends Controller {
 						'companies',
 						'products',
 						'productsChecked',
-						'type',
+						'variation',
 		));
 	}
 

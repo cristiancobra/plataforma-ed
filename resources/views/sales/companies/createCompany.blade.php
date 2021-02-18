@@ -1,6 +1,11 @@
 @extends('layouts/master')
 
+@if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
+@else($typeCompanies == 'fornecedor)
+@section('title','FORNECEDORES')
+@endif
+
 
 @section('image-top')
 {{ asset('imagens/empresa.png') }} 
@@ -10,7 +15,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('company.index')}}">
+<a class="button-primary"  href="{{route('company.index', ['typeCompanies' => $typeCompanies])}}">
 	VOLTAR
 </a>
 @endsection
@@ -29,7 +34,7 @@
 <div>
 	<form action=" {{route('company.store')}} " method="post" style="color: #874983">
 		@csrf
-		@if($type == 'cliente')
+		@if($typeCompanies == 'cliente')
 		<input type="hidden" name="type" value="cliente">
 		@else
 		<input type="hidden" name="type" value="fornecedor">

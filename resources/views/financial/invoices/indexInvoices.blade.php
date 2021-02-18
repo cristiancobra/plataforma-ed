@@ -11,10 +11,10 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('invoice.create', ['type' => 'receita'])}}">
+<a class="button-primary"  href="{{route('invoice.create', ['variation' => 'receita'])}}">
 	CRIAR RECEITA
 </a>
-<a class="button-primary"  href="{{route('invoice.create', ['type' => 'despesa'])}}">
+<a class="button-primary"  href="{{route('invoice.create', ['variation' => 'despesa'])}}">
 	CRIAR DESPESA
 </a>
 @endsection
@@ -87,18 +87,18 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 			</td>
 		</tr>
 		<tr>
-			<td class="table-list-left" style="width: 80%">
+			<td class="table-list-left" style="width: 70%">
 				RECEITAS:
 			</td>
-			<td class="table-list-right" style="width: 10%">
+			<td class="table-list-right" style="width: 15%">
 				+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
 			</td>
-			<td class="table-list-right" style="width: 10%">
+			<td class="table-list-right" style="width: 15%">
 				+ {{formatCurrencyReal($estimatedRevenueYearly)}}
 			</td>
 		</tr>
 		<tr>
-			<td class="table-list-left" style="width: 80%">
+			<td class="table-list-left" style="width: 70%">
 				DESPESAS:
 			</td>
 			<td class="table-list-right" style="width: 10%;color:red">
@@ -109,13 +109,13 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 			</td>
 		</tr>
 		<tr>
-			<td class="table-list-left" style="width: 80%">
+			<td class="table-list-left" style="width: 70%">
 				SALDO:
 			</td>
-			<td class="table-list-right" style="width: 10%">
+			<td class="table-list-right" style="width: 15%">
 				{{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
 			</td>
-			<td class="table-list-right" style="width: 10%">
+			<td class="table-list-right" style="width: 15%">
 				{{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
 			</td>
 		</tr>

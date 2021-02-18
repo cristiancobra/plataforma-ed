@@ -135,7 +135,7 @@
 					<a class="sidebar-subitem" href="{{route('transaction.index')}}">
 						<i class="fas fa-sync-alt" style="margin-right: 8px"></i>FLUXO DE CAIXA
 					</a>
-					<a class="sidebar-subitem" href="{{route('company.index', ['variation' => 'fornecedor'])}}">
+					<a class="sidebar-subitem" href="{{route('company.index', ['typeCompanies' => 'fornecedor'])}}">
 						<i class="fas fa-truck" style="margin-right: 8px"></i>FORNECEDORES
 					</a>
 					<a class="sidebar-subitem" href="{{route('product.index', ['variation' => 'despesa'])}}">
@@ -179,7 +179,7 @@
 					<a class="sidebar-subitem" href="{{route('contact.index')}}">
 						<i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS
 					</a>
-					<a class="sidebar-subitem" href="{{route('company.index', ['variation' => 'cliente'])}}">
+					<a class="sidebar-subitem" href="{{route('company.index', ['typeCompanies' => 'cliente'])}}">
 						<i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
 					</a>
 					<a class="sidebar-subitem" href="{{route('product.index', ['variation' => 'receita'])}}">

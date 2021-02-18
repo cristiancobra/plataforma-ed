@@ -16,19 +16,21 @@ class CompanyController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index() {
-		$accountsId = userAccounts();
+	public function index(Request $request) {
+		$typeCompanies = $request->input('typeCompanies');
 
-		$companies = Company::whereIn('account_id', $accountsId)
+		$companies = Company::whereIn('account_id', userAccounts())
 				->with([
 					'account',
 				])
+				->where('type', $typeCompanies)
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
 		$totalCompanies = $companies->count();
 
 		return view('sales.companies.indexCompanies', compact(
+						'typeCompanies',
 						'companies',
 						'totalCompanies',
 		));
@@ -39,21 +41,21 @@ class CompanyController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
+	public function create(Request $request) {
+		$typeCompanies = $request->input('typeCompanies');
 
-		$accountsId = userAccounts();
-		
-		$accounts = Account::whereIn('id', $accountsId)
+		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
+		$contacts = Contact::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
 		$states = returnStates();
 
 		return view('sales.companies.createCompany', compact(
+						'typeCompanies',
 						'accounts',
 						'contacts',
 						'states',

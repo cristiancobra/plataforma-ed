@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@if($type == 'receita')
+@if($variation == 'receita')
 @section('title','RECEITA')
 @else
 @section('title','DESPESA')
@@ -32,7 +32,7 @@
 <div>
 	<form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
 		@csrf
-		<input type="hidden" name="type" value="{{$type}}">
+		<input type="hidden" name="type" value="{{$variation}}">
 		<label class="labels" for="" >EMPRESA:</label>
 		@if(!empty(app('request')->input('opportunityAccountName')))
 		{{app('request')->input('opportunityAccountName')}}
@@ -64,7 +64,7 @@
 		@if(!empty(app('request')->input('opportunityName')))
 		{{app('request')->input('opportunityName')}}
 		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
-		@elseif($type == 'despesa')
+		@elseif($variation == 'despesa')
 		não possui
 		@else
 		<select name="opportunity_id">
@@ -80,11 +80,12 @@
 		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
 		@endif
 		<br>
-		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 		@if(!empty(app('request')->input('opportunityCompanyName')))
+		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 		{{app('request')->input('opportunityCompanyName')}}
 		<input type="hidden" name="company_id" value="{{app('request')->input('opportunityCompanyId')}}">
-		@elseif($type == 'despesa')
+		@elseif($variation == 'despesa')
+		<label class="labels" for="" >FORNECEDOR:</label>
 		<select name="company_id">
 			@foreach ($companies as $company)
 			<option  class="fields" value="{{$company->id}}">
@@ -92,7 +93,11 @@
 			</option>
 			@endforeach
 		</select>
+		<a class="btn btn-secondary" href="{{route('company.create', ['variation' => 'fornecedor'])}}">
+			CRIAR
+		</a>
 		@else
+		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 		automático
 		@endif
 		<br>
