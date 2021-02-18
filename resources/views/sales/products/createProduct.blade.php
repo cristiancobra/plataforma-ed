@@ -34,7 +34,7 @@
 		@if($variation == 'receita')
 		<input type="hidden" name="type" value="receita">
 		@else
-		<input type="hidden" name="type" value="expense">
+		<input type="hidden" name="type" value="despesa">
 		@endif
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="20" value="{{old('name')}}"><span class="fields"></span>
