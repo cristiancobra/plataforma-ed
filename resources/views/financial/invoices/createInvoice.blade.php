@@ -93,7 +93,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{route('company.create', ['variation' => 'fornecedor'])}}">
+		<a class="btn btn-secondary" href="{{route('company.create', ['typeCompanies' => 'fornecedor'])}}">
 			CRIAR
 		</a>
 		@else
