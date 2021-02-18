@@ -131,7 +131,7 @@
 
 			<tr>
 				<td   class="table-list-header-right" style="font-size: 14px" colspan="4">
-					desconto: 
+					desconto2: 
 				</td>
 				<td   class="table-list-header-right" style="font-size: 14px" colspan="2">
 					- {{formatCurrencyReal($data['invoiceDiscount'])}}
