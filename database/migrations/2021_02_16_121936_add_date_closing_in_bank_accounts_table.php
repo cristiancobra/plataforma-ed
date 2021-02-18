@@ -14,7 +14,7 @@ class AddDateClosingInBankAccountsTable extends Migration
     public function up()
     {
         Schema::table('bank_accounts', function (Blueprint $table) {
-            $table->date('date_closing');
+            $table->date('date_closing')->nullable();
         });
     }
 

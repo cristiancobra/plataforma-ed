@@ -131,7 +131,7 @@
 
 			<tr>
 				<td   class="table-list-header-right" style="font-size: 14px" colspan="4">
-					desconto2: 
+					desconto: 
 				</td>
 				<td   class="table-list-header-right" style="font-size: 14px" colspan="2">
 					- {{formatCurrencyReal($data['invoiceDiscount'])}}
@@ -200,7 +200,7 @@
 			<tr>
 				<td>
 					<p>
-						{{$bankAccount->name}} - {{$bankAccount->bank_code}}
+						{{$bankAccount->bank->name}} - cód. {{$bankAccount->bank->bank_code}}
 						<br>
 						Agência: {{$bankAccount->agency}}
 						<br>
