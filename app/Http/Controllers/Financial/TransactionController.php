@@ -112,7 +112,7 @@ class TransactionController extends Controller {
 		} else {
 			$transaction = new Transaction();
 			$transaction->fill($request->all());
-//			dd($transaction);
+			$transaction->value = str_replace(",",".", $request->value);
 			$transaction->save();
 
 			return view('financial.transactions.showTransaction', compact(

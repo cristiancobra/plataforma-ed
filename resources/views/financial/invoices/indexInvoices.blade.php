@@ -11,10 +11,10 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('invoice.create', ['typeInvoice' => 'receita'])}}">
+<a class="button-primary"  href="{{route('invoice.create', ['typeInvoices' => 'receita'])}}">
 	CRIAR RECEITA
 </a>
-<a class="button-primary"  href="{{route('invoice.create', ['typeInvoice' => 'despesa'])}}">
+<a class="button-primary"  href="{{route('invoice.create', ['typeInvoices' => 'despesa'])}}">
 	CRIAR DESPESA
 </a>
 @endsection
@@ -77,7 +77,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 	<input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
 	<select class="select" name="account_id">
 		<option  class="select" value="">
-			Qualquer empresa
+			Minhas empresas
 		</option>
 		@foreach ($accounts as $account)
 		<option  class="select" value="{{$account->id}}">
@@ -85,6 +85,19 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 		</option>
 		@endforeach
 		<option  class="select" value="">
+			todas
+		</option>
+	</select>
+	<select class="select" name="compnay_id">
+		<option  class="select" value="">
+			Qualquer empresa
+		</option>
+		@foreach ($companies as $company)
+		<option  class="select" value="{{$company->id}}">
+			{{$company->name}}
+		</option>
+		@endforeach
+		<option  class="fields" value="">
 			todas
 		</option>
 	</select>

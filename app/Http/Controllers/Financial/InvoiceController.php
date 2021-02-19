@@ -74,6 +74,10 @@ class InvoiceController extends Controller {
 		$contacts = Contact::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
+		
+		$companies = Company::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('ID', 'ASC')
@@ -109,6 +113,7 @@ class InvoiceController extends Controller {
 
 		return view('financial.invoices.indexInvoices', compact(
 						'invoices',
+						'companies',
 						'contacts',
 						'accounts',
 						'users',
@@ -219,7 +224,7 @@ class InvoiceController extends Controller {
 			} else {
 				$invoice->identifier = 1;
 			}
-//			dd($invoice->type);
+//			$invoice->totalPrice = str_replace(",",".", $request->totalPrice);
 			$invoice->save();
 
 			$totalPrice = 0;

@@ -91,9 +91,9 @@ Route::resource('planejamentos', 'Financial\\PlanningController')
 
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
-Route::resource('transactions', 'Financial\\TransactionController')
+Route::resource('movimentacoes', 'Financial\\TransactionController')
 		->names('transaction')
-		->parameters(['transacoes' => 'transaction'])
+		->parameters(['movimentacoes' => 'transaction'])
 		->middleware('roles');
 
 // =============================================== MARKETING ====================================

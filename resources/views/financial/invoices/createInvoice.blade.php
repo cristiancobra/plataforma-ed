@@ -64,7 +64,7 @@
 		@if(!empty(app('request')->input('opportunityName')))
 		{{app('request')->input('opportunityName')}}
 		<input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
-		@elseif($variation == 'despesa')
+		@elseif($typeInvoices == 'despesa')
 		não possui
 		@else
 		<select name="opportunity_id">
@@ -84,7 +84,7 @@
 		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 		{{app('request')->input('opportunityCompanyName')}}
 		<input type="hidden" name="company_id" value="{{app('request')->input('opportunityCompanyId')}}">
-		@elseif($variation == 'despesa')
+		@elseif($typeInvoices == 'despesa')
 		<label class="labels" for="" >FORNECEDOR:</label>
 		<select name="company_id">
 			@foreach ($companies as $company)

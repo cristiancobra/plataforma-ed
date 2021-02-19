@@ -1133,3 +1133,11 @@ if (!function_exists('createButtonAdd')) {
 		}
 
 	}	
+// formata valor inteiro em moeda real
+	if (!function_exists('insertCurrencyReal')) {
+
+		function insertCurrencyReal($value) {
+			return number_format($value, 2, ",", ".");
+		}
+
+	}	

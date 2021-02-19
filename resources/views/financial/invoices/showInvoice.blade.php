@@ -359,6 +359,15 @@ $counter++;
 	</tr>
 </table>
 <br>
+	<a class="button-secondary" href="{{route('transaction.create', [
+		'invoiceId' => $invoice->identifier,
+		'invoiceType' => $invoice->type,
+		'invoiceTotalPrice' => $invoice->totalPrice,
+				
+	])}}">
+		REGISTRAR PAGAMENTO
+	</a>
+<br>
 <br>
 <p class="labels">  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>
 

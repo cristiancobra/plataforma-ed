@@ -50,7 +50,6 @@
 			@endforeach
 		</select>
 		<br>
-		<br>
 		<label for="" >CONTA:</label>
 		<select name="bank_account_id">
 			@foreach ($bankAccounts as $bankAccount)
@@ -60,7 +59,11 @@
 			@endforeach
 		</select>
 		<br>
+		<br>
 		<label for="" >FATURA: </label>
+		@if(!empty(app('request')->input('invoiceId')))
+		{{app('request')->input('invoiceId')}}
+		@else
 		<select name="invoice_id">
 			@foreach ($invoices as $invoice)
 			<option  class="fields" value="{{$invoice->id}}">
@@ -75,8 +78,12 @@
 			</option>
 			@endforeach
 		</select>
+		@endif
 		<br>
 		<label for="" >TIPO: </label>
+		@if(!empty(app('request')->input('invoiceType')))
+		{{app('request')->input('invoiceType')}}
+		@else
 		<select name="type">
 			<option  class="fields" value="crédito">
 				crédito
@@ -85,6 +92,7 @@
 				débito
 			</option>
 		</select>
+		@endif
 		<br>
 		<br>
 		<label class="labels" for="" >DATA:</label>
@@ -94,9 +102,13 @@
 		@endif
 		<br>
 		<label for="" >VALOR: </label>
-		<input type="decimal" name="value" value="">
 		@if ($errors->has('value'))
 		<span class="text-danger">{{ $errors->first('value') }}</span>
+		@endif
+		@if(!empty(app('request')->input('invoiceTotalPrice')))
+		<input type="decimal" name="value" style="text-align: right" value="{{formatCurrencyReal(app('request')->input('invoiceTotalPrice'))}}">
+		@else
+		<input type="decimal" name="value" style="text-align: right" value="{{formatCurrencyReal(0)}}">
 		@endif
 		<br>
 		<br>
