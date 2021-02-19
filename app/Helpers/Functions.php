@@ -459,6 +459,14 @@ if (!function_exists('createButtonAdd')) {
 		}
 
 	}
+// converte data para o formato brasileiro
+	if (!function_exists('dateBr')) {
+
+		function dateBr($date) {
+			return date('d/m/Y', strtotime($date));
+		}
+
+	}
 // gera um botão com a formatação para STAGE / ETAPADA DE PROSPECÇÃO da oportunidade a partir de  $model
 	if (!function_exists('formatStage')) {
 

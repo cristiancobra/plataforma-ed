@@ -71,6 +71,7 @@
 				{{$invoice->company->name}}
 				@endif
 				- {{formatCurrencyReal($invoice->totalPrice)}}
+				- {{dateBr($invoice->pay_day)}}
 			</option>
 			@endforeach
 		</select>

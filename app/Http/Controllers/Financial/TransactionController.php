@@ -74,9 +74,10 @@ class TransactionController extends Controller {
 				->paginate(20);
 
 		$invoices = Invoice::whereIn('account_id', userAccounts())
-//				->orderBy('NAME', 'ASC')
+				->where('status', 'orçamento')
+				->orderBy('pay_day', 'ASC')
 				->paginate(20);
-
+//dd($invoices);
 		$users = myUsers();
 
 		return view('financial.transactions.createTransaction', compact(
