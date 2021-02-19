@@ -64,7 +64,7 @@
 				@if(isset($invoice->opportunity))
 				{{$invoice->opportunity->company->name}}
 				@else
-				sem oportunidade
+				{{$invoice->company->name}}
 				@endif
 				- {{formatCurrencyReal($invoice->totalPrice)}}
 			</option>

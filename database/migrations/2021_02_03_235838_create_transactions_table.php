@@ -20,7 +20,7 @@ class CreateTransactionsTable extends Migration {
 			$table->foreignId('invoice_id');
 			$table->string('type');
 			$table->date('pay_day');
-			$table->integer('value')->nullable();
+			$table->decimal('value', 8,2)->nullable();
 			$table->text('observations')->nullable();
 			$table->string('status', 50);
 			$table->timestamps();
