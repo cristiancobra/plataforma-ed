@@ -74,7 +74,7 @@ class TransactionController extends Controller {
 				->paginate(20);
 
 		$invoices = Invoice::whereIn('account_id', userAccounts())
-				->where('status', 'orçamento')
+				->where('status', 'aprovada')
 				->orderBy('pay_day', 'ASC')
 				->paginate(20);
 //dd($invoices);
