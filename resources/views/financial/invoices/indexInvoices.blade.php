@@ -88,7 +88,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 			todas
 		</option>
 	</select>
-	<select class="select" name="compnay_id">
+	<select class="select" name="company_id">
 		<option  class="select" value="">
 			Qualquer empresa
 		</option>
@@ -116,6 +116,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 	</select>
 	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
 	{{returnType('status', 'select', 'invoice')}}
+	<br>
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
 <div>
