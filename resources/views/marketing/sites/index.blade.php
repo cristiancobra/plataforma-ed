@@ -73,7 +73,7 @@
 						<i class='fa fa-server' style="color:white"></i></a>
 				</button>
 			</td>
-			{{formatStatusActive($domain)}}
+			{{formatStatusActive($site)}}
 		</tr>
 		@endforeach
 	</table>
