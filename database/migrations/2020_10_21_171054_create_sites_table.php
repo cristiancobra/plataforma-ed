@@ -16,7 +16,6 @@ class CreateSitesTable extends Migration {
 			$table->id();
 			$table->foreignId('account_id');
 			$table->string('name', 100);
-			$table->string('link_view');
 			$table->string('link_edit');
 			$table->string('site_password')->nullable();
 			$table->string('hosting');

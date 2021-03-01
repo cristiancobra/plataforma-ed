@@ -17,8 +17,9 @@
 
 @section('main')
 <div>
-	<form action=" {{ route('domain.store') }} " method="post" style="color: #874983">
+	<form action=" {{ route('domain.update', ['domain' =>$domain->id]) }} " method="post">
 		@csrf
+		@method('put')
 		<label class="labels" for="" >DOMÍNIO:</label>
 		<input type="text" name="name" size="60" value="{{$domain->name}}"><span class="fields"></span>
 		<br>
@@ -43,7 +44,16 @@
 		<br>
 		<br>
 		<label class="labels" for="" >NOME DO TITULAR:</label>
-		<input type="text" name="holder" size="60" value="{{$domain->holder}}"><span class="fields"></span>
+		<select name="contact_id">
+			<option  class="fields" value="{{$domain->contact_id}}">
+				{{$domain->contact->name}}
+			</option>
+			@foreach ($contacts as $contact)
+			<option  class="fields" value="{{$contact->id}}">
+				{{$contact->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<label class="labels" for="" >PROVEDOR DO DOMÍNIO:</label>
 		<input type="text" name="provider" size="60" value="{{$domain->provider}}"><span class="fields"></span>
@@ -56,17 +66,16 @@
 		<br>
 		<br>
 		<label class="labels" for="" >DATA DE VENCIMENTO:</label>
-		<input type="date" name="due_date" size="20"><span class="fields"></span>
+		<input type="date" name="due_date" size="20" value="{{$domain->due_date}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-		<option value="pendente">pendente</option>
-		<option value="desativado">desativado</option>
-		<option value="ativo">ativo</option>
-		</select>
+		{{createSelect('status', 'fields', returnStatusActive())}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR">
+		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+
 	</form>
-</div>     
+</div>
+<br>
+<br>
 @endsection

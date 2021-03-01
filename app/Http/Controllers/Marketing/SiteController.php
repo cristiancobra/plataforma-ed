@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Domain;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
@@ -34,15 +35,18 @@ class SiteController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-			$site = new Site();
-
 			$accounts = Account::whereIn('id', userAccounts())
 					->orderBy('NAME', 'ASC')
 					->get();
 
+			$domains = Domain::whereIn('id', userAccounts())
+					->orderBy('NAME', 'ASC')
+					->get();
+//			dd($domains);D
+
 			return view('marketing.sites.create', compact(
-				'site',
 				'accounts',
+				'domains',
 			));
 	}
 

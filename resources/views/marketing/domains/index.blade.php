@@ -26,19 +26,22 @@
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header">
-				<b>DOMÍNIO </b>
+				DOMÍNIO 
 			</td>
 			<td   class="table-list-header">
-				<b>EMPRESA</b>
+				EMPRESA
 			</td>
 			<td   class="table-list-header">
-				<b>PROVEDOR</b>
+				SITE
 			</td>
 			<td   class="table-list-header">
-				<b>DATA DE RENOVAÇÃO:</b>
+				PROVEDOR
 			</td>
 			<td   class="table-list-header">
-				<b>SITUAÇÃO</b>
+				DATA DE RENOVAÇÃO:
+			</td>
+			<td   class="table-list-header">
+				SITUAÇÃO
 			</td>
 		</tr>
 
@@ -59,14 +62,16 @@
 				{{$domain->account->name}}
 			</td>
 			<td class="table-list-center">
+				{{$domain->site->name}}
+				{{createButtonShow($domain->site, 'site')}}
+			</td>
+			<td class="table-list-center">
 				{{$domain->provider}}
 			</td>
 			<td class="table-list-center">
-				{{$domain->due_date}}
+				{{dateBr($domain->due_date)}}
 			</td>
-			<td class="table-list-center">
-				{{$domain->status}}
-			</td>
+				{{formatStatusActive($domain)}}
 		</tr>
 		@endforeach
 	</table>

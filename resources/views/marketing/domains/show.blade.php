@@ -22,12 +22,15 @@
 </h1>
 <label class="labels" for="" >EMPRESA: </label>
 <span class="fields">{{$domain->account->name }}</span>
+{{createButtonShow($domain->account, 'account')}}
 <br>
 <label class="labels" for="" >SITE:</label>
-<span class="fields">{{$domain->holder}}</span>
+<span class="fields">{{$domain->site->name}}</span>
+{{createButtonShow($domain->site, 'site')}}
 <br>
 <label class="labels" for="" >NOME DO TITULAR:</label>
-<span class="fields">{{$domain->holder}}</span>
+<span class="fields">{{$domain->contact->name}}</span>
+{{createButtonShow($domain->contact, 'contact')}}
 <br>
 <label class="labels" for="" >PROVEDOR DO DOMÍNIO:</label>
 <span class="fields">{{$domain->provider}}</span>

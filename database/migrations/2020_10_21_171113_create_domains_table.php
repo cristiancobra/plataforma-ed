@@ -17,7 +17,6 @@ class CreateDomainsTable extends Migration {
 			$table->foreignId('account_id');
 			$table->foreignId('site_id');
 			$table->string('name', 100);
-			$table->string('holder', 100);
 			$table->string('provider');
 			$table->string('link_provider')->nullable();
 			$table->string('provider_password')->nullable();

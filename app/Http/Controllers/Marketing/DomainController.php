@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Marketing;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
+use App\Models\Contact;
 use App\Models\Domain;
 use App\Models\Site;
 use Illuminate\Http\Request;
@@ -17,28 +18,17 @@ class DomainController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$userAuth = Auth::user();
+		$domains = Domain::whereIn('account_id', userAccounts())
+				->with(['site', 'contact'])
+				->orderBy('NAME', 'ASC')
+				->paginate(20);
+//dd($domains);
+		$totalDomains = $domains->count();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->get('id');
-
-			$domains = Domain::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->paginate(20);
-
-			$totalDomains = $domains->count();
-
-			return view('marketing.domains.indexDomains', [
-				'domains' => $domains,
-				'totalDomains' => $totalDomains,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('marketing.domains.index', compact(
+						'domains',
+						'totalDomains',
+		));
 	}
 
 	/**
@@ -47,33 +37,23 @@ class DomainController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$userAuth = Auth::user();
+		$accounts = Account::whereIn('id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-		if (Auth::check()) {
-			$domain = new Domain();
+		$contacts = Contact::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+		$sites = Site::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$accounts = Account::whereIn('id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->get();
-
-			$sites = Site::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->get();
-
-			return view('marketing.domains.createDomain', [
-				'userAuth' => $userAuth,
-				'domain' => $domain,
-				'sites' => $sites,
-				'accounts' => $accounts,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('marketing.domains.create', compact(
+						'accounts',
+						'contacts',
+						'sites',
+		));
 	}
 
 	/**
@@ -95,22 +75,14 @@ class DomainController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Domain $domain) {
-		$userAuth = Auth::user();
-
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
-
-		$sites = Site::whereIn('account_id', $accountsID)
+		$sites = Site::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		return view('marketing.domains.showDomain', [
-			'domain' => $domain,
-			'sites' => $sites,
-			'userAuth' => $userAuth,
-		]);
+		return view('marketing.domains.show', compact(
+						'domain',
+						'sites',
+		));
 	}
 
 	/**
@@ -120,32 +92,25 @@ class DomainController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Domain $domain) {
-		$userAuth = Auth::user();
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
+				})
+				->get();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+		$contacts = Contact::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
+		$sites = Site::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
 
-			$sites = Site::whereIn('account_id', $accountsID)
-					->orderBy('NAME', 'ASC')
-					->get();
-
-			return view('marketing.domains.editDomain', [
-				'userAuth' => $userAuth,
-				'domain' => $domain,
-				'sites' => $sites,
-				'accounts' => $accounts,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('marketing.domains.edit', compact(
+						'domain',
+						'accounts',
+						'contacts',
+						'sites',
+		));
 	}
 
 	/**
@@ -156,25 +121,17 @@ class DomainController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Domain $domain) { {
-			$userAuth = Auth::user();
-
 			$domain->fill($request->all());
 			$domain->save();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$sites = Site::whereIn('account_id', $accountsID)
+			$sites = Site::whereIn('account_id', userAccounts())
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			return view('marketing.domains.showDomain', [
-				'domain' => $domain,
-				'sites' => $sites,
-				'userAuth' => $userAuth,
-			]);
+			return view('marketing.domains.show', compact(
+				'domain',
+				'sites',
+			));
 		}
 	}
 

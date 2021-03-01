@@ -20,15 +20,15 @@
 <h1 class="name">
 	{{$site->name}}
 </h1>
-<label class="labels" for="" >ENDEREÇO PARA VISUALIZAR:</label>
-<span class="fields">{{$site->link_view}}</span>
-@if(!empty($site->link_view))
-<button class="button-round">
-	<a href="//{{$site->link_view}}" target="_blank">
-		<i class='fa fa-rocket' style="color:white"></i>
-	</a>
-</button>
-@endif
+<br>
+<label class="labels" for="" >DOMÍNIOS:</label>
+<br>
+@foreach ($site->domains as $domain)
+{{$domain->name}}
+{{createButtonShow($domain, 'domain')}}
+{{createButtonExternalLink($domain->name)}}
+<br>
+@endforeach
 <br>
 <label class="labels" for="" >ENDEREÇO PARA EDITAR:</label>
 <span class="fields">{{$site->link_edit}}</span>

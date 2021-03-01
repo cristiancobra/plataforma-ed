@@ -36,9 +36,6 @@
 		</select>
 		<br>
 		<br>
-		<label class="labels" for="" >ENDEREÇO PARA VISUALIZAR:</label><span style='margin-left:20px'>https://</span>
-		<input type="text" name="link_view" size="60" value="{{$site->link_view}}"><span class="fields"></span>
-		<br>
 		<label class="labels" for="" >ENDEREÇO PARA EDITAR:</label><span style='margin-left:20px'>https://</span>
 		<input type="text" name="link_edit" size="60" value="{{$site->link_edit}}"><span class="fields"></span>
 		<br>

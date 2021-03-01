@@ -46,19 +46,19 @@
 				{{$site->name}}
 			</td>
 
-		<td class="table-list-left">
-			@foreach ($site->domains as $domain)
-			<a class="white"  href="//{{route('domain.show', ['domain' => $domain->id])}}">
-				<button class="button-round">
-					<i class='fa fa-eye'></i>
-				</button> 
-			</a>
-			{{$domain->name}}</li>
-			<br>
-			</a>
-			@endforeach
-		</td>
-			
+			<td class="table-list-left">
+				@foreach ($site->domains as $domain)
+				<a class="white"  href="{{route('domain.show', ['domain' => $domain->id])}}">
+					<button class="button-round">
+						<i class='fa fa-eye'></i>
+					</button> 
+				</a>
+				{{$domain->name}}</li>
+				<br>
+				</a>
+				@endforeach
+			</td>
+
 			<td class="table-list-center">
 				<button class="button-round">
 					<a href="//{{$site->link_view}}" target="_blank">
@@ -73,11 +73,7 @@
 						<i class='fa fa-server' style="color:white"></i></a>
 				</button>
 			</td>
-
-			<td class="table-list-center">
-			{{ $site->status }}
-			</td>
-
+			{{formatStatusActive($domain)}}
 		</tr>
 		@endforeach
 	</table>

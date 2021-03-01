@@ -22,7 +22,7 @@
 		{{$task->name}}
 	</h1>
 	<p class="labels">
-		EMPRESA:<span class="fields">{{ $task->account->name }}</span>
+		EMPRESA:<span class="fields">{{$task->account->name}}</span>
 	</p>
 	<p class="labels">
 		DEPARTAMENTO:
