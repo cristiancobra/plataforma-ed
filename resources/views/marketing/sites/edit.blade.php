@@ -25,9 +25,12 @@
 		<br>
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
+			<option  class="fields" value="{{$site->account_id}}">
+				{{$site->account->name}}
+			</option>
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
 			</option>
 			@endforeach
 		</select>
@@ -63,11 +66,7 @@
 		<input type="date" name="creation_date" size="20"  value="{{$site->creation_date}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		<select class="fields" name="status">
-		<option value="pendente">pendente</option>
-		<option value="desativado">desativado</option>
-		<option value="ativo">ativo</option>
-		</select>
+		{{editSelect('status', 'fields', returnStatusActive(), $site->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
