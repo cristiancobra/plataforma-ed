@@ -97,7 +97,10 @@ Route::resource('movimentacoes', 'Financial\\TransactionController')
 		->middleware('roles');
 
 // =============================================== MARKETING ====================================
-Route::resource('sites', 'Marketing\\SiteController')->names('site');
+Route::resource('sites', 'Marketing\\SiteController')
+		->names('site')
+		->middleware('roles');
+
 Route::resource('domains', 'Marketing\\DomainController')->names('domain')->parameters(['dominios' => 'domain']);
 
 // ================================ MENU ===================

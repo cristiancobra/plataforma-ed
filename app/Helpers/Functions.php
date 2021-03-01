@@ -578,6 +578,17 @@ if (!function_exists('createButtonAdd')) {
 		}
 
 	}
+// retorna STATUS ativo ou desativado
+	if (!function_exists('returnStatusActive')) {
+
+		function returnStatusActive() {
+			return $status = array(
+				'ativo',
+				'desativado',
+			);
+		}
+
+	}
 // retorna o STATUS / SITUAÇÃO da tarefa 
 	if (!function_exists('returnStatus')) {
 

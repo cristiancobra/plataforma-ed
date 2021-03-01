@@ -9,8 +9,19 @@ class Site extends Model
 {
   protected $table = 'sites';
 	protected $fillable = [
-		'id', 'account_id', 'name', 'link_view', 'link_edit', 'site_password', 'hosting', 'link_hosting', 'hosting_password',
-		'creation_date', 'status',
+		'id',
+		'account_id',
+		'name',
+		'link_view',
+		'link_edit',
+		'site_login',
+		'site_password',
+		'hosting',
+		'link_hosting',
+		'hosting_login',
+		'hosting_password',
+		'creation_date',
+		'status',
 	];
 	
 	protected $hidden = [

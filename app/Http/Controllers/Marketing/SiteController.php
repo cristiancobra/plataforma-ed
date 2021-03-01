@@ -3,164 +3,118 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\Site;
 use Illuminate\Http\Request;
 
-class SiteController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-		$userAuth = Auth::user();
+class SiteController extends Controller {
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$sites = Site::whereIn('account_id', userAccounts())
+				->with('domains')
+				->orderBy('NAME', 'ASC')
+				->paginate(20);
 
-			$sites = Site::whereIn('account_id', $accountsID)
-					->with('domains')
-					->orderBy('NAME', 'ASC')
-					->paginate(20);
-//dd($sites);
-			$totalSites = $sites->count();
+		$totalSites = $sites->count();
 
-			return view('marketing.sites.indexSites', [
-				'sites' => $sites,
-				'totalSites' => $totalSites,
-				'userAuth' => $userAuth,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('marketing.sites.index', compact(
+						'sites',
+						'totalSites',
+		));
 	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-		$userAuth = Auth::user();
-
-		if (Auth::check()) {
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create() {
 			$site = new Site();
 
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$accounts = Account::whereIn('id', $accountsID)
+			$accounts = Account::whereIn('id', userAccounts())
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			return view('marketing.sites.createSite', [
-				'userAuth' => $userAuth,
-				'site' => $site,
-				'accounts' => $accounts,
-			]);
-		} else {
-			return redirect('/');
-		}
+			return view('marketing.sites.create', compact(
+				'site',
+				'accounts',
+			));
 	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request) {
 		Site::create($request->all());
 
 		return redirect()->action('Marketing\\SiteController@index');
 	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Site $site)
-    {
-		$userAuth = Auth::user();
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\Site  $site
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Site $site) {
 
-			return view('marketing.sites.showSite', [
-			'site' => $site,
-			'userAuth' => $userAuth,
-		]);
+		return view('marketing.sites.show', compact(
+			'site',
+		));
 	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Site $site)
-    {
-		$userAuth = Auth::user();
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\Site  $site
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(Site $site) {
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
+				})
+				->get();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
-
-			return view('marketing.sites.editSite', [
-				'userAuth' => $userAuth,
-				'site' => $site,
-				'accounts' => $accounts,
-			]);
-		} else {
-			return redirect('/');
-		}
+		return view('marketing.sites.edit', compact(
+						'site',
+						'accounts',
+		));
 	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Site $site)
-    {
-		$userAuth = Auth::user();
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\Site  $site
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, Site $site) {
 
 		$site->fill($request->all());
 		$site->save();
 
-			return view('marketing.sites.showSite', [
-			'site' => $site,
-			'userAuth' => $userAuth,
-		]);
+		return view('marketing.sites.show', compact(
+						'site',
+		));
 	}
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Site  $site
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Site $site)
-    {
+
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\Site  $site
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(Site $site) {
 		$site->delete();
 		return redirect()->action('Marketing\\SiteController@index');
 	}
+
 }
