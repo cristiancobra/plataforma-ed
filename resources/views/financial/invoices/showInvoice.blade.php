@@ -75,12 +75,15 @@ Sem contrato
 </button>
 @else
 <label class="labels" for="" >FORNECEDOR:</label>
+@if($invoice->company->name)
 <span class="fields">{{$invoice->company->name}}</span>
 <button class="button-round">
 	<a href="{{route('company.show', ['company' => $invoice->company_id])}}">
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
+@else
+não possui
 @endif
 <br>
 @if(isset($invoice->opportunity_id))
