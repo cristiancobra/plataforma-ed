@@ -140,13 +140,17 @@ class InvoiceController extends Controller {
 	 */
 	public function create(Request $request) {
 		$typeInvoices = $request->input('typeInvoices');
-
+		if($typeInvoices == 'receita') {
+			$typeCompanies = 'cliente';
+		} else {
+			$typeCompanies = 'fornecedor';
+		}
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
 		$companies = Company::whereIn('account_id', userAccounts())
-				->where('type', $typeInvoices)
+				->where('type', $typeCompanies)
 				->orderBy('NAME', 'ASC')
 				->get();
 

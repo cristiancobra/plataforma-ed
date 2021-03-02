@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-{{ asset('imagens/transaction.png') }} 
+{{asset('imagens/transaction.png')}} 
 @endsection
 
 @section('description')
@@ -24,7 +24,7 @@
 
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-	{{ Session::get('failed') }}
+	{{Session::get('failed')}}
 	@php
 	Session::forget('failed');
 	@endphp
@@ -97,15 +97,15 @@
 		@endif
 		<br>
 		<br>
-		<label class="labels" for="" >DATA:</label>
+		<label for="" >DATA:</label>
 		<input type="date" name="pay_day" value="{{date('d-m-y')}}">
 		@if ($errors->has('pay_day'))
-		<span class="text-danger">{{ $errors->first('pay_day') }}</span>
+		<span class="text-danger">{{$errors->first('pay_day')}}</span>
 		@endif
 		<br>
 		<label for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
 		@if ($errors->has('value'))
-		<span class="text-danger">{{ $errors->first('value') }}</span>
+		<span class="text-danger">{{$errors->first('value')}}</span>
 		@endif
 		@if(!empty(app('request')->input('invoiceTotalPrice')))
 		<input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(app('request')->input('invoiceTotalPrice'))}}">
