@@ -78,7 +78,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{route('opportunity.create')}}">CRIAR</a>
+		{{createButtonAdd('opportunity.create')}}
 		@endif
 		@if ($errors->has('opportunity_id'))
 		<span class="text-danger">{{$errors->first('opportunity_id')}}</span>
@@ -137,7 +137,11 @@ CKEDITOR.replace('description');
 		<br>
 		@endif
 		<label class="labels" for="" >PRODUTOS: </label>
+		@if($typeInvoices == 'receita')
 		{{createButtonAdd('product.create', 'variation', 'receita')}}
+		@else
+		{{createButtonAdd('product.create', 'variation', 'despesa')}}
+		@endif
 		<table class="table-list">
 			<tr>
 				<td   class="table-list-header">
