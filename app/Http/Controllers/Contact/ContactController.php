@@ -61,29 +61,24 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$contact = new Contact();
-
-		$accountsId = userAccounts();
-
-		$accounts = Account::whereHas('users', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$contacts = Contact::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->paginate(20);
 
-		$companies = Company::whereHas('account', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$companies = Company::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
-				->paginate(20);
+				->get();
 
 		$states = returnStates();
 
 		return view('contacts.createContact', compact(
-						'contact',
 						'contacts',
 						'accounts',
 						'states',

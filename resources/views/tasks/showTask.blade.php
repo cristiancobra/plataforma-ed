@@ -66,8 +66,9 @@
 	</p>
 	<br>
 	<p class="labels">
-		DESCRIÇÃO:<span class="fields">  {!!html_entity_decode($task->description)!!} </span>
+		DESCRIÇÃO:
 	</p>
+		{!!html_entity_decode($task->description)!!}
 	<br>
 	<p class="labels">
 		@if(isset($task->contact->name))
