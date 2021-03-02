@@ -297,10 +297,6 @@ $counter++;
 </table>
 <br>
 <br>
-<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-<span class="fields">{{$invoice->payment_method}}</span>
-<br>
-<br>
 <label class="labels" for="">OBSERVAÇÕES:</label>
 <span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
 <br>

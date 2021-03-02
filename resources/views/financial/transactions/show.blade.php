@@ -44,6 +44,10 @@
 	<p class="labels">
 		VALOR:<span class="fields">{{formatCurrencyReal($transaction->value)}}</span>
 	</p>
+	<p class="labels">
+		MEIO DE PAGAMENTO:<span class="fields">{{$transaction->payment_method}}</span>
+	</p>
+	<br>
 	<br>
 	<p class="labels">
 		SITUAÇAO:<span class="fields">  {{$transaction->status}} </span>

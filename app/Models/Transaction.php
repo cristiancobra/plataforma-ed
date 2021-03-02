@@ -19,6 +19,7 @@ class Transaction extends Model {
 		'pay_day',
 		'value',
 		'observations',
+		'payment_method',
 		'status',
 	];
 	protected $hidden = [

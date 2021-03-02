@@ -311,14 +311,8 @@ CKEDITOR.replace('description');
 			@endforeach
 		</table>
 		@endif
-		<br>
-		<br>
 		<label class="labels" for="" >DESCONTO:</label>
 		<input type="number" min="0" step="any" name="discount" size="20" value="{{$invoice->discount}}"><span class="fields"></span>
-		<br>
-		<br>
-		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-		{{editSelect('payment_method', 'fields', returnPaymentMethods(),$invoice->payment_method)}}
 		<br>
 		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
 		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="{{$invoice->number_installment_total}}">

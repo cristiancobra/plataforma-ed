@@ -21,7 +21,6 @@ return array(
     'App\\Http\\Controllers\\Emails\\EmailController' => $baseDir . '/app/Http/Controllers/Emails/EmailController.php',
     'App\\Http\\Controllers\\Financial\\BankAccountController' => $baseDir . '/app/Http/Controllers/Financial/BankAccountController.php',
     'App\\Http\\Controllers\\Financial\\BankController' => $baseDir . '/app/Http/Controllers/Financial/BankController.php',
-    'App\\Http\\Controllers\\Financial\\BillController' => $baseDir . '/app/Http/Controllers/Financial/BillController.php',
     'App\\Http\\Controllers\\Financial\\InvoiceController' => $baseDir . '/app/Http/Controllers/Financial/InvoiceController.php',
     'App\\Http\\Controllers\\Financial\\PlanningController' => $baseDir . '/app/Http/Controllers/Financial/PlanningController.php',
     'App\\Http\\Controllers\\Financial\\TransactionController' => $baseDir . '/app/Http/Controllers/Financial/TransactionController.php',

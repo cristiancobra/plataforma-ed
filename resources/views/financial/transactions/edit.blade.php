@@ -46,7 +46,7 @@
 		</select>
 		<br>
 		<br>
-		<label for="" >CONTA: </label>
+		<label class="labels" for="" >CONTA: </label>
 		<select name="bank_account_id">
 			@foreach ($bankAccounts as $bankAccount)
 			<option  class="fields" value="{{$bankAccount->id}}">
@@ -55,7 +55,7 @@
 			@endforeach
 		</select>
 		<br>
-		<label for="" >FATURA: </label>
+		<label class="labels" for="" >FATURA: </label>
 		<select name="invoice_id">
 			<option  class="fields" value="{{$transaction->invoice_id}}">
 				{{$transaction->invoice_id}}
@@ -74,17 +74,20 @@
 			@endforeach
 		</select>
 		<br>
-		<label for="" >TIPO: </label>
+		<label class="labels" for="" >TIPO: </label>
 		{{app('request')->input('typeTransactions')}}
 		<br>
 		<label class="labels" for="" >DATA:</label>
 		<input type="date" name="pay_day" size="20" value="{{$transaction->pay_day}}"><span class="fields"></span>
 		<br>
-		<label for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
+		<label class="labels" for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
 		<input type="decimal" name="value" size='6' style="text-align: right" value="{{formatCurrency($transaction->value)}}">
 		@if ($errors->has('value'))
 		<span class="text-danger">{{$errors->first('value')}}</span>
 		@endif
+		<br>
+		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+		{{editSelect('payment_method', 'fields', returnPaymentMethods(),$invoice->payment_method)}}
 		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>

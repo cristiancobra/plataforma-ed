@@ -40,7 +40,16 @@
 		<br>
 		<br>
 		<label for="" >Banco: </label>
-		{{createSelectIdName('bank_id', 'fields', $banks)}}
+		<select name="bank_id">
+			<option  class="fields" value="{{$bankAccount->account_id}}">
+				{{$bankAccount->bank->name}}
+			</option>
+			@foreach ($banks as $bank)
+			<option  class="fields" value="{{$bank->id}}">
+				{{$bank->name}}
+			</option>
+			@endforeach
+		</select>
 		<br>
 		<label for="" >Data de abertura: </label>
 		<input type="date" name="date_creation" value="{{$bankAccount->date_creation}}">

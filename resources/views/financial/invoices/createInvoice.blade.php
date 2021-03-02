@@ -137,6 +137,7 @@ CKEDITOR.replace('description');
 		<br>
 		@endif
 		<label class="labels" for="" >PRODUTOS: </label>
+		{{createButtonAdd('product.create', 'variation', 'receita')}}
 		<table class="table-list">
 			<tr>
 				<td   class="table-list-header">

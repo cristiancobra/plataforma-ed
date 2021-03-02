@@ -31,7 +31,6 @@ class Invoice extends Model {
 		'status',
 		'category',
 		'receipt',
-		'payment_method',
 		'number_installment',
 		'installment_value',
 	];
