@@ -72,6 +72,9 @@
 		não possui
 		@else
 		<select name="opportunity_id">
+			<option  class="fields" value="">
+				não possui
+			</option>
 			@foreach ($opportunities as $opportunity)
 			<option  class="fields" value="{{$opportunity->id}}">
 				{{$opportunity->name}}

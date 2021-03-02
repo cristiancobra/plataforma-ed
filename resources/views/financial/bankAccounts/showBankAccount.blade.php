@@ -31,7 +31,12 @@
 	<br>
 	<label class="labels"  for="" >DATA DE ABERTURA: </label> {{date('d/m/Y', strtotime($bankAccount->date_creation))}}
 	<br>
-	<label class="labels"  for="" >DATA DE FECHAMENTO: </label> {{date('d/m/Y', strtotime($bankAccount->date_closing))}}
+	<label class="labels"  for="" >DATA DE FECHAMENTO: </label>
+	@if($bankAccount->date_closing)
+	{{date('d/m/Y', strtotime($bankAccount->date_closing))}}
+	@else
+	aberta
+	@endif
 	<br>
 	<label class="labels"  for="" >TIPO DE CONTA: </label> {{$bankAccount->type}}
 	<br>

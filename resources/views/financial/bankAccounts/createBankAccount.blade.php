@@ -68,8 +68,8 @@
 		<label for="" >Número da conta: </label>
 		<input type="text" name="account_number" value="{{old('account')}}">
 		<br>
-		<label for="" >Saldo inicial: </label>
-		<input type="decimal" name="opening_balance" value="0">
+		<label for="" >Saldo inicial: </label><span style='margin-left:20px'>  R$</span>
+		<input type="decimal" name="opening_balance" size='6' value="0" style="text-align:right">
 		<br>
 		<br>
 		<label for="" >Observações: </label>

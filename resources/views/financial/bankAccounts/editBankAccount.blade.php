@@ -41,7 +41,7 @@
 		<br>
 		<label for="" >Banco: </label>
 		<select name="bank_id">
-			<option  class="fields" value="{{$bankAccount->account_id}}">
+			<option  class="fields" value="{{$bankAccount->bank_id}}">
 				{{$bankAccount->bank->name}}
 			</option>
 			@foreach ($banks as $bank)
@@ -68,8 +68,8 @@
 		<label for="" >Número da conta:: </label>
 		<input type="text" name="account_number" value="{{$bankAccount->account_number}}">
 		<br>
-		<label for="" >Saldo inicial: </label>
-		<input type="decimal" name="opening_balance" value="{{$bankAccount->opening_balance}}">
+		<label for="" >Saldo inicial: </label><span style='margin-left:20px'>  R$</span>
+		<input type="decimal" name="opening_balance" size='6' value="{{$bankAccount->opening_balance}}" style="text-align:right">
 		<br>
 		<br>
 		<label for="" >Observações: </label>
