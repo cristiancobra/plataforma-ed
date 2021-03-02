@@ -1,12 +1,13 @@
 @extends('layouts/master')
 
-@section('title','MOVIMENTAÇÕES')
+@if(app('request')->input('typeTransactions') == 'crédito')
+@section('title','ENTRADAS')
+@else
+@section('title','SAÍDAS')
+@endif
 
 @section('image-top')
 {{asset('imagens/transaction.png')}} 
-@endsection
-
-@section('description')
 @endsection
 
 @section('buttons')
@@ -17,17 +18,17 @@
 
 @section('main')
 <div>
-	<form action=" {{ route('transaction.update', ['transaction' =>$transaction->id]) }} " method="post" style="color: #874983">
+	<form action=" {{route('transaction.update', ['transaction' =>$transaction->id])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >EMPRESA: </label>
 		<select name="account_id">
-			<option  class="fields" value="{{ $transaction->account->id }}">
-				{{ $transaction->account->name }}
+			<option  class="fields" value="{{$transaction->account->id}}">
+				{{$transaction->account->name}}
 			</option>
 			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
+			<option  class="fields" value="{{$account->id}}">
+				{{$account->name}}
 			</option>
 			@endforeach
 		</select>
@@ -61,23 +62,20 @@
 			</option>
 			@foreach ($invoices as $invoice)
 			<option  class="fields" value="{{$invoice->id}}">
-				{{$invoice->id}}
+				{{$invoice->id}} -
+				@if(isset($invoice->opportunity))
+				{{$invoice->opportunity->company->name}}
+				@else
+				{{$invoice->company->name}}
+				@endif
+				- {{formatCurrencyReal($invoice->totalPrice)}}
+				- {{dateBr($invoice->pay_day)}}
 			</option>
 			@endforeach
 		</select>
 		<br>
 		<label for="" >TIPO: </label>
-		<select name="type">
-			<option  class="fields" value="{{$transaction->type}}">
-				{{$transaction->type}}
-			</option>
-			<option  class="fields" value="crédito">
-				crédito
-			</option>
-			<option  class="fields" value="débito">
-				débito
-			</option>
-		</select>
+		{{app('request')->input('typeTransactions')}}
 		<br>
 		<label class="labels" for="" >DATA:</label>
 		<input type="date" name="pay_day" size="20" value="{{$transaction->pay_day}}"><span class="fields"></span>
@@ -85,7 +83,7 @@
 		<label for="" >VALOR:   R$</label>
 		<input type="decimal" name="value" style="text-align: right; width:120px" value="{{insertCurrencyReal($transaction->value)}}">
 		@if ($errors->has('value'))
-		<span class="text-danger">{{ $errors->first('value') }}</span>
+		<span class="text-danger">{{$errors->first('value')}}</span>
 		@endif
 		<br>
 		<br>

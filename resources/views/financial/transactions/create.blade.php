@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
-@section('title','MOVIMENTAÇÕES')
+@if($typeTransactions == 'receita')
+@section('title','ENTRADAS')
+@else
+@section('title','SAÍDAS')
+@endif
 
 @section('image-top')
 {{ asset('imagens/transaction.png') }} 
@@ -67,7 +71,7 @@
 		<select name="invoice_id">
 			@foreach ($invoices as $invoice)
 			<option  class="fields" value="{{$invoice->id}}">
-				{{$invoice->identifier}} -
+				{{$invoice->id}} -
 				@if(isset($invoice->opportunity))
 				{{$invoice->opportunity->company->name}}
 				@else
@@ -82,16 +86,14 @@
 		<br>
 		<label for="" >TIPO: </label>
 		@if(!empty(app('request')->input('invoiceType')))
+		<input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
 		{{app('request')->input('invoiceType')}}
+		@elseif($typeTransactions == 'receita')
+		crédito
+		<input type='hidden' name='type' value='crédito'>
 		@else
-		<select name="type">
-			<option  class="fields" value="crédito">
-				crédito
-			</option>
-			<option  class="fields" value="débito">
-				débito
-			</option>
-		</select>
+		débito
+		<input type='hidden' name='type' value='débito'>
 		@endif
 		<br>
 		<br>

@@ -29,10 +29,17 @@
 		DATA:<span class="fields">  {{date('d/m/Y', strtotime($transaction->pay_day))}} </span>
 	</p>
 	<p class="labels">
+		@if($transaction->bankAccount)
 		CONTA:<span class="fields">{{$transaction->bankAccount->name}}</span>
+		@else
+		CONTA:<span class="fields">conta excluída</span>
+		@endif
 	</p>
 	<p class="labels">
 		FATURA:<span class="fields">{{$transaction->invoice_id}}</span>
+	</p>
+	<p class="labels">
+		TIPO:<span class="fields">{{$transaction->type}}</span>
 	</p>
 	<p class="labels">
 		VALOR:<span class="fields">{{formatCurrencyReal($transaction->value)}}</span>

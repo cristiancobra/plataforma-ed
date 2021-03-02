@@ -26,7 +26,7 @@ class TransactionController extends Controller {
 //dd($bankAccounts);
 		$transactions = Transaction::whereIn('account_id', userAccounts())
 				->with(['user', 'bankAccount', 'invoice'])
-				->orderBy('PAY_DAY', 'ASC')
+				->orderBy('PAY_DAY', 'DESC')
 				->paginate(20);
 		
 		$revenueMonthly = Transaction::whereIn('account_id', userAccounts())
@@ -49,7 +49,7 @@ class TransactionController extends Controller {
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
 
-		return view('financial.transactions.indexTransactions', compact(
+		return view('financial.transactions.index', compact(
 						'bankAccounts',
 						'transactions',
 						'revenueMonthly',
@@ -64,7 +64,9 @@ class TransactionController extends Controller {
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create() {
+	public function create(Request $request) {
+		$typeTransactions = $request->input('typeTransactions');
+		
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
@@ -75,12 +77,14 @@ class TransactionController extends Controller {
 
 		$invoices = Invoice::whereIn('account_id', userAccounts())
 				->where('status', 'aprovada')
+				->where('type', 'LIKE', $typeTransactions)
 				->orderBy('pay_day', 'ASC')
 				->paginate(20);
-//dd($invoices);
+
 		$users = myUsers();
 
-		return view('financial.transactions.createTransaction', compact(
+		return view('financial.transactions.create', compact(
+						'typeTransactions',
 						'accounts',
 						'bankAccounts',
 						'invoices',
@@ -115,7 +119,7 @@ class TransactionController extends Controller {
 			$transaction->value = str_replace(",",".", $request->value);
 			$transaction->save();
 
-			return view('financial.transactions.showTransaction', compact(
+			return view('financial.transactions.show', compact(
 							'transaction',
 			));
 		}
@@ -128,7 +132,7 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Transaction $transaction) {
-		return view('financial.transactions.showTransaction', compact(
+		return view('financial.transactions.show', compact(
 						'transaction',
 		));
 	}
@@ -154,7 +158,7 @@ class TransactionController extends Controller {
 
 		$users = myUsers();
 
-		return view('financial.transactions.editTransaction', compact(
+		return view('financial.transactions.edit', compact(
 						'transaction',
 						'accounts',
 						'bankAccounts',
@@ -174,7 +178,7 @@ class TransactionController extends Controller {
 		$transaction->fill($request->all());
 		$transaction->save();
 
-		return view('financial.transactions.showTransaction', compact(
+		return view('financial.transactions.show', compact(
 						'transaction',
 		));
 	}
@@ -187,7 +191,7 @@ class TransactionController extends Controller {
 	 */
 	public function destroy(Transaction $transaction) {
 		$transaction->delete();
-		return redirect()->action('Financial\\InvoiceController@index');
+		return redirect()->action('Financial\\TransactionController@index');
 	}
 
 }

@@ -87,25 +87,25 @@
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header" style="width: 15%">
-				<b>ID</b>
+				ID
 			</td>
 			<td   class="table-list-header" style="width: 20%">
-				<b>FUNCIONÁRIO</b>
+				FUNCIONÁRIO
 			</td>
 			<td   class="table-list-header" style="width: 45%">
-				<b>OBSERVAÇÕES</b>
+				OBSERVAÇÕES
 			</td>
 			<td   class="table-list-header" style="width: 5%">
-				<b>DATA </b>
+				DATA 
 			</td>
 			<td   class="table-list-header" style="width: 5%">
-				<b>INÍCIO </b>
+				INÍCIO 
 			</td>
 			<td   class="table-list-header" style="width: 5%">
-				<b>TÉRMINO </b>
+				TÉRMINO 
 			</td>
 			<td   class="table-list-header" style="width: 5%">
-				<b>DURAÇÃO</b>
+				DURAÇÃO
 			</td>
 		</tr>
 		@php
@@ -157,7 +157,7 @@
 		@endforeach
 		<tr>
 			<td   class="table-list-header" style="text-align: right;padding: 5px;padding-right: 25px;font-size: 16px" colspan="7">
-				<b>Tempo total:</b>   {{ number_format($totalDuration / 3600, 1, ',','.')  }}
+				Tempo total:   {{ number_format($totalDuration / 3600, 1, ',','.')  }}
 				<br>
 			</td>
 		</tr>

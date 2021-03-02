@@ -11,39 +11,55 @@ Total: <span class="labels"></span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('transaction.create')}}">
-	CRIAR
+<a class="button-primary"  href="{{route('transaction.create', ['typeTransactions' => 'receita'])}}">
+	REGISTRAR ENTRADA
+</a>
+<a class="button-primary"  href="{{route('transaction.create', ['typeTransactions' => 'despesa'])}}">
+	REGISTRAR SAÍDA
 </a>
 @endsection
 
 @section('main')
 <div>
-	<div  style="display: inline-block">
-		<p style="text-align: left">
-			<label class="labels" for="">PREVISÃO:</label>
-			<br>
+	<div  style="display: inline-block;text-align:right;vertical-align:top;width: 10%">
+		<img src="{{asset('imagens/financial-planning.png')}}" style='display:block;margin:auto;width:80%'>
+	</div>
+	<div  style="display: inline-block;vertical-align:top;width: 20%">
+		<p class="labels" style="text-align:center">
+			PREVISÃO:
+		</p>
+		<p style="text-align:right;font-size:16px">
 			RECEITAS:	+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
 			<br>
 			DESPESAS: - {{formatCurrencyReal($estimatedExpenseMonthly)}}
 			<br>
 			SALDO: {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
-		</p>
-	</div>
-	<div>
-		<p style="text-align: left">
-			<label class="labels" for="">REALIZADO:</label>
 			<br>
+	</div>
+	<div  style="display: inline-block;text-align:right;vertical-align:top;width: 10%">
+		<img src="{{asset('imagens/invoice.png')}}" style='display:block;margin:auto;width:80%'>
+	</div>
+	<div  style="display: inline-block;vertical-align:top;width: 20%">
+		<p class="labels" style="text-align:center">
+			REALIZADO:
+		</p>
+		<p style="text-align:right;font-size:16px">
 			RECEITAS:	+ {{formatCurrencyReal($revenueMonthly)}}
 			<br>
 			DESPESAS: - {{formatCurrencyReal($expenseMonthly)}}
 			<br>
 			SALDO: {{formatCurrencyReal($revenueMonthly - $expenseMonthly)}}
+			<br>
 		</p>
 	</div>
-	<div>
-		<p style="text-align: left">
-			<label class="labels" for="">DISPONÍVEL EM CAIXA:</label>
-			<br>
+	<div  style="display: inline-block;text-align:right;vertical-align:top;width: 10%">
+		<img src="{{asset('imagens/financeiro.png')}}" style='display:block;margin:auto;width:80%'>
+	</div>
+	<div  style="display: inline-block;vertical-align:top;width: 20%">
+		<p class="labels" style="text-align:center">
+			DISPONÍVEL EM CAIXA:
+		</p>
+		<p style="text-align:right;font-size:16px">
 			@foreach($bankAccounts as $bankAccount)
 			{{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->opening_balance)}}
 			<br>
@@ -81,7 +97,10 @@ Total: <span class="labels"></span>
 						<i class='fa fa-eye'></i>
 					</button>
 				</a>
-				<a class="white" href=" {{route('transaction.edit', ['transaction' => $transaction->id])}}">
+				<a class="white" href=" {{route('transaction.edit', [
+					'transaction' => $transaction->id,
+					'typeTransactions' => $transaction->type,
+				])}}">
 					<button class="button-round">
 						<i class='fa fa-edit'></i>
 					</button>
@@ -89,7 +108,11 @@ Total: <span class="labels"></span>
 				{{$transaction->pay_day}}
 			</td>
 			<td class="table-list-center">
+				@if($transaction->bankAccount)
 				{{$transaction->bankAccount->name}}
+				@else
+				conta excluída
+				@endif
 			</td>
 			<td class="table-list-center">
 				{{$transaction->account->name}}
