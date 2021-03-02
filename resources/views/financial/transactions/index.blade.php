@@ -61,7 +61,7 @@ Total: <span class="labels"></span>
 		</p>
 		<p style="text-align:right;font-size:16px">
 			@foreach($bankAccounts as $bankAccount)
-			{{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->opening_balance)}}
+			{{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->revenueTotal)}}
 			<br>
 			@endforeach
 		</p>

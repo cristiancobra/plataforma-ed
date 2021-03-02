@@ -20,15 +20,12 @@ class TransactionController extends Controller {
 	public function index() {
 		$monthStart = date('Y-m-01');
 		$monthEnd = date('Y-m-t');
-		
-		$bankAccounts = BankAccount::whereIn('account_id', userAccounts())
-				->get();
-//dd($bankAccounts);
+
 		$transactions = Transaction::whereIn('account_id', userAccounts())
 				->with(['user', 'bankAccount', 'invoice'])
 				->orderBy('PAY_DAY', 'DESC')
 				->paginate(20);
-		
+
 		$revenueMonthly = Transaction::whereIn('account_id', userAccounts())
 				->where('type', 'crédito')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
@@ -39,7 +36,7 @@ class TransactionController extends Controller {
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
-		
+
 		$expenseMonthly = Transaction::whereIn('account_id', userAccounts())
 				->where('type', 'débito')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
@@ -50,6 +47,21 @@ class TransactionController extends Controller {
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
+
+		$bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+				->get();
+
+		foreach ($bankAccounts as $key => $bankAccount) {
+			$revenueTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+					->where('type', 'crédito')
+					->sum('value');
+			
+			$expenseTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+					->where('type', 'débito')
+					->sum('value');
+			
+			$bankAccount->revenueTotal = $bankAccount->opening_balance + $revenueTotal[$key] - $expenseTotal[$key];
+		}
 
 		return view('financial.transactions.index', compact(
 						'bankAccounts',
@@ -68,7 +80,7 @@ class TransactionController extends Controller {
 	 */
 	public function create(Request $request) {
 		$typeTransactions = $request->input('typeTransactions');
-		
+
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
@@ -118,7 +130,7 @@ class TransactionController extends Controller {
 		} else {
 			$transaction = new Transaction();
 			$transaction->fill($request->all());
-			$transaction->value = str_replace(",",".", $request->value);
+			$transaction->value = str_replace(",", ".", $request->value);
 			$transaction->save();
 
 			return view('financial.transactions.show', compact(
@@ -178,7 +190,7 @@ class TransactionController extends Controller {
 	 */
 	public function update(Request $request, Transaction $transaction) {
 		$transaction->fill($request->all());
-		$transaction->value = str_replace(",",".", $request->value);
+		$transaction->value = str_replace(",", ".", $request->value);
 		$transaction->save();
 
 		return view('financial.transactions.show', compact(
