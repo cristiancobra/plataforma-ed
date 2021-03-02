@@ -158,6 +158,8 @@ class TransactionController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Transaction $transaction) {
+		$typeTransactions = $request->input('typeTransactions');
+		
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
@@ -167,7 +169,9 @@ class TransactionController extends Controller {
 				->paginate(20);
 
 		$invoices = Invoice::whereIn('account_id', userAccounts())
-				->orderBy('ID', 'DESC')
+				->where('status', 'aprovada')
+				->where('type', 'LIKE', $typeTransactions)
+				->orderBy('pay_day', 'ASC')
 				->get();
 
 		$users = myUsers();
