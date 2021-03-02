@@ -35,6 +35,7 @@ class TransactionController extends Controller {
 				->sum('value');
 
 		$estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+				->where('type', 'crédito')
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
@@ -45,6 +46,7 @@ class TransactionController extends Controller {
 				->sum('value');
 
 		$estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+				->where('type', 'débito')
 				->where('status', 'aprovada')
 				->whereBetween('pay_day', [$monthStart, $monthEnd])
 				->sum('installment_value');
