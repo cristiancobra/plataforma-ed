@@ -97,9 +97,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{route('company.create', ['typeCompanies' => 'fornecedor'])}}">
-			CRIAR
-		</a>
+		{{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
 		@else
 		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 		automático
