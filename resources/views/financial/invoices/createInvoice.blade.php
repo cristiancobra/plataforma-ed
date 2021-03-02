@@ -47,7 +47,11 @@
 		</select>
 		@endif
 		<br>
+		@if($typeInvoices == 'receita')
 		<label class="labels" for="" >VENDEDOR: </label>
+		@else
+		<label class="labels" for="" >REGISTRADO POR: </label>
+		@endif
 		<select name="user_id">
 			<option  class="fields" value="{{Auth::user()->id}}">
 				{{Auth::user()->contact->name}}
