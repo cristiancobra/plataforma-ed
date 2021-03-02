@@ -26,9 +26,9 @@ Total: <span class="labels"></span>
 	</div>
 	<div  style="display: inline-block;vertical-align:top;width: 20%">
 		<p class="labels" style="text-align:center">
-			PREVISÃO:
+			FATURAS DE {{strtoupper(returnMonth(date('m')))}}:
 		</p>
-		<p style="text-align:right;font-size:16px">
+		<p style="text-align:right;font-size:14px">
 			RECEITAS:	+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
 			<br>
 			DESPESAS: - {{formatCurrencyReal($estimatedExpenseMonthly)}}
@@ -41,9 +41,9 @@ Total: <span class="labels"></span>
 	</div>
 	<div  style="display: inline-block;vertical-align:top;width: 20%">
 		<p class="labels" style="text-align:center">
-			REALIZADO:
+			 REALIZADO EM {{strtoupper(returnMonth(date('m')))}}:
 		</p>
-		<p style="text-align:right;font-size:16px">
+		<p style="text-align:right;font-size:14px">
 			RECEITAS:	+ {{formatCurrencyReal($revenueMonthly)}}
 			<br>
 			DESPESAS: - {{formatCurrencyReal($expenseMonthly)}}
@@ -59,7 +59,7 @@ Total: <span class="labels"></span>
 		<p class="labels" style="text-align:center">
 			DISPONÍVEL EM CAIXA:
 		</p>
-		<p style="text-align:right;font-size:16px">
+		<p style="text-align:right;font-size:14px">
 			@foreach($bankAccounts as $bankAccount)
 			{{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->revenueTotal)}}
 			<br>
