@@ -87,7 +87,7 @@
 		@endif
 		<br>
 		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-		{{editSelect('payment_method', 'fields', returnPaymentMethods(),$invoice->payment_method)}}
+		{{editSelect('payment_method', 'fields', returnPaymentMethods(),$transaction->payment_method)}}
 		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>

@@ -157,7 +157,7 @@ class TransactionController extends Controller {
 	 * @param  \App\Models\Transaction  $transaction
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit(Transaction $transaction) {
+	public function edit(Request $request, Transaction $transaction) {
 		$typeTransactions = $request->input('typeTransactions');
 		
 		$accounts = Account::whereIn('id', userAccounts())
