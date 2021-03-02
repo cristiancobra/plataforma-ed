@@ -1177,7 +1177,7 @@ if (!function_exists('gerarSenha')) {
 
 	}
 }
-// formata valor inteiro em moeda real
+// formata valor inteiro em moeda real com R$
 if (!function_exists('formatCurrencyReal')) {
 
 	function formatCurrencyReal($value) {
@@ -1185,11 +1185,11 @@ if (!function_exists('formatCurrencyReal')) {
 	}
 
 }
-// formata valor inteiro em moeda real
-if (!function_exists('insertCurrencyReal')) {
+// formata valor inteiro em moeda real SEM R$
+if (!function_exists('formatCurrency')) {
 
-	function insertCurrencyReal($value) {
+	function formatCurrency($value) {
 		return number_format($value, 2, ",", ".");
 	}
 
-}	
+}

@@ -58,9 +58,16 @@
 			@method('delete')
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('transaction.edit', ['transaction' => $transaction->id]) }}">
-			<i class='fa fa-edit'></i>EDITAR</a>
-		<a class="btn btn-secondary" href="{{route('transaction.index')}}">VOLTAR</a>
+		<a class="white" href=" {{route('transaction.edit', [
+					'transaction' => $transaction->id,
+					'typeTransactions' => $transaction->type,
+				])}}">
+			<a class="btn btn-secondary" href=" {{ route('transaction.edit', [
+											'transaction' => $transaction->id,
+											'typeTransactions' => $transaction->type,
+										]) }}">
+				<i class='fa fa-edit'></i>EDITAR</a>
+			<a class="btn btn-secondary" href="{{route('transaction.index')}}">VOLTAR</a>
 	</div>
 </div>
 @endsection

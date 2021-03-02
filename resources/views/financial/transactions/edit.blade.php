@@ -80,8 +80,8 @@
 		<label class="labels" for="" >DATA:</label>
 		<input type="date" name="pay_day" size="20" value="{{$transaction->pay_day}}"><span class="fields"></span>
 		<br>
-		<label for="" >VALOR:   R$</label>
-		<input type="decimal" name="value" style="text-align: right; width:120px" value="{{insertCurrencyReal($transaction->value)}}">
+		<label for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
+		<input type="decimal" name="value" size='6' style="text-align: right" value="{{formatCurrency($transaction->value)}}">
 		@if ($errors->has('value'))
 		<span class="text-danger">{{$errors->first('value')}}</span>
 		@endif

@@ -176,6 +176,7 @@ class TransactionController extends Controller {
 	 */
 	public function update(Request $request, Transaction $transaction) {
 		$transaction->fill($request->all());
+		$transaction->value = str_replace(",",".", $request->value);
 		$transaction->save();
 
 		return view('financial.transactions.show', compact(

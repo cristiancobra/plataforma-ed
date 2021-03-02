@@ -103,14 +103,14 @@
 		<span class="text-danger">{{ $errors->first('pay_day') }}</span>
 		@endif
 		<br>
-		<label for="" >VALOR: </label>
+		<label for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
 		@if ($errors->has('value'))
 		<span class="text-danger">{{ $errors->first('value') }}</span>
 		@endif
 		@if(!empty(app('request')->input('invoiceTotalPrice')))
-		<input type="decimal" name="value" style="text-align: right" value="{{formatCurrencyReal(app('request')->input('invoiceTotalPrice'))}}">
+		<input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(app('request')->input('invoiceTotalPrice'))}}">
 		@else
-		<input type="decimal" name="value" style="text-align: right" value="{{formatCurrencyReal(0)}}">
+		<input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(0)}}">
 		@endif
 		<br>
 		<br>
