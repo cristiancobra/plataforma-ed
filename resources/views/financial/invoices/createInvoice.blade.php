@@ -103,7 +103,14 @@
 		{{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
 		@else
 		<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
-		automático
+		<select name="company_id">
+			@foreach ($companies as $company)
+			<option  class="fields" value="{{$company->id}}">
+				{{$company->name}}
+			</option>
+			@endforeach
+		</select>
+		{{createButtonAdd('company.create', 'typeCompanies','cliente')}}
 		@endif
 		<br>
 		<br>
