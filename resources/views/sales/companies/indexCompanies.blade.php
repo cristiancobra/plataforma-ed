@@ -25,19 +25,19 @@ Total: <span class="labels">{{$totalCompanies}} </span>
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header">
-				<b>Nome</b>
+				Nome
 			</td>
 			<td   class="table-list-header">
-				<b>Email</b>
+				Email
 			</td>
 			<td   class="table-list-header">
-				<b>Telefone</b>
+				Telefone
 			</td>
 			<td   class="table-list-header">
-				<b>Cidade </b>
+				Cidade 
 			</td>
 			<td   class="table-list-header">
-				<b>Dono</b>
+				Dono
 			</td>
 		</tr>
 

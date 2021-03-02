@@ -40,7 +40,7 @@ if (!function_exists('createButtonExternalLink')) {
 // cria um botao com simbolo de FOGUETE que aponta para links externos
 	function createButtonExternalLink($link) {
 		echo "<button class='button-round'>";
-		echo "<a href='//$link'>";
+		echo "<a href='//$link'  target='_blank'>";
 		echo "<i class='fa fa-rocket' style='color:white'></i>";
 		echo "</a>";
 		echo "</button>";

@@ -41,6 +41,7 @@ class OpportunityController extends Controller {
 						$query->where('stage', '=', $request->stage);
 					} else {
 						$query->where('stage', '!=', 'ganhamos');
+						$query->where('stage', '!=', 'perdemos');
 					}
 				})
 				->with([

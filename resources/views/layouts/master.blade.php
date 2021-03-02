@@ -156,6 +156,9 @@
 					<a class="sidebar-subitem" href="{{route('site.index')}}">
 						<i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES
 					</a>
+					<a class="sidebar-subitem" href="{{route('site.index')}}">
+						<i class="fas fa-window-maximize" style="margin-right: 8px"></i>DOMÍNIOS
+					</a>
 					<a class="sidebar-subitem" href="{{route('report.index')}}">
 						<i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIOS
 					</a>
