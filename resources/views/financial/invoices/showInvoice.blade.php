@@ -73,7 +73,7 @@ Sem contrato
 		<i class='fa fa-eye' style="color:white"></i>
 	</a>
 </button>
-@elseif($invoice->company->name)
+@elseif(isset($invoice->company->name))
 <label class="labels" for="" >FORNECEDOR:</label>
 <span class="fields">{{$invoice->company->name}}</span>
 <button class="button-round">
