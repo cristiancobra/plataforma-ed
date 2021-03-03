@@ -161,19 +161,19 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 				</button>
 				{{$invoice->identifier}}
 			</td>
-			@if($invoice->type == 'receita')
+			@if(!$invoice->opportunity)
+			<td class="table-list-center">
+				não possui
+			</td>
+			<td class="table-list-center">
+				sem contato
+			</td>
+			@elseif($invoice->type == 'receita')
 			<td class="table-list-center">
 				{{$invoice->opportunity->name}}
 			</td>
 			<td class="table-list-center">
 				{{$invoice->opportunity->company->name}}
-			</td>
-			@else
-			<td class="table-list-center">
-				Compra de produto
-			</td>
-			<td class="table-list-center">
-				sem contato
 			</td>
 			@endif
 			<td class="table-list-center">
