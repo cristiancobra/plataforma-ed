@@ -35,7 +35,7 @@
 		@csrf
 		<label for="" >EMPRESA: </label>
 		@if(!empty(app('request')->input('accountId')))
-		<input type="hidden" value="{{app('request')->input('accountId')}}">
+		<input type="hidden" name='account_id' value="{{app('request')->input('accountId')}}">
 		{{app('request')->input('accountName')}}
 		@else
 		<select name="account_id">
@@ -71,6 +71,7 @@
 		<br>
 		<label for="" >FATURA: </label>
 		@if(!empty(app('request')->input('invoiceId')))
+		<input type="hidden" name='invoice_id' value="{{app('request')->input('invoiceId')}}">
 		{{app('request')->input('invoiceId')}}
 		@else
 		<select name="invoice_id">
