@@ -35,6 +35,7 @@
 		@csrf
 		<label for="" >EMPRESA: </label>
 		@if(!empty(app('request')->input('accountId')))
+		<input type="hidden" value="{{app('request')->input('accountId')}}">
 		{{app('request')->input('accountName')}}
 		@else
 		<select name="account_id">
