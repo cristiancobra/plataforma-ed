@@ -365,7 +365,9 @@ $counter++;
 <br>
 	<a class="button-secondary" href="{{route('transaction.create', [
 		'invoiceId' => $invoice->identifier,
-		'invoiceType' => $invoice->type,
+		'accountId' => $invoice->account_id,
+		'accountName' => $invoice->account->name,
+		'typeTransactions' => 'receita',
 		'invoiceTotalPrice' => $invoice->totalPrice,
 				
 	])}}">

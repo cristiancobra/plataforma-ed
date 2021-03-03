@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-{{ asset('imagens/invoice.png') }} 
+{{asset('imagens/invoice.png')}} 
 @endsection
 
 @section('description')
@@ -23,7 +23,7 @@
 
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-	{{ Session::get('failed') }}
+	{{Session::get('failed')}}
 	@php
 	Session::forget('failed');
 	@endphp
@@ -117,13 +117,13 @@
 		<label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 		<input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>
 		@if ($errors->has('date_creation'))
-		<span class="text-danger">{{ $errors->first('date_creation') }}</span>
+		<span class="text-danger">{{$errors->first('date_creation')}}</span>
 		@endif
 		<br>
 		<label class="labels" for="" >DATA DO PAGAMENTO:</label>
 		<input type="date" name="pay_day" size="20" value="{{old('pay_day')}}"><span class="fields"></span>
 		@if ($errors->has('pay_day'))
-		<span class="text-danger">{{ $errors->first('pay_day') }}</span>
+		<span class="text-danger">{{$errors->first('pay_day')}}</span>
 		@endif
 		<br>
 		<br>
@@ -218,23 +218,23 @@ CKEDITOR.replace('description');
 			</td>
 
 			<td class="table-list-right">
-				<input type="hidden" name="product_cost[]" size="7" value="{{ $product->cost1 + $product->cost2 + $product->cost3}}" >
-				{{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".") }}
+				<input type="hidden" name="product_cost[]" size="7" value="{{$product->cost1 + $product->cost2 + $product->cost3}}" >
+				{{number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".")}}
 			</td>
 
 			<td class="table-list-right">
-				<input type="hidden" name="product_tax_rate[]" size="7" value="{{ $product->price * $product->tax_rate / 100 }}" >
-				{{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}
+				<input type="hidden" name="product_tax_rate[]" size="7" value="{{$product->price * $product->tax_rate / 100}}" >
+				{{number_format($product->price * $product->tax_rate / 100, 2,",",".")}}
 			</td>
 
 			<td class="table-list-right">
-				<input type="hidden" name="product_margin[]" size="7" value="{{ -$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price }}" >
-				{{ number_format(-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".") }}
+				<input type="hidden" name="product_margin[]" size="7" value="{{-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price}}" >
+				{{number_format(-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".")}}
 			</td>
 
 			<td class="table-list-right">
-				<input type="hidden" name="product_price[]" size="7" value="{{ $product->price}}" >
-				{{ number_format($product->price, 2,",",".") }}
+				<input type="hidden" name="product_price[]" size="7" value="{{$product->price}}" >
+				{{number_format($product->price, 2,",",".")}}
 			</td>
 
 			</tr>
@@ -242,15 +242,15 @@ CKEDITOR.replace('description');
 		</table>
 		<br>
 		<br>
-		<label class="labels" for="" >DESCONTO:</label>
-		<input type="decimal" name="discount" size="20" value="0"><span class="fields"></span>
+		<label class="labels" for="" >DESCONTO:</label><span style='margin-left:20px'>R$</span>
+		<input type="decimal" name="discount"  style="text-align: right" size='6' value="{{formatCurrency(0)}}"><span class="fields"></span>
 		<br>
 		<br>
 		<label class="labels" for="" >MEIO DE PAGAMENTO: </label>
 		{{createSelect('payment_method', 'fields', returnPaymentMethods())}}
 		<br>
 		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
-		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1">
+		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1" max="12">
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>

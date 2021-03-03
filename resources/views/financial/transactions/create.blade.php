@@ -34,6 +34,9 @@
 	<form action=" {{route('transaction.store')}} " method="post" style="color: #874983">
 		@csrf
 		<label for="" >EMPRESA: </label>
+		@if(!empty(app('request')->input('accountId')))
+		{{app('request')->input('accountName')}}
+		@else
 		<select name="account_id">
 			@foreach ($accounts as $account)
 			<option  class="fields" value="{{$account->id}}">
@@ -41,6 +44,7 @@
 			</option>
 			@endforeach
 		</select>
+		@endif
 		<br>
 		<label for="" >REGISTRADO POR:</label>
 		<select name="user_id">
@@ -104,7 +108,7 @@
 		<span class="text-danger">{{$errors->first('pay_day')}}</span>
 		@endif
 		<br>
-		<label for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
+		<label for="">VALOR: </label><span style='margin-left:20px'>R$</span>
 		@if ($errors->has('value'))
 		<span class="text-danger">{{$errors->first('value')}}</span>
 		@endif
