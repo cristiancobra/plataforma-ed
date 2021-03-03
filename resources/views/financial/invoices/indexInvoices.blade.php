@@ -166,7 +166,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 				não possui
 			</td>
 			<td class="table-list-center">
-				sem contato
+				{{$invoice->company->name}}
 			</td>
 			@elseif($invoice->type == 'receita')
 			<td class="table-list-center">
