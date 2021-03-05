@@ -21,14 +21,14 @@
 	{{$opportunity->name}}
 </h1>
 <label class="labels" for="" >EMPRESA: </label>
-<span class="fields">{{$opportunity->account->name }}</span>
+<span class="fields">{{$opportunity->account->name}}</span>
 <br>
 <label class="labels" for="" >RESPONSÁVEL: </label>
-<span class="fields">{{$opportunity->user->contact->name }}</span>
+<span class="fields">{{$opportunity->user->contact->name}}</span>
 <br>
 <br>
 <label class="labels" for="" >EMPRESA CONTRATANTE: </label>
-<span class="fields">{{$opportunity->company->name }}</span>
+<span class="fields">{{$opportunity->company->name}}</span>
 <br>
 <label class="labels" for="" >CONTATO: </label>
 <span class="fields">{{$opportunity->contact->name}}</span>
@@ -51,13 +51,13 @@ indefinida
 <br>
 <div style="background-color: #d7bde2 ;padding: 1%">
 	<label class="labels" for="" >ETAPA DA VENDA:</label>
-	<span class="fields">{{$opportunity->stage }}</span>
+	<span class="fields">{{$opportunity->stage}}</span>
 	<br>
 	<label class="labels" for="" >PRÓXIMO CONTATO:</label>
 	@if($opportunity->date_conclusion == null)
 	indefinido
 	@else
-	<span class="fields">{{ date('d/m/Y', strtotime($opportunity->date_conclusion)) }}</span>
+	<span class="fields">{{date('d/m/Y', strtotime($opportunity->date_conclusion))}}</span>
 	@endif
 </div>
 <br>
@@ -256,7 +256,7 @@ indefinida
 				'typeInvoices' => 'receita',
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
-				'opportunityDescription' => $opportunity->description,
+//				'opportunityDescription' => $opportunity->description,
 //				'opportunityUserName' => $opportunity->user->name,
 //				'opportunityUserId' => $opportunity->user->id,
 				'opportunityAccountName' => $opportunity->account->name,
