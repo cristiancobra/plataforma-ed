@@ -73,7 +73,7 @@
 				Eu
 			</option>
 			@foreach ($users as $user)
-			<option  class="fields" value="{{Auth::user()->id}}">
+			<option  class="fields" value="{{$user->contact_id}}">
 				{{$user->contact->name}}
 			</option>
 			@endforeach
