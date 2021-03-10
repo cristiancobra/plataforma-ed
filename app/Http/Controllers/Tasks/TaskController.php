@@ -42,7 +42,7 @@ class TaskController extends Controller {
 					}
 				})
 				->with('opportunity', 'journeys')
-				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'feito', 'cancelado', 'fazendo')"))
+				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
 				->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 				->orderBy('date_due', 'ASC')
 				->paginate(20);
