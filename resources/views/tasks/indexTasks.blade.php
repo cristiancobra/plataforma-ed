@@ -46,7 +46,7 @@
 		</option>
 	</select>
 	<select class="select"name="user_id">
-		<option  class="select" value="">
+		<option  class="select" value="all">
 			Qualquer funcionário
 		</option>
 		@foreach ($users as $user)

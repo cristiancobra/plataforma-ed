@@ -24,14 +24,16 @@ class TaskController extends Controller {
 	 */
 	public function index(Request $request) {
 		$today = date('Y-m-d');
-		$accountsId = userAccounts();
 
-		$tasks = Task::where(function ($query) use ($accountsId, $request) {
-					$query->whereIn('account_id', $accountsId);
+		$tasks = Task::where(function ($query) use ($request) {
+					$query->whereIn('account_id', userAccounts());
 					if ($request->name) {
 						$query->where('name', 'like', "%$request->name%");
 					}
-					if ($request->user_id) {
+					if ($request->user_id == 'all') {
+//						echo 'todos';
+						$query->where('user_id', '>', 0);
+					} elseif ($request->user_id) {
 						$query->where('user_id', $request->user_id);
 					} else {
 						$query->where('user_id', auth()->user()->id);
@@ -58,11 +60,11 @@ class TaskController extends Controller {
 			'user_id' => $request->user_id,
 		]);
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
+		$contacts = Contact::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$accounts = Account::whereIn('id', $accountsId)
+		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('ID', 'ASC')
 				->get();
 
