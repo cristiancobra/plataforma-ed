@@ -33,6 +33,8 @@ class TaskController extends Controller {
 					}
 					if ($request->user_id) {
 						$query->where('user_id', '=', $request->user_id);
+					} else {
+						$query->where('user_id', '=', auth()->user()->id);
 					}
 					if ($request->contact_id) {
 						$query->where('contact_id', '=', $request->contact_id);
