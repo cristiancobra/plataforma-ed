@@ -27,7 +27,7 @@
 	<a style="text-decoration:none" href="{{route('task.index', [
 				'status' =>"fazer",
 				'contact_id' => "",
-				'user_id' => "",
+				'user_id' => "all",
 				])}}">
 		<div class="tasks-toDo">
 			<p class="numeros_painel">

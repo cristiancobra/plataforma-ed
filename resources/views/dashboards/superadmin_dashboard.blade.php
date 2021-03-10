@@ -34,7 +34,7 @@
 			@csrf
 			<input type="hidden" name="status" value="fazer">
 			<input type="hidden" name="contact_id" value="">
-			<input type="hidden" name="user_id" value="">
+			<input type="hidden" name="user_id" value="all">
 			<input class="button-panel" type="submit" value="VER">
 		</form>
 	</div>
