@@ -99,7 +99,6 @@
 		<span class="text-danger">{{$errors->first('description')}}</span>
 		@endif
 		<textarea id="description" name="description" rows="20" cols="90"  value="{{old('description')}}">
-		{{$task->description}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

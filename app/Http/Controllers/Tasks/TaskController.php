@@ -39,6 +39,9 @@ class TaskController extends Controller {
 					}
 					if ($request->status) {
 						$query->where('status', '=', $request->status);
+					} else {
+						$query->where('status', '=', 'fazer');
+						$query->orWhere('status', '=', 'aguardar');
 					}
 				})
 				->with('opportunity', 'journeys')
@@ -103,7 +106,6 @@ class TaskController extends Controller {
 
 		return view('tasks.createTask', compact(
 			'users',
-			'task',
 			'accounts',
 			'contacts',
 			'today',
