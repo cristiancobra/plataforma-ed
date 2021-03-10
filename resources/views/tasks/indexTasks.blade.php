@@ -78,25 +78,25 @@
 <table class="table-list">
 	<tr>
 		<td   class="table-list-header" style="width: 40%">
-			<b>NOME</b>
+			NOME
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>CONTATO</b>
+			CONTATO
 		</td>
 		<td   class="table-list-header" style="width: 15%">
-			<b>EMPRESA</b>
+			EMPRESA
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>RESPONSÁVEL</b>
+			RESPONSÁVEL
 		</td>
 		<td   class="table-list-header" style="width: 10%">
-			<b>PRAZO</b>
+			PRAZO
 		</td>
 		<td   class="table-list-header" style="width: 5%">
-			<b>PRIORIDADE</b>
+			PRIORIDADE
 		</td>
 		<td   class="table-list-header" style="width: 5%">
-			<b>SITUAÇÃO</b>
+			SITUAÇÃO
 		</td>
 	</tr>
 
@@ -113,7 +113,7 @@
 					<i class='fa fa-edit'></i>
 				</button>
 			</a>
-			<b>{{$task->name}}</b>
+			{{$task->name}}
 		</td>
 
 		<td class="table-list-center">
@@ -141,13 +141,13 @@
 			@endif
 		</td>
 		{{formatPriority($task)}}
-		@if($task->status == 'fazer' AND $task->journeys()->exists())
-		<td class="td-doing">
-			andamento
-		</td>
-		@elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+		@if($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
 		<td class="td-late">
 			atrasada
+		</td>
+		@elseif($task->status == 'fazer' AND $task->journeys()->exists())
+		<td class="td-doing">
+			fazendo
 		</td>
 		@else
 		{{formatStatus($task)}}
