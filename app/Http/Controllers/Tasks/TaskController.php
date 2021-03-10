@@ -42,7 +42,7 @@ class TaskController extends Controller {
 					}
 				})
 				->with('opportunity', 'journeys')
-				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
+//				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
 				->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 				->orderBy('date_due', 'ASC')
 				->paginate(20);
@@ -79,26 +79,19 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$task = new Task();
-
-		$accountsId = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
-				})
-				->pluck('id');
-
-		$accounts = Account::whereHas('users', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$contacts = Contact::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$users = User::whereHas('accounts', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$users = User::whereHas('accounts', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->with('contact')
 				->get();
@@ -108,16 +101,16 @@ class TaskController extends Controller {
 		$status = returnStatus();
 		$priorities = returnPriorities();
 
-		return view('tasks.createTask', [
-			'users' => $users,
-			'task' => $task,
-			'accounts' => $accounts,
-			'contacts' => $contacts,
-			'today' => $today,
-			'departments' => $departments,
-			'status' => $status,
-			'priorities' => $priorities,
-		]);
+		return view('tasks.createTask', compact(
+			'users',
+			'task',
+			'accounts',
+			'contacts',
+			'today',
+			'departments',
+			'status',
+			'priorities',
+		));
 	}
 
 	/**
@@ -127,7 +120,6 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-
 		$task = new Task();
 		$task->fill($request->all());
 		$task->status = 'fazer';
@@ -151,12 +143,13 @@ class TaskController extends Controller {
 		} else {
 			$task->save();
 
-			$journeys = Journey::where('task_id', $task->id)->get();
+			$journeys = Journey::where('task_id', $task->id)
+					->get();
 
-			return view('tasks.showTask', [
-				'task' => $task,
-				'journeys' => $journeys,
-			]);
+			return view('tasks.showTask', compact(
+				'task',
+				'journeys',
+			));
 		}
 	}
 
