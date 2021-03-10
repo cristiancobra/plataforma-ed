@@ -32,18 +32,17 @@ class TaskController extends Controller {
 						$query->where('name', 'like', "%$request->name%");
 					}
 					if ($request->user_id) {
-						$query->where('user_id', '=', $request->user_id);
+						$query->where('user_id', $request->user_id);
 					} else {
-						$query->where('user_id', '=', auth()->user()->id);
+						$query->where('user_id', auth()->user()->id);
 					}
 					if ($request->contact_id) {
-						$query->where('contact_id', '=', $request->contact_id);
+						$query->where('contact_id', $request->contact_id);
 					}
 					if ($request->status) {
-						$query->where('status', '=', $request->status);
+						$query->where('status', $request->status);
 					} else {
-						$query->where('status', '=', 'fazer');
-						$query->orWhere('status', '=', 'aguardar');
+						$query->where('status', 'fazer');
 					}
 				})
 				->with('opportunity', 'journeys')
