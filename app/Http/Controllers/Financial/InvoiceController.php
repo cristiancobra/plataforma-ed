@@ -139,6 +139,7 @@ class InvoiceController extends Controller {
 	 */
 	public function create(Request $request) {
 		$typeInvoices = $request->input('typeInvoices');
+		
 		if($typeInvoices == 'receita') {
 			$typeCompanies = 'cliente';
 		} else {
@@ -257,9 +258,10 @@ class InvoiceController extends Controller {
 					$totalPrice = $totalPrice + $data['subtotalPrice'];
 					$totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
 					invoiceLine::insert($data);
+//					dd($request->product_margin [$key]);
 				}
 			}
-			$invoice->totalPrice = $totalPrice - $request->discount;
+			$invoice->totalPrice = $totalPrice - str_replace(",",".",$request->discount);
 			$invoice->number_installment = 1;
 			$invoice->number_installment_total = $request->number_installment_total;
 			$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;

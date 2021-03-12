@@ -176,7 +176,7 @@ Sem contrato
 			desconto: 
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			- {{number_format($invoice->discount, 2,",",".")}}
+			- {{formatCurrencyReal($invoice->discount}}
 		</td>
 	</tr>
 	<tr>
@@ -187,7 +187,7 @@ Sem contrato
 		</td>
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
+			{{formatCurrencyReal($invoice->totalPrice)}}
 		</td>
 	</tr>
 	<tr>

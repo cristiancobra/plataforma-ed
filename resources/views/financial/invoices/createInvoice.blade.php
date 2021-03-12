@@ -152,31 +152,25 @@ CKEDITOR.replace('description');
 		@endif
 		<table class="table-list">
 			<tr>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 5%">
 					QTDE 
 				</td>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 5%">
 					FOTO 
 				</td>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 50%">
 					NOME 
 				</td>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 10%">
 					HORAS
 				</td>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 10%">
 					ENTREGA
 				</td>
-				<td   class="table-list-header">
-					CUSTOS
-				</td>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 10%">
 					IMPOSTO
 				</td>
-				<td   class="table-list-header">
-					MARGEM
-				</td>
-				<td   class="table-list-header">
+				<td   class="table-list-header" style="width: 10%">
 					PREÇO
 				</td>
 			</tr>
@@ -217,24 +211,18 @@ CKEDITOR.replace('description');
 				{{number_format($product->work_hours)}} dia(s)
 			</td>
 
-			<td class="table-list-right">
-				<input type="hidden" name="product_cost[]" size="7" value="{{$product->cost1 + $product->cost2 + $product->cost3}}" >
-				{{number_format($product->cost1 + $product->cost2 + $product->cost3, 2,",",".")}}
-			</td>
+			<input type="hidden" name="product_cost[]" size="7" value="{{$product->cost1 + $product->cost2 + $product->cost3}}" >
 
 			<td class="table-list-right">
 				<input type="hidden" name="product_tax_rate[]" size="7" value="{{$product->price * $product->tax_rate / 100}}" >
-				{{number_format($product->price * $product->tax_rate / 100, 2,",",".")}}
+				{{formatCurrencyReal($product->price * $product->tax_rate / 100)}}
 			</td>
 
-			<td class="table-list-right">
-				<input type="hidden" name="product_margin[]" size="7" value="{{-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price}}" >
-				{{number_format(-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,",",".")}}
-			</td>
+			<input type="hidden" name="product_margin[]" size="7" value="{{-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price}}" >
 
-			<td class="table-list-right">
+			<td class="table-list-right" style='color:white;background-color: #c28dbf'>
 				<input type="hidden" name="product_price[]" size="7" value="{{$product->price}}" >
-				{{number_format($product->price, 2,",",".")}}
+				{{formatCurrencyReal($product->price)}}
 			</td>
 
 			</tr>
