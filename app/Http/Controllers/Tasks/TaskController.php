@@ -47,7 +47,11 @@ class TaskController extends Controller {
 						$query->where('status', 'fazer');
 					}
 				})
-				->with('opportunity', 'journeys')
+				->with(
+					'opportunity',
+					'journeys',
+					'user.contact',
+				)
 //				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
 				->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
 				->orderBy('date_due', 'ASC')
@@ -108,13 +112,13 @@ class TaskController extends Controller {
 		$priorities = returnPriorities();
 
 		return view('tasks.createTask', compact(
-			'users',
-			'accounts',
-			'contacts',
-			'today',
-			'departments',
-			'status',
-			'priorities',
+						'users',
+						'accounts',
+						'contacts',
+						'today',
+						'departments',
+						'status',
+						'priorities',
 		));
 	}
 
@@ -152,8 +156,8 @@ class TaskController extends Controller {
 					->get();
 
 			return view('tasks.showTask', compact(
-				'task',
-				'journeys',
+							'task',
+							'journeys',
 			));
 		}
 	}
@@ -180,30 +184,25 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(task $task) {
-		$accountsID = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
-				})
-				->pluck('id');
-
-		$accounts = Account::whereHas('users', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$contacts = Contact::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
+		$contacts = Contact::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$tasks = Task::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
+		$tasks = Task::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->with('contact')
 				->paginate(20);
 
-		$users = User::whereHas('accounts', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID);
+		$users = User::whereHas('accounts', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
@@ -211,16 +210,16 @@ class TaskController extends Controller {
 		$status = returnStatus();
 		$priorities = returnPriorities();
 
-		return view('tasks.editTask', [
-			'users' => $users,
-			'task' => $task,
-			'tasks' => $tasks,
-			'accounts' => $accounts,
-			'contacts' => $contacts,
-			'departments' => $departments,
-			'status' => $status,
-			'priorities' => $priorities,
-		]);
+		return view('tasks.editTask', compact(
+			'users',
+			'task',
+			'tasks',
+			'accounts',
+			'contacts',
+			'departments',
+			'status',
+			'priorities',
+		));
 	}
 
 	/**

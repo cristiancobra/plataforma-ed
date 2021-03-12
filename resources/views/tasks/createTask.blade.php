@@ -28,7 +28,10 @@
 	<form action=" {{ route('task.store') }} " method="post" style="color: #874983">
 		@csrf
 		<label class="labels" for="" >NOME:</label>
-		@if(!empty(app('request')->input('taskName')))
+		@if ($errors->has('name'))
+		<input type="text" name="name" value="{{old('name')}}">
+		<span class="text-danger">{{ $errors->first('name') }}</span>
+		@elseif(!empty(app('request')->input('taskName')))
 		{{app('request')->input('taskName')}}
 		<input type="hidden" name="name"value="{{app('request')->input('taskName')}}">
 		@else
@@ -73,7 +76,7 @@
 				Eu
 			</option>
 			@foreach ($users as $user)
-			<option  class="fields" value="{{$user->contact_id}}">
+			<option  class="fields" value="{{$user->id}}">
 				{{$user->contact->name}}
 			</option>
 			@endforeach
