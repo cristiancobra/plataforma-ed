@@ -176,7 +176,7 @@ Sem contrato
 			desconto: 
 		</td>
 		<td   class="table-list-header-right" colspan="2">
-			- {{formatCurrencyReal($invoice->discount}}
+			- {{formatCurrencyReal($invoice->discount)}}
 		</td>
 	</tr>
 	<tr>
