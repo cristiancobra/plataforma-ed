@@ -253,31 +253,31 @@ indefinida
 </table>
 <br>
 <div id='faturas' style="text-align:right">
-	<a class="button-secondary" href="{{route('invoice.create', [
-				'typeInvoices' => 'receita',
-				'opportunityName' => $opportunity->name,
-				'opportunityId' => $opportunity->id,
-//				'opportunityDescription' => $opportunity->description,
-//				'opportunityUserName' => $opportunity->user->name,
-//				'opportunityUserId' => $opportunity->user->id,
-				'opportunityAccountName' => $opportunity->account->name,
-				'opportunityAccountId' => $opportunity->account->id,
-				'opportunityCompanyName' => $opportunity->company->name,
-				'opportunityCompanyId' => $opportunity->company->id,
-				'invoiceStatus' => 'orçamento',
-				'department' => "vendas",
-				])}}">
-		GERAR ORÇAMENTO
-	</a>
 	<form  style='text-decoration: none;display: inline-block' method='POST' action='{{route('invoice.create')}}'>
-		    <input type='hidden' name='typeInvoices' value='receita'>
-		    <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
-		    <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
-		    <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-		    <input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
-		    <input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
-		    <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
-		    <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
+		<input type='hidden' name='typeInvoices' value='receita'>
+		<input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
+		<input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
+		<input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
+		<input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
+		<input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
+		<input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
+		<input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
+		<input type='hidden' name='department' value='vendas'>
+		<input type='hidden' name='invoiceStatus' value='orçamento'>
+		@csrf
+		@method('post')
+		<input class="button-secondary" type="submit" value="GERAR ORÇAMENTO">
+	</form>
+	<form  style='text-decoration: none;display: inline-block' method='POST' action='{{route('invoice.create')}}'>
+		<input type='hidden' name='typeInvoices' value='receita'>
+		<input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
+		<input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
+		<input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
+		<input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
+		<input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
+		<input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
+		<input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
+		<input type='hidden' name='department' value='vendas'>
 		@csrf
 		@method('post')
 		<input class="button-secondary" type="submit" value="GERAR FATURA">
