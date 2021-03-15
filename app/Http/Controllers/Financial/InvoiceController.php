@@ -48,13 +48,13 @@ class InvoiceController extends Controller {
 						})
 						->get();
 					}
-					if ($request->contact_id) {
-						$query->where('contact_id', $request->contact_id);
-						$query->whereHas('opportunity', function($query) use($request) {
-							$query->where('contact_id', $request->contact_id);
-						})
-						->get();
-					}
+//					if ($request->contact_id) {
+//						$query->where('contact_id', $request->contact_id);
+//						$query->whereHas('opportunity', function($query) use($request) {
+//							$query->where('contact_id', $request->contact_id);
+//						})
+//						->get();
+//					}
 					if ($request->status) {
 						$query->where('status', '=', $request->status);
 					}
@@ -81,7 +81,7 @@ class InvoiceController extends Controller {
 		$contacts = Contact::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
-		
+
 		$companies = Company::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
@@ -139,8 +139,8 @@ class InvoiceController extends Controller {
 	 */
 	public function create(Request $request) {
 		$typeInvoices = $request->input('typeInvoices');
-		
-		if($typeInvoices == 'receita') {
+
+		if ($typeInvoices == 'receita') {
 			$typeCompanies = 'cliente';
 		} else {
 			$typeCompanies = 'fornecedor';
@@ -261,7 +261,7 @@ class InvoiceController extends Controller {
 //					dd($request->product_margin [$key]);
 				}
 			}
-			$invoice->totalPrice = $totalPrice - str_replace(",",".",$request->discount);
+			$invoice->totalPrice = $totalPrice - str_replace(",", ".", $request->discount);
 			$invoice->number_installment = 1;
 			$invoice->number_installment_total = $request->number_installment_total;
 			$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
@@ -308,11 +308,6 @@ class InvoiceController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Invoice $invoice) {
-//		$invoice = Invoice::where('id', $invoice->id)
-//				->with(['invoiceLines.product', 'contract', 'user.contact'])
-//				->first();
-//		dd($invoice);
-
 		$invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
 				->orderBy('PAY_DAY', 'ASC')
 				->get();
@@ -321,7 +316,6 @@ class InvoiceController extends Controller {
 					$query->where('opportunity_id', $invoice->opportunity_id);
 				})
 				->get();
-//		dd($invoice->opportunity_id);
 
 		$totalInvoices = $invoices->count();
 
@@ -428,6 +422,7 @@ class InvoiceController extends Controller {
 
 			$invoice->fill($request->all());
 
+			// se for aprovada pega o ultimo IDENTIFIER e soma 1, senão atribui 0
 			if ($invoice->identifier == 0 AND $request->status == "aprovada" OR $request->status == "paga") {
 				if ($lastInvoice->identifier > 0) {
 					$invoice->identifier = $lastInvoice->identifier + 1;
@@ -437,6 +432,7 @@ class InvoiceController extends Controller {
 			}
 			$invoice->save();
 
+			// atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
 			$totalPrice = 0;
 			$totalTaxrate = 0;
 			$products = $request['product_id'];
@@ -465,9 +461,8 @@ class InvoiceController extends Controller {
 						}
 					}
 				}
-				$totalPrice = 0;
-				$totalTaxrate = 0;
 
+				// adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
 				$newProducts = $request['new_product_id'];
 				foreach ($newProducts as $key => $newProductId) {
 					if ($request->new_product_amount[$key] > 0) {
@@ -487,7 +482,11 @@ class InvoiceController extends Controller {
 						invoiceLine::insert($data);
 					}
 				}
+				$invoice->totalPrice = $totalPrice - str_replace(",", ".", $request->discount);
+				$invoice->number_installment_total = $request->number_installment_total;
+				$invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
 			}
+
 			$invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
 					->orderBy('PAY_DAY', 'ASC')
 					->get();
@@ -497,9 +496,6 @@ class InvoiceController extends Controller {
 			$invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
 					->with('product', 'opportunity')
 					->get();
-
-//			$invoice->totalPrice = $invoiceLines->sum('subtotalPrice');
-//			$invoice->installment_value = $invoice->totalPrice / $invoi;
 
 			$invoice->save();
 

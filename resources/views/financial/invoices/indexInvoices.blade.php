@@ -101,19 +101,6 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 			todas
 		</option>
 	</select>
-	<select class="select" name="contact_id">
-		<option  class="select" value="">
-			Qualquer cliente
-		</option>
-		@foreach ($contacts as $contact)
-		<option  class="select" value="{{$contact->id}}">
-			{{$contact->name}}
-		</option>
-		@endforeach
-		<option  class="fields" value="">
-			todas
-		</option>
-	</select>
 	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
 	{{returnType('status', 'select', 'invoice')}}
 	<br>

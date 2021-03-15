@@ -91,14 +91,6 @@ Sem contrato
 </button>
 @endif
 <br>
-@if(isset($invoice->opportunity_id))
-<label class="labels" for="" >CONTATO:</label>
-<span class="fields">{{$invoice->opportunity->contact->name}}</span>
-<a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
-	<i class='fa fa-eye' style="color:white"></i>
-</a>
-@endif
-<br>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 <span class="fields">{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>

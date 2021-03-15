@@ -206,7 +206,7 @@ CKEDITOR.replace('description');
 					desconto: 
 				</td>
 				<td   class="table-list-header-right">
-					- {{number_format($invoice->discount, 2,",",".")}}
+					- {{formatCurrencyReal($invoice->discount)}}
 				</td>
 			</tr>
 			<tr>
@@ -216,7 +216,7 @@ CKEDITOR.replace('description');
 				</td>
 				</td>
 				<td   class="table-list-header-right">
-					R$ {{number_format($invoice->totalPrice, 2,",",".") }}
+					{{formatCurrencyReal($invoice->totalPrice)}}
 				</td>
 			</tr>
 		</table>
@@ -311,11 +311,12 @@ CKEDITOR.replace('description');
 			@endforeach
 		</table>
 		@endif
-		<label class="labels" for="" >DESCONTO:</label>
-		<input type="number" min="0" step="any" name="discount" size="20" value="{{$invoice->discount}}"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >DESCONTO:   R$</label>
+		<input type="number"  name="discount" size="7" step='any' style="text-align:right"value="{{formatCurrency($invoice->discount)}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >NÚMERO DE PARCELAS: </label>
-		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="{{$invoice->number_installment_total}}">
+		<input type="number"  class="fields" style="text-align: right" name="number_installment_total" max='18' value="{{$invoice->number_installment_total}}">
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
