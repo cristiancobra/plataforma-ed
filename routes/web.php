@@ -60,6 +60,7 @@ Route::resource('contas-bancarias', 'Financial\\BankAccountController')
 		->parameters(['contas-bancarias' => 'bankAccount'])
 		->middleware('roles');
 
+// faturas
 Route::get('faturas/enviar', function() {
 	return new \App\Mail\invoices();
 })
@@ -78,19 +79,33 @@ Route::any('/faturas/filtros', 'Financial\\InvoiceController@index')
 		->name('invoice.index')
 		->middleware('roles');
 
+Route::any('faturas/gerar/{invoice}',  'Financial\\InvoiceController@generateInstallment')
+		->name('invoice.installment')
+		->middleware('roles');
+
+Route::match(['get', 'post'], '/faturas/novo', 'Financial\\InvoiceController@create')
+		->name('invoice.create')
+		->middleware('roles');
+		
 Route::resource('faturas', 'Financial\\InvoiceController')
-		->except(['index'])
+		->except([
+			'index',
+			'create'
+			])
 		->names('invoice')
 		->parameters(['faturas' => 'invoice'])
 		->middleware('roles');
 
+// planejamento financeiro
 Route::resource('planejamentos', 'Financial\\PlanningController')
 		->names('planning')
 		->parameters(['planejamentos' => 'planning'])
 		->middleware('roles');
 
+// dashboar financeiro
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
+// movimentações financeiras
 Route::resource('movimentacoes', 'Financial\\TransactionController')
 		->names('transaction')
 		->parameters(['movimentacoes' => 'transaction'])
@@ -182,6 +197,13 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
+Route::get('contatos/enviar-email', function() {
+//	return new \App\Mail\direct_message();
+	Illuminate\Support\Facades\Mail::Send(new App/Mail/direct_message);
+});
+//		->name('contact.email')
+//		->middleware('roles');
+
 Route::any('/contatos/filtros', 'Contact\\ContactController@index')
 		->name('contact.index')
 		->middleware('roles');
