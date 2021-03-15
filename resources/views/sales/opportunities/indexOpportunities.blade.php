@@ -84,11 +84,13 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 		<td class="table-list-left">
 			<button class="button-round">
 				<a href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
-					<i class='fa fa-eye' style="color:white"></i></a>
+					<i class='fa fa-eye' style="color:white"></i>
+				</a>
 			</button>
 			<button class="button-round">
 				<a href=" {{ route('opportunity.edit', ['opportunity' => $opportunity->id]) }}">
-					<i class='fa fa-edit' style="color:white"></i></a>
+					<i class='fa fa-edit' style="color:white"></i>
+				</a>
 			</button>
 			{{$opportunity->name}}
 		</td>

@@ -136,7 +136,8 @@ indefinida
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{route('task.create', [
+<div id='tarefas' style="text-align:right">
+	<a class="button-secondary" href="{{route('task.create', [
 				'taskName' =>"Enviar material",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -146,9 +147,9 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				'department' => "vendas",
 				])}}">
-	ENVIAR MATERIAL
-</a>
-<a class="btn btn-secondary" href="{{route('task.create', [
+		ENVIAR MATERIAL
+	</a>
+	<a class="button-secondary" href="{{route('task.create', [
 				'taskName' =>"Reunião",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -158,9 +159,9 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				'department' => "vendas",
 				])}}">
-	AGENDAR REUNIÃO
-</a>
-<a class="btn btn-secondary" href="{{route('task.create', [
+		AGENDAR REUNIÃO
+	</a>
+	<a class="button-secondary" href="{{route('task.create', [
 				'taskName' =>"Fazer proposta",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -170,9 +171,9 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				'department' => "vendas",
 				])}}">
-	FAZER ORÇAMENTO
-</a>
-<a class="btn btn-secondary" href="{{route('task.create', [
+		FAZER ORÇAMENTO
+	</a>
+	<a class="button-secondary" href="{{route('task.create', [
 				'taskName' =>"Fazer contrato",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -182,10 +183,9 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				'department' => "vendas",
 				])}}">
-	FAZER CONTRATO
-</a>
-<br>
-<br>
+		FAZER CONTRATO
+	</a>
+</div>
 <br>
 <br>
 <div style="display: inline-block">
@@ -252,7 +252,8 @@ indefinida
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{route('invoice.create', [
+<div id='faturas' style="text-align:right">
+	<a class="button-secondary" href="{{route('invoice.create', [
 				'typeInvoices' => 'receita',
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
@@ -266,23 +267,22 @@ indefinida
 				'invoiceStatus' => 'orçamento',
 				'department' => "vendas",
 				])}}">
-	GERAR ORÇAMENTO
-</a>
-<a class="btn btn-secondary" href="{{route('invoice.create', [
-				'typeInvoices' => 'receita',
-				'opportunityName' => $opportunity->name,
-				'opportunityId' => $opportunity->id,
-				'opportunityDescription' => $opportunity->description,
-				'opportunityAccountName' => $opportunity->account->name,
-				'opportunityAccountId' => $opportunity->account->id,
-				'opportunityCompanyName' => $opportunity->company->name,
-				'opportunityCompanyId' => $opportunity->company->id,
-				'department' => "vendas",
-				])}}">
-	GERAR FATURA
-</a>
-<br>
-<br>
+		GERAR ORÇAMENTO
+	</a>
+	<form  style='text-decoration: none;display: inline-block' method='POST' action='{{route('invoice.create')}}'>
+		    <input type='hidden' name='typeInvoices' value='receita'>
+		    <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
+		    <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
+		    <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
+		    <input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
+		    <input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
+		    <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
+		    <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
+		@csrf
+		@method('post')
+		<input class="button-secondary" type="submit" value="GERAR FATURA">
+	</form>
+</div>
 <br>
 <br>
 <div style="display: inline-block">
@@ -355,7 +355,8 @@ indefinida
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{ route('contract.create', [
+<div id='contratos' style="text-align:right">
+	<a class="button-secondary" href="{{ route('contract.create', [
 				'opportunityName' => $opportunity->name,
 				'opportunityId' => $opportunity->id,
 				'opportunityDescription' => $opportunity->description,
@@ -368,10 +369,9 @@ indefinida
 				'contractStatus' => 'pendente',
 				'department' => "vendas",
 				])}}">
-	GERAR CONTRATO
-</a>
-<br>
-<br>
+		GERAR CONTRATO
+	</a>
+</div>
 <br>
 <br>
 <div style="display: inline-block">
@@ -445,7 +445,8 @@ indefinida
 	@endforeach
 </table>
 <br>
-<a class="btn btn-secondary" href="{{route('task.create', [
+<div id='produção' style="text-align:right">
+	<a class="button-secondary" href="{{route('task.create', [
 				'taskName' =>"PRODUZIR: $opportunity->name",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -455,9 +456,9 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				'department' => "produção",
 				])}}">
-	SOLICITAR  PRODUÇÃO
-</a>
-<a class="btn btn-secondary" href="{{route('task.create', [
+		SOLICITAR  PRODUÇÃO
+	</a>
+	<a class="button-secondary" href="{{route('task.create', [
 				'taskName' =>"ENTREGAR: $opportunity->name",
 				'opportunityId' => $opportunity->id,
 				'opportunityName' => $opportunity->name,
@@ -467,23 +468,26 @@ indefinida
 				'taskAccountId' => $opportunity->account->id,
 				'department' => "vendas",
 				])}}">
-	REALIZAR ENTREGA
-</a>
-<br>
+		REALIZAR ENTREGA
+	</a>
+</div>
 <br>
 <br>
 <p class="labels">  Criado em:   {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
 
-<div style="text-align:right;padding: 2%">
-	<form   style="text-decoration: none;display: inline-block" action="{{ route('opportunity.destroy', ['opportunity' => $opportunity->id]) }}" method="post">
+<div style='text-align:right'>
+	<form   style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}" method="post">
 		@csrf
 		@method('delete')
 		<input class="btn btn-danger" type="submit" value="APAGAR">
 	</form>
-	<a class="btn btn-secondary" href=" {{ route('opportunity.edit', ['opportunity' => $opportunity->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
-		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('opportunity.index')}}">VOLTAR</a>
+	<a class="button-secondary" href=" {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}" style="text-decoration: none;display: inline-block">
+		<i class='fa fa-edit'></i>EDITAR
+	</a>
+	<a class="button-secondary" href="{{route('opportunity.index')}}">
+		VOLTAR
+	</a>
 </div>
 <br>
-
+<br>
 @endsection
