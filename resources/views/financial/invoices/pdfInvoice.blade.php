@@ -84,11 +84,8 @@
 				<td class="table-list-header" style="width: 10%">
 					QTDE
 				</td>
-				<td   class="table-list-header" style="width: 50%">
+				<td   class="table-list-header" style="width: 60%">
 					NOME
-				</td>
-				<td   class="table-list-header" style="width: 10%">
-					ENTREGA
 				</td>
 				<td   class="table-list-header" style="width: 10%">
 					IMPOSTO
@@ -109,9 +106,6 @@
 				<td class="table-list-left">
 					{{ $invoiceLine->product->name}}
 				</td>
-				<td class="table-list-center">
-					{{$invoiceLine->amount * $invoiceLine->product->due_date}} dia(s)
-				</td>
 				<td class="table-list-right">
 					{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
 				</td>
@@ -130,7 +124,7 @@
 			@endforeach
 
 			<tr>
-				<td   class="table-list-header-right" style="font-size: 14px" colspan="4">
+				<td   class="table-list-header-right" style="font-size: 14px" colspan="3">
 					desconto: 
 				</td>
 				<td   class="table-list-header-right" style="font-size: 14px" colspan="2">
@@ -138,7 +132,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right"  style="font-size: 14px" colspan="4">
+				<td   class="table-list-header-right"  style="font-size: 14px" colspan="3">
 					TOTAL: 
 				</td>
 				<td   class="table-list-header-right"   style="font-size: 14px" colspan="2">
@@ -147,7 +141,7 @@
 			</tr>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right" colspan="4">
+				<td   class="table-list-header-right" colspan="3">
 					PARCELAMENTO: 
 				</td>
 				<td   class="table-list-header-right" colspan="2">
