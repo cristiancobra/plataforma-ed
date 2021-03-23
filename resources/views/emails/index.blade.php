@@ -20,9 +20,9 @@
 	<p style="text-align: center;width: 100%">
 		Configure seu email no celular ou gerenciador de email:
 		<br>
-		<b>Servidor de entrada: </b>acadia.mxroute.com  --  IMAP Port: 993
+		Servidor de entrada: acadia.mxroute.com  --  IMAP Port: 993
 		<br>
-		<b>Servidor de saída: </b>acadia.mxroute.com   --   SMTP Port: 465
+		Servidor de saída: acadia.mxroute.com   --   SMTP Port: 465
 	</p>
 </div>
 
@@ -34,19 +34,19 @@
 	<table class="table-list">
 		<tr>
 			<td   class="table-list-header">
-				<b>Conta</b>
+				TÍTULO
 			</td>
 			<td   class="table-list-header">
-				<b>Dono </b>
+				ESCRITO POR 
 			</td>
 			<td   class="table-list-header">
-				<b>Espaço </b>
+				Espaço 
 			</td>
 			<td   class="table-list-header">
-				<b>Senha</b>
+				Senha
 			</td>
 			<td   class="table-list-header">
-				<b>Status</b>
+				Status
 			</td>
 		</tr>
 
@@ -56,31 +56,31 @@
 					<a class="button-round" href=" https://empresadigital.net.br/webmail" target="_blank">
 						<i class='fa fa-envelope'></i>
 					</a>
-					<a class="button-round" href=" {{ route('email.show', ['email' => $email]) }}">
+					<a class="button-round" href=" {{route('email.show', ['email' => $email])}}">
 						<i class='fa fa-eye'></i>
 					</a>
-				{{$email->email}}
+				{{$email->title}}
 			</td>
 			<td class="table-list-center">
 				{{$email->user->contact->name}}
 			</td>
 			<td class="table-list-center">
-				<b>{{ $email->storage}}</b>
+				{{$email->storage}}
 			</td>
 			<td class="table-list-center">
-				<b>{{ $email->email_password }} </b>
+				{{$email->email_password}} 
 			</td>
 			@if ($email->status == "desativado")
 			<td class="button-disable">
-				<b>{{ $email->status  }}</b>
+				{{$email->status }}
 			</td>
 			@elseif ($email->status == "ativo")
 			<td class="button-active">
-				<b>{{ $email->status  }}</b>
+				{{$email->status }}
 			</td>
 			@else ($email->status == "pendente")
 			<td class="button-delete">
-				<b>{{ $email->status  }}</b>
+				{{$email->status }}
 			</td>
 			@endif
 		</tr>

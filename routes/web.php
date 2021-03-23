@@ -43,10 +43,6 @@ Route::resource('accounts', 'Accounts\\AccountController')
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
 
-// ================================ EMAILS ===================
-Route::resource('emails', 'Emails\\EmailController')
-		->names('email')
-		->middleware('roles');
 
 // ================================ FINANCIAL ===================
 //Route::resource('despesas', 'Financial\\BillController')
@@ -97,11 +93,23 @@ Route::resource('movimentacoes', 'Financial\\TransactionController')
 		->middleware('roles');
 
 // =============================================== MARKETING ====================================
+Route::resource('domains', 'Marketing\\DomainController')
+		->names('domain')
+		->parameters(['dominios' => 'domain']);
+
+// emails
+Route::post('emails/enviar/{email}', 'Emails\\EmailController@send')
+		->name('email.send')
+		->middleware('roles');
+
+Route::resource('emails', 'Emails\\EmailController')
+		->names('email')
+		->middleware('roles');
+
+//sites
 Route::resource('sites', 'Marketing\\SiteController')
 		->names('site')
 		->middleware('roles');
-
-Route::resource('domains', 'Marketing\\DomainController')->names('domain')->parameters(['dominios' => 'domain']);
 
 // ================================ MENU ===================
 Route::get('/inicio', function () {
@@ -182,16 +190,18 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
-Route::any('/contatos/filtros', 'Contact\\ContactController@index')
+// contatos
+Route::any('contatos/filtros', 'Contact\\ContactController@index')
 		->name('contact.index')
 		->middleware('roles');
 
-Route::resource('contacts', 'Contact\\ContactController')
+Route::resource('contatos', 'Contact\\ContactController')
 		->except(['index'])
 		->names('contact')
-		->parameters(['contatos' => 'contacts'])
+		->parameters(['contatos' => 'contact'])
 		->middleware('roles');
 
+// contRatos
 Route::get('contratos/pdf/{contract}', 'Sales\\ContractController@createPDF')
 		->name('contract.pdf')
 		->middleware('roles');

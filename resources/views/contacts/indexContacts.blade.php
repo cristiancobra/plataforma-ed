@@ -41,20 +41,20 @@ Total: <span class="labels">{{$totalContacts}}</span>
 <div>
 	<table class="table-list">
 		<tr>
+			<td   class="table-list-header" style="width: 20%">
+				NOME
+			</td>
 			<td   class="table-list-header" style="width: 25%">
-				<b>NOME</b>
+				EMPRESA
 			</td>
-			<td   class="table-list-header" style="width: 20%">
-				<b>EMPRESA</b>
-			</td>
-			<td   class="table-list-header" style="width: 20%">
-				<b>EMAIL</b>
-			</td>
-			<td   class="table-list-header" style="width: 20%">
-				<b>TELEFONE</b>
+			<td   class="table-list-header" style="width: 25%">
+				EMAIL
 			</td>
 			<td   class="table-list-header" style="width: 15%">
-				<b>DONO</b>
+				TELEFONE
+			</td>
+			<td   class="table-list-header" style="width: 15%">
+				DONO
 			</td>
 		</tr>
 
@@ -74,9 +74,8 @@ Total: <span class="labels">{{$totalContacts}}</span>
 				{{$contact->name}}
 			</td>
 			<td class="table-list-left">
+				@if($contact->companies)
 				@foreach ($contact->companies as $company)
-		<tr style="font-size: 14px">
-			<td class="table-list-left">
 				<a class="white" href=" {{route('company.show', ['company' => $company->id])}}">
 					<button class="button-round">
 						<i class='fa fa-eye'></i>
@@ -90,9 +89,17 @@ Total: <span class="labels">{{$totalContacts}}</span>
 				{{$company->name}}
 				<br>
 				@endforeach
+				@else
+				Não possui
+				@endif
 			</td>
 			<td class="table-list-left">
 				{{$contact->email}}
+				<a class="white" href="">
+					<button class="button-round">
+						<i class='fa fa-envelope'></i>
+					</button>
+				</a>
 			</td>
 			<td class="table-list-right">
 				{{$contact->phone}}

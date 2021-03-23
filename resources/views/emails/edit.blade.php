@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','EDITAR EMAIL')
+@section('title','EMAIL')
 
 @section('image-top')
 {{ asset('imagens/email.png') }} 
@@ -20,9 +20,6 @@
 	<form action=" {{ route('email.update', ['email' =>$email->id]) }} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
-		<label class="labels" for="" >EMAIL: </label>
-		<input class="fields" type="text" name="email" value="{{ $email->email }} ">
-		<br>
 		<label class="labels" for="" >EMPRESA:</label>
 		<select name="account_id">
 			<option  class="fields" value="{{$email->account_id}}">
@@ -35,10 +32,10 @@
 			@endforeach
 		</select>
 		<br>
-		<label class="labels" for="" >DONO: </label>
+		<label class="labels" for="" >QUEM ESCREVEU: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{$email->user_id}}">
-				{{$email->user->name}}
+				{{$email->user->contact->name}}
 			</option>
 			@foreach ($users as $user)
 			<option  class="fields" value="{{$user->id}}">
@@ -47,11 +44,28 @@
 			@endforeach
 		</select>
 		<br>
-		<label class="labels" for="">SENHA PADRÃO: </label>
-		<input class="fields"  type="text" name="email_password" value="{{ $email->email_password }}">
 		<br>
-		<label class="labels" for="">ESPAÇO (GB): </label>
-		<input class="fields" type="number" name="storage" value="{{ $email->storage }}">   
+		<label class="labels" for="" >TÍTULO:</label>
+		<input type='text' class='fields' name='title' size='50' value='{{$email->title}}'>
+		<br>
+		<label class="labels" for="" >MENSAGEM:</label>
+		<br>
+		@if ($errors->has('message'))
+		<span class="text-danger">{{ $errors->first('message') }}</span>
+		@endif
+		<textarea id="description" name="message" rows="10" cols="90" >
+{{$email->message}}
+		</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+		<script>
+CKEDITOR.replace('message');
+		</script>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		<br>
 		<label class="labels" for="status">SITUAÇÃO: </label>
 		<select class="fields" name="status">
@@ -70,7 +84,7 @@
 		<br>
 		<br>
 		<div>
-			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR EMAIL">
+			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
 			</form>
 			<a class="btn btn-secondary" style="display:inline-block" href=" https://acadia.mxroute.com:2083/" target="_blank">
 				<i class='fa fa-edit'></i>EDITAR
