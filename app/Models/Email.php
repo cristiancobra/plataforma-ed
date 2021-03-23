@@ -10,7 +10,15 @@ class Email extends Model
 	protected $table = 'emails';
 	
     	protected $fillable = [
-		'id', 'user_id', 'account_id', 'storage', 'email', 'email_password', 'status'
+		'id',
+		'user_id',
+		'account_id',
+		'storage',
+		'email',
+		'email_password',
+		'message',
+		'title',
+		'status'
 	];
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');

@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Emails;
 
 use App\Http\Controllers\Controller;
-use App\Models\Email;
 use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Email;
 use App\Models\User;
+use App\Mail\marketing;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller {
 
@@ -17,34 +19,21 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$userAuth = Auth::user();
 
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
+		$emails = Email::whereHas('account', function ($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
-				->pluck('id');
+				->with('user', 'account')
+				->get();
 
-		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
-			$emails = Email::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->with('user', 'account')
-					->get();
-		} else {
-			$emails = Email::where('user_id', '=', $userAuth->id)
-					->with('user', 'account')
-					->get();
-		}
-//		dd($emails);
 		$totalEmails = $emails->count();
 		$totalGBs = $emails->sum('storage');
 
-		return view('emails.indexEmails', [
-			'emails' => $emails,
-			'totalEmails' => $totalEmails,
-			'totalGBs' => $totalGBs,
-			'userAuth' => $userAuth,
-		]);
+		return view('emails.index', compact(
+						'emails',
+						'totalEmails',
+						'totalGBs',
+		));
 	}
 
 	/**
@@ -53,22 +42,17 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
-
 		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('ID', 'ASC')
 				->get();
 
-		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
-			$users = myUsers();
-		} else {
-			$users = User::where('user_id', '=', auth::user()->id)
-					->with(['accounts', 'contact'])
-					->get();
-		}
-//		dd($accounts);
-		return view('emails.createEmail', compact(
-						'users',
+		$contacts = Contact::whereIn('account_id', userAccounts())
+				->orderBy('NAME', 'ASC')
+				->get();
+
+		return view('emails.create', compact(
 						'accounts',
+						'contacts',
 		));
 	}
 
@@ -79,29 +63,15 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$email = new \App\Models\Email();
-		$email->user_id = ($request->user_id);
-		$email->account_id = $request->account_id;
-		$email->email = ($request->email);
-		$email->email_password = ($request->email_password);
-		$email->storage = ($request->storage);
-		$email->status = "pendente";
+		$email = new Email();
+		$email->fill($request->all());
 		$email->save();
 
-		$emails = \App\Models\Email::all();
-		$userAuth = Auth::user();
+//		return redirect()->action('Emails\\EmailController@index');
 
-		return redirect()->action('Emails\\EmailController@index');
-
-//		return view('emails.indexEmails', [
-//			'user' => $user,
-//			'user_id' => $email->user_id,
-//			'account_id' => $email->account_id,
-//			'email' => $email->email,
-//			'password' => $email->email_password,
-//			'status' => $email->status,
-//			'emails' => $emails,
-//		]);
+		return view('emails.show', compact(
+						'email',
+		));
 	}
 
 	/**
@@ -111,12 +81,10 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Email $email) {
-		$userAuth = Auth::user();
 
-		return view('emails.showEmail', [
-			'email' => $email,
-			'userAuth' => $userAuth,
-		]);
+		return view('emails.show', compact(
+						'email',
+		));
 	}
 
 	/**
@@ -130,18 +98,12 @@ class EmailController extends Controller {
 				->orderBy('ID', 'ASC')
 				->get();
 
-		if ($request['role'] === "superadmin" OR $request['role'] === "administrator") {
-			$users = myUsers();
-		} else {
-			$users = User::where('user_id', '=', auth::user()->id)
-					->with(['accounts', 'contact'])
-					->get();
-		}
+		$users = myUsers();
 
-		return view('emails.editEmail', compact(
-			'users',
-			'email',
-			'accounts',
+		return view('emails.edit', compact(
+						'users',
+						'email',
+						'accounts',
 		));
 	}
 
@@ -153,20 +115,12 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Email $email) {
-		$userAuth = Auth::user();
-		$email->user_id = ($request->user_id);
-		$email->account_id = $request->account_id;
-		$email->email = $request->email;
-		$email->email_password = $request->email_password;
-		$email->storage = $request->storage;
-		$email->status = $request->status;
+		$email->fill($request->all());
 		$email->save();
 
-		return view('emails.showEmail', [
-			'userAuth' => $userAuth,
-			'email' => $email,
-				//'emails' => $emails,
-		]);
+		return view('emails.show', compact(
+						'email',
+		));
 	}
 
 	/**
@@ -178,6 +132,19 @@ class EmailController extends Controller {
 	public function destroy(Email $email) {
 		$email->delete();
 		return redirect()->route('emails.index');
+	}
+
+	public function send(Email $email) {
+		$account = Account::find($email->account_id);
+		$contact = Contact::find(5);
+
+		Mail::send(new marketing($account,$contact, $email));
+		
+		echo 'Email enviado com sucesso!';
+//		return view('emails.marketing', compact(
+//								'email',
+//								'contact',
+//		));
 	}
 
 }

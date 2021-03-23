@@ -22,18 +22,18 @@ class ContactController extends Controller {
 	 */
 	public function index(Request $request) {
 		$accountsId = userAccounts();
-		
-		$contacts = Contact::whereHas('account', function($query) use($accountsId) {
+
+		$contacts = Contact::whereHas('account', function ($query) use ($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
-				->whereHas('account', function($query) use($request) {
-					if(isset($request->account_id)) {
+				->whereHas('account', function ($query) use ($request) {
+					if (isset($request->account_id)) {
 						$query->where('account_id', '=', $request->account_id);
-					}else{
+					} else {
 						$query->where('accounts.id', '>', 0);
 					}
 				})
-				->where(function($query) use($request) {
+				->where(function ($query) use ($request) {
 					if ($request->name) {
 						$query->where('name', 'like', "%$request->name%");
 					}
@@ -49,9 +49,9 @@ class ContactController extends Controller {
 		$totalContacts = $contacts->total();
 
 		return view('contacts.indexContacts', compact(
-			'contacts',
-			'accounts',
-			'totalContacts',
+						'contacts',
+						'accounts',
+						'totalContacts',
 		));
 	}
 
@@ -61,17 +61,17 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$accounts = Account::whereHas('users', function($query) {
+		$accounts = Account::whereHas('users', function ($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$contacts = Contact::whereHas('account', function($query) {
+		$contacts = Contact::whereHas('account', function ($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
 				->paginate(20);
 
-		$companies = Company::whereHas('account', function($query) {
+		$companies = Company::whereHas('account', function ($query) {
 					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
@@ -141,17 +141,17 @@ class ContactController extends Controller {
 	public function edit(Contact $contact) {
 		$accountsId = userAccounts();
 
-		$accounts = Account::whereHas('users', function($query) use($accountsId) {
+		$accounts = Account::whereHas('users', function ($query) use ($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
 				->get();
 
-		$companies = Company::whereHas('account', function($query) use($accountsId) {
+		$companies = Company::whereHas('account', function ($query) use ($accountsId) {
 					$query->whereIn('account_id', $accountsId);
 				})
 				->get();
 
-		$companiesChecked = Company::whereHas('contacts', function($query) use($contact) {
+		$companiesChecked = Company::whereHas('contacts', function ($query) use ($contact) {
 					$query->where('contact_id', $contact->id);
 				})
 				->pluck('id')
@@ -197,5 +197,4 @@ class ContactController extends Controller {
 		$contact->delete();
 		return redirect()->route('contact.index');
 	}
-
 }
