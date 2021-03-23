@@ -205,19 +205,9 @@ Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
-<<<<<<< HEAD
-Route::get('contatos/enviar-email', function() {
-//	return new \App\Mail\direct_message();
-	Illuminate\Support\Facades\Mail::Send(new App/Mail/direct_message);
-});
-//		->name('contact.email')
-//		->middleware('roles');
 
-Route::any('/contatos/filtros', 'Contact\\ContactController@index')
-=======
 // contatos
 Route::any('contatos/filtros', 'Contact\\ContactController@index')
->>>>>>> feature/email-marketing
 		->name('contact.index')
 		->middleware('roles');
 
