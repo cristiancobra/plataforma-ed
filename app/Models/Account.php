@@ -34,6 +34,9 @@ class Account extends Model {
 	public function bankAccounts() {
 		return $this->hasMany(BankAccount::class, 'id', 'account_id');
 	}
+	public function campaigns() {
+		return $this->hasMany(Compaign::class, 'id', 'account_id');
+	}
 	public function contacts() {
 		return $this->hasMany(Contact::class, 'id', 'account_id');
 	}

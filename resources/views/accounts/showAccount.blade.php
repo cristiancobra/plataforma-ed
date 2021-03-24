@@ -104,7 +104,7 @@
 
 <div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
 	<a href="{{ route('account.edit', ['account' => $account->id]) }}"  style="text-decoration: none;color: black">
-		<button class="btn btn-secondary">
+		<button class="button-secondary">
 			<i class='fa fa-edit'></i>EDITAR
 		</button>	
 	</a>

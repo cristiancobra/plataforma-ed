@@ -223,7 +223,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		<input class="button-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
     </form>
 </div>
 <br>

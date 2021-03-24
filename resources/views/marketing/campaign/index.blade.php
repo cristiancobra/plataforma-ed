@@ -41,20 +41,17 @@ Total: <span class="labels">{{$total}}</span>
 <div>
     <table class="table-list">
         <tr>
-            <td   class="table-list-header" style="width: 20%">
+            <td   class="table-list-header" style="width: 30%">
                 NOME
             </td>
             <td   class="table-list-header" style="width: 25%">
                 EMPRESA
             </td>
-            <td   class="table-list-header" style="width: 25%">
+            <td   class="table-list-header" style="width: 35%">
                 EMAIL
             </td>
-            <td   class="table-list-header" style="width: 15%">
-                TELEFONE
-            </td>
-            <td   class="table-list-header" style="width: 15%">
-                DONO
+            <td   class="table-list-header" style="width: 10%">
+                SITUAÇÃO
             </td>
         </tr>
 
@@ -66,7 +63,7 @@ Total: <span class="labels">{{$total}}</span>
                         <i class='fa fa-eye'></i>
                     </button>
                 </a>
-                <a class="white" href=" {{route('campaign.edit', ['campaign' => $campaign->id])}}">
+                <a class="white" href=" {{route('campaign.edit', ['campaign' => $campaign])}}">
                     <button class="button-round">
                         <i class='fa fa-edit'></i>
                     </button>
@@ -74,43 +71,34 @@ Total: <span class="labels">{{$total}}</span>
                 {{$campaign->name}}
             </td>
             <td class="table-list-left">
-                @if($campaign->companies)
-                @foreach($campaign->companies as $company)
-                <a class="white" href=" {{route('company.show', ['company' => $company->id])}}">
+                {{$campaign->account->name}}            
+            </td>
+            <td class="table-list-left">
+                {{$campaign->email->title}}
+                <a class="white" href=" {{route('email.show', ['email' => $campaign->email->id])}}">
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
                     </button>
                 </a>
-                <a class="white" href=" {{route('company.edit', ['company' => $company->id])}}">
+                <a class="white" href=" {{route('email.edit', ['email' => $campaign->email->id])}}">
                     <button class="button-round">
                         <i class='fa fa-edit'></i>
                     </button>
                 </a>
-                {{$company->name}}
-                <br>
-                @endforeach
-                @else
-                Não possui
-                @endif
             </td>
-            <td class="table-list-left">
-                {{$campaign->email}}
-                <a class="white" href="">
-                    <button class="button-round">
-                        <i class='fa fa-envelope'></i>
-                    </button>
-                </a>
+            @if($campaign->status == 'rascunho')
+            <td class="td-draft">
+                {{$campaign->status}}
             </td>
-            <td class="table-list-right">
-                {{$campaign->phone}}
+            @else
+            <td class="td-aproved">
+                {{$campaign->status}}
             </td>
-            <td class="table-list-center">
-                {{$campaign->account->name}}
-            </td>
+            @endif
         </tr>
         @endforeach
     </table>
-    <p style="text-align: right">
+    <p style="text-align:right">
         <br>
         {{$campaigns->links()}}
     </p>

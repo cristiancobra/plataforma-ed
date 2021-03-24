@@ -130,6 +130,6 @@
 	</select>
 	<br>
 	<br>
-	<input class="btn btn-secondary" type="submit" value="Solicitar empresa">
+	<input class="button-secondary" type="submit" value="Solicitar empresa">
 </form>
 @endsection

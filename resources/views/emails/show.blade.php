@@ -64,10 +64,10 @@
 			@csrf
 			<input class="button-secondary" type="submit" value="ENVIAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{route('email.edit', ['email' => $email->id])}} "  style="text-decoration: none;color: white;display: inline-block">
+		<a class="button-secondary" href=" {{route('email.edit', ['email' => $email->id])}} "  style="text-decoration: none;color: white;display: inline-block">
 			<i class='fa fa-edit'></i>EDITAR
 		</a>
-		<a class="btn btn-secondary" href="{{route('email.index')}}">
+		<a class="button-secondary" href="{{route('email.index')}}">
 			VOLTAR
 		</a>
 	</div>

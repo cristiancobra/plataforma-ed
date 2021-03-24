@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Email;
-use App\Models\User;
 use App\Mail\marketing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -133,18 +132,4 @@ class EmailController extends Controller {
 		$email->delete();
 		return redirect()->route('emails.index');
 	}
-
-	public function send(Email $email) {
-		$account = Account::find($email->account_id);
-		$contact = Contact::find(5);
-
-		Mail::send(new marketing($account,$contact, $email));
-		
-		echo 'Email enviado com sucesso!';
-//		return view('emails.marketing', compact(
-//								'email',
-//								'contact',
-//		));
-	}
-
 }

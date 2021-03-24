@@ -106,6 +106,10 @@ Route::resource('movimentacoes', 'Financial\\TransactionController')
 
 // =============================================== MARKETING ====================================
 // campaign
+Route::post('campanhas/enviar/{campaign}', 'Marketing\\CampaignController@send')
+        ->name('campaign.send')
+        ->middleware('roles');
+
 Route::resource('campanhas', 'Marketing\\CampaignController')
         ->names('campaign')
         ->parameters(['campanhas' => 'campaign'])
@@ -116,10 +120,6 @@ Route::resource('domains', 'Marketing\\DomainController')
         ->parameters(['dominios' => 'domain']);
 
 // emails
-Route::post('emails/enviar/{email}', 'Emails\\EmailController@send')
-        ->name('email.send')
-        ->middleware('roles');
-
 Route::resource('emails', 'Emails\\EmailController')
         ->names('email')
         ->middleware('roles');

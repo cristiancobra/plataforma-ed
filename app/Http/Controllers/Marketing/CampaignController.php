@@ -19,6 +19,11 @@ class CampaignController extends Controller {
         $accounts = userAccounts();
 
         $campaigns = Campaign::whereIn('account_id', userAccounts())
+                ->with(
+                        'account',
+                        'user.contact',
+                        'email'
+                )
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
@@ -37,8 +42,6 @@ class CampaignController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $campaign = new Campaign;
-
         $accounts = Account::whereIn('id', userAccounts())
                 ->get();
 
@@ -50,7 +53,6 @@ class CampaignController extends Controller {
 
         return view('marketing.campaign.create', compact(
                         'accounts',
-                        'campaign',
                         'users',
                         'emails',
         ));
@@ -63,7 +65,13 @@ class CampaignController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        //
+        $campaign = new Campaign;
+        $campaign->fill($request->all());
+        $campaign->save();
+
+        return view('marketing.campaign.show', compact(
+                        'campaign',
+        ));
     }
 
     /**
@@ -73,7 +81,21 @@ class CampaignController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Campaign $campaign) {
-        //
+        $accounts = Account::whereIn('id', userAccounts())
+                ->get();
+        
+        $users = myUsers();
+        
+        $emails = Email::whereIn('account_id', userAccounts())
+                ->orderBy('TITLE', 'ASC')
+                ->paginate(20);
+
+        return view('marketing.campaign.show', compact(
+                        'campaign',
+                        'accounts',
+                        'users',
+                        'emails',
+        ));
     }
 
     /**
@@ -83,7 +105,21 @@ class CampaignController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Campaign $campaign) {
-        //
+        $accounts = Account::whereIn('id', userAccounts())
+                ->get();
+
+        $emails = Email::whereIn('account_id', userAccounts())
+                ->orderBy('TITLE', 'ASC')
+                ->paginate(20);
+
+        $users = myUsers();
+
+        return view('marketing.campaign.edit', compact(
+                        'accounts',
+                        'users',
+                        'emails',
+                        'campaign',
+        ));
     }
 
     /**
@@ -106,5 +142,19 @@ class CampaignController extends Controller {
     public function destroy(Campaign $campaign) {
         //
     }
+
+    // Dispara campanhas de email agendadas
+    public function send(Campaign $campaign) {
+		$campaign = Account::find($campaign->account_id);
+		$campaign = Campaign::find(5);
+
+		Campaign::send(new marketing($account,$contact, $campaign));
+		
+		echo 'Email enviado com sucesso!';
+//		return view('emails.marketing', compact(
+//								'email',
+//								'contact',
+//		));
+	}
 
 }
