@@ -619,6 +619,17 @@ if (!function_exists('formatBankAccountStatus')) {
 	}
 
 }
+// retorna o STATUS / SITUAÇÃO da Campanha
+if (!function_exists('returnCampaignStatus')) {
+
+	function returnCampaignStatus() {
+		return $status = array(
+			'rascunho',
+			'enviar',
+		);
+	}
+
+}
 // retorna STATUS ativo ou desativado
 if (!function_exists('returnStatusActive')) {
 
