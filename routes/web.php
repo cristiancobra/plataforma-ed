@@ -21,7 +21,6 @@ Route::get('/', 'DashboardController@index')
 		->middleware('roles');
 
 //Route::get('/', 'Users\\UserController@dashboardAdministrator')->name('home.administrator')->middleware('administrator');
-
 // ================================ ADMINISTRATIVO ===================
 Route::get('/admin/NovaPlataforma/form_plataforma', function () {
 	return view('admin.NovaPlataforma.form_plataforma');
@@ -39,10 +38,8 @@ Route::resource('accounts', 'Accounts\\AccountController')
 		->parameters(['empresas' => 'accounts'])
 		->middleware('roles');
 
-
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
-
 
 // ================================ FINANCIAL ===================
 //Route::resource('despesas', 'Financial\\BillController')
@@ -57,13 +54,13 @@ Route::resource('contas-bancarias', 'Financial\\BankAccountController')
 		->middleware('roles');
 
 // faturas
-Route::get('faturas/enviar', function() {
-	return new \App\Mail\invoices();
-})
+Route::get('faturas/enviar', function () {
+			return new \App\Mail\invoices();
+		})
 		->name('invoice.email')
 		->middleware('roles');
 
-Route::any('faturas/gerar/{invoice}',  'Financial\\InvoiceController@generateInstallment')
+Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
 		->name('invoice.installment')
 		->middleware('roles');
 
@@ -75,19 +72,19 @@ Route::any('/faturas/filtros', 'Financial\\InvoiceController@index')
 		->name('invoice.index')
 		->middleware('roles');
 
-Route::any('faturas/gerar/{invoice}',  'Financial\\InvoiceController@generateInstallment')
+Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
 		->name('invoice.installment')
 		->middleware('roles');
 
 Route::match(['get', 'post'], '/faturas/novo', 'Financial\\InvoiceController@create')
 		->name('invoice.create')
 		->middleware('roles');
-		
+
 Route::resource('faturas', 'Financial\\InvoiceController')
 		->except([
 			'index',
 			'create'
-			])
+		])
 		->names('invoice')
 		->parameters(['faturas' => 'invoice'])
 		->middleware('roles');
@@ -126,6 +123,11 @@ Route::resource('sites', 'Marketing\\SiteController')
 		->names('site')
 		->middleware('roles');
 
+//socialmedia
+Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
+		->names('socialmedia')
+		->parameters(['redes-sociais' => 'socialmedia'])
+		->middleware('roles');
 // ================================ MENU ===================
 Route::get('/inicio', function () {
 	return view('inicio');
@@ -160,12 +162,6 @@ Route::resource('jornadas', 'Operational\\JourneyController')
 		->parameters(['jornadas' => 'journey'])
 		->middleware('roles');
 
-// ================================ SOCIALMEDIA ===================
-//Route::get('/redes-sociais', function () {
-//	return view('socialmedia.dashboardSocialmedia');
-//});
-
-Route::get('/redes-sociais', 'Socialmedia\\DashboardController@socialmedia')->name('socialmedia')->middleware('auth');
 
 // ---------- FACEBOOKS
 Route::get('/facebooks/all', 'Socialmedia\\FacebookController@all')->name('facebook.all');
@@ -173,7 +169,6 @@ Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook
 //Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
 //Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
 //Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
-
 // ---------- INSTAGRAMS
 Route::resource('instagrams', 'Socialmedia\\InstagramController')->names('instagram');
 
@@ -192,20 +187,18 @@ Route::resource('youtube', 'Socialmedia\\YoutubeController')->names('youtube');
 // ---------- SPOTIFY
 Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 
-
 // ------------------------------------------------ REPORTS ------------------------------------------------
 //Route::get('/relatorios/{report}/pdf','Report\\ReportController@generatePDF')->name('report.pdf');
 Route::post('/relatorios/facebook/{id}', 'Report\\ReportController@FB_save')->name('report.FB_save');
-Route::post('/relatorios/instagram/{id}','Report\\ReportController@IG_save')->name('report.IG_save');
-Route::post('/relatorios/linkedin/{id}','Report\\ReportController@IN_save')->name('report.IN_save');
-Route::post('/relatorios/twitter/{id}','Report\\ReportController@TW_save')->name('report.TW_save');
-Route::post('/relatorios/pinterest/{id}','Report\\ReportController@PI_save')->name('report.PI_save');
-Route::post('/relatorios/youtube/{id}','Report\\ReportController@YT_save')->name('report.YT_save');
-Route::post('/relatorios/spotify/{id}','Report\\ReportController@SP_save')->name('report.SP_save');
+Route::post('/relatorios/instagram/{id}', 'Report\\ReportController@IG_save')->name('report.IG_save');
+Route::post('/relatorios/linkedin/{id}', 'Report\\ReportController@IN_save')->name('report.IN_save');
+Route::post('/relatorios/twitter/{id}', 'Report\\ReportController@TW_save')->name('report.TW_save');
+Route::post('/relatorios/pinterest/{id}', 'Report\\ReportController@PI_save')->name('report.PI_save');
+Route::post('/relatorios/youtube/{id}', 'Report\\ReportController@YT_save')->name('report.YT_save');
+Route::post('/relatorios/spotify/{id}', 'Report\\ReportController@SP_save')->name('report.SP_save');
 Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
 
 // =============================================== SALES ====================================
-
 // contatos
 Route::any('contatos/filtros', 'Contact\\ContactController@index')
 		->name('contact.index')
