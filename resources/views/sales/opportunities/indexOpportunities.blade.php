@@ -57,7 +57,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 		@endforeach
 	</select>
 	{{createFilterSelect('stage', 'select', returnOpportunitiesStage())}}
-	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+	{{submitFormButton('FILTRAR')}}
 </form>
 <br>
 <table class="table-list">

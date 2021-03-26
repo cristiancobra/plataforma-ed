@@ -93,7 +93,7 @@ CKEDITOR.replace('description');
 		{{createSelect('status', 'fields', returnProductStatus())}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR PRODUTO">
+		{{submitFormButton('CRIAR')}}
 	</form>
 </div>     
 @endsection

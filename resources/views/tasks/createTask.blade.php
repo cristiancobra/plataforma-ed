@@ -131,7 +131,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 
-		<input class="btn btn-secondary" type="submit" value="CRIAR TAREFA">
+		<input class="button-secondary" type="submit" value="CRIAR TAREFA">
 	</form>
 </div>
 <br>

@@ -267,7 +267,7 @@ CKEDITOR.replace('general');
 	<input type="number" name="FB_value_ads" step="10"  value="{{ $report->FB_value_ads }}">
 	<br>
 	<br>
-	<input type="submit" class="btn btn-secondary" value="Atualizar dados">
+	{{submitFormButton('SALVAR')}}
 	<br>
 </form>
 </div>     

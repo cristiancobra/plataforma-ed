@@ -203,7 +203,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR LINKEDIN">
+		<input class="button-secondary" type="submit" value="ATUALIZAR LINKEDIN">
 		</form>
 
 

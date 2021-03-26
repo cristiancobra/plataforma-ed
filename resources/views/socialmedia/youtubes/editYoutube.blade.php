@@ -251,7 +251,7 @@
         </select>
         <br>
         <br>
-        <input class="btn btn-secondary" type="submit" value="ATUALIZAR YOUTUBE">
+        {{submitFormButton('SALVAR')}}
         </form>
     </div>     
     @endsection

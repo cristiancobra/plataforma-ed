@@ -15,16 +15,16 @@
 <br>
 <p class="alert-danger">
 	{{$errors->first()}}
-	<a href="{{route('facebook.create')}}" class="btn btn-secondary">
+	<a href="{{route('facebook.create')}}" class="button-secondary">
 		FACEBOOK
 	</a>
-	<a href="{{route('instagram.create')}}" class="btn btn-secondary">
+	<a href="{{route('instagram.create')}}" class="button-secondary">
 		INSTAGRAM
 	</a>
-	<a href="{{route('linkedin.create')}}" class="btn btn-secondary">
+	<a href="{{route('linkedin.create')}}" class="button-secondary">
 		LINKEDIN
 	</a>
-	<a href="{{route('twitter.create')}}" class="btn btn-secondary">
+	<a href="{{route('twitter.create')}}" class="button-secondary">
 		TWITTER
 	</a>
 </p>
@@ -83,6 +83,6 @@ CKEDITOR.replace('general');
 	<input type="radio" name="palette" value="no"><span class="fields">Não possui</span><br>
 	<br>
 	<br>
-	<input class="btn btn-secondary" type="submit" value="CRIAR RELATÓRIO">
+	{{submitFormButton('CRIAR')}}
 </form>
 @endsection

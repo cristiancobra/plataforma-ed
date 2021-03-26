@@ -108,7 +108,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR SPOTIFY">
+		{{submitFormButton('SALVAR')}}
 		</form>
 	</div>     
 	@endsection

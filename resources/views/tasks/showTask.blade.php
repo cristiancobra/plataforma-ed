@@ -163,7 +163,7 @@
 		</tr>
 	</table>
 	<br>
-	<a class="btn btn-secondary" href="{{route('journey.create', [
+	<a class="button-secondary" href="{{route('journey.create', [
 				'taskName' => $task->name,
 				'taskId' => $task->id,
 				'taskAccountName' => $task->account->name,
@@ -186,9 +186,9 @@
 			@method('delete')
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
+		<a class="button-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
 			<i class='fa fa-edit'></i>EDITAR</a>
-		<a class="btn btn-secondary" href="{{route('task.index')}}">VOLTAR</a>
+		<a class="button-secondary" href="{{route('task.index')}}">VOLTAR</a>
 	</div>
 </div>
 @endsection

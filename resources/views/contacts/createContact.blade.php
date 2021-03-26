@@ -247,7 +247,9 @@
 			</select>
 			<br>
 			<br>
-			<input class="button-secondary" type="submit" value="CRIAR">
+			{{submitFormButton('CRIAR')}}
 	</form>
+    <br>
+    <br>
 </div>
 @endsection

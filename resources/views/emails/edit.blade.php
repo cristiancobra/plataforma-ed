@@ -84,9 +84,9 @@ CKEDITOR.replace('message');
 		<br>
 		<br>
 		<div>
-			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+			{{submitFormButton('SALVAR')}}
 			</form>
-			<a class="btn btn-secondary" style="display:inline-block" href=" https://acadia.mxroute.com:2083/" target="_blank">
+			<a class="button-secondary" style="display:inline-block" href=" https://acadia.mxroute.com:2083/" target="_blank">
 				<i class='fa fa-edit'></i>EDITAR
 			</a>
 		</div>

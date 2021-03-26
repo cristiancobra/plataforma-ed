@@ -24,7 +24,7 @@
 			<input type="hidden" name="status"  value="fazendo agora">
 			<input type="hidden" name="contact_id" value="">
 			<input type="hidden" name="user_id" value="">
-			<input class="btn btn-secondary" type="submit" value="VER">
+			<input class="button-secondary" type="submit" value="VER">
 		</form>
 	</div>
 
@@ -40,7 +40,7 @@
 			<input type="hidden" name="status" value="pendente">
 			<input type="hidden" name="contact_id" value="">
 			<input type="hidden" name="user_id" value="">
-			<input class="btn btn-secondary" type="submit" value="VER">
+			<input class="button-secondary" type="submit" value="VER">
 		</form>
 	</div>
 
@@ -56,7 +56,7 @@
 			<input type="hidden" name="status" size="20" value="pendente">
 			<input type="hidden" name="contact_id" value="">
 			<input type="hidden" name="user_id" value="{{$userAuth->id}}">
-			<input class="btn btn-secondary" type="submit" value="VER">
+			<input class="button-secondary" type="submit" value="VER">
 		</form>
 	</div>
 

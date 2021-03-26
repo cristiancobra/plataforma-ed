@@ -79,9 +79,9 @@
 			@method('delete')
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('journey.edit', ['journey' => $journey->id]) }}">
+		<a class="button-secondary" href=" {{ route('journey.edit', ['journey' => $journey->id]) }}">
 			<i class='fa fa-edit'></i>EDITAR</a>
-		<a class="btn btn-secondary" href="{{route('journey.index')}}">VOLTAR</a>
+		<a class="button-secondary" href="{{route('journey.index')}}">VOLTAR</a>
 	</div>
 </div>
 @endsection

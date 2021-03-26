@@ -34,7 +34,7 @@ Total: <span class="labels">{{$total}}</span>
                 todas
             </option>
         </select>
-        <input class="button-secondary" type="submit" value="FILTRAR">
+        {{submitFormButton('FILTRAR')}}
     </form>
 </div>
 <br>

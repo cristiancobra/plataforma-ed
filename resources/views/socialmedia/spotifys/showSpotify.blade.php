@@ -58,7 +58,7 @@
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('spotify.edit', ['spotify' => $spotify->id]) }}"">
+		<a class="button-secondary" href=" {{ route('spotify.edit', ['spotify' => $spotify->id]) }}"">
 			<i class='fa fa-edit'></i>
 			Editar
 		</a>

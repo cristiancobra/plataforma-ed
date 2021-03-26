@@ -97,7 +97,7 @@
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
-				<a class="btn btn-secondary" href=" {{ route('linkedin.edit', ['linkedin' => $linkedin->id]) }}"">
+				<a class="button-secondary" href=" {{ route('linkedin.edit', ['linkedin' => $linkedin->id]) }}"">
 			<i class='fa fa-edit'></i>
 			Editar
 		</a>

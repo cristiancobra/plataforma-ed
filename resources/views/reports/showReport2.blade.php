@@ -220,9 +220,9 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="GERAR">
+				<input type="submit" class="button-secondary" value="GERAR">
 			</form>
-			<a class="btn btn-secondary" href="{{ route('facebook.create')}}" style="display: inline-block">
+			<a class="button-secondary" href="{{ route('facebook.create')}}" style="display: inline-block">
 				ADICIONAR NOVA
 			</a>
 		</div>
@@ -617,9 +617,9 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="GERAR">
+				{{submitFormButton('GERAR')}}
 			</form>
-			<a class="btn btn-secondary" href="{{ route('instagram.create')}}"  style="display: inline-block">
+			<a class="button-secondary" href="{{ route('instagram.create')}}"  style="display: inline-block">
 				ADICIONAR NOVA
 			</a>
 		</div>
@@ -1104,9 +1104,9 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="GERAR">
+				{{submitFormButton('GERAR')}}
 			</form>
-			<a class="btn btn-secondary" href="{{ route('linkedin.create')}}" style="display: inline-block">
+			<a class="button-secondary" href="{{ route('linkedin.create')}}" style="display: inline-block">
 				ADICIONAR NOVA
 			</a>
 		</div>
@@ -1385,9 +1385,9 @@
 					</option>
 					@endforeach
 				</select>
-				<input type="submit" class="btn btn-secondary" value="GERAR">
+				{{submitFormButton('GERAR')}}
 			</form>
-			<a class="btn btn-secondary" href="{{ route('twitter.create')}}" style="display: inline-block">
+			<a class="button-secondary" href="{{ route('twitter.create')}}" style="display: inline-block">
 				ADICIONAR NOVA
 			</a>
 		</div>
@@ -1670,15 +1670,15 @@
 		@method('delete')
 		<input class="btn btn-danger" type="submit" value="APAGAR">
 	</form>
-	<a class="btn btn-secondary" href=" {{ route('report.edit', ['report' => $report->id]) }}">
+	<a class="button-secondary" href=" {{ route('report.edit', ['report' => $report->id]) }}">
 		<i class='fa fa-edit'>
 		</i>
 		EDITAR
 	</a>
-	<a class="btn btn-secondary" href=" {{!! url('/relatorios', $report->id) !!}}">
+	<a class="button-secondary" href=" {{!! url('/relatorios', $report->id) !!}}">
 		PDF
 	</a>
-	<a class="btn btn-secondary" href="{{route('report.index')}}">
+	<a class="button-secondary" href="{{route('report.index')}}">
 		VOLTAR
 	</a>
 	@endsection

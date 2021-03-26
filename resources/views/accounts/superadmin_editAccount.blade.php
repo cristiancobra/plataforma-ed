@@ -151,7 +151,8 @@ CKEDITOR.replace('description');
 	@endforeach
 	<br>
 	<br>
-	<input class="button-secondary" type="submit" value="ATUALIZAR">
-
+	{{submitFormButton('SALVAR')}}
 </form>
+<br>
+<br>
 @endsection

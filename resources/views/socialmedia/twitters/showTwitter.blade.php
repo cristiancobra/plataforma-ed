@@ -81,7 +81,7 @@
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('twitter.edit', ['twitter' => $twitter->id]) }}"">
+		<a class="button-secondary" href=" {{ route('twitter.edit', ['twitter' => $twitter->id]) }}"">
 			<i class='fa fa-edit'></i>
 			Editar
 		</a>

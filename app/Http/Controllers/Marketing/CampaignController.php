@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Mail\Marketing;
 use App\Models\Account;
 use App\Models\Campaign;
+use App\Models\Contact;
 use App\Models\Email;
-use Illuminate\Http\Request;
+use Mail;
 
 class CampaignController extends Controller {
 
@@ -83,9 +86,13 @@ class CampaignController extends Controller {
     public function show(Campaign $campaign) {
         $accounts = Account::whereIn('id', userAccounts())
                 ->get();
-        
+
+        $account = Account::find(1);
+
+        $contact = Contact::find(5);
+
         $users = myUsers();
-        
+
         $emails = Email::whereIn('account_id', userAccounts())
                 ->orderBy('TITLE', 'ASC')
                 ->paginate(20);
@@ -93,6 +100,8 @@ class CampaignController extends Controller {
         return view('marketing.campaign.show', compact(
                         'campaign',
                         'accounts',
+                        'account',
+                        'contact',
                         'users',
                         'emails',
         ));
@@ -144,17 +153,21 @@ class CampaignController extends Controller {
     }
 
     // Dispara campanhas de email agendadas
-    public function send(Campaign $campaign) {
-		$campaign = Account::find($campaign->account_id);
-		$campaign = Campaign::find(5);
+    public function send(Request $request) {
 
-		Campaign::send(new marketing($account,$contact, $campaign));
-		
-		echo 'Email enviado com sucesso!';
+        $data = [
+            'accountName' => $request->account_name,
+            'contactName' => $request->contact_name,
+            'contactEmail' => $request->contact_email,
+        ];
+
+        Mail::send(new Marketing($data));
+
+        echo 'Email enviado com sucesso!';
 //		return view('emails.marketing', compact(
 //								'email',
 //								'contact',
 //		));
-	}
+    }
 
 }

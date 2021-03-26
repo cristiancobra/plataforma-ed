@@ -130,6 +130,8 @@
 	</select>
 	<br>
 	<br>
-	<input class="button-secondary" type="submit" value="Solicitar empresa">
+	{{submitFormButton('CRIAR')}}
 </form>
+<br>
+<br>
 @endsection

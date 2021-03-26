@@ -32,7 +32,7 @@
 			</option>
 			@endforeach
 		</select>
-		<input class="btn btn-secondary" type="submit" value="FILTRAR">
+		{{submitFormButton('FILTRAR')}}
 	</form>
 </div>
 <table class="table-list">

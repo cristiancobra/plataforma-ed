@@ -235,7 +235,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR FACEBOOK">
+		{{submitFormButton('SALVAR')}}
 		</form>
 
 

@@ -137,7 +137,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR">
+		{{submitFormButton('SALVAR')}}
 	</form>
 </div>
 <br>

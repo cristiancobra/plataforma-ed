@@ -140,7 +140,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
+		<input class="button-secondary" type="submit" value="ATUALIZAR">
 		</form>
 	</div>     
 	@endsection

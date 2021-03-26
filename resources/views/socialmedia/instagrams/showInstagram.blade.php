@@ -123,7 +123,7 @@
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('instagram.edit', ['instagram' => $instagram->id]) }}">
+		<a class="button-secondary" href=" {{route('instagram.edit', ['instagram' => $instagram->id])}}">
 			<i class='fa fa-edit'></i>
 			Editar
 		</a>

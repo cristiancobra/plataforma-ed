@@ -66,12 +66,12 @@
 					'transaction' => $transaction->id,
 					'typeTransactions' => $transaction->type,
 				])}}">
-			<a class="btn btn-secondary" href=" {{ route('transaction.edit', [
+			<a class="button-secondary" href=" {{ route('transaction.edit', [
 											'transaction' => $transaction->id,
 											'typeTransactions' => $transaction->type,
 										]) }}">
 				<i class='fa fa-edit'></i>EDITAR</a>
-			<a class="btn btn-secondary" href="{{route('transaction.index')}}">VOLTAR</a>
+			<a class="button-secondary" href="{{route('transaction.index')}}">VOLTAR</a>
 	</div>
 </div>
 @endsection

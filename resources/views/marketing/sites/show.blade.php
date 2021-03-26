@@ -82,9 +82,9 @@
 		@method('delete')
 		<input class="btn btn-danger" type="submit" value="APAGAR">
 	</form>
-	<a class="btn btn-secondary" href=" {{route('site.edit', ['site' => $site->id])}} "  style="text-decoration: none;color: white;display: inline-block">
+	<a class="button-secondary" href=" {{route('site.edit', ['site' => $site->id])}} "  style="text-decoration: none;color: white;display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('site.index')}}">VOLTAR</a>
+	<a class="button-secondary" href="{{route('site.index')}}">VOLTAR</a>
 </div>
 <br>
 

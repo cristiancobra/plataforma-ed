@@ -258,7 +258,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR INSTAGRAM">
+		{{submitFormButton('SALVAR')}}
 		</form>
 
 

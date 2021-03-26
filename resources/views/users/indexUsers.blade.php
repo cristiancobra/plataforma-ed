@@ -37,7 +37,7 @@ Total: <span class="labels">{{$totalUsers}} </span>
 				todas
 			</option>
 		</select>
-		<input class="btn btn-secondary" type="submit" value="FILTRAR">
+		<input class="button-secondary" type="submit" value="FILTRAR">
 	</form>
 </div>
 <br>

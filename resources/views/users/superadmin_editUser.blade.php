@@ -76,7 +76,7 @@
 	<input type="text" name="password" value="">   
 	<br>
 	<br>
-	<input class="btn btn-secondary" type="submit" class="button" value="Atualizar dados">
+	<input class="button-secondary" type="submit" class="button" value="Atualizar dados">
 </form>
 </div>     
 @endsection

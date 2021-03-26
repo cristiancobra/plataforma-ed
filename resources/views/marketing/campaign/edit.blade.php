@@ -77,7 +77,7 @@
         {{editSelect('status', 'fields', returnCampaignStatus(), $campaign->status)}}
         <br>
         <br>
-        <input class="btn btn-secondary" type="submit" value="CRIAR">
+        {{submitFormButton('SALVAR')}}
     </form>
 </div>
 @endsection

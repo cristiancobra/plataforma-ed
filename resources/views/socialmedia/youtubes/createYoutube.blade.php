@@ -104,7 +104,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CADASTRAR">
+		{{submitFormButton('CRIAR')}}
 	</form>
 </div>     
 @endsection

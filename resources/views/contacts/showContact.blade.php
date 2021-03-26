@@ -72,7 +72,7 @@
 	@if(!$contact->companies()->exists())
 	Não possui empresa cadastrada
 	<br>
-	<a class="button-secondary" href="{{ route('company.create')}}">
+	<a class="button-secondary" href="{{route('company.create')}}">
 		CRIAR EMPRESA
 	</a>
 	<br>

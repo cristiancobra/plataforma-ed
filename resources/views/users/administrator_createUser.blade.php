@@ -75,7 +75,7 @@
 		@endif
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="SOLICITAR USUÁRIO">
+		<input class="button-secondary" type="submit" value="SOLICITAR USUÁRIO">
 		<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
 			<a class="btn btn-success" href="https://www.4devs.com.br/gerador_de_senha" target="_blank">
 				<i class='fa fa-edit'>	

@@ -88,8 +88,7 @@ CKEDITOR.replace('description');
 		{{editSelect('status', 'fields', returnProductStatus(), $product->status)}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
-
+		{{submitFormButton('SALVAR')}}
 	</form>
 </div>
 <br>

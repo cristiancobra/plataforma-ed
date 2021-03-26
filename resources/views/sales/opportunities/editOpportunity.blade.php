@@ -107,9 +107,9 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<div style="display: inline-block">
-			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
+			{{submitFormButton('SALVAR')}}
 			</form>
-			<a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
+			<a class="button-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
 				<i class='fas fa-arrow-alt-circle-left'></i>  VOLTAR
 			</a>
 			<form   style="text-decoration: none;display: inline-block" action="{{ route('opportunity.destroy', ['opportunity' => $opportunity->id]) }}" method="post">

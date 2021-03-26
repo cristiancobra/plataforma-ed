@@ -65,7 +65,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CADASTRAR PÁGINA">
+		<input class="button-secondary" type="submit" value="CADASTRAR PÁGINA">
 	</form>
 </div>     
 @endsection

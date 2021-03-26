@@ -48,7 +48,7 @@
 		</script>
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
+		{{submitFormButton('SALVAR')}}
 	</form>
 </div>
 <br>

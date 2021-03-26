@@ -223,7 +223,7 @@
 		</select>
 		<br>
 		<br>
-		<input class="button-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		{{submitFormButton('SALVAR')}}
     </form>
 </div>
 <br>

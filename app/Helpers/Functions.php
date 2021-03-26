@@ -1204,3 +1204,11 @@ if (!function_exists('formatCurrency')) {
 	}
 
 }
+// gera o botão de envio de um form padrão
+if (!function_exists('submitFormButton')) {
+
+	function submitFormButton($value) {
+		echo "<input class='button-secondary' type='submit' value='$value'>";
+	}
+
+}

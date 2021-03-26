@@ -89,7 +89,7 @@ CKEDITOR.replace('observations');
 		{{createSelect('status', 'fields', returnBankAccountStatus())}}
 		<br>
 		<br>
-		<input class="button-secondary" type="submit" value="CRIAR">
+		{{submitFormButton('CRIAR')}}
 	</form>
 </div>
 <br>

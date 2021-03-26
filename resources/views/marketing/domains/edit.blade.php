@@ -72,7 +72,7 @@
 		{{createSelect('status', 'fields', returnStatusActive())}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		{{submitFormButton('SALVAR')}}
 
 	</form>
 </div>

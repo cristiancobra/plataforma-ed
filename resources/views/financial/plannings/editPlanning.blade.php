@@ -57,7 +57,7 @@ CKEDITOR.replace('description');
 		</select>
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		{{submitFormButton('CRIAR')}}
 
 	</form>
 </div>

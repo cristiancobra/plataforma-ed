@@ -8,9 +8,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Account;
 use App\Models\Contact;
-use App\Models\Email;
+use App\Models\Campaign;
 
-class marketing extends Mailable {
+class Marketing extends Mailable {
 
 	use Queueable,
 	 SerializesModels;
@@ -20,10 +20,11 @@ class marketing extends Mailable {
 	 *
 	 * @return void
 	 */
-	public function __construct(Account $account, Contact $contact, Email $email) {
-		$this->contact = $contact;
-		$this->email = $email;
-		$this->account = $account;
+	public function __construct($data) {
+//            dd($data);
+//		$this->accountName = $data->accountName;
+//		$this->contactName = $data->contactName;
+//		$this->contactEmail = $data->contactEmail;
 	}
 
 	/**
@@ -32,13 +33,12 @@ class marketing extends Mailable {
 	 * @return $this
 	 */
 	public function build() {
-		$email = $this->email;
-		$contact = $this->contact;
+		$contact = $data->contactEmail;
 		$account = $this->account;
 
-//		dd($contact->email);
+		dd($contact);
 
-		$this->subject('testando o email!!!!!!');
+		$this->subject($campaign->email->title);
 		$this->to($contact->email, $contact->name);
 
 		return $this->markdown('emails.marketing', compact(

@@ -201,7 +201,7 @@
 	<input type="number" name="pinteres_followers" value=0>
 	<br>
 	<br>
-	<input class="btn btn-secondary" type="submit" value="Criar concorrente">
+	{{submitFormButton('CRIAR')}}
 </form>
 </div>     
 @endsection

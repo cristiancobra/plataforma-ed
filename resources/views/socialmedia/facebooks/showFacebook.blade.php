@@ -106,9 +106,9 @@
 			@method('delete')
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}">
+		<a class="button-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}">
 			<i class='fa fa-edit'></i>EDITAR</a>
-				<a class="btn btn-secondary" href="{{route('facebook.index')}}">VOLTAR</a>
+				<a class="button-secondary" href="{{route('facebook.index')}}">VOLTAR</a>
 	</div>
 	<br>
 </div>

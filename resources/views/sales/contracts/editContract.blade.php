@@ -165,7 +165,7 @@ CKEDITOR.replace('observations');
 		{{editSelect('status','fields', returnContractStatus(), $contract->status)}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
+		{{submitFormButton('SALVAR')}}
 	</form>
 </div>
 <br>

@@ -323,7 +323,7 @@ CKEDITOR.replace('description');
 		{{editSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		{{submitFormButton('ATUALIZAR')}}
 
 	</form>
 </div>

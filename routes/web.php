@@ -106,7 +106,7 @@ Route::resource('movimentacoes', 'Financial\\TransactionController')
 
 // =============================================== MARKETING ====================================
 // campaign
-Route::post('campanhas/enviar/{campaign}', 'Marketing\\CampaignController@send')
+Route::post('campanhas/enviar', 'Marketing\\CampaignController@send')
         ->name('campaign.send')
         ->middleware('roles');
 

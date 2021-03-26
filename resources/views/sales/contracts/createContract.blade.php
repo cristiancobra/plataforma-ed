@@ -180,7 +180,7 @@ CKEDITOR.replace('observations');
 		{{createSelect('status','fields', returnContractStatus())}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR">
+		{{submitFormButton('CRIAR')}}
 	</form>
 </div>
 <br>

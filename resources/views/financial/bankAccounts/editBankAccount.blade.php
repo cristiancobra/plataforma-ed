@@ -86,7 +86,7 @@ CKEDITOR.replace('observations');
 		{{editSelect('status', 'fields', returnBankAccountStatus(), $bankAccount->status)}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		{{submitFormButton('ATUALIZAR')}}
     </form>
 </div>
 <br>

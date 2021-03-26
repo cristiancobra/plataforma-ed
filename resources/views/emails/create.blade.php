@@ -63,7 +63,7 @@
 CKEDITOR.replace('message');
 		</script>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR">
+		{{submitFormButton('CRIAR')}}
 	</form>
 	<br>
 	<br>

@@ -108,7 +108,7 @@ CKEDITOR.replace('description');
 		{{createSelect('stage', 'fields', $stages)}}
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="CRIAR OPORTUNIDADE">
+		<input class="button-secondary" type="submit" value="CRIAR OPORTUNIDADE">
 	</form>
 </div>
 <br>

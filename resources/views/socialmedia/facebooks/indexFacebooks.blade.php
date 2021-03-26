@@ -16,7 +16,7 @@
 <br>
 @if ($userAuth->perfil == "administrador")
 <p style="text-align: right">Mostrar:
-	<a class="btn btn-secondary" href="{{ route('facebook.all')}}">
+	<a class="button-secondary" href="{{ route('facebook.all')}}">
 		TODOS
 	</a>
 </p>

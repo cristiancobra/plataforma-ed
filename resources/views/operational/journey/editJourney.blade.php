@@ -54,7 +54,7 @@
 			</option>
 			@endforeach
 		</select>
-		<a class="btn btn-secondary" href="{{ route('task.create') }}" target="blank">NOVA TAREFA</a>
+		<a class="button-secondary" href="{{ route('task.create') }}" target="blank">NOVA TAREFA</a>
 		<br>
 		<br>
 		<label class="labels" for="" >OBSERVAÇÕES:</label>
@@ -97,7 +97,7 @@ CKEDITOR.replace('description');
 		@endif
 		<br>
 		<br>
-		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
+		{{submitFormButton('SALVAR')}}
 	</form>
 </div>
 @endsection

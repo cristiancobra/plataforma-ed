@@ -124,7 +124,7 @@
 			@method('delete')
 			<input class="button-delete" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('youtube.edit', ['youtube' => $youtube->id]) }}"">
+		<a class="button-secondary" href=" {{ route('youtube.edit', ['youtube' => $youtube->id]) }}"">
 			<i class='fa fa-edit'></i>
 			Editar
 		</a>

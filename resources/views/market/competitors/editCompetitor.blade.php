@@ -206,7 +206,7 @@
 		<input type="number" name="pinterest_followers"  value="{{ $competitor->pinterest_followers }}">
 		<br>
 		<br>
-		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
+		{{submitFormButton('SALVAR')}}
 
 	</form>
 </div>

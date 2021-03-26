@@ -42,7 +42,7 @@ Total: <span class="labels">{{$totalProducts }} </span>
 	</select>
 	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
 	{{returnType('type', 'select', 'product')}}
-	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+	{{submitFormButton('FILTRAR')}}
 </form>
 <br>
 <div>
