@@ -159,7 +159,7 @@ if (!function_exists('userAccounts')) {
 
 //  retorna o ID das empresas ao qual o usuário pertence
 	function userAccounts() {
-		$accountsId = Account::whereHas('users', function($query) {
+		$accountsId = Account::whereHas('users', function ($query) {
 					$query->where('users.id', Auth::user()->id);
 				})
 				->get('id');
@@ -481,6 +481,24 @@ if (!function_exists('returnPriorities')) {
 			'média',
 			'alta',
 			'emergência',
+		);
+	}
+
+}
+// retorna os  tipos de  rede social
+if (!function_exists('returnSocialmediaType')) {
+
+	function returnSocialmediaType() {
+		return $states = array(
+			'Facebook',
+			'Instagram',
+			'Pinterest',
+			'Twitter',
+			'Youtube',
+			'Spotify',
+			'Linkedin',
+			'Ifood',
+			'Google Meu Negocio',
 		);
 	}
 
@@ -1082,7 +1100,7 @@ if (!function_exists('myUsers')) {
 	function myUsers(array $relationships = null) {
 
 		if (isset($relationships)) {
-			$users = User::whereHas('accounts', function($query) {
+			$users = User::whereHas('accounts', function ($query) {
 						$query->whereIn('account_id', userAccounts());
 					})
 					->with($relationships)
@@ -1094,7 +1112,7 @@ if (!function_exists('myUsers')) {
 					->orderBy('NAME', 'ASC')
 					->get();
 		} else {
-			$users = User::whereHas('accounts', function($query) {
+			$users = User::whereHas('accounts', function ($query) {
 						$query->whereIn('account_id', userAccounts());
 					})
 					->join('contacts', 'contacts.id', '=', 'users.contact_id')
