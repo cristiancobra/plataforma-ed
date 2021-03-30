@@ -30,16 +30,19 @@
     <h1 class='name'>
         {{$campaign->name}}
     </h1>
-    <br>
     <p class='labels'>
         EMPRESA:<span class='fields'>{{$campaign->account->name}}</span>
     </p>
-    <br>
     <p class='labels'>
         RESPONSÁVEL:<span class='fields'>{{$campaign->user->contact->name}}</span>
     </p>
     <br>
     <div class='labels' style='background-color: #d7bde2 ;padding: 1%'>
+        TÍTULO:
+        <br>
+        {{$campaign->email->title}}
+        <br>
+        <br>
         MENSAGEM:
         <br>
         <br>
@@ -64,9 +67,9 @@
         </form>
         <form  style="text-decoration: none;display: inline-block" action="{{route('campaign.send')}}" method="post">
             @csrf
-            <input type='hidden' name='account_name' value='{{$account->name}}'>
-            <input type='hidden' name='contact_name' value='{{$contact->name}}'>
-            <input type='hidden' name='contact_email' value='{{$contact->email}}'>
+            <input type='hidden' name='account' value='{{$account->id}}'>
+            <input type='hidden' name='contact' value='{{$contact->id}}'>
+            <input type='hidden' name='email' value='{{$campaign->email_id}}'>
             {{submitFormButton('ENVIAR')}}
         </form>
         <a class="button-secondary" href=" {{route('campaign.edit', ['campaign' => $campaign->id])}}" style="text-decoration: none;color: white;display: inline-block">

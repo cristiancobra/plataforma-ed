@@ -47,7 +47,7 @@
         <label for="" >RESPONSÁVEL: </label>
         <select name="user_id">
             <option  class="fields" value="{{$campaign->user_id}}">
-                {{$campaign->user->name}}
+                {{$campaign->user->contact->name}}
             </option>
             @foreach ($users as $user)
             <option  class="fields" value="{{$user->id}}">
@@ -77,7 +77,9 @@
         {{editSelect('status', 'fields', returnCampaignStatus(), $campaign->status)}}
         <br>
         <br>
+        <p style="text-align: right">
         {{submitFormButton('SALVAR')}}
+        </p>
     </form>
 </div>
 @endsection

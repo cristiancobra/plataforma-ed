@@ -119,6 +119,17 @@ Route::resource('domains', 'Marketing\\DomainController')
         ->names('domain')
         ->parameters(['dominios' => 'domain']);
 
+// contact list
+Route::any('lista-contatos/filtros', 'Marketing\\ContactListController@index')
+        ->name('contactList.index')
+        ->middleware('roles');
+
+Route::resource('lista-contatos', 'Marketing\\ContactListController')
+        ->except(['index'])
+        ->names('contactList')
+        ->parameters(['lista-contatos' => 'contactList'])
+        ->middleware('roles');
+
 // emails
 Route::resource('emails', 'Emails\\EmailController')
         ->names('email')

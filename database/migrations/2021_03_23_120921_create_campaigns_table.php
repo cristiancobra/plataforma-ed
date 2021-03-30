@@ -18,7 +18,7 @@ class CreateCampaignsTable extends Migration {
             $table->foreignId('user_id');
             $table->foreignId('email_id');
             $table->string('name');
-            $table->string("send_date");
+            $table->date("send_date");
             $table->string('status');
             $table->timestamps();
         });

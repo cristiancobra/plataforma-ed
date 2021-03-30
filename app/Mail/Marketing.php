@@ -5,10 +5,12 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Http\Request;
 use Illuminate\Queue\SerializesModels;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Campaign;
+use App\Models\Email;
 
 class Marketing extends Mailable {
 
@@ -20,11 +22,11 @@ class Marketing extends Mailable {
 	 *
 	 * @return void
 	 */
-	public function __construct($data) {
+	public function __construct() {
 //            dd($data);
-//		$this->accountName = $data->accountName;
-//		$this->contactName = $data->contactName;
-//		$this->contactEmail = $data->contactEmail;
+//		$this->account = $request->account;
+//		$this->contact = $request->contact;
+//		$this->email = $request->email;
 	}
 
 	/**
@@ -32,13 +34,12 @@ class Marketing extends Mailable {
 	 *
 	 * @return $this
 	 */
-	public function build() {
-		$contact = $data->contactEmail;
-		$account = $this->account;
+	public function build(Request $request) {
+		$contact = Contact::find($request->contact);
+		$account = Account::find($request->account);
+		$email = Email::find($request->email);
 
-		dd($contact);
-
-		$this->subject($campaign->email->title);
+		$this->subject($email->title);
 		$this->to($contact->email, $contact->name);
 
 		return $this->markdown('emails.marketing', compact(

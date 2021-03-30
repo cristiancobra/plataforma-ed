@@ -437,7 +437,28 @@ if (!function_exists('returnOpportunitiesStage')) {
 	}
 
 }
-// gera um botão com a formatação para PRIORIDADE da tarefa  a partir de  $model
+// gera uma célula de tabela com a formatação de acordo com o tipo do contato
+if (!function_exists('formatContactType')) {
+
+	function formatContactType($type) {
+		switch ($type) {
+			case 'cliente':
+				echo '<td class="td-medium">cliente</td>';
+				break;
+			case 'fornecedor':
+				echo '<td class="td-paid">fornecedor</td>';
+				break;
+			case 'cliente e fornecedor':
+				echo '<td class="td-high">cliente e fornecedor</td>';
+				break;
+			case 'equipe':
+				echo '<td class="td-draft">equipe</td>';
+				break;
+		}
+	}
+
+}
+// gera uma célula de tabela com a formatação para PRIORIDADE da tarefa  a partir de  $model
 if (!function_exists('formatPriority')) {
 
 	function formatPriority($model) {
@@ -676,6 +697,19 @@ if (!function_exists('returnType')) {
 			echo "<option value=\"$type\">$type</option><br>";
 		}
 		echo "</select>";
+	}
+
+}
+// retorna o tipo do Contato
+if (!function_exists('returnContactType')) {
+
+	function returnContactType() {
+		return $status = array(
+			'cliente',
+			'fornecedor',
+			'cliente e fornecedor',
+			'equipe',
+		);
 	}
 
 }

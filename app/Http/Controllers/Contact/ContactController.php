@@ -21,10 +21,8 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$accountsId = userAccounts();
-
-		$contacts = Contact::whereHas('account', function ($query) use ($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$contacts = Contact::whereHas('account', function ($query){
+					$query->whereIn('account_id', userAccounts());
 				})
 				->whereHas('account', function ($query) use ($request) {
 					if (isset($request->account_id)) {
@@ -42,7 +40,7 @@ class ContactController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
-		$accounts = Account::whereIn('id', $accountsId)
+		$accounts = Account::whereIn('id', userAccounts())
 				->orderBy('ID', 'ASC')
 				->get();
 
@@ -139,15 +137,13 @@ class ContactController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Contact $contact) {
-		$accountsId = userAccounts();
-
-		$accounts = Account::whereHas('users', function ($query) use ($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$accounts = Account::whereHas('users', function ($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
-		$companies = Company::whereHas('account', function ($query) use ($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$companies = Company::whereHas('account', function ($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->get();
 
