@@ -129,10 +129,6 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$task = new Task();
-		$task->fill($request->all());
-		$task->status = 'fazer';
-
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
 		];
@@ -150,6 +146,9 @@ class TaskController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
+                                                $task = new Task();
+                                                $task->fill($request->all());
+                                                $task->status = 'fazer';
 			$task->save();
 
 			$journeys = Journey::where('task_id', $task->id)
@@ -230,8 +229,6 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, task $task) {
-		$task->fill($request->all());
-                
                                $messages = [
 			'required' => '*preenchimento obrigatório.',
 		];
@@ -249,7 +246,7 @@ class TaskController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
-
+                                $task->fill($request->all());
 		if (isset($request->cancelado)) {
 			$task->status = 'cancelado';
 			$task->date_conclusion = "";
