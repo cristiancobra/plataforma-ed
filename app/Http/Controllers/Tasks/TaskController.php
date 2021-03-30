@@ -231,6 +231,24 @@ class TaskController extends Controller {
 	 */
 	public function update(Request $request, task $task) {
 		$task->fill($request->all());
+                
+                               $messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:tasks',
+					'date_start' => 'required:tasks',
+					'date_due' => 'required:tasks',
+					'description' => 'required:tasks',
+						],
+						$messages);
+
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
 
 		if (isset($request->cancelado)) {
 			$task->status = 'cancelado';
@@ -250,6 +268,7 @@ class TaskController extends Controller {
 			'task' => $task,
 		]);
 	}
+        }
 
 	/**
 	 * Remove the specified resource from storage.
