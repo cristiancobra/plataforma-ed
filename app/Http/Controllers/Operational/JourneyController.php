@@ -21,10 +21,8 @@ class JourneyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index(Request $request) {
-		$accountsId = userAccounts();
-
-		$journeys = Journey::where(function ($query) use ($accountsId, $request) {
-					$query->whereIn('account_id', $accountsId);
+		$journeys = Journey::where(function ($query) use ($request) {
+					$query->whereIn('account_id', userAccounts());
 					if ($request->user_id != null) {
 						$query->where('user_id', '=', $request->user_id);
 					}
@@ -62,18 +60,17 @@ class JourneyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$accountsId = userAccounts();
-
-		$accounts = Account::whereIn('id', $accountsId)
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
+				})
+				->get();
+                                
+		$tasks = Task::whereIn('account_id', userAccounts())
 				->orderBy('NAME', 'ASC')
 				->get();
 
-		$tasks = Task::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
-
-		$users = User::whereHas('accounts', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
+		$users = User::whereHas('accounts', function($query) {
+					$query->whereIn('account_id', userAccounts());
 				})
 				->join('contacts', 'contacts.id', '=', 'users.contact_id')
 				->orderBy('NAME', 'ASC')
@@ -147,38 +144,26 @@ class JourneyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Journey $journey) {
-		$userAuth = Auth::user();
+		$accounts = Account::whereHas('users', function($query) {
+					$query->whereIn('account_id', userAccounts());
+				})
+				->get();
 
-		if (Auth::check()) {
-			$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-						$query->where('users.id', $userAuth->id);
-					})
-					->pluck('id');
-
-			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
-					})
-					->get();
-
-			$tasks = Task::whereIn('account_id', $accountsID)
+			$tasks = Task::whereIn('account_id', userAccounts())
 					->orderBy('NAME', 'ASC')
 					->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+			$users = User::whereHas('accounts', function($query) {
+						$query->whereIn('account_id', userAccounts());
 					})
 					->get();
 
-			return view('operational.journey.editJourney', [
-				'userAuth' => $userAuth,
-				'accounts' => $accounts,
-				'journey' => $journey,
-				'tasks' => $tasks,
-				'users' => $users,
-			]);
-		} else {
-			return redirect('/');
-		}
+			return view('operational.journey.editJourney', compact(
+				'accounts',
+				'journey',
+				'tasks',
+				'users',
+			));
 	}
 
 	/**
@@ -189,18 +174,6 @@ class JourneyController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Journey $journey) {
-		$userAuth = Auth::user();
-
-		$journey->fill($request->all());
-
-		if ($request->end_time == null) {
-			$journey->duration = 0;
-		} else {
-			$start_time = strtotime($request->start_time);
-			$end_time = strtotime($request->end_time);
-			$journey->duration = $end_time - $start_time;
-		}
-
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
 		];
@@ -215,10 +188,18 @@ class JourneyController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
+		$journey->fill($request->all());
+
+		if ($request->end_time == null) {
+			$journey->duration = 0;
+		} else {
+			$start_time = strtotime($request->start_time);
+			$end_time = strtotime($request->end_time);
+			$journey->duration = $end_time - $start_time;
+		}
 			$journey->save();
 
 			return view('operational.journey.showJourney', [
-				'userAuth' => $userAuth,
 				'journey' => $journey,
 			]);
 		}

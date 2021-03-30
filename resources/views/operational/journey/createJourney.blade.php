@@ -84,7 +84,7 @@ CKEDITOR.replace('description');
 		<label class="labels" for="" >DATA:</label>
 		<input type="date" name="date" value="{{old('date')}}">
 		@if ($errors->has('date'))
-		<span class="text-danger">{{ $errors->first('date') }}</span>
+		<span class="text-danger">{{$errors->first('date')}}</span>
 		@endif
 		<br>
 		<label class="labels" for="" >

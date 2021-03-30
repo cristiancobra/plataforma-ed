@@ -100,4 +100,6 @@ CKEDITOR.replace('description');
 		<input class="btn btn-secondary" type="submit" value="ATUALIZAR">
 	</form>
 </div>
+<br>
+<br>
 @endsection
