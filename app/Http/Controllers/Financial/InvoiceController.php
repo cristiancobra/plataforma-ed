@@ -546,6 +546,12 @@ class InvoiceController extends Controller {
                     'bank',
                 ])
                 ->get();
+                
+        if($invoice->opportunity->description) {
+            $opportunityDescription = $invoice->opportunity->description;
+        }else{
+            $opportunityDescription = null;
+        }
 
         $data = [
             'accountLogo' => $invoice->account->logo,

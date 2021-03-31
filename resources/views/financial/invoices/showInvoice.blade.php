@@ -104,6 +104,9 @@ Sem contrato
 <span class="fields">{!!html_entity_decode($invoice->opportunity->description)!!}</span>
 <br>
 @endif
+<label class="labels" for="">OBSERVAÇÕES:</label>
+<span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
+<br>
 <div style="display: inline-block">
 	<img src="{{asset('imagens/products.png')}}" width="40px" alt="40px">
 	<label class="labels" for="" >ITENS DA FATURA:</label>
@@ -296,9 +299,6 @@ $counter++;
 	@endif
 </table>
 <br>
-<br>
-<label class="labels" for="">OBSERVAÇÕES:</label>
-<span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$invoice->status}}</span>

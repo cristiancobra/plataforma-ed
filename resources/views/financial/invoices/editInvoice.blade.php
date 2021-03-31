@@ -99,17 +99,6 @@
         <input type="date" name="pay_day" size="20" value="{{$invoice->pay_day}}"><span class="fields"></span>
         <br>
         <br>
-        <label class="labels" for="" >OBSERVAÇÕES:</label>
-        <textarea id="description" name="description" rows="20" cols="90">
-		{{$invoice->description}}
-        </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-        <script>
-CKEDITOR.replace('description');
-        </script>
-        <br>
-        <br>
         <label class="labels" for="" >PRODUTOS ATUAIS:</label>
         @if($invoice->status != "rascunho" AND $invoice->status != "orçamento" AND $invoice->status != "orçamento")
         <br>
@@ -327,6 +316,19 @@ CKEDITOR.replace('description');
         </table>
         <br>
         @endif
+           <br>
+        <br>
+        <label class="labels" for="" >OBSERVAÇÕES:</label>
+        <textarea id="description" name="description" rows="20" cols="90">
+		{{$invoice->description}}
+        </textarea>
+        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('description');
+        </script>
+        <br>
+        <br>
         <label class="labels" for="" >DESCONTO:   R$</label>
         <input type="number"  name="discount" size="7" step='any' style="text-align:right"value="{{formatCurrency($invoice->discount)}}"><span class="fields"></span>
         <br>

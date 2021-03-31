@@ -144,6 +144,17 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		@endif
+                   <label class="labels" for="" >OBSERVAÇÕES:</label>
+        <textarea id="description" name="description" rows="20" cols="90">
+		{{old('description')}}
+        </textarea>
+        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('description');
+        </script>
+        <br>
+        <br>
 		<label class="labels" for="" >PRODUTOS: </label>
 		@if($typeInvoices == 'receita')
 		{{createButtonAdd('product.create', 'variation', 'receita')}}
