@@ -152,11 +152,9 @@
                 <h4 style="margin-bottom: 0px;color:{{$data['accountPrincipalColor']}}">
                     OBSERVAÇÕES:
                 </h4>
-                @if($data['invoiceDescription'])
                 <p>
                     {!!html_entity_decode($data['invoiceDescription'])!!}
                 </p>
-                @endif
                 <br>
                 <hr>
             </td>
