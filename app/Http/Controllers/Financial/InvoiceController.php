@@ -570,7 +570,7 @@ class InvoiceController extends Controller {
             'invoiceInstallmentValue' => $invoice->installment_value,
             'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
             'invoiceTotalPrice' => $invoice->totalPrice,
-            'opportunityDescription' => $invoice->opportunity->description,
+            'opportunityDescription' => $opportunityDescription,
             'invoiceDiscount' => $invoice->discount,
             'invoicePayday' => $invoice->pay_day,
             'invoiceTotalPrice' => $invoice->totalPrice,
