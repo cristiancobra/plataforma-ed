@@ -546,12 +546,6 @@ class InvoiceController extends Controller {
                     'bank',
                 ])
                 ->get();
-                
-        if($invoice->opportunity->description) {
-            $opportunityDescription = $invoice->opportunity->description;
-        }else{
-            $opportunityDescription = null;
-        }
 
         $data = [
             'accountLogo' => $invoice->account->logo,
@@ -570,7 +564,7 @@ class InvoiceController extends Controller {
             'invoiceInstallmentValue' => $invoice->installment_value,
             'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
             'invoiceTotalPrice' => $invoice->totalPrice,
-            'opportunityDescription' => $opportunityDescription,
+            'opportunityDescription' => $invoice->opportunity->description,
             'invoiceDiscount' => $invoice->discount,
             'invoicePayday' => $invoice->pay_day,
             'invoiceTotalPrice' => $invoice->totalPrice,
