@@ -549,12 +549,13 @@ class InvoiceController extends Controller {
 
         $data = [
             'accountLogo' => $invoice->account->logo,
+            'accountPrincipalColor' => $invoice->account->principal_color,
             'accountName' => $invoice->account->name,
             'accountEmail' => $invoice->account->email,
             'accountPhone' => $invoice->account->phone,
             'accountAddress' => $invoice->account->address,
-            'accountAddressCity' => $invoice->account->address_city,
-            'accountAddressState' => $invoice->account->address_state,
+            'accountCity' => $invoice->account->city,
+            'accountState' => $invoice->account->state,
             'accountCnpj' => $invoice->account->cnpj,
             'bankAccounts' => $bankAccounts,
             'invoiceIdentifier' => $invoice->identifier,
@@ -581,7 +582,8 @@ class InvoiceController extends Controller {
         ];
 
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
-
+        $pdf->setPaper('A4', 'portrait');
+        
 // download PDF file with download method
         return $pdf->stream('fatura.pdf');
     }

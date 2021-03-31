@@ -129,10 +129,6 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$task = new Task();
-		$task->fill($request->all());
-		$task->status = 'fazer';
-
 		$messages = [
 			'required' => '*preenchimento obrigatório.',
 		];
@@ -150,6 +146,9 @@ class TaskController extends Controller {
 							->withErrors($validator)
 							->withInput();
 		} else {
+                                                $task = new Task();
+                                                $task->fill($request->all());
+                                                $task->status = 'fazer';
 			$task->save();
 
 			$journeys = Journey::where('task_id', $task->id)
@@ -230,8 +229,24 @@ class TaskController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, task $task) {
-		$task->fill($request->all());
+                               $messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:tasks',
+					'date_start' => 'required:tasks',
+					'date_due' => 'required:tasks',
+					'description' => 'required:tasks',
+						],
+						$messages);
 
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+                                $task->fill($request->all());
 		if (isset($request->cancelado)) {
 			$task->status = 'cancelado';
 			$task->date_conclusion = "";
@@ -250,6 +265,7 @@ class TaskController extends Controller {
 			'task' => $task,
 		]);
 	}
+        }
 
 	/**
 	 * Remove the specified resource from storage.

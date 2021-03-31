@@ -1,47 +1,44 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{str_replace('_', '-', app()->getLocale())}}">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title></title>
-
-        <!-- Fonts -->
-
 		<!-- Styles -->
-		<link href="{{ asset('css/pdf.css') }}" rel="stylesheet">
+		<link href="{{public_path('css/pdf.css')}}" rel="stylesheet">
     </head>
     <body>
 		<table>
 			<tr>
-				<td class="logo">
+				<td class="logo" style="background-color:{{$data['accountPrincipalColor']}}">
 					<img src="{{$data['accountLogo']}}" height="50px" width="150px">
 				</td>
-				<td class="account">
+				<td class="account" style="background-color:{{$data['accountPrincipalColor']}}">
 					{{$data['accountEmail']}}
 					<br>
 					{{$data['accountPhone']}}
 					<br>
 					{{$data['accountAddress']}}
 					<br>
-					{{$data['accountAddressCity']}} / 
-					{{$data['accountAddressState']}}
+					{{$data['accountCity']}} / 
+					{{$data['accountState']}}
 					<br>
 					CNPJ: {{$data['accountCnpj']}}
 				</td>
-				<td class="image-header">
+                                                                <td class="image-header" style="background-color:{{$data['accountPrincipalColor']}}">
 					FATURA {{$data['invoiceIdentifier']}}
 					<br>
 					<br>
 					VENCIMENTO
 					<br>
-					{{ date('d/m/Y', strtotime($data['invoicePayday'])) }}
+					{{date('d/m/Y', strtotime($data['invoicePayday']))}}
 				</td>
 			</tr>
 		</table>
 
 		<div>
-			<h4>
+			<h4 style="color:{{$data['accountPrincipalColor']}}">
 				<br>
 				PARA:
 			</h4>
@@ -73,7 +70,7 @@
 			</p>
 		</div>
 		<br>
-		<h4>
+		<h4 style="color:{{$data['accountPrincipalColor']}}">
 			DESCRIÇÃO:
 		</h4>
 		<p style="text-align: left;margin-top: 0px;">
@@ -81,19 +78,19 @@
 		</p>
 		<table  class="table-list" style="width: 100%">
 			<tr>
-				<td class="table-list-header" style="width: 10%">
+				<td class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
 					QTDE
 				</td>
-				<td   class="table-list-header" style="width: 60%">
+				<td   class="table-list-header" style="width: 60%;background-color:{{$data['accountPrincipalColor']}}">
 					NOME
 				</td>
-				<td   class="table-list-header" style="width: 10%">
+				<td   class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
 					IMPOSTO
 				</td>
-				<td   class="table-list-header" style="width: 10%">
+				<td   class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
 					UNITÁRIO
 				</td>
-				<td   class="table-list-header" style="width: 10%">
+				<td   class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
 					TOTAL
 				</td>
 			</tr>
@@ -101,20 +98,16 @@
 			@foreach ($data['invoiceLines'] as $invoiceLine)
 			<tr style="font-size: 14px; width: 10%; text-align: center">
 				<td class="table-list-center">
-					{{ $invoiceLine->amount }}
-				</td>
+					{{$invoiceLine->amount }}}			</td>
 				<td class="table-list-left">
-					{{ $invoiceLine->product->name}}
+					{{$invoiceLine->product->name}}
 				</td>
 				<td class="table-list-right">
-					{{ number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
-				</td>
+					{{number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}}			</td>
 				<td class="table-list-right">
-					{{ number_format($invoiceLine->product->price,2,",",".") }}
-				</td>
+					{{number_format($invoiceLine->product->price,2,",",".") }}}			</td>
 				<td class="table-list-right">
-					{{ number_format($invoiceLine->subtotalPrice,2,",",".") }}
-				</td>
+					{{number_format($invoiceLine->subtotalPrice,2,",",".") }}}			</td>
 			</tr>
 			<tr style="font-size: 12px">
 				<td class="table-list-left" colspan="6">
@@ -124,27 +117,27 @@
 			@endforeach
 
 			<tr>
-				<td   class="table-list-header-right" style="font-size: 14px" colspan="3">
+				<td   class="table-list-header-right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
 					desconto: 
 				</td>
-				<td   class="table-list-header-right" style="font-size: 14px" colspan="2">
+				<td   class="table-list-header-right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
 					- {{formatCurrencyReal($data['invoiceDiscount'])}}
 				</td>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right"  style="font-size: 14px" colspan="3">
+				<td   class="table-list-header-right"  style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
 					TOTAL: 
 				</td>
-				<td   class="table-list-header-right"   style="font-size: 14px" colspan="2">
+				<td   class="table-list-header-right"   style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
 					{{formatCurrencyReal($data['invoiceTotalPrice'])}}
 				</td>
 			</tr>
 			</tr>
 			<tr>
-				<td   class="table-list-header-right" colspan="3">
+				<td   class="table-list-header-right" style="background-color:{{$data['accountPrincipalColor']}}" colspan="3">
 					PARCELAMENTO: 
 				</td>
-				<td   class="table-list-header-right" colspan="2">
+				<td   class="table-list-header-right" style="background-color:{{$data['accountPrincipalColor']}}" colspan="2">
 					@if($data['invoiceNumberInstallmentTotal'] == 1)
 					À vista
 					@else
@@ -156,7 +149,7 @@
 		<table  class="table-list" style="width: 100%;text-align:left">
 			<tr>
 				<td>
-					<h4>
+					<h4 style="margin-bottom: 0px;color:{{$data['accountPrincipalColor']}}">
 						OBSERVAÇÕES:
 					</h4>
 					<p>
@@ -168,7 +161,7 @@
 			</tr>
 			<tr>
 				<td>
-					<h4 style="margin-bottom: 0px">
+					<h4 style="margin-bottom: 0px;color:{{$data['accountPrincipalColor']}}">
 						FORMAS DE PAGAMENTO:
 					</h4>
 				</td>
@@ -185,7 +178,7 @@
 			</tr>
 			<tr>
 				<td>
-					<h4 style="margin-bottom: 0px">
+					<h4 style="color:{{$data['accountPrincipalColor']}}">
 						DADOS PARA PAGAMENTO:
 					</h4>
 				</td>
@@ -199,6 +192,10 @@
 						Agência: {{$bankAccount->agency}}
 						<br>
 						Conta: {{$bankAccount->account_number}}
+                                                                                                @if($bankAccount->pix)
+						<br>
+						Chave PIX: {{$bankAccount->pix}}
+                                                                                                @endif
 						<br>
 						CNPJ: {{$data['accountCnpj']}}
 					</p>

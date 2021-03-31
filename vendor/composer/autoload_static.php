@@ -160,6 +160,7 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
             'Dompdf\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
             'Doctrine\\Inflector\\' => 19,
+            'Doctrine\\Deprecations\\' => 22,
             'Doctrine\\DBAL\\' => 14,
             'Doctrine\\Common\\Lexer\\' => 22,
             'Doctrine\\Common\\Cache\\' => 22,
@@ -477,6 +478,10 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector',
         ),
+        'Doctrine\\Deprecations\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations',
+        ),
         'Doctrine\\DBAL\\' => 
         array (
             0 => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL',
@@ -774,7 +779,6 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
         'Carbon\\Traits\\Week' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Traits/Week.php',
         'Carbon\\Translator' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Translator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
-        'Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'Cron\\AbstractField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/AbstractField.php',
         'Cron\\CronExpression' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/CronExpression.php',
         'Cron\\DayOfMonthField' => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron/DayOfMonthField.php',
@@ -1042,6 +1046,7 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
         'Doctrine\\DBAL\\Exception\\TableNotFoundException' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Exception/TableNotFoundException.php',
         'Doctrine\\DBAL\\Exception\\UniqueConstraintViolationException' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Exception/UniqueConstraintViolationException.php',
         'Doctrine\\DBAL\\FetchMode' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/FetchMode.php',
+        'Doctrine\\DBAL\\ForwardCompatibility\\Result' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/ForwardCompatibility/Result.php',
         'Doctrine\\DBAL\\Id\\TableGenerator' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Id/TableGenerator.php',
         'Doctrine\\DBAL\\Id\\TableGeneratorSchemaVisitor' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Id/TableGeneratorSchemaVisitor.php',
         'Doctrine\\DBAL\\LockMode' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/LockMode.php',
@@ -1106,6 +1111,7 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
         'Doctrine\\DBAL\\Query\\Expression\\ExpressionBuilder' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Query/Expression/ExpressionBuilder.php',
         'Doctrine\\DBAL\\Query\\QueryBuilder' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Query/QueryBuilder.php',
         'Doctrine\\DBAL\\Query\\QueryException' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Query/QueryException.php',
+        'Doctrine\\DBAL\\Result' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Result.php',
         'Doctrine\\DBAL\\SQLParserUtils' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/SQLParserUtils.php',
         'Doctrine\\DBAL\\SQLParserUtilsException' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/SQLParserUtilsException.php',
         'Doctrine\\DBAL\\Schema\\AbstractAsset' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Schema/AbstractAsset.php',
@@ -1200,6 +1206,8 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
         'Doctrine\\DBAL\\Types\\VarDateTimeType' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Types/VarDateTimeType.php',
         'Doctrine\\DBAL\\Version' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/Version.php',
         'Doctrine\\DBAL\\VersionAwarePlatformDriver' => __DIR__ . '/..' . '/doctrine/dbal/lib/Doctrine/DBAL/VersionAwarePlatformDriver.php',
+        'Doctrine\\Deprecations\\Deprecation' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/Deprecation.php',
+        'Doctrine\\Deprecations\\PHPUnit\\VerifyDeprecations' => __DIR__ . '/..' . '/doctrine/deprecations/lib/Doctrine/Deprecations/PHPUnit/VerifyDeprecations.php',
         'Doctrine\\Inflector\\CachedWordInflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/CachedWordInflector.php',
         'Doctrine\\Inflector\\GenericLanguageInflectorFactory' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/GenericLanguageInflectorFactory.php',
         'Doctrine\\Inflector\\Inflector' => __DIR__ . '/..' . '/doctrine/inflector/lib/Doctrine/Inflector/Inflector.php',
@@ -1253,6 +1261,7 @@ class ComposerStaticInit0757ea89a3ea360fac58c66559a027d2
         'Dompdf\\Canvas' => __DIR__ . '/..' . '/dompdf/dompdf/src/Canvas.php',
         'Dompdf\\CanvasFactory' => __DIR__ . '/..' . '/dompdf/dompdf/src/CanvasFactory.php',
         'Dompdf\\Cellmap' => __DIR__ . '/..' . '/dompdf/dompdf/src/Cellmap.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'Dompdf\\Css\\AttributeTranslator' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/AttributeTranslator.php',
         'Dompdf\\Css\\Color' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/Color.php',
         'Dompdf\\Css\\Style' => __DIR__ . '/..' . '/dompdf/dompdf/src/Css/Style.php',

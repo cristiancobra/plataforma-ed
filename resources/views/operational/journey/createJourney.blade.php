@@ -71,7 +71,8 @@
 		@if ($errors->has('description'))
 		<span class="text-danger">{{ $errors->first('description') }}</span>
 		@endif
-		<textarea id="description" name="description" rows="10" cols="90"  value="{{old('description')}}">
+		<textarea id="description" name="description" rows="10" cols="90">
+                                    {{old('description')}}
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
@@ -83,7 +84,7 @@ CKEDITOR.replace('description');
 		<label class="labels" for="" >DATA:</label>
 		<input type="date" name="date" value="{{old('date')}}">
 		@if ($errors->has('date'))
-		<span class="text-danger">{{ $errors->first('date') }}</span>
+		<span class="text-danger">{{$errors->first('date')}}</span>
 		@endif
 		<br>
 		<label class="labels" for="" >

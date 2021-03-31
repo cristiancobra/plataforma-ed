@@ -103,13 +103,13 @@
 	<input type="text" name="logo">   
 	<br>
 	<label for="">Cor principal: </label>
-	<input type="text" name="principal_color">   
+	<input type="text" name="principal_color" value="#874983">   
 	<br>
 	<label for="">Cor complementar: </label>
-	<input type="text" name="complementary_color">   
+	<input type="text" name="complementary_color" value="#c28dbf">   
 	<br>
 	<label for="">Cor oposta: </label>
-	<input type="text" name="opposite_color">   
+	<input type="text" name="opposite_color" value="#49d194">
 	<br>
 	<br>
 	<label class="labels" for="" >Funcionários: </label>

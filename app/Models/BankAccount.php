@@ -19,6 +19,7 @@ class BankAccount extends Model {
 		'agency',
 		'account_number',
 		'opening_balance',
+		'pix',
 		'status',
 	];
 	protected $hidden = [

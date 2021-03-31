@@ -62,11 +62,14 @@
 		<label for="" >Tipo de conta: </label>
 		<input type="text" name="type" value="{{$bankAccount->type}}">
 		<br>
-		<label for="" >Número da agencia:: </label>
+		<label for="" >Número da agencia: </label>
 		<input type="text" name="agency" value="{{$bankAccount->agency}}">
 		<br>
-		<label for="" >Número da conta:: </label>
+		<label for="" >Número da conta: </label>
 		<input type="text" name="account_number" value="{{$bankAccount->account_number}}">
+		<br>
+		<label for="" >Chave PIX: </label>
+		<input type="text" name="pix" value="{{$bankAccount->pix}}">
 		<br>
 		<label for="" >Saldo inicial: </label><span style='margin-left:20px'>  R$</span>
 		<input type="decimal" name="opening_balance" size='6' value="{{$bankAccount->opening_balance}}" style="text-align:right">
