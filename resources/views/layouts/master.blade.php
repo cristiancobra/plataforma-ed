@@ -280,7 +280,7 @@
 
 				@endif
 
-				<a href="https://empresadigital.net.br/suporte/" target="_blank">
+				<a href="https://empresadigital.net.br/empreender/" target="_blank">
 					<button class="sidebar-item">
 						<i class="fas fa-question-circle"></i> SUPORTE
 					</button></a>

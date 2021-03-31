@@ -236,11 +236,17 @@ class JourneyController extends Controller {
 				$resultUsers[$counterArray] = Journey::where('user_id', $user->id)
 						->whereBetween('date', [$initialDate, $finalDate])
 						->sum('duration');
+				$resultMonth[$counterArray] = Journey::whereHas('user', function($query) {
+					$query->whereIn('account_id', userAccounts());
+                                                                                               })
+						->whereBetween('date', [$initialDate, $finalDate])
+						->sum('duration');
+                                
 				$counterMonth++;
 				$counterArray++;
 			}
 		}
-
+//dd($resultUsers);
 		$departments = returnDepartments();
 
 		$counterArray = 1;
@@ -267,6 +273,7 @@ class JourneyController extends Controller {
 						'counterMonth',
 						'counterArray',
 						'resultUsers',
+						'resultMonth',
 						'resultCategories',
 		));
 	}

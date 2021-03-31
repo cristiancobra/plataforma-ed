@@ -44,6 +44,8 @@
 	<br>
 	<label class="labels"  for="" >NÚMERO DA CONTA: </label> {{$bankAccount->account_number}}
 	<br>
+	<label class="labels"  for="" >CHAVE PIX: </label> {{$bankAccount->pix}}
+	<br>
 	<label class="labels"  for="" >SALDO INICIAL: </label> R$ {{$bankAccount->opening_balance}}
 	<br>
 	<br>
