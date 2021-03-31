@@ -103,11 +103,14 @@
                     {{$invoiceLine->product->name}}
                 </td>
                 <td class="table-list-right">
-                    {{number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}}			</td>
+                    {{number_format($invoiceLine->subtotalTax_rate, 2,",",".") }}
+                </td>
                 <td class="table-list-right">
-                    {{number_format($invoiceLine->product->price,2,",",".") }}}			</td>
+                    {{number_format($invoiceLine->product->price,2,",",".") }}
+                </td>
                 <td class="table-list-right">
-                    {{number_format($invoiceLine->subtotalPrice,2,",",".") }}}			</td>
+                    {{number_format($invoiceLine->subtotalPrice,2,",",".") }}
+                </td>
             </tr>
             <tr style="font-size: 12px">
                 <td class="table-list-left" colspan="6">

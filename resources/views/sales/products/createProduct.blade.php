@@ -79,7 +79,7 @@ CKEDITOR.replace('description');
 		<br>
 		@endif
 		<label class="labels" for="" >PREÇO:</label>
-		<input type="integer" name="price" size="5" value=""><span class="fields"></span>
+                                <input type="decimal" name="price" style="text-align: right" size='6'>
 		@if ($errors->has('price'))
 		<span class="text-danger">{{ $errors->first('price') }}</span>
 		@endif

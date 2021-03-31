@@ -32,7 +32,11 @@ class InvoiceController extends Controller {
         $yearEnd = date('Y-12-31');
 
         $invoices = Invoice::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
+                    if ($request->account_id) {
+                        $query->where('account_id', $request->account_id);
+                    }else{
+                        $query->whereIn('account_id', userAccounts());
+                    }
                     if ($request->name) {
                         $query->whereHas('opportunity', function ($query) use ($request) {
                             $query->where('name', 'like', "%$request->name%");
@@ -45,16 +49,8 @@ class InvoiceController extends Controller {
                         $query->where('company_id', $request->company_id);
                         $query->whereHas('opportunity', function ($query) use ($request) {
                             $query->where('company_id', $request->company_id);
-                        })
-                        ->get();
+                        });
                     }
-//					if ($request->contact_id) {
-//						$query->where('contact_id', $request->contact_id);
-//						$query->whereHas('opportunity', function($query) use($request) {
-//							$query->where('contact_id', $request->contact_id);
-//						})
-//						->get();
-//					}
                     if ($request->status) {
                         $query->where('status', '=', $request->status);
                     }

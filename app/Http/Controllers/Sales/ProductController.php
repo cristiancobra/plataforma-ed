@@ -120,9 +120,6 @@ public function create(Request $request) {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		$product = new Product();
-		$product->fill($request->all());
-
 		$messages = [
 			'unique' => 'Já existe um contato com este :attribute.',
 			'required' => '*preenchimento obrigatório.',
@@ -138,8 +135,10 @@ public function create(Request $request) {
 							->withErrors($validator)
 							->withInput();
 		} else {
+                                                $product = new Product();
+                                                $product->fill($request->all());
+                                                $product->price = str_replace(",", ".", $request->price);
 			$product->type = $request->type;
-//			dd($request);
 			$product->save();
 			
 			$type = $product->type;
@@ -196,6 +195,7 @@ public function create(Request $request) {
 	 */
 	public function update(Request $request, Product $product) {
 		$product->fill($request->all());
+                                $product->price = str_replace(",", ".", $request->price);
 		$product->save();
 //dd($product);
 		return view('sales.products.showProduct', [
