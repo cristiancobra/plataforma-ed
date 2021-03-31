@@ -24,11 +24,14 @@ Total: <span class="labels"></span>
 			<td   class="table-list-header" style="width: 25%">
 				NOME
 			</td>
-			<td   class="table-list-header" style="width: 20%">
+			<td   class="table-list-header" style="width: 15%">
 				AGÊNCIA
 			</td>
-			<td   class="table-list-header" style="width: 20%">
+			<td   class="table-list-header" style="width: 15%">
 				CONTA
+			</td>
+			<td   class="table-list-header" style="width: 15%">
+				CHAVE PIX
 			</td>
 			<td   class="table-list-header" style="width: 15%">
 				DONO
@@ -58,6 +61,9 @@ Total: <span class="labels"></span>
 			</td>
 			<td class="table-list-center">
 				{{$bankAccount->account_number}}
+			</td>
+			<td class="table-list-center">
+				{{$bankAccount->pix}}
 			</td>
 			<td class="table-list-center">
 				{{$bankAccount->account->name}}
