@@ -124,10 +124,14 @@ Route::resource('sites', 'Marketing\\SiteController')
 		->middleware('roles');
 
 //socialmedia
-Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
-		->names('socialmedia')
-		->parameters(['redes-sociais' => 'socialmedia'])
+//Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
+//		->names('socialmedia')
+//		->parameters(['redes-sociais' => 'socialmedia'])
+//		->middleware('roles');
+//		
+Route::get('/redes-sociais', 'Socialmedia\DashboardController@socialmedia')
 		->middleware('roles');
+
 // ================================ MENU ===================
 Route::get('/inicio', function () {
 	return view('inicio');
