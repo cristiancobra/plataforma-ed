@@ -120,7 +120,7 @@
 <div class="spotify">
     <img class="grid-image" src="{{ asset('imagens/socialmedia/spotify.png') }}" style="width: 80px;height: 80px;text-align: center">
     <br>
-    @foreach ($spotify as $spotify)
+    @foreach ($spotifys as $spotify)
 	<a class="button-round"  href=" {{ $spotify->URL_name}}" target="_blank" >
 		<i class='fab fa-spotify'></i>
 	</a>
