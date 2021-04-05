@@ -35,67 +35,60 @@ class DashboardController extends Controller {
 	 * @return \Illuminate\Contracts\Support\Renderable
 	 */
 	public function socialmedia() {
-		$userAuth = Auth::user();
 		$hoje = date("d/m/Y");
 
-		$accountsID = Account::whereHas('users', function($query) use($userAuth) {
-					$query->where('users.id', $userAuth->id);
-				})
-				->pluck('id');
-
-		$facebooks = Facebook::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$facebooks = Facebook::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		$instagrams = Instagram::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$instagrams = Instagram::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		$linkedins = Linkedin::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$linkedins = Linkedin::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		$twitters = Twitter::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$twitters = Twitter::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		$pinterests = Pinterest::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$pinterests = Pinterest::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		$youtubes = Youtube::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$youtubes = Youtube::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		$spotifys = Spotify::whereHas('account', function($query) use($accountsID) {
-					$query->whereIn('account_id', $accountsID)
+		$spotifys = Spotify::whereHas('account', function($query) {
+					$query->whereIn('account_id', userAccounts())
 					->with('account');
 				})
 				->get();
 
-		return view('socialmedia/dashboardSocialmedia', [
-			'userAuth' => $userAuth,
-			'hoje' => $hoje,
-			'facebooks' => $facebooks,
-			'instagrams' => $instagrams,
-			'linkedins' => $linkedins,
-			'twitters' => $twitters,
-			'pinterests' => $pinterests,
-			'youtubes' => $youtubes,
-			'spotify' => $spotifys,
-		]);
+		return view('socialmedia/dashboardSocialmedia', compact(
+			'hoje',
+			'facebooks',
+			'instagrams',
+			'linkedins',
+			'twitters',
+			'pinterests',
+			'youtubes',
+			'spotifys',
+		));
 	}
 
 }
