@@ -225,30 +225,31 @@ class JourneyController extends Controller {
 			$year = date('y');
 		}
 
+                                // calcular horas por USUÁRIOS
 		$users = myUsers(['contact']);
-
+                                $annualUser = 0;
 		$counterArray = 1;
 		foreach ($users as $user) {
 			$counterMonth = 1;
 			while ($counterMonth <= 12) {
 				$initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
 				$finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
-				$resultUsers[$counterArray] = Journey::where('user_id', $user->id)
+				$monthlyUser[$counterArray] = Journey::where('user_id', $user->id)
 						->whereBetween('date', [$initialDate, $finalDate])
 						->sum('duration');
-				$resultMonth[$counterArray] = Journey::whereHas('user', function($query) {
+				$monthlyTotal[$counterArray] = Journey::whereHas('user', function($query) {
 					$query->whereIn('account_id', userAccounts());
                                                                                                })
 						->whereBetween('date', [$initialDate, $finalDate])
 						->sum('duration');
-                                
+                                                                $annualUser = $annualUser + $monthlyUser[$counterArray];
 				$counterMonth++;
 				$counterArray++;
 			}
 		}
-//dd($resultUsers);
-		$departments = returnDepartments();
 
+                                // calcular horas por DEPARTAMENTOS
+		$departments = returnDepartments();
 		$counterArray = 1;
 		foreach ($departments as $department) {
 			$counterMonth = 1;
@@ -266,14 +267,16 @@ class JourneyController extends Controller {
 			}
 		}
 
-		return view('operational.journey.reportsJourneys', compact(
+//                                $totalYear = 
+		return view('operational.journey.reports', compact(
 						'users',
 						'months',
 						'departments',
 						'counterMonth',
 						'counterArray',
-						'resultUsers',
-						'resultMonth',
+						'monthlyUser',
+						'monthlyTotal',
+						'annualUser',
 						'resultCategories',
 		));
 	}

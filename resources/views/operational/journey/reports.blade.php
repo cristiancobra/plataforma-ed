@@ -56,14 +56,13 @@
             echo "</td>";
         while ($counterMonth <= 12) {
         echo "<td class='table-list-right'>";
-            echo number_format($resultUsers[$counterArray] / 3600, 1, ',','.');
+            echo number_format($monthlyUser[$counterArray] / 3600, 1, ',','.');
             echo "</td>";
-        $totalUser = $totalUser + $resultUsers[$counterArray];
         $counterMonth++;
         $counterArray++;
         }
         echo "<td class='table-list-right' style='color:white;background-color: #874983'>";
-            echo number_format($totalUser / 3600, 1, ',','.');
+            echo number_format($annualUser / 3600, 1, ',','.');
             echo "</td>
     </tr>";
     }
@@ -75,7 +74,7 @@
             echo "</td>";
         while ($counterArray <= 12) {
         echo "<td class='table-list-right' style='color:white;background-color: #c28dbf'>";
-            echo number_format($resultMonth[$counterArray] / 3600, 1, ',','.');
+            echo number_format($monthlyTotal[$counterArray] / 3600, 1, ',','.');
             echo "</td>";
         $counterArray++;
         }
