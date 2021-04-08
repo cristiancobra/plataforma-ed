@@ -34,7 +34,7 @@ class InvoiceController extends Controller {
         $invoices = Invoice::where(function ($query) use ($request) {
                     if ($request->account_id) {
                         $query->where('account_id', $request->account_id);
-                    }else{
+                    } else {
                         $query->whereIn('account_id', userAccounts());
                     }
                     if ($request->name) {
@@ -192,7 +192,6 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -212,7 +211,6 @@ class InvoiceController extends Controller {
                             ],
                             $messages);
         }
-
         if ($validator->fails()) {
             return back()
                             ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
@@ -220,12 +218,12 @@ class InvoiceController extends Controller {
                             ->withInput();
         } else {
             $invoice = new Invoice();
-
             $invoice->fill($request->all());
             $lastInvoice = Invoice::where('account_id', $request->account_id)
                     ->latest('id')
                     ->first();
 
+            // Se for rascunho ou orçamento atribui ID zero
             if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
                 $invoice->identifier = 0;
             } elseif ($lastInvoice != null) {
@@ -236,9 +234,9 @@ class InvoiceController extends Controller {
 //			$invoice->totalPrice = str_replace(",",".", $request->totalPrice);
             $invoice->save();
 
+            // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
             $totalPrice = 0;
             $totalTaxrate = 0;
-
             foreach ($request->product_id as $key => $value) {
                 if ($request->product_amount [$key] > 0) {
                     $data = array(
@@ -459,7 +457,7 @@ class InvoiceController extends Controller {
                 // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
                 $newTotalPrice = 0;
                 $newProducts = $request['new_product_id'];
-                
+
                 foreach ($newProducts as $key => $newProductId) {
                     if ($request->new_product_amount[$key] > 0) {
                         $data = array(
@@ -580,7 +578,7 @@ class InvoiceController extends Controller {
 
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
         $pdf->setPaper('A4', 'portrait');
-        
+
 // download PDF file with download method
         return $pdf->stream('fatura.pdf');
     }

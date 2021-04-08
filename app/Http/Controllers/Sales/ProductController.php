@@ -132,10 +132,12 @@ class ProductController extends Controller {
             $product->save();
 
             $type = $product->type;
-
+            $variation = $request->variation;
+            
             return view('sales.products.showProduct', compact(
                             'product',
                             'type',
+                            'variation',
             ));
         }
     }
@@ -162,7 +164,7 @@ class ProductController extends Controller {
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product) {
+    public function edit(Product $product, Request $request) {
         $accountsId = Account::whereHas('users', function ($query) {
                     $query->where('users.id', Auth::user()->id);
                 })
@@ -172,10 +174,13 @@ class ProductController extends Controller {
                     $query->whereIn('account_id', $accountsId);
                 })
                 ->get();
+                
+         $variation = $request->variation;
 
         return view('sales.products.editProduct', compact(
                         'product',
                         'accounts',
+                        'variation',
         ));
     }
 
@@ -190,10 +195,12 @@ class ProductController extends Controller {
         $product->fill($request->all());
         $product->price = str_replace(",", ".", $request->price);
         $product->save();
-//dd($product);
-        return view('sales.products.showProduct', [
-            'product' => $product,
-        ]);
+        $variation = $request->variation;
+//        dd($variation);
+        return view('sales.products.showProduct', compact(
+            'product',
+            'variation',
+        ));
     }
 
     /**

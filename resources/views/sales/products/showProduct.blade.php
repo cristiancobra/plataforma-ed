@@ -15,14 +15,14 @@
 
 @section('buttons')
 <a class="button-primary"  href="{{route('product.index', ['variation' => $variation])}}">
-	VOLTAR
+    VOLTAR
 </a>
 @endsection
 
 @section('main')
 <br>
 <h1 class="name">
-	{{$product->name}}
+    {{$product->name}}
 </h1>
 <label class="labels" for="" >FOTO:</label>
 <span class="fields">{{$product->image}}</span>
@@ -81,17 +81,20 @@
 <span class="fields">{{$product->status}}</span>
 <br>
 <br>
-<p class="labels"> <b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($product->created_at)) }} </p>
+<p class="labels"> <b> Criado em:  </b> {{date('d/m/Y H:i', strtotime($product->created_at))}} </p>
 
 <div style="text-align:right;padding: 2%">
-	<form   style="text-decoration: none;display: inline-block" action="{{ route('product.destroy', ['product' => $product->id]) }}" method="post">
-		@csrf
-		@method('delete')
-		<input class="btn btn-danger" type="submit" value="APAGAR">
-	</form>
-	<a class="btn btn-secondary" href=" {{ route('product.edit', ['product' => $product->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
-		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('product.index')}}">VOLTAR</a>
+    <form   style="text-decoration: none;display: inline-block" action="{{route('product.destroy', ['product' => $product->id])}}" method="post">
+        @csrf
+        @method('delete')
+        <input class="btn btn-danger" type="submit" value="APAGAR">
+    </form>
+    <a class="button-secondary" href="{{route('product.edit', ['product' => $product->id, 'variation' => $variation])}}"  style="text-decoration: none;display: inline-block">
+        <i class='fa fa-edit'></i>EDITAR
+    </a>
+    <a class="button-secondary"  href="{{route('product.index', ['variation' => $variation])}}">
+        VOLTAR
+    </a>
 </div>
 <br>
 

@@ -10,14 +10,14 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('product.index')}}">
+<a class="button-primary"  href="{{route('product.index', ['variation' => $variation])}}">
 	VOLTAR
 </a>
 @endsection
 
 @section('main')
 <div>
-	<form action=" {{route('product.update', ['product' =>$product->id])}} " method="post" style="color: #874983">
+	<form action=" {{route('product.update', ['product' => $product->id, 'variation' => $variation])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >NOME:</label>
