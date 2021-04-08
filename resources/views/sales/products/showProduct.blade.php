@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-{{ asset('imagens/products.png') }} 
+{{asset('imagens/products.png')}} 
 @endsection
 
 @section('description')
@@ -28,35 +28,35 @@
 <span class="fields">{{$product->image}}</span>
 <br>
 <label class="labels" for="" >DONO: </label>
-<span class="fields">{{$product->account->name }}</span>
+<span class="fields">{{$product->account->name}}</span>
 <br>
 <label class="labels" for="" >CATEGORIA:</label>
-<span class="fields">{{$product->category }}</span>
+<span class="fields">{{$product->category}}</span>
 <br>
 <label class="labels" for="" >DESCRIÇÃO:</label>
 <span class="fields">{!!html_entity_decode($product->description )!!}</span>
 <br>
 <label class="labels" for="" >HORAS NECESSÁRIAS:</label>
-<span class="fields">{{$product->work_hours }}</span>
+<span class="fields">{{$product->work_hours}}</span>
 <br>
 <br>
 <label class="labels" for="" >CUSTO 1:</label>
-<span class="fields">R$ {{ number_format($product->cost1, 2,",",".") }}</span>
+<span class="fields">R$ {{number_format($product->cost1, 2,",",".")}}</span>
 <label class="labels" for="" >descrição:</label>
-<span class="fields">{{$product->cost1_description }}</span>
+<span class="fields">{{$product->cost1_description}}</span>
 <br>
 <label class="labels" for="" >CUSTO 2:</label>
-<span class="fields">R$ {{ number_format($product->cost2, 2,",",".") }}</span>
+<span class="fields">R$ {{number_format($product->cost2, 2,",",".")}}</span>
 <label class="labels" for="" >descrição:</label>
-<span class="fields">{{$product->cost2_description }}</span>
+<span class="fields">{{$product->cost2_description}}</span>
 <br>
 <label class="labels" for="" >CUSTO 3:</label>
-<span class="fields">R$ {{ number_format($product->cost3, 2,",",".") }}</span>
+<span class="fields">R$ {{number_format($product->cost3, 2,",",".")}}</span>
 <label class="labels" for="" >descrição:</label>
-<span class="fields">{{$product->cost3_description }}</span>
+<span class="fields">{{$product->cost3_description}}</span>
 <br>
 <label class="labels" for="" >CUSTO TOTAL:</label>
-<span class="fields">R$ {{ number_format($product->cost1 + $product->cost2 +$product->cost3, 2,",",".") }}</span>
+<span class="fields">R$ {{number_format($product->cost1 + $product->cost2 +$product->cost3, 2,",",".")}}</span>
 <br>
 <br>
 <label class="labels" for="" >MARGEM DE CONTRIBUIÇÃO (R$):</label>
@@ -64,17 +64,17 @@
 <br>
 <br>
 <label class="labels" for="" >IMPOSTO:</label>
-<span class="fields">{{$product->tax_rate }} %</span>
+<span class="fields">{{$product->tax_rate}} %</span>
 <br>
 <label class="labels" for="" >IMPOSTO:</label>
-<span class="fields">R$ {{ number_format($product->price * $product->tax_rate / 100, 2,",",".") }}</span>
+<span class="fields">R$ {{number_format($product->price * $product->tax_rate / 100, 2,",",".")}}</span>
 <br>
 <label class="labels" for="" >PREÇO:</label>
-<span class="fields">R$ {{ number_format($product->price, 2,",",".") }}</span>
+<span class="fields">R$ {{number_format($product->price, 2,",",".")}}</span>
 <br>
 <br>
 <label class="labels" for="" >PRAZO DE ENTREGA:</label>
-<span class="fields">{{$product->due_date }}</span>
+<span class="fields">{{$product->due_date}}</span>
 <br>
 <br>
 <label class="labels" for="">SITUAÇÃO:</label>
