@@ -167,6 +167,7 @@ class InvoiceController extends Controller {
                     $query->whereIn('account_id', userAccounts());
                 })
                 ->where('type', 'LIKE', $typeInvoices)
+                ->where('status', 'disponível')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 

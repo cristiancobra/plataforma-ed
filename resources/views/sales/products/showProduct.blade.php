@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
+@if($variation == 'receita')
 @section('title','PRODUTOS')
+@else
+@section('title','ITENS DE DESPESA')
+@endif
 
 @section('image-top')
 {{ asset('imagens/products.png') }} 
@@ -10,7 +14,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('product.index')}}">
+<a class="button-primary"  href="{{route('product.index', ['variation' => $variation])}}">
 	VOLTAR
 </a>
 @endsection

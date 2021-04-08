@@ -1319,6 +1319,7 @@ input[type=button].btn-block {
 	vertical-align:super;
 	border-bottom: solid;
 	border-width: 1px;
+        font-size: 13px;
 }
 
 .table-list-right{ 
@@ -1329,6 +1330,7 @@ input[type=button].btn-block {
 	border-bottom: solid;
 	border-width: 1px;
 	font-weight: bolder;
+        font-size: 13px;
 }
 .table-list-left{ 
 	display: table-cell;  
@@ -1338,6 +1340,7 @@ input[type=button].btn-block {
 	border-bottom: solid;
 	border-width: 1px;
 	font-weight: bolder;
+        font-size: 13px;
 }
 
 .table-list-left ul{ 

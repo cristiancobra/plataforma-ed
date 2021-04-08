@@ -242,6 +242,11 @@ Route::resource('oportunidades', 'Sales\\OpportunityController')
 		->parameters(['oportunidades' => 'opportunity'])
 		->middleware('roles');
 
+// products
+Route::any('/produtos/filtros', 'Sales\\ProductController@filter')
+		->name('product.filter')
+		->middleware('roles');
+
 Route::resource('produtos', 'Sales\\ProductController')
 		->names('product')
 		->parameters(['produtos' => 'product'])

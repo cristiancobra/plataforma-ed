@@ -595,6 +595,21 @@ if (!function_exists('formatStatus')) {
 	}
 
 }
+// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
+if (!function_exists('formatProductStatus')) {
+
+	function formatProductStatus($model) {
+		switch ($model->status) {
+			case 'indisponível':
+				echo '<td class="td-canceled">indisponível</td>';
+				break;
+			case 'disponível':
+				echo '<td class="td-aproved">disponível</td>';
+				break;
+		}
+	}
+
+}
 // gera um botão com a formatação para STATUS / SITUAÇÃO para ativado ou desativado
 if (!function_exists('formatStatusActive')) {
 
