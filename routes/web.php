@@ -233,12 +233,11 @@ Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
 		->names('contractTemplate')
 		->parameters(['modelos-de-contratos' => 'contractTemplate']);
 
-Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@index')
-		->name('opportunity.index')
+Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
+		->name('opportunity.filter')
 		->middleware('roles');
 
 Route::resource('oportunidades', 'Sales\\OpportunityController')
-		->except(['index'])
 		->names('opportunity')
 		->parameters(['oportunidades' => 'opportunity'])
 		->middleware('roles');
@@ -256,12 +255,11 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')
 		->name('postar-site');
 
 // ================================ TASKS ===================
-Route::any('/tarefas/filtros', 'Tasks\\TaskController@index')
-		->name('task.index')
+Route::any('/tarefas/filtros', 'Tasks\\TaskController@filter')
+		->name('task.filter')
 		->middleware('roles');
 
 Route::resource('tarefas', 'Tasks\\TaskController')
-		->except(['index'])
 		->names('task')
 		->parameters(['tarefas' => 'task'])
 		->middleware('roles');

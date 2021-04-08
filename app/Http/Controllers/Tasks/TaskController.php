@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Company;
 use App\Models\Journey;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,270 +18,324 @@ use DB;
 
 class TaskController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index(Request $request) {
-		$today = date('Y-m-d');
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request) {
+        $today = date('Y-m-d');
 
-		$tasks = Task::where(function ($query) use ($request) {
-					$query->whereIn('account_id', userAccounts());
-					if ($request->name) {
-						$query->where('name', 'like', "%$request->name%");
-					}
-					if ($request->user_id == 'all') {
-//						echo 'todos';
-						$query->where('user_id', '>', 0);
-					} elseif ($request->user_id) {
-						$query->where('user_id', $request->user_id);
-					} else {
-						$query->where('user_id', auth()->user()->id);
-					}
-					if ($request->contact_id) {
-						$query->where('contact_id', $request->contact_id);
-					}
-					if ($request->status) {
-						$query->where('status', $request->status);
-					} else {
-						$query->where('status', 'fazer');
-					}
-				})
-				->with(
-					'opportunity',
-					'journeys',
-					'user.contact',
-				)
+        $tasks = Task::where(function ($query) use ($request) {
+                    $query->whereIn('account_id', userAccounts());
+                    $query->where('user_id', auth()->user()->id);
+                    $query->where('status', 'fazer');
+                })
+                ->with(
+                        'opportunity',
+                        'journeys',
+                        'user.contact',
+                )
 //				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
-				->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-				->orderBy('date_due', 'ASC')
-				->paginate(20);
+                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+                ->orderBy('date_due', 'ASC')
+                ->paginate(20);
 
-		$tasks->appends([
-			'name' => $request->name,
-			'status' => $request->status,
-			'contact_id' => $request->contact_id,
-			'user_id' => $request->user_id,
-		]);
+        $tasks->appends([
+            'name' => $request->name,
+            'status' => $request->status,
+            'contact_id' => $request->contact_id,
+            'user_id' => $request->user_id,
+        ]);
 
-		$contacts = Contact::whereIn('account_id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$accounts = Account::whereIn('id', userAccounts())
-				->orderBy('ID', 'ASC')
-				->get();
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$users = myUsers();
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
 
-		return view('tasks.indexTasks', compact(
-						'tasks',
-						'contacts',
-						'accounts',
-						'users',
-						'today',
-		));
-	}
+        $users = myUsers();
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
-		$accounts = Account::whereHas('users', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->get();
+        return view('tasks.indexTasks', compact(
+                        'tasks',
+                        'contacts',
+                        'companies',
+                        'accounts',
+                        'users',
+                        'today',
+        ));
+    }
 
-		$contacts = Contact::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->orderBy('NAME', 'ASC')
-				->get();
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        $accounts = Account::whereHas('users', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->get();
 
-		$users = User::whereHas('accounts', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->with('contact')
-				->get();
+        $contacts = Contact::whereHas('account', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$today = date("Y-m-d");
-		$departments = returnDepartments();
-		$status = returnStatus();
-		$priorities = returnPriorities();
+        $users = User::whereHas('accounts', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->with('contact')
+                ->get();
 
-		return view('tasks.createTask', compact(
-						'users',
-						'accounts',
-						'contacts',
-						'today',
-						'departments',
-						'status',
-						'priorities',
-		));
-	}
+        $today = date("Y-m-d");
+        $departments = returnDepartments();
+        $status = returnStatus();
+        $priorities = returnPriorities();
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request) {
-		$messages = [
-			'required' => '*preenchimento obrigatório.',
-		];
-		$validator = Validator::make($request->all(), [
-					'name' => 'required:tasks',
-					'date_start' => 'required:tasks',
-					'date_due' => 'required:tasks',
-					'description' => 'required:tasks',
-						],
-						$messages);
+        return view('tasks.createTask', compact(
+                        'users',
+                        'accounts',
+                        'contacts',
+                        'today',
+                        'departments',
+                        'status',
+                        'priorities',
+        ));
+    }
 
-		if ($validator->fails()) {
-			return back()
-							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-							->withErrors($validator)
-							->withInput();
-		} else {
-                                                $task = new Task();
-                                                $task->fill($request->all());
-                                                $task->status = 'fazer';
-			$task->save();
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request) {
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:tasks',
+                    'date_start' => 'required:tasks',
+                    'date_due' => 'required:tasks',
+                    'description' => 'required:tasks',
+                        ],
+                        $messages);
 
-			$journeys = Journey::where('task_id', $task->id)
-					->get();
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $task = new Task();
+            $task->fill($request->all());
+            $task->status = 'fazer';
+            $task->save();
 
-			return view('tasks.showTask', compact(
-							'task',
-							'journeys',
-			));
-		}
-	}
+            $journeys = Journey::where('task_id', $task->id)
+                    ->get();
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \App\tasks  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(task $task) {
-		$today = date('Y-m-d');
-
-		return view('tasks.showTask', [
-			'today' => $today,
-			'task' => $task,
-		]);
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  \App\tasks  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit(task $task) {
-		$accounts = Account::whereHas('users', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->get();
-
-		$contacts = Contact::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->orderBy('NAME', 'ASC')
-				->get();
-
-		$tasks = Task::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->with('contact')
-				->paginate(20);
-
-		$users = User::whereHas('accounts', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->get();
-
-		$departments = returnDepartments();
-		$status = returnStatus();
-		$priorities = returnPriorities();
-
-		return view('tasks.editTask', compact(
-			'users',
-			'task',
-			'tasks',
-			'accounts',
-			'contacts',
-			'departments',
-			'status',
-			'priorities',
-		));
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\tasks  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, task $task) {
-                               $messages = [
-			'required' => '*preenchimento obrigatório.',
-		];
-		$validator = Validator::make($request->all(), [
-					'name' => 'required:tasks',
-					'date_start' => 'required:tasks',
-					'date_due' => 'required:tasks',
-					'description' => 'required:tasks',
-						],
-						$messages);
-
-		if ($validator->fails()) {
-			return back()
-							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-							->withErrors($validator)
-							->withInput();
-		} else {
-                                $task->fill($request->all());
-		if (isset($request->cancelado)) {
-			$task->status = 'cancelado';
-			$task->date_conclusion = "";
-		} elseif (isset($request->aguardar)) {
-			$task->status = 'aguardar';
-			$task->date_conclusion = "";
-		} elseif (isset($request->date_conclusion)) {
-			$task->status = 'feito';
-		} else {
-			$task->status = 'fazer';
-		}
-
-		$task->save();
-
-		return view('tasks.showTask', [
-			'task' => $task,
-		]);
-	}
+            return view('tasks.showTask', compact(
+                            'task',
+                            'journeys',
+            ));
         }
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  \App\tasks  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy(task $task) {
-		$task->delete();
-		return redirect()->action('Tasks\\TaskController@index');
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\tasks  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function show(task $task) {
+        $today = date('Y-m-d');
 
-	public function duration(start_time $start_time, end_time $end_time) {
-		$this->$end_time->subHour(1);
-		return $this;
-	}
+        return view('tasks.showTask', [
+            'today' => $today,
+            'task' => $task,
+        ]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\tasks  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(task $task) {
+        $accounts = Account::whereHas('users', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->get();
+
+        $contacts = Contact::whereHas('account', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $tasks = Task::whereHas('account', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->with('contact')
+                ->paginate(20);
+
+        $users = User::whereHas('accounts', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->get();
+
+        $departments = returnDepartments();
+        $status = returnStatus();
+        $priorities = returnPriorities();
+
+        return view('tasks.editTask', compact(
+                        'users',
+                        'task',
+                        'tasks',
+                        'accounts',
+                        'contacts',
+                        'departments',
+                        'status',
+                        'priorities',
+        ));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\tasks  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, task $task) {
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:tasks',
+                    'date_start' => 'required:tasks',
+                    'date_due' => 'required:tasks',
+                    'description' => 'required:tasks',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $task->fill($request->all());
+            if (isset($request->cancelado)) {
+                $task->status = 'cancelado';
+                $task->date_conclusion = "";
+            } elseif (isset($request->aguardar)) {
+                $task->status = 'aguardar';
+                $task->date_conclusion = "";
+            } elseif (isset($request->date_conclusion)) {
+                $task->status = 'feito';
+            } else {
+                $task->status = 'fazer';
+            }
+
+            $task->save();
+
+            return view('tasks.showTask', [
+                'task' => $task,
+            ]);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\tasks  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(task $task) {
+        $task->delete();
+        return redirect()->action('Tasks\\TaskController@index');
+    }
+
+    public function duration(start_time $start_time, end_time $end_time) {
+        $this->$end_time->subHour(1);
+        return $this;
+    }
+
+    public function filter(Request $request) {
+        $today = date('Y-m-d');
+
+        $tasks = Task::where(function ($query) use ($request) {
+                    if ($request->account_id) {
+                        $query->where('account_id', '=', $request->account_id);
+                    } else {
+                        $query->whereIn('account_id', userAccounts());
+                    }
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
+                    }
+                    if ($request->user_id) {
+                        $query->where('user_id', $request->user_id);
+                    }
+                    if ($request->contact_id) {
+                        $query->where('contact_id', $request->contact_id);
+                    }
+                    if ($request->company_id) {
+                        $query->where('contact_id', '=', $request->contact_id);
+                    }
+                    if ($request->status) {
+                        $query->where('status', $request->status);
+                    }
+                })
+                ->with(
+                        'opportunity',
+                        'journeys',
+                        'user.contact',
+                )
+//				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
+                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+                ->orderBy('date_due', 'ASC')
+                ->paginate(20);
+
+        $tasks->appends([
+            'name' => $request->name,
+            'status' => $request->status,
+            'contact_id' => $request->contact_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $users = myUsers();
+
+        return view('tasks.indexTasks', compact(
+                        'tasks',
+                        'contacts',
+                        'companies',
+                        'accounts',
+                        'users',
+                        'today',
+        ));
+    }
 
 }

@@ -3,7 +3,7 @@
 @section('title','OPORTUNIDADES')
 
 @section('image-top')
-{{ asset('imagens/financeiro.png') }} 
+{{asset('imagens/financeiro.png')}} 
 @endsection
 
 @section('description')
@@ -11,105 +11,93 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 @endsection
 
 @section('buttons')
+<button id='filter_button' class='button-secondary'>
+<i class="fa fa-filter" aria-hidden="true"></i>
+</button>
 <a class="button-primary"  href="{{route('opportunity.create')}}">
-	CRIAR
+    <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 
 @section('main')
-<form action="{{route('opportunity.index')}} " method="post" style="text-align: right;color: #874983">
-	@csrf
-	<input type="text" name="name" placeholder="nome da oportunidade" value="">
-	<select class="select" name="account_id">
-		<option  class="select" value="">
-			Qualquer empresa
-		</option>
-		@foreach ($accounts as $account)
-		<option  class="select" value="{{$account->id}}">
-			{{$account->name}}
-		</option>
-		@endforeach
-		<option  class="select" value="">
-			todas
-		</option>
-	</select>
-	<select class="select" name="contact_id">
-		<option  class="select" value="">
-			Qualquer contato
-		</option>
-		@foreach ($contacts as $contact)
-		<option  class="select" value="{{$contact->id}}">
-			{{$contact->name}}
-		</option>
-		@endforeach
-		<option  class="fields" value="">
-			todas
-		</option>
-	</select>
-	<select class="select"name="user_id">
-		<option  class="select" value="">
-			Qualquer funcionário
-		</option>
-		@foreach ($users as $user)
-		<option  class="select" value="{{ $user->id }}">
-			{{ $user->name }}
-		</option>
-		@endforeach
-	</select>
-	{{createFilterSelect('stage', 'select', returnOpportunitiesStage())}}
-	<input class="btn btn-secondary" type="submit" value="FILTRAR">
+<form id="filter" action="{{route('opportunity.filter')}}" method="post" style="text-align: right;display:none">
+    @csrf
+    <input type="text" name="name" placeholder="nome da oportunidade" value="">
+    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
+    {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
+    {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
+    {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+    {{createFilterSelect('stage', 'select', returnOpportunitiesStage())}}
+    <br>
+    <a class="button-secondary" href='{{route('opportunity.index')}}'>
+        LIMPAR
+    </a>
+    <input class="button-secondary" type="submit" value="FILTRAR">
 </form>
 <br>
 <table class="table-list">
-	<tr>
-		<td   class="table-list-header">
-			<b>NOME </b>
-		</td>
-		<td   class="table-list-header">
-			<b>CONTATO </b>
-		</td>
-		<td   class="table-list-header">
-			<b>RESPONSÁVEL </b>
-		</td>
-		<td   class="table-list-header">
-			<b>PRÓXIMO CONTATO</b>
-		</td>
-		<td   class="table-list-header">
-			<b>ETAPA DA VENDA</b>
-		</td>
-	</tr>
+    <tr>
+        <td class="table-list-header" style="width: 35%">
+            NOME 
+        </td>
+        <td class="table-list-header" style="width: 15%">
+            CONTATO 
+        </td>
+        <td class="table-list-header" style="width: 20%">
+            EMPRESA
+        </td>
+        <td class="table-list-header" style="width: 17%">
+            RESPONSÁVEL 
+        </td>
+        <td class="table-list-header" style="width: 5%">
+            PRÓXIMO CONTATO
+        </td>
+        <td   class="table-list-header" style="width: 8%">
+            ETAPA DA VENDA
+        </td>
+    </tr>
 
-	@foreach ($opportunities as $opportunity)
-	<tr style="font-size: 14px">
-		<td class="table-list-left">
-			<button class="button-round">
-				<a href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
-					<i class='fa fa-eye' style="color:white"></i>
-				</a>
-			</button>
-			<button class="button-round">
-				<a href=" {{ route('opportunity.edit', ['opportunity' => $opportunity->id]) }}">
-					<i class='fa fa-edit' style="color:white"></i>
-				</a>
-			</button>
-			{{$opportunity->name}}
-		</td>
-		<td class="table-list-center">
-			{{$opportunity->contact->name}}
-		</td>
-		<td class="table-list-center">
-			{{$opportunity->user->contact->name}}
-		</td>
-		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
-		</td>
-		{{formatStage($opportunity)}}
-	</tr>
-	@endforeach
+    @foreach ($opportunities as $opportunity)
+    <tr>
+        <td class="table-list-left">
+            <button class="button-round">
+                <a href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
+                    <i class='fa fa-eye' style="color:white"></i>
+                </a>
+            </button>
+            {{$opportunity->name}}
+        </td>
+        <td class="table-list-center">
+            {{$opportunity->contact->name}}
+        </td>
+        <td class="table-list-center">
+            {{$opportunity->company->name}}
+        </td>
+        <td class="table-list-center">
+            {{$opportunity->user->contact->name}}
+        </td>
+        <td class="table-list-center">
+            {{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
+        </td>
+        {{formatStage($opportunity)}}
+    </tr>
+    @endforeach
 </table>
 <p style="text-align: right">
-	<br>
-	{{$opportunities->links()}}
+    <br>
+    {{$opportunities->links()}}
 </p>
 <br>
+@endsection
+
+@section('js-scripts')
+<script>
+$(document).ready(function () {
+    //botao de exibir filtro
+    $("#filter_button").click(function () {
+        $("#filter").slideToggle(600);
+    });
+
+});
+</script>
 @endsection

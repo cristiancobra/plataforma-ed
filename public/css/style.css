@@ -72,7 +72,8 @@ and open the template in the editor.
     background-color: white;
     color: #874983;
 	padding-top: 2%;
-	padding-left: 3%;
+	padding-left: 2%;
+                  padding-right: 2%;
     font-weight:700;
     text-align:left;
     font-size:36px;
@@ -92,9 +93,9 @@ and open the template in the editor.
     grid-area: main;
     margin:0px;
     background-color: white;
-	padding-top: 2%;
-	padding-left: 3%;
-	padding-right: 3%;
+	padding-top: 0%;
+	padding-left: 2%;
+	padding-right: 2%;
 }
 
 /* ------------------------------------------------ GRID DASHBOARD -------------------------- */
@@ -1307,10 +1308,10 @@ input[type=button].btn-block {
     text-align:center;
     display: table;
 	color:#874983;
-	font-size: 14px;
+	font-size: 13px;
 	border-bottom-style: solid;
 	border-width: 2px;
-	padding-top: 5%;
+	padding-top: 0%;
 }
 
 .table-list-center{ 
@@ -1366,11 +1367,12 @@ input[type=button].btn-block {
 
 .table-list-header{ 
 	display: table-cell;  
+        font-size: 13px;
     padding-left: 10px;
 	padding-right: 10px;
 	text-align: center;
 	color: white;
-	vertical-align:super;
+	vertical-align:middle;
 	background-color: #c28dbf
 }
 
@@ -1436,11 +1438,11 @@ text-decoration: none;
 .button-secondary {
   color: #874983;
   background-color: #D8C2DB;
-  border-color: #6c757d;
-  padding: 0.7rem 1rem;
+  padding: 0.6rem 1rem;
   font-size: 0.8rem;
 box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
 border-radius: 20px;
+margin-top: 3px;
 margin-left: 4px;
 margin-right: 4px;
 text-decoration: none;

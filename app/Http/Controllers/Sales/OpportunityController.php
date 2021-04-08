@@ -18,284 +18,328 @@ use Illuminate\Http\Request;
 
 class OpportunityController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index(Request $request) {
-		$accountsId = userAccounts();
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request) {
+        $opportunities = Opportunity::where(function ($query) use ($request) {
+                    $query->whereIn('account_id', userAccounts());
+                    $query->where('stage', '!=', 'ganhamos');
+                    $query->where('stage', '!=', 'perdemos');
+                }
+                )
+                ->with([
+                    'user',
+                    'account',
+                    'company',
+                    'contact',
+                ])
+                ->orderBy('DATE_CONCLUSION', 'ASC')
+                ->paginate(20);
 
-		$opportunities = Opportunity::where(function ($query) use ($accountsId, $request) {
-					$query->whereIn('account_id', $accountsId);
-					if ($request->name) {
-						$query->where('name', 'like', "%$request->name%");
-					}
-					if ($request->user_id) {
-						$query->where('user_id', '=', $request->user_id);
-					}
-					if ($request->contact_id) {
-						$query->where('contact_id', '=', $request->contact_id);
-					}
-					if ($request->stage) {
-						$query->where('stage', '=', $request->stage);
-					} else {
-						$query->where('stage', '!=', 'ganhamos');
-						$query->where('stage', '!=', 'perdemos');
-					}
-				})
-				->with([
-					'user',
-					'account',
-					'company',
-					'contact',
-					])
-				->orderBy('DATE_CONCLUSION', 'ASC')
-				->paginate(20);
+        $totalOpportunities = $opportunities->total();
 
-		$totalOpportunities = $opportunities->total();
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$accounts = Account::whereIn('id', $accountsId)
-				->orderBy('ID', 'ASC')
-				->get();
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
 
-		$users = myUsers();
+        $users = myUsers();
 
-		return view('sales.opportunities.indexOpportunities', compact(
-						'opportunities',
-						'totalOpportunities',
-						'contacts',
-						'accounts',
-						'users',
-		));
-	}
+        return view('sales.opportunities.indexOpportunities', compact(
+                        'opportunities',
+                        'totalOpportunities',
+                        'contacts',
+                        'companies',
+                        'accounts',
+                        'users',
+        ));
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
-		$opportunity = new Opportunity();
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        $opportunity = new Opportunity();
 
-		$accountsId = userAccounts();
+        $accountsId = userAccounts();
 
-		$accounts = Account::whereIn('id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $accounts = Account::whereIn('id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$users = myUsers();
-		
-		$companies = Company::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $users = myUsers();
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $companies = Company::whereIn('account_id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$products = Product::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $contacts = Contact::whereIn('account_id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$stages = returnOpportunitiesStage();
+        $products = Product::whereIn('account_id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		return view('sales.opportunities.createOpportunity', compact(
-						'opportunity',
-						'accounts',
-						'users',
-						'companies',
-						'contacts',
-						'products',
-						'stages',
-		));
-	}
+        $stages = returnOpportunitiesStage();
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request) {
-		$opportunity = new Opportunity();
-		$opportunity->fill($request->all());
+        return view('sales.opportunities.createOpportunity', compact(
+                        'opportunity',
+                        'accounts',
+                        'users',
+                        'companies',
+                        'contacts',
+                        'products',
+                        'stages',
+        ));
+    }
 
-		$messages = [
-			'required' => '*preenchimento obrigatório.',
-		];
-		$validator = Validator::make($request->all(), [
-					'name' => 'required:opportunities',
-					'date_start' => 'required:opportunities',
-					'date_conclusion' => 'required:opportunities',
-					'description' => 'required:opportunities',
-						],
-						$messages);
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request) {
+        $opportunity = new Opportunity();
+        $opportunity->fill($request->all());
 
-		if ($validator->fails()) {
-			return back()
-							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-							->withErrors($validator)
-							->withInput();
-		} else {
-			$opportunity->user()->associate($request->user_id);
-			$opportunity->save();
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:opportunities',
+                    'date_start' => 'required:opportunities',
+                    'date_conclusion' => 'required:opportunities',
+                    'description' => 'required:opportunities',
+                        ],
+                        $messages);
 
-			$invoices = Invoice::where('opportunity_id', $opportunity->id)
-					->orderBy('PAY_DAY', 'ASC')
-					->get();
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $opportunity->user()->associate($request->user_id);
+            $opportunity->save();
 
-			$tasks = Task::where('opportunity_id', $opportunity->id)
-					->get();
+            $invoices = Invoice::where('opportunity_id', $opportunity->id)
+                    ->orderBy('PAY_DAY', 'ASC')
+                    ->get();
 
-			$contracts = Contract::where('opportunity_id', $opportunity->id)
-					->get();
-			
-			$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
-					$query->where('contacts.id', $opportunity->contact_id);
-				})
-				->get();
+            $tasks = Task::where('opportunity_id', $opportunity->id)
+                    ->get();
 
-			return view('sales.opportunities.showOpportunity', compact(
-							'opportunity',
-							'invoices',
-							'tasks',
-							'contracts',
-							'contactCompanies',
-			));
-		}
-	}
+            $contracts = Contract::where('opportunity_id', $opportunity->id)
+                    ->get();
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \App\Models\Opportunity  $opportunity
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(Opportunity $opportunity) {
-		$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
-					$query->where('contacts.id', $opportunity->contact_id);
-				})
-				->get();
+            $contactCompanies = Company::whereHas('contacts', function ($query) use ($opportunity) {
+                        $query->where('contacts.id', $opportunity->contact_id);
+                    })
+                    ->get();
+
+            return view('sales.opportunities.showOpportunity', compact(
+                            'opportunity',
+                            'invoices',
+                            'tasks',
+                            'contracts',
+                            'contactCompanies',
+            ));
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Opportunity  $opportunity
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Opportunity $opportunity) {
+        $contactCompanies = Company::whereHas('contacts', function ($query) use ($opportunity) {
+                    $query->where('contacts.id', $opportunity->contact_id);
+                })
+                ->get();
 //		dd($contactCompanies);
-		$invoices = Invoice::where('opportunity_id', $opportunity->id)
-				->orderBy('PAY_DAY', 'ASC')
-				->get();
+        $invoices = Invoice::where('opportunity_id', $opportunity->id)
+                ->orderBy('PAY_DAY', 'ASC')
+                ->get();
 
-		$tasks = Task::where('opportunity_id', $opportunity->id)
-				->get();
+        $tasks = Task::where('opportunity_id', $opportunity->id)
+                ->get();
 
-		$contracts = Contract::where('opportunity_id', $opportunity->id)
-				->get();
+        $contracts = Contract::where('opportunity_id', $opportunity->id)
+                ->get();
 
-		return view('sales.opportunities.showOpportunity', compact(
-						'opportunity',
-						'invoices',
-						'tasks',
-						'contracts',
-						'contactCompanies',
-		));
-	}
+        return view('sales.opportunities.showOpportunity', compact(
+                        'opportunity',
+                        'invoices',
+                        'tasks',
+                        'contracts',
+                        'contactCompanies',
+        ));
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  \App\Models\Opportunity  $opportunity
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit(Opportunity $opportunity) {
-		$accountsId = Account::whereHas('users', function($query) {
-					$query->where('users.id', Auth::user()->id);
-				})
-				->pluck('id');
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Opportunity  $opportunity
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Opportunity $opportunity) {
+        $accountsId = Account::whereHas('users', function ($query) {
+                    $query->where('users.id', Auth::user()->id);
+                })
+                ->pluck('id');
 
-		$accounts = Account::whereHas('users', function($query) use($accountsId) {
-					$query->whereIn('account_id', $accountsId);
-				})
-				->get();
+        $accounts = Account::whereHas('users', function ($query) use ($accountsId) {
+                    $query->whereIn('account_id', $accountsId);
+                })
+                ->get();
 
-		$opportunities = Opportunity::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $opportunities = Opportunity::whereIn('account_id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$users = myUsers();
+        $users = myUsers();
 
-		$companies = Company::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $companies = Company::whereIn('account_id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$contacts = Contact::whereIn('account_id', $accountsId)
-				->orderBy('NAME', 'ASC')
-				->get();
+        $contacts = Contact::whereIn('account_id', $accountsId)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$invoices = Invoice::where('opportunity_id', $opportunity->id)
-				->orderBy('PAY_DAY', 'ASC')
-				->get();
+        $invoices = Invoice::where('opportunity_id', $opportunity->id)
+                ->orderBy('PAY_DAY', 'ASC')
+                ->get();
 
-		$stages = returnOpportunitiesStage();
+        $stages = returnOpportunitiesStage();
 
-		return view('sales.opportunities.editOpportunity', compact(
-						'opportunity',
-						'accounts',
-						'users',
-						'contacts',
-						'companies',
-						'opportunities',
-						'invoices',
-						'stages',
-		));
-	}
+        return view('sales.opportunities.editOpportunity', compact(
+                        'opportunity',
+                        'accounts',
+                        'users',
+                        'contacts',
+                        'companies',
+                        'opportunities',
+                        'invoices',
+                        'stages',
+        ));
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\Opportunity  $opportunity
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, Opportunity $opportunity) {
-		$opportunity->fill($request->all());
-		$opportunity->user()->associate($request->user_id);
-		$opportunity->save();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Opportunity  $opportunity
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Opportunity $opportunity) {
+        $opportunity->fill($request->all());
+        $opportunity->user()->associate($request->user_id);
+        $opportunity->save();
 
-		$invoices = Invoice::where('opportunity_id', $opportunity->id)
-				->orderBy('PAY_DAY', 'ASC')
-				->get();
+        $invoices = Invoice::where('opportunity_id', $opportunity->id)
+                ->orderBy('PAY_DAY', 'ASC')
+                ->get();
 
-		$tasks = Task::where('opportunity_id', $opportunity->id)
-				->get();
+        $tasks = Task::where('opportunity_id', $opportunity->id)
+                ->get();
 
+        $contracts = Contract::where('opportunity_id', $opportunity->id)
+                ->get();
 
-		$contracts = Contract::where('opportunity_id', $opportunity->id)
-				->get();
+        $contactCompanies = Company::whereHas('contacts', function ($query) use ($opportunity) {
+                    $query->where('contacts.id', $opportunity->contact_id);
+                })
+                ->get();
 
-		$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
-					$query->where('contacts.id', $opportunity->contact_id);
-				})
-				->get();
+        return view('sales.opportunities.showOpportunity', compact(
+                        'opportunity',
+                        'invoices',
+                        'tasks',
+                        'contracts',
+                        'contactCompanies',
+        ));
+    }
 
-		return view('sales.opportunities.showOpportunity', compact(
-						'opportunity',
-						'invoices',
-						'tasks',
-						'contracts',
-						'contactCompanies',
-		));
-	}
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Opportunity  $opportunity
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Opportunity $opportunity) {
+        $opportunity->delete();
+        return redirect()->action('Sales\\OpportunityController@index');
+    }
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  \App\Models\Opportunity  $opportunity
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy(Opportunity $opportunity) {
-		$opportunity->delete();
-		return redirect()->action('Sales\\OpportunityController@index');
-	}
+    // Filtra oportunidades de acordo com parâmetros fornecidos
+    public function filter(Request $request) {
+        $opportunities = Opportunity::where(function ($query) use ($request) {
+                    if ($request->account_id) {
+                        $query->where('account_id', '=', $request->account_id);
+                    } else {
+                        $query->whereIn('account_id', userAccounts());
+                    }
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
+                    }
+                    if ($request->user_id) {
+                        $query->where('user_id', '=', $request->user_id);
+                    }
+                    if ($request->contact_id) {
+                        $query->where('contact_id', '=', $request->contact_id);
+                    }
+                    if ($request->company_id) {
+                        $query->where('contact_id', '=', $request->contact_id);
+                    }
+                    if ($request->stage) {
+                        $query->where('stage', '=', $request->stage);
+                    }
+                })
+                ->with([
+                    'user',
+                    'account',
+                    'company',
+                    'contact',
+                ])
+                ->orderBy('DATE_CONCLUSION', 'ASC')
+                ->paginate(20);
+
+        $totalOpportunities = $opportunities->total();
+
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $users = myUsers();
+
+        return view('sales.opportunities.indexOpportunities', compact(
+                        'opportunities',
+                        'totalOpportunities',
+                        'contacts',
+                        'accounts',
+                        'users',
+        ));
+    }
 
 }
