@@ -326,6 +326,11 @@ class OpportunityController extends Controller {
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
+        
+         $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
 
         $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('ID', 'ASC')
