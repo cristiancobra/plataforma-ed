@@ -342,6 +342,7 @@ class OpportunityController extends Controller {
                         'opportunities',
                         'totalOpportunities',
                         'contacts',
+                        'companies',
                         'accounts',
                         'users',
         ));
