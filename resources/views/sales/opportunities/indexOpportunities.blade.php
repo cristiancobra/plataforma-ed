@@ -67,7 +67,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
             </button>
             {{$opportunity->name}}
         </td>
-        @if($opportunity->contact->name)
+        @if(isset($opportunity->contact->name))
         <td class="table-list-center">
             {{$opportunity->contact->name}}
         </td>
@@ -76,7 +76,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
         Não possui
         </td>
         @endif
-        @if($opportunity->company->name)
+        @if(isset($opportunity->company->name))
         <td class="table-list-center">
             {{$opportunity->company->name}}
         </td>
