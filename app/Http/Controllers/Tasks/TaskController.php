@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tasks;
 use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Models\Account;
+use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Journey;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Collection;
 use DB;
+use PDF;
 
 class TaskController extends Controller {
 
@@ -159,10 +161,16 @@ class TaskController extends Controller {
     public function show(task $task) {
         $today = date('Y-m-d');
 
-        return view('tasks.showTask', [
-            'today' => $today,
-            'task' => $task,
-        ]);
+        $totalDuration = 0;
+        foreach ($task->journeys as $journey) {
+            $totalDuration = $totalDuration + $journey->duration;
+        }
+
+        return view('tasks.showTask', compact(
+                        'today',
+                        'task',
+                        'totalDuration',
+        ));
     }
 
     /**
@@ -178,6 +186,12 @@ class TaskController extends Controller {
                 ->get();
 
         $contacts = Contact::whereHas('account', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $companies = Company::whereHas('account', function ($query) {
                     $query->whereIn('account_id', userAccounts());
                 })
                 ->orderBy('NAME', 'ASC')
@@ -204,6 +218,7 @@ class TaskController extends Controller {
                         'tasks',
                         'accounts',
                         'contacts',
+                        'companies',
                         'departments',
                         'status',
                         'priorities',
@@ -338,4 +353,88 @@ class TaskController extends Controller {
         ));
     }
 
-}
+// Gera PDF da fatura
+    public function createPDF(Task $task) {
+        $journeys = Journey::where('task_id', $task->id)
+//                ->with('product', 'opportunity')
+                ->get();
+
+        $totalDuration = 0;
+        foreach ($task->journeys as $journey) {
+            $totalDuration = $totalDuration + $journey->duration;
+        }
+
+        $bankAccounts = BankAccount::whereHas('account', function ($query) {
+                    $query->whereIn('id', userAccounts());
+                })
+                ->where('status', 'LIKE', 'recebendo')
+                ->with([
+                    'account',
+                    'bank',
+                ])
+                ->get();
+
+        if ($task->company_id) {
+            $email = $task->company->email;
+            $phone = $task->company->phone;
+            $address = $task->company->address;
+            $city = $task->company->city;
+            $state = $task->company->state;
+            $country = $task->company->country;
+            $companyName = $task->company->name;
+            $companyCnpj = $task->company->cnpj;
+        }else{
+            $email = $task->contact->email;
+            $phone = $task->contact->phone;
+            $address = $task->contact->address;
+            $city = $task->contact->city;
+            $state = $task->contact->state;
+            $country = $task->contact->country;
+            $companyName = null;
+            $companyCnpj = null;
+        }
+
+            $data = [
+                'accountLogo' => $task->account->logo,
+                'accountPrincipalColor' => $task->account->principal_color,
+                'accountName' => $task->account->name,
+                'accountEmail' => $task->account->email,
+                'accountPhone' => $task->account->phone,
+                'accountAddress' => $task->account->address,
+                'accountCity' => $task->account->city,
+                'accountState' => $task->account->state,
+                'accountCnpj' => $task->account->cnpj,
+                'bankAccounts' => $bankAccounts,
+                'taskIdentifier' => $task->id,
+//            'invoiceDescription' => $invoice->description,
+//            'invoiceDiscount' => $invoice->discount,
+//            'invoiceInstallmentValue' => $invoice->installment_value,
+//            'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
+//            'invoiceTotalPrice' => $invoice->totalPrice,
+//            'invoiceDiscount' => $invoice->discount,
+                'taskDateStart' => $task->date_start,
+                'taskDateDue' => $task->date_due,
+//            'invoiceTotalPrice' => $invoice->totalPrice,
+                'taskTotalDuration' => $totalDuration,
+                'taskDescription' => $task->description,
+                'customerName' => $task->contact->name,
+                'companyName' => $companyName,
+                'companyCnpj' => $companyCnpj,
+                'email' => $email,
+                'phone' => $phone,
+                'address' => $address,
+                'city' => $city,
+                'state' => $state,
+                'country' => $country,
+                'journeys' => $journeys,
+////			'deadline' => $deadline,
+            ];
+
+            $pdf = PDF::loadView('tasks.createPdf', compact('data'));
+            $pdf->setPaper('A4', 'portrait');
+
+// download PDF file with download method
+            return $pdf->stream('Relatório de execução.pdf');
+        }
+    }
+    

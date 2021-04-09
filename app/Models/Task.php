@@ -13,6 +13,7 @@ class Task extends Model {
 	protected $fillable = [
 		'id',
 		'user_id',
+		'company_id',
 		'account_id',
 		'contact_id',
 		'opportunity_id',
@@ -39,6 +40,9 @@ class Task extends Model {
 	}
 	public function contact() {
 		return $this->belongsTo(Contact::class, 'contact_id', 'id');
+	}
+        	public function company() {
+		return $this->belongsTo(Company::class, 'company_id', 'id');
 	}
 	public function journeys() {
 		return $this->hasMany(Journey::class, 'task_id', 'id');

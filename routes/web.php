@@ -264,6 +264,10 @@ Route::any('/tarefas/filtros', 'Tasks\\TaskController@filter')
 		->name('task.filter')
 		->middleware('roles');
 
+Route::get('tarefas/pdf/{task}', 'Tasks\\TaskController@createPDF')
+		->name('task.pdf')
+		->middleware('roles');
+
 Route::resource('tarefas', 'Tasks\\TaskController')
 		->names('task')
 		->parameters(['tarefas' => 'task'])

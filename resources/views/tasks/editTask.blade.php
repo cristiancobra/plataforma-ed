@@ -42,7 +42,7 @@
             {{createSimpleSelect($departments)}}
         </select>
         <br>
-        <label class="labels" for="" >EMPRESA: </label>
+        <label class="labels" for="" >MINHA EMPRESA: </label>
         <select name="account_id">
             <option  class="fields" value="{{$task->account->id}}">
                 {{$task->account->name}}
@@ -118,21 +118,24 @@ CKEDITOR.replace('description');
                 contato excluído
             </option>
             @else
-            <option  class="fields" value="{{ $task->contact_id }}">
-                {{ $task->contact->name }}
+            <option  class="fields" value="{{$task->contact_id}}">
+                {{$task->contact->name}}
             </option>
             @endif
             @foreach ($contacts as $contact)
-            <option  class="fields" value="{{ $contact->id }}">
-                {{ $contact->name }}
+            <option  class="fields" value="{{$contact->id}}">
+                {{$contact->name}}
             </option>
             @endforeach
         </select>
         <br>
+        <label class="labels" for="" >EMPRESA: </label>
+        {{createSelectIdName('company_id', '', $companies)}}
+        <br>
         <label class="labels" for="" >PRIORIDADE:</label>
         <select class="fields" name="priority">
-            <option  class="fields" value="{{ $task->priority }}">
-                {{ $task->priority }}
+            <option  class="fields" value="{{$task->priority}}">
+                {{$task->priority}}
             </option>
             {{createSimpleSelect($priorities)}}
         </select>
