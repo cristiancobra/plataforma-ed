@@ -145,10 +145,7 @@ class TaskController extends Controller {
             $journeys = Journey::where('task_id', $task->id)
                     ->get();
 
-            return view('tasks.showTask', compact(
-                            'task',
-                            'journeys',
-            ));
+            return redirect()->route('task.show', [$task]);
         }
     }
 
@@ -265,9 +262,7 @@ class TaskController extends Controller {
 
             $task->save();
 
-            return view('tasks.showTask', [
-                'task' => $task,
-            ]);
+            return redirect()->route('task.show', [$task]);
         }
     }
 
@@ -383,7 +378,7 @@ class TaskController extends Controller {
             $country = $task->company->country;
             $companyName = $task->company->name;
             $companyCnpj = $task->company->cnpj;
-        }else{
+        } else {
             $email = $task->contact->email;
             $phone = $task->contact->phone;
             $address = $task->contact->address;
@@ -394,47 +389,47 @@ class TaskController extends Controller {
             $companyCnpj = null;
         }
 
-            $data = [
-                'accountLogo' => $task->account->logo,
-                'accountPrincipalColor' => $task->account->principal_color,
-                'accountName' => $task->account->name,
-                'accountEmail' => $task->account->email,
-                'accountPhone' => $task->account->phone,
-                'accountAddress' => $task->account->address,
-                'accountCity' => $task->account->city,
-                'accountState' => $task->account->state,
-                'accountCnpj' => $task->account->cnpj,
-                'bankAccounts' => $bankAccounts,
-                'taskIdentifier' => $task->id,
+        $data = [
+            'accountLogo' => $task->account->logo,
+            'accountPrincipalColor' => $task->account->principal_color,
+            'accountName' => $task->account->name,
+            'accountEmail' => $task->account->email,
+            'accountPhone' => $task->account->phone,
+            'accountAddress' => $task->account->address,
+            'accountCity' => $task->account->city,
+            'accountState' => $task->account->state,
+            'accountCnpj' => $task->account->cnpj,
+            'bankAccounts' => $bankAccounts,
+            'taskIdentifier' => $task->id,
 //            'invoiceDescription' => $invoice->description,
 //            'invoiceDiscount' => $invoice->discount,
 //            'invoiceInstallmentValue' => $invoice->installment_value,
 //            'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
 //            'invoiceTotalPrice' => $invoice->totalPrice,
 //            'invoiceDiscount' => $invoice->discount,
-                'taskDateStart' => $task->date_start,
-                'taskDateDue' => $task->date_due,
+            'taskDateStart' => $task->date_start,
+            'taskDateDue' => $task->date_due,
 //            'invoiceTotalPrice' => $invoice->totalPrice,
-                'taskTotalDuration' => $totalDuration,
-                'taskDescription' => $task->description,
-                'customerName' => $task->contact->name,
-                'companyName' => $companyName,
-                'companyCnpj' => $companyCnpj,
-                'email' => $email,
-                'phone' => $phone,
-                'address' => $address,
-                'city' => $city,
-                'state' => $state,
-                'country' => $country,
-                'journeys' => $journeys,
+            'taskTotalDuration' => $totalDuration,
+            'taskDescription' => $task->description,
+            'customerName' => $task->contact->name,
+            'companyName' => $companyName,
+            'companyCnpj' => $companyCnpj,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
+            'journeys' => $journeys,
 ////			'deadline' => $deadline,
-            ];
+        ];
 
-            $pdf = PDF::loadView('tasks.createPdf', compact('data'));
-            $pdf->setPaper('A4', 'portrait');
+        $pdf = PDF::loadView('tasks.createPdf', compact('data'));
+        $pdf->setPaper('A4', 'portrait');
 
 // download PDF file with download method
-            return $pdf->stream('Relatório de execução.pdf');
-        }
+        return $pdf->stream('Relatório de execução.pdf');
     }
-    
+
+}
