@@ -45,7 +45,7 @@
                 @endif
                 @if(isset($data['companyCnpj']))
                 <br>
-                CNPJ: {{$data['companyCnpj']}} -- 
+                CNPJ: {{formatCnpj($data['companyCnpj'])}} -- 
                 @endif
                 @if(isset($data['email']))
                 {{$data['email']}}

@@ -24,7 +24,7 @@
                     {{$data['accountCity']}} / 
                     {{$data['accountState']}}
                     <br>
-                    CNPJ: {{removeSymbol($data['accountCnpj'])}}
+                    CNPJ: {{removeSymbols($data['accountCnpj'])}}
                 </td>
                 <td class="image-header" style="background-color:{{$data['accountPrincipalColor']}}">
                     FATURA {{$data['invoiceIdentifier']}}
@@ -49,14 +49,12 @@
                 {{$data['companyName']}}
                 @if(isset($data['companyCnpj']))
                 <br>
-                cnpj: {{$data['companyCnpj']}}
+                cnpj: {{formatCnpj($data['companyCnpj'])}}
                 @endif
                 @if(isset($data['companyEmail']))
-                <br>
                 {{$data['companyEmail']}}
                 @endif
                 @if(isset($data['companyPhone']))
-                <br>
                 {{$data['companyPhone']}}
                 @endif
                 @if(isset($data['companyAddress']))
