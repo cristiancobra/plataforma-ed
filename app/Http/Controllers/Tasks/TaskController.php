@@ -79,7 +79,7 @@ class TaskController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create(Request $request) {
         $accounts = Account::whereHas('users', function ($query) {
                     $query->whereIn('account_id', userAccounts());
                 })
@@ -102,14 +102,33 @@ class TaskController extends Controller {
         $status = returnStatus();
         $priorities = returnPriorities();
 
+        // campos enviados por request
+        $taskName = $request->task_name;
+        $opportunityId = $request->opportunity_id;
+        $opportunityName = $request->opportunity_name;
+        $opportunityContactName = $request->contact_name;
+        $opportunityContactId = $request->contact_id;
+        $taskAccountName = $request->account_name;
+        $taskAccountId = $request->account_id;
+        $department = 'vendas';
+
         return view('tasks.createTask', compact(
                         'users',
                         'accounts',
                         'contacts',
+                        'taskName',
                         'today',
                         'departments',
                         'status',
                         'priorities',
+                        'taskName',
+                        'opportunityId',
+                        'opportunityName',
+                        'opportunityContactName',
+                        'opportunityContactId',
+                        'taskAccountName',
+                        'taskAccountId',
+                        'department',
         ));
     }
 
@@ -401,6 +420,7 @@ class TaskController extends Controller {
             'accountCnpj' => $task->account->cnpj,
             'bankAccounts' => $bankAccounts,
             'taskIdentifier' => $task->id,
+            'taskName' => $task->name,
 //            'invoiceDescription' => $invoice->description,
 //            'invoiceDiscount' => $invoice->discount,
 //            'invoiceInstallmentValue' => $invoice->installment_value,
