@@ -69,6 +69,8 @@
         <p style="font-weight:bold;color:{{$data['accountPrincipalColor']}}">
             IDENTIFICADOR: <span style='color:black;font-weight: normal'>{{$data['taskIdentifier']}}</span>
             <br>
+            NOME: <span style='color:black;font-weight: normal'>{{$data['taskName']}}</span>
+            <br>
             INÍCIO: <span style='color:black;font-weight: normal'>{{dateBr($data['taskDateStart'])}}</span>
             <br>
             VENCIMENTO: <span style='color:black;font-weight: normal'>{{dateBr($data['taskDateDue'])}}</span>
