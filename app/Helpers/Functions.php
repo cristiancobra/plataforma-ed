@@ -116,6 +116,22 @@ if (!function_exists('createDoubleSelectIdName')) {
     }
 
 }
+if (!function_exists('editDoubleSelectIdName')) {
+
+// cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
+    function editDoubleSelectIdName($name, $class, $models, $currentValue, $nullLabel = null) {
+        echo "<select class = '$class' name = '$name'>";
+           echo "<option value=''>$currentValue</option><br>";
+        if($nullLabel) {
+            echo "<option value=''>$nullLabel</option><br>";
+        }
+        foreach ($models as $model) {
+            echo "<option value=\"$model->id\">$model->name</option><br>";
+        }
+        echo "</select>";
+    }
+
+}
 if (!function_exists('editSelect')) {
 
     /* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES

@@ -125,7 +125,7 @@ CKEDITOR.replace('description');
                 <input class="btn btn-danger" type="submit" value="APAGAR">
             </form>
             <a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
-                <i class='fas fa-arrow-alt-circle-left'></i>  VOLTAR
+                <i class='fas fa-arrow-alt-circle-left'></i>VOLTAR
             </a>
             <input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
             </form>

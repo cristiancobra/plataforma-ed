@@ -130,7 +130,7 @@ CKEDITOR.replace('description');
         </select>
         <br>
         <label class="labels" for="" >EMPRESA: </label>
-        {{createSelectIdName('company_id', '', $companies)}}
+        {{editDoubleSelectIdName('company_id', '', $companies, $task->company->name, 'Não possui')}}
         <br>
         <label class="labels" for="" >PRIORIDADE:</label>
         <select class="fields" name="priority">
