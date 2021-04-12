@@ -24,7 +24,7 @@
                     {{$data['accountCity']}} / 
                     {{$data['accountState']}}
                     <br>
-                    CNPJ: {{$data['accountCnpj']}}
+                    CNPJ: {{removeSymbol($data['accountCnpj'])}}
                 </td>
                 <td class="image-header" style="background-color:{{$data['accountPrincipalColor']}}">
                     FATURA {{$data['invoiceIdentifier']}}

@@ -97,6 +97,10 @@ class TaskController extends Controller {
                 ->with('contact')
                 ->get();
 
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
         $today = date("Y-m-d");
         $departments = returnDepartments();
         $status = returnStatus();
@@ -116,6 +120,7 @@ class TaskController extends Controller {
                         'users',
                         'accounts',
                         'contacts',
+                        'companies',
                         'taskName',
                         'today',
                         'departments',

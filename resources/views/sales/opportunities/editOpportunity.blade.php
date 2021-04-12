@@ -3,7 +3,7 @@
 @section('title','OPORTUNIDADES')
 
 @section('image-top')
-{{ asset('imagens/financeiro.png') }} 
+{{asset('imagens/financeiro.png')}} 
 @endsection
 
 @section('description')
@@ -18,14 +18,14 @@
 @section('main')
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-    {{ Session::get('failed') }}
+    {{Session::get('failed')}}
     @php
     Session::forget('failed');
     @endphp
 </div>
 @endif
 <div>
-    <form action=" {{route('opportunity.update', ['opportunity' =>$opportunity->id])}} " method="post" style="color: #874983">
+    <form action=" {{route('opportunity.update', ['opportunity' =>$opportunity->id])}} " method="post">
         @csrf
         @method('put')
         <label class="labels" for="" >NOME:</label>
@@ -79,7 +79,7 @@
         <br>
         <label class="labels" for="" >CONTATO: </label>
         <select name="contact_id">
-            @if(isset($opportunity->company_id->name))
+            @if(isset($opportunity->contact_id))
             <option  class="fields" value="{{$opportunity->contact_id}}">
                 {{$opportunity->contact->name}}
             </option>
@@ -89,8 +89,8 @@
             </option>
             @endif
             @foreach ($contacts as $contact)
-            <option  class="fields" value="{{ $contact->id }}">
-                {{ $contact->name }}
+            <option  class="fields" value="{{$contact->id}}">
+                {{$contact->name}}
             </option>
             @endforeach
         </select>
@@ -101,7 +101,7 @@
         <br>
         <label class="labels" for="" >DESCRIÇÃO:</label>
         <textarea id="description" name="description" rows="20" cols="90">
-		{{ $opportunity->description }}
+		{{$opportunity->description}}
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
@@ -118,16 +118,16 @@ CKEDITOR.replace('description');
         <input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>
         <br>
         <br>
-        <div style="display: inline-block">
-            <input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
+        <div style="text-align: right">
+            <form   style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}" method="post">
+                @csrf
+                @method('delete')
+                <input class="btn btn-danger" type="submit" value="APAGAR">
             </form>
             <a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
                 <i class='fas fa-arrow-alt-circle-left'></i>  VOLTAR
             </a>
-            <form   style="text-decoration: none;display: inline-block" action="{{ route('opportunity.destroy', ['opportunity' => $opportunity->id]) }}" method="post">
-                @csrf
-                @method('delete')
-                <input class="btn btn-danger" type="submit" value="APAGAR">
+            <input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
             </form>
         </div>
         <br>

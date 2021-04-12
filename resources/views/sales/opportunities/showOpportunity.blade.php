@@ -145,67 +145,62 @@ indefinida
 </table>
 <br>
 <div id='tarefas' style='text-align:right'>
-    <a class='button-secondary' href='{{route('task.create', [
-				'taskName' =>'Enviar material',
-				'opportunityId' => $opportunity->id,
-				'opportunityName' => $opportunity->name,
-//				'opportunityContactName' => $opportunity->contact->name,
-//				'opportunityContactId' => $opportunity->contact->id,
-				'taskAccountName' => $opportunity->account->name,
-				'taskAccountId' => $opportunity->account->id,
-				'department' => 'vendas',
-				])}}'>
-        ENVIAR MATERIAL
-    </a>
-    <form action='{{route('task.create')}}' method='post'>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
         <input type='hidden' name='task_name' value='Enviar material'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if($opportunity->contact)
         <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input type='submit' value='ENVIAR MATERIAL'>
+        <input class='button-secondary' type='submit' value='ENVIAR MATERIAL'>
     </form>
-    <a class='button-secondary' href='{{route('task.create', [
-				'taskName' =>'Reunião',
-				'opportunityId' => $opportunity->id,
-				'opportunityName' => $opportunity->name,
-//				'opportunityContactName' => $opportunity->contact->name,
-//				'opportunityContactId' => $opportunity->contact->id,
-//				'opportunityCompanyId' => $opportunity->company->id,
-				'taskAccountName' => $opportunity->account->name,
-				'taskAccountId' => $opportunity->account->id,
-				'department' => 'vendas',
-				])}}'>
-        AGENDAR REUNIÃO
-    </a>
-    <a class='button-secondary' href='{{route('task.create', [
-				'taskName' =>'Fazer proposta',
-				'opportunityId' => $opportunity->id,
-				'opportunityName' => $opportunity->name,
-//				'opportunityContactName' => $opportunity->contact->name,
-//				'opportunityContactId' => $opportunity->contact->id,
-//				'taskAccountName' => $opportunity->account->name,
-				'taskAccountId' => $opportunity->account->id,
-				'department' => 'vendas',
-				])}}'>
-        FAZER ORÇAMENTO
-    </a>
-    <a class='button-secondary' href='{{route('task.create', [
-				'taskName' =>'Fazer contrato',
-				'opportunityId' => $opportunity->id,
-				'opportunityName' => $opportunity->name,
-//				'opportunityContactName' => $opportunity->contact->name,
-//				'opportunityContactId' => $opportunity->contact->id,
-//				'taskAccountName' => $opportunity->account->name,
-				'taskAccountId' => $opportunity->account->id,
-				'department' => 'vendas',
-				])}}'>
-        FAZER CONTRATO
-    </a>
+    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Reunião'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='button-secondary' type='submit' value='AGENDAR REUNIÃO'>
+    </form>
+    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Fazer proposta'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='button-secondary' type='submit' value='  FAZER ORÇAMENTO'>
+    </form>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Fazer contrato'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='button-secondary' type='submit' value='  FAZER CONTRATO'>
+    </form>
 </div>
 <br>
 <br>
@@ -274,7 +269,7 @@ indefinida
 </table>
 <br>
 <div id='faturas' style='text-align:right'>
-    <form  style='text-decoration: none;display: inline-block' method='POST' action='{{route('invoice.create')}}'>
+    <form  style='display: inline-block' method='POST' action='{{route('invoice.create')}}'>
         @csrf
         @method('post')
         <input type='hidden' name='typeInvoices' value='receita'>
@@ -291,7 +286,7 @@ indefinida
         <input type='hidden' name='invoiceStatus' value='orçamento'>
         <input class='button-secondary' type='submit' value='GERAR ORÇAMENTO'>
     </form>
-    <form  style='text-decoration: none;display: inline-block' method='POST' action='{{route('invoice.create')}}'>
+    <form  style='display: inline-block'  method='POST' action='{{route('invoice.create')}}'>
         @csrf
         @method('post')
         <input type='hidden' name='typeInvoices' value='receita'>
@@ -303,7 +298,7 @@ indefinida
         @if(isset($opportunity->company))
         <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
         <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
-                @endif
+        @endif
         <input type='hidden' name='department' value='vendas'>
         <input class='button-secondary' type='submit' value='GERAR FATURA'>
     </form>
@@ -381,21 +376,23 @@ indefinida
 </table>
 <br>
 <div id='contratos' style='text-align:right'>
-    <a class='button-secondary' href='{{ route('contract.create', [
-				'opportunityName' => $opportunity->name,
-				'opportunityId' => $opportunity->id,
-				'opportunityDescription' => $opportunity->description,
-				'opportunityAccountName' => $opportunity->account->name,
-				'opportunityAccountId' => $opportunity->account->id,
-				'opportunityContactName' => $opportunity->contact->name,
-				'opportunityContactId' => $opportunity->contact_id,
-				'contactCompanyNames' => $contactCompanies,
-				'contactCompanyIds' => $contactCompanies,
-				'contractStatus' => 'pendente',
-				'department' => 'vendas',
-				])}}'>
-        GERAR CONTRATO
-    </a>
+    <form action='{{route('contract.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        <input type='hidden' name='opportunity_description' value='{{$opportunity->description}}'>
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='company_names' value='{{$contactCompanies}}'>
+        <input type='hidden' name='company_ids' value='{{$contactCompanies}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input type='hidden' name='status' value='pendente'>
+        <input class='button-secondary' type='submit' value='  GERAR CONTRATO'>
+    </form>
 </div>
 <br>
 <br>
@@ -471,48 +468,51 @@ indefinida
 </table>
 <br>
 <div id='produção' style='text-align:right'>
-    <a class='button-secondary' href='{{route('task.create', [
-				'taskName' =>'PRODUZIR: $opportunity->name',
-				'opportunityId' => $opportunity->id,
-				'opportunityName' => $opportunity->name,
-				'opportunityContactName' => $opportunity->contact->name,
-				'opportunityContactId' => $opportunity->contact->id,
-				'taskAccountName' => $opportunity->account->name,
-				'taskAccountId' => $opportunity->account->id,
-				'department' => 'produção',
-				])}}'>
-        SOLICITAR  PRODUÇÃO
-    </a>
-    <a class='button-secondary' href='{{route('task.create', [
-				'taskName' =>'ENTREGAR: $opportunity->name',
-				'opportunityId' => $opportunity->id,
-				'opportunityName' => $opportunity->name,
-				'opportunityContactName' => $opportunity->contact->name,
-				'opportunityContactId' => $opportunity->contact->id,
-				'taskAccountName' => $opportunity->account->name,
-				'taskAccountId' => $opportunity->account->id,
-				'department' => 'vendas',
-				])}}'>
-        REALIZAR ENTREGA
-    </a>
-</div>
-<br>
-<br>
-<p class='labels'>  Criado em:   {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
-
-<div style='text-align:right'>
-    <form   style='text-decoration: none;display: inline-block' action='{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}' method='post'>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
-        @method('delete')
-        <input class='btn btn-danger' type='submit' value='APAGAR'>
+        <input type='hidden' name='task_name' value='PRODUZIR: $opportunity->name'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='produção'>
+        <input class='button-secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
     </form>
-    <a class='button-secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
-        <i class='fa fa-edit'></i>EDITAR
-    </a>
-    <a class='button-secondary' href='{{route('opportunity.index')}}'>
-        VOLTAR
-    </a>
-</div>
-<br>
-<br>
-@endsection
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='ENTREGAR: $opportunity->name'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='button-secondary' type='submit' value=' REALIZAR ENTREGA'>
+    </form>
+    <br>
+    <br>
+    <p class='labels'>  Criado em:   {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
+
+    <div style='text-align:right'>
+        <form   style='text-decoration: none;display: inline-block' action='{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}' method='post'>
+            @csrf
+            @method('delete')
+            <input class='btn btn-danger' type='submit' value='APAGAR'>
+        </form>
+        <a class='button-secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
+            <i class='fa fa-edit'></i>EDITAR
+        </a>
+        <a class='button-secondary' href='{{route('opportunity.index')}}'>
+            VOLTAR
+        </a>
+    </div>
+    <br>
+    <br>
+    @endsection

@@ -104,8 +104,11 @@ if (!function_exists('createDoubleSelect')) {
 if (!function_exists('createDoubleSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
-    function createDoubleSelectIdName($name, $class, $models) {
+    function createDoubleSelectIdName($name, $class, $models, $nullLabel = null) {
         echo "<select class = '$class' name = '$name'>";
+        if($nullLabel) {
+            echo "<option value=''>$nullLabel</option><br>";
+        }
         foreach ($models as $model) {
             echo "<option value=\"$model->id\">$model->name</option><br>";
         }
@@ -1269,6 +1272,7 @@ if (!function_exists('removeSymbols')) {
         $value = str_replace(",", "", $value);
         $value = str_replace("-", "", $value);
         $value = str_replace("/", "", $value);
+        $value = str_replace("=", "", $value);
         return $value;
     }
 }

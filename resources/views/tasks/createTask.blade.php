@@ -38,13 +38,7 @@
         {{app('request')->input('taskAccountName')}}
         <input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">
         @else
-        <select name="account_id">
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
+        {{createDoubleSelectIdName('account_id', 'fields', $accounts)}}
         @endif
         <br>
         @if(!empty(app('request')->input('opportunityName')))
@@ -107,18 +101,24 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >CONTATO: </label>
+        @if(!empty(app('request')->input('opportunityContactName')))
         <select name="contact_id">
-            @if(!empty(app('request')->input('opportunityContactName')))
             <option  class="fields" value="{{app('request')->input('opportunityContactId')}}">
                 {{app('request')->input('opportunityContactName')}}
             </option>
-            @endif
-            @foreach ($contacts as $contact)
-            <option  class="fields" value="{{$contact->id}}">
-                {{$contact->name}}
-            </option>
-            @endforeach
         </select>
+        @endif
+        {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
+        <br>
+        <label class="labels" for="" >EMPRESA: </label>
+        @if(!empty(app('request')->input('opportunityCompanyName')))
+        <select name="company_id">
+            <option  class="fields" value="{{app('request')->input('opportunityCompanyName')}}">
+                {{app('request')->input('opportunityCompanyName')}}
+            </option>
+        </select>
+        @endif
+        {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         <br>
         <label class="labels" for="" >PRIORIDADE:</label>
         <select class="fields" name="priority">
