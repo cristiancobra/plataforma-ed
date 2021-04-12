@@ -113,8 +113,11 @@ Total: <span class="labels">{{$totalInvoices}}</span>
             <td   class="table-list-header" style="width:10%">
                 ID
             </td>
-            <td   class="table-list-header" style="width:30%">
+            <td   class="table-list-header" style="width:15%">
                 OPORTUNIDADE
+            </td>
+            <td   class="table-list-header" style="width:15%">
+                CONTATO
             </td>
             <td   class="table-list-header" style="width:15%">
                 CONTRATANTE 
@@ -141,11 +144,6 @@ Total: <span class="labels">{{$totalInvoices}}</span>
                         <i class='fa fa-eye' style="color:white"></i>
                     </a>
                 </button>
-                <button class="button-round">
-                    <a href=" {{route('invoice.edit', ['invoice' => $invoice])}}">
-                        <i class='fa fa-edit' style="color:white"></i>
-                    </a>
-                </button>
                 {{$invoice->identifier}}
             </td>
             @if($invoice->opportunity)
@@ -166,7 +164,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
                 não possui
             </td>
             @endif
-            @if($invoice->company_id)
+            @if(isset($invoice->company))
             <td class="table-list-center">
                 {{$invoice->company->name}}
             </td>
