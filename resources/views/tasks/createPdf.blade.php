@@ -16,7 +16,7 @@
                         <img style='float: right' src='{{$data['accountLogo']}}' height='50px' width='150px'>
         </header>
         <footer style="background-color:{{$data['accountPrincipalColor']}}">
-            CNPJ: {{$data['accountCnpj']}}
+            CNPJ: {{formatCnpj($data['accountCnpj'])}}
             <span style="font-weight: 900">&#183;</span>
             <span style="font-weight: 900">&#183;</span>
             <span style="font-weight: 900">&#183;</span>

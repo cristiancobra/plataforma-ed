@@ -542,6 +542,7 @@ if (!function_exists('phoneBr')) {
         }
         return $formattedNumber;
     }
+
 }
 
 // gera um botão com a formatação para STAGE / ETAPADA DE PROSPECÇÃO da oportunidade a partir de  $model
@@ -1258,4 +1259,16 @@ if (!function_exists('formatCurrency')) {
         return number_format($value, 2, ",", ".");
     }
 
+}
+// remove símbolos de números de CPF, CNPJ etc
+if (!function_exists('removeSymbols')) {
+
+    function removeSymbols($value) {
+        $value = trim($value);
+        $value = str_replace(".", "", $value);
+        $value = str_replace(",", "", $value);
+        $value = str_replace("-", "", $value);
+        $value = str_replace("/", "", $value);
+        return $value;
+    }
 }

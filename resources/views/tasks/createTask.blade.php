@@ -18,24 +18,19 @@
 @section('main')
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-    {{ Session::get('failed') }}
+    {{Session::get('failed')}}
     @php
     Session::forget('failed');
     @endphp
 </div>
 @endif
 <div>
-    <form action=" {{ route('task.store') }} " method="post" style="color: #874983">
+    <form action=" {{route('task.store')}} " method="post" style="color: #874983">
         @csrf
         <label class="labels" for="" >NOME:</label>
+        <input type="text" name="name" value="{{$taskName}}">
         @if ($errors->has('name'))
-        <input type="text" name="name" value="{{old('name')}}">
-        <span class="text-danger">{{ $errors->first('name') }}</span>
-        @elseif(!empty(app('request')->input('taskName')))
-        {{app('request')->input('taskName')}}
-        <input type="hidden" name="name"value="{{app('request')->input('taskName')}}">
-        @else
-        <input type="text" name="name" value="{{old('name')}}">
+        <span class="text-danger">{{$errors->first('name')}}</span>
         @endif
         <br>
         <label class="labels" for="" >EMPRESA:</label>

@@ -3,7 +3,7 @@
 @section('title','EMPRESA')
 
 @section('image-top')
-{{ asset('imagens/empresa.png') }} 
+{{asset('imagens/empresa.png')}} 
 @endsection
 
 @section('description')
@@ -18,16 +18,16 @@
 @section('main')
 <br>
 <h1 style="text-align:left;color: #874983;padding-left: 30px">
-	<b> Nome: </b> {{ $account->name }}
+	 Nome:  {{$account->name}}
 </h1>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  CNPJ: </b> {{ $account->cnpj }}
+	  CNPJ:  {{formatCnpj($account->cnpj)}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Descrição: </b> {{ $account->description }}
+	  Descrição:  {{$account->description}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Colaboradores: </b>
+	  Colaboradores: 
 </p>
 @foreach ($account->users as $user)
 <a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
@@ -36,74 +36,74 @@
 	</button>
 </a>
 
-<a  class="white" href=" {{ route('user.show', ['user' => $user->id]) }}">
+<a  class="white" href=" {{route('user.show', ['user' => $user->id])}}">
 	<button class="button-round">
 		<i class='fa fa-eye'></i>
 	</button>
 </a>
-{{ $user->contact->name }}
+{{$user->contact->name}}
 <br>
 @endforeach	
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Email: </b> {{ $account->email }}
+	  Email:  {{$account->email}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Telefone: </b> {{ $account->phone }}
+	  Telefone:  {{$account->phone}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Site: </b> {{ $account->site }}
+	  Site:  {{$account->site}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Endereço: </b> {{$account->address}}
+	  Endereço:  {{$account->address}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Cidade: </b> {{$account->city}}
+	  Cidade:  {{$account->city}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Estado: </b> {{returnStateName($account->state)}}
+	  Estado:  {{returnStateName($account->state)}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  País: </b> {{$account->country}}
+	  País:  {{$account->country}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  CEP: </b> {{$account->zip_code}}
-</p>
-<br>
-<p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Segmento: </b> {{ $account->type }}
-</p>
-<p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>  Qtde empregados: </b> {{ $account->employees }}
-</p>
-<p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>Faturamento: </b> {{ $account->revenues }}
+	  CEP:  {{$account->zip_code}}
 </p>
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>Logomarca: </b> <img src="{{ $account->logo }}" width="180px" height="60px">
+	  Segmento:  {{$account->type}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>Cor principal: </b>
-	<button type="button" style="color:white;background-color:{{ $account->principal_color}};display: inline-block;border-radius:50%">P</button> {{ $account->principal_color}}
+	  Qtde empregados:  {{$account->employees}}
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>Cor complementar: </b>
-	<button type="button" style="color:white;background-color:{{ $account->complementary_color}};display: inline-block;border-radius:50%">C</button> {{ $account->complementary_color}}
-</p>
-<p style="text-align:left;color: #874983;padding-left: 30px">
-	<b>Cor oposta: </b>
-	<button type="button" style="color:{{ $account->principal_color}};background-color:{{ $account->opposite_color}};display: inline-block;border-radius:50%">O</button> {{ $account->opposite_color}}
+	Faturamento:  {{$account->revenues}}
 </p>
 <br>
-<p class="labels">SITUAÇAO:<span class="fields">  {{ $account->status }} </span></p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	Logomarca:  <img src="{{$account->logo}}" width="180px" height="60px">
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	Cor principal: 
+	<button type="button" style="color:white;background-color:{{$account->principal_color}};display: inline-block;border-radius:50%">P</button> {{$account->principal_color}}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	Cor complementar: 
+	<button type="button" style="color:white;background-color:{{$account->complementary_color}};display: inline-block;border-radius:50%">C</button> {{$account->complementary_color}}
+</p>
+<p style="text-align:left;color: #874983;padding-left: 30px">
+	Cor oposta: 
+	<button type="button" style="color:{{$account->principal_color}};background-color:{{$account->opposite_color}};display: inline-block;border-radius:50%">O</button> {{$account->opposite_color}}
+</p>
+<br>
+<p class="labels">SITUAÇAO:<span class="fields">  {{$account->status}} </span></p>
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-	<b> Criado em:  </b> {{ date('d/m/Y H:i', strtotime($account->created_at)) }}
+	 Criado em:   {{date('d/m/Y H:i', strtotime($account->created_at))}}
 </p>
 
 <div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-	<a href="{{ route('account.edit', ['account' => $account->id]) }}"  style="text-decoration: none;color: black">
+	<a href="{{route('account.edit', ['account' => $account->id])}}"  style="text-decoration: none;color: black">
 		<button class="btn btn-secondary">
 			<i class='fa fa-edit'></i>EDITAR
 		</button>	
