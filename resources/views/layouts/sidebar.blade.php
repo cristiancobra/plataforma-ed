@@ -1,82 +1,226 @@
-@section('sidebar')
-<div class="sidebar">
-			<a href='/'><i class="fas fa-rocket"></i><span>  INÍCIO</span></a>
+    <div class="grid-container">
+            <div class="sidebar">
 
-			<button class="dropdown-btn">
-				<i class='fas fa-user-circle'></i>
-				MINHA CONTA
-				<i class="fa fa-caret-down"></i>
-			</button>
+                <a href='/'>
+                    <button class="sidebar-item">
+                        <i class="fas fa-rocket"></i>
+                        INÍCIO
+                    </button>
+                </a>
 
-			<div class="dropdown-container">
-				<a href="{{ route('user.show', $user->id) }} "><i class="fas fa-user-astronaut" style="margin-right: 8px"></i>PERFIL</a>
-				<a href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS EXTRAS</a>
-				<a href="https://financeiro.empresadigital.net.br"><i class="fas fa-piggy-bank" style="margin-right: 8px"></i>DÉBITOS E SERVIÇOS</a>
-			</div>
-
-<li><a href="{{ route('user.index') }} " ><i class="fa fa-users"></i><span>  EQUIPE</span></a></li>
-
-			<button class="dropdown-btn">
-				<i class='fas fa-angle-double-right'></i>
-				ORGANIZAÇÃO
-				<i class="fa fa-caret-down"></i>
-			</button>
-
-			<div class="dropdown-container">
-				<a href="https://vendas.empresadigital.net.br/index.php?module=Home&action=index" target="_blank"><i class="fas fa-calendar-alt" style="margin-right: 8px"></i>AGENDA</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?module=Project&action=EditView&return_module=Project&return_action=DetailView" target="_blank"><i class="fas fa-project-diagram" style="margin-right: 8px"></i>PROJETOS</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DTasks%26action%3DEditView%26return_module%3DTasks%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-check" style="margin-right: 8px"></i>NOVA TAREFA</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DMeetings%26action%3DEditView%26return_module%3DMeetings%26return_action%3DDetailView" target="_blank"><i class="fas fa-calendar-plus" style="margin-right: 8px"></i>NOVA REUNIÃO</a>
-				<a href="https://nuvem.empresadigital.net.br"  target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
-			</div>
+                <button class="dropdown-btn">
+                    <i class='fa fa-comments'></i>
+                    COMUNICAÇÃO
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="/emails"><i class="fas fa-envelope" style="margin-right: 8px"></i>EMAILS</a>
+                    <a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank"><i class="fa fa-comments" style="margin-right: 8px"></i>MENSAGENS</a>
+                </div>
 
 
-			<button class="dropdown-btn">
-				<i class='fas fa-funnel-dollar'></i>
-				VENDAS 
-				<i class="fa fa-caret-down"></i>
-			</button>
-			<div class="dropdown-container">
-				<a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DContacts%26action%3Dindex%26parentTab%3DMarketing" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DLeads%26action%3DEditView%26return_module%3DLeads%26return_action%3DDetailView" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>CADASTRAR CLIENTE</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3Dindex%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-coins" style="margin-right: 8px"></i>OPORTUNIDADES</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DOpportunities%26action%3DEditView%26return_module%3DOpportunities%26return_action%3DDetailView" target="_blank"><i class="fas fa-handshake" style="margin-right: 8px"></i>NOVA VENDA</a>
-				<a href="https://vendas.empresadigital.net.br/?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DCalls%26action%3DEditView%26return_module%3DCalls%26return_action%3DDetailView" target="_blank"><i class="fas fa-comment-dots" style="margin-right: 8px"></i>REGISTRAR LIGAÇÃO</a>
-				<a href="" target="blank"><i class="fas fa-receipt" style="margin-right: 8px"></i>ORÇAMENTO</a>
-			</div>
+                @if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador")
+                <button class="dropdown-btn">
+                    <i class='fas fa-user-tie'></i>
+                    ADMINISTRATIVO 
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="{{route('account.index')}}">
+                        <i class="fas fa-store" style="margin-right: 8px"></i>MINHAS EMPRESAS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('user.index')}}">
+                        <i class="fa fa-id-card-alt" style="margin-right: 8px"></i>FUNCIONÁRIOS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('journey.reports', ['accountId' => 1])}}">
+                        <i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIO DE PRODUTIVIDADE
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('planning.index')}}">
+                        <i class="fa fa-calendar-check" style="margin-right: 8px"></i>PLANEJAMENTO
+                    </a>
+                </div>
 
+                <button class="dropdown-btn">
+                    <i class='fas fa-money-bill'></i>
+                    FINANCEIRO 
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="{{route('invoice.index')}}">
+                        <i class="fas fa-receipt" style="margin-right: 8px"></i>FATURAS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('bankAccount.index')}}">
+                        <i class="fas fa-piggy-bank" style="margin-right: 8px"></i>CONTAS BANCÁRIAS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('transaction.index')}}">
+                        <i class="fas fa-sync-alt" style="margin-right: 8px"></i>FLUXO DE CAIXA
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('company.index', ['typeCompanies' => 'fornecedor'])}}">
+                        <i class="fas fa-truck" style="margin-right: 8px"></i>FORNECEDORES
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('product.index', ['variation' => 'despesa'])}}">
+                        <i class="fas fa-boxes" style="margin-right: 8px"></i>ITENS DE DESPESA
+                    </a>
+                </div>
+                @endif
 
-			<button class="dropdown-btn">
-				<i class='fas fa-bullhorn'></i>
-				MARKETING
-				<i class="fa fa-caret-down"></i>
-			</button>
+                <button class="dropdown-btn">
+                    <i class='fas fa-bullhorn'></i>
+                    MARKETING
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="/redes-sociais">
+                        <i class="fas fa-bullhorn" style="margin-right: 8px"></i>REDES SOCIAIS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('site.index')}}">
+                        <i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('site.index')}}">
+                        <i class="fas fa-window-maximize" style="margin-right: 8px"></i>DOMÍNIOS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('report.index')}}">
+                        <i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIOS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('competitor.index')}}">
+                        <i class="fas fa-trophy" style="margin-right: 8px"></i>CONCORRENTES
+                    </a>
+                    <a class="sidebar-subitem" href="https://stories.freepik.com" target="_blank">
+                        <i class="fas fa-paint-brush" style="margin-right: 8px"></i>CRIAR ARTES
+                    </a>
+                    <a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank">
+                        <i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS
+                    </a>
+                </div>
 
-			<div class="dropdown-container">
-				<a href="https://empresadigital.net.br/comunicacao/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>FLUXO DE TRABALHO</a>
-				<a href="/editarsite" target="blank"><i class="fas fa-window-maximize" style="margin-right: 8px"></i>EDITAR SITE</a>
-				<a href="/postarsite" target="blank"><i class="fas fa-file-alt" style="margin-right: 8px"></i>POSTAR NO BLOG</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?module=Campaigns&action=index&parentTab=Marketing" target="_blank"><i class="fas fa-thumbs-up" style="margin-right: 8px"></i>CAMPANHAS</a>
-				<a href="https://vendas.empresadigital.net.br/index.php?action=ajaxui#ajaxUILoc=index.php%3Fmodule%3DProspectLists%26action%3DEditView%26return_module%3DProspectLists%26return_action%3DDetailView" target="_blank"><i class="fas fa-crosshairs" style="margin-right: 8px"></i>CRIAR LISTAS</a>
-				<a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Marketing" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS</a>
-			</div>
-			<li><a href="https://empresadigital.net.br/suporte/" target="_blank"><i class="fas fa-question-circle"></i><span>  SUPORTE</span></a></li>
-		</div>
-		<script>
-			/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-			var dropdown = document.getElementsByClassName("dropdown-btn");
-			var i;
+                <button class="dropdown-btn">
+                    <i class='fas fa-funnel-dollar'></i>
+                    VENDAS 
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="{{route('contact.index')}}">
+                        <i class="fas fa-user-plus" style="margin-right: 8px"></i>CONTATOS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('company.index', ['typeCompanies' => 'cliente'])}}">
+                        <i class="fas fa-store" style="margin-right: 8px"></i>EMPRESAS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('product.index', ['variation' => 'receita'])}}">
+                        <i class="fas fa-shopping-basket" style="margin-right: 8px"></i>PRODUTOS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('opportunity.index')}}">
+                        <i class="fas fa-donate" style="margin-right: 8px"></i>OPORTUNIDADES
+                    </a>
+                </div>
 
-			for (i = 0; i < dropdown.length; i++) {
-				dropdown[i].addEventListener("click", function () {
-					this.classList.toggle("active");
-					var dropdownContent = this.nextElementSibling;
-					if (dropdownContent.style.display === "block") {
-						dropdownContent.style.display = "none";
-					} else {
-						dropdownContent.style.display = "block";
-					}
-				});
-			}
-		</script>
-@section('
+                <button class="dropdown-btn">
+                    <i class='fas fa-shield-alt'></i>
+                    JURÍDICO 
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="{{route('contract.index')}}">
+                        <i class="fas fa-handshake" style="margin-right: 8px"></i>CONTRATOS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('contractTemplate.index')}}">
+                        <i class="fas fa-file-signature" style="margin-right: 8px"></i>MODELOS DE CONTRATO
+                    </a>
+                    <a class="sidebar-subitem" href="https://painel.autentique.com.br/" target="_blank">
+                        <i class="fas fa-certificate" style="margin-right: 8px"></i>AUTENTICAÇÃO DIGITAL
+                    </a>
+                </div>
+
+                <button class="dropdown-btn">
+                    <i class='fas fa-check-circle'></i>
+                    PRODUÇÃO 
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="{{route('task.index')}}">
+                        <i class="fa fa-calendar-check" style="margin-right: 8px"></i>
+                        TAREFAS
+                    </a>
+                    <a class="sidebar-subitem" href="{{route('journey.index')}}">
+                        <i class="fas fa-mug-hot" style="margin-right: 8px"></i>
+                        JORNADAS
+                    </a>
+                </div>
+
+                @if (Auth::user()->perfil == "super administrador")
+                <button class="dropdown-btn">
+                    <i class='fas fa-rocket'></i>
+                    EMPRESA DIGITAL 
+                    <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="dropdown-container">
+                    <a class="sidebar-subitem" href="/transactions"  target="_blank"><i class="fa fa-bullhorn" style="margin-right: 8px">
+
+                        </i>ENTRADAS
+                    </a>
+                    <a class="sidebar-subitem" href="https://acadia.mxroute.com:2083/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+                        </i>CRIAR EMAIL
+                        <br>
+                        login: solucoes
+                    </a>
+                    <a class="sidebar-subitem" href="https://62.171.185.126:8090/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+                        </i>SERVIDOR APLICAÇÕES
+                        <br>
+                        login: admin
+                    </a>
+                    <a class="sidebar-subitem" href="https://167.86.97.159:2087" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+                        </i>SERVIDOR NUVEM</a>
+                    <a class="sidebar-subitem" href="https://my.contabo.com/account/login" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+                        </i>PAGAR SERVIDOR
+                        <br>
+                        login: admin
+                    </a>
+                    <a class="sidebar-subitem" href="http://saocarlos.ginfes.com.br/" target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px">
+
+                        </i>NOTA FISCAL
+                        <br>
+                        lnsc. Municipal : 58029
+                    </a>
+                    <a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/sales/invoices/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA VENDA</a>
+                    <a class="sidebar-subitem" href="https://financeiro.empresadigital.net.br/purchases/bills/create" target="_blank"><i class="fas fa-user-plus" style="margin-right: 8px"></i>NOVA DESPESA</a>
+                    <a class="sidebar-subitem" href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/administrativo/financeiro" target="_blank"><i class="fas fa-cloud-upload-alt" style="margin-right: 8px"></i>ARQUIVOS FINANCEIROS</a>
+                    <a class="sidebar-subitem" href="/funil-vendas" target="blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>TUTO VENDAS ANTIGO</a>
+                    <a class="sidebar-subitem" href="/emails-pendentes"  target="_blank"><i class="fas fa-bullhorn" style="margin-right: 8px"></i>EMAILS PENDENTES</a>
+                    <a class="sidebar-subitem" href="/transactions">
+                        <i class="fas fa-bullhorn" style="margin-right: 8px"></i>
+                        ENTRADAS
+                    </a>
+                    <a class="sidebar-subitem" href="/financeiro">
+                        <i class="fas fa-user-plus" style="margin-right: 8px"></i>
+                        PAINEL
+                    </a>
+                </div>
+
+                @endif
+
+                <a href="https://empresadigital.net.br/empreender/" target="_blank">
+                    <button class="sidebar-item">
+                        <i class="fas fa-question-circle"></i> SUPORTE
+                    </button></a>
+
+            </div>
+            <script>
+
+                /* -----------------  Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+                var dropdown = document.getElementsByClassName("dropdown-btn");
+                var i;
+
+                for (i = 0; i < dropdown.length; i++) {
+                    dropdown[i].addEventListener("click", function () {
+                        this.classList.toggle("active");
+                        var dropdownContent = this.nextElementSibling;
+                        if (dropdownContent.style.display === "block") {
+                            dropdownContent.style.display = "none";
+                        } else {
+                            dropdownContent.style.display = "block";
+                        }
+                    });
+                }
+            </script>

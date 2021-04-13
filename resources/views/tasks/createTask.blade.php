@@ -28,9 +28,13 @@
     <form action=" {{route('task.store')}} " method="post" style="color: #874983">
         @csrf
         <label class="labels" for="" >NOME:</label>
-        <input type="text" name="name" value="{{$taskName}}">
+        @if(!empty(app('request')->input('taskName')))
+        <input type="text" name="name" value="{{app('request')->input('taskAccountId')}}">
+        @else
+        <input type="text" name="name" value="{{old('name')}}">
         @if ($errors->has('name'))
         <span class="text-danger">{{$errors->first('name')}}</span>
+        @endif
         @endif
         <br>
         <label class="labels" for="" >EMPRESA:</label>
