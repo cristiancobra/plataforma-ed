@@ -1,5 +1,3 @@
-@extends('layouts/sidebar')
-
 <!DOCTYPE html>
 <html lang="{{str_replace('_', '-', app()->getLocale())}}">
     <head>
@@ -8,54 +6,34 @@
 
         <title> @yield('title') </title>
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        @include('layouts.assets')
 
-        <!-- Styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-        <link href="{{asset('css/dashboard.css')}}" rel="stylesheet">
-        <link href="{{asset('css/list.css')}}" rel="stylesheet">
-        <link href="{{asset('css/style.css')}}" rel="stylesheet">
-        <link href="{{asset('css/app.css')}}" rel="stylesheet">
-
-        <!-- Scripts -->
-        <script src="{{asset('js/general.js')}}" async defer></script>
-        <script src="{{asset('js/app.js')}}" defer></script>
-        <script src="{{asset('js/menu.js')}}" async defer></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     </head>
     <body>
 
-@include('layouts.menu')
-        
-@include('layouts.sidebar')
+        @include('layouts.navMenu')
 
-                <div class="header">
-                    <table style="border-style: none">
-                        <tr>
-                            <td id="image" style="text-align: center;width: 40px;margin: 0;padding: 0;vertical-align: top">
-                                <img src= @yield('image-top') width="40px" height="40px">
-                            </td>
-                            <td id="title">
-                                <h1 style="text-align: left;padding: 0px;margin-bottom: -4px">
-                                    @yield('title')
-                                </h1>
-                            </td>
+        <div class='container-fluid'>
+            <div class='row' style='background-color: #c28dbf'>
+                @include('layouts.sidebar')
+                <main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4' style='background-color: #EEEEEE'>
 
-                            <td id="button" style="text-align: right">
-                                @yield('buttons')
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="3" style="text-align: left">
-                                @yield('description')
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="main">
-                    @yield('main')
-                </div>
-                @yield('js-scripts')
-    </body>
+                    <div class='row' style='margin-top: 10px'>
+                        @include('layouts.header')
+                    </div>
+
+                    <div style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white;padding: 20px;margin: 20px;margin-top:10px'>
+                        <div class='col-lg-12'>
+                            @yield('main')
+                        </div>
+                        @yield('js-scripts')
+                    </div>
+            </div>
+        </div>
+
+    </main>
+    @yield('js-scripts')
+</div>
+</div>
+</body>
 </html>

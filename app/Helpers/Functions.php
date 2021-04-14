@@ -492,6 +492,48 @@ if (!function_exists('formatPriority')) {
     }
 
 }
+// gera um DIV com a formatação para PRIORIDADE da tarefa  a partir de  $model
+if (!function_exists('formatShowPriority')) {
+
+    function formatShowPriority($model) {
+        switch ($model->priority) {
+            case 'baixa':
+                echo '<div class="low">baixa</div>';
+                break;
+            case 'média':
+                echo '<div class="medium">média</div>';
+                break;
+            case 'alta':
+                echo '<div class="high">alta</div>';
+                break;
+            case 'emergência':
+                echo '<div class="emergency">emergência</div>';
+                break;
+        }
+    }
+
+}
+// gera um CÉLUA DE TABELA com a formatação para PRIORIDADE da tarefa  a partir de  $model
+if (!function_exists('formatPriority')) {
+
+    function formatPriority($model) {
+        switch ($model->priority) {
+            case 'baixa':
+                echo '<div class="td-low">baixa</div>';
+                break;
+            case 'média':
+                echo '<div class="td-medium">média</div>';
+                break;
+            case 'alta':
+                echo '<div class="td-high">alta</div>';
+                break;
+            case 'emergência':
+                echo '<div class="td-emergency">emergência</div>';
+                break;
+        }
+    }
+
+}
 // retorna métodos de pagamento
 if (!function_exists('returnPaymentMethods')) {
 
@@ -628,6 +670,30 @@ if (!function_exists('formatStatus')) {
                 break;
             case 'aguardar':
                 echo '<td class="td-stuck">aguardar</td>';
+                break;
+        }
+    }
+
+}
+// gera uma DIV com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
+if (!function_exists('formatShowStatus')) {
+
+    function formatShowStatus($model) {
+        switch ($model->status) {
+            case 'cancelado':
+                echo '<div class="canceled">cancelada</div>';
+                break;
+            case 'fazer':
+                echo '<div class="to-do">fazer</div>';
+                break;
+            case 'fazendo':
+                echo '<div class="doing">fazendo</div>';
+                break;
+            case 'feito':
+                echo '<div class="done">feito</div>';
+                break;
+            case 'aguardar':
+                echo '<div class="stuck">aguardar</div>';
                 break;
         }
     }
