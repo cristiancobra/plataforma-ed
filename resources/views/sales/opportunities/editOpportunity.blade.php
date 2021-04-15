@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('opportunity.index')}}">
-    VOLTAR
+<a class="circular-button primary"  href="{{route('opportunity.index')}}">
+    <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -127,7 +127,7 @@ CKEDITOR.replace('description');
                 <input class="btn btn-danger" type="submit" value="APAGAR">
             </form>
             <a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
-                <i class='fas fa-arrow-alt-circle-left'></i>VOLTAR
+                <i class='fas fa-arrow-alt-circle-left'></i><i class="fas fa-arrow-left"></i>
             </a>
         </div>
         <br>

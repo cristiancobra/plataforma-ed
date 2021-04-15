@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('bankAccount.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('bankAccount.index')}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -66,7 +66,7 @@
 		</form>
 		<a class="btn btn-secondary" href="{{route('bankAccount.edit', ['bankAccount' => $bankAccount])}}"  style="text-decoration: none;color: white;display: inline-block">
 			<i class='fa fa-edit'></i>EDITAR</a>
-		<a class="btn btn-secondary" href="{{route('bankAccount.index')}}">VOLTAR</a>
+		<a class="btn btn-secondary" href="{{route('bankAccount.index')}}"><i class="fas fa-arrow-left"></i></a>
 	</div>
 	<br>
 </div>

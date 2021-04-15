@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('contractTemplate.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('contractTemplate.index')}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -42,7 +42,7 @@
 	</form>
 	<a class="btn btn-secondary" href=" {{ route('contractTemplate.edit', ['contractTemplate' => $contractTemplate->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('contractTemplate.index')}}">VOLTAR</a>
+	<a class="btn btn-secondary" href="{{route('contractTemplate.index')}}"><i class="fas fa-arrow-left"></i></a>
 </div>
 <br>
 <br>

@@ -12,10 +12,10 @@ Total: <span class="labels">{{$totalUsers}} </span>
 
 @section('buttons')
 <a class="button-secondary"  href="{{route('user.index')}}">
-	VOLTAR
+	<i class="fas fa-arrow-left"></i>
 </a>
-<a class="button-primary"  href="{{route('user.create')}}">
-	CRIAR
+<a class="circular-button primary"  href="{{route('user.create')}}">
+	<i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

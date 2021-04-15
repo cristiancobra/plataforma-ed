@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('user.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('user.index')}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 

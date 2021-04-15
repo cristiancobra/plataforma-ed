@@ -11,10 +11,10 @@ Total: <span class="labels"></span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('transaction.create', ['typeTransactions' => 'receita'])}}">
+<a class="circular-button primary"  href="{{route('transaction.create', ['typeTransactions' => 'receita'])}}">
 	REGISTRAR ENTRADA
 </a>
-<a class="button-primary"  href="{{route('transaction.create', ['typeTransactions' => 'despesa'])}}">
+<a class="circular-button primary"  href="{{route('transaction.create', ['typeTransactions' => 'despesa'])}}">
 	REGISTRAR SAÍDA
 </a>
 @endsection

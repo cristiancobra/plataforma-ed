@@ -11,7 +11,7 @@
 
 @section('buttons')
 <a class="button-secondary"  href="{{route('bill.index')}}">
-	VOLTAR
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -335,7 +335,7 @@ $counter++;
 	</form>
 	<a class="button-secondary" href="{{route('bill.edit', ['bill' => $bill->id])}}"  style="display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="button-secondary" href="{{route('bill.index')}}">VOLTAR</a>
+	<a class="button-secondary" href="{{route('bill.index')}}"><i class="fas fa-arrow-left"></i></a>
 </div>
 <br>
 

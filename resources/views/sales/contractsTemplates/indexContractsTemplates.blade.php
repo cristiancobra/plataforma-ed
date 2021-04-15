@@ -10,11 +10,11 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('contract.index')}}">
+<a class="circular-button primary"  href="{{route('contract.index')}}">
 	VER CONTRATOS
 </a>
-<a class="button-primary"  href="{{route('contractTemplate.create')}}">
-	CRIAR
+<a class="circular-button primary"  href="{{route('contractTemplate.create')}}">
+	<i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

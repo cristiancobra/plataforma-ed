@@ -11,7 +11,7 @@ Total: <span class="labels">{{$total}}</span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('socialmedia.create')}}">
+<a class="circular-button primary"  href="{{route('socialmedia.create')}}">
 	CRIAR
 </a>
 @endsection

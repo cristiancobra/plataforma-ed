@@ -17,7 +17,7 @@
 	EMAIL
 </a>
 <a class="button-secondary"  href="{{route('invoice.index')}}">
-	VOLTAR
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -352,7 +352,7 @@ $counter++;
 	</form>
 	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="button-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
+	<a class="button-secondary" href="{{route('invoice.index')}}"><i class="fas fa-arrow-left"></i></a>
 </div>
 <br>
 

@@ -140,7 +140,7 @@
 	</form>
 	<a class="btn btn-secondary" href=" {{ route('planning.edit', ['planning' => $planning->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('planning.index')}}">VOLTAR</a>
+	<a class="btn btn-secondary" href="{{route('planning.index')}}"><i class="fas fa-arrow-left"></i></a>
 </div>
 <br>
 

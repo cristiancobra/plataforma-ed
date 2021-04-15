@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-secondary"  href="{{route('task.create')}}">
-	CRIAR TAREFA
+<a class="circular-button secondary"  href="{{route('task.create')}}">
+	<i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

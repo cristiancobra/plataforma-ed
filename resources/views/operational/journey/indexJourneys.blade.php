@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('journey.create')}}">
-	CRIAR
+<a class="circular-button primary"  href="{{route('journey.create')}}">
+	<i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

@@ -13,7 +13,7 @@
 <a class="button-secondary"  href="{{route('task.pdf', ['task' => $task])}}">
     <i class="fas fa-print"></i>
 </a>
-<a class="button-primary"  href="{{route('task.index')}}">
+<a class="circular-button primary"  href="{{route('task.index')}}">
     <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
@@ -195,7 +195,7 @@
         </form>
         <a class="btn btn-secondary" href=" {{ route('task.edit', ['task' => $task->id]) }}">
             <i class='fa fa-edit'></i>EDITAR</a>
-        <a class="btn btn-secondary" href="{{route('task.index')}}">VOLTAR</a>
+        <a class="btn btn-secondary" href="{{route('task.index')}}"><i class="fas fa-arrow-left"></i></a>
     </div>
 </div>
 @endsection

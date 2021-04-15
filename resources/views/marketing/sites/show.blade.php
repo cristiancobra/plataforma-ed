@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('site.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('site.index')}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -84,7 +84,7 @@
 	</form>
 	<a class="btn btn-secondary" href=" {{route('site.edit', ['site' => $site->id])}} "  style="text-decoration: none;color: white;display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('site.index')}}">VOLTAR</a>
+	<a class="btn btn-secondary" href="{{route('site.index')}}"><i class="fas fa-arrow-left"></i></a>
 </div>
 <br>
 

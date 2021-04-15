@@ -15,8 +15,8 @@ Total: <span class="labels">{{$totalCompanies}} </span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('company.create', ['typeCompanies' => $typeCompanies])}}">
-    CRIAR
+<a class="circular-button primary"  href="{{route('company.create', ['typeCompanies' => $typeCompanies])}}">
+    <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

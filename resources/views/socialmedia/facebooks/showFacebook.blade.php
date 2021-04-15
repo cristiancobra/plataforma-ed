@@ -108,7 +108,7 @@
 		</form>
 		<a class="btn btn-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}">
 			<i class='fa fa-edit'></i>EDITAR</a>
-				<a class="btn btn-secondary" href="{{route('facebook.index')}}">VOLTAR</a>
+				<a class="btn btn-secondary" href="{{route('facebook.index')}}"><i class="fas fa-arrow-left"></i></a>
 	</div>
 	<br>
 </div>

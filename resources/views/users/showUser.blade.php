@@ -11,7 +11,7 @@
 
 @section('buttons')
 <a class="button-secondary"  href="{{route('user.index')}}">
-	VOLTAR
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -63,8 +63,8 @@
 				EDITAR
 			</a>
 		</div>
-		<a class="button-primary"  href="{{route('user.index')}}">
-			VOLTAR
+		<a class="circular-button primary"  href="{{route('user.index')}}">
+			<i class="fas fa-arrow-left"></i>
 		</a>
 	</div>
 	<br>

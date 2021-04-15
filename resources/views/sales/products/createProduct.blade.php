@@ -14,8 +14,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('product.index', ['variation' => $variation])}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('product.index', ['variation' => $variation])}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 

@@ -15,8 +15,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('company.index', ['typeCompanies' => $typeCompanies])}}">
-    VOLTAR
+<a class="circular-button primary"  href="{{route('company.index', ['typeCompanies' => $typeCompanies])}}">
+    <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 

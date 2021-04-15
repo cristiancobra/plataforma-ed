@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('transaction.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('transaction.index')}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -71,7 +71,7 @@
 											'typeTransactions' => $transaction->type,
 										]) }}">
 				<i class='fa fa-edit'></i>EDITAR</a>
-			<a class="btn btn-secondary" href="{{route('transaction.index')}}">VOLTAR</a>
+			<a class="btn btn-secondary" href="{{route('transaction.index')}}"><i class="fas fa-arrow-left"></i></a>
 	</div>
 </div>
 @endsection

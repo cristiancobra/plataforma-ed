@@ -136,7 +136,7 @@
 	</form>
 	<a class="btn btn-secondary" href=" {{ route('competitor.edit', ['competitor' => $competitor->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
 		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="btn btn-secondary" href="{{route('competitor.index')}}">VOLTAR</a>
+	<a class="btn btn-secondary" href="{{route('competitor.index')}}"><i class="fas fa-arrow-left"></i></a>
 </div>
 <br>
 

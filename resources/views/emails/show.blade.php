@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('email.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('email.index')}}">
+	<i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -68,7 +68,7 @@
 			<i class='fa fa-edit'></i>EDITAR
 		</a>
 		<a class="btn btn-secondary" href="{{route('email.index')}}">
-			VOLTAR
+			<i class="fas fa-arrow-left"></i>
 		</a>
 	</div>
 	<br>

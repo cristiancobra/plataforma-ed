@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('site.index')}}">
+<a class="circular-button primary"  href="{{route('site.index')}}">
 	VER TODOS
 </a>
 @endsection

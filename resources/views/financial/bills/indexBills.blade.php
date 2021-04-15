@@ -11,8 +11,8 @@ Total: <span class="labels">{{$totalBills}}</span>
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('bill.create')}}">
-	CRIAR
+<a class="circular-button primary"  href="{{route('bill.create')}}">
+	<i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

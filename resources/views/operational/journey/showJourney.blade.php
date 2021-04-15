@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('task.index')}}">
+<a class="circular-button primary"  href="{{route('task.index')}}">
     <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
@@ -79,7 +79,7 @@
         </form>
         <a class="btn btn-secondary" href=" {{route('journey.edit', ['journey' => $journey->id])}}">
             <i class='fa fa-edit'></i>EDITAR</a>
-        <a class="btn btn-secondary" href="{{route('journey.index')}}">VOLTAR</a>
+        <a class="btn btn-secondary" href="{{route('journey.index')}}"><i class="fas fa-arrow-left"></i></a>
     </div>
 </div>
 @endsection

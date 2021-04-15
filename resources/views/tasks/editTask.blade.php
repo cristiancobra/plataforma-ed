@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('task.index')}}">
+<a class="circular-button primary"  href="{{route('task.index')}}">
     CRIAR
 </a>
 @endsection

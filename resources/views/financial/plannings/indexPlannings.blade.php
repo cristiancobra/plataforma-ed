@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-secondary"  href="{{route('planning.create')}}">
-	CRIAR
+<a class="circular-button secondary"  href="{{route('planning.create')}}">
+	<i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 

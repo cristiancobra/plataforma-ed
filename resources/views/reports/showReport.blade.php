@@ -2988,6 +2988,6 @@
 		PDF
 	</a>
 	<a class="btn btn-secondary" href="{{route('report.index')}}">
-		VOLTAR
+		<i class="fas fa-arrow-left"></i>
 	</a>
 	@endsection

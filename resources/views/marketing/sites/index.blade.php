@@ -10,10 +10,10 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('site.create')}}">
+<a class="circular-button primary"  href="{{route('site.create')}}">
 	NOVO SITE
 </a>
-<a class="button-primary"  href="{{route('domain.index')}}">
+<a class="circular-button primary"  href="{{route('domain.index')}}">
 	DOMÍNIOS
 </a>
 @endsection

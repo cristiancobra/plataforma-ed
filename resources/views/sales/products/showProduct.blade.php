@@ -14,8 +14,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('product.index', ['variation' => $variation])}}">
-    VOLTAR
+<a class="circular-button primary"  href="{{route('product.index', ['variation' => $variation])}}">
+    <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -93,7 +93,7 @@
         <i class='fa fa-edit'></i>EDITAR
     </a>
     <a class="button-secondary"  href="{{route('product.index', ['variation' => $variation])}}">
-        VOLTAR
+        <i class="fas fa-arrow-left"></i>
     </a>
 </div>
 <br>
