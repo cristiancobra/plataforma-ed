@@ -24,10 +24,10 @@
 @section('main')
 <br>
 <div>
-<!--    <h1 class="name">
+    <h1 class="name">
         {{$task->name}}
-    </h1>-->
-<!--    <p class="labels">
+    </h1>
+    <p class="labels">
         EMPRESA:<span class="fields">{{$task->account->name}}</span>
     </p>
     <p class="labels">
@@ -53,10 +53,10 @@
         @else
         RESPONSÁVEL:<span class="fields"> foi excluído</span>
         @endif
-    </p>-->
+    </p>
     <br>
     <br>
-<!--    <p class="labels">
+    <p class="labels">
         DATA DE CRIAÇÃO:<span class="fields">  {{date('d/m/Y', strtotime($task->date_start))}}</span>
     </p>
     <p class="labels">
@@ -69,9 +69,9 @@
         @else
         não concluída
         @endif
-    </p>-->
+    </p>
     <br>
-<!--    <p class="labels">
+    <p class="labels">
         DESCRIÇÃO:
     </p>
     {!!html_entity_decode($task->description)!!}
@@ -185,7 +185,7 @@
     </p>
     <br>
     <p class="fields">Criado em:  {{ date('d/m/Y H:i', strtotime($task->created_at)) }}
-    </p>-->
+    </p>
 
     <div style="text-align:right;padding: 2%">
         <form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('task.destroy', ['task' => $task->id]) }}" method="post">

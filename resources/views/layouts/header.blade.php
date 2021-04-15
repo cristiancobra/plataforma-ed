@@ -1,13 +1,7 @@
-<div class="col-8" style="padding: 15px">
-    <div style="display: inline-block;padding-right: 18px;padding-top: 5px;vertical-align: top">
-        <img src= @yield('image-top') width="30px" height="30px">
-    </div>
-    <div style="display: inline-block">
-        <h1 style="text-align: left;padding: 0px;margin-bottom: -4px">
-            @yield('title')
-        </h1>
-    </div>
+<div class="col-10" style="font-size: 32px;margin-left: 15px;margin-right: -15px">
+    <img src= @yield('image-top') width="30px" height="30px">
+    @yield('title')
 </div>
-<div class="col-4" style="text-align: right">
+<div class="col-2" style="text-align: right">
     @yield('buttons')
 </div>
