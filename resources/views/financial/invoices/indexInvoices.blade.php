@@ -11,11 +11,11 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('invoice.create', ['typeInvoices' => 'receita'])}}">
-    CRIAR RECEITA
+<a class="circular-button secondary"  href="{{route('invoice.create', ['typeInvoices' => 'despesa'])}}">
+    <i class="fas fa-minus"></i>
 </a>
-<a class="circular-button primary"  href="{{route('invoice.create', ['typeInvoices' => 'despesa'])}}">
-    CRIAR DESPESA
+<a class="circular-button primary"  href="{{route('invoice.create', ['typeInvoices' => 'receita'])}}">
+    <i class="fas fa-plus"></i>
 </a>
 @endsection
 

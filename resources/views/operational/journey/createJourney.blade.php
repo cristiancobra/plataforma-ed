@@ -35,8 +35,8 @@
         @else
         <select name="account_id">
             @foreach ($accounts as $account)
-            <option  class="fields" value="{{ $account->id }}">
-                {{ $account->name }}
+            <option  class="fields" value="{{$account->id}}">
+                {{$account->name}}
             </option>
             @endforeach
             @endif
@@ -62,7 +62,9 @@
             </option>
             @endforeach
         </select>
-        <a class="btn btn-secondary" href="{{ route('task.create') }}" target="blank">NOVA TAREFA</a>
+        <a class="circular-button secondary" href="{{ route('task.create') }}" target="blank">
+            <i class="fas fa-plus"></i>
+        </a>
         @endif
         <br>
         <br>
