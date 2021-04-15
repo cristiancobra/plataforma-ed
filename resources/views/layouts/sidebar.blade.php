@@ -75,7 +75,7 @@
             <a class="sidebar-subitem" href="{{route('site.index')}}">
                 <i class="fas fa-window-maximize" style="margin-right: 8px"></i>SITES
             </a>
-            <a class="sidebar-subitem" href="{{route('site.index')}}">
+            <a class="sidebar-subitem" href="{{route('domain.index')}}">
                 <i class="fas fa-window-maximize" style="margin-right: 8px"></i>DOMÍNIOS
             </a>
             <a class="sidebar-subitem" href="{{route('report.index')}}">

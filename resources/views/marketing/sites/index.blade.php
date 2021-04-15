@@ -10,10 +10,10 @@
 @endsection
 
 @section('buttons')
-<a class='circular-button primary'  href='{{route('site.create')}}'>
+<a class='circular-button primary'  href='{{route('domain.create')}}'>
     <i class='fa fa-list' aria-hidden='true'></i>
 </a>
-<a class='circular-button primary'  href='{{route('domain.index')}}'>
+<a class='circular-button primary'  href='{{route('site.index')}}'>
     <i class='fa fa-plus' aria-hidden='true'></i>
 </a>
 @endsection

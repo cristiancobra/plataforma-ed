@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('contractTemplate.index')}}">
-    MODELOS
+<a class="circular-button secondary"  href="{{route('contractTemplate.index')}}">
+    <i class="fa fa-edit" aria-hidden="true"></i>
 </a>
 <a class="circular-button primary"  href="{{route('contract.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
