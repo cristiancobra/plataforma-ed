@@ -10,11 +10,11 @@
 @endsection
 
 @section('buttons')
-<a class="button-secondary" href="{{route('invoice.pdf', ['invoice' => $invoice])}}">
-    PDF
+<a class="circular-button secondary" href="{{route('invoice.pdf', ['invoice' => $invoice])}}">
+    <i class="fas fa-print"></i>
 </a>
-<a class="button-secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
-    EMAIL
+<a class="circular-button secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
+    <i class="fas fa-envelope"></i>
 </a>
 <a class="circular-button primary"  href="{{route('invoice.index')}}">
     <i class="fas fa-arrow-left"></i>
@@ -373,11 +373,16 @@ $counter++;
     <form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">
         @csrf
         @method('delete')
-        <input class="button-delete" type="submit" value="APAGAR">
+        <a class='circular-button delete' type='submit' href=''>
+            <i class='fa fa-trash'></i>
+        </a>
     </form>
-    <a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
-        <i class='fa fa-edit'></i>EDITAR</a>
-    <a class="button-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
+    <a class="circular-button secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
+        <i class='fa fa-edit'></i>
+    </a>
+    <a class='circular-button primary'  href='{{route('invoice.index')}}'>
+        <i class='fas fa-arrow-left'></i>
+    </a>
 </div>
 <br>
 

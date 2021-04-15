@@ -15,10 +15,10 @@ Total: <span class="labels">{{$totalProducts}} </span>
 @endsection
 
 @section('buttons')
-<button id='filter_button' class='button-secondary'>
+<a id='filter_button' class='circular-button secondary'>
 <i class="fa fa-filter" aria-hidden="true"></i>
-</button>
-<a class="button-primary"  href="{{route('product.create', ['variation' => $variation])}}">
+</a>
+<a class="circular-button primary"  href="{{route('product.create', ['variation' => $variation])}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection

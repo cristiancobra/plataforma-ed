@@ -10,10 +10,10 @@
 @endsection
 
 @section('buttons')
-<button id='filter_button' class='button-secondary'>
+<a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
-</button>
-<a class="button-primary"  href="{{route('task.create')}}">
+</a>
+<a class="circular-button primary"  href="{{route('task.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
