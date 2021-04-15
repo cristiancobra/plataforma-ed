@@ -10,8 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class='button-primary'  href='{{route('opportunity.index')}}'>
-    VOLTAR
+<a class="circular-button primary"  href="{{route('opportunity.index')}}">
+    <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -157,7 +157,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input class='button-secondary' type='submit' value='ENVIAR MATERIAL'>
+        <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
     </form>
     <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
         @csrf
@@ -171,7 +171,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input class='button-secondary' type='submit' value='AGENDAR REUNIÃO'>
+        <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
     </form>
     <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
         @csrf
@@ -185,7 +185,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input class='button-secondary' type='submit' value='  FAZER ORÇAMENTO'>
+        <input class='text-button secondary' type='submit' value='  FAZER ORÇAMENTO'>
     </form>
     <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
@@ -199,7 +199,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input class='button-secondary' type='submit' value='  FAZER CONTRATO'>
+        <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
     </form>
 </div>
 <br>
@@ -284,7 +284,7 @@ indefinida
         @endif
         <input type='hidden' name='department' value='vendas'>
         <input type='hidden' name='invoiceStatus' value='orçamento'>
-        <input class='button-secondary' type='submit' value='GERAR ORÇAMENTO'>
+        <input class='text-button secondary' type='submit' value='GERAR ORÇAMENTO'>
     </form>
     <form  style='display: inline-block'  method='POST' action='{{route('invoice.create')}}'>
         @csrf
@@ -300,7 +300,7 @@ indefinida
         <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
         @endif
         <input type='hidden' name='department' value='vendas'>
-        <input class='button-secondary' type='submit' value='GERAR FATURA'>
+        <input class='text-button secondary' type='submit' value='GERAR FATURA'>
     </form>
 </div>
 <br>
@@ -391,7 +391,7 @@ indefinida
         <input type='hidden' name='company_ids' value='{{$contactCompanies}}'>
         <input type='hidden' name='department' value='vendas'>
         <input type='hidden' name='status' value='pendente'>
-        <input class='button-secondary' type='submit' value='  GERAR CONTRATO'>
+        <input class='text-button secondary' type='submit' value='  GERAR CONTRATO'>
     </form>
 </div>
 <br>
@@ -480,7 +480,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='produção'>
-        <input class='button-secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
+        <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
     </form>
     <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
@@ -494,7 +494,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input class='button-secondary' type='submit' value=' REALIZAR ENTREGA'>
+        <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
     </form>
     <br>
     <br>
@@ -504,13 +504,15 @@ indefinida
         <form   style='text-decoration: none;display: inline-block' action='{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}' method='post'>
             @csrf
             @method('delete')
-            <input class='btn btn-danger' type='submit' value='APAGAR'>
+            <a class='circular-button delete' type='submit' href=''>
+                <i class='fa fa-trash'></i>
+            </a>
         </form>
-        <a class='button-secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
-            <i class='fa fa-edit'></i>EDITAR
+        <a class='circular-button secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
+            <i class='fa fa-edit'></i>
         </a>
-        <a class='button-secondary' href='{{route('opportunity.index')}}'>
-            VOLTAR
+        <a class='circular-button primary' href='{{route('opportunity.index')}}'>
+            <i class='fas fa-arrow-left'></i>
         </a>
     </div>
     <br>

@@ -11,13 +11,13 @@
 
 @section('buttons')
 <a class="button-secondary" href="{{route('invoice.pdf', ['invoice' => $invoice])}}">
-	PDF
+    PDF
 </a>
 <a class="button-secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
-	EMAIL
+    EMAIL
 </a>
-<a class="button-secondary"  href="{{route('invoice.index')}}">
-	VOLTAR
+<a class="circular-button primary"  href="{{route('invoice.index')}}">
+    <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
@@ -45,9 +45,9 @@
 @if(isset($invoice->opportunity_id))
 <span class="fields">{{$invoice->opportunity->name}}</span>
 <button class="button-round">
-	<a href=" {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
+    <a href=" {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}">
+        <i class='fa fa-eye' style="color:white"></i>
+    </a>
 </button>
 @else
 não possui
@@ -59,9 +59,9 @@ Sem contrato
 @else
 <span class="fields">{{$invoice->contract->name}}</span>
 <button class="button-round">
-	<a href="{{route('contract.show', ['contract' => $invoice->contract_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
+    <a href="{{route('contract.show', ['contract' => $invoice->contract_id])}}">
+        <i class='fa fa-eye' style="color:white"></i>
+    </a>
 </button>
 @endif
 <br>
@@ -69,25 +69,25 @@ Sem contrato
 <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
 <span class="fields">{{$invoice->opportunity->company->name}}</span>
 <button class="button-round">
-	<a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
+    <a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
+        <i class='fa fa-eye' style="color:white"></i>
+    </a>
 </button>
 @elseif(isset($invoice->company->name))
 <label class="labels" for="" >FORNECEDOR:</label>
 <span class="fields">{{$invoice->company->name}}</span>
 <button class="button-round">
-	<a href="{{route('company.show', ['company' => $invoice->company_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
+    <a href="{{route('company.show', ['company' => $invoice->company_id])}}">
+        <i class='fa fa-eye' style="color:white"></i>
+    </a>
 </button>
 @else
 <label class="labels" for="" >CLIENTE / FORNECEDOR:</label>
 <span class="fields">{{$invoice->company->name}}</span>
 <button class="button-round">
-	<a href="{{route('company.show', ['company' => $invoice->company_id])}}">
-		<i class='fa fa-eye' style="color:white"></i>
-	</a>
+    <a href="{{route('company.show', ['company' => $invoice->company_id])}}">
+        <i class='fa fa-eye' style="color:white"></i>
+    </a>
 </button>
 @endif
 <br>
@@ -108,113 +108,113 @@ Sem contrato
 <span class="fields">{!!html_entity_decode($invoice->description)!!}</span>
 <br>
 <div style="display: inline-block">
-	<img src="{{asset('imagens/products.png')}}" width="40px" alt="40px">
-	<label class="labels" for="" >ITENS DA FATURA:</label>
+    <img src="{{asset('imagens/products.png')}}" width="40px" alt="40px">
+    <label class="labels" for="" >ITENS DA FATURA:</label>
 </div>
 <br>
 <br>
 <table class="table-list">
-	<tr>
-		<td   class="table-list-header" style="width: 5%">
-			QTDE
-		</td>
-		<td   class="table-list-header" style="width: 55%">
-			NOME
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			PRAZO
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			IMPOSTO 
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			UNITÁRIO
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			TOTAL
-		</td>
-	</tr>
+    <tr>
+        <td   class="table-list-header" style="width: 5%">
+            QTDE
+        </td>
+        <td   class="table-list-header" style="width: 55%">
+            NOME
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            PRAZO
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            IMPOSTO 
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            UNITÁRIO
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            TOTAL
+        </td>
+    </tr>
 
-	@foreach ($invoiceLines as $invoiceLine)
-	<tr style="font-size: 14px">
-		<td class="table-list-center">
-			{{$invoiceLine->amount}}
-		</td>
-		<td class="table-list-left">
-			{{$invoiceLine->product->name}}
-		</td>
-		<td class="table-list-center">
-			{{$invoiceLine->subtotalDeadline}} dia(s)
-		</td>
-		<td class="table-list-right">
-			{{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
-		</td>
-		<td class="table-list-right">
-			{{number_format($invoiceLine->product->price,2,",",".")}}
-		</td>
-		<td class="table-list-right">
-			{{number_format($invoiceLine->subtotalPrice,2,",",".")}}
-		</td>
-	</tr>
+    @foreach ($invoiceLines as $invoiceLine)
+    <tr style="font-size: 14px">
+        <td class="table-list-center">
+            {{$invoiceLine->amount}}
+        </td>
+        <td class="table-list-left">
+            {{$invoiceLine->product->name}}
+        </td>
+        <td class="table-list-center">
+            {{$invoiceLine->subtotalDeadline}} dia(s)
+        </td>
+        <td class="table-list-right">
+            {{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
+        </td>
+        <td class="table-list-right">
+            {{number_format($invoiceLine->product->price,2,",",".")}}
+        </td>
+        <td class="table-list-right">
+            {{number_format($invoiceLine->subtotalPrice,2,",",".")}}
+        </td>
+    </tr>
 
-	<tr style="font-size: 12px">
-		<td class="table-list-left" colspan="5">
-			{!!html_entity_decode($invoiceLine->product->description)!!}
-		</td>
-	</tr>
-	@endforeach
+    <tr style="font-size: 12px">
+        <td class="table-list-left" colspan="5">
+            {!!html_entity_decode($invoiceLine->product->description)!!}
+        </td>
+    </tr>
+    @endforeach
 
-	<tr>
-		<td   class="table-list-header-right" colspan="3">
-		</td>
-		<td   class="table-list-header-right">
-			desconto: 
-		</td>
-		<td   class="table-list-header-right" colspan="2">
-			- {{formatCurrencyReal($invoice->discount)}}
-		</td>
-	</tr>
-	<tr>
-		<td   class="table-list-header-right" colspan="3">
-		</td>
-		<td   class="table-list-header-right">
-			TOTAL: 
-		</td>
-		</td>
-		<td   class="table-list-header-right" colspan="2">
-			{{formatCurrencyReal($invoice->totalPrice)}}
-		</td>
-	</tr>
-	<tr>
-		<td   class="table-list-header-right" colspan="3">
-		</td>
-		<td   class="table-list-header-right">
-			PARCELAMENTO: 
-		</td>
+    <tr>
+        <td   class="table-list-header-right" colspan="3">
+        </td>
+        <td   class="table-list-header-right">
+            desconto: 
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            - {{formatCurrencyReal($invoice->discount)}}
+        </td>
+    </tr>
+    <tr>
+        <td   class="table-list-header-right" colspan="3">
+        </td>
+        <td   class="table-list-header-right">
+            TOTAL: 
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            {{formatCurrencyReal($invoice->totalPrice)}}
+        </td>
+    </tr>
+    <tr>
+        <td   class="table-list-header-right" colspan="3">
+        </td>
+        <td   class="table-list-header-right">
+            PARCELAMENTO: 
+        </td>
 
-		<td   class="table-list-header-right" colspan="2">
-			@if($invoice->number_installment_total == 1)
-			À vista
-			@else
-			{{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
-			@endif
-		</td>
-	</tr>
+        <td   class="table-list-header-right" colspan="2">
+            @if($invoice->number_installment_total == 1)
+            À vista
+            @else
+            {{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
+            @endif
+        </td>
+    </tr>
 </table>
 <br>
 @if($totalInvoices > 1)
 
 @elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga' OR $invoice->number_installment_total == 1)
 <p  style="text-align: right">
-	<a class="button-secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
-		GERAR FATURAS DO PARCELAMENTO
-	</a>
+    <a class="button-secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
+        GERAR FATURAS DO PARCELAMENTO
+    </a>
 </p>
 @else
 <p  style="text-align: right">
-	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice])}}">
-		APROVAR PARA LIBERAR PARCELAMENTO
-	</a>
+    <a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice])}}">
+        APROVAR PARA LIBERAR PARCELAMENTO
+    </a>
 </p>
 @endif
 <br>
@@ -235,68 +235,68 @@ $counter++;
 <br>
 @endif
 <div style="display: inline-block">
-	<img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
-	<label class="labels" for="" >TODAS AS FATURAS:</label>
+    <img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
+    <label class="labels" for="" >TODAS AS FATURAS:</label>
 </div>
 <br>
 <br>
 <table class="table-list">
-	<tr>
-		<td   class="table-list-header" style="width: 30%">
-			IDENTIFICADOR
-		</td>
-		<td   class="table-list-header" style="width: 20%">
-			DATA CRIAÇÃO 
-		</td>
-		<td   class="table-list-header" style="width: 20%">
-			DATA PAGAMENTO
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			VALOR TOTAL
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			VALOR DA PARCELA
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			SITUAÇÃO
-		</td>
-	</tr>
-	@if($invoices)
-	@foreach ($invoices as $invoice)
-	<tr style="font-size: 14px">
-		<td class="table-list-left">
-			<button class="button-round">
-				<a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
-					<i class='fa fa-eye' style="color:white"></i></a>
-			</button>
-			<button class="button-round">
-				<a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
-					<i class='fa fa-edit' style="color:white"></i></a>
-			</button>
-			FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$invoice->number_installment_total}}
-		</td>
-		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($invoice->date_creation))}}
-		</td>
-		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($invoice->pay_day))}}
-		</td>
-		<td class="table-list-right">
-			R$ {{number_format($invoice->totalPrice, 2,",",".")}}
-		</td>
-		<td class="table-list-right">
-			R$ {{number_format($invoice->installment_value, 2,",",".")}}
-		</td>
-		@if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
-		<td class="td-late">
-			atrasada
-		</td>
-		@else
-		{{formatInvoiceStatus($invoice)}}
-		@endif
-	</tr>
-	@endforeach
-	@endif
+    <tr>
+        <td   class="table-list-header" style="width: 30%">
+            IDENTIFICADOR
+        </td>
+        <td   class="table-list-header" style="width: 20%">
+            DATA CRIAÇÃO 
+        </td>
+        <td   class="table-list-header" style="width: 20%">
+            DATA PAGAMENTO
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            VALOR TOTAL
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            VALOR DA PARCELA
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            SITUAÇÃO
+        </td>
+    </tr>
+    @if($invoices)
+    @foreach ($invoices as $invoice)
+    <tr style="font-size: 14px">
+        <td class="table-list-left">
+            <button class="button-round">
+                <a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
+                    <i class='fa fa-eye' style="color:white"></i></a>
+            </button>
+            <button class="button-round">
+                <a href=" {{route('invoice.edit', ['invoice' => $invoice->id])}}">
+                    <i class='fa fa-edit' style="color:white"></i></a>
+            </button>
+            FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$invoice->number_installment_total}}
+        </td>
+        <td class="table-list-center">
+            {{date('d/m/Y', strtotime($invoice->date_creation))}}
+        </td>
+        <td class="table-list-center">
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </td>
+        <td class="table-list-right">
+            R$ {{number_format($invoice->totalPrice, 2,",",".")}}
+        </td>
+        <td class="table-list-right">
+            R$ {{number_format($invoice->installment_value, 2,",",".")}}
+        </td>
+        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+        <td class="td-late">
+            atrasada
+        </td>
+        @else
+        {{formatInvoiceStatus($invoice)}}
+        @endif
+    </tr>
+    @endforeach
+    @endif
 </table>
 <br>
 <br>
@@ -306,56 +306,56 @@ $counter++;
 <br>
 <br>
 <div style="display: inline-block">
-	<img src="{{asset('imagens/financeiro.png')}}" width="40px" alt="40px">
-	<label class="labels" for="" >PAGAMENTOS:</label>
+    <img src="{{asset('imagens/financeiro.png')}}" width="40px" alt="40px">
+    <label class="labels" for="" >PAGAMENTOS:</label>
 </div>
 <br>
 <br>
 <table class="table-list">
-	<tr>
-		<td   class="table-list-header" style="width: 5%">
-			DATA
-		</td>
-		<td   class="table-list-header" style="width: 55%">
-			RESPONSÁVEL
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			CONTA
-		</td>
-		<td   class="table-list-header" style="width: 10%">
-			VALOR
-		</td>
-	</tr>
-	@foreach($transactions as $transaction)
-	<tr>
-		<td class="table-list-center">
-			{{date('d/m/Y', strtotime($transaction->pay_day))}}
-		</td>
-		<td class="table-list-center">
-			{{$transaction->user->contact->name}}
-		</td>
-		<td class="table-list-center">
-			{{$transaction->bankAccount->name}}
-		</td>
-		<td class="table-list-right">
-			R$ {{number_format($transaction->value,2,",",".")}}
-		</td>
-	</tr>
-	@endforeach
-	<tr>
-		<td   class="table-list-header-right" colspan="1">
-		</td>
-		<td   class="table-list-header-right"colspan="2">
-			SALDO DA FATURA:
-		</td>
-		</td>
-		<td   class="table-list-header-right" colspan="2">
-			R$ {{number_format($balance, 2,",",".")}}
-		</td>
-	</tr>
+    <tr>
+        <td   class="table-list-header" style="width: 5%">
+            DATA
+        </td>
+        <td   class="table-list-header" style="width: 55%">
+            RESPONSÁVEL
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            CONTA
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            VALOR
+        </td>
+    </tr>
+    @foreach($transactions as $transaction)
+    <tr>
+        <td class="table-list-center">
+            {{date('d/m/Y', strtotime($transaction->pay_day))}}
+        </td>
+        <td class="table-list-center">
+            {{$transaction->user->contact->name}}
+        </td>
+        <td class="table-list-center">
+            {{$transaction->bankAccount->name}}
+        </td>
+        <td class="table-list-right">
+            R$ {{number_format($transaction->value,2,",",".")}}
+        </td>
+    </tr>
+    @endforeach
+    <tr>
+        <td   class="table-list-header-right" colspan="1">
+        </td>
+        <td   class="table-list-header-right"colspan="2">
+            SALDO DA FATURA:
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            R$ {{number_format($balance, 2,",",".")}}
+        </td>
+    </tr>
 </table>
 <br>
-	<a class="button-secondary" href="{{route('transaction.create', [
+<a class="button-secondary" href="{{route('transaction.create', [
 		'invoiceId' => $invoice->identifier,
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
@@ -363,21 +363,21 @@ $counter++;
 		'invoiceTotalPrice' => $invoice->totalPrice,
 				
 	])}}">
-		REGISTRAR PAGAMENTO
-	</a>
+    REGISTRAR PAGAMENTO
+</a>
 <br>
 <br>
 <p class="labels">  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>
 
 <div style="text-align:right;padding: 2%">
-	<form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">
-		@csrf
-		@method('delete')
-		<input class="button-delete" type="submit" value="APAGAR">
-	</form>
-	<a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
-		<i class='fa fa-edit'></i>EDITAR</a>
-	<a class="button-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
+    <form   style="text-decoration: none;display: inline-block" action="{{route('invoice.destroy', ['invoice' => $invoice])}}" method="post">
+        @csrf
+        @method('delete')
+        <input class="button-delete" type="submit" value="APAGAR">
+    </form>
+    <a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice->id])}}"  style="display: inline-block">
+        <i class='fa fa-edit'></i>EDITAR</a>
+    <a class="button-secondary" href="{{route('invoice.index')}}">VOLTAR</a>
 </div>
 <br>
 
