@@ -105,17 +105,6 @@
                             </div>
                         </div>
 
-                        <div class='row' style='background-color: white;margin-top: 30px'>
-                            <div class='col-12' style='text-align: left'>
-                                <div class='show-label-large'>
-                                    DESCRIÇÃO:
-                                </div>
-                                <div class='description-field'>
-                                    {!!html_entity_decode($task->description)!!}
-                                </div>
-                            </div>
-                        </div>
-
                         <div class='row' style='background-color: white;margin-top: 50px'>
                             <div class='col-4' style='text-align: center'>
                                 @yield('date_start')
@@ -125,6 +114,17 @@
                             </div>
                             <div class='col-4'>
                                 @yield('date_conclusion')
+                            </div>
+                        </div>
+
+                        <div class='row' style='background-color: white;margin-top: 30px'>
+                            <div class='col-12' style='text-align: left'>
+                                <div class='show-label-large'>
+                                    DESCRIÇÃO:
+                                </div>
+                                <div class='description-field'>
+                                    {!!html_entity_decode($task->description)!!}
+                                </div>
                             </div>
                         </div>
 

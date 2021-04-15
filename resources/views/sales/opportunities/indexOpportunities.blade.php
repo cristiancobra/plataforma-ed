@@ -12,7 +12,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 
 @section('buttons')
 <button id='filter_button' class='button-secondary'>
-<i class="fa fa-filter" aria-hidden="true"></i>
+    <i class="fa fa-filter" aria-hidden="true"></i>
 </button>
 <a class="button-primary"  href="{{route('opportunity.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -73,7 +73,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
         </td>
         @else
         <td class="table-list-center">
-        Não possui
+            Não possui
         </td>
         @endif
         @if(isset($opportunity->company->name))
@@ -82,14 +82,22 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
         </td>
         @else
         <td class="table-list-center">
-        Não possui
+            Não possui
         </td>
         @endif
         <td class="table-list-center">
             {{$opportunity->user->contact->name}}
         </td>
         <td class="table-list-center">
-            {{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
+            @if($opportunity->date_conclusion == date('Y-m-d'))
+            hoje
+            @elseif($opportunity->stage != 'ganhamos' AND $opportunity->stage != 'perdemos' AND $opportunity->date_conclusion <= date('Y-m-d'))
+            <p style="color: red">
+                {{dateBr($opportunity->date_conclusion)}}
+            </p>
+            @else
+            {{dateBr($opportunity->date_conclusion)}}
+            @endif
         </td>
         {{formatStage($opportunity)}}
     </tr>
@@ -104,12 +112,12 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
 
 @section('js-scripts')
 <script>
-$(document).ready(function () {
-    //botao de exibir filtro
-    $("#filter_button").click(function () {
-        $("#filter").slideToggle(600);
-    });
+    $(document).ready(function () {
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
 
-});
+    });
 </script>
 @endsection

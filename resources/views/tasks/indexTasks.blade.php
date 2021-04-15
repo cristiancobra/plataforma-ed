@@ -11,7 +11,7 @@
 
 @section('buttons')
 <button id='filter_button' class='button-secondary'>
-<i class="fa fa-filter" aria-hidden="true"></i>
+    <i class="fa fa-filter" aria-hidden="true"></i>
 </button>
 <a class="button-primary"  href="{{route('task.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
@@ -104,17 +104,17 @@
         </td>	
         <td class="table-list-center">
             @if($task->date_due == date('Y-m-d'))
-            hoje
+                hoje
+            @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+            <p style="color: red">
+                {{dateBr($task->date_due)}}
+            </p>
             @else
-            {{date('d/m/Y', strtotime($task->date_due))}}
+            {{dateBr($task->date_due)}}
             @endif
         </td>
         {{formatPriority($task)}}
-        @if($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-        <td class="td-late">
-            atrasada
-        </td>
-        @elseif($task->status == 'fazer' AND $task->journeys()->exists())
+        @if($task->status == 'fazer' AND $task->journeys()->exists())
         <td class="td-doing">
             fazendo
         </td>
@@ -133,12 +133,12 @@
 
 @section('js-scripts')
 <script>
-$(document).ready(function () {
-    //botao de exibir filtro
-    $("#filter_button").click(function () {
-        $("#filter").slideToggle(600);
-    });
+    $(document).ready(function () {
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
 
-});
+    });
 </script>
 @endsection

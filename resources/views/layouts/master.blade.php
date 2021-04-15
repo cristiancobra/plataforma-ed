@@ -26,8 +26,6 @@
                         <div class='col-lg-12'>
                             @yield('main')
                         </div>
-                        @yield('js-scripts')
-                    </div>
             </div>
         </div>
 

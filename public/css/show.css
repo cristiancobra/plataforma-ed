@@ -79,6 +79,20 @@ and open the template in the editor.
     border-color: white;
     padding:5px;
 }
+
+.to-do{
+    text-align: center;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:middle;
+    background-color: #F2E28C;
+    border-style: solid;
+    border-radius:10px;
+    border-width: 1px; 
+    border-color: white;
+    padding:5px;
+}
                 
 /*priority*/
                 
