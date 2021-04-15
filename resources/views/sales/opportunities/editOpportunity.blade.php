@@ -119,7 +119,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <div style="text-align: right">
-            <input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
+            <input class="btn btn-secondary" style="float:right;text-align: right;margin-left: 5px" type="submit" value="SALVAR">
             </form>
             <form   style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}" method="post">
                 @csrf
