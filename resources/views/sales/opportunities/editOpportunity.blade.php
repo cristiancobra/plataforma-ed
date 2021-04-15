@@ -119,6 +119,8 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <div style="text-align: right">
+            <input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
+            </form>
             <form   style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}" method="post">
                 @csrf
                 @method('delete')
@@ -127,8 +129,6 @@ CKEDITOR.replace('description');
             <a class="btn btn-secondary" href=" {{route('opportunity.index')}} "  style="text-decoration: none;color: white;display: inline-block">
                 <i class='fas fa-arrow-alt-circle-left'></i>VOLTAR
             </a>
-            <input class="btn btn-secondary" style="display:inline-block" type="submit" value="SALVAR">
-            </form>
         </div>
         <br>
         </div>
