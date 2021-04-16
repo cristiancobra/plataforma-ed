@@ -14,7 +14,7 @@
         @include('layouts.navMenu')
 
         <div class='container-fluid'>
-            <div class='row' style='background-color: #c28dbf'>
+            <div class='row' style='background-color: #EEEEEE'>
                 @include('layouts.sidebar')
                 <main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4' style='background-color: #EEEEEE'>
 
@@ -26,12 +26,11 @@
                         <div class='col-lg-12'>
                             @yield('main')
                         </div>
+                    </div>
             </div>
-        </div>
 
-    </main>
-    @yield('js-scripts')
-</div>
-</div>
+        </main>
+        @yield('js-scripts')
+    </div>
 </body>
 </html>

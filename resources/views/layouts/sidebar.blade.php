@@ -1,5 +1,5 @@
-<nav class="col-md-2 d-none d-md-block bg-ed sidebar">
-    <div class="sidebar-sticky">
+<nav class="col-md-2 d-none d-md-block bg-ed sidebar"  style="height: 1000px;position: fixed">
+    <div class="sidebar-sticky"">
         <a href='/'>
             <button class="sidebar-item">
                 <i class="fas fa-rocket"></i>
