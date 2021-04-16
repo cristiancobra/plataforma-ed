@@ -24,6 +24,7 @@ class CompanyController extends Controller {
                     'account',
                 ])
                 ->where('type', $typeCompanies)
+                ->orWhere('type', 'cliente e fornecedor')
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
@@ -77,6 +78,8 @@ class CompanyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $typeCompanies = $request->input('typeCompanies');
+
         $company = new Company();
         $company->fill($request->all());
         $company->save();
@@ -84,6 +87,7 @@ class CompanyController extends Controller {
 
         return view('sales.companies.showCompany', compact(
                         'company',
+                        'typeCompanies',
         ));
     }
 
@@ -93,9 +97,12 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company) {
+    public function show(Company $company, Request $request) {
+        $typeCompanies = $request->input('typeCompanies');
+
         return view('sales.companies.showCompany', compact(
                         'company',
+                        'typeCompanies',
         ));
     }
 
@@ -105,7 +112,9 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company) {
+    public function edit(Company $company, Request $request) {
+        $typeCompanies = $request->input('typeCompanies');
+
         $accountsId = userAccounts();
         $states = returnStates();
 
@@ -117,6 +126,7 @@ class CompanyController extends Controller {
                         'company',
                         'accounts',
                         'states',
+                        'typeCompanies',
         ));
     }
 
@@ -128,11 +138,13 @@ class CompanyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Company $company) {
+        $typeCompanies = $request->type;
         $company->fill($request->all());
         $company->save();
 
         return view('sales.companies.showCompany', compact(
                         'company',
+                        'typeCompanies',
         ));
     }
 

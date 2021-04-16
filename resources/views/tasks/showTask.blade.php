@@ -59,8 +59,9 @@
 @else
 <p style="color:white">
 --
-</div>
+</p>
 @endif
+</div>
 <p class="labels" style="text-align: center">
     CONCLUSÃO
 </p>

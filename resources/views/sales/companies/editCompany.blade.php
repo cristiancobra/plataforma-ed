@@ -1,9 +1,13 @@
 @extends('layouts/master')
 
+@if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
+@else
+@section('title','FORNECEDORES')
+@endif
 
 @section('image-top')
-{{ asset('imagens/empresa.png') }} 
+{{asset('imagens/empresa.png')}} 
 @endsection
 
 @section('description')
@@ -20,18 +24,24 @@
 
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-    {{ Session::get('failed') }}
+    {{Session::get('failed')}}
     @php
     Session::forget('failed');
     @endphp
 </div>
 @endif
 <div>
-    <form action=" {{route('company.update', ['company' => $company->id])}} " method="post" style="color: #874983">
+    <form action="{{route('company.update', [
+        'company' => $company->id,
+         'typeCompanies' => $typeCompanies,
+            ])}}" method="post">
         @csrf
         @method('put')
-        <label for="status">TIPO: </label>
+        <label for="type">TIPO: </label>
         <select class="fields" name="type">
+            <option value="{{$company->type}}">
+                {{$company->type}}
+            </option>
             <option value="cliente">
                 cliente
             </option>
@@ -129,7 +139,11 @@
         {{editSelect('status', 'fields', returnStatusActive(), $company->status)}}
         <br>
         <br>
-        <input class="btn btn-secondary" type="submit" value="ATUALIZAR">
+        <div style="text-align:right">
+            <button class='circular-button primary' type='submit'>
+            <i class='fa fa-check'></i>
+        </button>
+        </div>
     </form>
 </div>
 <br>

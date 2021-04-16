@@ -32,7 +32,7 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('company.store')}} " method="post" style="color: #874983">
+    <form action=" {{route('company.store', ['typeCompanies' => $typeCompanies])}} " method="post">
         @csrf
         <label for="status">TIPO: </label>
         <select class="fields" name="type">

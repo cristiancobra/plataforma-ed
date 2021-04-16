@@ -44,12 +44,18 @@ Total: <span class="labels">{{$totalCompanies}} </span>
         @foreach ($companies as $company)
         <tr style="font-size: 14px">
             <td class="table-list-left">
-                <a class="white" href=" {{route('company.show', ['company' => $company])}}">
+                <a class="white" href=" {{route('company.show', [
+                                                                                                'company' => $company,
+                                                                                                'typeCompanies' => $typeCompanies,
+                                                                                            ])}}">
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
                     </button>
                 </a>
-                <a class="white" href=" {{route('company.edit', ['company' => $company])}}">
+                <a class="white" href=" {{route('company.edit',  [
+                                                                                                'company' => $company,
+                                                                                                'typeCompanies' => $typeCompanies,
+                                                                                            ])}}">
                     <button class="button-round">
                         <i class='fa fa-edit'></i>
                     </button>
