@@ -54,14 +54,14 @@
                                     @if(isset($task->contact->name))
                                     {{$task->contact->name}}
                                     @else
-                                    foi excluído
+                                    Não possui
                                     @endif
                                 </div>
                                 <div class='show-field'>
                                     @if(isset($task->company->name))
                                     {{$task->company->name}}
                                     @else
-                                    foi excluído
+                                    Pessoa física
                                     @endif
                                 </div>
                                 <div class='show-field'>

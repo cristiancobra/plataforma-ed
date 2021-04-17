@@ -26,12 +26,12 @@
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
-    {{createFilterSelect('stage', 'select', returnStatus())}}
+    {{createFilterSelect('stage', 'select', returnStatus(), 'Todas as situações')}}
     <br>
-    <a class="button-secondary" href='{{route('task.index')}}'>
+    <a class="text-button secondary" href='{{route('task.index')}}'>
         LIMPAR
     </a>
-    <input class="button-secondary" type="submit" value="FILTRAR">
+    <input class="text-button primary" type="submit" value="FILTRAR">
 </form>
 <br>
 <table class="table-list">

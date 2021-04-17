@@ -3,7 +3,7 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{ asset('imagens/invoice.png') }} 
+{{asset('imagens/invoice.png')}} 
 @endsection
 
 @section('description')
@@ -11,6 +11,9 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 @endsection
 
 @section('buttons')
+<a id='filter_button' class='circular-button secondary'>
+    <i class="fa fa-filter" aria-hidden="true"></i>
+</a>
 <a class="circular-button secondary"  href="{{route('invoice.create', ['typeInvoices' => 'despesa'])}}">
     <i class="fas fa-minus"></i>
 </a>
@@ -70,41 +73,20 @@ Total: <span class="labels">{{$totalInvoices}}</span>
 </div>
 <br>
 <br>
-<form action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
+<form id="filter" action="{{route('invoice.index')}}" method="post" style="text-align: right;color: #874983">
     @csrf
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
     <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
     <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
-    <select class="select" name="account_id">
-        <option  class="select" value="">
-            Minhas empresas
-        </option>
-        @foreach ($accounts as $account)
-        <option  class="select" value="{{$account->id}}">
-            {{$account->name}}
-        </option>
-        @endforeach
-        <option  class="select" value="">
-            todas
-        </option>
-    </select>
-    <select class="select" name="company_id">
-        <option  class="select" value="">
-            Qualquer empresa
-        </option>
-        @foreach ($companies as $company)
-        <option  class="select" value="{{$company->id}}">
-            {{$company->name}}
-        </option>
-        @endforeach
-        <option  class="fields" value="">
-            todas
-        </option>
-    </select>
-    {{createFilterSelect('status', 'select', returnInvoiceStatus())}}
+    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
+    {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
+    {{createFilterSelect('status', 'select', returnInvoiceStatus(), 'Todas as situações')}}
     {{returnType('type', 'select', 'invoice')}}
     <br>
-    <input class="btn btn-secondary" type="submit" value="FILTRAR">
+    <a class="text-button secondary" href='{{route('invoice.index')}}'>
+        LIMPAR
+    </a>
+    <input class="text-button primary" type="submit" value="FILTRAR">
 </form>
 <div>
     <br>
@@ -170,7 +152,7 @@ Total: <span class="labels">{{$totalInvoices}}</span>
             </td>
             @else
             <td class="table-list-center">
-                     não possui
+                não possui
             </td>
             @endif
             <td class="table-list-center">
@@ -203,4 +185,16 @@ Total: <span class="labels">{{$totalInvoices}}</span>
         {{ $invoices->links() }}
     </p>
     <br>
+    @endsection
+
+    @section('js-scripts')
+    <script>
+        $(document).ready(function () {
+            //botao de exibir filtro
+            $("#filter_button").click(function () {
+                $("#filter").slideToggle(600);
+            });
+
+        });
+    </script>
     @endsection

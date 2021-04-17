@@ -87,12 +87,14 @@
     <form   style="text-decoration: none;display: inline-block" action="{{route('product.destroy', ['product' => $product->id])}}" method="post">
         @csrf
         @method('delete')
-        <input class="btn btn-danger" type="submit" value="APAGAR">
+        <a class='circular-button delete' type='submit' href=''>
+            <i class='fa fa-trash'></i>
+        </a>
     </form>
-    <a class="button-secondary" href="{{route('product.edit', ['product' => $product->id, 'variation' => $variation])}}"  style="text-decoration: none;display: inline-block">
-        <i class='fa fa-edit'></i>EDITAR
+    <a class="circular-button secondary" href="{{route('product.edit', ['product' => $product->id, 'variation' => $variation])}}"  style="text-decoration: none;display: inline-block">
+        <i class='fa fa-edit'></i>
     </a>
-    <a class="button-secondary"  href="{{route('product.index', ['variation' => $variation])}}">
+    <a class="circular-button secondary"  href="{{route('product.index', ['variation' => $variation])}}">
         <i class="fas fa-arrow-left"></i>
     </a>
 </div>

@@ -27,7 +27,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
-    {{createFilterSelect('stage', 'select', returnOpportunitiesStage())}}
+    {{createFilterSelect('stage', 'select', returnOpportunitiesStage(), 'Todas as etapas')}}
     <br>
     <a class="button-secondary" href='{{route('opportunity.index')}}'>
         LIMPAR

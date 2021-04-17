@@ -148,8 +148,9 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
-Route::any('/jornadas/filtros', 'Operational\\JourneyController@index')
-		->name('journey.index')
+// journeys
+Route::any('/jornadas/filtros', 'Operational\\JourneyController@filter')
+		->name('journey.filter')
 		->middleware('roles');
 
 Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport')
@@ -161,7 +162,6 @@ Route::any('/jornadas/novo', 'Operational\\JourneyController@create')
 		->middleware('roles');
 
 Route::resource('jornadas', 'Operational\\JourneyController')
-		->except(['index'])
 		->names('journey')
 		->parameters(['jornadas' => 'journey'])
 		->middleware('roles');

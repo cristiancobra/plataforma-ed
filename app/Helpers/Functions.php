@@ -50,11 +50,11 @@ if (!function_exists('createButtonExternalLink')) {
 if (!function_exists('createFilterSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
-    function createFilterSelect($name, $class, array $options) {
+    function createFilterSelect($name, $class, array $options, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style='width:160px'>";
         echo "<option  class='select' value=''>
-			Todas as situações
-		</option>";
+                        $allLabel
+                  </option>";
         foreach ($options as $option) {
             echo "<option value=\"$option\">$option</option><br>";
         }
@@ -106,7 +106,7 @@ if (!function_exists('createDoubleSelectIdName')) {
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
     function createDoubleSelectIdName($name, $class, $models, $nullLabel = null) {
         echo "<select class = '$class' name = '$name'>";
-        if($nullLabel) {
+        if ($nullLabel) {
             echo "<option value=''>$nullLabel</option><br>";
         }
         foreach ($models as $model) {
@@ -121,8 +121,8 @@ if (!function_exists('editDoubleSelectIdName')) {
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
     function editDoubleSelectIdName($name, $class, $models, $currentValue = null, $nullLabel = null) {
         echo "<select class = '$class' name = '$name'>";
-           echo "<option value=''>$currentValue</option><br>";
-        if($nullLabel) {
+        echo "<option value=''>$currentValue</option><br>";
+        if ($nullLabel) {
             echo "<option value=''>$nullLabel</option><br>";
         }
         foreach ($models as $model) {
@@ -1357,4 +1357,5 @@ if (!function_exists('removeSymbols')) {
         $value = str_replace("=", "", $value);
         return $value;
     }
+
 }

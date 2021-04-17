@@ -56,7 +56,7 @@ Total: <span class="labels">{{$totalBills}}</span>
 		</option>
 		@endforeach
 	</select>
-	{{createFilterSelect('status', 'select', returnInvoiceStatus())}}
+	{{createFilterSelect('status', 'select', returnInvoiceStatus(), 'Todas as faturas')}}
 	<input class="btn btn-secondary" type="submit" value="FILTRAR">
 </form>
 <br>

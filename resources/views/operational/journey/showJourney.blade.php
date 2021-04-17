@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('task.index')}}">
+<a class="circular-button primary"  href="{{route('journey.index')}}">
     <i class="fas fa-arrow-left"></i>
 </a>
 @endsection

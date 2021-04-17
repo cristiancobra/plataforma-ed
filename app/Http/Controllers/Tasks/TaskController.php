@@ -325,7 +325,7 @@ class TaskController extends Controller {
                         $query->where('contact_id', $request->contact_id);
                     }
                     if ($request->company_id) {
-                        $query->where('contact_id', '=', $request->contact_id);
+                        $query->where('company_id', '=', $request->company_id);
                     }
                     if ($request->status) {
                         $query->where('status', $request->status);
@@ -336,7 +336,6 @@ class TaskController extends Controller {
                         'journeys',
                         'user.contact',
                 )
-//				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
                 ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
                 ->orderBy('date_due', 'ASC')
                 ->paginate(20);

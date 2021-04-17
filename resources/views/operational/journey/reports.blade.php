@@ -10,14 +10,18 @@
 @endsection
 
 @section('buttons')
+<a id='filter_button' class='circular-button secondary'>
+    <i class="fa fa-filter" aria-hidden="true"></i>
+</a>
 <a class="circular-button primary"  href="{{route('journey.index')}}">
     <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 
 @section('main')
-<form action=" {{route('journey.reports')}} " method="post" style="text-align: right;color: #874983">
+<form id="filter" action="{{route('journey.reports')}}" method="post" style="text-align: right">
     @csrf
+    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     <select class="select"name="year">
         <option  class="fields" value="2021">
             2021
@@ -26,12 +30,15 @@
             2020
         </option>
     </select>
-    <input class="btn btn-secondary" type="submit" value="FILTRAR">
+    <a class="text-button secondary" href='{{route('journey.reports')}}'>
+        LIMPAR
+    </a>
+    <input class="text-button secondary" type="submit" value="FILTRAR">
 </form>
 <table class="table-list">
     <tr>
         <td   class="table-list-header" style="width: 30%">
-            <b>FUNCIONÁRIO </b>
+            FUNCIONÁRIO 
         </td>
         @foreach ($months as $month)
         <td   class="table-list-header" style="width: 5%">
@@ -39,12 +46,13 @@
         </td>
         @endforeach
         <td   class="table-list-header" style="width: 10%">
-            <b>TOTAL </b>
+            TOTAL 
         </td>
     </tr>
     <br>
     @php
     $counterArray = 1;
+    $counterAnnual = 1;
 
     foreach ($users as $user) {
     $counterMonth = 1;
@@ -62,9 +70,9 @@
         $counterArray++;
         }
         echo "<td class='table-list-right' style='color:white;background-color: #874983'>";
-            echo number_format($annualUser / 3600, 1, ',','.');
-            echo "</td>
-    </tr>";
+            echo number_format($annualUser[$counterAnnual] / 3600, 1, ',','.');
+            echo "</td></tr>";
+    $counterAnnual++;
     }
 
     $counterArray = 1;
@@ -74,22 +82,23 @@
             echo "</td>";
         while ($counterArray <= 12) {
         echo "<td class='table-list-right' style='color:white;background-color: #c28dbf'>";
-            echo number_format($monthlyTotal[$counterArray] / 3600, 1, ',','.');
+            echo number_format($monthlyAllUsers[$counterArray] / 3600, 1, ',','.');
             echo "</td>";
         $counterArray++;
         }
-        echo "<td class='table-list-right' style='color:white;background-color: #874983'>";
-            echo number_format($totalUser / 3600, 1, ',','.');
-            echo "</td>
-    </tr>";
-    @endphp
+        @endphp
+
+        <td class='table-list-right' style='color:white;background-color: #49d194'>
+            {{number_format($annualHours / 3600, 1, ',','.')}}
+        </td>
+    </tr>
 </table>
 <br>
 
 <table class="table-list">
     <tr>
         <td   class="table-list-header" style="width: 30%">
-            <b>DEPARTAMENTOS </b>
+            DEPARTAMENTOS 
         </td>
         @foreach ($months as $month)
         <td   class="table-list-header" style="width: 5%">
@@ -97,11 +106,12 @@
         </td>
         @endforeach
         <td   class="table-list-header" style="width: 10%">
-            <b>TOTAL </b>
+            TOTAL 
         </td>
     </tr>
     @php
     $counterArray = 1;
+    $counterAnnual = 1;
 
     foreach ($departments as $department) {
     $counterMonth = 1;
@@ -113,20 +123,47 @@
         </td>
         ";
         while ($counterMonth <= 12) {
-        echo "<td class='table-list-center'>";
-            echo number_format($resultCategories[$counterArray] / 3600, 1, ',','.');
+        echo "<td class='table-list-right'>";
+            echo number_format($monthlyDepartment[$counterArray] / 3600, 1, ',','.');
             echo "</td>";
-        $totalCategory = $totalCategory + $resultCategories[$counterArray];
         $counterMonth++;
         $counterArray++;
         }
-        echo "<td class='table-list-center' style='color:white;background-color: #874983'>";
-            echo number_format($totalCategory / 3600, 1, ',','.');
-            echo "</td>
-    </tr>";
+        echo "<td class='table-list-right' style='color:white;background-color: #874983'>";
+            echo number_format($annualDepartment[$counterAnnual] / 3600, 1, ',','.');
+            echo "</td></tr>";
+    $counterAnnual++;
     }
-    @endphp
+
+    $counterArray = 1;
+    echo "<tr style='font-size: 14px'>
+        <td class='table-list-header' >";
+            echo 'TOTAL';
+            echo "</td>";
+        while ($counterArray <= 12) {
+        echo "<td class='table-list-right' style='color:white;background-color: #c28dbf'>";
+            echo number_format($monthlyAllDepartments[$counterArray] / 3600, 1, ',','.');
+            echo "</td>";
+        $counterArray++;
+        }
+        @endphp
+
+        <td class='table-list-right' style='color:white;background-color: #49d194'>
+            {{number_format($annualHours / 3600, 1, ',','.')}}
+        </td>
 </table>
 <br>
 <br>
+@endsection
+
+@section('js-scripts')
+<script>
+    $(document).ready(function () {
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
+
+    });
+</script>
 @endsection

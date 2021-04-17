@@ -29,7 +29,7 @@ Total: <span class="labels">{{$totalProducts}} </span>
     <input type="text" name="name" placeholder="nome do produto" value="">
     {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     {{createFilterSelect('category', 'select', returnProductCategory())}}
-    {{createFilterSelect('status', 'select', returnProductStatus())}}
+    {{createFilterSelect('status', 'select', returnProductStatus(), 'Todas as situações')}}
     <a class="button-secondary" href='{{route('product.index', ['variation' => $variation])}}'>
         LIMPAR
     </a>

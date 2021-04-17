@@ -10,6 +10,9 @@
 @endsection
 
 @section('buttons')
+<a id='filter_button' class='circular-button secondary'>
+    <i class="fa fa-filter" aria-hidden="true"></i>
+</a>
 <a class="circular-button primary"  href="{{route('journey.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
@@ -17,43 +20,44 @@
 
 @section('main')
 <div style="text-align:right">
-    <form action=" {{route('journey.index')}} " method="post" style="color: #874983;display: inline-block">
+    <form id="filter" action="{{route('journey.filter')}}" method="post" style="text-align: right;display:none">
         @csrf
-        <select class="select"name="user_id">
-            <option  class="fields" value="">
-                funcionário
-            </option>
-            <option  class="fields" value="">
-                TODOS
-            </option>
-            @foreach ($users as $user)
-            <option  class="fields" value="{{$user->id}}">
-                {{$user->name}}
-            </option>
-            @endforeach
-        </select>
-        <input class="btn btn-secondary" type="submit" value="FILTRAR">
+        <input type="text" name="name" placeholder="nome da tarefa" value="">
+        <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
+        <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
+        {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
+        {{createFilterSelect('department', 'select', returnDepartments(), 'Todos os departamentos')}}
+        {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
+        {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
+        {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+        {{createFilterSelect('stage', 'select', returnStatus(), 'Todas as situações')}}
+        <br>
+        <a class="text-button secondary" href='{{route('journey.index')}}'>
+            LIMPAR
+        </a>
+        <input class="text-button primary" type="submit" value="FILTRAR">
     </form>
+    <br>
 </div>
 <table class="table-list">
     <tr>
         <td   class="table-list-header" style="width: 20%">
-            <b>DATA </b>
+            DATA 
         </td>
         <td   class="table-list-header" style="width: 35%">
-            <b>TAREFA </b>
+            TAREFA 
         </td>
         <td   class="table-list-header" style="width: 15%">
-            <b>RESPONSÁVEL </b>
+            RESPONSÁVEL 
         </td>
         <td   class="table-list-header" style="width: 5%">
-            <b>INÍCIO </b>
+            INÍCIO 
         </td>
         <td   class="table-list-header" style="width: 5%">
-            <b>TÉRMINO </b>
+            TÉRMINO 
         </td>
         <td   class="table-list-header" style="width: 5%">
-            <b>DURAÇÃO </b>
+            DURAÇÃO 
         </td>
     </tr>
 
@@ -104,4 +108,16 @@
     {{ $journeys->links() }}
 </p>
 <br>
+@endsection
+
+@section('js-scripts')
+<script>
+    $(document).ready(function () {
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
+
+    });
+</script>
 @endsection

@@ -42,8 +42,11 @@ class InvoiceController extends Controller {
                             $query->where('name', 'like', "%$request->name%");
                         });
                     }
-                    if ($request->date_start AND $request->date_end) {
-                        $query->whereBetween('pay_day', [$request->date_start, $request->date_end]);
+                    if ($request->date_start) {
+                        $query->where('pay_day', '>', $request->date_start);
+                    }
+                    if ($request->date_end) {
+                        $query->where('pay_day', '<', $request->date_end);
                     }
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
