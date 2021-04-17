@@ -318,7 +318,17 @@ class JourneyController extends Controller {
                 ->get();
 
         // calcular horas por USUÁRIOS
-        $users = myUsers(['contact']);
+        if($request->account_id == null) {
+            $users = myUsers(['contact']);
+        } else {
+            $users = User::whereHas('accounts', function ($query) use($request) {
+                    $query->where('account_id', $request->account_id);
+                })
+                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
+                ->orderBy('NAME', 'ASC')
+                ->get();;
+        }
+       
         $counterArray = 1;
         $counterAnnual = 1;
         foreach ($users as $user) {
