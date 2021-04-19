@@ -137,9 +137,9 @@
                                 <form   style='text-decoration: none;color: black;display: inline-block' action='{{route('task.destroy', ['task' => $task->id])}}' method='post'>
                                     @csrf
                                     @method('delete')
-                                    <a id='delete-button' class='circular-button delete' type='submit' href=''>
+                                    <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
                                         <i class='fa fa-trash'></i>
-                                    </a>
+                                    </button>
                                 </form>
                                 <a class='circular-button secondary' href='{{route('task.edit', ['task' => $task->id])}}'>
                                     <i class='fa fa-edit'></i>
