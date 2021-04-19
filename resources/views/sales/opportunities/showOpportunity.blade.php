@@ -150,6 +150,10 @@ indefinida
         <input type='hidden' name='task_name' value='Enviar material'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
         @if($opportunity->contact)
         <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
@@ -164,6 +168,10 @@ indefinida
         <input type='hidden' name='task_name' value='Reunião'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
         @if($opportunity->contact)
         <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
@@ -178,6 +186,10 @@ indefinida
         <input type='hidden' name='task_name' value='Fazer proposta'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
         @if($opportunity->contact)
         <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
@@ -192,6 +204,10 @@ indefinida
         <input type='hidden' name='task_name' value='Fazer contrato'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
         @if($opportunity->contact)
         <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>

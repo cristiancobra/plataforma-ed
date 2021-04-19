@@ -56,7 +56,7 @@ if (!function_exists('createFilterSelect')) {
                         $allLabel
                   </option>";
         foreach ($options as $option) {
-            echo "<option value=\"$option\">$option</option><br>";
+            echo "<option value=\"$option\">{{old('$name') == $option ? 'selected' : ''}}</option><br>";
         }
         echo "</select>";
     }
@@ -110,7 +110,29 @@ if (!function_exists('createDoubleSelectIdName')) {
             echo "<option value=''>$nullLabel</option><br>";
         }
         foreach ($models as $model) {
-            echo "<option value=\"$model->id\">$model->name</option><br>";
+            if (old($name) == $model->id) {
+                echo "<option value='$model->id' selected='selected'>$model->name</option><br>";
+            } else {
+                echo "<option value='$model->id'>$model->name</option><br>";
+            }
+//            echo "<option value='$model->id' {{Input::old('account_id') == $model->id) ? selected='selected' : ''}}>$model->name</option><br>";
+        }
+        echo "</select>";
+    }
+
+}
+if (!function_exists('createSelectUsers')) {
+
+// cria as um select com os usuários disponíveis com ID e Name
+    function createSelectUsers($class, $users) {
+        echo "<select name='user_id'>
+            <option  class=$class value='".Auth::user()->id."'>Eu</option>";
+        foreach ($users as $user) {
+            if (old('user_id') == $user->id) {
+                echo "<option class='$class' value='$user->id' selected='selected'>" . $user->contact->name . "</option><br>";
+            } else {
+                echo "<option class='$class' value='$user->id'>" . $user->contact->name . "</option><br>";
+            }
         }
         echo "</select>";
     }
@@ -165,13 +187,20 @@ if (!function_exists('editDoubleSelect')) {
 if (!function_exists('createSimpleSelect')) {
 
 // cria as opções de um select recebendo um array com 1 posição
-    function createSimpleSelect(array $options) {
+    function createSimpleSelect($name, $class, array $options) {
+        echo "<select class=$class name=$name>";
         foreach ($options as $option) {
-            echo "<option value=\"$option\">$option</option><br>";
+            if (old($name) == $option) {
+                echo "<option value='$option' selected='selected'>$option</option><br>";
+            } else {
+                echo "<option value='$option'>$option</option><br>";
+            }
         }
+        echo "</select>";
     }
 
 }
+
 //if (!function_exists('filterTasks')) {
 // filtro das tarefas
 //	function filterTasks(array $filters) {
@@ -1358,4 +1387,4 @@ if (!function_exists('removeSymbols')) {
         return $value;
     }
 
-}
+}    

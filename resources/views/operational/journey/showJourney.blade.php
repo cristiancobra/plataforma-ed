@@ -56,7 +56,7 @@
 
     @if ($journey->end_time == null)
     <p class="labels">
-        TÉRMINO:<span class="fields">  0:00 </span>
+        TÉRMINO:<span class="fields">  00:00 </span>
     </p>	
     @else
     <p class="labels">

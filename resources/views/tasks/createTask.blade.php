@@ -45,10 +45,10 @@
         {{createDoubleSelectIdName('account_id', 'fields', $accounts)}}
         @endif
         <br>
-        @if(!empty(app('request')->input('opportunityName')))
+        @if(!empty(app('request')->input('opportunity_id')))
         <label class="labels" for="" >OPORTUNIDADE:</label>
-        {{app('request')->input('opportunityName')}}
-        <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunityId')}}">
+        {{app('request')->input('opportunity_name')}}
+        <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
         <br>
         @endif
         <label class="labels" for="" >DEPARTAMENTO:</label>
@@ -58,22 +58,11 @@
         @elseif($errors->has('department'))
         <span class="text-danger">{{$errors->first('department')}}</span>
         @else
-        <select class="fields" name="department">
-            {{createSimpleSelect($departments)}}
-        </select>
+            {{createSimpleSelect('department', 'fields', $departments)}}
         @endif
         <br>
         <label class="labels" for="" >RESPONSÁVEL: </label>
-        <select name="user_id">
-            <option  class="fields" value="{{Auth::user()->id}}">
-                Eu
-            </option>
-            @foreach ($users as $user)
-            <option  class="fields" value="{{$user->id}}">
-                {{$user->contact->name}}
-            </option>
-            @endforeach
-        </select>
+                {{createSelectUsers('fields', $users)}}
         <br>
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
@@ -105,29 +94,23 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >CONTATO: </label>
-        @if(!empty(app('request')->input('opportunityContactName')))
-        <select name="contact_id">
-            <option  class="fields" value="{{app('request')->input('opportunityContactId')}}">
-                {{app('request')->input('opportunityContactName')}}
-            </option>
-        </select>
-        @endif
+        @if(!empty(app('request')->input('contact_id')))
+        <input type="hidden" name="contact_id" value="{{app('request')->input('contact_id')}}">
+                {{app('request')->input('contact_name')}}
+        @else
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
+        @endif
         <br>
         <label class="labels" for="" >EMPRESA: </label>
-        @if(!empty(app('request')->input('opportunityCompanyName')))
-        <select name="company_id">
-            <option  class="fields" value="{{app('request')->input('opportunityCompanyName')}}">
-                {{app('request')->input('opportunityCompanyName')}}
-            </option>
-        </select>
-        @endif
+        @if(!empty(app('request')->input('company_id')))
+        <input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
+                {{app('request')->input('company_name')}}
+        @else
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
+        @endif
         <br>
         <label class="labels" for="" >PRIORIDADE:</label>
-        <select class="fields" name="priority">
-            {{createSimpleSelect($priorities)}}
-        </select>
+            {{createSimpleSelect('priority', 'fields', $priorities)}}
         <br>
         <br>
         <p style="text-align: right">
