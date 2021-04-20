@@ -37,10 +37,7 @@
         @endif
         <br>
         <label class="labels" for="" >DEPARTAMENTO:</label>
-        <select class="fields" name="department">
-            <option value="{{$task->department}}">{{$task->department}}</option>
-            {{createSimpleSelect($departments)}}
-        </select>
+            {{createSimpleSelect('department', 'fields', $departments)}}
         <br>
         <label class="labels" for="" >MINHA EMPRESA: </label>
         <select name="account_id">
@@ -137,12 +134,7 @@ CKEDITOR.replace('description');
         @endif
         <br>
         <label class="labels" for="" >PRIORIDADE:</label>
-        <select class="fields" name="priority">
-            <option  class="fields" value="{{$task->priority}}">
-                {{$task->priority}}
-            </option>
-            {{createSimpleSelect($priorities)}}
-        </select>
+            {{createSimpleSelect('priority', 'fields', $priorities)}}
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="ATUALIZAR TAREFA">
