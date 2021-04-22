@@ -23,11 +23,11 @@ class DomainController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 //dd($domains);
-		$totalDomains = $domains->count();
+		$total = $domains->count();
 
 		return view('marketing.domains.index', compact(
 						'domains',
-						'totalDomains',
+						'total',
 		));
 	}
 

@@ -19,10 +19,6 @@
 @endsection
 
 @section('main')
-<p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-    Você possui <span class="labels">{{$totalDomains }} produtos </span>
-</p>
-<br>
 <table class="table-list">
     <tr>
         <td   class="table-list-header">

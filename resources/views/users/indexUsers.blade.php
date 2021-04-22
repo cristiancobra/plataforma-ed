@@ -7,7 +7,9 @@
 @endsection
 
 @section('description')
-Total: <span class='labels'>{{$totalUsers}} </span>
+@isset($total)
+Total: <span class='labels'>{{$total}} </span>
+@endisset
 @endsection
 
 @section('buttons')

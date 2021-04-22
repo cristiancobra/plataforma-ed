@@ -37,13 +37,12 @@ class ReportController extends Controller {
 					})
 					->paginate(20);
 
-			$totalReports = $reports->count();
+			$total = $reports->count();
 
-			return view('reports.indexReports', [
-				'reports' => $reports,
-				'totalReports' => $totalReports,
-				'userAuth' => $userAuth,
-			]);
+			return view('reports.indexReports', compact(
+				'reports',
+				'total',
+			));
 		} else {
 			return redirect('/');
 		}

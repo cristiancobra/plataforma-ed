@@ -3,11 +3,7 @@
 @section('title','CONTAS')
 
 @section('image-top')
-{{ asset('imagens/empresa.png') }} 
-@endsection
-
-@section('description')
-Total: <span class="labels">{{$totalAccounts}} </span>
+{{asset('imagens/empresa.png')}} 
 @endsection
 
 @section('buttons')

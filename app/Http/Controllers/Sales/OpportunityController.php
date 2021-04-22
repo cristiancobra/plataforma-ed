@@ -39,7 +39,7 @@ class OpportunityController extends Controller {
                 ->orderBy('DATE_CONCLUSION', 'ASC')
                 ->paginate(20);
 
-        $totalOpportunities = $opportunities->total();
+        $total = $opportunities->total();
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
@@ -57,7 +57,7 @@ class OpportunityController extends Controller {
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
-                        'totalOpportunities',
+                        'total',
                         'contacts',
                         'companies',
                         'accounts',
@@ -321,7 +321,7 @@ class OpportunityController extends Controller {
                 ->orderBy('DATE_CONCLUSION', 'ASC')
                 ->paginate(20);
 
-        $totalOpportunities = $opportunities->total();
+        $total = $opportunities->total();
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
@@ -340,7 +340,7 @@ class OpportunityController extends Controller {
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
-                        'totalOpportunities',
+                        'total',
                         'contacts',
                         'companies',
                         'accounts',

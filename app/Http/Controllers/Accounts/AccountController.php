@@ -21,11 +21,11 @@ class AccountController extends Controller {
                     })
                     ->paginate(20);
 
-            $totalAccounts = $accounts->count();
+            $total = $accounts->count();
 
             return view('accounts.indexAccounts', compact(
                             'accounts',
-                            'totalAccounts',
+                            'total',
             ));
         }
     }

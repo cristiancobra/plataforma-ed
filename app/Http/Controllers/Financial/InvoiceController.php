@@ -91,7 +91,7 @@ class InvoiceController extends Controller {
 
         $users = myUsers();
 
-        $totalInvoices = $invoices->total();
+        $total = $invoices->total();
 
         $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
                 ->where('type', 'receita')
@@ -123,7 +123,7 @@ class InvoiceController extends Controller {
                         'contacts',
                         'accounts',
                         'users',
-                        'totalInvoices',
+                        'total',
                         'estimatedRevenueMonthly',
                         'estimatedExpenseMonthly',
                         'estimatedRevenueYearly',

@@ -42,7 +42,7 @@ class ProductController extends Controller {
 
         $users = myUsers();
 
-        $totalProducts = $products->total();
+        $total = $products->total();
 
         $variation = $request->variation;
 
@@ -51,7 +51,7 @@ class ProductController extends Controller {
                         'contacts',
                         'accounts',
                         'users',
-                        'totalProducts',
+                        'total',
                         'variation',
         ));
     }
@@ -248,7 +248,7 @@ class ProductController extends Controller {
 
         $users = myUsers();
 
-        $totalProducts = $products->total();
+        $total = $products->total();
 
         $variation = $request->variation;
 
@@ -257,7 +257,7 @@ class ProductController extends Controller {
                         'contacts',
                         'accounts',
                         'users',
-                        'totalProducts',
+                        'total',
                         'variation',
         ));
     }

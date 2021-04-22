@@ -21,11 +21,11 @@ class SiteController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
-		$totalSites = $sites->count();
+		$total = $sites->count();
 
 		return view('marketing.sites.index', compact(
 						'sites',
-						'totalSites',
+						'total',
 		));
 	}
 

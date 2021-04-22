@@ -25,11 +25,11 @@ class PlanningController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
-		$totalPlannings = $plannings->count();
+		$total = $plannings->count();
 
 		return view('financial.plannings.indexPlannings', compact(
 						'plannings',
-						'totalPlannings',
+						'total',
 		));
 	}
 

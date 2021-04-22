@@ -46,12 +46,12 @@ class ContactController extends Controller {
 				->orderBy('ID', 'ASC')
 				->get();
 
-		$totalContacts = $contacts->total();
+		$total = $contacts->total();
 
 		return view('contacts.indexContacts', compact(
 						'contacts',
 						'accounts',
-						'totalContacts',
+						'total',
 		));
 	}
 

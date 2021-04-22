@@ -28,7 +28,7 @@
 
 <div>
     <p class="subtitulo-roxo" style="text-align: right;padding-top: 2%;padding-right: 6%">
-        Você possui <span class="labels">{{$totalEmails }} contas </span> com <span class="labels">{{$totalGBs }}GBs </span>
+        Você possui <span class="labels">{{$total }} contas </span> com <span class="labels">{{$totalGBs }}GBs </span>
     </p>
     <br>
     <table class="table-list">

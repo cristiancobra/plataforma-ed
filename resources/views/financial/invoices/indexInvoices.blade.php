@@ -7,7 +7,7 @@
 @endsection
 
 @section('description')
-Total: <span class="labels">{{$totalInvoices}}</span>
+Total: <span class="labels">{{$total}}</span>
 @endsection
 
 @section('buttons')

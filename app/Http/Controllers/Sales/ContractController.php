@@ -39,11 +39,11 @@ class ContractController extends Controller {
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
-		$totalContracts = $contracts->count();
+		$total = $contracts->count();
 
 		return view('sales.contracts.indexContracts', compact(
 						'contracts',
-						'totalContracts',
+						'total',
 		));
 	}
 

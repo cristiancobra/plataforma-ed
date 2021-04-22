@@ -10,10 +10,6 @@
 {{asset('imagens/empresa.png')}} 
 @endsection
 
-@section('description')
-Total: <span class="labels">{{$totalCompanies}} </span>
-@endsection
-
 @section('buttons')
 <a class="circular-button primary"  href="{{route('company.create', ['typeCompanies' => $typeCompanies])}}">
     <i class="fa fa-plus" aria-hidden="true"></i>

@@ -29,13 +29,12 @@ class CompetitorController extends Controller {
 					})
 					->paginate(20);
 
-			$totalCompetitors = $competitors->count();
+			$total = $competitors->count();
 
-			return view('market.competitors.indexCompetitors', [
-				'competitors' => $competitors,
-				'totalCompetitors' => $totalCompetitors,
-				'userAuth' => $userAuth,
-			]);
+			return view('market.competitors.indexCompetitors', compact(
+				'competitors',
+				'total',
+			));
 		} else {
 			return redirect('/');
 		}

@@ -3,11 +3,7 @@
 @section('title','CONTATOS')
 
 @section('image-top')
-{{ asset('imagens/contact.png') }} 
-@endsection
-
-@section('description')
-Total: <span class="labels">{{$totalContacts}}</span>
+{{asset('imagens/contact.png')}} 
 @endsection
 
 @section('buttons')
@@ -18,7 +14,7 @@ Total: <span class="labels">{{$totalContacts}}</span>
 
 @section('main')
 <div style="text-align: right">
-    <form action="{{route('contact.index')}}" method="post" style="color: #874983;display: inline-block">
+    <form action="{{route('contact.index')}}" method="post" style="display: inline-block">
         @csrf
         <input type="text" name="name" placeholder="nome do contato" value="">
         <select class="select" name="account_id">

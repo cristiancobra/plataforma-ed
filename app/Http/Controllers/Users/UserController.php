@@ -58,12 +58,12 @@ class UserController extends Controller {
 			'account_id' => $request->account_id,
 		]);
 
-		$totalUsers = $users->total();
+		$total = $users->total();
 
 		return view('users.indexUsers', compact(
 						'users',
 						'accounts',
-						'totalUsers',
+						'total',
 		));
 	}
 

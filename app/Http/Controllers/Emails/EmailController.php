@@ -26,12 +26,12 @@ class EmailController extends Controller {
 				->with('user', 'account')
 				->get();
 
-		$totalEmails = $emails->count();
+		$total = $emails->count();
 		$totalGBs = $emails->sum('storage');
 
 		return view('emails.index', compact(
 						'emails',
-						'totalEmails',
+						'total',
 						'totalGBs',
 		));
 	}

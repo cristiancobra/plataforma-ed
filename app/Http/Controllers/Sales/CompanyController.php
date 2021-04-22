@@ -36,12 +36,12 @@ class CompanyController extends Controller {
             'typeCompanies' => $typeCompanies,
         ]);
 
-        $totalCompanies = $companies->count();
+        $total = $companies->count();
 
         return view('sales.companies.indexCompanies', compact(
                         'typeCompanies',
                         'companies',
-                        'totalCompanies',
+                        'total',
         ));
     }
 
