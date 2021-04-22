@@ -37,7 +37,7 @@
         @endif
         @endif
         <br>
-        <label class="labels" for="" >EMPRESA:</label>
+        <label class="labels" for="" >CONTA:</label>
         @if(!empty(app('request')->input('taskAccountName')))
         {{app('request')->input('taskAccountName')}}
         <input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">

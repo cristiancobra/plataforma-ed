@@ -43,7 +43,7 @@
                                     CONTATO
                                 </div>
                                 <div class='show-label'>
-                                    EMPRESA
+                                    CONTA
                                 </div>
                                 <div class='show-label'>
                                     OPORTUNIDADE

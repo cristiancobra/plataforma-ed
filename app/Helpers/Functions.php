@@ -129,9 +129,9 @@ if (!function_exists('createSelectUsers')) {
             <option  class=$class value='".Auth::user()->id."'>Eu</option>";
         foreach ($users as $user) {
             if (old('user_id') == $user->id) {
-                echo "<option class='$class' value='$user->id' selected='selected'>" . $user->contact->name . "</option><br>";
+                echo "<option class='$class' value='$user->id' selected='selected'>" . $user->name . "</option><br>";
             } else {
-                echo "<option class='$class' value='$user->id'>" . $user->contact->name . "</option><br>";
+                echo "<option class='$class' value='$user->id'>" . $user->name . "</option><br>";
             }
         }
         echo "</select>";

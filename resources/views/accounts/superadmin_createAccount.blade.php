@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','Nova Empresa')
+@section('title','CONTAS')
 
 @section('image-top')
 {{ asset('imagens/empresa.png') }} 

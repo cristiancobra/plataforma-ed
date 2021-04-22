@@ -20,14 +20,14 @@
 <h1 class='name'>
     {{$opportunity->name}}
 </h1>
-<label class='labels' for='' >EMPRESA: </label>
+<label class='labels' for='' >CONTA: </label>
 <span class='fields'>{{$opportunity->account->name}}</span>
 <br>
 <label class='labels' for='' >RESPONSÁVEL: </label>
 <span class='fields'>{{$opportunity->user->contact->name}}</span>
 <br>
 <br>
-<label class='labels' for='' >EMPRESA CONTRATANTE: </label>
+<label class='labels' for='' >EMPRESA: </label>
 @if(isset($opportunity->company->name))
 <span class='fields'>  {{$opportunity->company->name}}</span>
 @else

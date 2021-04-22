@@ -26,7 +26,7 @@
         </button>
         <div class="dropdown-container">
             <a class="sidebar-subitem" href="{{route('account.index')}}">
-                <i class="fas fa-store" style="margin-right: 8px"></i>MINHAS EMPRESAS
+                <i class="fas fa-store" style="margin-right: 8px"></i>CONTAS
             </a>
             <a class="sidebar-subitem" href="{{route('user.index')}}">
                 <i class="fa fa-id-card-alt" style="margin-right: 8px"></i>FUNCIONÁRIOS

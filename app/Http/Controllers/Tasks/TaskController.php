@@ -91,11 +91,7 @@ class TaskController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->with('contact')
-                ->get();
+        $users = myUsers();
 
         $companies = Company::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
