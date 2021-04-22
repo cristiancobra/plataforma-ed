@@ -43,7 +43,7 @@
                                     CONTATO
                                 </div>
                                 <div class='show-label'>
-                                    CONTA
+                                    EMPRESA
                                 </div>
                                 <div class='show-label'>
                                     OPORTUNIDADE
@@ -79,7 +79,7 @@
                             </div>
                             <div class='col-lg-2 col-xs-6' style='text-align: center'>
                                 <div class='show-label'>
-                                    EMPRESA
+                                    CONTA
                                 </div>
                                 <div class='show-label'>
                                     DEPARTAMENTO
