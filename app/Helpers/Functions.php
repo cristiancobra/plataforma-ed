@@ -56,7 +56,11 @@ if (!function_exists('createFilterSelect')) {
                         $allLabel
                   </option>";
         foreach ($options as $option) {
-            echo "<option value=\"$option\">{{old('$name') == $option ? 'selected' : ''}}</option><br>";
+            if (old($name) == $option) {
+                echo "<option value='$option' selected='selected'>$option</option><br>";
+            } else {
+                echo "<option value='$option'>$option</option><br>";
+            }
         }
         echo "</select>";
     }
@@ -106,8 +110,8 @@ if (!function_exists('createDoubleSelectIdName')) {
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
     function createDoubleSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
         echo "<select class = '$class' name = '$name'>";
-        if($currentValue) {
-        echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
+        if ($currentValue) {
+            echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
         }
         if ($nullLabel) {
             echo "<option value=''>$nullLabel</option><br>";
