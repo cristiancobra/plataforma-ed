@@ -34,7 +34,7 @@
         <span class="text-danger">{{$errors->first('name')}}</span>
         @endif
         <br>
-        <label class="labels" for="" >EMPRESA: </label>
+        <label class="labels" for="" >CONTA: </label>
         <select name="account_id">
             <option  class="fields" value="{{$opportunity->account->id}}">
                 {{$opportunity->account->name}}
@@ -59,23 +59,12 @@
         </select>
         <br>
         <br>
-        <label class="labels" for="" >EMPRESA CONTRATANTE: </label>
-        <select name="company_id">
-            @if(isset($opportunity->company_id->name))
-            <option  class="fields" value="{{$opportunity->company_id}}">
-                {{$opportunity->company->name}}
-            </option>
-            @else
-            <option  class="fields" value="">
-                não possui
-            </option>
-            @endif
-            @foreach ($companies as $company)
-            <option  class="fields" value="{{$company->id}}">
-                {{$company->name}}
-            </option>
-            @endforeach
-        </select>
+        <label class="labels" for="" >EMPRESA: </label>
+        @if(isset($opportunity->company))
+        {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física', $opportunity->company)}}
+        @else
+        {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
+        @endif
         <br>
         <label class="labels" for="" >CONTATO: </label>
         <select name="contact_id">

@@ -46,7 +46,7 @@
             EMPRESA
         </td>
         <td   class="table-list-header" style="width: 15%">
-            MINHA EMPRESA
+            CONTA
         </td>
         <td   class="table-list-header" style="width: 10%">
             RESPONSÁVEL

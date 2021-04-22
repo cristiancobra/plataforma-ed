@@ -61,7 +61,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
     <tr>
         <td class="table-list-left">
             <button class="button-round">
-                <a href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
+                <a href=" {{route('opportunity.show', ['opportunity' => $opportunity])}}">
                     <i class='fa fa-eye' style="color:white"></i>
                 </a>
             </button>
@@ -82,7 +82,7 @@ Total: <span class="labels">{{$totalOpportunities}}</span>
         </td>
         @else
         <td class="table-list-center">
-            Não possui
+            Pessoa física
         </td>
         @endif
         <td class="table-list-center">

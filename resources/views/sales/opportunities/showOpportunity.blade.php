@@ -31,7 +31,7 @@
 @if(isset($opportunity->company->name))
 <span class='fields'>  {{$opportunity->company->name}}</span>
 @else
-<span class='fields'> não possui</span>
+<span class='fields'> Pessoa física</span>
 @endif
 <br>
 <label class='labels' for='' >CONTATO: </label>
