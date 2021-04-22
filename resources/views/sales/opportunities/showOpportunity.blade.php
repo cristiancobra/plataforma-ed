@@ -520,9 +520,9 @@ indefinida
         <form   style='text-decoration: none;display: inline-block' action='{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}' method='post'>
             @csrf
             @method('delete')
-            <a class='circular-button delete' type='submit' href=''>
-                <i class='fa fa-trash'></i>
-            </a>
+        <button class='circular-button delete' style='border: none;padding-left: 8px;padding-bottom: 5px' type='submit'>
+            <i class='fa fa-trash'></i>
+        </button>
         </form>
         <a class='circular-button secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
             <i class='fa fa-edit'></i>
