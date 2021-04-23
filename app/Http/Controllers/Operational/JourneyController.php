@@ -238,10 +238,10 @@ class JourneyController extends Controller {
                         $query->where('name', 'like', "%$request->name%");
                     }
                     if ($request->date_start) {
-                        $query->where('date', '>', $request->date_start);
+                        $query->where('date', '>=', $request->date_start);
                     }
                     if ($request->date_end) {
-                        $query->where('date', '<', $request->date_end);
+                        $query->where('date', '<=', $request->date_end);
                     }
                     if ($request->user_id) {
                         $query->where('user_id', $request->user_id);

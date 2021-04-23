@@ -8,27 +8,18 @@ and open the template in the editor.
     Author     : empresadigital
 */
 
+/*NOVO*/
 
-/* ------------------------------------------------ GERAL -------------------------- */
-.grid-container {
-    display: grid;
-    background-color: #c28dbf;
-    height: 100%;
-    grid-template-columns: 16% 21% 21% 21% 21%;
-    grid-template-areas: 
-        "sidebar header header header header"
-        "sidebar main main main main"
-        "sidebar main main main main";
+html,body{
+    height:100%;
 }
 
-.sidebar {
-    grid-area: sidebar;
-    background-color: #c28dbf;
-    padding-top: 5vh;
-    padding-left: 10px;
-    height: 100%;
-    width: 16%;
-    position: absolute;
+.bg-primary {
+    background-color: #874983 !important;
+}
+
+.bg-secondary {
+    background-color: #c28dbf !important;
 }
 
 
@@ -59,12 +50,35 @@ and open the template in the editor.
     border: none;
     width: 100%;
     text-align: left;
+        text-decoration: none;
 }
 
 .sidebar-subitem:hover{
     color:#874983;
     background-color: white;
     text-decoration: none;
+}
+
+/* ------------------------------------------------ GERAL -------------------------- */
+.grid-container {
+    display: grid;
+    background-color: #c28dbf;
+    height: 100%;
+    grid-template-columns: 16% 21% 21% 21% 21%;
+    grid-template-areas: 
+        "sidebar header header header header"
+        "sidebar main main main main"
+        "sidebar main main main main";
+}
+
+.sidebar {
+    grid-area: sidebar;
+    background-color: #c28dbf;
+    padding-top: 5vh;
+    padding-left: 10px;
+    height: 100%;
+    width: 16%;
+    position: absolute;
 }
 
 .header{

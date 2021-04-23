@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
     <div class="container">
 
         <a class="navbar-brand" href="{{url('/')}}">
@@ -10,12 +10,11 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
+            <ul class="navbar-nav me-auto">
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav">
                 <!-- Authentication Links -->
                 @guest
                 <li class="nav-item">
@@ -35,9 +34,11 @@
                     <!--Menu do usuário logado--> 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('user.show', Auth::user()->id)}} ">
-                            <i class="fas fa-user-astronaut" style="margin-right: 4px"></i>Perfil</a>
+                            <i class="fas fa-user-astronaut" style="margin-right: 4px"></i>Perfil
+                        </a>
                         <a class="dropdown-item" href="https://financeiro.empresadigital.net.br" target="_blank">
-                            <i class="fas fa-piggy-bank" style="margin-right: 4px"></i>Débitos e serviços</a>
+                            <i class="fas fa-piggy-bank" style="margin-right: 4px"></i>Débitos e serviços
+                        </a>
                         <a class="dropdown-item" href="{{route('logout')}}"
                            onclick="event.preventDefault();
                                            document.getElementById('logout-form').submit();">

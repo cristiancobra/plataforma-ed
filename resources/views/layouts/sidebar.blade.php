@@ -1,4 +1,4 @@
-<nav class="col-md-2 d-none d-md-block bg-ed sidebar">
+<nav class="col-md-2 d-none d-md-block bg-secondary sidebar">
     <div class="sidebar-sticky">
         <a href='/'>
             <button class="sidebar-item">

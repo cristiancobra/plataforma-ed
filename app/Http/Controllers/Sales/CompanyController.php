@@ -82,6 +82,7 @@ class CompanyController extends Controller {
 
         $company = new Company();
         $company->fill($request->all());
+        $company->cnpj = removeSymbols($request->cnpj);
         $company->save();
         $company->contacts()->sync($request->contacts);
 
@@ -140,6 +141,7 @@ class CompanyController extends Controller {
     public function update(Request $request, Company $company) {
         $typeCompanies = $request->type;
         $company->fill($request->all());
+        $company->cnpj = removeSymbols($request->cnpj);
         $company->save();
 
         return view('sales.companies.showCompany', compact(
