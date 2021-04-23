@@ -14,6 +14,15 @@ html,body{
     height:100%;
 }
 
+a:hover {
+    color: #F905E9;
+}
+
+a {
+    color: #874983;
+    text-decoration: underline;
+}
+
 .bg-primary {
     background-color: #874983 !important;
 }
