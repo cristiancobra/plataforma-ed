@@ -14,11 +14,11 @@
         @include('layouts.navMenu')
 
         <div class='container-fluid'>
-            <div class='row' style='background-color: #c28dbf'>
+            <div class='row' style='background-color: #EEEEEE'>
                 @include('layouts.sidebar')
-                <main role='main' class='col-md-9 ml-sm-auto col-lg-10 px-4' style='background-color: #EEEEEE;margin-top:30px'>
+                <main role='main' class='offset-2 col-md-9 ml-sm-auto col-lg-10 px-4' style='background-color: #EEEEEE'>
 
-                    <div class='row' style='margin-top: 10px;padding-left: 20px;padding-right:20px;padding-top:10px;padding-bottom:10px'>
+                    <div class='row' style='margin-top: 10px'>
                         @include('layouts.header')
                     </div>
 
