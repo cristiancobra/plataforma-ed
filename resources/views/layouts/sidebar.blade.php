@@ -95,7 +95,7 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'RELATÓRIOS',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie',
-                                                                                                                                                        'link' => '/reports'
+                                                                                                                                                        'link' => route('report.index'),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONCORRENTES',
@@ -196,15 +196,13 @@
         @endif
 
         <div class="dropdown">
-            <a class="dropdown-btn nav-link link-light" href='/https://empresadigital.net.br/empreender/'>
+            <a class="dropdown-btn nav-link link-light" href='https://empresadigital.net.br/empreender/'>
                 <i class="fas fa-question-circle"></i>
                 <span class="d-none d-xl-inline">SUPORTE</span>
             </a>
         </div>
 
     </div>
-
-</div>
 </nav>
 
 <script>
