@@ -16,138 +16,143 @@
 @endsection
 
 @section('main')
-<div class="grid-administrator">
-    <div class="tasks-title">
-        <img src="{{asset('imagens/tarefas.png')}}" width="50" height="50">
+<div class='row mt-2 mb-2'>
+    <div class="col-lg-2 d-inline-block text-center">
+        <img src="{{asset('imagens/tarefas.png')}}" width="40" height="40">
         <br>
         <br>
         TAREFAS
     </div>
 
-    <a style="text-decoration:none" href="{{route('task.index', [
+    <div class="col-lg-3 d-inline-block tasks-toDo">
+        <a style="text-decoration:none" href="{{route('task.index', [
 				'status' =>"fazer",
 				'contact_id' => "",
 				'user_id' => "all",
 				])}}">
-        <div class="tasks-toDo">
             <p class="numeros_painel">
                 {{$tasks_pending}}
             </p>
             <p class="subtitulo-branco">
                 equipe
             </p>
-        </div>
-    </a>
+        </a>
+    </div>
 
-    <a style="text-decoration:none" href="{{route('task.index', [
+    <div class="col-lg-3 d-inline-block tasks-my">
+        <a style="text-decoration:none" href="{{route('task.index', [
 				'status' =>"fazer",
 				'contact_id' => "",
 				'user_id' => Auth::user()->id,
 				])}}">
-        <div class="tasks-my">
             <p class="numeros_painel">
                 {{$tasks_my}}
             </p>
             <p class="subtitulo-branco">
                 minhas
             </p>
-        </div>
-    </a>
+        </a>
+    </div>
 
-    <a style="text-decoration:none" href="{{route('task.index', [
+    <div class="col-lg-3 d-inline-block text-center tasks-now">
+        <a style="text-decoration:none" href="{{route('task.index', [
 				'status' =>"feito",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
-        <div class="tasks-now">
             <p class="numeros_painel">
                 {{$tasksDone}}
             </p>
             <p class="subtitulo-branco">
                 feitas
             </p>
-        </div>
-    </a>
+        </a>
+    </div>
+</div>
 
-    <div class="opportunities-title">
-        <img src="{{asset('imagens/financeiro.png')}}" width="50" height="50">
+<div class='row mt-5 mb-5'>
+    <div class="col-lg-2 d-inline-block text-center">
+        <img src="{{asset('imagens/financeiro.png')}}" width="40" height="40">
         <br>
         <br>
         OPORTUNIDADES
     </div>
-    <div class="opportunities-funnel">
-        <a style="text-decoration:none" href="{{route('opportunity.index', [
+    <div class="col-lg-7 d-inline-block opportunities-funnel">
+        <div class="funnel-bar-prospecting">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
 				'stage' =>"prospecção",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
-            <div class="funnel-bar-prospecting">
                 PROSPECTAR: {{$opportunitiesProspecting}}
-            </div>
-        </a>
-        <a style="text-decoration:none" href="{{route('opportunity.index', [
+            </a>
+        </div>
+        <div class="funnel-bar-presentation">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
 				'stage' =>"apresentação",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
-            <div class="funnel-bar-presentation">
                 APRESENTAR: {{$opportunitiesPresentation}}
-            </div>
-        </a>
-        <a style="text-decoration:none" href="{{route('opportunity.index', [
+            </a>
+        </div>
+        <div class="funnel-bar-proposal">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
 				'stage' =>"proposta",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
-            <div class="funnel-bar-proposal">
                 PROPOSTA: {{$opportunitiesProposal}}
-            </div>
-        </a>
+            </a>
+        </div>
     </div>
-    <a style="text-decoration:none" href="{{route('opportunity.index', [
+
+    <div class="col-2 d-inline-block triangle-text" style="display: inline-block;position: relative">
+        <div class="balance-won mx-auto">
+            <a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"ganhamos",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
-        <div id="triangle-text"  style="display: inline-block;position: relative">
-            <div class="balance-won">
-            </div>
-            <p class="balance_number">
-                {{$opportunitiesWon}}
-            </p>
-            <p class="balance_label_won">
-                ganhamos
-            </p>
+                <p class="balance_number">
+                    {{$opportunitiesWon}}
+                </p>
+                <p class="balance_label_won">
+                    ganhamos
+                </p>
+            </a>
         </div>
-    </a>
-    <a style="text-decoration:none" href="{{route('opportunity.index', [
+        <div id="triangle-text"  style="display: inline-block;position: relative">
+            <div class="balance-lost  mx-auto">
+                <a style="text-decoration:none" href="{{route('opportunity.index', [
 				'stage' =>"perdemos",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
-        <div id="triangle-text"  style="display: inline-block;position: relative">
-            <div class="balance-lost">
+                    <p class="balance_number" style="margin-left: -20px">
+                        {{$opportunitiesLost}}
+                    </p>
+                    <p class="balance_label_lost">
+                        perdemos
+                    </p>
+                </a>
             </div>
-            <p class="balance_number">
-                {{$opportunitiesLost}}
-            </p>
-            <p class="balance_label_lost">
-                perdemos
-            </p>
         </div>
-    </a>
-    <br>
-    <div class="journeys-title">
-        <img src="{{asset('imagens/journey.png')}}" width="50" height="50">
+    </div>
+</div>
+
+<div class='row mt-2 mb-2'>
+    <div class="col-lg-2 d-inline-block text-center">
+        <img src="{{asset('imagens/journey.png')}}" width="40" height="40">
         <br>
         <br>
         JORNADAS
     </div>
-    <div class="tasks-team">
+    <div class="col-lg-10 d-inline-block">
         <table class="table-list">
             <tr>
-                <td   class="table-list-header" style="width: 50%">
-                    <b>FUNCIONÁRIO </b>
+                <td   class="table-list-header" style="width: 40%">
+                    FUNCIONÁRIO 
                 </td>
                 <td   class="table-list-header" style="width: 10%">
                     HOJE					
@@ -173,16 +178,16 @@
                                                                                             'date_start' => date('Y-m-d'),
                                                                                             'date_end' => date('Y-m-d'),
                                                                                             ])}}">
-                    {{number_format($user->hoursToday / 3600, 1, ',','.')}}
+                        {{number_format($user->hoursToday / 3600, 1, ',','.')}}
                     </a>
                 </td>
                 <td class="table-list-center">
-                                        <a class="white" href=" {{route('journey.filter', [
+                    <a class="white" href=" {{route('journey.filter', [
                                                                                             'user_id' => $user->id,
                                                                                             'date_start' => date('Y-m-1'),
                                                                                             'date_end' => date('Y-m-31'),
                                                                                             ])}}">
-                    {{number_format($user->hoursMonthly / 3600, 1, ',','.')}}
+                        {{number_format($user->hoursMonthly / 3600, 1, ',','.')}}
                     </a>
                 </td>
             </tr>
