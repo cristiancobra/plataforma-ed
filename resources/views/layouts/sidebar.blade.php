@@ -53,7 +53,7 @@
                                                                                                                                                         [
                                                                                                                                                             'name' => 'FATURAS',
                                                                                                                                                             'faIcon' => 'fas fa-receipt',
-                                                                                                                                                            'link' => '/invoices'
+                                                                                                                                                            'link' => route('invoice.index')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'FLUXO DE CAIXA',
@@ -61,14 +61,19 @@
                                                                                                                                                             'link' => route('transaction.index')
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                            'name' => 'CONTAS BANCÁRIAS',
-                                                                                                                                                            'faIcon' => 'fas fa-piggy-bank',
-                                                                                                                                                            'link' => '/contas-bancarias'
+                                                                                                                                                            'name' => 'FORNECEDORES',
+                                                                                                                                                            'faIcon' => 'fas fa-boxes',
+                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'fornecedor']
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'ITENS DE DESPESA',
                                                                                                                                                             'faIcon' => 'fas fa-boxes',
                                                                                                                                                             'link' => route('invoice.index')
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                            'name' => 'CONTAS BANCÁRIAS',
+                                                                                                                                                            'faIcon' => 'fas fa-piggy-bank',
+                                                                                                                                                            'link' => '/contas-bancarias'
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
@@ -111,12 +116,12 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONTATOS',
                                                                                                                                                         'faIcon' => 'fas fa-user-plus',
-                                                                                                                                                        'link' => '/contatos'
+                                                                                                                                                        'link' => route('contact.index')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'EMPRESAS',
                                                                                                                                                         'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => '/empresas'
+                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'cliente']
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PRODUTOS',
@@ -168,6 +173,21 @@
                                                                                                                                                         'name' => 'CRIAR EMAIL <br> login: solucoes',
                                                                                                                                                         'faIcon' => 'fas fa-envelope',
                                                                                                                                                         'link' => 'https://acadia.mxroute.com:2083/'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'SERVIDOR APLICAÇÕES <br> login: admin',
+                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                        'link' => 'https://62.171.185.126:8090/'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'SERVIDOR NUVEM <br> login: admin',
+                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                        'link' => 'https://167.86.97.159:2087/'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'PAGAR SERVIDOR <br> login: admin',
+                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                        'link' => 'https://my.contabo.com/account/login'
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
