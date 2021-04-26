@@ -306,7 +306,7 @@ class OpportunityController extends Controller {
                         $query->where('contact_id', '=', $request->contact_id);
                     }
                     if ($request->company_id) {
-                        $query->where('contact_id', '=', $request->contact_id);
+                        $query->where('company_id', '=', $request->company_id);
                     }
                     if ($request->stage) {
                         $query->where('stage', '=', $request->stage);
