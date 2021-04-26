@@ -63,7 +63,7 @@
                                                                                                                                                         [
                                                                                                                                                             'name' => 'FORNECEDORES',
                                                                                                                                                             'faIcon' => 'fas fa-boxes',
-                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'fornecedor']
+                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'fornecedor']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'ITENS DE DESPESA',
@@ -121,7 +121,7 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'EMPRESAS',
                                                                                                                                                         'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'cliente']
+                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'cliente']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PRODUTOS',
