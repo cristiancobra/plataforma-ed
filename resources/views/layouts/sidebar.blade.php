@@ -1,13 +1,10 @@
 <nav class="col-md-2 d-md-block bg-secondary sidebar">
     <div class="sidebar-sticky">
-        <!--<ul class="nav nav-pills flex-column mb-auto">-->
         <div class="dropdown">
-            <button class="dropdown-btn" type="button" >
-                <a class="nav-link link-light" href='/'>
-                    <i class="fas fa-rocket"></i>
-                    <span class="d-none d-xl-inline">INÍCIO</span>
-                </a>
-            </button>
+            <a class="dropdown-btn nav-link link-light" href='/'>
+                <i class="fas fa-rocket"></i>
+                <span class="d-none d-xl-inline">INÍCIO</span>
+            </a>
         </div>
 
         {{createSidebarItem('COMUNICAÇÃO', 'fa fa-comments', 'dropdownMenuComunicacao', [
@@ -68,7 +65,7 @@
                                                                                                                                                         [
                                                                                                                                                             'name' => 'ITENS DE DESPESA',
                                                                                                                                                             'faIcon' => 'fas fa-boxes',
-                                                                                                                                                            'link' => route('invoice.index')
+                                                                                                                                                            'link' => route('product.index', ['variation' => 'despesa']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'CONTAS BANCÁRIAS',
@@ -111,8 +108,8 @@
                                                                                                                                                         'link' => 'https://nuvem.empresadigital.net.br/index.php/apps/spreed/'
                                                                                                                                                         ],
                                                                                                                                                     ])}}
-        
-         {{createSidebarItem('VENDAS', 'fa fa-funnel-dollar', 'dropdownMenuVendas', [
+
+        {{createSidebarItem('VENDAS', 'fa fa-funnel-dollar', 'dropdownMenuVendas', [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONTATOS',
                                                                                                                                                         'faIcon' => 'fas fa-user-plus',
@@ -126,7 +123,7 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PRODUTOS',
                                                                                                                                                         'faIcon' => 'fas fa-shopping-basket',
-                                                                                                                                                        'link' => '/produtos'
+                                                                                                                                                        'link' => route('product.index', ['variation' => 'receita']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'OPORTUNIDADES',
@@ -134,8 +131,8 @@
                                                                                                                                                         'link' => '/oportunidades'
                                                                                                                                                         ],
                                                                                                                                                     ])}}
-        
-         {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', [
+
+        {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONTRATOS',
                                                                                                                                                         'faIcon' => 'fas fa-handshake',
@@ -152,8 +149,8 @@
                                                                                                                                                         'link' => 'https://painel.autentique.com.br/',
                                                                                                                                                         ],
                                                                                                                                                     ])}}
-        
-         {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', [
+
+        {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'TAREFAS',
                                                                                                                                                         'faIcon' => 'fas fa-calendar-check',
@@ -165,10 +162,10 @@
                                                                                                                                                         'link' => route('journey.index')
                                                                                                                                                         ],
                                                                                                                                                     ])}}
-        
-    @if (Auth::user()->perfil == "super administrador")
-                                                                                                                                                    
-         {{createSidebarItem('EMPRESA DIGITAL', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', [
+
+        @if (Auth::user()->perfil == "super administrador")
+
+        {{createSidebarItem('EMPRESA DIGITAL', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CRIAR EMAIL <br> login: solucoes',
                                                                                                                                                         'faIcon' => 'fas fa-envelope',
@@ -189,13 +186,25 @@
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
                                                                                                                                                         'link' => 'https://my.contabo.com/account/login'
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'NOTA FISCAL<br> lnsc. Municipal : 58029',
+                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                        'link' => 'http://saocarlos.ginfes.com.br/'
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
 
-@endif
+        @endif
 
+        <div class="dropdown">
+            <a class="dropdown-btn nav-link link-light" href='/https://empresadigital.net.br/empreender/'>
+                <i class="fas fa-question-circle"></i>
+                <span class="d-none d-xl-inline">SUPORTE</span>
+            </a>
         </div>
-                                                                                                                                                    
+
     </div>
+
+</div>
 </nav>
 
 <script>

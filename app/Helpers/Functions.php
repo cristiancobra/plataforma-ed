@@ -1398,12 +1398,12 @@ if (!function_exists('removeSymbols')) {
 if (!function_exists('createSidebarItem')) {
 
 // cria um botao com simbolo de OLHO para adicionar visualizar um model
-    function createSidebarItem($goupName, $groupFaIcon, $aria, array $itens) {
+    function createSidebarItem($groupName, $groupFaIcon, $aria, array $itens) {
         echo "
          <div class='dropdown'>
             <button class='dropdown-btn dropdown-toggle' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'>
                 <i class='$groupFaIcon'></i>
-                <span class='d-none d-xl-inline'>$goupName</span>
+                <span class='d-none d-xl-inline'>$groupName</span>
             </button>
             <ul class='dropdown-menu bg-primary' aria-labelledby='$aria'>
                 ";
