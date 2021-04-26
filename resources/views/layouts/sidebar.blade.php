@@ -26,22 +26,22 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONTAS',
                                                                                                                                                         'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => '/emails'
+                                                                                                                                                        'link' => route('account.index')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'FUNCIONÁRIOS',
                                                                                                                                                         'faIcon' => 'fa fa-id-card-alt',
-                                                                                                                                                        'link' => 'https://nuvem.empresadigital.net.br/index.php/apps/spreed/'
+                                                                                                                                                        'link' => route('user.index')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'RELATÓRIO DE PRODUTIVIDADE',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie ',
-                                                                                                                                                        'link' => 'https://nuvem.empresadigital.net.br/index.php/apps/spreed/'
+                                                                                                                                                        'link' => route('journey.reports')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PLANEJAMENTO',
                                                                                                                                                         'faIcon' => 'fa fa-calendar-check',
-                                                                                                                                                        'link' => 'https://nuvem.empresadigital.net.br/index.php/apps/spreed/'
+                                                                                                                                                        'link' => route('planning.index')
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
