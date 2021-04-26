@@ -1393,4 +1393,35 @@ if (!function_exists('removeSymbols')) {
         return $value;
     }
 
-}    
+}
+
+if (!function_exists('createSidebarItem')) {
+
+// cria um botao com simbolo de OLHO para adicionar visualizar um model
+    function createSidebarItem($goupName, $groupFaIcon, $aria, array $itens) {
+        echo "
+         <div class='dropdown'>
+            <button class='dropdown-btn dropdown-toggle' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'>
+                <i class='$groupFaIcon'></i>
+                <span class='d-none d-xl-inline'>$goupName</span>
+            </button>
+            <ul class='dropdown-menu bg-primary' aria-labelledby='$aria'>
+                ";
+        
+        foreach($itens as $item) {
+        echo "
+                  <li class='nav-item'>
+                    <a class='dropdown-item link-light' href='".$item['link']."'>
+                        <i class='".$item['faIcon']." ms-0 me-1'></i>
+                        <span class='d-xl-inline'>".$item['name']."</span>
+                    </a>
+                </li>
+                ";
+        }
+                echo "
+            </ul>
+        </div>           
+";
+        
+    }
+}

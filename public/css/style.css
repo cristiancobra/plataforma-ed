@@ -31,6 +31,19 @@ a {
     background-color: #c28dbf !important;
 }
 
+.link-light:focus, .link-light:hover {
+    color: #874983;
+}
+
+.nav-link {
+    display: block;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    padding-top: .3rem;
+    padding-bottom: .5rem;
+    text-decoration: none;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
 
 .sidebar-item {
     color:white;
@@ -326,14 +339,7 @@ a {
     display: none;
     background-color: #874983;
     padding-left: 8px;
-}
-
-.dropdown-container a{
-    padding-left: 18px;
-    padding-top: 7px;
-    padding-bottom: 7px;
-    font-size: 14px;
-    display: block;
+    min-width: 170px;
 }
 
 /* Optional: Style the caret down icon */

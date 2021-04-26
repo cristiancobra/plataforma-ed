@@ -76,7 +76,7 @@
         <input type="text" name="last_name" value="{{ $contact->last_name }}">
         <br>
         <label for="" >Data de Nascimento: </label>
-        <input type="date" name="date_birth" value="{{ $contact->date_birth }}">
+        <input type="date" name="date_birth" value="{{$contact->date_birth}}">
         <br>
         <label for="" >CPF: </label>
         <input type="text" name="cpf" value="{{$contact->cpf}}">

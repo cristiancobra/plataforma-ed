@@ -65,16 +65,12 @@ Sem contrato
 </button>
 @endif
 <br>
-@if(isset($invoice->opportunity_id))
-<label class="labels" for="" >EMPRESA CONTRATANTE:</label>
-<span class="fields">{{$invoice->opportunity->company->name}}</span>
-<button class="button-round">
-    <a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
-        <i class='fa fa-eye' style="color:white"></i>
-    </a>
-</button>
-@elseif(isset($invoice->company->name))
+@if($invoice->status == 'receita')
+<label class="labels" for="" >EMPRESA:</label>
+@else
 <label class="labels" for="" >FORNECEDOR:</label>
+@endif
+@if(isset($invoice->company->name))
 <span class="fields">{{$invoice->company->name}}</span>
 <button class="button-round">
     <a href="{{route('company.show', ['company' => $invoice->company_id])}}">
@@ -82,13 +78,7 @@ Sem contrato
     </a>
 </button>
 @else
-<label class="labels" for="" >CLIENTE / FORNECEDOR:</label>
-<span class="fields">{{$invoice->company->name}}</span>
-<button class="button-round">
-    <a href="{{route('company.show', ['company' => $invoice->company_id])}}">
-        <i class='fa fa-eye' style="color:white"></i>
-    </a>
-</button>
+Não possui
 @endif
 <br>
 <br>

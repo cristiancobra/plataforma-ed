@@ -11,6 +11,7 @@ class Transaction extends Model {
 	protected $fillable = [
 		'id',
 		'user_id',
+		'company_id',
 		'account_id',
 		'contact_id',
 		'invoice_id',
@@ -30,6 +31,9 @@ class Transaction extends Model {
 	}
 	public function bankAccount() {
 		return $this->belongsTo(BankAccount::class, 'bank_account_id', 'id');
+	}
+                	public function company() {
+		return $this->belongsTo(Company::class, 'company_id', 'id');
 	}
 	public function invoice() {
 		return $this->belongsTo(Invoice::class, 'invoice_id', 'id');

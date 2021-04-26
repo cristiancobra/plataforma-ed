@@ -37,7 +37,7 @@
     <br>
     <label class="labels"  for="" >Sobrenome: </label> {{$contact->last_name}}
     <br>
-    <label class="labels"  for="" >Data de nascimento: </label> {{$contact->birth_date}}
+    <label class="labels"  for="" >Data de nascimento: </label> {{$contact->date_birth}}
     <br>
     <label class="labels"  for="" >CPF: </label> {{$contact->cpf}}
     <br>
