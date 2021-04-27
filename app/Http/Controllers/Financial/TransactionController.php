@@ -22,7 +22,12 @@ class TransactionController extends Controller {
 		$monthEnd = date('Y-m-t');
 
 		$transactions = Transaction::whereIn('account_id', userAccounts())
-				->with(['user', 'bankAccount', 'invoice'])
+				->with([
+                                                                                    'user',
+                                                                                    'bankAccount',
+//                                                                                    'invoice.contact',
+                                                                                    'invoice.company',
+                                                                                    ])
 				->orderBy('PAY_DAY', 'DESC')
 				->paginate(20);
 

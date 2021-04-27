@@ -82,7 +82,7 @@ Total: <span class="labels"></span>
                 CONTA
             </td>
             <td   class="table-list-header" style="width: 20%">
-                CLIENTE
+                ORIGEM
             </td>
             <td   class="table-list-header" style="width: 10%">
                 FATURA
@@ -121,19 +121,25 @@ Total: <span class="labels"></span>
                 {{$transaction->account->name}}
             </td>
             <td class="table-list-center">
-                @if(isset($transction->company_id))
-                {{$transaction->company->name}}
+                @if(isset($transction->invoice->company->name))
+                {{$transction->invoice->company->name}}
+                @elseif(isset($transction->invoice->contact->name))
+                {{$transction->invoice->contact->name}}
                 @else
                 Não possui
                 @endif
             </td>
             <td class="table-list-center">
+                @if($transaction->invoice_id == null)
                 <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
                     </button>
                 </a>
                 {{$transaction->invoice_id}}
+                @else
+                excluida
+                @endif
             </td>
             @if($transaction->type == "débito")
             <td class="table-list-right" style="color:red">
