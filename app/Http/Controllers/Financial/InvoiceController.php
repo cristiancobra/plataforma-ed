@@ -32,34 +32,7 @@ class InvoiceController extends Controller {
         $yearEnd = date('Y-12-31');
 
         $invoices = Invoice::where(function ($query) use ($request) {
-                    if ($request->account_id) {
-                        $query->where('account_id', $request->account_id);
-                    } else {
-                        $query->whereIn('account_id', userAccounts());
-                    }
-                    if ($request->name) {
-                        $query->whereHas('opportunity', function ($query) use ($request) {
-                            $query->where('name', 'like', "%$request->name%");
-                        });
-                    }
-                    if ($request->date_start) {
-                        $query->where('pay_day', '>', $request->date_start);
-                    }
-                    if ($request->date_end) {
-                        $query->where('pay_day', '<', $request->date_end);
-                    }
-                    if ($request->company_id) {
-                        $query->where('company_id', $request->company_id);
-//                        $query->whereHas('opportunity', function ($query) use ($request) {
-//                            $query->where('company_id', $request->company_id);
-//                        });
-                    }
-                    if ($request->status) {
-                        $query->where('status', '=', $request->status);
-                    }
-                    if ($request->type) {
-                        $query->where('type', '=', $request->type);
-                    }
+                    $query->whereIn('account_id', userAccounts());
                 })
                 ->with([
                     'opportunity',
@@ -648,6 +621,112 @@ class InvoiceController extends Controller {
             $counter++;
         }
         return redirect()->action('Financial\\InvoiceController@index');
+    }
+
+    public function filter(Request $request) {
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+        $yearStart = date('Y-01-01');
+        $yearEnd = date('Y-12-31');
+
+        $invoices = Invoice::where(function ($query) use ($request) {
+                    if ($request->account_id) {
+                        $query->where('account_id', $request->account_id);
+                    } else {
+                        $query->whereIn('account_id', userAccounts());
+                    }
+                    if ($request->name) {
+                        $query->whereHas('opportunity', function ($query) use ($request) {
+                            $query->where('name', 'like', "%$request->name%");
+                        });
+                    }
+                    if ($request->date_start) {
+                        $query->where('pay_day', '>', $request->date_start);
+                    }
+                    if ($request->date_end) {
+                        $query->where('pay_day', '<', $request->date_end);
+                    }
+                    if ($request->company_id) {
+                        $query->where('company_id', $request->company_id);
+//                        $query->whereHas('opportunity', function ($query) use ($request) {
+//                            $query->where('company_id', $request->company_id);
+//                        });
+                    }
+                    if ($request->status) {
+                        $query->where('status', '=', $request->status);
+                    }
+                    if ($request->type) {
+                        $query->where('type', '=', $request->type);
+                    }
+                })
+                ->with([
+                    'opportunity',
+                    'invoiceLines.product',
+                    'account.bankAccounts',
+                    'user.contact',
+                    'contract',
+                ])
+                ->orderBy('pay_day', 'DESC')
+                ->paginate(20);
+//dd($invoices);
+        $invoices->appends([
+            'status' => $request->status,
+            'contact_id' => $request->contact_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $users = myUsers();
+
+        $total = $invoices->total();
+
+        $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+                ->where('type', 'receita')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('installment_value');
+
+        $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+                ->where('type', 'despesa')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('installment_value');
+
+        $estimatedRevenueYearly = Invoice::whereIn('account_id', userAccounts())
+                ->where('type', 'receita')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$yearStart, $yearEnd])
+                ->sum('installment_value');
+
+        $estimatedExpenseYearly = Invoice::whereIn('account_id', userAccounts())
+                ->where('type', 'despesa')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$yearStart, $yearEnd])
+                ->sum('installment_value');
+
+        return view('financial.invoices.indexInvoices', compact(
+                        'invoices',
+                        'companies',
+                        'contacts',
+                        'accounts',
+                        'users',
+                        'total',
+                        'estimatedRevenueMonthly',
+                        'estimatedExpenseMonthly',
+                        'estimatedRevenueYearly',
+                        'estimatedExpenseYearly',
+        ));
     }
 
 }

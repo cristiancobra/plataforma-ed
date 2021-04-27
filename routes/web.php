@@ -68,8 +68,8 @@ Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
         ->name('invoice.pdf')
         ->middleware('roles');
 
-Route::any('/faturas/filtros', 'Financial\\InvoiceController@index')
-        ->name('invoice.index')
+Route::any('/faturas/filtros', 'Financial\\InvoiceController@filter')
+        ->name('invoice.filter')
         ->middleware('roles');
 
 Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
@@ -82,7 +82,6 @@ Route::match(['get', 'post'], '/faturas/novo', 'Financial\\InvoiceController@cre
 
 Route::resource('faturas', 'Financial\\InvoiceController')
         ->except([
-            'index',
             'create'
         ])
         ->names('invoice')
@@ -234,13 +233,19 @@ Route::resource('empresas', 'Sales\\CompanyController')
         ->parameters(['empresas' => 'company'])
         ->middleware('roles');
 
+// contracts
 Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
         ->names('contractTemplate')
         ->parameters(['modelos-de-contratos' => 'contractTemplate']);
 
+// opportunities
 Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
         ->name('opportunity.filter')
         ->middleware('roles');
+
+//Route::post('/oportunidades/apagar/{id}', 'Sales\\OpportunityController@trash')
+//        ->name('opportunity.trash')
+//        ->middleware('roles');
 
 Route::resource('oportunidades', 'Sales\\OpportunityController')
         ->names('opportunity')
