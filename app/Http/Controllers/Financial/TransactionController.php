@@ -30,7 +30,7 @@ class TransactionController extends Controller {
                 ])
                 ->orderBy('PAY_DAY', 'DESC')
                 ->paginate(20);
-dd($transactions);
+
         $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
                 ->where('type', 'crédito')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
