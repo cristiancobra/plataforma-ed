@@ -250,7 +250,7 @@ $counter++;
     <tr>
         <td class="table-list-center">
             <button class="button-round">
-                <a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
+                <a href=" {{route('transaction.show', ['transaction' => $transaction->id])}}">
                     <i class='fa fa-eye' style="color:white"></i></a>
             </button>
             {{date('d/m/Y', strtotime($transaction->pay_day))}}
