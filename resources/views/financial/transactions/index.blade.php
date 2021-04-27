@@ -130,7 +130,7 @@ Total: <span class="labels"></span>
                 @endif
             </td>
             <td class="table-list-center">
-                @if($transaction->invoice_id == null)
+                @if($transaction->invoice_id != null)
                 <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
