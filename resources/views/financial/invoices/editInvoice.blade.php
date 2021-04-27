@@ -184,8 +184,7 @@
                 {{number_format(-$invoiceLine->product->price * $invoiceLine->product->tax_rate / 100 - $invoiceLine->product->cost1 - $invoiceLine->product->cost2 - $invoiceLine->product->cost3 + $invoiceLine->product->price, 2,",",".")}}
             </td>
             <td class="table-list-right">
-                <input type="hidden" name="product_price[]" size="8" value="{{$invoiceLine->product->price}}">
-                {{number_format($invoiceLine->product->price,2,",",".")}}
+<input type="decimal" name="product_price[]" size="7" value="{{formatCurrencyReal($invoiceLine->subtotalPrice)}}">
             </td>
             </tr>
             @endforeach
@@ -307,8 +306,7 @@
             </td>
 
             <td class="table-list-right">
-                <input type="hidden" name="new_product_price[]" size="7" value="{{$product->price}}" >
-                {{number_format($product->price, 2,",",".")}}
+                <input type="decimal" name="new_product_price[]" size="7" value="{{formatCurrencyReal($product->price)}}">
             </td>
 
             </tr>
