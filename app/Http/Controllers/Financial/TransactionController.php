@@ -135,8 +135,7 @@ class TransactionController extends Controller {
         } else {
             $transaction = new Transaction();
             $transaction->fill($request->all());
-            $valueNoPoint = str_replace(".", "", $request->value);
-            $transaction->value = str_replace(",", ".", $valueNoPoint);
+            $transaction->value = removeCurrency($request->value);
             $transaction->save();
 
             return view('financial.transactions.show', compact(
@@ -200,8 +199,7 @@ class TransactionController extends Controller {
      */
     public function update(Request $request, Transaction $transaction) {
         $transaction->fill($request->all());
-        $valueNoPoint = str_replace(".", "", $request->value);
-        $transaction->value = str_replace(",", ".", $valueNoPoint);
+        $transaction->value = removeCurrency($request->value);
         $transaction->save();
 
         return view('financial.transactions.show', compact(

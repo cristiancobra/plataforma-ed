@@ -231,7 +231,7 @@ CKEDITOR.replace('description');
             <input type="hidden" name="product_margin[]" size="7" value="{{-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price}}" >
 
             <td class="table-list-right" style='color:white;background-color: #c28dbf'>
-                <input type="decimal" name="product_price[]" size="7" value="{{formatCurrencyReal($product->price)}}" >
+                <input type="decimal" name="product_price[]" size="7" value="{{formatCurrency($product->price)}}" >
             </td>
             </tr>
             @php

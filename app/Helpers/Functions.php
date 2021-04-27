@@ -1394,6 +1394,19 @@ if (!function_exists('removeSymbols')) {
     }
 
 }
+// remove pontos, R$ e troca a vírgula por ponto
+if (!function_exists('removeCurrency')) {
+
+    function removeCurrency($value) {
+        $value = trim($value);
+        $value = str_replace('R', '', $value);
+        $value = str_replace('$', '', $value);
+        $value = str_replace('.', '', $value);
+        $value = str_replace(',','.', $value);
+        return $value;        
+    }
+
+}
 
 if (!function_exists('createSidebarItem')) {
 

@@ -212,7 +212,7 @@ class InvoiceController extends Controller {
             } else {
                 $invoice->identifier = 1;
             }
-//			$invoice->totalPrice = str_replace(",",".", $request->totalPrice);
+
             $invoice->save();
 
             // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
@@ -229,7 +229,7 @@ class InvoiceController extends Controller {
                         'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
                         'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
                         'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
-                        'subtotalPrice' => $request->product_amount [$key] * $request->product_price [$key],
+                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
                     );
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];

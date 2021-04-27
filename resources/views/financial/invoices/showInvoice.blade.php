@@ -342,10 +342,10 @@ $counter++;
             {{date('d/m/Y', strtotime($invoice->pay_day))}}
         </td>
         <td class="table-list-right">
-            R$ {{number_format($invoice->totalPrice, 2,",",".")}}
+            {{formatCurrencyReal($invoice->totalPrice)}}
         </td>
         <td class="table-list-right">
-            R$ {{number_format($invoice->installment_value, 2,",",".")}}
+            {{formatCurrencyReal($invoice->installment_value)}}
         </td>
         @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
         <td class="td-late">
