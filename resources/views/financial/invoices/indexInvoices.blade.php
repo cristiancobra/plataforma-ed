@@ -158,9 +158,15 @@ Total: <span class="labels">{{$total}}</span>
             <td class="table-list-center">
                 {{$invoice->account->name}}
             </td>
+            @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+            <td class="table-list-center" style="color: red">
+                {{date('d/m/Y', strtotime($invoice->pay_day))}}
+            </td>
+            @else
             <td class="table-list-center">
                 {{date('d/m/Y', strtotime($invoice->pay_day))}}
             </td>
+            @endif
             @if($invoice->type == 'receita')
             <td class="table-list-right">
                 {{formatCurrencyReal($invoice->installment_value)}}
@@ -177,10 +183,6 @@ Total: <span class="labels">{{$total}}</span>
             @elseif($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value)
             <td class="td-paid-partial">
                 parcial
-            </td>
-            @elseif($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
-            <td class="td-late">
-                atrasada
             </td>
             @else
             {{formatInvoiceStatus($invoice)}}
