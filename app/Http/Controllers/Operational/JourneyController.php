@@ -235,7 +235,9 @@ class JourneyController extends Controller {
                         $query->whereIn('account_id', userAccounts());
                     }
                     if ($request->name) {
-                        $query->where('name', 'like', "%$request->name%");
+                        $query->whereHas('task', function ($query) use ($request) {
+                            $query->where('name', 'like', "%$request->name%");
+                        });
                     }
                     if ($request->date_start) {
                         $query->where('date', '>=', $request->date_start);
@@ -318,17 +320,18 @@ class JourneyController extends Controller {
                 ->get();
 
         // calcular horas por USUÁRIOS
-        if($request->account_id == null) {
+        if ($request->account_id == null) {
             $users = myUsers(['contact']);
         } else {
-            $users = User::whereHas('accounts', function ($query) use($request) {
-                    $query->where('account_id', $request->account_id);
-                })
-                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                ->orderBy('NAME', 'ASC')
-                ->get();;
+            $users = User::whereHas('accounts', function ($query) use ($request) {
+                        $query->where('account_id', $request->account_id);
+                    })
+                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
+                    ->orderBy('NAME', 'ASC')
+                    ->get();
+            ;
         }
-       
+
         $counterArray = 1;
         $counterAnnual = 1;
         foreach ($users as $user) {
@@ -390,7 +393,7 @@ class JourneyController extends Controller {
                         })
                         ->whereBetween('date', [$initialDate, $finalDate])
                         ->sum('duration');
-                $monthlyAllDepartments[$counterArray] = Journey::whereHas('user', function ($query)  use ($request, $department) {
+                $monthlyAllDepartments[$counterArray] = Journey::whereHas('user', function ($query) use ($request, $department) {
                             if ($request->account_id == null) {
                                 $query->whereIn('account_id', userAccounts());
                             } else {
@@ -402,7 +405,7 @@ class JourneyController extends Controller {
                 $counterMonth++;
                 $counterArray++;
             }
-            $annualDepartment[$counterAnnual] = Journey::whereHas('task', function ($query)  use ($request, $department) {
+            $annualDepartment[$counterAnnual] = Journey::whereHas('task', function ($query) use ($request, $department) {
                         if ($request->account_id == null) {
                             $query->whereIn('account_id', userAccounts());
                         } else {
