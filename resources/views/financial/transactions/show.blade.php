@@ -36,7 +36,7 @@
 		@endif
 	</p>
 	<p class="labels">
-		FATURA:<span class="fields">{{$transaction->invoice_id}}</span>
+		FATURA:<span class="fields">{{$transaction->invoice->identifier}}</span>
 	</p>
 	<p class="labels">
 		TIPO:<span class="fields">{{$transaction->type}}</span>

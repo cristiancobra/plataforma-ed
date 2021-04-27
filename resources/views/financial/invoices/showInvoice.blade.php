@@ -224,9 +224,79 @@ $counter++;
 <br>
 <br>
 @endif
+<br>
+<div style="display: inline-block">
+    <img src="{{asset('imagens/financeiro.png')}}" width="40px" alt="40px">
+    <label class="labels" for="" >PAGAMENTOS:</label>
+</div>
+<br>
+<br>
+<table class="table-list">
+    <tr>
+        <td   class="table-list-header" style="width: 10%">
+            DATA
+        </td>
+        <td   class="table-list-header" style="width: 50%">
+            RESPONSÁVEL
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            CONTA
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            VALOR
+        </td>
+    </tr>
+    @foreach($transactions as $transaction)
+    <tr>
+        <td class="table-list-center">
+            <button class="button-round">
+                <a href=" {{route('invoice.show', ['invoice' => $invoice->id])}}">
+                    <i class='fa fa-eye' style="color:white"></i></a>
+            </button>
+            {{date('d/m/Y', strtotime($transaction->pay_day))}}
+        </td>
+        <td class="table-list-center">
+            {{$transaction->user->contact->name}}
+        </td>
+        <td class="table-list-center">
+            {{$transaction->bankAccount->name}}
+        </td>
+        <td class="table-list-right">
+            R$ {{number_format($transaction->value,2,",",".")}}
+        </td>
+    </tr>
+    @endforeach
+    <tr>
+        <td   class="table-list-header-right" colspan="1">
+        </td>
+        <td   class="table-list-header-right"colspan="2">
+            SALDO DA FATURA:
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            R$ {{number_format($balance, 2,",",".")}}
+        </td>
+    </tr>
+</table>
+<br>
+<p style="text-align: right">
+<a class="text-button secondary" href="{{route('transaction.create', [
+		'invoiceId' => $invoice->id,
+		'invoiceIdentifier' => $invoice->identifier,
+		'accountId' => $invoice->account_id,
+		'accountName' => $invoice->account->name,
+		'typeTransactions' => 'receita',
+		'invoiceTotalPrice' => $invoice->totalPrice,
+				
+	])}}">
+    REGISTRAR PAGAMENTO
+</a>
+</p>
+<br>
+<br>
 <div style="display: inline-block">
     <img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
-    <label class="labels" for="" >TODAS AS FATURAS:</label>
+    <label class="labels" for="" >PARCELAMENTO:</label>
 </div>
 <br>
 <br>
@@ -293,68 +363,6 @@ $counter++;
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$invoice->status}}</span>
 <br>
-<br>
-<br>
-<div style="display: inline-block">
-    <img src="{{asset('imagens/financeiro.png')}}" width="40px" alt="40px">
-    <label class="labels" for="" >PAGAMENTOS:</label>
-</div>
-<br>
-<br>
-<table class="table-list">
-    <tr>
-        <td   class="table-list-header" style="width: 5%">
-            DATA
-        </td>
-        <td   class="table-list-header" style="width: 55%">
-            RESPONSÁVEL
-        </td>
-        <td   class="table-list-header" style="width: 10%">
-            CONTA
-        </td>
-        <td   class="table-list-header" style="width: 10%">
-            VALOR
-        </td>
-    </tr>
-    @foreach($transactions as $transaction)
-    <tr>
-        <td class="table-list-center">
-            {{date('d/m/Y', strtotime($transaction->pay_day))}}
-        </td>
-        <td class="table-list-center">
-            {{$transaction->user->contact->name}}
-        </td>
-        <td class="table-list-center">
-            {{$transaction->bankAccount->name}}
-        </td>
-        <td class="table-list-right">
-            R$ {{number_format($transaction->value,2,",",".")}}
-        </td>
-    </tr>
-    @endforeach
-    <tr>
-        <td   class="table-list-header-right" colspan="1">
-        </td>
-        <td   class="table-list-header-right"colspan="2">
-            SALDO DA FATURA:
-        </td>
-        </td>
-        <td   class="table-list-header-right" colspan="2">
-            R$ {{number_format($balance, 2,",",".")}}
-        </td>
-    </tr>
-</table>
-<br>
-<a class="button-secondary" href="{{route('transaction.create', [
-		'invoiceId' => $invoice->identifier,
-		'accountId' => $invoice->account_id,
-		'accountName' => $invoice->account->name,
-		'typeTransactions' => 'receita',
-		'invoiceTotalPrice' => $invoice->totalPrice,
-				
-	])}}">
-    REGISTRAR PAGAMENTO
-</a>
 <br>
 <br>
 <p class="labels">  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>

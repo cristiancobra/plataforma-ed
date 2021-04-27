@@ -72,7 +72,7 @@
 		<label for="" >FATURA: </label>
 		@if(!empty(app('request')->input('invoiceId')))
 		<input type="hidden" name='invoice_id' value="{{app('request')->input('invoiceId')}}">
-		{{app('request')->input('invoiceId')}}
+		{{app('request')->input('invoiceIdentifier')}}
 		@else
 		<select name="invoice_id">
 			@foreach ($invoices as $invoice)
