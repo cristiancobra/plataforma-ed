@@ -170,7 +170,15 @@ Total: <span class="labels">{{$total}}</span>
                 - {{formatCurrencyReal($invoice->installment_value)}}
             </td>
             @endif
-            @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+            @if($invoice->paid >= $invoice->installment_value)
+            <td class="td-paid">
+                paga
+            </td>
+            @elseif($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value)
+            <td class="td-paid-partial">
+                parcial
+            </td>
+            @elseif($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
             <td class="td-late">
                 atrasada
             </td>

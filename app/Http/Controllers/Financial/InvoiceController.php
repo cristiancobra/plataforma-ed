@@ -43,12 +43,17 @@ class InvoiceController extends Controller {
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
-//dd($invoices);
+
         $invoices->appends([
             'status' => $request->status,
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
         ]);
+        
+        foreach($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->sum('value');
+        }
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')

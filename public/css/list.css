@@ -248,6 +248,17 @@ td {
     border-color: white;
 }
 
+.td-paid-partial{
+    display: table-cell;  
+    font-size: 14px;
+    color: black;
+    vertical-align:super;
+    background-color: #b3d7f2;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
 .td-pending{
     display: table-cell;  
     font-size: 14px;
