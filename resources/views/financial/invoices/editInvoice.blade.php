@@ -23,7 +23,7 @@
         <label class="labels" for="" >IDENTIFICADOR:</label>
         <span class="fields">{{$invoice->identifier}}</span>
         <br>
-        <label class="labels" for="" >EMPRESA: </label>
+        <label class="labels" for="" >CONTA: </label>
         <select name="account_id">
             <option  class="fields" value="{{$invoice->account_id}}">
                 {{$invoice->account->name}}
@@ -54,22 +54,13 @@
         <span class="fields">{{$invoice->opportunity->name}}</span>
         <br>
         @endif
-        <label class="labels" for="">EMPRESA CONTRATANTE:</label>
-        @if(isset($invoice->opportunity_id))
-        <span class="fields">{{$invoice->opportunity->company->name}}</span>
-        <button class="button-round">
-            <a href="{{route('company.show', ['company' => $invoice->opportunity->company_id])}}">
-                <i class='fa fa-eye' style="color:white"></i>
-            </a>
-        </button>
-        @else
-        <span class="fields">{{$invoice->company->name}}</span>
+        <label class="labels" for="">EMPRESA:</label>
+        {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $invoice->company)}}
         <button class="button-round">
             <a href="{{route('company.show', ['company' => $invoice->company_id])}}">
                 <i class='fa fa-eye' style="color:white"></i>
             </a>
         </button>
-        @endif
         <br>
          <label class="labels" for="" >CONTATO: </label>
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $invoice->contact, )}}

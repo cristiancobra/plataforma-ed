@@ -434,7 +434,7 @@ class InvoiceController extends Controller {
                             'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
                             'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
                             'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
-                            'subtotalPrice' => $request->product_amount[$key] * $request->product_price[$key],
+                            'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
                         );
                         $totalPrice = $totalPrice + $data['subtotalPrice'];
                         $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
@@ -460,7 +460,7 @@ class InvoiceController extends Controller {
                             'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
                             'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
                             'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
-                            'subtotalPrice' => $request->new_product_amount [$key] * $request->new_product_price [$key],
+                            'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
                         );
                         $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
                         $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
