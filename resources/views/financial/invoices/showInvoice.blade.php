@@ -196,13 +196,13 @@ Não possui
 
 @elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga' OR $invoice->number_installment_total == 1)
 <p  style="text-align: right">
-    <a class="button-secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
+    <a class="text-button secondary" href="{{route('invoice.installment', ['invoice' => $invoice])}}">
         GERAR FATURAS DO PARCELAMENTO
     </a>
 </p>
 @else
 <p  style="text-align: right">
-    <a class="button-secondary" href="{{route('invoice.edit', ['invoice' => $invoice])}}">
+    <a class="text-button secondary" href="{{route('invoice.edit', ['invoice' => $invoice])}}">
         APROVAR PARA LIBERAR PARCELAMENTO
     </a>
 </p>
@@ -262,19 +262,41 @@ $counter++;
             {{$transaction->bankAccount->name}}
         </td>
         <td class="table-list-right">
-            R$ {{number_format($transaction->value,2,",",".")}}
+            {{formatCurrencyReal($transaction->value)}}
         </td>
     </tr>
     @endforeach
     <tr>
         <td   class="table-list-header-right" colspan="1">
         </td>
-        <td   class="table-list-header-right"colspan="2">
-            SALDO DA FATURA:
+        <td   class="table-list-header-right" colspan="2">
+            VALOR TOTAL: 
         </td>
         </td>
         <td   class="table-list-header-right" colspan="2">
-            R$ {{number_format($balance, 2,",",".")}}
+            {{formatCurrencyReal($invoice->totalPrice)}}
+        </td>
+    </tr>
+    <tr>
+        <td   class="table-list-header-right" colspan="1">
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            PAGO: 
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            - {{formatCurrencyReal($invoicePaymentsTotal)}}
+        </td>
+    </tr>
+    <tr>
+        <td   class="table-list-header-right" colspan="1">
+        </td>
+        <td   class="table-list-header-right"colspan="2">
+            SALDO:
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            {{formatCurrencyReal($balance)}}
         </td>
     </tr>
 </table>
@@ -294,6 +316,7 @@ $counter++;
 </p>
 <br>
 <br>
+@if($invoice->status == 'receita')
 <div style="display: inline-block">
     <img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
     <label class="labels" for="" >PARCELAMENTO:</label>
@@ -360,6 +383,7 @@ $counter++;
 </table>
 <br>
 <br>
+@endif
 <label class="labels" for="">SITUAÇÃO:</label>
 <span class="fields">{{$invoice->status}}</span>
 <br>

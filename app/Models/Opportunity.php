@@ -22,6 +22,7 @@ class Opportunity extends Model {
 		'date_start',
 		'date_conclusion',
 		'pay_day',
+		'trash',
 	];
 	protected $hidden = [
 	];

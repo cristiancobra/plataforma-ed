@@ -300,14 +300,17 @@ class InvoiceController extends Controller {
                 })
                 ->get();
 
-        $balance = $invoice->installment_value - $transactions->sum('value');
-
+        $invoicePaymentsTotal = $transactions->sum('value');
+        $balance = $invoice->installment_value - $invoicePaymentsTotal;
+//dd($transactions->sum('value'));
+//dd($balance);
         return view('financial.invoices.showInvoice', compact(
                         'invoice',
                         'invoices',
                         'invoiceLines',
                         'totalInvoices',
                         'transactions',
+                        'invoicePaymentsTotal',
                         'balance',
         ));
     }

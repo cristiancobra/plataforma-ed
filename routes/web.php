@@ -243,9 +243,9 @@ Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
         ->name('opportunity.filter')
         ->middleware('roles');
 
-//Route::post('/oportunidades/apagar/{id}', 'Sales\\OpportunityController@trash')
-//        ->name('opportunity.trash')
-//        ->middleware('roles');
+Route::get('/oportunidades/apagar/{opportunity}', 'Sales\\OpportunityController@trash')
+        ->name('opportunity.trash')
+        ->middleware('roles');
 
 Route::resource('oportunidades', 'Sales\\OpportunityController')
         ->names('opportunity')

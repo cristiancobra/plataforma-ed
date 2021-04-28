@@ -28,6 +28,7 @@ class OpportunityController extends Controller {
                     $query->whereIn('account_id', userAccounts());
                     $query->where('stage', '!=', 'ganhamos');
                     $query->where('stage', '!=', 'perdemos');
+                    $query->where('trash', '==', 0);
                 }
                 )
                 ->with([
@@ -311,6 +312,11 @@ class OpportunityController extends Controller {
                     if ($request->stage) {
                         $query->where('stage', '=', $request->stage);
                     }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    }else{
+                        $query->where('trash', '!=', 1);
+                    }
                 })
                 ->with([
                     'user',
@@ -326,11 +332,10 @@ class OpportunityController extends Controller {
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
-         $companies = Company::whereIn('account_id', userAccounts())
+
+        $companies = Company::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
-
 
         $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('ID', 'ASC')
@@ -346,6 +351,13 @@ class OpportunityController extends Controller {
                         'accounts',
                         'users',
         ));
+    }
+
+    public function trash(Request $request, Opportunity $opportunity) {
+        $opportunity->trash = 1;
+        $opportunity->save();
+
+        return redirect()->action('Sales\\OpportunityController@index');
     }
 
 }

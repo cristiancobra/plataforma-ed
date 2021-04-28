@@ -1438,3 +1438,20 @@ if (!function_exists('createSidebarItem')) {
         
     }
 }
+
+//if (!function_exists('confirmDelete')) {
+//
+//// gera caixa de confirmação para deleter um item
+//    function confirmDelete() {
+//    <script>
+//        function deleteItem() {
+//            var confirmation = confirm('Você tem certeza que deseja apagar? Essa operação NÃO pode ser desfeita');
+//            if (checkstr == true) {
+//                // do your code
+//            } else {
+//                return false;
+//            }
+//        }
+//    </script>
+//    }
+//}

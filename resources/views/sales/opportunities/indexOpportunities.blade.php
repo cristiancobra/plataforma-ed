@@ -7,6 +7,9 @@
 @endsection
 
 @section('buttons')
+<a class='circular-button delete'  href="{{route('opportunity.filter', ['trash' => 1])}}">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+</a>
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>

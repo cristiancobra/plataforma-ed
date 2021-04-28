@@ -514,16 +514,22 @@ indefinida
     </form>
     <br>
     <br>
-    <p class='labels'>  Criado em:   {{ date('d/m/Y H:i', strtotime($opportunity->created_at)) }} </p>
+    <p class='labels'>  Criado em:   {{date('d/m/Y H:i', strtotime($opportunity->created_at))}} </p>
 
     <div style='text-align:right'>
-        <form   style='text-decoration: none;display: inline-block' action='{{route('opportunity.destroy', ['opportunity' => $opportunity->id])}}' method='post'>
+        @if($opportunity->trash == 1)
+        <form id="button-delete"  style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity])}}" method="post">
             @csrf
             @method('delete')
-        <button class='circular-button delete' style='border: none;padding-left: 8px;padding-bottom: 5px' type='submit'>
-            <i class='fa fa-trash'></i>
-        </button>
+            <button class='circular-button delete' onclick="return confirmDelete()" style='border: none;padding-left: 8px;padding-bottom: 5px' type='submit'>
+                <i class='fa fa-times'></i>
+            </button>
         </form>
+        @else
+        <a class='circular-button delete' href='{{route('opportunity.trash', ['opportunity' => $opportunity->id])}}'>
+            <i class='fas fa-trash'></i>
+        </a>
+        @endif
         <a class='circular-button secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
             <i class='fa fa-edit'></i>
         </a>
@@ -533,4 +539,7 @@ indefinida
     </div>
     <br>
     <br>
+    @endsection
+
+    @section('js-scripts')
     @endsection
