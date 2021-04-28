@@ -178,7 +178,7 @@
                                                                                             'date_start' => date('Y-m-d'),
                                                                                             'date_end' => date('Y-m-d'),
                                                                                             ])}}">
-                        {{number_format($user->hoursToday / 3600, 1, ',','.')}}
+                        {{formatTotalHour($user->hoursToday)}}
                     </a>
                 </td>
                 <td class="table-list-center">
@@ -187,7 +187,7 @@
                                                                                             'date_start' => date('Y-m-1'),
                                                                                             'date_end' => date('Y-m-31'),
                                                                                             ])}}">
-                        {{number_format($user->hoursMonthly / 3600, 1, ',','.')}}
+                        {{formatTotalHour($user->hoursMonthly)}}
                     </a>
                 </td>
             </tr>

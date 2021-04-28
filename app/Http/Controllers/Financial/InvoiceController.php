@@ -481,7 +481,8 @@ class InvoiceController extends Controller {
                     })
                     ->get();
 
-            $balance = $invoice->installment_value - $transactions->sum('value');
+            $invoicePaymentsTotal = $transactions->sum('value');
+            $balance = $invoice->installment_value - $invoicePaymentsTotal;
 
             $invoice->with('contract');
 
@@ -491,6 +492,7 @@ class InvoiceController extends Controller {
                             'totalInvoices',
                             'invoiceLines',
                             'transactions',
+                            'invoicePaymentsTotal',
                             'balance',
             ));
         }

@@ -267,9 +267,7 @@ $counter++;
     </tr>
     @endforeach
     <tr>
-        <td   class="table-list-header-right" colspan="1">
-        </td>
-        <td   class="table-list-header-right" colspan="2">
+        <td   class="table-list-header-right" colspan="3">
             VALOR TOTAL: 
         </td>
         </td>
@@ -278,9 +276,7 @@ $counter++;
         </td>
     </tr>
     <tr>
-        <td   class="table-list-header-right" colspan="1">
-        </td>
-        <td   class="table-list-header-right" colspan="2">
+        <td   class="table-list-header-right" colspan="3">
             PAGO: 
         </td>
         </td>
@@ -289,9 +285,7 @@ $counter++;
         </td>
     </tr>
     <tr>
-        <td   class="table-list-header-right" colspan="1">
-        </td>
-        <td   class="table-list-header-right"colspan="2">
+        <td   class="table-list-header-right"colspan="3">
             SALDO:
         </td>
         </td>

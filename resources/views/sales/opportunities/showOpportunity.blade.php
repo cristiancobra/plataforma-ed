@@ -75,7 +75,7 @@ indefinida
 <br>
 <div style='display: inline-block'>
     <img src='{{asset('imagens/tarefas.png')}}' width='40px' alt='40px'>
-    <label class='labels' for='' >TAREFAS DA VENDA:</label>
+    <label class='labels' for='' >VENDAS:</label>
 </div>
 <br>
 <br>
@@ -101,16 +101,12 @@ indefinida
         </td>
     </tr>
 
-    @foreach ($tasks as $task)
+    @foreach ($tasksSales as $task)
     <tr style='font-size: 14px'>
         <td class='table-list-left'>
             <button class='button-round'>
-                <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
+                <a href=' {{route('task.show', ['task' => $task->id])}}'>
                     <i class='fa fa-eye' style='color:white'></i></a>
-            </button>
-            <button class='button-round'>
-                <a href=' {{ route('task.edit', ['task' => $task->id]) }}'>
-                    <i class='fa fa-edit' style='color:white'></i></a>
             </button>
             {{date('d/m/Y', strtotime($task->date_start))}}
         </td>
@@ -142,6 +138,14 @@ indefinida
         @endif
     </tr>
     @endforeach
+    <tr>
+        <td   class="table-list-header-right"colspan="5">
+            TOTAL:
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatTotalHour($tasksSalesHours)}} horas
+        </td>
+    </tr>
 </table>
 <br>
 <div id='tarefas' style='text-align:right'>
@@ -255,33 +259,66 @@ indefinida
                 <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
                     <i class='fa fa-eye' style='color:white'></i></a>
             </button>
-            <button class='button-round'>
-                <a href=' {{route('invoice.edit', ['invoice' => $invoice->id])}}'>
-                    <i class='fa fa-edit' style='color:white'></i></a>
-            </button>
             {{$invoice->identifier}}
         </td>
         <td class='table-list-center'>
             {{date('d/m/Y', strtotime($invoice->date_creation))}}
         </td>
-        <td class='table-list-center'>
+        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+        <td class="table-list-center" style="color: red">
             {{date('d/m/Y', strtotime($invoice->pay_day))}}
         </td>
+        @else
+        <td class="table-list-center">
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </td>
+        @endif
         <td class='table-list-right'>
-            R$ {{number_format($invoice->totalPrice, 2,',','.')}}
+            {{formatCurrencyReal($invoice->totalPrice)}}
         </td>
         <td class='table-list-right'>
-            R$ {{number_format($invoice->installment_value, 2,',','.')}}
+            {{formatCurrencyReal($invoice->installment_value)}}
         </td>
-        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
-        <td class='td-late'>
-            atrasada
+        @if($invoice->paid >= $invoice->installment_value)
+        <td class="td-paid">
+            paga
+        </td>
+        @elseif($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value)
+        <td class="td-paid-partial">
+            parcial
         </td>
         @else
         {{formatInvoiceStatus($invoice)}}
         @endif
     </tr>
     @endforeach
+       <tr>
+        <td   class="table-list-header-right" colspan="5">
+            VALOR TOTAL: 
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatCurrencyReal($invoiceInstallmentsTotal)}}
+        </td>
+    </tr>
+    <tr>
+        <td   class="table-list-header-right" colspan="5">
+            PAGO: 
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatCurrencyReal($invoicePaymentsTotal)}}
+        </td>
+    </tr>
+    <tr>
+        <td   class="table-list-header-right"colspan="5">
+            SALDO:
+        </td>
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatCurrencyReal($balance)}}
+        </td>
+    </tr>
 </table>
 <br>
 <div id='faturas' style='text-align:right'>
@@ -362,10 +399,6 @@ indefinida
                 <a href=' {{route('contract.show', ['contract' => $contract->id])}}'>
                     <i class='fa fa-eye' style='color:white'></i></a>
             </button>
-            <button class='button-round'>
-                <a href=' {{route('contract.edit', ['contract' => $contract->id])}}'>
-                    <i class='fa fa-edit' style='color:white'></i></a>
-            </button>
             {{$contract->identifier}}
         </td>
         <td class='table-list-center'>
@@ -440,16 +473,12 @@ indefinida
         </td>
     </tr>
 
-    @foreach ($tasks as $task)
+    @foreach ($tasksOperational as $task)
     <tr style='font-size: 14px'>
         <td class='table-list-left'>
             <button class='button-round'>
                 <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
                     <i class='fa fa-eye' style='color:white'></i></a>
-            </button>
-            <button class='button-round'>
-                <a href=' {{ route('task.edit', ['task' => $task->id]) }}'>
-                    <i class='fa fa-edit' style='color:white'></i></a>
             </button>
             {{date('d/m/Y', strtotime($task->date_start))}}
         </td>
@@ -481,6 +510,14 @@ indefinida
         @endif
     </tr>
     @endforeach
+    <tr>
+        <td   class="table-list-header-right"colspan="5">
+            TOTAL:
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatTotalHour($tasksOperationalHours)}} horas
+        </td>
+    </tr>
 </table>
 <br>
 <div id='produção' style='text-align:right'>
@@ -512,34 +549,188 @@ indefinida
         <input type='hidden' name='department' value='vendas'>
         <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
     </form>
-    <br>
-    <br>
-    <p class='labels'>  Criado em:   {{date('d/m/Y H:i', strtotime($opportunity->created_at))}} </p>
+</div>
+<br>
+<br>
+<div style='display: inline-block'>
+    <img src='{{asset('imagens/customer-service.png')}}' width='40px' alt='40px'>
+    <label class='labels' for='' >ATENDIMENTO:</label>
+</div>
+<br>
+<br>
+<table class='table-list'>
+    <tr>
+        <td   class='table-list-header' style='width: 20%'>
+            DATA CRIAÇÃO 
+        </td>
+        <td   class='table-list-header' style='width: 20%'>
+            TAREFA 
+        </td>
+        <td   class='table-list-header' style='width: 35%'>
+            DESCRIÇÃO 
+        </td>
+        <td   class='table-list-header' style='width: 5%'>
+            CONCLUSÃO
+        </td>
+        <td   class='table-list-header' style='width: 5%'>
+            PRIORIDADE
+        </td>
+        <td   class='table-list-header' style='width: 5%'>
+            SITUAÇÃO
+        </td>
+    </tr>
 
-    <div style='text-align:right'>
-        @if($opportunity->trash == 1)
-        <form id="button-delete"  style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity])}}" method="post">
-            @csrf
-            @method('delete')
-            <button class='circular-button delete' onclick="return confirmDelete()" style='border: none;padding-left: 8px;padding-bottom: 5px' type='submit'>
-                <i class='fa fa-times'></i>
+    @foreach ($tasksCustomerServices as $task)
+    <tr style='font-size: 14px'>
+        <td class='table-list-left'>
+            <button class='button-round'>
+                <a href=' {{route('task.show', ['task' => $task->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
             </button>
-        </form>
-        @else
-        <a class='circular-button delete' href='{{route('opportunity.trash', ['opportunity' => $opportunity->id])}}'>
-            <i class='fas fa-trash'></i>
-        </a>
-        @endif
-        <a class='circular-button secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
-            <i class='fa fa-edit'></i>
-        </a>
-        <a class='circular-button primary' href='{{route('opportunity.index')}}'>
-            <i class='fas fa-arrow-left'></i>
-        </a>
-    </div>
-    <br>
-    <br>
-    @endsection
+            {{date('d/m/Y', strtotime($task->date_start))}}
+        </td>
+        <td class='table-list-left'>
+            {{$task->name}}
+        </td>
+        <td class='table-list-left'>
+            {!!html_entity_decode($task->description)!!}
+        </td>
+        <td class='table-list-center'>
+            @isset($task->date_conclusion)
+            {{date('d/m/Y', strtotime($task->date_conclusion))}}
+            @else
+            em aberto
+            @endisset
+        </td>
+        {{formatPriority($task)}}
 
-    @section('js-scripts')
-    @endsection
+        @if($task->status == 'fazer' AND $task->journeys()->exists())
+        <td class='td-doing'>
+            andamento
+        </td>
+        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+        <td class='td-late'>
+            atrasada
+        </td>
+        @else
+        {{formatStatus($task)}}
+        @endif
+    </tr>
+    @endforeach
+        <tr>
+        <td   class="table-list-header-right"colspan="5">
+            TOTAL:
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatTotalHour($tasksCustomerServicesHours)}} horas
+        </td>
+    </tr>
+</table>
+<br>
+<div id='tarefas' style='text-align:right'>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Enviar material'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
+    </form>
+    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Reunião'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
+    </form>
+    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Fazer proposta'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='text-button secondary' type='submit' value='  FAZER ORÇAMENTO'>
+    </form>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Fazer contrato'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<br>
+<p class='labels'>  Criado em:   {{date('d/m/Y H:i', strtotime($opportunity->created_at))}} </p>
+
+<div style='text-align:right'>
+    @if($opportunity->trash == 1)
+    <form id="button-delete"  style="text-decoration: none;display: inline-block" action="{{route('opportunity.destroy', ['opportunity' => $opportunity])}}" method="post">
+        @csrf
+        @method('delete')
+        <button class='circular-button delete' onclick="return confirmDelete()" style='border: none;padding-left: 8px;padding-bottom: 5px' type='submit'>
+            <i class='fa fa-times'></i>
+        </button>
+    </form>
+    @else
+    <a class='circular-button delete' href='{{route('opportunity.trash', ['opportunity' => $opportunity->id])}}'>
+        <i class='fas fa-trash'></i>
+    </a>
+    @endif
+    <a class='circular-button secondary' href=' {{route('opportunity.edit', ['opportunity' => $opportunity->id])}}' style='text-decoration: none;display: inline-block'>
+        <i class='fa fa-edit'></i>
+    </a>
+    <a class='circular-button primary' href='{{route('opportunity.index')}}'>
+        <i class='fas fa-arrow-left'></i>
+    </a>
+</div>
+<br>
+<br>
+@endsection
+
+@section('js-scripts')
+@endsection
