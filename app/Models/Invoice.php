@@ -14,6 +14,7 @@ class Invoice extends Model {
 		'opportunity_id',
 		'company_id',
 		'contact_id',
+		'contract_id',
 		'description',
 		'date_creation',
 		'pay_day',
@@ -47,6 +48,9 @@ class Invoice extends Model {
 
 	public function contract() {
 		return $this->belongsTo(Contract::class);
+	}
+	public function contact() {
+		return $this->belongsTo(Contact::class);
 	}
 
 	public function invoiceLines() {

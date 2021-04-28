@@ -263,7 +263,8 @@ class InvoiceController extends Controller {
                     })
                     ->get();
 
-            $balance = $invoice->installment_value - $transactions->sum('value');
+            $invoicePaymentsTotal = $transactions->sum('value');
+            $balance = $invoice->installment_value - $invoicePaymentsTotal;
 
             return view('financial.invoices.showInvoice', compact(
                             'invoice',
@@ -272,6 +273,7 @@ class InvoiceController extends Controller {
                             'contracts',
                             'invoiceLines',
                             'transactions',
+                            'invoicePaymentsTotal',
                             'balance',
             ));
         }
@@ -302,8 +304,8 @@ class InvoiceController extends Controller {
 
         $invoicePaymentsTotal = $transactions->sum('value');
         $balance = $invoice->installment_value - $invoicePaymentsTotal;
-//dd($transactions->sum('value'));
-//dd($balance);
+//
+//dd($invoice->contact);
         return view('financial.invoices.showInvoice', compact(
                         'invoice',
                         'invoices',
@@ -352,19 +354,24 @@ class InvoiceController extends Controller {
         $contracts = Contract::where('invoice_id', $invoice->id)
                 ->orderBy('ID', 'ASC')
                 ->get();
+        
+                $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
         $variation = $invoice->type;
 
         return view('financial.invoices.editInvoice', compact(
                         'invoice',
                         'invoiceLines',
-                        'contracts',
                         'accounts',
                         'users',
                         'opportunities',
                         'companies',
                         'products',
                         'productsChecked',
+                        'contracts',
+                        'contacts',
                         'variation',
         ));
     }

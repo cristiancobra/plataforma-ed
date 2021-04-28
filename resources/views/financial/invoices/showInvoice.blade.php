@@ -81,6 +81,18 @@ Sem contrato
 Não possui
 @endif
 <br>
+<label class="labels" for="" >CONTATO:</label>
+@if(isset($invoice->contact_id))
+<span class="fields">{{$invoice->contact->name}}</span>
+<button class="button-round">
+    <a href="{{route('contact.show', ['contact' => $invoice->contact_id])}}">
+        <i class='fa fa-eye' style="color:white"></i>
+    </a>
+</button>
+@else
+Não possui
+@endif
+<br>
 <br>
 <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
 <span class="fields">{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>

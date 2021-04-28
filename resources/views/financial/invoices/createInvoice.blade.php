@@ -110,6 +110,15 @@
         {{createButtonAdd('company.create', 'typeCompanies','cliente')}}
         @endif
         <br>
+         <label class="labels" for="" >CONTATO: </label>
+        @if(!empty(app('request')->input('contact_id')))
+        <input type="hidden" name="contact_id" value="{{app('request')->input('contact_id')}}">
+                {{app('request')->input('contact_name')}}
+        @else
+        {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
+        {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
+        @endif
+        <br>
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_creation" size="20" value="{{old('date_creation')}}"><span class="fields"></span>

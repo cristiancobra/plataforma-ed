@@ -100,14 +100,6 @@ Total: <span class="labels"></span>
                         <i class='fa fa-eye'></i>
                     </button>
                 </a>
-                <a class="white" href=" {{route('transaction.edit', [
-					'transaction' => $transaction->id,
-					'typeTransactions' => $transaction->type,
-				])}}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
-                </a>
                 {{$transaction->pay_day}}
             </td>
             <td class="table-list-center">

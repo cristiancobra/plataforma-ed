@@ -52,6 +52,16 @@
     <p class="labels">
         MEIO DE PAGAMENTO:<span class="fields">{{$transaction->payment_method}}</span>
     </p>
+    <div class='row' style='margin-top: 30px'>
+    <div class='col-12' style='text-align: left'>
+        <div class='show-label-large'>
+            DESCRIÇÃO
+        </div>
+        <div class='description-field'>
+            {!!html_entity_decode($transaction->observations)!!}
+        </div>
+    </div>
+</div>
     <br>
     <br>
     <p class="labels">

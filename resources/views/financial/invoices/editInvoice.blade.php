@@ -71,13 +71,11 @@
         </button>
         @endif
         <br>
-        @if(isset($invoice->opportunity_id))
-        <label class="labels" for="" >CONTATO:</label>
-        <span class="fields">{{$invoice->opportunity->contact->name}}</span>
-        <a href="{{route('contact.show', ['contact' => $invoice->opportunity->contact_id])}}">
-            <i class='fa fa-eye' style="color:white"></i>
-        </a>
+         <label class="labels" for="" >CONTATO: </label>
+        {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $invoice->contact, )}}
+        {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
         <br>
+        @if(isset($invoice->opportunity_id))
         <label class="labels" for="" >CONTRATO: </label>
         <select name="contract_id">
             <option  class="fields" value="{{$invoice->contract_id}}">
@@ -89,9 +87,9 @@
             </option>
             @endforeach
         </select>
-        <br>
-        <br>
         @endif
+        <br>
+        <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_creation" size="20" value="{{$invoice->date_creation}}"><span class="fields"></span>
         <br>
