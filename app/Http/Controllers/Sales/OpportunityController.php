@@ -143,8 +143,42 @@ class OpportunityController extends Controller {
                     ->orderBy('PAY_DAY', 'ASC')
                     ->get();
 
+            $invoiceInstallmentsTotal = $invoices->sum('installment_value');
+            $invoicePaymentsTotal = $invoices->sum('paid');
+            $balance = $invoiceInstallmentsTotal - $invoicePaymentsTotal;
+
             $tasks = Task::where('opportunity_id', $opportunity->id)
                     ->get();
+
+            $tasksSales = Task::where('opportunity_id', $opportunity->id)
+                    ->where('department', '=', 'vendas')
+                    ->get();
+
+            $tasksSalesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
+                        $query->where('opportunity_id', $opportunity->id);
+                        $query->where('department', '=', 'vendas');
+                    })
+                    ->sum('duration');
+
+            $tasksOperational = Task::where('opportunity_id', $opportunity->id)
+                    ->where('department', '=', 'produção')
+                    ->get();
+
+            $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($opportunity) {
+                        $query->where('opportunity_id', $opportunity->id);
+                        $query->where('department', '=', 'produção');
+                    })
+                    ->sum('duration');
+
+            $tasksCustomerServices = Task::where('opportunity_id', $opportunity->id)
+                    ->where('department', '=', 'atendimento')
+                    ->get();
+
+            $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
+                        $query->where('opportunity_id', $opportunity->id);
+                        $query->where('department', '=', 'atendimento');
+                    })
+                    ->sum('duration');
 
             $contracts = Contract::where('opportunity_id', $opportunity->id)
                     ->get();
@@ -157,7 +191,16 @@ class OpportunityController extends Controller {
             return view('sales.opportunities.showOpportunity', compact(
                             'opportunity',
                             'invoices',
+                            'invoiceInstallmentsTotal',
+                            'invoicePaymentsTotal',
+                            'balance',
                             'tasks',
+                            'tasksSales',
+                            'tasksSalesHours',
+                            'tasksOperational',
+                            'tasksOperationalHours',
+                            'tasksCustomerServices',
+                            'tasksCustomerServicesHours',
                             'contracts',
                             'contactCompanies',
             ));
@@ -182,10 +225,10 @@ class OpportunityController extends Controller {
 
         foreach ($invoices as $invoice) {
             if ($invoice->status == 'aprovada') {
-            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                $invoice->paid = Transaction::where('invoice_id', $invoice->id)
 //                    ->where('department', '=', 'vendas')
-                    ->sum('value');
-        }
+                        ->sum('value');
+            }
         }
 
 //        $transactions = Transaction::whereHas('opportunity_id', function ($query) use ($invoice) {
@@ -316,8 +359,42 @@ class OpportunityController extends Controller {
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
+        $invoiceInstallmentsTotal = $invoices->sum('installment_value');
+        $invoicePaymentsTotal = $invoices->sum('paid');
+        $balance = $invoiceInstallmentsTotal - $invoicePaymentsTotal;
+
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->get();
+
+        $tasksSales = Task::where('opportunity_id', $opportunity->id)
+                ->where('department', '=', 'vendas')
+                ->get();
+
+        $tasksSalesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
+                    $query->where('opportunity_id', $opportunity->id);
+                    $query->where('department', '=', 'vendas');
+                })
+                ->sum('duration');
+
+        $tasksOperational = Task::where('opportunity_id', $opportunity->id)
+                ->where('department', '=', 'produção')
+                ->get();
+
+        $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($opportunity) {
+                    $query->where('opportunity_id', $opportunity->id);
+                    $query->where('department', '=', 'produção');
+                })
+                ->sum('duration');
+
+        $tasksCustomerServices = Task::where('opportunity_id', $opportunity->id)
+                ->where('department', '=', 'atendimento')
+                ->get();
+
+        $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
+                    $query->where('opportunity_id', $opportunity->id);
+                    $query->where('department', '=', 'atendimento');
+                })
+                ->sum('duration');
 
         $contracts = Contract::where('opportunity_id', $opportunity->id)
                 ->get();
@@ -330,7 +407,16 @@ class OpportunityController extends Controller {
         return view('sales.opportunities.showOpportunity', compact(
                         'opportunity',
                         'invoices',
+                        'invoiceInstallmentsTotal',
+                        'invoicePaymentsTotal',
+                        'balance',
                         'tasks',
+                        'tasksSales',
+                        'tasksSalesHours',
+                        'tasksOperational',
+                        'tasksOperationalHours',
+                        'tasksCustomerServices',
+                        'tasksCustomerServicesHours',
                         'contracts',
                         'contactCompanies',
         ));

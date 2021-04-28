@@ -13,7 +13,7 @@ class AddCompanyIdColumnInOpportunitiesTable extends Migration {
 	 */
 	public function up() {
 		Schema::table('opportunities', function (Blueprint $table) {
-			$table->foreignId('company_id');
+			$table->foreignId('company_id')->nullable();
 		});
 	}
 
