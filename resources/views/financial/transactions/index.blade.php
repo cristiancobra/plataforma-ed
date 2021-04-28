@@ -82,7 +82,7 @@ Total: <span class="labels"></span>
                 CONTA
             </td>
             <td   class="table-list-header" style="width: 20%">
-                ORIGEM
+                ORIGEM / DESTINO
             </td>
             <td   class="table-list-header" style="width: 10%">
                 FATURA
@@ -113,10 +113,10 @@ Total: <span class="labels"></span>
                 {{$transaction->account->name}}
             </td>
             <td class="table-list-center">
-                @if(isset($transction->invoice->company->name))
-                {{$transction->invoice->company->name}}
-                @elseif(isset($transction->invoice->contact->name))
-                {{$transction->invoice->contact->name}}
+                @if(isset($transaction->invoice->company->name))
+                {{$transaction->invoice->company->name}}
+                @elseif(isset($transaction->invoice->contact->name))
+                {{$transaction->invoice->contact->name}}
                 @else
                 Não possui
                 @endif

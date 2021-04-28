@@ -67,7 +67,7 @@ class TransactionController extends Controller {
 
             $bankAccount->revenueTotal = $bankAccount->opening_balance + $revenueTotal[$key] - $expenseTotal[$key];
         }
-
+//dd($transactions);
         return view('financial.transactions.index', compact(
                         'bankAccounts',
                         'transactions',
