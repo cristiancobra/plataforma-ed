@@ -238,7 +238,7 @@ class OpportunityController extends Controller {
 
         $invoiceInstallmentsTotal = $invoices->sum('installment_value');
         $invoicePaymentsTotal = $invoices->sum('paid');
-        $balance = $invoice->installment_value - $invoicePaymentsTotal;
+        $balance = $invoiceInstallmentsTotal - $invoicePaymentsTotal;
 
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->get();
