@@ -98,9 +98,9 @@
         <form   style="text-decoration: none;display: inline-block" action="{{route('company.destroy', ['company' => $company->id])}}" method="post">
             @csrf
             @method('delete')
-            <a class='circular-button delete' type='submit' href=''>
+            <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
                 <i class='fa fa-trash'></i>
-            </a>
+            </button>
         </form>
         <a class="circular-button secondary" href="{{route('company.edit', [
                                                                                                                     'company' => $company->id,
