@@ -92,7 +92,11 @@ CKEDITOR.replace('description');
         <label class="labels" for="" >
             INÍCIO: 
         </label>
+        @if(old('start_time'))
         <input type="time" name="start_time" size="50" value="{{old('start_time')}}"><span class="fields"></span>
+        @else
+        <input type="time" name="start_time" size="50" value="{{date('H:i')}}"><span class="fields"></span>
+        @endif
         @if ($errors->has('start_time'))
         <span class="text-danger">{{ $errors->first('start_time') }}</span>
         @endif

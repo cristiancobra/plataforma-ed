@@ -93,7 +93,7 @@ CKEDITOR.replace('description');
             <br>
         </label>
         @if ($journey->end_time == null)
-        <input type="time" name="end_time" size="50"><span class="fields"></span>
+        <input type="time" name="end_time" size="50" value='{{date('H:i')}}'><span class="fields"></span>
         @else
         <input type="time" name="end_time" size="50"  value="{{ date('H:i', strtotime($journey->end_time)) }}"><span class="fields"></span>
         @endif

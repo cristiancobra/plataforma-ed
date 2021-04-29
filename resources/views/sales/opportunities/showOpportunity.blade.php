@@ -185,42 +185,6 @@ indefinida
         <input type='hidden' name='department' value='vendas'>
         <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
     </form>
-    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
-        @csrf
-        <input type='hidden' name='task_name' value='Fazer proposta'>
-        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-        @if(isset($opportunity->company))
-        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-        @endif
-        @if($opportunity->contact)
-        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-        @endif
-        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-        <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='  FAZER ORÇAMENTO'>
-    </form>
-    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
-        @csrf
-        <input type='hidden' name='task_name' value='Fazer contrato'>
-        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-        @if(isset($opportunity->company))
-        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-        @endif
-        @if($opportunity->contact)
-        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-        @endif
-        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-        <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
-    </form>
 </div>
 <br>
 <br>
@@ -292,7 +256,7 @@ indefinida
         @endif
     </tr>
     @endforeach
-       <tr>
+    <tr>
         <td   class="table-list-header-right" colspan="5">
             VALOR TOTAL: 
         </td>
@@ -322,6 +286,24 @@ indefinida
 </table>
 <br>
 <div id='faturas' style='text-align:right'>
+    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='Fazer proposta'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='text-button secondary' type='submit' value='  FAZER ORÇAMENTO'>
+    </form>
     <form  style='display: inline-block' method='POST' action='{{route('invoice.create')}}'>
         @csrf
         @method('post')
@@ -425,7 +407,25 @@ indefinida
 </table>
 <br>
 <div id='contratos' style='text-align:right'>
-    <form action='{{route('contract.create')}}' method='post'>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='FAZER CONTRATO:'>
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+        @if(isset($opportunity->company))
+        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
+        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
+        @endif
+        @if($opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+        <input type='hidden' name='department' value='vendas'>
+        <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
+    </form>
+    <form style='display: inline-block' action='{{route('contract.create')}}' method='post'>
         @csrf
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
@@ -523,7 +523,7 @@ indefinida
 <div id='produção' style='text-align:right'>
     <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
-        <input type='hidden' name='task_name' value='PRODUZIR: $opportunity->name'>
+        <input type='hidden' name='task_name' value='PRODUZIR:'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
         @if($opportunity->contact)
@@ -537,7 +537,7 @@ indefinida
     </form>
     <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
-        <input type='hidden' name='task_name' value='ENTREGAR: $opportunity->name'>
+        <input type='hidden' name='task_name' value='ENTREGAR:'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
         @if($opportunity->contact)
@@ -617,7 +617,7 @@ indefinida
         @endif
     </tr>
     @endforeach
-        <tr>
+    <tr>
         <td   class="table-list-header-right"colspan="5">
             TOTAL:
         </td>
@@ -630,7 +630,7 @@ indefinida
 <div id='tarefas' style='text-align:right'>
     <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
         @csrf
-        <input type='hidden' name='task_name' value='Enviar material'>
+        <input type='hidden' name='task_name' value='ATENDIMENTO:'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
         @if(isset($opportunity->company))
@@ -643,62 +643,8 @@ indefinida
         @endif
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-        <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
-    </form>
-    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
-        @csrf
-        <input type='hidden' name='task_name' value='Reunião'>
-        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-        @if(isset($opportunity->company))
-        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-        @endif
-        @if($opportunity->contact)
-        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-        @endif
-        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-        <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
-    </form>
-    <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
-        @csrf
-        <input type='hidden' name='task_name' value='Fazer proposta'>
-        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-        @if(isset($opportunity->company))
-        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-        @endif
-        @if($opportunity->contact)
-        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-        @endif
-        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-        <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='  FAZER ORÇAMENTO'>
-    </form>
-    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
-        @csrf
-        <input type='hidden' name='task_name' value='Fazer contrato'>
-        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-        <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-        @if(isset($opportunity->company))
-        <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-        <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-        @endif
-        @if($opportunity->contact)
-        <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-        @endif
-        <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-        <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-        <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
+        <input type='hidden' name='department' value='atendimento'>
+        <input class='text-button secondary' type='submit' value='REGISTRAR ATENDIMENTO'>
     </form>
 </div>
 <br>
