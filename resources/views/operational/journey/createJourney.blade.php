@@ -84,7 +84,11 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >DATA:</label>
+        @if(old('date'))
         <input type="date" name="date" value="{{old('date')}}">
+        @else
+        <input type="date" name="date" value="{{date('Y-m-d')}}">
+        @endif
         @if ($errors->has('date'))
         <span class="text-danger">{{$errors->first('date')}}</span>
         @endif
