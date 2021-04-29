@@ -160,21 +160,6 @@ if (!function_exists('editDoubleSelectIdName')) {
     }
 
 }
-if (!function_exists('editSelect')) {
-
-    /* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
-      e retorna o valor a editar */
-
-    function editSelect($name, $class, array $options, $currentValue) {
-        echo "<select class = '$class' name = '$name'>";
-        echo "<option value='$currentValue'>$currentValue</option>";
-        foreach ($options as $option) {
-            echo "<option value=\"$option\">$option</option><br>";
-        }
-        echo "</select>";
-    }
-
-}
 if (!function_exists('editDoubleSelect')) {
 
     /* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
@@ -193,8 +178,9 @@ if (!function_exists('editDoubleSelect')) {
 if (!function_exists('createSimpleSelect')) {
 
 // cria as opções de um select recebendo um array com 1 posição
-    function createSimpleSelect($name, $class, array $options) {
+    function createSimpleSelect($name, $class, array $options, $currentValue = null) {
         echo "<select class=$class name=$name>";
+        echo "<option value='$currentValue'>$currentValue</option>";
         foreach ($options as $option) {
             if (old($name) == $option) {
                 echo "<option value='$option' selected='selected'>$option</option><br>";
@@ -206,23 +192,6 @@ if (!function_exists('createSimpleSelect')) {
     }
 
 }
-
-//if (!function_exists('filterTasks')) {
-// filtro das tarefas
-//	function filterTasks(array $filters) {
-//		if ($filters->name == null && $filters->user_id == null && $filters->contact_id == null && $filters->status == null) {
-//				$tasks = Task::where(function ($query) use ($accountsID, $request) {
-//							$query->whereIn('account_id', $accountsID);
-//							$query->where('status', '!=', 'feito')
-//							->where('status', '!=', 'cancelado');
-//						})
-////						->orderByRaw(DB::raw("FIELD(status, 'fazendo agora', 'pendente')"))
-//						->with('opportunity')
-//						->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-//						->orderBy('date_due', 'ASC')
-//						->paginate(20);
-//		}
-//	}
 
 if (!function_exists('userAccounts')) {
 
