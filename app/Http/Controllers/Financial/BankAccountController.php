@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
 use App\Models\Bank;
 use App\Models\BankAccount;
+use App\Models\Transaction;
 
 class BankAccountController extends Controller {
 
@@ -98,6 +99,8 @@ class BankAccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(BankAccount $bankAccount) {
+        $bankAccount->transactions = Transaction::where('bank_account_id', $bankAccount->id)
+                ->get();
 
         return view('financial.bankAccounts.showBankAccount', compact(
                         'bankAccount',

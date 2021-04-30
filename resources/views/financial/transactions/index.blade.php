@@ -72,20 +72,23 @@ Total: <span class="labels"></span>
 <div>
     <table class="table-list">
         <tr>
-            <td   class="table-list-header" style="width: 20%">
+            <td   class="table-list-header" style="width: 10%">
                 DATA
             </td>
-            <td   class="table-list-header" style="width: 20%">
+            <td   class="table-list-header" style="width: 25%">
+                OPORTUNIDADE
+            </td>
+            <td   class="table-list-header" style="width: 5%">
+                FATURA
+            </td>
+            <td   class="table-list-header" style="width: 15%">
                 CONTA BANCÁRIA
             </td>
             <td   class="table-list-header" style="width: 20%">
                 CONTA
             </td>
-            <td   class="table-list-header" style="width: 20%">
+            <td   class="table-list-header" style="width: 15%">
                 ORIGEM / DESTINO
-            </td>
-            <td   class="table-list-header" style="width: 10%">
-                FATURA
             </td>
             <td   class="table-list-header" style="width: 10%">
                 VALOR
@@ -99,38 +102,52 @@ Total: <span class="labels"></span>
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
                     </button>
+                {{dateBr($transaction->pay_day)}}
                 </a>
-                {{$transaction->pay_day}}
+            </td>
+            <td class="table-list-left">
+                @if($transaction->invoice->opportunity != null)
+                <a href=" {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity_id])}}">
+                {{$transaction->invoice->opportunity->name}}
+                </a>
+                @else
+                não possui
+                @endif
+            </td>
+              <td class="table-list-center">
+                @if($transaction->invoice_id != null)
+                <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
+                {{$transaction->invoice_id}}
+                </a>
+                @else
+                excluida
+                @endif
             </td>
             <td class="table-list-center">
                 @if($transaction->bankAccount)
+                <a class="white" href=" {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}">
                 {{$transaction->bankAccount->name}}
+                </a>
                 @else
                 conta excluída
                 @endif
             </td>
             <td class="table-list-center">
+                <a class="white" href=" {{route('account.show', ['account' => $transaction->account->id])}}">
                 {{$transaction->account->name}}
+                </a>
             </td>
             <td class="table-list-center">
                 @if(isset($transaction->invoice->company->name))
+                <a class="white" href=" {{route('company.show', ['company' => $transaction->invoice->company->id])}}">
                 {{$transaction->invoice->company->name}}
+                </a>
                 @elseif(isset($transaction->invoice->contact->name))
+                <a class="white" href=" {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}">
                 {{$transaction->invoice->contact->name}}
+                </a>
                 @else
                 Não possui
-                @endif
-            </td>
-            <td class="table-list-center">
-                @if($transaction->invoice_id != null)
-                <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
-                {{$transaction->invoice_id}}
-                @else
-                excluida
                 @endif
             </td>
             @if($transaction->type == "débito")

@@ -16,11 +16,12 @@ html,body{
 
 a:hover {
     color: #F905E9;
+    text-decoration: none;
 }
 
 a {
     color: #874983;
-    text-decoration: underline;
+    text-decoration: none;
 }
 
 .bg-primary {
@@ -631,6 +632,7 @@ a {
 }
 
 .table-list-center{ 
+    background-color: #EEEEEE;
     display: table-cell;
     vertical-align:super;
     border-bottom: solid;
@@ -638,7 +640,12 @@ a {
     font-size: 13px;
 }
 
+.table-list-center:hover{ 
+background-color: #f9d0ff;
+}
+
 .table-list-right{ 
+    background-color: #EEEEEE;
     display: table-cell;  
     padding:0.5%;
     text-align: right;
@@ -648,7 +655,11 @@ a {
     font-weight: bolder;
     font-size: 13px;
 }
+.table-list-right:hover{ 
+background-color: #f9d0ff;
+}
 .table-list-left{ 
+    background-color: #EEEEEE;
     display: table-cell;  
     padding:0.5%;
     text-align: justify;
@@ -657,6 +668,9 @@ a {
     border-width: 1px;
     font-weight: bolder;
     font-size: 13px;
+}
+.table-list-left:hover{ 
+background-color: #f9d0ff;
 }
 
 .table-list-left ul{ 
@@ -685,6 +699,9 @@ a {
 }
 
 .table-list-header{ 
+    border: solid;
+    border-width: 1px;
+    border-color: #874983;
     display: table-cell;  
     font-size: 13px;
     padding-left: 10px;
