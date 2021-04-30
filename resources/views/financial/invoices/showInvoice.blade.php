@@ -308,6 +308,7 @@ $counter++;
 </table>
 <br>
 <p style="text-align: right">
+    @if($typeInvoices == 'receita')
 <a class="text-button secondary" href="{{route('transaction.create', [
 		'invoiceId' => $invoice->id,
 		'invoiceIdentifier' => $invoice->identifier,
@@ -317,8 +318,21 @@ $counter++;
 		'invoiceTotalPrice' => $invoice->totalPrice,
 				
 	])}}">
-    REGISTRAR PAGAMENTO
+    REGISTRAR ENTRADA
 </a>
+    @elseif($typeInvoices == 'despesa')
+    <a class="text-button secondary" href="{{route('transaction.create', [
+		'invoiceId' => $invoice->id,
+		'invoiceIdentifier' => $invoice->identifier,
+		'accountId' => $invoice->account_id,
+		'accountName' => $invoice->account->name,
+		'typeTransactions' => 'despesa',
+		'invoiceTotalPrice' => $invoice->totalPrice,
+				
+	])}}">
+    REGISTRAR SAÍDA
+</a>
+    @endif
 </p>
 <br>
 <br>

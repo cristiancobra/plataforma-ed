@@ -286,6 +286,8 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Invoice $invoice) {
+        $typeInvoices = $invoice->type;
+        
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
@@ -307,6 +309,7 @@ class InvoiceController extends Controller {
 //
 //dd($invoice->contact);
         return view('financial.invoices.showInvoice', compact(
+                        'typeInvoices',
                         'invoice',
                         'invoices',
                         'invoiceLines',
