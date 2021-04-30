@@ -39,7 +39,7 @@
 		</select>
 		<br>
 		<label class="labels" for="" >CATEGORIA:</label>
-		{{editSelect('category', 'fields', returnProductCategory(), $product->category)}}
+		{{createSimpleSelect('category', 'fields', returnProductCategory(), $product->category)}}
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>
@@ -85,7 +85,7 @@ CKEDITOR.replace('description');
 		<br>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		{{editSelect('status', 'fields', returnProductStatus(), $product->status)}}
+		{{createSimpleSelect('status', 'fields', returnProductStatus(), $product->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

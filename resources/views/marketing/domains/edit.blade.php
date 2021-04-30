@@ -69,7 +69,7 @@
 		<input type="date" name="due_date" size="20" value="{{$domain->due_date}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		{{createSelect('status', 'fields', returnStatusActive())}}
+		{{createSimpleSelect('status', 'fields', returnStatusActive())}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

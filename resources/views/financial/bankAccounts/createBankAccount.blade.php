@@ -86,10 +86,10 @@ CKEDITOR.replace('observations');
 		<br>
 		<br>
 		<label for="">Tipo: </label>
-		{{createSelect('type', 'fields', returnBankAccountType())}}
+		{{createSimpleSelect('type', 'fields', returnBankAccountType())}}
 		<br>
 		<label for="">Situação: </label>
-		{{createSelect('status', 'fields', returnBankAccountStatus())}}
+		{{createSimpleSelect('status', 'fields', returnBankAccountStatus())}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR">

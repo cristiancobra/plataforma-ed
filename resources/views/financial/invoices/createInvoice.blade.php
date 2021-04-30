@@ -255,7 +255,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-        {{createSelect('payment_method', 'fields', returnPaymentMethods())}}
+        {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
         <br>
         <label class="labels" for="" >NÚMERO DE PARCELAS: </label>
         <input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1" max="12">
@@ -266,7 +266,7 @@ CKEDITOR.replace('description');
         <input type="hidden" name="status" value="{{app('request')->input('invoiceStatus')}}">
         {{app('request')->input('invoiceStatus')}}
         @else
-        {{createSelect('status', 'fields', returnInvoiceStatus())}}
+        {{createSimpleSelect('status', 'fields', returnInvoiceStatus())}}
         @endif
         <br>
         <br>

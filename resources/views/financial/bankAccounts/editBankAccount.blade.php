@@ -86,7 +86,7 @@ CKEDITOR.replace('observations');
 		</script>
 		<br>
 		<label for="">Stituação: </label>
-		{{editSelect('status', 'fields', returnBankAccountStatus(), $bankAccount->status)}}
+		{{createSimpleSelect('status', 'fields', returnBankAccountStatus(), $bankAccount->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

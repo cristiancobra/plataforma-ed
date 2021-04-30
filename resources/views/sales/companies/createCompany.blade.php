@@ -141,7 +141,7 @@
         <br>
         <br>
         <label for="status">SITUAÇÃO: </label>
-        {{createSelect('status', 'fields', returnStatusActive())}}
+        {{createSimpleSelect('status', 'fields', returnStatusActive())}}
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="CRIAR">

@@ -175,7 +175,7 @@ CKEDITOR.replace('observations');
         <br>
         <br>
         <label class='labels' for=''>SITUAÇÃO:</label>
-        {{createSelect('status','fields', returnContractStatus())}}
+        {{createSimpleSelect('status','fields', returnContractStatus())}}
         <br>
         <br>
         <input class='btn btn-secondary' type='submit' value='CRIAR'>

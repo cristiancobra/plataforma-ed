@@ -30,7 +30,7 @@
 		<br>
 		<br>
 		<label class="labels" for="" >NOME DA REDE SOCIAL:</label>
-		{{createSelect('socialmedia_name', 'fields', returnSocialmediaType())}}
+		{{createSimpleSelect('socialmedia_name', 'fields', returnSocialmediaType())}}
 		<br>
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
 		<input type="text" name="page_name" size="20"><span class="fields"></span>
@@ -217,7 +217,7 @@
 		<input type="number" name="value_ads" step="10" value="0">
 		<br>
 		<label class="labels" for="">STATUS:</label>
-		{{createSelect('status', 'fields', returnStatusActive())}}
+		{{createSimpleSelect('status', 'fields', returnStatusActive())}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CADASTRAR PÁGINA">

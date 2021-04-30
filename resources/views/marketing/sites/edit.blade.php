@@ -63,7 +63,7 @@
 		<input type="date" name="creation_date" size="20"  value="{{$site->creation_date}}"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		{{editSelect('status', 'fields', returnStatusActive(), $site->status)}}
+		{{createSimpleSelect('status', 'fields', returnStatusActive(), $site->status)}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

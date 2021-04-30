@@ -81,18 +81,6 @@ if (!function_exists('createFilterSelectModels')) {
     }
 
 }
-if (!function_exists('createSelect')) {
-
-// cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
-    function createSelect($name, $class, array $options) {
-        echo "<select class = '$class' name = '$name'  value='old('$name')>";
-        foreach ($options as $option) {
-            echo "<option value=\"$option\">$option</option><br>";
-        }
-        echo "</select>";
-    }
-
-}
 if (!function_exists('createDoubleSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array com DUAS POSIÇÕES de OPÇÕES

@@ -324,7 +324,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="">SITUAÇÃO:</label>
-        {{editSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}
+        {{createSimpleSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}
         <br>
         <br>
         <input type='submit' value='enviar'>

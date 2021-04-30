@@ -72,7 +72,7 @@
 		<input type="date" name="due_date" size="20"><span class="fields"></span>
 		<br>
 		<label class="labels" for="">SITUAÇÃO:</label>
-		{{createSelect('status', 'fields', returnStatusActive())}}
+		{{createSimpleSelect('status', 'fields', returnStatusActive())}}
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CRIAR">

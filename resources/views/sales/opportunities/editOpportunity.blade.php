@@ -101,7 +101,7 @@ CKEDITOR.replace('description');
 
         <br>
         <label class="labels" for="">ETAPA DA VENDA:</label>
-        {{editSelect('stage', 'fields', $stages, $opportunity->stage)}}
+        {{createSimpleSelect('stage', 'fields', $stages, $opportunity->stage)}}
         <br>
         <label class="labels" for="" >PRÓXIMO CONTATO:</label>
         <input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>

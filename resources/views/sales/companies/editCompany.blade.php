@@ -136,7 +136,7 @@
         <br>
         <br>
         <label for="status">SITUAÇÃO: </label>
-        {{editSelect('status', 'fields', returnStatusActive(), $company->status)}}
+        {{createSimpleSelect('status', 'fields', returnStatusActive(), $company->status)}}
         <br>
         <br>
         <div style="text-align:right">
