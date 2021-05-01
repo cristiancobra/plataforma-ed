@@ -1155,6 +1155,19 @@ if (!function_exists('returnInvoiceStatus')) {
             'orçamento',
             'cancelada',
             'aprovada',
+        );
+    }
+
+}
+// retorna o STATUS / SITUAÇÃO da fatura especificamente para o filtro
+if (!function_exists('returnInvoiceStatusToFilter')) {
+
+    function returnInvoiceStatusToFilter() {
+        return $status = array(
+            'rascunho',
+            'orçamento',
+            'cancelada',
+            'aprovada',
             'parcial',
             'paga',
         );

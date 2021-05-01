@@ -276,7 +276,7 @@ indefinida
     </tr>
     <tr>
         <td   class="table-list-header-right"colspan="5">
-            SALDO:
+            RECEBER:
         </td>
         </td>
         <td   class="table-list-header-right" colspan="1">

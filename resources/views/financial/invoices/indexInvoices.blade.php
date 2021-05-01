@@ -80,7 +80,7 @@ Total: <span class="labels">{{$total}}</span>
     <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
     {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
-    {{createFilterSelect('status', 'select', returnInvoiceStatus(), 'Todas as situações')}}
+    {{createFilterSelect('status', 'select', returnInvoiceStatusToFilter(), 'Todas as situações')}}
     {{returnType('type', 'select', 'invoice')}}
     <br>
     <a class="text-button secondary" href='{{route('invoice.index')}}'>
