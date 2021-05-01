@@ -33,7 +33,7 @@
 <div>
     <form action=" {{route('transaction.store')}} " method="post" style="color: #874983">
         @csrf
-        <label for="" >EMPRESA: </label>
+        <label class="labels" for="">EMPRESA: </label>
         @if(!empty(app('request')->input('accountId')))
         <input type="hidden" name='account_id' value="{{app('request')->input('accountId')}}">
         {{app('request')->input('accountName')}}
@@ -47,7 +47,7 @@
         </select>
         @endif
         <br>
-        <label for="" >REGISTRADO POR:</label>
+        <label class="labels" for="">REGISTRADO POR:</label>
         <select name="user_id">
             <option  class="fields" value="{{Auth::user()->id}}">
                 {{Auth::user()->contact->name}}
@@ -59,7 +59,7 @@
             @endforeach
         </select>
         <br>
-        <label for="" >CONTA:</label>
+        <label class="labels" for="">CONTA:</label>
         <select name="bank_account_id">
             @foreach ($bankAccounts as $bankAccount)
             <option  class="fields" value="{{$bankAccount->id}}">
@@ -69,7 +69,7 @@
         </select>
         <br>
         <br>
-        <label for="" >FATURA: </label>
+        <label class="labels" for="">FATURA: </label>
         @if(!empty(app('request')->input('invoiceId')))
         <input type="hidden" name='invoice_id' value="{{app('request')->input('invoiceId')}}">
         {{app('request')->input('invoiceIdentifier')}}
@@ -78,7 +78,7 @@
             @foreach ($invoices as $invoice)
             <option  class="fields" value="{{$invoice->id}}" style="max-width:600px">
                 {{$invoice->id}} -
-                @if(isset($invoice->opportunity))
+                @if(isset($invoice->opportunity->company->name))
                 {{$invoice->opportunity->company->name}}
                 @endif
                 @if(isset($invoice->company))
@@ -92,7 +92,7 @@
         {{createButtonAdd('invoice.create')}}
         @endif
         <br>
-        <label for="" >TIPO: </label>
+        <label class="labels" for="">TIPO: </label>
         @if(!empty(app('request')->input('invoiceType')))
         <input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
         {{app('request')->input('invoiceType')}}
@@ -105,13 +105,13 @@
         @endif
         <br>
         <br>
-        <label for="" >DATA:</label>
+        <label class="labels" for="">DATA:</label>
         <input type="date" name="pay_day" value="{{date('d-m-y')}}">
         @if ($errors->has('pay_day'))
         <span class="text-danger">{{$errors->first('pay_day')}}</span>
         @endif
         <br>
-        <label for="">VALOR: </label><span style='margin-left:20px'>R$</span>
+        <label class="labels" for="">VALOR: </label><span style='margin-left:20px'>R$</span>
         @if ($errors->has('value'))
         <span class="text-danger">{{$errors->first('value')}}</span>
         @endif
@@ -120,9 +120,12 @@
         @else
         <input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(0)}}">
         @endif
+              <br>
+        <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+        {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
         <br>
         <br>
-        <label for="" >Observações: </label>
+        <label class="labels" for="">Observações: </label>
         <textarea id="observations" name="observations" rows="5" cols="90" value="{{old('observations')}}">
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->

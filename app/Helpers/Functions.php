@@ -168,7 +168,9 @@ if (!function_exists('createSimpleSelect')) {
 // cria as opções de um select recebendo um array com 1 posição
     function createSimpleSelect($name, $class, array $options, $currentValue = null) {
         echo "<select class=$class name=$name>";
-        echo "<option value='$currentValue'>$currentValue</option>";
+        if ($currentValue != null) {
+            echo "<option value='$currentValue'>$currentValue</option>";
+        }
         foreach ($options as $option) {
             if (old($name) == $option) {
                 echo "<option value='$option' selected='selected'>$option</option><br>";
@@ -531,11 +533,11 @@ if (!function_exists('returnPaymentMethods')) {
 
     function returnPaymentMethods() {
         return $states = array(
-            'dinheiro',
             'transferência bancária',
-            'boleto',
-            'cartão de crédito',
             'pix',
+            'cartão de crédito',
+            'dinheiro',
+            'boleto',
         );
     }
 
@@ -1343,7 +1345,7 @@ if (!function_exists('formatCurrency')) {
 if (!function_exists('formatTotalHour')) {
 
     function formatTotalHour($value) {
-        return number_format($value / 3600, 1, ',','.');
+        return number_format($value / 3600, 1, ',', '.');
     }
 
 }
@@ -1369,8 +1371,8 @@ if (!function_exists('removeCurrency')) {
         $value = str_replace('R', '', $value);
         $value = str_replace('$', '', $value);
         $value = str_replace('.', '', $value);
-        $value = str_replace(',','.', $value);
-        return $value;        
+        $value = str_replace(',', '.', $value);
+        return $value;
     }
 
 }
@@ -1387,21 +1389,21 @@ if (!function_exists('createSidebarItem')) {
             </button>
             <ul class='dropdown-menu bg-primary' aria-labelledby='$aria'>
                 ";
-        
-        foreach($itens as $item) {
-        echo "
+
+        foreach ($itens as $item) {
+            echo "
                   <li class='nav-item'>
-                    <a class='dropdown-item link-light' href='".$item['link']."'>
-                        <i class='".$item['faIcon']." ms-0 me-1'></i>
-                        <span class='d-xl-inline'>".$item['name']."</span>
+                    <a class='dropdown-item link-light' href='" . $item['link'] . "'>
+                        <i class='" . $item['faIcon'] . " ms-0 me-1'></i>
+                        <span class='d-xl-inline'>" . $item['name'] . "</span>
                     </a>
                 </li>
                 ";
         }
-                echo "
+        echo "
             </ul>
         </div>           
 ";
-        
     }
+
 }
