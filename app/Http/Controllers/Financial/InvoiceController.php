@@ -295,9 +295,8 @@ class InvoiceController extends Controller {
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
-//dd($invoices);
         $invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
-                    $query->where('opportunity_id', $invoice->opportunity_id);
+                    $query->where('invoice_id', $invoice->id);
                 })
                 ->get();
 

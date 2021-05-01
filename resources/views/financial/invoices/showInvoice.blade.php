@@ -328,7 +328,7 @@ $counter++;
 </p>
 <br>
 <br>
-@if($invoice->status == 'receita')
+@if($invoice->type == 'receita')
 <div style="display: inline-block">
     <img src="{{asset('imagens/invoice.png')}}" width="40px" alt="40px">
     <label class="labels" for="" >PARCELAMENTO:</label>
