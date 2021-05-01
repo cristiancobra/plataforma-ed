@@ -30,7 +30,7 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('invoice.store')}} " method="post" style="color: #874983">
+    <form action=" {{route('invoice.store')}} " method="post">
         @csrf
         <input type="hidden" name="type" value="{{$typeInvoices}}">
         <label class="labels" for="" >EMPRESA:</label>
@@ -101,6 +101,9 @@
         @else
         <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
         <select name="company_id">
+            <option  class="fields" value="">
+                Não possui
+            </option>
             @foreach ($companies as $company)
             <option  class="fields" value="{{$company->id}}">
                 {{$company->name}}
@@ -253,9 +256,6 @@ CKEDITOR.replace('description');
         <label class="labels" for="" >DESCONTO:</label><span style='margin-left:20px'>R$</span>
         <input type="number" name="discount"  step='any' style="text-align: right" size='6' value="{{formatCurrency(0)}}"><span class="fields"></span>
         <br>
-        <br>
-        <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
-        {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
         <br>
         <label class="labels" for="" >NÚMERO DE PARCELAS: </label>
         <input type="number"  class="fields" style="text-align: right" name="number_installment_total" value="1" max="12">

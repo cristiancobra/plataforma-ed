@@ -228,7 +228,7 @@ indefinida
         <td class='table-list-center'>
             {{date('d/m/Y', strtotime($invoice->date_creation))}}
         </td>
-        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+        @if($invoice->status == 'aprovada' AND $invoice->paid == 0 AND $invoice->pay_day < date('Y-m-d'))
         <td class="table-list-center" style="color: red">
             {{date('d/m/Y', strtotime($invoice->pay_day))}}
         </td>
@@ -295,10 +295,10 @@ indefinida
         <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
         <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
         @endif
-        @if($opportunity->contact)
+        
         <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-        @endif
+        
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
@@ -317,6 +317,8 @@ indefinida
         <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
         <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
         @endif
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
         <input type='hidden' name='department' value='vendas'>
         <input type='hidden' name='invoiceStatus' value='orçamento'>
         <input class='text-button secondary' type='submit' value='GERAR ORÇAMENTO'>
@@ -334,6 +336,8 @@ indefinida
         <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
         <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
         @endif
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
         <input type='hidden' name='department' value='vendas'>
         <input class='text-button secondary' type='submit' value='GERAR FATURA'>
     </form>

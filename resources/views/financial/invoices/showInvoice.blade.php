@@ -160,41 +160,34 @@ Não possui
     </tr>
 
     <tr style="font-size: 12px">
-        <td class="table-list-left" colspan="5">
+        <td class="table-list-left" colspan="6">
             {!!html_entity_decode($invoiceLine->product->description)!!}
         </td>
     </tr>
     @endforeach
 
     <tr>
-        <td   class="table-list-header-right" colspan="3">
-        </td>
-        <td   class="table-list-header-right">
+        <td   class="table-list-header-right" colspan="5">
             desconto: 
         </td>
-        <td   class="table-list-header-right" colspan="2">
+        <td   class="table-list-header-right" colspan="1">
             - {{formatCurrencyReal($invoice->discount)}}
         </td>
     </tr>
     <tr>
-        <td   class="table-list-header-right" colspan="3">
-        </td>
-        <td   class="table-list-header-right">
+        <td   class="table-list-header-right" colspan="5">
             TOTAL: 
         </td>
         </td>
-        <td   class="table-list-header-right" colspan="2">
+        <td   class="table-list-header-right" colspan="1">
             {{formatCurrencyReal($invoice->totalPrice)}}
         </td>
     </tr>
     <tr>
-        <td   class="table-list-header-right" colspan="3">
-        </td>
-        <td   class="table-list-header-right">
+        <td   class="table-list-header-right" colspan="5">
             PARCELAMENTO: 
         </td>
-
-        <td   class="table-list-header-right" colspan="2">
+        <td   class="table-list-header-right" colspan="1">
             @if($invoice->number_installment_total == 1)
             À vista
             @else
@@ -284,7 +277,7 @@ $counter++;
         </td>
         </td>
         <td   class="table-list-header-right" colspan="2">
-            {{formatCurrencyReal($invoice->totalPrice)}}
+            {{formatCurrencyReal($invoice->installment_value)}}
         </td>
     </tr>
     <tr>
@@ -315,7 +308,7 @@ $counter++;
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'typeTransactions' => 'receita',
-		'invoiceTotalPrice' => $invoice->totalPrice,
+		'invoiceTotalPrice' => $invoice->installment_value,
 				
 	])}}">
     REGISTRAR ENTRADA
@@ -327,8 +320,7 @@ $counter++;
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'typeTransactions' => 'despesa',
-		'invoiceTotalPrice' => $invoice->totalPrice,
-				
+		'invoiceTotalPrice' => $invoice->installment_value,
 	])}}">
     REGISTRAR SAÍDA
 </a>

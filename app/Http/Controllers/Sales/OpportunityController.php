@@ -235,7 +235,7 @@ class OpportunityController extends Controller {
 //                    $query->where('invoice_id', $invoice->id);
 //                })
 //                ->get();
-
+//dd($invoices);
         $invoiceInstallmentsTotal = $invoices->sum('installment_value');
         $invoicePaymentsTotal = $invoices->sum('paid');
         $balance = $invoiceInstallmentsTotal - $invoicePaymentsTotal;

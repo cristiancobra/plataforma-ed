@@ -200,17 +200,18 @@ class InvoiceController extends Controller {
         } else {
             $invoice = new Invoice();
             $invoice->fill($request->all());
-            $lastInvoice = Invoice::where('account_id', $request->account_id)
-                    ->latest('id')
-                    ->first();
+            
+            $invoicesIdentifier = Invoice::where('account_id', $request->account_id)
+                             ->pluck('identifier')
+                ->toArray();
 
             // Se for rascunho ou orçamento atribui ID zero
             if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
                 $invoice->identifier = 0;
-            } elseif ($lastInvoice != null) {
-                $invoice->identifier = $lastInvoice->identifier + 1;
-            } else {
+            } elseif ($invoicesIdentifier == null) {
                 $invoice->identifier = 1;
+            } else {
+                $invoice->identifier = max($invoicesIdentifier) + 1;
             }
 
             $invoice->save();
@@ -265,6 +266,8 @@ class InvoiceController extends Controller {
 
             $invoicePaymentsTotal = $transactions->sum('value');
             $balance = $invoice->installment_value - $invoicePaymentsTotal;
+            
+                    $typeInvoices = $request->type;
 
             return view('financial.invoices.showInvoice', compact(
                             'invoice',
@@ -275,6 +278,7 @@ class InvoiceController extends Controller {
                             'transactions',
                             'invoicePaymentsTotal',
                             'balance',
+                            'typeInvoices',
             ));
         }
     }
@@ -291,7 +295,7 @@ class InvoiceController extends Controller {
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
-
+//dd($invoices);
         $invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('opportunity_id', $invoice->opportunity_id);
                 })
@@ -495,6 +499,8 @@ class InvoiceController extends Controller {
             $balance = $invoice->installment_value - $invoicePaymentsTotal;
 
             $invoice->with('contract');
+            
+            $typeInvoices = $request->type;
 
             return view('financial.invoices.showInvoice', compact(
                             'invoice',
@@ -504,6 +510,7 @@ class InvoiceController extends Controller {
                             'transactions',
                             'invoicePaymentsTotal',
                             'balance',
+                            'typeInvoices',
             ));
         }
     }
@@ -581,11 +588,14 @@ class InvoiceController extends Controller {
 
 // Generate parcelamento a partir de uma fatura já criada
     public function generateInstallment(Invoice $invoice) {
-        $lastInvoice = Invoice::where('account_id', $invoice->account_id)
-                ->latest('id')
-                ->first();
-
-        $invoice->identifier = $lastInvoice->identifier;
+        $invoices = Invoice::where('account_id', $invoice->account_id)
+                             ->pluck('identifier')
+                ->toArray();
+        
+        $lastInvoice= max($invoices);
+        if($invoice->identifier == 0) {
+        $invoice->identifier = $lastInvoice + 1;
+        }
         $invoice->save();
 
         $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
@@ -595,11 +605,8 @@ class InvoiceController extends Controller {
         $counter = 1;
         while ($counter <= $invoice->number_installment_total - 1) {
             $invoiceNew = new Invoice();
-            if ($lastInvoice != null) {
-                $invoiceNew->identifier = $lastInvoice->identifier + $counter;
-            } else {
-                $invoiceNew->identifier = $counter;
-            }
+                $invoiceNew->identifier = $lastInvoice + $counter;
+            
             $invoiceNew->opportunity_id = $invoice->opportunity_id;
             $invoiceNew->user_id = $invoice->user_id;
             $invoiceNew->account_id = $invoice->account_id;
@@ -616,7 +623,6 @@ class InvoiceController extends Controller {
             $invoiceNew->totalPrice = $invoice->totalPrice;
             $invoiceNew->totalMargin = $invoice->totalMargin;
             $invoiceNew->totalBalance = $invoice->totalBalance;
-            $invoiceNew->payment_method = $invoice->payment_method;
             $invoiceNew->number_installment = $counter + 1;
             $invoiceNew->number_installment_total = $invoice->number_installment_total;
             $invoiceNew->installment_value = $invoice->totalPrice / $invoice->number_installment_total;

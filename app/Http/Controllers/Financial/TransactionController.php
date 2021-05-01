@@ -151,6 +151,7 @@ class TransactionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Transaction $transaction) {
+        
         return view('financial.transactions.show', compact(
                         'transaction',
         ));

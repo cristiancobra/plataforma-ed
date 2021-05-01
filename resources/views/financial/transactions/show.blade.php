@@ -36,6 +36,16 @@
         @endif
     </p>
     <p class="labels">
+        OPORTUNIDADE:<span class="fields">{{$transaction->invoice->opportunity->name}}</span>
+        <a class="white" href=" {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity->id])}}">
+            <button class="button-round">
+                <i class='fa fa-eye'></i>
+            </button>
+        </a>
+    </p>
+    <br>
+    <br>
+    <p class="labels">
         FATURA:<span class="fields">{{$transaction->invoice->identifier}}</span>
         <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
             <button class="button-round">
@@ -52,6 +62,7 @@
     <p class="labels">
         MEIO DE PAGAMENTO:<span class="fields">{{$transaction->payment_method}}</span>
     </p>
+    <br>
     <div class='row' style='margin-top: 30px'>
     <div class='col-12' style='text-align: left'>
         <div class='show-label-large'>

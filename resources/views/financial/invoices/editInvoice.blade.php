@@ -132,6 +132,7 @@
             <input type="hidden" name="product_id[]" size="16" value="{{$invoiceLine->product->id}}">
             <td class="table-list-center">
                 @if($invoice->status != "rascunho" AND $invoice->status != "orçamento")
+                <input type="hidden" name="product_amount[]" size="4" value="{{$invoiceLine->amount}}">
                 {{$invoiceLine->amount}}
                 @else
                 <input type="number" name="product_amount[]" size="4" value="{{$invoiceLine->amount}}">

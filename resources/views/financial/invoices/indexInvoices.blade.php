@@ -92,7 +92,7 @@ Total: <span class="labels">{{$total}}</span>
     <br>
     <table class="table-list">
         <tr>
-            <td   class="table-list-header" style="width:10%">
+            <td   class="table-list-header" style="width:5%">
                 ID
             </td>
             <td   class="table-list-header" style="width:15%">
@@ -192,7 +192,7 @@ Total: <span class="labels">{{$total}}</span>
     </table>
     <p style="text-align: right">
         <br>
-        {{ $invoices->links() }}
+        {{$invoices->links()}}
     </p>
     <br>
     @endsection
