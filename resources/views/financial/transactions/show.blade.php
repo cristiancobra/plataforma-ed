@@ -36,12 +36,16 @@
         @endif
     </p>
     <p class="labels">
+        @if(isset($transaction->invoice->opportunity))
         OPORTUNIDADE:<span class="fields">{{$transaction->invoice->opportunity->name}}</span>
         <a class="white" href=" {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity->id])}}">
             <button class="button-round">
                 <i class='fa fa-eye'></i>
             </button>
         </a>
+        @else
+        OPORTUNIDADE:<span class="fields">Não possui</span>
+        @endif
     </p>
     <br>
     <br>

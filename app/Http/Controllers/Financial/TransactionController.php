@@ -25,7 +25,7 @@ class TransactionController extends Controller {
                 ->with([
                     'user',
                     'bankAccount',
-//                                                                                    'invoice.contact',
+                    'invoice',
                     'invoice.company',
                 ])
                 ->orderBy('PAY_DAY', 'DESC')
@@ -67,7 +67,7 @@ class TransactionController extends Controller {
 
             $bankAccount->revenueTotal = $bankAccount->opening_balance + $revenueTotal[$key] - $expenseTotal[$key];
         }
-//dd($transactions);
+dd($transactions);
         return view('financial.transactions.index', compact(
                         'bankAccounts',
                         'transactions',
@@ -151,7 +151,7 @@ class TransactionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Transaction $transaction) {
-        
+//        dd($transaction);
         return view('financial.transactions.show', compact(
                         'transaction',
         ));
