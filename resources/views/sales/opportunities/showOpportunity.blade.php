@@ -169,7 +169,7 @@ indefinida
     </form>
     <form  style='display: inline-block' action='{{route('task.create')}}' method='post'>
         @csrf
-        <input type='hidden' name='task_name' value='REUNIÃO'>
+        <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
         <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
         @if(isset($opportunity->company))
@@ -190,13 +190,13 @@ indefinida
 <br>
 <div style='display: inline-block'>
     <img src='{{asset('imagens/invoice.png')}}' width='40px' alt='40px'>
-    <label class='labels' for='' >FATURAS:</label>
+    <label class='labels' for='' >FINANCEIRO:</label>
 </div>
 <br>
 <br>
 <table class='table-list'>
     <tr>
-        <td   class='table-list-header' style='width: 20%'>
+        <td   class='table-list-header' style='width: 5%'>
             IDENTIFICADOR
         </td>
         <td   class='table-list-header' style='width: 20%'>
@@ -206,10 +206,13 @@ indefinida
             DATA PAGAMENTO
         </td>
         <td   class='table-list-header' style='width: 15%'>
-            VALOR TOTAL
+            VALOR DA FATURA
         </td>
         <td   class='table-list-header' style='width: 15%'>
-            VALOR DA PARCELA
+            PAGO
+        </td>
+        <td   class='table-list-header' style='width: 15%'>
+            A RECEBER
         </td>
         <td   class='table-list-header' style='width: 10%'>
             SITUAÇÃO
@@ -238,10 +241,13 @@ indefinida
         </td>
         @endif
         <td class='table-list-right'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
+            {{formatCurrencyReal($invoice->installment_value)}}
         </td>
         <td class='table-list-right'>
-            {{formatCurrencyReal($invoice->installment_value)}}
+            {{formatCurrencyReal($invoice->paid)}}
+        </td>
+        <td class='table-list-right'>
+        {{formatCurrencyReal($invoice->installment_value - $invoice->paid)}}
         </td>
         @if($invoice->paid >= $invoice->installment_value)
         <td class="td-paid">
@@ -257,30 +263,23 @@ indefinida
     </tr>
     @endforeach
     <tr>
-        <td   class="table-list-header-right" colspan="5">
-            VALOR TOTAL: 
-        </td>
+        <td   class="table-list-header-right" colspan="3">
+            TOTAIS: 
         </td>
         <td   class="table-list-header-right" colspan="1">
             {{formatCurrencyReal($invoiceInstallmentsTotal)}}
         </td>
-    </tr>
-    <tr>
-        <td   class="table-list-header-right" colspan="5">
-            PAGO: 
-        </td>
+
         </td>
         <td   class="table-list-header-right" colspan="1">
             {{formatCurrencyReal($invoicePaymentsTotal)}}
         </td>
-    </tr>
-    <tr>
-        <td   class="table-list-header-right"colspan="5">
-            RECEBER:
-        </td>
+
         </td>
         <td   class="table-list-header-right" colspan="1">
             {{formatCurrencyReal($balance)}}
+        </td>
+        <td   class="table-list-header-right" colspan="1">
         </td>
     </tr>
 </table>
@@ -302,7 +301,7 @@ indefinida
         <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
         <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
         <input type='hidden' name='department' value='vendas'>
-        <input class='text-button secondary' type='submit' value='ORÇAMENTO'>
+        <input class='text-button secondary' type='submit' value='FAZER ORÇAMENTO'>
     </form>
     <form  style='display: inline-block' method='POST' action='{{route('invoice.create')}}'>
         @csrf

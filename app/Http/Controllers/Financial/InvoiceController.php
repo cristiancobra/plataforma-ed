@@ -200,10 +200,10 @@ class InvoiceController extends Controller {
         } else {
             $invoice = new Invoice();
             $invoice->fill($request->all());
-            
+
             $invoicesIdentifier = Invoice::where('account_id', $request->account_id)
-                             ->pluck('identifier')
-                ->toArray();
+                    ->pluck('identifier')
+                    ->toArray();
 
             // Se for rascunho ou orçamento atribui ID zero
             if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
@@ -266,8 +266,8 @@ class InvoiceController extends Controller {
 
             $invoicePaymentsTotal = $transactions->sum('value');
             $balance = $invoice->installment_value - $invoicePaymentsTotal;
-            
-                    $typeInvoices = $request->type;
+
+            $typeInvoices = $request->type;
 
             return view('financial.invoices.showInvoice', compact(
                             'invoice',
@@ -291,10 +291,19 @@ class InvoiceController extends Controller {
      */
     public function show(Invoice $invoice) {
         $typeInvoices = $invoice->type;
-        
+        $oldInvoiceId = $invoice->id;
+
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
+
+        foreach ($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->sum('value');
+        }
+
+        $invoice->id = $oldInvoiceId;
+
         $invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);
                 })
@@ -310,7 +319,6 @@ class InvoiceController extends Controller {
         $invoicePaymentsTotal = $transactions->sum('value');
         $balance = $invoice->installment_value - $invoicePaymentsTotal;
 //
-//dd($invoice->contact);
         return view('financial.invoices.showInvoice', compact(
                         'typeInvoices',
                         'invoice',
@@ -360,8 +368,8 @@ class InvoiceController extends Controller {
         $contracts = Contract::where('invoice_id', $invoice->id)
                 ->orderBy('ID', 'ASC')
                 ->get();
-        
-                $contacts = Contact::whereIn('account_id', userAccounts())
+
+        $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -498,7 +506,7 @@ class InvoiceController extends Controller {
             $balance = $invoice->installment_value - $invoicePaymentsTotal;
 
             $invoice->with('contract');
-            
+
             $typeInvoices = $request->type;
 
             return view('financial.invoices.showInvoice', compact(
@@ -588,12 +596,12 @@ class InvoiceController extends Controller {
 // Generate parcelamento a partir de uma fatura já criada
     public function generateInstallment(Invoice $invoice) {
         $invoices = Invoice::where('account_id', $invoice->account_id)
-                             ->pluck('identifier')
+                ->pluck('identifier')
                 ->toArray();
-        
-        $lastInvoice= max($invoices);
-        if($invoice->identifier == 0) {
-        $invoice->identifier = $lastInvoice + 1;
+
+        $lastInvoice = max($invoices);
+        if ($invoice->identifier == 0) {
+            $invoice->identifier = $lastInvoice + 1;
         }
         $invoice->save();
 
@@ -604,8 +612,8 @@ class InvoiceController extends Controller {
         $counter = 1;
         while ($counter <= $invoice->number_installment_total - 1) {
             $invoiceNew = new Invoice();
-                $invoiceNew->identifier = $lastInvoice + $counter;
-            
+            $invoiceNew->identifier = $lastInvoice + $counter;
+
             $invoiceNew->opportunity_id = $invoice->opportunity_id;
             $invoiceNew->user_id = $invoice->user_id;
             $invoiceNew->account_id = $invoice->account_id;
