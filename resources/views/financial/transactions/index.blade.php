@@ -106,7 +106,7 @@ Total: <span class="labels"></span>
                 </a>
             </td>
             <td class="table-list-left">
-                @if($transaction->invoice->opportunity != null)
+                @if(isset($transaction->invoice->opportunity))
                 <a href=" {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity_id])}}">
                 {{$transaction->invoice->opportunity->name}}
                 </a>

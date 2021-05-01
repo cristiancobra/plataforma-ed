@@ -1153,6 +1153,8 @@ if (!function_exists('returnInvoiceStatus')) {
             'orçamento',
             'cancelada',
             'aprovada',
+            'parcial',
+            'paga',
         );
     }
 
