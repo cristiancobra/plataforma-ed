@@ -600,12 +600,18 @@ if (!function_exists('formatStage')) {
             case 'proposta':
                 echo '<td class="td-proposal">proposta</td>';
                 break;
-            case 'ganhamos':
-                echo '<td class="td-won">ganhamos</td>';
+            case 'contrato':
+                echo '<td class="td-won">contrato</td>';
                 break;
-            case 'perdemos':
-                echo '<td class="td-lost">perdemos</td>';
+            case 'cobrança':
+                echo '<td class="td-lost">cobrança</td>';
                 break;
+            case 'produção':
+                echo '<td class="td-doing">produção</td>';
+                break;
+            case 'concluída':
+                echo '<td class="td-done">concluída</td>';
+                break;       
         }
     }
 
