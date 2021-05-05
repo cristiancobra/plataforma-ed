@@ -29,10 +29,10 @@
     {{createFilterSelect('stage', 'select', $stages, 'Todas as etapas')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>
-    <a class="button-secondary" href='{{route('opportunity.index')}}'>
+    <a class="btn btn-secondary" href='{{route('opportunity.index')}}'>
         LIMPAR
     </a>
-    <input class="button-secondary" type="submit" value="FILTRAR">
+    <input class="btn btn-primary" type="submit" value="FILTRAR">
 </form>
 <br>
 <table class="table-list">
