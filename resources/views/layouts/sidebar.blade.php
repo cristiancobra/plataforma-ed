@@ -191,6 +191,11 @@
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
                                                                                                                                                         'link' => 'http://saocarlos.ginfes.com.br/'
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'PALETAS DE CORES',
+                                                                                                                                                        'faIcon' => 'fas fa-palette',
+                                                                                                                                                        'link' => route('configurations'),
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
 
         @endif

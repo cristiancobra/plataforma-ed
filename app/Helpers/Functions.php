@@ -590,7 +590,7 @@ if (!function_exists('phoneBr')) {
 if (!function_exists('formatStage')) {
 
     function formatStage($model) {
-        switch ($model->stage) {
+        switch ($model) {
             case 'prospecção':
                 echo '<td class="td-prospecting">prospecção</td>';
                 break;
@@ -665,7 +665,7 @@ if (!function_exists('formatStatus')) {
 if (!function_exists('formatOpportunityStatus')) {
 
     function formatOpportunityStatus($model) {
-        switch ($model->status) {
+        switch ($model) {
             case 'negociando':
                 echo '<td class="td-canceled">negociando</td>';
                 break;
@@ -683,7 +683,7 @@ if (!function_exists('formatOpportunityStatus')) {
 if (!function_exists('formatShowStage')) {
 
     function formatShowStage($model) {
-        switch ($model->stage) {
+        switch ($model) {
             case 'prospecção':
                 echo '<div class="prospecting">prospecção</div>';
                 break;

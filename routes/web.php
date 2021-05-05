@@ -20,6 +20,10 @@ Route::get('/', 'DashboardController@index')
         ->name('dashboard')
         ->middleware('roles');
 
+Route::get('/configuracoes', 'ConfigurationsController@index')
+        ->name('configurations')
+        ->middleware('roles');
+
 //Route::get('/', 'Users\\UserController@dashboardAdministrator')->name('home.administrator')->middleware('administrator');
 // ================================ ADMINISTRATIVO ===================
 Route::get('/admin/NovaPlataforma/form_plataforma', function () {

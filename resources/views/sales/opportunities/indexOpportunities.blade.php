@@ -102,8 +102,8 @@
             {{dateBr($opportunity->date_conclusion)}}
             @endif
         </td>
-        {{formatStage($opportunity)}}
-        {{formatOpportunityStatus($opportunity)}}
+        {{formatStage($opportunity->stage)}}
+        {{formatOpportunityStatus($opportunity->status)}}
     </tr>
     @endforeach
 </table>

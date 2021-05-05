@@ -15,7 +15,7 @@
 @section('name', $opportunity->name)
 
 @section('priority')
-{{formatShowStage($opportunity)}}
+{{formatShowStage($opportunity->stage)}}
 @endsection
 
 @section('status')
