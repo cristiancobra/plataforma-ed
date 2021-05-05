@@ -32,7 +32,7 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field'>
-        @if(isset($task->company->name))
+        @if(isset($opportunity->company->name))
         {{$opportunity->company->name}}
         @else
         Pessoa física

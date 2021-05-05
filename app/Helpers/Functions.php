@@ -631,7 +631,7 @@ if (!function_exists('formatContractStatus')) {
     }
 
 }
-// gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
+// gera uma coluna de tabela com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatStatus')) {
 
     function formatStatus($model) {
@@ -650,6 +650,24 @@ if (!function_exists('formatStatus')) {
                 break;
             case 'aguardar':
                 echo '<td class="td-stuck">aguardar</td>';
+                break;
+        }
+    }
+
+}
+// gera uma coluna de tabela com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
+if (!function_exists('formatOpportunityStatus')) {
+
+    function formatOpportunityStatus($model) {
+        switch ($model->status) {
+            case 'negociando':
+                echo '<td class="td-canceled">negociando</td>';
+                break;
+            case 'perdemos':
+                echo '<td class="td-toDo">perdemos</td>';
+                break;
+            case 'ganhamos':
+                echo '<td class="td-doing">ganhamos</td>';
                 break;
         }
     }
