@@ -19,7 +19,7 @@
 @endsection
 
 @section('status')
-{{formatShowOpportunityStatus($opportunity)}}
+{{formatShowOpportunityStatus($opportunity->status)}}
 @endsection
 
 @section('fieldsId')

@@ -141,6 +141,30 @@ td {
     border-width: 1px; 
 }
 
+.td-contract{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #92C4D4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-bill{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #F7AFB4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
 .td-done{
     display: table-cell;  
     font-size: 14px;
@@ -178,6 +202,18 @@ td {
 
 }
 
+.td-production{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #09FBBE;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
 .td-stuck{
     display: table-cell;  
     font-size: 14px;
@@ -197,6 +233,18 @@ td {
     color: white;
     vertical-align:super;
     background-color: #E5E5E5;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-conclude{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #20EB48;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
@@ -272,29 +320,6 @@ td {
 
 
 /*  Oportunidades / Stage */
-.td-won{
-    display: table-cell;  
-    font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:super;
-    background-color: #A3FDE6;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
-}
-
-.td-lost{
-    display: table-cell;  
-    font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:super;
-    background-color: #FDDBDD;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
-}
 
 .td-prospecting{
     display: table-cell;  
@@ -332,7 +357,43 @@ td {
     border-color: white;
 }
 
-/*  Oportunidades / Stage */
+/*  Oportunidades / Status */
+.td-dealing{
+    display: table-cell;  
+    font-size: 14px;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #EDD500;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-won{
+    display: table-cell;  
+    font-size: 14px;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #97F80C;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.td-lost{
+    display: table-cell;  
+    font-size: 14px;
+	text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #EF5362;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
 
 .button-round {
     /* Ellipse 1 */

@@ -601,16 +601,16 @@ if (!function_exists('formatStage')) {
                 echo '<td class="td-proposal">proposta</td>';
                 break;
             case 'contrato':
-                echo '<td class="td-won">contrato</td>';
+                echo '<td class="td-contract">contrato</td>';
                 break;
             case 'cobrança':
-                echo '<td class="td-lost">cobrança</td>';
+                echo '<td class="td-bill">cobrança</td>';
                 break;
             case 'produção':
-                echo '<td class="td-doing">produção</td>';
+                echo '<td class="td-production">produção</td>';
                 break;
             case 'concluída':
-                echo '<td class="td-done">concluída</td>';
+                echo '<td class="td-conclude">concluída</td>';
                 break;       
         }
     }
@@ -667,13 +667,13 @@ if (!function_exists('formatOpportunityStatus')) {
     function formatOpportunityStatus($model) {
         switch ($model) {
             case 'negociando':
-                echo '<td class="td-canceled">negociando</td>';
+                echo '<td class="td-dealing">negociando</td>';
                 break;
             case 'perdemos':
-                echo '<td class="td-toDo">perdemos</td>';
+                echo '<td class="td-lost">perdemos</td>';
                 break;
             case 'ganhamos':
-                echo '<td class="td-doing">ganhamos</td>';
+                echo '<td class="td-won">ganhamos</td>';
                 break;
         }
     }
@@ -694,16 +694,16 @@ if (!function_exists('formatShowStage')) {
                 echo '<div class="proposal">proposta</div>';
                 break;
             case 'contrato':
-                echo '<div class="won">contrato</div>';
+                echo '<div class="contract">contrato</div>';
                 break;
             case 'cobrança':
-                echo '<div class="lost">cobrança</div>';
+                echo '<div class="bill">cobrança</div>';
                 break;
             case 'produção':
-                echo '<div class="doing">produção</div>';
+                echo '<div class="production">produção</div>';
                 break;
             case 'concluída':
-                echo '<div class="done">concluída</div>';
+                echo '<div class="conclude">concluída</div>';
                 break;            
         }
     }
@@ -737,9 +737,9 @@ if (!function_exists('formatShowStatus')) {
 if (!function_exists('formatShowOpportunityStatus')) {
 
     function formatShowOpportunityStatus($model) {
-        switch ($model->status) {
+        switch ($model) {
             case 'negociando':
-                echo '<div class="doing">negociando</div>';
+                echo '<div class="dealing">negociando</div>';
                 break;
             case 'ganhamos':
                 echo '<div class="won">ganhamos</div>';

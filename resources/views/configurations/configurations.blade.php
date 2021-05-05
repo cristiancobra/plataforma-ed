@@ -12,11 +12,11 @@
 
 @section('main')
 <div class="row">
-    <div class='col-4'>
+    <div class='col-3'>
         <table>
             <tr>
                 <td colspan="2">
-                    Oportunidades INDEX
+                    Oportunidades ETAPA
                 </td>
             </tr>
                 <tr>
@@ -42,11 +42,11 @@
                 </tr>
             </table>
     </div>
-    <div class='col-4'>
+    <div class='col-3'>
         <div>
-            Oportunidades SHOW
+            Oportunidades ETAPA
         </div>
-        {{formatStage($prospeccao)}}
+        {{formatShowStage($prospeccao)}}
         {{formatShowStage($apresentacao)}}
         {{formatShowStage($proposta)}}
         {{formatShowStage($contrato)}}
@@ -54,13 +54,31 @@
         {{formatShowStage($producao)}}
         {{formatShowStage($concluída)}}
     </div>
-    <div class='col-4'>
+    <div class='col-3'>
+            <table>
+            <tr>
+                <td colspan="2">
+                    Oportunidades SITUAÇÃO
+                </td>
+            </tr>
+                <tr>
+                    {{formatOpportunityStatus($negociando)}}
+                </tr>
+                <tr>
+                    {{formatOpportunityStatus($perdemos)}}
+                </tr>
+                <tr>
+                    {{formatOpportunityStatus($ganhamos)}}
+                </tr>
+            </table>
+    </div>
+        <div class='col-3'>
         <div>
-            Oportunidades status
+            Oportunidades SITUAÇÃO
         </div>
-        {{formatOpportunityStatus($negociando)}}
-        {{formatOpportunityStatus($perdemos)}}
-        {{formatOpportunityStatus($ganhamos)}}
+        {{formatShowOpportunityStatus($negociando)}}
+        {{formatShowOpportunityStatus($perdemos)}}
+        {{formatShowOpportunityStatus($ganhamos)}}
     </div>
 </div>
 @endsection
