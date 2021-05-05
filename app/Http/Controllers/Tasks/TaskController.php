@@ -9,6 +9,7 @@ use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Journey;
+use App\Models\Opportunity;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -96,6 +97,8 @@ class TaskController extends Controller {
         $companies = Company::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
+        
+         $opportunities = $this->accountOpportunities();
 
         $today = date("Y-m-d");
         $departments = returnDepartments();
@@ -130,6 +133,7 @@ class TaskController extends Controller {
                         'taskAccountName',
                         'taskAccountId',
                         'department',
+                        'opportunities',
         ));
     }
 
@@ -224,15 +228,18 @@ class TaskController extends Controller {
                     $query->whereIn('account_id', userAccounts());
                 })
                 ->get();
+                
+         $opportunities = $this->accountOpportunities();
 
         $departments = returnDepartments();
         $status = returnStatus();
         $priorities = returnPriorities();
 
         return view('tasks.editTask', compact(
-                        'users',
                         'task',
                         'tasks',
+                        'users',
+                        'opportunities',
                         'accounts',
                         'contacts',
                         'companies',
@@ -297,11 +304,13 @@ class TaskController extends Controller {
         return redirect()->action('Tasks\\TaskController@index');
     }
 
-    public function accountOpportunities($accountId) {
-        $accountOpportunities = Opportunity::where('account_id', $accountiId)
+    public function accountOpportunities() {
+        $accountOpportunities = Opportunity::whereIn('account_id', userAccounts())
                 ->where('stage', '!=', 'perdemos')
-                ->orderBy('date_due', 'ASC')
+                ->orderBy('date_conclusion', 'ASC')
                 ->get();
+        
+        return $accountOpportunities;
     }
 
     public function duration(start_time $start_time, end_time $end_time) {

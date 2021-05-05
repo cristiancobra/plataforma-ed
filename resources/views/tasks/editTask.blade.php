@@ -37,7 +37,7 @@
         @endif
         <br>
         <label class="labels" for="" >DEPARTAMENTO:</label>
-            {{createSimpleSelect('department', 'fields', $departments, $task->department)}}
+        {{createSimpleSelect('department', 'fields', $departments, $task->department)}}
         <br>
         <label class="labels" for="" >MINHA EMPRESA: </label>
         <select name="account_id">
@@ -69,6 +69,9 @@
             @endif
         </select>
         <br>
+        <br>
+        <label class="labels" for="" >OPORTUNIDADE:</label>
+        {{createDoubleSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui', $task->opportunity)}}
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" size="20" value="{{$task->date_start}}"><span class="fields"></span>
@@ -134,7 +137,7 @@ CKEDITOR.replace('description');
         @endif
         <br>
         <label class="labels" for="" >PRIORIDADE:</label>
-            {{createSimpleSelect('priority', 'fields', $priorities, $task->priority)}}
+        {{createSimpleSelect('priority', 'fields', $priorities, $task->priority)}}
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="ATUALIZAR TAREFA">
