@@ -108,7 +108,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="">SITUAÇÃO:</label>
-        {{createSimpleSelect('status', 'fields', $status)}}
+        {{createSimpleSelect('status', 'fields', $status, $opportunity->status)}}
         <br>
         <br>
         <div style="text-align: right">

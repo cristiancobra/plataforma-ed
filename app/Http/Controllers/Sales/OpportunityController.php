@@ -464,6 +464,9 @@ class OpportunityController extends Controller {
                     if ($request->stage) {
                         $query->where('stage', '=', $request->stage);
                     }
+                    if ($request->status) {
+                        $query->where('status', '=', $request->status);
+                    }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);
                     } else {

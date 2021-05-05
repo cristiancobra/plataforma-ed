@@ -27,6 +27,7 @@
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
     {{createFilterSelect('stage', 'select', $stages, 'Todas as etapas')}}
+    {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>
     <a class="button-secondary" href='{{route('opportunity.index')}}'>
         LIMPAR
@@ -102,7 +103,7 @@
             @endif
         </td>
         {{formatStage($opportunity)}}
-        {{formatStatus($opportunity)}}
+        {{formatOpportunityStatus($opportunity)}}
     </tr>
     @endforeach
 </table>
