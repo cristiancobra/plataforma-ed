@@ -687,12 +687,18 @@ if (!function_exists('formatShowStage')) {
             case 'proposta':
                 echo '<div class="proposal">proposta</div>';
                 break;
-            case 'ganhamos':
-                echo '<div class="won">ganhamos</div>';
+            case 'contrato':
+                echo '<div class="won">contrato</div>';
                 break;
-            case 'perdemos':
-                echo '<div class="lost">perdemos</div>';
+            case 'cobrança':
+                echo '<div class="lost">cobrança</div>';
                 break;
+            case 'produção':
+                echo '<div class="doing">produção</div>';
+                break;
+            case 'concluída':
+                echo '<div class="done">concluída</div>';
+                break;            
         }
     }
 
