@@ -160,7 +160,6 @@ class TaskController extends Controller {
             $task = new Task();
             $task->fill($request->all());
             $task->status = 'fazer';
-            dd($task);
             $task->save();
 
             $journeys = Journey::where('task_id', $task->id)
