@@ -81,8 +81,11 @@ CKEDITOR.replace('description');
         </script>
         <br>
         <br>
-        <label class="labels" for="">ETAPA DA VENDA:</label>
+        <label class="labels" for="">ETAPA:</label>
         {{createSimpleSelect('stage', 'fields', $stages)}}
+        <br>
+        <label class="labels" for="">SITUAÇÃO:</label>
+        {{createSimpleSelect('status', 'fields', $status)}}
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="CRIAR OPORTUNIDADE">

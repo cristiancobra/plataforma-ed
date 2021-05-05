@@ -45,12 +45,6 @@
         {{createDoubleSelectIdName('account_id', 'fields', $accounts)}}
         @endif
         <br>
-        @if(!empty(app('request')->input('opportunity_id')))
-        <label class="labels" for="" >OPORTUNIDADE:</label>
-        {{app('request')->input('opportunity_name')}}
-        <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
-        <br>
-        @endif
         <label class="labels" for="" >DEPARTAMENTO:</label>
         @if(!empty(app('request')->input('department')))
         {{app('request')->input('department')}}
@@ -65,6 +59,14 @@
                 {{createSelectUsers('fields', $users)}}
         <br>
         <br>
+        <label class="labels" for="" >OPORTUNIDADE:</label>
+        @if(!empty(app('request')->input('opportunity_id')))
+        {{app('request')->input('opportunity_name')}}
+        <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
+        @else
+        {{createDoubleSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui')}}
+        <br>
+        @endif
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" value="{{$today}}">
         @if ($errors->has('date_start'))

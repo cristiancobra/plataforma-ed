@@ -24,10 +24,8 @@
 
                     <div style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white;padding: 50px;margin: 20px;margin-top:0px'>
                         <div class='row' style='margin-top: -10px'>
-                            <div class='col-lg-8 col-sm-12'>
-                                <div class='show-name'>
-                                    @yield('name')
-                                </div>
+                            <div class='show-name col-8'>
+                                @yield('name')
                             </div>
                             <div class='col-2'>
                                 @yield('priority')
@@ -39,69 +37,7 @@
 
                         <div class='row' style='margin-top: 40px'>
                             <div class='col-lg-2 col-xs-6' style='text-align: center'>
-                                <div class='show-label'>
-                                    CONTATO
-                                </div>
-                                <div class='show-label'>
-                                    EMPRESA
-                                </div>
-                                <div class='show-label'>
-                                    OPORTUNIDADE
-                                </div>
-                            </div>
-                            <div class='col-lg-4 col-xs-6' style='text-align: center'>
-                                <div class='show-field'>
-                                    @if(isset($task->contact->name))
-                                    {{$task->contact->name}}
-                                    @else
-                                    Não possui
-                                    @endif
-                                </div>
-                                <div class='show-field'>
-                                    @if(isset($task->company->name))
-                                    {{$task->company->name}}
-                                    @else
-                                    Pessoa física
-                                    @endif
-                                </div>
-                                <div class='show-field'>
-                                    @isset($task->opportunity->id)
-                                    {{$task->opportunity->name}}
-                                    <button class='button-round'>
-                                        <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
-                                            <i class='fa fa-eye' style='color:white'></i>
-                                        </a>
-                                    </button>
-                                    @else
-                                    Não possui
-                                    @endisset
-                                </div>
-                            </div>
-                            <div class='col-lg-2 col-xs-6' style='text-align: center'>
-                                <div class='show-label'>
-                                    CONTA
-                                </div>
-                                <div class='show-label'>
-                                    DEPARTAMENTO
-                                </div>
-                                <div class='show-label'>
-                                    RESPONSÁVEL
-                                </div>
-                            </div>
-                            <div class='col-lg-4 col-xs-6' style='text-align: center'>
-                                <div class='show-field'>
-                                    {{$task->account->name}}
-                                </div>
-                                <div class='show-field'>
-                                    {{$task->department}}
-                                </div>
-                                <div class='show-field'>
-                                    @if(isset($task->user->contact->name))
-                                    {{$task->user->contact->name}}
-                                    @else
-                                    foi excluído
-                                    @endif
-                                </div>
+                                @yield('fieldsId')
                             </div>
                         </div>
 
@@ -117,44 +53,41 @@
                             </div>
                         </div>
 
-                        @yield('execution')
-
-                        <div class='row' style='margin-top: 10px;text-align: right'>
-                            <div class='col-12'style='text-align: right'>
-                                <a class='circular-button primary' href='{{route('journey.create', [
-				'taskName' => $task->name,
-				'taskId' => $task->id,
-				'taskAccountName' => $task->account->name,
-				'taskAccountId' => $task->account->id,
-				])}}'>
-                                    <i class='fa fa-plus' aria-hidden='true'></i>
-                                </a>
+                        <div class='row' style='margin-top: 30px'>
+                            <div class='col-12' style='text-align: left'>
+                                <div class='show-label-large'>
+                                    DESCRIÇÃO
+                                </div>
+                                <div class='description-field'>
+                                    @yield('description')
+                                </div>
                             </div>
                         </div>
 
+                        <br>
+                        <br>
+                        <br>
+                        @yield('execution')
+
                         <div class='row' style='margin-top: 30px;text-align: right'>
                             <div class='col-12'style='text-align: right;padding-top: -10px'>
-                                <form   style='text-decoration: none;color: black;display: inline-block' action='{{route('task.destroy', ['task' => $task->id])}}' method='post'>
+                                <form   style='text-decoration: none;color: black;display: inline-block' action='@yield('deleteButton')' method='post'>
                                     @csrf
                                     @method('delete')
                                     <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
                                         <i class='fa fa-trash'></i>
                                     </button>
                                 </form>
-                                <a class='circular-button secondary' href='{{route('task.edit', ['task' => $task->id])}}'>
+                                <a class='circular-button secondary' href='@yield('editButton')'>
                                     <i class='fa fa-edit'></i>
                                 </a>
-                                <a class='circular-button primary'  href='{{route('task.index')}}'>
+                                <a class='circular-button primary'  href='@yield('backButton')'>
                                     <i class='fas fa-arrow-left'></i>
                                 </a>
                             </div>
                         </div>
 
-                        <div class='row' style='margin-top: 30px'>
-                            <div class='col-12'style='padding-top: -10px'>
-                                Primeiro registro em: {{date('d/m/Y H:i', strtotime($task->created_at))}}
-                            </div>
-                        </div>
+                        @yield('createdAt')
 
                     </div>
                 </main>

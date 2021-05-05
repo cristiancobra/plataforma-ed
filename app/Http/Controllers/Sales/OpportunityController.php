@@ -57,6 +57,8 @@ class OpportunityController extends Controller {
                 ->get();
 
         $users = myUsers();
+        $stages = $this->listStages();
+        $status = $this->listStatus();
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
@@ -65,6 +67,8 @@ class OpportunityController extends Controller {
                         'companies',
                         'accounts',
                         'users',
+                        'stages',
+                        'status',
         ));
     }
 
@@ -96,7 +100,8 @@ class OpportunityController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $stages = returnOpportunitiesStage();
+        $stages = $this->listStages();
+        $status = $this->listStatus();
 
         return view('sales.opportunities.createOpportunity', compact(
                         'opportunity',
@@ -106,6 +111,7 @@ class OpportunityController extends Controller {
                         'contacts',
                         'products',
                         'stages',
+                        'status',
         ));
     }
 
@@ -329,7 +335,8 @@ class OpportunityController extends Controller {
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
-        $stages = returnOpportunitiesStage();
+        $stages = $this->listStages();
+        $status = $this->listStatus();
 
         return view('sales.opportunities.editOpportunity', compact(
                         'opportunity',
@@ -340,6 +347,7 @@ class OpportunityController extends Controller {
                         'opportunities',
                         'invoices',
                         'stages',
+                        'status',
         ));
     }
 
@@ -486,6 +494,8 @@ class OpportunityController extends Controller {
                 ->get();
 
         $users = myUsers();
+        $stages = $this->listStages();
+        $status = $this->listStatus();
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
@@ -494,6 +504,8 @@ class OpportunityController extends Controller {
                         'companies',
                         'accounts',
                         'users',
+                        'stages',
+                        'status',
         ));
     }
 
@@ -502,6 +514,28 @@ class OpportunityController extends Controller {
         $opportunity->save();
 
         return redirect()->action('Sales\\OpportunityController@index');
+    }
+
+    // retorna os estágios das oportunidades
+    public function listStages() {
+        return $stages = array(
+            'prospecção',
+            'apresentação',
+            'proposta',
+            'contrato',
+            'cobrança',
+            'produção',
+            'concluída',
+        );
+    }
+
+    // retorna os estágios das oportunidades
+    public function listStatus() {
+        return $status = array(
+            'negociando',
+            'perdemos',
+            'ganhamos',
+        );
     }
 
 }

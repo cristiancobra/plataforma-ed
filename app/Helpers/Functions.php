@@ -451,20 +451,6 @@ if (!function_exists('returnStateName')) {
     }
 
 }
-// retorna os estágios das oportunidades
-if (!function_exists('returnOpportunitiesStage')) {
-
-    function returnOpportunitiesStage() {
-        return $states = array(
-            'prospecção',
-            'apresentação',
-            'proposta',
-            'ganhamos',
-            'perdemos',
-        );
-    }
-
-}
 // gera um botão com a formatação para PRIORIDADE da tarefa  a partir de  $model
 if (!function_exists('formatPriority')) {
 
@@ -669,6 +655,30 @@ if (!function_exists('formatStatus')) {
     }
 
 }
+// gera uma DIV com a formatação para ESTÁGIO da oportunidade  a partir de  $model
+if (!function_exists('formatShowStage')) {
+
+    function formatShowStage($model) {
+        switch ($model->stage) {
+            case 'prospecção':
+                echo '<div class="prospecting">prospecção</div>';
+                break;
+            case 'apresentação':
+                echo '<div class="presentation">apresentação</div>';
+                break;
+            case 'proposta':
+                echo '<div class="proposal">proposta</div>';
+                break;
+            case 'ganhamos':
+                echo '<div class="won">ganhamos</div>';
+                break;
+            case 'perdemos':
+                echo '<div class="lost">perdemos</div>';
+                break;
+        }
+    }
+
+}
 // gera uma DIV com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatShowStatus')) {
 
@@ -688,6 +698,24 @@ if (!function_exists('formatShowStatus')) {
                 break;
             case 'aguardar':
                 echo '<div class="stuck">aguardar</div>';
+                break;
+        }
+    }
+
+}
+// gera uma DIV com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
+if (!function_exists('formatShowOpportunityStatus')) {
+
+    function formatShowOpportunityStatus($model) {
+        switch ($model->status) {
+            case 'negociando':
+                echo '<div class="doing">negociando</div>';
+                break;
+            case 'ganhamos':
+                echo '<div class="won">ganhamos</div>';
+                break;
+            case 'perdemos':
+                echo '<div class="lost">perdemos</div>';
                 break;
         }
     }

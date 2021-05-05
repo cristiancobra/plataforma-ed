@@ -11,7 +11,7 @@
 
 @section('buttons')
 <a class="circular-button primary"  href="{{route('task.index')}}">
-    CRIAR
+    <i class="fas fa-arrow-left"></i>
 </a>
 @endsection
 

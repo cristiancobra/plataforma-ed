@@ -93,9 +93,9 @@ and open the template in the editor.
     border-color: white;
     padding:5px;
 }
-                
+
 /*priority*/
-                
+
 .emergency{
     text-align: center;
     font-size: 18px;
@@ -115,7 +115,6 @@ and open the template in the editor.
     font-size: 18px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:middle;
     background-color: #6357A1;
     border-style: solid;
     border-radius:10px;
@@ -152,6 +151,64 @@ and open the template in the editor.
     padding:5px;
 }
 
+/*  Oportunidades / Stage */
+.won{
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #A3FDE6;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.lost{
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #FDDBDD;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.prospecting{
+    text-align: center;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:middle;
+    background-color: #A5D9CC;
+    border-style: solid;
+    border-radius:10px;
+    border-width: 1px; 
+    border-color: white;
+    padding:5px;
+}
+
+.presentation{
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #957799;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+
+.proposal{
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #EDB4F4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
 
 /*dates*/
 
@@ -228,8 +285,8 @@ and open the template in the editor.
     background-color: #c28dbf;
     margin-top: 3px;
     margin-bottom: 5px;
-        margin-right: 0px;
-        margin-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
     padding-top: 7px;
     padding-bottom: 4px;
     padding-left: 10px;
@@ -237,9 +294,9 @@ and open the template in the editor.
     text-align:left;
     font-size:16px;
     border-radius:7px 0px 0px 7px;
-        border-style: solid;
-        border-color: #c28dbf;
-        border-width: 0.5px;
+    border-style: solid;
+    border-color: #c28dbf;
+    border-width: 0.5px;
 }
 
 .show-label-large {
@@ -248,8 +305,8 @@ and open the template in the editor.
     background-color: #c28dbf;
     margin-top: 3px;
     margin-bottom: 5px;
-        margin-right: 0px;
-        margin-left: 0px;
+    margin-right: 0px;
+    margin-left: 0px;
     padding-top: 7px;
     padding-bottom: 4px;
     padding-left: 10px;
@@ -273,10 +330,10 @@ and open the template in the editor.
     font-weight:normal;
     text-align:left;
     font-size:16px;
-        border-radius:0px 7px 7px 0px;
-        border-style: solid;
-        border-color: #c28dbf;
-        border-width: 0.5px;
+    border-radius:0px 7px 7px 0px;
+    border-style: solid;
+    border-color: #c28dbf;
+    border-width: 0.5px;
 }
 
 .description-field {
@@ -293,10 +350,10 @@ and open the template in the editor.
     font-weight:normal;
     text-align:left;
     font-size:16px;
-        border-radius:0px 0px 7px 7px;
-                border-style: solid;
-        border-color: #c28dbf;
-        border-width: 0.5px;
+    border-radius:0px 0px 7px 7px;
+    border-style: solid;
+    border-color: #c28dbf;
+    border-width: 0.5px;
 }
 
 .table-show{ 
@@ -313,8 +370,8 @@ and open the template in the editor.
     font-weight:normal;
     text-align:left;
     font-size:16px;
-        border-radius:0px 0px 7px 7px;
-                border-style: solid;
-        border-color: #c28dbf;
-        border-width: 0.5px;
+    border-radius:0px 0px 7px 7px;
+    border-style: solid;
+    border-color: #c28dbf;
+    border-width: 0.5px;
 }

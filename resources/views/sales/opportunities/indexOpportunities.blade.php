@@ -26,7 +26,7 @@
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
-    {{createFilterSelect('stage', 'select', returnOpportunitiesStage(), 'Todas as etapas')}}
+    {{createFilterSelect('stage', 'select', $stages, 'Todas as etapas')}}
     <br>
     <a class="button-secondary" href='{{route('opportunity.index')}}'>
         LIMPAR
@@ -42,17 +42,20 @@
         <td class="table-list-header" style="width: 15%">
             CONTATO 
         </td>
-        <td class="table-list-header" style="width: 20%">
+        <td class="table-list-header" style="width: 15%">
             EMPRESA
         </td>
-        <td class="table-list-header" style="width: 17%">
+        <td class="table-list-header" style="width: 15%">
             RESPONSÁVEL 
         </td>
         <td class="table-list-header" style="width: 5%">
             PRÓXIMO CONTATO
         </td>
-        <td   class="table-list-header" style="width: 8%">
+        <td   class="table-list-header" style="width: 10%">
             ETAPA DA VENDA
+        </td>
+        <td   class="table-list-header" style="width: 10%">
+            SITUAÇÃO
         </td>
     </tr>
 
@@ -99,6 +102,7 @@
             @endif
         </td>
         {{formatStage($opportunity)}}
+        {{formatStatus($opportunity)}}
     </tr>
     @endforeach
 </table>

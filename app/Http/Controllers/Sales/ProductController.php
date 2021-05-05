@@ -128,6 +128,7 @@ class ProductController extends Controller {
             $product = new Product();
             $product->fill($request->all());
             $product->price = str_replace(",", ".", $request->price);
+            $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $request->type;
             $product->save();
 
@@ -194,6 +195,7 @@ class ProductController extends Controller {
     public function update(Request $request, Product $product) {
         $product->fill($request->all());
         $product->price = str_replace(",", ".", $request->price);
+        $product->tax_rate = str_replace(",", ".", $request->tax_rate);
         $product->save();
         $variation = $request->variation;
 //        dd($variation);

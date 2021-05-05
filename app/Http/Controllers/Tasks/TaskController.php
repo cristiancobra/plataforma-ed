@@ -160,6 +160,7 @@ class TaskController extends Controller {
             $task = new Task();
             $task->fill($request->all());
             $task->status = 'fazer';
+            dd($task);
             $task->save();
 
             $journeys = Journey::where('task_id', $task->id)
@@ -295,6 +296,13 @@ class TaskController extends Controller {
     public function destroy(task $task) {
         $task->delete();
         return redirect()->action('Tasks\\TaskController@index');
+    }
+
+    public function accountOpportunities($accountId) {
+        $accountOpportunities = Opportunity::where('account_id', $accountiId)
+                ->where('stage', '!=', 'perdemos')
+                ->orderBy('date_due', 'ASC')
+                ->get();
     }
 
     public function duration(start_time $start_time, end_time $end_time) {

@@ -63,7 +63,7 @@
 <span class="fields">{{formatCurrencyReal(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price)}}</span>
 <br>
 <br>
-<label class="labels" for="" >IMPOSTO:</label>
+<label class="labels" for="" >IMPOSTO %:</label>
 <span class="fields">{{$product->tax_rate}} %</span>
 <br>
 <label class="labels" for="" >IMPOSTO:</label>
