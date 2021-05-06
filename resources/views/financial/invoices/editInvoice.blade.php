@@ -21,7 +21,7 @@
         @csrf
         @method('put')
         <label class="labels" for="" >IDENTIFICADOR:</label>
-        <span class="fields">{{$invoice->identifier}}</span>
+        <input type='number' span class="fields" style='width: 80px;text-align: right' value='{{$invoice->identifier}}'>
         <br>
         <label class="labels" for="" >CONTA: </label>
         <select name="account_id">
