@@ -65,8 +65,8 @@
         <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
         @else
         {{createDoubleSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui')}}
-        <br>
         @endif
+        <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" value="{{$today}}">
         @if ($errors->has('date_start'))

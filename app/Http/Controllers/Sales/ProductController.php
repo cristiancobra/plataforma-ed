@@ -24,7 +24,7 @@ class ProductController extends Controller {
                 })
                 ->orderBy('name', 'ASC')
                 ->paginate(20);
-//dd($invoices);
+
         $products->appends([
             'status' => $request->status,
             'contact_id' => $request->contact_id,
@@ -134,7 +134,7 @@ class ProductController extends Controller {
 
             $type = $product->type;
             $variation = $request->variation;
-            
+
             return view('sales.products.showProduct', compact(
                             'product',
                             'type',
@@ -175,8 +175,8 @@ class ProductController extends Controller {
                     $query->whereIn('account_id', $accountsId);
                 })
                 ->get();
-                
-         $variation = $request->variation;
+
+        $variation = $request->variation;
 
         return view('sales.products.editProduct', compact(
                         'product',
@@ -198,10 +198,10 @@ class ProductController extends Controller {
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
         $product->save();
         $variation = $request->variation;
-//        dd($variation);
+
         return view('sales.products.showProduct', compact(
-            'product',
-            'variation',
+                        'product',
+                        'variation',
         ));
     }
 
@@ -212,8 +212,10 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Product $product) {
+        $variation = $product->type;
         $product->delete();
-        return redirect()->action('Sales\\ProductController@index');
+
+        return redirect()->route('product.index', ['variation' => $variation]);
     }
 
     public function filter(Request $request) {
