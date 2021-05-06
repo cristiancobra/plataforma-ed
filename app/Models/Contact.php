@@ -57,7 +57,7 @@ class Contact extends Model {
     }
 
     public function contactLists() {
-        return $this->belongsToMany(ContactList::class, 'contact_contact_list');
+        return $this->belongsToMany(ContactList::class, 'contact_contact_list', 'contact_id', 'contact_list_id');
     }
 
     public function contracts() {

@@ -67,8 +67,8 @@
         </form>
         <form  style="text-decoration: none;display: inline-block" action="{{route('campaign.send')}}" method="post">
             @csrf
-            <input type='hidden' name='account' value='{{$account->id}}'>
-            <input type='hidden' name='contact' value='{{$contact->id}}'>
+            <input type='hidden' name='account' value='{{$campaign->account_id}}'>
+            <input type='hidden' name='contact' value='{{$campaign->contact_id}}'>
             <input type='hidden' name='email' value='{{$campaign->email_id}}'>
             {{submitFormButton('ENVIAR')}}
         </form>

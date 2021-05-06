@@ -60,10 +60,6 @@
 			@method('delete')
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<form  style="text-decoration: none;display: inline-block" action="{{route('email.send', ['email' => $email])}}" method="post">
-			@csrf
-			<input class="button-secondary" type="submit" value="ENVIAR">
-		</form>
 		<a class="button-secondary" href=" {{route('email.edit', ['email' => $email->id])}} "  style="text-decoration: none;color: white;display: inline-block">
 			<i class='fa fa-edit'></i>EDITAR
 		</a>

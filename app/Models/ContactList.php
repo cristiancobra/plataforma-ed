@@ -23,7 +23,7 @@ class ContactList extends Model {
     }
 
     public function contacts() {
-        return $this->hasMany(Contact::class, 'contact_contact_list', 'contact_id', 'contact_list_id');
+        return $this->hasMany(Contact::class, 'contact_contact_list');
     }
 
     public function company() {

@@ -26,7 +26,7 @@
 </div>
 @endif
 <div>
-	<form action="{{route('email.store')}}" method="post" style="color: #874983">
+	<form action="{{route('email.store')}}" method="post">
 		@csrf
 		<label class="labels" for="" >EMPRESA: </label>
 		@if(!empty(app('request')->input('taskAccountId')))

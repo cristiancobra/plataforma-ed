@@ -79,7 +79,6 @@ class ContactListController extends Controller {
     public function store(Request $request) {
         $contactList = new ContactList();
         $contactList->fill($request->all());
-        $contactList->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 
         $messages = [
             'unique' => 'Já existe um contato com este :attribute.',
@@ -125,7 +124,7 @@ class ContactListController extends Controller {
                     })
                     ->get();
 
-            $contactList->contacts()->sync($contacts);
+            $contactList->contacts()->saveMany($contacts);
         }
 
         return view('marketing.contactList.show', compact(
