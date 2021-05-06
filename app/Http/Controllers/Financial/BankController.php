@@ -3,19 +3,26 @@
 namespace App\Http\Controllers\Financial;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Bank;
 use Illuminate\Http\Request;
 
-class BankController extends Controller
-{
+class BankController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index() {
+        $banks = Bank::where('id', '>', 1)
+                ->orderBy('name', 'ASC')
+                ->get();
+
+//        dd($banks);
+        return view('financial.banks.index', compact(
+                        'banks',
+        ));
     }
 
     /**
@@ -23,9 +30,8 @@ class BankController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('financial.banks.create');
     }
 
     /**
@@ -34,9 +40,30 @@ class BankController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:banks',
+                    'bank_code' => 'required:banks',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $bank = new Bank();
+            $bank->fill($request->all());
+            $bank->save();
+
+            return view('financial.banks.show', compact(
+                            'bank',
+            ));
+        }
     }
 
     /**
@@ -45,9 +72,11 @@ class BankController extends Controller
      * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function show(Bank $bank)
-    {
-        //
+    public function show(Bank $bank) {
+
+        return view('financial.banks.show', compact(
+                        'bank',
+        ));
     }
 
     /**
@@ -56,9 +85,10 @@ class BankController extends Controller
      * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bank $bank)
-    {
-        //
+    public function edit(Bank $bank) {
+        return view('financial.banks.edit', compact(
+                        'bank',
+        ));
     }
 
     /**
@@ -68,9 +98,13 @@ class BankController extends Controller
      * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bank $bank)
-    {
-        //
+    public function update(Request $request, Bank $bank) {
+        $bank->fill($request->all());
+        $bank->save();
+
+        return view('financial.banks.show', compact(
+                        'bank',
+        ));
     }
 
     /**
@@ -79,8 +113,9 @@ class BankController extends Controller
      * @param  \App\Models\Bank  $bank
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bank $bank)
-    {
-        //
+    public function destroy(Bank $bank) {
+        $bank->delete();
+        return redirect()->action('Financial\\BankController@index');
     }
+
 }

@@ -46,12 +46,13 @@ Route::resource('accounts', 'Accounts\\AccountController')
 Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
 
 // ================================ FINANCIAL ===================
-//Route::resource('despesas', 'Financial\\BillController')
-//		->except(['index'])
-//		->names('bill')
-//		->parameters(['despesas' => 'bill'])
-//		->middleware('roles');
+// banks
+Route::resource('bancos', 'Financial\\BankController')
+        ->names('bank')
+        ->parameters(['bancos' => 'bank'])
+        ->middleware('roles');
 
+// banks accounts
 Route::resource('contas-bancarias', 'Financial\\BankAccountController')
         ->names('bankAccount')
         ->parameters(['contas-bancarias' => 'bankAccount'])

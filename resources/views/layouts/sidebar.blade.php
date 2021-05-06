@@ -196,6 +196,11 @@
                                                                                                                                                         'faIcon' => 'fas fa-palette',
                                                                                                                                                         'link' => route('configurations'),
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'ADICIONAR BANCO',
+                                                                                                                                                        'faIcon' => 'fas fa-university',
+                                                                                                                                                        'link' => route('bank.index'),
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
 
         @endif
