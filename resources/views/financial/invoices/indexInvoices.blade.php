@@ -73,7 +73,7 @@ Total: <span class="labels">{{$total}}</span>
 </div>
 <br>
 <br>
-<form id="filter" action="{{route('invoice.filter')}}" method="post" style="text-align: right;color: #874983">
+<form id="filter" action="{{route('invoice.filter')}}" method="post" style="text-align: right;display:none">
     @csrf
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
     <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>

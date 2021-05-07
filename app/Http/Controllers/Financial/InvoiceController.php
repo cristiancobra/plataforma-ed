@@ -97,8 +97,8 @@ class InvoiceController extends Controller {
 
         return view('financial.invoices.indexInvoices', compact(
                         'invoices',
-                        'companies',
                         'contacts',
+                        'companies',
                         'accounts',
                         'users',
                         'total',
@@ -291,7 +291,6 @@ class InvoiceController extends Controller {
      */
     public function show(Invoice $invoice) {
         $typeInvoices = $invoice->type;
-//        $oldInvoiceId = $invoice->id;
 
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
                 ->orderBy('PAY_DAY', 'ASC')
@@ -301,8 +300,6 @@ class InvoiceController extends Controller {
             $invoice2->paid = Transaction::where('invoice_id', $invoice2->id)
                     ->sum('value');
         }
-
-//        $invoice->id = $oldInvoiceId;
 
         $invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);

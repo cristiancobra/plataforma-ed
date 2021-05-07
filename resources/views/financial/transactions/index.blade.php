@@ -11,6 +11,9 @@ Total: <span class="labels"></span>
 @endsection
 
 @section('buttons')
+<a id='filter_button' class='circular-button secondary'>
+    <i class="fa fa-filter" aria-hidden="true"></i>
+</a>
 <a class="circular-button secondary" href="{{route('transaction.create', ['typeTransactions' => 'despesa'])}}">
     <i class="fas fa-minus"></i>
 </a>
@@ -69,6 +72,23 @@ Total: <span class="labels"></span>
 </div>
 <br>
 <br>
+<form id="filter" action="{{route('transaction.filter')}}" method="post" style="text-align: right;display:none">
+    @csrf
+    <input type="text" name="name" placeholder="nome da oportunidade" value="">
+    <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
+    <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
+    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
+    {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
+    {{createFilterSelectModels('bank_account_id', 'select', $bankAccounts, 'Todas as contas')}}
+    {{returnType('type', 'select', 'transaction')}}
+    <br>
+    <a class="text-button secondary" href='{{route('transaction.index')}}'>
+        LIMPAR
+    </a>
+    <input class="text-button primary" type="submit" value="FILTRAR">
+</form>
+<br>
+<br>
 <div>
     <table class="table-list">
         <tr>
@@ -102,22 +122,22 @@ Total: <span class="labels"></span>
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
                     </button>
-                {{dateBr($transaction->pay_day)}}
+                    {{dateBr($transaction->pay_day)}}
                 </a>
             </td>
             <td class="table-list-left">
                 @if(isset($transaction->invoice->opportunity))
                 <a href=" {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity_id])}}">
-                {{$transaction->invoice->opportunity->name}}
+                    {{$transaction->invoice->opportunity->name}}
                 </a>
                 @else
                 não possui
                 @endif
             </td>
-              <td class="table-list-center">
+            <td class="table-list-center">
                 @if($transaction->invoice_id != null)
                 <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
-                {{$transaction->invoice_id}}
+                    {{$transaction->invoice_id}}
                 </a>
                 @else
                 excluida
@@ -126,7 +146,7 @@ Total: <span class="labels"></span>
             <td class="table-list-center">
                 @if($transaction->bankAccount)
                 <a class="white" href=" {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}">
-                {{$transaction->bankAccount->name}}
+                    {{$transaction->bankAccount->name}}
                 </a>
                 @else
                 conta excluída
@@ -134,17 +154,17 @@ Total: <span class="labels"></span>
             </td>
             <td class="table-list-center">
                 <a class="white" href=" {{route('account.show', ['account' => $transaction->account->id])}}">
-                {{$transaction->account->name}}
+                    {{$transaction->account->name}}
                 </a>
             </td>
             <td class="table-list-center">
                 @if(isset($transaction->invoice->company->name))
                 <a class="white" href=" {{route('company.show', ['company' => $transaction->invoice->company->id])}}">
-                {{$transaction->invoice->company->name}}
+                    {{$transaction->invoice->company->name}}
                 </a>
                 @elseif(isset($transaction->invoice->contact->name))
                 <a class="white" href=" {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}">
-                {{$transaction->invoice->contact->name}}
+                    {{$transaction->invoice->contact->name}}
                 </a>
                 @else
                 Não possui
@@ -162,4 +182,16 @@ Total: <span class="labels"></span>
     </table>
 </div>
 <br>
+@endsection
+
+@section('js-scripts')
+<script>
+    $(document).ready(function () {
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
+
+    });
+</script>
 @endsection

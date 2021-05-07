@@ -860,6 +860,10 @@ if (!function_exists('returnType')) {
                 $all = 'todos os tipos';
                 $types = array('receita', 'despesa');
                 break;
+            case 'transaction':
+                $all = 'todos os tipos';
+                $types = array('crédito', 'débito');
+                break;
         }
         echo "<select class = '$class' name = '$name'>";
         echo "<option  class='select' value=''>

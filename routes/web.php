@@ -102,7 +102,11 @@ Route::resource('planejamentos', 'Financial\\PlanningController')
 // dashboar financeiro
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
-// movimentações financeiras
+// transactions / movimentações financeiras
+Route::any('/movimentacoes/filtros', 'Financial\\TransactionController@filter')
+        ->name('transaction.filter')
+        ->middleware('roles');
+
 Route::resource('movimentacoes', 'Financial\\TransactionController')
         ->names('transaction')
         ->parameters(['movimentacoes' => 'transaction'])

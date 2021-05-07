@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\BankAccount;
+use App\Models\Contact;
+use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Transaction;
 
@@ -30,6 +32,20 @@ class TransactionController extends Controller {
                 ])
                 ->orderBy('PAY_DAY', 'DESC')
                 ->paginate(20);
+
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $users = myUsers();
 
         $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
                 ->where('type', 'crédito')
@@ -69,8 +85,12 @@ class TransactionController extends Controller {
         }
 //dd($transactions);
         return view('financial.transactions.index', compact(
-                        'bankAccounts',
                         'transactions',
+                        'contacts',
+                        'companies',
+                        'accounts',
+                        'users',
+                        'bankAccounts',
                         'revenueMonthly',
                         'estimatedRevenueMonthly',
                         'expenseMonthly',
@@ -217,6 +237,122 @@ class TransactionController extends Controller {
     public function destroy(Transaction $transaction) {
         $transaction->delete();
         return redirect()->action('Financial\\TransactionController@index');
+    }
+
+    public function filter(Request $request) {
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+
+
+        $transactions = Transaction::where(function ($query) use ($request) {
+                    if ($request->account_id) {
+                        $query->where('account_id', $request->account_id);
+                    } else {
+                        $query->whereIn('account_id', userAccounts());
+                    }
+                    if ($request->name) {
+                        $query->whereHas('opportunity', function ($query) use ($request) {
+                            $query->where('name', 'like', "%$request->name%");
+                        });
+                    }
+                    if ($request->date_start) {
+                        $query->where('pay_day', '>', $request->date_start);
+                    }
+                    if ($request->date_end) {
+                        $query->where('pay_day', '<', $request->date_end);
+                    }
+                    if ($request->bank_account_id) {
+                        $query->where('bank_account_id', $request->bank_account_id);
+                    }
+                    if ($request->company_id) {
+                        $query->where('company_id', $request->company_id);
+                    }
+//                    if ($request->status) {
+//                        $query->where('status', '=', $request->status);
+//                    }
+                    if ($request->type) {
+                        $query->where('type', '=', $request->type);
+                    }
+                })
+                ->with([
+                    'user',
+                    'bankAccount',
+                    'invoice',
+                    'invoice.company',
+                                        'invoice.opportunity',
+                ])
+                ->orderBy('pay_day', 'DESC')
+                ->paginate(20);
+
+        $transactions->appends([
+            'status' => $request->status,
+            'contact_id' => $request->contact_id,
+            'user_id' => $request->user_id,
+        ]);
+        
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $companies = Company::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $users = myUsers();
+
+        $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
+                ->where('type', 'crédito')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('value');
+
+        $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+                ->where('type', 'receita')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('installment_value');
+
+        $expenseMonthly = Transaction::whereIn('account_id', userAccounts())
+                ->where('type', 'débito')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('value');
+
+        $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+                ->where('type', 'despesa')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('installment_value');
+
+        $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+                ->get();
+
+        foreach ($bankAccounts as $key => $bankAccount) {
+            $revenueTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+                    ->where('type', 'crédito')
+                    ->sum('value');
+
+            $expenseTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+                    ->where('type', 'débito')
+                    ->sum('value');
+
+            $bankAccount->revenueTotal = $bankAccount->opening_balance + $revenueTotal[$key] - $expenseTotal[$key];
+        }
+//dd($transactions);
+        return view('financial.transactions.index', compact(
+                        'transactions',
+                        'contacts',
+                        'companies',
+                        'accounts',
+                        'users',
+                        'bankAccounts',
+                        'revenueMonthly',
+                        'estimatedRevenueMonthly',
+                        'expenseMonthly',
+                        'estimatedExpenseMonthly',
+        ));
     }
 
 }
