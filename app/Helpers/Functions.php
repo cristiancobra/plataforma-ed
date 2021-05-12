@@ -1454,7 +1454,7 @@ if (!function_exists('removeCurrency')) {
 
 if (!function_exists('createSidebarItem')) {
 
-// cria um botao com simbolo de OLHO para adicionar visualizar um model
+// cria o menu sidebar com itens principais e submenus
     function createSidebarItem($groupName, $groupFaIcon, $aria, array $itens) {
         echo "
          <div class='dropdown'>

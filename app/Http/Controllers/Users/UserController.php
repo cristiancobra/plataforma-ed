@@ -458,5 +458,15 @@ class UserController extends Controller {
 		}
 	}
 
-//	public function filterUsers(Request $request) {
+	public function storeProfilePicture(Request $request) {
+//            $account_id = $request->acocunt_id;
+            $user = User::find(auth::user()->id);
+            $path = $request->file('profile_picture')->store('profile_pictures');
+            $user->profile_picture = $path;
+//            dd($user->image); 
+            $user->update();
+            echo $path;
+            
+            return redirect()->back();
+        }
 }

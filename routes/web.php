@@ -126,7 +126,7 @@ Route::resource('emails', 'Emails\\EmailController')
         ->names('email')
         ->middleware('roles');
 
-//sites
+// sites
 Route::resource('sites', 'Marketing\\SiteController')
         ->names('site')
         ->middleware('roles');
@@ -303,8 +303,20 @@ Route::any('/usuarios/filtros', 'Users\\UserController@index')
         ->name('user.index')
         ->middleware('roles');
 
+Route::any('/usuarios/foto-perfil', 'Users\\UserController@storeProfilePicture')
+        ->name('user.picture')
+        ->middleware('roles');
+
 Route::resource('usuarios', 'Users\\UserController')
         ->except(['index'])
         ->names('user')
         ->parameters(['usuarios' => 'user'])
         ->middleware('roles');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

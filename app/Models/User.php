@@ -8,57 +8,70 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable {
 
-	use Notifiable;
+    use Notifiable;
 
-	protected $table = 'users';
+    protected $table = 'users';
 
-	/**
-	 * The attributes that are mass assignable.
-	 *
-	 * @var array
-	 */
-	protected $fillable = [
-		'id', 'email', 'password', 'default_password', 'perfil',
-	];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'id',
+        'email',
+        'password',
+        'default_password',
+        'perfil',
+        'image',
+    ];
 
-	/**
-	 * The attributes that should be hidden for arrays.
-	 *
-	 * @var array
-	 */
-	protected $hidden = [
-		'password', 'remember_token',
-	];
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 
-	/**
-	 * The attributes that should be cast to native types.
-	 *
-	 * @var array
-	 */
-	protected $casts = [
-		'email_verified_at' => 'datetime',
-	];
-	public function accounts() {
-		return $this->belongsToMany(Account::class, 'users_accounts', 'user_id', 'account_id');
-	}
-	public function contact() {
-		return $this->belongsTo(Contact::class, 'contact_id', 'id');
-	}
-	public function emails() {
-		return $this->hasMany(Models\Email::class, 'id', 'user_id');
-	}
-	public function invoices() {
-		return $this->hasMany(User::class, 'id', 'user_id');
-	}
-	public function journeys() {
-		return $this->hasMany(Journey::class, 'id', 'user_id');
-	}
-	public function opportunities() {
-		return $this->hasMany(Opportunity::class, 'user_id', 'id');
-	}
-	public function tasks() {
-		return $this->hasMany(Task::class, 'id', 'user_id');
-	}
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
+    public function accounts() {
+        return $this->belongsToMany(Account::class, 'users_accounts', 'user_id', 'account_id');
+    }
+
+    public function contact() {
+        return $this->belongsTo(Contact::class, 'contact_id', 'id');
+    }
+
+    public function emails() {
+        return $this->hasMany(Models\Email::class, 'id', 'user_id');
+    }
+
+    public function invoices() {
+        return $this->hasMany(User::class, 'id', 'user_id');
+    }
+
+    public function journeys() {
+        return $this->hasMany(Journey::class, 'id', 'user_id');
+    }
+
+    public function opportunities() {
+        return $this->hasMany(Opportunity::class, 'user_id', 'id');
+    }
+
+    public function tasks() {
+        return $this->hasMany(Task::class, 'id', 'user_id');
+    }
+
 //	public function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
 //		$ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
 //		$mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
