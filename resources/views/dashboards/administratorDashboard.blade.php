@@ -105,6 +105,42 @@
                 PROPOSTA: {{$opportunitiesProposal}}
             </a>
         </div>
+        <div class="funnel-bar-proposal">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
+				'stage' =>"contracr",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+                CONTRATO: {{$opportunitiesContract}}
+            </a>
+        </div>
+        <div class="funnel-bar-proposal">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
+				'stage' =>"cobrança",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+                COBRANÇA: {{$opportunitiesBill}}
+            </a>
+        </div>
+        <div class="funnel-bar-proposal">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
+				'stage' =>"produção",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+                PRODUÇÃO: {{$opportunitiesProduction}}
+            </a>
+        </div>
+        <div class="funnel-bar-proposal">
+            <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
+				'stage' =>"concluída",
+				'contact_id' => "",
+				'user_id' => "",
+				])}}">
+                CONCLUÍDAS: {{$opportunitiesConcluded}}
+            </a>
+        </div>
     </div>
 
     <div class="col-2 d-inline-block triangle-text" style="display: inline-block;position: relative">

@@ -13,133 +13,159 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller {
 
-	public function index(Request $request) {
-		$accountsId = userAccounts();
+    public function index(Request $request) {
+        $accountsId = userAccounts();
 
-		$month = returnMonth(date('m'));
-		$monthStart = date('Y-m-01');
-		$monthEnd = date('Y-m-t');
+        $month = returnMonth(date('m'));
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
 
-		if ($request['role'] === "administrator" OR $request['role'] === "superadmin") {
-			$tasks = Task::whereIn('account_id', $accountsId)
-					->get();
+        if ($request['role'] === "administrator" OR $request['role'] === "superadmin") {
+            $tasks = Task::whereIn('account_id', $accountsId)
+                    ->get();
 
-			$tasks_pending = $tasks
-					->where('status', 'fazendo', 'fazer')
-					->count();
+            $tasks_pending = $tasks
+                    ->where('status', 'fazendo', 'fazer')
+                    ->count();
 
-			$opportunities = Opportunity::whereIn('account_id', $accountsId)
-					->get();
+            $opportunities = Opportunity::whereIn('account_id', $accountsId)
+                    ->get();
 
-			$journeys = Journey::whereIn('account_id', $accountsId)
-					->get();
+            $journeys = Journey::whereIn('account_id', $accountsId)
+                    ->get();
 
-			$users = User::whereHas('accounts', function($query) use($accountsId) {
-						$query->whereIn('account_id', $accountsId);
-					})
-					->orderBy('ID', 'ASC')
-					->get();
+            $users = User::whereHas('accounts', function ($query) use ($accountsId) {
+                        $query->whereIn('account_id', $accountsId);
+                    })
+                    ->orderBy('ID', 'ASC')
+                    ->get();
 
-			foreach ($users as $user) {
-				$user->hoursMonthly = Journey::where('user_id', $user->id)
-						->whereBetween('date', [$monthStart, $monthEnd])
-						->sum('duration');
-				$user->hoursToday = Journey::where('user_id', $user->id)
-						->where('date', date('Y-m-d'))
-						->sum('duration');
-			}
+            foreach ($users as $user) {
+                $user->hoursMonthly = Journey::where('user_id', $user->id)
+                        ->whereBetween('date', [$monthStart, $monthEnd])
+                        ->sum('duration');
+                $user->hoursToday = Journey::where('user_id', $user->id)
+                        ->where('date', date('Y-m-d'))
+                        ->sum('duration');
+            }
 
-			$view = 'dashboards/administratorDashboard';
+            $view = 'dashboards/administratorDashboard';
 
-			$departments = "";
-		} elseif ($request['role'] === "employee") {
-			$tasks = Task::where('user_id', Auth::user()->id)
-					->get();
+            $departments = "";
+        } elseif ($request['role'] === "employee") {
+            $tasks = Task::where('user_id', Auth::user()->id)
+                    ->get();
 
-			$tasks_pending = $tasks
-					->where('status', 'fazendo', 'fazer')
-					->where('date_due', '<=', date('Y-m-d'))
-					->count();
+            $tasks_pending = $tasks
+                    ->where('status', 'fazendo', 'fazer')
+                    ->where('date_due', '<=', date('Y-m-d'))
+                    ->count();
 
-			$opportunities = Opportunity::where('user_id', Auth::user()->id)
-					->get();
+            $opportunities = Opportunity::where('user_id', Auth::user()->id)
+                    ->get();
 
-			$journeys = Journey::where('user_id', Auth::user()->id)
-					->get();
+            $journeys = Journey::where('user_id', Auth::user()->id)
+                    ->get();
 
-			$users = "";
-			$tasks_my = "";
+            $users = "";
+            $tasks_my = "";
 
-			$view = 'dashboards/employeeDashboard';
-		}
+            $view = 'dashboards/employeeDashboard';
+        }
 
-		$tasksDone = $tasks
-				->where('status', 'feito')
-				->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-				->count();
+        $tasksDone = $tasks
+                ->where('status', 'feito')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$tasks_my = $tasks
-				->whereIn('status', ['fazendo', 'fazer'])
-				->where('user_id', Auth::user()->id)
-				->count();
+        $tasks_my = $tasks
+                ->whereIn('status', ['fazendo', 'fazer'])
+                ->where('user_id', Auth::user()->id)
+                ->count();
 
-		$opportunitiesProspecting = $opportunities
-				->where('stage', 'prospecção')
-				->count();
+        // opportunities stages
+        $opportunitiesProspecting = $opportunities
+                ->where('stage', 'prospecção')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$opportunitiesProspecting = $opportunities
-				->where('stage', 'prospecção')
-				->count();
+        $opportunitiesPresentation = $opportunities
+                ->where('stage', 'apresentação')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$opportunitiesPresentation = $opportunities
-				->where('stage', 'apresentação')
-				->count();
+        $opportunitiesProposal = $opportunities
+                ->where('stage', 'proposta')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$opportunitiesProposal = $opportunities
-				->where('stage', 'proposta')
-				->count();
+        $opportunitiesContract = $opportunities
+                ->where('stage', 'contrato')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$opportunitiesWon = $opportunities
-				->where('stage', 'ganhamos')
-				->count();
+        $opportunitiesBill = $opportunities
+                ->where('stage', 'cobrança')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$opportunitiesLost = $opportunities
-				->where('stage', 'perdemos')
-				->count();
+        $opportunitiesProduction = $opportunities
+                ->where('stage', 'produção')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		$departments = returnDepartments();
+        $opportunitiesConcluded = $opportunities
+                ->where('stage', 'concluída')
+                ->count();
 
-		foreach ($departments as $department) {
-			$departmentsMonthly[$department] = Journey::whereHas('task', function($query) use($department) {
-						$query->where('department', $department);
-					})
-					->where('user_id', Auth::user()->id)
-					->whereBetween('date', [$monthStart, $monthEnd])
-					->sum('duration');
+// opportunities status
+        $opportunitiesWon = $opportunities
+                ->where('status', 'ganhamos')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-			$departmentsToday[$department] = Journey::whereHas('task', function($query) use($department) {
-						$query->where('department', $department);
-					})
-					->where('user_id', Auth::user()->id)
-					->where('date', date('Y-m-d'))
-					->sum('duration');
-		}
+        $opportunitiesLost = $opportunities
+                ->where('status', 'perdemos')
+                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+                ->count();
 
-		return view($view, compact(
-						'month',
-						'users',
-						'tasksDone',
-						'tasks_pending',
-						'tasks_my',
-						'opportunitiesProspecting',
-						'opportunitiesPresentation',
-						'opportunitiesProposal',
-						'opportunitiesWon',
-						'opportunitiesLost',
-						'departments',
-						'departmentsMonthly',
-						'departmentsToday',
-		));
-	}
+        $departments = returnDepartments();
+
+        foreach ($departments as $department) {
+            $departmentsMonthly[$department] = Journey::whereHas('task', function ($query) use ($department) {
+                        $query->where('department', $department);
+                    })
+                    ->where('user_id', Auth::user()->id)
+                    ->whereBetween('date', [$monthStart, $monthEnd])
+                    ->sum('duration');
+
+            $departmentsToday[$department] = Journey::whereHas('task', function ($query) use ($department) {
+                        $query->where('department', $department);
+                    })
+                    ->where('user_id', Auth::user()->id)
+                    ->where('date', date('Y-m-d'))
+                    ->sum('duration');
+        }
+
+        return view($view, compact(
+                        'month',
+                        'users',
+                        'tasksDone',
+                        'tasks_pending',
+                        'tasks_my',
+                        'opportunitiesProspecting',
+                        'opportunitiesPresentation',
+                        'opportunitiesProposal',
+                        'opportunitiesContract',
+                        'opportunitiesBill',
+                        'opportunitiesProduction',
+                        'opportunitiesConcluded',
+                        'opportunitiesWon',
+                        'opportunitiesLost',
+                        'departments',
+                        'departmentsMonthly',
+                        'departmentsToday',
+        ));
+    }
 
 }

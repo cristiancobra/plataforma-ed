@@ -3,7 +3,7 @@
 @section('title','FUNCIONÁRIOS')
 
 @section('image-top')
-{{ asset('imagens/colaborador.png') }} 
+{{asset('imagens/colaborador.png')}}
 @endsection
 
 @section('description')
@@ -17,67 +17,59 @@
 
 @section('main')
 <div class='row'>
-    <div class='col-8'>
-        <h1 class='name'>
+    <div class='col-3'>
+        <div class='profile-picture'>
+            <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
+        </div>
+    </div>
+    <div class='col-9'>
+        <h1 class='name' style="margin-top: 20px">
             {{$user->contact->name}}
         </h1>
         <p class='labels' style='margin-top: 20px'>EMPRESAS: </p>
-    </div>
-    <div class='col-4'>
-        <div>
-            <img src='{{$user->profile_picture}}'>
-        </div>
-        <form action='{{route('user.picture')}}' method='post' enctype='multipart/form-data'>
-            @csrf
-            @method('put')
-            <input type='file' name='profile_picture'>
-            <input type='hidden' name='account_id' value="{{$user->account_id}}">
-            <button type='submit'>
-                ENVIAR FOTO
-            </button>
-        </form>
-</div>
 
-@foreach ($user->accounts as $account)
-<a  class='white' href=' {{route('account.show', ['account' => $account->id])}}'>
-    <button class='button-round'>
-        <i class='fa fa-eye'></i>
-    </button>
-</a>
-{{$account->name}}
-<br>
-@endforeach
-<br>
-<br>
-<p class='labels'>
-    EMAIL:<span class='fields'> {{$user->email}} </span>
-</p>
-<p class='labels'>
-    ID PLATAFORMA:<span class='fields'> {{$user->id}} </span>
-</p>
-<p class='labels'>
-    SENHA: <span class='fields'> {{$user->default_password}} </span>
-</p>
-<p class='labels'>
-    PERFIL: <span class='fields'>  {{$user->perfil}} </span>
-</p>
-<br>
-<p class='fields'>Criado em  {{date('d/m/Y H:i', strtotime($user->created_at))}}
-</p>
+        @foreach ($user->accounts as $account)
+        <a  class='white' href=' {{route('account.show', ['account' => $account->id])}}'>
+            <button class='button-round'>
+                <i class='fa fa-eye'></i>
+            </button>
+        </a>
+        {{$account->name}}
+        <br>
+        @endforeach
+    </div>
+    <br>
+    <br>
+    <p class='labels'>
+        EMAIL:<span class='fields'> {{$user->email}} </span>
+    </p>
+    <p class='labels'>
+        ID PLATAFORMA:<span class='fields'> {{$user->id}} </span>
+    </p>
+    <p class='labels'>
+        SENHA: <span class='fields'> {{$user->default_password}} </span>
+    </p>
+    <p class='labels'>
+        PERFIL: <span class='fields'>  {{$user->perfil}} </span>
+    </p>
+    <br>
+    <p class='fields'>Criado em  {{date('d/m/Y H:i', strtotime($user->created_at))}}
+    </p>
+</div>
 
 <div style='text-align: right'>
     <div style='text-align:right;color: #874983; display: inline-block'>
         <form action='{{ route('user.destroy', ['user' => $user->id]) }}' method='post'>
             @csrf
             @method('delete')
-            <input class='button-secondary' type='submit' value='APAGAR'>
+            <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
+                <i class='fa fa-trash'></i>
+            </button>
         </form>
     </div>
     <div style='text-align:right;color: #874983;display: inline-block'>
-        <a class='button-secondary' href=' {{ route('user.edit', ['user' => $user->id]) }}'>
-            <i class='fa fa-edit'>	
-            </i>
-            EDITAR
+        <a class='circular-button secondary' href=' {{ route('user.edit', ['user' => $user->id]) }}'>
+            <i class='fa fa-edit'></i>
         </a>
     </div>
     <a class='circular-button primary'  href='{{route('user.index')}}'>

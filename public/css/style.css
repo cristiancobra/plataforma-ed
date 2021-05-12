@@ -6998,8 +6998,6 @@ a.close.disabled {
   vertical-align: text-top !important;
 }
 
-
-
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
@@ -11705,7 +11703,20 @@ td {
     color: white;
 }
 
-
+.profile-picture-small {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #c28dbf;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 10px;
+        margin-left: auto;
+    margin-right: auto;
+}
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -12390,6 +12401,21 @@ and open the template in the editor.
     border-style: solid;
     border-color: #c28dbf;
     border-width: 0.5px;
+}
+
+.profile-picture {
+    border-style: solid;
+    border-width: 5px;
+    border-color: #c28dbf;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 10px;
+        margin-left: auto;
+    margin-right: auto;
 }
 /*
 To change this license header, choose License Headers in Project Properties.

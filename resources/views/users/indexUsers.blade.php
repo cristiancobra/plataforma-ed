@@ -46,18 +46,32 @@ Total: <span class='labels'>{{$total}} </span>
 <table class='table-list'>
     <tr>
         <td   class='table-list-header'>
-            Nome 
-        </td>
-        <td   class='table-list-header'> 
-            Empresa 
+            FOTO 
         </td>
         <td   class='table-list-header'>
-            Email
+            NOME 
+        </td>
+        <td   class='table-list-header'> 
+            EMPRESA
+        </td>
+        <td   class='table-list-header'>
+            EMAIL
         </td>
     </tr>
 
     @foreach ($users as $user)
     <tr style='font-size: 16px'>
+        <td class='table-list-center'>
+            <div class='profile-picture-small'>
+                <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
+                    @if($user->profile_picture)
+                    <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
+                    @else
+                    <img src='{{asset('imagens/colaborador.png')}}' width='100%' height='100%'>
+                    @endif
+                </a>
+            </div>
+        </td>
         <td class='table-list-left'>
             <a  class='white' href='https://nuvem.empresadigital.net.br/index.php/apps/spreed/' target='_blank'>
                 <button class='button-round'>
