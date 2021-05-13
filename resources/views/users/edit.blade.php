@@ -16,9 +16,21 @@
 @endsection
 
 @section('main')
-<form action=" {{ route('user.update', ['user' =>$user->id]) }} " method="post" style="padding: 40px;color: #874983">
-	@csrf
-	@method('put')
+<form action=" {{route('user.update', ['user' =>$user->id])}} " method="post" enctype='multipart/form-data'>
+    @csrf
+    @method('put')
+    <div class='container text-center'>
+        <div class='profile-picture'>
+                    @if($user->profile_picture)
+                    <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
+                    @else
+                    <img src='{{asset('imagens/colaborador.png')}}' width='100%' height='100%'>
+                    @endif
+        </div>
+        <input  type='file' name='profile_picture' value='{{$user->profile_picture}}'>
+    </div>
+    <br>
+    <br>
 	<label for="" >Nome: </label>
 	{{$user->contact->name}}
 		<a class="white" href=" {{route('contact.show', ['contact' => $user->contact->id])}}">
@@ -52,6 +64,9 @@
 	<label class="labels" for="" >Perfil:</label>
 	<select class="fields" name="perfil">
 		<option value="{{ $user->perfil }}">{{ $user->perfil }}</option>
+                    @if($user->perfil == 'super administrador')
+		<option value="super administrador">super administrador</option>
+                @endif
 		<option value="funcionario">funcionário</option>
 		<option value="administrador">administrador</option>
 	</select>

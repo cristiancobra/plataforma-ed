@@ -157,55 +157,22 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user, Request $request) {
-        $userAuth = Auth::user();
-
         $accountsChecked = Account::whereHas('users', function ($query) use ($user) {
                     $query->where('users.id', $user->id);
                 })
                 ->pluck('id')
                 ->toArray();
 
-        $accounts = Account::whereHas('users', function ($query) use ($userAuth) {
-                    $query->where('users.id', $userAuth->id);
-                })
-                ->get();
-
-        if ($request['role'] === "superadmin") {
-            $accounts = Account::where('id', '>', 0)
-                    ->orderBy('NAME', 'asc')
-                    ->get();
-
-            return view('users.superadmin_editUser', [
-                'user' => $user,
-                'userAuth' => $userAuth,
-                'accounts' => $accounts,
-                'accountsChecked' => $accountsChecked,
-            ]);
-        } elseif ($request['role'] === "administrator") {
-
-            $accountsID = Account::whereHas('users', function ($query) use ($userAuth) {
-                        $query->where('users.id', $userAuth->id);
-                    })
-                    ->get('id');
-
-            $accounts = Account::whereIn('id', $accountsID)
+            $accounts = Account::whereIn('id', userAccounts())
                     ->orderBy('ID', 'ASC')
                     ->get();
 
-            return view('users.administrator_editUser', [
-                'user' => $user,
-                'userAuth' => $userAuth,
-                'accounts' => $accounts,
-                'accountsChecked' => $accountsChecked,
-            ]);
-        } elseif ($request['role'] === "employee") {
-
-            return view('users.employee_editUser', [
-                'user' => $user,
-                'userAuth' => $userAuth,
-                'accounts' => $accounts,
-            ]);
-        }
+            return view('users.edit', compact(
+                'user',
+                'accounts',
+                'accountsChecked',
+            ));
+        
     }
 
     /**

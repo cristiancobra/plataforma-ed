@@ -96,40 +96,14 @@ class AccountController extends Controller {
 
         $states = returnStates();
 
-        if ($request['role'] === "superadmin") {
-            $users = User::where('users.id', '>', 0)
-                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                    ->select(
-                            'users.id as id',
-                            'contacts.name as name',
-                    )
-                    ->orderBy('NAME', 'asc')
-                    ->get();
+        $users = myUsers();
 
-            return view('accounts.superadmin_editAccount', compact(
-                            'users',
-                            'usersChecked',
-                            'account',
-                            'states',
-            ));
-        } elseif ($request['role'] === "administrator") {
-            $accountsId = Account::whereHas('users', function ($query) {
-                        $query->where('users.id', Auth::user()->id);
-                    })
-                    ->pluck('id');
-
-            $users = User::whereHas('accounts', function ($query) use ($accountsId) {
-                        $query->where('accounts.id', $accountsId->first());
-                    })
-                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                    ->select(
-                            'users.id as id',
-                            'contacts.name as name',
-                    )
-                    ->get();
-        } else {
-            return redirect('/login');
-        }
+        return view('accounts.edit', compact(
+                        'users',
+                        'usersChecked',
+                        'account',
+                        'states',
+        ));
     }
 
     /**

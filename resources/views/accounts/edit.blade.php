@@ -147,7 +147,7 @@ CKEDITOR.replace('description');
             checked
             @endif
             >
-        {{ $user->contact->name }}
+        {{$user->name}}
     </p>
     @endforeach
     <br>
