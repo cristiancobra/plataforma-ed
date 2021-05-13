@@ -10,9 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-secondary"  href="{{route('invoice.index')}}">
-	<i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('invoice')}}
 <a class="button-secondary" href="{{ route('invoice.pdf', ['invoice' => $invoice]) }}">
 	PDF
 </a>

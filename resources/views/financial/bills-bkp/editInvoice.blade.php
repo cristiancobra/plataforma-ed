@@ -10,9 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('invoice.index')}}">
-	<i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('invoice')}}
 @endsection
 
 @section('main')

@@ -10,13 +10,12 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('account.index')}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('account')}}
 @endsection
 
 @section('main')
-<form action=" {{ route('account.store') }} " method="post" style="color: #874983">
+<form action=" {{route('account.store')}} " method="post">
     @csrf
     <label for="" >Nome: </label>
     <input type="text" name="name">
@@ -48,7 +47,6 @@
     <br>
     <label class="labels" for="">CEP: </label>
     <input type="text" name="zip_code">
-    <br>
     <br>
     <br>
     <label for="">Segmento: </label>
@@ -104,16 +102,16 @@
     <input type="text" name="logo">   
     <br>
     <label for="">Cor principal: </label>
-    <input type="text" name="principal_color" value="#874983">
+    <input type="text" name="principal_color" value="#874983">   
     <br>
     <label for="">Cor complementar: </label>
     <input type="text" name="complementary_color" value="#c28dbf">   
     <br>
     <label for="">Cor oposta: </label>
-    <input type="text" name="opposite_color" value="#49d194">   
+    <input type="text" name="opposite_color" value="#49d194">
     <br>
     <br>
-    <label class="labels" for="" >Funcionário:</label>
+    <label class="labels" for="" >Funcionários: </label>
     <br>
     @foreach ($users as $user)
     <p class="fields">
@@ -125,8 +123,8 @@
     <br>
     <label class="labels" for="status">SITUAÇÃO: </label>
     <select class="fields" name="status">
-        <option value="pendente">pendente</option>
         <option value="ativo">ativo</option>
+        <option value="pendente">pendente</option>
         <option value="desativado">desativado</option>
     </select>
     <br>

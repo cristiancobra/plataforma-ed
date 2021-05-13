@@ -96,7 +96,13 @@
             {{$task->account->name}}
         </td>
         <td class="table-list-center">
-            @if(isset($task->user->contact->name))
+            @if($task->user->profile_picture)
+            <div class='profile-picture-small'>
+                <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
+                    <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
+                </a>
+            </div>
+            @elseif(isset($task->user->contact->name))
             {{$task->user->contact->name}}
             @else
             funcionário excluído
@@ -104,7 +110,7 @@
         </td>	
         <td class="table-list-center">
             @if($task->date_due == date('Y-m-d'))
-                hoje
+            hoje
             @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
             <p style="color: red">
                 {{dateBr($task->date_due)}}

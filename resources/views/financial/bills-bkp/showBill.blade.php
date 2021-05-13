@@ -10,9 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class="button-secondary"  href="{{route('bill.index')}}">
-	<i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('bill')}}
 @endsection
 
 @section('main')

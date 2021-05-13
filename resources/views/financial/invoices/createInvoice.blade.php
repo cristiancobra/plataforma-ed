@@ -14,9 +14,8 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('invoice.index', ['typeInvoices' => $typeInvoices])}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}
 @endsection
 
 @section('main')

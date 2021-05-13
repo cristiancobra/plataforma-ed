@@ -72,56 +72,25 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $user = new User();
-        $userAuth = Auth::user();
-
-        $accountsChecked = Account::whereHas('users', function ($query) use ($user) {
-                    $query->where('users.id', $user->id);
+            $accounts = Account::whereIn('id', userAccounts())
+                    ->orderBy('ID', 'ASC')
+                    ->get();
+            
+            $accountsChecked = Account::whereHas('users', function ($query) {
+                    $query->where('users.id', Auth()->user()->id);
                 })
                 ->pluck('id')
                 ->toArray();
 
-        if ($request['role'] === "superadmin") {
-            $accounts = Account::where('id', '>', 0)
-                    ->orderBy('NAME', 'asc')
-                    ->get();
-
-            $contacts = Contact::where('id', '>', 0)
-                    ->orderBy('NAME', 'asc')
-                    ->get();
-
-            return view('users.superadmin_createUser', [
-                'user' => $user,
-                'userAuth' => $userAuth,
-                'accounts' => $accounts,
-                'accountsChecked' => $accountsChecked,
-                'contacts' => $contacts,
-            ]);
-        } elseif ($request['role'] === "administrator") {
-
-            $accountsID = Account::whereHas('users', function ($query) use ($userAuth) {
-                        $query->where('users.id', $userAuth->id);
-                    })
-                    ->get('id');
-
-            $accounts = Account::whereIn('id', $accountsID)
+            $contacts = Contact::whereIn('account_id', userAccounts())
                     ->orderBy('ID', 'ASC')
                     ->get();
 
-            $contacts = Contact::whereIn('account_id', $accountsID)
-                    ->orderBy('ID', 'ASC')
-                    ->get();
-
-            return view('users.administrator_createUser', [
-                'user' => $user,
-                'userAuth' => $userAuth,
-                'accounts' => $accounts,
-                'accountsChecked' => $accountsChecked,
-                'contacts' => $contacts,
-            ]);
-        } else {
-            return redirect('/login');
-        }
+            return view('users.create', compact(
+                'accounts',
+                'accountsChecked',
+                'contacts',
+            ));
     }
 
     /**

@@ -3,16 +3,15 @@
 @section('title','NOVO CONTATO')
 
 @section('image-top')
-{{ asset('imagens/contact.png') }} 
+{{asset('imagens/contact.png')}} 
 @endsection
 
 @section('description')
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('contact.index')}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('contact')}}
 @endsection
 
 @section('main')
@@ -20,20 +19,20 @@
 
 @if(Session::has('failed'))
 <div class="alert alert-danger">
-    {{ Session::get('failed') }}
+    {{Session::get('failed')}}
     @php
     Session::forget('failed');
     @endphp
 </div>
 @endif
 <div>
-    <form action=" {{ route('contact.store') }} " method="post" style="color: #874983">
+    <form action="{{route('contact.store')}}" method="post">
         @csrf
         <label for="" >DONO: </label>
         <select name="account_id">
             @foreach ($accounts as $account)
-            <option  class="fields" value="{{ $account->id }}">
-                {{ $account->name }}
+            <option  class="fields" value="{{$account->id}}">
+                {{$account->name}}
             </option>
             @endforeach
         </select>

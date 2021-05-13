@@ -123,7 +123,7 @@ and open the template in the editor.
     font-size: 14px;
 }
 .funnel-bar-presentation:hover{
-    background-color: #DF0FFC;
+    background-color: #F905E9;
 }
 .funnel-bar-proposal{
     background-color: #EDB4F4;
@@ -140,7 +140,75 @@ and open the template in the editor.
     font-size: 14px;
 }
 .funnel-bar-proposal:hover{
-    background-color: #892996;
+    background-color: #F905E9;
+}
+.funnel-bar-contract{
+    background-color: #92C4D4;
+    color: white;
+    text-align: left;
+    width: 50%;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 8px;
+    text-shadow: 2px 2px 4px #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    font-size: 14px;
+}
+.funnel-bar-contract:hover{
+    background-color: #F905E9;
+}
+.funnel-bar-bill{
+    background-color: #F7AFB4;
+    color: white;
+    text-align: left;
+    width: 50%;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 8px;
+    text-shadow: 2px 2px 4px #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    font-size: 14px;
+}
+.funnel-bar-bill:hover{
+    background-color: #F905E9;
+}
+.funnel-bar-production{
+    background-color: #09FBBE;
+    color: white;
+    text-align: left;
+    width: 50%;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 8px;
+    text-shadow: 2px 2px 4px #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    font-size: 14px;
+}
+.funnel-bar-production:hover{
+    background-color: #F905E9;
+}
+.funnel-bar-concluded{
+    background-color: #20EB48;
+    color: white;
+    text-align: left;
+    width: 50%;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-top: 8px;
+    text-shadow: 2px 2px 4px #000000;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    font-size: 14px;
+}
+.funnel-bar-concluded:hover{
+    background-color: #F905E9;
 }
 .balance-won{
     width: 0;

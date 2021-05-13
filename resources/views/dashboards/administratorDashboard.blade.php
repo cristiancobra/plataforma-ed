@@ -105,16 +105,16 @@
                 PROPOSTA: {{$opportunitiesProposal}}
             </a>
         </div>
-        <div class="funnel-bar-proposal">
+        <div class="funnel-bar-contract">
             <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
-				'stage' =>"contracr",
+				'stage' =>"contract",
 				'contact_id' => "",
 				'user_id' => "",
 				])}}">
                 CONTRATO: {{$opportunitiesContract}}
             </a>
         </div>
-        <div class="funnel-bar-proposal">
+        <div class="funnel-bar-bill">
             <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
 				'stage' =>"cobrança",
 				'contact_id' => "",
@@ -123,7 +123,7 @@
                 COBRANÇA: {{$opportunitiesBill}}
             </a>
         </div>
-        <div class="funnel-bar-proposal">
+        <div class="funnel-bar-production">
             <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
 				'stage' =>"produção",
 				'contact_id' => "",
@@ -132,7 +132,7 @@
                 PRODUÇÃO: {{$opportunitiesProduction}}
             </a>
         </div>
-        <div class="funnel-bar-proposal">
+        <div class="funnel-bar-concluded">
             <a style="text-decoration:none;color:white" href="{{route('opportunity.index', [
 				'stage' =>"concluída",
 				'contact_id' => "",

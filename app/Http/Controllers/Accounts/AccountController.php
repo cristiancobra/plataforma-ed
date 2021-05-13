@@ -36,31 +36,17 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
+        $users = User::whereHas('accounts', function ($query) {
+                    $query->whereIn('accounts.id', userAccounts());
+                })
+                ->get();
+
         $states = returnStates();
 
-        if ($request['role'] === "superadmin") {
-            $users = User::where('users.id', '>', 0)
-                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                    ->orderBy('NAME', 'asc')
-                    ->get();
-
-            return view('accounts.superadmin_createAccount', compact(
-                            'users',
-                            'states',
-            ));
-        } elseif ($request['role'] === "administrator") {
-            $accountsId = userAccounts();
-
-            $users = User::whereHas('accounts', function ($query) use ($accountsId) {
-                        $query->whereIn('accounts.id', $accountsId);
-                    })
-                    ->get();
-
-            return view('accounts.administrator_createAccount', compact(
-                            'users',
-                            'states',
-            ));
-        }
+        return view('accounts.create', compact(
+                        'users',
+                        'states',
+        ));
     }
 
     /**

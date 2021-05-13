@@ -7,13 +7,13 @@ use App\Models\User;
 if (!function_exists('createButtonAdd')) {
 
 // cria um botao com simbolo de + para adicionar model  a partir da rota
-    function createButtonAdd($link, $parameter = null, $value = null) {
+    function createButtonAdd($route, $parameter = null, $value = null) {
         echo "<button class='button-round'>";
 
         if ($parameter) {
-            echo "<a href=" . route($link, [$parameter => $value]) . ">";
+            echo "<a href=" . route($route, [$parameter => $value]) . ">";
         } else {
-            echo "<a href=" . route($link) . ">";
+            echo "<a href=" . route($route) . ">";
         }
 
         echo "<i class='fa fa-plus' style='color:white'></i>";
@@ -22,14 +22,39 @@ if (!function_exists('createButtonAdd')) {
     }
 
 }
+if (!function_exists('createButtonBack')) {
+
+// cria um botao com simbolo de <- para retornar para página anterior
+    function createButtonBack() {
+        echo "<a class='circular-button secondary' href=" . url()->previous() . ">
+                        <i class='fas fa-arrow-left'></i>
+                  </a>";
+    }
+
+}
+if (!function_exists('createButtonList')) {
+
+// cria um botao com simbolo que vai para o index do model
+    function createButtonList($model, $parameter = null, $value = null) {
+        $route = "$model.index";
+        if ($parameter) {
+            echo "<a class='circular-button primary' href=" . route($route, [$parameter => $value]) . ">";
+        } else {
+            echo "<a class = 'circular-button primary' href = " . route($route) . ">";
+        }
+        echo "<i class = 'fas fa-list'></i>
+                     </a>";
+    }
+
+}
 if (!function_exists('createButtonShow')) {
 
 // cria um botao com simbolo de OLHO para adicionar visualizar um model
     function createButtonShow($model, $parameter) {
         $link = "$parameter.show";
-        echo "<button class='button-round'>";
-        echo "<a href=" . route($link, [$parameter => $model->id]) . ">";
-        echo "<i class='fa fa-eye' style='color:white'></i>";
+        echo "<button class = 'button-round'>";
+        echo "<a href = " . route($link, [$parameter => $model->id]) . ">";
+        echo "<i class = 'fa fa-eye' style = 'color:white'></i>";
         echo "</a>";
         echo "</button>";
     }
@@ -39,9 +64,9 @@ if (!function_exists('createButtonExternalLink')) {
 
 // cria um botao com simbolo de FOGUETE que aponta para links externos
     function createButtonExternalLink($link) {
-        echo "<button class='button-round'>";
-        echo "<a href='//$link'  target='_blank'>";
-        echo "<i class='fa fa-rocket' style='color:white'></i>";
+        echo "<button class = 'button-round'>";
+        echo "<a href = '//$link' target = '_blank'>";
+        echo "<i class = 'fa fa-rocket' style = 'color:white'></i>";
         echo "</a>";
         echo "</button>";
     }
@@ -51,15 +76,15 @@ if (!function_exists('createFilterSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
     function createFilterSelect($name, $class, array $options, $allLabel = null) {
-        echo "<select class = '$class' name = '$name' style='width:160px'>";
-        echo "<option  class='select' value=''>
-                        $allLabel
-                  </option>";
+        echo "<select class = '$class' name = '$name' style = 'width:160px'>";
+        echo "<option class = 'select' value = ''>
+            $allLabel
+            </option>";
         foreach ($options as $option) {
             if (old($name) == $option) {
-                echo "<option value='$option' selected='selected'>$option</option><br>";
+                echo "<option value = '$option' selected = 'selected'>$option</option><br>";
             } else {
-                echo "<option value='$option'>$option</option><br>";
+                echo "<option value = '$option'>$option</option><br>";
             }
         }
         echo "</select>";
@@ -70,12 +95,12 @@ if (!function_exists('createFilterSelectModels')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
     function createFilterSelectModels($name, $class, $models, $allLabel) {
-        echo "<select class = '$class' name = '$name' style='width:160px'>";
-        echo "<option  class='select' value=''>
-			$allLabel
-		</option>";
+        echo "<select class = '$class' name = '$name' style = 'width:160px'>";
+        echo "<option class = 'select' value = ''>
+            $allLabel
+            </option>";
         foreach ($models as $model) {
-            echo "<option value=\"$model->id\">$model->name</option><br>";
+            echo "<option value = \"$model->id\">$model->name</option><br>";
         }
         echo "</select>";
     }
@@ -611,7 +636,7 @@ if (!function_exists('formatStage')) {
                 break;
             case 'concluída':
                 echo '<td class="td-conclude">concluída</td>';
-                break;       
+                break;
         }
     }
 
@@ -704,7 +729,7 @@ if (!function_exists('formatShowStage')) {
                 break;
             case 'concluída':
                 echo '<div class="conclude">concluída</div>';
-                break;            
+                break;
         }
     }
 

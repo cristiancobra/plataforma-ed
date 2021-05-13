@@ -13,9 +13,8 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
-<a class="circular-button primary"  href="{{route('journey.index')}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('journey')}}
 @endsection
 
 @section('main')

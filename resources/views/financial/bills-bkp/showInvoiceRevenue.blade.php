@@ -16,9 +16,8 @@
 <a class="button-secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
 	EMAIL
 </a>
-<a class="button-secondary"  href="{{route('invoice.index')}}">
-	<i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('invoice')}}
 @endsection
 
 @section('main')

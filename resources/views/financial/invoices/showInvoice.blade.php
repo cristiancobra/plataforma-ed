@@ -16,9 +16,8 @@
 <a class="circular-button secondary" href="{{route('invoice.email', ['invoice' => $invoice])}}">
     <i class="fas fa-envelope"></i>
 </a>
-<a class="circular-button primary"  href="{{route('invoice.index')}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}
 @endsection
 
 @section('main')
