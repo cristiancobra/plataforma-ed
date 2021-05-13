@@ -14,9 +14,8 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('product.index', ['variation' => $variation])}}">
-	<i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('product', 'variation', $variation)}}
 @endsection
 
 @section('main')

@@ -13,9 +13,8 @@
 <a class="button-secondary"  href="{{route('task.pdf', ['task' => $task])}}">
     <i class="fas fa-print"></i>
 </a>
-<a class="circular-button primary"  href="{{route('task.index')}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('task')}}
 @endsection
 
 @section('header')

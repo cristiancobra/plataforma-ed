@@ -14,9 +14,8 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('company.index')}}">
-    <i class="fas fa-arrow-left"></i>
-</a>
+{{createButtonBack()}}
+{{createButtonList('company', 'typeCompanies', $typeCompanies)}}
 @endsection
 
 @section('main')
