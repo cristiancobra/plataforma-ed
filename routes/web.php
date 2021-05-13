@@ -36,6 +36,17 @@ Route::get('/funil-vendas', function () {
     return view('admin.funil-vendas');
 });
 
+Route::get('/clear', function() {
+    
+    $exitCode = Artisan::call('config:cache');
+    $exitCode = Artisan::call('config:clear');
+    $exitCode = Artisan::call('cache:clear');
+    $exitCode = Artisan::call('view:clear');
+    $exitCode = Artisan::call('route:clear');
+    $exitCode = Artisan::call('clear-compiled');
+    return 'DONE'; 
+  });
+
 // ================================ ACCOUNTS ===================
 Route::resource('accounts', 'Accounts\\AccountController')
         ->names('account')
