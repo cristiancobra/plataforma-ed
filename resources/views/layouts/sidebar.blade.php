@@ -20,7 +20,7 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        @if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador")
+        @if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador" OR Auth::user()->perfil == "dono")
 
         {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', [
                                                                                                                                                         [
