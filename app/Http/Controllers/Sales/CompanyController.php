@@ -23,8 +23,10 @@ class CompanyController extends Controller {
                 ->with([
                     'account',
                 ])
-                ->where('type', $typeCompanies)
-                ->orWhere('type', 'cliente e fornecedor')
+                ->where(function ($query) use($typeCompanies) {
+                    $query->where('type', $typeCompanies)
+                        ->orWhere('type', 'cliente e fornecedor');
+                })
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
