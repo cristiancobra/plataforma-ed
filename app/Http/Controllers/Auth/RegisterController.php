@@ -77,6 +77,7 @@ use RegistersUsers;
     public function register(Request $request) {
         $account= new Account();
         $account->name = $request->account_name;
+        $account->email = $request->email;
         $account->save();
         
         $contact = new Contact();
