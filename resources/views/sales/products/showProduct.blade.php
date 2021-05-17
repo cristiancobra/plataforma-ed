@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/show')
 
 @if($variation == 'receita')
 @section('title','PRODUTOS')
@@ -10,93 +10,153 @@
 {{asset('imagens/products.png')}} 
 @endsection
 
-@section('description')
-@endsection
-
 @section('buttons')
 {{createButtonBack()}}
 {{createButtonList('product', 'variation', $variation)}}
 @endsection
 
-@section('main')
-<br>
-<h1 class="name">
-    {{$product->name}}
-</h1>
-<label class="labels" for="" >FOTO:</label>
-<span class="fields">{{$product->image}}</span>
-<br>
-<label class="labels" for="" >DONO: </label>
-<span class="fields">{{$product->account->name}}</span>
-<br>
-<label class="labels" for="" >CATEGORIA:</label>
-<span class="fields">{{$product->category}}</span>
-<br>
-<label class="labels" for="" >DESCRIÇÃO:</label>
-<span class="fields">{!!html_entity_decode($product->description )!!}</span>
-<br>
-<label class="labels" for="" >HORAS NECESSÁRIAS:</label>
-<span class="fields">{{$product->work_hours}}</span>
-<br>
-<br>
-<label class="labels" for="" >CUSTO 1:</label>
-<span class="fields">R$ {{number_format($product->cost1, 2,",",".")}}</span>
-<label class="labels" for="" >descrição:</label>
-<span class="fields">{{$product->cost1_description}}</span>
-<br>
-<label class="labels" for="" >CUSTO 2:</label>
-<span class="fields">R$ {{number_format($product->cost2, 2,",",".")}}</span>
-<label class="labels" for="" >descrição:</label>
-<span class="fields">{{$product->cost2_description}}</span>
-<br>
-<label class="labels" for="" >CUSTO 3:</label>
-<span class="fields">R$ {{number_format($product->cost3, 2,",",".")}}</span>
-<label class="labels" for="" >descrição:</label>
-<span class="fields">{{$product->cost3_description}}</span>
-<br>
-<label class="labels" for="" >CUSTO TOTAL:</label>
-<span class="fields">R$ {{number_format($product->cost1 + $product->cost2 +$product->cost3, 2,",",".")}}</span>
-<br>
-<br>
-<label class="labels" for="" >MARGEM DE CONTRIBUIÇÃO (R$):</label>
-<span class="fields">{{formatCurrencyReal(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price)}}</span>
-<br>
-<br>
-<label class="labels" for="" >IMPOSTO %:</label>
-<span class="fields">{{$product->tax_rate}} %</span>
-<br>
-<label class="labels" for="" >IMPOSTO:</label>
-<span class="fields">R$ {{number_format($product->price * $product->tax_rate / 100, 2,",",".")}}</span>
-<br>
-<label class="labels" for="" >PREÇO:</label>
-<span class="fields">R$ {{number_format($product->price, 2,",",".")}}</span>
-<br>
-<br>
-<label class="labels" for="" >PRAZO DE ENTREGA:</label>
-<span class="fields">{{$product->due_date}}</span>
-<br>
-<br>
-<label class="labels" for="">SITUAÇÃO:</label>
-<span class="fields">{{$product->status}}</span>
-<br>
-<br>
-<p class="labels"> <b> Criado em:  </b> {{date('d/m/Y H:i', strtotime($product->created_at))}} </p>
+@section('name', $product->name)
 
-<div style="text-align:right;padding: 2%">
-    <form   style="text-decoration: none;display: inline-block" action="{{route('product.destroy', ['product' => $product->id])}}" method="post">
-        @csrf
-        @method('delete')
-        <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
-            <i class='fa fa-trash'></i>
-        </button>
-    </form>
-    <a class="circular-button secondary" href="{{route('product.edit', ['product' => $product->id, 'variation' => $variation])}}"  style="text-decoration: none;display: inline-block">
-        <i class='fa fa-edit'></i>
-    </a>
-    <a class="circular-button secondary"  href="{{route('product.index', ['variation' => $variation])}}">
-        <i class="fas fa-arrow-left"></i>
-    </a>
+@section('priority')
+{{formatShowCategory($product)}}
+@endsection
+
+
+@section('status')
+@if($product->status == 'fazer' AND $product->journeys()->exists())
+<div class="doing">
+    fazendo
 </div>
-<br>
+@else
+{{formatShowStatus($product)}}
+@endif
+@endsection
 
+
+@section('fieldsId')
+<div class='col-lg-4 col-xs-6' style='text-align: center'>
+    <div class='product-image'>
+        <a href=' {{route('product.show', ['product' => $product->id, 'variation' => $variation])}}'>
+            @if($product->image)
+            <image src='{{$product->image}}' width='100%' heigh='100%'>
+            @else
+            <image src='{{asset('imagens/products.png')}}'>
+            @endif
+        </a>
+    </div>
+</div>
+<div class='col-lg-3 col-xs-6' style='text-align: center'>
+    <div class='show-label'>
+        PREÇO
+    </div>
+    <div class='show-label'>
+        CUSTO 1
+    </div>
+    <div class='show-label'>
+        CUSTO 2
+    </div>
+    <div class='show-label'>
+        CUSTO 3
+    </div>
+    <div class='show-label'>
+        IMPOSTO
+    </div>
+    <div class='show-label'>
+        MARGEM DE CONTRIBUIÇÃO
+    </div>
+    <br>
+    <div class='show-label'>
+        PRODUÇÃO
+    </div>
+    <div class='show-label'>
+        PRAZO DE ENTREGA
+    </div>
+</div>
+<div class='col-lg-3 col-xs-6' style='text-align: center'>
+    <div class='show-field-start'>
+        valor de venda
+    </div>
+    <div class='show-field-start'>
+        @if($product->cost1_description)
+        {{$product->cost1_description}}
+        @else
+        não possui
+        @endif
+    </div>
+    <div class='show-field-start'>
+        @if($product->cost2_description)
+        {{$product->cost2_description}}
+        @else
+        não possui
+        @endif
+    </div>
+    <div class='show-field-start'>
+        @if($product->cost3_description)
+        {{$product->cost3_description}}
+        @else
+        não possui
+        @endif
+    </div>
+    <div class='show-field-start'>
+        {{$product->tax_rate}} %
+    </div>
+    <div class='show-field-start'>
+        preço menos custos
+    </div>
+    <br>
+    <div class='show-field-start'>
+        em horas
+    </div>
+    <div class='show-field-start'>
+        estimativa
+    </div>
+</div>
+<div class='col-lg-2 col-xs-6' style='text-align: center'>
+    <div class='show-field-end text-end'>
+        {{formatCurrencyReal($product->price)}}
+    </div>
+    <div class='show-field-end text-end' style='color:red'>
+        - {{formatCurrencyReal($product->cost1)}}
+    </div>
+    <div class='show-field-end text-end' style='color:red'>
+        - {{formatCurrencyReal($product->cost2)}}
+    </div>
+    <div class='show-field-end text-end' style='color:red'>
+        - {{formatCurrencyReal($product->cost3)}}
+    </div>
+    <div class='show-field-end text-end' style='color:red'>
+        - {{formatCurrencyReal($product->price * $product->tax_rate / 100)}}
+    </div>
+    <div class='show-field-end text-end'>
+        {{formatCurrencyReal(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price)}}
+    </div>
+    <br>
+    <div class='show-field-end text-end'>
+        {{$product->work_hours}}
+    </div>
+    <div class='show-field-end text-end'>
+        {{$product->due_date}}
+    </div>
+</div>
+@endsection
+
+@section('description')
+{!!html_entity_decode($product->description)!!}
+@endsection
+
+@section('execution')
+@endsection
+
+@section('deleteButton', route('product.destroy', ['product' => $product->id]))
+
+@section('editButton', route('product.edit', ['product' => $product->id]))
+
+@section('backButton', route('product.index', ['variation' => $variation]))
+
+@section('createdAt')
+<div class='row' style='margin-top: 30px'>
+    <div class='col-12'style='padding-top: -10px'>
+        Primeiro registro em: {{date('d/m/Y H:i', strtotime($product->created_at))}}
+    </div>
+</div>
 @endsection

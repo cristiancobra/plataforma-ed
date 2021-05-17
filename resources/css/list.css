@@ -81,6 +81,61 @@ table{
     background-color: #c28dbf
 }
 
+/*nova tabela com DIVS e bootstrap*/
+.tb { 
+    display: table-cell;  
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+    color: #874983;
+    vertical-align:super;
+    font-size:14px;
+    border-color: #874983;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.td-aproved{
+    background-color: #C3FEEF;
+}
+
+.tb-canceled{
+    background-color: #E5E5E5;
+}
+
+.tb-footer{ 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+    border-color: #874983;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0 0 8px 8px;
+    min-height: 15px;
+}
+
+.tb-header{ 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+}
+
+.tb-header-start{ 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+    border-radius: 8px 0 0 0;
+}
+
+.tb-header-end { 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+    border-radius: 0 8px 0 0;
+}
+
 .table-header-right{ 
     display: table-cell;  
     text-align: right;
@@ -324,7 +379,7 @@ td {
 .td-prospecting{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #8B2485;
@@ -336,7 +391,7 @@ td {
 .td-presentation{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #957799;
@@ -348,7 +403,7 @@ td {
 .td-proposal{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #EDB4F4;
@@ -361,7 +416,7 @@ td {
 .td-dealing{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #EDD500;
@@ -373,7 +428,7 @@ td {
 .td-won{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #97F80C;
@@ -385,7 +440,7 @@ td {
 .td-lost{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #EF5362;
@@ -433,6 +488,17 @@ td {
     overflow: hidden;
     text-align: center;
     margin: 10px;
-        margin-left: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-image-small {
+    height: 80px;
+    width: 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 5px;
+    margin-left: auto;
     margin-right: auto;
 }

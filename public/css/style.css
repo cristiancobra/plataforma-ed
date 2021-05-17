@@ -11045,7 +11045,7 @@ and open the template in the editor.
     background-color: #8B2485;
     color: white;
     text-align: left;
-    width: 100%;
+    width: 80%;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px; 
@@ -11078,7 +11078,7 @@ and open the template in the editor.
     background-color: #EDB4F4;
     color: white;
     text-align: left;
-    width: 50%;
+    width: 60%;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -11112,7 +11112,7 @@ and open the template in the editor.
     background-color: #F7AFB4;
     color: white;
     text-align: left;
-    width: 50%;
+    width: 40%;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -11129,7 +11129,7 @@ and open the template in the editor.
     background-color: #09FBBE;
     color: white;
     text-align: left;
-    width: 50%;
+    width: 30%;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -11146,7 +11146,7 @@ and open the template in the editor.
     background-color: #20EB48;
     color: white;
     text-align: left;
-    width: 50%;
+    width: 20%;
     padding-left: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -11430,6 +11430,61 @@ table{
     background-color: #c28dbf
 }
 
+/*nova tabela com DIVS e bootstrap*/
+.tb { 
+    display: table-cell;  
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: center;
+    color: #874983;
+    vertical-align:super;
+    font-size:14px;
+    border-color: #874983;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.td-aproved{
+    background-color: #C3FEEF;
+}
+
+.tb-canceled{
+    background-color: #E5E5E5;
+}
+
+.tb-footer{ 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+    border-color: #874983;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 0 0 8px 8px;
+    min-height: 15px;
+}
+
+.tb-header{ 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+}
+
+.tb-header-start{ 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+    border-radius: 8px 0 0 0;
+}
+
+.tb-header-end { 
+    color: white;
+    background-color: #c28dbf;
+    font-size:15px;
+    border-radius: 0 8px 0 0;
+}
+
 .table-header-right{ 
     display: table-cell;  
     text-align: right;
@@ -11673,7 +11728,7 @@ td {
 .td-prospecting{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #8B2485;
@@ -11685,7 +11740,7 @@ td {
 .td-presentation{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #957799;
@@ -11697,7 +11752,7 @@ td {
 .td-proposal{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #EDB4F4;
@@ -11710,7 +11765,7 @@ td {
 .td-dealing{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #EDD500;
@@ -11722,7 +11777,7 @@ td {
 .td-won{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #97F80C;
@@ -11734,7 +11789,7 @@ td {
 .td-lost{
     display: table-cell;  
     font-size: 14px;
-	text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:super;
     background-color: #EF5362;
@@ -11782,7 +11837,18 @@ td {
     overflow: hidden;
     text-align: center;
     margin: 10px;
-        margin-left: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.product-image-small {
+    height: 80px;
+    width: 80px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 5px;
+    margin-left: auto;
     margin-right: auto;
 }
 /*
@@ -12411,7 +12477,7 @@ and open the template in the editor.
     border-radius:7px 7px 0px 0px;
 }
 
-.show-field {
+.show-field-start {
     font-family: helvetica;
     color: #874983;
     background-color: #EEEEEE;
@@ -12422,6 +12488,27 @@ and open the template in the editor.
     padding-top: 7px;
     padding-bottom: 4px;
     padding-left: 10px;
+    padding-right: 10px;
+    font-weight:normal;
+    text-align:left;
+    font-size:16px;
+    border-style: solid;
+    border-color: #c28dbf;
+    border-width: 0.5px;
+}
+
+.show-field-end {
+    font-family: helvetica;
+    color: #874983;
+    background-color: #EEEEEE;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    margin-left: -30px;
+    margin-right: 0px;
+    padding-top: 7px;
+    padding-bottom: 4px;
+    padding-left: 10px;
+    padding-right: 10px;
     font-weight:normal;
     text-align:left;
     font-size:16px;
@@ -12482,6 +12569,20 @@ and open the template in the editor.
     overflow: hidden;
     text-align: center;
     margin: 10px;
+        margin-left: auto;
+    margin-right: auto;
+}
+
+.product-image {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #c28dbf;
+    border-radius: 5px;
+    height: 300px;
+    width: 300px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
         margin-left: auto;
     margin-right: auto;
 }

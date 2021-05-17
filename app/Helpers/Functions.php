@@ -518,6 +518,24 @@ if (!function_exists('formatShowPriority')) {
     }
 
 }
+// gera um DIV com a formatação para CATEGORIA do produto  a partir de  $model
+if (!function_exists('formatShowCategory')) {
+
+    function formatShowCategory($model) {
+        switch ($model->category) {
+            case 'serviço':
+                echo '<div class="low">serviço</div>';
+                break;
+            case 'produto físico':
+                echo '<div class="medium">produto físico</div>';
+                break;
+            case 'produto digital':
+                echo '<div class="high">produto digital</div>';
+                break;
+        }
+    }
+
+}
 // gera um CÉLUA DE TABELA com a formatação para PRIORIDADE da tarefa  a partir de  $model
 if (!function_exists('formatPriority')) {
 
@@ -754,6 +772,15 @@ if (!function_exists('formatShowStatus')) {
             case 'aguardar':
                 echo '<div class="stuck">aguardar</div>';
                 break;
+            case 'disponível':
+                echo '<div class="done">disponível</div>';
+                break;
+            case 'indisponível':
+                echo '<div class="canceled">indisponível</div>';
+                break;
+            case 'concluida':
+                echo '<div class="stuck">alterar</div>';
+                break;
         }
     }
 
@@ -786,6 +813,24 @@ if (!function_exists('formatProductStatus')) {
                 break;
             case 'disponível':
                 echo '<td class="td-aproved">disponível</td>';
+                break;
+        }
+    }
+
+}
+// formata uma div com cor de acordo com o status para as tabelas de index
+if (!function_exists('formatTableStatus')) {
+
+    function formatTableStatus($model) {
+        switch ($model->status) {
+            case 'indisponível':
+                echo '<div class="tb tb-canceled col-1">indisponível</div>';
+                break;
+            case 'disponível':
+                echo '<tb class="tb tb-aproved col-1">disponível</tb>';
+                break;
+            case 'concluida':
+                echo '<tb class="tb tb-aproved col-1">ATUALIZAR</tb>';
                 break;
         }
     }

@@ -30,14 +30,14 @@
 </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-    <div class='show-field'>
+    <div class='show-field-end'>
         @if(isset($opportunity->company->name))
         {{$opportunity->company->name}}
         @else
         Pessoa física
         @endif
     </div>
-    <div class='show-field'>
+    <div class='show-field-end'>
         @if(isset($opportunity->contact->name))
         {{$opportunity->contact->name}}
         @else
@@ -54,10 +54,10 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-    <div class='show-field'>
+    <div class='show-field-end'>
         {{$opportunity->account->name}}
     </div>
-    <div class='show-field'>
+    <div class='show-field-end'>
         @if(isset($task->user->contact->name))
         {{$opportunity->user->contact->name}}
         @else

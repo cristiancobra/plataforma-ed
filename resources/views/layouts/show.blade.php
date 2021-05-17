@@ -36,9 +36,7 @@
                         </div>
 
                         <div class='row' style='margin-top: 40px'>
-                            <div class='col-lg-2 col-xs-6' style='text-align: center'>
                                 @yield('fieldsId')
-                            </div>
                         </div>
 
                         <div class='row' style='margin-top: 50px'>
@@ -64,7 +62,6 @@
                             </div>
                         </div>
 
-                        <br>
                         <br>
                         <br>
                         @yield('execution')
