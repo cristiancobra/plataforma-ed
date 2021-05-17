@@ -179,8 +179,7 @@
             </tr>
             @endforeach
             <tr>
-                <td   class="table-list-header-right" colspan="7"></td>
-                <td   class="table-list-header-right">
+                <td   class="table-list-header-right" colspan="7">
                     desconto: 
                 </td>
                 <td   class="table-list-header-right">
@@ -189,9 +188,7 @@
             </tr>
             <tr>
                 <td   class="table-list-header-right" colspan="7">
-                <td   class="table-list-header-right">
                     TOTAL: 
-                </td>
                 </td>
                 <td   class="table-list-header-right">
                     {{formatCurrencyReal($invoice->totalPrice)}}
@@ -199,8 +196,6 @@
             </tr>
             <tr>
                 <td   class="table-list-header-right" colspan="7">
-                </td>
-                <td   class="table-list-header-right">
                     PARCELAMENTO: 
                 </td>
 
@@ -318,7 +313,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >DESCONTO:   R$</label>
-        <input type="number"  name="discount" size="7" step='any' style="text-align:right"value="{{formatCurrency($invoice->discount)}}"><span class="fields"></span>
+        <input type="decimal"  name="discount" size="7" step='any' style="text-align:right"value="{{formatCurrency($invoice->discount)}}"><span class="fields"></span>
         <br>
         <label class="labels" for="" >NÚMERO DE PARCELAS: </label>
         <input type="number"  class="fields" style="text-align: right" name="number_installment_total" max='18' value="{{$invoice->number_installment_total}}">

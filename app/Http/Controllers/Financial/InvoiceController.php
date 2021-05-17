@@ -425,6 +425,7 @@ class InvoiceController extends Controller {
             }
             $invoiceStatus = $invoice->status;
             $invoice->fill($request->all());
+            $invoice->discount = str_replace(",", ".", $request->discount);
             $invoice->save();
 
             // atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
@@ -535,6 +536,11 @@ class InvoiceController extends Controller {
 // Gera PDF da fatura
     public function createPDF(Invoice $invoice) {
 
+        $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
+                    $query->where('invoice_id', $invoice->id);
+                })
+                ->sum('value');
+
         $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
                 ->with('product', 'opportunity')
                 ->get();
@@ -564,6 +570,7 @@ class InvoiceController extends Controller {
             'invoiceDescription' => $invoice->description,
             'invoiceDiscount' => $invoice->discount,
             'invoiceInstallmentValue' => $invoice->installment_value,
+            'invoiceStatus' => $invoice->status,
             'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
             'invoiceTotalPrice' => $invoice->totalPrice,
             'opportunityDescription' => $invoice->opportunity->description,
@@ -580,7 +587,7 @@ class InvoiceController extends Controller {
             'companyState' => $invoice->opportunity->company->state,
             'companyCountry' => $invoice->opportunity->company->country,
             'invoiceLines' => $invoiceLines,
-//			'deadline' => $deadline,
+            'invoiceTotalTransactions' => $totalTransactions,
         ];
 
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
