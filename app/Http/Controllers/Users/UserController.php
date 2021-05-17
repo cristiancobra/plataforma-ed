@@ -100,8 +100,6 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $userAuth = Auth::user();
-
         $user = new User();
         $user->contact_id = $request->contact_id;
         $user->perfil = $request->perfil;
@@ -128,10 +126,9 @@ class UserController extends Controller {
             $user->save();
             $user->accounts()->sync($request->accounts);
 
-            return view('users.showUser', [
-                'user' => $user,
-                'userAuth' => $userAuth,
-            ]);
+            return view('users.showUser', compact(
+                'user',
+            ));
         }
     }
 

@@ -323,10 +323,6 @@ Route::resource('usuarios', 'Users\\UserController')
         ->parameters(['usuarios' => 'user'])
         ->middleware('roles');
 
-Auth::routes();
+Auth::routes(['register' => 'false']);
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

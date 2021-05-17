@@ -20,7 +20,7 @@ class DashboardController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-        if ($request['role'] === "administrator" OR $request['role'] === "superadmin") {
+        if ($request['role'] === "administrator" OR $request['role'] === "superadmin" OR $request['role'] === "dono") {
             $tasks = Task::whereIn('account_id', $accountsId)
                     ->get();
 

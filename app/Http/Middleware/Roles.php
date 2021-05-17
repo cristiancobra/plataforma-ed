@@ -22,6 +22,9 @@ class Roles
 		elseif(Auth::user()->perfil == 'super administrador') {
 			$role = "superadmin";
 		}
+		elseif(Auth::user()->perfil == 'dono') {
+			$role = "dono";
+		}
 		elseif(Auth::user()->perfil == 'administrador') {
 			$role = "administrator";
 		}

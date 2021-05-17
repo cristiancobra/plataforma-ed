@@ -72,10 +72,10 @@
 
 <div class='row mt-5 mb-5'>
     <div class="col-lg-2 d-inline-block text-center">
+        <span  class="align-middle">
         <img src="{{asset('imagens/financeiro.png')}}" width="40" height="40">
-        <br>
-        <br>
         OPORTUNIDADES
+        </span>
     </div>
     <div class="col-lg-7 d-inline-block opportunities-funnel">
         <div class="funnel-bar-prospecting">
