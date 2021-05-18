@@ -6,34 +6,44 @@
 
         <title></title>
         <!-- Styles -->
-        <link href="{{public_path('css/pdf.css')}}" rel="stylesheet">
+        <style>
+            * {
+                font-family: Nunito, helvetica, sans-serif;
+            }
 
+            .table-list-header {
+                color:white;
+                text-align: center;
+                font-size: 12px;
+                padding:1px;
+                border-radius:20px;
+                background-color: grey;
+                margin-top: 0px;
+            }
+
+            .table-list-right {
+                color:white;
+                text-align: right;
+                font-size: 12px;
+                padding:1px;
+                border-radius:20px;
+                background-color: grey;
+                margin-top: 0px;
+            }
+
+            .table-list-left {
+                color:white;
+                text-align: left;
+                font-size: 12px;
+                padding:1px;
+                border-radius:20px;
+                background-color: grey;
+                margin-top: 0px;
+            }
+        </style>
     </head>
     <body>
-        <header style="background-color:{{$data['accountPrincipalColor']}}">
-            <p style="font-size: 28px; float: left;vertical-align: super;color:white;padding-top: 0px;padding-bottom: 5px;line-height: 0.4">
-                FATURA {{$data['invoiceIdentifier']}}
-                <br>
-                <span style="font-size: 12px">Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
-            </p>
-            <img style='float: right' src='{{$data['accountLogo']}}' height='50px' width='150px'>
-        </header>
-        <footer style="background-color:{{$data['accountPrincipalColor']}}">
-            CNPJ: {{formatCnpj($data['accountCnpj'])}}
-            <span style="font-weight: 900">&#183;</span>
-            <span style="font-weight: 900">&#183;</span>
-            <span style="font-weight: 900">&#183;</span>
-            EMAIL:{{$data['accountEmail']}}
-            <span style="font-weight: 900">&#183;</span>
-            <span style="font-weight: 900">&#183;</span>
-            <span style="font-weight: 900">&#183;</span>
-            TEL:{{phoneBr($data['accountPhone'])}}
-            <br>
-            {{$data['accountAddress']}}   -   
-            {{$data['accountCity']}} / 
-            {{$data['accountState']}}
-        </footer>
-        <div>
+        <div style="margin-top: 20px">
             <h4 style="color:{{$data['accountPrincipalColor']}}">
                 PARA:
             </h4>
@@ -132,7 +142,7 @@
                 </td>
             </tr>
             @endif
-            
+
             <tr>
                 <td   class="table-list-header-right"  style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
                     TOTAL: 

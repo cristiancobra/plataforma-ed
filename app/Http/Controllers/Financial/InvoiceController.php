@@ -590,8 +590,22 @@ class InvoiceController extends Controller {
             'invoiceTotalTransactions' => $totalTransactions,
         ];
 
-        $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'));
-        $pdf->setPaper('A4', 'portrait');
+//                $userData = $this->getUserData(); //query and returns all users and their relations
+//        $pdf = App::make('snappy.pdf.wrapper');
+        $header = view('layouts/pdfHeader', compact('data'))->render();
+        $footer = view('layouts/pdfFooter', compact('data'))->render();
+//        $userData = collect([$this->userData[1]]); //just for faster rendering and testing
+//        $pdf->loadView('orders', ['users' => $userData])
+        $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
+        ->setOption('page-size', 'A4')
+        ->setOption('margin-top', '30mm')
+        ->setOption('margin-bottom', '20mm')
+        ->setOption('minimum-font-size', 10)
+        ->setOption('header-html', $header)
+        ->setOption('footer-html', $footer);
+//        $pdf->save($this->path);
+        
+        
 
 // download PDF file with download method
         return $pdf->stream('fatura.pdf');
