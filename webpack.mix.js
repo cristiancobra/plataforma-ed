@@ -23,9 +23,10 @@ mix.js('resources/js/app.js', 'public/js')
     'resources/css/app.css',
     'resources/css/dashboard.css',
     'resources/css/list.css',
-    'resources/css/pdf.css',
     'resources/css/show.css',
     'resources/css/style.css'
         ], 'public/css/style.css')
+
+        .styles('resources/css/pdf.css', 'public/css/pdf.css')
         
         .version();

@@ -166,27 +166,27 @@ Não possui
     @endforeach
 
     <tr>
-        <td   class="table-list-header-right" colspan="5">
+        <td   class="table-list-header-right" colspan="4">
             desconto: 
         </td>
-        <td   class="table-list-header-right" colspan="1">
+        <td   class="table-list-header-right" colspan="2">
             - {{formatCurrencyReal($invoice->discount)}}
         </td>
     </tr>
     <tr>
-        <td   class="table-list-header-right" colspan="5">
+        <td   class="table-list-header-right" colspan="4">
             TOTAL: 
         </td>
         </td>
-        <td   class="table-list-header-right" colspan="1">
-            {{formatCurrencyReal($invoice->totalPrice)}}
+        <td   class="table-list-header-right" colspan="2">
+            {{formatCurrencyReal($invoice->installment_value)}}
         </td>
     </tr>
     <tr>
-        <td   class="table-list-header-right" colspan="5">
+        <td   class="table-list-header-right" colspan="4">
             PARCELAMENTO: 
         </td>
-        <td   class="table-list-header-right" colspan="1">
+        <td   class="table-list-header-right" colspan="2">
             @if($invoice->number_installment_total == 1)
             À vista
             @else

@@ -52,9 +52,6 @@ Route::resource('accounts', 'Accounts\\AccountController')
         ->parameters(['empresas' => 'accounts'])
         ->middleware('roles');
 
-// ================================ MARKET ===================
-Route::resource('competitors', 'Market\\CompetitorController')->names('competitor')->parameters(['concorrentes' => 'competitors']);
-
 // ================================ FINANCIAL ===================
 // banks
 Route::resource('bancos', 'Financial\\BankController')
@@ -121,6 +118,18 @@ Route::resource('movimentacoes', 'Financial\\TransactionController')
         ->names('transaction')
         ->parameters(['movimentacoes' => 'transaction'])
         ->middleware('roles');
+
+// ================================ LIBRARIES ===================
+// Images
+Route::resource('images', 'Libraries\\ImageController')
+        ->names('image')
+        ->parameters(['imagens' => 'image'])
+        ->middleware('roles');
+
+// ================================ MARKET ===================
+Route::resource('competitors', 'Market\\CompetitorController')
+        ->names('competitor')
+        ->parameters(['concorrentes' => 'competitors']);
 
 // =============================================== MARKETING ====================================
 Route::resource('domains', 'Marketing\\DomainController')

@@ -6,7 +6,7 @@
 
         <title></title>
         <!-- Styles -->
-        <link href="{{public_path('css/style.css')}}" rel="stylesheet">
+        <link href="{{public_path('css/pdf.css')}}" rel="stylesheet">
 
     </head>
     <body>
