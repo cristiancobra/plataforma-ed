@@ -5,13 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title></title>
-        <!-- Styles -->
-        <link href="{{public_path('css/pdf.css')}}" rel="stylesheet">
+
 
     </head>
     <body>
         <header style="background-color:{{$data['accountPrincipalColor']}}">
-            <p style="font-size: 28px; float: left;vertical-align: super;color:white;padding-top: 28px;padding-bottom: 5px;line-height: 0.4">
+            <p style="font-size: 28px; float: left;vertical-align: super;color:white;padding-top: 0px;padding-bottom: 5px;line-height: 0.4">
                 FATURA {{$data['invoiceIdentifier']}}
                 <br>
                 <span style="font-size: 12px">Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
