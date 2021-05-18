@@ -685,9 +685,9 @@ class InvoiceController extends Controller {
                     }
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
-//                        $query->whereHas('opportunity', function ($query) use ($request) {
-//                            $query->where('company_id', $request->company_id);
-//                        });
+                    }
+                    if ($request->contact_id) {
+                        $query->where('contact_id', $request->contact_id);
                     }
                     if ($request->status) {
                         $query->where('status', '=', $request->status);
