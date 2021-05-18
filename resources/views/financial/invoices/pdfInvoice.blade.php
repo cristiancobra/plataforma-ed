@@ -13,32 +13,34 @@
 
             .table-list-header {
                 color:white;
-                text-align: center;
-                font-size: 12px;
-                padding:1px;
+                font-size: 14px;
+                padding:8px;
                 border-radius:20px;
-                background-color: grey;
-                margin-top: 0px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+                margin-right: 10px;
             }
 
-            .table-list-right {
-                color:white;
+            .table-list {
+                color:black;
+                font-size: 12px;
+                padding:8px;
+                border-radius:20px;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+            
+          .right {
                 text-align: right;
-                font-size: 12px;
-                padding:1px;
-                border-radius:20px;
-                background-color: grey;
-                margin-top: 0px;
             }
-
-            .table-list-left {
-                color:white;
-                text-align: left;
-                font-size: 12px;
-                padding:1px;
-                border-radius:20px;
-                background-color: grey;
-                margin-top: 0px;
+            .left {
+                text-align: right;
+            }
+            .center {
+                text-align: center;
             }
         </style>
     </head>
@@ -81,82 +83,82 @@
         </p>
         <table  class="table-list" style="width: 100%">
             <tr>
-                <td class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
+                <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
                     QTDE
                 </td>
-                <td   class="table-list-header" style="width: 60%;background-color:{{$data['accountPrincipalColor']}}">
+                <td   class="table-list-header center" style="width: 60%;background-color:{{$data['accountPrincipalColor']}}">
                     NOME
                 </td>
-                <td   class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
+                <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
                     IMPOSTO
                 </td>
-                <td   class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
+                <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
                     UNITÁRIO
                 </td>
-                <td   class="table-list-header" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
+                <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
                     TOTAL
                 </td>
             </tr>
 
             @foreach ($data['invoiceLines'] as $invoiceLine)
             <tr style="font-size: 14px; width: 10%; text-align: center">
-                <td class="table-list-center">
+                <td class="table-list center">
                     {{$invoiceLine->amount }}
                 </td>
-                <td class="table-list-left">
+                <td class="table-list left">
                     {{$invoiceLine->product->name}}
                 </td>
-                <td class="table-list-right">
+                <td class="table-list right">
                     {{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
                 </td>
-                <td class="table-list-right">
+                <td class="table-list right">
                     {{number_format($invoiceLine->product->price,2,",",".")}}
                 </td>
-                <td class="table-list-right">
+                <td class="table-list right">
                     {{number_format($invoiceLine->subtotalPrice,2,",",".")}}
                 </td>
             </tr>
-            <tr style="font-size: 12px">
-                <td class="table-list-left" colspan="6">
+            <tr style="font-size: 14px">
+                <td class="table-list left" colspan="6">
                     {!!html_entity_decode($invoiceLine->product->description)!!}
                 </td>
             </tr>
             @endforeach
 
             <tr>
-                <td   class="table-list-header-right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
+                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
                     desconto: 
                 </td>
-                <td   class="table-list-header-right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
+                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
                     - {{formatCurrencyReal($data['invoiceDiscount'])}}
                 </td>
             </tr>
 
             @if($data['invoiceTotalTransactions'])
             <tr>
-                <td   class="table-list-header-right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
+                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
                     pagamentos: 
                 </td>
-                <td   class="table-list-header-right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
+                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
                     - {{formatCurrencyReal($data['invoiceTotalTransactions'])}}
                 </td>
             </tr>
             @endif
 
             <tr>
-                <td   class="table-list-header-right"  style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
+                <td   class="table-list-header right"  style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="3">
                     TOTAL: 
                 </td>
-                <td   class="table-list-header-right"   style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
+                <td   class="table-list-header right"   style="font-size: 14px;background-color:{{$data['accountPrincipalColor']}}" colspan="2">
                     {{formatCurrencyReal($data['invoiceTotalPrice'] - $data['invoiceDiscount'] - $data['invoiceTotalTransactions'])}}
                 </td>
             </tr>
             @if($data['invoiceStatus'] == 'rascunho' OR $data['invoiceStatus'] == 'orçamento')
             <tr>
-                <td   class="table-list-header-right" style="background-color:{{$data['accountPrincipalColor']}}" colspan="3">
+                <td   class="table-list-header right" style="background-color:{{$data['accountPrincipalColor']}}" colspan="3">
                     PARCELAMENTO: 
                 </td>
-                <td   class="table-list-header-right" style="background-color:{{$data['accountPrincipalColor']}}" colspan="2">
+                <td   class="table-list-header right" style="background-color:{{$data['accountPrincipalColor']}}" colspan="2">
                     @if($data['invoiceNumberInstallmentTotal'] == 1)
                     À vista
                     @else
