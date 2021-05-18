@@ -29,12 +29,12 @@ and open the template in the editor.
         left: 0px;
         right: 0px;
         color: white;
-        height: 35px;
+        height: 45px;
         font-size: 12px;
-        padding: 3px;
+        padding: 2px;
         text-align: center;
-        border-radius: 50%;
-        line-height: 16px;
+        border-radius: 20px;
+        line-height: 14px;
     }
     
 /*    p {

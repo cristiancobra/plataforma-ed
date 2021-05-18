@@ -770,5 +770,15 @@ class InvoiceController extends Controller {
                         'estimatedExpenseYearly',
         ));
     }
-
+    
+        public function testPdf()
+    {
+        PDF::fake();
+        
+        // Perform order shipping...
+        
+        PDF::assertViewIs('view-pdf-order-shipping');
+        PDF::assertSee('Name');
+    }
 }
+

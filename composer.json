@@ -10,15 +10,18 @@
 	"require": {
 		"php": "^7.4|^8.0",
 		"barryvdh/laravel-dompdf": "^0.9.0",
+		"barryvdh/laravel-snappy": "^0.4.8",
 		"ckeditor/ckeditor": "4.*",
 		"doctrine/dbal": "^2.10",
 		"fideloper/proxy": "^4.2",
 		"fruitcake/laravel-cors": "^1.0",
 		"guzzlehttp/guzzle": "^6.3",
+		"h4cc/wkhtmltoimage-amd64": "^0.12.4",
+		"h4cc/wkhtmltopdf-amd64": "^0.12.4",
 		"laravel/framework": "^7.0",
 		"laravel/tinker": "^2.0",
 		"laravel/ui": "^2.0",
-		 "nesbot/carbon": "^2.42.0"
+		"nesbot/carbon": "^2.42.0"
 	},
 	"require-dev": {
 		"barryvdh/laravel-debugbar": "^3.4",

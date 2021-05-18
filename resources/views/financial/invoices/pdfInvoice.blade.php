@@ -5,7 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title></title>
-
+        <!-- Styles -->
+        <link href="{{public_path('css/pdf.css')}}" rel="stylesheet">
 
     </head>
     <body>

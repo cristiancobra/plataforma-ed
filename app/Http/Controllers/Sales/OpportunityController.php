@@ -39,7 +39,7 @@ class OpportunityController extends Controller {
                     'company',
                     'contact',
                 ])
-                ->orderBy('DATE_CONCLUSION', 'ASC')
+                ->orderBy('DATE_CONCLUSION', 'DESC')
                 ->paginate(20);
 
         $total = $opportunities->total();
@@ -479,7 +479,7 @@ class OpportunityController extends Controller {
                     'company',
                     'contact',
                 ])
-                ->orderBy('DATE_CONCLUSION', 'ASC')
+                ->orderBy('DATE_CONCLUSION', 'DESC')
                 ->paginate(20);
 
         $total = $opportunities->total();
