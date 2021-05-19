@@ -14,62 +14,48 @@
 @endsection
 
 @section('main')
-    <br>
-    <table class="table-list">
-        <tr>
-            <td   class="table-list-header">
-                TÍTULO
-            </td>
-            <td   class="table-list-header">
-                ESCRITO POR 
-            </td>
-            <td   class="table-list-header">
-                Espaço 
-            </td>
-            <td   class="table-list-header">
-                Senha
-            </td>
-            <td   class="table-list-header">
-                Status
-            </td>
-        </tr>
-
-        @foreach ($images as $image)
-        <tr style="font-size: 16px">
-            <td class="table-list-left">
-                <a class="button-round" href=" https://empresadigital.net.br/webmail" target="_blank">
-                    <i class='fa fa-envelope'></i>
-                </a>
-                <a class="button-round" href=" {{route('image.show', ['image' => $image])}}">
-                    <i class='fa fa-eye'></i>
-                </a>
-                {{$image->title}}
-            </td>
-            <td class="table-list-center">
-                {{$image->user->contact->name}}
-            </td>
-            <td class="table-list-center">
-                {{$image->storage}}
-            </td>
-            <td class="table-list-center">
-                {{$image->image_password}} 
-            </td>
-            @if ($image->status == "desativado")
-            <td class="button-disable">
-                {{$image->status }}
-            </td>
-            @elseif ($image->status == "ativo")
-            <td class="button-active">
-                {{$image->status }}
-            </td>
-            @else ($image->status == "pendente")
-            <td class="button-delete">
-                {{$image->status }}
-            </td>
-            @endif
-        </tr>
-        @endforeach
-    </table>
+<div class='row'>
+    <div class='tb tb-header-start col-2'>
+        IMAGEM
+    </div>
+    <div class='tb tb-header col-4'>
+        NOME
+    </div>
+    <div class='tb tb-header col-4'>
+        TEXTO ALTERNATIVO
+    </div>
+    <div class='tb tb-header col-1'>
+        TIPO
+    </div>
+    <div class='tb tb-header-end col-1'>
+        SITUAÇÃO
+    </div>
 </div>
+@foreach ($images as $image)
+<div class='row'>
+    <div class='tb col-2'>
+        <div class='product-image-small'>
+            <a href=' {{route('image.show', ['image' => $image->id])}}'>
+                <image src='{{$image->path}}' width='100%' heigh='100%'>
+            </a>
+        </div>
+    </div>
+    <div class='tb col-4'>
+        {{$image->name}}
+    </div>
+    <div class='tb col-4'>
+        {{$image->alt}}
+    </div>
+    <div class='tb col-1'>
+        {{$image->type}}
+    </div>
+    <div class='tb col-1'>
+        {{$image->status}}
+    </div>
+</div>
+@endforeach
+    <div class='row'>
+        <div class='tb-footer'></div>
+    </div>
 <br>
 @endsection

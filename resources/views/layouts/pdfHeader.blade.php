@@ -22,13 +22,13 @@
     </head>
     <body>
         <div class='header2' style="background-color:{{$data['accountPrincipalColor']}}">
-            <p style="position: relative;float:left">
+            <p style="float:left">
                 @if($data['invoiceIdentifier'] == 0)
                 PROPOSTA
                 @else
                 FATURA {{$data['invoiceIdentifier']}}
                 <br>
-                <span style="font-size: 18px">Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
+                <span style="font-size: 14px">Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
                 @endif
             </p>
             <img style='float:right;text-align: right' src='{{$data['accountLogo']}}' height='50px' width='150px'>

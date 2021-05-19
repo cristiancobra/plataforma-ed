@@ -22,20 +22,35 @@
 
             .table-list {
                 color:black;
-                font-size: 12px;
+                font-size: 14px;
                 padding:8px;
-                border-radius:20px;
                 margin-top: 10px;
                 margin-bottom: 5px;
                 margin-left: 10px;
                 margin-right: 10px;
+                border-style: solid;
+                border-bottom-width: 1px;
+            }
+
+            .table-description {
+                color:black;
+                font-size: 12px;
+                padding:8px;
+                border-radius:20px;
+                margin-top: 0px;
+                margin-bottom: 5px;
+                margin-left: 40px;
+                margin-right: 10px;
+                border-style: solid;
+                border-bottom: 1px;
+                font-style: italic;
             }
             
           .right {
                 text-align: right;
             }
             .left {
-                text-align: right;
+                text-align: left;
             }
             .center {
                 text-align: center;
@@ -45,6 +60,7 @@
     <body>
         <div style="margin-top: 20px">
             <h4 style="color:{{$data['accountPrincipalColor']}}">
+                <br>
                 PARA:
             </h4>
             <!-- Dados do cliente--> 
@@ -79,7 +95,7 @@
         <p style="text-align: left;margin-top: 0px;">
             {!!html_entity_decode($data['opportunityDescription'])!!}
         </p>
-        <table  class="table-list" style="width: 100%">
+        <table style="width: 100%">
             <tr>
                 <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
                     QTDE
@@ -99,25 +115,25 @@
             </tr>
 
             @foreach ($data['invoiceLines'] as $invoiceLine)
-            <tr style="font-size: 14px; width: 10%; text-align: center">
-                <td class="table-list center">
-                    {{$invoiceLine->amount }}
+            <tr>
+                <td class="table-list center" style="font-color:{{$data['accountPrincipalColor']}}">
+                    {{$invoiceLine->amount}}
                 </td>
-                <td class="table-list left">
+                <td class="table-list left" style="font-color:{{$data['accountPrincipalColor']}}">
                     {{$invoiceLine->product->name}}
                 </td>
-                <td class="table-list right">
+                <td class="table-list right" style="font-color:{{$data['accountPrincipalColor']}}">
                     {{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
                 </td>
-                <td class="table-list right">
+                <td class="table-list right" style="font-color:{{$data['accountPrincipalColor']}}">
                     {{number_format($invoiceLine->product->price,2,",",".")}}
                 </td>
-                <td class="table-list right">
+                <td class="table-list right" style="font-color:{{$data['accountPrincipalColor']}}">
                     {{number_format($invoiceLine->subtotalPrice,2,",",".")}}
                 </td>
             </tr>
-            <tr style="font-size: 14px">
-                <td class="table-list left" colspan="6">
+            <tr>
+                <td class="table-list-description left" colspan="6">
                     {!!html_entity_decode($invoiceLine->product->description)!!}
                 </td>
             </tr>

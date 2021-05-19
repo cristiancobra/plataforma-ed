@@ -3,19 +3,24 @@
 namespace App\Http\Controllers\Libraries;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
-{
+class ImageController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $images = Image::where('account_id')
+    public function index() {
+        $images = Image::whereIn('account_id', userAccounts())
+                ->get();
+//dd($images);
+        return view('libraries/images/index', compact(
+                        'images',
+        ));
     }
 
     /**
@@ -23,9 +28,15 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        return view('libraries/images/create', compact(
+            'accounts',
+        ));
     }
 
     /**
@@ -34,9 +45,17 @@ class ImageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $image = new Image();
+        $image->fill($request->all());
+        
+        $path = $request->file('image')->store('users_images');
+        $image->path = $path;
+        $image->save();
+        
+        return view('libraries/images/show', compact(
+                'image',
+        ));
     }
 
     /**
@@ -45,9 +64,11 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function show(Image $image)
-    {
-        //
+    public function show(Image $image) {
+        
+        return view('libraries/images/show', compact(
+                'image',
+        ));
     }
 
     /**
@@ -56,8 +77,7 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function edit(Image $image)
-    {
+    public function edit(Image $image) {
         //
     }
 
@@ -68,8 +88,7 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $image)
-    {
+    public function update(Request $request, Image $image) {
         //
     }
 
@@ -79,8 +98,8 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Image $image)
-    {
+    public function destroy(Image $image) {
         //
     }
+
 }
