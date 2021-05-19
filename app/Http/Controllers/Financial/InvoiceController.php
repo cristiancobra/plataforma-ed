@@ -599,7 +599,7 @@ class InvoiceController extends Controller {
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
         ->setOption('page-size', 'A4')
         ->setOption('margin-top', '30mm')
-        ->setOption('margin-bottom', '20mm')
+        ->setOption('margin-bottom', '30mm')
         ->setOption('minimum-font-size', 10)
         ->setOption('header-html', $header)
         ->setOption('footer-html', $footer);

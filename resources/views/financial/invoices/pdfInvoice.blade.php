@@ -18,8 +18,6 @@
                 border-radius:20px;
                 margin-top: 5px;
                 margin-bottom: 5px;
-                margin-left: 10px;
-                margin-right: 10px;
             }
 
             .table-list {
@@ -169,7 +167,7 @@
             </tr>
         </table>
         <br>
-        <table  class="table-list" style="width: 100%;text-align:left">
+        <table style="width: 100%;text-align:left">
             @if($data['invoiceDescription'])
             <tr>
                 <td>
