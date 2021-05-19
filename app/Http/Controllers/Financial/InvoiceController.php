@@ -597,16 +597,13 @@ class InvoiceController extends Controller {
 //        $userData = collect([$this->userData[1]]); //just for faster rendering and testing
 //        $pdf->loadView('orders', ['users' => $userData])
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
-        ->setOption('page-size', 'A4')
-        ->setOption('margin-top', '30mm')
-        ->setOption('margin-bottom', '30mm')
-        ->setOption('minimum-font-size', 10)
-        ->setOption('header-html', $header)
-        ->setOption('footer-html', $footer);
+                ->setOptions([
+                        'page-size' => 'A4',
+                        'header-html' => $header,
+                        'footer-html' => $footer,
+                        ]);
+        
 //        $pdf->save($this->path);
-        
-        
-
 // download PDF file with download method
         return $pdf->stream('fatura.pdf');
     }
@@ -784,15 +781,14 @@ class InvoiceController extends Controller {
                         'estimatedExpenseYearly',
         ));
     }
-    
-        public function testPdf()
-    {
+
+    public function testPdf() {
         PDF::fake();
-        
+
         // Perform order shipping...
-        
+
         PDF::assertViewIs('view-pdf-order-shipping');
         PDF::assertSee('Name');
     }
-}
 
+}

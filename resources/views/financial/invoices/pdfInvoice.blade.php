@@ -10,7 +10,19 @@
             * {
                 font-family: Nunito, helvetica, sans-serif;
             }
-
+            .break{
+                page-break-after: always;
+            }
+            .header2 {
+                color:white;
+                text-align: left;
+                font-size: 25px;
+                padding-top:0px;
+                padding-left:25px;
+                border-radius:20px;
+                background-color: grey;
+                height: 80px;
+            }
             .table-list-header {
                 color:white;
                 font-size: 14px;
@@ -19,10 +31,10 @@
                 margin-top: 5px;
                 margin-bottom: 5px;
             }
-
             .table-list {
                 color:black;
                 font-size: 14px;
+                font-weight: 600;
                 padding:8px;
                 margin-top: 10px;
                 margin-bottom: 5px;
@@ -31,11 +43,11 @@
                 border-style: solid;
                 border-bottom-width: 1px;
             }
-
-            .table-description {
+            .description {
                 color:black;
                 font-size: 12px;
                 padding:8px;
+                padding-left:60px;
                 border-radius:20px;
                 margin-top: 0px;
                 margin-bottom: 5px;
@@ -45,8 +57,7 @@
                 border-bottom: 1px;
                 font-style: italic;
             }
-            
-          .right {
+            .right {
                 text-align: right;
             }
             .left {
@@ -58,9 +69,8 @@
         </style>
     </head>
     <body>
-        <div style="margin-top: 20px">
+        <div style="padding-top: 15px;">
             <h4 style="color:{{$data['accountPrincipalColor']}}">
-                <br>
                 PARA:
             </h4>
             <!-- Dados do cliente--> 
@@ -95,6 +105,7 @@
         <p style="text-align: left;margin-top: 0px;">
             {!!html_entity_decode($data['opportunityDescription'])!!}
         </p>
+        <br>
         <table style="width: 100%">
             <tr>
                 <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountPrincipalColor']}}">
@@ -133,7 +144,7 @@
                 </td>
             </tr>
             <tr>
-                <td class="table-list-description left" colspan="6">
+                <td class="description left" colspan="6">
                     {!!html_entity_decode($invoiceLine->product->description)!!}
                 </td>
             </tr>
@@ -198,50 +209,47 @@
                 </td>
             </tr>
             @endif
-            <tr>
-                <td>
-                    <h4 style="margin-bottom: 0px;color:{{$data['accountPrincipalColor']}}">
-                        FORMAS DE PAGAMENTO:
-                    </h4>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>
-                        À  VISTA: por boleto ou transferência bancária
-                        <br>
-                        PARCELADO: no cartão de crédito em até 12x
-                        <br>
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h4 style="color:{{$data['accountPrincipalColor']}}">
-                        DADOS PARA PAGAMENTO:
-                    </h4>
-                </td>
-            </tr>
-            @foreach ($data['bankAccounts'] as $bankAccount)
-            <tr>
-                <td>
-                    <p>
-                        {{$bankAccount->bank->name}} - cód. {{$bankAccount->bank->bank_code}}
-                        <br>
-                        Agência: {{$bankAccount->agency}}
-                        <br>
-                        Conta: {{$bankAccount->account_number}}
-                        @if($bankAccount->pix)
-                        <br>
-                        Chave PIX: {{$bankAccount->pix}}
-                        @endif
-                        <br>
-                        CNPJ: {{$data['accountCnpj']}}
-                    </p>
-                </td>
-            </tr>
-            @endforeach			
         </table>
+        <p class="break"></p>
+
+        <div style='padding-top: 40px;text-align: center'>
+            <h4 style="color:{{$data['accountPrincipalColor']}}">
+                FORMAS DE PAGAMENTO:
+            </h4>
+            <p>
+                À  VISTA: por boleto ou transferência bancária
+                <br>
+                <br>
+                PARCELADO: no cartão de crédito em até 12x
+                <br>
+            </p>
+        </div>
+                <div style='padding-top: 60px;text-align: center'>
+            <h4 style="color:{{$data['accountPrincipalColor']}}">
+                DADOS PARA PAGAMENTO:
+            </h4>
+        
+        @foreach ($data['bankAccounts'] as $bankAccount)
+        
+            <p>
+                {{$bankAccount->bank->name}} - cód. {{$bankAccount->bank->bank_code}}
+                <br>
+                <br>
+                Agência: {{$bankAccount->agency}}
+                <br>
+                <br>
+                Conta: {{$bankAccount->account_number}}
+                @if($bankAccount->pix)
+                <br>
+                <br>
+                Chave PIX: {{$bankAccount->pix}}
+                @endif
+                <br>
+                <br>
+                CNPJ: {{$data['accountCnpj']}}
+            </p>
+        @endforeach			
+        </div>
         <br>
         <br>
     </body>

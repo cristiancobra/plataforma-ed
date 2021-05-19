@@ -1,37 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
     <head>
-        <meta charset="utf-8">
-        
-                <style>
+        <meta charset='utf-8'>
+        <style>
             * {
                 font-family: Nunito, helvetica, sans-serif;
             }
-
-            .header2 {
+            .container {
                 color:white;
-                text-align: left;
-                font-size: 25px;
-                padding-top:0px;
-                padding-left:25px;
-                border-radius:20px;
+                padding-top: 1px;
+                padding-left: 20px;
+                vertical-align: top;
+                height:100px;
+                border-radius: 30px;
                 background-color: grey;
-                height: 80px;
+            }
+            .text-col {
+                color:white;
+                float:left;
+                font-weight: 800;
+                width: 75%;
+            }
+            .image-col {
+                text-align: center;
+                float:left;
+                height: 50px;
+                width: 150px;
+            }
+            .image {
+                text-align: right;
+                float:right;
+                top:0px;
+                left:0px;
+                width:150px;
+                height:50px;
+                margin-top: 20px;
             }
         </style>
     </head>
     <body>
-        <div class='header2' style="background-color:{{$data['accountPrincipalColor']}}">
-            <p style="float:left">
-                @if($data['invoiceIdentifier'] == 0)
-                PROPOSTA
-                @else
-                FATURA {{$data['invoiceIdentifier']}}
-                <br>
-                <span style="font-size: 14px">Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
-                @endif
-            </p>
-            <img style='float:right;text-align: right' src='{{$data['accountLogo']}}' height='50px' width='150px'>
+        <div class='container' style='background-color:{{$data['accountPrincipalColor']}}'>
+            <div class='text-col'>
+                <p style='font-size:22px'>
+                    @if($data['invoiceIdentifier'] == 0)
+                    PROPOSTA
+                    @else
+                    FATURA {{$data['invoiceIdentifier']}}
+                    <br>
+                    <span style='font-size: 14px'>Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
+                    @endif
+                </p>
+            </div>
+            <div class='image-col'>
+                <img class='image' src='{{public_path('/imagens/logo-empresa-digital.png')}}'>
+            </div>
         </div>
     </body>
 </html>
