@@ -51,7 +51,7 @@
                             </div>
                         </div>
 
-                        <div class='row' style='margin-top: 30px'>
+                        <div class='row' style='margin-top: 25px'>
                             <div class='col-12' style='text-align: left'>
                                 <div class='show-label-large'>
                                     DESCRIÇÃO

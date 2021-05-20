@@ -41,10 +41,11 @@
     <body>
         <div class='container' style='background-color:{{$data['accountPrincipalColor']}}'>
             <div class='text-col'>
-                <p style='font-size:22px'>
+                <p style='font-size:28px'>
                     @if($data['invoiceIdentifier'] == 0)
                     PROPOSTA
                     @else
+                <p style='font-size:22px'>
                     FATURA {{$data['invoiceIdentifier']}}
                     <br>
                     <span style='font-size: 14px'>Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>

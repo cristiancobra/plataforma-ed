@@ -785,6 +785,24 @@ if (!function_exists('formatShowStatus')) {
     }
 
 }
+// gera uma DIV com a formatação para TYPE / TIPO  da imagem  a partir de  $model
+if (!function_exists('formatShowType')) {
+
+    function formatShowType($model) {
+        switch ($model->type) {
+            case 'produto':
+                echo '<div class="to-do">produto</div>';
+                break;
+            case 'logo':
+                echo '<div class="doing">logo</div>';
+                break;
+            case 'imagem perfil':
+                echo '<div class="imagem perfil">feito</div>';
+                break;
+        }
+    }
+
+}
 // gera uma DIV com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatShowOpportunityStatus')) {
 
@@ -1360,8 +1378,11 @@ if (!function_exists('returnProductStatus')) {
 if (!function_exists('createSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE, COLLECTION e aplica ID em VALUE e NAME no label
-    function createSelectIdName($name, $class, $models) {
+    function createSelectIdName($name, $class, $models, $null = null) {
         echo "<select class = '$class' name = '$name'  value='old('$name')>";
+        if ($null) {
+            echo "<option value=''>$null</option><br>";
+        }
         foreach ($models as $model) {
             echo "<option value=\"$model->id\">$model->name</option><br>";
         }

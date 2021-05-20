@@ -103,9 +103,9 @@
                                                                                                                                                         'link' => '/competitors'
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'ARQUIVOS',
+                                                                                                                                                        'name' => 'IMAGENS',
                                                                                                                                                         'faIcon' => 'fas fa-cloud-upload-alt',
-                                                                                                                                                        'link' => 'https://nuvem.empresadigital.net.br/index.php/apps/spreed/'
+                                                                                                                                                        'link' => route('image.index')
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 

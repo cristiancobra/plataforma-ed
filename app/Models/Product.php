@@ -10,9 +10,9 @@ class Product extends Model
 	protected $fillable = [
 		'id',
 		'account_id',
+		'image_id',
 		'name',
 		'description',
-		'image',
 		' type',
 		'category',
 		'work_hours',
@@ -41,5 +41,9 @@ class Product extends Model
 	
 	public function contracts() {
 		return $this->belongsToMany(Contract::class,'contract_product');
+	}
+        	
+                  public function image() {
+		return $this->hasOne(Image::class, 'id', 'image_id');
 	}
 }

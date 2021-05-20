@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Account;
 use App\Models\Image;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ImageController extends Controller {
 
@@ -29,13 +30,17 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-
         $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
+        $types = $this->listTypes();
+        $status = $this->listStatus();
+
         return view('libraries/images/create', compact(
-            'accounts',
+                        'accounts',
+                        'types',
+                        'status',
         ));
     }
 
@@ -48,13 +53,13 @@ class ImageController extends Controller {
     public function store(Request $request) {
         $image = new Image();
         $image->fill($request->all());
-        
+
         $path = $request->file('image')->store('users_images');
         $image->path = $path;
         $image->save();
-        
+
         return view('libraries/images/show', compact(
-                'image',
+                        'image',
         ));
     }
 
@@ -65,9 +70,9 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Image $image) {
-        
+
         return view('libraries/images/show', compact(
-                'image',
+                        'image',
         ));
     }
 
@@ -78,7 +83,18 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Image $image) {
-        //
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
+        $types = $this->listTypes();
+        $status = $this->listStatus();
+
+        return view('libraries/images/edit', compact(
+                        'accounts',
+                        'image',
+                        'types',
+                        'status',
+        ));
     }
 
     /**
@@ -89,7 +105,16 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Image $image) {
-        //
+        $image->fill($request->all());
+        if($request->file('image')) {
+        $path = $request->file('image')->store('users_images');
+        $image->path = $path;
+        }
+        $image->save();
+
+        return view('libraries/images/show', compact(
+                        'image',
+        ));
     }
 
     /**
@@ -99,7 +124,26 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Image $image) {
-        //
+        Storage::delete($image->path);
+        $image->delete();
+        return redirect()->action('Libraries\\ImageController@index');
+    }
+
+    // retorna os estágios das imagens
+    public function listTypes() {
+        return $stages = array(
+            'produto',
+            'logo',
+            'imagem perfil',
+        );
+    }
+
+    // retorna os estágios das imagens
+    public function listStatus() {
+        return $status = array(
+            'disponível',
+            'indisponível',
+        );
     }
 
 }

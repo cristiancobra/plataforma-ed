@@ -36,13 +36,11 @@
 @section('fieldsId')
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='product-image'>
-        <a href=' {{route('product.show', ['product' => $product->id, 'variation' => $variation])}}'>
-            @if($product->image)
-            <image src='{{$product->image}}' width='100%' heigh='100%'>
+            @if($product->image_id)
+            <image src='{{asset($product->image->path)}}' width='100%' heigh='100%'>
             @else
-            <image src='{{asset('imagens/products.png')}}'>
+            <image src='{{asset('imagens/products.png')}}'  width='100%' heigh='100%'>
             @endif
-        </a>
     </div>
 </div>
 <div class='col-lg-3 col-xs-6' style='text-align: center'>

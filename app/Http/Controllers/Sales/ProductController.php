@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Account;
+use App\Models\Image;
 use App\Models\Contact;
 use App\Models\Product;
 
@@ -22,6 +23,7 @@ class ProductController extends Controller {
                     $query->whereIn('account_id', userAccounts());
                     $query->where('type', '=', $request->variation);
                 })
+                ->with('image')
                 ->orderBy('name', 'ASC')
                 ->paginate(20);
 
@@ -150,7 +152,6 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Product $product, Request $request) {
-
         $variation = $request->variation;
 
         return view('sales.products.showProduct', compact(
@@ -176,11 +177,17 @@ class ProductController extends Controller {
                 })
                 ->get();
 
+        $images = Image::whereHas('account', function ($query) use ($accountsId) {
+                    $query->whereIn('account_id', $accountsId);
+                })
+                ->get();
+
         $variation = $request->variation;
 
         return view('sales.products.editProduct', compact(
                         'product',
                         'accounts',
+                        'images',
                         'variation',
         ));
     }
@@ -196,6 +203,7 @@ class ProductController extends Controller {
         $product->fill($request->all());
         $product->price = str_replace(",", ".", $request->price);
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
+        $product->image_id = $this->saveImage($request);
         $product->save();
         $variation = $request->variation;
 
@@ -264,6 +272,24 @@ class ProductController extends Controller {
                         'total',
                         'variation',
         ));
+    }
+
+    public function saveImage($request) {
+        if ($request->image_id) {
+            $imageId = $request->image_id;
+        } else {
+            $image = new Image();
+            $image->name = $request->name;
+            $image->account_id = $request->account_id;
+            $image->type =  'produto';
+            $image->status = 'disponível';
+            $path = $request->file('image')->store('users_images');
+            $image->path = $path;
+            $image->save();
+            
+            $imageId = $image->id;
+        }
+        return $imageId;
     }
 
 }

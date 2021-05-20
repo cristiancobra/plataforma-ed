@@ -70,10 +70,10 @@
         <div class='tb col-2'>
             <div class='product-image-small'>
                 <a href=' {{route('product.show', ['product' => $product->id, 'variation' => $variation])}}'>
-                       @if($product->image)
-                    <image src='{{$product->image}}' width='100%' heigh='100%'>
+                       @if($product->image_id)
+                    <image src='{{asset($product->image->path)}}' width='100%' heigh='100%'>
                     @else
-                    <image src='{{asset('imagens/products.png')}}'>
+                    <image src='{{asset('imagens/products.png')}}' width='100%' heigh='100%'>
                     @endif
                 </a>
             </div>
@@ -118,92 +118,6 @@
 <br>
 <br>
 <br>
-<table class='table-list'>
-    <tr>
-        <td   class='table-list-header' style='width: 15%'>
-            FOTO
-        </td>
-        <td   class='table-list-header' style='width: 25%'>
-            NOIME
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            CATEGORIA
-        </td>
-        <td   class='table-list-header' style='width: 5%'>
-            ENTREGA
-        </td>
-        <td   class='table-list-header' style='width: 5%'>
-            HORAS
-        </td>
-        <td   class='table-list-header' style='width: 5%'>
-            CUSTOS
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            IMPOSTO
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            MARGEM
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            PREÇO
-        </td>
-        <td   class='table-list-header' style='width: 5%'>
-            SITUAÇÃO
-        </td>
-    </tr>
-
-    @foreach ($products as $product)
-    <tr style='font-size: 14px'>
-        <td class='table-list-center'>
-            <div class='profile-picture-small'>
-                <a href=' {{route('product.show', ['product' => $product->id, 'variation' => $variation])}}'>
-                    <image src='{{$product->image}}'>
-                </a>
-            </div>
-        </td>
-
-        <td class='table-list-left'>
-            {{$product->name}}
-        </td>
-
-        <td class='table-list-center'>
-            {{$product->category}}
-        </td>
-
-        @if ($product->due_date == 0)
-        <td class='table-list-right'>
-            imediata
-        </td>
-        @else
-        <td class='table-list-center'>
-            {{$product->due_date}} dias
-        </td>
-        @endif
-
-        <td class='table-list-center'>
-            {{number_format($product->work_hours)}}
-        </td>
-
-        <td class='table-list-right'>
-            R$ {{number_format($product->cost1 + $product->cost2 + $product->cost3, 2,',','.')}}
-        </td>
-
-        <td class='table-list-right'>
-            R$ {{number_format($product->price * $product->tax_rate / 100, 2,',','.')}}
-        </td>
-
-        <td class='table-list-right'>
-            R$ {{number_format(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,',','.')}}
-        </td>
-
-        <td class='table-list-right'>
-            R$ {{number_format($product->price,2,',','.')}}
-
-            {{formatProductStatus($product)}}
-
-    </tr>
-    @endforeach
-</table>
 <p style='text-align: right'>
     <br>
     {{$products->links()}}

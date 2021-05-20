@@ -28,7 +28,7 @@
     <form action="{{route('image.store')}}" method="post" enctype='multipart/form-data'>
         @csrf
         <div class='container text-center'>
-            <div class='profile-picture'>
+            <div class='product-image'>
                 <img src='{{asset('imagens/colaborador.png')}}' width='100%' height='100%'>
             </div>
             <input  type='file' name='image'>
@@ -66,10 +66,10 @@ CKEDITOR.replace('alt');
         </script>
         <br>
         <label class="labels" for="">TIPO:</label>
-        <input type='text' class='fields' name='type' size='50'>
+        {{createSimpleSelect('type', 'fields', $types)}}
         <br>
-        <label class="labels" for="">STATUS:</label>
-        <input type='text' class='fields' name='status' size='50'>
+        <label class="labels" for="">SITUAÇÃO:</label>
+        {{createSimpleSelect('status', 'fields', $status)}}
         <br>
         <br>
         <br>
