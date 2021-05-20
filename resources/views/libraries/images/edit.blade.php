@@ -26,6 +26,7 @@
             </div>
             <input  type='file' name='image'>
         </div>
+        </div>
         <br>
         <br>
         <label class="labels" for="" >EMPRESA:</label>
@@ -49,7 +50,7 @@
         @if ($errors->has('alt'))
         <span class="text-danger">{{ $errors->first('alt') }}</span>
         @endif
-        <textarea id="alt" name="message" rows="10" cols="90" >
+        <textarea id="alt" name="alt" rows="10" cols="90" >
 {{$image->alt}}
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
