@@ -33,7 +33,7 @@
 
 
 @section('description')
-{!!html_entity_decode($image->description)!!}
+{!!html_entity_decode($image->alt)!!}
 @endsection
 
 
