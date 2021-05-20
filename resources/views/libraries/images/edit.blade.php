@@ -19,13 +19,11 @@
     <form action=" {{route('image.update', ['image' =>$image->id])}} " method="post" enctype='multipart/form-data'>
         @csrf
         @method('put')
-        <div class='col-lg-12 col-xs-6' style='text-align: center'>
         <div class='container text-center'>
             <div class='image-show'>
                 <img src='{{asset($image->path)}}' width='100%' height='100%'>
             </div>
             <input  type='file' name='image'>
-        </div>
         </div>
         <br>
         <br>
