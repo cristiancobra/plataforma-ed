@@ -180,6 +180,7 @@ class ProductController extends Controller {
         $images = Image::whereHas('account', function ($query) use ($accountsId) {
                     $query->whereIn('account_id', $accountsId);
                 })
+                ->where('type', 'produto')
                 ->get();
 
         $variation = $request->variation;
