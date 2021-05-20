@@ -21,7 +21,11 @@
         @method('put')
         <div class='container text-center'>
             <div class='product-image'>
+                @if($product->image_id != null)
                 <img src='{{asset($product->image->path)}}' width='100%' height='100%'>
+                @else
+                <img src='{{asset('imagens/products.png')}}'  width='100%' heigh='100%'>
+                @endif
             </div>
             {{createSelectIdName('image_id', 'select', $images, 'Nenhuma')}} ou 
             <input type='file' name='image'>
