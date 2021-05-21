@@ -75,6 +75,7 @@ class JourneyController extends Controller {
                 ->get();
 
         $tasks = Task::whereIn('account_id', userAccounts())
+                ->where('status', 'fazer')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 

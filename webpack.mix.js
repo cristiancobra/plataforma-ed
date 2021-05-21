@@ -22,6 +22,7 @@ mix.js('resources/js/app.js', 'public/js')
         .styles([
     'resources/css/app.css',
     'resources/css/dashboard.css',
+    'resources/css/edit.css',
     'resources/css/list.css',
     'resources/css/show.css',
     'resources/css/style.css'

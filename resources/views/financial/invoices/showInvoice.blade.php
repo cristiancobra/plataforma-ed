@@ -151,10 +151,10 @@ Não possui
             {{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
         </td>
         <td class="table-list-right">
-            {{number_format($invoiceLine->product->price,2,",",".")}}
+            {{formatCurrencyReal($invoiceLine->subtotalPrice / $invoiceLine->amount)}}
         </td>
         <td class="table-list-right">
-            {{number_format($invoiceLine->subtotalPrice,2,",",".")}}
+            {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
         </td>
     </tr>
 
