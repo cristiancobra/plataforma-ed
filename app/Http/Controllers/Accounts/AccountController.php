@@ -15,7 +15,7 @@ class AccountController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() { {
+    public function index() { 
             $accounts = Account::whereHas('users', function ($query) {
                         $query->where('users.id', Auth::user()->id);
                     })
@@ -28,7 +28,6 @@ class AccountController extends Controller {
                             'total',
             ));
         }
-    }
 
     /**
      * Show the form for creating a new resource.

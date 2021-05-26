@@ -1378,10 +1378,13 @@ if (!function_exists('returnProductStatus')) {
 if (!function_exists('createSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE, COLLECTION e aplica ID em VALUE e NAME no label
-    function createSelectIdName($name, $class, $models, $null = null) {
+    function createSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
         echo "<select class = '$class' name = '$name'  value='old('$name')>";
-        if ($null) {
-            echo "<option value=''>$null</option><br>";
+        if ($currentValue) {
+            echo "<option value='$currentValue'>$currentValue</option><br>";
+        }
+        if ($nullLabel) {
+            echo "<option value=''>$nullLabel</option><br>";
         }
         foreach ($models as $model) {
             echo "<option value=\"$model->id\">$model->name</option><br>";

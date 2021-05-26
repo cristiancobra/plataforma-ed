@@ -2,8 +2,10 @@
 
 @if($typeTransactions == 'receita')
 @section('title','ENTRADAS')
-@else
+@elseif($typeTransactions == 'despesa')
 @section('title','SAÍDAS')
+@elseif($typeTransactions == 'transferência')
+@section('title','TRANSFERÊNCIAS')
 @endif
 
 @section('image-top')
@@ -58,7 +60,11 @@
             @endforeach
         </select>
         <br>
+        @if($typeTransactions == 'transferência')
+        <label class="labels" for="">CONTA DE ORIGEM:</label>
+        @else
         <label class="labels" for="">CONTA:</label>
+        @endif
         <select name="bank_account_id">
             @foreach ($bankAccounts as $bankAccount)
             <option  class="fields" value="{{$bankAccount->id}}">
@@ -67,7 +73,19 @@
             @endforeach
         </select>
         <br>
+        @if($typeTransactions == 'transferência')
+        <label class="labels" for="">CONTA DE DESTINO:</label>
+        <select name="bank_account_destiny_id">
+            @foreach ($bankAccounts as $bankAccount)
+            <option  class="fields" value="{{$bankAccount->id}}">
+                {{$bankAccount->name}}
+            </option>
+            @endforeach
+        </select>
         <br>
+        @endif
+        <br>
+        @if($typeTransactions != 'transferência')
         <label class="labels" for="">FATURA: </label>
         @if(!empty(app('request')->input('invoiceId')))
         <input type="hidden" name='invoice_id' value="{{app('request')->input('invoiceId')}}">
@@ -88,6 +106,7 @@
             </option>
             @endforeach
         </select>
+        @endif
         {{createButtonAdd('invoice.create')}}
         @endif
         <br>
@@ -98,9 +117,12 @@
         @elseif($typeTransactions == 'receita')
         crédito
         <input type='hidden' name='type' value='crédito'>
-        @else
+        @elseif($typeTransactions == 'despesa')
         débito
         <input type='hidden' name='type' value='débito'>
+        @elseif($typeTransactions == 'transferência')
+        transferência
+        <input type='hidden' name='type' value='transferência'>
         @endif
         <br>
         <br>

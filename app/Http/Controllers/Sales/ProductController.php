@@ -204,6 +204,7 @@ class ProductController extends Controller {
         $product->fill($request->all());
         $product->price = str_replace(",", ".", $request->price);
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
+//        dd($request);
         $product->image_id = $this->saveImage($request);
         $product->save();
         $variation = $request->variation;
@@ -276,9 +277,8 @@ class ProductController extends Controller {
     }
 
     public function saveImage($request) {
-        if ($request->image_id) {
-            $imageId = $request->image_id;
-        } else {
+//        if ($request->image_id) {
+        if ($request->file('image')) {
             $image = new Image();
             $image->name = $request->name;
             $image->account_id = $request->account_id;
@@ -287,8 +287,9 @@ class ProductController extends Controller {
             $path = $request->file('image')->store('users_images');
             $image->path = $path;
             $image->save();
-            
             $imageId = $image->id;
+        } else {
+            $imageId = $request->image_id;
         }
         return $imageId;
     }

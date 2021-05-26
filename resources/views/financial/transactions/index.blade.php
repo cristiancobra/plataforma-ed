@@ -14,6 +14,9 @@ Total: <span class="labels"></span>
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
+<a class="circular-button secondary" href="{{route('transaction.create', ['typeTransactions' => 'transferência'])}}">
+    <i class="fas fa-sync"></i>
+</a>
 <a class="circular-button secondary" href="{{route('transaction.create', ['typeTransactions' => 'despesa'])}}">
     <i class="fas fa-minus"></i>
 </a>
@@ -49,9 +52,9 @@ Total: <span class="labels"></span>
         <p style="text-align:right;font-size:14px">
             RECEITAS:	+ {{formatCurrencyReal($revenueMonthly)}}
             <br>
-            DESPESAS: - {{formatCurrencyReal($expenseMonthly)}}
+            DESPESAS: {{formatCurrencyReal($expenseMonthly)}}
             <br>
-            SALDO: {{formatCurrencyReal($revenueMonthly - $expenseMonthly)}}
+            SALDO: {{formatCurrencyReal($revenueMonthly + $expenseMonthly)}}
             <br>
         </p>
     </div>
@@ -64,7 +67,7 @@ Total: <span class="labels"></span>
         </p>
         <p style="text-align:right;font-size:14px">
             @foreach($bankAccounts as $bankAccount)
-            {{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->revenueTotal)}}
+            {{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->balance)}}
             <br>
             @endforeach
         </p>
@@ -140,7 +143,7 @@ Total: <span class="labels"></span>
                     {{$transaction->invoice_id}}
                 </a>
                 @else
-                excluida
+                não possui
                 @endif
             </td>
             <td class="table-list-center">
@@ -166,6 +169,8 @@ Total: <span class="labels"></span>
                 <a class="white" href=" {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}">
                     {{$transaction->invoice->contact->name}}
                 </a>
+                @elseif($transaction->type == 'transferência')
+                {{$transaction->account->name}}
                 @else
                 Não possui
                 @endif

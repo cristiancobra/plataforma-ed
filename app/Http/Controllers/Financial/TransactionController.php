@@ -73,15 +73,11 @@ class TransactionController extends Controller {
                 ->get();
 
         foreach ($bankAccounts as $key => $bankAccount) {
-            $revenueTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
-                    ->where('type', 'crédito')
+            $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+//                    ->where('type', 'crédito')
                     ->sum('value');
 
-            $expenseTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
-                    ->where('type', 'débito')
-                    ->sum('value');
-
-            $bankAccount->revenueTotal = $bankAccount->opening_balance + $revenueTotal[$key] - $expenseTotal[$key];
+            $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
         }
 //dd($transactions);
         return view('financial.transactions.index', compact(
@@ -155,8 +151,19 @@ class TransactionController extends Controller {
         } else {
             $transaction = new Transaction();
             $transaction->fill($request->all());
+            if($transaction->type == 'crédito') {
             $transaction->value = removeCurrency($request->value);
+            }else{
+            $transaction->value = removeCurrency($request->value) * -1;
+            }
             $transaction->save();
+            
+            if($transaction->type == 'transferência') {
+            $transaction2 = new Transaction();
+            $transaction2->fill($request->all());
+            $transaction2->bank_account_id = $request->bank_account_destiny_id;
+            $transaction2->save();
+            };
 
             return view('financial.transactions.show', compact(
                             'transaction',
