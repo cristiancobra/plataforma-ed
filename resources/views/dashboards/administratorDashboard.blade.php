@@ -77,7 +77,6 @@
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
-                @
                 @foreach($bankAccounts as $bankAccount)
                 {{$bankAccount->name}}
                 @endforeach
