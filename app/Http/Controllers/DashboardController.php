@@ -183,6 +183,12 @@ class DashboardController extends Controller {
                     ->sum('duration');
         }
 
+        $revenueMonthly = null;
+        $estimatedRevenueMonthly = null;
+        $expenseMonthly = null;
+        $estimatedExpenseMonthly = null;
+        $bankAccounts = null;
+
         return view($view, compact(
                         'month',
                         'users',

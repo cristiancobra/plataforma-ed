@@ -19,8 +19,8 @@
 <div class="grid-employee">
 	<div class="tasks-title">
 		<img src="{{asset('imagens/tarefas.png')}}" width="50" height="50">
-		<br>
-		<br>
+                <br>
+                <br>
 		TAREFAS
 	</div>
 

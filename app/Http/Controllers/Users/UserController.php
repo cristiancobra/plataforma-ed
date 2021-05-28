@@ -189,9 +189,10 @@ class UserController extends Controller {
         if (!empty($request->password)) {
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
+        if($request->file) {
         $path = $request->file('profile_picture')->store('profile_pictures');
         $user->profile_picture = $path;
-//        dd($user->profile_picture);
+        }
         $user->update();
 
         if (!empty($request->accounts)) {
