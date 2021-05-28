@@ -101,6 +101,13 @@ class BankAccountController extends Controller {
     public function show(BankAccount $bankAccount) {
         $bankAccount->transactions = Transaction::where('bank_account_id', $bankAccount->id)
                 ->get();
+        
+        $bankAccount->balance = $bankAccount->transactions->sum('value');
+//
+//            foreach ($bankAccounts as $key => $bankAccount) {
+//                $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+//                    ->where('type', 'crédito')
+//                        ->sum('value');
 
         return view('financial.bankAccounts.showBankAccount', compact(
                         'bankAccount',

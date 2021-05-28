@@ -78,7 +78,9 @@
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
                 @foreach($bankAccounts as $bankAccount)
+                <a href="{{route('bankAccount.show', ['bankAccount' => $bankAccount])}}" style="color: white">
                 {{$bankAccount->name}}
+                </a>
                 @endforeach
         </div>
         <div style='display: inline-block;float:right;width: 30%'>

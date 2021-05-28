@@ -75,7 +75,7 @@
                 <td   class="table-list-header" style="width: 10%">
                     DATA
                 </td>
-                <td   class="table-list-header" style="width: 25%">
+                <td   class="table-list-header" style="width: 20%">
                     OPORTUNIDADE
                 </td>
                 <td   class="table-list-header" style="width: 5%">
@@ -84,11 +84,14 @@
                 <td   class="table-list-header" style="width: 15%">
                     CONTA BANCÁRIA
                 </td>
-                <td   class="table-list-header" style="width: 20%">
+                <td   class="table-list-header" style="width: 15%">
                     CONTA
                 </td>
                 <td   class="table-list-header" style="width: 15%">
                     ORIGEM / DESTINO
+                </td>
+                <td   class="table-list-header" style="width: 10%">
+                    TIPO
                 </td>
                 <td   class="table-list-header" style="width: 10%">
                     VALOR
@@ -150,6 +153,9 @@
                     Não possui
                     @endif
                 </td>
+                <td class="table-list-center">
+                        {{$transaction->type}}
+                </td>
                 @if($transaction->type == "débito")
                 <td class="table-list-right" style="color:red">
                     @else
@@ -159,6 +165,14 @@
                 </td>
             </tr>
             @endforeach
+            <tr>
+                <td   class="table-list-header text-right" colspan="7"">
+                    SALDO
+                </td>
+                <td   class="table-list-header text-right">
+                    {{formatCurrencyReal($bankAccount->balance)}}
+                </td>
+            </tr>
         </table>
     </div>
     <div style="margin-top: 20px;text-align: right">
