@@ -29,7 +29,7 @@
             <img class='financial-image' src="{{asset('imagens/financial-planning.png')}}">
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
-            <p style="color:white;font-size: 16px;text-align: left">
+            <p style="color:white;font-size: 15px;text-align: left">
                 VENDIDO:       
                 <br>
                 COMPROMETIDO:
@@ -38,7 +38,7 @@
             </p>
         </div>
         <div style='display: inline-block;float:right;width: 30%'>
-            <p style="color:white;font-size: 16px;text-align: right">
+            <p style="color:white;font-size: 15px;text-align: right">
                 {{formatCurrency($estimatedRevenueMonthly)}}
                 <br>
                 {{formatCurrency($estimatedExpenseMonthly)}}
@@ -52,16 +52,16 @@
             <img class='financial-image' src="{{asset('imagens/invoice.png')}}" style='width:100%'>
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
-            <p style="color:white;font-size: 16px;text-align: left">
-                RECEITAS:
+            <p style="color:white;font-size: 15px;text-align: left">
+                ENTRADAS:
                 <br>
-                DESPESAS:
+                SAÍDAS:
                 <br>
                 SALDO:
             </p>
         </div>
         <div style='display: inline-block;float:right;width: 30%'>
-            <p style="color:white;font-size: 16px;text-align: right">
+            <p style="color:white;font-size: 15px;text-align: right">
                 {{formatCurrency($revenueMonthly)}}
                 <br>
                 {{formatCurrency($expenseMonthly)}}
@@ -76,13 +76,13 @@
             <img class='financial-image' src="{{asset('imagens/financeiro.png')}}" style='width:100%'>
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
-            <p style="color:white;font-size: 16px;text-align: left">
+            <p style="color:white;font-size: 15px;text-align: left">
                 @foreach($bankAccounts as $bankAccount)
                 {{$bankAccount->name}}
                 @endforeach
         </div>
         <div style='display: inline-block;float:right;width: 30%'>
-            <p style="color:white;font-size: 16px;text-align: right">
+            <p style="color:white;font-size: 15px;text-align: right">
                 @foreach($bankAccounts as $bankAccount)
                 {{formatCurrency($bankAccount->balance)}}
                 @endforeach
