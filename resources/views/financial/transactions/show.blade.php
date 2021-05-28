@@ -49,12 +49,17 @@
     <br>
     <br>
     <p class="labels">
-        FATURA:<span class="fields">{{$transaction->invoice->identifier}}</span>
+        FATURA:
+        @if($transaction->invoice)
+        <span class="fields">{{$transaction->invoice->identifier}}</span>
         <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
             <button class="button-round">
                 <i class='fa fa-eye'></i>
             </button>
         </a>
+        @else
+        Não possui
+        @endif
     </p>
     <p class="labels">
         TIPO:<span class="fields">{{$transaction->type}}</span>

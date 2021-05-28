@@ -151,23 +151,22 @@ class TransactionController extends Controller {
         } else {
             $transaction = new Transaction();
             $transaction->fill($request->all());
-            if($transaction->type == 'crédito') {
-            $transaction->value = removeCurrency($request->value);
-            }else{
-            $transaction->value = removeCurrency($request->value) * -1;
+            if ($transaction->type == 'crédito') {
+                $transaction->value = removeCurrency($request->value);
+            } else {
+                $transaction->value = removeCurrency($request->value) * -1;
             }
             $transaction->save();
-            
-            if($transaction->type == 'transferência') {
-            $transaction2 = new Transaction();
-            $transaction2->fill($request->all());
-            $transaction2->bank_account_id = $request->bank_account_destiny_id;
-            $transaction2->save();
+
+            if ($transaction->type == 'transferência') {
+                $transaction2 = new Transaction();
+                $transaction2->fill($request->all());
+                $transaction2->bank_account_id = $request->bank_account_destiny_id;
+                $transaction->value = removeCurrency($request->value);
+                $transaction2->save();
             };
 
-            return view('financial.transactions.show', compact(
-                            'transaction',
-            ));
+            return redirect()->route('transaction.show', [$transaction2]);
         }
     }
 
@@ -250,7 +249,6 @@ class TransactionController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-
         $transactions = Transaction::where(function ($query) use ($request) {
                     if ($request->account_id) {
                         $query->where('account_id', $request->account_id);
@@ -286,7 +284,7 @@ class TransactionController extends Controller {
                     'bankAccount',
                     'invoice',
                     'invoice.company',
-                                        'invoice.opportunity',
+                    'invoice.opportunity',
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
@@ -296,7 +294,7 @@ class TransactionController extends Controller {
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
         ]);
-        
+
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
