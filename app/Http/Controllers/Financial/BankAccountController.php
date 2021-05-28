@@ -102,7 +102,7 @@ class BankAccountController extends Controller {
         $bankAccount->transactions = Transaction::where('bank_account_id', $bankAccount->id)
                 ->get();
         
-        $bankAccount->balance = $bankAccount->transactions->sum('value');
+        $bankAccount->balance = $bankAccount->transactions->sum('value') + $bankAccount->opening_balance;
 //
 //            foreach ($bankAccounts as $key => $bankAccount) {
 //                $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
