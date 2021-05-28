@@ -97,8 +97,8 @@ class TaskController extends Controller {
         $companies = Company::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
-         $opportunities = $this->accountOpportunities();
+
+        $opportunities = $this->accountOpportunities('create');
 
         $today = date("Y-m-d");
         $departments = returnDepartments();
@@ -228,8 +228,8 @@ class TaskController extends Controller {
                     $query->whereIn('account_id', userAccounts());
                 })
                 ->get();
-                
-         $opportunities = $this->accountOpportunities();
+
+        $opportunities = $this->accountOpportunities('edit');
 
         $departments = returnDepartments();
         $status = returnStatus();
@@ -304,12 +304,22 @@ class TaskController extends Controller {
         return redirect()->action('Tasks\\TaskController@index');
     }
 
-    public function accountOpportunities() {
-        $accountOpportunities = Opportunity::whereIn('account_id', userAccounts())
-                ->where('stage', '!=', 'perdemos')
-                ->orderBy('date_conclusion', 'ASC')
-                ->get();
-        
+    public function accountOpportunities($method) {
+        switch ($method) {
+            case 'create':
+                $accountOpportunities = Opportunity::whereIn('account_id', userAccounts())
+                        ->where('stage', '!=', 'perdemos')
+                        ->where('stage', '!=', 'concluída')
+                        ->orderBy('date_conclusion', 'DESC')
+                        ->get();
+                break;
+            case 'edit':
+                $accountOpportunities = Opportunity::whereIn('account_id', userAccounts())
+                        ->where('stage', '!=', 'perdemos')
+                        ->orderBy('date_conclusion', 'DESC')
+                        ->get();
+                break;
+        }
         return $accountOpportunities;
     }
 
