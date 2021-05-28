@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Account;
+use App\Models\BankAccount;
+use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Task;
+use App\Models\Transaction;
 use App\Models\Opportunity;
 use Illuminate\Support\Facades\Auth;
 
@@ -47,6 +50,39 @@ class DashboardController extends Controller {
                 $user->hoursToday = Journey::where('user_id', $user->id)
                         ->where('date', date('Y-m-d'))
                         ->sum('duration');
+            }
+
+            $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
+                    ->where('type', 'crédito')
+                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                    ->sum('value');
+
+            $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+                    ->where('type', 'receita')
+                    ->where('status', 'aprovada')
+                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                    ->sum('installment_value');
+
+            $expenseMonthly = Transaction::whereIn('account_id', userAccounts())
+                    ->where('type', 'débito')
+                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                    ->sum('value');
+
+            $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+                    ->where('type', 'despesa')
+                    ->where('status', 'aprovada')
+                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                    ->sum('installment_value');
+
+            $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+                    ->get();
+
+            foreach ($bankAccounts as $key => $bankAccount) {
+                $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+//                    ->where('type', 'crédito')
+                        ->sum('value');
+
+                $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
             }
 
             $view = 'dashboards/administratorDashboard';
@@ -165,6 +201,11 @@ class DashboardController extends Controller {
                         'departments',
                         'departmentsMonthly',
                         'departmentsToday',
+                        'revenueMonthly',
+                        'estimatedRevenueMonthly',
+                        'expenseMonthly',
+                        'estimatedExpenseMonthly',
+                        'bankAccounts',
         ));
     }
 
