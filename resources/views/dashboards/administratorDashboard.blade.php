@@ -81,12 +81,14 @@
                 <a href="{{route('bankAccount.show', ['bankAccount' => $bankAccount])}}" style="color: white">
                 {{$bankAccount->name}}
                 </a>
+                <br>
                 @endforeach
         </div>
         <div style='display: inline-block;float:right;width: 30%'>
             <p style="color:white;font-size: 15px;text-align: right">
                 @foreach($bankAccounts as $bankAccount)
                 {{formatCurrency($bankAccount->balance)}}
+                <br>
                 @endforeach
             </p>
         </div>
