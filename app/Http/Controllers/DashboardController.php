@@ -22,7 +22,8 @@ class DashboardController extends Controller {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
-
+        
+// SE FOR ADMINISTRADOR
         if ($request['role'] === "administrator" OR $request['role'] === "superadmin" OR $request['role'] === "dono") {
             $tasks = Task::whereIn('account_id', $accountsId)
                     ->get();
@@ -88,6 +89,8 @@ class DashboardController extends Controller {
             $view = 'dashboards/administratorDashboard';
 
             $departments = "";
+            
+            // SE FOR FUNCIONÁRIO
         } elseif ($request['role'] === "employee") {
             $tasks = Task::where('user_id', Auth::user()->id)
                     ->get();
@@ -105,10 +108,16 @@ class DashboardController extends Controller {
 
             $users = "";
             $tasks_my = "";
+            $revenueMonthly = null;
+            $estimatedRevenueMonthly = null;
+            $expenseMonthly = null;
+            $estimatedExpenseMonthly = null;
+            $bankAccounts = null;
 
             $view = 'dashboards/employeeDashboard';
         }
-
+        
+// PARTE COMUM DO CÓDIGO PARA ADMINISTRADOR E FUNCIONÁRIO
         $tasksDone = $tasks
                 ->where('status', 'feito')
                 ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
@@ -182,12 +191,6 @@ class DashboardController extends Controller {
                     ->where('date', date('Y-m-d'))
                     ->sum('duration');
         }
-
-        $revenueMonthly = null;
-        $estimatedRevenueMonthly = null;
-        $expenseMonthly = null;
-        $estimatedExpenseMonthly = null;
-        $bankAccounts = null;
 
         return view($view, compact(
                         'month',
