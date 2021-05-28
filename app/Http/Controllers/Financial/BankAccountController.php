@@ -100,6 +100,7 @@ class BankAccountController extends Controller {
      */
     public function show(BankAccount $bankAccount) {
         $bankAccount->transactions = Transaction::where('bank_account_id', $bankAccount->id)
+                ->orderBy('PAY_DAY', 'DESC')
                 ->get();
         
         $bankAccount->balance = $bankAccount->transactions->sum('value') + $bankAccount->opening_balance;

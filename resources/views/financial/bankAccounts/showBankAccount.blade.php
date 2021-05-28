@@ -156,7 +156,7 @@
                 <td class="table-list-center">
                         {{$transaction->type}}
                 </td>
-                @if($transaction->type == "débito")
+                @if($transaction->value < 0)
                 <td class="table-list-right" style="color:red">
                     @else
                 <td class="table-list-right">
