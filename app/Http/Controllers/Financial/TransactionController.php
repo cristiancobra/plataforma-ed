@@ -156,13 +156,14 @@ class TransactionController extends Controller {
             } else {
                 $transaction->value = removeCurrency($request->value) * -1;
             }
+//            dd($transaction);
             $transaction->save();
 
             if ($transaction->type == 'transferência') {
                 $transaction2 = new Transaction();
                 $transaction2->fill($request->all());
                 $transaction2->bank_account_id = $request->bank_account_destiny_id;
-                $transaction->value = removeCurrency($request->value);
+                $transaction2->value = removeCurrency($request->value);
                 $transaction2->save();
             };
 

@@ -950,7 +950,7 @@ if (!function_exists('returnType')) {
                 break;
             case 'transaction':
                 $all = 'todos os tipos';
-                $types = array('crédito', 'débito');
+                $types = array('crédito', 'débito', 'transferência');
                 break;
         }
         echo "<select class = '$class' name = '$name'>";
