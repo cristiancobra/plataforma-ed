@@ -246,42 +246,7 @@ class InvoiceController extends Controller {
             $invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
             $invoice->update();
 
-            $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
-                    ->with('company')
-                    ->orderBy('PAY_DAY', 'ASC')
-                    ->get();
-
-            $totalInvoices = $invoices->count();
-
-            $contracts = Contact::whereIn('account_id', userAccounts())
-                    ->orderBy('NAME', 'ASC')
-                    ->get();
-
-            $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-                    ->with('product', 'opportunity')
-                    ->get();
-
-            $transactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
-                        $query->where('invoice_id', $invoice->id);
-                    })
-                    ->get();
-
-            $invoicePaymentsTotal = $transactions->sum('value');
-            $balance = $invoice->installment_value - $invoicePaymentsTotal;
-
-            $typeInvoices = $request->type;
-
-            return view('financial.invoices.showInvoice', compact(
-                            'invoice',
-                            'invoices',
-                            'totalInvoices',
-                            'contracts',
-                            'invoiceLines',
-                            'transactions',
-                            'invoicePaymentsTotal',
-                            'balance',
-                            'typeInvoices',
-            ));
+            return redirect()->route('invoice.show', compact('invoice'));
         }
     }
 
@@ -507,38 +472,7 @@ class InvoiceController extends Controller {
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
-            $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
-                    ->orderBy('PAY_DAY', 'ASC')
-                    ->get();
-
-            $totalInvoices = $invoices->count();
-
-            $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-                    ->with('product', 'opportunity')
-                    ->get();
-
-            $transactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
-                        $query->where('invoice_id', $invoice->id);
-                    })
-                    ->get();
-
-            $invoicePaymentsTotal = $transactions->sum('value');
-            $balance = $invoice->installment_value - $invoicePaymentsTotal;
-
-            $invoice->with('contract');
-
-            $typeInvoices = $request->type;
-
-            return view('financial.invoices.showInvoice', compact(
-                            'invoice',
-                            'invoices',
-                            'totalInvoices',
-                            'invoiceLines',
-                            'transactions',
-                            'invoicePaymentsTotal',
-                            'balance',
-                            'typeInvoices',
-            ));
+            return redirect()->route('invoice.show', compact('invoice'));
         }
     }
 
