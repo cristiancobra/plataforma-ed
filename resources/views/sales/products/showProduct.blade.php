@@ -42,6 +42,12 @@
             <image src='{{asset('imagens/products.png')}}'  width='100%' heigh='100%'>
             @endif
     </div>
+        @if($product->cnae)
+        <br>
+    <div class='show-label text-center col-12'>
+        CNAE:  {{$product->cnae}}
+    </div>
+        @endif
 </div>
 <div class='col-lg-3 col-xs-6' style='text-align: center'>
     <div class='show-label'>
