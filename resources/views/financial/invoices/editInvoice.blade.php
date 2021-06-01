@@ -305,7 +305,7 @@
             </td>
 
             <td class="table-list-right">
-                <input type="decimal" name="new_product_price[]" size="7" value="{{formatCurrencyReal($product->price)}}">
+                <input type="decimal" name="new_product_price[]" size="7" value="{{formatCurrency($product->price)}}">
             </td>
 
             </tr>
