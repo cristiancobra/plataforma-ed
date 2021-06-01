@@ -66,6 +66,11 @@
     <div class='show-label'>
         PRODUÇÃO
     </div>
+    @if($product->category == 'serviço')
+    <div class='show-label'>
+        PONTOS FUNCIONAIS
+    </div>
+    @endif
     <div class='show-label'>
         PRAZO DE ENTREGA
     </div>
@@ -105,6 +110,11 @@
     <div class='show-field-start'>
         em horas
     </div>
+            @if($product->category == 'serviço')
+    <div class='show-field-start'>
+        pontos para cada função de projeto
+    </div>
+            @endif
     <div class='show-field-start'>
         estimativa
     </div>
@@ -132,6 +142,11 @@
     <div class='show-field-end text-end'>
         {{$product->work_hours}}
     </div>
+        @if($product->category == 'serviço')
+    <div class='show-field-end text-end'>
+        {{$product->points}}
+    </div>
+        @endif
     <div class='show-field-end text-end'>
         {{$product->due_date}}
     </div>
@@ -147,7 +162,7 @@
 
 @section('deleteButton', route('product.destroy', ['product' => $product->id]))
 
-@section('editButton', route('product.edit', ['product' => $product->id]))
+@section('editButton', route('product.edit', ['product' => $product->id, 'variation' => $variation]))
 
 @section('backButton', route('product.index', ['variation' => $variation]))
 

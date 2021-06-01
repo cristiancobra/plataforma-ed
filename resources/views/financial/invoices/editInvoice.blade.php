@@ -110,6 +110,9 @@
                     HORAS
                 </td>
                 <td   class="table-list-header">
+                    PONTOS
+                </td>
+                <td   class="table-list-header">
                     PRAZO
                 </td>
                 <td   class="table-list-header">
@@ -161,6 +164,10 @@
                 <input type="hidden" name="product_work_hours[]" size="4" value="{{$invoiceLine->product->work_hours}}">
                 {{number_format($invoiceLine->product->work_hours)}}
             </td>
+            <td class="table-list-center">
+                <input type="hidden" name="product_points[]" size="4" value="{{$invoiceLine->product->points}}">
+                {{number_format($invoiceLine->product->points)}}
+            </td>
             <td class="table-list-right">
                 <input type="hidden" name="product_cost[]" size="7" value="{{ $invoiceLine->product->cost1 + $invoiceLine->product->cost2 + $invoiceLine->product->cost3}}" >
                 {{number_format($invoiceLine->product->cost1 + $invoiceLine->product->cost2 + $invoiceLine->product->cost3, 2,",",".") }}
@@ -179,27 +186,27 @@
             </tr>
             @endforeach
             <tr>
-                <td   class="table-list-header-right" colspan="7">
+                <td   class="table-list-header-right" colspan="8">
                     desconto: 
                 </td>
-                <td   class="table-list-header-right">
+                <td   class="table-list-header-right" colspan="3">
                     - {{formatCurrencyReal($invoice->discount)}}
                 </td>
             </tr>
             <tr>
-                <td   class="table-list-header-right" colspan="7">
+                <td   class="table-list-header-right" colspan="8">
                     TOTAL: 
                 </td>
-                <td   class="table-list-header-right">
+                <td   class="table-list-header-right" colspan="3">
                     {{formatCurrencyReal($invoice->totalPrice)}}
                 </td>
             </tr>
             <tr>
-                <td   class="table-list-header-right" colspan="7">
+                <td   class="table-list-header-right" colspan="8">
                     PARCELAMENTO: 
                 </td>
 
-                <td   class="table-list-header-right" colspan="7">
+                <td   class="table-list-header-right" colspan="3">
                     @if($invoice->number_installment_total == 1)
                     À vista
                     @else
@@ -226,6 +233,9 @@
                 </td>
                 <td   class="table-list-header">
                     HORAS
+                </td>
+                <td   class="table-list-header">
+                    PONTOS
                 </td>
                 <td   class="table-list-header">
                     PRAZO
@@ -273,6 +283,10 @@
             <td class="table-list-center">
                 <input type="hidden" name="new_product_work_hours[]" size="4" value="{{$product->work_hours}}">
                 {{number_format($product->work_hours)}} dia(s)
+            </td>
+            <td class="table-list-center">
+                <input type="hidden" name="new_product_points[]" size="4" value="{{$product->points}}">
+                {{$product->points}}
             </td>
 
             <td class="table-list-right">

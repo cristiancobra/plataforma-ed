@@ -30,7 +30,7 @@
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
-                VENDIDO:       
+                VENDIDO:
                 <br>
                 COMPROMETIDO:
                 <br>
@@ -87,7 +87,9 @@
         <div style='display: inline-block;float:right;width: 30%'>
             <p style="color:white;font-size: 15px;text-align: right">
                 @foreach($bankAccounts as $bankAccount)
+                <a href="{{route('bankAccount.show', ['bankAccount' => $bankAccount])}}" style="color: white">
                 {{formatCurrency($bankAccount->balance)}}
+                </a>
                 <br>
                 @endforeach
             </p>

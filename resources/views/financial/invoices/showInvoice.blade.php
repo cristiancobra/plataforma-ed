@@ -165,6 +165,16 @@ Não possui
     </tr>
     @endforeach
 
+
+    <tr>
+        <td   class="table-list-header-right" colspan="4">
+            pontos: 
+        </td>
+        <td   class="table-list-header-right" colspan="2">
+            {{$invoice->totalPoints}}
+        </td>
+    </tr>
+
     <tr>
         <td   class="table-list-header-right" colspan="4">
             desconto: 
@@ -301,7 +311,7 @@ $counter++;
 <br>
 <p style="text-align: right">
     @if($typeInvoices == 'receita')
-<a class="text-button secondary" href="{{route('transaction.create', [
+    <a class="text-button secondary" href="{{route('transaction.create', [
 		'invoiceId' => $invoice->id,
 		'invoiceIdentifier' => $invoice->identifier,
 		'accountId' => $invoice->account_id,
@@ -310,8 +320,8 @@ $counter++;
 		'invoiceTotalPrice' => $invoice->installment_value,
 				
 	])}}">
-    REGISTRAR ENTRADA
-</a>
+        REGISTRAR ENTRADA
+    </a>
     @elseif($typeInvoices == 'despesa')
     <a class="text-button secondary" href="{{route('transaction.create', [
 		'invoiceId' => $invoice->id,
@@ -321,8 +331,8 @@ $counter++;
 		'typeTransactions' => 'despesa',
 		'invoiceTotalPrice' => $invoice->installment_value,
 	])}}">
-    REGISTRAR SAÍDA
-</a>
+        REGISTRAR SAÍDA
+    </a>
     @endif
 </p>
 <br>
@@ -392,6 +402,129 @@ $counter++;
     @endforeach
     @endif
 </table>
+<br>
+<br>
+<br>
+<div style='display: inline-block'>
+    <img src='{{asset('imagens/production.png')}}' width='40px' alt='40px'>
+    <label class='labels' for='' >PRODUÇÃO:</label>
+</div>
+<br>
+<br>
+<table class='table-list'>
+    <tr>
+        <td   class='table-list-header' style='width: 5%'>
+            VER
+        </td>
+        <td   class='table-list-header' style='width: 10%'>
+            DATA CRIAÇÃO 
+        </td>
+        <td   class='table-list-header' style='width: 25%'>
+            TAREFA 
+        </td>
+        <td   class='table-list-header' style='width: 35%'>
+            DESCRIÇÃO 
+        </td>
+        <td   class='table-list-header' style='width: 5%'>
+            CONCLUSÃO
+        </td>
+        <td   class='table-list-header' style='width: 5%'>
+            PRIORIDADE
+        </td>
+        <td   class='table-list-header' style='width: 5%'>
+            SITUAÇÃO
+        </td>
+    </tr>
+
+    @foreach ($tasksOperational as $task)
+    <tr style='font-size: 14px'>
+        <td class='table-list-center'>
+            <button class='button-round'>
+                <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+        </td>
+        <td class='table-list-center'>
+            {{date('d/m/Y', strtotime($task->date_start))}}
+        </td>
+        <td class='table-list-left'>
+            {{$task->name}}
+        </td>
+        <td class='table-list-left'>
+            {!!html_entity_decode($task->description)!!}
+        </td>
+        <td class='table-list-center'>
+            @isset($task->date_conclusion)
+            {{date('d/m/Y', strtotime($task->date_conclusion))}}
+            @else
+            em aberto
+            @endisset
+        </td>
+        {{formatPriority($task)}}
+
+        @if($task->status == 'fazer' AND $task->journeys()->exists())
+        <td class='td-doing'>
+            andamento
+        </td>
+        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+        <td class='td-late'>
+            atrasada
+        </td>
+        @else
+        {{formatStatus($task)}}
+        @endif
+    </tr>
+    @foreach($task->journeys as $journey)
+    <tr>
+        <td class='table-list-header' style="background-color:#d8c2db">
+            <button class='button-round'>
+                <a href=' {{route('journey.show', ['journey' => $journey->id])}}'>
+                    <i class='fas fa-clock' style='color:white'></i>
+                </a>
+            </button>
+        </td>
+        <td class='table-list-center' style="background-color:#d8c2db">
+            {{$journey->date}}
+        </td>
+        <td class='table-list-left' style="background-color:#d8c2db">
+            {{$journey->user->contact->name}}
+        </td>
+        <td class='table-list-left' colspan="3" style="background-color:#d8c2db">
+            {!!html_entity_decode($journey->description)!!}
+        </td>
+        <td class='table-list-right' style="background-color:#d8c2db">
+            {{formatTotalHour($journey->duration)}} horas
+        </td>
+    </tr>
+    @endforeach
+
+    @endforeach
+    <tr>
+        <td   class="table-list-header-right"colspan="6">
+            TOTAL:
+        </td>
+        <td   class="table-list-header-right" colspan="1">
+            {{formatTotalHour($tasksOperationalHours)}} horas
+        </td>
+    </tr>
+</table>
+<br>
+<div id='produção' style='text-align:right'>
+    <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>
+        @csrf
+        <input type='hidden' name='task_name' value='PRODUZIR:'>
+        <input type='hidden' name='opportunity_id' value='{{$invoice->opportunity_id}}'>
+        <input type='hidden' name='opportunity_name' value='{{$invoice->opportunity->name}}'>
+        @if($invoice->opportunity->contact)
+        <input type='hidden' name='contact_name' value='{{$invoice->opportunity->contact->name}}'>
+        <input type='hidden' name='contact_id' value='{{$invoice->opportunity->contact->id}}'>
+        @endif
+        <input type='hidden' name='account_name' value='{{$invoice->account->name}}'>
+        <input type='hidden' name='account_id' value='{{$invoice->account->id}}'>
+        <input type='hidden' name='department' value='produção'>
+        <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
+    </form>
+</div>
 <br>
 <br>
 @endif

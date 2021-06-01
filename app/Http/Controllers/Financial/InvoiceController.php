@@ -10,9 +10,11 @@ use App\Models\BankAccount;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Contract;
+use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -315,6 +317,17 @@ class InvoiceController extends Controller {
 
         $invoicePaymentsTotal = $transactions->sum('value');
         $balance = $invoice->installment_value - $invoicePaymentsTotal;
+
+        $tasksOperational = Task::where('opportunity_id', $invoice->opportunity_id)
+                ->where('department', '=', 'produção')
+                ->with('journeys')
+                ->get();
+
+        $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($invoice) {
+                    $query->where('opportunity_id', $invoice->opportunity_id);
+                    $query->where('department', '=', 'produção');
+                })
+                ->sum('duration');
 //
         return view('financial.invoices.showInvoice', compact(
                         'typeInvoices',
@@ -325,6 +338,8 @@ class InvoiceController extends Controller {
                         'transactions',
                         'invoicePaymentsTotal',
                         'balance',
+                        'tasksOperational',
+                        'tasksOperationalHours',
         ));
     }
 
@@ -429,6 +444,7 @@ class InvoiceController extends Controller {
             $invoice->save();
 
             // atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
+            $totalPoints = 0;
             $totalPrice = 0;
             $totalTaxrate = 0;
             $products = $request['product_id'];
@@ -446,8 +462,10 @@ class InvoiceController extends Controller {
                             'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
                             'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
                             'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
+                            'subtotalPoints' => $request->product_amount[$key] * $request->product_points[$key],
                             'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
                         );
+                        $totalPoints = $totalPoints + $data['subtotalPoints'];
                         $totalPrice = $totalPrice + $data['subtotalPrice'];
                         $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
                         if ($request->product_amount[$key] <= 0) {
@@ -458,6 +476,7 @@ class InvoiceController extends Controller {
                     }
                 }
                 // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
+                $newTotalPoints = 0;
                 $newTotalPrice = 0;
                 $newProducts = $request['new_product_id'];
 
@@ -472,13 +491,16 @@ class InvoiceController extends Controller {
                             'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
                             'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
                             'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
+                            'subtotalPoints' => $request->new_product_amount [$key] * $request->new_product_points[$key],
                             'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
                         );
+                        $newTotalPoints = $newTotalPoints + $data['subtotalPoints'];
                         $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
                         $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
                         invoiceLine::insert($data);
                     }
                 }
+                $invoice->totalPoints = $totalPoints + $newTotalPoints;
                 $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
                 $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
             }
@@ -555,9 +577,24 @@ class InvoiceController extends Controller {
                 ])
                 ->get();
 
+        $tasksOperational = Task::where('opportunity_id', $invoice->opportunity_id)
+                ->where('department', '=', 'produção')
+                ->with('journeys')
+                ->get();
+
+        $tasksOperationalPoints = $tasksOperational
+                ->sum('points');
+
+        $tasksOperationalPointsExecuted = $tasksOperational
+                ->where('status', 'feito')
+                ->sum('points');
+        
+//        dd($tasksOperationalPointsExecuted);
+
         $data = [
             'accountLogo' => $invoice->account->logo,
             'accountPrincipalColor' => $invoice->account->principal_color,
+            'accountComplementaryColor' => $invoice->account->complementary_color,
             'accountName' => $invoice->account->name,
             'accountEmail' => $invoice->account->email,
             'accountPhone' => $invoice->account->phone,
@@ -588,24 +625,22 @@ class InvoiceController extends Controller {
             'companyCountry' => $invoice->opportunity->company->country,
             'invoiceLines' => $invoiceLines,
             'invoiceTotalTransactions' => $totalTransactions,
+            'tasksOperational' => $tasksOperational,
+            'tasksOperationalPoints' => $tasksOperationalPoints,
+            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
         ];
 
-//                $userData = $this->getUserData(); //query and returns all users and their relations
-//        $pdf = App::make('snappy.pdf.wrapper');
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-//        $userData = collect([$this->userData[1]]); //just for faster rendering and testing
-//        $pdf->loadView('orders', ['users' => $userData])
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
                 ->setOptions([
-                        'page-size' => 'A4',
-                        'header-html' => $header,
-                        'footer-html' => $footer,
-                        ]);
-        
-//        $pdf->save($this->path);
+            'page-size' => 'A4',
+            'header-html' => $header,
+            'footer-html' => $footer,
+        ]);
+
 // download PDF file with download method
-        return $pdf->stream('fatura.pdf');
+        return $pdf->stream('Fatura.pdf');
     }
 
 // Generate parcelamento a partir de uma fatura já criada
@@ -780,15 +815,6 @@ class InvoiceController extends Controller {
                         'estimatedRevenueYearly',
                         'estimatedExpenseYearly',
         ));
-    }
-
-    public function testPdf() {
-        PDF::fake();
-
-        // Perform order shipping...
-
-        PDF::assertViewIs('view-pdf-order-shipping');
-        PDF::assertSee('Name');
     }
 
 }

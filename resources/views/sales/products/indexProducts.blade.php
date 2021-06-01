@@ -37,28 +37,16 @@
         <div class='tb tb-header-start col-2'>
             FOTO
         </div>
-        <div class='tb tb-header col-2'>
+        <div class='tb tb-header col-4'>
             NOME
         </div>
-        <div class='tb tb-header col-1'>
+        <div class='tb tb-header col-2'>
             CATEGORIA
         </div>
         <div class='tb tb-header col-1'>
             ENTREGA
         </div>
-        <div class='tb tb-header col-1'>
-            HORAS
-        </div>
-        <div class='tb tb-header col-1'>
-            CUSTOS
-        </div>
-        <div class='tb tb-header col-1'>
-            IMPOSTO
-        </div>
-        <div class='tb tb-header col-1'>
-            MARGEM
-        </div>
-        <div class='tb tb-header col-1'>
+        <div class='tb tb-header col-2'>
             PREÇO
         </div>
         <div class='tb tb-header-end col-1'>
@@ -78,10 +66,10 @@
                 </a>
             </div>
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-4 text-left'>
             {{$product->name}}
         </div>
-        <div class='tb col-1'>
+        <div class='tb col-2'>
             {{$product->category}}
         </div>
         @if ($product->due_date == 0)
@@ -93,20 +81,8 @@
             {{$product->due_date}} dias
         </div>
         @endif
-        <div class='tb col-1'>
-            {{number_format($product->work_hours)}}
-        </div>
-        <div class='tb col-1'>
-            R$ {{number_format($product->cost1 + $product->cost2 + $product->cost3, 2,',','.')}}
-        </div>
-        <div class='tb col-1'>
-            R$ {{number_format($product->price * $product->tax_rate / 100, 2,',','.')}}
-        </div>
-        <div class='tb col-1'>
-            R$ {{number_format(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price, 2,',','.')}}
-        </div>
-        <div class='tb col-1'>
-            R$ {{number_format($product->price,2,',','.')}}
+        <div class='tb col-2 text-right'>
+            {{formatCurrencyReal($product->price,2,',','.')}}
         </div>
         {{formatTableStatus($product)}}
     </div>

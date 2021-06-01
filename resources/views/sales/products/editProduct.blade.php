@@ -89,6 +89,11 @@ CKEDITOR.replace('description');
             <br>
             <label class="labels" for="" >HORAS NECESSÁRIAS:</label>
             <input type="decimal" name="work_hours" size="5" value="{{$product->work_hours}}"><span class="fields"></span>
+            @if($product->category == 'serviço')
+            <br>
+            <label class="labels" for="" >PONTOS FUNCIONAIS:</label>
+            <input type="decimal" name="points" size="5" value="{{$product->points}}"><span class="fields"></span>
+            @endif
             <br>
             <br>
             <label class="labels" for="" >CUSTO 1:</label>

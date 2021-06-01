@@ -99,6 +99,9 @@
         >
         aguardar
         <br>
+        <label class="labels" for="" >PONTOS:</label>
+        <input type='number' name='points' value='{{$task->points}}' style="text-align: right;width: 100px">
+        <br>
         <br>
         <label class="labels" for="" >DESCRIÇÃO:</label>
         <textarea id="description" name="description" rows="20" cols="90">

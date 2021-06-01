@@ -140,6 +140,28 @@ if (!function_exists('createDoubleSelectIdName')) {
     }
 
 }
+if (!function_exists('createOpportunitySelect')) {
+
+// select exclusivo para selecionar oportunidade
+    function createOpportunitySelect($name, $class, $models, $nullLabel = null, $currentValue = null) {
+        echo "<select class = '$class' name = '$name'>";
+        if ($currentValue) {
+            echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
+        }
+        if ($nullLabel) {
+            echo "<option value=''>$nullLabel</option><br>";
+        }
+        foreach ($models as $model) {
+            if (old($name) == $model->id) {
+                echo "<option value='$model->id' selected='selected'>".$model->name." de ".$model->company->name."</option><br>";
+            } else {
+                echo "<option value='$model->id'>".$model->name." de ".$model->company->name."</option><br>";
+            }
+        }
+        echo "</select>";
+    }
+
+}
 if (!function_exists('createSelectUsers')) {
 
 // cria as um select com os usuários disponíveis com ID e Name

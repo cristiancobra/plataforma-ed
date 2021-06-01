@@ -94,14 +94,17 @@ class ProductController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
+        $images = Image::whereHas('account', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->where('type', 'produto')
+                ->get();
+
         return view('sales.products.createProduct', compact(
                         'accounts',
-//						'opportunities',
-//						'contacts',
-//						'companies',
                         'products',
-//						'users',
                         'variation',
+                        'images',
         ));
     }
 
@@ -277,12 +280,11 @@ class ProductController extends Controller {
     }
 
     public function saveImage($request) {
-//        if ($request->image_id) {
         if ($request->file('image')) {
             $image = new Image();
             $image->name = $request->name;
             $image->account_id = $request->account_id;
-            $image->type =  'produto';
+            $image->type = 'produto';
             $image->status = 'disponível';
             $path = $request->file('image')->store('users_images');
             $image->path = $path;

@@ -30,6 +30,7 @@ class Task extends Model {
 		'start_time',
 		'end_time',
 		'duration',
+		'points',
 	];
 
 	protected $hidden = [

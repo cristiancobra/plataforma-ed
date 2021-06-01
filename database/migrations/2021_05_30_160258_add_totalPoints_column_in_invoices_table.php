@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPointsColumnInTasksTable extends Migration
+class AddTotalPointsColumnInInvoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddPointsColumnInTasksTable extends Migration
      */
     public function up()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-             $table->decimal('points', 4,1)->nullable();
+        Schema::table('invoices', function (Blueprint $table) {
+                                     $table->decimal('totalPoints', 4,1)->nullable();
         });
     }
 
@@ -25,8 +25,8 @@ class AddPointsColumnInTasksTable extends Migration
      */
     public function down()
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('points');
+        Schema::table('invoices', function (Blueprint $table) {
+                        $table->dropColumn('totalPoints');
         });
     }
 }

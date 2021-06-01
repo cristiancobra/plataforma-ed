@@ -21,7 +21,7 @@
         DONO:<span class="fields">{{$journey->account->name}}</span>
     </p>
     <p class="labels">
-        RESPONSÁVEL:<span class="fields">{{$journey->task->user->contact->name}}</span>
+        RESPONSÁVEL:<span class="fields">{{$journey->user->contact->name}}</span>
     </p>
     <p class="labels">
         TAREFA:

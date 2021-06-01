@@ -12,7 +12,7 @@
                 padding-left: 20px;
                 vertical-align: top;
                 height:100px;
-                border-radius: 30px;
+                border-radius: 20px;
                 background-color: grey;
             }
             .text-col {

@@ -78,6 +78,9 @@
         <span class="text-danger">{{$errors->first('date_due')}}</span>
         @endif
         <br>
+        <label class="labels" for="" >PONTOS:</label>
+        <input type='number' value='{{old('points')}}' style="text-align: right;width: 100px">
+        <br>
         <br>
         <label class="labels" for="" >DESCRIÇÃO:</label>
         <br>
