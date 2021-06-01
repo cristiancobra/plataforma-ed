@@ -61,7 +61,7 @@
             <input type="text" name="name" size="20" value="{{$product->name}}"><span class="fields"></span>
             <br>
             <label class="labels" for="" >CNAE:</label>
-            <input type="text" name="cnae" size="20" value="{{$product->cnae)}}"><span class="fields"></span>
+            <input type="text" name="cnae" size="20" value="{{$product->cnae}}"><span class="fields"></span>
             <br>
             <label class="labels" for="" >DONO: </label>
             <select name="account_id">
