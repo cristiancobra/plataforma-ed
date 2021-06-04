@@ -30,7 +30,6 @@
         {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
         {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
         {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
-        {{createFilterSelect('stage', 'select', returnStatus(), 'Todas as situações')}}
         <br>
         <a class="text-button secondary" href='{{route('journey.index')}}'>
             LIMPAR
