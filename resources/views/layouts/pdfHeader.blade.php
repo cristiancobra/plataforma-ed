@@ -42,13 +42,19 @@
         <div class='container' style='background-color:{{$data['accountPrincipalColor']}}'>
             <div class='text-col'>
                 <p style='font-size:28px'>
-                    @if($data['invoiceIdentifier'] == 0)
+                    @if($data['pdfTitle'] == 'PROPOSTA')
                     PROPOSTA
-                    @else
+                    @elseif($data['pdfTitle'] == 'FATURA')
                 <p style='font-size:22px'>
                     FATURA {{$data['invoiceIdentifier']}}
                     <br>
                     <span style='font-size: 14px'>Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
+                    @elseif($data['pdfTitle'] == 'CONTRATO')
+                    <p style='font-size:22px'>
+                    CONTRATO {{$data['contractIdentifier']}}
+                    @else
+                    <p style='font-size:22px'>
+                    Não possui título
                     @endif
                 </p>
             </div>

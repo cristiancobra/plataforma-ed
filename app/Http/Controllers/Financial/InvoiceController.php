@@ -523,10 +523,16 @@ class InvoiceController extends Controller {
         $tasksOperationalPointsExecuted = $tasksOperational
                 ->where('status', 'feito')
                 ->sum('points');
-        
-//        dd($tasksOperationalPointsExecuted);
+
+// definição do título
+        if ($invoice->identifier <= 0) {
+            $pdfTitle = 'PROPOSTA';
+        } else {
+            $pdfTitle = 'FATURA';
+        }
 
         $data = [
+            'pdfTitle' => $pdfTitle,
             'accountLogo' => $invoice->account->logo,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,

@@ -165,18 +165,18 @@
             {{$invoiceLine->subtotalDeadline}} dia(s)
         </td>
         <td class="table-list-right">
-            {{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
+            {{formatCurrencyReal($invoiceLine->subtotalTax_rate)}}
         </td>
         <td class="table-list-right">
-            {{number_format($invoiceLine->product->price,2,",",".")}}
+            {{formatCurrencyReal($invoiceLine->product->price)}}
         </td>
         <td class="table-list-right">
-            {{number_format($invoiceLine->subtotalPrice,2,",",".")}}
+            {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
         </td>
     </tr>
 
     <tr style="font-size: 12px">
-        <td class="table-list-left" colspan="5">
+        <td class="table-list-left" colspan="6">
             {!!html_entity_decode($invoiceLine->product->description)!!}
         </td>
     </tr>

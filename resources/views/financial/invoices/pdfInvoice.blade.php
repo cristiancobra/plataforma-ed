@@ -176,13 +176,13 @@
                     {{$invoiceLine->product->name}}
                 </td>
                 <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{number_format($invoiceLine->subtotalTax_rate, 2,",",".")}}
+                    {{formatCurrencyReal($invoiceLine->subtotalTax_rate)}}
                 </td>
                 <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{number_format($invoiceLine->product->price,2,",",".")}}
+                    {{formatCurrencyReal($invoiceLine->product->price)}}
                 </td>
                 <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{number_format($invoiceLine->subtotalPrice,2,",",".")}}
+                    {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
                 </td>
             </tr>
             <tr>
