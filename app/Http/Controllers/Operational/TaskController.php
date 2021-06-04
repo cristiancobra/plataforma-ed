@@ -242,7 +242,7 @@ class TaskController extends Controller {
         $status = $this->returnStatus();
         $priorities = returnPriorities();
 
-        return view('operational.editTask', compact(
+        return view('operational.tasks.editTask', compact(
                         'task',
                         'tasks',
                         'users',
