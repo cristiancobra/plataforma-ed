@@ -40,6 +40,7 @@ class JourneyController extends Controller {
         ]);
 
         $users = myUsers();
+        $status = $this->returnStatus();
 
         $accounts = Account::whereHas('users', function ($query) {
                     $query->where('users.id', Auth::user()->id);
@@ -60,6 +61,7 @@ class JourneyController extends Controller {
                         'accounts',
                         'contacts',
                         'companies',
+                        'status',
         ));
     }
 
@@ -264,12 +266,11 @@ class JourneyController extends Controller {
                             $query->where('department', $request->department);
                         });
                     }
-                    if ($request->status) {
-                        $query->where('status', $request->status);
-                    }
+//                    if ($request->status) {
+//                        $query->where('status', $request->status);
+//                    }
                 })
                 ->with(
-//                        'opportunity',
                         'task',
                         'user.contact',
                 )
@@ -452,4 +453,13 @@ class JourneyController extends Controller {
         return $annualHours;
     }
 
+    function returnStatus() {
+        return $status = array(
+            'fazer',
+            'aguardar',
+            'feito',
+            'fazendo',
+            'cancelado',
+        );
+    }
 }
