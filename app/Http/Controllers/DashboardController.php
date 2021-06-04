@@ -163,7 +163,7 @@ class DashboardController extends Controller {
                 ->where('stage', 'concluída')
                 ->count();
 
-// opportunities status
+// OPORTUNIDADES status
         $opportunitiesWon = $opportunities
                 ->where('status', 'ganhamos')
                 ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
@@ -193,6 +193,9 @@ class DashboardController extends Controller {
         }
 
         return view($view, compact(
+                        'month',
+                        'monthStart',
+                        'monthEnd',
                         'month',
                         'users',
                         'tasksDone',

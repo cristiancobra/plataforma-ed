@@ -53,7 +53,9 @@
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
+                <a href='{{route('transaction.filter')}}'>
                 ENTRADAS:
+                </a>
                 <br>
                 SAÍDAS:
                 <br>

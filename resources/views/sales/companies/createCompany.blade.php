@@ -60,7 +60,7 @@
         <br>
         <br>
         <br>
-        <label for="" >NOME: </label>
+        <label for="" >RAZÃO SOCIAL: </label>
         <input type="text" name="name" value="{{old('name')}}">
         @if ($errors->has('name'))
         <span class="text-danger">{{ $errors->first('name') }}</span>

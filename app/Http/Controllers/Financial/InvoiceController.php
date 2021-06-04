@@ -154,13 +154,11 @@ class InvoiceController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-//		dd($products);
         return view('financial.invoices.createInvoice', compact(
                         'request',
                         'accounts',
                         'opportunities',
                         'contacts',
-//						'contracts',
                         'companies',
                         'products',
                         'users',
@@ -334,6 +332,8 @@ class InvoiceController extends Controller {
                 ->get();
 
         $products = Product::whereIn('account_id', userAccounts())
+                ->where('type', 'receita')
+                ->where('status', 'disponível')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -375,6 +375,7 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Invoice $invoice) {
+//        dd($request);
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -413,7 +414,6 @@ class InvoiceController extends Controller {
             $totalPrice = 0;
             $totalTaxrate = 0;
             $products = $request['product_id'];
-//	dd($request);
             if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
                 if (isset($products)) {
                     foreach ($products as $key => $id) {
@@ -472,7 +472,8 @@ class InvoiceController extends Controller {
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
-            return redirect()->route('invoice.show', compact('invoice'));
+            return redirect()->route('invoice.show', compact('invoice',
+            ));
         }
     }
 

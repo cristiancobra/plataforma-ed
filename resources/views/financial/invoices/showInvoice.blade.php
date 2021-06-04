@@ -445,7 +445,7 @@ $counter++;
             </button>
         </td>
         <td class='table-list-center'>
-            {{date('d/m/Y', strtotime($task->date_start))}}
+            {{dateBr($task->date_start)}}
         </td>
         <td class='table-list-left'>
             {{$task->name}}
@@ -484,7 +484,7 @@ $counter++;
             </button>
         </td>
         <td class='table-list-center' style="background-color:#d8c2db">
-            {{$journey->date}}
+            {{dateBr($journey->date)}}
         </td>
         <td class='table-list-left' style="background-color:#d8c2db">
             {{$journey->user->contact->name}}

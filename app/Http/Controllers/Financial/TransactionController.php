@@ -166,7 +166,7 @@ class TransactionController extends Controller {
                 $transaction2->save();
             };
 
-            return redirect()->route('transaction.show', [$transaction2]);
+            return redirect()->route('transaction.show', compact('transaction'));
         }
     }
 

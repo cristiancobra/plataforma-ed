@@ -167,11 +167,6 @@
 
         {{createSidebarItem('EMPRESA DIGITAL', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', [
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'CRIAR EMAIL <br> login: solucoes',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => 'https://acadia.mxroute.com:2083/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
                                                                                                                                                         'name' => 'SERVIDOR APLICAÇÕES <br> login: admin',
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
                                                                                                                                                         'link' => 'https://62.171.185.126:8090/'
@@ -200,6 +195,29 @@
                                                                                                                                                         'name' => 'ADICIONAR BANCO',
                                                                                                                                                         'faIcon' => 'fas fa-university',
                                                                                                                                                         'link' => route('bank.index'),
+                                                                                                                                                        ],
+                                                                                                                                                    ])}}
+                                                                                                                                                    
+        {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', [
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'EMAIL DO USUÁRIO<br>',
+                                                                                                                                                        'faIcon' => 'fas fa-envelope',
+                                                                                                                                                        'link' => 'https://acadia.mxroute.com:2083/'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'GERENCIAR EMAILS<br> login: solucoes',
+                                                                                                                                                        'faIcon' => 'fas fa-envelope',
+                                                                                                                                                        'link' => 'https://acadia.mxroute.com:2096/'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'GERENCIAR CONTA<br> login: solucoes',
+                                                                                                                                                        'faIcon' => 'fas fa-envelope',
+                                                                                                                                                        'link' => 'https://portal.mxroute.com/index.php'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'SUPORTE<br> login: contato@empresadigital.net.br',
+                                                                                                                                                        'faIcon' => 'fas fa-envelope',
+                                                                                                                                                        'link' => 'https://chat.mxroute.com/channel/support'
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 

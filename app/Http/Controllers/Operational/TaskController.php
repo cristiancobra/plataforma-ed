@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tasks;
+namespace App\Http\Controllers\Operational;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
@@ -28,6 +28,11 @@ class TaskController extends Controller {
      */
     public function index(Request $request) {
         $today = date('Y-m-d');
+        
+        if($request->input('tasks')) {
+        $tasks = $request->tasks;
+        dd($tasks);
+    }
 
         $tasks = Task::where(function ($query) use ($request) {
                     $query->whereIn('account_id', userAccounts());
@@ -64,14 +69,16 @@ class TaskController extends Controller {
                 ->get();
 
         $users = myUsers();
+        $status = $this->returnStatus();
 
-        return view('tasks.indexTasks', compact(
+        return view('operational.tasks.indexTasks', compact(
                         'tasks',
                         'contacts',
                         'companies',
                         'accounts',
                         'users',
                         'today',
+                        'status',
         ));
     }
 
@@ -102,7 +109,7 @@ class TaskController extends Controller {
 
         $today = date("Y-m-d");
         $departments = returnDepartments();
-        $status = returnStatus();
+        $status = $this->returnStatus();
         $priorities = returnPriorities();
 
         // campos enviados por request
@@ -115,7 +122,7 @@ class TaskController extends Controller {
         $taskAccountId = $request->account_id;
         $department = 'vendas';
 
-        return view('tasks.createTask', compact(
+        return view('operational.tasks.createTask', compact(
                         'users',
                         'accounts',
                         'contacts',
@@ -187,7 +194,7 @@ class TaskController extends Controller {
             $totalDuration = $totalDuration + $journey->duration;
         }
 
-        return view('tasks.showTask', compact(
+        return view('operational.tasks.showTask', compact(
                         'today',
                         'task',
                         'totalDuration',
@@ -232,10 +239,10 @@ class TaskController extends Controller {
         $opportunities = $this->accountOpportunities('edit');
 
         $departments = returnDepartments();
-        $status = returnStatus();
+        $status = $this->returnStatus();
         $priorities = returnPriorities();
 
-        return view('tasks.editTask', compact(
+        return view('operational.editTask', compact(
                         'task',
                         'tasks',
                         'users',
@@ -301,7 +308,7 @@ class TaskController extends Controller {
      */
     public function destroy(task $task) {
         $task->delete();
-        return redirect()->action('Tasks\\TaskController@index');
+        return redirect()->action('Operational\\TaskController@index');
     }
 
     public function accountOpportunities($method) {
@@ -328,6 +335,16 @@ class TaskController extends Controller {
         return $this;
     }
 
+    function returnStatus() {
+        return $status = array(
+            'fazer',
+            'aguardar',
+            'feito',
+            'fazendo',
+            'cancelado',
+        );
+    }
+
     public function filter(Request $request) {
         $today = date('Y-m-d');
 
@@ -349,7 +366,18 @@ class TaskController extends Controller {
                     if ($request->company_id) {
                         $query->where('company_id', '=', $request->company_id);
                     }
-                    if ($request->status) {
+                    
+                    if ($request->status == 'fazendo') {
+                        $query->whereHas('journeys', function($query) use($task) {
+                            $query->where('task_id', $task->id);
+                        });
+//                        $query->where('status', 'fazer');
+//                            AND $task->journeys()->exists()) {
+//                                                        $query->whereHas('opportunity', function ($query) use ($request) {
+//                            $query->where('name', 'like', "%$request->name%");
+//                        });
+//                    }
+                    }elseif ($request->status) {
                         $query->where('status', $request->status);
                     }
                 })
@@ -383,14 +411,15 @@ class TaskController extends Controller {
 
         $users = myUsers();
 
-        return view('tasks.indexTasks', compact(
-                        'tasks',
-                        'contacts',
-                        'companies',
-                        'accounts',
-                        'users',
-                        'today',
-        ));
+        return redirect()->route('task.index')->with(['tasks' => $tasks]);
+//        return view('operational.tasks.indexTasks', compact(
+//                        'tasks',
+//                        'contacts',
+//                        'companies',
+//                        'accounts',
+//                        'users',
+//                        'today',
+//        ));
     }
 
 // Gera PDF da fatura
@@ -471,7 +500,7 @@ class TaskController extends Controller {
 ////			'deadline' => $deadline,
         ];
 
-        $pdf = PDF::loadView('tasks.createPdf', compact('data'));
+        $pdf = PDF::loadView('operational.tasks.createPdf', compact('data'));
         $pdf->setPaper('A4', 'portrait');
 
 // download PDF file with download method

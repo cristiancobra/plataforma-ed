@@ -944,19 +944,6 @@ if (!function_exists('returnStatusActive')) {
     }
 
 }
-// retorna o STATUS / SITUAÇÃO da tarefa 
-if (!function_exists('returnStatus')) {
-
-    function returnStatus() {
-        return $status = array(
-            'fazer',
-            'aguardar',
-            'feito',
-            'cancelado',
-        );
-    }
-
-}
 // retorna o TIPO de um model
 if (!function_exists('returnType')) {
 
