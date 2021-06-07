@@ -231,7 +231,17 @@ td {
     border-width: 1px; 
     border-color: white;
 }
-
+.td-disabled{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #f494aa;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
 .td-doing{
     display: table-cell;  
     font-size: 14px;
@@ -407,6 +417,17 @@ td {
     color: white;
     vertical-align:super;
     background-color: #EDB4F4;
+    border-style: solid;
+    border-width: 1px; 
+    border-color: white;
+}
+.td-published{
+    display: table-cell;  
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    vertical-align:super;
+    background-color: #49d194;
     border-style: solid;
     border-width: 1px; 
     border-color: white;
