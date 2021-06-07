@@ -26,9 +26,7 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $accountsId = userAccounts();
-
-        $contracts = Contract::whereIn('account_id', $accountsId)
+        $contracts = Contract::whereIn('account_id', userAccounts())
                 ->with([
                     'contact',
                     'account',
@@ -55,41 +53,36 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $contract = new Contract();
-
-        $accountsId = userAccounts();
-
-        $accounts = Account::whereIn('id', $accountsId)
+        $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) use ($accountsId) {
-                    $query->whereIn('accounts.id', $accountsId);
+        $users = User::whereHas('accounts', function ($query) {
+                    $query->whereIn('accounts.id', userAccounts());
                 })
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', $accountsId)
+        $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $invoices = Invoice::whereIn('account_id', $accountsId)
+        $invoices = Invoice::whereIn('account_id', userAccounts())
                 ->orderBy('IDENTIFIER', 'DESC')
                 ->get();
 
-        $opportunities = Opportunity::whereIn('account_id', $accountsId)
+        $opportunities = Opportunity::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contractsTemplates = ContractTemplate::whereIn('account_id', $accountsId)
+        $contractsTemplates = ContractTemplate::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', $accountsId)
+        $companies = Company::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         return view('sales.contracts.createContract', compact(
-                        'contract',
                         'accounts',
                         'users',
                         'invoices',
@@ -123,22 +116,20 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Contract $contract) {
-        $accountsId = userAccounts();
-
-        $accounts = Account::whereIn('id', $accountsId)
+        $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) use ($accountsId) {
-                    $query->whereIn('accounts.id', $accountsId);
+        $users = User::whereHas('accounts', function ($query) {
+                    $query->whereIn('accounts.id', userAccounts());
                 })
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', $accountsId)
+        $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $opportunities = Opportunity::whereIn('account_id', $accountsId)
+        $opportunities = Opportunity::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -174,25 +165,20 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Contract $contract) {
-        $contract = Contract::find($contract->id)
-                ->with('opportunity')
-                ->first();
-
-        $accountsId = userAccounts();
-
-        $accounts = Account::whereIn('id', $accountsId)
+        
+        $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', $accountsId)
+        $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', $accountsId)
+        $companies = Company::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $invoices = Invoice::whereIn('account_id', $accountsId)
+        $invoices = Invoice::whereIn('account_id', userAccounts())
                 ->orderBy('IDENTIFIER', 'DESC')
                 ->get();
 
@@ -202,16 +188,16 @@ class ContractController extends Controller {
         $witness2 = Contact::find($contract->witness2);
         $witnessName2 = $witness2->name;
 
-        $opportunities = Opportunity::whereIn('account_id', $accountsId)
+        $opportunities = Opportunity::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contractsTemplates = ContractTemplate::whereIn('account_id', $accountsId)
+        $contractsTemplates = ContractTemplate::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) use ($accountsId) {
-                    $query->whereIn('accounts.id', $accountsId);
+        $users = User::whereHas('accounts', function ($query) {
+                    $query->whereIn('accounts.id', userAccounts());
                 })
                 ->get();
 
@@ -241,6 +227,7 @@ class ContractController extends Controller {
      */
     public function update(Request $request, Contract $contract) {
         $contract->fill($request->all());
+//        dd($contract);
         $contract->save();
 
         $invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)

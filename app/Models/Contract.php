@@ -14,7 +14,6 @@ class Contract extends Model {
 		'account_id',
 		'user_id',
 		'opportunity_id',
-		'product_id',
 		'contact_id',
 		'company_id',
 		'invoice_id',

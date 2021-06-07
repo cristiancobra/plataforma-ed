@@ -13,6 +13,9 @@
             .break{
                 page-break-after: always;
             }
+            .p {
+                
+            }
             .header2 {
                 color:white;
                 text-align: left;
