@@ -29,6 +29,12 @@ class Company extends Model {
 		'facebook',
 		'linkedin',
 		'twitter',
+		'sector',
+		'description',
+		'client_number',
+		'business_model',
+		'competitive_advantage',
+		'revenues',
 		'status',
 	];
 	protected $hidden = [
@@ -43,6 +49,9 @@ class Company extends Model {
 	
 	public function invoices() {
 		return $this->hasMany(Invoice::class, 'id', 'company_id');
+	}
+	public function socialmedias() {
+		return $this->hasMany(Socialmedia::class, 'id', 'company_id');
 	}
 //	public function contracts() {
 //		return $this->hasMany(Contract::class, 'id', 'contract_id');

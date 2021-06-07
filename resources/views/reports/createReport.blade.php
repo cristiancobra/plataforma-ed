@@ -66,23 +66,7 @@
 	<script>
 CKEDITOR.replace('general');
 	</script>
-	<br>
-	<br>
-	<p class="title-reports">IDENTIDADE VISUAL</p>
-	<br>
-	<label class="labels" for="" >Possui logomarca: </label><br>
-	<input type="radio" name="logo" value="good" checked="checked"><span class="fields">Sim</span><br>
-	<input type="radio" name="logo" value="bad"><span class="fields">Sim, mas precisa de adequações</span><br>
-	<input type="radio" name="logo" value="no"><span class="fields">Não possui</span><br>
-	<br>
-	<br>
-	<label class="labels" for="" >Paleta de cores? [Kit de UI ]</label>
-	<br>
-	<input type="radio" name="palette" value="good" checked="checked"><span class="fields">Sim</span><br>
-	<input type="radio" name="palette" value="bad"><span class="fields">Sim, mas precisa de adequações</span><br>
-	<input type="radio" name="palette" value="no"><span class="fields">Não possui</span><br>
-	<br>
-	<br>
+	
 	<input class="btn btn-secondary" type="submit" value="CRIAR RELATÓRIO">
 </form>
 @endsection

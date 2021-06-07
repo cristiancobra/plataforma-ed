@@ -124,12 +124,9 @@ Route::resource('sites', 'Marketing\\SiteController')
 		->middleware('roles');
 
 //socialmedia
-//Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
-//		->names('socialmedia')
-//		->parameters(['redes-sociais' => 'socialmedia'])
-//		->middleware('roles');
-//		
-Route::get('/redes-sociais', 'Socialmedia\DashboardController@socialmedia')
+Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
+		->names('socialmedia')
+		->parameters(['redes-sociais' => 'socialmedia'])
 		->middleware('roles');
 
 // ================================ MENU ===================
@@ -166,7 +163,6 @@ Route::resource('jornadas', 'Operational\\JourneyController')
 		->parameters(['jornadas' => 'journey'])
 		->middleware('roles');
 
-
 // ---------- FACEBOOKS
 Route::get('/facebooks/all', 'Socialmedia\\FacebookController@all')->name('facebook.all');
 Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
@@ -193,14 +189,16 @@ Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
 //Route::get('/relatorios/{report}/pdf','Report\\ReportController@generatePDF')->name('report.pdf');
-Route::post('/relatorios/facebook/{id}', 'Report\\ReportController@FB_save')->name('report.FB_save');
-Route::post('/relatorios/instagram/{id}', 'Report\\ReportController@IG_save')->name('report.IG_save');
-Route::post('/relatorios/linkedin/{id}', 'Report\\ReportController@IN_save')->name('report.IN_save');
-Route::post('/relatorios/twitter/{id}', 'Report\\ReportController@TW_save')->name('report.TW_save');
-Route::post('/relatorios/pinterest/{id}', 'Report\\ReportController@PI_save')->name('report.PI_save');
-Route::post('/relatorios/youtube/{id}', 'Report\\ReportController@YT_save')->name('report.YT_save');
-Route::post('/relatorios/spotify/{id}', 'Report\\ReportController@SP_save')->name('report.SP_save');
-Route::resource('relatorios', 'Report\\ReportController')->names('report')->parameters(['relatorios' => 'report']);
+
+Route::resource('relatorios', 'Report\\ReportController')
+		->names('report')
+		->parameters(['relatorios' => 'report'])
+		->middleware('roles');
+
+Route::resource('questoes', 'Report\\QuestionController')
+		->names('question')
+		->parameters(['questoes' => 'question'])
+		->middleware('roles');
 
 // =============================================== SALES ====================================
 // contatos
@@ -270,11 +268,11 @@ Route::get('tarefas/pdf/{task}', 'Tasks\\TaskController@createPDF')
 
 //Route::match(['get', 'post'],
 Route::match(['get', 'post'], 'tarefas/novo', 'Tasks\\TaskController@create')
-                                    ->name('task.create')
-                                    ->middleware('roles');
+		->name('task.create')
+		->middleware('roles');
 
 Route::resource('tarefas', 'Tasks\\TaskController')
-                                    ->except('create')
+		->except('create')
 		->names('task')
 		->parameters(['tarefas' => 'task'])
 		->middleware('roles');

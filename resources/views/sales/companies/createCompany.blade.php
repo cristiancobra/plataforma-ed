@@ -2,8 +2,10 @@
 
 @if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
-@else($typeCompanies == 'fornecedor)
+@elseif($typeCompanies == 'fornecedor')
 @section('title','FORNECEDORES')
+@elseif($typeCompanies == 'concorrente')
+@section('title','CONCORRENTES')
 @endif
 
 
@@ -36,8 +38,10 @@
 		@csrf
 		@if($typeCompanies == 'cliente')
 		<input type="hidden" name="type" value="cliente">
-		@else
+		@elseif($typeCompanies == 'fornecedor')
 		<input type="hidden" name="type" value="fornecedor">
+		@elseif($typeCompanies == 'concorrente')
+		<input type="hidden" name="type" value="concorrente">
 		@endif
 		<label for="" >DONO: </label>
 		<select name="account_id">
@@ -59,9 +63,8 @@
 		<label for="" >CNPJ: </label>
 		<input type="text" name="cnpj">
 		<br>
-		<label for="" >CEP: </label>
-		<input type="text" name="zip_code" value="">
 		<br>
+		<h2 class="name" for="">CONTATO</h2>
 		<br>
 		<label for="" >Email: </label>
 		<input type="text" name="email" value="{{old('email')}}">
@@ -93,12 +96,12 @@
 		<label for="">Twitter: </label>
 		<input type="text" name="twitter">   
 		<br>
-		<br>
-		<br>
-
 		<h2 class="name" for="">LOCALIZAÇÃO</h2>
 		<label for="">Endereço: </label>
 		<input type="text" name="address">   
+		<br>
+		<label for="" >CEP: </label>
+		<input type="text" name="zip_code" value="">
 		<br>
 		<label for="city">Cidade: </label>
 		<input type="text" name="city">   
@@ -115,11 +118,37 @@
 		<br>
 		<br>
 		<h2 class="name" for="">PERFIL</h2>
-		<label for="">Quantidade de empregados: </label>
+		<label for="">Quantidade de funcionários: </label>
 		<input type="number" name="employees">
 		<br>
+		<label for="">Quantidade de clientes: </label>
+		<input type="number" name="client_number">
+		<br>
+		<label for="">Faturamento: </label>
+		<input type="number" name="revenues">
+		<br>
+		<label for="">Diferencial Competitivo: </label>
+		<input type="text" name="competitive_advantage">
+		<br>
+		<label for="">Setor: </label>
+		<input type="string" name="sector">
+		<br>
+		<label for="">Modelo de negócios: </label>
+		{{createDoubleSelect('business_model', 'fields', $businessModelTypes)}}
 		<br>
 		<br>
+		<label  class="labels" for="">Proposta de valor: </label>
+		<br>
+		<textarea id="description" name="description" rows="20" cols="90">
+		</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+		<script>
+CKEDITOR.replace('description');
+		</script>
+		<br>
+		<br>
+		@if($typeCompanies != 'concorrente')
 		<h2 class="name" for="">FUNCIONÁRIOS</h2>
 		@foreach ($contacts as $contact)
 		<p class="fields">
@@ -129,6 +158,7 @@
 		@endforeach
 		<br>
 		<br>
+		@endif
 		<label for="status">SITUAÇÃO: </label>
 		<select class="fields" name="status">
 			<option value="ativo">ativo</option>

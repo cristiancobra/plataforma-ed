@@ -1,6 +1,12 @@
 @extends('layouts/master')
 
+@if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
+@elseif($typeCompanies == 'fornecedor')
+@section('title','FORNECEDORES')
+@elseif($typeCompanies == 'concorrente')
+@section('title','CONCORRENTES')
+@endif
 
 @section('image-top')
 {{ asset('imagens/empresa.png') }} 
@@ -48,6 +54,19 @@
 	<label class="labels"  for="">Twitter: </label> {{$company->twitter}}
 	<br>
 	<br>
+	<h2 class="name" for="">REDES SOCIAIS</h2>
+	<br>
+	@if($company->socialmedia)
+	{{$company->socialmedia->name}}
+	@else
+	<a class="btn btn-secondary" href="{{ route('socialmedia.create', [
+												'company_id' => $company->id,
+												'type' => $company->type,
+												]) }}" target="blank">
+		NOVA REDE SOCIAL
+	</a>
+	@endif
+	<br>
 	<br>
 	<h2 class="name" for="">LOCALIZAÇÃO</h2>
 	<label class="labels" for="">Endereço: </label> {{$company->address}}
@@ -63,12 +82,26 @@
 	<br>
 	<br>
 	<h2 class="name" for="">PERFIL</h2>
+	<br>
 	<label class="labels" for="">Quantidade de empregados: </label> {{$company->employees}}
+	<br>	
+	<label class="labels" for="">Número de clientes: </label> {{$company->client_number}}
+	<br>	
+	<label class="labels" for="">Faturamento: </label> {{$company->revenues}}
+	<br>	
+	<label class="labels" for="">Proposta de valor: </label> {{$company->description}}
+	<br>	
+	<label class="labels" for="">Diferencial competitivo: </label> {{$company->competitive_advantage}}
+	<br>	
+	<label class="labels" for="">Setor: </label> {{$company->sector}}
+	<br>
+	<label class="labels" for="">Modelo de Negócios: </label> {{$company->business_model}}
 	<br>
 	<label class="labels" for="">Tipo: </label> {{ $company->type }}
 	<br>
 	<label class="labels" for="">Stituação: </label> {{$company->status}}
 	<br>
+
 	<br>
 	<br>
 	<h2 class="name" for="">FUNCIONÁRIOS</h2>
@@ -97,7 +130,10 @@
 			@method('delete')
 			<input class="btn btn-danger" type="submit" value="APAGAR">
 		</form>
-		<a class="btn btn-secondary" href=" {{ route('company.edit', ['company' => $company->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
+		<a class="btn btn-secondary" href=" {{ route('company.edit', [
+			'company' => $company->id,
+				'typeCompanies' => $company->type,
+		]) }} "  style="text-decoration: none;color: white;display: inline-block">
 			<i class='fa fa-edit'></i>EDITAR</a>
 		<a class="btn btn-secondary" href="{{route('company.index')}}">VOLTAR</a>
 	</div>

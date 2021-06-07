@@ -164,7 +164,7 @@
                     <a class="sidebar-subitem" href="{{route('report.index')}}">
                         <i class="fas fa-chart-pie" style="margin-right: 8px"></i>RELATÓRIOS
                     </a>
-                    <a class="sidebar-subitem" href="{{route('competitor.index')}}">
+                    <a class="sidebar-subitem" href="{{route('company.index', ['typeCompanies' => 'concorrente'])}}">
                         <i class="fas fa-trophy" style="margin-right: 8px"></i>CONCORRENTES
                     </a>
                     <a class="sidebar-subitem" href="https://stories.freepik.com" target="_blank">
