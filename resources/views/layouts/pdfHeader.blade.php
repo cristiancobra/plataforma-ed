@@ -53,7 +53,7 @@
                     <p style='font-size:14px;margin-top:-10px'>
                     CONTRATO {{$data['contractIdentifier']}}
                     <br>
-                    <span style='font-size: 24px'>{{$data['contractName']}}</span>
+                    <span style='font-size: 22px'>{{$data['contractName']}}</span>
                     @elseif($data['pdfTitle'] == 'CONTRATO')
                     <p style='font-size:28px'>
                     MINUTA DE CONTRATO
