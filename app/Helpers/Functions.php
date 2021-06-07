@@ -141,6 +141,26 @@ if (!function_exists('createDoubleSelectIdName')) {
     }
 
 }
+if (!function_exists('createNumericFormField')) {
+
+// cria um campo de formulário do TIPO número com Label. 
+	function createNumericFormField($label, $name) {
+		echo "<label class='labels' for='$name'>$label:</label>";
+		echo "<input type='number' id='$name'  name='$name'  value='0' style='text-align:right; width:100px'>";
+		echo "</br>";
+	}
+	
+}
+if (!function_exists('createTextFormField')) {
+
+// cria um campo de formulário do TIPO texto com Label. 
+	function createTextFormField($label, $name) {
+		echo "<label class='labels' for='$name'>$label:</label>";
+		echo "<input type='text' id='$name'  name='$name' style='text-align:right; width:200px'>";
+		echo "</br>";
+	}
+
+}
 if (!function_exists('createOpportunitySelect')) {
 
 // select exclusivo para selecionar oportunidade

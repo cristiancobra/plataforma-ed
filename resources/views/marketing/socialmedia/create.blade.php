@@ -259,7 +259,7 @@
 		<br>
 		<br>
 		<label class="labels" for="">STATUS:</label>
-		{{createSelect('status', 'fields', returnSocialmediaStatus())}}
+		{{createSimpleSelect('status', 'fields', returnSocialmediaStatus())}}
 		<br>
 		<br>
 		<label class="labels" for="">Observações:</label>

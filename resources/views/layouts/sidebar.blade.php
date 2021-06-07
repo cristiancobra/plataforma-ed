@@ -100,7 +100,7 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONCORRENTES',
                                                                                                                                                         'faIcon' => 'fas fa-trophy',
-                                                                                                                                                        'link' => '/competitors'
+                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'concorrente']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'IMAGENS',
