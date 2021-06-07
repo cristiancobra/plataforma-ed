@@ -2,8 +2,10 @@
 
 @if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
-@else
+@elseif($typeCompanies == 'fornecedor')
 @section('title','FORNECEDORES')
+@elseif($typeCompanies == 'concorrente')
+@section('title','CONCORRENTES')
 @endif
 
 @section('image-top')
@@ -37,45 +39,45 @@
             </td>
         </tr>
 
-        @foreach ($companies as $company)
-        <tr style="font-size: 14px">
-            <td class="table-list-left">
-                <a class="white" href=" {{route('company.show', [
-                                                                                                'company' => $company,
-                                                                                                'typeCompanies' => $typeCompanies,
-                                                                                            ])}}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
-                <a class="white" href=" {{route('company.edit',  [
-                                                                                                'company' => $company,
-                                                                                                'typeCompanies' => $typeCompanies,
-                                                                                            ])}}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
-                </a>
-                {{$company->name}}
-            </td>
-            <td class="table-list-left">
-                {{$company->email}}
-            </td>
-            <td class="table-list-right">
-                {{$company->phone}}
-            </td>
-            <td class="table-list-center">
-                {{$company->city}}
-            </td>
-            <td class="table-list-center">
-                {{$company->account->name}}
-            </td>
-        </tr>
-        @endforeach
-    </table>
-    <p style="text-align: right">
-        <br>
-        {{$companies->links()}}
-    </p>
-    <br>
-    @endsection
+		@foreach ($companies as $company)
+		<tr style="font-size: 14px">
+			<td class="table-list-left">
+				<a class="white" href=" {{route('company.show', [
+					'company' => $company,
+					'typeCompanies' => $company->type,
+				])}}">
+					<button class="button-round">
+						<i class='fa fa-eye'></i>
+					</button>
+				</a>
+				<a class="white" href=" {{route('company.edit', [
+				'company' => $company,
+				'typeCompanies' => $company->type,
+			])}}">
+					<button class="button-round">
+						<i class='fa fa-edit'></i>
+					</button>
+				</a>
+				{{$company->name}}
+			</td>
+			<td class="table-list-left">
+				{{$company->email}}
+			</td>
+			<td class="table-list-right">
+				{{$company->phone}}
+			</td>
+			<td class="table-list-center">
+				{{$company->city}}
+			</td>
+			<td class="table-list-center">
+				{{$company->account->name}}
+			</td>
+		</tr>
+		@endforeach
+	</table>
+	<p style="text-align: right">
+		<br>
+		{{$companies->links()}}
+	</p>
+	<br>
+	@endsection

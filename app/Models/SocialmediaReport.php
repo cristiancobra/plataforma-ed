@@ -4,19 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Socialmedia extends Model {
+class SocialmediaReport extends Model {
 
-	protected $table = 'socialmedias';
+	protected $table = 'socialmedia_reports';
 	protected $fillable = [
 		'id',
 		'account_id',
-		'company_id',
-		'socialmedia_name',
-		'name',
-		'URL_name',
-		'URL_studio',
-		'socialmedia_phone',
-		'socialmedia_email',
+		'socialmedia_id',
+		'report_id',
 		'bussiness',
 		'linked_intagram',
 		'linked_facebook',
@@ -24,7 +19,8 @@ class Socialmedia extends Model {
 		'about',
 		'feed_content',
 		'harmonic_feed',
-				'SEO_descriptions',
+		'feed_content',
+		'SEO_descriptions',
 		'feed_images',
 		'stories',
 		'interaction',
@@ -78,6 +74,12 @@ class Socialmedia extends Model {
 
 	public function account() {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
+	}
+	public function report() {
+		return $this->belongsTo(Report::class, 'id', 'report_id');
+	}
+	public function socialmedia() {
+		return $this->belongsTo(Socialmedia::class,  'socialmedia_id', 'id');
 	}
 
 }
