@@ -17,8 +17,10 @@
 
 @section('main')
 <div>
-	<form action=" {{route('facebook.store')}} " method="post">
+	<form action=" {{route('socialmedia.store')}} " method="post">
 		@csrf
+		<input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
+		<input type="hidden" name="type" value="{{app('request')->input('type')}}">
 		<label class="labels" for="" >DONO: </label>
 		<select name="account_id">
 			@foreach ($accounts as $account)
@@ -33,17 +35,23 @@
 		{{createSelect('socialmedia_name', 'fields', returnSocialmediaType())}}
 		<br>
 		<label class="labels" for="" >NOME DA PÁGINA:</label>
-		<input type="text" name="page_name" size="20"><span class="fields"></span>
+		<input type="text" name="name" size="20"><span class="fields"></span>
 		<br>
 		<label class="labels" for="" >ENDEREÇO DA PÁGINA:</label>
 		<input type="text" name="URL_name" size="50"><span class="fields"></span>
 		<br>
+		<label class="labels" for="" >ENDEREÇO DO STUDIO DE CRIAÇÃO:</label>
+		<input type="text" name="URL_studio" size="50"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >CELULAR DA REDE SOCIAL:</label>
+		<input type="text" name="socialmedia_phone" size="50"><span class="fields"></span>
+		<br>
+		<label class="labels" for="" >EMAIL DA REDE SOCIAL:</label>
+		<input type="text" name="socialmedia_email" size="50" ><span class="fields"></span>
 		<br>
 		<label class="labels" for="">Possui conta Business: </label>
 		<br>
 		<input type="radio" name="business" value="1" checked="checked"><span class="fields">Sim</span>
-		<br>
-		<input type="radio" name="business" value="0" ><span class="fields">Não</span>
 		<br>
 		<br>
 		<label class="labels" for="">Conta Business vinculada com Instagram: </label>
@@ -216,8 +224,54 @@
 		<label class="labels" for="">Investimento em ADs:</label>
 		<input type="number" name="value_ads" step="10" value="0">
 		<br>
+		<br>
+		{{createNumericFormField('Possui quantos seguidores', 'followers' )}} 
+		<br>
+		{{createNumericFormField(' Homens entre 13-17 anos', 'male_13_17' )}} 
+		{{createNumericFormField('Homens entre  18-24 anos', 'male_18_24' )}} 
+		{{createNumericFormField('Homens entre   24-34  anos', 'male_25_34' )}} 
+		{{createNumericFormField('Homens entre  35-44 anos', 'male_35_44' )}} 
+		{{createNumericFormField('Homens entre  45-54 anos', 'male_45_54' )}} 
+		{{createNumericFormField('Homens entre  55-64 anos', 'male_35_44' )}} 
+		{{createNumericFormField('Homens entre  18-24 anos', 'male_55_65' )}} 
+		{{createNumericFormField('Homens com mais de 65  anos', 'male_65' )}} 
+		<br>
+		{{createNumericFormField('Mulheres entre 13-17 anos', 'female_13_17' )}} 
+		{{createNumericFormField('Mulheres entre  18-24 anos', 'female_18_24' )}} 
+		{{createNumericFormField('Mulheres entre   24-34  anos', 'female_25_34' )}} 
+		{{createNumericFormField('Mulheres entre  35-44 anos', 'female_35_44' )}} 
+		{{createNumericFormField('Mulheres entre  45-54 anos', 'female_45_54' )}} 
+		{{createNumericFormField('Mulheres entre  55-64 anos', 'female_35_44' )}} 
+		{{createNumericFormField('Mulheres entre  18-24 anos', 'female_55_65' )}} 
+		{{createNumericFormField('Mulheres com mais de 65', 'female_65' )}}
+		<br>
+		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_1' )}}
+		{{createNumericFormField('seguidores', 'number_city_followers_1' )}}
+		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_2' )}}
+		{{createNumericFormField('seguidores', 'number_city_followers_2' )}}
+		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_3' )}}
+		{{createNumericFormField('seguidores', 'number_city_followers_3' )}}
+		<br>
+		{{createTextFormField('PALAVRAS CHAVES', 'keyword_1' )}}
+		{{createTextFormField('PALAVRAS CHAVES', 'keyword_2' )}}
+		{{createTextFormField('PALAVRAS CHAVES', 'keyword_3' )}}
+		{{createTextFormField('PALAVRAS CHAVES', 'keyword_4' )}}
+		{{createTextFormField('PALAVRAS CHAVES', 'keyword_5' )}}
+		<br>
+		<br>
 		<label class="labels" for="">STATUS:</label>
-		{{createSelect('status', 'fields', returnStatusActive())}}
+		{{createSelect('status', 'fields', returnSocialmediaStatus())}}
+		<br>
+		<br>
+		<label class="labels" for="">Observações:</label>
+		<br>
+		<textarea id="observations" name="observation" rows="10" cols="90"  value="{{old('observation')}}">
+		</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+		<script>
+CKEDITOR.replace('observation');
+		</script>
 		<br>
 		<br>
 		<input class="btn btn-secondary" type="submit" value="CADASTRAR PÁGINA">

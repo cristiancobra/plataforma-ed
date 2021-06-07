@@ -19,6 +19,7 @@ class SocialmediaController extends Controller {
 		$accounts = userAccounts();
 
 		$socialmedias = Socialmedia::whereIn('account_id', userAccounts())
+				->with("account")
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
 
@@ -37,14 +38,14 @@ class SocialmediaController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create() {
-		$socialmedia = new Socialmedia;
-		
 		$accounts = Account::whereIn('id', userAccounts())
 				->get();
 
+		$types =$this->types();
+
 		return view('marketing.socialmedia.create', compact(
 						'accounts',
-						'socialmedia',
+						'types',
 		));
 	}
 
@@ -55,7 +56,13 @@ class SocialmediaController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function store(Request $request) {
-		//
+		$socialmedia = new Socialmedia;
+		$socialmedia->fill($request->all());
+		$socialmedia->save();
+
+		return view('marketing.socialmedia.show', compact(
+						'socialmedia',
+		));
 	}
 
 	/**
@@ -65,7 +72,12 @@ class SocialmediaController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Socialmedia $socialmedia) {
-		//
+		$accounts = Account::whereIn('id', userAccounts())
+				->get();
+		return view('marketing.socialmedia.show', compact(
+						'accounts',
+						'socialmedia',
+		));
 	}
 
 	/**
@@ -75,7 +87,14 @@ class SocialmediaController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Socialmedia $socialmedia) {
-		//
+		$accounts = Account::whereIn('id', userAccounts())
+				->get();
+$types = $this->types();
+		return view('marketing.socialmedia.edit', compact(
+						'accounts',
+						'socialmedia',
+						'types',
+		));
 	}
 
 	/**
@@ -86,17 +105,48 @@ class SocialmediaController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function update(Request $request, Socialmedia $socialmedia) {
-		//
+
+		$socialmedia->fill($request->all());
+		$socialmedia->save();
+
+//		$invoices = Invoice::where('opportunity_id', $socialmedia->id)
+//				->orderBy('PAY_DAY', 'ASC')
+//				->get();
+//
+//		$tasks = Task::where('opportunity_id', $socialmedia->id)
+//				->get();
+//			$contracts = Contract::where('opportunity_id', $opportunity->id)
+//				->get();
+//
+//		$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
+//					$query->where('contacts.id', $opportunity->contact_id);
+//				})
+//				->get();
+
+		return view('marketing.socialmedia.showSocialmedia', compact(
+						'socialmedia',
+		));
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	  public function destroy(Socialmedia $socialmedia) {
+	  //
+	  } * Remove the specified resource from storage.
 	 *
 	 * @param  \App\Models\Socialmedia  $socialmedia
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy(Socialmedia $socialmedia) {
-		//
+		$socialmedia->delete();
+		return redirect()->action('Marketing\\SocialmediaController@index');
+	}
+
+	public function types() {
+		$types = [
+			'minha',
+			'concorrente',
+		];
+		return $types;
 	}
 
 }
