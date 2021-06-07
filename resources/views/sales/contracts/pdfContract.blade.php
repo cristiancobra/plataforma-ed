@@ -257,7 +257,7 @@
                     TOTAL: 
                 </td>
                 <td   class="table-list-header right"   style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="2">
-                    {{formatCurrencyReal($data['invoiceTotalPrice'] - $data['invoiceDiscount'] - $data['invoiceTotalTransactions'])}}
+                    {{formatCurrencyReal($data['invoiceTotalPrice'] - $data['invoiceTotalTransactions'])}}
                 </td>
             </tr>
             @if($data['invoiceStatus'] == 'rascunho' OR $data['invoiceStatus'] == 'orçamento')
