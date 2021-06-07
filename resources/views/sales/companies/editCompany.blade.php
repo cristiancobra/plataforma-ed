@@ -1,6 +1,12 @@
 @extends('layouts/master')
 
+@if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
+@elseif($typeCompanies == 'fornecedor')
+@section('title','FORNECEDORES')
+@elseif($typeCompanies == 'concorrente')
+@section('title','CONCORRENTES')
+@endif
 
 @section('image-top')
 {{ asset('imagens/empresa.png') }} 
@@ -34,6 +40,7 @@
 		<select class="fields" name="type">
 			<option value="cliente">cliente</option>
 			<option value="fornecedor">fornecedor</option>
+			<option value="concorrente">concorrente</option>
 		</select>
 		<br>
 		<label for="" >DONO: </label>
@@ -116,6 +123,34 @@
 		<h2 class="name" for="">PERFIL</h2>
 		<label for="">Quantidade de empregados: </label>
 		<input type="number"  style="text-align: right" name="employees" value="{{$company->employees}}">
+		<br>
+		<br>
+		<label for="">Quantidade de clientes: </label>
+		<input type="number" name="client_number">
+		<br>
+		<br>
+				<label for="">Faturamento: </label>
+		<input type="number" name="revenues">
+		<br>
+		<label for="">Setor: </label>
+		<input type="string" name="sector">
+		<br>
+		<label for="">Diferencial Competitivo: </label>
+		<input type="text" name="competitive_advantage">
+		<br>
+		<label for="">Modelo de negócios: </label>
+		{{editDoubleSelect('business_model', 'fields', $businessModelTypes, $company->business_model , $company->business_model)}}
+		<br>
+		<br>
+	<label  class="labels" for="">Proposta de valor: </label>
+	<br>
+	<textarea id="description" name="description" rows="20" cols="90">
+	</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+	<script>
+CKEDITOR.replace('description');
+	</script>
 		<br>
 		<label for="">Tipo: </label>
 		<input type="text" name="type"value="{{$company->type}}">
