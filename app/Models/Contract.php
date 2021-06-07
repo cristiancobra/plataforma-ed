@@ -10,6 +10,8 @@ class Contract extends Model {
 
 	protected $table = 'contracts';
 	protected $fillable = [
+		'id',
+		'identifier',
 		'name',
 		'account_id',
 		'user_id',

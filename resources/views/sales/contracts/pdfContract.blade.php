@@ -114,9 +114,7 @@
         </style>
     </head>
     <body>
-        <h2 style="text-align: center;padding-top:50px">
-            {{$data['contractName']}}
-        </h2>
+        <br>
         <br>
         <h3 style="text-align: center">
             Objeto do contrato

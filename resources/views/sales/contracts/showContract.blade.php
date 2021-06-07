@@ -20,6 +20,9 @@
 @section('main')
 <p>
     <br>
+    <label class="labels" for="" >IDENTIFICADOR:</label>
+    <span class="fields">{{$contract->identifier}}</span>
+    <br>
     <label class="labels" for="" >OPORTUNIDADE:</label>
     <span class="fields">{{$contract->opportunity->name}}</span>
     <button class="button-round">

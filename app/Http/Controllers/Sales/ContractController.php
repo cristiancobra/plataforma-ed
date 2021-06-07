@@ -104,9 +104,10 @@ class ContractController extends Controller {
         $contract->fill($request->all());
         $contractTemplate = ContractTemplate::find($request->contractTemplate_id)->first();
         $contract->text = $contractTemplate->text;
+        $contract->identifier = $this->generateIdentifier($request);
         $contract->save();
 
-        return redirect()->action('Sales\\ContractController@index');
+        return redirect()->route('conrtact.show', compact('contract'));
     }
 
     /**
@@ -165,7 +166,7 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Contract $contract) {
-        
+
         $accounts = Account::whereIn('id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -227,28 +228,10 @@ class ContractController extends Controller {
      */
     public function update(Request $request, Contract $contract) {
         $contract->fill($request->all());
-//        dd($contract);
+        $contract->identifier = $this->generateIdentifier($request, $contract->identifier);
         $contract->save();
 
-        $invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
-                ->with('product', 'opportunity')
-                ->get();
-
-        $userContact = userContact($contract->user_id);
-
-        $witness1 = Contact::find($contract->witness1);
-        $witnessName1 = $witness1->name;
-
-        $witness2 = Contact::find($contract->witness2);
-        $witnessName2 = $witness2->name;
-
-        return view('sales.contracts.showContract', compact(
-                        'contract',
-                        'invoiceLines',
-                        'userContact',
-                        'witnessName1',
-                        'witnessName2',
-        ));
+        return redirect()->route('contract.show', compact('contract'));
     }
 
     /**
@@ -261,6 +244,25 @@ class ContractController extends Controller {
             $contract->delete();
             return redirect()->action('Sales\\ContractController@index');
         }
+    }
+
+    // Gerar identificador para contrato
+    public function generateIdentifier($request, $currentIdentifier = null) {
+        $contractIdentifiers = Contract::where('account_id', $request->account_id)
+                ->pluck('identifier')
+                ->toArray();
+
+        // Se for rascunho ou orçamento atribui ID zero
+        if ($request->status != 'rascunho' AND $currentIdentifier > 0) {
+            $identifier = $currentIdentifier;
+        } elseif ($request->status == 'rascunho') {
+            $identifier = 0;
+        } elseif ($contractIdentifiers == null) {
+            $identifier = 1;
+        } else {
+            $identifier = max($contractIdentifiers) + 1;
+        }
+        return $identifier;
     }
 
 // Generate PDF
@@ -352,7 +354,7 @@ class ContractController extends Controller {
             'invoiceStatus' => $contract->invoice->status,
             'invoiceNumberInstallmentTotal' => $contract->invoice->number_installment_total,
             'invoiceTotalPrice' => $contract->invoice->totalPrice,
-            'opportunityDescription' => $contract->invoice->opportunity->description,
+            'opportunityDescription' => $contract->opportunity->description,
             'invoiceDiscount' => $contract->invoice->discount,
             'invoicePayday' => $contract->invoice->pay_day,
             'invoiceTotalPrice' => $contract->invoice->totalPrice,

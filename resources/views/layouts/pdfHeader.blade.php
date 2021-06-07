@@ -49,9 +49,14 @@
                     FATURA {{$data['invoiceIdentifier']}}
                     <br>
                     <span style='font-size: 14px'>Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
-                    @elseif($data['pdfTitle'] == 'CONTRATO')
-                    <p style='font-size:22px'>
+                    @elseif($data['pdfTitle'] == 'CONTRATO' AND $data['contractIdentifier'] > 0)
+                    <p style='font-size:14px;margin-top:-10px'>
                     CONTRATO {{$data['contractIdentifier']}}
+                    <br>
+                    <span style='font-size: 24px'>{{$data['contractName']}}</span>
+                    @elseif($data['pdfTitle'] == 'CONTRATO')
+                    <p style='font-size:28px'>
+                    MINUTA DE CONTRATO
                     @else
                     <p style='font-size:22px'>
                     Não possui título
