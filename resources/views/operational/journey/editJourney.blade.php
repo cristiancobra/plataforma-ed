@@ -19,18 +19,6 @@
     <form action=" {{ route('journey.update', ['journey' =>$journey->id]) }} " method="post" style="color: #874983">
         @csrf
         @method('put')
-        <label class="labels" for="" >EMPRESA: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{ $journey->account->id }}">
-                {{ $journey->account->name }}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{ $account->id }}">
-                {{ $account->name }}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class="labels" for="" >FUNCIONÁRIO:</label>
         <select name="user_id">
             <option  class="fields" value="{{$journey->user_id}}">

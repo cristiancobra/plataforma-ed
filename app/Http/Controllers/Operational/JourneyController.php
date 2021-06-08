@@ -71,11 +71,6 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
-
         $tasks = Task::whereIn('account_id', userAccounts())
                 ->where('status', 'fazer')
                 ->orderBy('NAME', 'ASC')
@@ -90,7 +85,6 @@ class JourneyController extends Controller {
 
         return view('operational.journey.createJourney', compact(
                         'users',
-                        'accounts',
                         'tasks',
         ));
     }
@@ -120,6 +114,7 @@ class JourneyController extends Controller {
 
             $journey = new Journey();
             $journey->fill($request->all());
+            $journey->account_id = auth()->user()->account_id;
 
             if ($request->end_time == null) {
                 $journey->duration = 0;
@@ -156,11 +151,6 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Journey $journey) {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
-
         $tasks = Task::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -171,7 +161,6 @@ class JourneyController extends Controller {
                 ->get();
 
         return view('operational.journey.editJourney', compact(
-                        'accounts',
                         'journey',
                         'tasks',
                         'users',
@@ -201,6 +190,7 @@ class JourneyController extends Controller {
                             ->withInput();
         } else {
             $journey->fill($request->all());
+            $journey->account_id = auth()->user()->account_id;
 
             if ($request->end_time == null) {
                 $journey->duration = 0;
