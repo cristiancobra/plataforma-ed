@@ -244,11 +244,11 @@
 		{{createNumericFormField('Mulheres entre  18-24 anos', 'female_55_65' )}} 
 		{{createNumericFormField('Mulheres com mais de 65', 'female_65' )}}
 		<br>
-		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_1' )}}
+		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_1')}}
 		{{createNumericFormField('seguidores', 'number_city_followers_1' )}}
-		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_2' )}}
+		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_2')}}
 		{{createNumericFormField('seguidores', 'number_city_followers_2' )}}
-		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_3' )}}
+		{{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_3')}}
 		{{createNumericFormField('seguidores', 'number_city_followers_3' )}}
 		<br>
 		{{createTextFormField('PALAVRAS CHAVES', 'keyword_1' )}}

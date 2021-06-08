@@ -144,9 +144,9 @@ if (!function_exists('createDoubleSelectIdName')) {
 if (!function_exists('createNumericFormField')) {
 
 // cria um campo de formulário do TIPO número com Label. 
-	function createNumericFormField($label, $name) {
+	function createNumericFormField($label, $name, $currentValue = null) {
 		echo "<label class='labels' for='$name'>$label:</label>";
-		echo "<input type='number' id='$name'  name='$name'  value='0' style='text-align:right; width:100px'>";
+		echo "<input type='number' id='$name'  name='$name'  value='$currentValue' style='text-align:right; width:100px'>";
 		echo "</br>";
 	}
 	
@@ -154,9 +154,9 @@ if (!function_exists('createNumericFormField')) {
 if (!function_exists('createTextFormField')) {
 
 // cria um campo de formulário do TIPO texto com Label. 
-	function createTextFormField($label, $name) {
+	function createTextFormField($label, $name, $currentValue = null) {
 		echo "<label class='labels' for='$name'>$label:</label>";
-		echo "<input type='text' id='$name'  name='$name' style='text-align:right; width:200px'>";
+		echo "<input type='text' id='$name' name='$name'  value='$currentValue' style='text-align:right; width:200px'>";
 		echo "</br>";
 	}
 

@@ -229,38 +229,36 @@
         <input type="radio" name="follow_channel" value="0" ><span class="fields">Não</span>
         <br>
         <br>
-        {{createNumericFormField('Possui quantos seguidores', 'followers' )}} 
+        {{createNumericFormField('Possui quantos seguidores', 'followers', $socialmedia->followers)}} 
         <br>
-        {{createNumericFormField(' Homens entre 13-17 anos', 'male_13_17' )}} 
-        {{createNumericFormField('Homens entre  18-24 anos', 'male_18_24' )}} 
-        {{createNumericFormField('Homens entre   24-34  anos', 'male_25_34' )}} 
-        {{createNumericFormField('Homens entre  35-44 anos', 'male_35_44' )}} 
-        {{createNumericFormField('Homens entre  45-54 anos', 'male_45_54' )}} 
-        {{createNumericFormField('Homens entre  55-64 anos', 'male_35_44' )}} 
-        {{createNumericFormField('Homens entre  18-24 anos', 'male_55_65' )}} 
-        {{createNumericFormField('Homens com mais de 65  anos', 'male_65' )}} 
+        {{createNumericFormField(' Homens entre 13-17 anos', 'male_13_17', $socialmedia->male_13_17)}} 
+        {{createNumericFormField('Homens entre  18-24 anos', 'male_18_24' , $socialmedia->male_18_24)}}
+        {{createNumericFormField('Homens entre   24-34  anos', 'male_25_34', $socialmedia->male_25_34)}}
+        {{createNumericFormField('Homens entre  35-44 anos', 'male_35_44', $socialmedia->male_35_44)}} 
+        {{createNumericFormField('Homens entre  45-54 anos', 'male_45_54', $socialmedia->male_45_54)}} 
+        {{createNumericFormField('Homens entre  55-64 anos', 'male_55_65', $socialmedia->male_55_65)}} 
+        {{createNumericFormField('Homens com mais de 65  anos', 'male_65', $socialmedia->male_65)}}
         <br>
-        {{createNumericFormField('Mulheres entre 13-17 anos', 'female_13_17' )}} 
-        {{createNumericFormField('Mulheres entre  18-24 anos', 'female_18_24' )}} 
-        {{createNumericFormField('Mulheres entre   24-34  anos', 'female_25_34' )}} 
-        {{createNumericFormField('Mulheres entre  35-44 anos', 'female_35_44' )}} 
-        {{createNumericFormField('Mulheres entre  45-54 anos', 'female_45_54' )}} 
-        {{createNumericFormField('Mulheres entre  55-64 anos', 'female_35_44' )}} 
-        {{createNumericFormField('Mulheres entre  18-24 anos', 'female_55_65' )}} 
-        {{createNumericFormField('Mulheres com mais de 65', 'female_65' )}}
+        {{createNumericFormField('Mulheres entre 13-17 anos', 'female_13_17', $socialmedia->female_13_17)}}
+        {{createNumericFormField('Mulheres entre  18-24 anos', 'female_18_24', $socialmedia->female_18_24)}}
+        {{createNumericFormField('Mulheres entre   24-34  anos', 'female_25_34', $socialmedia->female_25_34)}}
+        {{createNumericFormField('Mulheres entre  35-44 anos', 'female_35_44', $socialmedia->female_35_44)}}
+        {{createNumericFormField('Mulheres entre  45-54 anos', 'female_45_54', $socialmedia->female_45_54)}} 
+        {{createNumericFormField('Mulheres entre  55-64 anos', 'female_55_65', $socialmedia->female_55_65)}}
+        {{createNumericFormField('Mulheres com mais de 65', 'female_65', $socialmedia->female_65)}}
         <br>
-        {{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_1' )}}
-        {{createNumericFormField('seguidores', 'number_city_followers_1' )}}
-        {{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_2' )}}
-        {{createNumericFormField('seguidores', 'number_city_followers_2' )}}
-        {{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_3' )}}
-        {{createNumericFormField('seguidores', 'number_city_followers_3' )}}
+        {{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_1', $socialmedia->city_followers_1)}}
+        {{createNumericFormField('seguidores', 'number_city_followers_1', $socialmedia->number_city_followers_1)}}
+        {{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_2', $socialmedia->city_followers_2)}}
+        {{createNumericFormField('seguidores', 'number_city_followers_2', $socialmedia->number_city_followers_2)}}
+        {{createTextFormField('Qual cidade você possui mais seguidores', 'city_followers_3', $socialmedia->city_followers_3)}}
+        {{createNumericFormField('seguidores', 'number_city_followers_3', $socialmedia->number_city_followers_3)}}
         <br>
-        {{createTextFormField('PALAVRAS CHAVES', 'keyword_1' )}}
-        {{createTextFormField('PALAVRAS CHAVES', 'keyword_2' )}}
-        {{createTextFormField('PALAVRAS CHAVES', 'keyword_3' )}}
-        {{createTextFormField('PALAVRAS CHAVES', 'keyword_4' )}}
-        {{createTextFormField('PALAVRAS CHAVES', 'keyword_5' )}}
+        {{createTextFormField('PALAVRAS CHAVES', 'keyword_1', $socialmedia->keyword_1)}}
+        {{createTextFormField('PALAVRAS CHAVES', 'keyword_2', $socialmedia->keyword_2)}}
+        {{createTextFormField('PALAVRAS CHAVES', 'keyword_3', $socialmedia->keyword_3)}}
+        {{createTextFormField('PALAVRAS CHAVES', 'keyword_4', $socialmedia->keyword_4)}}
+        {{createTextFormField('PALAVRAS CHAVES', 'keyword_5', $socialmedia->keyword_5)}}
         <br>
         <label class="labels" for="">TIPO DA REDE SOCIAL:</label>
         {{createSimpleSelect('type', 'fields', $types)}}
