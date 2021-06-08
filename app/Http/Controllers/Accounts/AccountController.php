@@ -43,10 +43,12 @@ class AccountController extends Controller {
                 ->get();
 
         $states = returnStates();
+        $logos = $this->logos();
 
         return view('accounts.create', compact(
                         'users',
                         'states',
+                        'logos',
         ));
     }
 

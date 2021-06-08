@@ -99,7 +99,7 @@
     <br>
     <br>
     <label for="">Logomarca: </label>
-    <input type="text" name="logo">   
+    {{createSelectIdName('image_id', 'fields', $logos, 'Sem logo')}}
     <br>
     <label for="">Cor principal: </label>
     <input type="text" name="principal_color" value="#874983">   

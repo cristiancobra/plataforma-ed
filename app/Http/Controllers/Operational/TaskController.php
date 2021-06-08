@@ -29,7 +29,7 @@ class TaskController extends Controller {
     public function index(Request $request) {   
         $today = date('Y-m-d');
         $tasks = $this->filter($request);
-dd($tasks);
+//dd($tasks);
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();

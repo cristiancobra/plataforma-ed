@@ -80,7 +80,7 @@
 </p>
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-    Logomarca:  <img src="{{asset($account->image->path)}}" width="180px" height="60px">
+    Logomarca:  <img src="{{asset($account->image->path)}}" width="180px" height="60px" style="background-color:gainsboro;border-radius: 10px">
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
     Cor principal: 
