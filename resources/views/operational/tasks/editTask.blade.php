@@ -38,18 +38,6 @@
         <label class="labels" for="" >DEPARTAMENTO:</label>
         {{createSimpleSelect('department', 'fields', $departments, $task->department)}}
         <br>
-        <label class="labels" for="" >MINHA EMPRESA: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{$task->account->id}}">
-                {{$task->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class="labels" for="" >RESPONSÁVEL: </label>
         <select name="user_id">
             @if(!isset($task->user->contact->name))

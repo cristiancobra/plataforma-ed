@@ -190,7 +190,6 @@ class JourneyController extends Controller {
                             ->withInput();
         } else {
             $journey->fill($request->all());
-            $journey->account_id = auth()->user()->account_id;
 
             if ($request->end_time == null) {
                 $journey->duration = 0;

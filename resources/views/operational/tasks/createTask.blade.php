@@ -36,14 +36,6 @@
         @endif
         @endif
         <br>
-        <label class="labels" for="" >CONTA:</label>
-        @if(!empty(app('request')->input('taskAccountName')))
-        {{app('request')->input('taskAccountName')}}
-        <input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">
-        @else
-        {{createDoubleSelectIdName('account_id', 'fields', $accounts)}}
-        @endif
-        <br>
         <label class="labels" for="" >DEPARTAMENTO:</label>
         @if(!empty(app('request')->input('department')))
         {{app('request')->input('department')}}

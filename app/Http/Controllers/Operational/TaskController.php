@@ -29,7 +29,7 @@ class TaskController extends Controller {
     public function index(Request $request) {   
         $today = date('Y-m-d');
         $tasks = $this->filter($request);
-//dd($tasks);
+
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -62,11 +62,6 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
-
         $contacts = Contact::whereHas('account', function ($query) {
                     $query->whereIn('account_id', userAccounts());
                 })
@@ -98,7 +93,6 @@ class TaskController extends Controller {
 
         return view('operational.tasks.createTask', compact(
                         'users',
-                        'accounts',
                         'contacts',
                         'companies',
                         'taskName',
@@ -144,6 +138,7 @@ class TaskController extends Controller {
         } else {
             $task = new Task();
             $task->fill($request->all());
+            $task->account_id = auth()->user()->account_id;
             $task->status = 'fazer';
             $task->save();
 
@@ -182,11 +177,6 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(task $task) {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
-
         $contacts = Contact::whereHas('account', function ($query) {
                     $query->whereIn('account_id', userAccounts());
                 })
@@ -221,7 +211,6 @@ class TaskController extends Controller {
                         'tasks',
                         'users',
                         'opportunities',
-                        'accounts',
                         'contacts',
                         'companies',
                         'departments',
