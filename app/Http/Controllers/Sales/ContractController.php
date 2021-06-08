@@ -301,7 +301,7 @@ class ContractController extends Controller {
         $data = [
             'pdfTitle' => $pdfTitle,
             // dados da empresa contratada
-            'accountLogo' => $contract->account->logo,
+            'accountLogo' => $contract->account->image->path,
             'accountPrincipalColor' => $contract->account->principal_color,
             'accountComplementaryColor' => $contract->account->complementary_color,
             'accountName' => $contract->account->name,

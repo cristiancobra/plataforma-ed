@@ -11,6 +11,7 @@ class Account extends Model {
 	protected $fillable = [
 		'id',
 		'user_id',
+		'image_id',
 		'name',
 		'email',
 		'phone',
@@ -37,6 +38,9 @@ class Account extends Model {
 	public function contacts() {
 		return $this->hasMany(Contact::class, 'id', 'account_id');
 	}
+                public function image() {
+                        return $this->hasOne(Image::class, 'id', 'image_id');
+                }
 	public function emails() {
 		return $this->hasMany(Email::class, 'id', 'account_id');
 	}

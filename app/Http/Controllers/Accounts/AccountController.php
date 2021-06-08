@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -19,8 +20,9 @@ class AccountController extends Controller {
             $accounts = Account::whereHas('users', function ($query) {
                         $query->where('users.id', Auth::user()->id);
                     })
+                    ->with('image')
                     ->paginate(20);
-
+//dd($accounts);
             $total = $accounts->count();
 
             return view('accounts.indexAccounts', compact(
@@ -86,7 +88,6 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Account $account, Request $request) {
-
         $usersChecked = User::whereHas('accounts', function ($query) use ($account) {
                     $query->where('account_id', $account->id);
                 })
@@ -94,14 +95,15 @@ class AccountController extends Controller {
                 ->toArray();
 
         $states = returnStates();
-
         $users = myUsers();
+        $logos = $this->logos();
 
         return view('accounts.edit', compact(
                         'users',
                         'usersChecked',
                         'account',
                         'states',
+                        'logos',
         ));
     }
 
@@ -113,15 +115,14 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Account $account) {
-
         $account->fill($request->all());
         $account->cnpj = removeSymbols($request->cnpj);
         $account->save();
         $account->users()->sync($request->users);
 
-        return view('accounts.showAccount', [
-            'account' => $account,
-        ]);
+        return redirect()->route('account.show', compact(
+            'account',
+        ));
     }
 
     /**
@@ -135,4 +136,8 @@ class AccountController extends Controller {
         return redirect()->route('account.index');
     }
 
+    public function logos() {
+        $logos = Image::where('type', 'logo')->get();
+        return $logos;
+    }
 }

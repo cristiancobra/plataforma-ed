@@ -26,36 +26,10 @@ class TaskController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index(Request $request) {   
         $today = date('Y-m-d');
-        
-        if($request->input('tasks')) {
-        $tasks = $request->tasks;
-        dd($tasks);
-    }
-
-        $tasks = Task::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
-                    $query->where('user_id', auth()->user()->id);
-                    $query->where('status', 'fazer');
-                })
-                ->with(
-                        'opportunity',
-                        'journeys',
-                        'user.contact',
-                )
-//				->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelado')"))
-                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-                ->orderBy('date_due', 'ASC')
-                ->paginate(20);
-
-        $tasks->appends([
-            'name' => $request->name,
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
-            'user_id' => $request->user_id,
-        ]);
-
+        $tasks = $this->filter($request);
+dd($tasks);
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -349,16 +323,14 @@ class TaskController extends Controller {
         $today = date('Y-m-d');
 
         $tasks = Task::where(function ($query) use ($request) {
-                    if ($request->account_id) {
-                        $query->where('account_id', '=', $request->account_id);
-                    } else {
-                        $query->whereIn('account_id', userAccounts());
-                    }
+                        $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
                         $query->where('name', 'like', "%$request->name%");
                     }
                     if ($request->user_id) {
                         $query->where('user_id', $request->user_id);
+                    }else{
+                        $query->where('user_id', auth()->user()->id);
                     }
                     if ($request->contact_id) {
                         $query->where('contact_id', $request->contact_id);
@@ -379,6 +351,8 @@ class TaskController extends Controller {
 //                    }
                     }elseif ($request->status) {
                         $query->where('status', $request->status);
+                    }else{
+                        $query->where('status', 'fazer');
                     }
                 })
                 ->with(
@@ -396,30 +370,8 @@ class TaskController extends Controller {
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
         ]);
-
-        $contacts = Contact::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $companies = Company::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
-        $users = myUsers();
-
-        return redirect()->route('task.index')->with(['tasks' => $tasks]);
-//        return view('operational.tasks.indexTasks', compact(
-//                        'tasks',
-//                        'contacts',
-//                        'companies',
-//                        'accounts',
-//                        'users',
-//                        'today',
-//        ));
+//dd($tasks);
+        return $tasks;
     }
 
 // Gera PDF da fatura

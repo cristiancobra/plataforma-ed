@@ -64,7 +64,7 @@
                 </p>
             </div>
             <div class='image-col'>
-                <img class='image' src='{{public_path('/imagens/logo-empresa-digital.png')}}'>
+                <img class='image' src='{{public_path($data['accountLogo'])}}'>
             </div>
         </div>
     </body>

@@ -17,7 +17,7 @@
 @section('main')
 <br>
 <h1 style="text-align:left;color: #874983;padding-left: 30px">
-    Nome:  {{$account->name}}
+     {{$account->name}}
 </h1>
 <p style="text-align:left;color: #874983;padding-left: 30px">
     CNPJ:  {{formatCnpj($account->cnpj)}}
@@ -80,7 +80,7 @@
 </p>
 <br>
 <p style="text-align:left;color: #874983;padding-left: 30px">
-    Logomarca:  <img src="{{$account->logo}}" width="180px" height="60px">
+    Logomarca:  <img src="{{asset($account->image->path)}}" width="180px" height="60px">
 </p>
 <p style="text-align:left;color: #874983;padding-left: 30px">
     Cor principal: 
@@ -105,6 +105,11 @@
     <a href="{{route('account.edit', ['account' => $account->id])}}"  style="text-decoration: none;color: black">
         <button class="btn btn-secondary">
             <i class='fa fa-edit'></i>EDITAR
+        </button>	
+    </a>
+    <a href="{{route('account.index')}}"  style="text-decoration: none;color: black">
+        <button class="btn btn-secondary">
+            <i class='fa fa-edit'></i>VOLTAR
         </button>	
     </a>
 </div>

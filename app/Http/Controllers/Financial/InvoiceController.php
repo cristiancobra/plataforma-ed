@@ -507,7 +507,7 @@ class InvoiceController extends Controller {
                 })
                 ->where('status', 'LIKE', 'recebendo')
                 ->with([
-                    'account',
+                    'account.image',
                     'bank',
                 ])
                 ->get();
@@ -533,7 +533,7 @@ class InvoiceController extends Controller {
 
         $data = [
             'pdfTitle' => $pdfTitle,
-            'accountLogo' => $invoice->account->logo,
+            'accountLogo' => $invoice->account->image->path,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,
             'accountName' => $invoice->account->name,
