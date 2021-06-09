@@ -3,7 +3,7 @@
 @section('title','JORNADAS')
 
 @section('image-top')
-{{ asset('imagens/journey.png') }} 
+{{asset('imagens/journey.png')}}
 @endsection
 
 @section('description')
@@ -23,8 +23,8 @@
     <form id="filter" action="{{route('journey.filter')}}" method="post" style="text-align: right;display:none">
         @csrf
         <input type="text" name="name" placeholder="nome da tarefa" value="">
-        <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
-        <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
+        <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
+        <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
         {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
         {{createFilterSelect('department', 'select', returnDepartments(), 'Todos os departamentos')}}
         {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}

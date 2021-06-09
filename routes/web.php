@@ -297,9 +297,9 @@ Route::get('/postarsite', 'SiteCliente@PostarSite')
         ->name('postar-site');
 
 // ================================ TASKS ===================
-Route::any('/tarefas/filtros', 'Operational\\TaskController@filter')
-        ->name('task.filter')
-        ->middleware('roles');
+//Route::any('/tarefas/filtros', 'Operational\\TaskController@filter')
+//        ->name('task.filter')
+//        ->middleware('roles');
 
 Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
         ->name('task.pdf')
@@ -311,12 +311,12 @@ Route::match(['get', 'post'], 'tarefas/novo', 'Operational\\TaskController@creat
         ->middleware('roles');
 
 //Route::match(['get', 'post'],
-Route::match(['get', 'post'], 'tarefas', 'Operational\\TaskController@index')
-        ->name('task.index')
-        ->middleware('roles');
+//Route::any('tarefas', 'Operational\\TaskController@index')
+//        ->name('task.index')
+//        ->middleware('roles');
 
 Route::resource('tarefas', 'Operational\\TaskController')
-        ->except('index', 'create')
+        ->except('create')
         ->names('task')
         ->parameters(['tarefas' => 'task'])
         ->middleware('roles');

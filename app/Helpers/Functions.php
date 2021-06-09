@@ -78,7 +78,7 @@ if (!function_exists('createFilterSelect')) {
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
     function createFilterSelect($name, $class, array $options, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
-        echo "<option class = 'select' value = ''>
+        echo "<option class = 'select' value = 'all'>
             $allLabel
             </option>";
         foreach ($options as $option) {

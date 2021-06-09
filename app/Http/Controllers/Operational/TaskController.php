@@ -26,9 +26,10 @@ class TaskController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {   
+    public function index(Request $request) {
+//        dd($request->name); 
         $today = date('Y-m-d');
-        $tasks = $this->filter($request);
+        $tasks = $this->filterTasks($request);
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
@@ -308,39 +309,36 @@ class TaskController extends Controller {
         );
     }
 
-    public function filter(Request $request) {
+    public function filterTasks(Request $request) {
         $today = date('Y-m-d');
-
+//dd($request);
         $tasks = Task::where(function ($query) use ($request) {
-                        $query->where('account_id', auth()->user()->account_id);
-                    if ($request->name) {
-                        $query->where('name', 'like', "%$request->name%");
-                    }
+                    $query->where('account_id', auth()->user()->account_id);
                     if ($request->user_id) {
                         $query->where('user_id', $request->user_id);
-                    }else{
+                    } else {
                         $query->where('user_id', auth()->user()->id);
+                    }
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
                     }
                     if ($request->contact_id) {
                         $query->where('contact_id', $request->contact_id);
                     }
                     if ($request->company_id) {
-                        $query->where('company_id', '=', $request->company_id);
+                        $query->where('company_id', $request->company_id);
                     }
-                    
-                    if ($request->status == 'fazendo') {
-                        $query->whereHas('journeys', function($query) use($task) {
-                            $query->where('task_id', $task->id);
-                        });
-//                        $query->where('status', 'fazer');
-//                            AND $task->journeys()->exists()) {
-//                                                        $query->whereHas('opportunity', function ($query) use ($request) {
-//                            $query->where('name', 'like', "%$request->name%");
-//                        });
-//                    }
-                    }elseif ($request->status) {
+                    if ($request->status == 'all') {
+                        // busca todos
+                    } elseif ($request->status == 'fazer') {
+                        $query->where('status', 'fazer');
+                        $query->doesntHave('journeys');
+                    } elseif ($request->status == 'fazendo') {
+                        $query->where('status', 'fazer');
+                        $query->whereHas('journeys');
+                    } elseif ($request->status) {
                         $query->where('status', $request->status);
-                    }else{
+                    } else {
                         $query->where('status', 'fazer');
                     }
                 })
@@ -352,7 +350,7 @@ class TaskController extends Controller {
                 ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
                 ->orderBy('date_due', 'ASC')
                 ->paginate(20);
-
+//dd($tasks);
         $tasks->appends([
             'name' => $request->name,
             'status' => $request->status,

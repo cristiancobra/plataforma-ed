@@ -63,7 +63,7 @@ Total: <span class='labels'>{{$total}} </span>
     <tr style='font-size: 16px'>
         <td class='table-list-center'>
             <div class='profile-picture-small'>
-                <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
+                <a  class='white' href='{{route('user.show', ['user' => $user->id])}}'>
                     @if($user->profile_picture)
                     <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
                     @else
