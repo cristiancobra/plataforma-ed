@@ -78,9 +78,11 @@ if (!function_exists('createFilterSelect')) {
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
     function createFilterSelect($name, $class, array $options, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
+        if($allLabel) {
         echo "<option class = 'select' value = 'all'>
             $allLabel
             </option>";
+        }
         foreach ($options as $option) {
             if (old($name) == $option) {
                 echo "<option value = '$option' selected = 'selected'>$option</option><br>";
@@ -95,11 +97,13 @@ if (!function_exists('createFilterSelect')) {
 if (!function_exists('createFilterSelectModels')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
-    function createFilterSelectModels($name, $class, $models, $allLabel) {
+    function createFilterSelectModels($name, $class, $models, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
-        echo "<option class = 'select' value = ''>
+        if($allLabel) {
+        echo "<option class = 'select' value = 'all'>
             $allLabel
             </option>";
+        }
         foreach ($models as $model) {
             echo "<option value = \"$model->id\">$model->name</option><br>";
         }
