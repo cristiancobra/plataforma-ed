@@ -152,7 +152,12 @@
 </p>
 <br>
 <p style="text-align:left;color: #874983">
-    Logomarca:  <img src="{{asset($account->image->path)}}" width="180px" height="60px" style="background-color:gainsboro;border-radius: 10px">
+    Logomarca:
+    @if($account->image)
+    <img src="{{asset($account->image->path)}}" width="180px" height="60px" style="background-color:gainsboro;border-radius: 10px">
+    @else
+    não possui
+    @endif
 </p>
 <p style="text-align:left;color: #874983">
     Cor principal: 
