@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Accounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\InvoiceLine;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -16,20 +17,20 @@ class AccountController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() { 
-            $accounts = Account::whereHas('users', function ($query) {
-                        $query->where('users.id', Auth::user()->id);
-                    })
-                    ->with('image')
-                    ->paginate(20);
+    public function index() {
+        $accounts = Account::whereHas('users', function ($query) {
+                    $query->where('users.id', Auth::user()->id);
+                })
+                ->with('image')
+                ->paginate(20);
 //dd($accounts);
-            $total = $accounts->count();
+        $total = $accounts->count();
 
-            return view('accounts.indexAccounts', compact(
-                            'accounts',
-                            'total',
-            ));
-        }
+        return view('accounts.indexAccounts', compact(
+                        'accounts',
+                        'total',
+        ));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -75,12 +76,18 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Account $account) {
-        $userAuth = Auth::user();
+        $productsPlataforma = [4, 65, 67, 73];
+        $invoiceLines = InvoiceLine::whereHas('product', function ($query) use ($productsPlataforma) {
+                    $query->whereIn('product_id', $productsPlataforma);
+                })
+                ->with('invoice')
+                ->get();
+//                dd($invoiceLines);
 
-        return view('accounts.showAccount', [
-            'account' => $account,
-            'userAuth' => $userAuth,
-        ]);
+        return view('accounts.showAccount', compact(
+                        'account',
+                        'invoiceLines',
+        ));
     }
 
     /**
@@ -123,7 +130,7 @@ class AccountController extends Controller {
         $account->users()->sync($request->users);
 
         return redirect()->route('account.show', compact(
-            'account',
+                                'account',
         ));
     }
 
@@ -142,4 +149,5 @@ class AccountController extends Controller {
         $logos = Image::where('type', 'logo')->get();
         return $logos;
     }
+
 }

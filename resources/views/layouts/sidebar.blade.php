@@ -24,9 +24,9 @@
 
         {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', [
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'CONTAS',
+                                                                                                                                                        'name' => 'MINHA EMPRESA',
                                                                                                                                                         'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => route('account.index')
+                                                                                                                                                        'link' => route('account.show', ['account' => auth()->user()->account_id])
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'FUNCIONÁRIOS',

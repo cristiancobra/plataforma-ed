@@ -58,7 +58,7 @@
         <div class='tb col-2'>
             <div class='product-image-small'>
                 <a href=' {{route('product.show', ['product' => $product->id, 'variation' => $variation])}}'>
-                       @if($product->image_id)
+                    @if($product->image_id)
                     <image src='{{asset($product->image->path)}}' width='100%' heigh='100%'>
                     @else
                     <image src='{{asset('imagens/products.png')}}' width='100%' heigh='100%'>
@@ -66,23 +66,21 @@
                 </a>
             </div>
         </div>
-        <div class='tb col-4 text-left'>
+        <div class='tb col-4'>
             {{$product->name}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-2 text-center'>
             {{$product->category}}
         </div>
-        @if ($product->due_date == 0)
-        <div class='tb col-1'>
+        <div class='tb col-1 text-center'>
+            @if ($product->due_date == 0)
             imediata
-        </div>
-        @else
-        <div class='tb col-1'>
+            @else
             {{$product->due_date}} dias
+            @endif
         </div>
-        @endif
-        <div class='tb col-2 text-right'>
-            {{formatCurrencyReal($product->price,2,',','.')}}
+        <div class='tb col-2 text-right' style="text-align: right">
+            {{formatCurrencyReal($product->price)}}
         </div>
         {{formatTableStatus($product)}}
     </div>

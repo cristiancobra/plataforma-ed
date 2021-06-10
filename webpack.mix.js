@@ -20,7 +20,6 @@ mix.js('resources/js/app.js', 'public/js')
     ], 'public/js/script.js')
 
         .styles([
-    'resources/css/app.css',
     'resources/css/dashboard.css',
     'resources/css/edit.css',
     'resources/css/list.css',

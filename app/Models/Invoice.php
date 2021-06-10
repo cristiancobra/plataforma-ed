@@ -9,6 +9,7 @@ class Invoice extends Model {
 	protected $table = 'invoices';
 	protected $fillable = [
 		'id',
+		'identifier',
 		'account_id',
 		'user_id',
 		'opportunity_id',

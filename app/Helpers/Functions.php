@@ -907,13 +907,13 @@ if (!function_exists('formatTableStatus')) {
     function formatTableStatus($model) {
         switch ($model->status) {
             case 'indisponível':
-                echo '<div class="tb tb-canceled col-1">indisponível</div>';
+                echo '<div class="tb tb-canceled col-1 text-center">indisponível</div>';
                 break;
             case 'disponível':
-                echo '<tb class="tb tb-aproved col-1">disponível</tb>';
+                echo '<tb class="tb tb-aproved col-1 text-center">disponível</tb>';
                 break;
             case 'concluida':
-                echo '<tb class="tb tb-aproved col-1">ATUALIZAR</tb>';
+                echo '<tb class="tb tb-aproved col-1 text-center">ATUALIZAR</tb>';
                 break;
         }
     }

@@ -7,6 +7,9 @@ and open the template in the editor.
     Created on : 27 de nov. de 2020, 10:55:46
     Author     : cobra
 */
+.h5{
+    font-weight: bolder;
+}
 
 .show-name {
     text-align: center;

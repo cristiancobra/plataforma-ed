@@ -16,7 +16,16 @@
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav">
                 <!-- Authentication Links -->
-
+                @guest
+                <li class='nav-item'>
+                    <a class='nav-link' href='{{ route('login') }}'>{{ __('Entrar') }}</a>
+                </li>
+                @if (Route::has('register'))
+                <li class='nav-item'>
+                    <a class='nav-link' href='{{ route('register') }}'>{{ __('Criar conta') }}</a>
+                </li>
+                @endif
+                @else
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{Auth::user()->contact->name}} <span class="caret"></span>
@@ -32,7 +41,7 @@
                         </a>
                         <a class="dropdown-item" href="{{route('logout')}}"
                            onclick="event.preventDefault();
-                                           document.getElementById('logout-form').submit();">
+                                   document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt" style="margin-right: 4px"></i>
                             {{__('Logout')}}
                         </a>
@@ -41,6 +50,7 @@
                         </form>
                     </div>
                 </li>
+                @endif
             </ul>
         </div>
     </div>
