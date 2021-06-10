@@ -75,7 +75,6 @@ class ContactController extends Controller {
 
         return view('contacts.createContact', compact(
                         'contacts',
-                        'accounts',
                         'states',
                         'companies',
         ));
@@ -153,7 +152,6 @@ class ContactController extends Controller {
         return view('contacts.editContact', compact(
                         'accounts',
                         'contact',
-                        'accounts',
                         'companies',
                         'companiesChecked',
                         'states',
