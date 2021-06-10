@@ -68,6 +68,7 @@ class ReportController extends Controller {
 		$report->fill($request->all());
 		$report->save();
 
+		//gera um relatório de account
 		$accountReport = new AccountReport();
 		$accountReport->account_id = $report->account_id;
 		$accountReport->report_id = $report->id;
@@ -91,7 +92,8 @@ class ReportController extends Controller {
 			$accountReport->pallet = 0;
 		}
 		$accountReport->save();
-
+		
+			//gera um relatório de social media
 		$socialmedias = Socialmedia::where('account_id', $report->account_id)
 				->get();
 
@@ -106,6 +108,7 @@ class ReportController extends Controller {
 			$socialmediaReport->save();
 		}
 
+		//gera um relatório de company
 		$companies = Company::where('account_id', $report->account_id)
 				->where('type', 'concorrente')
 				->get();
@@ -125,7 +128,7 @@ class ReportController extends Controller {
 
 		return redirect()->route('report.show', compact('report'));
 	}
-
+	
 	/**
 	 * Display the specified resource.
 	 *
@@ -133,6 +136,7 @@ class ReportController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show(Report $report) {
+//		dd($report);
 		$socialmediaReports = SocialmediaReport::where('report_id', $report->id)
 				->where('type', '!=', 'concorrente')
 				->get();

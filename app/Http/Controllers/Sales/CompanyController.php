@@ -79,9 +79,11 @@ class CompanyController extends Controller {
 		$company->fill($request->all());
 		$company->save();
 		$company->contacts()->sync($request->contacts);
+		$typeCompanies = $company->type;
 
 		return view('sales.companies.showCompany', compact(
 						'company',
+						'typeCompanies',
 		));
 	}
 

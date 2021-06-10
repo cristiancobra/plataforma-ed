@@ -124,9 +124,9 @@
 		<br>
 		<label class="labels" for="">Publica IGTV:</label>
 		<br>
-		<input type="radio" name="interaction" value="1" checked="checked"><span class="fields">Sim</span>
+		<input type="radio" name="igtv" value="1" checked="checked"><span class="fields">Sim</span>
 		<br>
-		<input type="radio" name="interaction" value="0" ><span class="fields">Não</span>
+		<input type="radio" name="igtv" value="0" ><span class="fields">Não</span>
 		<br>
 		<br>
 		<label class="labels" for="">Publica Reels:</label>

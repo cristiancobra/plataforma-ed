@@ -55,6 +55,16 @@ CKEDITOR.replace('general');
 	</script>
 	<br>
 	<br>
+	<label  class="labels" for="">Público Alvo e Persona: </label>
+	<br>
+	<textarea id="target" name="target" rows="20" cols="90">
+	</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+	<script>
+CKEDITOR.replace('target');
+	</script>
+	<br>
 	<p class="title-reports">IDENTIDADE VISUAL </p>
 	<br>
 	<label class="labels" for="" >Possui logomarca: </label><br>
