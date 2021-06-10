@@ -34,15 +34,6 @@
 <br>
 <form action=" {{ route('report.store') }} " method="post">
 	@csrf
-	<label class="labels" for="" >DONO: </label>
-	<select class="fields" name="account_id">
-		@foreach ($accounts as $account)
-		<option value="{{ $account->id }}">
-			{{ $account->name }}
-		</option>
-		@endforeach
-	</select>
-	<br>
 	<label  class="labels" for="">Nome do relatório: </label>
 	<input class="fields" type="text" name="name">
 	<br>

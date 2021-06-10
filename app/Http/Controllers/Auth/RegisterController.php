@@ -75,11 +75,11 @@ use RegistersUsers;
     }
 
     public function register(Request $request) {
-        $account= new Account();
+        $account = new Account();
         $account->name = $request->account_name;
         $account->email = $request->email;
         $account->save();
-        
+
         $contact = new Contact();
         $contact->account_id = $account->id;
         $contact->first_name = ucfirst($request->first_name);
@@ -94,6 +94,7 @@ use RegistersUsers;
         $user->email = $request->email;
 //        $user->default_password = $request->password;
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        $user->account_id = $account->id;
         $user->save();
         $user->accounts()->sync($account->id);
 
@@ -116,7 +117,7 @@ use RegistersUsers;
 //        dd($user);
 //            $user->save();
         //        $this->createContact($user);
-                    return redirect('/');
+        return redirect('/');
     }
 
     public function createContact($user) {

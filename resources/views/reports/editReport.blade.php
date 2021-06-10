@@ -14,18 +14,6 @@
 <form action=" {{ route('report.update', ['report' =>$report->id]) }} " method="post" style="padding: 40px;color: #874983">
 	@csrf
 	@method('put')
-	<label class="labels" for="" >DONO: </label>
-	<select class="fields" name="user_id">
-		<option value="{{ $report->account->id }}">
-			{{ $report->account->name }}
-		</option>
-		@foreach ($accounts as $account)
-		<option value="{{ $account->id }}">
-			{{ $account->name }}
-		</option>
-		@endforeach
-	</select>
-	<br>
 	<label  class="labels" for="">Nome do relatório: </label>
 	<input type="text" name="name" size="20" value="{{ $report->name }}"><span class="fields"></span><br>
 	<br>
