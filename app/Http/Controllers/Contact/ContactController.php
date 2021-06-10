@@ -150,7 +150,6 @@ class ContactController extends Controller {
         $states = returnStates();
 
         return view('contacts.editContact', compact(
-                        'accounts',
                         'contact',
                         'companies',
                         'companiesChecked',
