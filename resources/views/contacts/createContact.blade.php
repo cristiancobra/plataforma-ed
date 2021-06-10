@@ -230,7 +230,7 @@
             <label for="">Etinia: </label>
             <input type="text" name="etinicity">   
             <br>
-            <label for="">Orientação Sexual: </label>
+            <label for="">Gênero: </label>
             <input type="text" name="sexual_orientation">   
             <br>
             <br>

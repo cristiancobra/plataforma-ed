@@ -66,6 +66,16 @@
 	<script>
 CKEDITOR.replace('general');
 	</script>
+	<br>
+	<label  class="labels" for="">Público Alvo e Persona: </label>
+	<br>
+	<textarea id="target" name="target" rows="20" cols="90">
+	</textarea>
+		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+	<script>
+CKEDITOR.replace('target');
+	</script>
 	
 	<input class="btn btn-secondary" type="submit" value="CRIAR RELATÓRIO">
 </form>

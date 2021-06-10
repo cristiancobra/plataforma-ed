@@ -36,11 +36,7 @@
 		@csrf
 		@method('put')
 		<label for="status">TIPO: </label>
-		<select class="fields" name="type">
-			<option value="cliente">cliente</option>
-			<option value="fornecedor">fornecedor</option>
-			<option value="concorrente">concorrente</option>
-		</select>
+		{{createSimpleSelect('type',' fields', $types, $company->type)}} 
 		<br>
 		<label for="" >DONO: </label>
 		<select name="account_id">
@@ -65,9 +61,9 @@
 		<label for="" >CNPJ: </label>
 		<input type="text" name="cnpj" value="{{$company->cnpj}}">
 		<br>
-		<label for="" >CEP: </label>
-		<input type="text" name="zip_code" value="{{$company->zip_code}}">
 		<br>
+		<h2 class="name" for="">CONTATOS</h2>
+
 		<br>
 		<label for="" >Email: </label>
 		<input type="text" name="email" value="{{$company->email}}">
@@ -106,6 +102,9 @@
 		<label for="">Endereço: </label>
 		<input type="text" name="address" value="{{$company->address}}">
 		<br>
+		<label for="" >CEP: </label>
+		<input type="text" name="zip_code" value="{{$company->zip_code}}">
+		<br>
 		<label for="city">Cidade: </label>
 		<input type="text" name="city" value="{{$company->city}}">
 		<br>
@@ -128,7 +127,7 @@
 		<input type="number" name="client_number">
 		<br>
 		<br>
-				<label for="">Faturamento: </label>
+		<label for="">Faturamento: </label>
 		<input type="number" name="revenues">
 		<br>
 		<label for="">Setor: </label>
@@ -141,19 +140,15 @@
 		{{editDoubleSelect('business_model', 'fields', $businessModelTypes, $company->business_model , $company->business_model)}}
 		<br>
 		<br>
-	<label  class="labels" for="">Proposta de valor: </label>
-	<br>
-	<textarea id="description" name="description" rows="20" cols="90">
-	</textarea>
+		<label  class="labels" for="">Proposta de valor: </label>
+		<br>
+		<textarea id="description" name="description" rows="20" cols="90">
+		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-	<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-	<script>
+		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+		<script>
 CKEDITOR.replace('description');
-	</script>
-		<br>
-		<label for="">Tipo: </label>
-		<input type="text" name="type"value="{{$company->type}}">
-		<br>
+		</script>
 		<br>
 		<label for="status">SITUAÇÃO: </label>
 		<select class="fields" name="status">

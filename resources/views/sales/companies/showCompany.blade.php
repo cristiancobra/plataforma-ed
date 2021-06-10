@@ -70,6 +70,8 @@
 	<h2 class="name" for="">LOCALIZAÇÃO</h2>
 	<label class="labels" for="">Endereço: </label> {{$company->address}}
 	<br>
+	<label class="labels" for="">CEP: </label> {{$company->zip_code}}
+	<br>
 	<label class="labels" for="">Cidade: </label> {{$company->city}}
 	<br>
 	<label class="labels" for="">Bairro: </label> {{$company->neighborhood}}

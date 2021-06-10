@@ -1640,5 +1640,105 @@ if (!function_exists('createSidebarItem')) {
         </div>           
 ";
     }
+// Gera Cabeçalho do relatório de social media em reports 
 
+if (!function_exists('createSocialmediaHeader')) {
+
+	function createSocialmediaHeader($socialmediaReport) {
+//		dd($socialmediaReport);
+		echo"<div class='facebook'>";
+		echo"<div style='display: inline-block'>";
+		echo"<img class='grid-image' src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: left'>";
+		echo"</div>";
+		echo"<div style='display: inline-block'>";
+		echo $socialmediaReport->socialmedia->socialmedia_name;
+		echo"<br>";
+		echo $socialmediaReport->socialmedia->name;
+		echo"<br>";
+		echo $socialmediaReport->socialmedia->URL_name;
+		echo"</div></div><br>";
+	}
+
+}
+// Gera respostas do perguntas de mkt
+if (!function_exists('createSocialmediaQuestions')) {
+
+	function createSocialmediaQuestions($socialmediaReport) {
+
+//					$fields = array_keys($socialmediaReport->getAttributes());
+//		dd($socialmediaReport->getAttributes());
+
+		foreach ($socialmediaReport->getAttributes() as $key => $value) {
+			if (
+					$key == 'id'
+					OR
+					$key == 'account_id'
+					OR
+					$key == 'socialmedia_id'
+					OR
+					$key == 'report_id'
+					OR
+					$key == 'type'
+					OR
+					$key == 'status'
+					OR
+					$key == 'created_at'
+					OR
+					$key == 'updated_at'
+			) {
+				
+			} else {
+
+				$question = Question::where('criterion', $key)
+						->first();
+
+				if (!$question) {
+					
+				} else {
+					echo "<div class = row>";
+					echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
+					echo $question->question;
+					echo "</div>";
+
+					if ($value === 1) {
+						echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
+					} else {
+						echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+					}
+					echo "</div></div>";
+
+					echo"<div class='row'>";
+					echo"<div>";
+					echo"<p style='font-style:italic;text-align: justify'><br><br>";
+					if ($value === 1) {
+						echo $question->answer1;
+					} else {
+						echo $question->answer3;
+					}
+					echo"</p>";
+					echo"</div></div>";
+				}
+			}
+		}
+	}
+
+}
+
+
+// Gera respostas das perguntas de competitor
+if (!function_exists('createReportQuestions')) {
+
+	function createReportCompetitor($criterion, $value) {
+
+		echo "<div class= 'row' style='border-bottom-style: solid; border-bottom-width: 1px' >";
+		echo"<div class='labels col-3'> $criterion:";
+		echo"</div>";
+		echo"<div class='col-8'>";
+		echo"$value";
+		echo"</div>";
+		echo"</div>";
+	}
+
+}
+	
 }

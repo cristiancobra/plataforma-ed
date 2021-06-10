@@ -142,8 +142,8 @@
     <label class="labels"  for="">Etinia:  </label>
     {{ $contact->etinicity}}
     <br>
-    <label class="labels"  for="">Orientação Sexual::  </label>
-    {{ $contact->sexual_orientation}}
+    <label class="labels"  for="">Gênero:  </label>
+    {{ $contact->gender}}
     <br>
     <br>
     <label for="">Tipo: </label> {{ $contact->type }}

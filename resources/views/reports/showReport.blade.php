@@ -55,8 +55,12 @@
     <p class="title-reports"><i class="fa fa-users fa-fw"></i>PERFIL DO PÚBLICO-ALVO</p>
     <br>
     <p>
-        Conhecer o perfil das pessoas que devem ser alcançadas é essencial para direcionar as estratégias de marketing. Assim poderemos direcionar o marketing baseado em números, e não apenas em intuição.
+        Conhecer o perfil das pessoas que devem ser alcançadas é essencial para direcionar as estratégias de marketing. 
+		Assim poderemos direcionar o marketing baseado em números, e não apenas em intuição.
     </p>
+</div>
+<div>
+    {!!html_entity_decode($report->target)!!}
 </div>
 <br>
 <!--   =========================================================  IDENTIDADE VISUAL  ===================================================-->
@@ -192,7 +196,10 @@
     </p>
     <br>
 </div>
-@foreach($report->competitorReports as $competitorReport )
+@if(!$report->competitorReports)
+Não existem concorrentes configurados.
+@else
+@foreach($report->competitorReports as $competitorReport)
 {{createReportCompetitor('Concorrente', $competitorReport->company->name)}}
 {{createReportCompetitor('País', $competitorReport->company->country)}}
 {{createReportCompetitor('Setor', $competitorReport->company->sector)}}
@@ -209,9 +216,9 @@
 {{createSocialmediaQuestions($socialmediasCompetitorReport)}}
 @endif
 @endforeach
-
 <br>
 @endforeach
+@endif
 <!--===================================     FOOTER     ===================================--> 
 
 <div style="text-align:right;padding: 2%">

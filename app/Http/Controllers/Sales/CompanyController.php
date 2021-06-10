@@ -19,16 +19,16 @@ class CompanyController extends Controller {
 	public function index(Request $request) {
 		$typeCompanies = $request->input('typeCompanies');
 
-        $companies = Company::whereIn('account_id', userAccounts())
-                ->with([
-                    'account',
-                ])
-                ->where(function ($query) use($typeCompanies) {
-                    $query->where('type', $typeCompanies)
-                        ->orWhere('type', 'cliente e fornecedor');
-                })
-                ->orderBy('NAME', 'ASC')
-                ->paginate(20);
+		$companies = Company::whereIn('account_id', userAccounts())
+				->with([
+					'account',
+				])
+				->where(function ($query) use ($typeCompanies) {
+					$query->where('type', $typeCompanies)
+					->orWhere('type', 'cliente e fornecedor');
+				})
+				->orderBy('NAME', 'ASC')
+				->paginate(20);
 
 		$totalCompanies = $companies->count();
 
@@ -56,7 +56,7 @@ class CompanyController extends Controller {
 				->get();
 
 		$states = returnStates();
-		
+
 		$businessModelTypes = $this->businessModelTypes();
 
 		return view('sales.companies.createCompany', compact(
@@ -79,9 +79,11 @@ class CompanyController extends Controller {
 		$company->fill($request->all());
 		$company->save();
 		$company->contacts()->sync($request->contacts);
+		$typeCompanies = $company->type;
 
 		return view('sales.companies.showCompany', compact(
 						'company',
+						'typeCompanies',
 		));
 	}
 
@@ -110,11 +112,12 @@ class CompanyController extends Controller {
 		$typeCompanies = $request->input('typeCompanies');
 		$accountsId = userAccounts();
 		$states = returnStates();
+		$types = $this->returnTypes();
 
 		$accounts = Account::whereIn('id', $accountsId)
 				->orderBy('NAME', 'ASC')
 				->get();
-		
+
 		$businessModelTypes = $this->businessModelTypes();
 
 		return view('sales.companies.editCompany', compact(
@@ -123,6 +126,7 @@ class CompanyController extends Controller {
 						'states',
 						'typeCompanies',
 						'businessModelTypes',
+						'types'
 		));
 	}
 
@@ -136,12 +140,12 @@ class CompanyController extends Controller {
 	public function update(Request $request, Company $company) {
 		$company->fill($request->all());
 		$company->save();
-		
-$typeCompanies = $request->input('typeCompanies');
+
+		$typeCompanies = $request->input('typeCompanies');
 
 		return redirect()->route('company.show', compact(
-						'company',
-						'typeCompanies',
+								'company',
+								'typeCompanies',
 		));
 	}
 
@@ -158,16 +162,24 @@ $typeCompanies = $request->input('typeCompanies');
 
 	public function businessModelTypes() {
 		$businessModelTypes = [
-		'B2B' => ' B2B - Business to Business',
-		'B2C' => 'B2C - Business to Consumer',
-		'B2E' =>'B2E - Business to Employee',
-		'B2P' => 'B2P -  Business to Producer ',
-		'B2G' => ' B2P - Business to Government',
-		'B2B2C' => 'B2P - Business to Business to Consumer',
-		'C2C' => 'B2P - Consumer to Consumer',
-		'D2C' => 'B2P - Direct to Consumer ',
+			'B2B' => ' B2B - Business to Business',
+			'B2C' => 'B2C - Business to Consumer',
+			'B2E' => 'B2E - Business to Employee',
+			'B2P' => 'B2P -  Business to Producer ',
+			'B2G' => ' B2P - Business to Government',
+			'B2B2C' => 'B2P - Business to Business to Consumer',
+			'C2C' => 'B2P - Consumer to Consumer',
+			'D2C' => 'B2P - Direct to Consumer ',
 		];
-		return $businessModelTypes; 
-		}
+		return $businessModelTypes;
+	}
+
+	function returnTypes() {
+		return $types = array(
+			'concorrente',
+			'fornecedor',
+			'cliente',
+		);
+	}
 
 }
