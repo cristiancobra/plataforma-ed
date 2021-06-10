@@ -17,19 +17,7 @@
     <form action="{{route('contact.index')}}" method="post" style="display: inline-block">
         @csrf
         <input type="text" name="name" placeholder="nome do contato" value="">
-        <select class="select" name="account_id">
-            <option  class="select" value="">
-                Qualquer empresa
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="select" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-            <option  class="select" value="">
-                todas
-            </option>
-        </select>
+    
         <input class="btn btn-secondary" type="submit" value="FILTRAR">
     </form>
 </div>
@@ -37,10 +25,10 @@
 <div>
     <table class="table-list">
         <tr>
-            <td   class="table-list-header" style="width: 20%">
+            <td   class="table-list-header" style="width: 25%">
                 NOME
             </td>
-            <td   class="table-list-header" style="width: 25%">
+            <td   class="table-list-header" style="width: 35%">
                 EMPRESA
             </td>
             <td   class="table-list-header" style="width: 25%">
@@ -48,9 +36,6 @@
             </td>
             <td   class="table-list-header" style="width: 15%">
                 TELEFONE
-            </td>
-            <td   class="table-list-header" style="width: 15%">
-                DONO
             </td>
         </tr>
 
@@ -99,9 +84,6 @@
             </td>
             <td class="table-list-right">
                 {{$contact->phone}}
-            </td>
-            <td class="table-list-center">
-                {{$contact->account->name}}
             </td>
         </tr>
         @endforeach

@@ -61,11 +61,6 @@ class ContactController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
-
         $contacts = Contact::whereHas('account', function ($query) {
                     $query->whereIn('account_id', userAccounts());
                 })
@@ -112,6 +107,7 @@ class ContactController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
+            $contact->account_id = auth()->user()->account_id;
             $contact->save();
             $contact->companies()->sync($request->companies);
         }
@@ -140,12 +136,7 @@ class ContactController extends Controller {
      */
     public function edit(Contact $contact) {
         $accountsId = userAccounts();
-
-        $accounts = Account::whereHas('users', function ($query) use ($accountsId) {
-                    $query->whereIn('account_id', $accountsId);
-                })
-                ->get();
-
+        
         $companies = Company::whereHas('account', function ($query) use ($accountsId) {
                     $query->whereIn('account_id', $accountsId);
                 })

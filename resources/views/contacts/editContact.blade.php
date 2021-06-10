@@ -20,18 +20,6 @@
     <form action="{{route('contact.update', ['contact' =>$contact])}}" method="post" style="padding: 40px;color: #874983">
         @csrf
         @method('put')
-        <label for="" >DONO: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{ $contact->account->id }}">
-                {{ $contact->account->name }}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{ $account->id }}">
-                {{ $account->name }}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label for="">Origem do contato: </label>
         <select name="lead_source">
             <option  class="fields" value="{{ $contact->lead_source }}">

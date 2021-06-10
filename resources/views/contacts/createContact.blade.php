@@ -28,15 +28,6 @@
 <div>
     <form action="{{route('contact.store')}}" method="post">
         @csrf
-        <label for="" >DONO: </label>
-        <select name="account_id">
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label for="">Origem do Lead: </label>
         <select name="lead_source">
             <option  class="fields" value="site">
