@@ -41,7 +41,8 @@ and open the template in the editor.
     text-shadow: 2px 2px 4px #000000;
     background-color: #92C4D4;
     margin: 1%;
-    padding: 4%;
+    padding-top: 3.5%;
+    padding-bottom: 2%;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     text-decoration:none;
@@ -53,8 +54,8 @@ and open the template in the editor.
     text-shadow: 2px 2px 4px #000000;
     background-color: #F2E28C;
     margin: 1%;
-    padding-top: 3%;
-    padding-bottom: 4%;
+    padding-top: 3.5%;
+    padding-bottom: 2%;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     text-decoration:none;
@@ -66,8 +67,8 @@ and open the template in the editor.
     text-shadow: 2px 2px 4px #000000;
     background-color: #D8C2DB;
     margin: 1%;
-    padding-top: 3%;
-    padding-bottom: 4%;
+    padding-top: 3.5%;
+    padding-bottom: 2%;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -362,14 +363,22 @@ and open the template in the editor.
 }
 /*fim do GRID*/
 
-.numeros_painel{
+.panel-number{
     text-align:center;
     color:white;
     font-weight:600;
     line-height: 0px;
     font-size: 36px;
     margin: 0px;
-    padding-top: 10%;
+}
+
+.panel-text{
+    text-align: center;
+    color: white;
+    font-weight:800;
+    font-size:18px;
+    margin: 0px;
+    padding-top: 8%;
 }
 
 .button-panel {

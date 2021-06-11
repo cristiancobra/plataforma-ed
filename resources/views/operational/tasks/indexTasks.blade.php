@@ -27,10 +27,10 @@
 				'contact_id' => '',
 				'user_id' => '',
 				])}}'>
-            <p class='numeros_painel'>
+            <p class='panel-number'>
                 {{$teamTasksPendingAmount}}
             </p>
-            <p class='subtitulo-branco'>
+            <p class='panel-text'>
                 emergências equipe
             </p>
         </a>
@@ -43,10 +43,10 @@
 				'contact_id' => '',
 				'user_id' => Auth::user()->id,
 				])}}'>
-            <p class='numeros_painel'>
+            <p class='panel-number'>
                 {{$myTasksPendingAmount}}
             </p>
-            <p class='subtitulo-branco'>
+            <p class='panel-text'>
                 minhas emergências
             </p>
         </a>

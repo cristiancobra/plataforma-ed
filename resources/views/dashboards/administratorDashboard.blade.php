@@ -113,10 +113,10 @@
 				'contact_id' => '',
 				'user_id' => 'all',
 				])}}'>
-            <p class='numeros_painel'>
+            <p class='panel-number'>
                 {{$tasks_pending}}
             </p>
-            <p class='subtitulo-branco'>
+            <p class='panel-text'>
                 equipe
             </p>
         </a>
@@ -128,10 +128,10 @@
 				'contact_id' => '',
 				'user_id' => Auth::user()->id,
 				])}}'>
-            <p class='numeros_painel'>
+            <p class='panel-number'>
                 {{$tasks_my}}
             </p>
-            <p class='subtitulo-branco'>
+            <p class='panel-text'>
                 minhas
             </p>
         </a>
@@ -143,10 +143,10 @@
 				'contact_id' => '',
 				'user_id' => '',
 				])}}'>
-            <p class='numeros_painel'>
+            <p class='panel-number'>
                 {{$tasksDone}}
             </p>
-            <p class='subtitulo-branco'>
+            <p class='panel-text'>
                 feitas
             </p>
         </a>
