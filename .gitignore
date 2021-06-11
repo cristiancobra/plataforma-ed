@@ -3,3 +3,6 @@
 .env
 /resources/views/vendor/
 
+/storage/app/products/
+/storage/app/users_images/
+/storage/app/profile_pictures/
