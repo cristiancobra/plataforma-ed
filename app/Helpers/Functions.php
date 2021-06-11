@@ -79,7 +79,7 @@ if (!function_exists('createFilterSelect')) {
     function createFilterSelect($name, $class, array $options, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
         if($allLabel) {
-        echo "<option class = 'select' value = 'all'>
+        echo "<option class = 'select' value = ''>
             $allLabel
             </option>";
         }
@@ -100,7 +100,7 @@ if (!function_exists('createFilterSelectModels')) {
     function createFilterSelectModels($name, $class, $models, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
         if($allLabel) {
-        echo "<option class = 'select' value = 'all'>
+        echo "<option class = 'select' value = ''>
             $allLabel
             </option>";
         }
@@ -614,19 +614,6 @@ if (!function_exists('returnPaymentMethods')) {
             'cartão de crédito',
             'dinheiro',
             'boleto',
-        );
-    }
-
-}
-// retorna prioridade
-if (!function_exists('returnPriorities')) {
-
-    function returnPriorities() {
-        return $states = array(
-            'baixa',
-            'média',
-            'alta',
-            'emergência',
         );
     }
 
@@ -1390,22 +1377,6 @@ if (!function_exists('returnSocialmediaStatus')) {
 
 }
 
-// retorna os departamentos de tarefas/jornadas
-if (!function_exists('returnDepartments')) {
-
-    function returnDepartments() {
-        return $states = array(
-            'desenvolvimento',
-            'financeiro',
-            'marketing',
-            'administrativo',
-            'produção',
-            'atendimento',
-            'vendas',
-        );
-    }
-
-}
 // retorna a CATEGORIA do PRODUTO
 if (!function_exists('returnProductCategory')) {
 

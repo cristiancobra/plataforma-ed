@@ -75,11 +75,13 @@ use RegistersUsers;
     }
 
     public function register(Request $request) {
+        // cria CONTA para o novo usuário
         $account = new Account();
         $account->name = $request->account_name;
         $account->email = $request->email;
         $account->save();
 
+        // cria CONTATO para o novo usuário
         $contact = new Contact();
         $contact->account_id = $account->id;
         $contact->first_name = ucfirst($request->first_name);
@@ -88,6 +90,20 @@ use RegistersUsers;
         $contact->email = $request->email;
         $contact->save();
 
+        // verifica se o email do CONTATO existe nos CONTATOS da EMPRESA DIGITAL. Se não existir, deve, criar.
+        $emailChecked = Contact::where('email', $request->email)
+                ->first();
+        if (!$emailChecked) {
+            $contactEd = new Contact();
+            $contactEd->account_id = $account->id;
+            $contactEd->first_name = ucfirst($request->first_name);
+            $contactEd->last_name = ucfirst($request->last_name);
+            $contactEd->name = $contact->first_name . " " . $contact->last_name;
+            $contactEd->email = $request->email;
+            $contactEd->save();
+        }
+
+        // cria USUÁRIO para o novo usuário
         $user = new User();
         $user->contact_id = $contact->id;
         $user->perfil = $request->perfil;
@@ -95,6 +111,8 @@ use RegistersUsers;
 //        $user->default_password = $request->password;
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         $user->account_id = $account->id;
+        $today = date('Y-m-d');
+        $user->due_date = date('Y-m-d', strtotime('+1 month', $today));
         $user->save();
         $user->accounts()->sync($account->id);
 

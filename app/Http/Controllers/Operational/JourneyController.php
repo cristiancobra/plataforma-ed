@@ -41,6 +41,7 @@ class JourneyController extends Controller {
 
         $users = myUsers();
         $status = $this->returnStatus();
+        $departments = Task::returnDepartments();
 
         $accounts = Account::whereHas('users', function ($query) {
                     $query->where('users.id', Auth::user()->id);
@@ -62,6 +63,7 @@ class JourneyController extends Controller {
                         'contacts',
                         'companies',
                         'status',
+                        'departments',
         ));
     }
 
@@ -451,4 +453,5 @@ class JourneyController extends Controller {
             'cancelado',
         );
     }
+
 }

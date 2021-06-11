@@ -19,11 +19,46 @@
 @endsection
 
 @section('main')
+<div class='row justify-content-end'>
+    <div class='col-lg-3 d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'priority' =>'emergência',
+				'contact_id' => '',
+				'user_id' => '',
+				])}}'>
+            <p class='numeros_painel'>
+                {{$teamTasksPendingAmount}}
+            </p>
+            <p class='subtitulo-branco'>
+                emergências equipe
+            </p>
+        </a>
+    </div>
+
+    <div class='col-lg-3 d-inline-block tasks-my'>
+        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                                                        'priority' =>'emergência',
+				'contact_id' => '',
+				'user_id' => Auth::user()->id,
+				])}}'>
+            <p class='numeros_painel'>
+                {{$myTasksPendingAmount}}
+            </p>
+            <p class='subtitulo-branco'>
+                minhas emergências
+            </p>
+        </a>
+    </div>
+</div>
 <form id="filter" action="{{route('task.index')}}" method="get" style="text-align: right;display:none">
     <input type="text" name="name" placeholder="nome da tarefa" value="">
+    {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+    {{createFilterSelect('priority', 'select', $priorities, 'Todas as prioridades')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>
     <a class="text-button secondary" href='{{route('task.index')}}'>

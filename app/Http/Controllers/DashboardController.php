@@ -174,7 +174,7 @@ class DashboardController extends Controller {
                 ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
                 ->count();
 
-        $departments = returnDepartments();
+        $departments = Task::returnDepartments();
 
         foreach ($departments as $department) {
             $departmentsMonthly[$department] = Journey::whereHas('task', function ($query) use ($department) {

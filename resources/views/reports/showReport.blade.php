@@ -14,8 +14,12 @@
 @section('main')
 <br>
 <div style="background-color: #874983;padding-bottom: 1%;padding-top: 1.5%;border-radius: 25px">
-    <h1 class="name" style="color: white;text-align: center"> {{ $report->name }}  </h1>
-    <p class="fields" style="color: white;text-align: center">  {{ $report->date}} </span></p>
+    <h1 class="name" style="color: white;text-align: center">
+        {{$report->name}}
+    </h1>
+    <p class="fields" style="color: white;text-align: center">
+        {{dateBr($report->date)}}       
+    </p>
 </div>
 <br>
 <div>

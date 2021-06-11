@@ -26,7 +26,7 @@
         <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
         <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
         {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
-        {{createFilterSelect('department', 'select', returnDepartments(), 'Todos os departamentos')}}
+        {{createFilterSelect('department', 'select', $departments, 'Todos os departamentos')}}
         {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
         {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
         {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}

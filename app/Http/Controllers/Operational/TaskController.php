@@ -27,9 +27,25 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-//        dd($request->name); 
+//        dd($request);
         $today = date('Y-m-d');
         $tasks = $this->filterTasks($request);
+//dd($tasks);
+        $teamTasksPending = Task::where('account_id', Auth::user()->account_id)
+                ->where('status', 'fazer')
+                ->where('priority', 'emergência')
+                ->get();
+
+        $teamTasksPendingAmount = $teamTasksPending->where('account_id', Auth::user()->account_id)
+                ->count();
+
+        $myTasksPendingAmount = $teamTasksPending->where('user_id', Auth::user()->id)
+                ->count();
+
+//            $myTasksPending = Task::where('user_id', Auth::user()->id)
+//                    ->where('status', 'fazer')
+//                    ->where('priority', 'emergência')
+//                    ->count();
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
@@ -39,21 +55,22 @@ class TaskController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
         $users = myUsers();
         $status = $this->returnStatus();
+        $departments = Task::returnDepartments();
+        $priorities = Task::returnPriorities();
 
         return view('operational.tasks.indexTasks', compact(
                         'tasks',
+                        'teamTasksPendingAmount',
+                        'myTasksPendingAmount',
                         'contacts',
                         'companies',
-                        'accounts',
                         'users',
                         'today',
                         'status',
+                        'departments',
+                        'priorities',
         ));
     }
 
@@ -203,9 +220,9 @@ class TaskController extends Controller {
 
         $opportunities = $this->accountOpportunities('edit');
 
-        $departments = returnDepartments();
+        $departments = Task::returnDepartments();
         $status = $this->returnStatus();
-        $priorities = returnPriorities();
+        $priorities = Task::returnPriorities();
 
         return view('operational.tasks.editTask', compact(
                         'task',
@@ -312,40 +329,39 @@ class TaskController extends Controller {
     public function filterTasks(Request $request) {
         $today = date('Y-m-d');
 //dd($request);
+        
         $tasks = Task::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
-                    if ($request->user_id  == 'all') {
-                        // busca todos
-                    }elseif ($request->user_id) {
+                    if ($request->user_id) {
                         $query->where('user_id', $request->user_id);
-                    } else {
-                        $query->where('user_id', auth()->user()->id);
                     }
                     if ($request->name) {
                         $query->where('name', 'like', "%$request->name%");
                     }
-                    if ($request->contact_id == 'all') {
-                        // todos
-                    }elseif ($request->contact_id) {
+                    if ($request->department) {
+                        $query->where('department', $request->department);
+                    }
+                    if ($request->contact_id) {
                         $query->where('contact_id', $request->contact_id);
                     }
                     if ($request->company_id) {
-                        // todos
-                    }elseif ($request->company_id) {
                         $query->where('company_id', $request->company_id);
                     }
-                    if ($request->status == 'all') {
+                    if ($request->priority) {
+                        $query->where('priority', $request->priority);
+                    }
+                    if ($request->status == '') {
                         // busca todos
-                    } elseif ($request->status == 'fazer') {
-                        $query->where('status', 'fazer');
-                        $query->doesntHave('journeys');
+//                    } elseif ($request->status == 'fazer') {
+//                        $query->where('status', 'fazer');
+//                        $query->doesntHave('journeys');
                     } elseif ($request->status == 'fazendo') {
                         $query->where('status', 'fazer');
                         $query->whereHas('journeys');
                     } elseif ($request->status) {
                         $query->where('status', $request->status);
-                    } else {
-                        $query->where('status', 'fazer');
+//                    } else {
+//                        $query->where('status', 'fazer');
                     }
                 })
                 ->with(
@@ -353,8 +369,9 @@ class TaskController extends Controller {
                         'journeys',
                         'user.contact',
                 )
-                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
-                ->orderBy('date_due', 'ASC')
+//                ->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelada', 'feito')"))
+//                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
+                ->orderBy('date_due', 'DESC')
                 ->paginate(20);
 //dd($tasks);
         $tasks->appends([
