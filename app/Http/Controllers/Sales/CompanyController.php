@@ -36,6 +36,7 @@ class CompanyController extends Controller {
             'phone' => $request->phone,
             'city' => $request->city,
             'account_id' => $request->account_id,
+            'typeCompanies' => $typeCompanies,
         ]);
 
         $totalCompanies = $companies->count();
