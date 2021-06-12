@@ -4,17 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTargetCollumnInReportsTable extends Migration
-{
+class AddTargetCollumnInReportsTable extends Migration {
+
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::table('reports', function (Blueprint $table) {
-    $table->string('target')->nullable();
+            $table->text('target')->nullable();
         });
     }
 
@@ -23,10 +22,10 @@ class AddTargetCollumnInReportsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::table('reports', function (Blueprint $table) {
-            //
+            $table->dropColumn('target');
         });
     }
+
 }

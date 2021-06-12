@@ -30,7 +30,7 @@
     </p>
     <br>
     <textarea id='general' name='general' rows='20' cols='90'>
-		{{ $report->general }}
+		{{$report->general}}
     </textarea>
     <!------------------------------------------- SCRIPT CKEDITOR----------------------- -->
     <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
@@ -42,6 +42,7 @@ CKEDITOR.replace('general');
     <label  class='labels' for=''>Público Alvo e Persona: </label>
     <br>
     <textarea id='target' name='target' rows='20' cols='90'>
+{{$report->target}}
     </textarea>
     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
     <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
