@@ -1,96 +1,101 @@
 @extends('layouts/master')
 
-@section('title','EMAIL')
+@section('title','QUESTÕES')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
-@endsection
-
-@section('description')
+{{asset('imagens/question.png')}} 
 @endsection
 
 @section('buttons')
-<a class="button-primary"  href="{{route('email.index')}}">
-	VOLTAR
+<a class="button-primary"  href="{{route('question.index')}}">
+    VOLTAR
 </a>
 @endsection
 
 @section('main')
-<div>
-	<form action=" {{ route('email.update', ['email' =>$email->id]) }} " method="post" style="color: #874983">
-		@csrf
-		@method('put')
-		<label class="labels" for="" >EMPRESA:</label>
-		<select name="account_id">
-			<option  class="fields" value="{{$email->account_id}}">
-				{{$email->account->name}}
-			</option>
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{$account->id}}">
-				{{$account->name}}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<label class="labels" for="" >QUEM ESCREVEU: </label>
-		<select name="user_id">
-			<option  class="fields" value="{{$email->user_id}}">
-				{{$email->user->contact->name}}
-			</option>
-			@foreach ($users as $user)
-			<option  class="fields" value="{{$user->id}}">
-				{{$user->name}}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
-		<label class="labels" for="" >TÍTULO:</label>
-		<input type='text' class='fields' name='title' size='50' value='{{$email->title}}'>
-		<br>
-		<label class="labels" for="" >MENSAGEM:</label>
-		<br>
-		@if ($errors->has('message'))
-		<span class="text-danger">{{ $errors->first('message') }}</span>
-		@endif
-		<textarea id="description" name="message" rows="10" cols="90" >
-{{$email->message}}
-		</textarea>
-		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-		<script>
-CKEDITOR.replace('message');
-		</script>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<label class="labels" for="status">SITUAÇÃO: </label>
-		<select class="fields" name="status">
-			<option value="{{ $email->status }}">{{ $email->status}}</option>
-			@if ($email->status == "desativado")
-			<option value="ativo">ativo</option>
-			<option value="pendente">pendente</option>
-			@elseif  ($email->status == "ativo")
-			<option value="desativado">desativado</option>
-			<option value="pendente">pendente</option>
-			@elseif  ($email->status == "pendente")
-			<option value="ativo">ativo</option>
-			<option value="desativado">desativado</option>
-			@endif
-		</select>
-		<br>
-		<br>
-		<div>
-			<input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
-			</form>
-			<a class="btn btn-secondary" style="display:inline-block" href=" https://acadia.mxroute.com:2083/" target="_blank">
-				<i class='fa fa-edit'></i>EDITAR
-			</a>
-		</div>
+
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
 </div>
-<br>
-<br>
+@endif
+<div>
+    <form action="{{route('question.update', ['question' => $question])}}" method="post">
+        @csrf
+        @method('put')
+        <label class="labels" for="" >CRITÉRIO:</label>
+        <input type='text' class='fields' name='criterion' size='50' value='{{$question->criterion}}'>
+        <br>
+        <label class="labels" for="" >QUESTÃO:</label>
+        <br>
+        <textarea id="question" name="question" rows="10" cols="90">
+{{$question->question}}
+        </textarea>
+        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('question');
+        </script>
+        <br>
+        <br>
+        <label class="labels" for="" >RESPOSTA 1:</label>
+        <br>
+        <textarea id="answer1" name="answer1" rows="10" cols="90">
+{{$question->answer1}}
+        </textarea>
+        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('answer1');
+        </script>
+        <br>
+        <br>
+        <label class="labels" for="" >RESPOSTA 2:</label>
+        <br>
+        <textarea id="answer2" name="answer2" rows="10" cols="90">
+{{$question->answer2}}
+        </textarea>
+        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('answer2');
+        </script>
+        <br>
+        <br>
+        <label class="labels" for="" >RESPOSTA 3:</label>
+        <br>
+        <textarea id="answer3" name="answer3" rows="10" cols="90">
+{{$question->answer3}}
+        </textarea>
+        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('answer3');
+        </script>
+        <br>
+        <br>
+        <label class="labels" for="">SITUAÇÃO:</label>
+            {{createSimpleSelect('status', 'fields', $status, $question->status)}}
+            <br>
+            <br>
+        <input class="btn btn-secondary" type="submit" value="ATUALIZAR">
+    </form>
+    <br>
+    <br>
+</div>
+<!--===================================     FOOTER     ===================================--> 
+
+<div style="text-align:right;padding: 2%">
+	<form   style="text-decoration: none;color: black;display: inline-block" action="{{ route('question.destroy', ['question' => $question->id]) }}" method="post">
+		@csrf
+		@method('delete')
+		<input class="btn btn-danger" type="submit" value="APAGAR">
+	</form>
+	<a class="btn btn-secondary" href="{{route('question.index')}}">
+		<i class="fas fa-arrow-left"></i>
+	</a>
+</div>
 @endsection

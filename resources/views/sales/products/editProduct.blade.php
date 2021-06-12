@@ -63,18 +63,6 @@
             <label class="labels" for="" >CNAE:</label>
             <input type="text" name="cnae" size="20" value="{{$product->cnae}}"><span class="fields"></span>
             <br>
-            <label class="labels" for="" >DONO: </label>
-            <select name="account_id">
-                <option  class="fields" value="{{$product->account->id}}">
-                    {{$product->account->name}}
-                </option>
-                @foreach ($accounts as $account)
-                <option  class="fields" value="{{$account->id}}">
-                    {{$account->name}}
-                </option>
-                @endforeach
-            </select>
-            <br>
             <label class="labels" for="" >CATEGORIA:</label>
             {{createSimpleSelect('category', 'fields', returnProductCategory(), $product->category)}}
             <br>

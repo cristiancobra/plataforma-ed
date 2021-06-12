@@ -170,19 +170,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product, Request $request) {
-        $accountsId = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::user()->id);
-                })
-                ->pluck('id');
-
-        $accounts = Account::whereHas('users', function ($query) use ($accountsId) {
-                    $query->whereIn('account_id', $accountsId);
-                })
-                ->get();
-
-        $images = Image::whereHas('account', function ($query) use ($accountsId) {
-                    $query->whereIn('account_id', $accountsId);
-                })
+        $images = Image::where('account_id',  Auth::user()->account_id)
                 ->where('type', 'produto')
                 ->get();
 
@@ -190,7 +178,6 @@ class ProductController extends Controller {
 
         return view('sales.products.editProduct', compact(
                         'product',
-                        'accounts',
                         'images',
                         'variation',
         ));

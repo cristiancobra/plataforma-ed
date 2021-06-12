@@ -18,6 +18,36 @@
 <form action=" {{route('user.update', ['user' =>$user->id])}} " method="post" enctype='multipart/form-data'>
     @csrf
     @method('put')
+        <div class="col-6">
+        <label class="labels" for="" >ADICIONAR NOVA IMAGEM:</label>
+        <label class="switch">
+            <input type="checkbox" id="slider">
+            <span class="slider round"></span>
+        </label>
+        <br>
+        <br>
+        <div id="change" style="display:inline">
+            <label class="labels" for="" >SELECIONAR IMAGEM:</label>
+            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $product)}}
+        </div>
+        <div id="new" style="display:none">
+            <label class="labels" for="" >NOME DA IMAGEM:</label>
+            <input type="text" name="name" id="name" size="20"><span class="fields"></span>
+            <br>
+            <label class="labels" for="" >DESCRIÇÃO DA IMAGEM:</label>
+            <textarea id="alt" name="alt" id="alt" rows="3" cols="50">
+            </textarea>
+            <br>
+            <br>
+            <input type='file' name='image'>
+            <div class="p-2 flex-shrink-0 bd-highlight">
+                <button class="btn btn-primary" id="btn-save">
+                    Add Todo
+                </button>
+            </div>
+            <input type="hidden" name="image_type" value="produto"><span class="fields"></span>
+        </div>
+    </div>
     <div class='container text-center'>
         <div class='profile-picture'>
             @if($user->profile_picture)
@@ -43,18 +73,6 @@
         </button>
     </a>
     <br>
-    <br>
-    <label for="" >Empresas: </label>
-    @foreach ($accounts as $account)
-    <p class="fields">
-        <input type="checkbox" name="accounts[]" value="{{ $account->id}}"
-               @if (in_array($account->id, $accountsChecked))
-        checked
-        @endif
-        >
-        {{ $account->name }}
-    </p>
-    @endforeach
     <br>
     <label for="" >Email: </label>
     <input type="text" name="email" value="{{ $user->email }} ">

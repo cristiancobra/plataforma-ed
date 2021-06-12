@@ -16,9 +16,9 @@ class CreateQuestionsTable extends Migration {
 			$table->id();
 			$table->string('question');
 			$table->string('criterion');
-			$table->text('answer1');
-			$table->text('answer2');
-			$table->text('answer3');
+			$table->text('answer1')->nullable();
+			$table->text('answer2')->nullable();
+			$table->text('answer3')->nullable();
 			$table->string('status');
 			$table->timestamps();
 		});

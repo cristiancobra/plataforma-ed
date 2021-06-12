@@ -196,6 +196,11 @@
                                                                                                                                                         'faIcon' => 'fas fa-university',
                                                                                                                                                         'link' => route('bank.index'),
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'QUESTÕES DO RELATÓRIO',
+                                                                                                                                                        'faIcon' => 'fas fa-question',
+                                                                                                                                                        'link' => route('question.index'),
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
                                                                                                                                                     
         {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', [

@@ -101,6 +101,7 @@ class UserController extends Controller {
      */
     public function store(Request $request) {
         $user = new User();
+        $user->account_id = auth()->user()->account_id;
         $user->contact_id = $request->contact_id;
         $user->perfil = $request->perfil;
         $user->email = $request->email;
@@ -180,7 +181,6 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
-
         if (!empty($request->perfil)) {
             $user->perfil = $request->perfil;
         }
@@ -193,6 +193,7 @@ class UserController extends Controller {
         $path = $request->file('profile_picture')->store('profile_pictures');
         $user->profile_picture = $path;
         }
+//        dd($request);
         $user->update();
 
         if (!empty($request->accounts)) {
