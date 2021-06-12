@@ -78,8 +78,8 @@ if (!function_exists('createFilterSelect')) {
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
     function createFilterSelect($name, $class, array $options, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
-        if($allLabel) {
-        echo "<option class = 'select' value = ''>
+        if ($allLabel) {
+            echo "<option class = 'select' value = ''>
             $allLabel
             </option>";
         }
@@ -99,8 +99,8 @@ if (!function_exists('createFilterSelectModels')) {
 // cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
     function createFilterSelectModels($name, $class, $models, $allLabel = null) {
         echo "<select class = '$class' name = '$name' style = 'width:160px'>";
-        if($allLabel) {
-        echo "<option class = 'select' value = ''>
+        if ($allLabel) {
+            echo "<option class = 'select' value = ''>
             $allLabel
             </option>";
         }
@@ -1611,105 +1611,206 @@ if (!function_exists('createSidebarItem')) {
         </div>           
 ";
     }
+
 // Gera Cabeçalho do relatório de social media em reports 
 
-if (!function_exists('createSocialmediaHeader')) {
+    if (!function_exists('createSocialmediaHeader')) {
 
-	function createSocialmediaHeader($socialmediaReport) {
+        function createSocialmediaHeader($socialmediaReport) {
 //		dd($socialmediaReport);
-		echo"<div class='facebook'>";
-		echo"<div style='display: inline-block'>";
-		echo"<img class='grid-image' src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: left'>";
-		echo"</div>";
-		echo"<div style='display: inline-block'>";
-		echo $socialmediaReport->socialmedia->socialmedia_name;
-		echo"<br>";
-		echo $socialmediaReport->socialmedia->name;
-		echo"<br>";
-		echo $socialmediaReport->socialmedia->URL_name;
-		echo"</div></div><br>";
-	}
+            echo"<div class='facebook'>";
+            echo"<div style='display: inline-block'>";
+            echo"<img class='grid-image' src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: left'>";
+            echo"</div>";
+            echo"<div style='display: inline-block'>";
+            echo $socialmediaReport->socialmedia->socialmedia_name;
+            echo"<br>";
+            echo $socialmediaReport->socialmedia->name;
+            echo"<br>";
+            echo $socialmediaReport->socialmedia->URL_name;
+            echo"</div></div><br>";
+        }
 
-}
+    }
 // Gera respostas do perguntas de mkt
-if (!function_exists('createSocialmediaQuestions')) {
+    if (!function_exists('createSocialmediaQuestions')) {
 
-	function createSocialmediaQuestions($socialmediaReport) {
+        function createSocialmediaQuestions($socialmediaReport) {
 
 //					$fields = array_keys($socialmediaReport->getAttributes());
 //		dd($socialmediaReport->getAttributes());
 
-		foreach ($socialmediaReport->getAttributes() as $key => $value) {
-			if (
-					$key == 'id'
-					OR
-					$key == 'account_id'
-					OR
-					$key == 'socialmedia_id'
-					OR
-					$key == 'report_id'
-					OR
-					$key == 'type'
-					OR
-					$key == 'status'
-					OR
-					$key == 'created_at'
-					OR
-					$key == 'updated_at'
-			) {
-				
-			} else {
+            foreach ($socialmediaReport->getAttributes() as $key => $value) {
+                if (
+                        $key == 'id'
+                        OR
+                        $key == 'account_id'
+                        OR
+                        $key == 'socialmedia_id'
+                        OR
+                        $key == 'report_id'
+                        OR
+                        $key == 'type'
+                        OR
+                        $key == 'status'
+                        OR
+                        $key == 'created_at'
+                        OR
+                        $key == 'updated_at'
+                ) {
+                    
+                } else {
 
-				$question = Question::where('criterion', $key)
-						->first();
+                    $question = Question::where('criterion', $key)
+                            ->first();
 
-				if (!$question) {
-					
-				} else {
-					echo "<div class = row>";
-					echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
-					echo $question->question;
-					echo "</div>";
+                    if (!$question) {
+                        
+                    } else {
+                        echo "<div class = row>";
+                        echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
+                        echo $question->question;
+                        echo "</div>";
 
-					if ($value === 1) {
-						echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
-					} else {
-						echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
-					}
-					echo "</div></div>";
+                        if ($value === 1) {
+                            echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
+                        } else {
+                            echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+                        }
+                        echo "</div></div>";
 
-					echo"<div class='row'>";
-					echo"<div>";
-					echo"<p style='font-style:italic;text-align: justify'><br><br>";
-					if ($value === 1) {
-						echo $question->answer1;
-					} else {
-						echo $question->answer3;
-					}
-					echo"</p>";
-					echo"</div></div>";
-				}
-			}
-		}
-	}
+                        echo"<div class='row'>";
+                        echo"<div>";
+                        echo"<p style='font-style:italic;text-align: justify'><br><br>";
+                        if ($value === 1) {
+                            echo $question->answer1;
+                        } else {
+                            echo $question->answer3;
+                        }
+                        echo"</p>";
+                        echo"</div></div>";
+                    }
+                }
+            }
+        }
 
-}
+    }
 
 
 // Gera respostas das perguntas de competitor
-if (!function_exists('createReportQuestions')) {
+    if (!function_exists('createReportQuestions')) {
 
-	function createReportCompetitor($criterion, $value) {
+        function createReportCompetitor($criterion, $value) {
 
-		echo "<div class= 'row' style='border-bottom-style: solid; border-bottom-width: 1px' >";
-		echo"<div class='labels col-3'> $criterion:";
-		echo"</div>";
-		echo"<div class='col-8'>";
-		echo"$value";
-		echo"</div>";
-		echo"</div>";
-	}
+            echo "<div class= 'row' style='border-bottom-style: solid; border-bottom-width: 1px' >";
+            echo"<div class='labels col-3'> $criterion:";
+            echo"</div>";
+            echo"<div class='col-8'>";
+            echo"$value";
+            echo"</div>";
+            echo"</div>";
+        }
+
+    }
+}
+// Gera respostas das perguntas de competitor
+if (!function_exists('createReportAccountQuestions')) {
+
+    function createReportAccountQuestions($accountReport) {
+        foreach ($accountReport->getAttributes() as $key => $value) {
+            if (
+                    $key == 'id'
+                    OR
+                    $key == 'account_id'
+                    OR
+                    $key == 'report_id'
+                    OR
+                    $key == 'created_at'
+                    OR
+                    $key == 'updated_at'
+            ) {
+                
+            } else {
+
+                $question = Question::where('criterion', $key)
+                        ->first();
+
+                if (!$question) {
+                    
+                } else {
+                    echo "<div class = row>";
+                    echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
+                    echo $question->question;
+                    echo "</div>";
+
+                    if ($value === 1) {
+                        echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
+                    } else {
+                        echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+                    }
+                    echo "</div></div>";
+
+                    echo"<div class='row'>";
+                    echo"<div>";
+                    echo"<p style='font-style:italic;text-align: justify'><br><br>";
+                    if ($value === 1) {
+                        echo $question->answer1;
+                    } else {
+                        echo $question->answer3;
+                    }
+                    echo"</p>";
+                    echo"</div></div>";
+                }
+            }
+        }
+    }
 
 }
-	
-}
+
+
+
+//         <td   class="table-list-left">
+//                POSSUI  PALETA DE CORES:
+//            </td>
+//            @if ($report->accountReport->pallet  === 1)
+//			<td class="btn btn-info" style="padding: 0.5rem 2rem;text-align: center">
+//                SIM
+//            </td>
+//        </tr>
+//        <tr>
+//            <td colspan="2">
+//                <p style="font-style:italic;text-align: justify">
+//                    <br>
+//                    Muito bem! Nossa análise indicou que essa etapa está concluída e que você está maduro digitalmente! Talvez você ainda não seja um expert: é sempre possível colher mais dados para melhorar o visual, o estilo, a personalidade, o tom de voz, o gênero, entre uma infinidade de outras características a respeito da sua marca. Com técnicas de SEO e UXdesign é possível realizar uma transformação digital e levar a sua marca para outro patamar.  
+//                    <br>
+//                    Leve sua marca para outro nível! Contrate uma consultoria especializada em marketing digital 
+//                    <br>
+//                    <a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+//                        AVANÇAR
+//                    </a>
+//                    <br>
+//                    <br>
+//                </p>
+//            </td>
+//        </tr>
+//		@else
+//        <td class="btn btn-danger" style="padding: 0.5rem 2rem;text-align: center">
+//            NÃO
+//        </td>
+//        <tr>
+//            <td colspan="2">
+//                <p style="font-style:italic;text-align: justify">
+//                    Quando você não possui um kit de UI, a identidade visual fica bagunçada. O objetivo em se ter um kit de UI é criar um estilo que vai além da logomarca. Para criar uma identidade visual homogênea você deve: criar uma paleta de cores, estilos de fontes, estilos de ícones, estilos de fotos, estilos de ilustração, estilos de botões entre outros itens que identificarão a sua marca.
+//                    <br>
+//                    Contrate a criação de identidade visual 
+//                    <br>
+//                    <a class="btn btn-primary" href="https://api.whatsapp.com/send?phone=5516981076049">
+//                        AVANÇAR
+//                    </a>
+//                    <br>
+//                    <br>
+//                </p>
+//            </td>
+//        </tr>
+//        @endif
+//    </table>

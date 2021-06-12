@@ -158,10 +158,11 @@ class ReportController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Report $report) {
-
+        $status = Report::returnStatus();
 
         return view('reports.editReport', compact(
                         'report',
+                        'status',
         ));
 
 //        return view('reports.editReport', [

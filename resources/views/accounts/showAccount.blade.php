@@ -15,6 +15,7 @@
 @endsection
 
 @section('main')
+@if(1 > 2)
 <div class="row">
     <div class="col-12">
         <h1 style="text-align:left;color: #874983;margin-bottom: 20px">
@@ -87,9 +88,7 @@
 </div>
 <br>
 <br>
-
-
-
+@endif
 
 <p style="text-align:left;color: #874983">
     CNPJ:  {{formatCnpj($account->cnpj)}}

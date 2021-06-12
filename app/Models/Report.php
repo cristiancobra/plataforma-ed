@@ -17,8 +17,10 @@ class Report extends Model {
         'date',
         'status',
         'general',
+        'target',
     ];
 
+    // RELACIONAMENTOS
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
@@ -39,4 +41,11 @@ class Report extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    // MÉTODOS PÚBLICO
+        public static function returnStatus() {
+            return $status = [
+                'ativa',
+                'desativada',
+            ];
+        }
 }
