@@ -32,9 +32,10 @@ class CompanyController extends Controller {
 
         $companies->appends([
             'name' => $request->name,
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
-            'user_id' => $request->user_id,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'city' => $request->city,
+            'account_id' => $request->account_id,
         ]);
 
         $totalCompanies = $companies->count();
