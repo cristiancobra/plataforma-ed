@@ -17,8 +17,9 @@
 
 @section('main')
 <div>
-    <form action=" {{route('socialmedia.store')}} " method="post">
+    <form action=" {{route('socialmedia.update', ['socialmedia' => $socialmedia])}} " method="post">
         @csrf
+        @method('put')
         <label class="labels" for="" >NOME DA REDE SOCIAL:</label>
         {{createSimpleSelect('socialmedia_name', 'fields', returnSocialmediaType(), $socialmedia->socialmedia_name)}}
         <br>

@@ -1617,10 +1617,13 @@ if (!function_exists('createSidebarItem')) {
     if (!function_exists('createSocialmediaHeader')) {
 
         function createSocialmediaHeader($socialmediaReport) {
-//		dd($socialmediaReport);
-            echo"<div class='row ".$socialmediaReport->socialmedia->socialmedia_name." '>";
+            $socialmediaName = strtolower($socialmediaReport->socialmedia->socialmedia_name);
+            $socialmediaImage = "/imagens/socialmedia/".$socialmediaName.".png";
+//            dd(asset($socialmediaImage));
+            
+            echo"<div class='row ".$socialmediaName." '>";
             echo"<div class='col-1'>";
-            echo"<img src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: center'>";
+            echo"<img src='" . asset($socialmediaImage) . "' style='width: 75px;height: 75px;text-align: center'>";
             echo"</div>";
             echo"<div class='col-9'>";
             echo"<p style='font-size:20px;font-weight:800'>";
@@ -1694,7 +1697,7 @@ if (!function_exists('createSidebarItem')) {
                         
                     } else {
                         echo "<div class = row>";
-                        echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
+                        echo "<div  class='col-11 labels' style='border-bottom: 1px; border-bottom-style: solid;margin-top:15px'>";
                         echo $question->question;
                         echo "</div>";
 
@@ -1707,7 +1710,7 @@ if (!function_exists('createSidebarItem')) {
 
                         echo"<div class='row'>";
                         echo"<div>";
-                        echo"<p style='font-style:italic;text-align: justify'><br><br>";
+                        echo"<p style='font-style:italic;text-align: justify'>";
                         if ($value === 1) {
                             echo $question->answer1;
                         } else {

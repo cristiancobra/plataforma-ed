@@ -109,7 +109,7 @@ class SocialmediaController extends Controller {
         $socialmedia->fill($request->all());
         $socialmedia->save();
 
-        return view('marketing.socialmedia.showSocialmedia', compact(
+        return view('marketing.socialmedia.show', compact(
                         'socialmedia',
         ));
     }

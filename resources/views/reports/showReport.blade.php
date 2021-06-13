@@ -41,7 +41,7 @@
 </div>
 <br>
 <div>
-    <p class="title-reports">
+    <p class="title-reports" style="text-align: center">
         <i class="fas fa-palette fa-fw"></i> MODELO DE NEGÓCIOS
     </p>
     <br>
@@ -78,12 +78,13 @@
             Definir sua estrutura de custos
         </li>
         <li>
-            Defini suas fontes de renda
+            Definir suas fontes de renda
         </li>
     </ul>
 </div>
 <br>
-<p class="title-reports"><i class="fas fa-spinner fa-pulse fa-fw"></i>
+<p class="title-reports" style="text-align: center">
+    <i class="fas fa-spinner fa-pulse fa-fw"></i>
     RECOMENDAÇÕES GERAIS
 </p>
 <br>
@@ -93,7 +94,8 @@
 <br>
 <br>
 <div>
-    <p class="title-reports"><i class="fa fa-users fa-fw"></i>PERFIL DO PÚBLICO-ALVO</p>
+    <p class="title-reports" style="text-align: center">
+        <i class="fa fa-users fa-fw"></i>PERFIL DO PÚBLICO-ALVO</p>
     <br>
     <p>
         Conhecer o perfil das pessoas que devem ser alcançadas é essencial para direcionar as estratégias de marketing. 
@@ -106,7 +108,7 @@
 <br>
 <!--   =========================================================  IDENTIDADE VISUAL  ===================================================-->
 <div>
-    <p class="title-reports">
+    <p class="title-reports" style="text-align: center">
         <i class="fas fa-palette fa-fw"></i>IDENTIDADE VISUAL
     </p>
 </div>
@@ -116,7 +118,7 @@
 
 <!--   =========================================================  SOCIAL MEDIA - REPORTS ===================================================-->
 <div>
-    <p class="title-reports">
+    <p class="title-reports" style="text-align: center;padding:20px;font-size:40px">
         <i class="fas fa-palette fa-fw"></i> REDES SOCIAIS
     </p>
     <br>
@@ -248,7 +250,7 @@
 @endforeach
 <!--===================================     COMPETITOR    ===================================--> 
 <div>
-    <p class="title-reports">
+    <p class="title-reports" style="text-align: center">
         <i class="fas fa-palette fa-fw"></i> CONCORRENTES
     </p>
     <br>

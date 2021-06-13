@@ -141,7 +141,7 @@ h5{
 }
 
 /* ------------------------------------------------ GRID DASHBOARD -------------------------- */
-.grid-dashboard {
+/*.grid-dashboard {
     display: grid;
     height: auto;
     text-align: left;
@@ -215,7 +215,7 @@ h5{
     margin-left: auto;
     margin-right: auto;
     width: 50%;
-}
+}*/
 
 
 /* ------------------------------------------------ GRID INICIO -------------------------- */
