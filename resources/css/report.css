@@ -16,49 +16,50 @@ and open the template in the editor.
 }
 
 .Instagram {
-    grid-area: instagram;
     color: white;
     background-color: #c32aa3;
-    padding: 4%;
+    padding: 2%;
     border-radius: 20px;
 }
 
 .Linkedin {
-    grid-area: linkedin;
     color: white;
     background-color: #007bb5;
-    padding: 4%;
+    padding: 2%;
     border-radius: 20px;
 }
 
 .Twitter {
-    grid-area: twitter;
     color: white;
     background-color: #1da1f2;
-    padding: 4%;
+    padding: 2%;
     border-radius: 20px;
 }
 
 .Pinterest {
-    grid-area: pinterest;
     color: white;
     background-color:  #c8232c;
-    padding: 4%;
+    padding: 2%;
     border-radius: 20px;
 }
 
 .Youtube {
-    grid-area: youtube;
     color: white;
     background-color: #c4302b;
-    padding: 4%;
+    padding: 2%;
     border-radius: 20px;
 }
 
 .Spotify {
-    grid-area: spotify;
     color: white;
     background-color: #1DB954;
-    padding: 4%;
+    padding: 2%;
+    border-radius: 20px;
+}
+
+.competitor {
+    color: white;
+    background-color: #874983;
+    padding: 2%;
     border-radius: 20px;
 }

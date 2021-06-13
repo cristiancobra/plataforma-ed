@@ -256,7 +256,8 @@
         <br>
         <label class="labels" for="">Observações:</label>
         <br>
-        <textarea id="observations" name="observation" rows="10" cols="90"  value="{{old('observation')}}">
+        <textarea id="observations" name="observation" rows="10" cols="90"">
+{{$socialmedia->observation}}
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

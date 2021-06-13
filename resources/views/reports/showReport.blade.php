@@ -257,7 +257,7 @@
 Não existem concorrentes configurados.
 @else
 @foreach($report->competitorReports as $competitorReport)
-{{createReportCompetitor('Concorrente', $competitorReport->company->name)}}
+{{createCompetitorHeader($competitorReport)}}
 {{createReportCompetitor('País', $competitorReport->company->country)}}
 {{createReportCompetitor('Setor', $competitorReport->company->sector)}}
 {{createReportCompetitor('Proposta de valor', $competitorReport->company->description)}}

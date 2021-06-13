@@ -1642,6 +1642,23 @@ if (!function_exists('createSidebarItem')) {
         }
 
     }
+// Gera Cabeçalho do relatório de concorrentes em reports 
+
+    if (!function_exists('createCompetitorHeader')) {
+
+        function createCompetitorHeader($competitorReport) {
+            echo"<div class='row competitor' style='margin-top:40px'>";
+            echo"<div class='col-12'>";
+            echo"<p style='font-size:24px;font-weight:800'>";
+            echo strtoupper($competitorReport->company->name);
+            echo"</p>";
+            echo"<p style='font-size:16px;font-weight:600;margin-top:-15px'>";
+            echo strtoupper($competitorReport->company->business_model);
+            echo"</p>";
+            echo"</div></div><br>";
+        }
+
+    }
 // Gera respostas do perguntas de mkt
     if (!function_exists('createSocialmediaQuestions')) {
 
@@ -1656,6 +1673,8 @@ if (!function_exists('createSidebarItem')) {
                         $key == 'socialmedia_id'
                         OR
                         $key == 'report_id'
+                        OR
+                        $key == 'business_model'
                         OR
                         $key == 'type'
                         OR
