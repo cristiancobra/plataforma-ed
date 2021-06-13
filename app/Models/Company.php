@@ -35,6 +35,7 @@ class Company extends Model {
 		'business_model',
 		'competitive_advantage',
 		'revenues',
+		'value_offer',
 		'status',
 	];
 	protected $hidden = [
