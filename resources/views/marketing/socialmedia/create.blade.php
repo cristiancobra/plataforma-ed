@@ -52,7 +52,7 @@
         <br>
         <input type='radio' name='business' value='1' checked='checked'><span class='fields'>Sim</span>
         <br>
-        <input type='radio' name='business' value='0'><span class='fields'>Sim</span>
+        <input type='radio' name='business' value='0'><span class='fields'>Não</span>
         <br>
         <br>
         <label class='labels' for=''>Conta Business vinculada com Instagram: </label>
