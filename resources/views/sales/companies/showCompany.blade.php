@@ -90,7 +90,7 @@
 	<br>	
 	<label class="labels" for="">Faturamento: </label> {{$company->revenues}}
 	<br>	
-	<label class="labels" for="">Proposta de valor: </label> {{$company->description}}
+	<label class="labels" for="">Proposta de valor: </label> {!!html_entity_decode($company->value_offer)!!}
 	<br>	
 	<label class="labels" for="">Diferencial competitivo: </label> {{$company->competitive_advantage}}
 	<br>	

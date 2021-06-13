@@ -165,8 +165,12 @@ class CompanyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Company $company) {
+        $typeCompanies = $company->type;
         $company->delete();
-        return redirect()->action('Sales\\CompanyController@index');
+        
+        return redirect()->route('company.index', compact(
+                                'typeCompanies',
+        ));
     }
 
     public function businessModelTypes() {

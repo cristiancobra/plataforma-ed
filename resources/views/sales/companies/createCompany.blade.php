@@ -95,6 +95,7 @@
 		<label for="">Twitter: </label>
 		<input type="text" name="twitter">   
 		<br>
+		<br>
 		<h2 class="name" for="">LOCALIZAÇÃO</h2>
 		<label for="">Endereço: </label>
 		<input type="text" name="address">   
@@ -138,12 +139,12 @@
 		<br>
 		<label  class="labels" for="">Proposta de valor: </label>
 		<br>
-		<textarea id="description" name="description" rows="20" cols="90">
+		<textarea id="description" name="value_offer" rows="20" cols="90">
 		</textarea>
 		<!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
 		<script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 		<script>
-CKEDITOR.replace('description');
+CKEDITOR.replace('value_offer');
 		</script>
 		<br>
 		<br>
