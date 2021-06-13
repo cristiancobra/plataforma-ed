@@ -112,7 +112,7 @@
         <input type="text" name="neighborhood" value="{{$company->neighborhood}}">
         <br>
         <label for="">Estado: </label>
-        {{editDoubleSelect('address_state', 'fields', $states, $company->address_state, returnStateName($company->address_state))}}
+        {{editDoubleSelect('state', 'fields', $states, $company->address_state, returnStateName($company->address_state))}}
         <br>
         <label for="">País: </label>
         <input type="text" name="country"  value="{{$company->country}}">
