@@ -59,10 +59,10 @@
                 </a>
                 {{$company->name}}
             </td>
-            <td class="table-list-left">
+            <td class="table-list-center">
                 {{$company->email}}
             </td>
-            <td class="table-list-right">
+            <td class="table-list-center">
                 {{$company->country}}
             </td>
             <td class="table-list-center">

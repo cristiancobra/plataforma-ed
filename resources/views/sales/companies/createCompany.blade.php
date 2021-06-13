@@ -44,17 +44,6 @@
 		@elseif($typeCompanies == 'concorrente')
 		<input type="hidden" name="type" value="concorrente">
 		@endif
-		<label for="" >DONO: </label>
-		<select name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{$account->id}}">
-				{{$account->name}}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
-		<br>
 		<label for="" >NOME: </label>
 		<input type="text" name="name" value="{{old('name')}}">
 		@if ($errors->has('name'))

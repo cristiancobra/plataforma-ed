@@ -138,7 +138,7 @@
 				'typeCompanies' => $company->type,
 		]) }} "  style="text-decoration: none;color: white;display: inline-block">
             <i class='fa fa-edit'></i>EDITAR</a>
-        <a class="btn btn-secondary" href="{{route('company.index')}}">VOLTAR</a>
+        <a class="btn btn-secondary" href="{{route('company.index', ['typeCompanies' => $company->type])}}">VOLTAR</a>
     </div>
     <br>
 </div>

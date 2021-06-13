@@ -37,28 +37,15 @@
     <form action=" {{route('company.update', ['company' => $company->id])}} " method="post">
         @csrf
         @method('put')
-        <label for="status">TIPO: </label>
-        {{createSimpleSelect('type',' fields', $types, $company->type)}} 
-        <br>
-        <label for="" >DONO: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{$company->account_id}}">
-                {{$company->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
-        <br>
-        <br>
         <label for="" >NOME: </label>
-        <input type="text" name="name" value="{{$company->name}}">
+        <input type="text" name="name" value="{{$company->name}}" style="width: 600px">
         @if ($errors->has('name'))
         <span class="text-danger">{{ $errors->first('name') }}</span>
         @endif
+        <br>
+        <br>
+        <label for="status">TIPO: </label>
+        {{createSimpleSelect('type',' fields', $types, $company->type)}} 
         <br>
         <label for="" >CNPJ: </label>
         <input type="text" name="cnpj" value="{{$company->cnpj}}">

@@ -19,7 +19,7 @@ class CompanyController extends Controller {
     public function index(Request $request) {
         $typeCompanies = $request->input('typeCompanies');
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->with([
                     'account',
                 ])
@@ -86,6 +86,7 @@ class CompanyController extends Controller {
     public function store(Request $request) {
         $company = new Company();
         $company->fill($request->all());
+        $company->account_id = auth()->user()->account_id;
         $company->save();
         $company->contacts()->sync($request->contacts);
         $typeCompanies = $company->type;
