@@ -143,7 +143,7 @@
         <label  class="labels" for="">Proposta de valor: </label>
         <br>
         <textarea id="description" name="value_offer" rows="20" cols="90">
-{{$company->description}}
+{{$company->value_offer}}
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
