@@ -4,6 +4,8 @@
 @section('title','EMPRESAS')
 @elseif($typeCompanies == 'fornecedor')
 @section('title','FORNECEDORES')
+@elseif($typeCompanies == 'cliente e fornecedor')
+@section('title','CLIENTE FORNECEDOR')
 @elseif($typeCompanies == 'concorrente')
 @section('title','CONCORRENTES')
 @endif
@@ -32,7 +34,7 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('company.update', ['company' => $company->id])}} " method="post" style="color: #874983">
+    <form action=" {{route('company.update', ['company' => $company->id])}} " method="post">
         @csrf
         @method('put')
         <label for="status">TIPO: </label>

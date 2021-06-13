@@ -160,7 +160,7 @@ if (!function_exists('createTextFormField')) {
 // cria um campo de formulário do TIPO texto com Label. 
     function createTextFormField($label, $name, $currentValue = null) {
         echo "<label class='labels' for='$name'>$label:</label>";
-        echo "<input type='text' id='$name' name='$name'  value='$currentValue' style='text-align:right; width:200px'>";
+        echo "<input type='text' id='$name' name='$name'  value='$currentValue' style='text-align:left; width:200px'>";
         echo "</br>";
     }
 

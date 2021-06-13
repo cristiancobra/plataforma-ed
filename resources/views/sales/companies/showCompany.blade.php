@@ -4,6 +4,8 @@
 @section('title','EMPRESAS')
 @elseif($typeCompanies == 'fornecedor')
 @section('title','FORNECEDORES')
+@elseif($typeCompanies == 'cliente e fornecedor')
+@section('title','CLIENTE FORNECEDOR')
 @elseif($typeCompanies == 'concorrente')
 @section('title','CONCORRENTES')
 @endif

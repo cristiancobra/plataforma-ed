@@ -4,6 +4,8 @@
 @section('title','EMPRESAS')
 @elseif($typeCompanies == 'fornecedor')
 @section('title','FORNECEDORES')
+@elseif($typeCompanies == 'cliente e fornecedor')
+@section('title','CLIENTE FORNECEDOR')
 @elseif($typeCompanies == 'concorrente')
 @section('title','CONCORRENTES')
 @endif
@@ -29,7 +31,7 @@
                 Email
             </td>
             <td   class="table-list-header">
-                Telefone
+                País
             </td>
             <td   class="table-list-header">
                 Cidade 
@@ -61,7 +63,7 @@
                 {{$company->email}}
             </td>
             <td class="table-list-right">
-                {{$company->phone}}
+                {{$company->country}}
             </td>
             <td class="table-list-center">
                 {{$company->city}}
