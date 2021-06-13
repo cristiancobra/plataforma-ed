@@ -150,7 +150,7 @@ class CompanyController extends Controller {
         $company->fill($request->all());
         $company->save();
 
-        $typeCompanies = $request->input('typeCompanies');
+        $typeCompanies = $company->type;
 
         return redirect()->route('company.show', compact(
                                 'company',
