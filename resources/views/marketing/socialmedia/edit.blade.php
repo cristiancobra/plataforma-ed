@@ -19,20 +19,6 @@
 <div>
     <form action=" {{route('socialmedia.store')}} " method="post">
         @csrf
-        <label class="labels" for="" >DONO: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{$socialmedia->account_id}}">
-                {{$socialmedia->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-
-            @endforeach
-        </select>
-        <br>
-        <br>
         <label class="labels" for="" >NOME DA REDE SOCIAL:</label>
         {{createSimpleSelect('socialmedia_name', 'fields', returnSocialmediaType(), $socialmedia->socialmedia_name)}}
         <br>

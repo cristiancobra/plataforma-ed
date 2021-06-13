@@ -20,16 +20,6 @@
         @csrf
         <input type='hidden' name='company_id' value='{{app('request')->input('company_id')}}'>
         <input type='hidden' name='type' value='{{app('request')->input('type')}}'>
-        <label class='labels' for='' >DONO: </label>
-        <select name='account_id'>
-            @foreach ($accounts as $account)
-            <option  class='fields' value='{{ $account->id }}'>
-                {{ $account->name }}
-            </option>
-            @endforeach
-        </select>
-        <br>
-        <br>
         <label class='labels' for='' >NOME DA REDE SOCIAL:</label>
         {{createSimpleSelect('socialmedia_name', 'fields', returnSocialmediaType())}}
         <br>

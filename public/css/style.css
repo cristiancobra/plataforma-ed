@@ -4,6 +4,71 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
+    Created on : 13 de jun. de 2021, 19:24:13
+    Author     : cobra
+*/
+
+.Facebook {
+    color: white;
+    background-color: #3b5998;
+    padding: 2%;
+    border-radius: 20px;
+}
+
+.Instagram {
+    grid-area: instagram;
+    color: white;
+    background-color: #c32aa3;
+    padding: 4%;
+    border-radius: 20px;
+}
+
+.Linkedin {
+    grid-area: linkedin;
+    color: white;
+    background-color: #007bb5;
+    padding: 4%;
+    border-radius: 20px;
+}
+
+.Twitter {
+    grid-area: twitter;
+    color: white;
+    background-color: #1da1f2;
+    padding: 4%;
+    border-radius: 20px;
+}
+
+.Pinterest {
+    grid-area: pinterest;
+    color: white;
+    background-color:  #c8232c;
+    padding: 4%;
+    border-radius: 20px;
+}
+
+.Youtube {
+    grid-area: youtube;
+    color: white;
+    background-color: #c4302b;
+    padding: 4%;
+    border-radius: 20px;
+}
+
+.Spotify {
+    grid-area: spotify;
+    color: white;
+    background-color: #1DB954;
+    padding: 4%;
+    border-radius: 20px;
+}
+
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
     Created on : 2 de dez. de 2020, 18:35:48
     Author     : cobra
 */

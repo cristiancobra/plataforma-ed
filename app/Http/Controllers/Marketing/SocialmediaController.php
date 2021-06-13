@@ -16,9 +16,7 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $accounts = userAccounts();
-
-        $socialmedias = Socialmedia::whereIn('account_id', userAccounts())
+        $socialmedias = Socialmedia::where('account_id', auth()->user()->account_id)
                 ->with("account")
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
@@ -26,7 +24,6 @@ class SocialmediaController extends Controller {
         $total = $socialmedias->total();
 
         return view('marketing.socialmedia.index', compact(
-                        'accounts',
                         'socialmedias',
                         'total'
         ));
@@ -58,6 +55,7 @@ class SocialmediaController extends Controller {
     public function store(Request $request) {
         $socialmedia = new Socialmedia;
         $socialmedia->fill($request->all());
+        $socialmedia->account_id = auth()->user()->account_id;
         $socialmedia->save();
 
         return view('marketing.socialmedia.show', compact(
@@ -91,7 +89,7 @@ class SocialmediaController extends Controller {
                 ->get();
         $types = $this->types();
         $status = $this->socialmediaStatus();
-        
+
         return view('marketing.socialmedia.edit', compact(
                         'accounts',
                         'socialmedia',
@@ -108,23 +106,8 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Socialmedia $socialmedia) {
-
         $socialmedia->fill($request->all());
         $socialmedia->save();
-
-//		$invoices = Invoice::where('opportunity_id', $socialmedia->id)
-//				->orderBy('PAY_DAY', 'ASC')
-//				->get();
-//
-//		$tasks = Task::where('opportunity_id', $socialmedia->id)
-//				->get();
-//			$contracts = Contract::where('opportunity_id', $opportunity->id)
-//				->get();
-//
-//		$contactCompanies = Company::whereHas('contacts', function ($query) use($opportunity) {
-//					$query->where('contacts.id', $opportunity->contact_id);
-//				})
-//				->get();
 
         return view('marketing.socialmedia.showSocialmedia', compact(
                         'socialmedia',

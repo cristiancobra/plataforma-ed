@@ -1618,16 +1618,26 @@ if (!function_exists('createSidebarItem')) {
 
         function createSocialmediaHeader($socialmediaReport) {
 //		dd($socialmediaReport);
-            echo"<div class='facebook'>";
-            echo"<div style='display: inline-block'>";
-            echo"<img class='grid-image' src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: left'>";
+            echo"<div class='row ".$socialmediaReport->socialmedia->socialmedia_name." '>";
+            echo"<div class='col-1'>";
+            echo"<img src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: center'>";
             echo"</div>";
-            echo"<div style='display: inline-block'>";
-            echo $socialmediaReport->socialmedia->socialmedia_name;
-            echo"<br>";
+            echo"<div class='col-9'>";
+            echo"<p style='font-size:20px;font-weight:800'>";
+            echo strtoupper($socialmediaReport->socialmedia->socialmedia_name);
+            echo"</p>";
+            echo"<p style='font-size:14p;margin-top:-15px'>";
             echo $socialmediaReport->socialmedia->name;
             echo"<br>";
             echo $socialmediaReport->socialmedia->URL_name;
+            echo"</p></div>";
+            echo"<div class='col-2'>";
+            echo"<p style='font-size:36px;text-align:center;font-weight:800'>";
+            echo $socialmediaReport->followers;
+            echo"</p>";
+            echo"<p style='font-size:20px;text-align:center;margin-top:-20px'>";
+            echo"seguidores";
+            echo"</p>";
             echo"</div></div><br>";
         }
 
@@ -1636,9 +1646,6 @@ if (!function_exists('createSidebarItem')) {
     if (!function_exists('createSocialmediaQuestions')) {
 
         function createSocialmediaQuestions($socialmediaReport) {
-
-//					$fields = array_keys($socialmediaReport->getAttributes());
-//		dd($socialmediaReport->getAttributes());
 
             foreach ($socialmediaReport->getAttributes() as $key => $value) {
                 if (
@@ -1689,6 +1696,56 @@ if (!function_exists('createSidebarItem')) {
                         }
                         echo"</p>";
                         echo"</div></div>";
+                    }
+                }
+            }
+        }
+
+    }
+// Gera respostas do perguntas de para COMPETIDORES (sem análise das respostas)
+    if (!function_exists('createSocialmediaCompetitorQuestions')) {
+
+        function createSocialmediaCompetitorQuestions($socialmediaReport) {
+
+            foreach ($socialmediaReport->getAttributes() as $key => $value) {
+                if (
+                        $key == 'id'
+                        OR
+                        $key == 'account_id'
+                        OR
+                        $key == 'socialmedia_id'
+                        OR
+                        $key == 'report_id'
+                        OR
+                        $key == 'type'
+                        OR
+                        $key == 'status'
+                        OR
+                        $key == 'created_at'
+                        OR
+                        $key == 'updated_at'
+                ) {
+                    
+                } else {
+
+                    $question = Question::where('criterion', $key)
+                            ->first();
+
+                    if (!$question) {
+                        
+                    } else {
+                        echo "<div class = row>";
+                        echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
+                        echo $question->question;
+                        echo "</div>";
+
+                        if ($value === 1) {
+                            echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
+                        } else {
+                            echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+                        }
+                        echo "</div></div>";
+
                     }
                 }
             }
