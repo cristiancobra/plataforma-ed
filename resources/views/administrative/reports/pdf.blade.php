@@ -32,11 +32,11 @@
                 width: 90%;
             }
             .row {
-/*                --bs-gutter-x: 1.5rem;
-                --bs-gutter-y: 0;*/
+                --bs-gutter-x: 1.5rem;
+                --bs-gutter-y: 0;
                 display: flex;
-                /*flex-wrap: wrap;*/
-/*                margin-top: calc(var(--bs-gutter-y) * -1);
+/*                flex-wrap: wrap;
+                margin-top: calc(var(--bs-gutter-y) * -1);
                 margin-right: calc(var(--bs-gutter-x)/ -2);
                 margin-left: calc(var(--bs-gutter-x)/ -2);*/
             }
