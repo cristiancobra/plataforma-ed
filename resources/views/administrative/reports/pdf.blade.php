@@ -6,7 +6,7 @@
 
         <title></title>
         <!-- Styles -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+        <link href="{{url(mix('css/pdf.css'))}}" rel="stylesheet">
         <style>
             * {
                 font-family: Nunito, helvetica, sans-serif;
