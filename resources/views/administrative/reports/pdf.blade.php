@@ -8,17 +8,24 @@
         <style>
 
             /*GRID*/
+            .col{
+                flex:1 0 0%
+            }
             .col-1 {
                 flex: 0 0 auto;
-                width: 8.3333333333%;
+                width: 8%;
             }
             .col-2 {
                 flex: 0 0 auto;
-                width: 16.6666666667%;
+                width: 16%;
             }
             .col-9 {
                 flex: 0 0 auto;
-                width: 75%;
+                width: 70%;
+            }
+            .col-11 {
+                flex: 0 0 auto;
+                width: 90%;
             }
             .row {
                 --bs-gutter-x: 1.5rem;
