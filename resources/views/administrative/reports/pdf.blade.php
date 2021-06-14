@@ -12,6 +12,7 @@
                 flex:1 0 0%
             }
             .col-1 {
+                    float:right;
                 flex: 0 0 auto;
                 width: 8%;
             }
@@ -24,6 +25,7 @@
                 width: 70%;
             }
             .col-11 {
+                    float:left;
                 flex: 0 0 auto;
                 width: 90%;
             }
@@ -31,6 +33,7 @@
 /*                --bs-gutter-x: 1.5rem;
                 --bs-gutter-y: 0;*/
                 display: flex;
+                /*flex-wrap: wrap;*/
 /*                margin-top: calc(var(--bs-gutter-y) * -1);
                 margin-right: calc(var(--bs-gutter-x)/ -2);
                 margin-left: calc(var(--bs-gutter-x)/ -2);*/
