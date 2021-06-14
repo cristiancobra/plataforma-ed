@@ -531,7 +531,7 @@ class InvoiceController extends Controller {
             $pdfTitle = 'FATURA';
         }
 
-        if ($task->company_id) {
+        if ($invoice->company_id) {
             $email = $invoice->company->email;
             $phone = $invoice->company->phone;
             $address = $invoice->company->address;
@@ -556,8 +556,8 @@ class InvoiceController extends Controller {
             'accountLogo' => $invoice->account->image->path,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,
-            'taskDescription' => $task->description,
-            'customerName' => $task->contact->name,
+//            'taskDescription' => $task->description,
+//            'customerName' => $task->contact->name,
             'companyName' => $companyName,
             'companyCnpj' => $companyCnpj,
             'email' => $email,
