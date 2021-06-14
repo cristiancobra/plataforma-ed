@@ -6,7 +6,7 @@
 
         <title></title>
         <!-- Styles -->
-        <link href="{{url(mix('css/pdf.css'))}}" rel="stylesheet">
+        <link href="{{public_path('css/pdf.css')}}" rel="stylesheet">
         <style>
             * {
                 font-family: Nunito, helvetica, sans-serif;
