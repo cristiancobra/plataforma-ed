@@ -7,21 +7,79 @@
         <!-- Styles -->
         <style>
 
-            .title-reports {
-                color: #874983;
-                margin-top: 10px;
-                margin-bottom: 0;
-                font-weight: 700;
-                text-align: left;
-                font-size: 26px;
-                border-bottom: 3px;
-                border-bottom-color: currentcolor;
-                border-bottom-style: none;
-                border-color: #874983;
-                border-bottom-style: solid;
-                width: 100%;
+            /*GRID*/
+            .col-1 {
+                flex: 0 0 auto;
+                width: 8.3333333333%;
+            }
+            .col-2 {
+                flex: 0 0 auto;
+                width: 16.6666666667%;
+            }
+            .col-9 {
+                flex: 0 0 auto;
+                width: 75%;
+            }
+            .row {
+                --bs-gutter-x: 1.5rem;
+                --bs-gutter-y: 0;
+                display: flex;
+                flex-wrap: wrap;
+                margin-top: calc(var(--bs-gutter-y) * -1);
+                margin-right: calc(var(--bs-gutter-x)/ -2);
+                margin-left: calc(var(--bs-gutter-x)/ -2);
+            }
+            *, ::after, ::before {
+                box-sizing: border-box;
             }
 
+            /*BUTTONS*/
+            .btn {
+                display: inline-block;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #212529;
+                text-align: center;
+                text-decoration: none;
+                vertical-align: middle;
+                cursor: pointer;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                user-select: none;
+                background-color: transparent;
+                border: 1px solid transparent;
+                border-top-color: transparent;
+                border-right-color: transparent;
+                border-bottom-color: transparent;
+                border-left-color: transparent;
+                padding: .375rem .75rem;
+                font-size: 1rem;
+                border-radius: .25rem;
+                transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            }
+            .btn:hover {
+                color: #212529;
+            }
+            .btn-danger {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+            .btn-danger:hover {
+                color: #fff;
+                background-color: #bb2d3b;
+                border-color: #b02a37;
+            }
+            .btn-info {
+                color: #000;
+                background-color: #0dcaf0;
+                border-color: #0dcaf0;
+            }
+            .btn-info:hover {
+                color: #000;
+                background-color: #31d2f2;
+                border-color: #25cff2;
+            }
             .labels {
                 color: #874983;
                 margin-top: 3px;
@@ -35,6 +93,7 @@
                 page-break-after: always;
             }
 
+            /*SOCIALMEDIAS*/
             .facebook {
                 color: white;
                 background-color: #3b5998;
@@ -113,6 +172,20 @@
             }
             .center {
                 text-align: center;
+            }
+            .title-reports {
+                color: #874983;
+                margin-top: 10px;
+                margin-bottom: 0;
+                font-weight: 700;
+                text-align: left;
+                font-size: 26px;
+                border-bottom: 3px;
+                border-bottom-color: currentcolor;
+                border-bottom-style: none;
+                border-color: #874983;
+                border-bottom-style: solid;
+                width: 100%;
             }
         </style>
     </head>
