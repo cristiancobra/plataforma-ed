@@ -138,22 +138,28 @@
 </div>
 <div class="row">
     <div class="col-6">
-        {{createReportCompetitor('Homens entre 13 e 17 anos', $socialmediaReport->male_13_17)}}
-        {{createReportCompetitor('Homens entre 18 e 24 anos', $socialmediaReport->male_18_24)}}
-        {{createReportCompetitor('Homens entre 25 e 34 anos', $socialmediaReport->male_25_34)}}
-        {{createReportCompetitor('Homens entre 35 e 44 anos', $socialmediaReport->male_35_44)}}
-        {{createReportCompetitor('Homens entre 45 e 54 anos', $socialmediaReport->male_45_54)}}
-        {{createReportCompetitor('Homens entre 55 e 65 anos', $socialmediaReport->male_55_65)}}
-        {{createReportCompetitor('Homens +65 anos', $socialmediaReport->male_65)}}
+        <p class="labels" style="text-align: center">
+            HOMENS
+        </p>
+        {{createReportCompetitor('13 e 17 anos', $socialmediaReport->male_13_17)}}
+        {{createReportCompetitor('18 e 24 anos', $socialmediaReport->male_18_24)}}
+        {{createReportCompetitor('25 e 34 anos', $socialmediaReport->male_25_34)}}
+        {{createReportCompetitor('35 e 44 anos', $socialmediaReport->male_35_44)}}
+        {{createReportCompetitor('45 e 54 anos', $socialmediaReport->male_45_54)}}
+        {{createReportCompetitor('55 e 65 anos', $socialmediaReport->male_55_65)}}
+        {{createReportCompetitor('+65 anos', $socialmediaReport->male_65)}}
     </div>
     <div class="col-6">
-        {{createReportCompetitor('Mulheres entre 13 e 17 anos', $socialmediaReport->female_13_17)}}
-        {{createReportCompetitor('Mulheres entre 18 e 24 anos', $socialmediaReport->female_18_24)}}
-        {{createReportCompetitor('Mulheres entre 25 e 34 anos', $socialmediaReport->female_25_34)}}
-        {{createReportCompetitor('Mulheres entre 35 e 44 anos', $socialmediaReport->female_35_44)}}
-        {{createReportCompetitor('Mulheres entre 45 e 54 anos', $socialmediaReport->female_45_54)}}
-        {{createReportCompetitor('Mulheres entre 55 e 65 anos', $socialmediaReport->female_55_65)}}
-        {{createReportCompetitor('Mulheres +65 anos', $socialmediaReport->female_65)}}
+        <p class="labels" style="text-align: center">
+            MULHERES
+        </p>
+        {{createReportCompetitor('13 e 17 anos', $socialmediaReport->female_13_17)}}
+        {{createReportCompetitor('18 e 24 anos', $socialmediaReport->female_18_24)}}
+        {{createReportCompetitor('25 e 34 anos', $socialmediaReport->female_25_34)}}
+        {{createReportCompetitor('35 e 44 anos', $socialmediaReport->female_35_44)}}
+        {{createReportCompetitor('45 e 54 anos', $socialmediaReport->female_45_54)}}
+        {{createReportCompetitor('55 e 65 anos', $socialmediaReport->female_55_65)}}
+        {{createReportCompetitor('+65 anos', $socialmediaReport->female_65)}}
     </div>
 </div>
 <div class="row">

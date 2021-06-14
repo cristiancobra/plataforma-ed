@@ -1784,7 +1784,7 @@ if (!function_exists('createSidebarItem')) {
             echo "<div class= 'row' style='border-bottom-style: solid; border-bottom-width: 1px' >";
             echo"<div class='labels col-3'> $criterion:";
             echo"</div>";
-            echo"<div class='col-8'>";
+            echo"<div class='col-9'>";
             echo"$value";
             echo"</div>";
             echo"</div>";
