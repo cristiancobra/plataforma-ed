@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Report;
+namespace App\Http\Controllers\Administrative\Report;
 
 use App\Http\Controllers\Controller;
 use App\Models\Report;
@@ -22,9 +22,8 @@ class ReportController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-
         $reports = Report::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                 })
                 ->with([
                     'accountReport',
@@ -35,7 +34,7 @@ class ReportController extends Controller {
 //		dd($reports);
         $totalReports = $reports->count();
 
-        return view('reports.indexReports', compact(
+        return view('administrative.reports.index', compact(
                         'reports',
                         'totalReports',
         ));
@@ -48,10 +47,7 @@ class ReportController extends Controller {
      */
     public function create() {
 
-        return view('reports.createReport');
-//		return view('reports.createReport', compact(
-//						'accounts'
-//		));
+        return view('administrative.reports.create');
     }
 
     /**
@@ -134,7 +130,6 @@ class ReportController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Report $report) {
-//		dd($report);
         $socialmediaReports = SocialmediaReport::where('report_id', $report->id)
                 ->where('type', '!=', 'concorrente')
                 ->get();
@@ -143,8 +138,8 @@ class ReportController extends Controller {
                 ->where('type', '=', 'concorrente')
                 ->with('socialmedia')
                 ->get();
-//dd($socialmediasCompetitorsReports);
-        return view('reports.showReport', compact(
+
+        return view('administrative.reports.show', compact(
                         'report',
                         'socialmediaReports',
                         'socialmediasCompetitorsReports',
@@ -160,7 +155,7 @@ class ReportController extends Controller {
     public function edit(Report $report) {
         $status = Report::returnStatus();
 
-        return view('reports.editReport', compact(
+        return view('administrative.reports.edit', compact(
                         'report',
                         'status',
         ));
@@ -195,14 +190,66 @@ class ReportController extends Controller {
         $report->delete();
         return redirect()->route('report.index');
     }
+      
+        // Gera PDF da fatura
+    public function createPDF(Report $report) {
+        $socialmediaReports = SocialmediaReport::where('report_id', $report->id)
+                ->where('type', '!=', 'concorrente')
+                ->get();
 
-    public function generatePDF(Report $report) {
+        $socialmediasCompetitorsReports = SocialmediaReport::where('report_id', $report->id)
+                ->where('type', '=', 'concorrente')
+                ->with('socialmedia')
+                ->get();
 
-        $pdf = PDF::loadView('reports.showReport', $report);
-//		    $pdf = PDF::loadView('licencie_structure.show', compact('licencie'));
-        $pdf->loadHTML('<h1>Test</h1>');
-        $pdf->save(storage_path() . '_relatorio.pdf');
-        $pdf->download('relatorio.pdf');
+//        $data = [
+//            'report' => $report,
+//            'accountLogo' => $report->account->logo,
+//            'accountPrincipalColor' => $report->account->principal_color,
+//            'accountName' => $report->account->name,
+//            'accountEmail' => $report->account->email,
+//            'accountPhone' => $report->account->phone,
+//            'accountAddress' => $report->account->address,
+//            'accountCity' => $report->account->city,
+//            'accountState' => $report->account->state,
+//            'accountCnpj' => $report->account->cnpj,
+//            'bankAccounts' => $bankAccounts,
+//            'reportName' => $report->name,
+//            'reportDate' => $report->date,
+//            'reportGeneral' => $report->general,
+//            'invoiceDescription' => $invoice->description,
+//            'invoiceDiscount' => $invoice->discount,
+//            'invoiceInstallmentValue' => $invoice->installment_value,
+//            'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
+//            'invoiceTotalPrice' => $invoice->totalPrice,
+//            'invoiceDiscount' => $invoice->discount,
+//            'invoiceTotalPrice' => $invoice->totalPrice,
+//            'taskTotalDuration' => $totalDuration,
+//            'customerName' => $task->contact->name,
+//            'companyName' => $companyName,
+//            'companyCnpj' => $companyCnpj,
+//            'email' => $email,
+//            'phone' => $phone,
+//            'address' => $address,
+//            'city' => $city,
+//            'state' => $state,
+//            'country' => $country,
+//            'journeys' => $journeys,
+////			'deadline' => $deadline,
+//        ];
+
+//        set_time_limit(0);
+//        phpinfo();
+        
+        $pdf = PDF::loadView('administrative.reports.pdf', compact(
+                'report',
+                'socialmediaReports',
+                'socialmediasCompetitorsReports',
+                ));
+        $pdf->setPaper('A4', 'portrait');
+
+// download PDF file with download method
+        return $pdf->stream('Diagnóstico de Maturidade Digital.pdf');
     }
 
     public function showSocialmediaReport($socialmediaReports) {

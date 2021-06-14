@@ -6,9 +6,12 @@
 {{ asset('imagens/report.png') }} 
 @endsection
 
-@section('description')
-<a class="btn btn-primary" href="{{route('report.index')}}">RELATÓRIOS</a>
-<a class="btn btn-primary" href=" {{!! url('/relatorios', $report->id) !!}}">PDF</a>
+@section('buttons')
+<a class="circular-button secondary"  href="{{route('report.pdf', ['report' => $report])}}">
+    <i class="fas fa-print"></i>
+</a>
+{{createButtonBack()}}
+{{createButtonList('report')}}
 @endsection
 
 @section('main')

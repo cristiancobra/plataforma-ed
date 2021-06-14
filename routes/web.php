@@ -217,12 +217,16 @@ Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 // ------------------------------------------------ REPORTS ------------------------------------------------
 //Route::get('/relatorios/{report}/pdf','Report\\ReportController@generatePDF')->name('report.pdf');
 
-Route::resource('relatorios', 'Report\\ReportController')
+Route::get('relatorios/pdf/{report}', 'Administrative\\Report\\ReportController@createPDF')
+        ->name('report.pdf')
+        ->middleware('roles');
+
+Route::resource('relatorios', 'Administrative\\Report\\ReportController')
 		->names('report')
 		->parameters(['relatorios' => 'report'])
 		->middleware('roles');
 
-Route::resource('questoes', 'Report\\QuestionController')
+Route::resource('questoes', 'Administrative\\Report\\QuestionController')
 		->names('question')
 		->parameters(['questoes' => 'question'])
 		->middleware('roles');

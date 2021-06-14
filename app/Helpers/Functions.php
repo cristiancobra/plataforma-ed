@@ -1547,6 +1547,14 @@ if (!function_exists('formatCurrency')) {
     }
 
 }
+// formata um número com pontos de milhar
+if (!function_exists('formatThousands')) {
+
+    function formatThousands($value) {
+        return number_format($value, 0, ",", ".");
+    }
+
+}
 // formata valor inteiro em segundos para formato de decimal (total horas) 
 if (!function_exists('formatTotalHour')) {
 
@@ -1636,7 +1644,7 @@ if (!function_exists('createSidebarItem')) {
             echo"</p></div>";
             echo"<div class='col-2'>";
             echo"<p style='font-size:36px;text-align:center;font-weight:800'>";
-            echo $socialmediaReport->followers;
+            echo formatThousands($socialmediaReport->followers);
             echo"</p>";
             echo"<p style='font-size:20px;text-align:center;margin-top:-20px'>";
             echo"seguidores";
@@ -1818,7 +1826,7 @@ if (!function_exists('createReportAccountQuestions')) {
                     
                 } else {
                     echo "<div class = row>";
-                    echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
+                    echo "<div  class='col-11 labels' style='border-bottom: 1px; border-bottom-style: solid'>";
                     echo $question->question;
                     echo "</div>";
 
