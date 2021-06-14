@@ -12,22 +12,18 @@
                 flex:1 0 0%
             }
             .col-1 {
-                    float:right;
                 flex: 0 0 auto;
                 width: 8%;
             }
             .col-2 {
-                                  float:right;
                 flex: 0 0 auto;
                 width: 16%;
             }
             .col-9 {
-                float:left;
                 flex: 0 0 auto;
                 width: 70%;
             }
             .col-11 {
-                    float:left;
                 flex: 0 0 auto;
                 width: 90%;
             }
