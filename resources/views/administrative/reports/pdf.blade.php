@@ -35,10 +35,10 @@
                 --bs-gutter-x: 1.5rem;
                 --bs-gutter-y: 0;
                 display: flex;
-/*                flex-wrap: wrap;
+                flex-wrap: wrap;
                 margin-top: calc(var(--bs-gutter-y) * -1);
                 margin-right: calc(var(--bs-gutter-x)/ -2);
-                margin-left: calc(var(--bs-gutter-x)/ -2);*/
+                margin-left: calc(var(--bs-gutter-x)/ -2);
             }
             *, ::after, ::before {
                 box-sizing: border-box;
