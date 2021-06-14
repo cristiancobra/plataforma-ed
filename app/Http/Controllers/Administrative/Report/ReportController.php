@@ -238,7 +238,6 @@ class ReportController extends Controller {
 ////			'deadline' => $deadline,
 //        ];
 
-        
 //        $pdf = PDF::loadView('administrative.reports.pdf', compact(
 //                'report',
 //                'socialmediaReports',
