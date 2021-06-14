@@ -262,7 +262,7 @@ Não existem concorrentes configurados.
 {{createCompetitorHeader($competitorReport)}}
 {{createReportCompetitor('País', $competitorReport->company->country)}}
 {{createReportCompetitor('Setor', $competitorReport->company->sector)}}
-{{createReportCompetitor('Proposta de valor', $competitorReport->company->description)}}
+{{createReportCompetitor('Proposta de valor', $competitorReport->company->value_offer)}}
 {{createReportCompetitor('Diferencial Competitivo', $competitorReport->company->competitive_advantage)}}
 {{createReportCompetitor('Modelo de negócios', $competitorReport->company->business_model)}}
 {{createReportCompetitor('Funcionários', $competitorReport->employees)}}
