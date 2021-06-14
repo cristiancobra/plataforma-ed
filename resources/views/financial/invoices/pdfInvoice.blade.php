@@ -125,18 +125,18 @@
                 cnpj: {{formatCnpj($data['companyCnpj'])}}
                 @endif
                 @if(isset($data['companyEmail']))
-                {{$data['companyEmail']}}
+                {{$data['email']}}
                 @endif
                 @if(isset($data['companyPhone']))
-                {{$data['companyPhone']}}
+                {{$data['phone']}}
                 @endif
                 @if(isset($data['companyAddress']))
                 <br>
-                {{$data['companyAddress']}}
+                {{$data['address']}}
                 <br>
-                {{$data['companyCity']}} / 
-                {{$data['companyState']}} -
-                {{$data['companyCountry']}}
+                {{$data['city']}} / 
+                {{$data['state']}} -
+                {{$data['country']}}
                 @endif
             </p>
         </div>

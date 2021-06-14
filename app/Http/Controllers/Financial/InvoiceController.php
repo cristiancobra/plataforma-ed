@@ -34,7 +34,7 @@ class InvoiceController extends Controller {
         $yearEnd = date('Y-12-31');
 
         $invoices = Invoice::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                 })
                 ->with([
                     'opportunity',
@@ -45,7 +45,7 @@ class InvoiceController extends Controller {
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
-
+//dd($invoices);
         $invoices->appends([
             'status' => $request->status,
             'contact_id' => $request->contact_id,
@@ -531,18 +531,41 @@ class InvoiceController extends Controller {
             $pdfTitle = 'FATURA';
         }
 
+        if ($task->company_id) {
+            $email = $invoice->company->email;
+            $phone = $invoice->company->phone;
+            $address = $invoice->company->address;
+            $city = $invoice->company->city;
+            $state = $invoice->company->state;
+            $country = $invoice->company->country;
+            $companyName = $invoice->company->name;
+            $companyCnpj = $invoice->company->cnpj;
+        } else {
+            $email = $invoice->contact->email;
+            $phone = $invoice->contact->phone;
+            $address = $invoice->contact->address;
+            $city = $invoice->contact->city;
+            $state = $invoice->contact->state;
+            $country = $invoice->contact->country;
+            $companyName = null;
+            $companyCnpj = null;
+        }
+
         $data = [
             'pdfTitle' => $pdfTitle,
             'accountLogo' => $invoice->account->image->path,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,
-            'accountName' => $invoice->account->name,
-            'accountEmail' => $invoice->account->email,
-            'accountPhone' => $invoice->account->phone,
-            'accountAddress' => $invoice->account->address,
-            'accountCity' => $invoice->account->city,
-            'accountState' => $invoice->account->state,
-            'accountCnpj' => $invoice->account->cnpj,
+            'taskDescription' => $task->description,
+            'customerName' => $task->contact->name,
+            'companyName' => $companyName,
+            'companyCnpj' => $companyCnpj,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
             'bankAccounts' => $bankAccounts,
             'invoiceIdentifier' => $invoice->identifier,
             'invoiceDescription' => $invoice->description,

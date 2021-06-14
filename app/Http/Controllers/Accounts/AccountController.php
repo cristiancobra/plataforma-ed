@@ -145,6 +145,13 @@ class AccountController extends Controller {
         return redirect()->route('account.index');
     }
 
+    public function dashboard(Account $account) {
+        
+        return view('accounts.dashboard', compact(
+                        'account',
+        ));
+    }
+
     public function logos() {
         $logos = Image::where('type', 'logo')->get();
         return $logos;

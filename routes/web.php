@@ -36,17 +36,21 @@ Route::get('/funil-vendas', function () {
     return view('admin.funil-vendas');
 });
 
-Route::get('/clear', function() { 
+Route::get('/clear', function () {
     $exitCode = Artisan::call('config:cache');
     $exitCode = Artisan::call('config:clear');
     $exitCode = Artisan::call('cache:clear');
     $exitCode = Artisan::call('view:clear');
     $exitCode = Artisan::call('route:clear');
     $exitCode = Artisan::call('clear-compiled');
-    return 'DONE'; 
-  });
+    return 'DONE';
+});
 
 // ================================ ACCOUNTS ===================
+Route::get('contas/dashboard/{account}', 'Accounts\\AccountController@dashboard')
+        ->name('account.dashboard')
+        ->middleware('roles');
+
 Route::resource('accounts', 'Accounts\\AccountController')
         ->names('account')
         ->parameters(['empresas' => 'accounts'])
@@ -152,9 +156,9 @@ Route::resource('sites', 'Marketing\\SiteController')
 
 //socialmedia
 Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
-		->names('socialmedia')
-		->parameters(['redes-sociais' => 'socialmedia'])
-		->middleware('roles');
+        ->names('socialmedia')
+        ->parameters(['redes-sociais' => 'socialmedia'])
+        ->middleware('roles');
 
 // ================================ MENU ===================
 Route::get('/inicio', function () {
@@ -222,14 +226,14 @@ Route::get('relatorios/pdf/{report}', 'Administrative\\Report\\ReportController@
         ->middleware('roles');
 
 Route::resource('relatorios', 'Administrative\\Report\\ReportController')
-		->names('report')
-		->parameters(['relatorios' => 'report'])
-		->middleware('roles');
+        ->names('report')
+        ->parameters(['relatorios' => 'report'])
+        ->middleware('roles');
 
 Route::resource('questoes', 'Administrative\\Report\\QuestionController')
-		->names('question')
-		->parameters(['questoes' => 'question'])
-		->middleware('roles');
+        ->names('question')
+        ->parameters(['questoes' => 'question'])
+        ->middleware('roles');
 
 // =============================================== SALES ====================================
 // contatos
