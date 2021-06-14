@@ -132,7 +132,7 @@
 <br>
 <br>
 <div class="row">
-    <div class="co-12">
+    <div class="col-12">
         <p class="title-reports" style="font-size: 16px;margin-top: 40px">
             FAIXA ETÁRIA
         </p>
@@ -166,7 +166,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="co-12">
+    <div class="col-12">
         <p class="title-reports" style="font-size: 16px;margin-top: 40px">
             LOCALIZAÇÃO
         </p>
@@ -175,7 +175,7 @@
 </div>
 @if(!$socialmediaReport->city_followers_1)
 <div class="row">
-    <div class="co-12">
+    <div class="col-12">
         <p>
             Não possui dados.
         </p>
@@ -204,7 +204,7 @@
     </div>
 </div>
 <div class="row">
-    <div class="co-12">
+    <div class="col-12">
         <p class="title-reports" style="font-size: 16px;margin-top: 40px">
             PALAVRAS-CHAVES
         </p>
@@ -246,7 +246,7 @@
 @endif
 <br>
 <div class="row">
-    <div class="co-12">
+    <div class="col-12">
         <p class="title-reports" style="font-size: 16px">
             ANÁLISE DA PÁGINA
         </p>
