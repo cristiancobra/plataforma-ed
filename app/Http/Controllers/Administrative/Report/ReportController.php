@@ -239,21 +239,21 @@ class ReportController extends Controller {
 //        ];
 
         
-//        $pdf = PDF::loadView('administrative.reports.pdf', compact(
-//                'report',
-//                'socialmediaReports',
-//                'socialmediasCompetitorsReports',
-//                ));
-//        $pdf->setPaper('A4', 'portrait');
-//
-//// download PDF file with download method
-//        return $pdf->stream('Diagnóstico de Maturidade Digital.pdf');
+        $pdf = PDF::loadView('administrative.reports.pdf', compact(
+                'report',
+                'socialmediaReports',
+                'socialmediasCompetitorsReports',
+                ));
+        $pdf->setPaper('A4', 'portrait');
+
+// download PDF file with download method
+        return $pdf->stream('Diagnóstico de Maturidade Digital.pdf');
         
-                return view('administrative.reports.pdf', compact(
-                        'report',
-                        'socialmediaReports',
-                        'socialmediasCompetitorsReports',
-        ));
+//                return view('administrative.reports.pdf', compact(
+//                        'report',
+//                        'socialmediaReports',
+//                        'socialmediasCompetitorsReports',
+//        ));
     }
 
     public function showSocialmediaReport($socialmediaReports) {
