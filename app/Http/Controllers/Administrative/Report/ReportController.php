@@ -238,8 +238,6 @@ class ReportController extends Controller {
 ////			'deadline' => $deadline,
 //        ];
 
-//        set_time_limit(0);
-//        phpinfo();
         
         $pdf = PDF::loadView('administrative.reports.pdf', compact(
                 'report',
@@ -250,6 +248,12 @@ class ReportController extends Controller {
 
 // download PDF file with download method
         return $pdf->stream('Diagnóstico de Maturidade Digital.pdf');
+        
+//                return view('administrative.reports.pdf', compact(
+//                        'report',
+//                        'socialmediaReports',
+//                        'socialmediasCompetitorsReports',
+//        ));
     }
 
     public function showSocialmediaReport($socialmediaReports) {
