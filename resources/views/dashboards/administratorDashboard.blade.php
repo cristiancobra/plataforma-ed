@@ -111,7 +111,7 @@
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
 				'contact_id' => '',
-				'user_id' => 'all',
+				'user_id' => '',
 				])}}'>
             <p class='panel-number'>
                 {{$tasks_pending}}

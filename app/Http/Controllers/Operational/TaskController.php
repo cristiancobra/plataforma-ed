@@ -27,25 +27,22 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-//        dd($request);
         $today = date('Y-m-d');
         $tasks = $this->filterTasks($request);
-//dd($tasks);
         $teamTasksPending = Task::where('account_id', Auth::user()->account_id)
                 ->where('status', 'fazer')
-                ->where('priority', 'emergência')
                 ->get();
 
-        $teamTasksPendingAmount = $teamTasksPending->where('account_id', Auth::user()->account_id)
+        $teamTasksEmergencyAmount = $teamTasksPending->where('account_id', Auth::user()->account_id)
+                ->where('priority', 'emergência')
                 ->count();
 
         $myTasksPendingAmount = $teamTasksPending->where('user_id', Auth::user()->id)
                 ->count();
 
-//            $myTasksPending = Task::where('user_id', Auth::user()->id)
-//                    ->where('status', 'fazer')
-//                    ->where('priority', 'emergência')
-//                    ->count();
+        $myTasksEmergencyAmount = $teamTasksPending->where('user_id', Auth::user()->id)
+                ->where('priority', 'emergência')
+                ->count();
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
@@ -62,8 +59,9 @@ class TaskController extends Controller {
 
         return view('operational.tasks.indexTasks', compact(
                         'tasks',
-                        'teamTasksPendingAmount',
+                        'teamTasksEmergencyAmount',
                         'myTasksPendingAmount',
+                        'myTasksEmergencyAmount',
                         'contacts',
                         'companies',
                         'users',
@@ -95,9 +93,9 @@ class TaskController extends Controller {
         $opportunities = $this->accountOpportunities('create');
 
         $today = date("Y-m-d");
-        $departments = returnDepartments();
+        $departments = Task::returnDepartments();
         $status = $this->returnStatus();
-        $priorities = returnPriorities();
+        $priorities = Task::returnPriorities();
 
         // campos enviados por request
         $taskName = $request->task_name;

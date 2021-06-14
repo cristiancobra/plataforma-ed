@@ -20,15 +20,29 @@
 
 @section('main')
 <div class='row justify-content-end'>
-    <div class='col-lg-3 d-inline-block tasks-toDo'>
+        <div class='col-lg-3 d-inline-block tasks-my'>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
-				'priority' =>'emergência',
 				'contact_id' => '',
 				'user_id' => '',
 				])}}'>
             <p class='panel-number'>
-                {{$teamTasksPendingAmount}}
+                {{$myTasksPendingAmount}}
+            </p>
+            <p class='panel-text'>
+                minhas pendências
+            </p>
+        </a>
+    </div>
+    <div class='col-lg-3 d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'priority' =>'',
+				'contact_id' => '',
+				'user_id' => '',
+				])}}'>
+            <p class='panel-number'>
+                {{$teamTasksEmergencyAmount}}
             </p>
             <p class='panel-text'>
                 emergências equipe
@@ -36,7 +50,7 @@
         </a>
     </div>
 
-    <div class='col-lg-3 d-inline-block tasks-my'>
+    <div class='col-lg-3 d-inline-block tasks-emergency'>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
                                                                         'priority' =>'emergência',
@@ -44,7 +58,7 @@
 				'user_id' => Auth::user()->id,
 				])}}'>
             <p class='panel-number'>
-                {{$myTasksPendingAmount}}
+                {{$myTasksEmergencyAmount}}
             </p>
             <p class='panel-text'>
                 minhas emergências
