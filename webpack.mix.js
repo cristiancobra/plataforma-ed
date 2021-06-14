@@ -28,6 +28,5 @@ mix.js('resources/js/app.js', 'public/js')
     'resources/css/style.css'
         ], 'public/css/style.css')
 
-        .styles('resources/css/pdf.css', 'public/css/pdf.css')
         
         .version();
