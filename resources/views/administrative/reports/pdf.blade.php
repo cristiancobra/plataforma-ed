@@ -25,7 +25,7 @@
             }
             .col-11 {
                 flex: 0 0 auto;
-                width: 85%;
+                width: 25%;
             }
             .row {
 /*                --bs-gutter-x: 1.5rem;
