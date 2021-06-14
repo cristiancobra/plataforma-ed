@@ -37,14 +37,6 @@ footer {
     line-height: 16px;
 }
 
-/*    p {
-        page-break-after: always;
-    }
-    
-    p:last-child {
-        page-break-after: never;
-    }*/
-
 .body{
     padding: 0;
 }
@@ -114,7 +106,7 @@ footer {
 }
 
 p{
-    font-size: 12px;
+    font-size: 16px;
     color:black;
 }
 
