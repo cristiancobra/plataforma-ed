@@ -6,114 +6,114 @@
         <title></title>
         <!-- Styles -->
         <style>
-            
-.title-reports {
-    color: #874983;
-    margin-top: 10px;
-    margin-bottom: 0;
-    font-weight: 700;
-    text-align: left;
-    font-size: 26px;
-    border-bottom: 3px;
-        border-bottom-color: currentcolor;
-        border-bottom-style: none;
-    border-color: #874983;
-    border-bottom-style: solid;
-    width: 100%;
-}
 
-.labels {
-    color: #874983;
-    margin-top: 3px;
-    margin-bottom: 5px;
-    font-weight: bolder;
-    text-align: left;
-    font-size: 16px;
-}
+            .title-reports {
+                color: #874983;
+                margin-top: 10px;
+                margin-bottom: 0;
+                font-weight: 700;
+                text-align: left;
+                font-size: 26px;
+                border-bottom: 3px;
+                border-bottom-color: currentcolor;
+                border-bottom-style: none;
+                border-color: #874983;
+                border-bottom-style: solid;
+                width: 100%;
+            }
 
-.break{
-    page-break-after: always;
-}
+            .labels {
+                color: #874983;
+                margin-top: 3px;
+                margin-bottom: 5px;
+                font-weight: bolder;
+                text-align: left;
+                font-size: 16px;
+            }
 
-.facebook {
-    color: white;
-    background-color: #3b5998;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .break{
+                page-break-after: always;
+            }
 
-.instagram {
-    color: white;
-    background-color: #c32aa3;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .facebook {
+                color: white;
+                background-color: #3b5998;
+                padding: 2%;
+                border-radius: 20px;
+            }
 
-.linkedin {
-    color: white;
-    background-color: #007bb5;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .instagram {
+                color: white;
+                background-color: #c32aa3;
+                padding: 2%;
+                border-radius: 20px;
+            }
 
-.twitter {
-    color: white;
-    background-color: #1da1f2;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .linkedin {
+                color: white;
+                background-color: #007bb5;
+                padding: 2%;
+                border-radius: 20px;
+            }
 
-.pinterest {
-    color: white;
-    background-color:  #c8232c;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .twitter {
+                color: white;
+                background-color: #1da1f2;
+                padding: 2%;
+                border-radius: 20px;
+            }
 
-.youtube {
-    color: white;
-    background-color: #c4302b;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .pinterest {
+                color: white;
+                background-color:  #c8232c;
+                padding: 2%;
+                border-radius: 20px;
+            }
 
-.spotify {
-    color: white;
-    background-color: #1DB954;
-    padding: 2%;
-    border-radius: 20px;
-}
+            .youtube {
+                color: white;
+                background-color: #c4302b;
+                padding: 2%;
+                border-radius: 20px;
+            }
 
-.competitor {
-    color: white;
-    background-color: #874983;
-    padding: 2%;
-    border-radius: 20px;
-}
-.description {
-    color:black;
-    font-size: 12px;
-    padding:8px;
-    padding-left:30px;
-    margin-top: 0px;
-    margin-bottom: 5px;
-    margin-left: 40px;
-    margin-right: 10px;
-    border-radius:20px;
-    border-style: solid;
-    border-color: black;
-    border-bottom: 1px;
-    font-style: italic;
-}
-.right {
-    text-align: right;
-}
-.left {
-    text-align: left;
-}
-.center {
-    text-align: center;
-}
+            .spotify {
+                color: white;
+                background-color: #1DB954;
+                padding: 2%;
+                border-radius: 20px;
+            }
+
+            .competitor {
+                color: white;
+                background-color: #874983;
+                padding: 2%;
+                border-radius: 20px;
+            }
+            .description {
+                color:black;
+                font-size: 12px;
+                padding:8px;
+                padding-left:30px;
+                margin-top: 0px;
+                margin-bottom: 5px;
+                margin-left: 40px;
+                margin-right: 10px;
+                border-radius:20px;
+                border-style: solid;
+                border-color: black;
+                border-bottom: 1px;
+                font-style: italic;
+            }
+            .right {
+                text-align: right;
+            }
+            .left {
+                text-align: left;
+            }
+            .center {
+                text-align: center;
+            }
         </style>
     </head>
     <body>
