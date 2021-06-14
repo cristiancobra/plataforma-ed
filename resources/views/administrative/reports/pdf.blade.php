@@ -13,7 +13,7 @@
             }
             .col-1 {
                 flex: 0 0 auto;
-                width: 5%;
+                width: 8%;
             }
             .col-2 {
                 flex: 0 0 auto;
@@ -25,13 +25,12 @@
             }
             .col-11 {
                 flex: 0 0 auto;
-                width: 25%;
+                width: 90%;
             }
             .row {
 /*                --bs-gutter-x: 1.5rem;
                 --bs-gutter-y: 0;*/
                 display: flex;
-                flex-wrap: wrap;
 /*                margin-top: calc(var(--bs-gutter-y) * -1);
                 margin-right: calc(var(--bs-gutter-x)/ -2);
                 margin-left: calc(var(--bs-gutter-x)/ -2);*/
