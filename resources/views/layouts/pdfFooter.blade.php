@@ -23,19 +23,19 @@
     </head>
     <body>
         <div class="footer" style="background-color: {{$data['accountPrincipalColor']}}">
-            CNPJ: {{formatCnpj($data['accountCnpj'])}}
+            CNPJ: {{formatCnpj($data['companyCnpj'])}}
             <span style="font-weight: 900">&#183;</span>
             <span style="font-weight: 900">&#183;</span>
             <span style="font-weight: 900">&#183;</span>
-            EMAIL:{{$data['accountEmail']}}
+            EMAIL:{{$data['email']}}
             <span style="font-weight: 900">&#183;</span>
             <span style="font-weight: 900">&#183;</span>
             <span style="font-weight: 900">&#183;</span>
-            TEL:{{phoneBr($data['accountPhone'])}}
+            TEL:{{phoneBr($data['phone'])}}
             <br>
-            {{$data['accountAddress']}}   -   
-            {{$data['accountCity']}} / 
-            {{$data['accountState']}}
+            {{$data['address']}}   -   
+            {{$data['city']}} / 
+            {{$data['state']}}
             <br>
         </div>
     </body>

@@ -37,6 +37,7 @@ class InvoiceController extends Controller {
                     $query->where('account_id', auth()->user()->account_id);
                 })
                 ->with([
+                    'account',
                     'opportunity',
                     'invoiceLines.product',
                     'account.bankAccounts',
@@ -492,7 +493,7 @@ class InvoiceController extends Controller {
 
 // Gera PDF da fatura
     public function createPDF(Invoice $invoice) {
-
+//dd($invoice->account());
         $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);
                 })
@@ -556,6 +557,13 @@ class InvoiceController extends Controller {
             'accountLogo' => $invoice->account->image->path,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,
+                'accountName' => $invoice->account->name,
+            'accountEmail' => $invoice->account->email,
+            'accountPhone' => $invoice->account->phone,
+            'accountAddress' => $invoice->account->address,
+            'accountCity' => $invoice->account->city,
+            'accountState' => $invoice->account->state,
+            'accountCnpj' => $invoice->account->cnpj,
 //            'taskDescription' => $task->description,
 //            'customerName' => $task->contact->name,
             'companyName' => $companyName,
@@ -579,14 +587,6 @@ class InvoiceController extends Controller {
             'invoicePayday' => $invoice->pay_day,
             'invoiceTotalPrice' => $invoice->totalPrice,
             'customerName' => $invoice->opportunity->contact->name,
-            'companyName' => $invoice->opportunity->company->name,
-            'companyCnpj' => $invoice->opportunity->company->cnpj,
-            'companyEmail' => $invoice->opportunity->company->email,
-            'companyPhone' => $invoice->opportunity->company->phone,
-            'companyAddress' => $invoice->opportunity->company->address,
-            'companyCity' => $invoice->opportunity->company->city,
-            'companyState' => $invoice->opportunity->company->state,
-            'companyCountry' => $invoice->opportunity->company->country,
             'invoiceLines' => $invoiceLines,
             'invoiceTotalTransactions' => $totalTransactions,
             'tasksOperational' => $tasksOperational,
@@ -707,6 +707,7 @@ class InvoiceController extends Controller {
                     }
                 })
                 ->with([
+                    'account',
                     'opportunity',
                     'invoiceLines.product',
                     'account.bankAccounts',
