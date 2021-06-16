@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Accounts;
+namespace App\Http\Controllers\Administrative\Accounts;
 
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Company;
 use App\Models\InvoiceLine;
 use App\Models\Image;
+use App\Models\Product;
+use App\Models\Socialmedia;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -23,10 +26,10 @@ class AccountController extends Controller {
                 })
                 ->with('image')
                 ->paginate(20);
-//dd($accounts);
+
         $total = $accounts->count();
 
-        return view('accounts.indexAccounts', compact(
+        return view('administrative.accounts.index', compact(
                         'accounts',
                         'total',
         ));
@@ -46,7 +49,7 @@ class AccountController extends Controller {
         $states = returnStates();
         $logos = $this->logos();
 
-        return view('accounts.create', compact(
+        return view('administrative.accounts.create', compact(
                         'users',
                         'states',
                         'logos',
@@ -66,7 +69,7 @@ class AccountController extends Controller {
         $account->save();
         $account->users()->sync($request->users);
 
-        return redirect()->action('Accounts\\AccountController@index');
+        return redirect()->action('Administrative\\Accounts\\AccountController@index');
     }
 
     /**
@@ -84,7 +87,7 @@ class AccountController extends Controller {
                 ->get();
 //                dd($invoiceLines);
 
-        return view('accounts.showAccount', compact(
+        return view('administrative.accounts.show', compact(
                         'account',
                         'invoiceLines',
         ));
@@ -104,15 +107,19 @@ class AccountController extends Controller {
                 ->toArray();
 
         $states = returnStates();
+        $status = Account::returnStatus();
         $users = myUsers();
         $logos = $this->logos();
+        $businessModelTypes = Account::businessModelTypes();
 
-        return view('accounts.edit', compact(
+        return view('administrative.accounts.edit', compact(
                         'users',
                         'usersChecked',
                         'account',
                         'states',
+                        'status',
                         'logos',
+                        'businessModelTypes',
         ));
     }
 
@@ -146,9 +153,32 @@ class AccountController extends Controller {
     }
 
     public function dashboard(Account $account) {
+        $providers = Company::where('account_id', auth()->user()->account_id)
+                ->where('type', 'fornecedor')
+                ->get();
         
-        return view('accounts.dashboard', compact(
+        $revenues = Product::where('account_id', auth()->user()->account_id)
+                ->where('type', 'receita')
+//                ->where('category', 'serviço')
+                ->where('status', 'disponível')
+                ->get();
+        
+        $expenses = Product::where('account_id', auth()->user()->account_id)
+                ->where('type', 'despesa')
+//                ->where('category', 'serviço')
+                ->where('status', 'disponível')
+                ->get();
+        
+        $socialmedias= Socialmedia::where('account_id', auth()->user()->account_id)
+                ->where('type', 'minha')
+                ->get();
+        
+        return view('administrative.accounts.dashboard', compact(
                         'account',
+                        'providers',
+                        'revenues',
+                        'expenses',
+                        'socialmedias',
         ));
     }
 

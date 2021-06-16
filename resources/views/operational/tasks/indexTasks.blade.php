@@ -24,7 +24,7 @@
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
 				'contact_id' => '',
-				'user_id' => '',
+				'user_id' => Auth::user()->id,
 				])}}'>
             <p class='panel-number'>
                 {{$myTasksPendingAmount}}

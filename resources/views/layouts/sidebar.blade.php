@@ -28,11 +28,11 @@
                                                                                                                                                         'faIcon' => 'fas fa-store',
                                                                                                                                                         'link' => route('account.show', ['account' => auth()->user()->account_id])
                                                                                                                                                         ],
-//                                                                                                                                                        [
-//                                                                                                                                                        'name' => 'MODELO DE NEGÓCIO',
-//                                                                                                                                                        'faIcon' => 'fas fa-store',
-//                                                                                                                                                        'link' => route('account.dashboard', ['account' => auth()->user()->account_id])
-//                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'MODELO DE NEGÓCIO',
+                                                                                                                                                        'faIcon' => 'fas fa-store',
+                                                                                                                                                        'link' => route('account.dashboard', ['account' => auth()->user()->account_id])
+                                                                                                                                                        ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'FUNCIONÁRIOS',
                                                                                                                                                         'faIcon' => 'fa fa-id-card-alt',

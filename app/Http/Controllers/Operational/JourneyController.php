@@ -22,31 +22,11 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $journeys = Journey::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
-                    $query->where('user_id', auth::user()->id);
-                })
-                ->with([
-                    'account',
-                    'task',
-                    'user',
-                ])
-                ->orderBy('DATE', 'DESC')
-                ->orderBy('START_TIME', 'DESC')
-                ->paginate(20);
-
-        $journeys->appends([
-            'user_id' => $request->user_id,
-        ]);
-
-        $users = myUsers();
+        $journeys = $this->filterJourneys($request);
         $status = $this->returnStatus();
-        $departments = Task::returnDepartments();
 
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::user()->id);
-                })
-                ->paginate(20);
+        $users = User::where('account_id', auth()->user()->account_id)
+                ->get();
 
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('NAME', 'ASC')
@@ -59,11 +39,9 @@ class JourneyController extends Controller {
         return view('operational.journey.indexJourneys', compact(
                         'journeys',
                         'users',
-                        'accounts',
                         'contacts',
                         'companies',
                         'status',
-                        'departments',
         ));
     }
 
@@ -219,53 +197,49 @@ class JourneyController extends Controller {
         return redirect()->action('Operational\\JourneyController@index');
     }
 
-    public function filter(Request $request) {
-        $today = date('Y-m-d');
-
+    public function filterJourneys(Request $request) {
         $journeys = Journey::where(function ($query) use ($request) {
-                    if ($request->account_id) {
-                        $query->where('account_id', '=', $request->account_id);
-                    } else {
-                        $query->whereIn('account_id', userAccounts());
-                    }
-                    if ($request->name) {
-                        $query->whereHas('task', function ($query) use ($request) {
-                            $query->where('name', 'like', "%$request->name%");
-                        });
-                    }
-                    if ($request->date_start) {
-                        $query->where('date', '>=', $request->date_start);
-                    }
-                    if ($request->date_end) {
-                        $query->where('date', '<=', $request->date_end);
-                    }
+                    $query->where('account_id', auth()->user()->account_id);
                     if ($request->user_id) {
                         $query->where('user_id', $request->user_id);
                     }
-                    if ($request->contact_id) {
-                        $query->whereHas('task', function ($query) use ($request) {
-                            $query->where('contact_id', $request->contact_id);
-                        });
+                    if ($request->date_start) {
+                        $query->where('date', '=>', $request->date_start);
                     }
-                    if ($request->company_id) {
-                        $query->whereHas('task', function ($query) use ($request) {
-                            $query->where('company_id', $request->company_id);
-                        });
+                    if ($request->date_end) {
+                        $query->where('date', '=<', $request->date_end);
                     }
-                    if ($request->department) {
-                        $query->whereHas('task', function ($query) use ($request) {
-                            $query->where('department', $request->department);
-                        });
-                    }
-//                    if ($request->status) {
+//                    if ($request->name) {
+//                        $query->where('name', 'like', "%$request->name%");
+//                    }
+//                    if ($request->department) {
+//                        $query->where('department', $request->department);
+//                    }
+//                    if ($request->contact_id) {
+//                        $query->where('contact_id', $request->contact_id);
+//                    }
+//                    if ($request->company_id) {
+//                        $query->where('company_id', $request->company_id);
+//                    }
+//                    if ($request->priority) {
+//                        $query->where('priority', $request->priority);
+//                    }
+//                    if ($request->status == '') {
+//                        // busca todos
+//                    } elseif ($request->status == 'fazendo') {
+//                        $query->where('status', 'fazer');
+//                        $query->whereHas('journeys');
+//                    } elseif ($request->status) {
 //                        $query->where('status', $request->status);
 //                    }
                 })
                 ->with(
+                        'account',
                         'task',
-                        'user.contact',
+                        'user',
                 )
-                ->orderBy('date', 'DESC')
+                ->orderBy('DATE', 'DESC')
+                ->orderBy('START_TIME', 'DESC')
                 ->paginate(20);
 
         $journeys->appends([
@@ -275,28 +249,7 @@ class JourneyController extends Controller {
             'user_id' => $request->user_id,
         ]);
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
-        $contacts = Contact::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $companies = Company::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $users = myUsers();
-
-        return view('operational.journey.indexJourneys', compact(
-                        'journeys',
-                        'contacts',
-                        'companies',
-                        'accounts',
-                        'users',
-                        'today',
-        ));
+        return $journeys;
     }
 
     public function monthlyReport(Request $request) {

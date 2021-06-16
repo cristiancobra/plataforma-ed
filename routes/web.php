@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
  */
 
 // ================================ SISTEMA ===================
-Auth::routes();
+Auth::routes(['register' => 'false']);
 
 Route::get('/', 'DashboardController@index')
         ->name('dashboard')
@@ -24,17 +24,7 @@ Route::get('/configuracoes', 'ConfigurationsController@index')
         ->name('configurations')
         ->middleware('roles');
 
-//Route::get('/', 'Users\\UserController@dashboardAdministrator')->name('home.administrator')->middleware('administrator');
-// ================================ ADMINISTRATIVO ===================
-Route::get('/admin/NovaPlataforma/form_plataforma', function () {
-    return view('admin.NovaPlataforma.form_plataforma');
-});
-
 Route::get('/tutorial-plataforma', 'NovaPlataformaController@modelo')->name('tutorial_plataforma');
-
-Route::get('/funil-vendas', function () {
-    return view('admin.funil-vendas');
-});
 
 Route::get('/clear', function () {
     $exitCode = Artisan::call('config:cache');
@@ -46,14 +36,43 @@ Route::get('/clear', function () {
     return 'DONE';
 });
 
-// ================================ ACCOUNTS ===================
-Route::get('contas/dashboard/{account}', 'Accounts\\AccountController@dashboard')
+// menu
+Route::get('/inicio', function () {
+    return view('inicio');
+});
+
+Route::get('/logout', function () {
+    Auth::logout();
+    return Redirect::to('/');
+});
+
+// ================================ ADMINISTRATIVO ===================
+Route::get('/admin/NovaPlataforma/form_plataforma', function () {
+    return view('admin.NovaPlataforma.form_plataforma');
+});
+
+Route::get('/funil-vendas', function () {
+    return view('admin.funil-vendas');
+});
+
+// accounts
+Route::get('contas/dashboard/{account}', 'Administrative\\Accounts\\AccountController@dashboard')
         ->name('account.dashboard')
         ->middleware('roles');
 
-Route::resource('accounts', 'Accounts\\AccountController')
+Route::resource('accounts', 'Administrative\\Accounts\\AccountController')
         ->names('account')
         ->parameters(['empresas' => 'accounts'])
+        ->middleware('roles');
+
+// users
+Route::any('/usuarios/foto-perfil', 'Administrative\\Users\\UserController@storeProfilePicture')
+        ->name('user.picture')
+        ->middleware('roles');
+
+Route::resource('usuarios', 'Administrative\\Users\\UserController')
+        ->names('user')
+        ->parameters(['usuarios' => 'user'])
         ->middleware('roles');
 
 // ================================ FINANCIAL ===================
@@ -160,15 +179,6 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
         ->parameters(['redes-sociais' => 'socialmedia'])
         ->middleware('roles');
 
-// ================================ MENU ===================
-Route::get('/inicio', function () {
-    return view('inicio');
-});
-
-Route::get('/logout', function () {
-    Auth::logout();
-    return Redirect::to('/');
-});
 
 // ------------------------------------------------ MINHA CONTA ------------------------------------------------
 Route::get('/perfil', function () {
@@ -177,9 +187,9 @@ Route::get('/perfil', function () {
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
 // journeys
-Route::any('/jornadas/filtros', 'Operational\\JourneyController@filter')
-        ->name('journey.filter')
-        ->middleware('roles');
+//Route::any('/jornadas/filtros', 'Operational\\JourneyController@filter')
+//        ->name('journey.filter')
+//        ->middleware('roles');
 
 Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport')
         ->name('journey.reports')
@@ -193,6 +203,22 @@ Route::resource('jornadas', 'Operational\\JourneyController')
         ->names('journey')
         ->parameters(['jornadas' => 'journey'])
         ->middleware('roles');
+
+// tasks
+Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
+        ->name('task.pdf')
+        ->middleware('roles');
+
+Route::match(['get', 'post'], 'tarefas/novo', 'Operational\\TaskController@create')
+        ->name('task.create')
+        ->middleware('roles');
+
+Route::resource('tarefas', 'Operational\\TaskController')
+        ->except('create')
+        ->names('task')
+        ->parameters(['tarefas' => 'task'])
+        ->middleware('roles');
+
 
 // ---------- FACEBOOKS
 Route::get('/facebooks/all', 'Socialmedia\\FacebookController@all')->name('facebook.all');
@@ -304,37 +330,4 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')
 Route::get('/postarsite', 'SiteCliente@PostarSite')
         ->name('postar-site');
 
-// ================================ TASKS ===================
-Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
-        ->name('task.pdf')
-        ->middleware('roles');
 
-//Route::match(['get', 'post'],
-Route::match(['get', 'post'], 'tarefas/novo', 'Operational\\TaskController@create')
-        ->name('task.create')
-        ->middleware('roles');
-
-Route::resource('tarefas', 'Operational\\TaskController')
-        ->except('create')
-        ->names('task')
-        ->parameters(['tarefas' => 'task'])
-        ->middleware('roles');
-
-// ============================================== USERS =================================
-Route::any('/usuarios/filtros', 'Users\\UserController@index')
-        ->name('user.index')
-        ->middleware('roles');
-
-Route::any('/usuarios/foto-perfil', 'Users\\UserController@storeProfilePicture')
-        ->name('user.picture')
-        ->middleware('roles');
-
-Route::resource('usuarios', 'Users\\UserController')
-        ->except(['index'])
-        ->names('user')
-        ->parameters(['usuarios' => 'user'])
-        ->middleware('roles');
-
-Auth::routes(['register' => 'false']);
-
-//Route::get('/home', 'HomeController@index')->name('home');

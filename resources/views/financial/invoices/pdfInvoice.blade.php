@@ -153,16 +153,16 @@
                 <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
                     QTDE
                 </td>
-                <td   class="table-list-header center" style="width: 60%;background-color:{{$data['accountComplementaryColor']}}">
+                <td   class="table-list-header center" style="width: 50%;background-color:{{$data['accountComplementaryColor']}}">
                     NOME
                 </td>
                 <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
                     IMPOSTO
                 </td>
-                <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
+                <td   class="table-list-header center" style="width: 15%;background-color:{{$data['accountComplementaryColor']}}">
                     UNITÁRIO
                 </td>
-                <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
+                <td   class="table-list-header center" style="width: 15%;background-color:{{$data['accountComplementaryColor']}}">
                     TOTAL
                 </td>
             </tr>

@@ -28,7 +28,7 @@
         <br>
         <div id="change" style="display:inline">
             <label class="labels" for="" >SELECIONAR IMAGEM:</label>
-            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $product)}}
+            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $user)}}
         </div>
         <div id="new" style="display:none">
             <label class="labels" for="" >NOME DA IMAGEM:</label>

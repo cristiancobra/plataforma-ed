@@ -15,7 +15,6 @@ class AddColumnsInAccountsTable extends Migration {
 		Schema::table('accounts', function (Blueprint $table) {
 			$table->string('cnpj', 14)->nullable();
 			$table->integer('revenues')->nullable();
-			$table->string('logo')->nullable();
 			$table->string('principal_color')->nullable();
 			$table->string('complementary_color')->nullable();
 			$table->string('opposite_color')->nullable();

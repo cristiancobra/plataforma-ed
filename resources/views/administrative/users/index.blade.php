@@ -26,19 +26,6 @@ Total: <span class='labels'>{{$total}} </span>
     <form action='{{route('user.index')}}' method='post' style='color: #874983;display: inline-block'>
         @csrf
         <input type='text' name='user_name' placeholder='nome ou sobrenome' value=''>
-        <select class='select' name='account_id'>
-            <option  class='select' value=''>
-                Qualquer empresa
-            </option>
-            @foreach ($accounts as $account)
-            <option  class='select' value='{{$account->id}}'>
-                {{$account->name}}
-            </option>
-            @endforeach
-            <option  class='select' value=''>
-                todas
-            </option>
-        </select>
         <input class='btn btn-secondary' type='submit' value='FILTRAR'>
     </form>
 </div>
@@ -50,9 +37,6 @@ Total: <span class='labels'>{{$total}} </span>
         </td>
         <td   class='table-list-header'>
             NOME 
-        </td>
-        <td   class='table-list-header'> 
-            EMPRESA
         </td>
         <td   class='table-list-header'>
             EMAIL
@@ -85,19 +69,6 @@ Total: <span class='labels'>{{$total}} </span>
                 </button>
             </a>
             {{$user->contact->name}}
-        </td>
-
-        <td class='table-list-left'>
-            @foreach ($user->accounts as $account)
-            <a class='white'  href=' {{route('account.show', ['account' => $account->id])}}'>
-                <button class='button-round'>
-                    <i class='fa fa-eye'></i>
-                </button> 
-            </a>
-            {{$account->name}}</li>
-            <br>
-            </a>
-            @endforeach
         </td>
 
         <td class='table-list-left'>

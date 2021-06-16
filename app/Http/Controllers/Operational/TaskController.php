@@ -325,9 +325,6 @@ class TaskController extends Controller {
     }
 
     public function filterTasks(Request $request) {
-        $today = date('Y-m-d');
-//dd($request);
-        
         $tasks = Task::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->user_id) {
@@ -350,16 +347,11 @@ class TaskController extends Controller {
                     }
                     if ($request->status == '') {
                         // busca todos
-//                    } elseif ($request->status == 'fazer') {
-//                        $query->where('status', 'fazer');
-//                        $query->doesntHave('journeys');
                     } elseif ($request->status == 'fazendo') {
                         $query->where('status', 'fazer');
                         $query->whereHas('journeys');
                     } elseif ($request->status) {
                         $query->where('status', $request->status);
-//                    } else {
-//                        $query->where('status', 'fazer');
                     }
                 })
                 ->with(
@@ -368,17 +360,16 @@ class TaskController extends Controller {
                         'user.contact',
                 )
 //                ->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelada', 'feito')"))
-//                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
                 ->orderBy('date_due', 'DESC')
                 ->paginate(20);
-//dd($tasks);
+
         $tasks->appends([
             'name' => $request->name,
             'status' => $request->status,
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
         ]);
-//dd($tasks);
+
         return $tasks;
     }
 

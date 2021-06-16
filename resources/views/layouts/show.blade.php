@@ -16,7 +16,7 @@
         <div class='container-fluid'>
             <div class='row' style='background-color: #EEEEEE'>
                 @include('layouts.sidebar')
-                <main role='main' class='offset-2 col-md-9 ml-sm-auto col-lg-10 px-4' style='background-color: #EEEEEE'>
+                <main role='main' class='offset-2 col-md-9 ml-sm-auto col-lg-10 px-2' style='background-color: #EEEEEE'>
 
                     <div class='row' style='margin-top: 10px'>
                         @include('layouts.header')

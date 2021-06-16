@@ -25,13 +25,19 @@ class Account extends Model {
 		'employees',
 		'status',
 		'cnpj', 
-		'revenues',
 		'logo',
 		'principal_color',
 		'complementary_color',
 		'opposite_color',
+		'business_model',
+		'competitive_advantage',
+		'revenues',
+		'value_offer',
+		'status',
 	];
 
+        
+        // RELACIONAMENTOS
 	public function bankAccounts() {
 		return $this->hasMany(BankAccount::class, 'id', 'account_id');
 	}
@@ -74,4 +80,28 @@ class Account extends Model {
 	public function users() {
 		return $this->belongsToMany(User::class, 'users_accounts', 'account_id', 'user_id');
 	}
+
+    // MÉTODOS PÚBLICOS
+
+    public static function businessModelTypes() {
+        $businessModelTypes = [
+            'B2B' => ' B2B - Business to Business',
+            'B2C' => 'B2C - Business to Consumer',
+            'B2E' => 'B2E - Business to Employee',
+            'B2P' => 'B2P -  Business to Producer ',
+            'B2G' => ' B2P - Business to Government',
+            'B2B2C' => 'B2P - Business to Business to Consumer',
+            'C2C' => 'B2P - Consumer to Consumer',
+            'D2C' => 'B2P - Direct to Consumer ',
+        ];
+        return $businessModelTypes;
+    }
+    
+            public static function returnStatus() {
+            return $status = [
+                'ativa',
+                'desativada',
+            ];
+        }
+
 }

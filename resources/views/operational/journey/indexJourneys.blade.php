@@ -20,15 +20,10 @@
 
 @section('main')
 <div style="text-align:right">
-    <form id="filter" action="{{route('journey.filter')}}" method="post" style="text-align: right;display:none">
-        @csrf
+    <form id="filter" action="{{route('journey.index')}}" method="get" style="text-align: right;display:none">
         <input type="text" name="name" placeholder="nome da tarefa" value="">
         <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
         <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
-        {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
-        {{createFilterSelect('department', 'select', $departments, 'Todos os departamentos')}}
-        {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
-        {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
         {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
         <br>
         <a class="text-button secondary" href='{{route('journey.index')}}'>
@@ -63,25 +58,17 @@
     @foreach ($journeys as $journey)
     <tr style="font-size: 14px">
         <td class="table-list-left">
-            <button class="button-round">
-                <a href=" {{ route('journey.show', ['journey' => $journey]) }}">
-                    <i class='fa fa-eye' style="color:white"></i></a>
-            </button>
-            <button class="button-round">
-                <a href=" {{ route('journey.edit', ['journey' => $journey]) }}">
-                    <i class='fa fa-edit' style="color:white"></i></a>
-            </button>
+            <a href=" {{route('journey.show', ['journey' => $journey])}}">
+                <button class="button-round">
+                    <i class='fa fa-eye' style="color:white"></i>
+                </button>
             {{date('d/m/Y', strtotime($journey->date))}}
+            </a>
         </td>
         <td class="table-list-left">
-            <button class="button-round">
-                <a href=" {{ route('task.show', ['task' => $journey->task_id]) }}">
-                    <i class='fa fa-eye' style="color:white"></i></a>
-            </button>
-            @isset($journey->task)
-            {{$journey->task->name}}
-            @endisset
-
+            <a class="white" href=" {{route('task.show', ['task' => $journey->task_id])}}">
+                {{$journey->task->name}}
+            </a>
         </td>
         <td class="table-list-center">
             {{$journey->user->contact->name}}

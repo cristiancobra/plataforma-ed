@@ -128,7 +128,7 @@ class CompanyController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $businessModelTypes = $this->businessModelTypes();
+        $businessModelTypes = Account::businessModelTypes();
 
         return view('sales.companies.editCompany', compact(
                         'company',
@@ -168,7 +168,7 @@ class CompanyController extends Controller {
     public function destroy(Company $company) {
         $typeCompanies = $company->type;
         $company->delete();
-        
+
         return redirect()->route('company.index', compact(
                                 'typeCompanies',
         ));

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddClientBusinessModelColumnInCompaniesTable extends Migration
+class AddBusinessModelColumnInCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddClientBusinessModelColumnInCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-                    $table->string('business_model')->nullable();;
+//                    $table->string('business_model')->nullable();
         });
     }
 

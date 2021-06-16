@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\Administrative\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\Contact;
 use App\Models\Account;
+use App\Models\Contact;
+use App\Models\Image;
 use App\Models\Journey;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,35 +22,13 @@ class UserController extends Controller {
      */
     public function index(Request $request) {
 
-        $accounts = Account::whereHas('users', function ($query) use ($request) {
-                    if ($request['role'] === "superadmin") {
-                        $query->where('users.id', '>', 0);
-                    } elseif ($request['role'] === "administrator" OR $request['role'] === "employee") {
-                        $query->where('users.id', Auth::user()->id);
-                    }
+  $users = User::where(function ($query) use ($request) {
+                    $query->where('account_id', auth()->user()->account_id);
                 })
-                ->get();
-
-        $accountsId = $accounts->pluck('id');
-
-        $users = User::with('contact')
-                ->whereHas('accounts', function ($query) use ($accountsId, $request) {
-                    if ($request['role'] === "superadmin") {
-                        $query->where('accounts.id', '>', 0);
-                    } elseif ($request['role'] === "administrator" OR $request['role'] === "employee") {
-                        $query->whereIn('accounts.id', $accountsId);
-                    }
-                    if (isset($request->account_id)) {
-                        $query->where('account_id', '=', $request->account_id);
-                    } else {
-                        $query->where('accounts.id', '>', 0);
-                    }
-                })
-                ->whereHas('contact', function ($query) use ($request) {
-                    if (!isset($request->contact_name)) {
-                        $query->where('contacts.name', 'like', "%$request->user_name%");
-                    }
-                })
+                ->with([
+                    'contact',
+                ])
+                ->orderBy('ID', 'ASC')
                 ->paginate(20);
 
         $users->appends([
@@ -59,9 +38,8 @@ class UserController extends Controller {
 
         $total = $users->total();
 
-        return view('users.indexUsers', compact(
+        return view('administrative.users.index', compact(
                         'users',
-                        'accounts',
                         'total',
         ));
     }
@@ -72,25 +50,25 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-            $accounts = Account::whereIn('id', userAccounts())
-                    ->orderBy('ID', 'ASC')
-                    ->get();
-            
-            $accountsChecked = Account::whereHas('users', function ($query) {
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $accountsChecked = Account::whereHas('users', function ($query) {
                     $query->where('users.id', Auth()->user()->id);
                 })
                 ->pluck('id')
                 ->toArray();
 
-            $contacts = Contact::whereIn('account_id', userAccounts())
-                    ->orderBy('ID', 'ASC')
-                    ->get();
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
 
-            return view('users.create', compact(
-                'accounts',
-                'accountsChecked',
-                'contacts',
-            ));
+        return view('administrative.users.create', compact(
+                        'accounts',
+                        'accountsChecked',
+                        'contacts',
+        ));
     }
 
     /**
@@ -127,8 +105,8 @@ class UserController extends Controller {
             $user->save();
             $user->accounts()->sync($request->accounts);
 
-            return view('users.showUser', compact(
-                'user',
+            return view('administrative.users.show', compact(
+                            'user',
             ));
         }
     }
@@ -140,12 +118,10 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(User $user) {
-        $userAuth = Auth::user();
 
-        return view('users.showUser', [
-            'user' => $user,
-            'userAuth' => $userAuth,
-        ]);
+        return view('administrative.users.show', compact(
+                        'user',
+        ));
     }
 
     /**
@@ -161,16 +137,19 @@ class UserController extends Controller {
                 ->pluck('id')
                 ->toArray();
 
-            $accounts = Account::whereIn('id', userAccounts())
-                    ->orderBy('ID', 'ASC')
-                    ->get();
-
-            return view('users.edit', compact(
-                'user',
-                'accounts',
-                'accountsChecked',
-            ));
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('ID', 'ASC')
+                ->get();
         
+        $images = Image::where('account_id', auth()->user()->id)
+                ->get();
+
+        return view('administrative.users.edit', compact(
+                        'user',
+                        'accounts',
+                        'accountsChecked',
+                        'images',
+        ));
     }
 
     /**
@@ -189,9 +168,9 @@ class UserController extends Controller {
         if (!empty($request->password)) {
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
-        if($request->file) {
-        $path = $request->file('profile_picture')->store('profile_pictures');
-        $user->profile_picture = $path;
+        if ($request->file) {
+            $path = $request->file('profile_picture')->store('profile_pictures');
+            $user->profile_picture = $path;
         }
 //        dd($request);
         $user->update();

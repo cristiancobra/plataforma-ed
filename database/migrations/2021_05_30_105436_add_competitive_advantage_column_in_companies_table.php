@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddClientCompetitiveAdvantageColumnInCompaniesTable extends Migration
+class AddCompetitiveAdvantageColumnInCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddClientCompetitiveAdvantageColumnInCompaniesTable extends Migration
     public function up()
     {
         Schema::table('companies', function (Blueprint $table) {
-                       $table->string('competitive_advantage')->nullable();
+//                       $table->string('competitive_advantage')->nullable();
         });
     }
 
