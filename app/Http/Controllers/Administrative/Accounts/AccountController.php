@@ -21,18 +21,18 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::user()->id);
-                })
-                ->with('image')
-                ->paginate(20);
-
-        $total = $accounts->count();
-
-        return view('administrative.accounts.index', compact(
-                        'accounts',
-                        'total',
-        ));
+//        $accounts = Account::whereHas('users', function ($query) {
+//                    $query->where('users.id', Auth::user()->id);
+//                })
+//                ->with('image')
+//                ->paginate(20);
+//
+//        $total = $accounts->count();
+//
+//        return view('administrative.accounts.index', compact(
+//                        'accounts',
+//                        'total',
+//        ));
     }
 
     /**
@@ -79,6 +79,10 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Account $account) {
+//        if($account->id != auth()->user()->account_id) {
+//            echo "Você não possui permissão para acessar esta página.";
+//            redirect()->back();
+//        }else{
         $productsPlataforma = [4, 65, 67, 73];
         $invoiceLines = InvoiceLine::whereHas('product', function ($query) use ($productsPlataforma) {
                     $query->whereIn('product_id', $productsPlataforma);

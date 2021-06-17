@@ -7,19 +7,6 @@
             </a>
         </div>
 
-        {{createSidebarItem('COMUNICAÇÃO', 'fa fa-comments', 'dropdownMenuComunicacao', [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'EMAILS',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => '/emails'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'MENSAGENS',
-                                                                                                                                                        'faIcon' => 'fas fa-comments',
-                                                                                                                                                        'link' => 'https://nuvem.empresadigital.net.br/index.php/apps/spreed/'
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
-
         @if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador" OR Auth::user()->perfil == "dono")
 
         {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', [
@@ -96,6 +83,11 @@
                                                                                                                                                         'name' => 'DOMÍNIOS',
                                                                                                                                                         'faIcon' => 'fas fa-window-maximize',
                                                                                                                                                         'link' => '/domains'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                       'name' => 'EMAILS',
+                                                                                                                                                        'faIcon' => 'fas fa-envelope',
+                                                                                                                                                        'link' => route('email.index')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'RELATÓRIOS',
@@ -207,7 +199,7 @@
                                                                                                                                                         'link' => route('question.index'),
                                                                                                                                                         ],
                                                                                                                                                     ])}}
-                                                                                                                                                    
+
         {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'EMAIL DO USUÁRIO<br>',

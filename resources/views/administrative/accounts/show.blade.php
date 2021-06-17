@@ -11,7 +11,6 @@
 
 @section('buttons')
 {{createButtonBack()}}
-{{createButtonList('account')}}
 @endsection
 
 @section('main')

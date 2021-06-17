@@ -23,7 +23,7 @@ class AddColumnsInContactsTable extends Migration {
 			$table->string('religion')->nullable();
 			$table->string('etinicity')->nullable();
 			$table->string('naturality')->nullable();
-			$table->string('sexual_orientation')->nullable();
+			$table->string('gender')->nullable();
 			$table->string('schollarity')->nullable();
 			$table->string('income')->nullable();
 			$table->string('civil_state')->nullable();

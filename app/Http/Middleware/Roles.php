@@ -21,6 +21,10 @@ class Roles
 		}
 		elseif(Auth::user()->perfil == 'super administrador') {
 			$role = "superadmin";
+//                        $account->id != auth()->user()->account_id) {
+//            echo "Você não possui permissão para acessar esta página.";
+            dd($request->route('account'));
+//            redirect()->back();
 		}
 		elseif(Auth::user()->perfil == 'dono') {
 			$role = "dono";
@@ -37,7 +41,10 @@ class Roles
 			return redirect('painel');
 		}
 		
-		$request->merge(['role' => $role]);
+		$request->merge([
+                    'role' => $role,
+                    'account_id' => auth()->user()->account_id,
+                        ]);
 		
         return $next($request);
     }
