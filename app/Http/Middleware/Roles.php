@@ -36,9 +36,9 @@ class Roles {
         }
 
         if ($request->route('account')) {
-            echo 'nulo';
+            echo 'tem account';
         } else {
-            echo 'nao nulo';
+            echo 'nao tem account';
         }
 //                dd($request->route('account'))
         $request->merge([
