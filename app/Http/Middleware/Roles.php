@@ -23,7 +23,7 @@ class Roles
 			$role = "superadmin";
 //                        $account->id != auth()->user()->account_id) {
 //            echo "Você não possui permissão para acessar esta página.";
-            dd($request->route('account'));
+//            dd($request->route('account'));
 //            redirect()->back();
 		}
 		elseif(Auth::user()->perfil == 'dono') {
@@ -43,7 +43,7 @@ class Roles
 		
 		$request->merge([
                     'role' => $role,
-                    'account_id' => auth()->user()->account_id,
+//                    'account_id' => auth()->user()->account_id,
                         ]);
 		
         return $next($request);
