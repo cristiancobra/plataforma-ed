@@ -23,7 +23,7 @@ mix.js('resources/js/app.js', 'public/js')
     'resources/css/report.css',
     'resources/css/dashboard.css',
     'resources/css/edit.css',
-    'resources/css/list.css',
+    'resources/css/index.css',
     'resources/css/show.css',
     'resources/css/style.css'
         ], 'public/css/style.css')

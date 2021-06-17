@@ -529,16 +529,16 @@ if (!function_exists('formatPriority')) {
     function formatPriority($model) {
         switch ($model->priority) {
             case 'baixa':
-                echo '<td class="td-low">baixa</td>';
+                echo '<div class="col-1 tb tb-low text-center">baixa</div>';
                 break;
             case 'média':
-                echo '<td class="td-medium">média</td>';
+                echo '<div class="col-1 tb tb-medium text-center">média</div>';
                 break;
             case 'alta':
-                echo '<td class="td-high">alta</td>';
+                echo '<div class="col-1 tb tb-high text-center">alta</div>';
                 break;
             case 'emergência':
-                echo '<td class="td-emergency">emergência</td>';
+                echo '<div class="col-1 tb tb-emergency text-center">emergência</div>';
                 break;
         }
     }
@@ -738,19 +738,19 @@ if (!function_exists('formatStatus')) {
     function formatStatus($model) {
         switch ($model->status) {
             case 'cancelado':
-                echo '<td class="td-canceled">cancelada</td>';
+                echo '<div class="col-1 tb tb-canceled text-center">cancelada</div>';
                 break;
             case 'fazer':
-                echo '<td class="td-toDo">fazer</td>';
+                echo '<div class="col-1 tb tb-toDo text-center">fazer</div>';
                 break;
             case 'fazendo':
-                echo '<td class="td-doing">fazendo</td>';
+                echo '<div class="col-1 tb tb-doing text-center">fazendo</div>';
                 break;
             case 'feito':
-                echo '<td class="td-done">feito</td>';
+                echo '<div class="col-1 tb tb-done text-center">feito</div>';
                 break;
             case 'aguardar':
-                echo '<td class="td-stuck">aguardar</td>';
+                echo '<div class="col-1 tb tb-stuck text-center">aguardar</div>';
                 break;
         }
     }

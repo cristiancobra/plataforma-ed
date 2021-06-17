@@ -53,7 +53,7 @@
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
-                <a href='{{route('transaction.filter')}}'>
+                <a href='{{route('transaction.index')}}'>
                 ENTRADAS:
                 </a>
                 <br>
@@ -293,7 +293,7 @@
                     {{$user->contact->name}}
                 </td>
                 <td class='table-list-center'>
-                    <a class='white' href=' {{route('journey.filter', [
+                    <a class='white' href=' {{route('journey.index', [
                                                                                             'user_id' => $user->id,
                                                                                             'date_start' => date('Y-m-d'),
                                                                                             'date_end' => date('Y-m-d'),
@@ -302,7 +302,7 @@
                     </a>
                 </td>
                 <td class='table-list-center'>
-                    <a class='white' href=' {{route('journey.filter', [
+                    <a class='white' href=' {{route('journey.index', [
                                                                                             'user_id' => $user->id,
                                                                                             'date_start' => date('Y-m-1'),
                                                                                             'date_end' => date('Y-m-31'),

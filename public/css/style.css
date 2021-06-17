@@ -694,19 +694,24 @@ table{
 
 /*nova tabela com DIVS e bootstrap*/
 .tb { 
-    display: table-cell;  
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 4px;
     padding-bottom: 4px;
     color: #874983;
-    vertical-align:super;
     font-size:14px;
-    border-color: #874983;
+    border-color: rgba(135, 73, 131,0.50);
     border-style: solid;
     border-width: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.tb::hover{ 
+    background-color: #f9d0ff;
 }
 
+/*STATUS*/
 .td-aproved{
     background-color: #C3FEEF;
 }
@@ -731,6 +736,8 @@ table{
     text-align: center;
     background-color: #c28dbf;
     font-size:15px;
+    display: flex;
+    justify-content: center;
 }
 
 .tb-header-start{ 
@@ -739,6 +746,8 @@ table{
     background-color: #c28dbf;
     font-size:15px;
     border-radius: 8px 0 0 0;
+    display: flex;
+    justify-content: center;
 }
 
 .tb-header-end { 
@@ -747,6 +756,8 @@ table{
     background-color: #c28dbf;
     font-size:15px;
     border-radius: 0 8px 0 0;
+    display: flex;
+    justify-content: center;
 }
 
 .table-header-right{ 
@@ -766,47 +777,47 @@ td {
     vertical-align:super;
 }
 
-/*  ----Status---- */
+/*  PRIORITIES */
 
-.td-low{
-    display: table-cell;  
+.tb-low {
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
     background-color:#B9A4D0;
     border-style: solid;
     border-width: 1px; 
+    justify-content: center;
 }
 
 
-.td-medium{
-    display: table-cell;  
+.tb-medium{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
     background-color: #9A8ABF;
     border-style: solid;
     border-width: 1px; 
+    justify-content: center;
 }
 
-.td-high{
-    display: table-cell;  
+.tb-high{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
     background-color: #6357A1;
     border-style: solid;
     border-width: 1px; 
+    justify-content: center;
 }
 
-.td-emergency{
-    display: table-cell;  
+.tb-emergency{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
     background-color: #392F6D;
     border-style: solid;
     border-width: 1px; 
+    justify-content: center;
 }
 
 .td-contract{
@@ -833,16 +844,14 @@ td {
     border-color: white;
 }
 
-.td-done{
-    display: table-cell;  
+.tb-done{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #A5D9CC;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 .td-disabled{
     display: table-cell;  
@@ -855,29 +864,24 @@ td {
     border-width: 1px; 
     border-color: white;
 }
-.td-doing{
-    display: table-cell;  
+.tb-doing{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #92C4D4;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
-.td-toDo{
-    display: table-cell;  
+.tb-toDo{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #F2E28C;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
-
+    justify-content: center;
 }
 
 .td-production{
@@ -892,28 +896,24 @@ td {
     border-color: white;
 }
 
-.td-stuck{
-    display: table-cell;  
+.tb-stuck{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #F7AFB4;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
-.td-canceled{
-    display: table-cell;  
+.tb-canceled{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #E5E5E5;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
 .td-conclude{
@@ -1102,7 +1102,8 @@ td {
     border-radius: 100%;
     color: white;
     transition-duration: 0.4s;
-    margin: 2px;
+    margin-left: 3px;
+    margin-right: 8px;
 }
 
 .button-round:hover {
@@ -1135,6 +1136,97 @@ td {
     margin: 5px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/*PAGINATE*/ 
+.pagination {
+    display: flex;
+    padding-left: 0;
+    list-style: none;
+    border-radius: 0.25rem;
+}
+
+.page-link {
+    position: relative;
+    display: block;
+    padding: 0.5rem 0.75rem;
+    margin-left: -1px;
+    line-height: 1.25;
+    color: #874983;
+    background-color: white;
+    border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+    z-index: 2;
+    color: white;
+    text-decoration: none;
+    background-color: #874983;
+    border-color: #dee2e6;
+}
+
+.page-link:focus {
+    z-index: 3;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+.page-item:first-child .page-link {
+    margin-left: 0;
+    border-top-left-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
+
+.page-item:last-child .page-link {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #874983;
+    border-color: #c28dbf;
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    pointer-events: none;
+    cursor: auto;
+    background-color: #fff;
+    border-color: #dee2e6;
+}
+
+.pagination-lg .page-link {
+    padding: 0.75rem 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.5;
+}
+
+.pagination-lg .page-item:first-child .page-link {
+    border-top-left-radius: 0.3rem;
+    border-bottom-left-radius: 0.3rem;
+}
+
+.pagination-lg .page-item:last-child .page-link {
+    border-top-right-radius: 0.3rem;
+    border-bottom-right-radius: 0.3rem;
+}
+
+.pagination-sm .page-link {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7875rem;
+    line-height: 1.5;
+}
+
+.pagination-sm .page-item:first-child .page-link {
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
+}
+
+.pagination-sm .page-item:last-child .page-link {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
 }
 /*
 To change this license header, choose License Headers in Project Properties.

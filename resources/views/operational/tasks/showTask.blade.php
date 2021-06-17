@@ -33,7 +33,7 @@
 
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-md-2 col-sm-4' style='text-align: center'>
     <div class='show-label'>
         CONTATO
     </div>
@@ -44,7 +44,7 @@
         OPORTUNIDADE
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($task->contact->name))
         {{$task->contact->name}}
@@ -72,10 +72,8 @@
         @endisset
     </div>
 </div>
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
-    <div class='show-label'>
-        CONTA
-    </div>
+
+<div class='col-md-2 col-sm-4' style='text-align: center'>
     <div class='show-label'>
         DEPARTAMENTO
     </div>
@@ -83,10 +81,7 @@
         RESPONSÁVEL
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
-    <div class='show-field-end'>
-        {{$task->account->name}}
-    </div>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         {{$task->department}}
     </div>
@@ -99,7 +94,6 @@
     </div>
 </div>
 @endsection
-
 
 
 @section('date_start')
@@ -143,87 +137,71 @@
 @endsection
 
 @section('execution')
-<div class='row' style='margin-top: 30px'>
-    <div class='col-12' style='text-align: left'>
-        <div class='show-label-large'>
-            EXECUÇÃO
-        </div>
-        <div class='show-description'>
-            <table class='table-show'>
-                <tr>
-                    <td   class='table-list-header' style='width: 15%'>
-                        ID
-                    </td>
-                    <td   class='table-list-header' style='width: 20%'>
-                        FUNCIONÁRIO
-                    </td>
-                    <td   class='table-list-header' style='width: 45%'>
-                        OBSERVAÇÕES
-                    </td>
-                    <td   class='table-list-header' style='width: 5%'>
-                        DATA 
-                    </td>
-                    <td   class='table-list-header' style='width: 5%'>
-                        INÍCIO 
-                    </td>
-                    <td   class='table-list-header' style='width: 5%'>
-                        TÉRMINO 
-                    </td>
-                    <td   class='table-list-header' style='width: 5%'>
-                        DURAÇÃO
-                    </td>
-                </tr>
-                @foreach ($task->journeys as $journey)
-                <tr style='font-size: 14px'>
-                    <td class='table-list-left'>
-                        <button class='button-round'>
-                            <a href=' {{route('journey.show', ['journey' => $journey])}}'>
-                                <i class='fa fa-eye' style='color:white'></i>
-                            </a>
-                        </button>
-                        <button class='button-round'>
-                            <a href=' {{route('journey.edit', ['journey' => $journey])}}'>
-                                <i class='fa fa-edit' style='color:white'></i>
-                            </a>
-                        </button>
-                        {{$journey->id}}
-                    </td>
-                    <td class='table-list-center'>
-                        {{$journey->user->contact->name}}
-                    </td>
-                    <td class='table-list-left'>
-                        {!!html_entity_decode($journey->description)!!}
-                    </td>
-                    <td class='table-list-center'>
-                        @if($journey->date == date('Y-m-d'))
-                        hoje
-                        @else
-                        {{dateBr($journey->date)}}
-                        @endif
-                    </td>
-                    <td class='table-list-center'>
-                        {{date('H:i', strtotime($journey->start_time))}}
-                    </td>
-                    <td class='table-list-center'>
-                        @if($journey->end_time == null)
-                        --
-                        @else
-                        {{date('H:i', strtotime($journey->end_time))}}
-                        @endif
-                    </td>
-                    <td class='table-list-center' style='color:white;background-color: #874983'>
-                        {{gmdate('H:i', $journey->duration)}}
-                    </td>
-                </tr>
-                @endforeach
-                <tr>
-                    <td   class='table-list-header' style='text-align: right;padding: 5px;padding-right: 25px;font-size: 16px' colspan='7'>
-                        Tempo total:   {{number_format($totalDuration / 3600, 1, ',','.')}}
-                        <br>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<div class='row'>
+    <div class='col-1 tb tb-header'>
+        ID
+    </div>
+    <div class='tb tb-header col-3'>
+        FUNCIONÁRIO
+    </div>
+    <div class='tb tb-header col-4'>
+        OBSERVAÇÕES
+    </div>
+    <div class='tb tb-header col-1'>
+        DATA
+    </div>
+    <div class='tb tb-header col-1'>
+        INÍCIO
+    </div>
+    <div class='tb tb-header col-1'>
+        TÉRMINO
+    </div>
+    <div class='tb tb-header col-1'>
+        DURAÇÃO
+    </div>
+</div>
+@foreach ($task->journeys as $journey)
+<div class='row'>
+    <div class='tb col-1'>
+        <button class='button-round'>
+            <a href=' {{route('journey.show', ['journey' => $journey])}}'>
+                <i class='fa fa-eye' style='color:white'></i>
+            </a>
+        </button>
+        {{$journey->id}}
+    </div>
+    <div class='tb col-3'>
+        {{$journey->user->contact->name}}
+    </div>
+    <div class='tb col-4'>
+        {!!html_entity_decode($journey->description)!!}
+    </div>
+    <div class='tb col-1 text-center'>
+        @if($journey->date == date('Y-m-d'))
+        hoje
+        @else
+        {{dateBr($journey->date)}}
+        @endif
+    </div>
+    <div class='tb col-1 text-center'>
+        {{date('H:i', strtotime($journey->start_time))}}
+    </div>
+    <div class='tb col-1 text-center'>
+        @if($journey->end_time == null)
+        --
+        @else
+        {{date('H:i', strtotime($journey->end_time))}}
+        @endif
+    </div>
+    <div class='tb col-1 text-center' style='color:white;background-color: #874983;border-color: white'>
+        {{gmdate('H:i', $journey->duration)}}
+    </div>
+</div>
+@endforeach
+<div class='row'>
+    <div class='tb tb-header col-12' style='text-align: right;padding: 5px;padding-right: 25px;font-size: 16px' colspan='7'>
+        Tempo total:   {{number_format($totalDuration / 3600, 1, ',','.')}}
+        <br>
     </div>
 </div>
 

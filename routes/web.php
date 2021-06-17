@@ -186,11 +186,6 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
-// journeys
-//Route::any('/jornadas/filtros', 'Operational\\JourneyController@filter')
-//        ->name('journey.filter')
-//        ->middleware('roles');
-
 Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport')
         ->name('journey.reports')
         ->middleware('roles');

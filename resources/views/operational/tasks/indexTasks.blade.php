@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title','TAREFAS')
 
@@ -18,54 +18,8 @@
 </a>
 @endsection
 
-@section('main')
-<div class='row justify-content-end'>
-        <div class='col-lg-3 d-inline-block tasks-my'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'contact_id' => '',
-				'user_id' => Auth::user()->id,
-				])}}'>
-            <p class='panel-number'>
-                {{$myTasksPendingAmount}}
-            </p>
-            <p class='panel-text'>
-                minhas pendências
-            </p>
-        </a>
-    </div>
-    <div class='col-lg-3 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'priority' =>'',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-            <p class='panel-number'>
-                {{$teamTasksEmergencyAmount}}
-            </p>
-            <p class='panel-text'>
-                emergências equipe
-            </p>
-        </a>
-    </div>
 
-    <div class='col-lg-3 d-inline-block tasks-emergency'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-                                                                        'priority' =>'emergência',
-				'contact_id' => '',
-				'user_id' => Auth::user()->id,
-				])}}'>
-            <p class='panel-number'>
-                {{$myTasksEmergencyAmount}}
-            </p>
-            <p class='panel-text'>
-                minhas emergências
-            </p>
-        </a>
-    </div>
-</div>
+@section('filter')
 <form id="filter" action="{{route('task.index')}}" method="get" style="text-align: right;display:none">
     <input type="text" name="name" placeholder="nome da tarefa" value="">
     {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
@@ -80,118 +34,149 @@
     </a>
     <input class="text-button primary" type="submit" value="FILTRAR">
 </form>
-<br>
-<table class="table-list">
-    <tr>
-        <td   class="table-list-header" style="width: 25%">
-            NOME
-        </td>
-        <td   class="table-list-header" style="width: 15%">
-            CONTATO
-        </td>
-        <td   class="table-list-header" style="width: 15%">
-            EMPRESA
-        </td>
-        <td   class="table-list-header" style="width: 15%">
-            CONTA
-        </td>
-        <td   class="table-list-header" style="width: 10%">
-            RESPONSÁVEL
-        </td>
-        <td   class="table-list-header" style="width: 10%">
-            PRAZO
-        </td>
-        <td   class="table-list-header" style="width: 5%">
-            PRIORIDADE
-        </td>
-        <td   class="table-list-header" style="width: 5%">
-            SITUAÇÃO
-        </td>
-    </tr>
+@endsection
 
-    @foreach ($tasks as $task)
-    <tr style="font-size: 14px">
-        <td class="table-list-left">
-            <a class="white" href=" {{ route('task.show', ['task' => $task->id]) }}">
-                <button class="button-round">
-                    <i class='fa fa-eye'></i>
-                </button>
-            </a>
-            <a href=" {{ route('task.edit', ['task' => $task->id]) }}">
-                <button class="button-round">
-                    <i class='fa fa-edit'></i>
-                </button>
-            </a>
-            {{$task->name}}
-        </td>
 
-        <td class="table-list-center">
+@section('shortcuts')
+<div class='col-lg-3 d-inline-block tasks-my'>
+    <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'contact_id' => '',
+				'user_id' => Auth::user()->id,
+				])}}'>
+        <p class='panel-number'>
+            {{$myTasksPendingAmount}}
+        </p>
+        <p class='panel-text'>
+            minhas pendências
+        </p>
+    </a>
+</div>
+<div class='col-lg-3 d-inline-block tasks-toDo'>
+    <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'priority' =>'',
+				'contact_id' => '',
+				'user_id' => '',
+				])}}'>
+        <p class='panel-number'>
+            {{$teamTasksEmergencyAmount}}
+        </p>
+        <p class='panel-text'>
+            emergências equipe
+        </p>
+    </a>
+</div>
+
+<div class='col-lg-3 d-inline-block tasks-emergency'>
+    <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                                                        'priority' =>'emergência',
+				'contact_id' => '',
+				'user_id' => Auth::user()->id,
+				])}}'>
+        <p class='panel-number'>
+            {{$myTasksEmergencyAmount}}
+        </p>
+        <p class='panel-text'>
+            minhas emergências
+        </p>
+    </a>
+</div>
+@endsection
+
+
+@section('table')
+<div class='row mt-2'>
+    <div class='tb tb-header-start col-3'>
+        NOME
+    </div>
+    <div class='tb tb-header col-2'>
+        CONTATO
+    </div>
+    <div class='tb tb-header col-2'>
+        EMPRESA
+    </div>
+    <div class='tb tb-header col-2'>
+        RESPONSÁVEL
+    </div>
+    <div class='tb tb-header col-1'>
+        PRAZO
+    </div>
+    <div class='tb tb-header col-1'>
+        PRIORIDADE
+    </div>
+    <div class='tb tb-header-end col-1'>
+        SITUAÇÃO
+    </div>
+</div>
+@foreach ($tasks as $task)
+<div class='row'>
+    <div class='tb col-3 justify-content-start' style="font-weight: 600">
+        <a class="white" href=" {{ route('task.show', ['task' => $task->id]) }}">
+            <button class="button-round">
+                <i class='fa fa-eye'></i>
+            </button>
+        </a>
+        <a href=" {{ route('task.edit', ['task' => $task->id]) }}">
+            <button class="button-round px-1">
+                <i class='fa fa-edit'></i>
+            </button>
+        </a>
+        {{$task->name}}
+    </div>
+    <div class='tb col-2 text-center'>
+        <a  class="white" href=" {{ route('contact.show', ['contact' => $task->contact_id]) }}">
             @if(isset($task->contact->name))
             {{$task->contact->name}}
             @else
             contato excluído
             @endif
-        </td>
-        <td class="table-list-center">
-            @if(isset($task->company->name))
-            {{$task->company->name}}
-            @else
-            não possui
-            @endif
-        </td>
-        <td class="table-list-center">
-            {{$task->account->name}}
-        </td>
-        <td class="table-list-center">
-            @if($task->user->profile_picture)
-            <div class='profile-picture-small'>
-                <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
-                    <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
-                </a>
-            </div>
-            @elseif(isset($task->user->contact->name))
-            {{$task->user->contact->name}}
-            @else
-            funcionário excluído
-            @endif
-        </td>	
-        <td class="table-list-center">
-            @if($task->date_due == date('Y-m-d'))
-            hoje
-            @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-            <p style="color: red">
-                {{dateBr($task->date_due)}}
-            </p>
-            @else
-            {{dateBr($task->date_due)}}
-            @endif
-        </td>
-        {{formatPriority($task)}}
-        @if($task->status == 'fazer' AND $task->journeys()->exists())
-        <td class="td-doing">
-            fazendo
-        </td>
+        </a>
+    </div>
+    <div class='tb col-2 text-center'>
+        @if(isset($task->company->name))
+        {{$task->company->name}}
         @else
-        {{formatStatus($task)}}
+        não possui
         @endif
-    </tr>
-    @endforeach
-</table>
-<p style="text-align: right">
-    <br>
-    {{$tasks->links()}}
-</p>
-<br>
+    </div>
+    <div class='tb col-2 text-center'>
+        @if($task->user->profile_picture)
+        <div class='profile-picture-small'>
+            <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
+                <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
+            </a>
+        </div>
+        @elseif(isset($task->user->contact->name))
+        {{$task->user->contact->name}}
+        @else
+        funcionário excluído
+        @endif
+    </div>
+    <div class='tb col-1 text-center'>
+        @if($task->date_due == date('Y-m-d'))
+        hoje
+        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+        <p style="color: red">
+            {{dateBr($task->date_due)}}
+        </p>
+        @else
+        {{dateBr($task->date_due)}}
+        @endif
+    </div>
+        {{formatPriority($task)}}
+        
+        @php
+        if($task->status == 'fazer' AND $task->journeys()->exists()) {
+        $task->status == 'fazendo';
+        }
+        @endphp
+        {{formatStatus($task)}}
+   
+</div>
+@endforeach
 @endsection
 
 @section('js-scripts')
-<script>
-    $(document).ready(function () {
-        //botao de exibir filtro
-        $("#filter_button").click(function () {
-            $("#filter").slideToggle(600);
-        });
-
-    });
-</script>
 @endsection

@@ -1,4 +1,4 @@
-<div class="col-9" style="font-size: 32px;margin-left: 15px;margin-right: -15px">
+<div class="col-sm-9 col-xs-12" style="font-size: 32px">
     <img src= @yield('image-top') width="30px" height="30px">
     @yield('title')
     @isset($total)
@@ -6,6 +6,6 @@
     <br>
     @endisset
 </div>
-<div class="col-3" style="text-align: right">
+<div class="col-sm-3 col-xs-12" style="text-align: right">
     @yield('buttons')
 </div>
