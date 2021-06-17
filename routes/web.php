@@ -60,9 +60,9 @@ Route::get('contas/dashboard/{account}', 'Administrative\\Accounts\\AccountContr
         ->name('account.dashboard')
         ->middleware('roles');
 
-Route::resource('accounts', 'Administrative\\Accounts\\AccountController')
+Route::resource('contas', 'Administrative\\Accounts\\AccountController')
         ->names('account')
-        ->parameters(['empresas' => 'accounts'])
+        ->parameters(['contas' => 'account'])
         ->middleware('roles');
 
 // users
