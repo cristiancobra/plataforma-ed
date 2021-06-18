@@ -569,7 +569,7 @@ class ComposerStaticInit801b8a188cf0f0a351bff2e29133a1c0
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
-        'App\\Http\\Controllers\\Accounts\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Accounts/AccountController.php',
+        'App\\Http\\Controllers\\Administrative\\Accounts\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administrative/Accounts/AccountController.php',
         'App\\Http\\Controllers\\Administrative\\Report\\QuestionController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administrative/Report/QuestionController.php',
         'App\\Http\\Controllers\\Administrative\\Report\\ReportController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administrative/Report/ReportController.php',
         'App\\Http\\Controllers\\Administrative\\Users\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administrative/Users/UserController.php',
@@ -634,7 +634,6 @@ class ComposerStaticInit801b8a188cf0f0a351bff2e29133a1c0
         'App\\Models\\Competitor' => __DIR__ . '/../..' . '/app/Models/Competitor.php',
         'App\\Models\\CompetitorReport' => __DIR__ . '/../..' . '/app/Models/CompetitorReport.php',
         'App\\Models\\Contact' => __DIR__ . '/../..' . '/app/Models/Contact.php',
-        'App\\Models\\ContactReport' => __DIR__ . '/../..' . '/app/Models/ContactReport.php',
         'App\\Models\\Contract' => __DIR__ . '/../..' . '/app/Models/Contract.php',
         'App\\Models\\ContractTemplate' => __DIR__ . '/../..' . '/app/Models/ContractTemplate.php',
         'App\\Models\\Domain' => __DIR__ . '/../..' . '/app/Models/Domain.php',

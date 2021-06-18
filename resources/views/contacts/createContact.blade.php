@@ -84,7 +84,8 @@
 
         <h2 class="name" for="">PROFISSIONAL</h2>
         <label for="">Profissão: </label>
-        <input type="text" name="profession">   
+        {{createSimpleSelect('profession', 'fields',  $professions) }}
+        <br>
         <br>
         <label for="">Empresa: </label>
         <br>
@@ -96,7 +97,8 @@
         @endforeach
         <br>
         <label for="">Cargo: </label>
-        <input type="text" name="job_position">   
+        {{createSimpleSelect('job_position', 'fields',  $job_positions) }}
+        <br>
         <br>
         <label for="">Escolaridade: </label>
         <select name="schollarity">
@@ -185,6 +187,9 @@
             <br>	
             <label for="">Estado Civil: </label>
             <select name="civil_state">
+                <option  class="fields" value="">
+
+                </option>
                 <option  class="fields" value="solteiro">
                     solteiro(a)
                 </option>
@@ -209,24 +214,35 @@
             <label for="">Filhos: </label>
             <input type="number" name="kids">   
             <br>
-            <label for="">Hobbie: </label>
-            <input type="text" name="hobbie">   
+            <label for="">Hobbie principal: </label>
+            {{createSimpleSelect('hobbie', 'fields',  $hobbies)}}
             <br>
             <label for="">Renda: </label>
             <input type="text" name="income">   
             <br>
             <label for="">Religião: </label>
-            <input type="text" name="religion">   
+            {{createSimpleSelect('religion', 'fields',  $religions)}}
             <br>
             <label for="">Etinia: </label>
-            <input type="text" name="etinicity">   
+            {{createSimpleSelect('etinicity', 'fields',  $etinicities)}}
             <br>
             <label for="">Gênero: </label>
-            <input type="text" name="gender">   
+            {{createSimpleSelect('gender', 'fields',  $genderTypes)}}
             <br>
             <br>
             <label for="">Tipo: </label>
-            <input type="text" name="type">
+            {{createSimpleSelect('type', 'fields',  $contactTypes)}}
+            <br>
+            <br>
+            <label  class="labels" for="">observações: </label>
+            <br>
+            <textarea id="observation" name="observation" rows="20" cols="90">
+            </textarea>
+            <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+            <script>
+    CKEDITOR.replace('observation');
+            </script>
             <br>
             <br>
             <label for="status">SITUAÇÃO: </label>

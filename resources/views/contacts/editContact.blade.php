@@ -73,7 +73,7 @@
         <br>
         <h2 class="name" for="">PROFISSIONAL</h2>
         <label for="">Profissão: </label>
-        <input type="text" name="profession" value="{{$contact->profession}}">
+        <input type="text" name="profession" value="{{$contact->professions}}">
         <br>
         <label for="">Empresa: </label>
         <br>
@@ -90,7 +90,7 @@
         <br>
         <br>
         <label for="">Cargo: </label>
-        <input type="text" name="job_position" value="{{$contact->job_position}}">
+        <input type="text" name="job_position" value="{{$contact->job_positions}}">
         <br>
         <label for="">Escolaridade: </label>
         <select name="schollarity">
@@ -174,32 +174,31 @@
         <br>
         <br>	
         <label for="">Estado Civil: </label>
-        <input type="text" name="civil_state" value="{{ $contact->civil_state }}"> 
+        <input type="text" name="civil_state" value="{{$contact->civil_state}}"> 
         <br>
         <label for="">Naturalidade: </label>
-        <input type="text" name="naturality" value="{{ $contact->naturality }}">
+        <input type="text" name="naturality" value="{{$contact->naturality}}">
         <br>
         <label for="">Filhos: </label>
-        <input type="text" name="kids" value="{{ $contact->kids }}"> 
+        <input type="text" name="kids" value="{{$contact->kids}}"> 
         <br>
-        <label for="">Hobbie: </label>
-        <input type="text" name="hobbie"  value="{{ $contact->hobbie }}">    
+        <label for="">Hobbie principal: </label>
+        {{createSimpleSelect('hobbie', 'fields',  $hobbies, $contact->hobbie)}}
         <br>
         <label for="">Renda: </label>
-        <input type="text" name="income" value="{{ $contact->income }}">    
+        <input type="text" name="income">   
         <br>
         <label for="">Religião: </label>
-        <input type="text" name="religion" value="{{ $contact->religion }}">
+        {{createSimpleSelect('religion', 'fields',  $religions, $contact->religion)}}
         <br>
         <label for="">Etinia: </label>
-        <input type="text" name="etinicity" value="{{ $contact->etinicity }}">    
+        {{createSimpleSelect('etinicity', 'fields',  $etinicities, $contact->etinicity)}}
         <br>
         <label for="">Gênero: </label>
-        <input type="text" name="gender" value="{{$contact->gender}}">    
+        {{createSimpleSelect('gender', 'fields',  $genderTypes, $contact->gender)}}
         <br>
-        <br>
-        <label  for="">Tipo: </label>
-        <input type="text" name="type" value="{{ $contact->type }}">
+        <label for="">Tipo: </label>
+        {{createSimpleSelect('type', 'fields',  $contactTypes) }}
         <br>
         <br>
         <label for="status">SITUAÇÃO: </label>

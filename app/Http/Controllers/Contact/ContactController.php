@@ -22,7 +22,7 @@ class ContactController extends Controller {
      */
     public function index(Request $request) {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
-                
+
 //                ->where(function ($query) use ($request) {
 //                    if ($request->name) {
 //                        $query->where('name', 'like', "%$request->name%");
@@ -57,11 +57,25 @@ class ContactController extends Controller {
                 ->get();
 
         $states = returnStates();
+        $genderTypes = Contact::returnGenderTypes();
+        $hobbies = Contact::returnHobbie();
+        $religions = Contact::returnReligion();
+        $etinicities = Contact::returnEtinicity();
+        $professions = Contact::returnProfession();
+        $job_positions = Contact::returnProfession();
+        $contactTypes = Contact::returnContactTypes();
 
         return view('contacts.createContact', compact(
                         'contacts',
                         'states',
                         'companies',
+                        'genderTypes',
+                        'hobbies',
+                        'religions',
+                        'etinicities',
+                        'professions',
+                        'job_positions',
+                        'contactTypes',
         ));
     }
 
@@ -120,7 +134,7 @@ class ContactController extends Controller {
      */
     public function edit(Contact $contact) {
         $accountsId = userAccounts();
-        
+
         $companies = Company::whereHas('account', function ($query) use ($accountsId) {
                     $query->whereIn('account_id', $accountsId);
                 })
@@ -133,12 +147,26 @@ class ContactController extends Controller {
                 ->toArray();
 
         $states = returnStates();
+        $genderTypes = Contact::returnGenderTypes();
+        $hobbies = Contact::returnHobbie();
+        $religions = Contact::returnReligion();
+        $etinicities = Contact::returnEtinicity();
+        $professions = Contact::returnProfession();
+        $job_positions = Contact::returnProfession();
+        $contactTypes = Contact::returnContactTypes();
 
         return view('contacts.editContact', compact(
                         'contact',
                         'companies',
                         'companiesChecked',
                         'states',
+                        'genderTypes',
+                        'hobbies',
+                        'religions',
+                        'etinicities',
+                        'professions',
+                        'job_positions',
+                        'contactTypes',
         ));
     }
 

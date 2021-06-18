@@ -8,7 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
-    'App\\Http\\Controllers\\Accounts\\AccountController' => $baseDir . '/app/Http/Controllers/Accounts/AccountController.php',
+    'App\\Http\\Controllers\\Administrative\\Accounts\\AccountController' => $baseDir . '/app/Http/Controllers/Administrative/Accounts/AccountController.php',
     'App\\Http\\Controllers\\Administrative\\Report\\QuestionController' => $baseDir . '/app/Http/Controllers/Administrative/Report/QuestionController.php',
     'App\\Http\\Controllers\\Administrative\\Report\\ReportController' => $baseDir . '/app/Http/Controllers/Administrative/Report/ReportController.php',
     'App\\Http\\Controllers\\Administrative\\Users\\UserController' => $baseDir . '/app/Http/Controllers/Administrative/Users/UserController.php',
@@ -73,7 +73,6 @@ return array(
     'App\\Models\\Competitor' => $baseDir . '/app/Models/Competitor.php',
     'App\\Models\\CompetitorReport' => $baseDir . '/app/Models/CompetitorReport.php',
     'App\\Models\\Contact' => $baseDir . '/app/Models/Contact.php',
-    'App\\Models\\ContactReport' => $baseDir . '/app/Models/ContactReport.php',
     'App\\Models\\Contract' => $baseDir . '/app/Models/Contract.php',
     'App\\Models\\ContractTemplate' => $baseDir . '/app/Models/ContractTemplate.php',
     'App\\Models\\Domain' => $baseDir . '/app/Models/Domain.php',
