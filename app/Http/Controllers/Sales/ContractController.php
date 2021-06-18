@@ -26,7 +26,7 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $contracts = Contract::whereIn('account_id', userAccounts())
+        $contracts = Contract::where('account_id', auth()->user()->account_id)
                 ->with([
                     'contact',
                     'account',

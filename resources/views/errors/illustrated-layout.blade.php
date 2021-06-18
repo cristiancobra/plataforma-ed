@@ -16,6 +16,7 @@
                 line-height: 1.15;
                     -ms-text-size-adjust: 100%;
                 -webkit-text-size-adjust: 100%;
+                background-color: #c28dbf;
             }
 
             body {
@@ -244,7 +245,7 @@
             }
 
             .bg-purple-light {
-                background-color: #a779e9;
+                background-color: #874983;
             }
 
             .bg-no-repeat {
@@ -379,6 +380,10 @@
                 color: #606f7b;
             }
 
+            .text-white {
+                color: white;
+            }
+
             .text-2xl {
                 font-size: 1.5rem;
             }
@@ -458,7 +463,7 @@
     </head>
     <body class="antialiased font-sans">
         <div class="md:flex min-h-screen">
-            <div class="w-full md:w-1/2 bg-white flex items-center justify-center">
+            <div class="w-full md:w-1/3 flex items-center justify-center">
                 <div class="max-w-sm m-8">
                     <div class="text-black text-5xl md:text-15xl font-black">
                         @yield('code', __('Oh no'))
@@ -466,20 +471,22 @@
 
                     <div class="w-16 h-1 bg-purple-light my-3 md:my-6"></div>
 
-                    <p class="text-grey-darker text-2xl md:text-3xl font-light mb-8 leading-normal">
+                    <p class="text-white text-2xl md:text-3xl font-light mb-8 leading-normal">
                         @yield('message')
                     </p>
 
                     <a href="{{ app('router')->has('home') ? route('home') : url('/') }}">
-                        <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
-                            {{ __('Go Home') }}
+                        <button class="bg-purple-light text-white font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
+                            {{ __('VOLTAR') }}
                         </button>
                     </a>
                 </div>
             </div>
 
-            <div class="relative pb-full md:flex md:pb-0 md:min-h-screen w-full md:w-1/2">
+            <div class="relative pb-full md:flex md:pb-0 md:min-h-screen w-full md:w-2/3">
+                <div style="display:flex; align-content: center;justify-content: center;margin-top:20%">
                 @yield('image')
+                </div>
             </div>
         </div>
     </body>

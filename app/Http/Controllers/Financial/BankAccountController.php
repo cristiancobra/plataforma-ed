@@ -19,16 +19,12 @@ class BankAccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $bankAccounts = BankAccount::whereHas('account', function ($query) {
-                    $query->whereIn('id', userAccounts());
-                })
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->with([
                     'account',
                     'bank',
                 ])
                 ->get();
-
-//        $total = $bankAccounts->total();
 
         return view('financial.bankAccounts.indexBankAccounts', compact(
                         'bankAccounts',

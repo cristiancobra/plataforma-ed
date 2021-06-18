@@ -11,21 +11,12 @@
 @endsection
 
 @section('main')
-<div style="padding-left: 6%">
-	<form action=" {{ route('planning.update', ['planning' =>$planning->id]) }} " method="post" style="padding: 40px;color: #874983">
+<div>
+	<form action=" {{ route('planning.update', ['planning' =>$planning->id]) }} " method="post">
 		@csrf
 		@method('put')
 		<label class="labels" for="" >NOME:</label>
 		<input type="text" name="name" size="20" value="{{$planning->name}}"><span class="fields"></span>
-		<br>
-		<label class="labels" for="" >DONO: </label>
-		<select name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
-			</option>
-			@endforeach
-		</select>
 		<br>
 		<br>
 		<label class="labels" for="" >DESCRIÇÃO:</label>

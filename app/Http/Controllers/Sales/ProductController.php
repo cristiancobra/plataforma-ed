@@ -20,7 +20,7 @@ class ProductController extends Controller {
      */
     public function index(Request $request) {
         $products = Product::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                     $query->where('type', '=', $request->variation);
                 })
                 ->with('image')

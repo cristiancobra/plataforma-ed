@@ -20,7 +20,6 @@
 @section('main')
 <form id="filter" action="{{route('journey.reports')}}" method="post" style="text-align: right">
     @csrf
-    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     <select class="select"name="year">
         <option  class="fields" value="2021">
             2021

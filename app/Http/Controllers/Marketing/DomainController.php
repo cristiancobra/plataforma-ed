@@ -12,138 +12,138 @@ use Illuminate\Http\Request;
 
 class DomainController extends Controller {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index() {
-		$domains = Domain::whereIn('account_id', userAccounts())
-				->with(['site', 'contact'])
-				->orderBy('NAME', 'ASC')
-				->paginate(20);
-//dd($domains);
-		$total = $domains->count();
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index() {
+        $domains = Domain::where('account_id', auth()->user()->account_id)
+                ->with(['site', 'contact'])
+                ->orderBy('NAME', 'ASC')
+                ->paginate(20);
 
-		return view('marketing.domains.index', compact(
-						'domains',
-						'total',
-		));
-	}
+        $total = $domains->count();
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
-		$accounts = Account::whereIn('id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+        return view('marketing.domains.index', compact(
+                        'domains',
+                        'total',
+        ));
+    }
 
-		$contacts = Contact::whereIn('account_id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create() {
+        $accounts = Account::whereIn('id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		$sites = Site::whereIn('account_id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		return view('marketing.domains.create', compact(
-						'accounts',
-						'contacts',
-						'sites',
-		));
-	}
+        $sites = Site::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request) {
-		Domain::create($request->all());
+        return view('marketing.domains.create', compact(
+                        'accounts',
+                        'contacts',
+                        'sites',
+        ));
+    }
 
-		return redirect()->action('Marketing\\DomainController@index');
-	}
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request) {
+        Domain::create($request->all());
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \App\Models\Domain  $domain
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(Domain $domain) {
-		$sites = Site::whereIn('account_id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+        return redirect()->action('Marketing\\DomainController@index');
+    }
 
-		return view('marketing.domains.show', compact(
-						'domain',
-						'sites',
-		));
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Domain  $domain
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Domain $domain) {
+        $sites = Site::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  \App\Models\Domain  $domain
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit(Domain $domain) {
-		$accounts = Account::whereHas('users', function($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
-				->get();
+        return view('marketing.domains.show', compact(
+                        'domain',
+                        'sites',
+        ));
+    }
 
-		$contacts = Contact::whereIn('account_id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Domain  $domain
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Domain $domain) {
+        $accounts = Account::whereHas('users', function ($query) {
+                    $query->whereIn('account_id', userAccounts());
+                })
+                ->get();
 
-		$sites = Site::whereIn('account_id', userAccounts())
-				->orderBy('NAME', 'ASC')
-				->get();
+        $contacts = Contact::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-		return view('marketing.domains.edit', compact(
-						'domain',
-						'accounts',
-						'contacts',
-						'sites',
-		));
-	}
+        $sites = Site::whereIn('account_id', userAccounts())
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\Domain  $domain
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, Domain $domain) { {
-			$domain->fill($request->all());
-			$domain->save();
+        return view('marketing.domains.edit', compact(
+                        'domain',
+                        'accounts',
+                        'contacts',
+                        'sites',
+        ));
+    }
 
-			$sites = Site::whereIn('account_id', userAccounts())
-					->orderBy('NAME', 'ASC')
-					->get();
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Domain  $domain
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Domain $domain) { {
+            $domain->fill($request->all());
+            $domain->save();
 
-			return view('marketing.domains.show', compact(
-				'domain',
-				'sites',
-			));
-		}
-	}
+            $sites = Site::whereIn('account_id', userAccounts())
+                    ->orderBy('NAME', 'ASC')
+                    ->get();
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  \App\Models\Domain  $domain
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy(Domain $domain) {
-		$domain->delete();
-		return redirect()->action('Marketing\\DomainController@index');
-	}
+            return view('marketing.domains.show', compact(
+                            'domain',
+                            'sites',
+            ));
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Domain  $domain
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Domain $domain) {
+        $domain->delete();
+        return redirect()->action('Marketing\\DomainController@index');
+    }
 
 }

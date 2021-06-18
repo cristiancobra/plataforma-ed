@@ -27,7 +27,7 @@ class OpportunityController extends Controller {
      */
     public function index(Request $request) {
         $opportunities = Opportunity::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                     $query->where('stage', '!=', 'concluída');
                     $query->where('status', '!=', 'perdemos');
                     $query->where('trash', '==', 0);

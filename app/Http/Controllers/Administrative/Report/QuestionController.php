@@ -16,7 +16,7 @@ class QuestionController extends Controller {
     public function index() {
         $questions = Question::all();
 
-        return view('reports.questions.index', compact(
+        return view('administrative.reports.questions.index', compact(
                         'questions',
         ));
     }
@@ -27,7 +27,7 @@ class QuestionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        return view('reports.questions.create');
+        return view('administrative.reports.questions.create');
     }
 
     /**

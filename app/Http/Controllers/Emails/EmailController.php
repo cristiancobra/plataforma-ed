@@ -20,9 +20,7 @@ class EmailController extends Controller {
 	 */
 	public function index(Request $request) {
 
-		$emails = Email::whereHas('account', function ($query) {
-					$query->whereIn('account_id', userAccounts());
-				})
+		$emails = Email::where('account_id', auth()->user()->account_id)
 				->with('user', 'account')
 				->get();
 

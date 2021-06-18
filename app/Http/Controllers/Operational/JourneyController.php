@@ -261,10 +261,6 @@ class JourneyController extends Controller {
             $year = date('y');
         }
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
         // calcular horas por USUÁRIOS
         if ($request->account_id == null) {
             $users = myUsers(['contact']);
@@ -321,7 +317,7 @@ class JourneyController extends Controller {
         }
 
         // calcular horas por DEPARTAMENTOS
-        $departments = returnDepartments();
+        $departments = Task::returnDepartments();
         $counterArray = 1;
         $counterAnnual = 1;
         foreach ($departments as $department) {

@@ -44,7 +44,7 @@
                             </p>
                         </div>
 
-                        <div class='row mt-1' style='text-align: right'>
+                        <div class='row mt-1 mb-5' style='text-align: right'>
                             <div class='col-12'style='text-align: right;padding-top: -10px'>
                                 <form   style='text-decoration: none;color: black;display: inline-block' action='@yield('deleteButton')' method='post'>
                                     @csrf

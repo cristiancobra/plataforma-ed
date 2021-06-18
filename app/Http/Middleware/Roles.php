@@ -36,14 +36,36 @@ class Roles {
         }
 
         if ($request->route('account')) {
-            echo 'tem account';
+            $account = $request->route('account');
+            $accountId = $account->id;
         } else {
-            echo 'nao tem account';
+            $accountId = auth()->user()->account_id;
         }
-//                dd($request->route('account'))
+        
+        if($accountId != auth()->user()->account_id) {
+             abort(403);
+        }
+
+//        if ($request->route('account')->get('')) {
+//            $account = $request->route('account');
+//            $accountId = $account->id;
+//        }else{
+//            $accountId = 0;
+//        }
+//        if ($request->route('user')) {
+//            $user = $request->route('user');
+//            $userId = $user->id;
+//        }else{
+//            $userId = 0;
+//        }
+//        if ($accountId != auth()->user()->account_id) {
+//            echo 'account é nulo ou igual';
+//            }
+//        } elseif ($user->id != null OR $user->id != auth()->user()->user_id) {
+//            echo 'USER é nulo ou igual';
+//        } else {
         $request->merge([
             'role' => $role,
-//                    'account_id' => auth()->user()->account_id,
         ]);
 
         return $next($request);

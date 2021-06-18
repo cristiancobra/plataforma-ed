@@ -23,7 +23,7 @@ class TransactionController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-        $transactions = Transaction::whereIn('account_id', userAccounts())
+        $transactions = Transaction::where('account_id', auth()->user()->account_id)
                 ->with([
                     'user',
                     'bankAccount',

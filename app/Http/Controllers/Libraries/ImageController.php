@@ -16,9 +16,9 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $images = Image::whereIn('account_id', userAccounts())
+        $images = Image::where('account_id', auth()->user()->account_id)
                 ->get();
-//dd($images);
+
         return view('libraries/images/index', compact(
                         'images',
         ));

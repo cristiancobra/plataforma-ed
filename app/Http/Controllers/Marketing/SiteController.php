@@ -16,7 +16,7 @@ class SiteController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index() {
-		$sites = Site::whereIn('account_id', userAccounts())
+		$sites = Site::where('account_id', auth()->user()->account_id)
 				->with('domains')
 				->orderBy('NAME', 'ASC')
 				->paginate(20);
