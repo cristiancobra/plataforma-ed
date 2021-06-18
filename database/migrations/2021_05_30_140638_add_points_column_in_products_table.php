@@ -13,7 +13,7 @@ class AddPointsColumnInProductsTable extends Migration {
      */
     public function up() {
         Schema::table('products', function (Blueprint $table) {
-            $table->decimal('points', 4, 1);
+            $table->decimal('points', 4, 1)->nullable();
         });
     }
 

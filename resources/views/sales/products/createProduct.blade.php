@@ -44,15 +44,6 @@
         <label class="labels" for="" >CNAE:</label>
         <input type="text" name="cnae" size="20" value="{{old('cnae')}}"><span class="fields"></span>
         <br>
-        <label class="labels" for="" >DONO: </label>
-        <select name="account_id">
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class="labels" for="" >CATEGORIA:</label>
         {{createSimpleSelect('category', 'fields', returnProductCategory())}}
         <br>

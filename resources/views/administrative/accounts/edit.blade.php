@@ -11,7 +11,6 @@
 
 @section('buttons')
 {{createButtonBack()}}
-{{createButtonList('account')}}
 @endsection
 
 @section('main')
@@ -25,7 +24,7 @@
     <label  class="labels" for="" >CNPJ: </label>
     <input type="text" name="cnpj"  value="{{$account->cnpj}}">
     <br>
-        <label class="labels" for="">Logomarca: </label>
+    <label class="labels" for="">Logomarca: </label>
     {{createSelectIdName('image_id', 'fields', $logos, 'Sem logo', $account->image)}}
     <br>
     <label class="labels" for="">Cor principal: </label>
@@ -59,7 +58,9 @@ CKEDITOR.replace('description');
     <input type="text" name="site" value="{{$account->site}}">   
     <br>
     <br>
-            <h2 class="name" for="">LOCALIZAÇÃO</h2>
+    <br>
+    <br>
+    <h2 class="name" for="">LOCALIZAÇÃO</h2>
     <label class="labels" for="">Endereço: </label>
     <input type="text" name="address"  value="{{$account->address}}">   
     <br>
@@ -76,14 +77,15 @@ CKEDITOR.replace('description');
     <input type="text" name="zip_code" value="{{$account->zip_code}}">
     <br>
     <br>
-            <h2 class="name" for="">PERFIL</h2>
+    <br>
+    <br>
+    <h2 class="name" for="">PERFIL</h2>
     <br>
     <label class="labels" for="">Qtde empregados: </label>
     <input type="text" name="employees" value="{{$account->employees}}">
     <br>
-            <label class="labels" for="">Faturamento: </label>
-        <input type="number" name="revenues" value="{{$account->revenues}}">
-        <br>
+    <label class="labels" for="">Faturamento: </label>
+    <input type="number" name="revenues" value="{{$account->revenues}}">
     <br>
     <label class="labels" for="">Setor: </label>
     <select name="sector">
@@ -127,29 +129,28 @@ CKEDITOR.replace('description');
         <option value="outros">Outros</option>
     </select>
     <br>
+    <label class="labels"for="">Diferencial Competitivo: </label>
+    <input type="text" name="competitive_advantage" size="100px" value="{{$account->competitive_advantage}}">
     <br>
-       <label class="labels"for="">Diferencial Competitivo: </label>
-        <input type="text" name="competitive_advantage" value="{{$account->competitive_advantage}}">
-        <br>
-        <label class="labels"for="">Modelo de negócios: </label>
-        {{editDoubleSelect('business_model', 'fields', $businessModelTypes, $account->business_model , $account->business_model)}}
-        <br>
-        <br>
-        <label  class="labels" for="">Proposta de valor: </label>
-        <br>
-        <textarea id="description" name="value_offer" rows="20" cols="90">
+    <label class="labels"for="">Modelo de negócios: </label>
+    {{editDoubleSelect('business_model', 'fields', $businessModelTypes, $account->business_model , $account->business_model)}}
+    <br>
+    <br>
+    <label  class="labels" for="">Proposta de valor: </label>
+    <br>
+    <textarea id="value_offer" name="value_offer" rows="10" cols="90">
 {{$account->value_offer}}
-        </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-        <script>
-CKEDITOR.replace('description');
-        </script>
-        <br>
+    </textarea>
+    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+    <script>
+CKEDITOR.replace('value_offer');
+    </script>
+    <br>
     <br>
     <br>
     <label class="labels" for="status">SITUAÇÃO: </label>
-{{createSimpleSelect('status', 'fields', $status, $account->status)}}
+    {{createSimpleSelect('status', 'fields', $status, $account->status)}}
     <br>
     <br>
     <input class="btn btn-secondary" type="submit" value="ATUALIZAR">
