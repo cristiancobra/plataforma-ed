@@ -72,11 +72,33 @@ class ContactController extends Controller {
                 ->get();
 
         $states = returnStates();
-
-        return view('contacts.createContact', compact(
+		
+		$genderTypes = Contact::returnGenderTypes();
+		
+			$hobbie = Contact::returnHobbie();
+			
+			$religion = Contact::returnReligion();
+			
+			$etinicity = Contact::returnEtinicity();
+			
+			$profession = Contact::returnProfession();
+			
+			$job_position = Contact::returnProfession();
+			
+			$contactTypes = Contact::returnContactTypes();
+		
+			
+		        return view('contacts.createContact', compact(
                         'contacts',
                         'states',
                         'companies',
+                        'genderTypes',
+                        'hobbie',
+                        'religion',
+                        'etinicity',
+                        'profession',
+                        'job_position',
+                        'contactTypes',
         ));
     }
 

@@ -27,7 +27,8 @@
 <br>
 <div>
     <p>
-        PARABENS! Você está há alguns passos de começar a entender melhor sobre o seu público alvo e avançar mais uma etapa rumo à  transformação digital.  
+        PARABENS! 
+		Você está há alguns passos de começar a entender melhor sobre o seu público alvo e avançar mais uma etapa rumo à  transformação digital.  
         <br>Com esse relatório você vai começar a entender o poder de conhecer melhor os seus dados. 
     </p>
     <br>
@@ -107,6 +108,9 @@
 </div>
 <div>
     {!!html_entity_decode($report->target)!!}
+</div>
+<div>
+	{{createReportContact('Proposta de valor', $contactReport->contact->value_offer)}}
 </div>
 <br>
 <!--   =========================================================  IDENTIDADE VISUAL  ===================================================-->
