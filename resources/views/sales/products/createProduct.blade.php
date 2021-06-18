@@ -66,6 +66,21 @@ CKEDITOR.replace('description');
         <input class="text-right" type="decimal" name="points" size="5" value="{{old('points')}}"><span class="fields"></span>
         <br>
         <br>
+            <label class="labels" for="" >CUSTO 1:</label>
+            <input type="integer" name="cost1" size="5"><span class="fields"></span>
+            <label class="labels" for="" >descrição:</label>
+            <input type="decimal" name="cost1_description" size="40"><span class="fields"></span>
+            <br>
+            <label class="labels" for="" >CUSTO 2:</label>
+            <input type="integer" name="cost2" size="5"><span class="fields"></span>
+            <label class="labels" for="" >descrição:</label>
+            <input type="decimal" name="cost2_description" size="40"><span class="fields"></span>
+            <br>
+            <label class="labels" for="" >CUSTO 3:</label>
+            <input type="integer" name="cost3" size="5""><span class="fields"></span>
+            <label class="labels" for="" >descrição:</label>
+            <input type="decimal" name="cost3_description" size="40"><span class="fields"></span>
+            <br>
         <br>
         <label class="labels" for="" >IMPOSTO (%):</label>
         <input class="text-right" type="decimal" name="tax_rate" size="5" value="{{old('tax_rate')}}"><span class="fields"></span>
