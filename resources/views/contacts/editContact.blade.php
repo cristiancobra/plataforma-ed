@@ -195,7 +195,7 @@
         <input type="text" name="etinicity" value="{{ $contact->etinicity }}">    
         <br>
         <label for="">Gênero: </label>
-        <input type="text" name="gender" value="{{$contact->sexual_orientation}}">    
+        <input type="text" name="gender" value="{{$contact->gender}}">    
         <br>
         <br>
         <label  for="">Tipo: </label>

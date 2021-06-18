@@ -222,7 +222,7 @@
             <input type="text" name="etinicity">   
             <br>
             <label for="">Gênero: </label>
-            <input type="text" name="sexual_orientation">   
+            <input type="text" name="gender">   
             <br>
             <br>
             <label for="">Tipo: </label>
