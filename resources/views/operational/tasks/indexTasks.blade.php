@@ -118,14 +118,9 @@
                 <i class='fa fa-eye'></i>
             </button>
         </a>
-        <a href=" {{ route('task.edit', ['task' => $task->id]) }}">
-            <button class="button-round px-1">
-                <i class='fa fa-edit'></i>
-            </button>
-        </a>
         {{$task->name}}
     </div>
-    <div class='tb col-2 text-center'>
+    <div class='tb col-2'>
         <a  class="white" href=" {{ route('contact.show', ['contact' => $task->contact_id]) }}">
             @if(isset($task->contact->name))
             {{$task->contact->name}}
@@ -134,14 +129,14 @@
             @endif
         </a>
     </div>
-    <div class='tb col-2 text-center'>
+    <div class='tb col-2'>
         @if(isset($task->company->name))
         {{$task->company->name}}
         @else
         não possui
         @endif
     </div>
-    <div class='tb col-2 text-center'>
+    <div class='tb col-2'>
         @if($task->user->profile_picture)
         <div class='profile-picture-small'>
             <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
@@ -154,7 +149,7 @@
         funcionário excluído
         @endif
     </div>
-    <div class='tb col-1 text-center'>
+    <div class='tb col-1'>
         @if($task->date_due == date('Y-m-d'))
         hoje
         @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))

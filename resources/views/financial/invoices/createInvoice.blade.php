@@ -32,20 +32,6 @@
     <form action=" {{route('invoice.store')}} " method="post">
         @csrf
         <input type="hidden" name="type" value="{{$typeInvoices}}">
-        <label class="labels" for="" >EMPRESA:</label>
-        @if(!empty(app('request')->input('opportunityAccountName')))
-        {{app('request')->input('opportunityAccountName')}}
-        <input type="hidden" name="account_id" value="{{app('request')->input('opportunityAccountId')}}">
-        @else
-        <select name="account_id">
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        @endif
-        <br>
         @if($typeInvoices == 'receita')
         <label class="labels" for="" >VENDEDOR: </label>
         @else
@@ -53,7 +39,7 @@
         @endif
         <select name="user_id">
             <option  class="fields" value="{{Auth::user()->id}}">
-                {{Auth::user()->contact->name}}
+                Eu
             </option>
             @foreach ($users as $user)
             <option  class="fields" value="{{$user->id}}">

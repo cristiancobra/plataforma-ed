@@ -125,31 +125,26 @@ class InvoiceController extends Controller {
         } else {
             $typeCompanies = 'fornecedor';
         }
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->where('type', $typeCompanies)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $opportunities = Opportunity::whereIn('account_id', userAccounts())
+        $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $users = User::where('account_id', auth()->user()->account_id)
+                ->with('contact')
+                ->orderBy('ID', 'ASC')
                 ->get();
 
-        $products = Product::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $products = Product::where('account_id', auth()->user()->account_id)
                 ->where('type', 'LIKE', $typeInvoices)
                 ->where('status', 'disponível')
                 ->orderBy('NAME', 'ASC')
@@ -157,7 +152,6 @@ class InvoiceController extends Controller {
 
         return view('financial.invoices.createInvoice', compact(
                         'request',
-                        'accounts',
                         'opportunities',
                         'contacts',
                         'companies',
@@ -201,6 +195,7 @@ class InvoiceController extends Controller {
         } else {
             $invoice = new Invoice();
             $invoice->fill($request->all());
+            $invoice->account_id = auth()->user()->account_id;
 
             $invoicesIdentifier = Invoice::where('account_id', $request->account_id)
                     ->pluck('identifier')
@@ -557,7 +552,7 @@ class InvoiceController extends Controller {
             'accountLogo' => $invoice->account->image->path,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,
-                'accountName' => $invoice->account->name,
+            'accountName' => $invoice->account->name,
             'accountEmail' => $invoice->account->email,
             'accountPhone' => $invoice->account->phone,
             'accountAddress' => $invoice->account->address,
@@ -593,7 +588,7 @@ class InvoiceController extends Controller {
             'tasksOperationalPoints' => $tasksOperationalPoints,
             'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
         ];
-dd($data);
+        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))

@@ -23,18 +23,6 @@
         <label class='labels' for='' >IDENTIFICADOR:</label>
         <input type='number' span class='fields' style='width: 80px;text-align: right' value='{{$invoice->identifier}}'>
         <br>
-        <label class='labels' for='' >CONTA: </label>
-        <select name='account_id'>
-            <option  class='fields' value='{{$invoice->account_id}}'>
-                {{$invoice->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class='fields' value='{{$account->id}}'>
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class='labels' for='' >VENDEDOR: </label>
         <select name='user_id'>
             <option  class='fields' value='{{$invoice->user->id}}'>
