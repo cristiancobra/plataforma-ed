@@ -44,19 +44,15 @@ class OpportunityController extends Controller {
 
         $total = $opportunities->total();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
-        $users = myUsers();
+        $users = User::myUsers();
         $stages = $this->listStages();
         $status = $this->listStatus();
 
@@ -65,7 +61,6 @@ class OpportunityController extends Controller {
                         'total',
                         'contacts',
                         'companies',
-                        'accounts',
                         'users',
                         'stages',
                         'status',
@@ -78,34 +73,23 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $opportunity = new Opportunity();
-
-        $accountsId = userAccounts();
-
-        $accounts = Account::whereIn('id', $accountsId)
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = myUsers();
-
-        $companies = Company::whereIn('account_id', $accountsId)
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', $accountsId)
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $products = Product::whereIn('account_id', $accountsId)
+        $products = Product::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         $stages = $this->listStages();
         $status = $this->listStatus();
+        $users = User::myUsers();
 
         return view('sales.opportunities.createOpportunity', compact(
-                        'opportunity',
-                        'accounts',
                         'users',
                         'companies',
                         'contacts',
@@ -124,6 +108,7 @@ class OpportunityController extends Controller {
     public function store(Request $request) {
         $opportunity = new Opportunity();
         $opportunity->fill($request->all());
+        $opportunity->account_id = auth()->user()->account_id;
 
         $messages = [
             'required' => '*preenchimento obrigatório.',
@@ -307,27 +292,17 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Opportunity $opportunity) {
-        $accountsId = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::user()->id);
-                })
-                ->pluck('id');
-
-        $accounts = Account::whereHas('users', function ($query) use ($accountsId) {
-                    $query->whereIn('account_id', $accountsId);
-                })
-                ->get();
-
-        $opportunities = Opportunity::whereIn('account_id', $accountsId)
+        $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         $users = myUsers();
 
-        $companies = Company::whereIn('account_id', $accountsId)
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', $accountsId)
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -340,7 +315,6 @@ class OpportunityController extends Controller {
 
         return view('sales.opportunities.editOpportunity', compact(
                         'opportunity',
-                        'accounts',
                         'users',
                         'contacts',
                         'companies',
@@ -444,11 +418,7 @@ class OpportunityController extends Controller {
     // Filtra oportunidades de acordo com parâmetros fornecidos
     public function filter(Request $request) {
         $opportunities = Opportunity::where(function ($query) use ($request) {
-                    if ($request->account_id) {
-                        $query->where('account_id', '=', $request->account_id);
-                    } else {
-                        $query->whereIn('account_id', userAccounts());
-                    }
+                    $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
                         $query->where('name', 'like', "%$request->name%");
                     }

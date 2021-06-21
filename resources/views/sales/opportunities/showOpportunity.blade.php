@@ -48,16 +48,10 @@
 </div>
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
     <div class='show-label'>
-        CONTA
-    </div>
-    <div class='show-label'>
         RESPONSÁVEL
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-    <div class='show-field-end'>
-        {{$opportunity->account->name}}
-    </div>
     <div class='show-field-end'>
         @if(isset($task->user->contact->name))
         {{$opportunity->user->contact->name}}

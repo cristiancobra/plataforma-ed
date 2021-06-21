@@ -32,9 +32,6 @@
         <span class="text-danger">{{$errors->first('name') }}</span>
         @endif
         <br>
-        <label class="labels" for="" >CONTA: </label>
-        {{createDoubleSelectIdName('account_id', 'fields', $accounts)}}
-        <br>
         <label class="labels" for="" >RESPONSÁVEL: </label>
         {{createSelectUsers('fields', $users)}}
         <br>

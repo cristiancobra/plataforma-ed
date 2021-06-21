@@ -198,7 +198,7 @@
         {{createSimpleSelect('gender', 'fields',  $genderTypes, $contact->gender)}}
         <br>
         <label for="">Tipo: </label>
-        {{createSimpleSelect('type', 'fields',  $contactTypes) }}
+        {{createSimpleSelect('type', 'fields',  $contactTypes)}}
         <br>
         <br>
         <label for="status">SITUAÇÃO: </label>

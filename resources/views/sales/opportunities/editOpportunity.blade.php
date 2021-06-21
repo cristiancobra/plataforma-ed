@@ -33,18 +33,6 @@
         <span class="text-danger">{{$errors->first('name')}}</span>
         @endif
         <br>
-        <label class="labels" for="" >CONTA: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{$opportunity->account->id}}">
-                {{$opportunity->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class="labels" for="" >RESPONSÁVEL: </label>
         <select name="user_id">
             <option  class="fields" value="{{$opportunity->user_id}}">

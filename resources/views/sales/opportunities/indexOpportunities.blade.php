@@ -24,7 +24,6 @@
 <form id="filter" action="{{route('opportunity.filter')}}" method="post" style="text-align: right;display:none">
     @csrf
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
-    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
