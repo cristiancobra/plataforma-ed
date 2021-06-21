@@ -122,14 +122,11 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Journey $journey) {
-        $tasks = Task::whereIn('account_id', userAccounts())
+        $tasks = Task::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
+        $users = User::myUsers();
 
         return view('operational.journey.editJourney', compact(
                         'journey',
