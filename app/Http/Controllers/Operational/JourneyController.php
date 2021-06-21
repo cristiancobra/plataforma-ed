@@ -47,7 +47,7 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $tasks = Task::whereIn('account_id', userAccounts())
+        $tasks = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->orderBy('NAME', 'ASC')
                 ->get();
