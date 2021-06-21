@@ -503,14 +503,24 @@ $counter++;
             </button>
             {{dateBr($journey->date)}}
         </div>
+        <div class='tb col-7 justify-content-start' colspan='3' style='background-color:#d8c2db'>
+            {!!html_entity_decode($journey->description)!!}
+        </div>
+        <div class='tb col-2' style='background-color:#d8c2db'>
+               @if($task->user->profile_picture)
+        <div class='profile-picture-small'>
+            <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
+                <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
+            </a>
+        </div>
+        @elseif(isset($task->user->contact->name))
+        {{$journey->user->contact->name}}
+        @else
+        funcionário excluído
+        @endif
+        </div>
         <div class='tb col-1' style='background-color:#d8c2db'>
             {{formatTotalHour($journey->duration)}} horas
-        </div>
-        <div class='tb col-3' style='background-color:#d8c2db'>
-            {{$journey->user->contact->name}}
-        </div>
-        <div class='tb col-6 justify-content-start' colspan='3' style='background-color:#d8c2db'>
-            {!!html_entity_decode($journey->description)!!}
         </div>
     </div>
     @endforeach
