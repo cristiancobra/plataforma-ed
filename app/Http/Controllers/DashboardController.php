@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Account;
 use App\Models\BankAccount;
 use App\Models\Invoice;
 use App\Models\Journey;
@@ -17,30 +16,26 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller {
 
     public function index(Request $request) {
-        $accountsId = userAccounts();
-
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
         
 // SE FOR ADMINISTRADOR
         if ($request['role'] === "administrator" OR $request['role'] === "superadmin" OR $request['role'] === "dono") {
-            $tasks = Task::whereIn('account_id', $accountsId)
+            $tasks = Task::where('account_id', auth()->user()->account_id)
                     ->get();
 
             $tasks_pending = $tasks
                     ->where('status', 'fazendo', 'fazer')
                     ->count();
 
-            $opportunities = Opportunity::whereIn('account_id', $accountsId)
+            $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                     ->get();
 
-            $journeys = Journey::whereIn('account_id', $accountsId)
+            $journeys = Journey::where('account_id', auth()->user()->account_id)
                     ->get();
 
-            $users = User::whereHas('accounts', function ($query) use ($accountsId) {
-                        $query->whereIn('account_id', $accountsId);
-                    })
+            $users = User::where('account_id', auth()->user()->account_id)
                     ->orderBy('ID', 'ASC')
                     ->get();
 
@@ -53,29 +48,29 @@ class DashboardController extends Controller {
                         ->sum('duration');
             }
 
-            $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
+            $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
                     ->where('type', 'crédito')
                     ->whereBetween('pay_day', [$monthStart, $monthEnd])
                     ->sum('value');
 
-            $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+            $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
                     ->where('type', 'receita')
                     ->where('status', 'aprovada')
                     ->whereBetween('pay_day', [$monthStart, $monthEnd])
                     ->sum('installment_value');
 
-            $expenseMonthly = Transaction::whereIn('account_id', userAccounts())
+            $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
                     ->where('type', 'débito')
                     ->whereBetween('pay_day', [$monthStart, $monthEnd])
                     ->sum('value');
 
-            $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+            $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
                     ->where('type', 'despesa')
                     ->where('status', 'aprovada')
                     ->whereBetween('pay_day', [$monthStart, $monthEnd])
                     ->sum('installment_value');
 
-            $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+            $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                     ->get();
 
             foreach ($bankAccounts as $key => $bankAccount) {
