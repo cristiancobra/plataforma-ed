@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Operational;
 
 use App\Http\Controllers\Controller;
 use App\Models\Task;
-use App\Models\Account;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
@@ -12,11 +11,8 @@ use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Collection;
-use DB;
 use PDF;
 
 class TaskController extends Controller {
@@ -29,30 +25,30 @@ class TaskController extends Controller {
     public function index(Request $request) {
         $today = date('Y-m-d');
         $tasks = $this->filterTasks($request);
-        $teamTasksPending = Task::where('account_id', Auth::user()->account_id)
+        $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->get();
 
-        $teamTasksEmergencyAmount = $teamTasksPending->where('account_id', Auth::user()->account_id)
+        $teamTasksEmergencyAmount = $teamTasksPending->where('account_id', auth()->user()->account_id)
                 ->where('priority', 'emergência')
                 ->count();
 
-        $myTasksPendingAmount = $teamTasksPending->where('user_id', Auth::user()->id)
+        $myTasksPendingAmount = $teamTasksPending->where('user_id', auth()->user()->id)
                 ->count();
 
-        $myTasksEmergencyAmount = $teamTasksPending->where('user_id', Auth::user()->id)
+        $myTasksEmergencyAmount = $teamTasksPending->where('user_id', auth()->user()->id)
                 ->where('priority', 'emergência')
                 ->count();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
         $status = $this->returnStatus();
         $departments = Task::returnDepartments();
         $priorities = Task::returnPriorities();
@@ -78,15 +74,13 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $contacts = Contact::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -193,28 +187,21 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(task $task) {
-        $contacts = Contact::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->get();
+        
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->orderBy('NAME', 'ASC')
-                ->get();
+//        $tasks = Task::whereHas('account', function ($query) {
+//                    $query->whereIn('account_id', userAccounts());
+//                })
+//                ->with('contact')
+//                ->paginate(20);
 
-        $tasks = Task::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->with('contact')
-                ->paginate(20);
-
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->get();
+        $users = User::myUsers();
 
         $opportunities = $this->accountOpportunities('edit');
 
@@ -224,7 +211,6 @@ class TaskController extends Controller {
 
         return view('operational.tasks.editTask', compact(
                         'task',
-                        'tasks',
                         'users',
                         'opportunities',
                         'contacts',
@@ -293,14 +279,14 @@ class TaskController extends Controller {
     public function accountOpportunities($method) {
         switch ($method) {
             case 'create':
-                $accountOpportunities = Opportunity::whereIn('account_id', userAccounts())
+                $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
                         ->where('stage', '!=', 'perdemos')
                         ->where('stage', '!=', 'concluída')
                         ->orderBy('date_conclusion', 'DESC')
                         ->get();
                 break;
             case 'edit':
-                $accountOpportunities = Opportunity::whereIn('account_id', userAccounts())
+                $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
                         ->where('stage', '!=', 'perdemos')
                         ->orderBy('date_conclusion', 'DESC')
                         ->get();
