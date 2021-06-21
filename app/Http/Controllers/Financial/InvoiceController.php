@@ -58,41 +58,37 @@ class InvoiceController extends Controller {
                     ->sum('value');
         }
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
-        $users = myUsers();
+        $users = User::myUsers();
 
         $total = $invoices->total();
 
-        $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $estimatedRevenueYearly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedRevenueYearly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$yearStart, $yearEnd])
                 ->sum('installment_value');
 
-        $estimatedExpenseYearly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedExpenseYearly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$yearStart, $yearEnd])
@@ -102,7 +98,6 @@ class InvoiceController extends Controller {
                         'invoices',
                         'contacts',
                         'companies',
-                        'accounts',
                         'users',
                         'total',
                         'estimatedRevenueMonthly',
@@ -310,24 +305,24 @@ class InvoiceController extends Controller {
      */
     public function edit(Invoice $invoice) {
         $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                 })
                 ->get();
 
         $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                 })
                 ->get();
 
-        $opportunities = Opportunity::whereIn('account_id', userAccounts())
+        $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $products = Product::whereIn('account_id', userAccounts())
+        $products = Product::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'disponível')
                 ->orderBy('NAME', 'ASC')
@@ -342,7 +337,7 @@ class InvoiceController extends Controller {
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -498,9 +493,7 @@ class InvoiceController extends Controller {
                 ->with('product', 'opportunity')
                 ->get();
 
-        $bankAccounts = BankAccount::whereHas('account', function ($query) {
-                    $query->whereIn('id', userAccounts());
-                })
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->where('status', 'LIKE', 'recebendo')
                 ->with([
                     'account.image',
@@ -672,11 +665,7 @@ class InvoiceController extends Controller {
         $yearEnd = date('Y-12-31');
 
         $invoices = Invoice::where(function ($query) use ($request) {
-                    if ($request->account_id) {
-                        $query->where('account_id', $request->account_id);
-                    } else {
-                        $query->whereIn('account_id', userAccounts());
-                    }
+                        $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
                         $query->whereHas('opportunity', function ($query) use ($request) {
                             $query->where('name', 'like', "%$request->name%");
@@ -723,41 +712,41 @@ class InvoiceController extends Controller {
                     ->sum('value');
         }
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $accounts = Account::whereIn('id', userAccounts())
+        $accounts = Account::where('account_id', auth()->user()->account_id)
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         $total = $invoices->total();
 
-        $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $estimatedRevenueYearly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedRevenueYearly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$yearStart, $yearEnd])
                 ->sum('installment_value');
 
-        $estimatedExpenseYearly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedExpenseYearly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$yearStart, $yearEnd])
