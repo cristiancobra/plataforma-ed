@@ -6,6 +6,6 @@
     <br>
     @endisset
 </div>
-<div class="col-sm-3 col-xs-12" style="text-align: right">
+<div class="col-sm-3 col-xs-12 d-inline-block" style="text-align: right">
     @yield('buttons')
 </div>

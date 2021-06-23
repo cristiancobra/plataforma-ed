@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Task;
 use App\Models\Company;
 use App\Models\Contact;
+use App\Models\Opportunity;
 use App\Models\User;
+use DateTime;
+use DateInterval;
 
 class JourneyController extends Controller {
 
@@ -72,7 +75,8 @@ class JourneyController extends Controller {
         ];
         $validator = Validator::make($request->all(), [
                     'date' => 'required:journeys',
-                    'start_time' => 'required:journeys',
+                    'start' => 'required:journeys',
+                    'task_id' => 'required:tasks',
                     'user_id' => 'required:tasks',
                         ], $messages);
 
@@ -87,12 +91,22 @@ class JourneyController extends Controller {
             $journey->fill($request->all());
             $journey->account_id = auth()->user()->account_id;
 
-            if ($request->end_time == null) {
+            $dateStart = new DateTime($request->date . " " . $request->start);
+            $journey->start = $dateStart->format('Y-m-d H:i:s');
+            $dateEnd = new DateTime($request->date . " " . $request->end);
+
+            if ($request->end == null) {
                 $journey->duration = 0;
-            } else {
-                $start_time = strtotime($request->start_time);
-                $end_time = strtotime($request->end_time);
-                $journey->duration = $end_time - $start_time;
+                $journey->status = 'fazendo';
+            } elseif ($dateStart < $dateEnd) {
+                $journey->end = $dateEnd->format('Y-m-d H:i:s');
+                $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+                $journey->status = 'feito';
+            } elseif ($dateStart > $dateEnd) {
+                $dateEnd->add(new DateInterval('P1D'));
+                $journey->end = $dateEnd->format('Y-m-d H:i:s');
+                $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+                $journey->status = 'feito';
             }
             $journey->save();
         }
@@ -109,6 +123,11 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Journey $journey) {
+        if($journey->end == null) {
+            $journey->status = 'fazendo';
+        }else{
+            $journey->status = 'feito';
+        }
 
         return view('operational.journey.showJourney', compact(
                         'journey',
@@ -148,7 +167,7 @@ class JourneyController extends Controller {
         ];
         $validator = Validator::make($request->all(), [
                     'date' => 'required:journeys',
-                    'start_time' => 'required:journeys',
+                    'start' => 'required:journeys',
                         ], $messages);
 
         if ($validator->fails()) {
@@ -159,12 +178,21 @@ class JourneyController extends Controller {
         } else {
             $journey->fill($request->all());
 
-            if ($request->end_time == null) {
+            $dateStart = new DateTime($request->date . " " . $request->start);
+            $journey->start = $dateStart->format('Y-m-d H:i:s');
+            $dateEnd = new DateTime($request->date . " " . $request->end);
+            if ($request->end == null) {
                 $journey->duration = 0;
-            } else {
-                $start_time = strtotime($request->start_time);
-                $end_time = strtotime($request->end_time);
-                $journey->duration = $end_time - $start_time;
+                $journey->status = 'fazendo';
+            } elseif ($dateStart < $dateEnd) {
+                $journey->end = $dateEnd->format('Y-m-d H:i:s');
+                $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+                $journey->status = 'feito';
+            } elseif ($dateStart > $dateEnd) {
+                $dateEnd->add(new DateInterval('P1D'));
+                $journey->end = $dateEnd->format('Y-m-d H:i:s');
+                $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+                $journey->status = 'feito';
             }
             $journey->save();
 
@@ -223,7 +251,7 @@ class JourneyController extends Controller {
                 })
                 ->with(
                         'account',
-                        'task',
+                        'task.opportunity',
                         'user',
                 )
                 ->orderBy('DATE', 'DESC')
@@ -238,6 +266,31 @@ class JourneyController extends Controller {
         ]);
 
         return $journeys;
+    }
+
+    public function completeJourney(Journey $journey) {
+
+        $dateStart = new DateTime($journey->start);
+        $journey->start = $dateStart->format('Y-m-d H:i:s');
+        $dateEnd = new DateTime('now');
+        $journey->end = $dateEnd->format('Y-m-d H:i:s');
+        $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+        $journey->save();
+
+//        $startDate = new DateTime($journey->start);
+//        $journey->start = date("Y-m-d H:i", strtotime($journey->start));
+//        $journey->end = date('Y-m-d H:i:s');
+//        if() {
+//        $journey->duration = strtotime($journey->end) - strtotime($journey->start) + 24;
+//        dd($journey->duration);
+//        }
+//        $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+//        dd($journey);
+//        $journey->save();
+
+        return redirect()->route('journey.show', compact(
+                        'journey',
+        ));
     }
 
     public function monthlyReport(Request $request) {
@@ -285,23 +338,23 @@ class JourneyController extends Controller {
             while ($counterMonth <= 12) {
                 $initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
                 $finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
-                $monthlyDepartment[$counterArray] = Journey::whereHas('task', function($query) use($department) {
-                        $query->where('department', 'LIKE', $department);
-                })
+                $monthlyDepartment[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
+                            $query->where('department', 'LIKE', $department);
+                        })
 //                        ->where('user_id', auth()->user()->id)
                         ->whereBetween('date', [$initialDate, $finalDate])
                         ->sum('duration');
-                $monthlyAllDepartments[$counterArray] = Journey::whereHas('task', function($query) use($department) {
-                        $query->where('department', 'LIKE', $department);
-                })
+                $monthlyAllDepartments[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
+                            $query->where('department', 'LIKE', $department);
+                        })
                         ->whereBetween('date', [$initialDate, $finalDate])
                         ->sum('duration');
                 $counterMonth++;
                 $counterArray++;
             }
-            $annualDepartment[$counterAnnual] = Journey::whereHas('task', function($query) use($department) {
+            $annualDepartment[$counterAnnual] = Journey::whereHas('task', function ($query) use ($department) {
                         $query->where('department', 'LIKE', $department);
-                })
+                    })
                     ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
                     ->sum('duration');
             $counterAnnual++;
@@ -327,7 +380,7 @@ class JourneyController extends Controller {
 
     public function companyHoursYear($year, $account = null) {
         $annualHours = Journey::whereHas('task', function ($query) use ($account) {
-                        $query->where('account_id', auth()->user()->account_id);
+                    $query->where('account_id', auth()->user()->account_id);
                 })
                 ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
                 ->sum('duration');

@@ -81,6 +81,7 @@
                                             <i class='fa fa-trash'></i>
                                         </button>
                                     </form>
+                            @yield('extraButton')        
                                     <a class='circular-button secondary' href='@yield('editButton')'>
                                         <i class='fa fa-edit'></i>
                                     </a>

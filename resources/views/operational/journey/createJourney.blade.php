@@ -50,6 +50,9 @@
             <i class="fas fa-plus"></i>
         </a>
         @endif
+        @if ($errors->has('task_id'))
+        <span class="text-danger">{{ $errors->first('task_id') }}</span>
+        @endif
         <br>
         <br>
         <label class="labels" for="" >OBSERVAÇÕES:</label>
@@ -80,20 +83,20 @@ CKEDITOR.replace('description');
         <label class="labels" for="" >
             INÍCIO: 
         </label>
-        @if(old('start_time'))
-        <input type="time" name="start_time" size="50" value="{{old('start_time')}}"><span class="fields"></span>
+        @if(old('start'))
+        <input type="time" name="start" size="50" value="{{old('start')}}"><span class="fields"></span>
         @else
-        <input type="time" name="start_time" size="50" value="{{date('H:i')}}"><span class="fields"></span>
+        <input type="time" name="start" size="50" value="{{date('H:i')}}"><span class="fields"></span>
         @endif
-        @if ($errors->has('start_time'))
-        <span class="text-danger">{{ $errors->first('start_time') }}</span>
+        @if ($errors->has('start'))
+        <span class="text-danger">{{ $errors->first('start') }}</span>
         @endif
         <br>
         <label class="labels" for="">
             TÉRMINO: 
             <br>
         </label>
-        <input type="time" name="end_time" size="50"><span class="fields"></span>
+        <input type="time" name="end" size="50"><span class="fields"></span>
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="ATUALIZAR">

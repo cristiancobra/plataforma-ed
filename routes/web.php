@@ -190,8 +190,8 @@ Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport
         ->name('journey.reports')
         ->middleware('roles');
 
-Route::any('/jornadas/novo', 'Operational\\JourneyController@create')
-        ->name('journey.create')
+Route::put('/jornadas/finalizar/{journey}', 'Operational\\JourneyController@completeJourney')
+        ->name('journey.complete')
         ->middleware('roles');
 
 Route::resource('jornadas', 'Operational\\JourneyController')

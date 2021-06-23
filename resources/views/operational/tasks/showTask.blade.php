@@ -108,7 +108,7 @@
 
 @section('date_due')
 <div class="circle-date-due">
-    {{date('d/m/Y', strtotime($task->date_due))}}
+    {{dateBr($task->date_due)}}
 </div>
 <p class="labels" style="text-align: center">
     PRAZO
@@ -119,7 +119,7 @@
 @section('date_conclusion')
 <div class="circle-date-conclusion">
     @if($task->date_conclusion)
-    {{date('d/m/Y', strtotime($task->date_conclusion))}}
+    {{dateBr($task->date_conclusion)}}
     @else
     <p style="color:white">
         --

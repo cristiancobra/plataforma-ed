@@ -74,13 +74,13 @@
             {{$journey->user->contact->name}}
         </td>
         <td class="table-list-center">
-            {{date('H:i', strtotime($journey->start_time))}}
+            {{date('H:i', strtotime($journey->start))}}
         </td>
         <td class="table-list-center">
-            @if($journey->end_time == null)
+            @if($journey->end == null)
             --
             @else
-            {{date('H:i', strtotime($journey->end_time))}}
+            {{date('H:i', strtotime($journey->end))}}
             @endif
         </td>
         <td class="table-list-center" style="color:white;background-color: #874983">

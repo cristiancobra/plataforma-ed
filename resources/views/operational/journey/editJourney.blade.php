@@ -16,7 +16,7 @@
 
 @section('main')
 <div>
-    <form action=" {{ route('journey.update', ['journey' =>$journey->id]) }} " method="post" style="color: #874983">
+    <form action=" {{ route('journey.update', ['journey' => $journey]) }} " method="post">
         @csrf
         @method('put')
         <label class="labels" for="" >FUNCIONÁRIO:</label>
@@ -62,28 +62,24 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >DATA:</label>
-        <input type="date" name="date" size="20" value="{{ $journey->date }}"><span class="fields"></span>
+        <input type="date" name="date" size="20" value="{{$journey->date}}"><span class="fields"></span>
         @if ($errors->has('date'))
-        <span class="text-danger">{{ $errors->first('date') }}</span>
+        <span class="text-danger">{{$errors->first('date')}}</span>
         @endif
         <br>
-        <label class="labels" for=""  value="{{$journey->start_time}}">
+        <label class="labels" for="">
             INÍCIO: 
         </label>
-        <input type="time" name="start_time" size="50"  value="{{ date('H:i', strtotime($journey->start_time)) }}"><span class="fields"></span>
-        @if ($errors->has('start_time'))
-        <span class="text-danger">{{ $errors->first('start_time') }}</span>
+        <input type="time" name="start" size="50"  value="{{date('H:i', strtotime($journey->start))}}"><span class="fields"></span>
+        @if ($errors->has('start'))
+        <span class="text-danger">{{$errors->first('start')}}</span>
         @endif
         <br>
-        <label class="labels" for=""  value="{{$journey->date}}">
+        <label class="labels" for="">
             TÉRMINO: 
             <br>
         </label>
-        @if ($journey->end_time == null)
-        <input type="time" name="end_time" size="50" value='{{date('H:i')}}'><span class="fields"></span>
-        @else
-        <input type="time" name="end_time" size="50"  value="{{ date('H:i', strtotime($journey->end_time)) }}"><span class="fields"></span>
-        @endif
+        <input type="time" name="end" size="50"  value="{{date('H:i', strtotime($journey->end))}}"><span class="fields"></span>
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="ATUALIZAR">

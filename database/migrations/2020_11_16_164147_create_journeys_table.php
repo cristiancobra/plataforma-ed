@@ -20,8 +20,8 @@ class CreateJourneysTable extends Migration
 			$table->foreignId('task_id');
 			$table->text('description')->nullable();
 			$table->date('date');
-			$table->time('start_time', 0);
-			$table->time('end_time', 0)->nullable();
+			$table->timestamp('start');
+			$table->timestamp('end')->nullable();
 			$table->integer('duration')->nullable();
 			$table->string('status')->nullable();
 			$table->timestamps();
