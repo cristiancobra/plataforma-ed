@@ -104,12 +104,6 @@ class AccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Account $account, Request $request) {
-        $usersChecked = User::whereHas('accounts', function ($query) use ($account) {
-                    $query->where('account_id', $account->id);
-                })
-                ->pluck('id')
-                ->toArray();
-
         $states = returnStates();
         $status = Account::returnStatus();
         $users = User::myUsers();
@@ -118,7 +112,6 @@ class AccountController extends Controller {
 
         return view('administrative.accounts.edit', compact(
                         'users',
-                        'usersChecked',
                         'account',
                         'states',
                         'status',
