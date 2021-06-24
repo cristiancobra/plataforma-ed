@@ -164,7 +164,7 @@
     </div>
     <div class='row'>
         <div class='col-2 tb tb-header'>
-            DATA CRIAÇÃO 
+            CRIAÇÃO 
         </div>
         <div class='tb tb-header col-3'>
             TAREFA 
@@ -304,13 +304,13 @@
     </div>
     <div class='row'>
         <div class='col-1 tb tb-header'>
-            IDENTIFICADOR
+            ID
         </div>
         <div class='col-2 tb tb-header'>
-            DATA CRIAÇÃO 
+            CRIAÇÃO 
         </div>
         <div class='col-2 tb tb-header'>
-            DATA PAGAMENTO
+            PAGAMENTO
         </div>
         <div class='col-2 tb tb-header'>
             VALOR DA FATURA
@@ -443,7 +443,7 @@
     </div>
     <div class='row'>
         <div class='col-1 tb tb-header'>
-            IDENTIFICADOR
+            ID
         </div>
         <div class='col-2 tb tb-header'>
             TÍTULO
@@ -458,10 +458,10 @@
             RESPONSÁVEL
         </div>
         <div class='col-1 tb tb-header'>
-            DATA DE ÍNICIO
+            ÍNICIO
         </div>
         <div class='col-1 tb tb-header'>
-            DATA DE VENCIMENTO
+            VENCIMENTO
         </div>
         <div class='col-1 tb tb-header'>
             SITUAÇÃO
@@ -547,7 +547,7 @@
     </div>
     <div class='row'>
         <div class='col-2 tb tb-header'>
-            DATA CRIAÇÃO 
+            CRIAÇÃO 
         </div>
         <div class='col-2 tb tb-header'>
             TAREFA 
@@ -652,7 +652,7 @@
     </div>
     <div class='row'>
         <div class='col-2 tb tb-header'>
-            DATA CRIAÇÃO 
+            CRIAÇÃO 
         </div>
         <div class='col-2 tb tb-header'>
             TAREFA 
