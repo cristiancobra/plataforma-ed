@@ -338,7 +338,6 @@ class InvoiceController extends Controller {
         return view('financial.invoices.editInvoice', compact(
                         'invoice',
                         'invoiceLines',
-                        'accounts',
                         'users',
                         'opportunities',
                         'companies',
@@ -744,7 +743,6 @@ class InvoiceController extends Controller {
                         'invoices',
                         'companies',
                         'contacts',
-                        'accounts',
                         'users',
                         'total',
                         'estimatedRevenueMonthly',
