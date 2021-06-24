@@ -68,7 +68,7 @@ Total: <span class='labels'>{{$total}} </span>
                     <i class='fa fa-eye'></i>
                 </button>
             </a>
-            {{$user->contact->name}}
+            {{$user->name}}
         </td>
 
         <td class='table-list-left'>

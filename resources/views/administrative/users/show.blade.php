@@ -24,7 +24,7 @@
     </div>
     <div class='col-9'>
         <h1 class='name' style="margin-top: 20px">
-            {{$user->contact->name}}
+            {{$user->name}}
         </h1>
         <p class='labels' style='margin-top: 20px'>EMPRESAS: </p>
 

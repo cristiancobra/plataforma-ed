@@ -52,7 +52,7 @@
                     <i class='fa fa-eye'></i>
                 </button>
             </a>
-            {{$user->contact->name}}
+            {{$user->name}}
             <br>
             @endforeach	
         </td>

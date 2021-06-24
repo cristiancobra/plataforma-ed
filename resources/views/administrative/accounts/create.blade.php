@@ -116,7 +116,7 @@
     @foreach ($users as $user)
     <p class="fields">
         <input type="checkbox" name="users[]" value="{{ $user->id }}">
-        {{ $user->contact->name }}
+        {{ $user->name }}
     </p>
     @endforeach
     <br>

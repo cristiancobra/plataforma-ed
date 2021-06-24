@@ -61,7 +61,7 @@
     <br>
     <br>
     <label for="" >Nome: </label>
-    {{$user->contact->name}}
+    {{$user->name}}
     <a class="white" href=" {{route('contact.show', ['contact' => $user->contact->id])}}">
         <button class="button-round">
             <i class='fa fa-eye'></i>

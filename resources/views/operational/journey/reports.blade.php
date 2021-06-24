@@ -58,7 +58,7 @@
 
     echo "<tr style='font-size: 14px'>
         <td class='table-list-left'>";
-            echo $user->contact->name;
+            echo $user->name;
             echo "</td>";
         while ($counterMonth <= 12) {
         echo "<td class='table-list-right'>";

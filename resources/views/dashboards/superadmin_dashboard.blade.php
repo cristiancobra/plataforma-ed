@@ -126,7 +126,7 @@
 							<i class='fa fa-eye'></i>
 						</button>
 					</a>
-					{{$user->contact->name}}
+					{{$user->name}}
 				</td>
 				<td class="table-list-center">
 					{{number_format($user->hoursToday / 3600, 1, ',','.')}}

@@ -37,7 +37,7 @@
         <select name='user_id'>
             @foreach ($users as $user)
             <option  class='fields' value='{{$user->id}}'>
-                {{$user->contact->name}}
+                {{$user->name}}
             </option>
             @endforeach
         </select>
