@@ -304,15 +304,7 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Invoice $invoice) {
-        $accounts = Account::whereHas('users', function ($query) {
-                    $query->where('account_id', auth()->user()->account_id);
-                })
-                ->get();
-
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->where('account_id', auth()->user()->account_id);
-                })
-                ->get();
+        $users = User::myUsers();
 
         $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -718,10 +710,6 @@ class InvoiceController extends Controller {
 
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $accounts = Account::where('account_id', auth()->user()->account_id)
-                ->orderBy('ID', 'ASC')
                 ->get();
 
         $users = User::myUsers();
