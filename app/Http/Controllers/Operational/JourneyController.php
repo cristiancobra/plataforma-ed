@@ -268,25 +268,12 @@ class JourneyController extends Controller {
     }
 
     public function completeJourney(Journey $journey) {
-//        if($journey->start == null)
         $dateStart = new DateTime($journey->start);
         $journey->start = $dateStart->format('Y-m-d H:i:s');
         $dateEnd = new DateTime('now');
         $journey->end = $dateEnd->format('Y-m-d H:i:s');
         $journey->duration = strtotime($journey->end) - strtotime($journey->start);
-//        dd($journey);
         $journey->save();
-
-//        $startDate = new DateTime($journey->start);
-//        $journey->start = date("Y-m-d H:i", strtotime($journey->start));
-//        $journey->end = date('Y-m-d H:i:s');
-//        if() {
-//        $journey->duration = strtotime($journey->end) - strtotime($journey->start) + 24;
-//        dd($journey->duration);
-//        }
-//        $journey->duration = strtotime($journey->end) - strtotime($journey->start);
-//        dd($journey);
-//        $journey->save();
 
         return redirect()->route('journey.show', compact(
                         'journey',

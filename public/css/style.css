@@ -1102,10 +1102,7 @@ td {
     border-radius: 100%;
     color: white;
     transition-duration: 0.4s;
-    margin-left: 3px;
-    margin-right: 8px;
-    margin-top:3px;
-    margin-bottom:3px;
+    margin: 2px;
 }
 
 .button-round:hover {
@@ -2290,7 +2287,8 @@ h5{
     font-weight: bolder;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 20px;
-    margin: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
     vertical-align: middle;
     text-decoration: none;
     text-align: center;

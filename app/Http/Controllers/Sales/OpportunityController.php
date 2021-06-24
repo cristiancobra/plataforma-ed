@@ -482,7 +482,7 @@ class OpportunityController extends Controller {
         ));
     }
 
-    public function trash(Request $request, Opportunity $opportunity) {
+    public function trash(Opportunity $opportunity) {
         $opportunity->trash = 1;
         $opportunity->save();
 
