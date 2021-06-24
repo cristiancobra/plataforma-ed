@@ -33,9 +33,9 @@
             <span style="font-weight: 900">&#183;</span>
             TEL:{{phoneBr($data['phone'])}}
             <br>
-            {{$data['address']}}   -   
-            {{$data['city']}} / 
-            {{$data['state']}}
+            {{$data['accountAddress']}}   -   
+            {{$data['accountCity']}} / 
+            {{$data['accountState']}}
             <br>
         </div>
     </body>
