@@ -45,7 +45,7 @@ class TransactionController extends Controller {
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
                 ->where('type', 'crédito')
@@ -115,7 +115,7 @@ class TransactionController extends Controller {
                 ->orderBy('pay_day', 'ASC')
                 ->paginate(20);
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         return view('financial.transactions.create', compact(
                         'typeTransactions',
@@ -206,7 +206,7 @@ class TransactionController extends Controller {
                 ->orderBy('pay_day', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         return view('financial.transactions.edit', compact(
                         'transaction',
@@ -307,7 +307,7 @@ class TransactionController extends Controller {
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
                 ->where('type', 'crédito')

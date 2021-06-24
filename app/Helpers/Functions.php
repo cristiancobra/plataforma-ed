@@ -1430,39 +1430,6 @@ if (!function_exists('createSelectIdName')) {
     }
 
 }
-// retorna todos os usuários  das minhas empresas (accounts)
-if (!function_exists('myUsers')) {
-
-    function myUsers(array $relationships = null) {
-
-        if (isset($relationships)) {
-            $users = User::whereHas('accounts', function ($query) {
-                        $query->whereIn('account_id', userAccounts());
-                    })
-                    ->with($relationships)
-                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                    ->select(
-                            'users.id as id',
-                            'contacts.name as name',
-                    )
-                    ->orderBy('NAME', 'ASC')
-                    ->get();
-        } else {
-            $users = User::whereHas('accounts', function ($query) {
-                        $query->whereIn('account_id', userAccounts());
-                    })
-                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                    ->select(
-                            'users.id as id',
-                            'contacts.name as name',
-                    )
-                    ->orderBy('NAME', 'ASC')
-                    ->get();
-        }
-        return $users;
-    }
-
-}
 if (!function_exists('gerarSenha')) {
 
     function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {

@@ -76,9 +76,13 @@ class User extends Authenticatable {
 //MÉTODOS PÚBLICO
     
     public static function myUsers() {
-        return $users = User::where('account_id', auth()->user()->account_id)
-//                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-//                ->orderBy('NAME', 'ASC')
-                ->get();
+        return $users = User::where('users.account_id', auth()->user()->account_id)
+                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
+                    ->select(
+                            'users.id as id',
+                            'contacts.name as name',
+                    )
+                    ->orderBy('NAME', 'ASC')
+                    ->get();
     }
 }

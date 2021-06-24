@@ -42,7 +42,7 @@ class ProductController extends Controller {
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         $total = $products->total();
 
@@ -250,7 +250,7 @@ class ProductController extends Controller {
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         $total = $products->total();
 

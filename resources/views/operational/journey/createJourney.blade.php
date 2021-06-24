@@ -25,7 +25,7 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('journey.store')}} " method="post" style="color: #874983">
+    <form action=" {{route('journey.store')}} " method="post">
         @csrf
         <label class="labels" for="" >FUNCIONÁRIO: </label>
         {{Auth::user()->contact->name}}

@@ -24,7 +24,6 @@ class JourneyController extends Controller {
     public function index(Request $request) {
         $journeys = $this->filterJourneys($request);
         $status = $this->returnStatus();
-
         $users = User::myUsers();
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)

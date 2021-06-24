@@ -112,7 +112,7 @@ class AccountController extends Controller {
 
         $states = returnStates();
         $status = Account::returnStatus();
-        $users = myUsers();
+        $users = User::myUsers();
         $logos = $this->logos();
         $businessModelTypes = Account::businessModelTypes();
 

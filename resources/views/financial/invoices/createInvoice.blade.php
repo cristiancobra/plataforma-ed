@@ -70,7 +70,7 @@
         @endif
         <br>
         @if(!empty(app('request')->input('opportunityCompanyName')))
-        <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
+        <label class="labels" for="" >EMPRESA:</label>
         {{app('request')->input('opportunityCompanyName')}}
         <input type="hidden" name="company_id" value="{{app('request')->input('opportunityCompanyId')}}">
         @elseif($typeInvoices == 'despesa')
@@ -84,7 +84,7 @@
         </select>
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
         @else
-        <label class="labels" for="" >EMPRESA CONTRATANTE:</label>
+        <label class="labels" for="" >EMPRESA:</label>
         <select name="company_id">
             <option  class="fields" value="">
                 Não possui
@@ -128,6 +128,7 @@
         @else
         <label class="labels" for="" >OBSERVAÇÕES:</label>
         <textarea id="description" name="description" rows="20" cols="90">
+{{old('description')}}
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>

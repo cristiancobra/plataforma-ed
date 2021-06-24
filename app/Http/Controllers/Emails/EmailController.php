@@ -96,7 +96,7 @@ class EmailController extends Controller {
 				->orderBy('ID', 'ASC')
 				->get();
 
-		$users = myUsers();
+		$users = User::myUsers();
 
 		return view('emails.edit', compact(
 						'users',

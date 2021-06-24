@@ -296,7 +296,7 @@ class OpportunityController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
 
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -466,7 +466,7 @@ class OpportunityController extends Controller {
                 ->orderBy('ID', 'ASC')
                 ->get();
 
-        $users = myUsers();
+        $users = User::myUsers();
         $stages = $this->listStages();
         $status = $this->listStatus();
 
