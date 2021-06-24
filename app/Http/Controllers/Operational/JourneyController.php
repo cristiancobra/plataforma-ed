@@ -275,7 +275,7 @@ class JourneyController extends Controller {
         $dateEnd = new DateTime('now');
         $journey->end = $dateEnd->format('Y-m-d H:i:s');
         $journey->duration = strtotime($journey->end) - strtotime($journey->start);
-        dd($journey);
+//        dd($journey);
         $journey->save();
 
 //        $startDate = new DateTime($journey->start);
