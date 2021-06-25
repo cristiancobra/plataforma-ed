@@ -61,6 +61,7 @@ if (!function_exists('createButtonShow')) {
     }
 
 }
+
 if (!function_exists('createButtonExternalLink')) {
 
 // cria um botao com simbolo de FOGUETE que aponta para links externos
@@ -70,6 +71,29 @@ if (!function_exists('createButtonExternalLink')) {
         echo "<i class = 'fa fa-rocket' style = 'color:white'></i>";
         echo "</a>";
         echo "</button>";
+    }
+
+}
+if (!function_exists('createButtonTrash')) {
+
+// gera um botão para o método que envia ou recupera um objeto da lixeira, de acordo com o estado atual
+    function createButtonTrash($model, $parameter) {
+        if($model->trash ==1) {
+        $link = "$parameter.restore";
+        $styleName = 'restore';
+        $iconName = 'fa fa-recycle';
+        } else {
+        $link = "$parameter.trash";
+        $styleName = 'delete';
+        $iconName = 'fa fa-trash';
+        };
+        echo "<form style='text-decoration: none;color: black;display: inline-block' action='" . route($link, [$parameter => $model]) . "' method='post'>";
+        echo "<input type='hidden' name='_method' value='PUT'>";
+        echo "<input type='hidden' name='_token' value='". csrf_token() . "' />";
+        echo "<button id='' class='circular-button $styleName' style='border:none;padding-left:4px;paddint-top:-5px' type='submit'>";
+        echo "<i class='$iconName'></i>";
+        echo "</button>";
+        echo "</form>";
     }
 
 }

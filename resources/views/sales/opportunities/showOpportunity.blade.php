@@ -8,6 +8,7 @@
 
 @section('buttons')
 {{createButtonBack()}}
+{{createButtonTrash($opportunity, 'opportunity')}}
 {{createButtonList('opportunity')}}
 @endsection
 
@@ -717,23 +718,10 @@
         </div>
     </div>
     @endsection
-
+    
+    
     @section('deleteButton')
-    @if($opportunity->trash == 1)
-    {{route('opportunity.destroy', ['opportunity' => $opportunity])}}
-    @endif
-    @endsection
-
-    @section('extraButton')
-    @if($opportunity->trash == 0)
-    <form style='text-decoration: none;color: black;display: inline-block' action=" {{route('opportunity.trash', ['opportunity' => $opportunity])}} " method="post">
-        @csrf
-        @method('put')
-        <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
-            <i class='fa fa-trash'></i>
-        </button>
-    </form>
-    @endif
+    {{createButtonTrash($opportunity, 'opportunity')}}
     @endsection
 
     @section('editButton', route('opportunity.edit', ['opportunity' => $opportunity->id]))

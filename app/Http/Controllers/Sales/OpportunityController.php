@@ -454,17 +454,14 @@ class OpportunityController extends Controller {
 
         $total = $opportunities->total();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
 
         $users = User::myUsers();
         $stages = $this->listStages();
@@ -475,15 +472,21 @@ class OpportunityController extends Controller {
                         'total',
                         'contacts',
                         'companies',
-                        'accounts',
                         'users',
                         'stages',
                         'status',
         ));
     }
 
-    public function trash(Opportunity $opportunity) {
+    public function sendToTrash(Opportunity $opportunity) {
         $opportunity->trash = 1;
+        $opportunity->save();
+
+        return redirect()->action('Sales\\OpportunityController@index');
+    }
+
+    public function restoreFromTrash(Opportunity $opportunity) {
+        $opportunity->trash = 0;
         $opportunity->save();
 
         return redirect()->action('Sales\\OpportunityController@index');

@@ -70,30 +70,25 @@
                                 EXECUÇÃO
                             </div>
                         </div>
-                            @yield('execution')
+                        @yield('execution')
 
-                            <div class='row' style='margin-top: 30px;text-align: right'>
-                                <div class='col-12'style='text-align: right;padding-top: -10px'>
-                                    <form   style='text-decoration: none;color: black;display: inline-block' action='@yield('deleteButton')' method='post'>
-                                        @csrf
-                                        @method('delete')
-                                        <button id='' class='circular-button delete' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
-                                            <i class='fa fa-trash'></i>
-                                        </button>
-                                    </form>
-                            @yield('extraButton')        
-                                    <a class='circular-button secondary' href='@yield('editButton')'>
-                                        <i class='fa fa-edit'></i>
-                                    </a>
-                                    <a class='circular-button primary'  href='@yield('backButton')'>
-                                        <i class='fas fa-arrow-left'></i>
-                                    </a>
-                                </div>
+                        <div class='row' style='margin-top: 30px;text-align: right'>
+                            <div class='col-12'style='text-align: right;padding-top: -10px'>
+                                @yield('deleteButton')
+
+                                @yield('extraButton')        
+                                <a class='circular-button secondary' href='@yield('editButton')'>
+                                    <i class='fa fa-edit'></i>
+                                </a>
+                                <a class='circular-button primary'  href='@yield('backButton')'>
+                                    <i class='fas fa-arrow-left'></i>
+                                </a>
                             </div>
-
-                            @yield('createdAt')
-
                         </div>
+
+                        @yield('createdAt')
+
+                    </div>
                 </main>
                 <script>
                     $("#delete-button").click(function () {

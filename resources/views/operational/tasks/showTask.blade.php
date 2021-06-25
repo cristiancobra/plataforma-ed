@@ -184,13 +184,13 @@
         @endif
     </div>
     <div class='tb col-1 text-center'>
-        {{date('H:i', strtotime($journey->start_time))}}
+        {{date('H:i', strtotime($journey->start))}}
     </div>
     <div class='tb col-1 text-center'>
         @if($journey->end_time == null)
         --
         @else
-        {{date('H:i', strtotime($journey->end_time))}}
+        {{date('H:i', strtotime($journey->end))}}
         @endif
     </div>
     <div class='tb col-1 text-center' style='color:white;background-color: #874983;border-color: white'>

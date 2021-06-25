@@ -299,8 +299,12 @@ Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
         ->name('opportunity.filter')
         ->middleware('roles');
 
-Route::get('/oportunidades/apagar/{opportunity}', 'Sales\\OpportunityController@trash')
+Route::put('/oportunidades/apagar/{opportunity}', 'Sales\\OpportunityController@sendToTrash')
         ->name('opportunity.trash')
+        ->middleware('roles');
+
+Route::put('/oportunidades/restaurar/{opportunity}', 'Sales\\OpportunityController@restoreFromTrash')
+        ->name('opportunity.restore')
         ->middleware('roles');
 
 Route::resource('oportunidades', 'Sales\\OpportunityController')

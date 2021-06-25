@@ -780,3 +780,14 @@ background-color: #f9d0ff;
     color: white;
     text-decoration: none;
 }
+
+.restore {
+    color: #874983;
+    background-color: #97F80C;
+}
+
+.restore:hover{
+    background-color: #09FBBE;
+    color: #874983;
+    text-decoration: none;
+}
