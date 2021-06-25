@@ -35,9 +35,7 @@ class DashboardController extends Controller {
             $journeys = Journey::where('account_id', auth()->user()->account_id)
                     ->get();
 
-            $users = User::where('account_id', auth()->user()->account_id)
-                    ->orderBy('ID', 'ASC')
-                    ->get();
+            $users = User::myUsers();
 
             foreach ($users as $user) {
                 $user->hoursMonthly = Journey::where('user_id', $user->id)
