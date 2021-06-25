@@ -187,7 +187,7 @@
         {{date('H:i', strtotime($journey->start))}}
     </div>
     <div class='tb col-1 text-center'>
-        @if($journey->end_time == null)
+        @if($journey->end == null)
         --
         @else
         {{date('H:i', strtotime($journey->end))}}
