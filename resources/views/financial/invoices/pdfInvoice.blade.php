@@ -120,9 +120,13 @@
                 {{$data['customerName']}}
                 <br>
                 {{$data['companyName']}}
-                @if(isset($data['companyCnpj']))
+                @if($data['companyCnpj'] != null)
                 <br>
-                cnpj: {{formatCnpj($data['companyCnpj'])}}
+                CNPJ: {{formatCnpj($data['companyCnpj'])}}
+                @endif
+                @if($data['contactCpf'] != null)
+                <br>
+                CPF: {{formatCnpj($data['contactCpf'])}}
                 @endif
                 @if(isset($data['companyEmail']))
                 {{$data['email']}}

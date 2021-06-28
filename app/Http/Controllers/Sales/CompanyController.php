@@ -120,19 +120,13 @@ class CompanyController extends Controller {
      */
     public function edit(Company $company, Request $request) {
         $typeCompanies = $request->input('typeCompanies');
-        $accountsId = userAccounts();
         $states = returnStates();
         $types = $this->returnTypes();
-
-        $accounts = Account::whereIn('id', $accountsId)
-                ->orderBy('NAME', 'ASC')
-                ->get();
 
         $businessModelTypes = Account::businessModelTypes();
 
         return view('sales.companies.editCompany', compact(
                         'company',
-                        'accounts',
                         'states',
                         'typeCompanies',
                         'businessModelTypes',

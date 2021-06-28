@@ -527,6 +527,7 @@ class InvoiceController extends Controller {
             $country = $invoice->company->country;
             $companyName = $invoice->company->name;
             $companyCnpj = $invoice->company->cnpj;
+            $contactCpf = null;
         } else {
             $email = $invoice->contact->email;
             $phone = $invoice->contact->phone;
@@ -536,6 +537,7 @@ class InvoiceController extends Controller {
             $country = $invoice->contact->country;
             $companyName = null;
             $companyCnpj = null;
+            $contactCpf = $invoice->contact->cpf;
         }
 
         $data = [
@@ -554,6 +556,7 @@ class InvoiceController extends Controller {
 //            'customerName' => $task->contact->name,
             'companyName' => $companyName,
             'companyCnpj' => $companyCnpj,
+            'contactCpf' => $contactCpf,
             'email' => $email,
             'phone' => $phone,
             'address' => $address,
