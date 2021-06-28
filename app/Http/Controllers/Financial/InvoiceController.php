@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Financial;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Models\InvoiceLine;
-use App\Models\Account;
 use App\Models\BankAccount;
 use App\Models\Company;
 use App\Models\Contact;
@@ -19,6 +18,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use DateTime;
 
 class InvoiceController extends Controller {
 
@@ -46,7 +46,7 @@ class InvoiceController extends Controller {
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
-//dd($invoices);
+
         $invoices->appends([
             'status' => $request->status,
             'contact_id' => $request->contact_id,
@@ -190,6 +190,10 @@ class InvoiceController extends Controller {
         } else {
             $invoice = new Invoice();
             $invoice->fill($request->all());
+//            $DateTime = new DateTime($request->date_creation);
+//            $DateTime->add(new \DateInterval("P" . $request->expiration_date . "D"));
+//            $invoice->expiration_date = $DateTime->format( 'd/m/Y');
+//            dd($DateTime);
             $invoice->account_id = auth()->user()->account_id;
 
             $invoicesIdentifier = Invoice::where('account_id', $request->account_id)
@@ -246,6 +250,10 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Invoice $invoice) {
+            $DateTime = new DateTime($invoice->date_creation);
+            $DateTime->add(new \DateInterval("P" . $invoice->expiration_date . "D"));
+            $invoice->expiration_date = $DateTime->format( 'd/m/Y');
+        
         $typeInvoices = $invoice->type;
 
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
@@ -556,6 +564,7 @@ class InvoiceController extends Controller {
             'invoiceIdentifier' => $invoice->identifier,
             'invoiceDescription' => $invoice->description,
             'invoiceDiscount' => $invoice->discount,
+            'invoiceExpirationDate' => $invoice->expiration_date,
             'invoiceInstallmentValue' => $invoice->installment_value,
             'invoiceStatus' => $invoice->status,
             'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,

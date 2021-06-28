@@ -42,6 +42,8 @@
         <span class='fields'>{{$invoice->opportunity->name}}</span>
         <br>
         @endif
+        
+        @if(isset($invoice->company))
         <label class='labels' for=''>EMPRESA:</label>
         {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $invoice->company)}}
         <button class='button-round'>
@@ -50,6 +52,8 @@
             </a>
         </button>
         <br>
+        @endif
+        
         <label class='labels' for='' >CONTATO: </label>
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $invoice->contact, )}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
@@ -71,6 +75,9 @@
         <br>
         <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
         <input type='date' name='date_creation' size='20' value='{{$invoice->date_creation}}'><span class='fields'></span>
+        <br>
+        <label class="labels" for="" >VALIDADE DA PROPOSTA:</label>
+        <input type="number" name="expiration_date" size="3" min='1' max='365' value="{{$invoice->expiration_date}}"> dias
         <br>
         <label class='labels' for='' >DATA DO PAGAMENTO:</label>
         <input type='date' name='pay_day' size='20' value='{{$invoice->pay_day}}'><span class='fields'></span>

@@ -93,6 +93,9 @@ Não possui
 <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
 <span class='fields'>{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>
 <br>
+<label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
+<span class='fields'>{{$invoice->expiration_date}}</span>
+<br>
 <label class='labels' for='' >DATA DE PAGAMENTO:</label>
 <span class='fields'>{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
 <br>

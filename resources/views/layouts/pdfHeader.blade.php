@@ -44,6 +44,8 @@
                 <p style='font-size:28px'>
                     @if($data['pdfTitle'] == 'ORÇAMENTO')
                     ORÇAMENTO
+                    <br>
+                    <span style='font-size: 14px'>Data: {{date('d/m/Y', strtotime($data['invoicePayday']))}} - proposta válida por {{$data['invoiceExpirationDate']}} dias</span>
                     @elseif($data['pdfTitle'] == 'FATURA')
                 <p style='font-size:22px'>
                     FATURA {{$data['invoiceIdentifier']}}

@@ -114,6 +114,9 @@
         <span class="text-danger">{{$errors->first('date_creation')}}</span>
         @endif
         <br>
+        <label class="labels" for="" >VALIDADE DA PROPOSTA:</label>
+             <input type="number" name="expiration_date" size="3" min='1' max='365' value="30"> dias
+        <br>
         <label class="labels" for="" >DATA DO PAGAMENTO:</label>
         <input type="date" name="pay_day" size="20" value="{{old('pay_day')}}"><span class="fields"></span>
         @if ($errors->has('pay_day'))

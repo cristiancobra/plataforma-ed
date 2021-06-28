@@ -19,6 +19,7 @@ class Invoice extends Model {
 		'description',
 		'date_creation',
 		'pay_day',
+		'expiration_date',
 		'discount',
 		'subtotal',
 		'totalHours',

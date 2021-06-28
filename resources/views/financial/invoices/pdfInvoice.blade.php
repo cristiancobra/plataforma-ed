@@ -339,18 +339,6 @@
         <p class="break"></p>
         @endif
 
-        <div style='padding-top: 40px;text-align: center'>
-            <h4 style="color:{{$data['accountPrincipalColor']}}">
-                FORMAS DE PAGAMENTO:
-            </h4>
-            <p>
-                À  VISTA: por boleto ou transferência bancária
-                <br>
-                <br>
-                PARCELADO: no cartão de crédito em até 12x
-                <br>
-            </p>
-        </div>
         <div style='padding-top: 60px;text-align: center'>
             <h4 style="color:{{$data['accountPrincipalColor']}}">
                 DADOS PARA PAGAMENTO:
