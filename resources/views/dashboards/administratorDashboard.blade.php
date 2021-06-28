@@ -101,7 +101,7 @@
 
 <div class='row mt-2 mb-2'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('imagens/tarefas.png')}}' width='40' height='40'>
+        <img src='{{asset('imagens/task.png')}}' width='40' height='40'>
         <p class="mt-2">
             TAREFAS
         </p>
