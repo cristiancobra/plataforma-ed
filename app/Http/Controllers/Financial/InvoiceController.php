@@ -504,9 +504,9 @@ class InvoiceController extends Controller {
                 ->sum('points');
 
 // definição do título
-        if ($invoice->identifier <= 0) {
+        if ($invoice->status == 'orçamento' OR $invoice->status == 'rascunho') {
             $pdfTitle = 'ORÇAMENTO';
-        } else {
+        } elseif ($invoice->status == 'aprovada'  OR $invoice->status == 'paga') {
             $pdfTitle = 'FATURA';
         }
 
