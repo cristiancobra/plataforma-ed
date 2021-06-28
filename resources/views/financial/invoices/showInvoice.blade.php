@@ -3,7 +3,7 @@
 @section('title','FATURAS')
 
 @section('image-top')
-{{asset('imagens/invoice.png')}} 
+{{asset('images/invoice.png')}} 
 @endsection
 
 @section('description')
@@ -109,7 +109,7 @@ Não possui
 <span class='fields'>{!!html_entity_decode($invoice->description)!!}</span>
 <br>
 <div style='display: inline-block'>
-    <img src='{{asset('imagens/products.png')}}' width='40px' alt='40px'>
+    <img src='{{asset('images/products.png')}}' width='40px' alt='40px'>
     <label class='labels' for='' >ITENS DA FATURA:</label>
 </div>
 <br>
@@ -240,7 +240,7 @@ $counter++;
 @endif
 <br>
 <div style='display: inline-block'>
-    <img src='{{asset('imagens/financeiro.png')}}' width='40px' alt='40px'>
+    <img src='{{asset('images/financeiro.png')}}' width='40px' alt='40px'>
     <label class='labels' for='' >PAGAMENTOS:</label>
 </div>
 <br>
@@ -339,7 +339,7 @@ $counter++;
 <br>
 @if($invoice->type == 'receita')
 <div style='display: inline-block'>
-    <img src='{{asset('imagens/invoice.png')}}' width='40px' alt='40px'>
+    <img src='{{asset('images/invoice.png')}}' width='40px' alt='40px'>
     <label class='labels' for='' >PARCELAMENTO:</label>
 </div>
 <br>
@@ -406,7 +406,7 @@ $counter++;
 <br>
 <br>
 <div style='display: inline-block'>
-    <img src='{{asset('imagens/production.png')}}' width='40px' alt='40px'>
+    <img src='{{asset('images/production.png')}}' width='40px' alt='40px'>
     <label class='labels' for='' >PRODUÇÃO:</label>
 </div>
 <br>

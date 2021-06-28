@@ -3,7 +3,7 @@
 @section('title','CONCORRENTES')
 
 @section('image-top')
-{{ asset('imagens/competitors.png') }} 
+{{ asset('images/competitors.png') }} 
 @endsection
 
 @section('description')
@@ -54,7 +54,7 @@
 <div class="grid-dashboard">
     <div class="facebook">
         <div style="display: inline-block">
-            <img class="grid-image" src="{{ asset('imagens/facebook.png') }}" style="width: 100px;height: 100px;text-align: left">
+            <img class="grid-image" src="{{ asset('images/facebook.png') }}" style="width: 100px;height: 100px;text-align: left">
         </div>
         <div style="display: inline-block">
             FACEBOOK
@@ -66,7 +66,7 @@
     </div>
 	<div class="instagram">
 		<div style="display: inline-block">
-			<img class="grid-image" src="{{ asset('imagens/instagram.png') }}" style="width: 100px;height: 100px;text-align: left">
+			<img class="grid-image" src="{{ asset('images/instagram.png') }}" style="width: 100px;height: 100px;text-align: left">
 		</div>
 		<div style="display: inline-block">
 			INSTAGRAM
@@ -78,7 +78,7 @@
 	</div>
 	<div class="linkedin">
 		<div style="display: inline-block">
-			<img class="grid-image" src="{{ asset('imagens/linkedin.png') }}" style="width: 100px;height: 100px;text-align: left">
+			<img class="grid-image" src="{{ asset('images/linkedin.png') }}" style="width: 100px;height: 100px;text-align: left">
 		</div>
 		<div style="display: inline-block">
 			LINKEDIN
@@ -90,7 +90,7 @@
 	</div>
 	<div class="twitter">
 		<div style="display: inline-block">
-			<img class="grid-image" src="{{ asset('imagens/twitter.png') }}" style="width: 100px;height: 100px;text-align: left">
+			<img class="grid-image" src="{{ asset('images/twitter.png') }}" style="width: 100px;height: 100px;text-align: left">
 		</div>
 		<div style="display: inline-block">
 			TWITTER
@@ -102,7 +102,7 @@
 	</div>
 	<div class="pinterest">
 		<div style="display: inline-block">
-			<img class="grid-image" src="{{ asset('imagens/pinterest.png') }}" style="width: 100px;height: 100px;text-align: left">
+			<img class="grid-image" src="{{ asset('images/pinterest.png') }}" style="width: 100px;height: 100px;text-align: left">
 		</div>
 		<div style="display: inline-block">
 			PINTEREST
@@ -114,7 +114,7 @@
 	</div>
 	<div class="spotfy">
 		<div style="display: inline-block">
-			<img class="grid-image" src="{{ asset('imagens/spotfy.png') }}" style="width: 100px;height: 100px;text-align: left">
+			<img class="grid-image" src="{{ asset('images/spotfy.png') }}" style="width: 100px;height: 100px;text-align: left">
 		</div>
 		<div style="display: inline-block">
 			SPOTFY

@@ -3,7 +3,7 @@
 @section('title','LOGAR NO FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('images/email.png') }} 
 @endsection
 
 @section('description')

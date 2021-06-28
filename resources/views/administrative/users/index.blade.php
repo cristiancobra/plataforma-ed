@@ -3,7 +3,7 @@
 @section('title', 'FUNCIONÁRIOS')
 
 @section('image-top')
-{{asset('imagens/colaborador.png')}} 
+{{asset('images/colaborador.png')}} 
 @endsection
 
 @section('description')
@@ -51,7 +51,7 @@ Total: <span class='labels'>{{$total}} </span>
                     @if($user->profile_picture)
                     <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
                     @else
-                    <img src='{{asset('imagens/colaborador.png')}}' width='100%' height='100%'>
+                    <img src='{{asset('images/colaborador.png')}}' width='100%' height='100%'>
                     @endif
                 </a>
             </div>

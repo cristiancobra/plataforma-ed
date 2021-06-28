@@ -3,7 +3,7 @@
 @section('title','NOVA CONTA')
 
 @section('image-top')
-{{ asset('imagens/instagram.png') }} 
+{{ asset('images/instagram.png') }} 
 @endsection
 
 @section('description')
@@ -69,7 +69,7 @@
 		<input type="radio" name="SEO_descriptions" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="SEO_descriptions" value="no"><span class="fields">Não</span><br>
 		<br>
-		<label class="labels" for="">Imagens têm tamanho correto:</label>
+		<label class="labels" for="">images têm tamanho correto:</label>
 		<br>
 		<input type="radio" name="feed_images" value="yes" checked="checked"><span class="fields">Sim</span><br>
 		<input type="radio" name="feed_images" value="no"><span class="fields">Não</span><br>

@@ -3,7 +3,7 @@
 @section('title','CONCORRENTES')
 
 @section('image-top')
-{{asset('imagens/competitors.png')}} 
+{{asset('images/competitors.png')}} 
 @endsection
 
 @section('description')

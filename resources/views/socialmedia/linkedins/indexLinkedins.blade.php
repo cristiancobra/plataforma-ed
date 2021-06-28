@@ -3,7 +3,7 @@
 @section('title','LINKEDIN')
 
 @section('image-top')
-{{ asset('imagens/linkedin.png') }} 
+{{ asset('images/linkedin.png') }} 
 @endsection
 
 @section('description')

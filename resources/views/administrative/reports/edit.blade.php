@@ -3,7 +3,7 @@
 @section('title','EDITAR RELATÓRIO')
 
 @section('image-top')
-{{ asset('imagens/report.png') }} 
+{{ asset('images/report.png') }} 
 @endsection
 
 @section('description')

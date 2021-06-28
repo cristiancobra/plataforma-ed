@@ -144,9 +144,9 @@ Route::resource('movimentacoes', 'Financial\\TransactionController')
 
 // ================================ LIBRARIES ===================
 // Images
-Route::resource('biblioteca-imagens', 'Libraries\\ImageController')
+Route::resource('biblioteca-images', 'Libraries\\ImageController')
         ->names('image')
-        ->parameters(['biblioteca-imagens' => 'image'])
+        ->parameters(['biblioteca-images' => 'image'])
         ->middleware('roles');
 
 // ================================ MARKET ===================

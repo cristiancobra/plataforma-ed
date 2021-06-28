@@ -3,7 +3,7 @@
 @section('title','REDES SOCIAIS')
 
 @section('image-top')
-{{ asset('imagens/socialmedia.png') }} 
+{{ asset('images/socialmedia.png') }} 
 @endsection
 
 @section('description')

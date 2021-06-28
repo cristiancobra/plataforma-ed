@@ -3,7 +3,7 @@
 @section('title','REDES SOCIAIS')
 
 @section('image-top')
-{{asset('imagens/socialmedia.png')}} 
+{{asset('images/socialmedia.png')}} 
 @endsection
 
 @section('description')
@@ -97,7 +97,7 @@
         <input type="radio" name="SEO_descriptions" value="0" ><span class="fields">Não</span>
         <br>
         <br>
-        <label class="labels" for="">Imagens têm tamanho correto:</label>
+        <label class="labels" for="">images têm tamanho correto:</label>
         <br>
         <input type="radio" name="feed_images" value="1" checked="checked"><span class="fields">Sim</span>
         <br>

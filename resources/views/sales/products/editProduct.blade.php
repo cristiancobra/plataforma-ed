@@ -3,7 +3,7 @@
 @section('title','PRODUTOS')
 
 @section('image-top')
-{{ asset('imagens/products.png') }} 
+{{ asset('images/products.png') }} 
 @endsection
 
 @section('description')
@@ -20,7 +20,7 @@
         @if($product->image_id != null)
         <img src='{{asset($product->image->path)}}' width='100%' height='100%'>
         @else
-        <img src='{{asset('imagens/products.png')}}'  width='100%' heigh='100%'>
+        <img src='{{asset('images/products.png')}}'  width='100%' heigh='100%'>
         @endif
     </div>
     <div class="col-6">

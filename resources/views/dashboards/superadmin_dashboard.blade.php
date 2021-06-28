@@ -3,7 +3,7 @@
 @section('title','SUPER ADMINISTRADOR')
 
 @section('image-top')
-{{asset('imagens/control-panel.png')}}
+{{asset('images/control-panel.png')}}
 @endsection
 
 @section('description')
@@ -18,7 +18,7 @@
 @section('main')
 <div class="grid-administrator">
 	<div class="tasks-title">
-		<img src="{{asset('imagens/tarefas.png')}}" width="50" height="50">
+		<img src="{{asset('images/tarefas.png')}}" width="50" height="50">
 		<br>
 		<br>
 		TAREFAS
@@ -71,7 +71,7 @@
 	</div>
 
 	<div class="opportunities-title">
-		<img src="{{asset('imagens/financeiro.png')}}" width="50" height="50">
+		<img src="{{asset('images/financeiro.png')}}" width="50" height="50">
 		<br>
 		<br>
 		OPORTUNIDADES

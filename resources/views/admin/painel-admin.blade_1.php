@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="coluna-direita" style="margin-top: 10px">
-                    <img src=" {{ asset('imagens/astronauta-estrela.png') }} " width="280px" height="280px"></a>
+                    <img src=" {{ asset('images/astronauta-estrela.png') }} " width="280px" height="280px"></a>
                 </div>
             </div>
             

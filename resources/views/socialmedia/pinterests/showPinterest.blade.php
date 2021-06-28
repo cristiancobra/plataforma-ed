@@ -3,7 +3,7 @@
 @section('title','PINTEREST')
 
 @section('image-top')
-{{ asset('imagens/pinterest.png') }} 
+{{ asset('images/pinterest.png') }} 
 @endsection
 
 @section('description')

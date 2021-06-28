@@ -3,7 +3,7 @@
 @section('title','CRIAR BRIEFING')
 
 @section('image-top')
-{{ asset('imagens/colaborador.png') }} 
+{{ asset('images/colaborador.png') }} 
 @endsection
 
 @section('description')

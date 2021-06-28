@@ -3,7 +3,7 @@
 @section('title','FUNCIONÁRIOS')
 
 @section('image-top')
-{{asset('imagens/colaborador.png')}}
+{{asset('images/colaborador.png')}}
 @endsection
 
 @section('description')

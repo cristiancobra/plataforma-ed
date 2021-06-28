@@ -3,7 +3,7 @@
 @section('title','MODELOS DE CONTRATO')
 
 @section('image-top')
-{{ asset('imagens/contract.png') }} 
+{{ asset('images/contract.png') }} 
 @endsection
 
 @section('description')

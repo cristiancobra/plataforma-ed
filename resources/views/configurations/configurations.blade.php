@@ -3,7 +3,7 @@
 @section('title','PALETA DE CORES')
 
 @section('image-top')
-{{ asset('imagens/contact.png') }} 
+{{ asset('images/contact.png') }} 
 @endsection
 
 @section('buttons')

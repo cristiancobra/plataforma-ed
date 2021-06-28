@@ -3,7 +3,7 @@
 @section('title','FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/facebook.png') }} 
+{{ asset('images/facebook.png') }} 
 @endsection
 
 @section('description')
@@ -71,7 +71,7 @@
 			@endif
 		</tr>
 		<tr>
-			<td   class="table-list-left"><b>Imagens têm tamanho correto:</b></td>
+			<td   class="table-list-left"><b>images têm tamanho correto:</b></td>
 			@if ($facebook->feed_images === "yes")
 			<td   class="button-active"><b>SIM</b></td>
 			@else

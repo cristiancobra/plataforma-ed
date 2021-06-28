@@ -3,7 +3,7 @@
 @section('title','YOUTUBE')
 
 @section('image-top')
-{{ asset('imagens/youtube.png') }} 
+{{ asset('images/youtube.png') }} 
 @endsection
 
 @section('description')

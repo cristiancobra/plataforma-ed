@@ -3,7 +3,7 @@
 @section('title','FUNCIONÁRIO')
 
 @section('image-top')
-{{asset('imagens/control-panel.png')}}
+{{asset('images/control-panel.png')}}
 @endsection
 
 @section('description')
@@ -18,7 +18,7 @@
 @section('main')
 <div class="grid-employee">
 	<div class="tasks-title">
-		<img src="{{asset('imagens/tarefas.png')}}" width="50" height="50">
+		<img src="{{asset('images/tarefas.png')}}" width="50" height="50">
                 <br>
                 <br>
 		TAREFAS
@@ -70,7 +70,7 @@
 	</a>
 
 	<div class="opportunities-title">
-		<img src="{{asset('imagens/financeiro.png')}}" width="50" height="50">
+		<img src="{{asset('images/financeiro.png')}}" width="50" height="50">
 		<br>
 		<br>
 		OPORTUNIDADES
@@ -138,7 +138,7 @@
 	</a>
 	<br>
 	<div class="journeys-title">
-		<img src="{{asset('imagens/journey.png')}}" width="50" height="50">
+		<img src="{{asset('images/journey.png')}}" width="50" height="50">
 		<br>
 		<br>
 		JORNADAS

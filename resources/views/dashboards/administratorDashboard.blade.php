@@ -3,7 +3,7 @@
 @section('title','ADMINISTRADOR')
 
 @section('image-top')
-{{asset('imagens/control-panel.png')}}
+{{asset('images/control-panel.png')}}
 @endsection
 
 @section('description')
@@ -19,14 +19,14 @@
 <div class='row mt-3 mb-5 ms-2 me-2'>
 
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('imagens/invoice.png')}}' width='40' height='40'>
+        <img src='{{asset('images/invoice.png')}}' width='40' height='40'>
         <p class="mt-2">
             FINANCEIRO
         </p>
     </div>
     <div class='financial-display col-lg-3'>
         <div style='display: inline-block;float: left;width: 20%'>
-            <img class='financial-image' src="{{asset('imagens/financial-planning.png')}}">
+            <img class='financial-image' src="{{asset('images/financial-planning.png')}}">
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
@@ -49,7 +49,7 @@
 
     <div class='financial-display col-lg-3'>
         <div style='display: inline-block;float: left;width: 20%'>
-            <img class='financial-image' src="{{asset('imagens/invoice.png')}}" style='width:100%'>
+            <img class='financial-image' src="{{asset('images/invoice.png')}}" style='width:100%'>
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
@@ -75,7 +75,7 @@
 
     <div class='financial-display col-lg-3'>
         <div style='display: inline-block;float: left;width: 20%'>
-            <img class='financial-image' src="{{asset('imagens/financeiro.png')}}" style='width:100%'>
+            <img class='financial-image' src="{{asset('images/financeiro.png')}}" style='width:100%'>
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
@@ -101,7 +101,7 @@
 
 <div class='row mt-2 mb-2'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('imagens/task.png')}}' width='40' height='40'>
+        <img src='{{asset('images/task.png')}}' width='40' height='40'>
         <p class="mt-2">
             TAREFAS
         </p>
@@ -156,7 +156,7 @@
 
 <div class='row mt-5 mb-5'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('imagens/financeiro.png')}}' width='40' height='40'>
+        <img src='{{asset('images/financeiro.png')}}' width='40' height='40'>
         <p class="mt-2">
             OPORTUNIDADES
         </p>
@@ -263,7 +263,7 @@
 
 <div class='row mt-2 mb-2'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('imagens/journey.png')}}' width='40' height='40'>
+        <img src='{{asset('images/journey.png')}}' width='40' height='40'>
         <p class="mt-2">
             JORNADAS
         </p>

@@ -11,7 +11,7 @@
 @endif
 
 @section('image-top')
-{{asset('imagens/empresa.png')}} 
+{{asset('images/empresa.png')}} 
 @endsection
 
 @section('description')

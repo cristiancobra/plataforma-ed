@@ -3,7 +3,7 @@
 @section('title','FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/facebook.png') }} 
+{{ asset('images/facebook.png') }} 
 @endsection
 
 @section('description')

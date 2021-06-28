@@ -3,7 +3,7 @@
 @section('title','REDES SOCIAIS')
 
 @section('image-top')
-{{ asset('imagens/control-panel.png') }} 
+{{ asset('images/control-panel.png') }} 
 @endsection
 
 @section('description')
@@ -12,7 +12,7 @@
 @section('main')
 <div class="grid-dashboard">
     <div class="facebook">
-        <img class="grid-image" src="{{ asset('imagens/socialmedia/facebook.png') }}" style="width: 80px;height: 80px;text-align: center">
+        <img class="grid-image" src="{{ asset('images/socialmedia/facebook.png') }}" style="width: 80px;height: 80px;text-align: center">
         <br>
         @foreach ($facebooks as $facebook)
 		<a class="button-round"  href=" {{ $facebook->URL_name}}" target="_blank" >
@@ -30,7 +30,7 @@
     </div>
 
     <div class="instagram">
-        <img class="grid-image" src="{{ asset('imagens/socialmedia/instagram.png') }} " style="width: 80px;height: 80px;text-align: center">
+        <img class="grid-image" src="{{ asset('images/socialmedia/instagram.png') }} " style="width: 80px;height: 80px;text-align: center">
         <br>
         @foreach ($instagrams as $instagram)
 		<a class="button-round" href=" {{ $instagram->URL_name}}" target="_blank" >
@@ -48,7 +48,7 @@
     </div>
 
     <div class="linkedin">
-        <img class="grid-image" src="{{ asset('imagens/socialmedia/linkedin.png') }} " style="width: 80px;height: 80px;text-align: center">
+        <img class="grid-image" src="{{ asset('images/socialmedia/linkedin.png') }} " style="width: 80px;height: 80px;text-align: center">
         <br>
         @foreach ($linkedins as $linkedin)
 		<a class="button-round" href=" {{ $linkedin->URL_name}}" target="_blank" >
@@ -66,7 +66,7 @@
     </div>
 
     <div class="twitter">
-        <img class="grid-image" src="{{ asset('imagens/socialmedia/twitter.png') }} " style="width: 80px;height: 80px;text-align: center">
+        <img class="grid-image" src="{{ asset('images/socialmedia/twitter.png') }} " style="width: 80px;height: 80px;text-align: center">
         <br>
         @foreach ($twitters as $twitter)
 		<a class="button-round"  href=" {{ $twitter->URL_name}}" target="_blank" >
@@ -80,7 +80,7 @@
     </div>
 
     <div class="pinterest">
-        <img class="grid-image" src="{{ asset('imagens/socialmedia/pinterest.png') }} " style="width: 80px;height: 80px;text-align: center">
+        <img class="grid-image" src="{{ asset('images/socialmedia/pinterest.png') }} " style="width: 80px;height: 80px;text-align: center">
         <br>
         @foreach ($pinterests as $pinterest)
 		<a class="button-round" href=" {{ $pinterest->URL_name}}" target="_blank" >
@@ -98,7 +98,7 @@
     </div>
 
     <div class="youtube">
-        <img class="grid-image" src="{{ asset('imagens/socialmedia/youtube.png') }} " style="width: 80px;height: 80px;text-align: center">
+        <img class="grid-image" src="{{ asset('images/socialmedia/youtube.png') }} " style="width: 80px;height: 80px;text-align: center">
         <br>
         @foreach ($youtubes as $youtube)
 		<a class="button-round"  href=" {{ $youtube->URL_name}}" target="_blank" >
@@ -118,7 +118,7 @@
 <br>
 <br>
 <div class="spotify">
-    <img class="grid-image" src="{{ asset('imagens/socialmedia/spotify.png') }}" style="width: 80px;height: 80px;text-align: center">
+    <img class="grid-image" src="{{ asset('images/socialmedia/spotify.png') }}" style="width: 80px;height: 80px;text-align: center">
     <br>
     @foreach ($spotifys as $spotify)
 	<a class="button-round"  href=" {{ $spotify->URL_name}}" target="_blank" >

@@ -3,7 +3,7 @@
 @section('title','LINKEDIN')
 
 @section('image-top')
-{{ asset('imagens/linkedin.png') }} 
+{{ asset('images/linkedin.png') }} 
 @endsection
 
 @section('description')
@@ -129,7 +129,7 @@
 		<br>
 		@endif
 		<br>
-		<label class="labels" for="">Imagens têm tamanho correto:</label>
+		<label class="labels" for="">images têm tamanho correto:</label>
 		<br>
 		@if ($linkedin->feed_images == "yes")
 		<input type="radio" name="feed_images" value="yes" checked="checked">

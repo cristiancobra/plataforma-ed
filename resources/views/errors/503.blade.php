@@ -6,5 +6,5 @@
 
 
 @section('image')
-<img src="{{asset('/imagens/logo-empresa-digital.png')}}" width="600px" height="200px">
+<img src="{{asset('/images/logo-empresa-digital.png')}}" width="600px" height="200px">
 @endsection

@@ -129,7 +129,7 @@ class ImageController extends Controller {
         return redirect()->action('Libraries\\ImageController@index');
     }
 
-    // retorna os estágios das imagens
+    // retorna os estágios das images
     public function listTypes() {
         return $stages = array(
             'produto',
@@ -138,7 +138,7 @@ class ImageController extends Controller {
         );
     }
 
-    // retorna os estágios das imagens
+    // retorna os estágios das images
     public function listStatus() {
         return $status = array(
             'disponível',

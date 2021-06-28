@@ -3,7 +3,7 @@
 @section('title','EDITAR INSTAGRAM')
 
 @section('image-top')
-{{ asset('imagens/email.png') }} 
+{{ asset('images/email.png') }} 
 @endsection
 
 @section('description')
@@ -181,7 +181,7 @@
 		@endif
 		<br>
 		<br>
-		<label class="labels" for="">Imagens têm tamanho correto:</label>
+		<label class="labels" for="">images têm tamanho correto:</label>
 		<br>
 		@if ($instagram->feed_images === "yes")
 		<input type="radio" name="feed_images" value="yes" checked="checked">

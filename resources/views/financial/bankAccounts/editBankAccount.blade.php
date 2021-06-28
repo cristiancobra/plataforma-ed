@@ -3,7 +3,7 @@
 @section('title','CONTAS BANCÁRIAS')
 
 @section('image-top')
-{{ asset('imagens/bankAccount.png') }} 
+{{ asset('images/bankAccount.png') }} 
 @endsection
 
 @section('description')

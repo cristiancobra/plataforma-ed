@@ -3,7 +3,7 @@
 @section('title','REDES SOCIAIS')
 
 @section('image-top')
-{{asset('imagens/socialmedia.png')}} 
+{{asset('images/socialmedia.png')}} 
 @endsection
 
 @section('description')
@@ -167,7 +167,7 @@
             @endif
         </tr>
         <tr>
-            <td   class="table-list-left">Imagens têm tamanho correto:</td>
+            <td   class="table-list-left">images têm tamanho correto:</td>
             @if ($socialmedia->linked_instagram === "1")
             <td   class="button-active">SIM</td>
             @else

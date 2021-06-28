@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
-@section('title','IMAGENS')
+@section('title','images')
 
 @section('image-top')
-{{asset('imagens/image.png')}} 
+{{asset('images/image.png')}} 
 @endsection
 
 @section('description')

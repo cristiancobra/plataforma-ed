@@ -4,7 +4,7 @@
 
 
 @section('image-top')
-{{asset('imagens/bank.png')}} 
+{{asset('images/bank.png')}} 
 @endsection
 
 @section('buttons')

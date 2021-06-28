@@ -3,7 +3,7 @@
 @section('title','MODELO DE NEGÓCIO')
 
 @section('image-top')
-{{asset('imagens/control-panel.png')}}
+{{asset('images/control-panel.png')}}
 @endsection
 
 @section('description')

@@ -3,7 +3,7 @@
 @section('title','OPORTUNIDADES')
 
 @section('image-top')
-{{asset('imagens/financeiro.png')}}
+{{asset('images/financeiro.png')}}
 @endsection
 
 @section('buttons')
@@ -121,7 +121,7 @@
              border-left-width: 1px;
              border-color: #c28dbf
              ">
-            <img src='{{asset('imagens/tarefas.png')}}' width='25px' alt='25px'>
+            <img src='{{asset('images/tarefas.png')}}' width='25px' alt='25px'>
             <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >VENDAS</label>
         </div>
         <div class='col-6 pt-4 pb-3' style="
@@ -239,7 +239,7 @@
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf;
              ">
-            <img src='{{asset('imagens/invoice.png')}}' width='25px' alt='25px'>
+            <img src='{{asset('images/invoice.png')}}' width='25px' alt='25px'>
             <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >FINANCEIRO</label>
         </div>
         <div class='col-6 pt-4 pb-3' style="
@@ -394,7 +394,7 @@
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf
              ">
-            <img src='{{asset('imagens/contract.png')}}' width='25px' alt='25px'>
+            <img src='{{asset('images/contract.png')}}' width='25px' alt='25px'>
             <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >CONTRATOS</label>
         </div>
         <div class='col-6 pt-4 pb-3' style="
@@ -509,7 +509,7 @@
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf
              ">
-            <img src='{{asset('imagens/production.png')}}' width='25px' alt='25px'>
+            <img src='{{asset('images/production.png')}}' width='25px' alt='25px'>
             <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >PRODUÇÃO</label>
         </div>
         <div class='col-6 pt-4 pb-3' style="
@@ -622,7 +622,7 @@
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf
              ">
-            <img src='{{asset('imagens/customer-service.png')}}' width='25px' alt='25px'>
+            <img src='{{asset('images/customer-service.png')}}' width='25px' alt='25px'>
             <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >ATENDIMENTO</label>
         </div>
         <div class='col-6 pt-4 pb-3' style="

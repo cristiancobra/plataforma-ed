@@ -262,7 +262,7 @@ class ReportController extends Controller {
 
             echo"<div class='facebook'>";
             echo"<div style='display: inline-block'>";
-            echo"<img class='grid-image' src='" . asset('imagens/facebook.png') . "' style='width: 80px;height: 80px;text-align: left'>";
+            echo"<img class='grid-image' src='" . asset('images/facebook.png') . "' style='width: 80px;height: 80px;text-align: left'>";
             echo"</div>";
             echo"<div style='display: inline-block'>";
             $socialmediaReport->socialmedia->socialmedia_name;

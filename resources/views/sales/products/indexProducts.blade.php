@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-{{asset('imagens/products.png')}} 
+{{asset('images/products.png')}} 
 @endsection
 
 @section('buttons')
@@ -63,7 +63,7 @@
                     @if($product->image_id)
                     <image src='{{asset($product->image->path)}}' width='100%' heigh='100%'>
                     @else
-                    <image src='{{asset('imagens/products.png')}}' width='100%' heigh='100%'>
+                    <image src='{{asset('images/products.png')}}' width='100%' heigh='100%'>
                     @endif
                 </a>
             </div>

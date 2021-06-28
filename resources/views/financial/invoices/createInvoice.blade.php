@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-{{asset('imagens/invoice.png')}} 
+{{asset('images/invoice.png')}} 
 @endsection
 
 @section('description')

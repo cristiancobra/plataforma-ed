@@ -3,7 +3,7 @@
 @section('title','MOVIMENTAÇÕES')
 
 @section('image-top')
-{{ asset('imagens/transaction.png') }} 
+{{ asset('images/transaction.png') }} 
 @endsection
 
 @section('description')
@@ -28,7 +28,7 @@ Total: <span class="labels"></span>
 @section('main')
 <div>
     <div  style="display: inline-block;text-align:right;vertical-align:top;width: 10%">
-        <img src="{{asset('imagens/financial-planning.png')}}" style='display:block;margin:auto;width:80%'>
+        <img src="{{asset('images/financial-planning.png')}}" style='display:block;margin:auto;width:80%'>
     </div>
     <div  style="display: inline-block;vertical-align:top;width: 20%">
         <p class="labels" style="text-align:center">
@@ -43,7 +43,7 @@ Total: <span class="labels"></span>
             <br>
     </div>
     <div  style="display: inline-block;text-align:right;vertical-align:top;width: 10%">
-        <img src="{{asset('imagens/invoice.png')}}" style='display:block;margin:auto;width:80%'>
+        <img src="{{asset('images/invoice.png')}}" style='display:block;margin:auto;width:80%'>
     </div>
     <div  style="display: inline-block;vertical-align:top;width: 20%">
         <p class="labels" style="text-align:center">
@@ -59,7 +59,7 @@ Total: <span class="labels"></span>
         </p>
     </div>
     <div  style="display: inline-block;text-align:right;vertical-align:top;width: 10%">
-        <img src="{{asset('imagens/financeiro.png')}}" style='display:block;margin:auto;width:80%'>
+        <img src="{{asset('images/financeiro.png')}}" style='display:block;margin:auto;width:80%'>
     </div>
     <div  style="display: inline-block;vertical-align:top;width: 20%">
         <p class="labels" style="text-align:center">

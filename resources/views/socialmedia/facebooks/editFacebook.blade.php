@@ -3,7 +3,7 @@
 @section('title','EDITAR FACEBOOK')
 
 @section('image-top')
-{{ asset('imagens/facebook.png') }} 
+{{ asset('images/facebook.png') }} 
 @endsection
 
 @section('description')
@@ -161,7 +161,7 @@
 		<br>
 		@endif
 		<br>
-		<label class="labels" for="">Imagens têm tamanho correto:</label>
+		<label class="labels" for="">images têm tamanho correto:</label>
 		<br>
 		@if ($facebook->feed_images === "yes" )
 		<input type="radio" name="feed_images" value="yes"  checked="checked">

@@ -3,7 +3,7 @@
 @section('title','DOMÍNIOS')
 
 @section('image-top')
-{{asset('imagens/domain.png')}} 
+{{asset('images/domain.png')}} 
 @endsection
 
 @section('description')

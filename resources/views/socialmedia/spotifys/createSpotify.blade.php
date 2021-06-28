@@ -3,7 +3,7 @@
 @section('title','NOVA PÁGINA')
 
 @section('image-top')
-{{ asset('imagens/spotify.png') }} 
+{{ asset('images/spotify.png') }} 
 @endsection
 
 @section('description')

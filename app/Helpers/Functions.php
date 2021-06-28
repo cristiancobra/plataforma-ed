@@ -1617,7 +1617,7 @@ if (!function_exists('createSidebarItem')) {
 
         function createSocialmediaHeader($socialmediaReport) {
             $socialmediaName = strtolower($socialmediaReport->socialmedia->socialmedia_name);
-            $socialmediaImage = "/imagens/socialmedia/".$socialmediaName.".png";
+            $socialmediaImage = "/images/socialmedia/".$socialmediaName.".png";
 //            dd(asset($socialmediaImage));
             
             echo"<div class='row ".$socialmediaName." '>";
