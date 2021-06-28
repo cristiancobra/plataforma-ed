@@ -79,7 +79,7 @@ CKEDITOR.replace('description');
             TÉRMINO: 
             <br>
         </label>
-        <input type="time" name="end" size="50"  value="{{date('H:i', strtotime($journey->end))}}"><span class="fields"></span>
+        <input type="time" name="end" size="50"  value=""><span class="fields"></span>
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="ATUALIZAR">
