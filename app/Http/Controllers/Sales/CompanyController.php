@@ -22,6 +22,7 @@ class CompanyController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->with([
                     'account',
+                    'contacts',
                 ])
                 ->where(function ($query) use ($typeCompanies) {
                     $query->where('type', $typeCompanies)

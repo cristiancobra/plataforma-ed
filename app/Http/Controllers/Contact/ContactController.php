@@ -46,14 +46,8 @@ class ContactController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $contacts = Contact::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
-                ->paginate(20);
-
-        $companies = Company::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $companies = Company::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
                 ->get();
 
         $states = returnStates();
@@ -66,7 +60,6 @@ class ContactController extends Controller {
         $contactTypes = Contact::returnContactTypes();
 
         return view('contacts.createContact', compact(
-                        'contacts',
                         'states',
                         'companies',
                         'genderTypes',
@@ -133,11 +126,7 @@ class ContactController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Contact $contact) {
-        $accountsId = userAccounts();
-
-        $companies = Company::whereHas('account', function ($query) use ($accountsId) {
-                    $query->whereIn('account_id', $accountsId);
-                })
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->get();
 
         $companiesChecked = Company::whereHas('contacts', function ($query) use ($contact) {
