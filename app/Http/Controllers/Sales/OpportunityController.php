@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Contract;
 use App\Models\Company;

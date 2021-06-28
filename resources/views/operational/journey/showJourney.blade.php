@@ -28,7 +28,7 @@
 
 @section('priority')
 <div class="to-do">
-{{dateBr($journey->start)}}
+    {{dateBr($journey->start)}}
 </div>
 @endsection
 
@@ -45,7 +45,7 @@
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         <a href="{{route('task.show', ['task' => $journey->task->id])}}">
-        {{$journey->task->name}}
+            {{$journey->task->name}}
         </a>
     </div>
 </div>
@@ -57,7 +57,7 @@
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         <a href="{{route('contact.show', ['contact' => $journey->task->contact->id])}}">
-        {{$journey->task->contact->name}}
+            {{$journey->task->contact->name}}
         </a>
     </div>
 </div>
@@ -70,7 +70,7 @@
     <div class='show-field-end'>
         @if($journey->task->opportunity)
         <a href="{{route('opportunity.show', ['opportunity' => $journey->task->opportunity->id])}}">
-        {{$journey->task->opportunity->name}}
+            {{$journey->task->opportunity->name}}
         </a>
         @else
         Não possui
@@ -155,7 +155,7 @@
     </div>
     <div class='tb col-8 justify-content-start'>
         <a href="{{route('contact.show', ['contact' => $journey->user->contact->id])}}">
-        {{$journey->user->contact->name}}
+            {{$journey->user->contact->name}}
         </a>
     </div>
     <div class='tb col-1'>
@@ -175,12 +175,21 @@
 @endsection
 
 
-@section('deleteButton', route('journey.destroy', ['journey' => $journey->id]))
+@section('deleteButton')
+
+@endsection
 
 @section('extraButton')
-<form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('journey.complete', ['journey' => $journey]) }} " method="post">
+<form style='text-decoration: none;color: black;display: inline-block' action='{{route('journey.destroy', ['journey' => $journey])}}' method='post'>
+    @method('delete')
     @csrf
+    <button id='' class='circular-button delete' style='border:none;padding-left:4px' "type='submit'>
+        <i class='fa fa-trash'></i>
+    </button>
+</form>
+<form style='text-decoration: none;color: black;display: inline-block' action=" {{route('journey.complete', ['journey' => $journey])}} " method="post">
     @method('put')
+    @csrf
     <button id='' class='circular-button secondary' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
         <i class='fa fa-check-square'></i>
     </button>

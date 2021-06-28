@@ -719,7 +719,6 @@
     </div>
     @endsection
     
-    
     @section('deleteButton')
     {{createButtonTrash($opportunity, 'opportunity')}}
     @endsection

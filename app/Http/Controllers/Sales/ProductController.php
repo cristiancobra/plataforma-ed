@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\Account;
 use App\Models\Image;
 use App\Models\Contact;
 use App\Models\Product;
+use App\Models\User;
 
 class ProductController extends Controller {
 
@@ -19,10 +18,9 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $products = Product::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                    $query->where('type', '=', $request->variation);
-                })
+        $products = Product::where('account_id', auth()->user()->account_id)
+                ->where('type', '=', $request->variation)
+                ->where('trash', '==', 0)
                 ->with('image')
                 ->orderBy('name', 'ASC')
                 ->paginate(20);
@@ -34,12 +32,8 @@ class ProductController extends Controller {
             'variation' => $request->variation,
         ]);
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
                 ->get();
 
         $users = User::myUsers();
@@ -51,7 +45,6 @@ class ProductController extends Controller {
         return view('sales.products.indexProducts', compact(
                         'products',
                         'contacts',
-                        'accounts',
                         'users',
                         'total',
                         'variation',
@@ -64,44 +57,18 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-//		$companies = Company::whereIn('account_id', userAccounts())
-//				->orderBy('NAME', 'ASC')
-//				->get();
-//
-//		$contacts = Contact::whereIn('account_id', userAccounts())
-//				->orderBy('NAME', 'ASC')
-//				->get();
-//
-//		$opportunities = Opportunity::whereIn('account_id', userAccounts())
-//				->orderBy('NAME', 'ASC')
-//				->get();
-//
-//		$users = User::whereHas('accounts', function($query) {
-//					$query->whereIn('account_id', userAccounts());
-//				})
-//				->get();
-
         $variation = $request->input('variation');
 
-        $products = Product::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $products = Product::where('account_id', auth()->user()->account_id)
                 ->where('type', 'LIKE', $variation)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $images = Image::whereHas('account', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
-                })
+        $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
                 ->get();
 
         return view('sales.products.createProduct', compact(
-                        'accounts',
                         'products',
                         'variation',
                         'images',
@@ -132,6 +99,7 @@ class ProductController extends Controller {
         } else {
             $product = new Product();
             $product->fill($request->all());
+            $product->account_id = auth()->user()->account_id;
             $product->price = str_replace(",", ".", $request->price);
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $request->type;
@@ -156,6 +124,9 @@ class ProductController extends Controller {
      */
     public function show(Product $product, Request $request) {
         $variation = $request->variation;
+        $product->taxPrice = $product->price * $product->tax_rate / 100;
+        $product->margin = $product->price - $product->taxPrice - $product->cost1 - $product->cost2 - $product->cost3;
+//        dd($product);
 
         return view('sales.products.showProduct', compact(
                         'variation',
@@ -170,7 +141,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product, Request $request) {
-        $images = Image::where('account_id',  Auth::user()->account_id)
+        $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
                 ->get();
 
@@ -194,7 +165,6 @@ class ProductController extends Controller {
         $product->fill($request->all());
         $product->price = str_replace(",", ".", $request->price);
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
-//        dd($request);
         $product->image_id = $this->saveImage($request);
         $product->save();
         $variation = $request->variation;
@@ -218,9 +188,23 @@ class ProductController extends Controller {
         return redirect()->route('product.index', ['variation' => $variation]);
     }
 
+    public function sendToTrash(Product $product) {
+        $product->trash = 1;
+        $product->save();
+
+        return redirect()->route('product.index', ['variation' => $product->variation]);
+    }
+
+    public function restoreFromTrash(Product $product) {
+        $product->trash = 0;
+        $product->save();
+
+        return redirect()->route('product.index', ['variation' => $product->variation]);
+    }
+
     public function filter(Request $request) {
         $products = Product::where(function ($query) use ($request) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                     $query->where('type', '=', $request->variation);
                     if ($request->name) {
                         $query->where('name', 'like', "%$request->name%");
@@ -230,6 +214,11 @@ class ProductController extends Controller {
                     }
                     if ($request->category) {
                         $query->where('category', '=', $request->category);
+                    }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    } else {
+                        $query->where('trash', '!=', 1);
                     }
                 })
                 ->orderBy('name', 'ASC')
@@ -242,24 +231,19 @@ class ProductController extends Controller {
             'variation' => $request->variation,
         ]);
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $total = $products->total();
+
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
         $users = User::myUsers();
-
-        $total = $products->total();
 
         $variation = $request->variation;
 
         return view('sales.products.indexProducts', compact(
                         'products',
                         'contacts',
-                        'accounts',
                         'users',
                         'total',
                         'variation',
@@ -270,7 +254,7 @@ class ProductController extends Controller {
         if ($request->file('image')) {
             $image = new Image();
             $image->name = $request->name;
-            $image->account_id = $request->account_id;
+            $image->account_id = auth()->user()->account_id;
             $image->type = 'produto';
             $image->status = 'disponível';
             $path = $request->file('image')->store('users_images');

@@ -567,6 +567,7 @@ class ComposerStaticInit801b8a188cf0f0a351bff2e29133a1c0
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\ConcateDateAndTime' => __DIR__ . '/../..' . '/app/Console/Commands/ConcateDateAndTime.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Administrative\\Accounts\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administrative/Accounts/AccountController.php',

@@ -11,6 +11,9 @@
 @endsection
 
 @section('buttons')
+<a class='circular-button delete'  href="{{route('product.filter', ['trash' => 1])}}">
+    <i class="fa fa-trash" aria-hidden="true"></i>
+</a>
 <a id='filter_button' class='circular-button secondary'>
     <i class='fa fa-filter' aria-hidden='true'></i>
 </a>
@@ -23,7 +26,6 @@
 <form id='filter' action='{{route('product.filter', ['variation' => $variation])}}' method='post' style='text-align: right;display:none'>
     @csrf
     <input type='text' name='name' placeholder='nome do produto' value=''>
-    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     {{createFilterSelect('category', 'select', returnProductCategory())}}
     {{createFilterSelect('status', 'select', returnProductStatus(), 'Todas as situações')}}
     <a class='button-secondary' href='{{route('product.index', ['variation' => $variation])}}'>

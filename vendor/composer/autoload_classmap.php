@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\ConcateDateAndTime' => $baseDir . '/app/Console/Commands/ConcateDateAndTime.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Administrative\\Accounts\\AccountController' => $baseDir . '/app/Http/Controllers/Administrative/Accounts/AccountController.php',

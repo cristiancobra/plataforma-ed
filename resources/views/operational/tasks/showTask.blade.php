@@ -219,7 +219,15 @@
 </div>
 @endsection
 
-@section('deleteButton', route('task.destroy', ['task' => $task->id]))
+@section('extraButton')
+<form style='text-decoration: none;color: black;display: inline-block' action='{{route('task.destroy', ['task' => $task])}}' method='post'>
+    @method('delete')
+    @csrf
+    <button id='' class='circular-button delete' style='border:none;padding-left:4px' "type='submit'>
+        <i class='fa fa-trash'></i>
+    </button>
+</form>
+@endsection
 
 @section('editButton', route('task.edit', ['task' => $task->id]))
 

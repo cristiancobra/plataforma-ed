@@ -139,14 +139,18 @@
         - {{formatCurrencyReal($product->cost3)}}
     </div>
     <div class='show-field-end text-end' style='color:red'>
-        - {{formatCurrencyReal($product->price * $product->tax_rate / 100)}}
+        - {{formatCurrencyReal($product->taxPrice)}}
     </div>
     <div class='show-field-end text-end'>
-        {{formatCurrencyReal(-$product->price * $product->tax_rate /100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price)}}
+        {{formatCurrencyReal($product->margin)}}
     </div>
     <br>
     <div class='show-field-end text-end'>
+        @if($product->work_hours)
         {{$product->work_hours}}
+        @else
+        não informado
+        @endif
     </div>
         @if($product->category == 'serviço')
     <div class='show-field-end text-end'>
@@ -154,7 +158,11 @@
     </div>
         @endif
     <div class='show-field-end text-end'>
+        @if($product->due_date)
         {{$product->due_date}}
+        @else
+        não informado
+        @endif
     </div>
 </div>
 @endsection
@@ -166,7 +174,9 @@
 @section('execution')
 @endsection
 
-@section('deleteButton', route('product.destroy', ['product' => $product->id]))
+    @section('deleteButton')
+    {{createButtonTrash($product, 'product')}}
+    @endsection
 
 @section('editButton', route('product.edit', ['product' => $product->id, 'variation' => $variation]))
 

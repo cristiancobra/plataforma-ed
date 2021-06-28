@@ -317,6 +317,14 @@ Route::any('/produtos/filtros', 'Sales\\ProductController@filter')
         ->name('product.filter')
         ->middleware('roles');
 
+Route::put('/produtos/apagar/{product}', 'Sales\\ProductController@sendToTrash')
+        ->name('product.trash')
+        ->middleware('roles');
+
+Route::put('/produtos/restaurar/{product}', 'Sales\\ProductController@restoreFromTrash')
+        ->name('product.restore')
+        ->middleware('roles');
+
 Route::resource('produtos', 'Sales\\ProductController')
         ->names('product')
         ->parameters(['produtos' => 'product'])
