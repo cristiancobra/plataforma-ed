@@ -42,8 +42,8 @@
         <div class='container' style='background-color:{{$data['accountPrincipalColor']}}'>
             <div class='text-col'>
                 <p style='font-size:28px'>
-                    @if($data['pdfTitle'] == 'PROPOSTA')
-                    PROPOSTA
+                    @if($data['pdfTitle'] == 'ORÇAMENTO')
+                    ORÇAMENTO
                     @elseif($data['pdfTitle'] == 'FATURA')
                 <p style='font-size:22px'>
                     FATURA {{$data['invoiceIdentifier']}}

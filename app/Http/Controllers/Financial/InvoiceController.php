@@ -474,7 +474,6 @@ class InvoiceController extends Controller {
 
 // Gera PDF da fatura
     public function createPDF(Invoice $invoice) {
-//dd($invoice->account());
         $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);
                 })
@@ -506,7 +505,7 @@ class InvoiceController extends Controller {
 
 // definição do título
         if ($invoice->identifier <= 0) {
-            $pdfTitle = 'PROPOSTA';
+            $pdfTitle = 'ORÇAMENTO';
         } else {
             $pdfTitle = 'FATURA';
         }
