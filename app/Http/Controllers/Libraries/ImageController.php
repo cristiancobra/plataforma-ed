@@ -79,14 +79,10 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Image $image) {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
         $types = $this->listTypes();
         $status = $this->listStatus();
 
         return view('libraries/images/edit', compact(
-                        'accounts',
                         'image',
                         'types',
                         'status',
