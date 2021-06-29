@@ -18,7 +18,7 @@
 <form action=" {{route('user.update', ['user' =>$user->id])}} " method="post" enctype='multipart/form-data'>
     @csrf
     @method('put')
-        <div class="col-6">
+    <div class="col-6">
         <label class="labels" for="" >ADICIONAR NOVA IMAGEM:</label>
         <label class="switch">
             <input type="checkbox" id="slider">
@@ -59,23 +59,12 @@
     </div>
     <br>
     <br>
-    <label for="" >Nome: </label>
-    {{$user->name}}
-    <a class="white" href=" {{route('contact.show', ['contact' => $user->contact->id])}}">
-        <button class="button-round">
-            <i class='fa fa-eye'></i>
-        </button>
-    </a>
-    <a href=" {{route('contact.edit', ['contact' => $user->contact->id])}}">
-        <button class="button-round">
-            <i class='fa fa-edit'></i>
-        </button>
+    <label class='labels' for="" >Nome: </label>
+    {{createSelectIdName('contact_id', 'fields', $contacts, null, $user->contact)}}
     </a>
     <br>
-    <br>
-    <label for="" >Email: </label>
+    <label  class='labels' for="" >Email: </label>
     <input type="text" name="email" value="{{ $user->email }} ">
-    <br>
     <br>
     <label class="labels" for="" >Perfil:</label>
     <select class="fields" name="perfil">
@@ -87,26 +76,14 @@
         <option value="administrador">administrador</option>
     </select>
     <br>
-    <br>
-    <label for="">Senha padrão: </label>
-    <input type="text" name="default_password" value="{{ $user->default_password }} ">   
-    <br>
-    <br>
-    <div style="text-align:right;color: #874983;display: inline-block">
-        <a class="button-secondary" href="https://www.4devs.com.br/gerador_de_senha"  target="_blank">
-            <i class='fa fa-edit'>	
-            </i>
-            GERADOR DE SENHA
-        </a>
-    </div>
+    <label class="labels"for="">Senha do usuário: </label>
+    <input class="fields" type="password" name="password" value="{{old('password')}}">
+    @if ($errors->has('password'))
+    <span class="text-danger">{{ $errors->first('password') }}</span>
+    @endif
     <br>
     <br>
-    <br>
-    <label for="">Alterar senha: </label>
-    <input type="text" name="password" value="">   
-    <br>
-    <br>
-    <input class="btn btn-secondary" type="submit" class="button" value="Atualizar dados">
+    <input class="btn btn-secondary" type="submit" class="button" value="SALVAR">
 </form>
 </div>     
 @endsection

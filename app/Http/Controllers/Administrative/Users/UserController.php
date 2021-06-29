@@ -22,14 +22,14 @@ class UserController extends Controller {
      */
     public function index(Request $request) {
 
-  $users = User::where('account_id', auth()->user()->account_id)
+        $users = User::where('account_id', auth()->user()->account_id)
                 ->with([
                     'contact',
                     'image',
                 ])
                 ->orderBy('ID', 'ASC')
                 ->paginate(20);
-//dd($users);
+
         $users->appends([
             'name' => $request->name,
             'account_id' => $request->account_id,
@@ -49,8 +49,8 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $contacts = Contact::whereIn('account_id', userAccounts())
-                ->orderBy('ID', 'ASC')
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
                 ->get();
 
         return view('administrative.users.create', compact(
@@ -90,7 +90,6 @@ class UserController extends Controller {
                             ->withInput();
         } else {
             $user->save();
-            $user->accounts()->sync($request->accounts);
 
             return view('administrative.users.show', compact(
                             'user',
@@ -117,12 +116,17 @@ class UserController extends Controller {
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user, Request $request) {        
+    public function edit(User $user) {
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->get();
 
         return view('administrative.users.edit', compact(
                         'user',
+                        'contacts',
                         'images',
         ));
     }
@@ -135,7 +139,7 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
-                $user->fill($request->all());
+        $user->fill($request->all());
 //        if (!empty($request->perfil)) {
 //            $user->perfil = $request->perfil;
 //        }

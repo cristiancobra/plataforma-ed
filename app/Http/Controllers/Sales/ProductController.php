@@ -166,6 +166,7 @@ class ProductController extends Controller {
         $product->price = str_replace(",", ".", $request->price);
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
         $product->image_id = $this->saveImage($request);
+//        dd($product->image_id);
         $product->save();
         $variation = $request->variation;
 
@@ -251,6 +252,7 @@ class ProductController extends Controller {
     }
 
     public function saveImage($request) {
+        dd($request);
         if ($request->file('image')) {
             $image = new Image();
             $image->name = $request->name;

@@ -28,7 +28,7 @@
     </div>
     <div class='col-9'>
         <h1 class='name' style="margin-top: 20px">
-            {{$user->name}}
+            {{$user->contact->name}}
         </h1>
     <br>
     <p class='labels'>
@@ -36,9 +36,6 @@
     </p>
     <p class='labels'>
         ID PLATAFORMA:<span class='fields'> {{$user->id}} </span>
-    </p>
-    <p class='labels'>
-        SENHA: <span class='fields'> {{$user->default_password}} </span>
     </p>
     <p class='labels'>
         PERFIL: <span class='fields'>  {{$user->perfil}} </span>

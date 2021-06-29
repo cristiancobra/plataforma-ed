@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','NOVO COLABORADOR')
+@section('title','FUNCIONÁRIOS')
 
 @section('image-top')
 {{asset('images/user.png')}}
@@ -26,26 +26,8 @@
 <div>
     <form action="{{route('user.store')}}" method="post">
         @csrf
-        <label for="" >Empresas: </label>
-        @foreach ($accounts as $account)
-        <p class="fields">
-            <input type="checkbox" name="accounts[]" value="{{$account->id}}"
-                   @if (in_array($account->id, $accountsChecked))
-            checked
-            @endif
-            >
-            {{$account->name}}
-        </p>
-        @endforeach
-        <br>
         <label class="labels"'for="" >Contato: </label>
-        <select name="contact_id">
-            @foreach($contacts as $contact)
-            <option  class="fields" value="{{$contact->id}}">
-                {{$contact->name}}
-            </option>
-            @endforeach
-        </select>
+        {{createSelectIdName('contact_id', 'fields', $contacts, null)}}
         {{createButtonAdd('contact.create')}}
         <br>
         <label class="labels"for="" >Email (login): </label>
@@ -72,14 +54,7 @@
         @endif
         <br>
         <br>
-        <input class="btn btn-secondary" type="submit" value="SOLICITAR USUÁRIO">
-        <div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
-            <a class="btn btn-success" href="https://www.4devs.com.br/gerador_de_senha" target="_blank">
-                <i class='fa fa-edit'>	
-                </i>
-                GERADOR DE SENHA
-            </a>
-        </div>
+        <input class="btn btn-secondary" type="submit" value="CRIAR">
     </form>
 </div>     
 @endsection

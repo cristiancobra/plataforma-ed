@@ -17,7 +17,7 @@
 @section('main')
 <div class='row'>
     <div class='product-image col-6'>
-        @if($product->image_id != null)
+        @if($product->image)
         <img src='{{asset($product->image->path)}}' width='100%' height='100%'>
         @else
         <img src='{{asset('images/products.png')}}'  width='100%' heigh='100%'>
@@ -33,7 +33,7 @@
         <br>
         <div id="change" style="display:inline">
             <label class="labels" for="" >SELECIONAR IMAGEM:</label>
-            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $product)}}
+            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $product->image)}}
         </div>
         <div id="new" style="display:none">
             <label class="labels" for="" >NOME DA IMAGEM:</label>

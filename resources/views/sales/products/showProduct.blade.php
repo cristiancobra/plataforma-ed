@@ -36,7 +36,7 @@
 @section('fieldsId')
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='product-image'>
-            @if($product->image_id)
+            @if($product->image)
             <image src='{{asset($product->image->path)}}' width='100%' heigh='100%'>
             @else
             <image src='{{asset('images/products.png')}}'  width='100%' heigh='100%'>
