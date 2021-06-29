@@ -404,7 +404,7 @@ class InvoiceController extends Controller {
             $totalPrice = 0;
             $totalTaxrate = 0;
             $products = $request['product_id'];
-            if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
+//            if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
                 if (isset($products)) {
                     foreach ($products as $key => $id) {
                         $data = array(
@@ -458,7 +458,6 @@ class InvoiceController extends Controller {
                 $invoice->totalPoints = $totalPoints + $newTotalPoints;
                 $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
                 $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
-            }
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
