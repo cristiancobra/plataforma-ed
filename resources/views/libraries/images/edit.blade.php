@@ -27,19 +27,6 @@
         </div>
         <br>
         <br>
-        <label class="labels" for="" >EMPRESA:</label>
-        <select name="account_id">
-            <option  class="fields" value="{{$image->account_id}}">
-                {{$image->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
-        <br>
         <label class="labels" for="" >NOME:</label>
         <input type='text' class='fields' name='name' size='50' value='{{$image->name}}'>
         <br>
