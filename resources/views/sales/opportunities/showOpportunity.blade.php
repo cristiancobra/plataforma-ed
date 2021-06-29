@@ -63,44 +63,44 @@
     @endsection
 
     @section('date_start')
-    <div class="circle-date-start">
+    <div class='circle-date-start'>
         @if($opportunity->date_start == null)
         indefinida
         @else
         {{date('d/m/Y', strtotime($opportunity->date_start))}}
         @endif
     </div>
-    <p class="labels" style="text-align: center">
+    <p class='labels' style='text-align: center'>
         CRIAÇÃO
     </p>
     @endsection
 
 
     @section('date_due')    
-    <div class="circle-date-due">
+    <div class='circle-date-due'>
         @if($opportunity->pay_day == null)
         indefinida
         @else
         {{date('d/m/Y', strtotime($opportunity->pay_day))}}
         @endif
     </div>
-    <p class="labels" style="text-align: center">
+    <p class='labels' style='text-align: center'>
         PRÓXIMO CONTATO
     </p>
     @endsection
 
 
     @section('date_conclusion')
-    <div class="circle-date-conclusion">
+    <div class='circle-date-conclusion'>
         @if($opportunity->date_conclusion == null)
         --
         @else
-        <p style="color:white">
+        <p style='color:white'>
             {{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
         </p>
         @endif
     </div>
-    <p class="labels" style="text-align: center">
+    <p class='labels' style='text-align: center'>
         CONCLUSÃO
     </p>
     @endsection
@@ -116,19 +116,19 @@
 
     @section('execution')
     <div class='row'>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-left-style: solid;
              border-left-width: 1px;
              border-color: #c28dbf
-             ">
-            <img src='{{asset('images/tarefas.png')}}' width='25px' alt='25px'>
-            <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >VENDAS</label>
+             '>
+            <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >VENDAS</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-right-style: solid;
              border-right-width: 1px;
              border-color: #c28dbf
-             ">
+             '>
             <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
                 @csrf
                 <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
@@ -231,25 +231,25 @@
 
 
     <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-left-style: solid;
              border-left-width: 1px;
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf;
-             ">
-            <img src='{{asset('images/invoice.png')}}' width='25px' alt='25px'>
-            <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >FINANCEIRO</label>
+             '>
+            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FINANCEIRO</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-right-style: solid;
              border-right-width: 1px;
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
-             ">
+             '>
             <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
                 @csrf
                 <input type='hidden' name='task_name' value='FAZER ORÇAMENTO:'>
@@ -328,7 +328,7 @@
     </div>
     @foreach ($invoices as $invoice)
     <div class='row'>
-        <div class='tb col-2'>
+        <div class='tb col-1'>
             <button class='button-round'>
                 <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
                     <i class='fa fa-eye' style='color:white'></i></a>
@@ -356,55 +356,47 @@
         <div class='tb col-2'>
             {{formatCurrencyReal($invoice->installment_value - $invoice->paid)}}
         </div>
-        @if($invoice->paid >= $invoice->installment_value)
-        <div class='tb col-2'>
-            paga
-        </div>
-        @elseif($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value)
-        <div class='tb col-2'>
-            parcial
-        </div>
-        @else
         {{formatInvoiceStatus($invoice)}}
-        @endif
     </div>
     @endforeach
     <div class='row mb-4'>
-        <div class='tb tb-header col-9 justify-content-right'>
+        <div class='tb tb-header col-5 justify-content-right'>
             TOTAIS
         </div>
-        <div class='tb tb-header col-1'>
+        <div class='tb tb-header col-2'>
             {{formatCurrencyReal($invoiceInstallmentsTotal)}}
         </div>
-        <div class='tb tb-header col-1'>
+        <div class='tb tb-header col-2'>
             {{formatCurrencyReal($invoicePaymentsTotal)}}
         </div>
-        <div class='tb tb-header col-1'>
+        <div class='tb tb-header col-2'>
             {{formatCurrencyReal($balance)}}
+        </div>
+        <div class='tb tb-header col-1'>
         </div>
     </div>
 
 
     <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-left-style: solid;
              border-left-width: 1px;
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf
-             ">
-            <img src='{{asset('images/contract.png')}}' width='25px' alt='25px'>
-            <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >CONTRATOS</label>
+             '>
+            <img src='{{asset('images/contract.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >CONTRATOS</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-right-style: solid;
              border-right-width: 1px;
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
-             ">
+             '>
             <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
                 @csrf
                 <input type='hidden' name='task_name' value='CONTRATO:'>
@@ -501,25 +493,25 @@
 
 
     <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-left-style: solid;
              border-left-width: 1px;
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf
-             ">
-            <img src='{{asset('images/production.png')}}' width='25px' alt='25px'>
-            <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >PRODUÇÃO</label>
+             '>
+            <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PRODUÇÃO</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-right-style: solid;
              border-right-width: 1px;
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
-             ">
+             '>
             <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
                 @csrf
                 <input type='hidden' name='task_name' value='PRODUZIR:'>
@@ -550,19 +542,19 @@
         <div class='col-2 tb tb-header'>
             CRIAÇÃO 
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-3 tb tb-header'>
             TAREFA 
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-4 tb tb-header'>
             DESCRIÇÃO 
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-1 tb tb-header'>
             CONCLUSÃO
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-1 tb tb-header'>
             PRIORIDADE
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-1 tb tb-header'>
             SITUAÇÃO
         </div>
     </div>
@@ -575,13 +567,13 @@
             </button>
             {{date('d/m/Y', strtotime($task->date_start))}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             {{$task->name}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-1'>
             @isset($task->date_conclusion)
             {{date('d/m/Y', strtotime($task->date_conclusion))}}
             @else
@@ -589,18 +581,8 @@
             @endisset
         </div>
         {{formatPriority($task)}}
-
-        @if($task->status == 'fazer' AND $task->journeys()->exists())
-        <div class='tb col-2'>
-            andamento
-        </div>
-        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-        <div class='tb col-2'>
-            atrasada
-        </div>
-        @else
+        
         {{formatStatus($task)}}
-        @endif
     </div>
     @endforeach
     <div class='row mb-4'>
@@ -614,25 +596,25 @@
 
 
     <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-left-style: solid;
              border-left-width: 1px;
              border-radius: 7px 0px 0px 0px;
              border-color: #c28dbf
-             ">
-            <img src='{{asset('images/customer-service.png')}}' width='25px' alt='25px'>
-            <label class='labels' style="font-size: 24px;padding-left: 5px" for='' >ATENDIMENTO</label>
+             '>
+            <img src='{{asset('images/customer-service.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ATENDIMENTO</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style="
+        <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-right-style: solid;
              border-right-width: 1px;
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
-             ">
+             '>
             <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
                 @csrf
                 <input type='hidden' name='task_name' value='ATENDIMENTO:'>

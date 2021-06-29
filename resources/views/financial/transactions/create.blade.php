@@ -32,26 +32,23 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('transaction.store')}} " method="post" style="color: #874983">
+    <form action=" {{route('transaction.store')}} " method="post">
         @csrf
-        <label class="labels" for="">EMPRESA: </label>
-        @if(!empty(app('request')->input('accountId')))
-        <input type="hidden" name='account_id' value="{{app('request')->input('accountId')}}">
-        {{app('request')->input('accountName')}}
-        @else
-        <select name="account_id">
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
+        
+        @if(!empty(app('request')->input('invoiceType')))
+        <input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
+        @elseif($typeTransactions == 'receita')
+        <input type='hidden' name='type' value='crédito'>
+        @elseif($typeTransactions == 'despesa')
+        <input type='hidden' name='type' value='débito'>
+        @elseif($typeTransactions == 'transferência')
+        <input type='hidden' name='type' value='transferência'>
         @endif
-        <br>
+        
         <label class="labels" for="">REGISTRADO POR:</label>
         <select name="user_id">
-            <option  class="fields" value="{{Auth::user()->id}}">
-                {{Auth::user()->contact->name}}
+            <option  class="fields" value="{{auth()->user()->id}}">
+                Eu
             </option>
             @foreach ($users as $user)
             <option  class="fields" value="{{$user->id}}">
@@ -72,7 +69,6 @@
             </option>
             @endforeach
         </select>
-        <br>
         @if($typeTransactions == 'transferência')
         <label class="labels" for="">CONTA DE DESTINO:</label>
         <select name="bank_account_destiny_id">
@@ -82,15 +78,13 @@
             </option>
             @endforeach
         </select>
-        <br>
         @endif
         <br>
         @if($typeTransactions != 'transferência')
-        <label class="labels" for="">FATURA: </label>
         @if(!empty(app('request')->input('invoiceId')))
         <input type="hidden" name='invoice_id' value="{{app('request')->input('invoiceId')}}">
-        {{app('request')->input('invoiceIdentifier')}}
         @else
+        <label class="labels" for="">FATURA: </label>
         <select name="invoice_id">
             @foreach ($invoices as $invoice)
             <option  class="fields" value="{{$invoice->id}}" style="max-width:600px">
@@ -106,25 +100,9 @@
             </option>
             @endforeach
         </select>
-        @endif
         {{createButtonAdd('invoice.create')}}
         @endif
-        <br>
-        <label class="labels" for="">TIPO: </label>
-        @if(!empty(app('request')->input('invoiceType')))
-        <input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
-        {{app('request')->input('invoiceType')}}
-        @elseif($typeTransactions == 'receita')
-        crédito
-        <input type='hidden' name='type' value='crédito'>
-        @elseif($typeTransactions == 'despesa')
-        débito
-        <input type='hidden' name='type' value='débito'>
-        @elseif($typeTransactions == 'transferência')
-        transferência
-        <input type='hidden' name='type' value='transferência'>
         @endif
-        <br>
         <br>
         <label class="labels" for="">DATA:</label>
         <input type="date" name="pay_day" value="{{date('d-m-y')}}">

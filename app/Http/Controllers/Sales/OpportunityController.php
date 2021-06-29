@@ -218,19 +218,27 @@ class OpportunityController extends Controller {
 //                    ->where('department', '=', 'vendas')
                         ->sum('value');
             }
+            if ($invoice->paid >= $invoice->installment_value) {
+                $invoice->status = 'paga';
+            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
+                $invoice->status = 'parcial';
+            }
         }
 
-//        $transactions = Transaction::whereHas('opportunity_id', function ($query) use ($invoice) {
-//                    $query->where('invoice_id', $invoice->id);
-//                })
-//                ->get();
-//dd($invoices);
         $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
         $invoicePaymentsTotal = $invoices->sum('paid');
         $balance = $invoiceInstallmentsTotal - $invoicePaymentsTotal;
 
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->get();
+
+        foreach ($tasks as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'andamento';
+            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+                $task->status = 'atrasada';
+            }
+        }
 
         $tasksSales = Task::where('opportunity_id', $opportunity->id)
                 ->where('department', '=', 'vendas')
@@ -459,7 +467,6 @@ class OpportunityController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-
 
         $users = User::myUsers();
         $stages = $this->listStages();

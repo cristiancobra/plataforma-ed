@@ -18,9 +18,6 @@
 <br>
 <div>
     <p class="labels">
-        DONO:<span class="fields">{{$transaction->account->name}}</span>
-    </p>
-    <p class="labels">
         RESPONSÁVEL:<span class="fields">{{$transaction->user->contact->name}}</span>
     </p>
     <br>

@@ -330,37 +330,16 @@ td {
 }
 
 /*-------FATURAS-----*/
-.td-draft{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
+.tb-draft{
     background-color: #F9D0FF;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
 }
 
 .td-aproved{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
     background-color: #C3FEEF;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
 }
 
-.td-paid{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
+.tb-paid{
     background-color: #09FBBE;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
 }
 
 .td-paid-partial{
@@ -374,15 +353,8 @@ td {
     border-color: white;
 }
 
-.td-pending{
-    display: table-cell;  
-    font-size: 14px;
-    color: black;
-    vertical-align:super;
+.tb-pending{
     background-color: #E5E5E5;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
 }
 
 

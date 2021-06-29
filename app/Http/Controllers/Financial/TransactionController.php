@@ -11,6 +11,7 @@ use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Transaction;
+use App\Models\User;
 
 class TransactionController extends Controller {
 
@@ -101,15 +102,11 @@ class TransactionController extends Controller {
     public function create(Request $request) {
         $typeTransactions = $request->input('typeTransactions');
 
-        $accounts = Account::whereIn('id', userAccounts())
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
-        $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->paginate(20);
-
-        $invoices = Invoice::whereIn('account_id', userAccounts())
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
                 ->where('type', 'LIKE', $typeTransactions)
                 ->orderBy('pay_day', 'ASC')
@@ -119,7 +116,6 @@ class TransactionController extends Controller {
 
         return view('financial.transactions.create', compact(
                         'typeTransactions',
-                        'accounts',
                         'bankAccounts',
                         'invoices',
                         'users',

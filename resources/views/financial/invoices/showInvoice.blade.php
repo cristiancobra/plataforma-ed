@@ -100,13 +100,23 @@ Não possui
 <span class='fields'>{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
 <br>
 <br>
+<br>
 @if(isset($invoice->opportunity_id))
 <label class='labels' for=''>DESCRIÇÃO DA OPORTUNIDADE:</label>
 <span class='fields'>{!!html_entity_decode($invoice->opportunity->description)!!}</span>
 <br>
+<br>
+<br>
 @endif
+
 <label class='labels' for=''>OBSERVAÇÕES:</label>
+@if(isset($invoice->description))
 <span class='fields'>{!!html_entity_decode($invoice->description)!!}</span>
+@else
+Não possui
+@endif
+<br>
+<br>
 <br>
 <div style='display: inline-block'>
     <img src='{{asset('images/products.png')}}' width='40px' alt='40px'>
@@ -189,7 +199,7 @@ Não possui
         </td>
         </td>
         <td   class='table-list-header-right' colspan='2'>
-            {{formatCurrencyReal($invoice->installment_value)}}
+            {{formatCurrencyReal($invoice->totalPrice)}}
         </td>
     </tr>
     <tr>
@@ -250,10 +260,10 @@ $counter++;
         <td   class='table-list-header' style='width: 10%'>
             DATA
         </td>
-        <td   class='table-list-header' style='width: 50%'>
+        <td   class='table-list-header' style='width: 30%'>
             RESPONSÁVEL
         </td>
-        <td   class='table-list-header' style='width: 10%'>
+        <td   class='table-list-header' style='width: 30%'>
             CONTA
         </td>
         <td   class='table-list-header' style='width: 10%'>
@@ -311,7 +321,7 @@ $counter++;
 <br>
 <p style='text-align: right'>
     @if($typeInvoices == 'receita')
-    <a class='text-button secondary' href='{{route('transaction.create', [
+    <a class='circular-button primary' href='{{route('transaction.create', [
 		'invoiceId' => $invoice->id,
 		'invoiceIdentifier' => $invoice->identifier,
 		'accountId' => $invoice->account_id,
@@ -320,10 +330,10 @@ $counter++;
 		'invoiceTotalPrice' => $invoice->installment_value,
 				
 	])}}'>
-        REGISTRAR ENTRADA
+        <i class='fa fa-plus'></i>
     </a>
     @elseif($typeInvoices == 'despesa')
-    <a class='text-button secondary' href='{{route('transaction.create', [
+    <a class='circular-button primary' href='{{route('transaction.create', [
 		'invoiceId' => $invoice->id,
 		'invoiceIdentifier' => $invoice->identifier,
 		'accountId' => $invoice->account_id,
@@ -331,7 +341,7 @@ $counter++;
 		'typeTransactions' => 'despesa',
 		'invoiceTotalPrice' => $invoice->installment_value,
 	])}}'>
-        REGISTRAR SAÍDA
+        <i class='fa fa-plus'></i>
     </a>
     @endif
 </p>

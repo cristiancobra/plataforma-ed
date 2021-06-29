@@ -951,19 +951,19 @@ if (!function_exists('formatInvoiceStatus')) {
     function formatInvoiceStatus($model) {
         switch ($model->status) {
             case 'rascunho':
-                echo '<td class="td-draft">rascunho</td>';
+                echo '<div class="tb td-draft col-1">rascunho</div>';
                 break;
             case 'orçamento':
-                echo '<td class="td-pending">orçamento</td>';
+                echo '<div class="tb tb-pending col-1">orçamento</div>';
                 break;
             case 'cancelada':
-                echo '<td class="td-canceled">cancelada</td>';
+                echo '<div class="tb tb-canceled col-1">cancelada</div>';
                 break;
             case 'aprovada':
-                echo '<td class="td-aproved">aprovada</td>';
+                echo '<div class="tb tb-aproved col-1">aprovada</div>';
                 break;
             case 'paga':
-                echo '<td class="td-paid">paga</td>';
+                echo '<div class="tb tb-paid col-1">paga</div>';
                 break;
         }
     }
