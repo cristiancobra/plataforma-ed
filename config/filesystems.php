@@ -79,9 +79,9 @@ return [
      */
     'links' => [
         public_path('storage') => storage_path('app/public'),
-        public_path('images') => storage_path('app/public/images'),
-        public_path('users_images') => storage_path('app/public/users_images'),
-        public_path('profile_pictures') => storage_path('app/public/profile_pictures'),
-        public_path('products') => storage_path('app/public/products'),
+        public_path('images') => storage_path('app/images'),
+        public_path('users_images') => storage_path('app/users_images'),
+        public_path('profile_pictures') => storage_path('app/profile_pictures'),
+        public_path('products') => storage_path('app/products'),
     ],
 ];

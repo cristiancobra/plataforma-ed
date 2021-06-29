@@ -23,7 +23,7 @@ class User extends Authenticatable {
         'password',
         'default_password',
         'perfil',
-        'image',
+        'image_id',
     ];
 
     /**
@@ -43,10 +43,10 @@ class User extends Authenticatable {
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
 //    RELACIONAMENTOS
     public function account() {
-        return $this->belongsTo(Account::class,'id', 'account_id');
+        return $this->belongsTo(Account::class, 'id', 'account_id');
     }
 
     public function contact() {
@@ -55,6 +55,10 @@ class User extends Authenticatable {
 
     public function emails() {
         return $this->hasMany(Models\Email::class, 'id', 'user_id');
+    }
+
+    public function image() {
+        return $this->hasOne(Image::class, 'id', 'image_id');
     }
 
     public function invoices() {
@@ -74,15 +78,17 @@ class User extends Authenticatable {
     }
 
 //MÉTODOS PÚBLICO
-    
+
     public static function myUsers() {
         return $users = User::where('users.account_id', auth()->user()->account_id)
-                    ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                    ->select(
-                            'users.id as id',
-                            'contacts.name as name',
-                    )
-                    ->orderBy('NAME', 'ASC')
-                    ->get();
+                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
+                ->select(
+                        'users.id as id',
+                        'contacts.name as name',
+                )
+                ->with('image')
+                ->orderBy('NAME', 'ASC')
+                ->get();
     }
+
 }

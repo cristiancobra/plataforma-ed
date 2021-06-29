@@ -25,6 +25,7 @@ class TaskController extends Controller {
     public function index(Request $request) {
         $today = date('Y-m-d');
         $tasks = $this->filterTasks($request);
+
         $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->get();
@@ -344,6 +345,7 @@ class TaskController extends Controller {
                         'opportunity',
                         'journeys',
                         'user.contact',
+                        'user.image',
                 )
 //                ->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelada', 'feito')"))
                 ->orderBy('date_due', 'DESC')

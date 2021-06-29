@@ -3,7 +3,7 @@
 @section('title','NOVO COLABORADOR')
 
 @section('image-top')
-{{asset('images/colaborador.png')}}
+{{asset('images/user.png')}}
 @endsection
 
 @section('description')

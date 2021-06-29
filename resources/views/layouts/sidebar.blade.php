@@ -100,7 +100,7 @@
                                                                                                                                                         'link' => route('company.index', ['typeCompanies' => 'concorrente']),
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'images',
+                                                                                                                                                        'name' => 'IMAGENS',
                                                                                                                                                         'faIcon' => 'fas fa-cloud-upload-alt',
                                                                                                                                                         'link' => route('image.index')
                                                                                                                                                         ],

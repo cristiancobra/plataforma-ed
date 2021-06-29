@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','images')
+@section('title','IMAGENS')
 
 @section('image-top')
 {{asset('images/image.png')}} 

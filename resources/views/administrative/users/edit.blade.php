@@ -3,7 +3,7 @@
 @section('title','FUNCIONÁRIOS')
 
 @section('image-top')
-{{ asset('images/colaborador.png') }} 
+{{ asset('images/user.png') }} 
 @endsection
 
 @section('description')
@@ -28,7 +28,7 @@
         <br>
         <div id="change" style="display:inline">
             <label class="labels" for="" >SELECIONAR IMAGEM:</label>
-            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $user)}}
+            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $user->image)}}
         </div>
         <div id="new" style="display:none">
             <label class="labels" for="" >NOME DA IMAGEM:</label>
@@ -50,13 +50,12 @@
     </div>
     <div class='container text-center'>
         <div class='profile-picture'>
-            @if($user->profile_picture)
-            <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
+            @if($user->image)
+            <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
             @else
-            <img src='{{asset('images/colaborador.png')}}' width='100%' height='100%'>
+            <img src='{{asset('images/user.png')}}' width='100%' height='100%'>
             @endif
         </div>
-        <input  type='file' name='profile_picture' value='{{$user->profile_picture}}'>
     </div>
     <br>
     <br>

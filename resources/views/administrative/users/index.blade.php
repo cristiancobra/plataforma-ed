@@ -3,7 +3,7 @@
 @section('title', 'FUNCIONÁRIOS')
 
 @section('image-top')
-{{asset('images/colaborador.png')}} 
+{{asset('images/user.png')}} 
 @endsection
 
 @section('description')
@@ -48,10 +48,10 @@ Total: <span class='labels'>{{$total}} </span>
         <td class='table-list-center'>
             <div class='profile-picture-small'>
                 <a  class='white' href='{{route('user.show', ['user' => $user->id])}}'>
-                    @if($user->profile_picture)
-                    <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
+                    @if($user->image)
+                    <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
                     @else
-                    <img src='{{asset('images/colaborador.png')}}' width='100%' height='100%'>
+                    <img src='{{asset('images/user.png')}}' width='100%' height='100%'>
                     @endif
                 </a>
             </div>

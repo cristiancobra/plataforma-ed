@@ -137,14 +137,16 @@
         @endif
     </div>
     <div class='tb col-2'>
-        @if($task->user->profile_picture)
+        @if(isset($task->user->image))
         <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
-                <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
+            <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
             </a>
         </div>
         @elseif(isset($task->user->contact->name))
-        {{$task->user->contact->name}}
+        <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+            {{$task->user->contact->name}}
+        </a>
         @else
         funcionário excluído
         @endif
@@ -160,15 +162,15 @@
         {{dateBr($task->date_due)}}
         @endif
     </div>
-        {{formatPriority($task)}}
-        
-        @php
-        if($task->status == 'fazer' AND $task->journeys()->exists()) {
-        $task->status == 'fazendo';
-        }
-        @endphp
-        {{formatStatus($task)}}
-   
+    {{formatPriority($task)}}
+
+    @php
+    if($task->status == 'fazer' AND $task->journeys()->exists()) {
+    $task->status == 'fazendo';
+    }
+    @endphp
+    {{formatStatus($task)}}
+
 </div>
 @endforeach
 @endsection

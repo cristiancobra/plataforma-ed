@@ -30,15 +30,10 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
         $types = $this->listTypes();
         $status = $this->listStatus();
 
         return view('libraries/images/create', compact(
-                        'accounts',
                         'types',
                         'status',
         ));
@@ -53,6 +48,7 @@ class ImageController extends Controller {
     public function store(Request $request) {
         $image = new Image();
         $image->fill($request->all());
+        $image->account_id = auth()->user()->account_id;
 
         $path = $request->file('image')->store('users_images');
         $image->path = $path;

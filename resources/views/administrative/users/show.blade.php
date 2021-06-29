@@ -3,7 +3,7 @@
 @section('title','FUNCIONÁRIOS')
 
 @section('image-top')
-{{asset('images/colaborador.png')}}
+{{asset('images/user.png')}}
 @endsection
 
 @section('description')
@@ -19,26 +19,17 @@
 <div class='row'>
     <div class='col-3'>
         <div class='profile-picture'>
-            <img src='{{asset($user->profile_picture)}}' width='100%' height='100%'>
+            @if($user->image)
+            <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
+            @else
+            <img src='{{asset('images/user.png')}}' width='100%' height='100%'>
+            @endif
         </div>
     </div>
     <div class='col-9'>
         <h1 class='name' style="margin-top: 20px">
             {{$user->name}}
         </h1>
-        <p class='labels' style='margin-top: 20px'>EMPRESAS: </p>
-
-        @foreach ($user->accounts as $account)
-        <a  class='white' href=' {{route('account.show', ['account' => $account->id])}}'>
-            <button class='button-round'>
-                <i class='fa fa-eye'></i>
-            </button>
-        </a>
-        {{$account->name}}
-        <br>
-        @endforeach
-    </div>
-    <br>
     <br>
     <p class='labels'>
         EMAIL:<span class='fields'> {{$user->email}} </span>

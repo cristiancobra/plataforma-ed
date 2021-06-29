@@ -22,15 +22,14 @@ class UserController extends Controller {
      */
     public function index(Request $request) {
 
-  $users = User::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                })
+  $users = User::where('account_id', auth()->user()->account_id)
                 ->with([
                     'contact',
+                    'image',
                 ])
                 ->orderBy('ID', 'ASC')
                 ->paginate(20);
-
+//dd($users);
         $users->appends([
             'name' => $request->name,
             'account_id' => $request->account_id,
@@ -50,23 +49,11 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-
-        $accountsChecked = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth()->user()->id);
-                })
-                ->pluck('id')
-                ->toArray();
-
         $contacts = Contact::whereIn('account_id', userAccounts())
                 ->orderBy('ID', 'ASC')
                 ->get();
 
         return view('administrative.users.create', compact(
-                        'accounts',
-                        'accountsChecked',
                         'contacts',
         ));
     }
@@ -80,10 +67,10 @@ class UserController extends Controller {
     public function store(Request $request) {
         $user = new User();
         $user->account_id = auth()->user()->account_id;
-        $user->contact_id = $request->contact_id;
-        $user->perfil = $request->perfil;
-        $user->email = $request->email;
-        $user->default_password = $request->password;
+        $user->fill($request->all());
+//        $user->perfil = $request->perfil;
+//        $user->email = $request->email;
+//        $user->default_password = $request->password;
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 
         $messages = [
@@ -130,24 +117,12 @@ class UserController extends Controller {
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user, Request $request) {
-        $accountsChecked = Account::whereHas('users', function ($query) use ($user) {
-                    $query->where('users.id', $user->id);
-                })
-                ->pluck('id')
-                ->toArray();
-
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
-                ->get();
-        
-        $images = Image::where('account_id', auth()->user()->id)
+    public function edit(User $user, Request $request) {        
+        $images = Image::where('account_id', auth()->user()->account_id)
                 ->get();
 
         return view('administrative.users.edit', compact(
                         'user',
-                        'accounts',
-                        'accountsChecked',
                         'images',
         ));
     }
@@ -160,16 +135,17 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
-        if (!empty($request->perfil)) {
-            $user->perfil = $request->perfil;
-        }
-        $user->email = $request->email;
-        $user->default_password = $request->default_password;
+                $user->fill($request->all());
+//        if (!empty($request->perfil)) {
+//            $user->perfil = $request->perfil;
+//        }
+//        $user->email = $request->email;
+//        $user->default_password = $request->default_password;
         if (!empty($request->password)) {
             $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         }
         if ($request->file) {
-            $path = $request->file('profile_picture')->store('profile_pictures');
+            $path = $request->file('image_id')->store('users_images');
             $user->profile_picture = $path;
         }
 //        dd($request);
