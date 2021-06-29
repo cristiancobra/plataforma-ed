@@ -272,13 +272,11 @@ class InvoiceController extends Controller {
 
         $totalInvoices = $invoices->count();
 
-        $transactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
-                    $query->where('invoice_id', $invoice->id);
-                })
+        $transactions = Transaction::where('invoice_id', $invoice->id)
                 ->get();
 
         $invoicePaymentsTotal = $transactions->sum('value');
-        $balance = $invoice->installment_value - $invoicePaymentsTotal;
+        $balance = $invoice->totalPrice - $invoicePaymentsTotal;
 
         $tasksOperational = Task::where('opportunity_id', $invoice->opportunity_id)
                 ->where('department', '=', 'produção')
