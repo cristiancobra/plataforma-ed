@@ -66,9 +66,13 @@
             </a>
         </td>
         <td class="table-list-left">
+            @if($journey->task)
             <a class="white" href=" {{route('task.show', ['task' => $journey->task_id])}}">
                 {{$journey->task->name}}
             </a>
+            @else
+            tarefa excluída
+            @endif
         </td>
         <td class="table-list-center">
             {{$journey->user->contact->name}}

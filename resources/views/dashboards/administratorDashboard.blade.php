@@ -10,8 +10,11 @@
 @endsection
 
 @section('buttons')
+<a class='circular-button secondary'  href='{{route('journey.create', ['taskName' => $journey->task->name, 'taskId' => $journey->task_id])}}'>
+    <i class='fa fa-mug-hot' aria-hidden='true'></i>
+</a>
 <a class='circular-button secondary'  href='{{route('task.create')}}'>
-    <i class='fa fa-plus' aria-hidden='true'></i>
+    <i class='fa fa-rocket' aria-hidden='true'></i>
 </a>
 @endsection
 

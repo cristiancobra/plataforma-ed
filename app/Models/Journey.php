@@ -22,6 +22,8 @@ class Journey extends Model {
     protected $hidden = [
     ];
 
+//    RELACIONAMENTOS
+    
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
@@ -38,4 +40,26 @@ class Journey extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    
+//    MÉTODOS PÚBLICOS
+    public static function myLastJourney() {
+        $journey =  Journey::where('user_id', 1)
+                ->orderBy('id', 'DESC')
+                ->first();
+        
+        dd($journey);
+    }
+
+    public function lastJourneyTask() {
+        $this->where('user_id', auth()->user()->id)
+                ->orderBy('id', 'DESC')
+                ->first();
+        
+        dd($this);
+        $lastTask = Task::latest()
+                ->where('task_id', $lastJourney->id)
+                ->first();
+        
+        return $lastTask;
+    }
 }

@@ -84,4 +84,10 @@ class Task extends Model {
         );
     }
 
+    // retorna a última tarefa feita pelo usuário logado
+    public static function myLastTask() {
+        return Task::latest()
+                ->where('user_id', auth()->user()->id)
+                ->first();
+    }
 }
