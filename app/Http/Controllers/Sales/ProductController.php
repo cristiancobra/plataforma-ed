@@ -103,10 +103,11 @@ class ProductController extends Controller {
             $product->price = str_replace(",", ".", $request->price);
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $request->type;
+            $product->image_id = $this->saveImage($request);
             $product->save();
 
             $type = $product->type;
-            $variation = $request->variation;
+            $variation = $type;
 
             return view('sales.products.showProduct', compact(
                             'product',
@@ -252,7 +253,7 @@ class ProductController extends Controller {
     }
 
     public function saveImage($request) {
-        dd($request);
+//        dd($request);
         if ($request->file('image')) {
             $image = new Image();
             $image->name = $request->name;

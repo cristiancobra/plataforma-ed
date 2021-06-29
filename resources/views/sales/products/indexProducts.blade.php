@@ -11,7 +11,7 @@
 @endsection
 
 @section('buttons')
-<a class='circular-button delete'  href="{{route('product.filter', ['trash' => 1])}}">
+<a class='circular-button delete'  href="{{route('product.filter', ['variation' => $variation, 'trash' => 1])}}">
     <i class="fa fa-trash" aria-hidden="true"></i>
 </a>
 <a id='filter_button' class='circular-button secondary'>

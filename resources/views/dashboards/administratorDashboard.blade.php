@@ -237,10 +237,10 @@
 				'contact_id' => '',
 				'user_id' => '',
 				])}}'>
-                <p class='balance_number'>
+                            <p class='balance_number' style="margin-left: -100px">
                     {{$opportunitiesWon}}
                 </p>
-                <p class='balance_label_won'>
+                <p class='balance_label_won' style="margin-left: -100px;margin-top: -10px">
                     ganhamos
                 </p>
             </a>

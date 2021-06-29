@@ -27,6 +27,36 @@
     @endphp
 </div>
 @endif
+<div class="col-6">
+    <label class="labels" for="" >ADICIONAR NOVA IMAGEM:</label>
+    <label class="switch">
+        <input type="checkbox" id="slider">
+        <span class="slider round"></span>
+    </label>
+    <br>
+    <br>
+    <div id="new" style="display:none">
+        <form action="{{route('image.store')}}" method="post"  enctype='multipart/form-data'>
+            @csrf
+            <label class="labels" for="" >NOME DA IMAGEM:</label>
+            <input type="text" name="name" id="name" size="20"><span class="fields"></span>
+            <br>
+            <label class="labels" for="" >DESCRIÇÃO DA IMAGEM:</label>
+            <textarea id="alt" name="alt" id="alt" rows="3" cols="50">
+            </textarea>
+            <br>
+            <br>
+            <div class="p-2 flex-shrink-0 bd-highlight">
+            <input type='file' name='image'>
+                <button id="btn-save" class='circular-button primary' style="padding-top: 3px;padding-left: 2px" type="submit">
+                    <i class="fas fa-cloud-upload-alt" aria-hidden='true'></i>
+                </button>
+            </div>
+            <input type="hidden" name="type" value="produto">
+            <input type="hidden" name="status" value="disponível">
+        </form>
+    </div>
+</div>
 <div>
     <form action="{{route('product.store')}}" method="post">
         @csrf
@@ -35,6 +65,12 @@
         @else
         <input type="hidden" name="type" value="despesa">
         @endif
+        <div id="change" style="display:inline">
+            <label class="labels" for="" >SELECIONAR IMAGEM:</label>
+            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma')}}
+        </div>
+        <br>
+        <br>
         <label class="labels" for="" >NOME:</label>
         <input type="text" name="name" size="20" style="width:90%" value="{{old('name')}}"><span class="fields"></span>
         @if ($errors->has('name'))
@@ -66,21 +102,21 @@ CKEDITOR.replace('description');
         <input class="text-right" type="decimal" name="points" size="5" value="{{old('points')}}"><span class="fields"></span>
         <br>
         <br>
-            <label class="labels" for="" >CUSTO 1:</label>
-            <input type="integer" name="cost1" size="5"><span class="fields"></span>
-            <label class="labels" for="" >descrição:</label>
-            <input type="decimal" name="cost1_description" size="40"><span class="fields"></span>
-            <br>
-            <label class="labels" for="" >CUSTO 2:</label>
-            <input type="integer" name="cost2" size="5"><span class="fields"></span>
-            <label class="labels" for="" >descrição:</label>
-            <input type="decimal" name="cost2_description" size="40"><span class="fields"></span>
-            <br>
-            <label class="labels" for="" >CUSTO 3:</label>
-            <input type="integer" name="cost3" size="5""><span class="fields"></span>
-            <label class="labels" for="" >descrição:</label>
-            <input type="decimal" name="cost3_description" size="40"><span class="fields"></span>
-            <br>
+        <label class="labels" for="" >CUSTO 1:</label>
+        <input type="integer" name="cost1" size="5"><span class="fields"></span>
+        <label class="labels" for="" >descrição:</label>
+        <input type="decimal" name="cost1_description" size="40"><span class="fields"></span>
+        <br>
+        <label class="labels" for="" >CUSTO 2:</label>
+        <input type="integer" name="cost2" size="5"><span class="fields"></span>
+        <label class="labels" for="" >descrição:</label>
+        <input type="decimal" name="cost2_description" size="40"><span class="fields"></span>
+        <br>
+        <label class="labels" for="" >CUSTO 3:</label>
+        <input type="integer" name="cost3" size="5""><span class="fields"></span>
+        <label class="labels" for="" >descrição:</label>
+        <input type="decimal" name="cost3_description" size="40"><span class="fields"></span>
+        <br>
         <br>
         <label class="labels" for="" >IMPOSTO (%):</label>
         <input class="text-right" type="decimal" name="tax_rate" size="5" value="{{old('tax_rate')}}"><span class="fields"></span>
@@ -105,5 +141,16 @@ CKEDITOR.replace('description');
         <input class="btn btn-secondary" type="submit" value="CRIAR PRODUTO">
     </form>
 </div>
-
+      <script>
+            // exibir form para adicionar nova imagem
+            $("#slider").change(function () {
+                if (this.checked) {
+                    $('#change').hide();
+                    $('#new').show();
+                } else {
+                    $('#change').show();
+                    $('#new').hide();
+                }
+            });
+        </script>
 @endsection
