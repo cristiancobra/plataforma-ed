@@ -296,7 +296,7 @@ $counter++;
         </td>
         </td>
         <td   class='table-list-header-right' colspan='2'>
-            {{formatCurrencyReal($invoice->installment_value)}}
+            {{formatCurrencyReal($invoice->totalPrice)}}
         </td>
     </tr>
     <tr>

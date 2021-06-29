@@ -34,43 +34,39 @@ class TransactionController extends Controller {
                 ->orderBy('PAY_DAY', 'DESC')
                 ->paginate(20);
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
                 ->get();
 
         $users = User::myUsers();
 
-        $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
+        $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
                 ->where('type', 'crédito')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('value');
 
-        $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $expenseMonthly = Transaction::whereIn('account_id', userAccounts())
+        $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
                 ->where('type', 'débito')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('value');
 
-        $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->get();
 
         foreach ($bankAccounts as $key => $bankAccount) {
@@ -84,7 +80,6 @@ class TransactionController extends Controller {
                         'transactions',
                         'contacts',
                         'companies',
-                        'accounts',
                         'users',
                         'bankAccounts',
                         'revenueMonthly',

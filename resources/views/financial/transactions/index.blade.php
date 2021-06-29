@@ -80,7 +80,6 @@ Total: <span class="labels"></span>
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
     <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
     <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
-    {{createFilterSelectModels('account_id', 'select', $accounts, 'Minhas empresas')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('bank_account_id', 'select', $bankAccounts, 'Todas as contas')}}
     {{returnType('type', 'select', 'transaction')}}
