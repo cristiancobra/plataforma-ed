@@ -30,19 +30,28 @@
         <h1 class='name' style="margin-top: 20px">
             {{$user->contact->name}}
         </h1>
-    <br>
-    <p class='labels'>
-        EMAIL:<span class='fields'> {{$user->email}} </span>
-    </p>
-    <p class='labels'>
-        ID PLATAFORMA:<span class='fields'> {{$user->id}} </span>
-    </p>
-    <p class='labels'>
-        PERFIL: <span class='fields'>  {{$user->perfil}} </span>
-    </p>
-    <br>
-    <p class='fields'>Criado em  {{date('d/m/Y H:i', strtotime($user->created_at))}}
-    </p>
+        <br>
+        <p class='labels'>
+            EMAIL:<span class='fields'> {{$user->email}} </span>
+        </p>
+        <p class='labels'>
+            ID PLATAFORMA:<span class='fields'> {{$user->id}} </span>
+        </p>
+        <p class='labels'>
+            PERFIL: <span class='fields'>  {{$user->perfil}} </span>
+        </p>
+        <p class='fields'>Criado em  {{date('d/m/Y H:i', strtotime($user->created_at))}}
+        </p>
+        <br>
+        <p class='labels'>
+            DADOS PESSOAIS  
+            <a  class='white' href=' {{route('contact.show', ['contact' => $user->contact_id])}}'>
+                <button class='button-round'>
+                    <i class='fa fa-eye'></i>
+                </button>
+            </a>
+        </p>
+    </div>
 </div>
 
 <div style='text-align: right'>

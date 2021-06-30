@@ -1,28 +1,28 @@
 @extends('layouts/master')
 
-@section('title','ADMINISTRADOR')
+@section('title','MEU PAINEL')
 
 @section('image-top')
-{{asset('images/control-panel.png')}}
+{{asset('images/rocket.png')}}
 @endsection
 
 @section('buttons')
 @if(isset($journey->task))
 <a class='circular-button secondary'  href='{{route('journey.create', ['taskName' => $journey->task->name, 'taskId' => $journey->task_id])}}'>
-    <i class='fa fa-mug-hot' aria-hidden='true'></i>
+    <i class="fas fa-mug-hot" style="color:#8B2485"></i>
 </a>
 @endif
 <a class='circular-button secondary'  href='{{route('task.create')}}'>
-    <i class='fa fa-rocket' aria-hidden='true'></i>
+    <i class="fas fa-calendar-check" style="color:#8B2485"></i>
 </a>
 @endsection
 
 @section('main')
-<div class='row mt-3 mb-5 ms-2 me-2'>
+<div class='row mt-2 mb-3 ms-2 me-2'>
 
-    <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('images/invoice.png')}}' width='40' height='40'>
-        <p class="mt-2">
+    <div class='col-2 text-center mx-auto mt-auto mb-auto'>
+        <i class="fas fa-money-bill" style="font-size:42px; color:#8B2485"></i>
+        <p class="mt-2" style="color:#8B2485">
             FINANCEIRO
         </p>
     </div>
@@ -55,8 +55,8 @@
         </div>
         <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
             <p style="color:white;font-size: 15px;text-align: left">
-                <a href='{{route('transaction.index')}}'>
-                ENTRADAS:
+                <a href='{{route('transaction.index')}}' style="color:white">
+                    ENTRADAS:
                 </a>
                 <br>
                 SAÍDAS:
@@ -83,7 +83,7 @@
             <p style="color:white;font-size: 15px;text-align: left">
                 @foreach($bankAccounts as $bankAccount)
                 <a href="{{route('bankAccount.show', ['bankAccount' => $bankAccount])}}" style="color: white">
-                {{$bankAccount->name}}
+                    {{$bankAccount->name}}
                 </a>
                 <br>
                 @endforeach
@@ -92,7 +92,7 @@
             <p style="color:white;font-size: 15px;text-align: right">
                 @foreach($bankAccounts as $bankAccount)
                 <a href="{{route('bankAccount.show', ['bankAccount' => $bankAccount])}}" style="color: white">
-                {{formatCurrency($bankAccount->balance)}}
+                    {{formatCurrency($bankAccount->balance)}}
                 </a>
                 <br>
                 @endforeach
@@ -101,10 +101,10 @@
     </div>
 </div>
 
-<div class='row mt-2 mb-2'>
+<div class='row mt-4 mb-3 ms-2 me-2'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('images/task.png')}}' width='40' height='40'>
-        <p class="mt-2">
+        <i class="fas fa-calendar-check" style="font-size:42px; color:#8B2485"></i>
+        <p class="mt-2" style="color:#8B2485">
             TAREFAS
         </p>
     </div>
@@ -156,14 +156,14 @@
 </div>
 
 
-<div class='row mt-5 mb-5'>
-    <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('images/financeiro.png')}}' width='40' height='40'>
-        <p class="mt-2">
+<div class='row mt-5 mb-5 ms-2 me-2'>
+        <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
+        <i class="fas fa-funnel-dollar" style="font-size:42px; color:#8B2485"></i>
+        <p class="mt-2" style="color:#8B2485">
             OPORTUNIDADES
         </p>
     </div>
-    <div class='col-lg-7 d-inline-block opportunities-funnel'>
+    <div class='col-lg-7 d-inline-block opportunities-funnel ps-5'>
         <div class='funnel-bar-prospecting'>
             <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
 				'stage' =>'prospecção',
@@ -236,7 +236,7 @@
 				'contact_id' => '',
 				'user_id' => '',
 				])}}'>
-                            <p class='balance_number' style="margin-left: -100px">
+                <p class='balance_number' style="margin-left: -100px">
                     {{$opportunitiesWon}}
                 </p>
                 <p class='balance_label_won' style="margin-left: -100px;margin-top: -10px">
@@ -263,14 +263,14 @@
     </div>
 </div>
 
-<div class='row mt-2 mb-2'>
+<div class='row mt-2 mb-3 ms-2 me-2'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <img src='{{asset('images/journey.png')}}' width='40' height='40'>
-        <p class="mt-2">
+        <i class="fas fa-mug-hot" style="font-size:42px; color:#8B2485"></i>
+        <p class="mt-2" style="color:#8B2485">
             JORNADAS
         </p>
     </div>
-    <div class='col-lg-10 d-inline-block'>
+    <div class='col-lg-10 d-inline-block  ps-5'>
         <table class='table-list'>
             <tr>
                 <td   class='table-list-header' style='width: 40%'>

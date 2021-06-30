@@ -3,7 +3,7 @@
         <div class="dropdown">
             <a class="dropdown-btn nav-link link-light" href='/'>
                 <i class="fas fa-rocket"></i>
-                <span class="d-none d-xl-inline">INÍCIO</span>
+                <span class="d-none d-xl-inline">MEU PAINEL</span>
             </a>
         </div>
 
