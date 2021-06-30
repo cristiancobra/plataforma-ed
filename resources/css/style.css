@@ -297,7 +297,7 @@ h5{
 }
 
 .dropdown-btn {
-    background-color: #c28dbf; /* fundo*/
+    
     color: white;
     padding: 6px 6px 6px 8px;
     font-size: 16px;
@@ -315,7 +315,6 @@ h5{
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
     color: #874983;
-    background-color: white;
 }
 
 /* Position and style the close button (top right corner) */
@@ -343,7 +342,6 @@ h5{
 /* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
 .dropdown-container {
     display: none;
-    background-color: #874983;
     padding-left: 8px;
     min-width: 170px;
 }

@@ -131,7 +131,6 @@ class AccountController extends Controller {
         $account->fill($request->all());
         $account->cnpj = removeSymbols($request->cnpj);
         $account->save();
-        $account->users()->sync($request->users);
 
         return redirect()->route('account.show', compact(
                                 'account',
@@ -180,8 +179,8 @@ class AccountController extends Controller {
     }
 
     public function logos() {
-        $logos = Image::where('type', 'logo')->get();
-        return $logos;
+        return $logos = Image::where('account_id', auth()->user()->account_id)
+                ->where('type', 'logo')->get();        
     }
 
 }

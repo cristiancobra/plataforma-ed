@@ -47,7 +47,7 @@ class User extends Authenticatable {
 
 //    RELACIONAMENTOS
     public function account() {
-        return $this->belongsTo(Account::class, 'id', 'account_id');
+        return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
     public function contact() {

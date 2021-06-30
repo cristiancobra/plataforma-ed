@@ -1588,20 +1588,20 @@ if (!function_exists('removeCurrency')) {
 if (!function_exists('createSidebarItem')) {
 
 // cria o menu sidebar com itens principais e submenus
-    function createSidebarItem($groupName, $groupFaIcon, $aria, array $itens) {
+    function createSidebarItem($groupName, $groupFaIcon, $aria, $backgroundColor, $oppositeColor, array $itens) {
         echo "
          <div class='dropdown'>
-            <button class='dropdown-btn dropdown-toggle' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'>
+            <button class='dropdown-btn dropdown-toggle' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'  style='background-color:$backgroundColor'>
                 <i class='$groupFaIcon'></i>
                 <span class='d-none d-xl-inline'>$groupName</span>
             </button>
-            <ul class='dropdown-menu bg-primary' aria-labelledby='$aria'>
+            <ul class='dropdown-menu' style='background-color:$oppositeColor' aria-labelledby='$aria'>
                 ";
 
         foreach ($itens as $item) {
             echo "
                   <li class='nav-item'>
-                    <a class='dropdown-item link-light' href='" . $item['link'] . "'>
+                    <a class='dropdown-item link-light' href='" . $item['link'] . "' style='background-color:$oppositeColor'>
                         <i class='" . $item['faIcon'] . " ms-0 me-1'></i>
                         <span class='d-xl-inline'>" . $item['name'] . "</span>
                     </a>
