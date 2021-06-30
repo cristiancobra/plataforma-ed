@@ -124,110 +124,99 @@ Não possui
 </div>
 <br>
 <br>
-<table class='table-list'>
-    <tr>
-        <td   class='table-list-header' style='width: 5%'>
-            QTDE
-        </td>
-        <td   class='table-list-header' style='width: 55%'>
-            NOME
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            PRAZO
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            IMPOSTO 
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            UNITÁRIO
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            TOTAL
-        </td>
-    </tr>
+<div class='row'>
+    <div   class='tb tb-header col-1'>
+        QTDE
+    </div>
+    <div   class='tb tb-header col-4'>
+        NOME
+    </div>
+    <div   class='tb tb-header col-1'>
+        PRAZO
+    </div>
+    <div   class='tb tb-header col-2'>
+        IMPOSTO 
+    </div>
+    <div   class='tb tb-header col-2'>
+        UNITÁRIO
+    </div>
+    <div   class='tb tb-header col-2'>
+        TOTAL
+    </div>
+</div>
 
-    @foreach ($invoiceLines as $invoiceLine)
-    <tr style='font-size: 14px'>
-        <td class='table-list-center'>
-            {{$invoiceLine->amount}}
-        </td>
-        <td class='table-list-left'>
-            {{$invoiceLine->product->name}}
-        </td>
-        <td class='table-list-center'>
-            {{$invoiceLine->subtotalDeadline}} dia(s)
-        </td>
-        <td class='table-list-right'>
-            {{number_format($invoiceLine->subtotalTax_rate, 2,',','.')}}
-        </td>
-        <td class='table-list-right'>
-            {{formatCurrencyReal($invoiceLine->subtotalPrice / $invoiceLine->amount)}}
-        </td>
-        <td class='table-list-right'>
-            {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
-        </td>
-    </tr>
+@foreach ($invoiceLines as $invoiceLine)
+<div class='row'>
+    <div class='tb col-1'>
+        {{$invoiceLine->amount}}
+    </div>
+    <div class='tb col-4'>
+        {{$invoiceLine->product->name}}
+    </div>
+    <div class='tb col-1'>
+        {{$invoiceLine->subtotalDeadline}} dia(s)
+    </div>
+    <div class='tb col-2'>
+        {{number_format($invoiceLine->subtotalTax_rate, 2,',','.')}}
+    </div>
+    <div class='tb col-2'>
+        {{formatCurrencyReal($invoiceLine->subtotalPrice / $invoiceLine->amount)}}
+    </div>
+    <div class='tb col-2'>
+        {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
+    </div>
+</div>
 
-    <tr style='font-size: 12px'>
-        <td class='table-list-left' colspan='6'>
-            {!!html_entity_decode($invoiceLine->product->description)!!}
-        </td>
-    </tr>
-    @endforeach
+<div class='row'>
+    <div class='tb col-12 justify-content-start'>
+        {!!html_entity_decode($invoiceLine->product->description)!!}
+    </div>
+</div>
+@endforeach
 
 
-    <tr>
-        <td   class='table-list-header-right' colspan='4'>
-            pontos: 
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            {{$invoice->totalPoints}}
-        </td>
-    </tr>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        pontos: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{$invoice->totalPoints}}
+    </div>
+</div>
 
-    <tr>
-        <td   class='table-list-header-right' colspan='4'>
-            desconto: 
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            - {{formatCurrencyReal($invoice->discount)}}
-        </td>
-    </tr>
-    <tr>
-        <td   class='table-list-header-right' colspan='4'>
-            TOTAL: 
-        </td>
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </td>
-    </tr>
-    <tr>
-        <td   class='table-list-header-right' colspan='4'>
-            PARCELAMENTO: 
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            @if($invoice->number_installment_total == 1)
-            À vista
-            @else
-            {{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
-            @endif
-        </td>
-    </tr>
-</table>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        desconto: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        - {{formatCurrencyReal($invoice->discount)}}
+    </div>
+</div>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        TOTAL: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{formatCurrencyReal($invoice->totalPrice)}}
+    </div>
+</div>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        PARCELAMENTO: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        @if($invoice->number_installment_total == 1)
+        À vista
+        @else
+        {{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
+        @endif
+    </div>
+</div>
 <br>
 @if($totalInvoices > 1)
-
-@elseif($invoice->status == 'aprovada' OR $invoice->status == 'paga' OR $invoice->number_installment_total == 1)
 <p  style='text-align: right'>
     <a class='text-button secondary' href='{{route('invoice.installment', ['invoice' => $invoice])}}'>
         GERAR FATURAS DO PARCELAMENTO
-    </a>
-</p>
-@else
-<p  style='text-align: right'>
-    <a class='text-button secondary' href='{{route('invoice.edit', ['invoice' => $invoice])}}'>
-        APROVAR PARA LIBERAR PARCELAMENTO
     </a>
 </p>
 @endif
@@ -255,69 +244,64 @@ $counter++;
 </div>
 <br>
 <br>
-<table class='table-list'>
-    <tr>
-        <td   class='table-list-header' style='width: 10%'>
-            DATA
-        </td>
-        <td   class='table-list-header' style='width: 30%'>
-            RESPONSÁVEL
-        </td>
-        <td   class='table-list-header' style='width: 30%'>
-            CONTA
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            VALOR
-        </td>
-    </tr>
-    @foreach($transactions as $transaction)
-    <tr>
-        <td class='table-list-center'>
-            <button class='button-round'>
-                <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
-                    <i class='fa fa-eye' style='color:white'></i></a>
-            </button>
-            {{date('d/m/Y', strtotime($transaction->pay_day))}}
-        </td>
-        <td class='table-list-center'>
-            {{$transaction->user->contact->name}}
-        </td>
-        <td class='table-list-center'>
-            {{$transaction->bankAccount->name}}
-        </td>
-        <td class='table-list-right'>
-            {{formatCurrencyReal($transaction->value)}}
-        </td>
-    </tr>
-    @endforeach
-    <tr>
-        <td   class='table-list-header-right' colspan='3'>
-            VALOR TOTAL: 
-        </td>
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </td>
-    </tr>
-    <tr>
-        <td   class='table-list-header-right' colspan='3'>
-            PAGO: 
-        </td>
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            - {{formatCurrencyReal($invoicePaymentsTotal)}}
-        </td>
-    </tr>
-    <tr>
-        <td   class='table-list-header-right'colspan='3'>
-            SALDO:
-        </td>
-        </td>
-        <td   class='table-list-header-right' colspan='2'>
-            {{formatCurrencyReal($balance)}}
-        </td>
-    </tr>
-</table>
+<div class='row'>
+    <div   class='tb tb-header col-2'>
+        DATA
+    </div>
+    <div   class='tb tb-header col-4'>
+        RESPONSÁVEL
+    </div>
+    <div   class='tb tb-header col-4'>
+        CONTA
+    </div>
+    <div   class='tb tb-header col-2'>
+        VALOR
+    </div>
+</div>
+@foreach($transactions as $transaction)
+<div class='row'>
+    <div class='tb col-2'>
+        <button class='button-round'>
+            <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
+                <i class='fa fa-eye' style='color:white'></i></a>
+        </button>
+        {{date('d/m/Y', strtotime($transaction->pay_day))}}
+    </div>
+    <div class='tb col-4'>
+        {{$transaction->user->contact->name}}
+    </div>
+    <div class='tb col-4'>
+        {{$transaction->bankAccount->name}}
+    </div>
+    <div class='tb col-2'>
+        {{formatCurrencyReal($transaction->value)}}
+    </div>
+</div>
+@endforeach
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        VALOR TOTAL: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{formatCurrencyReal($invoice->totalPrice)}}
+    </div>
+</div>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        PAGO: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        - {{formatCurrencyReal($invoicePaymentsTotal)}}
+    </div>
+</div>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        SALDO:
+    </div>        
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{formatCurrencyReal($balance)}}
+    </div>
+</div>
 <br>
 <p style='text-align: right'>
     @if($typeInvoices == 'receita')
@@ -354,64 +338,60 @@ $counter++;
 </div>
 <br>
 <br>
-<table class='table-list'>
-    <tr>
-        <td   class='table-list-header' style='width: 30%'>
-            IDENTIFICADOR
-        </td>
-        <td   class='table-list-header' style='width: 20%'>
-            DATA CRIAÇÃO 
-        </td>
-        <td   class='table-list-header' style='width: 20%'>
-            DATA PAGAMENTO
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            VALOR TOTAL
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            VALOR DA PARCELA
-        </td>
-        <td   class='table-list-header' style='width: 10%'>
-            SITUAÇÃO
-        </td>
-    </tr>
-    @if($invoices)
-    @foreach ($invoices as $invoice)
-    <tr style='font-size: 14px'>
-        <td class='table-list-left'>
-            <button class='button-round'>
-                <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
-                    <i class='fa fa-eye' style='color:white'></i></a>
-            </button>
-            <button class='button-round'>
-                <a href=' {{route('invoice.edit', ['invoice' => $invoice->id])}}'>
-                    <i class='fa fa-edit' style='color:white'></i></a>
-            </button>
-            FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$invoice->number_installment_total}}
-        </td>
-        <td class='table-list-center'>
-            {{date('d/m/Y', strtotime($invoice->date_creation))}}
-        </td>
-        <td class='table-list-center'>
-            {{date('d/m/Y', strtotime($invoice->pay_day))}}
-        </td>
-        <td class='table-list-right'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </td>
-        <td class='table-list-right'>
-            {{formatCurrencyReal($invoice->installment_value)}}
-        </td>
-        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
-        <td class='td-late'>
-            atrasada
-        </td>
-        @else
-        {{formatInvoiceStatus($invoice)}}
-        @endif
-    </tr>
-    @endforeach
-    @endif
-</table>
+<div class='row'>
+    <div   class='tb tb-header-start col-3'>
+        IDENTIFICADOR
+    </div>
+    <div   class='tb tb-header col-2'>
+        DATA CRIAÇÃO 
+    </div>
+    <div   class='tb tb-header col-2'>
+        DATA PAGAMENTO
+    </div>
+    <div   class='tb tb-header col-2'>
+        VALOR TOTAL
+    </div>
+    <div   class='tb tb-header col-2'>
+        VALOR DA PARCELA
+    </div>
+    <div   class='tb tb-header-end col-1'>
+        SITUAÇÃO
+    </div>
+</div>
+@if($invoices)
+@foreach ($invoices as $invoice)
+<div class='row'>
+    <div   class='tb col-3'>
+        <button class='button-round'>
+            <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
+                <i class='fa fa-eye' style='color:white'></i>
+            </a>
+        </button>
+        <button class='button-round'>
+            <a href=' {{route('invoice.edit', ['invoice' => $invoice->id])}}'>
+                <i class='fa fa-edit' style='color:white'></i>
+            </a>
+        </button>
+        FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$invoice->number_installment_total}}
+    </div>
+    <div   class='tb col-2'>
+        {{date('d/m/Y', strtotime($invoice->date_creation))}}
+    </div>
+    <div   class='tb col-2'>
+        {{date('d/m/Y', strtotime($invoice->pay_day))}}
+    </div>
+    <div   class='tb col-2'>
+        {{formatCurrencyReal($invoice->totalPrice)}}
+    </div>
+    <div   class='tb col-2'>
+        {{formatCurrencyReal($invoice->installment_value)}}
+    </div>
+
+    {{formatInvoiceStatus($invoice)}}
+</div>
+@endforeach
+@endif
+</div>
 <br>
 <br>
 <br>
@@ -445,7 +425,7 @@ $counter++;
     </div>
 </div>
 
-    @foreach ($tasksOperational as $task)
+@foreach ($tasksOperational as $task)
 <div class='row'>
     <div class='tb col-3 justify-content-start' style='font-weight: 600'>
         <a class='white' href=' {{ route('task.show', ['task' => $task->id]) }}'>
@@ -495,32 +475,32 @@ $counter++;
         {{dateBr($task->date_due)}}
         @endif
     </div>
-        {{formatPriority($task)}}
-        
-        @php
-        if($task->status == 'fazer' AND $task->journeys()->exists()) {
-        $task->status == 'fazendo';
-        }
-        @endphp
-        {{formatStatus($task)}}
-   
+    {{formatPriority($task)}}
+
+    @php
+    if($task->status == 'fazer' AND $task->journeys()->exists()) {
+    $task->status == 'fazendo';
+    }
+    @endphp
+    {{formatStatus($task)}}
+
 </div>
 
-    @foreach($task->journeys as $journey)
-    <div class='row'>        
-        <div class='tb col-2 justify-content-start' style='background-color:#d8c2db'>
-            <button class='button-round'>
-                <a href=' {{route('journey.show', ['journey' => $journey->id])}}'>
-                    <i class='fas fa-clock' style='color:white'></i>
-                </a>
-            </button>
-            {{dateBr($journey->date)}}
-        </div>
-        <div class='tb col-7 justify-content-start' colspan='3' style='background-color:#d8c2db'>
-            {!!html_entity_decode($journey->description)!!}
-        </div>
-        <div class='tb col-2' style='background-color:#d8c2db'>
-               @if($task->user->profile_picture)
+@foreach($task->journeys as $journey)
+<div class='row'>        
+    <div class='tb col-2 justify-content-start' style='background-color:#d8c2db'>
+        <button class='button-round'>
+            <a href=' {{route('journey.show', ['journey' => $journey->id])}}'>
+                <i class='fas fa-clock' style='color:white'></i>
+            </a>
+        </button>
+        {{dateBr($journey->date)}}
+    </div>
+    <div class='tb col-7 justify-content-start' colspan='3' style='background-color:#d8c2db'>
+        {!!html_entity_decode($journey->description)!!}
+    </div>
+    <div class='tb col-2' style='background-color:#d8c2db'>
+        @if($task->user->profile_picture)
         <div class='profile-picture-small'>
             <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
                 <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
@@ -531,25 +511,25 @@ $counter++;
         @else
         funcionário excluído
         @endif
-        </div>
-        <div class='tb col-1' style='background-color:#d8c2db'>
-            {{formatTotalHour($journey->duration)}} horas
-        </div>
     </div>
-    @endforeach
-        <div class='row'>
-            <div class="col-12 pt-5">
-            </div>
-        </div>
-    @endforeach
-    <div class='row'>
-        <div   class='table-list-header-right'colspan='6'>
-            TOTAL:
-        </div>
-        <div   class='table-list-header-right' colspan='1'>
-            {{formatTotalHour($tasksOperationalHours)}} horas
-        </div>
+    <div class='tb col-1' style='background-color:#d8c2db'>
+        {{formatTotalHour($journey->duration)}} horas
     </div>
+</div>
+@endforeach
+<div class='row'>
+    <div class="col-12 pt-5">
+    </div>
+</div>
+@endforeach
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        TOTAL:
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{formatTotalHour($tasksOperationalHours)}} horas
+    </div>
+</div>
 <br>
 <div id='produção' style='text-align:right'>
     <form  style='display: inline-block'  action='{{route('task.create')}}' method='post'>

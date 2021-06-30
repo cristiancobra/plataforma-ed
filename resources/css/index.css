@@ -317,16 +317,8 @@ td {
     border-color: white;
 }
 
-.td-late{
-    display: table-cell;  
-    font-size: 14px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:super;
+.tb-late{
     background-color: #FDA15E;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
 }
 
 /*-------FATURAS-----*/
@@ -334,8 +326,12 @@ td {
     background-color: #F9D0FF;
 }
 
-.td-aproved{
+.tb-aproved{
     background-color: #C3FEEF;
+}
+
+.tb-overdue{
+    background-color: #09FBBE;
 }
 
 .tb-paid{

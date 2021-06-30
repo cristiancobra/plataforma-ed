@@ -84,12 +84,6 @@
         <br>
         <br>
         <label class='labels' for='' >PRODUTOS ATUAIS:</label>
-        @if($invoice->status != 'rascunho' AND $invoice->status != 'orçamento' AND $invoice->status != 'orçamento')
-        <br>
-        <span class='fa fa-exclamation-triangle'></span>  Itens de faturas aprovadas não podem ser alteradas.
-        <br>
-        <br>
-        @endif
         <table class='table-list'>
             <tr>
                 <td   class='table-list-header'>
@@ -129,13 +123,10 @@
                 <td class='table-list-center'>
                     <input type='hidden' name='invoiceLine_id[]' size='16' value='{{$invoiceLine->id}}'>
                     <input type='hidden' name='product_id[]' size='16' value='{{$invoiceLine->product->id}}'>
-                    @if($invoice->status != 'rascunho' AND $invoice->status != 'orçamento')
-                    <input type='hidden' name='product_amount[]' size='4' value='{{$invoiceLine->amount}}'>
-                    {{$invoiceLine->amount}}
-                    @else
+                    
                     <input type='number' name='product_amount[]' size='4' value='{{$invoiceLine->amount}}'>
                     <span class='fields'></span>
-                    @endif
+
                 </td>
                 <td class='table-list-right'>
                     <image src='{{$invoiceLine->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
@@ -213,7 +204,6 @@
         <br>
         <br>
         <br>
-        @if($invoice->status == 'rascunho' OR $invoice->status == 'orçamento')
         <label class='labels' for='' >ADICIONAR PRODUTOS:</label>
         <table class='table-list'>
             <tr>
@@ -302,7 +292,6 @@
             @endforeach
         </table>
         <br>
-        @endif
         <br>
         <br>
         <label class='labels' for='' >OBSERVAÇÕES:</label>

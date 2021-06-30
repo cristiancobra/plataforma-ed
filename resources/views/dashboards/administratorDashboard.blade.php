@@ -6,13 +6,12 @@
 {{asset('images/control-panel.png')}}
 @endsection
 
-@section('description')
-@endsection
-
 @section('buttons')
+@if(isset($journey->task))
 <a class='circular-button secondary'  href='{{route('journey.create', ['taskName' => $journey->task->name, 'taskId' => $journey->task_id])}}'>
     <i class='fa fa-mug-hot' aria-hidden='true'></i>
 </a>
+@endif
 <a class='circular-button secondary'  href='{{route('task.create')}}'>
     <i class='fa fa-rocket' aria-hidden='true'></i>
 </a>

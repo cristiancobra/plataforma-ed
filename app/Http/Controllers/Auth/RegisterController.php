@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
+use DateTime;
+use DateInterval;
 
 class RegisterController extends Controller {
     /*
@@ -106,15 +108,15 @@ use RegistersUsers;
         // cria USUÁRIO para o novo usuário
         $user = new User();
         $user->contact_id = $contact->id;
-        $user->perfil = $request->perfil;
+        $user->perfil = 'dono';
         $user->email = $request->email;
 //        $user->default_password = $request->password;
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
         $user->account_id = $account->id;
-        $today = date('Y-m-d');
-        $user->due_date = date('Y-m-d', strtotime('+1 month', $today));
+        $today = new Datetime('now');
+         $today->add(new DateInterval('P1M'));
+        $user->due_date = $today;
         $user->save();
-        $user->accounts()->sync($account->id);
 
 //        $messages = [
 //            'required' => '*preenchimento obrigatório.',

@@ -23,53 +23,49 @@ Total: <span class="labels">{{$total}}</span>
 @endsection
 
 @section('main')
-<div>
-    <table class="table-list">
-        <tr>
-            <td   class="table-list-header" style="width:70%">
-                PREVISÃO
-            </td>
-            <td   class="table-list-header" style="width:15%">
-                MÊS
-            </td>
-            <td   class="table-list-header" style="width:15%">
-                ANO
-            </td>
-        </tr>
-        <tr>
-            <td class="table-list-left">
-                RECEITAS:
-            </td>
-            <td class="table-list-right">
-                + {{formatCurrencyReal($estimatedRevenueMonthly)}}
-            </td>
-            <td class="table-list-right">
-                + {{formatCurrencyReal($estimatedRevenueYearly)}}
-            </td>
-        </tr>
-        <tr>
-            <td class="table-list-left">
-                DESPESAS:
-            </td>
-            <td class="table-list-right">
-                - {{formatCurrencyReal($estimatedExpenseMonthly)}}
-            </td>
-            <td class="table-list-right">
-                - {{formatCurrencyReal($estimatedExpenseYearly)}}
-            </td>
-        </tr>
-        <tr>
-            <td class="table-list-left">
-                SALDO:
-            </td>
-            <td class="table-list-right">
-                {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
-            </td>
-            <td class="table-list-right">
-                {{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
-            </td>
-        </tr>
-    </table>
+<div class='row'>
+    <div class="tb tb-header-start offset-6 col-2">
+        PREVISÃO
+    </div>
+    <div   class="tb tb-header col-2">
+        MÊS
+    </div>
+    <div   class="tb tb-header-end col-2">
+        ANO
+    </div>
+</div>
+<div class='row'>
+    <div class="tb offset-6 col-2 justify-content-start">
+        RECEITAS:
+    </div>
+    <div class="tb col-2 justify-content-end">
+        + {{formatCurrencyReal($estimatedRevenueMonthly)}}
+    </div>
+    <div class="tb col-2 justify-content-end">
+        + {{formatCurrencyReal($estimatedRevenueYearly)}}
+    </div>
+</div>
+<div class='row'>
+    <div class="tb offset-6 col-2 justify-content-start">
+        DESPESAS:
+    </div>
+    <div class="tb col-2 justify-content-end">
+        - {{formatCurrencyReal($estimatedExpenseMonthly)}}
+    </div>
+    <div class="tb col-2 justify-content-end">
+        - {{formatCurrencyReal($estimatedExpenseYearly)}}
+    </div>
+</div>
+<div class='row'>
+    <div class="tb offset-6 col-2 justify-content-start">
+        SALDO:
+    </div>
+    <div class="tb col-2 justify-content-end">
+        {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+    </div>
+    <div class="tb col-2 justify-content-end">
+        {{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
+    </div>
 </div>
 <br>
 <br>
@@ -89,122 +85,99 @@ Total: <span class="labels">{{$total}}</span>
     <input class="text-button primary" type="submit" value="FILTRAR">
 </form>
 <div>
-    <br>
-    <table class="table-list">
-        <tr>
-            <td   class="table-list-header" style="width:5%">
-                ID
-            </td>
-            <td   class="table-list-header" style="width:15%">
-                OPORTUNIDADE
-            </td>
-            <td   class="table-list-header" style="width:15%">
-                CONTATO
-            </td>
-            <td   class="table-list-header" style="width:15%">
-                CONTRATANTE 
-            </td>
-            <td   class="table-list-header" style="width:15%">
-                EMPRESA
-            </td>
-            <td   class="table-list-header" style="width:10%">
-                VENCIMENTO
-            </td>
-            <td   class="table-list-header" style="width:10%">
-                VALOR
-            </td>
-            <td   class="table-list-header" style="width:10%">
-                SITUAÇÃO
-            </td>
-        </tr>
+    <div class='row'>
+        <div   class="tb tb-header-start col-1">
+            ID
+        </div>
+        <div   class="tb tb-header col-3">
+            OPORTUNIDADE
+        </div>
+        <div   class="tb tb-header col-2">
+            CONTATO
+        </div>
+        <div   class="tb tb-header col-3">
+            CONTRATANTE 
+        </div>
+        <div   class="tb tb-header col-1">
+            VENCIMENTO
+        </div>
+        <div   class="tb tb-header col-1">
+            VALOR
+        </div>
+        <div   class="tb tb-header-end col-1">
+            SITUAÇÃO
+        </div>
+    </div>
 
-        @foreach ($invoices as $invoice)
-        <tr style="font-size: 14px">
-            <td class="table-list-left">
-                <button class="button-round">
-                    <a href=" {{route('invoice.show', ['invoice' => $invoice])}}">
-                        <i class='fa fa-eye' style="color:white"></i>
-                    </a>
-                </button>
-                {{$invoice->identifier}}
-            </td>
+    @foreach ($invoices as $invoice)
+    <div class='row'>
+        <div class="tb col-1 justify-content-start">
+            <button class="button-round">
+                <a href=" {{route('invoice.show', ['invoice' => $invoice])}}">
+                    <i class='fa fa-eye' style="color:white"></i>
+                </a>
+            </button>
+            {{$invoice->identifier}}
+        </div>
+        <div class="tb col-3">
             @if($invoice->opportunity)
-            <td class="table-list-center">
-                {{$invoice->opportunity->name}}
-            </td>
+            {{$invoice->opportunity->name}}
             @else
-            <td class="table-list-center">
-                não possui
-            </td>
+            não possui
             @endif
-            @if($invoice->contact)
-            <td class="table-list-center">
-                {{$invoice->contact->name}}
-            </td>
+        </div>
+        <div class="tb col-2">
+        @if($invoice->contact)
+            {{$invoice->contact->name}}
             @else
-            <td class="table-list-center">
-                não possui
-            </td>
+            não possui
             @endif
-            @if(isset($invoice->company))
-            <td class="table-list-center">
-                {{$invoice->company->name}}
-            </td>
-            @else
-            <td class="table-list-center">
-                não possui
-            </td>
-            @endif
-            <td class="table-list-center">
-                {{$invoice->account->name}}
-            </td>
-            @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
-            <td class="table-list-center" style="color: red">
-                {{date('d/m/Y', strtotime($invoice->pay_day))}}
-            </td>
-            @else
-            <td class="table-list-center">
-                {{date('d/m/Y', strtotime($invoice->pay_day))}}
-            </td>
-            @endif
-            @if($invoice->type == 'receita')
-            <td class="table-list-right">
-                {{formatCurrencyReal($invoice->installment_value)}}
-            </td>
-            @else
-            <td class="table-list-right" style="color: red">
-                - {{formatCurrencyReal($invoice->installment_value)}}
-            </td>
-            @endif
-            @if($invoice->paid >= $invoice->installment_value)
-            <td class="td-paid">
-                paga
-            </td>
-            @elseif($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value)
-            <td class="td-paid-partial">
-                parcial
-            </td>
-            @else
-            {{formatInvoiceStatus($invoice)}}
-            @endif
-        </tr>
-        @endforeach
-    </table>
-    <p style="text-align: right">
-        <br>
-        {{$invoices->links()}}
-    </p>
+        </div>
+        <div class="tb col-3">
+        @if(isset($invoice->company))
+            {{$invoice->company->name}}
+        @else
+            não possui
+        @endif
+        </div>
+        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+        <div class="tb col-1" style="color: red">
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </div>
+        @else
+        <div class="tb col-1">
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </div>
+        @endif
+        @if($invoice->type == 'receita')
+        <div class="tb col-1">
+            {{formatCurrencyReal($invoice->installment_value)}}
+        </div>
+        @else
+        <div class="tb col-1" style="color: red">
+            - {{formatCurrencyReal($invoice->installment_value)}}
+        </div>
+        @endif
+        
+        {{formatInvoiceStatus($invoice)}}
+    </div>
+    @endforeach
+</div>
+<p style="text-align: right">
     <br>
-    @endsection
+    {{$invoices->links()}}
+</p>
+<br>
+@endsection
 
-    @section('js-scripts')
-    <script>
-        $(document).ready(function () {
-            //botao de exibir filtro
-            $("#filter_button").click(function () {
-                $("#filter").slideToggle(600);
-            });
-
+@section('js-scripts')
+<script>
+    $(document).ready(function () {
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
         });
-    </script>
-    @endsection
+
+    });
+</script>
+@endsection

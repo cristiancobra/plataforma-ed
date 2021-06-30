@@ -951,7 +951,7 @@ if (!function_exists('formatInvoiceStatus')) {
     function formatInvoiceStatus($model) {
         switch ($model->status) {
             case 'rascunho':
-                echo '<div class="tb td-draft col-1">rascunho</div>';
+                echo '<div class="tb tb-draft col-1">rascunho</div>';
                 break;
             case 'orçamento':
                 echo '<div class="tb tb-pending col-1">orçamento</div>';
@@ -964,6 +964,9 @@ if (!function_exists('formatInvoiceStatus')) {
                 break;
             case 'paga':
                 echo '<div class="tb tb-paid col-1">paga</div>';
+                break;
+            case 'atrasada':
+                echo '<div class="tb tb-late col-1">atrasada</div>';
                 break;
         }
     }

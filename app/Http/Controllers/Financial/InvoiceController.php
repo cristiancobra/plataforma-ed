@@ -56,6 +56,12 @@ class InvoiceController extends Controller {
         foreach ($invoices as $invoice) {
             $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                     ->sum('value');
+
+            if ($invoice->paid >= $invoice->installment_value) {
+                $invoice->status = 'paga';
+            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
+                $invoice->status = 'parcial';
+            }
         }
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -250,10 +256,10 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Invoice $invoice) {
-            $DateTime = new DateTime($invoice->date_creation);
-            $DateTime->add(new \DateInterval("P" . $invoice->expiration_date . "D"));
-            $invoice->expiration_date = $DateTime->format( 'd/m/Y');
-        
+        $DateTime = new DateTime($invoice->date_creation);
+        $DateTime->add(new \DateInterval("P" . $invoice->expiration_date . "D"));
+        $invoice->expiration_date = $DateTime->format('d/m/Y');
+
         $typeInvoices = $invoice->type;
 
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
@@ -263,6 +269,10 @@ class InvoiceController extends Controller {
         foreach ($invoices as $invoice2) {
             $invoice2->paid = Transaction::where('invoice_id', $invoice2->id)
                     ->sum('value');
+
+            if ($invoice2->status == 'aprovada' AND $invoice2->pay_day < date('Y-m-d')) {
+                $invoice2->status = 'atrasada';
+            }
         }
 
         $invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
@@ -403,59 +413,59 @@ class InvoiceController extends Controller {
             $totalTaxrate = 0;
             $products = $request['product_id'];
 //            if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
-                if (isset($products)) {
-                    foreach ($products as $key => $id) {
-                        $data = array(
-                            'id' => $request->invoiceLine_id[$key],
-                            'invoice_id' => $invoice->id,
-                            'product_id' => $request->product_id[$key],
-                            'amount' => $request->product_amount[$key],
-                            'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
-                            'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
-                            'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
-                            'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
-                            'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
-                            'subtotalPoints' => $request->product_amount[$key] * $request->product_points[$key],
-                            'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
-                        );
-                        $totalPoints = $totalPoints + $data['subtotalPoints'];
-                        $totalPrice = $totalPrice + $data['subtotalPrice'];
-                        $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                        if ($request->product_amount[$key] <= 0) {
-                            invoiceLine::where('id', $request->invoiceLine_id)->delete();
-                        } else {
-                            invoiceLine::where('id', $request->invoiceLine_id[$key])->update($data);
-                        }
+            if (isset($products)) {
+                foreach ($products as $key => $id) {
+                    $data = array(
+                        'id' => $request->invoiceLine_id[$key],
+                        'invoice_id' => $invoice->id,
+                        'product_id' => $request->product_id[$key],
+                        'amount' => $request->product_amount[$key],
+                        'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
+                        'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
+                        'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
+                        'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
+                        'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
+                        'subtotalPoints' => $request->product_amount[$key] * $request->product_points[$key],
+                        'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
+                    );
+                    $totalPoints = $totalPoints + $data['subtotalPoints'];
+                    $totalPrice = $totalPrice + $data['subtotalPrice'];
+                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+                    if ($request->product_amount[$key] <= 0) {
+                        invoiceLine::where('id', $request->invoiceLine_id)->delete();
+                    } else {
+                        invoiceLine::where('id', $request->invoiceLine_id[$key])->update($data);
                     }
                 }
-                // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
-                $newTotalPoints = 0;
-                $newTotalPrice = 0;
-                $newProducts = $request['new_product_id'];
+            }
+            // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
+            $newTotalPoints = 0;
+            $newTotalPrice = 0;
+            $newProducts = $request['new_product_id'];
 
-                foreach ($newProducts as $key => $newProductId) {
-                    if ($request->new_product_amount[$key] > 0) {
-                        $data = array(
-                            'invoice_id' => $invoice->id,
-                            'product_id' => $request->new_product_id [$key],
-                            'amount' => $request->new_product_amount [$key],
-                            'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
-                            'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
-                            'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
-                            'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
-                            'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
-                            'subtotalPoints' => $request->new_product_amount [$key] * $request->new_product_points[$key],
-                            'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
-                        );
-                        $newTotalPoints = $newTotalPoints + $data['subtotalPoints'];
-                        $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
-                        $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                        invoiceLine::insert($data);
-                    }
+            foreach ($newProducts as $key => $newProductId) {
+                if ($request->new_product_amount[$key] > 0) {
+                    $data = array(
+                        'invoice_id' => $invoice->id,
+                        'product_id' => $request->new_product_id [$key],
+                        'amount' => $request->new_product_amount [$key],
+                        'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
+                        'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
+                        'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
+                        'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
+                        'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
+                        'subtotalPoints' => $request->new_product_amount [$key] * $request->new_product_points[$key],
+                        'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
+                    );
+                    $newTotalPoints = $newTotalPoints + $data['subtotalPoints'];
+                    $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
+                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+                    invoiceLine::insert($data);
                 }
-                $invoice->totalPoints = $totalPoints + $newTotalPoints;
-                $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
-                $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
+            }
+            $invoice->totalPoints = $totalPoints + $newTotalPoints;
+            $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
+            $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
@@ -511,7 +521,7 @@ class InvoiceController extends Controller {
 // definição do título
         if ($invoice->status == 'orçamento' OR $invoice->status == 'rascunho') {
             $pdfTitle = 'ORÇAMENTO';
-        } elseif ($invoice->status == 'aprovada'  OR $invoice->status == 'paga') {
+        } elseif ($invoice->status == 'aprovada' OR $invoice->status == 'paga') {
             $pdfTitle = 'FATURA';
         }
 
@@ -664,7 +674,7 @@ class InvoiceController extends Controller {
         $yearEnd = date('Y-12-31');
 
         $invoices = Invoice::where(function ($query) use ($request) {
-                        $query->where('account_id', auth()->user()->account_id);
+                    $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
                         $query->whereHas('opportunity', function ($query) use ($request) {
                             $query->where('name', 'like', "%$request->name%");
