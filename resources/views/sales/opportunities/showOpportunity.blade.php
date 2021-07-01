@@ -221,7 +221,7 @@
     </div>
     @endforeach
     <div class='row mb-4'>
-        <div class='tb tb-header col-11 justify-content-right'>
+        <div class='tb tb-header col-11 justify-content-end'>
             TOTAL
         </div>
         <div class='tb tb-header col-1'>
@@ -307,20 +307,17 @@
         <div class='col-1 tb tb-header'>
             ID
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-3 tb tb-header'>
             CRIAÇÃO 
         </div>
-        <div class='col-2 tb tb-header'>
-            PAGAMENTO
-        </div>
-        <div class='col-2 tb tb-header'>
-            VALOR DA FATURA
-        </div>
-        <div class='col-2 tb tb-header'>
-            PAGO
+        <div class='col-3 tb tb-header'>
+            VENCIMENTO
         </div>
         <div class='col-2 tb tb-header'>
             A RECEBER
+        </div>
+        <div class='col-2 tb tb-header'>
+            VALOR DA FATURA
         </div>
         <div class='tb tb-header col-1'>
             SITUAÇÃO
@@ -335,42 +332,61 @@
             </button>
             {{$invoice->identifier}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             {{date('d/m/Y', strtotime($invoice->date_creation))}}
         </div>
         @if($invoice->status == 'aprovada' AND $invoice->paid == 0 AND $invoice->pay_day < date('Y-m-d'))
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             {{date('d/m/Y', strtotime($invoice->pay_day))}}
         </div>
         @else
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             {{date('d/m/Y', strtotime($invoice->pay_day))}}
         </div>
         @endif
-        <div class='tb col-2'>
+        <div class='tb col-2 justify-content-end''>
+            {{formatCurrencyReal($invoice->balance)}}
+        </div>
+        <div class='tb col-2 justify-content-end''>
             {{formatCurrencyReal($invoice->installment_value)}}
-        </div>
-        <div class='tb col-2'>
-            {{formatCurrencyReal($invoice->paid)}}
-        </div>
-        <div class='tb col-2'>
-            {{formatCurrencyReal($invoice->installment_value - $invoice->paid)}}
         </div>
         {{formatInvoiceStatus($invoice)}}
     </div>
+    @foreach($invoice->transactions as $transaction)
+    <div class='row'>
+        <div class='tb col-1' style='background-color: #d8c2db'>
+            <button class='button-round'>
+                <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i>
+                </a>
+            </button>
+            {{$transaction->id}}
+        </div>
+        <div class='tb col-3' style='background-color: #d8c2db'>
+            {{$transaction->pay_day}}
+        </div>
+        <div class='tb col-3' style='background-color: #d8c2db'>
+            {{$transaction->bankAccount->name}}
+        </div>
+        <div class='tb col-2' style='background-color: #d8c2db'>
+            {{$transaction->observations}}
+        </div>
+        <div class='tb col-2 justify-content-end' style='background-color: #d8c2db'>
+            {{formatCurrencyReal($transaction->value)}}
+        </div>
+        <div class='tb col-1' style='background-color: #d8c2db'>
+        </div>
+    </div>
+    @endforeach
     @endforeach
     <div class='row mb-4'>
-        <div class='tb tb-header col-5 justify-content-right'>
-            TOTAIS
+        <div class='tb tb-header col-7 justify-content-end'>
         </div>
-        <div class='tb tb-header col-2'>
-            {{formatCurrencyReal($invoiceInstallmentsTotal)}}
+        <div class='tb tb-header col-2 justify-content-end'>
+            Falta receber:  {{formatCurrencyReal($invoicePaymentsTotal)}}
         </div>
-        <div class='tb tb-header col-2'>
-            {{formatCurrencyReal($invoicePaymentsTotal)}}
-        </div>
-        <div class='tb tb-header col-2'>
-            {{formatCurrencyReal($balance)}}
+        <div class='tb tb-header col-2 justify-content-end'>
+            Pago:  {{formatCurrencyReal($balanceTotal)}}
         </div>
         <div class='tb tb-header col-1'>
         </div>
@@ -581,12 +597,12 @@
             @endisset
         </div>
         {{formatPriority($task)}}
-        
+
         {{formatStatus($task)}}
     </div>
     @endforeach
     <div class='row mb-4'>
-        <div class='tb tb-header col-11 justify-content-right'>
+        <div class='tb tb-header col-11 justify-content-end'>
             TOTAL:
         </div>
         <div class='tb tb-header col-1'>
@@ -692,7 +708,7 @@
     </div>
     @endforeach
     <div class='row'>
-        <div class='tb tb-header col-11 justify-content-right'>
+        <div class='tb tb-header col-11 justify-content-end'>
             TOTAL:
         </div>
         <div class='tb tb-header col-1'>
@@ -700,7 +716,7 @@
         </div>
     </div>
     @endsection
-    
+
     @section('deleteButton')
     {{createButtonTrash($opportunity, 'opportunity')}}
     @endsection

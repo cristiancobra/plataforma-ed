@@ -965,6 +965,9 @@ if (!function_exists('formatInvoiceStatus')) {
             case 'paga':
                 echo '<div class="tb tb-paid col-1">paga</div>';
                 break;
+            case 'parcial':
+                echo '<div class="tb tb-paid col-1">parcial</div>';
+                break;
             case 'atrasada':
                 echo '<div class="tb tb-late col-1">atrasada</div>';
                 break;

@@ -209,6 +209,7 @@ class OpportunityController extends Controller {
                 ->get();
 //		dd($contactCompanies);
         $invoices = Invoice::where('opportunity_id', $opportunity->id)
+                ->with('transactions')
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
@@ -223,11 +224,13 @@ class OpportunityController extends Controller {
             } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
                 $invoice->status = 'parcial';
             }
+            
+            $invoice->balance = $invoice->installment_value - $invoice->paid;
         }
 
         $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
-        $invoicePaymentsTotal = $invoices->sum('paid');
-        $balance = $invoiceInstallmentsTotal - $invoicePaymentsTotal;
+        $invoicePaymentsTotal = $invoices->sum('balance');
+        $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
 
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->get();
@@ -278,7 +281,7 @@ class OpportunityController extends Controller {
                         'invoices',
                         'invoiceInstallmentsTotal',
                         'invoicePaymentsTotal',
-                        'balance',
+                        'balanceTotal',
                         'tasks',
                         'tasksSales',
                         'tasksSalesHours',
