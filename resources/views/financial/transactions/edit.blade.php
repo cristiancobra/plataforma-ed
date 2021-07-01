@@ -20,18 +20,6 @@
     <form action=" {{route('transaction.update', ['transaction' =>$transaction->id])}} " method="post" style="color: #874983">
         @csrf
         @method('put')
-        <label class="labels" for="" >EMPRESA: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{$transaction->account->id}}">
-                {{$transaction->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class="labels" for="" >REGISTRADO POR:</label>
         <select name="user_id">
             <option  class="fields" value="{{$transaction->user_id}}">

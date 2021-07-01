@@ -183,10 +183,6 @@ class TransactionController extends Controller {
     public function edit(Request $request, Transaction $transaction) {
         $typeTransactions = $request->input('typeTransactions');
 
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->paginate(20);
-
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
@@ -201,7 +197,6 @@ class TransactionController extends Controller {
 
         return view('financial.transactions.edit', compact(
                         'transaction',
-                        'accounts',
                         'bankAccounts',
                         'invoices',
                         'users',
