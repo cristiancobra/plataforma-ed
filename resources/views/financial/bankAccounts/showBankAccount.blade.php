@@ -145,10 +145,10 @@
         @endforeach
         </table>
         <div class='row'>
-            <div   class='tb tb-header col-10 justify-content-end'>
+            <div   class='tb tb-header col-11 justify-content-end'>
                 SALDO
             </div>
-            <div   class='tb tb-header col-2 justify-content-end'>
+            <div   class='tb tb-header col-1 justify-content-end'>
                 {{formatCurrencyReal($bankAccount->balance)}}
             </div>
         </div>
