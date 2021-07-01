@@ -133,6 +133,10 @@ Route::resource('planejamentos', 'Financial\\PlanningController')
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
 // transactions / movimentações financeiras
+Route::get('/movimentacoes/csv', 'Financial\\TransactionController@exportCsv')
+        ->name('transaction.export')
+        ->middleware('roles');
+
 Route::any('/movimentacoes/filtros', 'Financial\\TransactionController@filter')
         ->name('transaction.filter')
         ->middleware('roles');
@@ -179,7 +183,6 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
         ->parameters(['redes-sociais' => 'socialmedia'])
         ->middleware('roles');
 
-
 // ------------------------------------------------ MINHA CONTA ------------------------------------------------
 Route::get('/perfil', function () {
     return view('perfil');
@@ -213,7 +216,6 @@ Route::resource('tarefas', 'Operational\\TaskController')
         ->names('task')
         ->parameters(['tarefas' => 'task'])
         ->middleware('roles');
-
 
 // ---------- FACEBOOKS
 Route::get('/facebooks/all', 'Socialmedia\\FacebookController@all')->name('facebook.all');
@@ -336,5 +338,4 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')
 
 Route::get('/postarsite', 'SiteCliente@PostarSite')
         ->name('postar-site');
-
 

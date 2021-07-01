@@ -187,11 +187,11 @@ class TransactionController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
-        $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
-        $invoices = Invoice::whereIn('account_id', userAccounts())
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
                 ->where('type', 'LIKE', $typeTransactions)
                 ->orderBy('pay_day', 'ASC')
@@ -241,11 +241,7 @@ class TransactionController extends Controller {
         $monthEnd = date('Y-m-t');
 
         $transactions = Transaction::where(function ($query) use ($request) {
-                    if ($request->account_id) {
-                        $query->where('account_id', $request->account_id);
-                    } else {
-                        $query->whereIn('account_id', userAccounts());
-                    }
+                    $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
                         $query->whereHas('opportunity', function ($query) use ($request) {
                             $query->where('name', 'like', "%$request->name%");
@@ -286,43 +282,39 @@ class TransactionController extends Controller {
             'user_id' => $request->user_id,
         ]);
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('ID', 'ASC')
                 ->get();
 
         $users = User::myUsers();
 
-        $revenueMonthly = Transaction::whereIn('account_id', userAccounts())
+        $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
                 ->where('type', 'crédito')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('value');
 
-        $estimatedRevenueMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $expenseMonthly = Transaction::whereIn('account_id', userAccounts())
+        $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
                 ->where('type', 'débito')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('value');
 
-        $estimatedExpenseMonthly = Invoice::whereIn('account_id', userAccounts())
+        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [$monthStart, $monthEnd])
                 ->sum('installment_value');
 
-        $bankAccounts = BankAccount::whereIn('account_id', userAccounts())
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->get();
 
         foreach ($bankAccounts as $key => $bankAccount) {
@@ -336,7 +328,6 @@ class TransactionController extends Controller {
                         'transactions',
                         'contacts',
                         'companies',
-                        'accounts',
                         'users',
                         'bankAccounts',
                         'revenueMonthly',
@@ -344,6 +335,52 @@ class TransactionController extends Controller {
                         'expenseMonthly',
                         'estimatedExpenseMonthly',
         ));
+    }
+
+    public function exportCsv(Request $request) {
+        $fileName = 'transactions.csv';
+        $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                ->with([
+                    'invoice',
+                    'user.contact',
+                    ])
+                ->get();
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $columns = array('ID', 'DATA', 'USUÁRIO', 'OBSERVAÇÕES', 'FATURA', 'MÉTODO DE PAGAMENTO', 'CONTA BANCÁRIA', 'VALOR');
+
+        $callback = function () use ($transactions, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns, $separator = ";");
+
+            foreach ($transactions as $transaction) {
+                $row['ID'] = $transaction->id;
+                $row['DATA'] = $transaction->pay_day;
+                $row['USUÁRIO'] = $transaction->user->contact->name;
+                $row['OBSERVAÇÕES'] = $transaction->observations;
+                if($transaction->invoice){
+                $row['FATURA'] = $transaction->invoice->identifier;
+                }else{
+                $row['FATURA'] = 'não possui';    
+                }
+                $row['MÉTODO DE PAGAMENTO'] = $transaction->payment_method;
+                $row['CONTA BANCÁRIA'] = $transaction->bankAccount->name;
+                $row['VALOR'] = str_replace('.',',', $transaction->value);
+
+                fputcsv($file, array($row['ID'], $row['DATA'], $row['USUÁRIO'], $row['OBSERVAÇÕES'], $row['FATURA'], $row['MÉTODO DE PAGAMENTO'], $row['CONTA BANCÁRIA'], $row['VALOR']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 
 }
