@@ -344,6 +344,7 @@ class TransactionController extends Controller {
                     'invoice',
                     'user.contact',
                     ])
+                ->orderBy('pay_day')
                 ->get();
 
         $headers = array(
