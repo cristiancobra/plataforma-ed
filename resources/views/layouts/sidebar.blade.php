@@ -1,19 +1,19 @@
 @php
         $empresaDigital = \App\Models\Account::find(1);
         
-         if(auth()->user()->account->principal_color) {
+         if(auth()->user() == true AND auth()->user()->account->principal_color) {
              $principalColor = auth()->user()->account->principal_color;
          }else{
              $principalColor = $empresaDigital->principal_color;
          }
 
-         if(auth()->user()->account->complementary_color) {
+         if(auth()->user() == true AND auth()->user()->account->complementary_color) {
              $complementaryColor = auth()->user()->account->complementary_color;
          }else{
              $complementaryColor = $empresaDigital->complementary_color;
          }
          
-         if(auth()->user()->account->opposite_color) {
+         if(auth()->user() == true AND auth()->user()->account->opposite_color) {
              $oppositeColor = auth()->user()->account->opposite_color;
          }else{
              $oppositeColor = $empresaDigital->opposite_color;
@@ -23,7 +23,7 @@
 <nav class="col-md-2 d-md-block sidebar" style="background-color: {{$complementaryColor}}">
     <div class="sidebar-sticky">
         <div class="dropdown">
-            <a class="dropdown-btn nav-link link-light" href='/'>
+            <a class="dropdown-btn nav-link" href='/' style="color: {{$principalColor}}">
                 <i class="fas fa-rocket"></i>
                 <span class="d-none d-xl-inline">MEU PAINEL</span>
             </a>
@@ -31,7 +31,7 @@
 
         @if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador" OR Auth::user()->perfil == "dono")
 
-        {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, [
+        {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'MINHA EMPRESA',
                                                                                                                                                         'faIcon' => 'fas fa-store',
@@ -60,7 +60,7 @@
                                                                                                                                                     ])}}
 
 
-        {{createSidebarItem('FINANCEIRO', 'fas fa-money-bill', 'dropdownMenuButtonFinanceiro', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('FINANCEIRO', 'fas fa-money-bill', 'dropdownMenuButtonFinanceiro', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                             'name' => 'FATURAS',
                                                                                                                                                             'faIcon' => 'fas fa-receipt',
@@ -90,7 +90,7 @@
 
         @endif
 
-        {{createSidebarItem('MARKETING', 'fa fa-bullhorn', 'dropdownMenuFinanceiro', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('MARKETING', 'fa fa-bullhorn', 'dropdownMenuFinanceiro', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'REDES SOCIAIS',
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
@@ -128,7 +128,7 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        {{createSidebarItem('VENDAS', 'fa fa-funnel-dollar', 'dropdownMenuVendas', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('VENDAS', 'fa fa-funnel-dollar', 'dropdownMenuVendas', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONTATOS',
                                                                                                                                                         'faIcon' => 'fas fa-user-plus',
@@ -151,7 +151,7 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'CONTRATOS',
                                                                                                                                                         'faIcon' => 'fas fa-handshake',
@@ -169,7 +169,7 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'TAREFAS',
                                                                                                                                                         'faIcon' => 'fas fa-calendar-check',
@@ -184,7 +184,7 @@
 
         @if (Auth::user()->perfil == "super administrador")
 
-        {{createSidebarItem('EMPRESA DIGITAL', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('EMPRESA DIGITAL', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'SERVIDOR APLICAÇÕES <br> login: admin',
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
@@ -222,7 +222,7 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor,  [
+        {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'EMAIL DO USUÁRIO<br>',
                                                                                                                                                         'faIcon' => 'fas fa-envelope',
@@ -248,7 +248,7 @@
         @endif
 
         <div class="dropdown">
-            <a class="dropdown-btn nav-link link-light" href='https://empresadigital.net.br/empreender/'>
+                <a class="dropdown-btn nav-link" href='https://empresadigital.net.br/empreender/' style="color: {{$principalColor}}">
                 <i class="fas fa-question-circle"></i>
                 <span class="d-none d-xl-inline">SUPORTE</span>
             </a>

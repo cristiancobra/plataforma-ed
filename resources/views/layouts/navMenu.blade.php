@@ -1,25 +1,25 @@
 @php
         $empresaDigital = \App\Models\Account::find(1);
         
-         if(auth()->user()->account->image) {
+         if(auth()->user() == true AND auth()->user()->account->image) {
              $logo = auth()->user()->account->image->path;
          }else{
              $logo = $empresaDigital->image->path;
          }
          
-         if(auth()->user()->account->principal_color) {
+         if(auth()->user() == true AND auth()->user()->account->principal_color) {
              $principalColor = auth()->user()->account->principal_color;
          }else{
              $principalColor = $empresaDigital->principal_color;
          }
 
-         if(auth()->user()->account->complementary_color) {
+         if(auth()->user() == true AND auth()->user()->account->complementary_color) {
              $complementaryColor = auth()->user()->account->complementary_color;
          }else{
              $complementaryColor = $empresaDigital->complementary_color;
          }
          
-         if(auth()->user()->account->opposite_color) {
+         if(auth()->user() == true AND auth()->user()->account->opposite_color) {
              $oppositeColor = auth()->user()->account->opposite_color;
          }else{
              $oppositeColor = $empresaDigital->opposite_color;

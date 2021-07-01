@@ -1588,14 +1588,14 @@ if (!function_exists('removeCurrency')) {
 if (!function_exists('createSidebarItem')) {
 
 // cria o menu sidebar com itens principais e submenus
-    function createSidebarItem($groupName, $groupFaIcon, $aria, $backgroundColor, $oppositeColor, array $itens) {
+    function createSidebarItem($groupName, $groupFaIcon, $aria, $backgroundColor, $oppositeColor, $principalColor, array $itens) {
         echo "
          <div class='dropdown'>
             <button class='dropdown-btn dropdown-toggle' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'  style='background-color:$backgroundColor'>
                 <i class='$groupFaIcon'></i>
                 <span class='d-none d-xl-inline'>$groupName</span>
             </button>
-            <ul class='dropdown-menu' style='background-color:$oppositeColor' aria-labelledby='$aria'>
+            <ul class='dropdown-menu' style='background-color:$oppositeColor;color:$principalColor' aria-labelledby='$aria'>
                 ";
 
         foreach ($itens as $item) {

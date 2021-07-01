@@ -16,7 +16,7 @@ class Roles {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        
+
 //        Define o perfil do usuário
         if (Auth::user() == false) {
             return redirect('login');
@@ -33,33 +33,35 @@ class Roles {
         } else {
             return redirect('painel');
         }
-        
-//        Verifica se o usuário tem logo e cores da empresa
-        $empresaDigital = Account::find(1);
-        
-         if(auth()->user()->account->image) {
-             $logo = auth()->user()->account->image->path;
-         }else{
-             $logo = $empresaDigital->image->path;
-         }
-         
-         if(auth()->user()->account->principal_color) {
-             $principalColor = auth()->user()->account->principal_color;
-         }else{
-             $principalColor = $empresaDigital->principal_color;
-         }
 
-         if(auth()->user()->account->complementary_color) {
-             $complementaryColor = auth()->user()->account->complementary_color;
-         }else{
-             $complementaryColor = $empresaDigital->complementary_color;
-         }
-         
-         if(auth()->user()->account->opposite_color) {
-             $oppositeColor = auth()->user()->account->opposite_color;
-         }else{
-             $oppositeColor = $empresaDigital->opposite_color;
-         }
+//        Verifica se o usuário tem logo e cores da empresa
+//        
+//            $empresaDigital = Account::find(1);
+//
+//            if (auth()->user() == true AND auth()->user()->account->image) {
+//                $logo = auth()->user()->account->image->path;
+//            } else {
+//                $logo = $empresaDigital->image->path;
+//            }
+//
+//            if (auth()->user() == true AND auth()->user()->account->principal_color) {
+//                $principalColor = auth()->user()->account->principal_color;
+//            } else {
+//                $principalColor = $empresaDigital->principal_color;
+//            }
+//
+//            if (auth()->user() == true AND auth()->user()->account->complementary_color) {
+//                $complementaryColor = auth()->user()->account->complementary_color;
+//            } else {
+//                $complementaryColor = $empresaDigital->complementary_color;
+//            }
+//
+//            if (auth()->user() == true AND auth()->user()->account->opposite_color) {
+//                $oppositeColor = auth()->user()->account->opposite_color;
+//            } else {
+//                $oppositeColor = $empresaDigital->opposite_color;
+//            }
+   
 
 // verifica se o usuário tem permissão para acessar a rota
         if ($request->route('account')) {
@@ -68,9 +70,9 @@ class Roles {
         } else {
             $accountId = auth()->user()->account_id;
         }
-        
-        if($accountId != auth()->user()->account_id) {
-             abort(403);
+
+        if ($accountId != auth()->user()->account_id) {
+            abort(403);
         }
 
 //        Adiciona as variáveis no request e dá proseguimento
