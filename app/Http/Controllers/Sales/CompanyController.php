@@ -56,12 +56,8 @@ class CompanyController extends Controller {
      */
     public function create(Request $request) {
         $typeCompanies = $request->input('typeCompanies');
-
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -71,7 +67,6 @@ class CompanyController extends Controller {
 
         return view('sales.companies.createCompany', compact(
                         'typeCompanies',
-                        'accounts',
                         'contacts',
                         'states',
                         'businessModelTypes',
