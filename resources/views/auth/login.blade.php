@@ -3,7 +3,7 @@
 @section('main')
 <div class='container'>
     <div class='row justify-content-center'>
-        <div class='col-md-5 mx-auto'>
+        <div class='col-md-6 mx-auto'>
             <div class='card'  style='margin-top: 13%'>
                 <div class='card-header'>{{ __('Faça login com seu email cadastrado:') }}</div>
                 <div class='card-body'>

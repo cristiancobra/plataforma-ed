@@ -465,7 +465,11 @@ class InvoiceController extends Controller {
             }
             $invoice->totalPoints = $totalPoints + $newTotalPoints;
             $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
+            if($request->installment_value) {
+             $invoice->installment_value = $request->installment_value;   
+            } else {
             $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
+            }
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
@@ -614,6 +618,7 @@ class InvoiceController extends Controller {
         if ($invoice->identifier == 0) {
             $invoice->identifier = $lastInvoice + 1;
         }
+        $invoice->number_installment = 1;
         $invoice->save();
 
         $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)

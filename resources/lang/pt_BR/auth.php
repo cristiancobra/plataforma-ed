@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Não existe nenhuma conta com este EMAIL.',
+    'failed' => 'Seu email ou senha estão incorretos.',
     'throttle' => 'Você tentou logar muitas vez. Por segurança, aguarde :seconds segundos.',
 
 ];

@@ -311,6 +311,11 @@ CKEDITOR.replace('description');
         <label class='labels' for='' >NÚMERO DE PARCELAS: </label>
         <input type='number'  class='fields' style='text-align: right' name='number_installment_total' max='18' value='{{$invoice->number_installment_total}}'>
         <br>
+                <label class='labels' for='' >VALOR DESTA FATURA:   R$</label>
+        <input type='number'  name='installment_value' size='7' step='any' style='text-align:right' value='{{formatCurrency($invoice->installment_value)}}'>
+        <span>    * Deixe em branco para recalcular automaticamente </span>
+        <br>
+        <br>
         <br>
         <label class='labels' for=''>SITUAÇÃO:</label>
         {{createSimpleSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}

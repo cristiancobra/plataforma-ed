@@ -213,7 +213,7 @@ Não possui
     </div>
 </div>
 <br>
-@if($totalInvoices > 1)
+@if($totalInvoices <= 1 AND $invoice->number_installment_total > 1)
 <p  style='text-align: right'>
     <a class='text-button secondary' href='{{route('invoice.installment', ['invoice' => $invoice])}}'>
         GERAR FATURAS DO PARCELAMENTO

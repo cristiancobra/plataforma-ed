@@ -12,7 +12,7 @@ return [
       |
      */
 
-    'name' => env('APP_NAME', 'Plataforma ED'),
+    'name' => env('APP_NAME', 'Plataforma Empresa Digital'),
     /*
       |--------------------------------------------------------------------------
       | Application Environment

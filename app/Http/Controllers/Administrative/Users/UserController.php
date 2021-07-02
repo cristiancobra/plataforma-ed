@@ -68,9 +68,6 @@ class UserController extends Controller {
         $user = new User();
         $user->account_id = auth()->user()->account_id;
         $user->fill($request->all());
-//        $user->perfil = $request->perfil;
-//        $user->email = $request->email;
-//        $user->default_password = $request->password;
         $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
 
         $messages = [
@@ -140,19 +137,11 @@ class UserController extends Controller {
      */
     public function update(Request $request, User $user) {
         $user->fill($request->all());
-//        if (!empty($request->perfil)) {
-//            $user->perfil = $request->perfil;
-//        }
-//        $user->email = $request->email;
-//        $user->default_password = $request->default_password;
-        if (!empty($request->password)) {
-            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-        }
+
         if ($request->file) {
             $path = $request->file('image_id')->store('users_images');
             $user->profile_picture = $path;
         }
-//        dd($request);
         $user->update();
 
         if (!empty($request->accounts)) {
