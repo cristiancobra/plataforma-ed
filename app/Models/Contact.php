@@ -108,6 +108,7 @@ class Contact extends Model {
             'cinema e séries',
             'comer',
             'cozinhar',
+            'esportes',
             'ler e escrever',
             'línguas',
             'música',
