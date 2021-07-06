@@ -30,7 +30,7 @@
 
 
 @section('shortcuts')
-<div class='col-lg-3 d-inline-block tasks-my'>
+<div class='col-lg-2 d-inline-block tasks-my'>
     <a style='text-decoration:none' href='{{route('contact.index', [
 				'type' => 'funcionário',
 				])}}'>
@@ -42,7 +42,19 @@
         </p>
     </a>
 </div>
-<div class='col-lg-3 d-inline-block tasks-toDo'>
+<div class='col-lg-2 d-inline-block tasks-toDo'>
+    <a style='text-decoration:none' href='{{route('contact.index', [
+				'type' => 'parceiro',
+				])}}'>
+        <p class='panel-number'>
+            {{$partnersTotal}}
+        </p>
+        <p class='panel-text'>
+            parceiros
+        </p>
+    </a>
+</div>
+<div class='col-lg-2 d-inline-block tasks-now'>
 <a style='text-decoration:none' href='{{route('contact.index', [
 				'type' => 'cliente',
 				])}}'>
@@ -55,7 +67,7 @@
     </a>
 </div>
 
-<div class='col-lg-3 d-inline-block tasks-emergency'>
+<div class='col-lg-2 d-inline-block tasks-emergency'>
 <a style='text-decoration:none' href='{{route('contact.index', [
 				'type' => 'fornecedor',
 				])}}'>
