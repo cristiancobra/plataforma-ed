@@ -46,7 +46,7 @@ class ContactController extends Controller {
         $suppliersTotal = $suppliers->count();
 
         $partners = Contact::where('account_id', auth()->user()->account_id)
-                ->where('type', 'fornecedor')
+                ->where('type', 'parceiro')
                 ->orderBy('NAME', 'ASC')
                 ->get();
         $partnersTotal = $partners->count();
