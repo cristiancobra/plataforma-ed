@@ -210,14 +210,21 @@ class ContactController extends Controller {
 //                ->get();
                 ->count();
 
-//        $totalPercentual += $sourcesTotals[$item]['percentual'];  // para conferência
-        // LEAD SOURCES
+        // TOTAL
         $sourcesTotals = Contact::totalAndPercentage('lead_source', Contact::returnSources());
         $professionsTotals = Contact::totalAndPercentage('profession', Contact::returnProfessions());
         $etinicityTotals = Contact::totalAndPercentage('etinicity', Contact::returnEtinicity());
         $religionTotals = Contact::totalAndPercentage('religion', Contact::returnReligion());
         $genderTypesTotals = Contact::totalAndPercentage('gender', Contact::returnGenderTypes());
         $hobbiesTotals = Contact::totalAndPercentage('hobbie', Contact::returnHobbie());
+
+        // WON
+        $sourcesWon = Contact::totalAndPercentageWon('lead_source', Contact::returnSources());
+        $professionsWon = Contact::totalAndPercentageWon('profession', Contact::returnProfessions());
+        $etinicityWon = Contact::totalAndPercentageWon('etinicity', Contact::returnEtinicity());
+        $religionWon = Contact::totalAndPercentageWon('religion', Contact::returnReligion());
+        $genderTypesWon = Contact::totalAndPercentageWon('gender', Contact::returnGenderTypes());
+        $hobbiesWon = Contact::totalAndPercentageWon('hobbie', Contact::returnHobbie());
 
         return view('sales.contacts.targetAudience', compact(
                         'totalContacts',
@@ -228,6 +235,12 @@ class ContactController extends Controller {
                         'religionTotals',
                         'genderTypesTotals',
                         'hobbiesTotals',
+                        'sourcesWon',
+                        'professionsWon',
+                        'etinicityWon',
+                        'religionWon',
+                        'genderTypesWon',
+                        'hobbiesWon',
         ));
     }
 

@@ -19,7 +19,7 @@
     <div class="name col-6 text-center">
         {{$totalContacts}} CONTATOS
     </div>
-    <div class="name col-6">
+    <div class="name col-6 text-center">
         {{$totalClients}} CLIENTES
     </div>
 </div>
@@ -33,6 +33,12 @@
         {{createTablePercentual('HOBBIES', $hobbiesTotals)}}
     </div>
     <div class="col-6">
+        {{createTablePercentual('ORIGEM DO CONTATO', $sourcesWon)}}
+        {{createTablePercentual('PROFISSÃO', $professionsWon)}}
+        {{createTablePercentual('ETINIA', $etinicityWon)}}
+        {{createTablePercentual('RELIGIÃO', $religionWon)}}
+        {{createTablePercentual('GÊNERO', $genderTypesWon)}}
+        {{createTablePercentual('HOBBIES', $hobbiesWon)}}
     </div>
 </div>
 @endsection

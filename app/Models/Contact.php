@@ -478,4 +478,44 @@ class Contact extends Model {
         return $itemsTotals;
     }
 
+    public static function totalAndPercentageWon($field, array $items) {
+        $contacts = Contact::whereHas('opportunities', function ($query) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    $query->where('status', 'ganhamos');
+                })
+                ->get();
+        
+        $totalContacts = $contacts->count();
+        $totalPercentual = 0;
+
+        foreach ($items as $item) {
+            $totalItem = $contacts->where($field, $item)->count();
+
+            if ($totalItem > 0) {
+                if ($totalItem > 0) {
+                    $percentualItem = percentage($totalItem, $totalContacts);
+                } else {
+                    $percentualItem = 0;
+                }
+
+                if ($item == null) {
+                    $item = 'Não sei';
+                }
+
+                $itemsTotals[$item] = [
+                    'name' => $item,
+                    'total' => $totalItem,
+                    'percentual' => $percentualItem,
+                ];
+            }
+        }
+
+        // coloca na ordem do maior para o menor
+        usort($itemsTotals, function ($a, $b) {
+            return $b['total'] <=> $a['total'];
+        });
+
+        return $itemsTotals;
+    }
+
 }
