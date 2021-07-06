@@ -175,5 +175,7 @@
 @endforeach
 @endsection
 
+@section('paginate', $tasks->links())
+
 @section('js-scripts')
 @endsection

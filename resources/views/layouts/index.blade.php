@@ -40,7 +40,7 @@
 
                         <div class="row mt-3 mb-1">
                             <p>
-                                {{$tasks->links()}}
+                                @yield('paginate')
                             </p>
                         </div>
 

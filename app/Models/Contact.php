@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use App\Models\Account;
 
 //use App\User;
@@ -77,6 +78,47 @@ class Contact extends Model {
     }
 
 //FUNÇÕES PÚBLICAS
+      public static function filterModel(Request $request) {
+        $items = Contact::where(function ($query) use ($request) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
+                    }
+                    if ($request->company_id) {
+                        $query->whereHas('companies', function($query) use($request) {
+                            $query->where('company_id', $request->company_id);
+                        });
+                    }
+                    if ($request->type) {
+                        $query->where('type', $request->type);
+                    }
+//                    if ($request->status == '') {
+//                        // busca todos
+//                    } elseif ($request->status == 'fazendo') {
+//                        $query->where('status', 'fazer');
+//                        $query->whereHas('journeys');
+//                    } elseif ($request->status) {
+//                        $query->where('status', $request->status);
+//                    }
+                })
+//                ->with(
+//                        'opportunity',
+//                        'journeys',
+//                        'user.contact',
+//                        'user.image',
+//                )
+                ->orderBy('name', 'ASC')
+                ->paginate(20);
+
+        $items->appends([
+            'name' => $request->name,
+            'company' => $request->company_id,
+            'type' => $request->type,
+        ]);
+
+        return $items;
+    }
+    
     public static function returnSources() {
         return [
             '',

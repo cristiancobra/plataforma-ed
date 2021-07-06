@@ -12,8 +12,11 @@ use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Opportunity;
 use App\Models\User;
+use App\Http\Traits\FilterModelTrait;
 
 class ContactController extends Controller {
+
+    use FilterModelTrait;
 
     /**
      * Display a listing of the resource.
@@ -21,22 +24,20 @@ class ContactController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-
-//                ->where(function ($query) use ($request) {
-//                    if ($request->name) {
-//                        $query->where('name', 'like', "%$request->name%");
-//                    }
-//                })
-                ->with('opportunities', 'companies', 'user')
-                ->orderBy('NAME', 'ASC')
-                ->paginate(20);
-
+        $contacts = Contact::filterModel($request);
         $total = $contacts->total();
+
+        $companies = Company::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $types = Contact::returnContactTypes();
 
         return view('sales.contacts.index', compact(
                         'contacts',
                         'total',
+                        'companies',
+                        'types',
         ));
     }
 
@@ -191,24 +192,26 @@ class ContactController extends Controller {
     }
 
     public function targetAudience() {
-        $totalContacts = Contact::where('account_id', auth()->user()->account_id)
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->where('type', 'cliente')
-//                ->orderBy('name', 'ASC')
-//                ->get();
-                ->count();
+                ->orderBy('name', 'ASC')
+                ->get();
+
+        $totalContacts = $contacts->count();
 
 //        $opportunitiesWon = Opportunity::where('account_id', auth()->user()->account_id)
 //                ->where('status', 'ganhamos')
 //                ->with('contact')
 //                ->get();
 
-        $totalClients = Contact::whereHas('opportunities', function ($query) {
+        $clients = Contact::whereHas('opportunities', function ($query) {
                     $query->where('account_id', auth()->user()->account_id);
                     $query->where('status', 'ganhamos');
                 })
-//                ->orderBy('name', 'ASC')
-//                ->get();
-                ->count();
+                ->orderBy('name', 'ASC')
+                ->get();
+
+        $totalClients = $clients->count();
 
         // TOTAL
         $sourcesTotals = Contact::totalAndPercentage('lead_source', Contact::returnSources());
@@ -243,5 +246,4 @@ class ContactController extends Controller {
                         'hobbiesWon',
         ));
     }
-
 }

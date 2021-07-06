@@ -17,6 +17,7 @@
 @section('main')
 <div class="row mt-3 ms-2">
     <div class="name col-6 text-center">
+        <a href="{{route('contact.index', )"
         {{$totalContacts}} CONTATOS
     </div>
     <div class="name col-6 text-center">

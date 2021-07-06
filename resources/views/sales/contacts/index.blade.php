@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title','CONTATOS')
 
@@ -12,17 +12,21 @@
 </a>
 @endsection
 
-@section('main')
-<div style="text-align: right">
-    <form action="{{route('contact.index')}}" method="post" style="display: inline-block">
-        @csrf
-        <input type="text" name="name" placeholder="nome do contato" value="">
-    
-        <input class="btn btn-secondary" type="submit" value="FILTRAR">
-    </form>
-</div>
-<br>
-<div>
+@section('filter')
+<form id="filter" action="{{route('contact.index')}}" method="get" style="text-align: right;display: inline">
+    <input type="text" name="name" placeholder="nome ou sobrenome" value="">
+    {{createFilterSelect('type', 'select', $types)}}
+    {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
+    <br>
+    <a class="text-button secondary" href='{{route('contact.index')}}'>
+        LIMPAR
+    </a>
+    <input class="text-button primary" type="submit" value="FILTRAR">
+</form>
+@endsection
+
+@section('table')
+<div class="row mt-5">
     <table class="table-list">
         <tr>
             <td   class="table-list-header" style="width: 25%">
@@ -88,9 +92,6 @@
         </tr>
         @endforeach
     </table>
-    <p style="text-align: right">
-        <br>
-        {{$contacts->links()}}
-    </p>
-    <br>
     @endsection
+    
+    @section('paginate', $contacts->links())

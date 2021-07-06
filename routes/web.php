@@ -264,12 +264,12 @@ Route::get('contatos/publico-alvo', 'Sales\\ContactController@targetAudience')
                 ->name('contact.target')
         ->middleware('roles');
 
-Route::any('contatos/filtros', 'Sales\\ContactController@index')
-        ->name('contact.index')
-        ->middleware('roles');
+//Route::any('contatos/filtros', 'Sales\\ContactController@index')
+//        ->name('contact.index')
+//        ->middleware('roles');
 
 Route::resource('contatos', 'Sales\\ContactController')
-        ->except(['index'])
+//        ->except(['index'])
         ->names('contact')
         ->parameters(['contatos' => 'contact'])
         ->middleware('roles');
