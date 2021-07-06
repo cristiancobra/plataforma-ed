@@ -155,7 +155,7 @@
             @method('delete')
             <input class="btn btn-danger" type="submit" value="APAGAR">
         </form>
-        <a class="btn btn-secondary" href=" {{ route('contact.edit', ['contact' => $contact->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
+        <a class="btn btn-secondary" href=" {{route('contact.edit', ['contact' => $contact])}} "  style="text-decoration: none;color: white;display: inline-block">
             <i class='fa fa-edit'></i>EDITAR</a>
         <a class="btn btn-secondary" href="{{route('contact.index')}}"><i class="fas fa-arrow-left"></i></a>
     </div>
