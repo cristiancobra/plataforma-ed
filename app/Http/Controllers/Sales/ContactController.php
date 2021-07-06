@@ -193,8 +193,9 @@ class ContactController extends Controller {
     public function targetAudience() {
         $totalContacts = Contact::where('account_id', auth()->user()->account_id)
                 ->where('type', 'cliente')
-                ->orderBy('name', 'ASC')
-                ->get();
+//                ->orderBy('name', 'ASC')
+//                ->get();
+                ->count();
 
 //        $opportunitiesWon = Opportunity::where('account_id', auth()->user()->account_id)
 //                ->where('status', 'ganhamos')
@@ -205,9 +206,10 @@ class ContactController extends Controller {
                     $query->where('account_id', auth()->user()->account_id);
                     $query->where('status', 'ganhamos');
                 })
-                ->orderBy('name', 'ASC')
-                ->get();
-//dd($totalClients);
+//                ->orderBy('name', 'ASC')
+//                ->get();
+                ->count();
+
 //        $totalPercentual += $sourcesTotals[$item]['percentual'];  // para conferência
         // LEAD SOURCES
         $sourcesTotals = Contact::totalAndPercentage('lead_source', Contact::returnSources());

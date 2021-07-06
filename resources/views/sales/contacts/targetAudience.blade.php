@@ -17,17 +17,10 @@
 @section('main')
 <div class="row mt-3 ms-2">
     <div class="name col-6 text-center">
-        @foreach($totalContacts as $contact)
-        {{$contact->name}}
-        <br>
-        @endforeach
-
+        {{$totalContacts}} CONTATOS
     </div>
     <div class="name col-6">
-                @foreach($totalClients as $contact)
-        {{$contact->name}}
-        <br>
-        @endforeach
+        {{$totalClients}} CLIENTES
     </div>
 </div>
 <div class="row">
