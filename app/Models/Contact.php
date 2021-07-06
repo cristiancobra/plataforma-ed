@@ -109,12 +109,13 @@ class Contact extends Model {
             'comer',
             'cozinhar',
             'esportes',
+            'jardinagem',
+            'jogos eletrônicos',
             'ler e escrever',
             'línguas',
             'música',
             'teatro',
             'trabalho voluntário',
-            'video game',
         ];
     }
 
