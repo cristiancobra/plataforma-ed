@@ -37,7 +37,7 @@
 @endsection
 
 
-@section('execution')
+@section('main')
 @endsection
 
 @section('deleteButton', route('image.destroy', ['image' => $image->id]))

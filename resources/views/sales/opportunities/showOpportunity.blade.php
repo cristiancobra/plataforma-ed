@@ -114,20 +114,26 @@
 
 
 
-    @section('execution')
-    <div class='row'>
+    @section('main')
+    <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='
              border-left-style: solid;
+             border-top-style: solid;
              border-left-width: 1px;
-             border-color: #c28dbf
+             border-top-width: 1px;
+             border-color: #c28dbf;
+             border-radius: 10px 0 0 0;
              '>
             <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >VENDAS</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROSPECÇÃO</label>
         </div>
         <div class='col-6 pt-4 pb-3' style='
              border-right-style: solid;
+             border-top-style: solid;
              border-right-width: 1px;
-             border-color: #c28dbf
+             border-top-width: 1px;
+             border-color: #c28dbf;
+             border-radius: 0 10px 0 0;
              '>
             <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
                 @csrf

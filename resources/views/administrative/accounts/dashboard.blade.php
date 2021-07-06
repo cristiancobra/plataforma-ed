@@ -67,7 +67,7 @@
             PROPOSTA DE VALOR
         </p>
         <p class='panel-text'>
-            {{$account->value_offer}}
+            {!!html_entity_decode($account->value_offer)!!}
         </p>
         <br>
         <br>
@@ -138,59 +138,6 @@
     </div>
 </div>
 <br>
-<br>
-<br>
-<br>
-<br>
-<div class='row mt-2 mb-2'>
-    <div class='col-12 tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-            <p class='panel-title'>
-                PROPOSTA DE VALOR
-            </p>
-            <p class='panel-title'>
-                {{$account->value_offer}}
-            </p>
-        </a>
-    </div>
-</div>
-<div class='row mt-2 mb-2'>
-    <div class='col-lg-3 d-inline-block tasks-my'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'contact_id' => '',
-				'user_id' => Auth::user()->id,
-				])}}'>
-            <p class='panel-title'>
-
-            </p>
-            <p class='panel-title'>
-                minhas
-            </p>
-        </a>
-    </div>
-
-    <div class='col-lg-3 d-inline-block text-center tasks-now'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'feito',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-            <p class='panel-title'>
-
-            </p>
-            <p class='panel-title'>
-                feitas
-            </p>
-        </a>
-    </div>
-</div>
-
-
 <br>
 <br>
 @endsection

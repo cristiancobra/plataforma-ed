@@ -135,6 +135,11 @@
                                                                                                                                                         'link' => route('contact.index')
                                                                                                                                                         ],
                                                                                                                                                         [
+                                                                                                                                                        'name' => 'PÚBLICO-ALVO',
+                                                                                                                                                        'faIcon' => 'fas fa-user-plus',
+                                                                                                                                                        'link' => route('contact.target')
+                                                                                                                                                        ],
+                                                                                                                                                        [
                                                                                                                                                         'name' => 'EMPRESAS',
                                                                                                                                                         'faIcon' => 'fas fa-store',
                                                                                                                                                         'link' => route('company.index', ['typeCompanies' => 'cliente']),

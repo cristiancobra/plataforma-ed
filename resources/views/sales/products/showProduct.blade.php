@@ -171,7 +171,7 @@
 {!!html_entity_decode($product->description)!!}
 @endsection
 
-@section('execution')
+@section('main')
 @endsection
 
     @section('deleteButton')

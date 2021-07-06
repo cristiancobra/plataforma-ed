@@ -440,6 +440,22 @@ td {
     border-color: white;
 }
 
+/*Half Table*/
+/*.tb { 
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    color: #874983;
+    font-size:14px;
+    border-color: rgba(135, 73, 131,0.50);
+    border-style: solid;
+    border-width: 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}*/
+
 
 .button-round {
     /* Ellipse 1 */
@@ -584,3 +600,4 @@ td {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem;
 }
+

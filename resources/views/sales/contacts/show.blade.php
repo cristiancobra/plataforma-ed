@@ -18,12 +18,8 @@
 <br>
 <div>
     <h1 class="name">
-        <b> Nome: </b> {{ $contact->name }}
+        Nome: {{ $contact->name }}
     </h1>
-    <label class="labels" for="" >
-        Dono:
-    </label>
-    {{$contact->account->name}}
     <br>
     <label class="labels"  for="" >
         Origem do contato:

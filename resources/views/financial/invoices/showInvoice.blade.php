@@ -145,6 +145,16 @@ Não possui
     </div>
 </div>
 
+@if($invoice->number_installment > 1)
+<div class='row'>
+    <div class='tb col-10 justify-content-start'>
+        Parcelamento de serviços anteriores
+    </div>
+    <div class='tb col-2 justify-content-end'>
+        {{formatCurrencyReal($invoice->installment_value)}}
+    </div>
+    </div>
+@else
 @foreach ($invoiceLines as $invoiceLine)
 <div class='row'>
     <div class='tb col-1'>
@@ -173,7 +183,7 @@ Não possui
     </div>
 </div>
 @endforeach
-
+@endif
 
 <div class='row'>
     <div   class='tb tb-header col-10 justify-content-end'>
@@ -197,19 +207,7 @@ Não possui
         TOTAL: 
     </div>
     <div   class='tb tb-header col-2 justify-content-end'>
-        {{formatCurrencyReal($invoice->totalPrice)}}
-    </div>
-</div>
-<div class='row'>
-    <div   class='tb tb-header col-10 justify-content-end'>
-        PARCELAMENTO: 
-    </div>
-    <div   class='tb tb-header col-2 justify-content-end'>
-        @if($invoice->number_installment_total == 1)
-        À vista
-        @else
-        {{$invoice->number_installment_total}} x {{formatCurrencyReal($invoice->installment_value)}}
-        @endif
+        {{formatCurrencyReal($invoice->installment_value)}}
     </div>
 </div>
 <br>

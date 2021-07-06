@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','NOVO CONTATO')
+@section('title','CONTATOS')
 
 @section('image-top')
 {{asset('images/contact.png')}} 
@@ -29,35 +29,7 @@
     <form action="{{route('contact.store')}}" method="post">
         @csrf
         <label for="">Origem do Lead: </label>
-        <select name="lead_source">
-            <option  class="fields" value="site">
-                site
-            </option>
-            <option  class="fields" value="pesquisa paga">
-                pesquisa paga
-            </option>
-            <option  class="fields" value="pesquisa orgânica">
-                pesquisa orgânica
-            </option>
-            <option  class="fields" value="email marketing">
-                email marketing
-            </option>
-            <option  class="fields" value="indicação">
-                indicação
-            </option>
-            <option  class="fields" value="mídia social">
-                mídia social
-            </option>
-            <option  class="fields" value="outbound">
-                outbound
-            </option>
-            <option  class="fields" value="desconhecida">
-                desconhecida
-            </option>
-            <option  class="fields" value="outros">
-                outros
-            </option>
-        </select>
+        {{createSimpleSelect('lead_source', 'fields', $leadSources)}}
         <br>
         <br>
         <br>
@@ -97,7 +69,7 @@
         @endforeach
         <br>
         <label for="">Cargo: </label>
-        {{createSimpleSelect('job_position', 'fields',  $job_positions) }}
+        {{createSimpleSelect('job_position', 'fields',  $jobPositions) }}
         <br>
         <br>
         <label for="">Escolaridade: </label>

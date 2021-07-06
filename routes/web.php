@@ -259,12 +259,16 @@ Route::resource('questoes', 'Administrative\\Report\\QuestionController')
         ->middleware('roles');
 
 // =============================================== SALES ====================================
-// contatos
-Route::any('contatos/filtros', 'Contact\\ContactController@index')
+// contato
+Route::get('contatos/publico-alvo', 'Sales\\ContactController@targetAudience')
+                ->name('contact.target')
+        ->middleware('roles');
+
+Route::any('contatos/filtros', 'Sales\\ContactController@index')
         ->name('contact.index')
         ->middleware('roles');
 
-Route::resource('contatos', 'Contact\\ContactController')
+Route::resource('contatos', 'Sales\\ContactController')
         ->except(['index'])
         ->names('contact')
         ->parameters(['contatos' => 'contact'])
@@ -330,6 +334,12 @@ Route::put('/produtos/restaurar/{product}', 'Sales\\ProductController@restoreFro
 Route::resource('produtos', 'Sales\\ProductController')
         ->names('product')
         ->parameters(['produtos' => 'product'])
+        ->middleware('roles');
+
+// proposals
+Route::resource('propostas', 'Sales\\ProposalController')
+        ->names('proposal')
+        ->parameters(['propostas' => 'proposal'])
         ->middleware('roles');
 
 // ------------------------------------------------ SITE  ------------------------------------------------

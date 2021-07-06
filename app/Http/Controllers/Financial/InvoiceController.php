@@ -33,9 +33,7 @@ class InvoiceController extends Controller {
         $yearStart = date('Y-01-01');
         $yearEnd = date('Y-12-31');
 
-        $invoices = Invoice::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                })
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->with([
                     'account',
                     'opportunity',

@@ -65,12 +65,7 @@
                             </div>
                         </div>
 
-                        <div class='row' style='margin-top: 50px;margin-bottom: -5px'>
-                            <div class='col-12 show-label-large'>
-                                EXECUÇÃO
-                            </div>
-                        </div>
-                        @yield('execution')
+                        @yield('main')
 
                         <div class='row' style='margin-top: 30px;text-align: right'>
                             <div class='col-12'style='text-align: right;padding-top: -10px'>

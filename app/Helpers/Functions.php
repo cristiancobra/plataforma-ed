@@ -78,18 +78,18 @@ if (!function_exists('createButtonTrash')) {
 
 // gera um botão para o método que envia ou recupera um objeto da lixeira, de acordo com o estado atual
     function createButtonTrash($model, $parameter) {
-        if($model->trash ==1) {
-        $link = "$parameter.restore";
-        $styleName = 'restore';
-        $iconName = 'fa fa-recycle';
+        if ($model->trash == 1) {
+            $link = "$parameter.restore";
+            $styleName = 'restore';
+            $iconName = 'fa fa-recycle';
         } else {
-        $link = "$parameter.trash";
-        $styleName = 'delete';
-        $iconName = 'fa fa-trash';
+            $link = "$parameter.trash";
+            $styleName = 'delete';
+            $iconName = 'fa fa-trash';
         };
         echo "<form style='text-decoration: none;color: black;display: inline-block' action='" . route($link, [$parameter => $model]) . "' method='post'>";
         echo "<input type='hidden' name='_method' value='PUT'>";
-        echo "<input type='hidden' name='_token' value='". csrf_token() . "' />";
+        echo "<input type='hidden' name='_token' value='" . csrf_token() . "' />";
         echo "<button id='' class='circular-button $styleName' style='border:none;padding-left:4px;paddint-top:-5px' type='submit'>";
         echo "<i class='$iconName'></i>";
         echo "</button>";
@@ -1623,10 +1623,10 @@ if (!function_exists('createSidebarItem')) {
 
         function createSocialmediaHeader($socialmediaReport) {
             $socialmediaName = strtolower($socialmediaReport->socialmedia->socialmedia_name);
-            $socialmediaImage = "/images/socialmedia/".$socialmediaName.".png";
+            $socialmediaImage = "/images/socialmedia/" . $socialmediaName . ".png";
 //            dd(asset($socialmediaImage));
-            
-            echo"<div class='row ".$socialmediaName." '>";
+
+            echo"<div class='row " . $socialmediaName . " '>";
             echo"<div class='col-1'>";
             echo"<img src='" . asset($socialmediaImage) . "' style='width: 75px;height: 75px;text-align: center'>";
             echo"</div>";
@@ -1772,7 +1772,6 @@ if (!function_exists('createSidebarItem')) {
                             echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
                         }
                         echo "</div></div>";
-
                     }
                 }
             }
@@ -1851,7 +1850,48 @@ if (!function_exists('createReportAccountQuestions')) {
 
 }
 
+// calcular porcentagem de um valor em relação ao valor total
+if (!function_exists('percentage')) {
 
+    function percentage($number, $total) {
+        return number_format($number / $total * 100, 1);
+    }
+
+}
+
+// cria tabela com nome do item, total do item e percentual do item
+if (!function_exists('createTablePercentual')) {
+
+    function createTablePercentual($name, array $items) {
+        echo "<div class='row mt-3 ms-2'>
+    <div class='tb-header-start col-8'>";
+        echo $name;
+        echo "</div>
+    <div class='tb-header col-2'>
+            total
+    </div>
+    <div class='tb-header-end col-2'>
+            percentual
+    </div>
+</div>";
+
+        foreach ($items as $item) {
+            echo "<div class='row ms-2'>
+    <div class='tb col-8 justify-content-start'>";
+            echo $item['name'];
+            echo "</div>
+    <div class='tb col-2 justify-content-end pe-2'>";
+            echo $item['total'];
+            echo "</div>
+    <div class='tb col-2 justify-content-end pe-2'>";
+            echo $item['percentual'];
+            echo "%
+        </div>
+</div>";
+        }
+    }
+
+}
 
 //         <td   class="table-list-left">
 //                POSSUI  PALETA DE CORES:

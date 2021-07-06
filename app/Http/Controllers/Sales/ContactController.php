@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Contact;
+namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -34,7 +34,7 @@ class ContactController extends Controller {
 
         $total = $contacts->total();
 
-        return view('contacts.indexContacts', compact(
+        return view('sales.contacts.index', compact(
                         'contacts',
                         'total',
         ));
@@ -50,16 +50,18 @@ class ContactController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
+        $leadSources = Contact::returnSources();
         $states = returnStates();
         $genderTypes = Contact::returnGenderTypes();
         $hobbies = Contact::returnHobbie();
         $religions = Contact::returnReligion();
         $etinicities = Contact::returnEtinicity();
-        $professions = Contact::returnProfession();
-        $job_positions = Contact::returnProfession();
+        $professions = Contact::returnProfessions();
+        $jobPositions = Contact::returnProfessions();
         $contactTypes = Contact::returnContactTypes();
 
-        return view('contacts.createContact', compact(
+        return view('sales.contacts.create', compact(
+                        'leadSources',
                         'states',
                         'companies',
                         'genderTypes',
@@ -67,7 +69,7 @@ class ContactController extends Controller {
                         'religions',
                         'etinicities',
                         'professions',
-                        'job_positions',
+                        'jobPositions',
                         'contactTypes',
         ));
     }
@@ -103,7 +105,7 @@ class ContactController extends Controller {
             $contact->companies()->sync($request->companies);
         }
 
-        return redirect()->action('Contact\\ContactController@index');
+        return redirect()->action('Sales\\ContactController@index');
     }
 
     /**
@@ -114,7 +116,7 @@ class ContactController extends Controller {
      */
     public function show(Contact $contact) {
 
-        return view('contacts.showContact', [
+        return view('sales.contacts.show', [
             'contact' => $contact,
         ]);
     }
@@ -140,11 +142,11 @@ class ContactController extends Controller {
         $hobbies = Contact::returnHobbie();
         $religions = Contact::returnReligion();
         $etinicities = Contact::returnEtinicity();
-        $professions = Contact::returnProfession();
-        $job_positions = Contact::returnProfession();
+        $professions = Contact::returnProfessions();
+        $job_positions = Contact::returnProfessions();
         $contactTypes = Contact::returnContactTypes();
 
-        return view('contacts.editContact', compact(
+        return view('sales.contacts.edit', compact(
                         'contact',
                         'companies',
                         'companiesChecked',
@@ -172,7 +174,7 @@ class ContactController extends Controller {
         $contact->save();
         $contact->companies()->sync($request->companies);
 
-        return view('contacts.showContact', [
+        return view('sales.contacts.show', [
             'contact' => $contact,
         ]);
     }
@@ -186,6 +188,45 @@ class ContactController extends Controller {
     public function destroy(Contact $contact) {
         $contact->delete();
         return redirect()->route('contact.index');
+    }
+
+    public function targetAudience() {
+        $totalContacts = Contact::where('account_id', auth()->user()->account_id)
+                ->where('type', 'cliente')
+                ->orderBy('name', 'ASC')
+                ->get();
+
+//        $opportunitiesWon = Opportunity::where('account_id', auth()->user()->account_id)
+//                ->where('status', 'ganhamos')
+//                ->with('contact')
+//                ->get();
+
+        $totalClients = Contact::whereHas('opportunities', function ($query) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    $query->where('status', 'ganhamos');
+                })
+                ->orderBy('name', 'ASC')
+                ->get();
+//dd($totalClients);
+//        $totalPercentual += $sourcesTotals[$item]['percentual'];  // para conferência
+        // LEAD SOURCES
+        $sourcesTotals = Contact::totalAndPercentage('lead_source', Contact::returnSources());
+        $professionsTotals = Contact::totalAndPercentage('profession', Contact::returnProfessions());
+        $etinicityTotals = Contact::totalAndPercentage('etinicity', Contact::returnEtinicity());
+        $religionTotals = Contact::totalAndPercentage('religion', Contact::returnReligion());
+        $genderTypesTotals = Contact::totalAndPercentage('gender', Contact::returnGenderTypes());
+        $hobbiesTotals = Contact::totalAndPercentage('hobbie', Contact::returnHobbie());
+
+        return view('sales.contacts.targetAudience', compact(
+                        'totalContacts',
+                        'totalClients',
+                        'sourcesTotals',
+                        'professionsTotals',
+                        'etinicityTotals',
+                        'religionTotals',
+                        'genderTypesTotals',
+                        'hobbiesTotals',
+        ));
     }
 
 }

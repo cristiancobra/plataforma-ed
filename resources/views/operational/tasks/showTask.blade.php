@@ -136,7 +136,12 @@
 {!!html_entity_decode($task->description)!!}
 @endsection
 
-@section('execution')
+@section('main')
+<div class='row' style='margin-top: 50px;margin-bottom: -5px'>
+    <div class='col-12 show-label-large'>
+        EXECUÇÃO
+    </div>
+</div>
 <div class='row'>
     <div class='col-1 tb tb-header'>
         ID
