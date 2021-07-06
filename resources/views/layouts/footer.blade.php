@@ -1,4 +1,4 @@
-<div class='row mt-5 mb-4'>
+<div class='row mt-5 mb-5'>
     <div class="col-sm-9 col-xs-12" style="font-size: 18px">
         @yield('paginate')
     </div>

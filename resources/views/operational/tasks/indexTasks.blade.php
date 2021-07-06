@@ -20,7 +20,7 @@
 
 
 @section('filter')
-<form id="filter" action="{{route('task.index')}}" method="get" style="text-align: right;display:none">
+<form id="filter" action="{{route('task.index')}}" method="get" style="text-align: right">
     <input type="text" name="name" placeholder="nome da tarefa" value="">
     {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}

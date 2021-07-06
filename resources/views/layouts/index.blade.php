@@ -18,19 +18,14 @@
                 @include('layouts.sidebar')
                 <main role='main' class='offset-2 col-10 ml-sm-auto px-2' style='background-color: #EEEEEE'>
 
-                    <div class='row mt-2 mb-0' style='
-                         margin-left:13px;
-                         margin-right: 6px
-                         '>
                         @include('layouts.header')
-                    </div>
 
                     <div id='white-page' class='ms-3 me-3 mt-0 mb-5 px-5 pt-3' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
                         <div class='row justify-content-end' style='margin-bottom: -5px'>
                             @yield('shortcuts')
                         </div>
 
-                        <div class="row mt-4 mb-3" id="filter-row">
+                        <div class="row mt-4 mb-3" id="filter_row" style="display: none">
                             <div style="text-align:right">
                                 @yield('filter')
                             </div>
@@ -49,7 +44,7 @@
                         console.log('executing js here..')
                         //botao de exibir filtro
                         $('#filter_button').click(function () {
-                            $('#filter').slideToggle(600);
+                            $('#filter_row').slideToggle(600);
                         });
 
                     });

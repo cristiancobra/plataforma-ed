@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @if($typeCompanies == 'cliente')
 @section('title','EMPRESAS')
@@ -20,7 +20,7 @@
 </a>
 @endsection
 
-@section('main')
+@section('table')
 <div>
     <table class="table-list">
         <tr>
@@ -71,9 +71,7 @@
         </tr>
         @endforeach
     </table>
-    <p style="text-align: right">
-        <br>
-        {{$companies->links()}}
-    </p>
-    <br>
+
+    @section('paginate', $companies->links())
+
     @endsection

@@ -27,6 +27,24 @@ class ContactController extends Controller {
         $contacts = Contact::filterModel($request);
         $total = $contacts->total();
 
+        $employees = Contact::where('account_id', auth()->user()->account_id)
+                ->where('type', 'funcionário')
+                ->orderBy('NAME', 'ASC')
+                ->get();
+        $employessTotal = $employees->count();
+
+        $clients = Contact::where('account_id', auth()->user()->account_id)
+                ->where('type', 'cliente')
+                ->orderBy('NAME', 'ASC')
+                ->get();
+        $clientsTotal = $clients->count();
+
+        $suppliers = Contact::where('account_id', auth()->user()->account_id)
+                ->where('type', 'fornecedor')
+                ->orderBy('NAME', 'ASC')
+                ->get();
+        $suppliersTotal = $suppliers->count();
+        
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -36,6 +54,12 @@ class ContactController extends Controller {
         return view('sales.contacts.index', compact(
                         'contacts',
                         'total',
+                        'employees',
+                        'employessTotal',
+                        'clients',                        
+                        'clientsTotal',                        
+                        'suppliers',                        
+                        'suppliersTotal',                        
                         'companies',
                         'types',
         ));
