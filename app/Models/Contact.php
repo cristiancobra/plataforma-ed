@@ -164,7 +164,7 @@ class Contact extends Model {
             'Artista plástico',
             'Ator',
             'Assistente de compras',
-            'Assessor poítico',
+            'Assessor político',
             'Cabeleireiro',
             'Chef',
             'Construtor civil',
