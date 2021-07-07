@@ -42,7 +42,7 @@ class AccountController extends Controller {
      */
     public function create(Request $request) {
         $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('accounts.id', userAccounts());
+                    $query->where('accounts.id', auth()->user()->account_id);
                 })
                 ->get();
 

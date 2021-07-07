@@ -19,18 +19,6 @@
 	<form action=" {{ route('email.update', ['email' =>$email->id]) }} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
-		<label class="labels" for="" >EMPRESA:</label>
-		<select name="account_id">
-			<option  class="fields" value="{{$email->account_id}}">
-				{{$email->account->name}}
-			</option>
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{$account->id}}">
-				{{$account->name}}
-			</option>
-			@endforeach
-		</select>
-		<br>
 		<label class="labels" for="" >QUEM ESCREVEU: </label>
 		<select name="user_id">
 			<option  class="fields" value="{{$email->user_id}}">

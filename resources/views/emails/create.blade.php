@@ -27,20 +27,7 @@
 <div>
 	<form action="{{route('email.store')}}" method="post" style="color: #874983">
 		@csrf
-		<label class="labels" for="" >EMPRESA: </label>
-		@if(!empty(app('request')->input('taskAccountId')))
-		{{app('request')->input('taskAccountName')}}
-		<input type="hidden" name="account_id" value="{{app('request')->input('taskAccountId')}}">
-		@else
-		<select name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{$account->id}}">
-				{{$account->name}}
-			</option>
-			@endforeach
-			@endif
-		</select>
-		<br>
+	
 		<label class="labels" for="" >FUNCIONÁRIO: </label>
 		{{Auth::user()->contact->name}}
 		<input type="hidden" name="user_id" value="{{Auth::user()->id}}">

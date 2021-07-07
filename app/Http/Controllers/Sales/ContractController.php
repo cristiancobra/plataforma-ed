@@ -53,37 +53,32 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
         $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('accounts.id', userAccounts());
+                    $query->where('accounts.id', auth()->user()->account_id);
                 })
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $invoices = Invoice::whereIn('account_id', userAccounts())
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->orderBy('IDENTIFIER', 'DESC')
                 ->get();
 
-        $opportunities = Opportunity::whereIn('account_id', userAccounts())
+        $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contractsTemplates = ContractTemplate::whereIn('account_id', userAccounts())
+        $contractsTemplates = ContractTemplate::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         return view('sales.contracts.createContract', compact(
-                        'accounts',
                         'users',
                         'invoices',
                         'opportunities',
@@ -117,20 +112,16 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Contract $contract) {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
         $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('accounts.id', userAccounts());
+                    $query->where('accounts.id', auth()->user()->account_id);
                 })
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $opportunities = Opportunity::whereIn('account_id', userAccounts())
+        $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -148,7 +139,6 @@ class ContractController extends Controller {
 
         return view('sales.contracts.showContract', compact(
                         'contract',
-                        'accounts',
                         'users',
                         'opportunities',
                         'contacts',
@@ -166,20 +156,15 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Contract $contract) {
-
-        $accounts = Account::whereIn('id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $invoices = Invoice::whereIn('account_id', userAccounts())
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->orderBy('IDENTIFIER', 'DESC')
                 ->get();
 
@@ -189,16 +174,16 @@ class ContractController extends Controller {
         $witness2 = Contact::find($contract->witness2);
         $witnessName2 = $witness2->name;
 
-        $opportunities = Opportunity::whereIn('account_id', userAccounts())
+        $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contractsTemplates = ContractTemplate::whereIn('account_id', userAccounts())
+        $contractsTemplates = ContractTemplate::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         $users = User::whereHas('accounts', function ($query) {
-                    $query->whereIn('accounts.id', userAccounts());
+                    $query->where('accounts.id', auth()->user()->account_id);
                 })
                 ->get();
 
@@ -206,7 +191,6 @@ class ContractController extends Controller {
 
         return view('sales.contracts.editContract', compact(
                         'contract',
-                        'accounts',
                         'opportunities',
                         'contacts',
                         'companies',

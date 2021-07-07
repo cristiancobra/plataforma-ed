@@ -25,7 +25,7 @@ class CompetitorController extends Controller {
 					->pluck('id');
 
 			$competitors = Competitor::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->paginate(20);
 
@@ -56,12 +56,12 @@ class CompetitorController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 
 			$competitors = Competitor::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->paginate(20);
 
@@ -125,7 +125,7 @@ class CompetitorController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 

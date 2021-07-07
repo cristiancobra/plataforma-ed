@@ -38,43 +38,43 @@ class DashboardController extends Controller {
 		$hoje = date("d/m/Y");
 
 		$facebooks = Facebook::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();
 
 		$instagrams = Instagram::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();
 
 		$linkedins = Linkedin::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();
 
 		$twitters = Twitter::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();
 
 		$pinterests = Pinterest::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();
 
 		$youtubes = Youtube::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();
 
 		$spotifys = Spotify::whereHas('account', function($query) {
-					$query->whereIn('account_id', userAccounts())
+					$query->where('account_id', auth()->user()->account_id)
 					->with('account');
 				})
 				->get();

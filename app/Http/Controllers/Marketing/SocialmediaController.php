@@ -35,9 +35,6 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->get();
-
         $types = $this->types();
 
         return view('marketing.socialmedia.create', compact(
@@ -70,8 +67,7 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Socialmedia $socialmedia) {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->get();
+
         return view('marketing.socialmedia.show', compact(
                         'accounts',
                         'socialmedia',
@@ -85,8 +81,6 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Socialmedia $socialmedia) {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->get();
         $types = $this->types();
         $status = $this->socialmediaStatus();
 

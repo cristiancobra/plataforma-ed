@@ -197,7 +197,7 @@ class TaskController extends Controller {
                 ->get();
 
 //        $tasks = Task::whereHas('account', function ($query) {
-//                    $query->whereIn('account_id', userAccounts());
+//                    $query->where('account_id', auth()->user()->account_id);
 //                })
 //                ->with('contact')
 //                ->paginate(20);
@@ -372,9 +372,7 @@ class TaskController extends Controller {
             $totalDuration = $totalDuration + $journey->duration;
         }
 
-        $bankAccounts = BankAccount::whereHas('account', function ($query) {
-                    $query->whereIn('id', userAccounts());
-                })
+        $bankAccounts = BankAccount::where('id', auth()->user()->account_id)
                 ->where('status', 'LIKE', 'recebendo')
                 ->with([
                     'account',

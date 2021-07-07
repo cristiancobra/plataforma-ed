@@ -26,7 +26,7 @@ class YoutubeController extends Controller
 					->pluck('id');
 
 			$youtubes = Youtube::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID)
+						$query->where('account_id', auth()->user()->account_id)
 						->with('account');
 					})
 					->paginate(20);
@@ -60,7 +60,7 @@ class YoutubeController extends Controller
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 
@@ -116,7 +116,7 @@ class YoutubeController extends Controller
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 

@@ -26,7 +26,7 @@ class PinterestController extends Controller {
 					->pluck('id');
 
 			$pinterests = Pinterest::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID)
+						$query->where('account_id', auth()->user()->account_id)
 						->with('account');
 					})
 					->paginate(20);
@@ -60,7 +60,7 @@ class PinterestController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 			return view('socialmedia.pinterests.createPinterest', [
@@ -117,7 +117,7 @@ class PinterestController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 

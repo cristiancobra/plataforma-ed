@@ -26,7 +26,7 @@ class TwitterController extends Controller {
 					->pluck('id');
 
 			$twitters = Twitter::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID)
+						$query->where('account_id', auth()->user()->account_id)
 						->with('account');
 					})
 					->paginate(20);
@@ -61,7 +61,7 @@ class TwitterController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 
@@ -117,7 +117,7 @@ class TwitterController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 

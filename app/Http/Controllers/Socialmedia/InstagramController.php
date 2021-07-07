@@ -26,7 +26,7 @@ class InstagramController extends Controller {
 					->pluck('id');
 
 			$instagrams = Instagram::whereHas('account', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID)
+						$query->where('account_id', auth()->user()->account_id)
 						->with('account');
 					})
 					->paginate(20);
@@ -59,7 +59,7 @@ class InstagramController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 
@@ -115,7 +115,7 @@ class InstagramController extends Controller {
 					->pluck('id');
 
 			$accounts = Account::whereHas('users', function($query) use($accountsID) {
-						$query->whereIn('account_id', $accountsID);
+						$query->where('account_id', auth()->user()->account_id);
 					})
 					->get();
 

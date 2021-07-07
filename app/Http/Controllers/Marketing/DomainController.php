@@ -37,20 +37,15 @@ class DomainController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereIn('id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $sites = Site::whereIn('account_id', userAccounts())
+        $sites = Site::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         return view('marketing.domains.create', compact(
-                        'accounts',
                         'contacts',
                         'sites',
         ));
@@ -75,7 +70,7 @@ class DomainController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Domain $domain) {
-        $sites = Site::whereIn('account_id', userAccounts())
+        $sites = Site::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -93,15 +88,15 @@ class DomainController extends Controller {
      */
     public function edit(Domain $domain) {
         $accounts = Account::whereHas('users', function ($query) {
-                    $query->whereIn('account_id', userAccounts());
+                    $query->where('account_id', auth()->user()->account_id);
                 })
                 ->get();
 
-        $contacts = Contact::whereIn('account_id', userAccounts())
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $sites = Site::whereIn('account_id', userAccounts())
+        $sites = Site::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
@@ -124,7 +119,7 @@ class DomainController extends Controller {
             $domain->fill($request->all());
             $domain->save();
 
-            $sites = Site::whereIn('account_id', userAccounts())
+            $sites = Site::where('account_id', auth()->user()->account_id)
                     ->orderBy('NAME', 'ASC')
                     ->get();
 

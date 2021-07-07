@@ -31,25 +31,11 @@ class ContractTemplateController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        if (Auth::check()) {
-            $contractTemplate = new ContractTemplate();
 
-            $accountsID = Account::whereHas('users', function ($query) {
-                        $query->where('users.id', Auth::user()->id);
-                    })
-                    ->pluck('id');
-
-            $accounts = Account::whereIn('id', $accountsID)
-                    ->orderBy('NAME', 'ASC')
-                    ->get();
 
             return view('sales.contractsTemplates.createContractTemplate', compact(
                             'contractTemplate',
-                            'accounts',
             ));
-        } else {
-            return redirect('/');
-        }
     }
 
     /**
@@ -83,14 +69,6 @@ class ContractTemplateController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(ContractTemplate $contractTemplate) {
-        $accountsId = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::user()->id);
-                })
-                ->pluck('id');
-
-        $accounts = Account::whereIn('id', $accountsId)
-                ->orderBy('NAME', 'ASC')
-                ->get();
 
         return view('sales.contractsTemplates.editContractTemplate', compact(
                         'contractTemplate',

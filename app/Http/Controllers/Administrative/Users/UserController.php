@@ -173,10 +173,10 @@ class UserController extends Controller {
                     })
                     ->pluck('id');
 
-            $tasks = Task::whereIn('account_id', $accountsID)
+            $tasks = Task::where('account_id', auth()->user()->account_id)
                     ->get();
 
-            $journeys = Journey::whereIn('account_id', $accountsID)
+            $journeys = Journey::where('account_id', auth()->user()->account_id)
                     ->get();
 
             $tasks_now = $tasks
@@ -263,10 +263,10 @@ class UserController extends Controller {
                     })
                     ->pluck('id');
 
-            $tasks = Task::whereIn('account_id', $accountsID)
+            $tasks = Task::where('account_id', auth()->user()->account_id)
                     ->get();
 
-            $journeys = Journey::whereIn('account_id', $accountsID)
+            $journeys = Journey::where('account_id', auth()->user()->account_id)
                     ->get();
 
             $tasks_now = $tasks

@@ -40,11 +40,7 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create(Request $request) {
-		$accounts = Account::whereIn('id', userAccounts())
-				->orderBy('ID', 'ASC')
-				->get();
-
-		$contacts = Contact::whereIn('account_id', userAccounts())
+		$contacts = Contact::where('account_id', auth()->user()->account_id)
 				->orderBy('NAME', 'ASC')
 				->get();
 
@@ -92,16 +88,11 @@ class EmailController extends Controller {
 	 * @return \Illuminate\Http\Response
 	 */
 	public function edit(Email $email, Request $request) {
-		$accounts = Account::whereIn('id', userAccounts())
-				->orderBy('ID', 'ASC')
-				->get();
-
 		$users = User::myUsers();
 
 		return view('emails.edit', compact(
 						'users',
 						'email',
-						'accounts',
 		));
 	}
 
