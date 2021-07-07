@@ -19,7 +19,11 @@
 @endsection
 
 @section('name')
+@if($journey->task)
 {{$journey->task->name}}
+@else
+Tarefa excluída
+@endif
 @endsection
 
 @section('status')
@@ -45,7 +49,11 @@
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         <a href="{{route('task.show', ['task' => $journey->task->id])}}">
+            @if($journey->task)
             {{$journey->task->name}}
+            @else
+            Tarefa excluída
+            @endif
         </a>
     </div>
 </div>
@@ -56,9 +64,13 @@
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
+        @if($journey->task)
         <a href="{{route('contact.show', ['contact' => $journey->task->contact->id])}}">
             {{$journey->task->contact->name}}
         </a>
+        @else
+        Tarefa excluída
+        @endif
     </div>
 </div>
 <div class='col-md-2 col-sm-4' style='text-align: center'>
@@ -68,6 +80,7 @@
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
+        @if($journey->task)
         @if($journey->task->opportunity)
         <a href="{{route('opportunity.show', ['opportunity' => $journey->task->opportunity->id])}}">
             {{$journey->task->opportunity->name}}
@@ -75,6 +88,9 @@
         @else
         Não possui
         @endif
+@else
+Tarefa excluída
+@endif
     </div>
 </div>
 <div class='col-md-2 col-sm-4' style='text-align: center'>
@@ -84,7 +100,11 @@
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
+        @if($journey->task)
         {{$journey->task->department}}
+@else
+Tarefa excluída
+@endif
     </div>
 </div>
 @endsection
@@ -92,7 +112,11 @@
 
 @section('date_start')
 <div class="circle-date-start">
+@if($journey->task)
     {{date('d/m/Y', strtotime($journey->task->date_start))}}
+@else
+--
+@endif
 </div>
 <p class="labels" style="text-align: center">
     CRIAÇÃO DA TAREFA
@@ -102,7 +126,11 @@
 
 @section('date_due')
 <div class="circle-date-due">
+    @if($journey->task)
     {{dateBr($journey->task->date_due)}}
+@else
+--
+@endif
 </div>
 <p class="labels" style="text-align: center">
     PRAZO DA TAREFA
@@ -112,6 +140,7 @@
 
 @section('date_conclusion')
 <div class="circle-date-conclusion">
+    @if($journey->task)
     @if($journey->task->date_conclusion)
     {{dateBr($journey->task->date_conclusion)}}
     @else
@@ -119,6 +148,9 @@
         --
     </p>
     @endif
+@else
+--
+@endif
 </div>
 <p class="labels" style="text-align: center">
     CONCLUSÃO DA TAREFA
