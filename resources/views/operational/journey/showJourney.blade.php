@@ -48,13 +48,13 @@ Tarefa excluída
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
-        <a href="{{route('task.show', ['task' => $journey->task->id])}}">
             @if($journey->task)
+        <a href="{{route('task.show', ['task' => $journey->task->id])}}">
             {{$journey->task->name}}
+        </a>
             @else
             Tarefa excluída
             @endif
-        </a>
     </div>
 </div>
 <div class='col-md-2 col-sm-4' style='text-align: center'>
