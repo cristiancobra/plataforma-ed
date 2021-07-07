@@ -513,7 +513,7 @@ class Contact extends Model {
                 ];
             }
         }
-if($itemsTotals != null) {
+if(isset($itemsTotals)) {
         // coloca na ordem do maior para o menor
         usort($itemsTotals, function ($a, $b) {
             return $b['total'] <=> $a['total'];
