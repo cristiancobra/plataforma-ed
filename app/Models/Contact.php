@@ -78,14 +78,14 @@ class Contact extends Model {
     }
 
 //FUNÇÕES PÚBLICAS
-      public static function filterModel(Request $request) {
+    public static function filterModel(Request $request) {
         $items = Contact::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
                         $query->where('name', 'like', "%$request->name%");
                     }
                     if ($request->company_id) {
-                        $query->whereHas('companies', function($query) use($request) {
+                        $query->whereHas('companies', function ($query) use ($request) {
                             $query->where('company_id', $request->company_id);
                         });
                     }
@@ -118,7 +118,7 @@ class Contact extends Model {
 
         return $items;
     }
-    
+
     public static function returnSources() {
         return [
             '',
@@ -488,7 +488,7 @@ class Contact extends Model {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->where('type', 'cliente')
                 ->get();
-        
+
         $totalContacts = $contacts->count();
         $totalPercentual = 0;
 
@@ -513,15 +513,15 @@ class Contact extends Model {
                 ];
             }
         }
-if(isset($itemsTotals)) {
-        // coloca na ordem do maior para o menor
-        usort($itemsTotals, function ($a, $b) {
-            return $b['total'] <=> $a['total'];
-        });
-        return $itemsTotals;
-    }else{
-        return 0;
-    }
+        if (isset($itemsTotals)) {
+            // coloca na ordem do maior para o menor
+            usort($itemsTotals, function ($a, $b) {
+                return $b['total'] <=> $a['total'];
+            });
+            return $itemsTotals;
+        } else {
+            return [];
+        }
     }
 
     public static function totalAndPercentageWon($field, array $items) {
@@ -530,7 +530,7 @@ if(isset($itemsTotals)) {
                     $query->where('status', 'ganhamos');
                 })
                 ->get();
-        
+
         $totalContacts = $contacts->count();
         $totalPercentual = 0;
 
@@ -556,12 +556,15 @@ if(isset($itemsTotals)) {
             }
         }
 
-        // coloca na ordem do maior para o menor
-        usort($itemsTotals, function ($a, $b) {
-            return $b['total'] <=> $a['total'];
-        });
-
-        return $itemsTotals;
+        if (isset($itemsTotals)) {
+            // coloca na ordem do maior para o menor
+            usort($itemsTotals, function ($a, $b) {
+                return $b['total'] <=> $a['total'];
+            });
+            return $itemsTotals;
+        } else {
+            return [];
+        }
     }
 
 }

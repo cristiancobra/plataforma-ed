@@ -185,7 +185,8 @@ class AccountController extends Controller {
 
         public function report() {
         $accounts = Account::where('id', '>', 1)
-                ->with('users')
+                ->with('users.contact')
+                ->orderBy('name', 'ASC')
                 ->paginate(50);
 
         $total = $accounts->total();

@@ -215,6 +215,10 @@ Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
         ->name('task.pdf')
         ->middleware('roles');
 
+Route::get('tarefas/bug', 'Operational\\TaskController@createPDF')
+        ->name('task.pdf')
+        ->middleware('roles');
+
 Route::match(['get', 'post'], 'tarefas/novo', 'Operational\\TaskController@create')
         ->name('task.create')
         ->middleware('roles');
