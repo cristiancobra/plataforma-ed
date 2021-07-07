@@ -14,7 +14,7 @@ class AddPixColumnInBankAccountsTable extends Migration
     public function up()
     {
         Schema::table('bank_accounts', function (Blueprint $table) {
-            $table->string('pix');
+            $table->string('pix')->nullable();
         });
     }
 
