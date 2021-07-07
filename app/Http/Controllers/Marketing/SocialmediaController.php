@@ -38,7 +38,6 @@ class SocialmediaController extends Controller {
         $types = $this->types();
 
         return view('marketing.socialmedia.create', compact(
-                        'accounts',
                         'types',
         ));
     }
@@ -69,7 +68,6 @@ class SocialmediaController extends Controller {
     public function show(Socialmedia $socialmedia) {
 
         return view('marketing.socialmedia.show', compact(
-                        'accounts',
                         'socialmedia',
         ));
     }
@@ -85,7 +83,6 @@ class SocialmediaController extends Controller {
         $status = $this->socialmediaStatus();
 
         return view('marketing.socialmedia.edit', compact(
-                        'accounts',
                         'socialmedia',
                         'types',
                         'status',
