@@ -7,9 +7,11 @@
 @endsection
 
 @section('buttons')
+@if(isset($openJourney))
 <a class='circular-button secondary'  href='{{route('journey.show', ['journey' => $openJourney])}}'>
     <i class="fas fa-coffee" style="color:#8B2485"></i>
 </a>
+@endif
 @if(isset($journey->task))
 <a class='circular-button secondary'  href='{{route('journey.create', ['taskName' => $journey->task->name, 'taskId' => $journey->task_id])}}'>
     <i class="fas fa-mug-hot" style="color:#8B2485"></i>
