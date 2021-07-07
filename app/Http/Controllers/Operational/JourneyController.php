@@ -291,7 +291,7 @@ class JourneyController extends Controller {
 
         // calcular horas por USUÁRIOS
         $users = User::myUsers();
-
+//dd($users);
         $counterArray = 1;
         $counterAnnual = 1;
         foreach ($users as $user) {
@@ -326,12 +326,14 @@ class JourneyController extends Controller {
                 $initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
                 $finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
                 $monthlyDepartment[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
+                            $query->where('account_id', auth()->user()->account_id);
                             $query->where('department', 'LIKE', $department);
                         })
 //                        ->where('user_id', auth()->user()->id)
                         ->whereBetween('date', [$initialDate, $finalDate])
                         ->sum('duration');
                 $monthlyAllDepartments[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
+                            $query->where('account_id', auth()->user()->account_id);
                             $query->where('department', 'LIKE', $department);
                         })
                         ->whereBetween('date', [$initialDate, $finalDate])
@@ -340,6 +342,7 @@ class JourneyController extends Controller {
                 $counterArray++;
             }
             $annualDepartment[$counterAnnual] = Journey::whereHas('task', function ($query) use ($department) {
+                        $query->where('account_id', auth()->user()->account_id);
                         $query->where('department', 'LIKE', $department);
                     })
                     ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])

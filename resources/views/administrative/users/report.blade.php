@@ -7,9 +7,6 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button primary"  href="{{route('user.create')}}">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-</a>
 @endsection
 
 @section('main')
