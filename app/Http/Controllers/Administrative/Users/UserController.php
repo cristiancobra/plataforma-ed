@@ -354,4 +354,20 @@ class UserController extends Controller {
         return redirect()->back();
     }
 
+    public function report() {
+        $users = User::where('id', '>', 0)
+                ->with(
+                        'account',
+                        'contact',
+                        )
+                ->paginate(50);
+
+        $total = $users->total();
+
+        return view('administrative.users.report', compact(
+                        'users',
+                        'total',
+        ));
+    }
+
 }

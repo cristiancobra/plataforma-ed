@@ -78,7 +78,7 @@ class Account extends Model {
 		return $this->hasMany(Task::class, 'id', 'account_id');
 	}
 	public function users() {
-		return $this->hasMany(User::class, 'users_accounts', 'account_id', 'user_id');
+		return $this->hasMany(User::class, 'account_id', 'id');
 	}
 
     // MÉTODOS PÚBLICOS

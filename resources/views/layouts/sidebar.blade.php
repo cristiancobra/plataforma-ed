@@ -187,9 +187,21 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        @if (Auth::user()->perfil == "super administrador")
+        @if (auth()->user()->perfil == "super administrador")
 
-        {{createSidebarItem('EMPRESA DIGITAL', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
+        {{createSidebarItem('PLATAFORMA', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'CONTAS',
+                                                                                                                                                        'faIcon' => 'fa fa-store',
+                                                                                                                                                        'link' => route('account.report'),
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'USUÁRIOS',
+                                                                                                                                                        'faIcon' => 'fa fa-id-card-alt',
+                                                                                                                                                        'link' => route('user.report'),
+                                                                                                                                                        ],
+                                                                                                                                                    ])}}
+        {{createSidebarItem('ATALHOS ED', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'SERVIDOR APLICAÇÕES <br> login: admin',
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',

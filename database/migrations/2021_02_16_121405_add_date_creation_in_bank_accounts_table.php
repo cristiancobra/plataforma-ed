@@ -14,7 +14,7 @@ class AddDateCreationInBankAccountsTable extends Migration
     public function up()
     {
         Schema::table('bank_accounts', function (Blueprint $table) {
-            $table->date('date_creation');
+            $table->date('date_creation')->nullable();
         });
     }
 

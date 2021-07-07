@@ -60,6 +60,10 @@ Route::get('contas/dashboard/{account}', 'Administrative\\Accounts\\AccountContr
         ->name('account.dashboard')
         ->middleware('roles');
 
+Route::get('contas/report', 'Administrative\\Accounts\\AccountController@report')
+        ->name('account.report')
+        ->middleware('roles');
+
 Route::resource('contas', 'Administrative\\Accounts\\AccountController')
         ->names('account')
         ->parameters(['contas' => 'account'])
@@ -68,6 +72,10 @@ Route::resource('contas', 'Administrative\\Accounts\\AccountController')
 // users
 Route::any('/usuarios/foto-perfil', 'Administrative\\Users\\UserController@storeProfilePicture')
         ->name('user.picture')
+        ->middleware('roles');
+
+Route::get('usuarios/report', 'Administrative\\Users\\UserController@report')
+        ->name('user.report')
         ->middleware('roles');
 
 Route::resource('usuarios', 'Administrative\\Users\\UserController')

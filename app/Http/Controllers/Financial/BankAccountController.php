@@ -63,8 +63,8 @@ class BankAccountController extends Controller {
             'required' => '*preenchimento obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
-                    'name' => 'required:products',
-//					'price' => 'required:products',
+                    'name' => 'required:bankAccounts',
+//                    'date_creation' => 'required:bankAccounts',
                         ], $messages);
 
         if ($validator->fails()) {

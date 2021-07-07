@@ -183,4 +183,17 @@ class AccountController extends Controller {
                 ->where('type', 'logo')->get();        
     }
 
+        public function report() {
+        $accounts = Account::where('id', '>', 1)
+                ->with('users')
+                ->paginate(50);
+
+        $total = $accounts->total();
+
+        return view('administrative.accounts.report', compact(
+                        'accounts',
+                        'total',
+        ));
+    }
+    
 }
