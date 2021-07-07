@@ -3,7 +3,7 @@
 @section('title','TAREFAS')
 
 @section('image-top')
-<i class="fas fa-calendar-check" style="font-size:42px; color:#8B2485"></i>
+{{asset('images/rocket.png')}}
 @endsection
 
 @section('description')
