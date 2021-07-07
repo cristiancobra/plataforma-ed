@@ -39,16 +39,11 @@ class BankAccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $accounts = Account::whereIn('id', userAccounts())
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
         $banks = Bank::where('id', '>', 0)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
         return view('financial.bankAccounts.createBankAccount', compact(
-                        'accounts',
                         'banks',
         ));
     }
