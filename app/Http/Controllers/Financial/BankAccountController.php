@@ -114,7 +114,6 @@ class BankAccountController extends Controller {
         $banks = Bank::where('id', '>', 0)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-//		dd($banks);
 
         return view('financial.bankAccounts.editBankAccount', compact(
                         'bankAccount',
