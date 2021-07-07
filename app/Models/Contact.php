@@ -513,12 +513,12 @@ class Contact extends Model {
                 ];
             }
         }
-
+if($itemsTotals != null) {
         // coloca na ordem do maior para o menor
         usort($itemsTotals, function ($a, $b) {
             return $b['total'] <=> $a['total'];
         });
-
+    }
         return $itemsTotals;
     }
 
