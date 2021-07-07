@@ -334,7 +334,6 @@ class JourneyController extends Controller {
                         ->sum('duration');
                 $monthlyAllDepartments[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
                             $query->where('account_id', auth()->user()->account_id);
-                            $query->where('department', 'LIKE', $department);
                         })
                         ->whereBetween('date', [$initialDate, $finalDate])
                         ->sum('duration');
