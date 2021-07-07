@@ -76,7 +76,7 @@ class BankAccountController extends Controller {
 
             return view('financial.bankAccounts.showBankAccount', compact(
                             'bankAccount',
-                            'accounts',
+                            '',
             ));
         }
     }
@@ -118,7 +118,6 @@ class BankAccountController extends Controller {
 
         return view('financial.bankAccounts.editBankAccount', compact(
                         'bankAccount',
-                        'accounts',
                         'banks',
         ));
     }
