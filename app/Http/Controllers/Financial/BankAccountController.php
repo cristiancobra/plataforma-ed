@@ -75,6 +75,7 @@ class BankAccountController extends Controller {
         } else {
             $bankAccount = new BankAccount();
             $bankAccount->fill($request->all());
+            $bankAccount->account_id = auth()->user()->account_id;
             $bankAccount->save();
 
             return view('financial.bankAccounts.showBankAccount', compact(
