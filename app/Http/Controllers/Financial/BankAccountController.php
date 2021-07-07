@@ -74,8 +74,6 @@ class BankAccountController extends Controller {
             $bankAccount->fill($request->all());
             $bankAccount->save();
 
-            $accounts = userAccounts();
-
             return view('financial.bankAccounts.showBankAccount', compact(
                             'bankAccount',
                             'accounts',
@@ -113,8 +111,6 @@ class BankAccountController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(BankAccount $bankAccount) {
-        $accounts = userAccounts();
-
         $banks = Bank::where('id', '>', 0)
                 ->orderBy('NAME', 'ASC')
                 ->get();
