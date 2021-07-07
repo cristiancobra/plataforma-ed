@@ -28,16 +28,6 @@
 <div>
 	<form action=" {{route('bankAccount.store')}} " method="post" style="color: #874983">
 		@csrf
-		<label for="" >DONO: </label>
-		<select name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
 		<label for="" >Nome / apelido: </label>
 		<input type="text" name="name" value="{{old('name')}}">
 		@if ($errors->has('name'))

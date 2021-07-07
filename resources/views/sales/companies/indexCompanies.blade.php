@@ -15,9 +15,30 @@
 @endsection
 
 @section('buttons')
+<a id='filter_button' class='circular-button secondary'>
+    <i class="fa fa-filter" aria-hidden="true"></i>
+</a>
 <a class="circular-button primary"  href="{{route('company.create', ['typeCompanies' => $typeCompanies])}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
+@endsection
+
+@section('filter')
+<form id="filter" action="{{route('company.index')}}" method="get" style="text-align: right">
+    <input type="text" name="name" placeholder="nome" value="">
+    <input type="hidden" name="type" value="{{$typeCompanies}}">
+    <span style="margin-left: 20px">cidade: </span>
+    {{createFilterSelect('city', 'select', $uniqueCities)}}
+    <span style="margin-left: 20px">Estado: </span>
+    {{createFilterSelect('state', 'select', $uniqueStates)}}
+    <span style="margin-left: 20px">País: </span>
+    {{createFilterSelect('country', 'select', $uniqueCountries)}}    
+    <br>
+    <a class="text-button secondary" href='{{route('company.index')}}'>
+        LIMPAR
+    </a>
+    <input class="text-button primary" type="submit" value="FILTRAR">
+</form>
 @endsection
 
 @section('table')

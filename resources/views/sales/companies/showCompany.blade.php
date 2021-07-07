@@ -26,14 +26,9 @@
 <br>
 <div>
     <h1 class="name">
-         Nome:  {{$company->name}}
+         {{$company->name}}
     </h1>
     <label class="labels"  for="" >CNPJ: </label> {{$company->cnpj}}
-    <br>
-    <label class="labels" for="" >
-        Dono:
-    </label>
-    {{$company->account->name}}
     <br>
     <br>
     <br>
@@ -55,6 +50,7 @@
     <label class="labels"  for="">Twitter: </label> {{$company->twitter}}
     <br>
     <br>
+    <br>
     <h2 class="name" for="">REDES SOCIAIS</h2>
     <br>
     @if($company->socialmedia)
@@ -67,6 +63,7 @@
         NOVA REDE SOCIAL
     </a>
     @endif
+    <br>
     <br>
     <br>
     <h2 class="name" for="">LOCALIZAÇÃO</h2>

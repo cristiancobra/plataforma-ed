@@ -34,7 +34,10 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('company.update', ['company' => $company->id])}} " method="post">
+    <form action=" {{route('company.update', [
+                                                                            'company' => $company->id,
+                                                                            'typeCompanies' => $typeCompanies,
+                                                                        ])}} " method="post">
         @csrf
         @method('put')
         <label for="" >NOME: </label>

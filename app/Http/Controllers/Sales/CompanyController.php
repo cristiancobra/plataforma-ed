@@ -17,35 +17,65 @@ class CompanyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $typeCompanies = $request->input('typeCompanies');
 
-        $companies = Company::where('account_id', auth()->user()->account_id)
-                ->with([
-                    'account',
-                    'contacts',
-                ])
-                ->where(function ($query) use ($typeCompanies) {
-                    $query->where('type', $typeCompanies)
-                    ->orWhere('type', 'cliente e fornecedor');
-                })
-                ->orderBy('NAME', 'ASC')
-                ->paginate(20);
+        if ($request->input('typeCompanies')) {
+            $typeCompanies = $request->input('typeCompanies');
+            $request->type = $typeCompanies;
+        } else {
+            $typeCompanies = $request->type;
+        }
 
-        $companies->appends([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'city' => $request->city,
-            'account_id' => $request->account_id,
-            'typeCompanies' => $typeCompanies,
-        ]);
+        $companies = Company::filterModel($request);
 
-        $total = $companies->count();
+//        $companies = Company::where('account_id', auth()->user()->account_id)
+//                ->with([
+//                    'account',
+//                    'contacts',
+//                ])
+//                ->where(function ($query) use ($typeCompanies) {
+//                    $query->where('type', $typeCompanies)
+//                    ->orWhere('type', 'cliente e fornecedor');
+//                })
+//                ->orderBy('NAME', 'ASC')
+//                ->paginate(20);
+
+
+        $total = $companies->total();
+
+        $types = $types = Company::returnTypes();
+
+        $existingCities = Company::where('city', '!=', null)
+                ->where('type', $typeCompanies)
+                ->get()
+                ->pluck('city')
+                ->toArray();
+        $uniqueCities = array_unique($existingCities);
+        $cities = array_unshift($uniqueCities, '');
+
+        $existingStates = Company::where('state', '!=', null)
+                ->where('type', $typeCompanies)
+                ->get()
+                ->pluck('state')
+                ->toArray();
+        $uniqueStates = array_unique($existingStates);
+        $states = array_unshift($uniqueStates, '');
+
+        $existingCountries = Company::where('country', '!=', null)
+                ->where('type', $typeCompanies)
+                ->get()
+                ->pluck('country')
+                ->toArray();
+        $uniqueCountries = array_unique($existingCountries);
+        $countries = array_unshift($uniqueCountries, '');
 
         return view('sales.companies.indexCompanies', compact(
                         'typeCompanies',
                         'companies',
                         'total',
+                        'types',
+                        'uniqueStates',
+                        'uniqueCities',
+                        'uniqueCountries',
         ));
     }
 
@@ -56,7 +86,7 @@ class CompanyController extends Controller {
      */
     public function create(Request $request) {
         $typeCompanies = $request->input('typeCompanies');
-        
+
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -117,7 +147,7 @@ class CompanyController extends Controller {
     public function edit(Company $company, Request $request) {
         $typeCompanies = $request->input('typeCompanies');
         $states = returnStates();
-        $types = $this->returnTypes();
+        $types = Company::returnTypes();
 
         $businessModelTypes = Account::businessModelTypes();
 
@@ -137,11 +167,15 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company) {
+    public function update(Request $request, Company $company, $typeCompanies) {
         $company->fill($request->all());
         $company->save();
 
-        $typeCompanies = $company->type;
+        if ($company->type == 'cliente e fornecedor') {
+            $typeCompanies = $typeCompanies;
+        } else {
+            $typeCompanies = $company->type;
+        }
 
         return redirect()->route('company.show', compact(
                                 'company',
@@ -176,14 +210,6 @@ class CompanyController extends Controller {
             'D2C' => 'B2P - Direct to Consumer ',
         ];
         return $businessModelTypes;
-    }
-
-    function returnTypes() {
-        return $types = array(
-            'concorrente',
-            'fornecedor',
-            'cliente',
-        );
     }
 
 }

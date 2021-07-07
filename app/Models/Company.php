@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Company extends Model {
 
@@ -72,6 +73,56 @@ class Company extends Model {
             'D2C' => 'B2P - Direct to Consumer ',
         ];
         return $businessModelTypes;
+    }
+
+    public static function returnTypes() {
+        return $types = array(
+            'cliente',
+            'fornecedor',
+            'cliente e fornecedor',
+            'concorrente',
+        );
+    }
+
+    public static function filterModel(Request $request) {
+        $items = Company::where(function ($query) use ($request) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
+                    }
+//                    if ($request->company_id) {
+//                        $query->whereHas('companies', function($query) use($request) {
+//                            $query->where('company_id', $request->company_id);
+//                        });
+//                    }
+                    if ($request->city) {
+                        $query->where('city', $request->city);
+                    } elseif ($request->state) {
+                        $query->where('state', $request->state);
+                    } elseif ($request->country) {
+                        $query->where('country', $request->country);
+                    }
+                    if ($request->type == 'cliente' OR $request->type == 'fornecedor') {
+                        $query->where('type', $request->type)
+                        ->orWhere('type', 'cliente e fornecedor');
+                    }
+                })
+//                ->with(
+//                        'opportunity',
+//                        'journeys',
+//                        'user.contact',
+//                        'user.image',
+//                )
+                ->orderBy('name', 'ASC')
+                ->paginate(20);
+
+        $items->appends([
+            'name' => $request->name,
+            'company' => $request->company_id,
+            'type' => $request->type,
+        ]);
+
+        return $items;
     }
 
 }
