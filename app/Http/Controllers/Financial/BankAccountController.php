@@ -42,9 +42,12 @@ class BankAccountController extends Controller {
         $banks = Bank::where('id', '>', 0)
                 ->orderBy('NAME', 'ASC')
                 ->get();
+        
+        $types = BankAccount::returnTypes();
 
         return view('financial.bankAccounts.createBankAccount', compact(
                         'banks',
+                        'types',
         ));
     }
 
@@ -113,10 +116,13 @@ class BankAccountController extends Controller {
         $banks = Bank::where('id', '>', 0)
                 ->orderBy('NAME', 'ASC')
                 ->get();
+        
+        $types = BankAccount::returnTypes();
 
         return view('financial.bankAccounts.editBankAccount', compact(
                         'bankAccount',
                         'banks',
+                        'types',
         ));
     }
 

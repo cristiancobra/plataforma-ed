@@ -1339,19 +1339,6 @@ if (!function_exists('returnBankAccountStatus')) {
     }
 
 }
-// retorna tipo da CONTA BANCÁRIA
-if (!function_exists('returnBankAccountType')) {
-
-    function returnBankAccountType() {
-        return $status = array(
-            'conta corrente',
-            'poupança',
-            'cartão de crédito',
-            'investimento',
-        );
-    }
-
-}
 // retorna o STATUS / SITUAÇÃO do contrato 
 if (!function_exists('returnContractStatus')) {
 

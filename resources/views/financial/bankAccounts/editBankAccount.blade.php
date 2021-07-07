@@ -47,7 +47,7 @@
         <br>
         <br>
         <label for="" >Tipo de conta: </label>
-        <input type="text" name="type" value="{{$bankAccount->type}}">
+                {{createSimpleSelect('type', 'fields', $types, $bankAccount->type)}}
         <br>
         <label for="" >Número da agencia: </label>
         <input type="text" name="agency" value="{{$bankAccount->agency}}">

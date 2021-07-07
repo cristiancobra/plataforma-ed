@@ -75,7 +75,7 @@ CKEDITOR.replace('observations');
         <br>
         <br>
         <label for="">Tipo: </label>
-        {{createSimpleSelect('type', 'fields', returnBankAccountType())}}
+        {{createSimpleSelect('type', 'fields', $types)}}
         <br>
         <label for="">Situação: </label>
         {{createSimpleSelect('status', 'fields', returnBankAccountStatus())}}
