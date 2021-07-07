@@ -20,7 +20,8 @@ class DashboardController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
         
-        $journey =  $this->myLastJourney();
+        $journey = $this->myLastJourney();
+        $openJourney = $this->myOpenJourney();
 
 // SE FOR ADMINISTRADOR
         if ($request['role'] === "administrator" OR $request['role'] === "superadmin" OR $request['role'] === "dono") {
@@ -193,6 +194,7 @@ class DashboardController extends Controller {
                         'monthEnd',
                         'month',
                         'journey',
+                        'openJourney',
                         'users',
                         'tasksDone',
                         'tasks_pending',
@@ -217,11 +219,17 @@ class DashboardController extends Controller {
         ));
     }
     
+    public static function myOpenJourney() {
+        return Journey::where('user_id', auth()->user()->id)
+                ->where('end', null)
+                ->orderBy('id', 'DESC')
+                ->first();
+    }
+    
     public static function myLastJourney() {
         return Journey::where('user_id', auth()->user()->id)
                 ->with('task')
                 ->orderBy('id', 'DESC')
                 ->first();
-
     }
 }
