@@ -518,8 +518,10 @@ if(isset($itemsTotals)) {
         usort($itemsTotals, function ($a, $b) {
             return $b['total'] <=> $a['total'];
         });
-    }
         return $itemsTotals;
+    }else{
+        return 0;
+    }
     }
 
     public static function totalAndPercentageWon($field, array $items) {
