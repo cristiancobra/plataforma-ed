@@ -84,6 +84,31 @@ class Task extends Model {
         );
     }
 
+// retorna os módulos da plataforma quando for reportar bugs
+    static function returnBugModules() {
+        return $priorities = array(
+            'não sei',
+            'administrativo',
+            'financeiro',
+            'marketing',
+            'vendas',
+            'jurídico',
+            'produção',
+        );
+    }
+
+// retorna os módulos da plataforma quando for reportar bugs
+    static function returnBugActions() {
+        return $priorities = array(
+            'não sei',
+            'cliquei num item do menu',
+            'tentei criar/salvar um registro',
+            'tentei editar uma informação',
+            'vi uma informação errada',
+            'tentei logar/entrar na plataforma',
+        );
+    }
+
     // retorna a última tarefa feita pelo usuário logado
     public static function myLastTask() {
         return Task::latest()

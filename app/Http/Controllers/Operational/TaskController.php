@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use DateTime;
 
 class TaskController extends Controller {
 
@@ -161,6 +162,47 @@ class TaskController extends Controller {
     }
 
     /**
+      Store específico para salvar tarefas do tipo BUG
+     */
+    public function storeBug(Request $request) {
+//        $messages = [
+//            'required' => '*preenchimento obrigatório.',
+//        ];
+//        $validator = Validator::make($request->all(), [
+//                    'name' => 'required:tasks',
+//                    'date_start' => 'required:tasks',
+//                    'date_due' => 'required:tasks',
+//                    'description' => 'required:tasks',
+//                        ],
+//                        $messages);
+//
+//        if ($validator->fails()) {
+//            return back()
+//                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+//                            ->withErrors($validator)
+//                            ->withInput();
+//        } else {
+        $task = new Task();
+        $task->fill($request->all());
+        $task->account_id = 1;
+        $task->status = 'fazer';
+        $task->type = 'bug';
+        $task->name = "BUG: $request->module de " . $task->user->contact->name;
+
+        $DateTime = new DateTime($request->date_start);
+        $DateTime->add(new \DateInterval("P1D"));
+        $task->date_due = $DateTime->format('Y-m-d');
+        $task->description = $task->user->contact->name . " encontrou um problema em " . strtoupper($request->module) . " quando estava " . strtoupper($request->action) . "<br><br> Ele adicionou: " . strtoupper($request->description);
+        
+        $task->save();
+
+        $journeys = Journey::where('task_id', $task->id)
+                ->get();
+
+        return redirect()->route('task.bug', ['message' => 'Obrigado, por relatar um problema. Já encaminhamos para o responsável técnico']);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\tasks  $task
@@ -191,7 +233,7 @@ class TaskController extends Controller {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
+
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -332,6 +374,9 @@ class TaskController extends Controller {
                     if ($request->priority) {
                         $query->where('priority', $request->priority);
                     }
+                    if ($request->type) {
+                        $query->where('type', $request->type);
+                    }
                     if ($request->status == '') {
                         // busca todos
                     } elseif ($request->status == 'fazendo') {
@@ -442,6 +487,18 @@ class TaskController extends Controller {
 
 // download PDF file with download method
         return $pdf->stream('Relatório de execução.pdf');
+    }
+
+    public function createBug() {
+        $priorities = Task::returnPriorities();
+        $modules = Task::returnBugModules();
+        $actions = Task::returnBugActions();
+
+        return view('operational.tasks.createBug', compact(
+                        'priorities',
+                        'modules',
+                        'actions',
+        ));
     }
 
 }
