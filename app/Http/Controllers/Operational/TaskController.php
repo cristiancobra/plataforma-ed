@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Models\Image;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\User;
@@ -165,41 +166,41 @@ class TaskController extends Controller {
       Store específico para salvar tarefas do tipo BUG
      */
     public function storeBug(Request $request) {
-//        $messages = [
-//            'required' => '*preenchimento obrigatório.',
-//        ];
-//        $validator = Validator::make($request->all(), [
-//                    'name' => 'required:tasks',
-//                    'date_start' => 'required:tasks',
-//                    'date_due' => 'required:tasks',
-//                    'description' => 'required:tasks',
-//                        ],
-//                        $messages);
-//
-//        if ($validator->fails()) {
-//            return back()
-//                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-//                            ->withErrors($validator)
-//                            ->withInput();
-//        } else {
         $task = new Task();
-        $task->fill($request->all());
         $task->account_id = 1;
+        $task->user_id = 7;
+        $task->date_start = date('Y-m-d');
+        $task->department = 'desenvolvimento';
+        $task->contact_id = auth()->user()->contact_id;
+        $task->priority = $request->priority;
         $task->status = 'fazer';
         $task->type = 'bug';
         $task->name = "BUG: $request->module de " . $task->user->contact->name;
+        $task->description = $task->user->contact->name . " encontrou um problema em " . strtoupper($request->module) . " quando estava " . strtoupper($request->action) . "<br><br> Ele adicionou: " . strtoupper($request->description);
 
         $DateTime = new DateTime($request->date_start);
         $DateTime->add(new \DateInterval("P1D"));
         $task->date_due = $DateTime->format('Y-m-d');
-        $task->description = $task->user->contact->name . " encontrou um problema em " . strtoupper($request->module) . " quando estava " . strtoupper($request->action) . "<br><br> Ele adicionou: " . strtoupper($request->description);
         
         $task->save();
+        
+        if($request->file('image')) {
+        $image = new Image();
+        $image->account_id = 1;
+        $image->task_id = $task->id;
+        $image->type = 'bug';
+        $image->name = 'bug report - tarefa ' . $task->id;
+        $image->status = 'disponível';
+        $path = $request->file('image')->store('bugs_images');
+        $image->path = $path;
+        $image->save();
+        }
 
         $journeys = Journey::where('task_id', $task->id)
                 ->get();
 
-        return redirect()->route('task.bug', ['message' => 'Obrigado, por relatar um problema. Já encaminhamos para o responsável técnico']);
+//        return redirect()->route('task.bug', ['message' => 'Obrigado, por relatar um problema. Já encaminhamos para o responsável técnico']);
+        return redirect()->back()->with('message', 'Obrigado por reportar seu problema. Já estamos encaminhando as informações para o técnico responsável!');
     }
 
     /**
@@ -391,6 +392,7 @@ class TaskController extends Controller {
                         'journeys',
                         'user.contact',
                         'user.image',
+                        'images',
                 )
 //                ->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelada', 'feito')"))
                 ->orderBy('date_due', 'DESC')

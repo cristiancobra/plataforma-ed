@@ -136,6 +136,19 @@
 {!!html_entity_decode($task->description)!!}
 @endsection
 
+@section('images')
+@if($task->images)
+<div class='row'>
+    @foreach($task->images as $image)
+    <div class="col mt-2 mb-2">
+        <img src=''>
+        <image src='{{asset($image->path)}}' width='200px' heigh='200px'>
+    </div>
+    @endforeach
+</div>
+@endif
+@endsection
+
 @section('main')
 <div class='row' style='margin-top: 50px;margin-bottom: -5px'>
     <div class='col-12 show-label-large'>

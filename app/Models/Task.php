@@ -48,6 +48,10 @@ class Task extends Model {
         return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 
+    public function images() {
+        return $this->hasMany(Image::class, 'task_id', 'id');
+    }
+
     public function journeys() {
         return $this->hasMany(Journey::class, 'task_id', 'id');
     }
