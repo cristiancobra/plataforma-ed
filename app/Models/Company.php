@@ -56,7 +56,7 @@ class Company extends Model {
     }
 
     public function socialmedias() {
-        return $this->hasMany(Socialmedia::class, 'id', 'company_id');
+        return $this->hasMany(Socialmedia::class, 'company_id', 'id');
     }
 
     // MÉTODOS PÚBLICOS
@@ -102,17 +102,20 @@ class Company extends Model {
                     } elseif ($request->country) {
                         $query->where('country', $request->country);
                     }
-                    if ($request->type == 'cliente' OR $request->type == 'fornecedor') {
+                    if ($request->type == 'cliente e fornecedor') {
                         $query->where('type', $request->type)
                         ->orWhere('type', 'cliente e fornecedor');
+                    }else{
+                        $query->where('type', $request->type);
                     }
                 })
-//                ->with(
+                ->with(
+                        'socialmedias',
 //                        'opportunity',
 //                        'journeys',
 //                        'user.contact',
 //                        'user.image',
-//                )
+                )
                 ->orderBy('name', 'ASC')
                 ->paginate(20);
 

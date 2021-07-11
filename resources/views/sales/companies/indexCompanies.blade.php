@@ -70,13 +70,6 @@
                         <i class='fa fa-eye'></i>
                     </button>
                 </a>
-                <a class="white" href=" {{route('company.edit', [
-				'company' => $company,
-				'typeCompanies' => $company->type,
-			])}}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
                 </a>
                 {{$company->name}}
             </td>

@@ -167,15 +167,15 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company, $typeCompanies) {
+    public function update(Request $request, Company $company) {
         $company->fill($request->all());
         $company->save();
 
-        if ($company->type == 'cliente e fornecedor') {
-            $typeCompanies = $typeCompanies;
-        } else {
+//        if ($company->type == 'cliente e fornecedor') {
+//            $typeCompanies = $typeCompanies;
+//        } else {
             $typeCompanies = $company->type;
-        }
+//        }
 
         return redirect()->route('company.show', compact(
                                 'company',

@@ -48,6 +48,11 @@
                                                                                                                                                         'link' => route('user.index')
                                                                                                                                                         ],
                                                                                                                                                         [
+                                                                                                                                                        'name' => 'CONCORRENTES',
+                                                                                                                                                        'faIcon' => 'fas fa-trophy',
+                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'concorrente']),
+                                                                                                                                                        ],
+                                                                                                                                                        [
                                                                                                                                                         'name' => 'RELATÓRIO DE PRODUTIVIDADE',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie ',
                                                                                                                                                         'link' => route('journey.reports')
@@ -115,11 +120,6 @@
                                                                                                                                                         'name' => 'RELATÓRIOS',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie',
                                                                                                                                                         'link' => route('report.index'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'CONCORRENTES',
-                                                                                                                                                        'faIcon' => 'fas fa-trophy',
-                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'concorrente']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'IMAGENS',

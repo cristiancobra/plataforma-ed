@@ -26,7 +26,7 @@
 <br>
 <div>
     <h1 class="name">
-         {{$company->name}}
+        {{$company->name}}
     </h1>
     <label class="labels"  for="" >CNPJ: </label> {{$company->cnpj}}
     <br>
@@ -53,16 +53,22 @@
     <br>
     <h2 class="name" for="">REDES SOCIAIS</h2>
     <br>
-    @if($company->socialmedia)
-    {{$company->socialmedia->name}}
-    @else
+    @foreach ($company->socialmedias as $socialmedia)
+    <a  class="white" href=" {{ route('socialmedia.show', ['socialmedia' => $socialmedia->id]) }}">
+        <button class="button-round">
+            <i class='fa fa-eye'></i>
+        </button>
+    </a>
+    {{$socialmedia->name}} - {{$socialmedia->socialmedia_name}}
+    <br>
+    <br>
+    @endforeach
     <a class="btn btn-secondary" href="{{ route('socialmedia.create', [
-												'company_id' => $company->id,
-												'type' => $company->type,
-												]) }}" target="blank">
+                                                                                                                    'company_id' => $company->id,
+                                                            			'type' => $company->type,
+                                        				]) }}" target="blank">
         NOVA REDE SOCIAL
     </a>
-    @endif
     <br>
     <br>
     <br>
@@ -106,12 +112,6 @@
     <br>
     <h2 class="name" for="">FUNCIONÁRIOS</h2>
     @foreach ($company->contacts as $contact)
-    <a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
-        <button class="button-round">
-            <i class='fas fa-comment-dots'></i>
-        </button>
-    </a>
-
     <a  class="white" href=" {{ route('contact.show', ['contact' => $contact->id]) }}">
         <button class="button-round">
             <i class='fa fa-eye'></i>
