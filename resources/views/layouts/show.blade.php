@@ -65,15 +65,6 @@
                             </div>
                         </div>
 
-                        <div class='row' style='margin-top: 50px'>
-                            <div class='show-label-large col-12'>
-                                IMAGENS 
-                            </div>
-                            <div class='description-field'>
-                                @yield('images')
-                            </div>
-                        </div>
-
                         @yield('main')
 
                         <div class='row' style='margin-top: 30px;text-align: right'>

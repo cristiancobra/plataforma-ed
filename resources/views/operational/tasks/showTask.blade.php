@@ -7,8 +7,8 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button secondary"  href="{{route('task.pdf', ['task' => $task])}}">
-    <i class="fas fa-print"></i>
+<a class='circular-button secondary'  href='{{route('task.pdf', ['task' => $task])}}'>
+    <i class='fas fa-print'></i>
 </a>
 {{createButtonBack()}}
 {{createButtonList('task')}}
@@ -23,7 +23,7 @@
 
 @section('status')
 @if($task->status == 'fazer' AND $task->journeys()->exists())
-<div class="doing">
+<div class='doing'>
     fazendo
 </div>
 @else
@@ -97,36 +97,36 @@
 
 
 @section('date_start')
-<div class="circle-date-start">
+<div class='circle-date-start'>
     {{date('d/m/Y', strtotime($task->date_start))}}
 </div>
-<p class="labels" style="text-align: center">
+<p class='labels' style='text-align: center'>
     CRIAÇÃO
 </p>
 @endsection
 
 
 @section('date_due')
-<div class="circle-date-due">
+<div class='circle-date-due'>
     {{dateBr($task->date_due)}}
 </div>
-<p class="labels" style="text-align: center">
+<p class='labels' style='text-align: center'>
     PRAZO
 </p>
 @endsection
 
 
 @section('date_conclusion')
-<div class="circle-date-conclusion">
+<div class='circle-date-conclusion'>
     @if($task->date_conclusion)
     {{dateBr($task->date_conclusion)}}
     @else
-    <p style="color:white">
+    <p style='color:white'>
         --
     </p>
     @endif
 </div>
-<p class="labels" style="text-align: center">
+<p class='labels' style='text-align: center'>
     CONCLUSÃO
 </p>
 @endsection
@@ -136,20 +136,37 @@
 {!!html_entity_decode($task->description)!!}
 @endsection
 
-@section('images')
-@if($task->images)
-<div class='row'>
-    @foreach($task->images as $image)
-    <div class="col mt-2 mb-2">
-        <img src=''>
-        <image src='{{asset($image->path)}}' width='200px' heigh='200px'>
-    </div>
-    @endforeach
-</div>
-@endif
-@endsection
-
 @section('main')
+<div class='row' style='margin-top: 50px'>
+    <div class='show-label-large col-12'>
+        IMAGENS 
+    </div>
+</div>
+<div class='row description-field justify-content-center'>
+        @foreach($task->images as $image)
+        <div class='col-2 mt-2 mb-2'>
+            <image src='{{asset($image->path)}}' widht='100%' height='120px'>
+        </div>
+        @endforeach
+</div>
+<div class='row' style='margin-top: 10px;text-align: right'>
+    <div class='col-12'style='text-align: right'>
+        <form action=" {{route('image.store', [
+                                                                    'image_name' => $task->name,
+                                                                    'task_id' => $task->id,
+                                                                    ]
+                                )}} " method="post" enctype='multipart/form-data'>
+        @csrf
+            <input type='file' name='image'>
+            <button type='submit' class='circular-button primary'>
+                <i class='fa fa-plus' aria-hidden='true'></i>
+            </button>
+        </form
+    </div>
+</div>
+
+
+
 <div class='row' style='margin-top: 50px;margin-bottom: -5px'>
     <div class='col-12 show-label-large'>
         EXECUÇÃO
@@ -241,7 +258,7 @@
 <form style='text-decoration: none;color: black;display: inline-block' action='{{route('task.destroy', ['task' => $task])}}' method='post'>
     @method('delete')
     @csrf
-    <button id='' class='circular-button delete' style='border:none;padding-left:4px' "type='submit'>
+    <button id='' class='circular-button delete' style='border:none;padding-left:4px' 'type='submit'>
         <i class='fa fa-trash'></i>
     </button>
 </form>

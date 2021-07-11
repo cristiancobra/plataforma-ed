@@ -155,8 +155,20 @@ class TaskController extends Controller {
             $task->status = 'fazer';
             $task->save();
 
-            $journeys = Journey::where('task_id', $task->id)
-                    ->get();
+            if ($request->file('image')) {
+                $image = new Image();
+                $image->account_id = auth()->user()->account_id;
+                $image->task_id = $task->id;
+                $image->type = 'tarefa';
+                $image->name = 'Imagem da tarefa ' . $task->id;
+                $image->status = 'disponível';
+                $path = $request->file('image')->store('users_images');
+                $image->path = $path;
+                $image->save();
+            }
+
+//            $journeys = Journey::where('task_id', $task->id)
+//                    ->get();
 
             return redirect()->route('task.show', [$task]);
         }
@@ -181,19 +193,19 @@ class TaskController extends Controller {
         $DateTime = new DateTime($request->date_start);
         $DateTime->add(new \DateInterval("P1D"));
         $task->date_due = $DateTime->format('Y-m-d');
-        
+
         $task->save();
-        
-        if($request->file('image')) {
-        $image = new Image();
-        $image->account_id = 1;
-        $image->task_id = $task->id;
-        $image->type = 'bug';
-        $image->name = 'bug report - tarefa ' . $task->id;
-        $image->status = 'disponível';
-        $path = $request->file('image')->store('bugs_images');
-        $image->path = $path;
-        $image->save();
+
+        if ($request->file('image')) {
+            $image = new Image();
+            $image->account_id = 1;
+            $image->task_id = $task->id;
+            $image->type = 'bug';
+            $image->name = 'bug report - tarefa ' . $task->id;
+            $image->status = 'disponível';
+            $path = $request->file('image')->store('bugs_images');
+            $image->path = $path;
+            $image->save();
         }
 
         $journeys = Journey::where('task_id', $task->id)
