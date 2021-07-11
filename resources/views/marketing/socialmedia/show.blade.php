@@ -102,213 +102,213 @@
         </tr>
         <tr>
             <td   class="table-list-left">Possui conta Business:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->business === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Conta Business vinculada com Instagram:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->linked_instagram === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
 
         <tr>
             <td   class="table-list-left">Conta Business vinculada com  facebook: </td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->linked_facebook === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
 
         <tr>
             <td   class="table-list-left">Conta possui mesmo nome do site: </td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->same_site_name === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Apresentação da página (Biografia):</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->about === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Publica conteúdos  feed:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->feed_content === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Feed organizado:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->harmonic_feed === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Publicações usam SEO:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->SEO_descriptions === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">images têm tamanho correto:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->feed_images === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Publica Stories:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->stories === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Ferramentas de interação:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->interaction === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Publica IGTV:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->igtv === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Publica Reels:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->reels === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Possui  funcionários linkados ao perfil da empresa:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->employee_profiles === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
 
         <tr>
             <td   class="table-list-left">Perfil dos funcionários está adequado ao cargo da empresa:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->employee_profiles_cv === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
 
         <tr>
             <td   class="table-list-left">Anuncia vagas de emprego:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->offers_job === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Possui pasta com ideias:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->pin_content === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Possui linktree:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->linktree === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Capa personalizada:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->image_banner === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Playlists organizadas por SEO:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->organized_playlists === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Possui link para loja virtual externa:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->liked_virtualstore === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
+            <td   class="td-lost">NÃO</td>
             @endif
         </tr>
         <tr>
             <td   class="table-list-left">Vídeos possuem capa personalizada:</td>
-            @if ($socialmedia->linked_instagram === "1")
-            <td   class="button-active">SIM</td>
+            @if ($socialmedia->video_banner === 1)
+            <td   class="td-aproved">SIM</td>
             @else
-            <td   class="button-delete">NÃO</td>
-            @endif	<div>
-            </tr>
-            <tr>
-                <td   class="table-list-left">Vídeos possuem legendas em português:</td>
-                @if ($socialmedia->linked_instagram === "1")
-                <td   class="button-active">SIM</td>
-                @else
-                <td   class="button-delete">NÃO</td>
-                @endif
-            </tr>
-            <tr>
-                <td   class="table-list-left">Produz conteúdo exclusivo para membros:</td>
-                @if ($socialmedia->linked_instagram === "1")
-                <td   class="button-active">SIM</td>
-                @else
-                <td   class="button-delete">NÃO</td>
-                @endif
-            </tr>
-            <tr>
-                <td   class="table-list-left">	Segue outros canais que tenham haver com o seu nicho:</td>
-                @if ($socialmedia->linked_instagram === "1")
-                <td   class="button-active">SIM</td>
-                @else
-                <td   class="button-delete">NÃO</td>
-                @endif
+            <td   class="td-lost">NÃO</td>
+            @endif
+        </tr>
+        <tr>
+            <td   class="table-list-left">Vídeos possuem legendas em português:</td>
+            @if ($socialmedia->legend === 1)
+            <td   class="td-aproved">SIM</td>
+            @else
+            <td   class="td-lost">NÃO</td>
+            @endif
+        </tr>
+        <tr>
+            <td   class="table-list-left">Produz conteúdo exclusivo para membros:</td>
+            @if ($socialmedia->feed_member === 1)
+            <td   class="td-aproved">SIM</td>
+            @else
+            <td   class="td-lost">NÃO</td>
+            @endif
+        </tr>
+        <tr>
+            <td   class="table-list-left">	Segue outros canais que tenham haver com o seu nicho:</td>
+            @if ($socialmedia->follow_channel === 1)
+            <td   class="td-aproved">SIM</td>
+            @else
+            <td   class="td-lost">NÃO</td>
+            @endif
 
-            <br>
-            <tr>
-                <td   class="table-list-left">Investimento em ADs:</td>
-                <td   class="table-list-money-income">  {{ formatCurrencyReal($socialmedia->value_ads) }}</td>
-            </tr>
+        <br>
+        <tr>
+            <td   class="table-list-left">Investimento em ADs:</td>
+            <td   class="table-list-money-income">  {{ formatCurrencyReal($socialmedia->value_ads) }}</td>
+        </tr>
     </table>
     <br>
     <br>

@@ -79,8 +79,8 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Socialmedia $socialmedia) {
-        $types = $this->types();
-        $status = $this->socialmediaStatus();
+        $types = Socialmedia::returnTypes();
+        $status = Socialmedia::returnStatus();
 
         return view('marketing.socialmedia.edit', compact(
                         'socialmedia',
@@ -117,21 +117,4 @@ class SocialmediaController extends Controller {
         $socialmedia->delete();
         return redirect()->action('Marketing\\SocialmediaController@index');
     }
-
-    function socialmediaStatus() {
-        return $status = array(
-            'publicada',
-            'desativada',
-            'cancelada',
-        );
-    }
-
-    public function types() {
-        $types = [
-            'minha',
-            'concorrente',
-        ];
-        return $types;
-    }
-
 }

@@ -1381,19 +1381,6 @@ if (!function_exists('returnInvoiceStatusToFilter')) {
 
 }
 
-// retorna o STATUS / SITUAÇÃO da rede social
-if (!function_exists('returnSocialmediaStatus')) {
-
-    function returnSocialmediaStatus() {
-        return $status = array(
-            'publicada',
-            'desativada',
-            'cancelada',
-        );
-    }
-
-}
-
 // retorna a CATEGORIA do PRODUTO
 if (!function_exists('returnProductCategory')) {
 

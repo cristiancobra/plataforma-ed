@@ -80,4 +80,22 @@ class Socialmedia extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
+        // MÉTODOS PÚBLICO
+        
+        public static function returnStatus() {
+        return $status = array(
+            'publicada',
+            'desativada',
+            'cancelada',
+        );
+    }
+    
+        public static function returnTypes() {
+        $types = [
+            'minha',
+            'concorrente',
+        ];
+        return $types;
+    }
+        
 }

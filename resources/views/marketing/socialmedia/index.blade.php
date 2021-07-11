@@ -47,12 +47,6 @@ Total: <span class="labels">{{$total}}</span>
                     <i class='fa fa-eye' style="color:white"></i>
                 </a>
             </button>
-            <button class="button-round">
-                <a href=" {{ route('socialmedia.edit', ['socialmedia' => $socialmedia->id]) }}">
-                    <i class='fa fa-edit' style="color:white"></i>
-                </a>
-            </button>
-
             {{$socialmedia->socialmedia_name}}
         </td>
         <td class="table-list-center">
