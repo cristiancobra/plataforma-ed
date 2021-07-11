@@ -7,6 +7,7 @@ use App\Models\Task;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Models\Image;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use PDF;
+use DateTime;
 
 class TaskController extends Controller {
 
@@ -153,11 +155,64 @@ class TaskController extends Controller {
             $task->status = 'fazer';
             $task->save();
 
-            $journeys = Journey::where('task_id', $task->id)
-                    ->get();
+            if ($request->file('image')) {
+                $image = new Image();
+                $image->account_id = auth()->user()->account_id;
+                $image->task_id = $task->id;
+                $image->type = 'tarefa';
+                $image->name = 'Imagem da tarefa ' . $task->id;
+                $image->status = 'disponível';
+                $path = $request->file('image')->store('users_images');
+                $image->path = $path;
+                $image->save();
+            }
+
+//            $journeys = Journey::where('task_id', $task->id)
+//                    ->get();
 
             return redirect()->route('task.show', [$task]);
         }
+    }
+
+    /**
+      Store específico para salvar tarefas do tipo BUG
+     */
+    public function storeBug(Request $request) {
+        $task = new Task();
+        $task->account_id = 1;
+        $task->user_id = 7;
+        $task->date_start = date('Y-m-d');
+        $task->department = 'desenvolvimento';
+        $task->contact_id = auth()->user()->contact_id;
+        $task->priority = $request->priority;
+        $task->status = 'fazer';
+        $task->type = 'bug';
+        $task->name = "BUG: $request->module de " . $task->user->contact->name;
+        $task->description = $task->user->contact->name . " encontrou um problema em " . strtoupper($request->module) . " quando estava " . strtoupper($request->action) . "<br><br> Ele adicionou: " . strtoupper($request->description);
+
+        $DateTime = new DateTime($request->date_start);
+        $DateTime->add(new \DateInterval("P1D"));
+        $task->date_due = $DateTime->format('Y-m-d');
+
+        $task->save();
+
+        if ($request->file('image')) {
+            $image = new Image();
+            $image->account_id = 1;
+            $image->task_id = $task->id;
+            $image->type = 'bug';
+            $image->name = 'bug report - tarefa ' . $task->id;
+            $image->status = 'disponível';
+            $path = $request->file('image')->store('bugs_images');
+            $image->path = $path;
+            $image->save();
+        }
+
+        $journeys = Journey::where('task_id', $task->id)
+                ->get();
+
+//        return redirect()->route('task.bug', ['message' => 'Obrigado, por relatar um problema. Já encaminhamos para o responsável técnico']);
+        return redirect()->back()->with('message', 'Obrigado por reportar seu problema. Já estamos encaminhando as informações para o técnico responsável!');
     }
 
     /**
@@ -191,7 +246,7 @@ class TaskController extends Controller {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
+
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -332,6 +387,9 @@ class TaskController extends Controller {
                     if ($request->priority) {
                         $query->where('priority', $request->priority);
                     }
+                    if ($request->type) {
+                        $query->where('type', $request->type);
+                    }
                     if ($request->status == '') {
                         // busca todos
                     } elseif ($request->status == 'fazendo') {
@@ -346,6 +404,7 @@ class TaskController extends Controller {
                         'journeys',
                         'user.contact',
                         'user.image',
+                        'images',
                 )
 //                ->orderByRaw(DB::raw("FIELD(status, 'fazer', 'aguardar', 'cancelada', 'feito')"))
                 ->orderBy('date_due', 'DESC')
@@ -442,6 +501,18 @@ class TaskController extends Controller {
 
 // download PDF file with download method
         return $pdf->stream('Relatório de execução.pdf');
+    }
+
+    public function createBug() {
+        $priorities = Task::returnPriorities();
+        $modules = Task::returnBugModules();
+        $actions = Task::returnBugActions();
+
+        return view('operational.tasks.createBug', compact(
+                        'priorities',
+                        'modules',
+                        'actions',
+        ));
     }
 
 }

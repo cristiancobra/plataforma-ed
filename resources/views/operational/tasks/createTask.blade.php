@@ -24,7 +24,7 @@
 </div>
 @endif
 <div>
-    <form action=" {{route('task.store')}} " method="post">
+    <form action=" {{route('task.store')}} " method="post" enctype='multipart/form-data'>
         @csrf
         <label class="labels" for="" >NOME:</label>
         @if(!empty(app('request')->input('task_name')))
@@ -43,11 +43,11 @@
         @elseif($errors->has('department'))
         <span class="text-danger">{{$errors->first('department')}}</span>
         @else
-            {{createSimpleSelect('department', 'fields', $departments)}}
+        {{createSimpleSelect('department', 'fields', $departments)}}
         @endif
         <br>
         <label class="labels" for="" >RESPONSÁVEL: </label>
-                {{createSelectUsers('fields', $users)}}
+        {{createSelectUsers('fields', $users)}}
         <br>
         <br>
         <label class="labels" for="" >OPORTUNIDADE:</label>
@@ -88,11 +88,14 @@
 CKEDITOR.replace('description');
         </script>
         <br>
+        <label class='labels' for='' >ANEXAR IMAGEM:</label>
+        <input type='file' name='image'>
+        <br>
         <br>
         <label class="labels" for="" >CONTATO: </label>
         @if(!empty(app('request')->input('contact_id')))
         <input type="hidden" name="contact_id" value="{{app('request')->input('contact_id')}}">
-                {{app('request')->input('contact_name')}}
+        {{app('request')->input('contact_name')}}
         @else
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
         @endif
@@ -100,13 +103,13 @@ CKEDITOR.replace('description');
         <label class="labels" for="" >EMPRESA: </label>
         @if(!empty(app('request')->input('company_id')))
         <input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
-                {{app('request')->input('company_name')}}
+        {{app('request')->input('company_name')}}
         @else
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         @endif
         <br>
         <label class="labels" for="" >PRIORIDADE:</label>
-            {{createSimpleSelect('priority', 'fields', $priorities)}}
+        {{createSimpleSelect('priority', 'fields', $priorities)}}
         <br>
         <br>
         <p style="text-align: right">

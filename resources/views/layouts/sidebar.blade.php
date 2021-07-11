@@ -200,6 +200,11 @@
                                                                                                                                                         'faIcon' => 'fa fa-id-card-alt',
                                                                                                                                                         'link' => route('user.report'),
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'BUGS',
+                                                                                                                                                        'faIcon' => 'fa fa-bug',
+                                                                                                                                                        'link' => route('task.index', ['type' => 'bug']),
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
         {{createSidebarItem('ATALHOS ED', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
@@ -263,13 +268,19 @@
                                                                                                                                                     ])}}
 
         @endif
-
-        <div class="dropdown">
-                <a class="dropdown-btn nav-link" href='https://empresadigital.net.br/empreender/' style="color: {{$principalColor}}">
-                <i class="fas fa-question-circle"></i>
-                <span class="d-none d-xl-inline">SUPORTE</span>
-            </a>
-        </div>
+        
+                {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                        [
+                                                                                                                                                            'name' => 'AJUDA',
+                                                                                                                                                            'faIcon' => 'fas fa-question-circle',
+                                                                                                                                                            'link' => 'https://empresadigital.net.br/empreender/'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                            'name' => 'REPORTAR BUG',
+                                                                                                                                                            'faIcon' => 'fas fa-bug',
+                                                                                                                                                            'link' => route('task.bug')
+                                                                                                                                                        ],
+                                                                                                                                                    ])}}
 
     </div>
 </nav>

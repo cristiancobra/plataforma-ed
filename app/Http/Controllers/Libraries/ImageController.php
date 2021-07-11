@@ -49,14 +49,24 @@ class ImageController extends Controller {
         $image = new Image();
         $image->fill($request->all());
         $image->account_id = auth()->user()->account_id;
+//  dd($request);      
 
+        if ($request->image_name) {
+            $image->name = "Imagem $image da tarefa $request->image_name";
+            $image->task_id = $request->task_id;
+        }
         $path = $request->file('image')->store('users_images');
         $image->path = $path;
         $image->save();
 
-        return view('libraries/images/show', compact(
-                        'image',
-        ));
+        if ($request->task_id) {
+            return redirect()->back();
+        } else {
+
+            return view('libraries/images/show', compact(
+                            'image',
+            ));
+        }
     }
 
     /**
@@ -98,9 +108,9 @@ class ImageController extends Controller {
      */
     public function update(Request $request, Image $image) {
         $image->fill($request->all());
-        if($request->file('image')) {
-        $path = $request->file('image')->store('users_images');
-        $image->path = $path;
+        if ($request->file('image')) {
+            $path = $request->file('image')->store('users_images');
+            $image->path = $path;
         }
         $image->save();
 

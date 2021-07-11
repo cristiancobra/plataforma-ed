@@ -49,6 +49,10 @@ class Task extends Model {
         return $this->belongsTo(Company::class, 'company_id', 'id');
     }
 
+    public function images() {
+        return $this->hasMany(Image::class, 'task_id', 'id');
+    }
+
     public function journeys() {
         return $this->hasMany(Journey::class, 'task_id', 'id');
     }
@@ -82,6 +86,31 @@ class Task extends Model {
             'média',
             'alta',
             'emergência',
+        );
+    }
+
+// retorna os módulos da plataforma quando for reportar bugs
+    static function returnBugModules() {
+        return $priorities = array(
+            'não sei',
+            'administrativo',
+            'financeiro',
+            'marketing',
+            'vendas',
+            'jurídico',
+            'produção',
+        );
+    }
+
+// retorna os módulos da plataforma quando for reportar bugs
+    static function returnBugActions() {
+        return $priorities = array(
+            'não sei',
+            'cliquei num item do menu',
+            'tentei criar/salvar um registro',
+            'tentei editar uma informação',
+            'vi uma informação errada',
+            'tentei logar/entrar na plataforma',
         );
     }
 
