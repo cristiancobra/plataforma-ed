@@ -9,7 +9,7 @@
 @section('buttons')
 @if(isset($openJourney))
 <a class='circular-button secondary'  href='{{route('journey.show', ['journey' => $openJourney])}}'>
-    <i class="fas fa-coffee" style="color:#8B2485"></i>
+    <i class="fas fa-step-forward" style="color:#8B2485"></i>
 </a>
 @endif
 @if(isset($journey->task))
