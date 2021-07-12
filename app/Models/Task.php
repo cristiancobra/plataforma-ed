@@ -99,6 +99,8 @@ class Task extends Model {
             'vendas',
             'jurídico',
             'produção',
+            'menu',
+            'painel',
         );
     }
 
@@ -107,10 +109,11 @@ class Task extends Model {
         return $priorities = array(
             'não sei',
             'cliquei num item do menu',
-            'tentei criar/salvar um registro',
+            'tentei criar/salvar algo',
             'tentei editar uma informação',
             'vi uma informação errada',
-            'tentei logar/entrar na plataforma',
+            'problema no layout/visual',
+            'sugestão de nova funcionalidade',
         );
     }
 
