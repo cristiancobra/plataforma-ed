@@ -184,12 +184,13 @@ class TaskController extends Controller {
         $task->date_start = date('Y-m-d');
         $task->department = 'desenvolvimento';
         $task->contact_id = auth()->user()->contact_id;
+        $task->account_id = auth()->user()->account->id;
         $task->priority = $request->priority;
         $task->status = 'fazer';
         $task->type = 'bug';
         $task->name = "BUG: $request->module de " . $task->contact->name;
         $task->description = $task->contact->name . " encontrou um problema em " . mb_strtoupper($request->module, 'UTF-8') . " quando estava " . mb_strtoupper($request->action, 'UTF-8') . "<br><br> Ele adicionou: " . mb_strtoupper($request->description, 'UTF-8');
-mb_strtoupper('virá', 'UTF-8');
+
         $DateTime = new DateTime($request->date_start);
         $DateTime->add(new \DateInterval("P1D"));
         $task->date_due = $DateTime->format('Y-m-d');
