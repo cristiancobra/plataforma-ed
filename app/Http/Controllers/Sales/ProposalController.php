@@ -15,7 +15,7 @@ class ProposalController extends Controller
      */
     public function index()
     {
-           $proposals = Invoice::where('account_id', auth()->user()->account_id)
+           $proposals = Proposal::where('account_id', auth()->user()->account_id)
                 ->with([
                     'account',
                     'opportunity',

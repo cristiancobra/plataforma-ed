@@ -25,7 +25,7 @@ class CreateProposalsTable extends Migration {
             $table->text('description')->nullable();
             $table->integer('discount')->nullable();
             $table->decimal('totalHours', 5, 1)->nullable();
-            $table->decimal('totalPoints', 4,1)->nullable();
+            $table->decimal('totalPoints', 4, 1)->nullable();
             $table->integer('totalAmount')->nullable();
             $table->integer('totalCost')->nullable();
             $table->integer('totalTax_rate')->nullable();
@@ -34,7 +34,7 @@ class CreateProposalsTable extends Migration {
             $table->integer('totalBalance')->nullable();
             $table->string('receipt')->nullable();
             $table->tinyInteger('installment');
-                        $table->string('type');
+            $table->string('type');
             $table->string('status', 50);
             $table->timestamps();
         });
