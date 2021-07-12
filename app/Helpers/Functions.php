@@ -1867,6 +1867,42 @@ if (!function_exists('createTablePercentual')) {
 
 }
 
+// cria tuma pergunta com SIM ou NAO para CRIAR a análise da página em socialmedia
+if (!function_exists('createPageAnalysis')) {
+
+    function createPageAnalysis($question, $field) {
+        echo "<label class='labels' for=''>$question</label>
+        <br>
+        <input type='radio' name='$field' value='1' checked='checked'><span class='fields'>Sim</span>
+        <br>
+        <input type='radio' name='$field' value='0'><span class='fields'>Não</span>
+        <br><br>";
+    }
+
+}
+
+// cria tuma pergunta com SIM ou NAO para EDITAR a análise da página em socialmedia
+if (!function_exists('editPageAnalysis')) {
+
+    function editPageAnalysis($question, $field, $currentValue) {
+        echo "<label class='labels' for=''>$question</label>
+        <br>";
+        if ($currentValue == 1) {
+            echo "<input type='radio' name='$field' value='1' checked='checked'><span class='fields'>Sim</span>
+            <br>
+                <input type='radio' name='$field' value='0'><span class='fields'>Não</span>";
+        } else {
+            echo "<input type='radio' name='$field' value='1'><span class='fields'>Sim</span>
+            <br>
+        <input type='radio' name='$field' value='0' checked='checked><span class='fields'>Não</span>";
+        }
+        echo "<br><br>";
+    }
+
+}
+
+
+
 //         <td   class="table-list-left">
 //                POSSUI  PALETA DE CORES:
 //            </td>

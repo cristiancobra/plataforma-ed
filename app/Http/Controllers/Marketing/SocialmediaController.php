@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
-use App\Models\Account;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Journey;
 use App\Models\Socialmedia;
-use Illuminate\Http\Request;
 
 class SocialmediaController extends Controller {
 
@@ -35,7 +35,7 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $types = $this->types();
+        $types = Socialmedia::returnTypes();
 
         return view('marketing.socialmedia.create', compact(
                         'types',
@@ -49,14 +49,30 @@ class SocialmediaController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $socialmedia = new Socialmedia;
-        $socialmedia->fill($request->all());
-        $socialmedia->account_id = auth()->user()->account_id;
-        $socialmedia->save();
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:socialmedias',
+                    'URL_name' => 'required:socialmedias',
+                        ],
+                        $messages);
 
-        return view('marketing.socialmedia.show', compact(
-                        'socialmedia',
-        ));
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $socialmedia = new Socialmedia;
+            $socialmedia->fill($request->all());
+            $socialmedia->account_id = auth()->user()->account_id;
+            $socialmedia->save();
+
+            return view('marketing.socialmedia.show', compact(
+                            'socialmedia',
+            ));
+        }
     }
 
     /**
@@ -117,4 +133,5 @@ class SocialmediaController extends Controller {
         $socialmedia->delete();
         return redirect()->action('Marketing\\SocialmediaController@index');
     }
+
 }

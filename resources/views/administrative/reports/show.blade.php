@@ -110,7 +110,7 @@
     {!!html_entity_decode($report->target)!!}
 </div>
 <div>
-<!--	{{createReportContact('Proposta de valor', $contactReport->contact->value_offer)}}-->
+
 </div>
 <br>
 <!--   =========================================================  IDENTIDADE VISUAL  ===================================================-->

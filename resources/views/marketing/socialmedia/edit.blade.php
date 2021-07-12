@@ -42,178 +42,31 @@
         <input type="text" name="socialmedia_email" size="50" value="{{$socialmedia->socialmedia_email}}">
         <br>
         <br>
-        <label class="labels" for="">Possui conta Business: </label>
-        <br>
-        <input type="radio" name="business" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="business" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Conta Business vinculada com Instagram: </label>
-        <br>
-        <input type="radio" name="linked_instagram" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="linked_instagram" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Conta Business vinculada com  facebook: </label>
-        <br>
-        <input type="radio" name="linked_facebook" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="linked_facebook" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Conta possui mesmo nome do site: </label>
-        <br>
-        <input type="radio" name="same_site_name" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="same_site_name" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Apresentação da página (Biografia):</label>
-        <br>
-        <input type="radio" name="about" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="about" value="0" ><span class="fields">Não</span><br>
-        <br>
-        <label class="labels" for="">Publica conteúdos  feed:</label>
-        <br>
-        <input type="radio" name="feed_content" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="feed_content" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Feed organizado:</label>
-        <br>
-        <input type="radio" name="harmonic_feed" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="harmonic_feed" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Publicações usam SEO:</label>
-        <br>
-        <input type="radio" name="SEO_descriptions" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="SEO_descriptions" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">images têm tamanho correto:</label>
-        <br>
-        <input type="radio" name="feed_images" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="feed_images" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Publica Stories:</label>
-        <br>
-        <input type="radio" name="stories" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="stories" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Ferramentas de interação:</label>
-        <br>
-        <input type="radio" name="interaction" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="interaction" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Publica IGTV:</label>
-        <br>
-        <input type="radio" name="igtv" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="igtv" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Publica Reels:</label>
-        <br>
-        <input type="radio" name="reels" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="reels" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Possui  funcionários linkados ao perfil da empresa:</label>
-        <br>
-        <input type="radio" name="employee_profiles" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="employee_profiles" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Perfil dos funcionários está adequado ao cargo da empresa:</label>
-        <br>
-        <input type="radio" name="employee_profiles_cv" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="employee_profiles_cv" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Anuncia vagas de emprego:</label>
-        <br>
-        <input type="radio" name="offers_job" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="offers_job" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Possui pasta com ideias:</label>
-        <br>
-        <input type="radio" name="pin_content" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="pin_content" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Possui linktree:</label>
-        <br>
-        <input type="radio" name="linktree" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="linktree" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Capa personalizada:</label>
-        <br>
-        <input type="radio" name="image_banner" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="image_banner" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Playlists organizadas por SEO:</label>
-        <br>
-        <input type="radio" name="organized_playlists" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="organized_playlists" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Possui link para loja virtual externa:</label>
-        <br>
-        <input type="radio" name="liked_virtualstore" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="liked_virtualstore" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Vídeos possuem capa personalizada:</label>
-        <br>
-        <input type="radio" name="video_banner" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="video_banner" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Vídeos possuem legendas em português:</label>
-        <br>
-        <input type="radio" name="legend" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="legend" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Produz conteúdo exclusivo para membros:</label>
-        <br>
-        <input type="radio" name="feed_member" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="feed_member" value="0" ><span class="fields">Não</span>
-        <br>
-        <br>
-        <label class="labels" for="">Segue outros canais que tenham haver com o seu nicho:</label>
-        <br>
-        <input type="radio" name="follow_channel" value="1" checked="checked"><span class="fields">Sim</span>
-        <br>
-        <input type="radio" name="follow_channel" value="0" ><span class="fields">Não</span>
+        {{editPageAnalysis('Possui conta Business', 'business', $socialmedia->business)}}
+        {{editPageAnalysis('Conta Business vinculada com Instagram', 'linked_instagram', $socialmedia->linked_instagram)}}
+        {{editPageAnalysis('Conta Business vinculada com Facebook', 'linked_facebook', $socialmedia->linked_facebook)}}
+        {{editPageAnalysis('Conta possui mesmo nome do site', 'same_site_name', $socialmedia->same_site_name)}}
+        {{editPageAnalysis('Apresentação da página (Biografia)', 'about', $socialmedia->about)}}
+        {{editPageAnalysis('Publica conteúdos  feed', 'feed_content', $socialmedia->feed_content)}}
+        {{editPageAnalysis('Feed organizado', 'harmonic_feed', $socialmedia->harmonic_feed)}}
+        {{editPageAnalysis('Publicações usam SEO', 'SEO_descriptions', $socialmedia->SEO_descriptions)}}
+        {{editPageAnalysis('images têm tamanho correto', 'feed_images', $socialmedia->feed_images)}}
+        {{editPageAnalysis('Publica Stories', 'stories', $socialmedia->stories)}}
+        {{editPageAnalysis('Ferramentas de interação', 'interaction', $socialmedia->interaction)}}
+        {{editPageAnalysis('Publica IGTV', 'igtv', $socialmedia->igtv)}}
+        {{editPageAnalysis('Publica Reels', 'reels', $socialmedia->reels)}}
+        {{editPageAnalysis('Possui  funcionários linkados ao perfil da empresa', 'employee_profiles', $socialmedia->employee_profiles)}}
+        {{editPageAnalysis('Perfil dos funcionários está adequado ao cargo da empresa', 'employee_profiles_cv', $socialmedia->employee_profiles_cv)}}
+        {{editPageAnalysis('Anuncia vagas de emprego', 'offers_job', $socialmedia->offers_job)}}
+        {{editPageAnalysis('Possui pasta com ideias', 'pin_content', $socialmedia->pin_content)}}
+        {{editPageAnalysis('Possui linktree', 'linktree', $socialmedia->linktree)}}
+        {{editPageAnalysis('Capa personalizada', 'image_banner', $socialmedia->image_banner)}}
+        {{editPageAnalysis('Playlists organizadas por SEO', 'organized_playlists', $socialmedia->organized_playlists)}}
+        {{editPageAnalysis('Possui link para loja virtual externa', 'liked_virtualstore', $socialmedia->liked_virtualstore)}}
+        {{editPageAnalysis('Vídeos possuem capa personalizada', 'video_banner', $socialmedia->video_banner)}}
+        {{editPageAnalysis('Vídeos possuem legendas em português', 'legend', $socialmedia->legend)}}
+        {{editPageAnalysis('Produz conteúdo exclusivo para membros', 'feed_member', $socialmedia->feed_member)}}
+        {{editPageAnalysis('Segue outros canais que tenham haver com o seu nicho', 'follow_channel', $socialmedia->follow_channel)}}
         <br>
         <br>
         {{createNumericFormField('Possui quantos seguidores', 'followers', $socialmedia->followers)}} 

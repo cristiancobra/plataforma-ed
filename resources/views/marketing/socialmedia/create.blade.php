@@ -15,6 +15,14 @@
 @endsection
 
 @section('main')
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
+</div>
+@endif
 <div>
     <form action=' {{route('socialmedia.store')}} ' method='post'>
         @csrf
@@ -25,9 +33,15 @@
         <br>
         <label class='labels' for='' >NOME DA PÁGINA:</label>
         <input type='text' name='name' size='20'><span class='fields'></span>
+        @if ($errors->has('name'))
+        <span class="text-danger">{{$errors->first('name')}}</span>
+        @endif
         <br>
         <label class='labels' for='' >ENDEREÇO DA PÁGINA:</label>
         <input type='text' name='URL_name' size='50'><span class='fields'></span>
+        @if ($errors->has('URL_name'))
+        <span class="text-danger">{{$errors->first('URL_name')}}</span>
+        @endif
         <br>
         <label class='labels' for='' >ENDEREÇO DO STUDIO DE CRIAÇÃO:</label>
         <input type='text' name='URL_studio' size='50'><span class='fields'></span>
@@ -38,179 +52,32 @@
         <label class='labels' for='' >EMAIL DA REDE SOCIAL:</label>
         <input type='text' name='socialmedia_email' size='50' ><span class='fields'></span>
         <br>
-        <label class='labels' for=''>Possui conta Business: </label>
         <br>
-        <input type='radio' name='business' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='business' value='0'><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Conta Business vinculada com Instagram: </label>
-        <br>
-        <input type='radio' name='linked_instagram' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='linked_instagram' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Conta Business vinculada com  facebook: </label>
-        <br>
-        <input type='radio' name='linked_facebook' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='linked_facebook' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Conta possui mesmo nome do site: </label>
-        <br>
-        <input type='radio' name='same_site_name' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='same_site_name' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Apresentação da página (Biografia):</label>
-        <br>
-        <input type='radio' name='about' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='about' value='0' ><span class='fields'>Não</span><br>
-        <br>
-        <label class='labels' for=''>Publica conteúdos  feed:</label>
-        <br>
-        <input type='radio' name='feed_content' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='feed_content' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Feed organizado:</label>
-        <br>
-        <input type='radio' name='harmonic_feed' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='harmonic_feed' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Publicações usam SEO:</label>
-        <br>
-        <input type='radio' name='SEO_descriptions' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='SEO_descriptions' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>images têm tamanho correto:</label>
-        <br>
-        <input type='radio' name='feed_images' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='feed_images' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Publica Stories:</label>
-        <br>
-        <input type='radio' name='stories' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='stories' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Ferramentas de interação:</label>
-        <br>
-        <input type='radio' name='interaction' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='interaction' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Publica IGTV:</label>
-        <br>
-        <input type='radio' name='igtv' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='igtv' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Publica Reels:</label>
-        <br>
-        <input type='radio' name='reels' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='reels' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Possui  funcionários linkados ao perfil da empresa:</label>
-        <br>
-        <input type='radio' name='employee_profiles' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='employee_profiles' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Perfil dos funcionários está adequado ao cargo da empresa:</label>
-        <br>
-        <input type='radio' name='employee_profiles_cv' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='employee_profiles_cv' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Anuncia vagas de emprego:</label>
-        <br>
-        <input type='radio' name='offers_job' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='offers_job' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Possui pasta com ideias:</label>
-        <br>
-        <input type='radio' name='pin_content' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='pin_content' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Possui linktree:</label>
-        <br>
-        <input type='radio' name='linktree' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='linktree' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Capa personalizada:</label>
-        <br>
-        <input type='radio' name='image_banner' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='image_banner' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Playlists organizadas por SEO:</label>
-        <br>
-        <input type='radio' name='organized_playlists' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='organized_playlists' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Possui link para loja virtual externa:</label>
-        <br>
-        <input type='radio' name='liked_virtualstore' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='liked_virtualstore' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Vídeos possuem capa personalizada:</label>
-        <br>
-        <input type='radio' name='video_banner' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='video_banner' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Vídeos possuem legendas em português:</label>
-        <br>
-        <input type='radio' name='legend' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='legend' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Produz conteúdo exclusivo para membros:</label>
-        <br>
-        <input type='radio' name='feed_member' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='feed_member' value='0' ><span class='fields'>Não</span>
-        <br>
-        <br>
-        <label class='labels' for=''>Segue outros canais que tenham haver com o seu nicho:</label>
-        <br>
-        <input type='radio' name='follow_channel' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='follow_channel' value='0' ><span class='fields'>Não</span>
-        <br>
+        {{createPageAnalysis('Possui conta Business', 'business')}}
+        {{createPageAnalysis('Conta Business vinculada com Instagram', 'linked_instagram')}}
+        {{createPageAnalysis('Conta Business vinculada com Facebook', 'linked_facebook')}}
+        {{createPageAnalysis('Conta possui mesmo nome do site', 'same_site_name')}}
+        {{createPageAnalysis('Apresentação da página (Biografia)', 'about')}}
+        {{createPageAnalysis('Publica conteúdos  feed', 'feed_content')}}
+        {{createPageAnalysis('Feed organizado', 'harmonic_feed')}}
+        {{createPageAnalysis('Publicações usam SEO', 'SEO_descriptions')}}
+        {{createPageAnalysis('images têm tamanho correto', 'feed_images')}}
+        {{createPageAnalysis('Publica Stories', 'stories')}}
+        {{createPageAnalysis('Ferramentas de interação', 'interaction')}}
+        {{createPageAnalysis('Publica IGTV', 'igtv')}}
+        {{createPageAnalysis('Publica Reels', 'reels')}}
+        {{createPageAnalysis('Possui  funcionários linkados ao perfil da empresa', 'employee_profiles')}}
+        {{createPageAnalysis('Perfil dos funcionários está adequado ao cargo da empresa', 'employee_profiles_cv')}}
+        {{createPageAnalysis('Anuncia vagas de emprego', 'offers_job')}}
+        {{createPageAnalysis('Possui pasta com ideias', 'pin_content')}}
+        {{createPageAnalysis('Possui linktree', 'linktree')}}
+        {{createPageAnalysis('Capa personalizada', 'image_banner')}}
+        {{createPageAnalysis('Playlists organizadas por SEO', 'organized_playlists')}}
+        {{createPageAnalysis('Possui link para loja virtual externa', 'liked_virtualstore')}}
+        {{createPageAnalysis('Vídeos possuem capa personalizada', 'video_banner')}}
+        {{createPageAnalysis('Vídeos possuem legendas em português', 'legend')}}
+        {{createPageAnalysis('Produz conteúdo exclusivo para membros', 'feed_member')}}
+        {{createPageAnalysis('Segue outros canais que tenham haver com o seu nicho', 'follow_channel')}}
         <br>
         <label class='labels' for=''>Investimento em ADs:</label>
         <input type='number' name='value_ads' step='10' value='0'>
@@ -251,7 +118,7 @@
         <br>
         <br>
         <label class='labels' for=''>STATUS:</label>
-        {{createSimpleSelect('status', 'fields', returnSocialmediaStatus())}}
+        {{createSimpleSelect('status', 'fields', $types)}}
         <br>
         <br>
         <label class='labels' for=''>Observações:</label>
