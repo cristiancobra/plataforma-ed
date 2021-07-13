@@ -91,6 +91,7 @@ return array(
     'App\\Models\\Pinterest' => $baseDir . '/app/Models/Pinterest.php',
     'App\\Models\\Planning' => $baseDir . '/app/Models/Planning.php',
     'App\\Models\\Product' => $baseDir . '/app/Models/Product.php',
+    'App\\Models\\ProductProposal' => $baseDir . '/app/Models/ProductProposal.php',
     'App\\Models\\Proposal' => $baseDir . '/app/Models/Proposal.php',
     'App\\Models\\Report' => $baseDir . '/app/Models/Report.php',
     'App\\Models\\Site' => $baseDir . '/app/Models/Site.php',

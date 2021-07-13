@@ -12,7 +12,7 @@ class Proposal extends Model {
         'identifier',
         'account_id',
         'user_id',
-        'opportuniy_id',
+        'opportunity_id',
         'company_id',
         'contact_id',
         'date_creation',
@@ -78,4 +78,12 @@ class Proposal extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    // MÉTODOS PÚBLICOS
+        public static function returnTypes() {
+        return $types = array(
+            'receita',
+            'despesa',
+        );
+    }
+    
 }

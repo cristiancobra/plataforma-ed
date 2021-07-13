@@ -29,7 +29,7 @@
             </a>
         </div>
 
-        @if (Auth::user()->perfil == "super administrador" OR Auth::user()->perfil == "administrador" OR Auth::user()->perfil == "dono")
+        @if (auth()->user()->perfil == "super administrador" OR auth()->user()->perfil == "administrador" OR auth()->user()->perfil == "dono")
 
         {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
@@ -153,6 +153,11 @@
                                                                                                                                                         'name' => 'OPORTUNIDADES',
                                                                                                                                                         'faIcon' => 'fas fa-donate',
                                                                                                                                                         'link' => '/oportunidades'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'PROPOSTAS',
+                                                                                                                                                        'faIcon' => 'fas fa-donate',
+                                                                                                                                                        'link' => route('proposal.index', ['typeProposal' => 'receita']),
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 

@@ -353,6 +353,10 @@ Route::resource('produtos', 'Sales\\ProductController')
         ->middleware('roles');
 
 // proposals
+Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@show')
+        ->name('proposal.pdf')
+        ->middleware('roles');
+
 Route::resource('propostas', 'Sales\\ProposalController')
         ->names('proposal')
         ->parameters(['propostas' => 'proposal'])

@@ -17,9 +17,9 @@ class CreateProposalsTable extends Migration {
             $table->integer('identifier');
             $table->foreignId('account_id');
             $table->foreignId('user_id');
-            $table->foreignId('opportuniy_id');
-            $table->foreignId('company_id');
-            $table->foreignId('contact_id')->nullable();
+            $table->foreignId('opportunity_id');
+            $table->foreignId('company_id')->nullable();
+            $table->foreignId('contact_id');
             $table->date('date_creation');
             $table->date('pay_day');
             $table->text('description')->nullable();
