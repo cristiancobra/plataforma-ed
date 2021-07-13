@@ -35,6 +35,7 @@ class Invoice extends Model {
 		'category',
 		'receipt',
 		'number_installment',
+		'number_installment_total',
 		'installment_value',
 	];
 	protected $hidden = [
