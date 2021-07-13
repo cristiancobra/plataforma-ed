@@ -28,39 +28,38 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        $invoices = $this->filterInvoices($request);
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
         $yearStart = date('Y-01-01');
         $yearEnd = date('Y-12-31');
-
-        $invoices = Invoice::where('account_id', auth()->user()->account_id)
-                ->with([
-                    'account',
-                    'opportunity',
-                    'invoiceLines.product',
-                    'account.bankAccounts',
-                    'user.contact',
-                    'contract',
-                ])
-                ->orderBy('pay_day', 'DESC')
-                ->paginate(20);
-
-        $invoices->appends([
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
-            'user_id' => $request->user_id,
-        ]);
-
-        foreach ($invoices as $invoice) {
-            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-                    ->sum('value');
-
-            if ($invoice->paid >= $invoice->installment_value) {
-                $invoice->status = 'paga';
-            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
-                $invoice->status = 'parcial';
-            }
-        }
+//
+//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+//                ->with([
+//                    'account',
+//                    'opportunity',
+//                    'invoiceLines.product',
+//                    'account.bankAccounts',
+//                    'user.contact',
+//                    'contract',
+//                ])
+//                ->orderBy('pay_day', 'DESC')
+//                ->paginate(20);
+//        $invoices->appends([
+//            'status' => $request->status,
+//            'contact_id' => $request->contact_id,
+//            'user_id' => $request->user_id,
+//        ]);
+//        foreach ($invoices as $invoice) {
+//            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+//                    ->sum('value');
+//
+//            if ($invoice->paid >= $invoice->installment_value) {
+//                $invoice->status = 'paga';
+//            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
+//                $invoice->status = 'parcial';
+//            }
+//        }
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -296,7 +295,7 @@ class InvoiceController extends Controller {
                     $query->where('department', '=', 'produção');
                 })
                 ->sum('duration');
-//
+//dd($invoice);
         return view('financial.invoices.showInvoice', compact(
                         'typeInvoices',
                         'invoice',
@@ -463,10 +462,10 @@ class InvoiceController extends Controller {
             }
             $invoice->totalPoints = $totalPoints + $newTotalPoints;
             $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
-            if($request->installment_value) {
-             $invoice->installment_value = $request->installment_value;   
+            if ($request->installment_value) {
+                $invoice->installment_value = $request->installment_value;
             } else {
-            $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
+                $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
             }
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
@@ -670,7 +669,7 @@ class InvoiceController extends Controller {
         return redirect()->action('Financial\\InvoiceController@index');
     }
 
-    public function filter(Request $request) {
+    public function filterInvoices(Request $request) {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
         $yearStart = date('Y-01-01');
@@ -701,6 +700,11 @@ class InvoiceController extends Controller {
                     if ($request->type) {
                         $query->where('type', '=', $request->type);
                     }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    } else {
+                        $query->where('trash', '!=', 1);
+                    }
                 })
                 ->with([
                     'account',
@@ -724,53 +728,69 @@ class InvoiceController extends Controller {
                     ->sum('value');
         }
 
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
+        return $invoices;
 
-        $companies = Company::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
+//        $contacts = Contact::where('account_id', auth()->user()->account_id)
+//                ->orderBy('NAME', 'ASC')
+//                ->get();
+//
+//        $companies = Company::where('account_id', auth()->user()->account_id)
+//                ->orderBy('NAME', 'ASC')
+//                ->get();
+//
+//        $users = User::myUsers();
+//
+//        $total = $invoices->total();
+//
+//        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('type', 'receita')
+//                ->where('status', 'aprovada')
+//                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+//                ->sum('installment_value');
+//
+//        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('type', 'despesa')
+//                ->where('status', 'aprovada')
+//                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+//                ->sum('installment_value');
+//
+//        $estimatedRevenueYearly = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('type', 'receita')
+//                ->where('status', 'aprovada')
+//                ->whereBetween('pay_day', [$yearStart, $yearEnd])
+//                ->sum('installment_value');
+//
+//        $estimatedExpenseYearly = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('type', 'despesa')
+//                ->where('status', 'aprovada')
+//                ->whereBetween('pay_day', [$yearStart, $yearEnd])
+//                ->sum('installment_value');
+//
+//        return view('financial.invoices.indexInvoices', compact(
+//                        'invoices',
+//                        'companies',
+//                        'contacts',
+//                        'users',
+//                        'total',
+//                        'estimatedRevenueMonthly',
+//                        'estimatedExpenseMonthly',
+//                        'estimatedRevenueYearly',
+//                        'estimatedExpenseYearly',
+//        ));
+    }
 
-        $users = User::myUsers();
+    public function sendToTrash(Invoice $invoice) {
+        $invoice->trash = 1;
+        $invoice->save();
 
-        $total = $invoices->total();
+        return redirect()->action('Financial\\InvoiceController@index');
+    }
 
-        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'receita')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                ->sum('installment_value');
+    public function restoreFromTrash(Invoice $invoice) {
+        $invoice->trash = 0;
+        $invoice->save();
 
-        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'despesa')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                ->sum('installment_value');
-
-        $estimatedRevenueYearly = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'receita')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [$yearStart, $yearEnd])
-                ->sum('installment_value');
-
-        $estimatedExpenseYearly = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'despesa')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [$yearStart, $yearEnd])
-                ->sum('installment_value');
-
-        return view('financial.invoices.indexInvoices', compact(
-                        'invoices',
-                        'companies',
-                        'contacts',
-                        'users',
-                        'total',
-                        'estimatedRevenueMonthly',
-                        'estimatedExpenseMonthly',
-                        'estimatedRevenueYearly',
-                        'estimatedExpenseYearly',
-        ));
+        return redirect()->back();
     }
 
 }

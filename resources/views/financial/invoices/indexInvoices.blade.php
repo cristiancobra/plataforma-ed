@@ -6,11 +6,10 @@
 {{asset('images/invoice.png')}} 
 @endsection
 
-@section('description')
-Total: <span class="labels">{{$total}}</span>
-@endsection
-
 @section('buttons')
+<a class='circular-button secondary'  href="{{route('invoice.index', ['trash' => 1])}}">
+    <i class="fa fa-trash-restore" aria-hidden="true"></i>
+</a>
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
@@ -20,6 +19,8 @@ Total: <span class="labels">{{$total}}</span>
 <a class="circular-button primary"  href="{{route('invoice.create', ['typeInvoices' => 'receita'])}}">
     <i class="fas fa-plus"></i>
 </a>
+{{createButtonBack()}}
+{{createButtonList('invoice')}}
 @endsection
 
 @section('main')

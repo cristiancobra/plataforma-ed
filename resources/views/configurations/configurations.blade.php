@@ -76,9 +76,9 @@
         <div>
             Oportunidades SITUAÇÃO
         </div>
-        {{formatShowOpportunityStatus($negociando)}}
-        {{formatShowOpportunityStatus($perdemos)}}
-        {{formatShowOpportunityStatus($ganhamos)}}
+        {{formatShowStatus($negociando)}}
+        {{formatShowStatus($perdemos)}}
+        {{formatShowStatus($ganhamos)}}
     </div>
 </div>
 @endsection

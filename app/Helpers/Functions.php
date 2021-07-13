@@ -857,6 +857,15 @@ if (!function_exists('formatShowStatus')) {
             case 'concluida':
                 echo '<div class="stuck">alterar</div>';
                 break;
+            case 'negociando':
+                echo '<div class="dealing">negociando</div>';
+                break;
+            case 'ganhamos':
+                echo '<div class="won">ganhamos</div>';
+                break;
+            case 'perdemos':
+                echo '<div class="lost">perdemos</div>';
+                break;
         }
     }
 
@@ -874,24 +883,6 @@ if (!function_exists('formatShowType')) {
                 break;
             case 'imagem perfil':
                 echo '<div class="imagem perfil">feito</div>';
-                break;
-        }
-    }
-
-}
-// gera uma DIV com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
-if (!function_exists('formatShowOpportunityStatus')) {
-
-    function formatShowOpportunityStatus($model) {
-        switch ($model) {
-            case 'negociando':
-                echo '<div class="dealing">negociando</div>';
-                break;
-            case 'ganhamos':
-                echo '<div class="won">ganhamos</div>';
-                break;
-            case 'perdemos':
-                echo '<div class="lost">perdemos</div>';
                 break;
         }
     }

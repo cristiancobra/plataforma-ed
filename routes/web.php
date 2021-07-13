@@ -119,6 +119,14 @@ Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInst
         ->name('invoice.installment')
         ->middleware('roles');
 
+Route::put('/faturas/apagar/{invoice}', 'Financial\\InvoiceController@sendToTrash')
+        ->name('invoice.trash')
+        ->middleware('roles');
+
+Route::put('/faturas/restaurar/{invoice}', 'Financial\\InvoiceController@restoreFromTrash')
+        ->name('invoice.restore')
+        ->middleware('roles');
+
 Route::match(['get', 'post'], '/faturas/novo', 'Financial\\InvoiceController@create')
         ->name('invoice.create')
         ->middleware('roles');

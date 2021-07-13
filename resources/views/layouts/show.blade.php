@@ -67,19 +67,7 @@
 
                         @yield('main')
 
-                        <div class='row' style='margin-top: 30px;text-align: right'>
-                            <div class='col-12'style='text-align: right;padding-top: -10px'>
-                                @yield('deleteButton')
-
-                                @yield('extraButton')        
-                                <a class='circular-button secondary' href='@yield('editButton')'>
-                                    <i class='fa fa-edit'></i>
-                                </a>
-                                <a class='circular-button primary'  href='@yield('backButton')'>
-                                    <i class='fas fa-arrow-left'></i>
-                                </a>
-                            </div>
-                        </div>
+                        @include('layouts.footer')
 
                         @yield('createdAt')
 

@@ -19,7 +19,7 @@
 @endsection
 
 @section('status')
-{{formatShowOpportunityStatus($opportunity->status)}}
+{{formatShowStatus($opportunity)}}
 @endsection
 
 @section('fieldsId')
@@ -54,13 +54,13 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
-        @if(isset($task->user->contact->name))
+        @if(isset($opportunity->user->contact->name))
         {{$opportunity->user->contact->name}}
         @else
         foi excluído
         @endif
     </div>
-    @endsection
+@endsection
 
     @section('date_start')
     <div class='circle-date-start'>
