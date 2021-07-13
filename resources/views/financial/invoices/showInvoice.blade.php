@@ -36,7 +36,7 @@
         CONTATO
     </div>
     <div class='show-label'>
-        CONTRATO
+        OPORTUNIDADE
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
@@ -55,12 +55,12 @@
         @endif
     </div>
     <div class='show-field-end'>
-        @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
-        Sem contrato
-        @else
-        <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
-            {{$invoice->contract->name}}
+        @if(isset($invoice->opportunity))
+        <a href='{{route('opportunity.show', ['opportunity' => $invoice->opportunity_id])}}'>
+            {{$invoice->opportunity->name}}
         </a>
+        @else
+        Sem oportunidade
         @endif
     </div>
 </div>
@@ -70,6 +70,9 @@
     </div>
     <div class='show-label'>
         IDENTIFICADOR
+    </div>
+        <div class='show-label'>
+        CONTRATO
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
@@ -82,6 +85,15 @@
     </div>
     <div class='show-field-end'>
         {{$invoice->identifier}}
+    </div>
+        <div class='show-field-end'>
+        @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
+        Sem contrato
+        @else
+        <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
+            {{$invoice->contract->name}}
+        </a>
+        @endif
     </div>
     @endsection
 
