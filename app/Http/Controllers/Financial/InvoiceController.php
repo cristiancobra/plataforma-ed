@@ -260,6 +260,8 @@ class InvoiceController extends Controller {
         $typeInvoices = $invoice->type;
 
         $invoices = Invoice::where('opportunity_id', $invoice->opportunity_id)
+                ->where('trash', '!=', 1)
+                ->where('status', 'aprovada')
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
