@@ -463,7 +463,6 @@ class InvoiceController extends Controller {
             }
             $invoice->totalPoints = $totalPoints + $newTotalPoints;
             $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
-            dd($request->number_installment_total);
             if($request->installment_value) {
              $invoice->installment_value = $request->installment_value;   
             } else {
