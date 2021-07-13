@@ -128,7 +128,7 @@ class OpportunityController extends Controller {
             $opportunity->user()->associate($request->user_id);
             $opportunity->save();
 
-                  return redirect()->route('opportunity.show', [$opportunity]);
+            return redirect()->route('opportunity.show', [$opportunity]);
         }
     }
 
@@ -145,6 +145,7 @@ class OpportunityController extends Controller {
                 ->get();
 //		dd($contactCompanies);
         $invoices = Invoice::where('opportunity_id', $opportunity->id)
+                ->where('trash', '==', 0)
                 ->with('transactions')
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
@@ -160,7 +161,7 @@ class OpportunityController extends Controller {
             } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
                 $invoice->status = 'parcial';
             }
-            
+
             $invoice->balance = $invoice->installment_value - $invoice->paid;
         }
 
@@ -282,7 +283,7 @@ class OpportunityController extends Controller {
         $opportunity->user()->associate($request->user_id);
         $opportunity->save();
 
-            return redirect()->route('opportunity.show', [$opportunity]);
+        return redirect()->route('opportunity.show', [$opportunity]);
     }
 
     /**
