@@ -159,7 +159,7 @@
              border-color: #c28dbf;
              border-radius: 0 10px 0 0;
              '>
-            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='post'>
+            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='get'>
                 <input class='text-button secondary' type='submit' value='EDITAR'>
             </form>
         </div>
@@ -279,7 +279,7 @@
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
              '>
-            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='post'>
+            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='get'>
                 <input class='text-button secondary' type='submit' value='EDITAR'>
             </form>
         </div>
@@ -389,7 +389,7 @@
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
              '>
-            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='post'>
+            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='get'>
                 <input class='text-button secondary' type='submit' value='EDITAR'>
             </form>
         </div>
