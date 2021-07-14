@@ -227,13 +227,13 @@
             
             <tr>
                 <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="3">
-                    PARCELAMENTO: 
+                    PARCELA: 
                 </td>
                 <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="2">
                     @if($data['invoiceNumberInstallmentTotal'] == 1)
                     À vista
                     @else
-                    {{$data['invoiceNumberInstallmentTotal']}} x {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
+                    {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
                     @endif
                 </td>
                 
