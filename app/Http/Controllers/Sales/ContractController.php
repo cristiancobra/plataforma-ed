@@ -99,7 +99,7 @@ class ContractController extends Controller {
         $contract->identifier = $this->generateIdentifier($request);
         $contract->save();
 
-        return redirect()->route('conrtact.show', compact('contract'));
+        return redirect()->route('contract.show', compact('contract'));
     }
 
     /**
