@@ -71,7 +71,7 @@
     <div class='show-label'>
         IDENTIFICADOR
     </div>
-        <div class='show-label'>
+    <div class='show-label'>
         CONTRATO
     </div>
 </div>
@@ -86,7 +86,7 @@
     <div class='show-field-end'>
         {{$invoice->identifier}}
     </div>
-        <div class='show-field-end'>
+    <div class='show-field-end'>
         @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
         Sem contrato
         @else
@@ -251,13 +251,6 @@
         </div>
     </div>
     <br>
-    @if($totalInvoices <= 1 AND $invoice->number_installment_total > 1)
-    <p  style='text-align: right'>
-        <a class='text-button secondary' href='{{route('invoice.installment', ['invoice' => $invoice])}}'>
-            GERAR FATURAS DO PARCELAMENTO
-        </a>
-    </p>
-    @endif
     <br>
     <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='
@@ -389,6 +382,11 @@
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
              '>
+            @if($totalInvoices <= 1 AND $invoice->number_installment_total > 1)
+            <form  style='display: inline-block;float: right' action='{{route('invoice.installment', ['invoice' => $invoice])}}'' method='get'>
+                <input class='text-button secondary' type='submit' value=' GERAR  PARCELAMENTO'>
+            </form>
+            @endif
             <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='get'>
                 <input class='text-button secondary' type='submit' value='EDITAR'>
             </form>
@@ -620,10 +618,10 @@
 <span class='fields'>{{$invoice->status}}</span>
 @endsection
 
-    @section('createdAt')
-    <div class='row' style='margin-top: 30px'>
-        <div class='col-12'style='padding-top: -10px'>
-            Primeiro registro em: {{date('d/m/Y H:i', strtotime($invoice->created_at))}}
-        </div>
+@section('createdAt')
+<div class='row' style='margin-top: 30px'>
+    <div class='col-12'style='padding-top: -10px'>
+        Primeiro registro em: {{date('d/m/Y H:i', strtotime($invoice->created_at))}}
     </div>
-    @endsection
+</div>
+@endsection
