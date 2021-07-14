@@ -19,18 +19,6 @@
     <form action=" {{route('contract.update', ['contract' => $contract->id])}} " method="post">
         @csrf
         @method('put')
-        <label class="labels" for="" >EMPRESA: </label>
-        <select name="account_id">
-            <option  class="fields" value="{{$contract->account_id}}">
-                {{$contract->account->name}}
-            </option>
-            @foreach ($accounts as $account)
-            <option  class="fields" value="{{$account->id}}">
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class="labels" for="" >RESPONSÁVEL NA MINHA EMPRESA: </label>
         <select name="user_id">
             <option  class="fields" value="{{$contract->user_id}}">

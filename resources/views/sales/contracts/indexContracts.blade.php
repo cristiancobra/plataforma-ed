@@ -22,11 +22,8 @@
 <div>
     <table class="table-list">
         <tr>
-            <td   class="table-list-header" style="width: 25%">
+            <td   class="table-list-header" style="width: 40%">
                 TÍTULO
-            </td>
-            <td   class="table-list-header" style="width: 15%">
-                CONTRATADA
             </td>
             <td   class="table-list-header" style="width: 15%">
                 CONTRATANTE
@@ -57,9 +54,6 @@
                         <i class='fa fa-edit' style="color:white"></i></a>
                 </button>
                 {{$contract->name}}
-            </td>
-            <td class="table-list-center">
-                {{$contract->account->name}}
             </td>
             <td class="table-list-center">
                 {{$contract->company->name}}

@@ -19,20 +19,6 @@
 <div>
     <form action=' {{route('contract.store')}} ' method='post' style='color: #874983'>
         @csrf
-        <label class='labels' for='' >EMPRESA: </label>
-        @if(!empty(app('request')->input('opportunityAccountName')))
-        {{app('request')->input('opportunityAccountName')}}
-        <input type='hidden' name='account_id' value='{{app('request')->input('opportunityAccountId')}}'>
-        @else
-        <select name='account_id'>
-            @foreach ($accounts as $account)
-            <option  class='fields' value='{{$account->id}}'>
-                {{$account->name}}
-            </option>
-            @endforeach
-        </select>
-        @endif
-        <br>
         <label class='labels' for='' >RESPONSÁVEL NA MINHA EMPRESA: </label>
         <select name='user_id'>
             @foreach ($users as $user)

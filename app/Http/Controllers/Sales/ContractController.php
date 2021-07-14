@@ -53,10 +53,7 @@ class ContractController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create() {
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->where('accounts.id', auth()->user()->account_id);
-                })
-                ->get();
+        $users = User::myUsers();
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -179,10 +176,7 @@ class ContractController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $users = User::whereHas('accounts', function ($query) {
-                    $query->where('accounts.id', auth()->user()->account_id);
-                })
-                ->get();
+        $users = User::myUsers();
 
         $userContact = userContact($contract->user_id);
 
