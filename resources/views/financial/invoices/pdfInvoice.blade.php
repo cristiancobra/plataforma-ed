@@ -144,7 +144,6 @@
                 @endif
             </p>
         </div>
-        <br>
         <h4 style="color:{{$data['accountPrincipalColor']}}">
             DESCRIÇÃO:
         </h4>
