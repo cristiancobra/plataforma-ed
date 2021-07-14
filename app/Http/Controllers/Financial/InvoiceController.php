@@ -589,9 +589,9 @@ class InvoiceController extends Controller {
             'customerName' => $invoice->opportunity->contact->name,
             'invoiceLines' => $invoiceLines,
             'invoiceTotalTransactions' => $totalTransactions,
-            'tasksOperational' => $tasksOperational,
-            'tasksOperationalPoints' => $tasksOperationalPoints,
-            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
+//            'tasksOperational' => $tasksOperational,
+//            'tasksOperationalPoints' => $tasksOperationalPoints,
+//            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
         ];
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
