@@ -593,7 +593,7 @@ class InvoiceController extends Controller {
 //            'tasksOperationalPoints' => $tasksOperationalPoints,
 //            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
         ];
-        dd($data);
+//        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
         $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
