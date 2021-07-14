@@ -51,8 +51,8 @@ class OpportunityController extends Controller {
                 ->get();
 
         $users = User::myUsers();
-        $stages = $this->listStages();
-        $status = $this->listStatus();
+        $stages = Opportunity::listStages();
+        $status = Opportunity::listStatus();
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
@@ -83,8 +83,8 @@ class OpportunityController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $stages = $this->listStages();
-        $status = $this->listStatus();
+        $stages = Opportunity::listStages();
+        $status = Opportunity::listStatus();
         $users = User::myUsers();
 
         return view('sales.opportunities.createOpportunity', compact(
@@ -256,8 +256,8 @@ class OpportunityController extends Controller {
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
-        $stages = $this->listStages();
-        $status = $this->listStatus();
+        $stages = Opportunity::listStages();
+        $status = Opportunity::listStatus();
 
         return view('sales.opportunities.editOpportunity', compact(
                         'opportunity',
@@ -345,8 +345,8 @@ class OpportunityController extends Controller {
                 ->get();
 
         $users = User::myUsers();
-        $stages = $this->listStages();
-        $status = $this->listStatus();
+        $stages = Opportunity::listStages();
+        $status = Opportunity::listStatus();
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
@@ -371,19 +371,6 @@ class OpportunityController extends Controller {
         $opportunity->save();
 
         return redirect()->action('Sales\\OpportunityController@index');
-    }
-
-    // retorna os estágios das oportunidades
-    public function listStages() {
-        return $stages = array(
-            'prospecção',
-            'apresentação',
-            'proposta',
-            'contrato',
-            'cobrança',
-            'produção',
-            'concluída',
-        );
     }
 
     // retorna os estágios das oportunidades

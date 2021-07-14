@@ -3,7 +3,7 @@
 @section('title','TAREFAS')
 
 @section('image-top')
-{{ asset('images/task.png') }} 
+{{asset('images/rocket.png')}}
 @endsection
 
 @section('description')
@@ -55,7 +55,38 @@
         {{app('request')->input('opportunity_name')}}
         <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
         @else
-        {{createDoubleSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui')}}
+        <select class = 'fields' name='opportunity_id' style='width:700px'>
+            <option value=''>
+                Não possui
+            </option>
+            @foreach ($opportunities as $opportunity)
+            @if(old('opportunity_id') == $opportunity->id)
+            <option value='{{$opportunity->id}}' selected='selected'>
+                {{$opportunity->name}}
+            </option>
+            @endif
+            <option value='{{$opportunity->id}}'>
+            {{$opportunity->date_start}}  //  
+                @if($opportunity->company)
+                EMPRESA: {{$opportunity->company->name}}  --
+                @endif
+                CONTATO: {{$opportunity->contact->name}}  --  {{$opportunity->name}}
+            </option>
+            @endforeach
+        </select>
+        <select class = 'fields' name = 'opportunity_id'>
+            <option value='{{$task->opportunity_id}}'>{{$task->opportunity->name}}</option>
+            <br>
+            <option value=''>Não possui</option>
+            <br>
+            @foreach ($opportunities as $opportunity) {
+            @if(old(opportunity_id) == $opportunity->id) {
+            <option value='{{$opportunity->id}}' selected='selected'>{{$opportunity->name}}</option>
+            <br>
+            @else
+            <option value='{{$opportunity->id}}'>{{$opportunity->name}}</option>
+            <br>
+        </select>
         @endif
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>

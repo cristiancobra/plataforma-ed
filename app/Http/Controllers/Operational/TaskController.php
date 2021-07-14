@@ -87,7 +87,7 @@ class TaskController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $opportunities = $this->accountOpportunities('create');
+        $opportunities = Opportunity::openOpportunities();
 
         $today = date("Y-m-d");
         $departments = Task::returnDepartments();
@@ -269,7 +269,7 @@ class TaskController extends Controller {
 
         $users = User::myUsers();
 
-        $opportunities = $this->accountOpportunities('edit');
+        $opportunities = Opportunity::openOpportunities();
 
         $departments = Task::returnDepartments();
         $status = $this->returnStatus();
@@ -340,25 +340,6 @@ class TaskController extends Controller {
     public function destroy(task $task) {
         $task->delete();
         return redirect()->action('Operational\\TaskController@index');
-    }
-
-    public function accountOpportunities($method) {
-        switch ($method) {
-            case 'create':
-                $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
-                        ->where('stage', '!=', 'perdemos')
-                        ->where('stage', '!=', 'concluída')
-                        ->orderBy('date_conclusion', 'DESC')
-                        ->get();
-                break;
-            case 'edit':
-                $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
-                        ->where('stage', '!=', 'perdemos')
-                        ->orderBy('date_conclusion', 'DESC')
-                        ->get();
-                break;
-        }
-        return $accountOpportunities;
     }
 
     public function duration(start_time $start_time, end_time $end_time) {

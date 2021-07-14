@@ -3,7 +3,7 @@
 @section('title','TAREFAS')
 
 @section('image-top')
-{{asset('images/task.png')}} 
+{{asset('images/rocket.png')}}
 @endsection
 
 @section('buttons')

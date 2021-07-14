@@ -3,7 +3,7 @@
 @section('title','EDITAR TAREFA')
 
 @section('image-top')
-{{asset('images/task.png')}} 
+{{asset('images/rocket.png')}} 
 @endsection
 
 @section('description')
@@ -58,7 +58,26 @@
         <br>
         <br>
         <label class="labels" for="" >OPORTUNIDADE:</label>
-        {{createDoubleSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui', $task->opportunity)}}
+        <select class = 'fields' name='opportunity_id' style='width:700px'>
+            @if($task->opportunity_id != null)
+            <option value='{{$task->opportunity_id}}'>
+                {{$task->opportunity->name}}
+            </option>
+            @endif
+            <option value=''>
+                Não possui
+            </option>
+            @foreach ($opportunities as $opportunity)
+            <option value='{{$opportunity->id}}'>
+            {{$opportunity->date_start}}  //  
+                @if($opportunity->company)
+                EMPRESA: {{$opportunity->company->name}}  --
+                @endif
+                CONTATO: {{$opportunity->contact->name}}  --  {{$opportunity->name}}
+            </option>
+            @endforeach
+        </select>
+        <br>
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" size="20" value="{{$task->date_start}}"><span class="fields"></span>
