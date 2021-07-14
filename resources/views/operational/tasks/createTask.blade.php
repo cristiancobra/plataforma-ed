@@ -66,26 +66,13 @@
             </option>
             @endif
             <option value='{{$opportunity->id}}'>
-            {{$opportunity->date_start}}  //  
+                {{$opportunity->date_start}}  //  
                 @if($opportunity->company)
                 EMPRESA: {{$opportunity->company->name}}  --
                 @endif
                 CONTATO: {{$opportunity->contact->name}}  --  {{$opportunity->name}}
             </option>
             @endforeach
-        </select>
-        <select class = 'fields' name = 'opportunity_id'>
-            <option value='{{$task->opportunity_id}}'>{{$task->opportunity->name}}</option>
-            <br>
-            <option value=''>Não possui</option>
-            <br>
-            @foreach ($opportunities as $opportunity) {
-            @if(old(opportunity_id) == $opportunity->id) {
-            <option value='{{$opportunity->id}}' selected='selected'>{{$opportunity->name}}</option>
-            <br>
-            @else
-            <option value='{{$opportunity->id}}'>{{$opportunity->name}}</option>
-            <br>
         </select>
         @endif
         <br>
