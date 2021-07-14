@@ -15,6 +15,9 @@
         <i class='fa fa-check-square'></i>
     </button>
 </form>
+<a class='circular-button secondary'  href='{{route('journey.edit', ['journey' => $journey])}}'>
+    <i class='fas fa-edit'></i>
+</a>
 {{createButtonList('journey')}}
 @endsection
 
