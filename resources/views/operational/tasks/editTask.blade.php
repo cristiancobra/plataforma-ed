@@ -71,9 +71,9 @@
             <option value='{{$opportunity->id}}'>
             {{$opportunity->date_start}}  //  
                 @if($opportunity->company)
-                EMPRESA: {{$opportunity->company->name}}  --
+                {{$opportunity->company->name}}  --
                 @endif
-                CONTATO: {{$opportunity->contact->name}}  --  {{$opportunity->name}}
+                {{$opportunity->contact->name}}  --  {{$opportunity->name}}
             </option>
             @endforeach
         </select>
