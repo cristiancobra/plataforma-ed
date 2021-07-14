@@ -15,6 +15,9 @@
 </a>
 {{createButtonBack()}}
 {{createButtonTrash($invoice, 'invoice')}}
+<a class='circular-button secondary' href='{{route('invoice.edit', ['invoice' => $invoice])}}'>
+    <i class='fas fa-edit'></i>
+</a>
 {{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}
 @endsection
 

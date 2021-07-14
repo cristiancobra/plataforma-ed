@@ -94,6 +94,7 @@ class ContractController extends Controller {
     public function store(Request $request) {
         $contract = new Contract;
         $contract->fill($request->all());
+        $contract->account_id = auth()->user()->account_id;
         $contractTemplate = ContractTemplate::find($request->contractTemplate_id)->first();
         $contract->text = $contractTemplate->text;
         $contract->identifier = $this->generateIdentifier($request);
@@ -130,6 +131,8 @@ class ContractController extends Controller {
 
         $witness2 = Contact::find($contract->witness2);
         $witnessName2 = $witness2->name;
+        
+        $contract->with('account');
 
         return view('sales.contracts.showContract', compact(
                         'contract',
