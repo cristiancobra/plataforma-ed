@@ -224,7 +224,7 @@
                     {{formatCurrencyReal($data['invoiceTotalPrice'] - $data['invoiceTotalTransactions'])}}
                 </td>
             </tr>
-            @if($data['invoiceStatus'] == 'rascunho' OR $data['invoiceStatus'] == 'orçamento')
+            
             <tr>
                 <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="3">
                     PARCELAMENTO: 
@@ -236,7 +236,7 @@
                     {{$data['invoiceNumberInstallmentTotal']}} x {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
                     @endif
                 </td>
-                @endif
+                
             </tr>
         </table>
         <br>
