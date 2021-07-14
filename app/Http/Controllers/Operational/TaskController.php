@@ -188,7 +188,7 @@ class TaskController extends Controller {
         $task->status = 'fazer';
         $task->type = 'bug';
         $task->name = "BUG: $request->module de " . $task->contact->name;
-        $task->description = $task->contact->name . " encontrou um problema em " . mb_strtoupper($request->module, 'UTF-8') . " quando estava " . mb_strtoupper($request->action, 'UTF-8') . "<br><br> Ele adicionou: " . mb_strtoupper($request->description, 'UTF-8');
+        $task->description = $task->contact->name . " encontrou um problema em " . mb_strtoupper($request->module, 'UTF-8') . " quando estava " . mb_strtoupper($request->action, 'UTF-8') . "<br><br> Ele adicionou: " . html_entity_decode($request->description);
         
         $DateTime = new DateTime($request->date_start);
         $DateTime->add(new \DateInterval("P1D"));
