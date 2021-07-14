@@ -785,7 +785,7 @@ class InvoiceController extends Controller {
         $invoice->trash = 1;
         $invoice->save();
 
-        return redirect()->action('Financial\\InvoiceController@index');
+       return redirect()->back();
     }
 
     public function restoreFromTrash(Invoice $invoice) {
