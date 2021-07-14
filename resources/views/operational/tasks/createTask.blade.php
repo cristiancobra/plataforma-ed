@@ -30,7 +30,7 @@
         @if(!empty(app('request')->input('task_name')))
         <input type="text" name="name" value="{{app('request')->input('task_name')}}" style="width: 600px">
         @else
-        <input type="text" name="name" value="{{old('name')}}">
+        <input type="text" name="name" style="width: 600px" value="{{old('name')}}">
         @if ($errors->has('name'))
         <span class="text-danger">{{$errors->first('name')}}</span>
         @endif
