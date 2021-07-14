@@ -313,7 +313,6 @@ CKEDITOR.replace('description');
         <br>
                 <label class='labels' for='' >VALOR DESTA FATURA:   R$</label>
         <input type='number'  name='installment_value' size='7' step='any' style='text-align:right' value='{{formatCurrency($invoice->installment_value)}}'>
-        <span>    * Deixe em branco para recalcular automaticamente </span>
         <br>
         <br>
         <br>

@@ -188,7 +188,7 @@
     @if($invoice->number_installment > 1)
     <div class='row'>
         <div class='tb col-10 justify-content-start'>
-            Parcelamento de serviços anteriores
+            Parcelamento de serviços
         </div>
         <div class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($invoice->installment_value)}}

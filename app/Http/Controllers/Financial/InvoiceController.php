@@ -464,11 +464,11 @@ class InvoiceController extends Controller {
             }
             $invoice->totalPoints = $totalPoints + $newTotalPoints;
             $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
-            if ($request->installment_value) {
+//            if ($request->installment_value) {
                 $invoice->installment_value = $request->installment_value;
-            } else {
-                $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
-            }
+//            } else {
+//                $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
+//            }
             $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
@@ -649,7 +649,7 @@ class InvoiceController extends Controller {
             $invoiceNew->number_installment_total = $invoice->number_installment_total;
             $invoiceNew->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
             $invoiceNew->type = $invoice->type;
-            $invoiceNew->status = $invoice->status;
+            $invoiceNew->status = 'aprovada';
             $invoiceNew->save();
 
 //			foreach ($invoiceLines as $invoiceLine) {
@@ -668,7 +668,7 @@ class InvoiceController extends Controller {
 //			}
             $counter++;
         }
-        return redirect()->action('Financial\\InvoiceController@index');
+        return redirect()->back();
     }
 
     public function filterInvoices(Request $request) {
