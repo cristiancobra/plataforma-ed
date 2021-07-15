@@ -10,6 +10,7 @@
 @endsection
 
 @section('buttons')
+{{createButtonEdit('account', 'account', $account)}}
 {{createButtonBack()}}
 @endsection
 
@@ -110,7 +111,7 @@
         <i class='fa fa-eye'></i>
     </button>
 </a>
-{{$user->name}}
+{{$user->contact->name}}
 <br>
 @endforeach	
 <br>

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DateTime;
 
 class Journey extends Model {
 
@@ -23,7 +24,7 @@ class Journey extends Model {
     ];
 
 //    RELACIONAMENTOS
-    
+
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
@@ -40,13 +41,12 @@ class Journey extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    
 //    MÉTODOS PÚBLICOS
     public static function myLastJourney() {
-        $journey =  Journey::where('user_id', 1)
+        $journey = Journey::where('user_id', 1)
                 ->orderBy('id', 'DESC')
                 ->first();
-        
+
         dd($journey);
     }
 
@@ -54,12 +54,22 @@ class Journey extends Model {
         $this->where('user_id', auth()->user()->id)
                 ->orderBy('id', 'DESC')
                 ->first();
-        
+
         dd($this);
         $lastTask = Task::latest()
                 ->where('task_id', $lastJourney->id)
                 ->first();
-        
+
         return $lastTask;
     }
+
+    public static function completeJourney(Journey $journey) {
+        $dateStart = new DateTime($journey->start);
+        $journey->start = $dateStart->format('Y-m-d H:i:s');
+        $dateEnd = new DateTime('now');
+        $journey->end = $dateEnd->format('Y-m-d H:i:s');
+        $journey->duration = strtotime($journey->end) - strtotime($journey->start);
+        $journey->save();
+    }
+
 }

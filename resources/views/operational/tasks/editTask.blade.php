@@ -73,7 +73,10 @@
                 @if($opportunity->company)
                 {{$opportunity->company->name}}  --
                 @endif
-                {{$opportunity->contact->name}}  --  {{$opportunity->name}}
+                @if($opportunity->contact)
+                {{$opportunity->contact->name}}  --
+                @endif
+                {{$opportunity->name}}
             </option>
             @endforeach
         </select>

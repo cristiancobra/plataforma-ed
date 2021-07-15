@@ -267,16 +267,23 @@ class JourneyController extends Controller {
         return $journeys;
     }
 
+    // chama o método que completa a jornada e direciona para a view show
     public function completeJourney(Journey $journey) {
-        $dateStart = new DateTime($journey->start);
-        $journey->start = $dateStart->format('Y-m-d H:i:s');
-        $dateEnd = new DateTime('now');
-        $journey->end = $dateEnd->format('Y-m-d H:i:s');
-        $journey->duration = strtotime($journey->end) - strtotime($journey->start);
-        $journey->save();
+        Journey::completeJourney($journey);
 
         return redirect()->route('journey.show', compact(
                         'journey',
+        ));
+    }
+
+    // chama o método que completa a JORNADA E A TAREFA da jornada  e direciona para a view show
+    public function completeJourneyAndTask(Journey $journey) {
+        Journey::completeJourney($journey);
+        
+        $task = Task::completeTask($journey->task);
+
+        return redirect()->route('task.show', compact(
+                        'task',
         ));
     }
 

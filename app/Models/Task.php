@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 //use eloquentFilter\QueryFilter\ModelFilters\Filterable;
 use App\Models\User;
+use DateTime;
 
 class Task extends Model {
 
@@ -120,7 +121,17 @@ class Task extends Model {
     // retorna a última tarefa feita pelo usuário logado
     public static function myLastTask() {
         return Task::latest()
-                ->where('user_id', auth()->user()->id)
-                ->first();
+                        ->where('user_id', auth()->user()->id)
+                        ->first();
     }
+
+    public static function completeTask(Task $task) {
+        $dateNow = new DateTime('now');
+        $task->date_conclusion = $dateNow->format('Y-m-d H:i');
+        $task->status = 'feito';
+        $task->save();
+        
+        return $task;
+    }
+
 }

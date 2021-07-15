@@ -209,8 +209,12 @@ Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport
         ->name('journey.reports')
         ->middleware('roles');
 
-Route::put('/jornadas/finalizar/{journey}', 'Operational\\JourneyController@completeJourney')
+Route::put('/jornadas/encerrar/{journey}', 'Operational\\JourneyController@completeJourney')
         ->name('journey.complete')
+        ->middleware('roles');
+
+Route::put('/jornadas/finalizar-tarefa/{journey}', 'Operational\\JourneyController@completeJourneyAndTask')
+        ->name('journey.completeTask')
         ->middleware('roles');
 
 Route::resource('jornadas', 'Operational\\JourneyController')

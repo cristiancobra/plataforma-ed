@@ -27,7 +27,9 @@ if (!function_exists('createButtonBack')) {
 
 // cria um botao com simbolo de <- para retornar para página anterior
     function createButtonBack() {
-        echo "<a class='circular-button secondary' href=" . url()->previous() . ">
+        $message = 'Voltar para última tela';
+        
+        echo "<a class='circular-button secondary' title='$message' href=" . url()->previous() . ">
                         <i class='fas fa-arrow-left'></i>
                   </a>";
     }
@@ -38,10 +40,12 @@ if (!function_exists('createButtonList')) {
 // cria um botao com simbolo que vai para o index do model
     function createButtonList($model, $parameter = null, $value = null) {
         $route = "$model.index";
+        $message = 'Ir para lista';
+        
         if ($parameter) {
-            echo "<a class='circular-button primary' href=" . route($route, [$parameter => $value]) . ">";
+            echo "<a class='circular-button primary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
         } else {
-            echo "<a class = 'circular-button primary' href = " . route($route) . ">";
+            echo "<a class = 'circular-button primary' title='$message' href = " . route($route) . ">";
         }
         echo "<i class = 'fas fa-list'></i>
                      </a>";
@@ -66,10 +70,12 @@ if (!function_exists('createButtonEdit')) {
     
     function createButtonEdit($model, $parameter = null, $value = null) {
         $route = "$model.edit";
+        $message = 'Editar estas informações';
+        
         if ($parameter) {
-            echo "<a class='circular-button secondary' href=" . route($route, [$parameter => $value]) . ">";
+            echo "<a class='circular-button secondary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
         } else {
-            echo "<a class = 'circular-button secondary' href = " . route($route) . ">";
+            echo "<a class = 'circular-button secondary' title='$message' href = " . route($route) . ">";
         }
         echo "<i class = 'fas fa-edit'></i>
                      </a>";
