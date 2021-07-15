@@ -149,7 +149,7 @@ Route::resource('planejamentos', 'Financial\\PlanningController')
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
 // transactions / movimentações financeiras
-Route::get('/movimentacoes/csv', 'Financial\\TransactionController@exportCsv')
+Route::get('/movimentacoes/export-csv', 'Financial\\TransactionController@exportCsv')
         ->name('transaction.export')
         ->middleware('roles');
 
@@ -284,16 +284,23 @@ Route::resource('questoes', 'Administrative\\Report\\QuestionController')
 
 // =============================================== SALES ====================================
 // contato
+Route::get('contatos/config-csv', 'Sales\\ContactController@configCsv')
+        ->name('contact.config')
+        ->middleware('roles');
+
+Route::post('contatos/import-csv', 'Sales\\ContactController@importCsv')
+        ->name('contact.import')
+        ->middleware('roles');
+
+Route::post('contatos/store-csv', 'Sales\\ContactController@storeCsv')
+        ->name('contact.storecsv')
+        ->middleware('roles');
+
 Route::get('contatos/publico-alvo', 'Sales\\ContactController@targetAudience')
                 ->name('contact.target')
         ->middleware('roles');
 
-//Route::any('contatos/filtros', 'Sales\\ContactController@index')
-//        ->name('contact.index')
-//        ->middleware('roles');
-
 Route::resource('contatos', 'Sales\\ContactController')
-//        ->except(['index'])
         ->names('contact')
         ->parameters(['contatos' => 'contact'])
         ->middleware('roles');

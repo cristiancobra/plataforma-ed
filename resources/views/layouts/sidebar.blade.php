@@ -205,6 +205,26 @@
                                                                                                                                                         'faIcon' => 'fa fa-bug',
                                                                                                                                                         'link' => route('task.index', ['type' => 'bug']),
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'IMPORTAR CONTATOS',
+                                                                                                                                                        'faIcon' => 'fa fa-id-card-alt',
+                                                                                                                                                        'link' => route('contact.config'),
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'PALETAS DE CORES',
+                                                                                                                                                        'faIcon' => 'fas fa-palette',
+                                                                                                                                                        'link' => route('configurations'),
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'ADICIONAR BANCO',
+                                                                                                                                                        'faIcon' => 'fas fa-university',
+                                                                                                                                                        'link' => route('bank.index'),
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'QUESTÕES DO RELATÓRIO',
+                                                                                                                                                        'faIcon' => 'fas fa-question',
+                                                                                                                                                        'link' => route('question.index'),
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
         {{createSidebarItem('ATALHOS ED', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
@@ -226,21 +246,6 @@
                                                                                                                                                         'name' => 'NOTA FISCAL<br> lnsc. Municipal : 58029',
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
                                                                                                                                                         'link' => 'http://saocarlos.ginfes.com.br/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PALETAS DE CORES',
-                                                                                                                                                        'faIcon' => 'fas fa-palette',
-                                                                                                                                                        'link' => route('configurations'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'ADICIONAR BANCO',
-                                                                                                                                                        'faIcon' => 'fas fa-university',
-                                                                                                                                                        'link' => route('bank.index'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'QUESTÕES DO RELATÓRIO',
-                                                                                                                                                        'faIcon' => 'fas fa-question',
-                                                                                                                                                        'link' => route('question.index'),
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 

@@ -7,11 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Opportunity;
 use App\Models\User;
 use App\Http\Traits\FilterModelTrait;
+use League\Csv\Reader;
+use League\Csv\Statement;
 
 class ContactController extends Controller {
 
@@ -49,7 +52,7 @@ class ContactController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
         $partnersTotal = $partners->count();
-        
+
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -61,12 +64,12 @@ class ContactController extends Controller {
                         'total',
                         'employees',
                         'employessTotal',
-                        'clients',                        
-                        'clientsTotal',                        
-                        'suppliers',                        
-                        'suppliersTotal',                        
-                        'partners',                        
-                        'partnersTotal',                        
+                        'clients',
+                        'clientsTotal',
+                        'suppliers',
+                        'suppliersTotal',
+                        'partners',
+                        'partnersTotal',
                         'companies',
                         'types',
         ));
@@ -277,4 +280,66 @@ class ContactController extends Controller {
                         'hobbiesWon',
         ));
     }
+
+    public function configCsv() {
+        $accounts = Account::all();
+
+        return view('sales.contacts.importCsv', compact(
+                        'accounts',
+        ));
+    }
+
+    public function importCsv(Request $request) {
+        $path = $request->file('sheet');
+        $csv = Reader::createFromPath($path, 'r');
+        $csv->setDelimiter($request->delimiter);
+        $csv->setHeaderOffset(0); //set the CSV header offset
+
+        $stmt = Statement::create()
+                ->offset(0)
+                ->limit(500);
+
+        $records = $stmt->process($csv);
+
+        $recordsTotal = $records->count();
+
+        $account = Account::where('id', $request->account_id)
+                ->first();         
+
+        return view('sales.contacts.confirmCsv', compact(
+                        'request',
+                        'records',
+                        'account',
+                        'recordsTotal',
+        ));
+    }
+
+    public function storeCsv(Request $request) {
+        $counter = 0;
+
+        foreach ($request->account_id as $key => $value) {
+            $counter += 1;
+            $data = array(
+                'account_id' => $request->account_id[$key],
+                'type' => 'cliente',
+                'lead_source' => 'importado',
+                'first_name' => $request->first_name [$key],
+                'last_name' => $request->last_name [$key],
+                'email' => $request->email [$key] ?? null,
+                'phone' => $request->phone [$key] ?? null,
+                'address' => $request->address [$key] ?? null,
+                'city' => $request->city [$key] ?? null,
+                'state' => $request->state [$key] ?? null,
+                'country' => $request->country [$key] ?? null,
+                'zip_code' => $request->zip_code [$key] ?? null,
+                'gender' => $request->gender [$key] ?? null,
+                'cpf' => $request->cpf [$key] ?? null,
+                'name' => ucfirst($request->first_name [$key]) . " " . ucfirst($request->last_name [$key]),
+            );
+            Contact::insert($data);
+        }
+
+        return redirect()->route('contact.config')->with('message', "Sucesso! Foram adicionados $counter novos contatos.");
+    }
+
 }

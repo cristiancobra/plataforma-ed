@@ -17,14 +17,14 @@ class CreateContactsTable extends Migration {
 			$table->foreignId('account_id');
 			$table->string('name');
 			$table->string('first_name');
-			$table->string('last_name');
+			$table->string('last_name')->nullable();
 			$table->string('email')->nullable();
 			$table->string('phone')->nullable();
 			$table->string('site')->nullable();
 			$table->string('address')->nullable();
-			$table->string('address_city')->nullable();
-			$table->string('address_state')->nullable();
-			$table->string('address_country')->nullable();
+			$table->string('city')->nullable();
+			$table->string('state')->nullable();
+			$table->string('country')->nullable();
 			$table->string('type')->nullable();
 			$table->timestamps();
 		});
