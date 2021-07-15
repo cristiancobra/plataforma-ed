@@ -62,6 +62,15 @@ class Opportunity extends Model {
         );
     }
     
+        // retorna os estágios das oportunidades
+    public static function listStatus() {
+        return $status = array(
+            'negociando',
+            'perdemos',
+            'ganhamos',
+        );
+    }
+    
     public static function openOpportunities() {
         return $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
                         ->where('stage', '!=', 'perdemos')

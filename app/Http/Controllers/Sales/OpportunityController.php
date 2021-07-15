@@ -373,13 +373,5 @@ class OpportunityController extends Controller {
         return redirect()->action('Sales\\OpportunityController@index');
     }
 
-    // retorna os estágios das oportunidades
-    public function listStatus() {
-        return $status = array(
-            'negociando',
-            'perdemos',
-            'ganhamos',
-        );
-    }
 
 }
