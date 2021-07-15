@@ -11,9 +11,7 @@
     <i class='fas fa-print'></i>
 </a>
 {{createButtonBack()}}
-<a class='circular-button secondary'  href='{{route('task.edit', ['task' => $task])}}'>
-    <i class='fas fa-edit'></i>
-</a>
+{{createButtonEdit('task', 'task', $task)}}
 {{createButtonList('task')}}
 @endsection
 

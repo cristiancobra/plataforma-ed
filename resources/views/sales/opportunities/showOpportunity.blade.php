@@ -9,9 +9,7 @@
 @section('buttons')
 {{createButtonBack()}}
 {{createButtonTrash($opportunity, 'opportunity')}}
-<a class='circular-button secondary' href='{{route('opportunity.edit', ['opportunity' => $opportunity])}}'>
-    <i class='fas fa-edit'></i>
-</a>
+{{createButtonEdit('opportunity', 'opportunity', $opportunity)}}
 {{createButtonList('opportunity')}}
 @endsection
 

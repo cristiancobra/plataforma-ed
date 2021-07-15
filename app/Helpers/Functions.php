@@ -61,6 +61,21 @@ if (!function_exists('createButtonShow')) {
     }
 
 }
+// cria um botao que vai para a tela de edição do model
+if (!function_exists('createButtonEdit')) {
+    
+    function createButtonEdit($model, $parameter = null, $value = null) {
+        $route = "$model.edit";
+        if ($parameter) {
+            echo "<a class='circular-button secondary' href=" . route($route, [$parameter => $value]) . ">";
+        } else {
+            echo "<a class = 'circular-button secondary' href = " . route($route) . ">";
+        }
+        echo "<i class = 'fas fa-edit'></i>
+                     </a>";
+    }
+
+}
 
 if (!function_exists('createButtonExternalLink')) {
 
