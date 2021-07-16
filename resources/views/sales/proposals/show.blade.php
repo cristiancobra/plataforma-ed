@@ -193,10 +193,18 @@ Não possui
 </div>
 <div class='row'>
     <div   class='tb tb-header col-10 justify-content-end'>
+        parcelamento: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{$proposal->installment}} vezes
+    </div>
+</div>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
         TOTAL: 
     </div>
     <div   class='tb tb-header col-2 justify-content-end'>
-        {{formatCurrencyReal($proposal->installment_value)}}
+        {{formatCurrencyReal($proposal->totalPrice)}}
     </div>
 </div>
 <br>
@@ -220,7 +228,7 @@ $counter++;
 <br>
 <div style='display: inline-block'>
     <img src='{{asset('images/financeiro.png')}}' width='40px' alt='40px'>
-    <label class='labels' for='' >PAGAMENTOS:</label>
+    <label class='labels' for='' >FINANCEIRO:</label>
 </div>
 <br>
 <br>
@@ -316,6 +324,15 @@ $counter++;
     <img src='{{asset('images/proposal.png')}}' width='40px' height='40px'>
     <label class='labels' for='' >PARCELAMENTO:</label>
 </div>
+<div class="row mt-3 mb-4">
+    <div class='col justify-content-end'>
+        <p  style='text-align: right'>
+            <a class='text-button secondary' href='{{route('proposal.pdf', ['proposal' => $proposal])}}'>
+                GERAR FATURAS
+            </a>
+        </p>
+    </div>
+</div>
 <br>
 <br>
 <div class='row'>
@@ -370,15 +387,7 @@ $counter++;
 </div>
 @endforeach
 @endif
-<div class="row mt-3 mb-4">
-    <div class='col justify-content-end'>
-        <p  style='text-align: right'>
-            <a class='text-button secondary' href='{{route('proposal.pdf', ['proposal' => $proposal])}}'>
-                GERAR FATURAS
-            </a>
-        </p>
-    </div>
-</div>
+
 <div style='display: inline-block'>
     <img src='{{asset('images/production.png')}}' width='40px' height='40px'>
     <label class='labels' for='' >PRODUÇÃO:</label>

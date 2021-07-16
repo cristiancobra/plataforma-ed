@@ -92,6 +92,7 @@ class ProposalController extends Controller {
                 ->get();
 
         $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
+                ->where('stage', '!=', 'perdemos')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 

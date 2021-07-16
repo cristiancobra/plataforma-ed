@@ -111,9 +111,6 @@
     @endsection
 
 
-
-
-
     @section('main')
     <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='
@@ -167,6 +164,121 @@
                 <input type='hidden' name='department' value='vendas'>
                 <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
             </form>
+        </div>
+    </div>
+    <div class='tb-row'>
+        @if(!$opportunity->company)
+        <a href='{{route('company.create')}}'>
+            adicionar empresa
+        </a>
+        @else
+        <i class="fas fa-store me-2"></i>
+        <a href='{{route('company.edit', [
+                                                                'company' => $opportunity->company,
+                                                                 'typeCompanies' => 'cliente'
+                                                                ])}}'>
+            <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                {{mb_strtoupper($opportunity->company->name)}}
+            </label>
+        </a>
+        @endif
+    </div>
+    <div class='tb-row'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
+        @if(!$opportunity->company->value_offer)
+        --
+        @else
+        {!!html_entity_decode($opportunity->company->value_offer)!!}
+        @endif
+    </div>
+    <div class='tb-row'>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
+            @if(!$opportunity->company->competitive_advantage)
+            --
+            @else
+
+            {{$opportunity->company->competitive_advantage}}
+
+            @endif
+        </div>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
+            @if(!$opportunity->company->business_model)
+            --
+            @else
+
+            {{$opportunity->company->business_model}}
+
+            @endif
+        </div>
+    </div>
+
+    <div class='tb-row'>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
+            @if(!$opportunity->company->sector)
+            --
+            @else
+
+            {{$opportunity->company->sector}}
+
+            @endif
+        </div>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
+            @if(!$opportunity->company->employees)
+            --
+            @else
+            <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                {{$opportunity->company->employees}}
+            </label>
+            @endif
+        </div>
+    </div>
+
+    <div class='tb-row'>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
+            @if(!$opportunity->company->client_number)
+            --
+            @else
+            {{$opportunity->company->client_number}}
+            @endif
+        </div>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
+            @if(!$opportunity->company->revenues)
+            --
+            @else
+
+            {{$opportunity->company->revenues}}
+
+            @endif
+        </div>
+    </div>
+    <div class='tb-row pt-5'>
+        <i class="fas fa-users me-2"></i>
+        @if($opportunity->contact->name)
+        <a href='{{route('contact.show', ['contact' => $opportunity->contact])}}'>
+            <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                {{mb_strtoupper($opportunity->contact->name)}}
+            </label>
+        </a>
+        @else
+        <a href='{{route('contact.create')}}'>
+            adicionar
+        </a>
+        @endif
+    </div>
+    <div class='tb-row'>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Email: </label>
+            {{$opportunity->contact->name}}
+        </div>
+        <div class="col">
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Telefone: </label>
+            {{$opportunity->contact->phone}}
         </div>
     </div>
     <div class='row'>
@@ -235,6 +347,106 @@
         </div>
     </div>
 
+
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: #c28dbf;
+             '>
+            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTAS</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: #c28dbf
+             '>
+              <form  style='display: inline-block;float: right' method='get' action='{{route('proposal.create')}}'>
+                @csrf
+
+                <input type='hidden' name='typeInvoices' value='receita'>
+                <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
+                <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
+                @if(isset($opportunity->company))
+                <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
+                <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
+                @endif
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                <input type='hidden' name='department' value='vendas'>
+                <input type='hidden' name='invoiceStatus' value='orçamento'>
+                <input class='text-button secondary' type='submit' value='GERAR PROPOSTA'>
+            </form>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-1 tb tb-header'>
+            ID
+        </div>
+        <div class='col-3 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-3 tb tb-header'>
+            VENCIMENTO
+        </div>
+        <div class='col-2 tb tb-header'>
+            A RECEBER
+        </div>
+        <div class='col-2 tb tb-header'>
+            VALOR DA FATURA
+        </div>
+        <div class='tb tb-header col-1'>
+            SITUAÇÃO
+        </div>
+    </div>
+    @foreach ($proposals as $proposal)
+    <div class='row'>
+        <div class='tb col-1'>
+            <button class='button-round'>
+                <a href=' {{route('proposal.show', ['proposal' => $proposal->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{$proposal->identifier}}
+        </div>
+        <div class='tb col-3'>
+            {{date('d/m/Y', strtotime($proposal->date_creation))}}
+        </div>
+        @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
+        <div class='tb col-3'>
+            {{date('d/m/Y', strtotime($proposal->pay_day))}}
+        </div>
+        @else
+        <div class='tb col-3'>
+            {{date('d/m/Y', strtotime($proposal->pay_day))}}
+        </div>
+        @endif
+        <div class='tb col-2 justify-content-end''>
+            {{formatCurrencyReal($proposal->balance)}}
+        </div>
+        <div class='tb col-2 justify-content-end''>
+            {{formatCurrencyReal($proposal->installment_value)}}
+        </div>
+        {{formatInvoiceStatus($proposal)}}
+    </div>
+    @endforeach
+    <div class='row mb-4'>
+        <div class='tb tb-header col-7 justify-content-end'>
+        </div>
+
+        <div class='tb tb-header col-2 justify-content-end'>
+            Pago:  {{formatCurrencyReal($balanceTotal)}}
+        </div>
+        <div class='tb tb-header col-1'>
+        </div>
+    </div>
 
     <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='

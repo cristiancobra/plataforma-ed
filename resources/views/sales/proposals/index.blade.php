@@ -11,10 +11,10 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
-<a class="circular-button secondary"  href="{{route('proposal.create', ['typeInvoices' => 'despesa'])}}">
+<a class="circular-button delete"  href="{{route('proposal.create', ['typeInvoices' => 'despesa'])}}">
     <i class="fas fa-minus"></i>
 </a>
-<a class="circular-button primary"  href="{{route('proposal.create', ['typeInvoices' => 'receita'])}}">
+<a class="circular-button" style="background-color: lightblue" href="{{route('proposal.create', ['typeInvoices' => 'receita'])}}">
     <i class="fas fa-plus"></i>
 </a>
 @endsection
