@@ -21,7 +21,7 @@ class CreateProposalsFromInvoices extends Command {
      *
      * @var string
      */
-    protected $description = 'Migração do modelo antigo de faturas para propostas com fatuas';
+    protected $description = 'Migração do modelo antigo de faturas para propostas com faturas';
 
     /**
      * Create a new command instance.
@@ -38,9 +38,12 @@ class CreateProposalsFromInvoices extends Command {
      * @return int
      */
     public function handle() {
-        $opportunities = Opportunity::all()->with('invoices');
-
+        $opportunities = Opportunity::where('id', '>', 1)
+                ->with('invoices')
+                ->get();
+        
         foreach ($opportunities as $opportunitie) {
+//dd($opportunitie->invoices);
             foreach ($opportunitie->invoices as $invoice) {
 
                 if ($invoice->number_installment == 1) {
@@ -69,9 +72,11 @@ class CreateProposalsFromInvoices extends Command {
                     $proposal->created_at = $invoice->created_at;
                     $proposal->updated_at = $invoice->updated_at;
                     $proposal->expiration_date = $invoice->expiration_date;
+                    dd($proposal);
                     $proposal->save();
                 }
                 $invoice->proposal_id = $proposal->id;
+                    dd($invoice);
                 $invoice->save();
             }
         }
