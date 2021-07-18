@@ -78,7 +78,7 @@ class CreateProposalsFromInvoices extends Command {
                 }
                 $invoice->proposal_id = $proposal->id;
 //                    dd($invoice);
-//                $invoice->save();
+                $invoice->save();
 
                 foreach ($invoice->invoiceLines as $invoiceLine) {
                     $productProposal = new ProductProposal();
@@ -93,7 +93,7 @@ class CreateProposalsFromInvoices extends Command {
                     $productProposal->subtotalMargin = $invoiceLine->subtotalMargin;
                     $productProposal->created_at = $invoiceLine->created_at;
                     $productProposal->updated_at = $invoiceLine->updated_at;
-//                    $productProposal->save();
+                    $productProposal->save();
                     
                 }
             }
