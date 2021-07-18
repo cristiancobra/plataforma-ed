@@ -87,7 +87,7 @@ class CreateProposalsFromInvoices extends Command {
                     $productProposal->product_id = $invoiceLine->product_id;
                     $productProposal->amount = $invoiceLine->amount;
                     $productProposal->subtotalHours = $invoiceLine->subtotalHours;
-                    $productProposal->subtotalDeadLine = $invoiceLine->subtotalDeadLine;
+                    $productProposal->subtotalDeadline = $invoiceLine->subtotalDeadline;
                     $productProposal->subtotalCost = $invoiceLine->subtotalCost;
                     $productProposal->subtotalTax_rate = $invoiceLine->subtotalTax_rate;
                     $productProposal->subtotalPrice = $invoiceLine->subtotalPrice;
