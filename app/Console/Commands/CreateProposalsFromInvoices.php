@@ -82,7 +82,7 @@ class CreateProposalsFromInvoices extends Command {
 
                 foreach ($invoice->invoiceLines as $invoiceLine) {
                     $productProposal = new ProductProposal();
-                    $productProposal->proposal_id = $invoiceLine->proposal_id;
+                    $productProposal->proposal_id = $proposal->id;
                     $productProposal->product_id = $invoiceLine->product_id;
                     $productProposal->amount = $invoiceLine->amount;
                     $productProposal->subtotalHours = $invoiceLine->subtotalHours;
