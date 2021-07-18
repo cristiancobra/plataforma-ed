@@ -74,13 +74,14 @@ class CreateProposalsFromInvoices extends Command {
                     $proposal->updated_at = $invoice->updated_at;
                     $proposal->expiration_date = $invoice->expiration_date;
 //                    dd($proposal);
-//                    $proposal->save();
+                    $proposal->save();
                 }
                 $invoice->proposal_id = $proposal->id;
 //                    dd($invoice);
                 $invoice->save();
 
                 foreach ($invoice->invoiceLines as $invoiceLine) {
+//                    dd($proposal->id);
                     $productProposal = new ProductProposal();
                     $productProposal->proposal_id = $proposal->id;
                     $productProposal->product_id = $invoiceLine->product_id;
