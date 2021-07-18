@@ -66,7 +66,7 @@ class CreateProposalsFromInvoices extends Command {
                     $proposal->totalMargin = $invoice->totalMargin;
                     $proposal->totalBalance = $invoice->totalBalance;
                     $proposal->receipt = $invoice->receipt;
-                    $proposal->installment = $invoice->numer_installment_total;
+                    $proposal->installment = $invoice->number_installment_total;
                     $proposal->type = $invoice->type;
                     $proposal->status = $invoice->status;
                     $proposal->created_at = $invoice->created_at;
