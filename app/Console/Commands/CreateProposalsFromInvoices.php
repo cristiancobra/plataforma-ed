@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Models\Invoice;
 use App\Models\Opportunity;
+use App\Models\ProductProposal;
 use App\Models\Proposal;
 
 class CreateProposalsFromInvoices extends Command {
@@ -39,9 +40,9 @@ class CreateProposalsFromInvoices extends Command {
      */
     public function handle() {
         $opportunities = Opportunity::where('id', '>', 1)
-                ->with('invoices')
+                ->with('invoices.invoiceLines')
                 ->get();
-        
+
         foreach ($opportunities as $opportunitie) {
 //dd($opportunitie->invoices);
             foreach ($opportunitie->invoices as $invoice) {
@@ -73,11 +74,28 @@ class CreateProposalsFromInvoices extends Command {
                     $proposal->updated_at = $invoice->updated_at;
                     $proposal->expiration_date = $invoice->expiration_date;
 //                    dd($proposal);
-                    $proposal->save();
+//                    $proposal->save();
                 }
                 $invoice->proposal_id = $proposal->id;
 //                    dd($invoice);
-                $invoice->save();
+//                $invoice->save();
+
+                foreach ($invoice->invoiceLines as $invoiceLine) {
+                    $productProposal = new ProductProposal();
+                    $productProposal->proposal_id = $invoiceLine->proposal_id;
+                    $productProposal->product_id = $invoiceLine->product_id;
+                    $productProposal->amount = $invoiceLine->amount;
+                    $productProposal->subtotalHours = $invoiceLine->subtotalHours;
+                    $productProposal->subtotalDeadLine = $invoiceLine->subtotalDeadLine;
+                    $productProposal->subtotalCost = $invoiceLine->subtotalCost;
+                    $productProposal->subtotalTax_rate = $invoiceLine->subtotalTax_rate;
+                    $productProposal->subtotalPrice = $invoiceLine->subtotalPrice;
+                    $productProposal->subtotalMargin = $invoiceLine->subtotalMargin;
+                    $productProposal->created_at = $invoiceLine->created_at;
+                    $productProposal->updated_at = $invoiceLine->updated_at;
+//                    $productProposal->save();
+                    
+                }
             }
         }
     }
