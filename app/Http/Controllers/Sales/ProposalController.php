@@ -74,7 +74,7 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-                $typeInvoices = $request->input('typeInvoices');
+        $typeInvoices = $request->input('typeInvoices');
 
         if ($typeInvoices == 'receita') {
             $typeCompanies = 'cliente';
@@ -106,7 +106,7 @@ class ProposalController extends Controller {
                 ->where('status', 'disponível')
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
+
         $types = Proposal::returnTypes();
 
         return view('sales.proposals.create', compact(
@@ -221,36 +221,38 @@ class ProposalController extends Controller {
 
         $proposalType = $proposal->type;
 
-        $invoices = Invoice::where('opportunity_id', $proposal->opportunity_id)
-                ->orderBy('PAY_DAY', 'ASC')
+        $invoices = Invoice::where('proposal_id', $proposal->id)
+                ->with('transactions')
+                ->orderBy('identifier', 'ASC')
                 ->get();
 
-        foreach ($invoices as $invoice2) {
-            $invoice2->paid = Transaction::where('invoice_id', $invoice2->id)
+        foreach ($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                     ->sum('value');
-
-            if ($invoice2->status == 'aprovada' AND $invoice2->pay_day < date('Y-m-d')) {
-                $invoice2->status = 'atrasada';
+            if ($invoice->totalPrice == $invoice->paid) {
+                $invoice->status = 'paga';
+            }elseif($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+                $invoice->status = 'parcial';
+            }elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+                $invoice->status = 'atrasada';
             }
+//dd($invoice->status);
         }
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
 
-//        $totalInvoices = $invoices->count();
+        $totalInvoices = $invoices->count();
 
-        $transactions = Transaction::where('invoice_id', $proposal->id)
-                ->get();
-
-        $proposalPaymentsTotal = $transactions->sum('value');
+        $proposalPaymentsTotal = $invoices->sum('value');
         $balance = $proposal->totalPrice - $proposalPaymentsTotal;
 
         $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
                 ->where('department', '=', 'produção')
                 ->with([
-                        'journeys',
-                        'user'
-                        ])
+                    'journeys',
+                    'user'
+                ])
                 ->get();
 
         $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($proposal) {
@@ -264,8 +266,7 @@ class ProposalController extends Controller {
                         'proposal',
                         'productProposals',
                         'invoices',
-//                        'totalInvoices',
-                        'transactions',
+                        'totalInvoices',
                         'proposalPaymentsTotal',
                         'balance',
                         'tasksOperational',
@@ -302,6 +303,56 @@ class ProposalController extends Controller {
      */
     public function destroy(Proposal $proposal) {
         //
+    }
+
+    // gera X faturas correspondentes ao parcelamento da proposta
+    public function generateInstallment(Proposal $proposal) {
+        $invoicesIdentifiers = Invoice::where('account_id', auth()->user()->account_id)
+                ->pluck('identifier')
+                ->toArray();
+
+        $lastInvoice = max($invoicesIdentifiers);
+
+//        $invoice->save();
+//        $invoice->number_installment = 1;
+
+        $counter = 1;
+        while ($counter <= $proposal->installment) {
+            $invoice = new Invoice();
+            $invoice->identifier = $lastInvoice + $counter;
+
+//            $invoice->opportunity_id = $invoice->opportunity_id;
+//            $invoice->user_id = $invoice->user_id;
+            $invoice->account_id = auth()->user()->account_id;
+            $invoice->contract_id = $proposal->contract_id;
+            $invoice->company_id = $proposal->company_id;
+            $invoice->proposal_id = $proposal->id;
+//            $invoice->date_creation = $invoice->date_creation;
+            $invoice->description = $proposal->description;
+//            $invoice->discount = $invoice->discount;
+//            $invoice->totalHours = $invoice->totalHours;
+//            $invoice->totalAmount = $invoice->totalAmount;
+//            $invoice->totalCost = $invoice->totalCost;
+//            $invoice->totalTax_rate = $invoice->totalTax_rate;
+            $invoice->totalPrice = $proposal->totalPrice / $proposal->installment;
+//            $invoice->totalMargin = $invoice->totalMargin;
+//            $invoice->totalBalance = $invoice->totalBalance;
+            $invoice->number_installment = $counter;
+//            $invoice->number_installment_total = $invoice->number_installment_total;
+//            $invoice->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
+            $invoice->type = $proposal->type;
+            $invoice->status = 'aprovada';
+
+            $DateTime = new DateTime($proposal->pay_day);
+            $DateTime->add(new \DateInterval("P" . $counter . "M"));
+            $invoice->pay_day = $DateTime->format('Y-m-d');
+//            $invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter) . " month", strtotime($invoice->pay_day)));
+            
+            $invoice->save();
+
+            $counter++;
+        }
+        return redirect()->back();
     }
 
 }

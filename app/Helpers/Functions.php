@@ -975,6 +975,36 @@ if (!function_exists('formatInvoiceStatus')) {
     }
 
 }
+// gera um botao de acordo com o status da fatura
+if (!function_exists('faiconInvoiceStatus')) {
+
+    function faiconInvoiceStatus($status) {
+        switch ($status) {
+            case 'rascunho':
+                echo '<div class="tb tb-draft col-1">rascunho</div>';
+                break;
+            case 'orçamento':
+                echo '<div class="tb tb-pending col-1">orçamento</div>';
+                break;
+            case 'cancelada':
+                echo '<div class="tb tb-canceled col-1">cancelada</div>';
+                break;
+            case 'aprovada':
+                echo "<i class='fas fa-pause-circle aproved fs-5'></i>";
+                break;
+            case 'paga':
+                echo "<i class='fas fa-check-circle paid fs-5'></i>";
+                break;
+            case 'parcial':
+                echo "<i class='fas fa-exclamation-circle partial fs-5'></i>";
+                break;
+            case 'atrasada':
+                echo '<div class="tb tb-late col-1">atrasada</div>';
+                break;
+        }
+    }
+
+}
 // gera uma coluna TD  com a formatação para STATUS / SITUAÇÃO da Conta Bancaria  a partir de  $model
 if (!function_exists('formatBankAccountStatus')) {
 

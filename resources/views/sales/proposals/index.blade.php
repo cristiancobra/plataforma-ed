@@ -101,12 +101,12 @@
         </div>
         @endif
         @if($proposal->type == 'receita')
-        <div class="tb col-1">
-            {{formatCurrencyReal($proposal->installment_value)}}
+        <div class="tb col-1 justify-content-end">
+            {{formatCurrencyReal($proposal->totalPrice)}}
         </div>
         @else
-        <div class="tb col-1" style="color: red">
-            - {{formatCurrencyReal($proposal->installment_value)}}
+        <div class="tb col-1 justify-content-end" style="color: red">
+            - {{formatCurrencyReal($proposal->totalPrice)}}
         </div>
         @endif
         

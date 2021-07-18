@@ -619,3 +619,16 @@ td {
     border-bottom-right-radius: 0.2rem;
 }
 
+/*COLORS*/
+
+.aproved{
+    color: grey;
+}
+
+.paid{
+    color: #10daa7;
+}
+
+.partial{
+    color: #F2E28C;
+}

@@ -1230,6 +1230,19 @@ td {
     border-bottom-right-radius: 0.2rem;
 }
 
+/*COLORS*/
+
+.aproved{
+    color: grey;
+}
+
+.paid{
+    color: #10daa7;
+}
+
+.partial{
+    color: #F2E28C;
+}
 
 /*
 To change this license header, choose License Headers in Project Properties.
