@@ -25,7 +25,7 @@
         <br>
         <label class='labels' for='' >VENDEDOR: </label>
         <select name='user_id'>
-            <option  class='fields' value='{{$invoice->user->id}}'>
+            <option  class='fields' value='{{$invoice->user_id}}'>
                 {{$invoice->user->contact->name}}
             </option>
             @foreach ($users as $user)
