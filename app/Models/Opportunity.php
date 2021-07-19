@@ -40,7 +40,7 @@ class Opportunity extends Model {
     }
 
     public function invoices() {
-        return $this->hasMany(Invoice::class, 'id', 'opportunity_id');
+        return $this->hasMany(Invoice::class, 'opportunity_id', 'id');
     }
 
     public function user() {
