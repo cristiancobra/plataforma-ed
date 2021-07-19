@@ -43,9 +43,9 @@ class CreateProposalsFromInvoices extends Command {
                 ->with('invoices.invoiceLines')
                 ->get();
 
-        foreach ($opportunities as $opportunitie) {
+        foreach ($opportunities as $opportunity) {
 //dd($opportunitie->invoices);
-            foreach ($opportunitie->invoices as $invoice) {
+            foreach ($opportunity->invoices as $invoice) {
 
                 if ($invoice->number_installment == 1) {
                     $proposal = new Proposal();
