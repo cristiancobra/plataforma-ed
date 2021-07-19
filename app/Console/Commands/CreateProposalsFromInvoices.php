@@ -42,6 +42,7 @@ class CreateProposalsFromInvoices extends Command {
         $opportunities = Opportunity::where('id', '>', 1)
                 ->with('invoices.invoiceLines')
                 ->get();
+dd($opportunities);
 
         foreach ($opportunities as $opportunity) {
 //dd($opportunitie->invoices);
@@ -73,7 +74,7 @@ class CreateProposalsFromInvoices extends Command {
                     $proposal->created_at = $invoice->created_at;
                     $proposal->updated_at = $invoice->updated_at;
                     $proposal->expiration_date = $invoice->expiration_date;
-//                    dd($proposal);
+                    dd($proposal);
                     $proposal->save();
                 }
                 $invoice->proposal_id = $proposal->id;
