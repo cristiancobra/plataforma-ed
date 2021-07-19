@@ -376,11 +376,11 @@ Route::any('propostas/parcelar/{proposal}', 'Sales\\ProposalController@generateI
         ->name('proposal.generateInstallment')
         ->middleware('roles');
 
-Route::any('propostas/editar-parcelamento/{proposal}', 'Sales\\ProposalController@editInstallment')
+Route::get('propostas/editar-parcelamento/{proposal}', 'Sales\\ProposalController@editInstallment')
         ->name('proposal.editInstallment')
         ->middleware('roles');
 
-Route::any('propostas/atualizar-parcelamento/{proposal}', 'Sales\\ProposalController@updateInstallment')
+Route::put('propostas/atualizar-parcelamento/{proposal}', 'Sales\\ProposalController@updateInstallment')
         ->name('proposal.updateInstallment')
         ->middleware('roles');
 
