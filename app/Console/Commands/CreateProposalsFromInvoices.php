@@ -42,10 +42,8 @@ class CreateProposalsFromInvoices extends Command {
         $opportunities = Opportunity::where('id', '>', 1)
                 ->with('invoices.invoiceLines')
                 ->get();
-dd($opportunities);
 
         foreach ($opportunities as $opportunity) {
-//dd($opportunitie->invoices);
             foreach ($opportunity->invoices as $invoice) {
 
                 if ($invoice->number_installment == 1) {
