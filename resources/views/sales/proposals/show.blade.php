@@ -261,7 +261,7 @@
              border-color: #c28dbf
              '>
             @if($totalInvoices <= 1 AND $proposal->installment > 1)
-            <form  style='display: inline-block;float: right' action='{{route('proposal.installment', ['proposal' => $proposal])}}'' method='get'>
+            <form  style='display: inline-block;float: right' action='{{route('proposal.generateInstallment', ['proposal' => $proposal])}}'' method='get'>
                 <input class='text-button secondary' type='submit' value=' GERAR  FATURAS'>
             </form>
             @endif
