@@ -30,6 +30,7 @@ class ProposalController extends Controller {
         $proposals = Proposal::where('account_id', auth()->user()->account_id)
                 ->with([
                     'account',
+                    'invoices',
 //                    'opportunity',
 //                    'invoiceLines.product',
 //                    'account.bankAccounts',
@@ -221,31 +222,27 @@ class ProposalController extends Controller {
 
         $proposalType = $proposal->type;
 
-        $invoices = Invoice::where('proposal_id', $proposal->id)
-                ->with('transactions')
-                ->orderBy('identifier', 'ASC')
-                ->get();
-
-        foreach ($invoices as $invoice) {
+        $sumInvoices = 0;
+        foreach ($proposal->invoices as $invoice) {
             $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                     ->sum('value');
             if ($invoice->totalPrice == $invoice->paid) {
                 $invoice->status = 'paga';
-            }elseif($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
                 $invoice->status = 'parcial';
-            }elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
                 $invoice->status = 'atrasada';
             }
-//dd($invoice->status);
+            $sumInvoices += $invoice->totalPrice;
         }
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
 
-        $totalInvoices = $invoices->count();
+        $totalInvoices = $proposal->invoices->count();
 
-        $proposalPaymentsTotal = $invoices->sum('value');
-        $balance = $proposal->totalPrice - $proposalPaymentsTotal;
+        $proposalPaymentsTotal = $proposal->invoices->sum('value');
+        $balance = $sumInvoices - $proposalPaymentsTotal;
 
         $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
                 ->where('department', '=', 'produção')
@@ -265,7 +262,7 @@ class ProposalController extends Controller {
                         'proposalType',
                         'proposal',
                         'productProposals',
-                        'invoices',
+//                        'invoices',
                         'totalInvoices',
                         'proposalPaymentsTotal',
                         'balance',
@@ -327,7 +324,6 @@ class ProposalController extends Controller {
             $invoice->contract_id = $proposal->contract_id;
             $invoice->company_id = $proposal->company_id;
             $invoice->proposal_id = $proposal->id;
-//            $invoice->date_creation = $invoice->date_creation;
             $invoice->description = $proposal->description;
 //            $invoice->discount = $invoice->discount;
 //            $invoice->totalHours = $invoice->totalHours;
@@ -346,8 +342,11 @@ class ProposalController extends Controller {
             $DateTime = new DateTime($proposal->pay_day);
             $DateTime->add(new \DateInterval("P" . $counter . "M"));
             $invoice->pay_day = $DateTime->format('Y-m-d');
-//            $invoice->pay_day = date("Y-m-d", strtotime("+" . ($counter) . " month", strtotime($invoice->pay_day)));
-            
+
+            $DateTime2 = new DateTime($proposal->date_creation);
+            $DateTime2->add(new \DateInterval("P" . $counter . "M"));
+            $invoice->date_creation = $DateTime2->format('Y-m-d');
+
             $invoice->save();
 
             $counter++;
@@ -355,4 +354,64 @@ class ProposalController extends Controller {
         return redirect()->back();
     }
 
-}
+    // exibe as faturas correspondentes ao parcelamento da proposta
+    public function editInstallment(Proposal $proposal) {
+//                $proposal = Proposal::where('id', $proposal->id)
+//                ->with('transactions')
+//                ->orderBy('identifier', 'ASC')
+//                ->get();
+//                dd($proposal);
+        return view('sales.proposals.editInstallment', compact(
+                        'proposal'
+        ));
+    }
+
+    // atualiza os valores das faturas correspondentes a uma proposta
+    public function updateInstallment(Request $request, Proposal $proposal) {
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+                    'totalPrice' => 'required:invoices',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+// soma novo total inserido para faturas
+            $sumInvoicesPrice = 0;
+            $counter = 0;
+            foreach ($request->totalPrice as $totalPrice) {
+                $totalPrice = removeCurrency($request->totalPrice[$counter]);
+                $sumInvoicesPrice += $totalPrice;
+                $counter++;
+            }
+        }
+         
+        // erro se o total inserido foir maior que o valor da proposta.
+        if ($sumInvoicesPrice > $proposal->totalPrice) {
+                return back()
+                                ->with('failed', 'A soma das faturas NÃO pode ser maior que o total da proposta.')
+//                            ->withErrors($validator)
+                                ->withInput();
+            } else {
+//atualiza valores das faturas
+                $counter = 0;
+                foreach ($proposal->invoices as $invoice) {
+                    $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
+                    $invoice->update();
+                    $counter++;
+                }
+
+                return redirect()->route('proposal.show', compact(
+                                'proposal'
+                ));
+            }
+        }
+    }
+    

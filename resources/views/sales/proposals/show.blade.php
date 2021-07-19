@@ -265,11 +265,14 @@
                 <input class='text-button secondary' type='submit' value=' GERAR  FATURAS'>
             </form>
             @endif
+            <form  style='display: inline-block;float: right' action='{{route('proposal.editInstallment', ['proposal' => $proposal])}}'' method='get'>
+                <input class='text-button secondary' type='submit' value=' EDITAR TODAS AS PARCELAS'>
+            </form>
         </div>
     </div>
 
 
-    @foreach ($invoices as $invoice)
+    @foreach ($proposal->invoices as $invoice)
     <div class='row'>
         <div class="tb col-1 text-center">
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>

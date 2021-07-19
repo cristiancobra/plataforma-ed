@@ -51,6 +51,10 @@ class Proposal extends Model {
         return $this->belongsTo(Contact::class);
     }
 
+    public function invoices() {
+        return $this->hasMany(Invoice::class, 'proposal_id', 'id');
+    }
+
     public function invoiceLines() {
         return $this->hasMany(InvoiceLine::class, 'invoice_id', 'id');
     }

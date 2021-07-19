@@ -18,12 +18,12 @@ class CreateProductsProposalsTable extends Migration
 			$table->foreignId('proposal_id');
 			$table->foreignId('product_id');
 			$table->integer('amount');
-			$table->decimal('subtotalHours', 5, 1);
-			$table->integer('subtotalDeadline');
-			$table->integer('subtotalCost');
-			$table->integer('subtotalTax_rate');
+			$table->decimal('subtotalHours', 5, 1)->nullable();
+			$table->integer('subtotalDeadline')->nullable();
+			$table->integer('subtotalCost')->nullable();
+			$table->integer('subtotalTax_rate')->nullable();
 			$table->integer('subtotalPrice');
-			$table->integer('subtotalMargin');
+			$table->integer('subtotalMargin')->nullable();
 			$table->timestamps();
         });
     }

@@ -185,15 +185,15 @@ Não possui
 
 <div class='row'>
     <div   class='tb tb-header col-10 justify-content-end'>
-        desconto: 
+        TOTAL DA COMPRA: 
     </div>
     <div   class='tb tb-header col-2 justify-content-end'>
-        - {{formatCurrencyReal($invoice->discount)}}
+               {{formatCurrencyReal($invoice->proposal->totalPrice)}}
     </div>
 </div>
 <div class='row'>
     <div   class='tb tb-header col-10 justify-content-end'>
-                TOTAL DESTA FATURA: 
+                VALOR DESTA FATURA: 
     </div>
     <div   class='tb tb-header col-2 justify-content-end'>
         {{formatCurrencyReal($invoice->totalPrice)}}
@@ -265,14 +265,6 @@ $counter++;
     </div>
 </div>
 @endforeach
-<div class='row'>
-    <div   class='tb tb-header col-10 justify-content-end'>
-        VALOR TOTAL: 
-    </div>
-    <div   class='tb tb-header col-2 justify-content-end'>
-        {{formatCurrencyReal($invoice->totalPrice)}}
-    </div>
-</div>
 <div class='row'>
     <div   class='tb tb-header col-10 justify-content-end'>
         PAGO: 

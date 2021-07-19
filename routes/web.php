@@ -354,7 +354,15 @@ Route::resource('produtos', 'Sales\\ProductController')
 
 // proposals
 Route::any('propostas/parcelar/{proposal}', 'Sales\\ProposalController@generateInstallment')
-        ->name('proposal.installment')
+        ->name('proposal.generateInstallment')
+        ->middleware('roles');
+
+Route::any('propostas/editar-parcelamento/{proposal}', 'Sales\\ProposalController@editInstallment')
+        ->name('proposal.editInstallment')
+        ->middleware('roles');
+
+Route::any('propostas/atualizar-parcelamento/{proposal}', 'Sales\\ProposalController@updateInstallment')
+        ->name('proposal.updateInstallment')
         ->middleware('roles');
 
 Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@show')
