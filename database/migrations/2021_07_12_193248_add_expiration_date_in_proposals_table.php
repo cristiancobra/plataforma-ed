@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddContractIdColumnInInvoicesTable extends Migration
+class AddExpirationDateInProposalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddContractIdColumnInInvoicesTable extends Migration
      */
     public function up()
     {
-        Schema::table('invoices', function (Blueprint $table) {
-            $table->foreignId('contract_id')->nullable();
+        Schema::table('proposals', function (Blueprint $table) {
+            $table->smallInteger('expiration_date');
         });
     }
 
@@ -25,8 +25,8 @@ class AddContractIdColumnInInvoicesTable extends Migration
      */
     public function down()
     {
-        Schema::table('invoices', function (Blueprint $table) {
-              $table->dropColumn('contract_id');
+        Schema::table('proposals', function (Blueprint $table) {
+            $table->dropColumn('expiration_date');
         });
     }
 }

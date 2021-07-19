@@ -11,6 +11,7 @@ use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
+use App\Models\Proposal;
 use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
@@ -143,7 +144,12 @@ class OpportunityController extends Controller {
                     $query->where('contacts.id', $opportunity->contact_id);
                 })
                 ->get();
-//		dd($contactCompanies);
+
+        $proposals = Proposal::where('opportunity_id', $opportunity->id)
+//                ->with('transactions')
+//                ->orderBy('PAY_DAY', 'ASC')
+                ->get();
+
         $invoices = Invoice::where('opportunity_id', $opportunity->id)
                 ->where('trash', '==', 0)
                 ->with('transactions')
@@ -215,6 +221,7 @@ class OpportunityController extends Controller {
 
         return view('sales.opportunities.showOpportunity', compact(
                         'opportunity',
+                        'proposals',
                         'invoices',
                         'invoiceInstallmentsTotal',
                         'invoicePaymentsTotal',

@@ -100,6 +100,24 @@ table{
     background-color: #f9d0ff;
 }
 
+.tb-row { 
+    padding-left: 20px;
+    padding-right: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: #874983;
+    font-size:14px;
+    border-left-color: rgba(135, 73, 131,0.50);
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-right-color: rgba(135, 73, 131,0.50);
+    border-right-style: solid;
+    border-right-width: 1px;
+        display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 /*STATUS*/
 .td-aproved{
     background-color: #C3FEEF;
@@ -601,3 +619,16 @@ td {
     border-bottom-right-radius: 0.2rem;
 }
 
+/*COLORS*/
+
+.aproved{
+    color: grey;
+}
+
+.paid{
+    color: #10daa7;
+}
+
+.partial{
+    color: #F2E28C;
+}

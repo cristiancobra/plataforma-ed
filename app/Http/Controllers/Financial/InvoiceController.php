@@ -12,6 +12,7 @@ use App\Models\Contract;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
+use App\Models\ProductProposal;
 use App\Models\Transaction;
 use App\Models\Task;
 use App\Models\User;
@@ -204,9 +205,7 @@ class InvoiceController extends Controller {
                     ->toArray();
 
             // Se for rascunho ou orçamento atribui ID zero
-            if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
-                $invoice->identifier = 0;
-            } elseif ($invoicesIdentifier == null) {
+            if ($invoicesIdentifier == null) {
                 $invoice->identifier = 1;
             } else {
                 $invoice->identifier = max($invoicesIdentifier) + 1;
@@ -252,7 +251,12 @@ class InvoiceController extends Controller {
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoice $invoice) {
+    public function show(Invoice $invoice) { 
+//        $invoice2 = Invoice::where('proposal_id', $invoice->proposal_id)
+//                ->with('proposal')
+//                ->get();
+//        
+//        dd($invoice2);
         $DateTime = new DateTime($invoice->date_creation);
         $DateTime->add(new \DateInterval("P" . $invoice->expiration_date . "D"));
         $invoice->expiration_date = $DateTime->format('d/m/Y');
@@ -274,9 +278,7 @@ class InvoiceController extends Controller {
             }
         }
 
-        $invoiceLines = InvoiceLine::whereHas('invoice', function ($query) use ($invoice) {
-                    $query->where('invoice_id', $invoice->id);
-                })
+      $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
                 ->get();
 
         $totalInvoices = $invoices->count();
@@ -286,29 +288,29 @@ class InvoiceController extends Controller {
 
         $invoicePaymentsTotal = $transactions->sum('value');
         $balance = $invoice->totalPrice - $invoicePaymentsTotal;
-
-        $tasksOperational = Task::where('opportunity_id', $invoice->opportunity_id)
-                ->where('department', '=', 'produção')
-                ->with('journeys')
-                ->get();
-
-        $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($invoice) {
-                    $query->where('opportunity_id', $invoice->opportunity_id);
-                    $query->where('department', '=', 'produção');
-                })
-                ->sum('duration');
-//dd($invoice);
+//
+//        $tasksOperational = Task::where('opportunity_id', $invoice->opportunity_id)
+//                ->where('department', '=', 'produção')
+//                ->with('journeys')
+//                ->get();
+//
+//        $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($invoice) {
+//                    $query->where('opportunity_id', $invoice->opportunity_id);
+//                    $query->where('department', '=', 'produção');
+//                })
+//                ->sum('duration');
+//
         return view('financial.invoices.showInvoice', compact(
                         'typeInvoices',
                         'invoice',
                         'invoices',
-                        'invoiceLines',
+                        'productProposals',
                         'totalInvoices',
                         'transactions',
                         'invoicePaymentsTotal',
                         'balance',
-                        'tasksOperational',
-                        'tasksOperationalHours',
+//                        'tasksOperational',
+//                        'tasksOperationalHours',
         ));
     }
 
@@ -337,7 +339,7 @@ class InvoiceController extends Controller {
 
         $productsChecked = Invoice::find($invoice->id);
 
-        $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+      $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
                 ->get();
 
         $contracts = Contract::where('invoice_id', $invoice->id)
@@ -352,7 +354,7 @@ class InvoiceController extends Controller {
 
         return view('financial.invoices.editInvoice', compact(
                         'invoice',
-                        'invoiceLines',
+                        'productProposals',
                         'users',
                         'opportunities',
                         'companies',
@@ -372,7 +374,6 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Invoice $invoice) {
-//        dd($request);
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -389,91 +390,76 @@ class InvoiceController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
-            // se for aprovada pega o ultimo IDENTIFIER e soma 1, senão atribui 0
-            $lastInvoice = Invoice::where('account_id', $invoice->account_id)
-                    ->latest('id')
-                    ->first();
-
-            if ($invoice->identifier == 0 AND $request->status == "aprovada" OR $request->status == "paga") {
-                if ($lastInvoice->identifier > 0) {
-                    $invoice->identifier = $lastInvoice->identifier + 1;
-                } else {
-                    $invoice->identifier = 1;
-                }
-            }
-            $invoiceStatus = $invoice->status;
             $invoice->fill($request->all());
-            $invoice->discount = str_replace(",", ".", $request->discount);
-            $invoice->save();
+//            $invoice->save();
 
-            // atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
-            $totalPoints = 0;
-            $totalPrice = 0;
-            $totalTaxrate = 0;
-            $products = $request['product_id'];
-//            if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
-            if (isset($products)) {
-                foreach ($products as $key => $id) {
-                    $data = array(
-                        'id' => $request->invoiceLine_id[$key],
-                        'invoice_id' => $invoice->id,
-                        'product_id' => $request->product_id[$key],
-                        'amount' => $request->product_amount[$key],
-                        'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
-                        'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
-                        'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
-                        'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
-                        'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
-                        'subtotalPoints' => $request->product_amount[$key] * $request->product_points[$key],
-                        'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
-                    );
-                    $totalPoints = $totalPoints + $data['subtotalPoints'];
-                    $totalPrice = $totalPrice + $data['subtotalPrice'];
-                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                    if ($request->product_amount[$key] <= 0) {
-                        invoiceLine::where('id', $request->invoiceLine_id)->delete();
-                    } else {
-                        invoiceLine::where('id', $request->invoiceLine_id[$key])->update($data);
-                    }
-                }
-            }
-            // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
-            $newTotalPoints = 0;
-            $newTotalPrice = 0;
-            $newProducts = $request['new_product_id'];
-
-            foreach ($newProducts as $key => $newProductId) {
-                if ($request->new_product_amount[$key] > 0) {
-                    $data = array(
-                        'invoice_id' => $invoice->id,
-                        'product_id' => $request->new_product_id [$key],
-                        'amount' => $request->new_product_amount [$key],
-                        'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
-                        'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
-                        'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
-                        'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
-                        'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
-                        'subtotalPoints' => $request->new_product_amount [$key] * $request->new_product_points[$key],
-                        'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
-                    );
-                    $newTotalPoints = $newTotalPoints + $data['subtotalPoints'];
-                    $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
-                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                    invoiceLine::insert($data);
-                }
-            }
-            $invoice->totalPoints = $totalPoints + $newTotalPoints;
-            $invoice->totalPrice = $totalPrice + $newTotalPrice - str_replace(",", ".", $request->discount);
-//            if ($request->installment_value) {
-                $invoice->installment_value = $request->installment_value;
-//            } else {
-//                $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
+//            // atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
+//            $totalPoints = 0;
+//            $totalPrice = 0;
+//            $totalTaxrate = 0;
+//            $products = $request['product_id'];
+////            if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
+//            if (isset($products)) {
+//                foreach ($products as $key => $id) {
+//                    $data = array(
+//                        'id' => $request->invoiceLine_id[$key],
+//                        'invoice_id' => $invoice->id,
+//                        'product_id' => $request->product_id[$key],
+//                        'amount' => $request->product_amount[$key],
+//                        'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
+//                        'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
+//                        'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
+//                        'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
+//                        'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
+//                        'subtotalPoints' => $request->product_amount[$key] * $request->product_points[$key],
+//                        'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
+//                    );
+//                    $totalPoints = $totalPoints + $data['subtotalPoints'];
+//                    $totalPrice = $totalPrice + $data['subtotalPrice'];
+//                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+//                    if ($request->product_amount[$key] <= 0) {
+//                        invoiceLine::where('id', $request->invoiceLine_id)->delete();
+//                    } else {
+//                        invoiceLine::where('id', $request->invoiceLine_id[$key])->update($data);
+//                    }
+//                }
 //            }
-            $invoice->number_installment_total = $request->number_installment_total;
+//            // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
+//            $newTotalPoints = 0;
+//            $newTotalPrice = 0;
+//            $newProducts = $request['new_product_id'];
+//
+//            foreach ($newProducts as $key => $newProductId) {
+//                if ($request->new_product_amount[$key] > 0) {
+//                    $data = array(
+//                        'invoice_id' => $invoice->id,
+//                        'product_id' => $request->new_product_id [$key],
+//                        'amount' => $request->new_product_amount [$key],
+//                        'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
+//                        'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
+//                        'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
+//                        'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
+//                        'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
+//                        'subtotalPoints' => $request->new_product_amount [$key] * $request->new_product_points[$key],
+//                        'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
+//                    );
+//                    $newTotalPoints = $newTotalPoints + $data['subtotalPoints'];
+//                    $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
+//                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+//                    invoiceLine::insert($data);
+//                }
+//            }
+//            $invoice->totalPoints = $totalPoints + $newTotalPoints;
+            $invoice->totalPrice = str_replace(",", ".", $request->totalPrice);
+//            if($request->installment_value) {
+//             $invoice->installment_value = $request->installment_value;   
+//            } else {
+//            $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
+//            }
+//            $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
-            return redirect()->route('invoice.show', compact('invoice',
-            ));
+            return redirect()->route('invoice.show', compact('invoice'));
         }
     }
 
@@ -608,49 +594,49 @@ class InvoiceController extends Controller {
     }
 
 // Generate parcelamento a partir de uma fatura já criada
-    public function generateInstallment(Invoice $invoice) {
-        $invoices = Invoice::where('account_id', $invoice->account_id)
-                ->pluck('identifier')
-                ->toArray();
-
-        $lastInvoice = max($invoices);
-        if ($invoice->identifier == 0) {
-            $invoice->identifier = $lastInvoice + 1;
-        }
-        $invoice->number_installment = 1;
-        $invoice->save();
-
-        $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-                ->with('product')
-                ->get();
-
-        $counter = 1;
-        while ($counter <= $invoice->number_installment_total - 1) {
-            $invoiceNew = new Invoice();
-            $invoiceNew->identifier = $lastInvoice + $counter;
-
-            $invoiceNew->opportunity_id = $invoice->opportunity_id;
-            $invoiceNew->user_id = $invoice->user_id;
-            $invoiceNew->account_id = $invoice->account_id;
-            $invoiceNew->contract_id = $invoice->contract_id;
-            $invoiceNew->company_id = $invoice->company_id;
-            $invoiceNew->date_creation = $invoice->date_creation;
-            $invoiceNew->pay_day = date("Y-m-d", strtotime("+" . ($counter) . " month", strtotime($invoice->pay_day)));
-            $invoiceNew->description = $invoice->description;
-            $invoiceNew->discount = $invoice->discount;
-            $invoiceNew->totalHours = $invoice->totalHours;
-            $invoiceNew->totalAmount = $invoice->totalAmount;
-            $invoiceNew->totalCost = $invoice->totalCost;
-            $invoiceNew->totalTax_rate = $invoice->totalTax_rate;
-            $invoiceNew->totalPrice = $invoice->totalPrice;
-            $invoiceNew->totalMargin = $invoice->totalMargin;
-            $invoiceNew->totalBalance = $invoice->totalBalance;
-            $invoiceNew->number_installment = $counter + 1;
-            $invoiceNew->number_installment_total = $invoice->number_installment_total;
-            $invoiceNew->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
-            $invoiceNew->type = $invoice->type;
-            $invoiceNew->status = 'aprovada';
-            $invoiceNew->save();
+//    public function generateInstallment(Invoice $invoice) {
+//        $invoices = Invoice::where('account_id', $invoice->account_id)
+//                ->pluck('identifier')
+//                ->toArray();
+//
+//        $lastInvoice = max($invoices);
+//        if ($invoice->identifier == 0) {
+//            $invoice->identifier = $lastInvoice + 1;
+//        }
+//        $invoice->number_installment = 1;
+//        $invoice->save();
+//
+//        $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
+//                ->with('product')
+//                ->get();
+//
+//        $counter = 1;
+//        while ($counter <= $invoice->number_installment_total - 1) {
+//            $invoiceNew = new Invoice();
+//            $invoiceNew->identifier = $lastInvoice + $counter;
+//
+//            $invoiceNew->opportunity_id = $invoice->opportunity_id;
+//            $invoiceNew->user_id = $invoice->user_id;
+//            $invoiceNew->account_id = $invoice->account_id;
+//            $invoiceNew->contract_id = $invoice->contract_id;
+//            $invoiceNew->company_id = $invoice->company_id;
+//            $invoiceNew->date_creation = $invoice->date_creation;
+//            $invoiceNew->pay_day = date("Y-m-d", strtotime("+" . ($counter) . " month", strtotime($invoice->pay_day)));
+//            $invoiceNew->description = $invoice->description;
+//            $invoiceNew->discount = $invoice->discount;
+//            $invoiceNew->totalHours = $invoice->totalHours;
+//            $invoiceNew->totalAmount = $invoice->totalAmount;
+//            $invoiceNew->totalCost = $invoice->totalCost;
+//            $invoiceNew->totalTax_rate = $invoice->totalTax_rate;
+//            $invoiceNew->totalPrice = $invoice->totalPrice;
+//            $invoiceNew->totalMargin = $invoice->totalMargin;
+//            $invoiceNew->totalBalance = $invoice->totalBalance;
+//            $invoiceNew->number_installment = $counter + 1;
+//            $invoiceNew->number_installment_total = $invoice->number_installment_total;
+//            $invoiceNew->installment_value = $invoice->totalPrice / $invoice->number_installment_total;
+//            $invoiceNew->type = $invoice->type;
+//            $invoiceNew->status = $invoice->status;
+//            $invoiceNew->save();
 
 //			foreach ($invoiceLines as $invoiceLine) {
 //				$data = array(
@@ -666,10 +652,10 @@ class InvoiceController extends Controller {
 //				);
 //				invoiceLine::insert($data);
 //			}
-            $counter++;
-        }
-        return redirect()->back();
-    }
+//            $counter++;
+//        }
+//        return redirect()->action('Financial\\InvoiceController@index');
+//    }
 
     public function filterInvoices(Request $request) {
         $monthStart = date('Y-m-01');

@@ -103,9 +103,9 @@ Route::get('faturas/enviar', function () {
         ->name('invoice.email')
         ->middleware('roles');
 
-Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
-        ->name('invoice.installment')
-        ->middleware('roles');
+//Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
+//        ->name('invoice.installment')
+//        ->middleware('roles');
 
 Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
         ->name('invoice.pdf')
@@ -372,6 +372,22 @@ Route::resource('produtos', 'Sales\\ProductController')
         ->middleware('roles');
 
 // proposals
+Route::any('propostas/parcelar/{proposal}', 'Sales\\ProposalController@generateInstallment')
+        ->name('proposal.generateInstallment')
+        ->middleware('roles');
+
+Route::any('propostas/editar-parcelamento/{proposal}', 'Sales\\ProposalController@editInstallment')
+        ->name('proposal.editInstallment')
+        ->middleware('roles');
+
+Route::any('propostas/atualizar-parcelamento/{proposal}', 'Sales\\ProposalController@updateInstallment')
+        ->name('proposal.updateInstallment')
+        ->middleware('roles');
+
+Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@show')
+        ->name('proposal.pdf')
+        ->middleware('roles');
+
 Route::resource('propostas', 'Sales\\ProposalController')
         ->names('proposal')
         ->parameters(['propostas' => 'proposal'])

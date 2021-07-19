@@ -658,6 +658,7 @@ class ComposerStaticInit801b8a188cf0f0a351bff2e29133a1c0
         'App\\Models\\Pinterest' => __DIR__ . '/../..' . '/app/Models/Pinterest.php',
         'App\\Models\\Planning' => __DIR__ . '/../..' . '/app/Models/Planning.php',
         'App\\Models\\Product' => __DIR__ . '/../..' . '/app/Models/Product.php',
+        'App\\Models\\ProductProposal' => __DIR__ . '/../..' . '/app/Models/ProductProposal.php',
         'App\\Models\\Proposal' => __DIR__ . '/../..' . '/app/Models/Proposal.php',
         'App\\Models\\Report' => __DIR__ . '/../..' . '/app/Models/Report.php',
         'App\\Models\\Site' => __DIR__ . '/../..' . '/app/Models/Site.php',

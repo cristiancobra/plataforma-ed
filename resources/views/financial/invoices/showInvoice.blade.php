@@ -19,7 +19,94 @@
 {{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}
 @endsection
 
-@section('name', $invoice->opportunity->name)
+@section('main')
+<label class='labels' for='' >IDENTIFICADOR:</label>
+<span class='fields'>{{$invoice->identifier}}</span>
+<br>
+<label class='labels' for='' >PARCELA:</label>
+@if($invoice->status == 'rascunho')
+<span class='fields'>rascunho</span>
+@elseif($invoice->status == 'orçamento')
+<span class='fields'>orçamento</span>
+@else
+<span class='fields'>{{$invoice->number_installment}} de {{$invoice->number_installment_total}}</span>
+@endif
+<br>
+<label class='labels' for='' >VENDEDOR:</label>
+<span class='fields'>{{$invoice->proposal->user->contact->name}}</span>
+<br>
+<br>
+<label class='labels' for='' >OPORTUNIDADE:</label>
+@if(isset($invoice->opportunity_id))
+<span class='fields'>{{$invoice->opportunity->name}}</span>
+<button class='button-round'>
+    <a href=' {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}'>
+        <i class='fa fa-eye' style='color:white'></i>
+    </a>
+</button>
+@else
+não possui
+@endif
+<br>
+<label class='labels' for='' >CONTRATO:</label>
+@if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
+Sem contrato
+@else
+<span class='fields'>{{$invoice->contract->name}}</span>
+<button class='button-round'>
+    <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
+        <i class='fa fa-eye' style='color:white'></i>
+    </a>
+</button>
+@endif
+<br>
+@if($invoice->status == 'receita')
+<label class='labels' for='' >EMPRESA:</label>
+@else
+<label class='labels' for='' >FORNECEDOR:</label>
+@endif
+@if(isset($invoice->company->name))
+<span class='fields'>{{$invoice->company->name}}</span>
+<button class='button-round'>
+    <a href='{{route('company.show', ['company' => $invoice->company_id])}}'>
+        <i class='fa fa-eye' style='color:white'></i>
+    </a>
+</button>
+@else
+Não possui
+@endif
+<br>
+<label class='labels' for='' >CONTATO:</label>
+@if(isset($invoice->contact_id))
+<span class='fields'>{{$invoice->contact->name}}</span>
+<button class='button-round'>
+    <a href='{{route('contact.show', ['contact' => $invoice->contact_id])}}'>
+        <i class='fa fa-eye' style='color:white'></i>
+    </a>
+</button>
+@else
+Não possui
+@endif
+<br>
+<br>
+<label class='labels' for='' >DATA DE CRIAÇÃO:</label>
+<span class='fields'>{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>
+<br>
+<label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
+<span class='fields'>{{$invoice->expiration_date}}</span>
+<br>
+<label class='labels' for='' >DATA DE PAGAMENTO:</label>
+<span class='fields'>{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
+<br>
+<br>
+<br>
+@if(isset($invoice->opportunity_id))
+<label class='labels' for=''>DESCRIÇÃO DA OPORTUNIDADE:</label>
+<span class='fields'>{!!html_entity_decode($invoice->opportunity->description)!!}</span>
+<br>
+<br>
+<br>
+@endif
 
 @section('priority')
 @endsection
@@ -40,64 +127,35 @@
         OPORTUNIDADE
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
-    <div class='show-field-end'>
-        @if(isset($invoice->company->name))
-        {{$invoice->company->name}}
-        @else
-        Pessoa física
-        @endif
+
+@foreach ($productProposals as $productProposal)
+<div class='row'>
+    <div class='tb col-1'>
+        {{$productProposal->amount}}
     </div>
-    <div class='show-field-end'>
-        @if(isset($invoice->contact->name))
-        {{$invoice->contact->name}}
-        @else
-        Não possui
-        @endif
+    <div class='tb col-4'>
+        {{$productProposal->product->name}}
     </div>
-    <div class='show-field-end'>
-        @if(isset($invoice->opportunity))
-        <a href='{{route('opportunity.show', ['opportunity' => $invoice->opportunity_id])}}'>
-            {{$invoice->opportunity->name}}
-        </a>
-        @else
-        Sem oportunidade
-        @endif
+    <div class='tb col-1'>
+        {{$productProposal->subtotalDeadline}} dia(s)
     </div>
-</div>
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
-    <div class='show-label'>
-        RESPONSÁVEL
+    <div class='tb col-2'>
+        {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
     </div>
-    <div class='show-label'>
-        IDENTIFICADOR
+    <div class='tb col-2'>
+        {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
     </div>
-    <div class='show-label'>
-        CONTRATO
-    </div>
-</div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
-    <div class='show-field-end'>
-        @if(isset($invoice->user->contact->name))
-        {{$invoice->user->contact->name}}
-        @else
-        foi excluído
-        @endif
-    </div>
-    <div class='show-field-end'>
-        {{$invoice->identifier}}
-    </div>
-    <div class='show-field-end'>
-        @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
-        Sem contrato
-        @else
-        <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
-            {{$invoice->contract->name}}
-        </a>
-        @endif
+    <div class='tb col-2'>
+        {{formatCurrencyReal($productProposal->subtotalPrice)}}
     </div>
     @endsection
 
+<div class='row'>
+    <div class='tb col-12 justify-content-start'>
+        {!!html_entity_decode($productProposal->product->description)!!}
+    </div>
+</div>
+@endforeach
 
     @section('date_start')
     <div class='circle-date-start'>
@@ -112,58 +170,20 @@
     </p>
     @endsection
 
-
-    @section('date_due')    
-    <div class='circle-date-due'>
-        @if($invoice->pay_day == null)
-        indefinida
-        @else
-        {{date('d/m/Y', strtotime($invoice->pay_day))}}
-        @endif
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        TOTAL DA COMPRA: 
     </div>
-    <p class='labels' style='text-align: center'>
-        VENCIMENTO
-    </p>
-    @endsection
-
-
-    @section('date_conclusion')
-
-    @endsection
-
-
-    @section('description')
-    {!!html_entity_decode($invoice->description)!!}
-    <br>
-    {!!html_entity_decode($invoice->opportunity->description)!!}
-    @endsection
-
-
-    @section('main')
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-left-style: solid;
-             border-top-style: solid;
-             border-left-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 10px 0 0 0;
-             '>
-            <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ITENS FATURADOS</label>
-        </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-right-style: solid;
-             border-top-style: solid;
-             border-right-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 0 10px 0 0;
-             '>
-            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='get'>
-                <input class='text-button secondary' type='submit' value='EDITAR'>
-            </form>
-        </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+               {{formatCurrencyReal($invoice->proposal->totalPrice)}}
+    </div>
+</div>
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+                VALOR DESTA FATURA: 
+    </div>
+    <div   class='tb tb-header col-2 justify-content-end'>
+        {{formatCurrencyReal($invoice->totalPrice)}}
     </div>
     <div class='row'>
         <div   class='tb tb-header col-1'>
@@ -278,47 +298,11 @@
             </form>
         </div>
     </div>
-    <div class='row'>
-        <div   class='tb tb-header col-2'>
-            DATA
-        </div>
-        <div   class='tb tb-header col-4'>
-            RESPONSÁVEL
-        </div>
-        <div   class='tb tb-header col-4'>
-            CONTA
-        </div>
-        <div   class='tb tb-header col-2'>
-            VALOR
-        </div>
-    </div>
-    @foreach($transactions as $transaction)
-    <div class='row'>
-        <div class='tb col-2'>
-            <button class='button-round'>
-                <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
-                    <i class='fa fa-eye' style='color:white'></i></a>
-            </button>
-            {{date('d/m/Y', strtotime($transaction->pay_day))}}
-        </div>
-        <div class='tb col-4'>
-            {{$transaction->user->contact->name}}
-        </div>
-        <div class='tb col-4'>
-            {{$transaction->bankAccount->name}}
-        </div>
-        <div class='tb col-2'>
-            {{formatCurrencyReal($transaction->value)}}
-        </div>
-    </div>
-    @endforeach
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
-            VALOR TOTAL: 
-        </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </div>
+</div>
+@endforeach
+<div class='row'>
+    <div   class='tb tb-header col-10 justify-content-end'>
+        PAGO: 
     </div>
     <div class='row'>
         <div   class='tb tb-header col-10 justify-content-end'>
@@ -359,260 +343,10 @@
 		'typeTransactions' => 'despesa',
 		'invoiceTotalPrice' => $invoice->installment_value,
 	])}}'>
-            <i class='fa fa-plus'></i>
-        </a>
-        @endif
-    </p>
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-top-style: solid;
-             border-top-width: 1px;
-             border-left-style: solid;
-             border-left-width: 1px;
-             border-radius: 7px 0px 0px 0px;
-             border-color: #c28dbf;
-             '>
-            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PARCELAMENTO</label>
-        </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-top-style: solid;
-             border-top-width: 1px;
-             border-right-style: solid;
-             border-right-width: 1px;
-             border-radius: 0px 7px 0px 0px;
-             border-color: #c28dbf
-             '>
-            @if($totalInvoices <= 1 AND $invoice->number_installment_total > 1)
-            <form  style='display: inline-block;float: right' action='{{route('invoice.installment', ['invoice' => $invoice])}}'' method='get'>
-                <input class='text-button secondary' type='submit' value=' GERAR  PARCELAMENTO'>
-            </form>
-            @endif
-            <form  style='display: inline-block;float: right' action='{{route('invoice.edit', ['invoice' => $invoice])}}' method='get'>
-                <input class='text-button secondary' type='submit' value='EDITAR'>
-            </form>
-        </div>
-    </div>
-    <div class='row'>
-        <div   class='tb tb-header col-3'>
-            IDENTIFICADOR
-        </div>
-        <div   class='tb tb-header col-2'>
-            DATA CRIAÇÃO 
-        </div>
-        <div   class='tb tb-header col-2'>
-            DATA PAGAMENTO
-        </div>
-        <div   class='tb tb-header col-2'>
-            VALOR TOTAL
-        </div>
-        <div   class='tb tb-header col-2'>
-            VALOR DA PARCELA
-        </div>
-        <div   class='tb tb-header col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
-    @if($invoices)
-    @foreach ($invoices as $invoice2)
-    <div class='row'>
-        <div   class='tb col-3'>
-            <button class='button-round'>
-                <a href=' {{route('invoice.show', ['invoice' => $invoice2->id])}}'>
-                    <i class='fa fa-eye' style='color:white'></i>
-                </a>
-            </button>
-            <button class='button-round'>
-                <a href=' {{route('invoice.edit', ['invoice' => $invoice2->id])}}'>
-                    <i class='fa fa-edit' style='color:white'></i>
-                </a>
-            </button>
-            FATURA {{$invoice2->identifier}}: parcela {{$invoice2->number_installment}} de {{$invoice2->number_installment_total}}
-        </div>
-        <div   class='tb col-2'>
-            {{date('d/m/Y', strtotime($invoice2->date_creation))}}
-        </div>
-        <div   class='tb col-2'>
-            {{date('d/m/Y', strtotime($invoice2->pay_day))}}
-        </div>
-        <div   class='tb col-2'>
-            {{formatCurrencyReal($invoice2->totalPrice)}}
-        </div>
-        <div   class='tb col-2'>
-            {{formatCurrencyReal($invoice2->installment_value)}}
-        </div>
-
-        {{formatInvoiceStatus($invoice2)}}
-    </div>
-    @endforeach
+        <i class='fa fa-plus'></i>
+    </a>
     @endif
-</div>
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf;
-         '>
-        <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PRODUÇÃO</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf
-         '>
-        <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='PRODUZIR:'>
-            <input type='hidden' name='opportunity_id' value='{{$invoice->opportunity_id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$invoice->opportunity->name}}'>
-            @if($invoice->opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$invoice->opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$invoice->opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='account_name' value='{{$invoice->account->name}}'>
-            <input type='hidden' name='account_id' value='{{$invoice->account->id}}'>
-            <input type='hidden' name='department' value='produção'>
-            <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
-        </form>
-    </div>
-</div>
-<div class='row mt-2'>
-    <div class='tb tb-header col-3'>
-        NOME
-    </div>
-    <div class='tb tb-header col-2'>
-        CONTATO
-    </div>
-    <div class='tb tb-header col-2'>
-        EMPRESA
-    </div>
-    <div class='tb tb-header col-2'>
-        RESPONSÁVEL
-    </div>
-    <div class='tb tb-header col-1'>
-        PRAZO
-    </div>
-    <div class='tb tb-header col-1'>
-        PRIORIDADE
-    </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-
-@foreach ($tasksOperational as $task)
-<div class='row'>
-    <div class='tb col-3 justify-content-start' style='font-weight: 600'>
-        <a class='white' href=' {{ route('task.show', ['task' => $task->id]) }}'>
-            <button class='button-round'>
-                <i class='fa fa-eye'></i>
-            </button>
-        </a>
-        {{$task->name}}
-    </div>
-    <div class='tb col-2'>
-        <a  class='white' href=' {{ route('contact.show', ['contact' => $task->contact_id]) }}'>
-            @if(isset($task->contact->name))
-            {{$task->contact->name}}
-            @else
-            contato excluído
-            @endif
-        </a>
-    </div>
-    <div class='tb col-2'>
-        @if(isset($task->company->name))
-        {{$task->company->name}}
-        @else
-        não possui
-        @endif
-    </div>
-    <div class='tb col-2'>
-        @if($task->user->profile_picture)
-        <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
-                <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
-            </a>
-        </div>
-        @elseif(isset($task->user->contact->name))
-        {{$task->user->contact->name}}
-        @else
-        funcionário excluído
-        @endif
-    </div>
-    <div class='tb col-1'>
-        @if($task->date_due == date('Y-m-d'))
-        hoje
-        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-        <p style='color: red'>
-            {{dateBr($task->date_due)}}
-        </p>
-        @else
-        {{dateBr($task->date_due)}}
-        @endif
-    </div>
-    {{formatPriority($task)}}
-
-    @php
-    if($task->status == 'fazer' AND $task->journeys()->exists()) {
-    $task->status == 'fazendo';
-    }
-    @endphp
-    {{formatStatus($task)}}
-
-</div>
-
-@foreach($task->journeys as $journey)
-<div class='row'>        
-    <div class='tb col-2 justify-content-start' style='background-color:#d8c2db'>
-        <button class='button-round'>
-            <a href=' {{route('journey.show', ['journey' => $journey->id])}}'>
-                <i class='fas fa-clock' style='color:white'></i>
-            </a>
-        </button>
-        {{dateBr($journey->date)}}
-    </div>
-    <div class='tb col-7 justify-content-start' colspan='3' style='background-color:#d8c2db'>
-        {!!html_entity_decode($journey->description)!!}
-    </div>
-    <div class='tb col-2' style='background-color:#d8c2db'>
-        @if($task->user->profile_picture)
-        <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' =>$task->user->id])}}'>
-                <img src='{{asset($task->user->profile_picture)}}' width='100%' height='100%'>
-            </a>
-        </div>
-        @elseif(isset($task->user->contact->name))
-        {{$journey->user->contact->name}}
-        @else
-        funcionário excluído
-        @endif
-    </div>
-    <div class='tb col-1' style='background-color:#d8c2db'>
-        {{formatTotalHour($journey->duration)}} horas
-    </div>
-</div>
-@endforeach
-<div class='row'>
-    <div class="col-12 pt-5">
-    </div>
-</div>
-@endforeach
-<div class='row'>
-    <div   class='tb tb-header col-10 justify-content-end'>
-        TOTAL:
-    </div>
-    <div   class='tb tb-header col-2 justify-content-end'>
-        {{formatTotalHour($tasksOperationalHours)}} horas
-    </div>
-</div>
-<br>
+</p>
 <br>
 <br>
 <label class='labels' for=''>SITUAÇÃO:</label>
