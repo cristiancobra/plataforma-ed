@@ -71,6 +71,9 @@
     <div class='show-label'>
         IDENTIFICADOR
     </div>
+    <div class='show-label'>
+        CONTRATO
+    </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
@@ -83,10 +86,20 @@
     <div class='show-field-end'>
         {{$invoice->identifier}}
     </div>
+    <div class='show-field-end'>
+      @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
+    Sem contrato
+    @else
+        <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
+    <span class='fields'>{{$invoice->contract->name}}</span>
+            
+        </a>
+    @endif
+    </div>
     @endsection
     
     @section('description')
-            {!!html_entity_decode($invoice->opportunity->description)!!}
+            {!!html_entity_decode($invoice->description)!!}
     @endsection
 
     @section('date_start')
@@ -102,98 +115,33 @@
     </p>
     @endsection
 
-    @section('main')
-    <label class='labels' for='' >PARCELA:</label>
-    @if($invoice->status == 'rascunho')
-    <span class='fields'>rascunho</span>
-    @elseif($invoice->status == 'orçamento')
-    <span class='fields'>orçamento</span>
-    @else
-    <span class='fields'>{{$invoice->number_installment}} de {{$invoice->number_installment_total}}</span>
-    @endif
-    <br>
-    <label class='labels' for='' >VENDEDOR:</label>
-    <span class='fields'>{{$invoice->proposal->user->contact->name}}</span>
-    <br>
-    <br>
-    <label class='labels' for='' >OPORTUNIDADE:</label>
-    @if(isset($invoice->opportunity_id))
-    <span class='fields'>{{$invoice->opportunity->name}}</span>
-    <button class='button-round'>
-        <a href=' {{route('opportunity.show', ['opportunity' => $invoice->opportunity])}}'>
-            <i class='fa fa-eye' style='color:white'></i>
-        </a>
-    </button>
-    @else
-    não possui
-    @endif
-    <br>
-    <label class='labels' for='' >CONTRATO:</label>
-    @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
-    Sem contrato
-    @else
-    <span class='fields'>{{$invoice->contract->name}}</span>
-    <button class='button-round'>
-        <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
-            <i class='fa fa-eye' style='color:white'></i>
-        </a>
-    </button>
-    @endif
-    <br>
-    @if($invoice->status == 'receita')
-    <label class='labels' for='' >EMPRESA:</label>
-    @else
-    <label class='labels' for='' >FORNECEDOR:</label>
-    @endif
-    @if(isset($invoice->company->name))
-    <span class='fields'>{{$invoice->company->name}}</span>
-    <button class='button-round'>
-        <a href='{{route('company.show', ['company' => $invoice->company_id])}}'>
-            <i class='fa fa-eye' style='color:white'></i>
-        </a>
-    </button>
-    @else
-    Não possui
-    @endif
-    <br>
-    <label class='labels' for='' >CONTATO:</label>
-    @if(isset($invoice->contact_id))
-    <span class='fields'>{{$invoice->contact->name}}</span>
-    <button class='button-round'>
-        <a href='{{route('contact.show', ['contact' => $invoice->contact_id])}}'>
-            <i class='fa fa-eye' style='color:white'></i>
-        </a>
-    </button>
-    @else
-    Não possui
-    @endif
-    <br>
-    <br>
-    <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
-    <span class='fields'>{{date('d/m/Y', strtotime($invoice->date_creation))}}</span>
-    <br>
-    <label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
-    <span class='fields'>{{$invoice->expiration_date}}</span>
-    <br>
-    <label class='labels' for='' >DATA DE PAGAMENTO:</label>
-    <span class='fields'>{{date('d/m/Y', strtotime($invoice->pay_day))}}</span>
-    <br>
-    <br>
-    <br>
-    @if(isset($invoice->opportunity_id))
-    <label class='labels' for=''>DESCRIÇÃO DA OPORTUNIDADE:</label>
-    <span class='fields'>{!!html_entity_decode($invoice->opportunity->description)!!}</span>
-    <br>
-    <br>
-    <br>
-    @endif
+    @section('date_due')
+    <div class='circle-date-due'>
+        @if($invoice->expiration_date == null)
+        indefinida
+        @else
+        {{date('d/m/Y', strtotime($invoice->expiration_date))}}
+        @endif
+    </div>
+    <p class='labels' style='text-align: center'>
+        VALIDADE
+    </p>
+    @endsection
+    
+    @section('date_conclusion')
+    <div class='circle-date-conclusion'>
+        @if($invoice->pay_day == null)
+        indefinida
+        @else
+        {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        @endif
+    </div>
+    <p class='labels' style='text-align: center'>
+        VENCIMENTO
+    </p>
+    @endsection
 
-    <label class='labels' for=''>OBSERVAÇÕES:</label>
-    @if(isset($invoice->description))
-    <span class='fields'>{!!html_entity_decode($invoice->description)!!}</span>
-    @else
-    Não possui
-    @endif
+    @section('main')
     <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='
              border-left-style: solid;
@@ -319,13 +267,29 @@
     <br>
     <br>
     @endif
-    <br>
-    <div style='display: inline-block'>
-        <img src='{{asset('images/financeiro.png')}}' width='40px' alt='40px'>
-        <label class='labels' for='' >PAGAMENTOS:</label>
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: #c28dbf;
+             '>
+            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FINANCEIRO</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: #c28dbf
+             '>
+
+        </div>
     </div>
-    <br>
-    <br>
     <div class='row'>
         <div   class='tb tb-header col-2'>
             DATA
@@ -411,22 +375,4 @@
     <br>
     <br>
     <p class='labels'>  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>
-
-    <div style='text-align:right;padding: 2%'>
-        <form   style='text-decoration: none;display: inline-block' action='{{route('invoice.destroy', ['invoice' => $invoice])}}' method='post'>
-            @csrf
-            @method('delete')
-            <button class='circular-button delete' style='border: none;padding-left: 8px;padding-bottom: 5px' type='submit'>
-                <i class='fa fa-trash'></i>
-            </button>
-        </form>
-        <a class='circular-button secondary' href='{{route('invoice.edit', ['invoice' => $invoice->id])}}'  style='display: inline-block'>
-            <i class='fa fa-edit'></i>
-        </a>
-        <a class='circular-button primary'  href='{{route('invoice.index')}}'>
-            <i class='fas fa-arrow-left'></i>
-        </a>
-    </div>
-    <br>
-
     @endsection
