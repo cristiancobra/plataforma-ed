@@ -76,6 +76,7 @@ class BankAccountController extends Controller {
             $bankAccount = new BankAccount();
             $bankAccount->fill($request->all());
             $bankAccount->account_id = auth()->user()->account_id;
+            $bankAccount->opening_balance = removeCurrency($request->opening_balance);
             $bankAccount->save();
 
             return view('financial.bankAccounts.showBankAccount', compact(
@@ -136,6 +137,7 @@ class BankAccountController extends Controller {
      */
     public function update(Request $request, BankAccount $bankAccount) {
         $bankAccount->fill($request->all());
+        $bankAccount->opening_balance = removeCurrency($request->opening_balance);
         $bankAccount->save();
 
         return view('financial.bankAccounts.showBankAccount', compact(

@@ -141,6 +141,7 @@ class JourneyController extends Controller {
      */
     public function edit(Journey $journey) {
         $tasks = Task::where('account_id', auth()->user()->account_id)
+                ->where('status', 'fazer')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 

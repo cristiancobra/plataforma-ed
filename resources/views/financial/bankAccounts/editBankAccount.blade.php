@@ -59,11 +59,11 @@
         <input type="text" name="pix" value="{{$bankAccount->pix}}">
         <br>
         <label for="" >Saldo inicial: </label><span style='margin-left:20px'>  R$</span>
-        <input type="decimal" name="opening_balance" size='6' value="{{$bankAccount->opening_balance}}" style="text-align:right">
+        <input type="decimal" name="opening_balance" size='6' value="{{formatCurrency($bankAccount->opening_balance)}}" style="text-align:right">
         <br>
         <br>
         <label for="" >Observações: </label>
-        <textarea id="observations" name="observations" rows="10" cols="90" value="{{$bankAccount->opening_balance}}">
+        <textarea id="observations" name="observations" rows="10" cols="90" value="">
 {{$bankAccount->observations}}
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->

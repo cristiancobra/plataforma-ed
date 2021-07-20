@@ -39,7 +39,7 @@
     <br>
     <label class='labels'  for='' >CHAVE PIX: </label> {{$bankAccount->pix}}
     <br>
-    <label class='labels'  for='' >SALDO INICIAL: </label> R$ {{$bankAccount->opening_balance}}
+    <label class='labels'  for='' >SALDO INICIAL: </label> {{formatCurrencyReal($bankAccount->opening_balance)}}
     <br>
     <br>
     <p class='labels'>
