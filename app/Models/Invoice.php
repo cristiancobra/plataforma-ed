@@ -16,6 +16,7 @@ class Invoice extends Model {
 		'company_id',
 		'contact_id',
 		'contract_id',
+		'proposal_id',
 		'description',
 		'date_creation',
 		'pay_day',

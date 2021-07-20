@@ -701,6 +701,7 @@ class InvoiceController extends Controller {
                     'account.bankAccounts',
                     'user.contact',
                     'contract',
+                    'proposal',
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);

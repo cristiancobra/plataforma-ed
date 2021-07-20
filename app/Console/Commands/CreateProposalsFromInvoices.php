@@ -75,6 +75,7 @@ class CreateProposalsFromInvoices extends Command {
                     $proposal->save();
                 }
                 $invoice->proposal_id = $proposal->id;
+//                dd($invoice);
                 $invoice->save();
 
                 foreach ($invoice->invoiceLines as $invoiceLine) {
