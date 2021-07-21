@@ -6,9 +6,6 @@
 {{asset('images/rocket.png')}}
 @endsection
 
-@section('description')
-@endsection
-
 @section('buttons')
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>

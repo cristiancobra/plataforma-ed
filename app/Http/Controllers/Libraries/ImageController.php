@@ -137,6 +137,7 @@ class ImageController extends Controller {
             'produto',
             'logo',
             'imagem perfil',
+            'marketing',
         );
     }
 

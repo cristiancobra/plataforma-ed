@@ -11,6 +11,7 @@ use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Opportunity;
+use App\Models\Page;
 use App\Models\User;
 use App\Http\Traits\FilterModelTrait;
 use League\Csv\Reader;
@@ -125,8 +126,8 @@ class ContactController extends Controller {
             'required' => '*preenchimento obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
-                    'first_name' => 'required:tasks',
-                    'last_name' => 'required:tasks',
+                    'first_name' => 'required:contact',
+                    'last_name' => 'required:contact',
                         ], $messages);
 
         if ($validator->fails()) {
@@ -225,6 +226,36 @@ class ContactController extends Controller {
         return redirect()->route('contact.index');
     }
 
+    public function storeFromForm(Request $request, Page $page) {
+        $messages = [
+            'unique' => 'Já existe um contato com este :attribute.',
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'first_name' => 'required:contact',
+                    'last_name' => 'required:contact',
+                    'email' => 'required:contact',
+                        ], $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $contact = new Contact();
+            $contact->fill($request->all());
+            $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
+            $contact->account_id = $page->account_id;
+            $contact->save();
+//            $contact->companies()->sync($request->companies);
+
+            return back()
+                            ->with('success', 'Seus dados foram enviados com sucesso!')
+                            ->withInput();
+        }
+    }
+
     public function targetAudience() {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->where('type', 'cliente')
@@ -304,7 +335,7 @@ class ContactController extends Controller {
         $recordsTotal = $records->count();
 
         $account = Account::where('id', $request->account_id)
-                ->first();         
+                ->first();
 
         return view('sales.contacts.confirmCsv', compact(
                         'request',

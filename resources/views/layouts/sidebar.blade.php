@@ -107,6 +107,11 @@
                                                                                                                                                         'link' => '/sites'
                                                                                                                                                         ],
                                                                                                                                                         [
+                                                                                                                                                        'name' => 'PÁGINAS',
+                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
+                                                                                                                                                        'link' => route('page.index')
+                                                                                                                                                        ],
+                                                                                                                                                        [
                                                                                                                                                         'name' => 'DOMÍNIOS',
                                                                                                                                                         'faIcon' => 'fas fa-window-maximize',
                                                                                                                                                         'link' => '/domains'

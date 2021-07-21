@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Commands\\ConcateDateAndTime' => $baseDir . '/app/Console/Commands/ConcateDateAndTime.php',
+    'App\\Console\\Commands\\CreateProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateProposalsFromInvoices.php',
     'App\\Console\\Commands\\FillNullFieldCommand' => $baseDir . '/app/Console/Commands/FillNullFieldCommand.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',

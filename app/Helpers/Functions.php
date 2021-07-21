@@ -28,7 +28,7 @@ if (!function_exists('createButtonBack')) {
 // cria um botao com simbolo de <- para retornar para página anterior
     function createButtonBack() {
         $message = 'Voltar para última tela';
-        
+
         echo "<a class='circular-button secondary' title='$message' href=" . url()->previous() . ">
                         <i class='fas fa-arrow-left'></i>
                   </a>";
@@ -41,7 +41,7 @@ if (!function_exists('createButtonList')) {
     function createButtonList($model, $parameter = null, $value = null) {
         $route = "$model.index";
         $message = 'Ir para lista';
-        
+
         if ($parameter) {
             echo "<a class='circular-button primary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
         } else {
@@ -67,11 +67,11 @@ if (!function_exists('createButtonShow')) {
 }
 // cria um botao que vai para a tela de edição do model
 if (!function_exists('createButtonEdit')) {
-    
+
     function createButtonEdit($model, $parameter = null, $value = null) {
         $route = "$model.edit";
         $message = 'Editar estas informações';
-        
+
         if ($parameter) {
             echo "<a class='circular-button secondary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
         } else {
@@ -1909,16 +1909,102 @@ if (!function_exists('createTablePercentual')) {
 
 }
 
-// cria tuma pergunta com SIM ou NAO para CRIAR a análise da página em socialmedia
-if (!function_exists('createPageAnalysis')) {
+// cria um select com label e opção SIM e NÃO que retornam 1 ou 0
+if (!function_exists('createSelectYesOrNo')) {
 
-    function createPageAnalysis($question, $field) {
-        echo "<label class='labels' for=''>$question</label>
-        <br>
-        <input type='radio' name='$field' value='1' checked='checked'><span class='fields'>Sim</span>
-        <br>
-        <input type='radio' name='$field' value='0'><span class='fields'>Não</span>
-        <br><br>";
+    function createSelectYesOrNo($label, $field, $check = null) {
+        echo "<label class='labels' for='$field'>$label</label>
+        <select name='$field' id='$field'>";
+        if ($check == 0) {
+            echo "<option value='0'>
+                não
+            </option>
+            <option value='1'>
+                sim
+            </option>";
+        } else {
+            echo "<option value='1'>
+                sim
+            </option>
+                <option value='0'>
+                não
+            </option>";
+        }
+        echo "</select><br>";
+    }
+
+}
+
+// cria um formulário de captação de contatos/leads
+if (!function_exists('createFormPage')) {
+
+    function createFormPage($page, $errors = null) {
+        if ($page->contact_first_name) {
+            echo "<label class='labels' for='first_name'>Nome:</label>
+            <input type='text' name='first_name'>";
+            if ($errors->has('first_name')) {
+                echo "<span class='text-danger'>" . $errors->first('first_name') . "</span>";
+            }
+            echo "<br>";
+        }
+        if ($page->contact_last_name) {
+            echo "<label class='labels' for='last_name'>Sobrenome:</label>
+            <input type='text' name='last_name'>";
+            if ($errors->has('last_name')) {
+                echo "<span class='text-danger'>" . $errors->first('last_name') . "</span>";
+            }
+            echo "<br>";
+        }
+        if ($page->contact_email) {
+            echo "<label class='labels' for='email'>Email:</label>
+            <input type='text' name='email'>";
+            if ($errors->has('email')) {
+                echo "<span class='text-danger'>" . $errors->first('email') . "</span>";
+            }
+            echo "<br>";
+        }
+        if ($page->contact_phone) {
+            echo "<label class='labels' for='phone'>Telefone:</label>
+            <input type='text' name='phone'>
+            <br>
+            ";
+        }
+        if ($page->contact_site) {
+            echo "<label class='labels' for='site'>Site:</label>
+            <input type='text' name='site'>
+            <br>
+            ";
+        }
+        if ($page->contact_address) {
+            echo "<label class='labels' for='address'>Endereço:</label>
+            <input type='text' name='address'>
+            <br>
+            ";
+        }
+        if ($page->contact_neighborhood) {
+            echo "<label class='labels' for='neighborhood'>Bairro:</label>
+            <input type='text' name='neighborhood'>
+            <br>
+            ";
+        }
+        if ($page->contact_city) {
+            echo "<label class='labels' for='city'>Cidade:</label>
+            <input type='text' name='city'>
+            <br>
+            ";
+        }
+        if ($page->contact_state) {
+            echo "<label class='labels' for='state'>Estado:</label>
+            <input type='text' name='state'>
+            <br>
+            ";
+        }
+        if ($page->contact_country) {
+            echo "<label class='labels' for='country'>País:</label>
+            <input type='text' name='country'>
+            <br>
+            ";
+        }
     }
 
 }

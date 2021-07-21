@@ -199,6 +199,19 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
         ->parameters(['redes-sociais' => 'socialmedia'])
         ->middleware('roles');
 
+// pages
+Route::post('paginas/{page}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
+        ->name('contact.storeForm');
+
+Route::get('paginas/{page}', 'Marketing\\PageController@show')
+        ->name('page.show');
+
+Route::resource('paginas', 'Marketing\\PageController')
+        ->except('show')
+        ->names('page')
+        ->parameters(['paginas' => 'page'])
+        ->middleware('roles');
+
 // ------------------------------------------------ MINHA CONTA ------------------------------------------------
 Route::get('/perfil', function () {
     return view('perfil');
@@ -301,7 +314,7 @@ Route::post('contatos/store-csv', 'Sales\\ContactController@storeCsv')
         ->middleware('roles');
 
 Route::get('contatos/publico-alvo', 'Sales\\ContactController@targetAudience')
-                ->name('contact.target')
+        ->name('contact.target')
         ->middleware('roles');
 
 Route::resource('contatos', 'Sales\\ContactController')
