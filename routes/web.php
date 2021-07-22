@@ -200,10 +200,10 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
         ->middleware('roles');
 
 // pages
-Route::post('paginas/{page}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
+Route::post('contacts/{page}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
         ->name('contact.storeForm');
 
-Route::get('paginas/{page}', 'Marketing\\PageController@show')
+Route::get('paginas/page', 'Marketing\\PageController@show')
         ->name('page.show');
 
 Route::resource('paginas', 'Marketing\\PageController')
