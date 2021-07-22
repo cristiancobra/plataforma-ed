@@ -85,7 +85,9 @@ class PageController extends Controller {
 //                $image->save();
 //            }
 
-            return redirect()->route('page.show', [$page]);
+            return redirect()->route('page.show', compact(
+                    'page',
+                    ));
         }
     }
 
