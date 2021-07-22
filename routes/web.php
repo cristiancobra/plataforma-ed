@@ -203,7 +203,7 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
 Route::post('contacts/{page}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
         ->name('contact.storeForm');
 
-Route::get('paginas/page', 'Marketing\\PageController@show')
+Route::get('/paginas/{page}', 'Marketing\\PageController@show')
         ->name('page.show');
 
 Route::resource('paginas', 'Marketing\\PageController')

@@ -98,7 +98,7 @@ class PageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Page $page) {
-//dd()
+
         return view('marketing.pages.show', compact(
                         'page',
         ));
