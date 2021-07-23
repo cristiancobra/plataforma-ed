@@ -161,112 +161,74 @@
 </div>
 
 
-<div class='row mt-5 mb-5 ms-2 me-2'>
-        <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
-        <i class="fas fa-funnel-dollar" style="font-size:42px; color:#8B2485"></i>
-        <p class="mt-2" style="color:#8B2485">
-            OPORTUNIDADES
+<div class="row pt-5 pb-5">
+    <div class="col-2 pt-5" style="
+         background-color: #fff6ff;
+         border-radius: 20px 0 0 20px;
+         border-color: white;
+         border-width: 5px;
+         border-style: solid;
+         border-right-style: none;
+         ">
+        <p class="mt-2 text-center" style="color:#8B2485">
+            <i class="fas fa-user-plus" style="font-size:40px; color:#8B2485"></i>
+            <br>
+            CONTATOS
+            <br>
+            <br>
+            <a class="text-button btn-info" name="new_contacts" href="{{route('contact.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+                +{{$contactsNews}} esta semana
+            </a>
         </p>
     </div>
-    <div class='col-lg-7 d-inline-block opportunities-funnel ps-5'>
-        <div class='funnel-bar-prospecting'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'prospecção',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                PROSPECTAR: {{$opportunitiesProspecting}}
-            </a>
-        </div>
-        <div class='funnel-bar-presentation'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'apresentação',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                APRESENTAR: {{$opportunitiesPresentation}}
-            </a>
-        </div>
-        <div class='funnel-bar-proposal'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'proposta',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                PROPOSTA: {{$opportunitiesProposal}}
-            </a>
-        </div>
-        <div class='funnel-bar-contract'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'contract',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                CONTRATO: {{$opportunitiesContract}}
-            </a>
-        </div>
-        <div class='funnel-bar-bill'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'cobrança',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                COBRANÇA: {{$opportunitiesBill}}
-            </a>
-        </div>
-        <div class='funnel-bar-production'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'produção',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                PRODUÇÃO: {{$opportunitiesProduction}}
-            </a>
-        </div>
-        <div class='funnel-bar-concluded'>
-            <a style='text-decoration:none;color:white' href='{{route('opportunity.index', [
-				'stage' =>'concluída',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                CONCLUÍDAS: {{$opportunitiesConcluded}}
-            </a>
-        </div>
+    <div class="col-4" style="
+         background-color: #fff6ff;
+         border-radius: 0 20px 20px 0;
+         border-color: white;
+         border-width: 5px;
+         border-style: solid;
+         border-left-style: none;
+         padding: 15px;
+         ">
+        <canvas id="contactsChart" width="400" height="250"></canvas>
     </div>
-
-    <div class='col-3 d-inline-block triangle-text' style='display: inline-block;position: relative'>
-        <div class='balance-won mx-auto'>
-            <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'ganhamos',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                <p class='balance_number' style="margin-left: -100px">
-                    {{$opportunitiesWon}}
-                </p>
-                <p class='balance_label_won' style="margin-left: -100px;margin-top: -10px">
-                    ganhamos
-                </p>
+    <div class="col-2 pt-5" style="
+         background-color: #fff6ff;
+         border-radius: 20px 0 0 20px;
+         border-color: white;
+         border-width: 5px;
+         border-style: solid;
+         border-right-style: none;
+         ">
+        <p class="mt-2 text-center" style="color:#8B2485">
+            <i class="fas fa-funnel-dollar" style="font-size:40px; color:#8B2485"></i>
+            <br>
+            OPORTUNIDADES
+                        <br>
+            <br>
+            <a class="text-button btn-info" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+                +{{$opportunitiesWon}} esta semana
             </a>
-        </div>
-        <div id='triangle-text'  style='display: inline-block;position: relative'>
-            <div class='balance-lost  mx-auto'>
-                <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'perdemos',
-				'contact_id' => '',
-				'user_id' => '',
-				])}}'>
-                    <p class='balance_number' style='margin-left: -20px'>
-                        {{$opportunitiesLost}}
-                    </p>
-                    <p class='balance_label_lost'>
-                        perdemos
-                    </p>
-                </a>
-            </div>
-        </div>
+            <br>
+            <br>
+            <a class="text-button btn-danger" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+                +{{$opportunitiesLost}} esta semana
+            </a>
+        </p>
+    </div>
+    <div class="col-4" style="
+         background-color: #fff6ff;
+         border-radius: 0 20px 20px 0;
+         border-color: white;
+         border-width: 5px;
+         border-style: solid;
+         border-left-style: none;
+         padding: 15px;
+         ">
+        <canvas id="opportunitiesChart" width="400" height="250"></canvas>
     </div>
 </div>
+
 
 <div class='row mt-2 mb-3 ms-2 me-2'>
     <div class='col-lg-2 text-center mx-auto mt-auto mb-auto'>
@@ -324,4 +286,70 @@
 </div>
 <br>
 <br>
+@endsection
+
+@section('js-scripts')
+<script>
+
+//Cria o gráfico para contatos
+    var ctx = document.getElementById('contactsChart');
+    var contactsChart = new Chart(ctx, {
+    type: 'bar',
+            data: {
+            labels: ['Curiosos', 'Interessados', 'Qualificados'],
+                    datasets: [{
+                    label: 'FUNIL DE MARKETING',
+                            data: {!! json_encode($contacts) !!},
+                            backgroundColor: [
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 99, 132, 0.2)',
+                            ],
+                            borderColor: [
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 99, 132, 1)',
+                            ],
+                            borderWidth: 2,
+                    }]
+            },
+            options: {
+            indexAxis: 'y',
+            }
+    });
+//Cria o gráfico para oportunidades
+    var ctx = document.getElementById('opportunitiesChart');
+    var contactsChart = new Chart(ctx, {
+    type: 'bar',
+            data: {
+            labels: ['Prospectar', 'Apresentar', 'Proposta', 'Contrato', 'Cobrança', 'Produção', 'Concluídas'],
+                    datasets: [{
+                    label: 'FUNIL DE VENDAS',
+                            data: {!! json_encode($opportunities) !!},
+                            backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 2,
+                    }]
+            },
+            options: {
+            indexAxis: 'y',
+            }
+    });
+</script>
 @endsection

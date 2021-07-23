@@ -247,6 +247,7 @@ class ContactController extends Controller {
             $contact->fill($request->all());
             $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
             $contact->account_id = $page->account_id;
+            $contact->type = 'cliente';
             $contact->save();
 //            $contact->companies()->sync($request->companies);
 

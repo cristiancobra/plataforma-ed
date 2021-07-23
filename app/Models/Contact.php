@@ -92,6 +92,9 @@ class Contact extends Model {
                     if ($request->type) {
                         $query->where('type', $request->type);
                     }
+                    if ($request->created_at) {
+                        $query->where('created_at', '>=', $request->created_at);
+                    }
 //                    if ($request->status == '') {
 //                        // busca todos
 //                    } elseif ($request->status == 'fazendo') {
@@ -565,6 +568,36 @@ class Contact extends Model {
         } else {
             return [];
         }
+    }
+    
+    public static function countSuspects() {
+        return Contact::where('account_id', auth()->user()->account_id)
+                    ->where('type', 'cliente')
+                    ->where('points', '<', 50)
+                    ->count();
+    }
+    
+    public static function countProspects() {
+        return Contact::where('account_id', auth()->user()->account_id)
+                    ->where('type', 'cliente')
+                    ->whereBetween('points', [50, 99])
+                    ->count();
+    }
+    
+    public static function countQualified() {
+        return Contact::where('account_id', auth()->user()->account_id)
+                    ->where('type', 'cliente')
+                    ->where('points', '>=', 100)
+                    ->count();
+    }
+    
+    public static function countNewsContactsWeek() {
+        $lastWeek = date("Y-m-d", strtotime("-7 days"));
+        
+        return Contact::where('account_id', auth()->user()->account_id)
+                    ->where('type', 'cliente')
+                    ->where('created_at', '>=', $lastWeek)
+                    ->count();
     }
 
 }

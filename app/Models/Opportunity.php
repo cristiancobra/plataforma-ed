@@ -48,8 +48,7 @@ class Opportunity extends Model {
     }
 
 // MÉTODOS PÚBLICOS
-    
-        // retorna os estágios das oportunidades
+// retorna os estágios das oportunidades
     public static function listStages() {
         return $stages = array(
             'prospecção',
@@ -61,8 +60,8 @@ class Opportunity extends Model {
             'concluída',
         );
     }
-    
-        // retorna os estágios das oportunidades
+
+// retorna os estágios das oportunidades
     public static function listStatus() {
         return $status = array(
             'negociando',
@@ -70,17 +69,85 @@ class Opportunity extends Model {
             'ganhamos',
         );
     }
-    
+
     public static function openOpportunities() {
         return $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
-                        ->where('stage', '!=', 'perdemos')
-                        ->where('stage', '!=', 'concluída')
+                ->where('stage', '!=', 'perdemos')
+                ->where('stage', '!=', 'concluída')
                 ->with([
                     'company',
                     'contact',
                 ])
-                        ->orderBy('date_conclusion', 'DESC')
-                        ->get();;
+                ->orderBy('date_conclusion', 'DESC')
+                ->get();
+        ;
+    }
+
+    public static function countProspectings() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'prospecção')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countPresentations() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'apresentação')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countProposals() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'proposta')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countContracts() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'contrato')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countBills() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'cobrança')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countProductions() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'produção')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countCompletes() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'concluída')
+                        ->whereBetween('date_conclusion', [date('Y-m-01'), date('Y-m-t')])
+                        ->count();
+    }
+
+    public static function countOpportunitiesWonWeek() {
+        $lastWeek = date("Y-m-d", strtotime("-7 days"));
+
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('status', 'ganhamos')
+                        ->where('updated_at', '>=', $lastWeek)
+                        ->count();
+    }
+
+    public static function countOpportunitiesLostWeek() {
+        $lastWeek = date("Y-m-d", strtotime("-7 days"));
+
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('status', 'perdemos')
+                        ->where('updated_at', '>=', $lastWeek)
+                        ->count();
     }
 
 }

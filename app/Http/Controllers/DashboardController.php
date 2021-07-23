@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\BankAccount;
+use App\Models\Contact;
 use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Task;
@@ -19,7 +20,7 @@ class DashboardController extends Controller {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
-        
+
         $journey = $this->myLastJourney();
         $openJourney = $this->myOpenJourney();
 
@@ -32,11 +33,27 @@ class DashboardController extends Controller {
                     ->where('status', 'fazendo', 'fazer')
                     ->count();
 
-            $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
-                    ->get();
-
             $journeys = Journey::where('account_id', auth()->user()->account_id)
                     ->get();
+
+            // opportunities stages
+            $opportunities = [
+                $opportunitiesProspecting = Opportunity::countProspectings(),
+                $opportunitiesPresentation = Opportunity::countPresentations(),
+                $opportunitiesProposal = Opportunity::countProposals(),
+                $opportunitiesContract = Opportunity::countContracts(),
+                $opportunitiesBill = Opportunity::countBills(),
+                $opportunitiesProduction = Opportunity::countProductions(),
+                $opportunitiesConcluded = Opportunity::countCompletes(),
+            ];
+
+            $contacts = [
+                $contactsSuspects = Contact::countSuspects(),
+                $contactsProspects = Contact::countProspects(),
+                $contactsQualified = Contact::countQualified(),
+            ];
+            
+            $contactsNews = Contact::countNewsContactsWeek();
 
             $users = User::myUsers();
 
@@ -85,7 +102,10 @@ class DashboardController extends Controller {
             $view = 'dashboards/administratorDashboard';
 
             $departments = "";
-            
+            $opportunitiesWon = '';
+
+            $opportunitiesLost = '';
+
             // SE FOR FUNCIONÁRIO
         } elseif ($request['role'] === "employee") {
             $tasks = Task::where('user_id', Auth::user()->id)
@@ -98,6 +118,7 @@ class DashboardController extends Controller {
 
             $opportunities = Opportunity::where('user_id', Auth::user()->id)
                     ->get();
+
 
             $journeys = Journey::where('user_id', Auth::user()->id)
                     ->get();
@@ -112,7 +133,7 @@ class DashboardController extends Controller {
 
             $view = 'dashboards/employeeDashboard';
         }
-        
+
 // PARTE COMUM DO CÓDIGO PARA ADMINISTRADOR E FUNCIONÁRIO
         $tasksDone = $tasks
                 ->where('status', 'feito')
@@ -124,51 +145,9 @@ class DashboardController extends Controller {
                 ->where('user_id', Auth::user()->id)
                 ->count();
 
-        // opportunities stages
-        $opportunitiesProspecting = $opportunities
-                ->where('stage', 'prospecção')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesPresentation = $opportunities
-                ->where('stage', 'apresentação')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesProposal = $opportunities
-                ->where('stage', 'proposta')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesContract = $opportunities
-                ->where('stage', 'contrato')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesBill = $opportunities
-                ->where('stage', 'cobrança')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesProduction = $opportunities
-                ->where('stage', 'produção')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesConcluded = $opportunities
-                ->where('stage', 'concluída')
-                ->count();
-
-// OPORTUNIDADES status
-        $opportunitiesWon = $opportunities
-                ->where('status', 'ganhamos')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
-
-        $opportunitiesLost = $opportunities
-                ->where('status', 'perdemos')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-                ->count();
+            // OPORTUNIDADES status
+            $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
+            $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
 
         $departments = Task::returnDepartments();
 
@@ -195,10 +174,13 @@ class DashboardController extends Controller {
                         'month',
                         'journey',
                         'openJourney',
+                        'contacts',
+                        'contactsNews',
                         'users',
                         'tasksDone',
                         'tasks_pending',
                         'tasks_my',
+                        'opportunities',
                         'opportunitiesProspecting',
                         'opportunitiesPresentation',
                         'opportunitiesProposal',
@@ -218,18 +200,19 @@ class DashboardController extends Controller {
                         'bankAccounts',
         ));
     }
-    
+
     public static function myOpenJourney() {
         return Journey::where('user_id', auth()->user()->id)
-                ->where('end', null)
-                ->orderBy('id', 'DESC')
-                ->first();
+                        ->where('end', null)
+                        ->orderBy('id', 'DESC')
+                        ->first();
     }
-    
+
     public static function myLastJourney() {
         return Journey::where('user_id', auth()->user()->id)
-                ->with('task')
-                ->orderBy('id', 'DESC')
-                ->first();
+                        ->with('task')
+                        ->orderBy('id', 'DESC')
+                        ->first();
     }
+
 }
