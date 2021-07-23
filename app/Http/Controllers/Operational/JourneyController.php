@@ -22,7 +22,7 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $journeys = $this->filterJourneys($request);
+        $journeys = Journey::filterJourneys($request);
         $status = $this->returnStatus();
         $users = User::myUsers();
 
@@ -33,6 +33,8 @@ class JourneyController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
+        
+        $departments = Task::returnDepartments();
 
         return view('operational.journey.indexJourneys', compact(
                         'journeys',
@@ -40,6 +42,7 @@ class JourneyController extends Controller {
                         'contacts',
                         'companies',
                         'status',
+                        'departments',
         ));
     }
 
@@ -213,62 +216,7 @@ class JourneyController extends Controller {
         return redirect()->action('Operational\\JourneyController@index');
     }
 
-    public function filterJourneys(Request $request) {
-        $journeys = Journey::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                    if ($request->user_id) {
-                        $query->where('user_id', $request->user_id);
-                    }
-                    if ($request->date_start) {
-                        $query->where('date', '=>', $request->date_start);
-                    }
-                    if ($request->date_end) {
-                        $query->where('date', '=<', $request->date_end);
-                    }
-//                    if ($request->name) {
-//                        $query->where('name', 'like', "%$request->name%");
-//                    }
-//                    if ($request->department) {
-//                        $query->where('department', $request->department);
-//                    }
-//                    if ($request->contact_id) {
-//                        $query->where('contact_id', $request->contact_id);
-//                    }
-//                    if ($request->company_id) {
-//                        $query->where('company_id', $request->company_id);
-//                    }
-//                    if ($request->priority) {
-//                        $query->where('priority', $request->priority);
-//                    }
-//                    if ($request->status == '') {
-//                        // busca todos
-//                    } elseif ($request->status == 'fazendo') {
-//                        $query->where('status', 'fazer');
-//                        $query->whereHas('journeys');
-//                    } elseif ($request->status) {
-//                        $query->where('status', $request->status);
-//                    }
-                })
-                ->with(
-                        'account',
-                        'task.opportunity',
-                        'user',
-                )
-                ->orderBy('DATE', 'DESC')
-                ->orderBy('START_TIME', 'DESC')
-                ->paginate(20);
-
-        $journeys->appends([
-            'name' => $request->name,
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
-            'user_id' => $request->user_id,
-        ]);
-
-        return $journeys;
-    }
-
-    // chama o método que completa a jornada e direciona para a view show
+       // chama o método que completa a jornada e direciona para a view show
     public function completeJourney(Journey $journey) {
         Journey::completeJourney($journey);
 

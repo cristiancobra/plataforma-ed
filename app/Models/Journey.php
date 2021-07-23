@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use DateTime;
 
 class Journey extends Model {
@@ -72,4 +73,59 @@ class Journey extends Model {
         $journey->save();
     }
 
+     public static function filterJourneys(Request $request) {
+        $journeys = Journey::where(function ($query) use ($request) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    if ($request->user_id) {
+                        $query->where('user_id', $request->user_id);
+                    }
+                    if ($request->start) {
+                        $query->where('start', '>=', $request->start);
+                    }
+                    if ($request->end) {
+                        $query->where('end', '<=', $request->end);
+                    }
+                    if ($request->name) {
+                        $query->whereHas('task', function($query) use ($request) {
+                            $query->where('name', 'like', "%$request->name%");
+                        });
+                    }
+                    if ($request->department) {
+                        $query->whereHas('task', function($query) use ($request) {
+                            $query->where('department', $request->department);
+                        });
+                    }
+//                    if ($request->contact_id) {
+//                        $query->where('contact_id', $request->contact_id);
+//                    }
+//                    if ($request->company_id) {
+//                        $query->where('company_id', $request->company_id);
+//                    }
+//                    if ($request->status == '') {
+//                        // busca todos
+//                    } elseif ($request->status == 'fazendo') {
+//                        $query->where('status', 'fazer');
+//                        $query->whereHas('journeys');
+//                    } elseif ($request->status) {
+//                        $query->where('status', $request->status);
+//                    }
+                })
+                ->with(
+                        'account',
+                        'task.opportunity',
+                        'user',
+                )
+                ->orderBy('DATE', 'DESC')
+                ->orderBy('START_TIME', 'DESC')
+                ->paginate(20);
+
+        $journeys->appends([
+            'name' => $request->name,
+            'status' => $request->status,
+            'contact_id' => $request->contact_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return $journeys;
+    }
 }

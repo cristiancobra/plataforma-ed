@@ -22,8 +22,9 @@
 <div style="text-align:right">
     <form id="filter" action="{{route('journey.index')}}" method="get" style="text-align: right;display:none">
         <input type="text" name="name" placeholder="nome da tarefa" value="">
-        <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
-        <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
+        <input type="date" name="start" size="20" value="{{old('start')}}">
+        <input type="date" name="end" size="20" value="{{old('end')}}">
+        {{createFilterSelect('department', 'select', $departments, 'Todos os departamentos')}}
         {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
         <br>
         <a class="text-button secondary" href='{{route('journey.index')}}'>
