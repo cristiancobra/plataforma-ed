@@ -36,25 +36,6 @@ class DashboardController extends Controller {
             $journeys = Journey::where('account_id', auth()->user()->account_id)
                     ->get();
 
-            // opportunities stages
-            $opportunities = [
-                $opportunitiesProspecting = Opportunity::countProspectings(),
-                $opportunitiesPresentation = Opportunity::countPresentations(),
-                $opportunitiesProposal = Opportunity::countProposals(),
-                $opportunitiesContract = Opportunity::countContracts(),
-                $opportunitiesBill = Opportunity::countBills(),
-                $opportunitiesProduction = Opportunity::countProductions(),
-                $opportunitiesConcluded = Opportunity::countCompletes(),
-            ];
-
-            $contacts = [
-                $contactsSuspects = Contact::countSuspects(),
-                $contactsProspects = Contact::countProspects(),
-                $contactsQualified = Contact::countQualified(),
-            ];
-            
-            $contactsNews = Contact::countNewsContactsWeek();
-
             $users = User::myUsers();
 
             foreach ($users as $user) {
@@ -116,10 +97,6 @@ class DashboardController extends Controller {
                     ->where('date_due', '<=', date('Y-m-d'))
                     ->count();
 
-            $opportunities = Opportunity::where('user_id', Auth::user()->id)
-                    ->get();
-
-
             $journeys = Journey::where('user_id', Auth::user()->id)
                     ->get();
 
@@ -145,9 +122,26 @@ class DashboardController extends Controller {
                 ->where('user_id', Auth::user()->id)
                 ->count();
 
-            // OPORTUNIDADES status
-            $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
-            $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
+        // opportunities stages
+        $opportunities = [
+            $opportunitiesProspecting = Opportunity::countProspectings(),
+            $opportunitiesPresentation = Opportunity::countPresentations(),
+            $opportunitiesProposal = Opportunity::countProposals(),
+            $opportunitiesContract = Opportunity::countContracts(),
+            $opportunitiesBill = Opportunity::countBills(),
+            $opportunitiesProduction = Opportunity::countProductions(),
+            $opportunitiesConcluded = Opportunity::countCompletes(),
+        ];
+
+        $contacts = [
+            $contactsSuspects = Contact::countSuspects(),
+            $contactsProspects = Contact::countProspects(),
+            $contactsQualified = Contact::countQualified(),
+        ];
+
+        $contactsNews = Contact::countNewsContactsWeek();
+        $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
+        $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
 
         $departments = Task::returnDepartments();
 
