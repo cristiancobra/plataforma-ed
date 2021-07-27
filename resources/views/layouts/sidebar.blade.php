@@ -55,7 +55,7 @@
                                                                                                                                                         [
                                                                                                                                                         'name' => 'RELATÓRIO DE PRODUTIVIDADE',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie ',
-                                                                                                                                                        'link' => route('journey.reports')
+                                                                                                                                                        'link' => route('journey.reportUsers')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PLANEJAMENTO',

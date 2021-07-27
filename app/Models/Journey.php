@@ -73,7 +73,7 @@ class Journey extends Model {
         $journey->save();
     }
 
-     public static function filterJourneys(Request $request) {
+    public static function filterJourneys(Request $request) {
         $journeys = Journey::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->user_id) {
@@ -86,12 +86,12 @@ class Journey extends Model {
                         $query->where('end', '<=', $request->end);
                     }
                     if ($request->name) {
-                        $query->whereHas('task', function($query) use ($request) {
+                        $query->whereHas('task', function ($query) use ($request) {
                             $query->where('name', 'like', "%$request->name%");
                         });
                     }
                     if ($request->department) {
-                        $query->whereHas('task', function($query) use ($request) {
+                        $query->whereHas('task', function ($query) use ($request) {
                             $query->where('department', $request->department);
                         });
                     }
@@ -128,4 +128,74 @@ class Journey extends Model {
 
         return $journeys;
     }
+
+    // retorna todas as horas registradas da empresa no ano selecionado
+    public static function accountHoursByYear($year) {
+
+        return Journey::where('account_id', auth()->user()->account_id)
+                        ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
+                        ->sum('duration');
+    }
+
+    // retorna todas as horas registradas da empresa por mês
+    public static function accountHoursByMonth($year) {
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $months[$key] = Journey::where('account_id', auth()->user()->account_id)
+                    ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->sum('duration');
+        }
+
+        return $months;
+    }
+
+    // retorna todas as horas registradas do usuário por mês
+    public static function userHoursByMonth($year, $user) {
+
+        $months = returnMonths();
+        foreach ($months as $key => $month) {
+            $user[$month] = Journey::where('user_id', $user->id)
+                    ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->sum('duration');
+        }
+        return $user;
+    }
+
+    // retorna todas as horas registradas do usuário no ano
+    public static function userHoursByYear($year, $user) {
+
+        return Journey::where('user_id', $user->id)
+                        ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
+                        ->sum('duration');
+    }
+
+    // retorna todas as horas registradas do departamento por mês
+    public static function departmentHoursByMonth($year, $department) {
+        $months = returnMonths();
+        $monthlys = [];
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = Journey::whereHas('task', function ($query) use ($department) {
+                        $query->where('account_id', auth()->user()->account_id);
+                        $query->where('department', $department);
+                    })
+                    ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->sum('duration');
+       
+//                    array_push($monthlys, $month);
+        }
+        return $monthlys;
+    }
+
+    // retorna todas as horas registradas do usuário no ano
+    public static function departmentHoursByYear($year, $department) {
+
+        return Journey::whereHas('task', function ($query) use ($department) {
+                            $query->where('account_id', auth()->user()->account_id);
+                            $query->where('department', $department);
+                        })
+                        ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
+                        ->sum('duration');
+    }
+
 }

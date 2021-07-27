@@ -107,25 +107,20 @@
             TOTAL 
         </td>
     </tr>
-    @php
-    $counterArray = 1;
-    $counterAnnual = 1;
-
-    foreach ($departments as $department) {
+    @foreach ($departments as $key => $value) {
     $counterMonth = 1;
     $totalCategory = 0;
 
     echo "<tr style='font-size: 14px'>
         <td class='table-list-left'>
-            $department
+            $value
         </td>
         ";
         while ($counterMonth <= 12) {
         echo "<td class='table-list-right'>";
-            echo number_format($monthlyDepartment[$counterArray] / 3600, 1, ',','.');
+            echo number_format($monthlyDepartment[$key] / 3600, 1, ',','.');
             echo "</td>";
         $counterMonth++;
-        $counterArray++;
         }
         echo "<td class='table-list-right' style='color:white;background-color: #874983'>";
             echo number_format($annualDepartment[$counterAnnual] / 3600, 1, ',','.');

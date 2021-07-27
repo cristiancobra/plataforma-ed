@@ -33,7 +33,7 @@ class JourneyController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
+
         $departments = Task::returnDepartments();
 
         return view('operational.journey.indexJourneys', compact(
@@ -125,9 +125,9 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Journey $journey) {
-        if($journey->end == null) {
+        if ($journey->end == null) {
             $journey->status = 'fazendo';
-        }else{
+        } else {
             $journey->status = 'feito';
         }
 
@@ -216,28 +216,29 @@ class JourneyController extends Controller {
         return redirect()->action('Operational\\JourneyController@index');
     }
 
-       // chama o método que completa a jornada e direciona para a view show
+    // chama o método que completa a jornada e direciona para a view show
     public function completeJourney(Journey $journey) {
         Journey::completeJourney($journey);
 
         return redirect()->route('journey.show', compact(
-                        'journey',
+                                'journey',
         ));
     }
 
     // chama o método que completa a JORNADA E A TAREFA da jornada  e direciona para a view show
     public function completeJourneyAndTask(Journey $journey) {
         Journey::completeJourney($journey);
-        
+
         $task = Task::completeTask($journey->task);
 
         return redirect()->route('task.show', compact(
-                        'task',
+                                'task',
         ));
     }
 
-    public function monthlyReport(Request $request) {
+    public function reportByUsers(Request $request) {
         $months = returnMonths();
+        $pastMonths = date('m');
 
         if (isset($request->year)) {
             $year = $request->year;
@@ -245,92 +246,83 @@ class JourneyController extends Controller {
             $year = date('y');
         }
 
-        // calcular horas por USUÁRIOS
+        $annualTotal = Journey::accountHoursByYear($year);
+        $monthlyAverage = $annualTotal / $pastMonths;
+
+        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
+        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+
+        $monthlyTotals = Journey::accountHoursByMonth($year);
+
         $users = User::myUsers();
-//dd($users);
-        $counterArray = 1;
-        $counterAnnual = 1;
+
         foreach ($users as $user) {
-            $counterMonth = 1;
-            while ($counterMonth <= 12) {
-                $initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
-                $finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
-                $monthlyUser[$counterArray] = Journey::where('user_id', $user->id)
-                        ->whereBetween('date', [$initialDate, $finalDate])
-                        ->sum('duration');
-                $monthlyAllUsers[$counterArray] = Journey::whereHas('user', function ($query) {
-                            $query->where('account_id', auth()->user()->account_id);
-                        })
-                        ->whereBetween('date', [$initialDate, $finalDate])
-                        ->sum('duration');
-                $counterMonth++;
-                $counterArray++;
-            }
-            $annualUser[$counterAnnual] = Journey::where('user_id', $user->id)
-                    ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
-                    ->sum('duration');
-            $counterAnnual++;
+            $user = Journey::userHoursByMonth($year, $user);
+            $user = Journey::userHoursByYear($year, $user);
         }
 
-        // calcular horas por DEPARTAMENTOS
-        $departments = Task::returnDepartments();
-        $counterArray = 1;
-        $counterAnnual = 1;
-        foreach ($departments as $department) {
-            $counterMonth = 1;
-            while ($counterMonth <= 12) {
-                $initialDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-01";
-                $finalDate = $year . "-" . str_pad($counterMonth, 2, "0", STR_PAD_LEFT) . "-31";
-                $monthlyDepartment[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
-                            $query->where('account_id', auth()->user()->account_id);
-                            $query->where('department', 'LIKE', $department);
-                        })
-//                        ->where('user_id', auth()->user()->id)
-                        ->whereBetween('date', [$initialDate, $finalDate])
-                        ->sum('duration');
-                $monthlyAllDepartments[$counterArray] = Journey::whereHas('task', function ($query) use ($department) {
-                            $query->where('account_id', auth()->user()->account_id);
-                        })
-                        ->whereBetween('date', [$initialDate, $finalDate])
-                        ->sum('duration');
-                $counterMonth++;
-                $counterArray++;
-            }
-            $annualDepartment[$counterAnnual] = Journey::whereHas('task', function ($query) use ($department) {
-                        $query->where('account_id', auth()->user()->account_id);
-                        $query->where('department', 'LIKE', $department);
-                    })
-                    ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
-                    ->sum('duration');
-            $counterAnnual++;
-        }
+        $chartBackgroundColors = [
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(41, 221, 101, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+        ];
 
-        $annualHours = $this->companyHoursYear($year, $request->account_id);
+        $chartBorderColors = [
+            'rgba(255, 206, 86, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(41, 221, 101, 1)',
+            'rgba(255, 99, 132, 1)',
+        ];
 
-        return view('operational.journey.reports', compact(
+        return view('operational.journey.reportByUsers', compact(
                         'users',
                         'months',
-                        'departments',
-                        'counterMonth',
-                        'counterArray',
-                        'monthlyUser',
-                        'monthlyAllUsers',
-                        'annualUser',
-                        'monthlyDepartment',
-                        'monthlyAllDepartments',
-                        'annualDepartment',
-                        'annualHours',
+                        'annualTotal',
+                        'monthlyTotals',
+                        'monthlyAverage',
+                        'annualTotal',
+                        'chartBackgroundColors',
+                        'chartBorderColors',
         ));
     }
 
-    public function companyHoursYear($year, $account = null) {
-        $annualHours = Journey::whereHas('task', function ($query) use ($account) {
-                    $query->where('account_id', auth()->user()->account_id);
-                })
-                ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
-                ->sum('duration');
+    public function reportByDepartments(Request $request) {
+        $months = returnMonths();
+        $pastMonths = date('m');
 
-        return $annualHours;
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $year = date('y');
+        }
+
+        $annualTotal = Journey::accountHoursByYear($year);
+        $monthlyAverage = $annualTotal / $pastMonths;
+
+        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
+        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+
+        $monthlyTotals = Journey::accountHoursByMonth($year);
+        $departmentsNames = Task::returnDepartments();
+        $departments = [];
+        foreach ($departmentsNames as $department) {
+            $departments[$department]['name'] = $department;
+            $departments[$department]['monthlys'] = Journey::departmentHoursByMonth($year, $department);
+            $departments[$department]['year'] = Journey::departmentHoursByYear($year, $department);
+        }
+
+        return view('operational.journey.reportByDepartments', compact(
+                        'months',
+                        'departments',
+                        'departmentsNames',
+                        'annualTotal',
+                        'annualTotal',
+                        'monthlyTotals',
+                        'monthlyAverage',
+        ));
     }
 
     function returnStatus() {

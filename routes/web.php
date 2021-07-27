@@ -218,8 +218,12 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
-Route::any('/jornadas/relatorios', 'Operational\\JourneyController@monthlyReport')
-        ->name('journey.reports')
+Route::any('/jornadas/relatorio-funcionarios', 'Operational\\JourneyController@reportByUsers')
+        ->name('journey.reportUsers')
+        ->middleware('roles');
+
+Route::any('/jornadas/relatorio-departamentos', 'Operational\\JourneyController@reportByDepartments')
+        ->name('journey.reportDepartments')
         ->middleware('roles');
 
 Route::put('/jornadas/encerrar/{journey}', 'Operational\\JourneyController@completeJourney')
