@@ -258,7 +258,7 @@ class JourneyController extends Controller {
 
         foreach ($users as $user) {
             $user = Journey::userHoursByMonth($year, $user);
-            $user = Journey::userHoursByYear($year, $user);
+            $user['year'] = Journey::userHoursByYear($year, $user);
         }
 
         $chartBackgroundColors = [
