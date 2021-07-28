@@ -156,10 +156,6 @@ class ProposalController extends Controller {
         } else {
             $proposal = new Proposal();
             $proposal->fill($request->all());
-//            $DateTime = new DateTime($request->date_creation);
-//            $DateTime->add(new \DateInterval("P" . $request->expiration_date . "D"));
-//            $invoice->expiration_date = $DateTime->format( 'd/m/Y');
-//            dd($DateTime);
             $proposal->account_id = auth()->user()->account_id;
 
             $proposalsIdentifier = Proposal::where('account_id', $request->account_id)
@@ -196,13 +192,10 @@ class ProposalController extends Controller {
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
                     ProductProposal::insert($data);
-//					dd($request->product_margin [$key]);
                 }
             }
             $proposal->totalPrice = $totalPrice - str_replace(",", ".", $request->discount);
             $proposal->installment = $request->installment;
-//            $proposal->number_installment_total = $request->number_installment_total;
-//            $proposal->installment_value = $proposal->totalPrice / $proposal->number_installment_total;
             $proposal->update();
 
             return redirect()->route('proposal.show', compact('proposal'));

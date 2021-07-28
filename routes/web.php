@@ -140,7 +140,7 @@ Route::resource('faturas', 'Financial\\InvoiceController')
         ->middleware('roles');
 
 // planejamento financeiro
-Route::resource('planejamentos', 'Financial\\PlanningController')
+Route::resource('planejamentos', 'Administrative\\PlanningController')
         ->names('planning')
         ->parameters(['planejamentos' => 'planning'])
         ->middleware('roles');
