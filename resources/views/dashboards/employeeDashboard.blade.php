@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','FUNCIONÁRIO')
+@section('title','MEU PAINEL')
 
 @section('image-top')
 {{asset('images/control-panel.png')}}
@@ -54,20 +54,21 @@
         </a>
     </div>
 
-    <div class='col-lg-3 d-inline-block text-center tasks-now'>
-        <a href="{{route('task.index', [
-				'status' =>"feito",
-				'contact_id' => "",
+<div class='col-lg-3 d-inline-block tasks-emergency'>
+    <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                                                        'priority' =>'emergência',
+				'contact_id' => '',
 				'user_id' => Auth::user()->id,
-				])}}">
-            <p class="panel-number">
-                {{$tasksDone}}
-            </p>
-            <p class='panel-text'>
-                feitas
-            </p>
-        </a>
-    </div>
+				])}}'>
+        <p class='panel-number'>
+            {{$myTasksEmergencyAmount}}
+        </p>
+        <p class='panel-text'>
+            minhas emergências
+        </p>
+    </a>
+</div>
 </div>
 
 

@@ -144,17 +144,18 @@
         </a>
     </div>
 
-    <div class='col-lg-3 d-inline-block text-center tasks-now'>
+    <div class='col-lg-3 d-inline-block tasks-emergency'>
         <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'feito',
+				'status' =>'fazer',
+                                                                        'priority' =>'emergência',
 				'contact_id' => '',
-				'user_id' => '',
+				'user_id' => Auth::user()->id,
 				])}}'>
             <p class='panel-number'>
-                {{$tasksDone}}
+                {{$myTasksEmergencyAmount}}
             </p>
             <p class='panel-text'>
-                feitas
+                minhas emergências
             </p>
         </a>
     </div>
@@ -204,7 +205,7 @@
             <i class="fas fa-funnel-dollar" style="font-size:40px; color:#8B2485"></i>
             <br>
             OPORTUNIDADES
-                        <br>
+            <br>
             <br>
             <a class="text-button btn-info" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
                 +{{$opportunitiesWon}} esta semana

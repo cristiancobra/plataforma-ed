@@ -112,10 +112,18 @@ class DashboardController extends Controller {
         }
 
 // PARTE COMUM DO CÓDIGO PARA ADMINISTRADOR E FUNCIONÁRIO
-        $tasksDone = $tasks
-                ->where('status', 'feito')
-                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+        $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
+                ->where('status', 'fazer')
+                ->get();
+
+        $myTasksEmergencyAmount = $teamTasksPending->where('user_id', auth()->user()->id)
+                ->where('priority', 'emergência')
                 ->count();
+
+//        $tasksDone = $tasks
+//                ->where('status', 'feito')
+//                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
+//                ->count();
 
         $tasks_my = $tasks
                 ->whereIn('status', ['fazendo', 'fazer'])
@@ -171,7 +179,7 @@ class DashboardController extends Controller {
                         'contacts',
                         'contactsNews',
                         'users',
-                        'tasksDone',
+                        'myTasksEmergencyAmount',
                         'tasks_pending',
                         'tasks_my',
                         'opportunities',
