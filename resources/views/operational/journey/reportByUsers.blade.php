@@ -78,9 +78,15 @@
     <div class="tb col-2 justify-content-start">
         {{$user->name}}
     </div>
-    @foreach($months as $month)
+    @foreach($months as $key => $month)
     <div class="tb col justify-content-end">
-        {{number_format($user[$month] / 3600, 1, ',','.')}}
+        <a href="{{route('journey.index', [
+                                                              'user_id' => $user->id,
+                                                              'start' => date("$year-$key-01"),
+                                                              'end' =>  date("$year-$key-t"),
+                                                             ])}}">
+            {{number_format($user[$month] / 3600, 1, ',','.')}}
+        </a>
     </div>
     @endforeach
     <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
@@ -108,24 +114,24 @@
 @section('js-scripts')
 <script>
     $(document).ready(function () {
-    //botao de exibir filtro
-    $("#filter_button").click(function () {
-    $("#filter").slideToggle(600);
-    });
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
     });
     // esconde/exibe o filtro
     $(document).ready(function () {
-    //botao de exibir filtro
-    $("#filter_button").click(function () {
-    $("#filter").slideToggle(600);
-    });
+        //botao de exibir filtro
+        $("#filter_button").click(function () {
+            $("#filter").slideToggle(600);
+        });
     });
     //gráfico pizza
 
     var ctx = document.getElementById('chart');
     var chart = new Chart(ctx, {
-    type: 'bar',
-            data: {
+        type: 'bar',
+        data: {
             labels: [
 <?php
 foreach ($months as $key => $value) {
@@ -134,7 +140,7 @@ foreach ($months as $key => $value) {
 }
 ?>
             ],
-              datasets: [
+            datasets: [
 <?php
 foreach ($users as $key => $user) {
     echo "{
@@ -161,28 +167,28 @@ foreach ($users as $key => $user) {
 }
 ?>
             ]
-            },
-            options: {
+        },
+        options: {
             responsive: true,
-                    plugins: {
-                    legend: {
+            plugins: {
+                legend: {
                     position: 'left',
-                    },
-                            title: {
-                            display: true,
-                                    text: 'TOTAL DE HORAS POR MÊS'
-                            }
-                    },
-                    responsive: true,
-                    scales: {
-                    x: {
-                    stacked: true,
-                    },
-                            y: {
-                            stacked: true
-                            }
-                    }
+                },
+                title: {
+                    display: true,
+                    text: 'TOTAL DE HORAS POR MÊS'
+                }
             },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        },
     });
 </script>
 @endsection

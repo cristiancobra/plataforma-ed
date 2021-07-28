@@ -82,9 +82,15 @@
     <div class="tb col-2 justify-content-start">
         {{$department['name']}}
     </div>
-    @foreach($months as $month)
+    @foreach($months as $key => $month)
     <div class="tb col justify-content-end">
+        <a href="{{route('journey.index', [
+                                                              'department' => $department,
+                                                              'start' => date("$year-$key-01"),
+                                                              'end' =>  date("$year-$key-t"),
+                                                             ])}}">
         {{number_format($department['monthlys'][$month] / 3600, 1, ',','.')}}
+        </a>
     </div>
     @endforeach
     <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>

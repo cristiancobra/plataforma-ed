@@ -124,6 +124,8 @@ class Journey extends Model {
             'status' => $request->status,
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
+            'start' => $request->start,
+            'end' => $request->end,
         ]);
 
         return $journeys;

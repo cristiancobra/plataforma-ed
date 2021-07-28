@@ -278,6 +278,7 @@ class JourneyController extends Controller {
         ];
 
         return view('operational.journey.reportByUsers', compact(
+                        'year',
                         'users',
                         'months',
                         'annualTotal',
@@ -315,6 +316,7 @@ class JourneyController extends Controller {
         }
 
         return view('operational.journey.reportByDepartments', compact(
+                        'year',
                         'months',
                         'departments',
                         'departmentsNames',
