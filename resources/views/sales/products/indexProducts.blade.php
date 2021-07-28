@@ -11,15 +11,24 @@
 @endsection
 
 @section('buttons')
+@if(request('trash') == null)
 <a class='circular-button delete'  href="{{route('product.filter', ['variation' => $variation, 'trash' => 1])}}">
     <i class="fa fa-trash" aria-hidden="true"></i>
 </a>
+@endif
 <a id='filter_button' class='circular-button secondary'>
     <i class='fa fa-filter' aria-hidden='true'></i>
 </a>
+@if(request('trash') == 1)
+<a class='circular-button secondary'  href='{{route('product.create', ['variation' => $variation])}}'>
+    <i class='fa fa-plus' aria-hidden='true'></i>
+</a>
+{{createButtonList('product', 'variation', $variation)}}
+@else
 <a class='circular-button primary'  href='{{route('product.create', ['variation' => $variation])}}'>
     <i class='fa fa-plus' aria-hidden='true'></i>
 </a>
+@endif
 @endsection
 
 @section('main')

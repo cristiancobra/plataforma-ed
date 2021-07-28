@@ -194,14 +194,14 @@ class ProductController extends Controller {
         $product->trash = 1;
         $product->save();
 
-        return redirect()->route('product.index', ['variation' => $product->variation]);
+        return redirect()->route('product.index', ['variation' => $product->type]);
     }
 
     public function restoreFromTrash(Product $product) {
         $product->trash = 0;
         $product->save();
 
-        return redirect()->route('product.index', ['variation' => $product->variation]);
+        return redirect()->route('product.index', ['variation' => $product->type]);
     }
 
     public function filter(Request $request) {

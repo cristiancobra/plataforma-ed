@@ -12,6 +12,7 @@
 
 @section('buttons')
 {{createButtonBack()}}
+{{createButtonTrash($product, 'product')}}
 {{createButtonEdit('product', 'product', $product)}}
 {{createButtonList('product', 'variation', $variation)}}
 @endsection
