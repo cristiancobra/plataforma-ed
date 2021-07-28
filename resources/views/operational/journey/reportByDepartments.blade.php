@@ -38,12 +38,10 @@
 </div>
 
 <div class='row mt-4'>
-    <div class="col-4">
+    <div class="col-3">
         <canvas id="chart" width="400" height="250"></canvas>
     </div>
-    <div class="col-6 pt-5">
-        <br>
-        <br>
+    <div class="col-3 pt-5 offset-4">
         <br>
         <span class="labels">{{$annualTotal}}</span> horas executadas em {{date('Y')}} .
         <br>
@@ -63,7 +61,7 @@
 </div>
 
 
-<div class="row mt-5">
+<div class="row mt-1">
     <div class="tb-header-start col-2">
         DEPARTAMENTOS
     </div>
