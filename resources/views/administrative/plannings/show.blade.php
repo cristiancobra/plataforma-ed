@@ -127,22 +127,20 @@ $counter++;
     </div>
 </div>
 @php
-$counter = 0;
-$amount = $planning->total_amount;
-$expenses = $planning->expenses;
+$counter = 1;
 $revenues = $planning->total_price;
 $income = $planning->total_margin - $planning->expenses;
 @endphp
 @while($counter <= $planning->months)
 <div class='row'>
     <div class='tb col-1' style="font-size: 12px">
-        {{$counter}}
+        {{$months[$counter]['month']}}
     </div>
     <div class='tb col-1' style="font-size: 12px">
-        {{number_format($amount, 0)}}
+        {{number_format($months[$counter]['sumAmount'])}}
     </div>
     <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: #FDDBDD;">
-        {{formatCurrencyReal($expenses)}}
+        {{formatCurrencyReal($months[$counter]['sumExpenses'])}}
     </div>
     <div class='tb col-1' style="font-size: 12px;background-color: #FDDBDD;">
         {{$planning->increased_expenses}} %
@@ -157,25 +155,23 @@ $income = $planning->total_margin - $planning->expenses;
         {{formatCurrencyReal($planning->total_margin)}}
     </div>
     <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: lightblue">
-        {{formatCurrencyReal($revenues)}}
+        {{formatCurrencyReal($months[$counter]['sumRevenues'])}}
     </div>
     <div class='tb col-1' style="font-size: 12px;background-color: lightblue">
         {{$planning->growth_rate}} %
     </div>
     @if($income > 0)
     <div class='tb col-2 justify-content-end' style="font-size: 12px">
-        {{formatCurrencyReal($income)}}
+        {{formatCurrencyReal($months[$counter]['sumIncome'])}}
     </div>
     @else
     <div class='tb col-2 justify-content-end' style="font-size: 12px; color: red">
-        {{formatCurrencyReal($income)}}
+        {{formatCurrencyReal($months[$counter]['sumIncome'])}}
     </div>
     @endif
 </div>
 @php
 $counter++;
-$amount += ($amount * $planning->growth_rate / 100);
-$expenses += ($expenses * $planning->increased_expenses / 100);
 $revenues += ($revenues * $planning->growth_rate / 100);
 $income += $planning->total_price - $planning->expenses;
 @endphp
@@ -185,10 +181,10 @@ $income += $planning->total_price - $planning->expenses;
         {{$counter}}
     </div>
     <div class='tb-header col-1' style="font-size: 12px">
-        {{number_format($amount, 0)}}
+        {{number_format($months['totalAmount'], 0)}}
     </div>
     <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
-        {{formatCurrencyReal($expenses)}}
+        {{formatCurrencyReal($months['totalExpenses'])}}
     </div>
     <div class='tb tb-header col-1'>
 
@@ -203,13 +199,13 @@ $income += $planning->total_price - $planning->expenses;
 
     </div>
     <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
-        {{formatCurrencyReal($revenues)}}
+        {{formatCurrencyReal($months['totalRevenues'])}}
     </div>
     <div class='tb tb-header col-1'>
 
     </div>
     <div   class='tb-header col-2 justify-content-end' style="font-size: 12px">
-        {{formatCurrencyReal($income)}}
+        {{formatCurrencyReal($months['totalIncome'])}}
     </div>
 </div>
 <label class='labels' for=''>SITUAÇÃO:</label>

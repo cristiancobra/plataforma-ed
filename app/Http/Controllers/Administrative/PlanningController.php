@@ -113,12 +113,53 @@ class PlanningController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Planning $planning) {
-$productsPlannings = ProductPlanning::where('planning_id', $planning->id)
-        ->get();
+        $productsPlannings = ProductPlanning::where('planning_id', $planning->id)
+                ->get();
+
+        $counter = 1;
+        $months = [];
+        $totalAmount = 0;
+        $totalExpenses = 0;
+        $totalRevenues = 0;
+        $totalMargin = 0;
+        $totalIncome = 0;
+
+        while ($counter <= $planning->months) {
+            if ($counter == 1) {
+                $sumAmount = $planning->total_amount;
+                $sumExpenses = $planning->expenses;
+                $sumRevenues = $planning->total_price;
+//                $sumMargin = $planning->total_margin - $planning->expenses;
+                $sumIncome = $planning->total_price - $planning->expenses;
+            } else {
+                $sumAmount += ($sumAmount * $planning->growth_rate / 100);
+                $sumExpenses += ($sumExpenses * $planning->increased_expenses / 100);
+                $sumRevenues += ($sumRevenues * $planning->growth_rate / 100);
+                $sumIncome += ($sumIncome * $planning->growth_rate / 100);
+            }
+            $totalAmount += $sumAmount;
+            $totalExpenses += $sumExpenses;
+            $totalRevenues += $sumRevenues;
+//            $totalMargin += $sumMargin;
+            $totalIncome += $sumIncome;
+
+            $months[$counter]['month'] = $counter;
+            $months[$counter]['sumAmount'] = $sumAmount;
+            $months[$counter]['sumExpenses'] = $sumExpenses;
+            $months[$counter]['sumRevenues'] = $sumRevenues;
+            $months[$counter]['sumIncome'] = $sumIncome;
+            $months['totalAmount'] = $totalAmount;
+            $months['totalExpenses'] = $totalExpenses;
+            $months['totalRevenues'] = $totalRevenues;
+//            $months['totalMargin'] = $totalMargin;
+            $months['totalIncome'] = $totalIncome;
+            $counter++;
+        }
 
         return view('administrative.plannings.show', compact(
                         'planning',
                         'productsPlannings',
+                        'months',
         ));
     }
 
