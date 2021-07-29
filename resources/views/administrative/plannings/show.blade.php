@@ -16,10 +16,15 @@
 <h1 class='name'>
     {{$planning->name}}
 </h1>
+
+<div class='row mt-3 mb-5'>
+    <div class="col-11">
+        <canvas id="chart" width="400" height="150"></canvas>
+    </div>
+</div>
+
+<label class='labels' for='' >META DE VENDAS INICIAL</label>
 <br>
-<label class='labels' for='' >META DE VENDAS MENSAL</label>
-<br>
-<p class='fields' for='' >Estabeleça uma META de vendas de cada produto que consiga pagar suas despensas  e gerar lucro. </p>
 <div class='row mt-3'>
     <div   class='tb-header-start col-1'>
         QTDE 
@@ -85,16 +90,11 @@ $counter = 0;
 $counter++;
 @endphp
 @endforeach
-<br>
-<p style='text-align: right'>
-    <label class='labels' for=''>DESPESAS MENSAIS:</label>
-    <span class='fields'>R$ {{number_format($planning->expenses, 2,',','.') }}</span>
-</p>
-<p style='text-align: right'>
-    <label class='labels' for=''>SALDO:</label>
-    <span class='fields'>R$ {{number_format($planning->totalBalance, 2,',','.') }}</span>
-</p>
-<div class='row mt-3'>
+
+<div class='row mt-5'>
+<label class='labels' for='' >PROJEÇÃO MENSAL</label>
+</div>
+<div class='row mt-2'>
     <div   class='tb-header-start col-1' style="font-size: 12px">
         MÊS 
     </div>
@@ -162,7 +162,7 @@ $income = $planning->total_margin - $planning->expenses;
     </div>
     <div class='tb col-1' style="font-size: 12px;background-color: lightblue">
         {{$planning->growth_rate}} %
-        
+
     </div>
     @if($months[$counter]['sumIncome'] >= 0)
     <div class='tb col-1 justify-content-end' style="font-size: 12px">
@@ -170,17 +170,17 @@ $income = $planning->total_margin - $planning->expenses;
     </div>
     @else
     <div class='tb col-1 justify-content-end' style="font-size: 12px; color: red">
-       - {{formatCurrencyReal($months[$counter]['sumIncome'])}}
+        - {{formatCurrencyReal($months[$counter]['sumIncome'])}}
     </div>
     @endif
-    
+
     @if($months[$counter]['sumIncome'] >= 0)
     <div class='tb col-2 justify-content-end' style="font-size: 12px">
         {{formatCurrencyReal($months[$counter]['accumulatedIncome'])}}
     </div>
     @else
     <div class='tb col-2 justify-content-end' style="font-size: 12px; color: red">
-       - {{formatCurrencyReal($months[$counter]['accumulatedIncome'])}}
+        - {{formatCurrencyReal($months[$counter]['accumulatedIncome'])}}
     </div>
     @endif
 </div>
@@ -192,7 +192,7 @@ $income += $planning->total_price - $planning->expenses;
 @endwhile
 <div class='row mb-5'>
     <div   class='tb-header col-1' style="font-size: 12px">
-TOTAIS
+        TOTAIS
     </div>
     <div class='tb-header col-1' style="font-size: 12px">
         {{number_format($months['totalAmount'], 0)}}
@@ -229,7 +229,7 @@ TOTAIS
 <span class='fields'>{{$planning->status }}</span>
 <br>
 <br>
-<p class='labels'>  Criado em:   {{ date('d/m/Y H:i', strtotime($planning->created_at)) }} </p>
+<p class='labels'>  Criado em:   {{date('d/m/Y H:i', strtotime($planning->created_at))}}</p>
 
 <div style='text-align:right;padding: 2%'>
     <form   style='text-decoration: none;display: inline-block' action='{{ route('planning.destroy', ['planning' => $planning->id]) }}' method='post'>
@@ -243,4 +243,98 @@ TOTAIS
 </div>
 <br>
 
+@endsection
+
+@section('js-scripts')
+<script>
+    //  gráfico de linhas
+    var ctx = document.getElementById('chart');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+<?php
+$counter = 1;
+// dd($months[$counter]['month']);
+while ($counter <= $planning->months) {
+    echo json_encode($months[$counter]['month']);
+    echo ",";
+    $counter++;
+}
+?>
+            ],
+            datasets: [
+                {
+                    label: 'Faturamento',
+                    data: [
+<?php
+$counter = 1;
+// dd($months[$counter]['month']);
+while ($counter <= $planning->months) {
+    echo json_encode($months[$counter]['sumRevenues']);
+    echo ",";
+    $counter++;
+}
+?>
+                    ],
+                    backgroundColor: '#6666ff',
+                    borderColor: 'blue',
+                },
+                {
+                    label: 'Despesas',
+                    data: [
+<?php
+$counter = 1;
+// dd($months[$counter]['month']);
+while ($counter <= $planning->months) {
+    echo json_encode($months[$counter]['sumExpenses']);
+    echo ",";
+    $counter++;
+}
+?>
+                    ],
+                    backgroundColor: '#ff6666',
+                    borderColor: 'red',
+                },
+                {
+                    label: 'Lucro acumulado',
+                    data: [
+<?php
+$counter = 1;
+// dd($months[$counter]['month']);
+while ($counter <= $planning->months) {
+    echo json_encode($months[$counter]['accumulatedIncome']);
+    echo ",";
+    $counter++;
+}
+?>
+                    ],
+                    backgroundColor: '#7fff7f',
+                    borderColor: 'green',
+                },
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'left',
+                },
+                title: {
+                    display: true,
+                    text: 'TOTAL DE HORAS POR MÊS'
+                }
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        },
+    });
+</script>
 @endsection
