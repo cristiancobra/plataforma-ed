@@ -16,7 +16,7 @@ class CreateProductsPlanningsTable extends Migration
         Schema::create('products_plannings', function (Blueprint $table) {
 			$table->foreignId('planning_id');
 			$table->foreignId('product_id');
-			$table->integer('amount');
+			$table->integer('subtotal_amount');
 			$table->integer('subtotal_cost')->nullable();
 			$table->integer('subtotal_tax_rate')->nullable();
 			$table->integer('subtotal_price');

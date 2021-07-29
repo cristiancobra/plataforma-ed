@@ -6,9 +6,11 @@
 {{ asset('images/planning.png') }} 
 @endsection
 
-@section('description')
-<a class='btn btn-primary' href='{{route('planning.index')}}'>VER PLANEJAMENTOS</a>
+@section('buttons')
+{{createButtonBack()}}
+{{createButtonList('planning')}}
 @endsection
+
 
 @section('main')
 <h1 class='name'>
@@ -48,7 +50,7 @@ $counter = 0;
 @foreach ($productsPlannings as $productPlanning)
 <div class='row'>
     <div class='tb col-1'>
-        {{$productPlanning->amount}}
+        {{$productPlanning->subtotal_amount}}
     </div>
     <div class='tb col-1'>
         <image src='{{$productPlanning->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
@@ -93,67 +95,123 @@ $counter++;
     <span class='fields'>R$ {{number_format($planning->totalBalance, 2,',','.') }}</span>
 </p>
 <div class='row mt-3'>
-    <div   class='tb-header-start col-1'>
+    <div   class='tb-header-start col-1' style="font-size: 12px">
         MÊS 
     </div>
-    <div class='tb-header col-1'>
-         QTDE
+    <div class='tb-header col-1' style="font-size: 12px">
+        QTDE
     </div>
-    <div   class='tb-header col-1'>
+    <div   class='tb-header col-1' style="font-size: 12px">
         DESPESAS
     </div>
-    <div   class='tb-header col-1'>
+    <div class='tb tb-header col-1' style="font-size: 12px">
+        CRESCIMENTO DESPESAS
+    </div>
+    <div   class='tb-header col-1' style="font-size: 12px">
         CUSTOS
     </div>
-    <div   class='tb-header col-1'>
+    <div   class='tb-header col-1' style="font-size: 12px">
         IMPOSTO
     </div>
-    <div   class='tb-header col-1'>
+    <div   class='tb-header col-1' style="font-size: 12px">
         MARGEM
     </div>
-    <div   class='tb-header col-1'>
+    <div   class='tb-header col-1' style="font-size: 12px">
         FATURAMENTO
     </div>
-    <div   class='tb-header-end col-2'>
+    <div class='tb tb-header col-1' style="font-size: 12px">
+        CRESCIMENTO RECEITAS
+    </div>
+    <div   class='tb-header-end col-2' style="font-size: 12px">
         LUCRO
     </div>
 </div>
 @php
 $counter = 0;
-$income = $planning->total_price - $planning->;
+$amount = $planning->total_amount;
+$expenses = $planning->expenses;
+$revenues = $planning->total_price;
+$income = $planning->total_margin - $planning->expenses;
 @endphp
-@while($counter < $planning->months)
+@while($counter <= $planning->months)
 <div class='row'>
     <div class='tb col-1' style="font-size: 12px">
         {{$counter}}
     </div>
     <div class='tb col-1' style="font-size: 12px">
-        {{$counter}}
+        {{number_format($amount, 0)}}
     </div>
-    <div class='tb col-1 justify-content-end' style="font-size: 12px">
-        {{formatCurrencyReal($planning->expenses)}}
+    <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: #FDDBDD;">
+        {{formatCurrencyReal($expenses)}}
     </div>
-    <div class='tb col-1 justify-content-end' style="font-size: 12px">
+    <div class='tb col-1' style="font-size: 12px;background-color: #FDDBDD;">
+        {{$planning->increased_expenses}} %
+    </div>
+    <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: #FDDBDD;">
         {{formatCurrencyReal($planning->total_cost)}}
     </div>
-    <div class='tb col-1 justify-content-end' style="font-size: 12px">
+    <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: #FDDBDD;">
         {{formatCurrencyReal($planning->total_tax_rate)}}
     </div>
-    <div class='tb col-1 justify-content-end' style="font-size: 12px">
+    <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: lightblue">
         {{formatCurrencyReal($planning->total_margin)}}
     </div>
-    <div class='tb col-1 justify-content-end' style="font-size: 12px">
-        {{formatCurrencyReal($planning->total_price)}}
+    <div class='tb col-1 justify-content-end' style="font-size: 12px;background-color: lightblue">
+        {{formatCurrencyReal($revenues)}}
     </div>
+    <div class='tb col-1' style="font-size: 12px;background-color: lightblue">
+        {{$planning->growth_rate}} %
+    </div>
+    @if($income > 0)
     <div class='tb col-2 justify-content-end' style="font-size: 12px">
         {{formatCurrencyReal($income)}}
     </div>
+    @else
+    <div class='tb col-2 justify-content-end' style="font-size: 12px; color: red">
+        {{formatCurrencyReal($income)}}
+    </div>
+    @endif
 </div>
 @php
 $counter++;
-$income += $planning->total_price;
+$amount += ($amount * $planning->growth_rate / 100);
+$expenses += ($expenses * $planning->increased_expenses / 100);
+$revenues += ($revenues * $planning->growth_rate / 100);
+$income += $planning->total_price - $planning->expenses;
 @endphp
 @endwhile
+<div class='row mb-5'>
+    <div   class='tb-header col-1' style="font-size: 12px">
+        {{$counter}}
+    </div>
+    <div class='tb-header col-1' style="font-size: 12px">
+        {{number_format($amount, 0)}}
+    </div>
+    <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($expenses)}}
+    </div>
+    <div class='tb tb-header col-1'>
+
+    </div>
+    <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($planning->total_cost)}}
+    </div>
+    <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($planning->total_tax_rate)}}
+    </div>
+    <div   class='tb-header col-1'>
+
+    </div>
+    <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($revenues)}}
+    </div>
+    <div class='tb tb-header col-1'>
+
+    </div>
+    <div   class='tb-header col-2 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($income)}}
+    </div>
+</div>
 <label class='labels' for=''>SITUAÇÃO:</label>
 <span class='fields'>{{$planning->status }}</span>
 <br>

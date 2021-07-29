@@ -22,17 +22,26 @@
         <br>
         <br>
         <label class="labels" for="" >PREVISÃO EM MESES:</label>
-        <input type="integer" name="months" size="5" min="1" max="24" value='12'>
+        <input type="integer" name="months" size="5" min="1" max="24" value='12' style="text-align: right">
         <br>
         <br>
         <label class="labels" for="" >DESPESAS MENSAIS: R$</label>
-        <input type="integer" name="expenses" size="5" value='0'>
+        <input type="integer" name="increased_expenses" size="5" value='0' style="text-align: right">
         <br>
-        <p class="fields" for="" >Todas as despesas fixas e variáveis (estimadas) mensais. (não incluir custos fixos de produtos)</p>
+        <p class="fields" for="" >Previsao de todas as despesas fixas e variáveis (não incluir custos fixos de produtos)</p>
         <br>
+        <label class="labels" for="" >CRESCIMENTO DA DESPESA:</label>
+        <input type="decimal" name="increased_expenses" size="5" max="24" value='1' style="text-align: right"> %
+        <br>
+        <p class="fields" for="" >Previsao do aumento mensal das depesas em percentual</p>
         <br>
         <div>
-            <label class="labels" for="" >PREVISÃO/META DE VENDAS:</label>
+            <label class="labels" for="" >PREVISÃO CRESCIMENTO EM %:</label>
+            <input type="decimal" name="growth_rate" size="5" max="24" value='1' style="text-align: right"> %
+            <br>
+            <p class="fields" for="" >Previsão de crescimento das vendas em percentual</p>
+            <br>
+            <label class="labels" for="" >PREVISÃO DE VENDAS MENSAL:</label>
             <p class="subtitulo-roxo" style="text-align: left;padding-right: 6%">
                 Indique sua previsão de venda de cada produto para descobrir seu  balanço mensal
             </p>

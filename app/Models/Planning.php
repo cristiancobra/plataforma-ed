@@ -15,6 +15,8 @@ class Planning extends Model {
         'months',
         'date_creation',
         'observations',
+        'growth_rate',
+        'increased_expenses',
         'total_hours',
         'total_amount',
         'total_cost',

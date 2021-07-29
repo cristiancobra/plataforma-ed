@@ -6,8 +6,9 @@
 {{ asset('images/planning.png') }} 
 @endsection
 
-@section('description')
-<a class='btn btn-primary' href="{{route('planning.index')}}">VER TODOS</a>
+@section('buttons')
+{{createButtonBack()}}
+{{createButtonList('planning')}}
 @endsection
 
 @section('main')
@@ -23,11 +24,23 @@
         <br>
         <br>
         <label class="labels" for="" >PREVISÃO EM MESES:</label>
-        <input type="integer" name="months" size="5" min="1" max="24" value='{{$planning->months}}'>
+        <input type="integer" name="months" size="5" min="1" max="24" value='{{$planning->months}}' style="text-align: right">
         <br>
         <br>
         <label class="labels" for="" >DESPESAS MENSAIS: R$</label>
-        <input type="integer" name="expenses" size="5" value='{{$planning->expenses}}'>
+        <input type="integer" name="expenses" size="5" value='{{$planning->expenses}}' style="text-align: right">
+                <br>
+        <label class="labels" for="" >CRESCIMENTO DA DESPESA:</label>
+        <input type="decimal" name="increased_expenses" size="5" max="24" value='{{$planning->increased_expenses}}' style="text-align: right"> %
+        <br>
+        <p class="fields" for="" >Previsao do aumento mensal das depesas em percentual</p>
+        <br>
+        <div>
+            <label class="labels" for="" >PREVISÃO CRESCIMENTO:</label>
+            <input type="decimal" name="growth_rate" size="5" max="24"  value='{{$planning->growth_rate}}'  style="text-align: right"> %
+            <br>
+            <p class="fields" for="" >Previsão de crescimento das vendas em percentual</p>
+            <br>
         <br>
         <br>
         <label class="labels" for="" >DESCRIÇÃO:</label>

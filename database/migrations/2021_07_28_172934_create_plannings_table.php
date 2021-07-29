@@ -21,6 +21,8 @@ class CreatePlanningsTable extends Migration
             $table->integer('expenses')->nullable();
             $table->date('date_creation');
             $table->text('observations')->nullable();
+            $table->decimal('increased_expenses', 3, 1)->nullable();
+            $table->decimal('growth_rate', 3, 1)->nullable();
             $table->decimal('total_hours', 5, 1)->nullable();
             $table->integer('total_amount')->nullable();
             $table->integer('total_cost')->nullable();

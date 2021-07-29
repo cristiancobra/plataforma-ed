@@ -15,7 +15,7 @@
 
 @section('table')
 <div class='row mt-2'>
-    <div class='tb tb-header-start col-6'>
+    <div class='tb tb-header-start col-4'>
         NOME
     </div>
     <div class='tb tb-header col-1'>
@@ -25,30 +25,31 @@
         DESPESAS
     </div>
     <div class='tb tb-header col-1'>
+        CRESCIMENTO DESPESAS
+    </div>
+    <div class='tb tb-header col-1'>
         CUSTOS
+    </div>
+    <div class='tb tb-header col-1'>
+        IMPOSTOS
     </div>
     <div class='tb tb-header col-1'>
         RECEITAS
     </div>
     <div class='tb tb-header col-1'>
-        LUCRO
+        CRESCIMENTO RECEITAS
     </div>
-    <div class='tb tb-header-end col-1'>
-        SITUAÇÃO
+    <div class='tb tb-header col-1'>
+        LUCRO
     </div>
 </div>
 
 @foreach ($plannings as $planning)
 <div class='row'>
-    <div class='tb col-6 justify-content-start'>
+    <div class='tb col-4 justify-content-start'>
         <button class="button">
             <a href=" {{route('planning.show', ['planning' => $planning])}}">
                 <i class='fa fa-eye' style="color:white"></i>
-            </a>
-        </button>
-        <button class="button">
-            <a href=" {{route('planning.edit', ['planning' => $planning])}}">
-                <i class='fa fa-edit' style="color:white"></i>
             </a>
         </button>
         {{$planning->name}}
@@ -59,23 +60,29 @@
     <div class='tb col-1 justify-content-end'>
         {{formatCurrencyReal($planning->expenses)}}
     </div>
-    <div class='tb col-1 justify-content-end'>
-        R$ {{ number_format($planning->cost1 + $planning->cost2 + $planning->cost3, 2,",",".") }}
+    <div class='tb col-1'>
+        {{$planning->increased_expenses}} %
     </div>
     <div class='tb col-1 justify-content-end'>
-        R$ {{ number_format($planning->price * $planning->tax_rate / 100, 2,",",".") }}
+        {{formatCurrencyReal($planning->cost1 + $planning->cost2 + $planning->cost3)}}
     </div>
     <div class='tb col-1 justify-content-end'>
-        R$ {{ number_format(-$planning->price * $planning->tax_rate /100 - $planning->cost1 - $planning->cost2 - $planning->cost3 + $planning->price, 2,",",".") }}
+        {{formatCurrencyReal($planning->price * $planning->tax_rate / 100) }}
     </div>
     <div class='tb col-1 justify-content-end'>
-        R$ {{ number_format($planning->price,2,",",".") }}
+        {{formatCurrencyReal($planning->total_price)}}
+    </div>
+        <div class='tb col-1'>
+        {{$planning->growth_rate}} %
+    </div>
+    <div class='tb col-1 justify-content-end'>
+        {{formatCurrencyReal($planning->price)}}
     </div>
 </div>
 @endforeach
 <p style="text-align: right">
     <br>
-    {{ $plannings->links() }}
+    {{$plannings->links()}}
 </p>
 <br>
 @endsection

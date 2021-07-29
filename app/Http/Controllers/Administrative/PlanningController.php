@@ -78,6 +78,7 @@ class PlanningController extends Controller {
             $planning->save();
 
             // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
+            $totalAmount = 0;
             $totalPrice = 0;
             $totalTaxrate = 0;
             foreach ($request->product_id as $key => $value) {
@@ -85,18 +86,20 @@ class PlanningController extends Controller {
                     $data = array(
                         'planning_id' => $planning->id,
                         'product_id' => $request->product_id [$key],
-                        'amount' => $request->product_amount [$key],
+                        'subtotal_amount' => $request->product_amount [$key],
                         'subtotal_cost' => $request->product_amount [$key] * $request->product_cost [$key],
                         'subtotal_tax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
                         'subtotal_margin' => $request->product_amount [$key] * $request->product_margin [$key],
                         'subtotal_price' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
                     );
                     $totalPrice = $totalPrice + $data['subtotal_price'];
+                    $totalAmount += $data['subtotal_amount'];
                     $totalTaxrate = $totalTaxrate + $data['subtotal_tax_rate'];
                     ProductPlanning::insert($data);
                 }
             }
             $planning->total_price = $totalPrice;
+            $planning->total_amount = $totalAmount;
             $planning->update();
 
             return redirect()->route('planning.show', compact('planning'));
