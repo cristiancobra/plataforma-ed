@@ -63,6 +63,7 @@ class PlanningController extends Controller {
 
         $validator = Validator::make($request->all(), [
                     'name' => 'required:plannings',
+                    'date_creation' => 'required:plannings',
                         ],
                         $messages);
 

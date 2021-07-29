@@ -756,6 +756,7 @@ table{
     font-size:15px;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .tb-header-start{ 
@@ -766,6 +767,7 @@ table{
     border-radius: 8px 0 0 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .tb-header-end { 
@@ -776,6 +778,7 @@ table{
     border-radius: 0 8px 0 0;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .table-header-right{ 

@@ -11,14 +11,25 @@
 @endsection
 
 @section('main')
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
+</div>
+@endif
 <div>
     <form action=" {{route('planning.store')}} " method="post">
         @csrf
         <label class="labels" for="" >NOME:</label>
-        <input type="text" name="name" size="70">
+        <input type="text" name="name" size="70" value='{{old('name')}}'>
         <br>
         <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
         <input type='date' name='date_creation' size='20' value='{{old('date_creation')}}'>
+        @if ($errors->has('date_creation'))
+        <span class="text-danger">{{ $errors->first('date_creation') }}</span>
+        @endif
         <br>
         <br>
         <label class="labels" for="" >PREVISÃO EM MESES:</label>
