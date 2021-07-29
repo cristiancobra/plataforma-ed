@@ -92,7 +92,7 @@ $counter++;
 @endforeach
 
 <div class='row mt-5'>
-<label class='labels' for='' >PROJEÇÃO MENSAL</label>
+    <label class='labels' for='' >PROJEÇÃO MENSAL</label>
 </div>
 <div class='row mt-2'>
     <div   class='tb-header-start col-1' style="font-size: 12px">
@@ -318,20 +318,11 @@ while ($counter <= $planning->months) {
             responsive: true,
             plugins: {
                 legend: {
-                    position: 'left',
+                    position: 'top',
                 },
                 title: {
                     display: true,
                     text: 'TOTAL DE HORAS POR MÊS'
-                }
-            },
-            responsive: true,
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true
                 }
             }
         },
