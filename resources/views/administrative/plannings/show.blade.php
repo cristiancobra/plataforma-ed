@@ -122,8 +122,11 @@ $counter++;
     <div class='tb tb-header col-1' style="font-size: 12px">
         CRESCIMENTO RECEITAS
     </div>
+    <div   class='tb-header col-1' style="font-size: 12px">
+        LUCRO MENSAL
+    </div>
     <div   class='tb-header-end col-2' style="font-size: 12px">
-        LUCRO
+        LUCRO ACUMULADO
     </div>
 </div>
 @php
@@ -159,14 +162,25 @@ $income = $planning->total_margin - $planning->expenses;
     </div>
     <div class='tb col-1' style="font-size: 12px;background-color: lightblue">
         {{$planning->growth_rate}} %
+        
     </div>
-    @if($income > 0)
-    <div class='tb col-2 justify-content-end' style="font-size: 12px">
+    @if($months[$counter]['sumIncome'] >= 0)
+    <div class='tb col-1 justify-content-end' style="font-size: 12px">
         {{formatCurrencyReal($months[$counter]['sumIncome'])}}
     </div>
     @else
+    <div class='tb col-1 justify-content-end' style="font-size: 12px; color: red">
+       - {{formatCurrencyReal($months[$counter]['sumIncome'])}}
+    </div>
+    @endif
+    
+    @if($months[$counter]['sumIncome'] >= 0)
+    <div class='tb col-2 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($months[$counter]['accumulatedIncome'])}}
+    </div>
+    @else
     <div class='tb col-2 justify-content-end' style="font-size: 12px; color: red">
-        {{formatCurrencyReal($months[$counter]['sumIncome'])}}
+       - {{formatCurrencyReal($months[$counter]['accumulatedIncome'])}}
     </div>
     @endif
 </div>
@@ -204,8 +218,11 @@ $income += $planning->total_price - $planning->expenses;
     <div class='tb tb-header col-1'>
 
     </div>
-    <div   class='tb-header col-2 justify-content-end' style="font-size: 12px">
+    <div   class='tb-header col-1 justify-content-end' style="font-size: 12px">
         {{formatCurrencyReal($months['totalIncome'])}}
+    </div>
+    <div   class='tb-header col-2 justify-content-end' style="font-size: 12px">
+        {{formatCurrencyReal($months['totalAccumulatedIncome'])}}
     </div>
 </div>
 <label class='labels' for=''>SITUAÇÃO:</label>
