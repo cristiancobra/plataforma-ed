@@ -192,7 +192,7 @@ $income += $planning->total_price - $planning->expenses;
 @endwhile
 <div class='row mb-5'>
     <div   class='tb-header col-1' style="font-size: 12px">
-        {{$counter}}
+TOTAIS
     </div>
     <div class='tb-header col-1' style="font-size: 12px">
         {{number_format($months['totalAmount'], 0)}}
