@@ -176,11 +176,19 @@
             <br>
             CONTATOS
             <br>
-            <br>
-            <a class="text-button btn-info" name="new_contacts" href="{{route('contact.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
-                +{{$contactsNews}} esta semana
+            <a class="text-button btn-info mt-2" name="new_contacts" href="{{route('contact.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+                +{{$contactsNewsTotal}} esta semana
             </a>
         </p>
+            @foreach($contactsNews as $contactNew)
+            <a class="white" href=" {{route('contact.show', ['contact' => $contactNew->id])}}">
+                <button class="button-round">
+                    <i class='fa fa-eye'></i>
+                </button>
+            </a>
+            {{$contactNew->name}}
+            <br>
+            @endforeach
     </div>
     <div class="col-4" style="
          background-color: #fff6ff;
@@ -205,14 +213,10 @@
             <i class="fas fa-funnel-dollar" style="font-size:40px; color:#8B2485"></i>
             <br>
             OPORTUNIDADES
-            <br>
-            <br>
-            <a class="text-button btn-info" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+            <a class="text-button btn-info mt-2" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
                 +{{$opportunitiesWon}} esta semana
             </a>
-            <br>
-            <br>
-            <a class="text-button btn-danger" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+            <a class="text-button btn-danger mt-2" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
                 +{{$opportunitiesLost}} esta semana
             </a>
         </p>

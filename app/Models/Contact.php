@@ -486,6 +486,39 @@ class Contact extends Model {
             'outro',
         ];
     }
+    
+        public static function returnStates() {
+        return $states = array(
+            '' => '',
+            'AC' => 'Acre',
+            'AL' => 'Alagoas',
+            'AP' => 'Amapá',
+            'AM' => 'Amazonas',
+            'BA' => 'Bahia',
+            'CE' => 'Ceará',
+            'DF' => 'Distrito Federal',
+            'ES' => 'Espirito Santo',
+            'GO' => 'Goiás',
+            'MA' => 'Maranhão',
+            'MS' => 'Mato Grosso do Sul',
+            'MT' => 'Mato Grosso',
+            'MG' => 'Minas Gerais',
+            'PA' => 'Pará',
+            'PB' => 'Paraíba',
+            'PR' => 'Paraná',
+            'PE' => 'Pernambuco',
+            'PI' => 'Piauí',
+            'RJ' => 'Rio de Janeiro',
+            'RN' => 'Rio Grande do Norte',
+            'RS' => 'Rio Grande do Sul',
+            'RO' => 'Rondônia',
+            'RR' => 'Roraima',
+            'SC' => 'Santa Catarina',
+            'SP' => 'São Paulo',
+            'SE' => 'Sergipe',
+            'TO' => 'Tocantins',
+        );
+    }
 
     public static function totalAndPercentage($field, array $items) {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -598,6 +631,16 @@ class Contact extends Model {
                     ->where('type', 'cliente')
                     ->where('created_at', '>=', $lastWeek)
                     ->count();
+    }
+    
+        
+    public static function getNewsContactsWeek() {
+        $lastWeek = date("Y-m-d", strtotime("-7 days"));
+        
+        return Contact::where('account_id', auth()->user()->account_id)
+                    ->where('type', 'cliente')
+                    ->where('created_at', '>=', $lastWeek)
+                    ->get();
     }
 
 }

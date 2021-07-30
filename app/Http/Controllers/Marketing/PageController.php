@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Marketing;
 use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Page;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -187,9 +188,11 @@ class PageController extends Controller {
     }
 
     public function public(Page $page) {
+        $states = Contact::returnStates();
 
         return view('marketing.pages.public', compact(
                         'page',
+                        'states',
         ));
     }
 

@@ -95,7 +95,7 @@
         {{createSelectYesOrNo('Telefone', 'contact_phone')}}
         {{createSelectYesOrNo('Site', 'contact_site')}}
         {{createSelectYesOrNo('Endereço', 'contact_address')}}
-        {{createSelectYesOrNo('Bairo', 'contact_neighborhood')}}
+        {{createSelectYesOrNo('Bairro', 'contact_neighborhood')}}
         {{createSelectYesOrNo('Cidade', 'contact_city')}}
         {{createSelectYesOrNo('Estado', 'contact_state')}}
         {{createSelectYesOrNo('País', 'contact_country')}}

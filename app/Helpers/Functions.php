@@ -1994,10 +1994,11 @@ if (!function_exists('createFormPage')) {
             ";
         }
         if ($page->contact_state) {
-            echo "<label class='labels' for='state'>Estado:</label>
-            <input type='text' name='state'>
-            <br>
-            ";
+            echo "<label class='labels' for='state'>Estado:</label>";
+                    createDoubleSelect('state', 'fields', returnStates());
+//            <input type='text' name='state'>
+//            <br>
+//            ";
         }
         if ($page->contact_country) {
             echo "<label class='labels' for='country'>País:</label>

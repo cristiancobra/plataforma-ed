@@ -200,7 +200,7 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
         ->middleware('roles');
 
 // pages
-Route::post('contacts/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
+Route::match(['get', 'post'], 'contatos/{page}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
         ->name('contact.storeForm');
 
 Route::get('/paginas/public/{page}', 'Marketing\\PageController@public')

@@ -147,7 +147,8 @@ class DashboardController extends Controller {
             $contactsQualified = Contact::countQualified(),
         ];
 
-        $contactsNews = Contact::countNewsContactsWeek();
+        $contactsNewsTotal = Contact::countNewsContactsWeek();
+        $contactsNews = Contact::getNewsContactsWeek();
         $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
         $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
 
@@ -178,6 +179,7 @@ class DashboardController extends Controller {
                         'openJourney',
                         'contacts',
                         'contactsNews',
+                        'contactsNewsTotal',
                         'users',
                         'myTasksEmergencyAmount',
                         'tasks_pending',
