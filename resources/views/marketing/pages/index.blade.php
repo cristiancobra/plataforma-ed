@@ -26,29 +26,42 @@
 
 @section('table')
 <div class='row mt-2'>
-    <div class='tb tb-header-start col-3'>
+    <div class='tb tb-header-start col-4'>
         NOME
     </div>
     <div class='tb tb-header col-3'>
         ENDEREÇO
     </div>
+    <div class='tb tb-header col-3'>
+        MODELO
+    </div>
+    <div class='tb tb-header-end col-2'>
+        SITUAÇÃO
+    </div>
 </div>
 @foreach ($pages as $page)
 <div class='row'>
-    <div class='tb col-3 justify-content-start' style="font-weight: 600">
-        <a class="white" href=" {{route('page.show', ['page' => $page])}}" target='_blank'>
+    <div class='tb col-4 justify-content-start' style="font-weight: 600">
+        <a class="white" href="{{route('page.show', ['page' => $page])}}">
             <button class="button-round">
                 <i class='fa fa-eye'></i>
             </button>
         </a>
-        <a class="white" href=" {{route('page.edit', ['page' => $page])}}">
+        <a class="white" href="{{route('page.public', ['page' => $page])}}" target='_blank'>
             <button class="button-round">
-                <i class='fa fa-edit'></i>
+                <i class="far fa-window-maximize"></i>
             </button>
         </a>
         {{$page->name}}
     </div>
+    <div class='tb col-3'>
         {{$page->url}}
+    </div>
+    <div class='tb col-3'>
+        {{$page->template}}
+    </div>
+    <div class='tb col-2'>
+        {{$page->status}}
     </div>
 </div>
 @endforeach

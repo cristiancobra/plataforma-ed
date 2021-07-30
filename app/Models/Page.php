@@ -56,6 +56,8 @@ class Page extends Model {
         'company_phone',
         'company_cnpj',
         'company_type',
+        'trash',
+        'status',
     ];
     protected $hidden = [
     ];
@@ -102,5 +104,12 @@ class Page extends Model {
             return 'Home Rápida: Modelo para página inicial com formulário de captação';
             break;
     }
+}
+
+public static function returnStatus() {
+    return [
+      'ativada'  ,
+        'desativada',
+    ];
 }
 }

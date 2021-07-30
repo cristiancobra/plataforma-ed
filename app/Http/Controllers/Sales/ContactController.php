@@ -19,8 +19,6 @@ use League\Csv\Statement;
 
 class ContactController extends Controller {
 
-    use FilterModelTrait;
-
     /**
      * Display a listing of the resource.
      *

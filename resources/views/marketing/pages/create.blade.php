@@ -100,8 +100,12 @@
         {{createSelectYesOrNo('Estado', 'contact_state')}}
         {{createSelectYesOrNo('País', 'contact_country')}}
         <br>
+        <br>
+        <label class="labels" for="" >SITUAÇAO:</label>
+        {{createSimpleSelect('status', 'fields', $status)}}
+        <br>
         <p style="text-align: right">
-            <input class="btn btn-secondary" type="submit" value="CRIAR TAREFA">
+            <input class="btn btn-secondary" type="submit" value="CRIAR">
         </p>
     </form>
 </div>

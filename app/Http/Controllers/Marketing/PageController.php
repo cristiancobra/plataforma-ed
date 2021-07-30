@@ -38,9 +38,12 @@ class PageController extends Controller {
 
         $templates = Page::listTemplates();
 
+        $status = Page::returnStatus();
+
         return view('marketing.pages.create', compact(
                         'images',
                         'templates',
+                        'status',
         ));
     }
 
@@ -86,8 +89,8 @@ class PageController extends Controller {
 //            }
 
             return redirect()->route('page.show', compact(
-                    'page',
-                    ));
+                                    'page',
+            ));
         }
     }
 
@@ -117,14 +120,15 @@ class PageController extends Controller {
                 ->get();
 
         $templates = Page::listTemplates();
-
         $currentTemplate = Page::returnTemplateName($page->template);
+        $status = Page::returnStatus();
 
         return view('marketing.pages.edit', compact(
                         'page',
                         'images',
                         'templates',
                         'currentTemplate',
+                        'status',
         ));
     }
 
@@ -180,6 +184,13 @@ class PageController extends Controller {
      */
     public function destroy(Page $page) {
         //
+    }
+
+    public function public(Page $page) {
+
+        return view('marketing.pages.public', compact(
+                        'page',
+        ));
     }
 
 }

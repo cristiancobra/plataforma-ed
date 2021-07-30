@@ -116,6 +116,9 @@
         {{createSelectYesOrNo('País', 'contact_country', $page->contact_country)}}
         <br>
         <br>
+        <label class="labels" for="" >SITUAÇAO:</label>
+        {{createSimpleSelect('status', 'fields', $status, $page->status)}}
+        <br>
         <input class='btn btn-secondary' type='submit' value='ATUALIZAR'>
         </form>
         <br>

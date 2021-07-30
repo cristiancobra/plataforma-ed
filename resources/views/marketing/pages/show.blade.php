@@ -1,99 +1,176 @@
-@extends("layouts/templatesPage/$page->template")
+@extends('layouts/show')
 
-@section('page_name', $page->name)
+@section('title','PÁGINAS')
 
-@if($page->image)
-@section('banner')
-<div class='row pt-5' style='
-     height:500px;
-     background-image: url({{asset($page->image->path)}});
-     background-size: 100% 100%;
-     background-position: center;
-     background-repeat: no-repeat;
-     '>
-    <div class='col text-center'>
-        <p class="mt-5 pt-5" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 38px">
-            {{$page->headline}}
-        </p>
-    </div>
-</div>
+@section('image-top')
+{{asset('images/page.png')}} 
 @endsection
+
+@section('buttons')
+{{createButtonBack()}}
+{{createButtonEdit('page', 'page', $page)}}
+{{createButtonList('page')}}
+@endsection
+
+@section('name')
+@if($page->task)
+{{$page->task->name}}
 @else
-@section('banner')
-<div class='row pt-5' style='
-     height:500px;
-     background-color: {{$page->principal_color}};
-     '>
-    <div class='col text-center'>
-        <p class="mt-5 pt-5" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 38px">
-            {{$page->headline}}
-        </p>
-    </div>
-</div>
-@endsection
+Tarefa excluída
 @endif
+@endsection
 
-@section('text1')
-<div class='row' style='
-     height:200px;
-     background-color: {{$page->complementary_color}};
-     '>
-    <div class='col  text-center'>
-        <p class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px">
-            {{$page->text1}}
-        </p>
-    </div>
+@section('status')
+{{formatShowStatus($page)}}
+@endsection
+
+@section('priority')
+<div class="to-do">
+    {{dateBr($page->start)}}
 </div>
 @endsection
 
-@section('text2')
-<div class='row' style='
-     background-color: {{$page->opposite_color}};
-     '>
-    <div class='col  text-center'>
-        <p class="pt-5 mt-3" style="color: {{$page->principal_color}};font-size: 28px">
-            {{$page->text2}}
-        </p>
-    </div>
-</div>
+@section('description')
+{!!html_entity_decode($page->description)!!}
 @endsection
 
-@section('form')
-@if(Session::has('failed'))
-<div class="alert alert-danger">
-    {{Session::get('failed')}}
-    @php
-    Session::forget('failed');
-    @endphp
+@section('fieldsId')
+<div class='col-md-2 col-sm-4' style='text-align: center'>
+    <div class='show-label'>
+        TAREFA
+    </div>
 </div>
-@endif
-@if(Session::has('success'))
-<div class="alert alert-success">
-    {{Session::get('success')}}
-    @php
-    Session::forget('success');
-    @endphp
-</div>
-@endif
-<div class='row' style='
-     height:200px;
-     background-color: {{$page->opposite_color}};
-     '>
-    <div class='col  text-center  pb-5'>
-        <form action="{{route('contact.storeForm', ['page' => $page])}}" method='post'>
-            @csrf
-            @if($errors)
-            {{createFormPage($page, $errors)}}
+<div class='col-md-4 col-sm-8' style='text-align: center'>
+    <div class='show-field-end'>
+            @if($page->task)
+        <a href="{{route('task.show', ['task' => $page->task->id])}}">
+            {{$page->task->name}}
+        </a>
             @else
-            {{createFormPage($page)}}
+            Tarefa excluída
             @endif
-            <br>
-            <button class="text-button" type='submit'>
-                CADASTRAR
-            </button>
-        </form>
+    </div>
+</div>
+<div class='col-md-2 col-sm-4' style='text-align: center'>
+    <div class='show-label'>
+        CONTATO
+    </div>
+</div>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
+    <div class='show-field-end'>
+        @if($page->task)
+        <a href="{{route('contact.show', ['contact' => $page->task->contact->id])}}">
+            {{$page->task->contact->name}}
+        </a>
+        @else
+        Tarefa excluída
+        @endif
+    </div>
+</div>
+<div class='col-md-2 col-sm-4' style='text-align: center'>
+    <div class='show-label'>
+        OPORTUNIDADE
+    </div>
+</div>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
+    <div class='show-field-end'>
+        @if($page->task)
+        @if($page->task->opportunity)
+        <a href="{{route('opportunity.show', ['opportunity' => $page->task->opportunity->id])}}">
+            {{$page->task->opportunity->name}}
+        </a>
+        @else
+        Não possui
+        @endif
+@else
+Tarefa excluída
+@endif
+    </div>
+</div>
+<div class='col-md-2 col-sm-4' style='text-align: center'>
+    <div class='show-label'>
+        DEPARTAMENTO
+    </div>
+</div>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
+    <div class='show-field-end'>
+        @if($page->task)
+        {{$page->task->department}}
+@else
+Tarefa excluída
+@endif
     </div>
 </div>
 @endsection
 
-@yield('js-scripts')
+
+@section('date_start')
+<div class="circle-date-start">
+@if($page->task)
+    {{date('d/m/Y', strtotime($page->task->date_start))}}
+@else
+--
+@endif
+</div>
+<p class="labels" style="text-align: center">
+    CRIAÇÃO DA TAREFA
+</p>
+@endsection
+
+
+@section('date_due')
+<div class="circle-date-due">
+    @if($page->task)
+    {{dateBr($page->task->date_due)}}
+@else
+--
+@endif
+</div>
+<p class="labels" style="text-align: center">
+    PRAZO DA TAREFA
+</p>
+@endsection
+
+
+@section('date_conclusion')
+<div class="circle-date-conclusion">
+    @if($page->task)
+    @if($page->task->date_conclusion)
+    {{dateBr($page->task->date_conclusion)}}
+    @else
+    <p style="color:white">
+        --
+    </p>
+    @endif
+@else
+--
+@endif
+</div>
+<p class="labels" style="text-align: center">
+    CONCLUSÃO DA TAREFA
+</p>
+@endsection
+
+
+
+@section('main')
+
+@endsection
+
+
+@section('deleteButton')
+
+@endsection
+
+
+@section('editButton', route('page.edit', ['page' => $page->id]))
+
+@section('backButton', route('page.index'))
+
+@section('createdAt')
+<div class='row' style='margin-top: 30px'>
+    <div class='col-12'style='padding-top: -10px'>
+        Primeiro registro em: {{dateBr($page->created_at)}}
+    </div>
+</div>
+@endsection

@@ -47,13 +47,13 @@ Route::get('/logout', function () {
 });
 
 // ================================ ADMINISTRATIVO ===================
-Route::get('/admin/NovaPlataforma/form_plataforma', function () {
-    return view('admin.NovaPlataforma.form_plataforma');
-});
-
-Route::get('/funil-vendas', function () {
-    return view('admin.funil-vendas');
-});
+//Route::get('/admin/NovaPlataforma/form_plataforma', function () {
+//    return view('admin.NovaPlataforma.form_plataforma');
+//});
+//
+//Route::get('/funil-vendas', function () {
+//    return view('admin.funil-vendas');
+//});
 
 // accounts
 Route::get('contas/dashboard/{account}', 'Administrative\\Accounts\\AccountController@dashboard')
@@ -200,14 +200,14 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
         ->middleware('roles');
 
 // pages
-Route::post('contacts/{page}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
+Route::post('contacts/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
         ->name('contact.storeForm');
 
-Route::get('/paginas/{page}', 'Marketing\\PageController@show')
-        ->name('page.show');
+Route::get('/paginas/public/{page}', 'Marketing\\PageController@public')
+        ->name('page.public');
+
 
 Route::resource('paginas', 'Marketing\\PageController')
-        ->except('show')
         ->names('page')
         ->parameters(['paginas' => 'page'])
         ->middleware('roles');
@@ -261,30 +261,6 @@ Route::resource('tarefas', 'Operational\\TaskController')
         ->names('task')
         ->parameters(['tarefas' => 'task'])
         ->middleware('roles');
-
-// ---------- FACEBOOKS
-Route::get('/facebooks/all', 'Socialmedia\\FacebookController@all')->name('facebook.all');
-Route::resource('facebooks', 'Socialmedia\\FacebookController')->names('facebook');
-//Route::get('facebook', 'Socialmedia\\FacebookController@index')->name('facebook');
-//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@callback')->name('facebook-callback');
-//Route::get('/facebook/callback', 'Socialmedia\\FacebookController@index')->name('facebook');
-// ---------- INSTAGRAMS
-Route::resource('instagrams', 'Socialmedia\\InstagramController')->names('instagram');
-
-// ---------- LINKEDIN
-Route::resource('linkedins', 'Socialmedia\\LinkedinController')->names('linkedin');
-
-// ---------- TWITTER
-Route::resource('twitter', 'Socialmedia\\TwitterController')->names('twitter');
-
-// ---------- PINTEREST
-Route::resource('pinterest', 'Socialmedia\\PinterestController')->names('pinterest');
-
-// ---------- YOUTUBE
-Route::resource('youtube', 'Socialmedia\\YoutubeController')->names('youtube');
-
-// ---------- SPOTIFY
-Route::resource('spotify', 'Socialmedia\\SpotifyController')->names('spotify');
 
 // ------------------------------------------------ REPORTS ------------------------------------------------
 //Route::get('/relatorios/{report}/pdf','Report\\ReportController@generatePDF')->name('report.pdf');
