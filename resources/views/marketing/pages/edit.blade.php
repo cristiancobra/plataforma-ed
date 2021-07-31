@@ -56,6 +56,23 @@
         <label class='labels' for='' >SLOGAN:</label>
         <input type='text' name='headline' size='100' value='{{$page->headline}}'>
         <br>
+        <label class='labels' for='' >LOGOMARCA:</label>
+        <select name='logo_id'>
+            @if($page->image == null)
+            <option value='{{$page->logo_id}}'>
+                {{$page->logo->name}}
+            </option>
+            @endif
+            <option value=''>
+                não usar
+            </option>
+            @foreach($logos as $logo)
+            <option value='{{$logo->id}}'>
+                {{$logo->name}}
+            </option>
+            @endforeach
+        </select>
+        <br>
         <label class='labels' for='' >IMAGEM DO CABEÇALHO:</label>
         <select name='image_id'>
             @if($page->image)

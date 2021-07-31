@@ -49,6 +49,19 @@
         <label class='labels' for='' >SLOGAN:</label>
         <input type='text' name='headline' size='100' value='{{old('headline')}}'>
         <br>
+        <label class='labels' for='' >LOGOMARCA:</label>
+        <select name='logo_id'>
+            <option value=''>
+                não usar
+            </option>
+            @foreach($logos as $logo)
+            <option value='{{$logo->id}}'>
+                {{$logo->name}}
+            </option>
+            @endforeach
+        </select>
+        <br>
+        <br>
         <label class='labels' for='' >IMAGEM DO CABEÇALHO:</label>
         <select name='image_id'>
             @foreach($images as $image)

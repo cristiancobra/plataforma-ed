@@ -18,7 +18,10 @@ class PageController extends Controller {
      */
     public function index() {
         $pages = Page::where('account_id', auth()->user()->account_id)
-                ->with('image')
+                ->with([
+                    'image',
+                    'logo',
+                    ])
                 ->get();
 
         return view('marketing.pages.index', compact(
@@ -37,12 +40,18 @@ class PageController extends Controller {
                 ->where('type', 'marketing')
                 ->get();
 
+        $logos = Image::where('account_id', auth()->user()->account_id)
+                ->where('status', 'disponível')
+                ->where('type', 'logo')
+                ->get();
+
         $templates = Page::listTemplates();
 
         $status = Page::returnStatus();
 
         return view('marketing.pages.create', compact(
                         'images',
+                        'logos',
                         'templates',
                         'status',
         ));
@@ -120,6 +129,11 @@ class PageController extends Controller {
                 ->where('type', 'marketing')
                 ->get();
 
+        $logos = Image::where('account_id', auth()->user()->account_id)
+                ->where('status', 'disponível')
+                ->where('type', 'logo')
+                ->get();
+
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
         $status = Page::returnStatus();
@@ -127,6 +141,7 @@ class PageController extends Controller {
         return view('marketing.pages.edit', compact(
                         'page',
                         'images',
+                        'logos',
                         'templates',
                         'currentTemplate',
                         'status',
@@ -189,6 +204,11 @@ class PageController extends Controller {
 
     public function public(Page $page) {
         $states = Contact::returnStates();
+        $page = Page::with([
+                    'image',
+                    'logo',
+                    ])
+                ->first();
 
         return view('marketing.pages.public', compact(
                         'page',

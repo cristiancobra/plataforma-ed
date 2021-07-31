@@ -10,6 +10,7 @@ class Page extends Model {
     protected $fillable = [
         'id',
         'account_id',
+        'logo_id',
         'name',
         'url',
         'slug',
@@ -68,6 +69,10 @@ class Page extends Model {
 
     public function image() {
         return $this->hasOne(Image::class, 'id', 'image_id');
+    }
+
+    public function logo() {
+        return $this->hasOne(Image::class, 'id', 'logo_id');
     }
 
 //

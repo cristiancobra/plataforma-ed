@@ -4,6 +4,22 @@
 
 @if($page->image)
 @section('banner')
+<div class="row justify-content-center" style="
+     height: 60px;
+       width: 100%;
+     font-size: 20px;
+     align-items: center;
+  opacity: 0.8;
+  position: absolute;
+   overflow: hidden;
+     background-color: {{$page->principal_color}}
+">
+    @if($page->logo)
+    <img src="{{asset($page->logo->path)}}" height="50" width="100px">
+    @else
+    {{strtoupper($page->name)}}
+    @endif
+</div>
 <div class='row pt-5' style='
      height:500px;
      background-image: url({{asset($page->image->path)}});
