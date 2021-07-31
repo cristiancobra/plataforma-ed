@@ -15,7 +15,7 @@
      background-color: {{$page->principal_color}}
 ">
     @if($page->logo)
-    <div class="container" style="width: 100%;height: 50px">
+    <div class="container" style="width: 250px;height: 50px">
         <img src="{{asset($page->logo->path)}}" height="100%" width="100%">
     </div>
     @else
