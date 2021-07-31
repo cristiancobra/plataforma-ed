@@ -7,7 +7,7 @@
 <div class='row pt-5' style='
      height:500px;
      background-image: url({{asset($page->image->path)}});
-     background-size: 100% 100%;
+       background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
      '>
