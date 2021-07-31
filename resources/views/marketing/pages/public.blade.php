@@ -15,7 +15,7 @@
      background-color: {{$page->principal_color}}
 ">
     @if($page->logo)
-    <img src="{{asset($page->logo->path)}}" height="50" width="100px">
+    <img src="{{asset($page->logo->path)}}">
     @else
     {{strtoupper($page->name)}}
     @endif
