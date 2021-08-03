@@ -42,27 +42,43 @@
         <div class='container' style='background-color:{{$data['accountPrincipalColor']}}'>
             <div class='text-col'>
                 <p style='font-size:28px'>
-                    @if($data['pdfTitle'] == 'ORÇAMENTO')
+
+                    @switch($data['pdfTitle'])
+                    @case('ORÇAMENTO')
                     ORÇAMENTO
                     <br>
                     <span style='font-size: 14px'>Data: {{date('d/m/Y', strtotime($data['invoicePayday']))}} - proposta válida por {{$data['invoiceExpirationDate']}} dias</span>
-                    @elseif($data['pdfTitle'] == 'FATURA')
+                    @break
+
+                    @case('FATURA')
                 <p style='font-size:22px'>
                     FATURA {{$data['invoiceIdentifier']}}
                     <br>
                     <span style='font-size: 14px'>Vencimento: {{date('d/m/Y', strtotime($data['invoicePayday']))}}</span>
-                    @elseif($data['pdfTitle'] == 'CONTRATO' AND $data['contractIdentifier'] > 0)
-                    <p style='font-size:14px;margin-top:-10px'>
+                    @break
+
+                    @case('CONTRATO')
+                    @if($data['contractIdentifier'] > 0)
+                <p style='font-size:14px;margin-top:-10px'>
                     CONTRATO {{$data['contractIdentifier']}}
                     <br>
                     <span style='font-size: 22px'>{{$data['contractName']}}</span>
-                    @elseif($data['pdfTitle'] == 'CONTRATO')
-                    <p style='font-size:28px'>
-                    MINUTA DE CONTRATO
                     @else
-                    <p style='font-size:22px'>
-                    Não possui título
+                <p style='font-size:28px'>
+                    MINUTA DE CONTRATO
                     @endif
+                    @break
+
+                    @case('RELATÓRIO DE PRODUÇÃO')
+                <p style='font-size:32px'>
+                    RELATÓRIO DE PRODUÇÃO
+                    <br>
+                    @break
+
+                    @default
+                <p style='font-size:22px'>
+                    Não possui título
+                    @endswitch     
                 </p>
             </div>
             <div class='image-col'>

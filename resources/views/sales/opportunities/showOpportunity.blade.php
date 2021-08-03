@@ -896,10 +896,10 @@
         <div class='tb col-2'>
             {{$task->name}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             {!!html_entity_decode($task->description)!!}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             @isset($task->date_conclusion)
             {{date('d/m/Y', strtotime($task->date_conclusion))}}
             @else
@@ -909,11 +909,11 @@
         {{formatPriority($task)}}
 
         @if($task->status == 'fazer' AND $task->journeys()->exists())
-        <div class='tb col-2'>
+        <div class='tb col-1'>
             andamento
         </div>
         @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-        <div class='tb col-2'>
+        <div class='tb col-1'>
             atrasada
         </div>
         @else

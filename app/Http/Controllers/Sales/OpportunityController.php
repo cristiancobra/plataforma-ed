@@ -37,10 +37,11 @@ class OpportunityController extends Controller {
                     'account',
                     'company',
                     'contact',
+//                    'tasks.journeys',
                 ])
                 ->orderBy('DATE_CONCLUSION', 'ASC')
                 ->paginate(20);
-
+//dd($opportunities);
         $total = $opportunities->total();
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -176,19 +177,18 @@ class OpportunityController extends Controller {
         $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
 
         $tasks = Task::where('opportunity_id', $opportunity->id)
+                ->with('journeys')
                 ->get();
-
+        
         foreach ($tasks as $task) {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-                $task->status = 'andamento';
+                $task->status = 'fazendo';
             } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
                 $task->status = 'atrasada';
             }
         }
-
-        $tasksSales = Task::where('opportunity_id', $opportunity->id)
-                ->where('department', '=', 'vendas')
-                ->get();
+//dd($tasks);
+        $tasksSales = $tasks->where('department', '=', 'vendas');
 
         $tasksSalesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
                     $query->where('opportunity_id', $opportunity->id);
@@ -196,19 +196,17 @@ class OpportunityController extends Controller {
                 })
                 ->sum('duration');
 
-        $tasksOperational = Task::where('opportunity_id', $opportunity->id)
-                ->where('department', '=', 'produção')
-                ->get();
+        $tasksOperational = $tasks->where('department', '=', 'produção');
 
+//dd($tasksOperational);
         $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($opportunity) {
                     $query->where('opportunity_id', $opportunity->id);
                     $query->where('department', '=', 'produção');
                 })
+                ->with('journeys')
                 ->sum('duration');
 
-        $tasksCustomerServices = Task::where('opportunity_id', $opportunity->id)
-                ->where('department', '=', 'atendimento')
-                ->get();
+        $tasksCustomerServices =  $tasks->where('department', '=', 'atendimento');
 
         $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
                     $query->where('opportunity_id', $opportunity->id);
@@ -379,6 +377,5 @@ class OpportunityController extends Controller {
 
         return redirect()->action('Sales\\OpportunityController@index');
     }
-
 
 }

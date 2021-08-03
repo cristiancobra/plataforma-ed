@@ -542,11 +542,11 @@ class ProposalController extends Controller {
                 ->sum('points');
 
 // definição do título
-        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
-            $pdfTitle = 'ORÇAMENTO';
-        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
-            $pdfTitle = 'FATURA';
-        }
+//        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
+//            $pdfTitle = 'ORÇAMENTO';
+//        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
+            $pdfTitle = 'RELATÓRIO DE PRODUÇÃO';
+//        }
 
         if ($proposal->company_id) {
             $email = $proposal->company->email;

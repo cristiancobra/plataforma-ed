@@ -43,6 +43,10 @@ class Opportunity extends Model {
         return $this->hasMany(Invoice::class, 'opportunity_id', 'id');
     }
 
+    public function tasks() {
+        return $this->hasMany(Task::class, 'opportunity_id', 'id');
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
