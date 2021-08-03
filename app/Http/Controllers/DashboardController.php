@@ -21,9 +21,6 @@ class DashboardController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-        $journey = $this->myLastJourney();
-        $openJourney = $this->myOpenJourney();
-
 // SE FOR ADMINISTRADOR
         if ($request['role'] === "administrator" OR $request['role'] === "superadmin" OR $request['role'] === "dono") {
             $tasks = Task::where('account_id', auth()->user()->account_id)
@@ -175,8 +172,6 @@ class DashboardController extends Controller {
                         'monthStart',
                         'monthEnd',
                         'month',
-                        'journey',
-                        'openJourney',
                         'contacts',
                         'contactsNews',
                         'contactsNewsTotal',
@@ -203,20 +198,6 @@ class DashboardController extends Controller {
                         'estimatedExpenseMonthly',
                         'bankAccounts',
         ));
-    }
-
-    public static function myOpenJourney() {
-        return Journey::where('user_id', auth()->user()->id)
-                        ->where('end', null)
-                        ->orderBy('id', 'DESC')
-                        ->first();
-    }
-
-    public static function myLastJourney() {
-        return Journey::where('user_id', auth()->user()->id)
-                        ->with('task')
-                        ->orderBy('id', 'DESC')
-                        ->first();
     }
 
 }

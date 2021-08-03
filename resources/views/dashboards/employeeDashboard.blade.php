@@ -6,13 +6,8 @@
 {{asset('images/control-panel.png')}}
 @endsection
 
-@section('description')
-@endsection
 
 @section('buttons')
-<a class="circular-button secondary"  href="{{route('task.create')}}">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-</a>
 @endsection
 
 @section('main')

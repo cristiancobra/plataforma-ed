@@ -43,14 +43,6 @@ class Journey extends Model {
     }
 
 //    MÉTODOS PÚBLICOS
-    public static function myLastJourney() {
-        $journey = Journey::where('user_id', 1)
-                ->orderBy('id', 'DESC')
-                ->first();
-
-        dd($journey);
-    }
-
     public function lastJourneyTask() {
         $this->where('user_id', auth()->user()->id)
                 ->orderBy('id', 'DESC')
@@ -183,7 +175,7 @@ class Journey extends Model {
                     })
                     ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
-       
+
 //                    array_push($monthlys, $month);
         }
         return $monthlys;
@@ -198,6 +190,20 @@ class Journey extends Model {
                         })
                         ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
+    }
+
+    public static function myOpenJourney() {
+        return Journey::where('user_id', auth()->user()->id)
+                        ->where('end', null)
+                        ->orderBy('id', 'DESC')
+                        ->first();
+    }
+
+    public static function myLastJourney() {
+        return Journey::where('user_id', auth()->user()->id)
+                        ->with('task')
+                        ->orderBy('id', 'DESC')
+                        ->first();
     }
 
 }

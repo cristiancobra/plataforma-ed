@@ -7,19 +7,6 @@
 @endsection
 
 @section('buttons')
-@if(isset($openJourney))
-<a class='circular-button secondary'  href='{{route('journey.show', ['journey' => $openJourney])}}'>
-    <i class="fas fa-step-forward" style="color:#8B2485"></i>
-</a>
-@endif
-@if(isset($journey->task))
-<a class='circular-button secondary'  href='{{route('journey.create', ['taskName' => $journey->task->name, 'taskId' => $journey->task_id])}}'>
-    <i class="fas fa-mug-hot" style="color:#8B2485"></i>
-</a>
-@endif
-<a class='circular-button secondary'  href='{{route('task.create')}}'>
-    <i class="fas fa-calendar-check" style="color:#8B2485"></i>
-</a>
 @endsection
 
 @section('main')
