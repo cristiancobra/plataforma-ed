@@ -244,6 +244,10 @@ Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
         ->name('task.pdf')
         ->middleware('roles');
 
+Route::put('/tarefas/encerrar/{task}', 'Operational\\TaskController@completeTask')
+        ->name('task.complete')
+        ->middleware('roles');
+
 Route::get('tarefas/bug', 'Operational\\TaskController@createBug')
         ->name('task.bug')
         ->middleware('roles');

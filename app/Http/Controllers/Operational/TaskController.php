@@ -513,4 +513,13 @@ class TaskController extends Controller {
         ));
     }
 
+    // chama o método que completa a tarefa e direciona para a view show
+    public function completeTask(task $task) {
+        Task::completeTask($task);
+
+        return redirect()->route('task.show', compact(
+                                'task',
+        ));
+    }
+    
 }

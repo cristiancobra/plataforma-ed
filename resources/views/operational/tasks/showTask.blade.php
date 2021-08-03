@@ -7,10 +7,19 @@
 @endsection
 
 @section('buttons')
+{{createButtonBack()}}
 <a class='circular-button secondary'  href='{{route('task.pdf', ['task' => $task])}}'>
     <i class='fas fa-print'></i>
 </a>
-{{createButtonBack()}}
+@if($task->status == 'fazer' AND $task->journeys()->exists())
+<form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
+    @csrf
+    @method('put')
+    <button id='' class='circular-button secondary' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+        <i class='fas fa-clipboard-check'></i>
+    </button>
+</form>
+@endif
 {{createButtonEdit('task', 'task', $task)}}
 {{createButtonList('task')}}
 @endsection

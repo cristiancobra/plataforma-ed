@@ -8,6 +8,8 @@
 
 @section('buttons')
 {{createButtonBack()}}
+
+@if($journey->status == 'fazer' AND $task->start != null)
 <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('journey.complete', ['journey' => $journey]) }} " method="post">
     @csrf
     @method('put')
@@ -15,6 +17,8 @@
         <i class='fas fa-clock'></i>
     </button>
 </form>
+@endif
+
 <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('journey.completeTask', ['journey' => $journey]) }} " method="post">
     @csrf
     @method('put')
