@@ -61,7 +61,7 @@
         foi excluído
         @endif
     </div>
-@endsection
+    @endsection
 
     @section('date_start')
     <div class='circle-date-start'>
@@ -186,31 +186,27 @@
     </div>
     <div class='tb-row'>
         <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
-        @if(!$opportunity->company->value_offer)
-        --
-        @else
+        @if(isset($opportunity->company->value_offer))
         {!!html_entity_decode($opportunity->company->value_offer)!!}
+        @else
+        --
         @endif
     </div>
     <div class='tb-row'>
         <div class="col">
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
-            @if(!$opportunity->company->competitive_advantage)
-            --
-            @else
-
+            @if(isset($opportunity->company->competitive_advantage))
             {{$opportunity->company->competitive_advantage}}
-
+            @else
+            --
             @endif
         </div>
         <div class="col">
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
-            @if(!$opportunity->company->business_model)
-            --
-            @else
-
+            @if(isset($opportunity->company->business_model))
             {{$opportunity->company->business_model}}
-
+            @else
+            --
             @endif
         </div>
     </div>
@@ -218,43 +214,39 @@
     <div class='tb-row'>
         <div class="col">
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
-            @if(!$opportunity->company->sector)
-            --
-            @else
-
+            @if(isset($opportunity->company->sector))
             {{$opportunity->company->sector}}
-
+            @else
+            --
             @endif
         </div>
         <div class="col">
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
-            @if(!$opportunity->company->employees)
-            --
-            @else
             <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                @if(isset($opportunity->company->employees))
                 {{$opportunity->company->employees}}
+                @else
+                --
+                @endif
             </label>
-            @endif
         </div>
     </div>
 
     <div class='tb-row'>
         <div class="col">
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
-            @if(!$opportunity->company->client_number)
-            --
-            @else
+            @if(isset($opportunity->company->client_number))
             {{$opportunity->company->client_number}}
+            @else
+            --
             @endif
         </div>
         <div class="col">
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
-            @if(!$opportunity->company->revenues)
-            --
-            @else
-
+            @if(isset($opportunity->company->revenues))
             {{$opportunity->company->revenues}}
-
+            @else
+            --
             @endif
         </div>
     </div>
@@ -369,7 +361,7 @@
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
              '>
-              <form  style='display: inline-block;float: right' method='get' action='{{route('proposal.create')}}'>
+            <form  style='display: inline-block;float: right' method='get' action='{{route('proposal.create')}}'>
                 @csrf
 
                 <input type='hidden' name='typeInvoices' value='receita'>

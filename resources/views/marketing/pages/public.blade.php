@@ -4,7 +4,7 @@
 
 @if($page->image)
 @section('banner')
-<div class="row justify-content-center" style="
+<div class="row justify-content-start" style="
      height: 60px;
        width: 100%;
      font-size: 20px;
