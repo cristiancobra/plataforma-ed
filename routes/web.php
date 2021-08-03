@@ -377,8 +377,12 @@ Route::put('propostas/atualizar-parcelamento/{proposal}', 'Sales\\ProposalContro
         ->name('proposal.updateInstallment')
         ->middleware('roles');
 
-Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@show')
+Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@createPdf')
         ->name('proposal.pdf')
+        ->middleware('roles');
+
+Route::get('propostas/pdf/relatorio-producao/{proposal}', 'Sales\\ProposalController@createProductionPdf')
+        ->name('proposal.pdfProduction')
         ->middleware('roles');
 
 Route::resource('propostas', 'Sales\\ProposalController')

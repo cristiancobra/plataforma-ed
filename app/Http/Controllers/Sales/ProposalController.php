@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Invoice;
@@ -385,26 +386,245 @@ class ProposalController extends Controller {
                 $counter++;
             }
         }
-         
+
         // erro se o total inserido foir maior que o valor da proposta.
         if ($sumInvoicesPrice > $proposal->totalPrice) {
-                return back()
-                                ->with('failed', 'A soma das faturas NÃO pode ser maior que o total da proposta.')
+            return back()
+                            ->with('failed', 'A soma das faturas NÃO pode ser maior que o total da proposta.')
 //                            ->withErrors($validator)
-                                ->withInput();
-            } else {
+                            ->withInput();
+        } else {
 //atualiza valores das faturas
-                $counter = 0;
-                foreach ($proposal->invoices as $invoice) {
-                    $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
-                    $invoice->update();
-                    $counter++;
-                }
-
-                return redirect()->route('proposal.show', compact(
-                                'proposal'
-                ));
+            $counter = 0;
+            foreach ($proposal->invoices as $invoice) {
+                $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
+                $invoice->update();
+                $counter++;
             }
+
+            return redirect()->route('proposal.show', compact(
+                                    'proposal'
+            ));
         }
     }
-    
+
+    // Gera PDF da proposta
+    public function createPDF(Proposal $proposal) {
+        $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($proposal) {
+                    $query->where('proposal_id', $proposal->id);
+                })
+                ->sum('value');
+
+        $proposalLines = ProductProposal::where('proposal_id', $proposal->id)
+                ->with('product', 'opportunity')
+                ->get();
+
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+                ->where('status', 'LIKE', 'recebendo')
+                ->with([
+                    'account.image',
+                    'bank',
+                ])
+                ->get();
+
+
+// definição do título
+        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
+            $pdfTitle = 'ORÇAMENTO';
+        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
+            $pdfTitle = 'FATURA';
+        }
+
+        if ($proposal->company_id) {
+            $email = $proposal->company->email;
+            $phone = $proposal->company->phone;
+            $address = $proposal->company->address;
+            $city = $proposal->company->city;
+            $state = $proposal->company->state;
+            $country = $proposal->company->country;
+            $companyName = $proposal->company->name;
+            $companyCnpj = $proposal->company->cnpj;
+            $contactCpf = null;
+        } else {
+            $email = $proposal->contact->email;
+            $phone = $proposal->contact->phone;
+            $address = $proposal->contact->address;
+            $city = $proposal->contact->city;
+            $state = $proposal->contact->state;
+            $country = $proposal->contact->country;
+            $companyName = null;
+            $companyCnpj = null;
+            $contactCpf = $proposal->contact->cpf;
+        }
+
+        $data = [
+            'pdfTitle' => $pdfTitle,
+            'accountLogo' => $proposal->account->image->path,
+            'accountPrincipalColor' => $proposal->account->principal_color,
+            'accountComplementaryColor' => $proposal->account->complementary_color,
+            'accountName' => $proposal->account->name,
+            'accountEmail' => $proposal->account->email,
+            'accountPhone' => $proposal->account->phone,
+            'accountAddress' => $proposal->account->address,
+            'accountCity' => $proposal->account->city,
+            'accountState' => $proposal->account->state,
+            'accountCnpj' => $proposal->account->cnpj,
+            'companyName' => $companyName,
+            'companyCnpj' => $companyCnpj,
+            'contactCpf' => $contactCpf,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
+            'bankAccounts' => $bankAccounts,
+            'invoiceIdentifier' => $proposal->identifier,
+            'invoiceDescription' => $proposal->description,
+            'invoiceDiscount' => $proposal->discount,
+            'invoiceExpirationDate' => $proposal->expiration_date,
+            'invoiceInstallmentValue' => $proposal->installment_value,
+            'invoiceStatus' => $proposal->status,
+            'invoiceNumberInstallmentTotal' => $proposal->number_installment_total,
+            'invoiceTotalPrice' => $proposal->installment_value,
+            'opportunityDescription' => $proposal->opportunity->description,
+            'invoiceDiscount' => $proposal->discount,
+            'invoicePayday' => $proposal->pay_day,
+            'invoiceTotalPrice' => $proposal->totalPrice,
+            'customerName' => $proposal->opportunity->contact->name,
+            'invoiceLines' => $proposalLines,
+            'invoiceTotalTransactions' => $totalTransactions,
+        ];
+//        dd($data);
+        $header = view('layouts/pdfHeader', compact('data'))->render();
+        $footer = view('layouts/pdfFooter', compact('data'))->render();
+        $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
+                ->setOptions([
+            'page-size' => 'A4',
+            'header-html' => $header,
+            'footer-html' => $footer,
+        ]);
+
+// download PDF file with download method
+        return $pdf->stream('Fatura.pdf');
+    }
+
+    // Gera PDF do relatório de produção da proposta
+    public function createProductionPdf(Proposal $proposal) {
+        
+        $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($proposal) {
+                    $query->where('proposal_id', $proposal->id);
+                })
+                ->sum('value');
+
+//        $proposalLines = ProductProposal::where('proposal_id', $proposal->id)
+//                ->with('product', 'opportunity')
+//                ->get();
+
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+                ->where('status', 'LIKE', 'recebendo')
+                ->with([
+                    'account.image',
+                    'bank',
+                ])
+                ->get();
+
+        $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
+                ->where('department', '=', 'produção')
+                ->with('journeys')
+                ->get();
+
+        $tasksOperationalPoints = $tasksOperational
+                ->sum('points');
+
+        $tasksOperationalPointsExecuted = $tasksOperational
+                ->where('status', 'feito')
+                ->sum('points');
+
+// definição do título
+        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
+            $pdfTitle = 'ORÇAMENTO';
+        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
+            $pdfTitle = 'FATURA';
+        }
+
+        if ($proposal->company_id) {
+            $email = $proposal->company->email;
+            $phone = $proposal->company->phone;
+            $address = $proposal->company->address;
+            $city = $proposal->company->city;
+            $state = $proposal->company->state;
+            $country = $proposal->company->country;
+            $companyName = $proposal->company->name;
+            $companyCnpj = $proposal->company->cnpj;
+            $contactCpf = null;
+        } else {
+            $email = $proposal->contact->email;
+            $phone = $proposal->contact->phone;
+            $address = $proposal->contact->address;
+            $city = $proposal->contact->city;
+            $state = $proposal->contact->state;
+            $country = $proposal->contact->country;
+            $companyName = null;
+            $companyCnpj = null;
+            $contactCpf = $proposal->contact->cpf;
+        }
+
+        $data = [
+            'pdfTitle' => $pdfTitle,
+            'accountLogo' => $proposal->account->image->path,
+            'accountPrincipalColor' => $proposal->account->principal_color,
+            'accountComplementaryColor' => $proposal->account->complementary_color,
+            'accountName' => $proposal->account->name,
+            'accountEmail' => $proposal->account->email,
+            'accountPhone' => $proposal->account->phone,
+            'accountAddress' => $proposal->account->address,
+            'accountCity' => $proposal->account->city,
+            'accountState' => $proposal->account->state,
+            'accountCnpj' => $proposal->account->cnpj,
+//            'taskDescription' => $task->description,
+//            'customerName' => $task->contact->name,
+            'companyName' => $companyName,
+            'companyCnpj' => $companyCnpj,
+            'contactCpf' => $contactCpf,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
+            'bankAccounts' => $bankAccounts,
+            'invoiceIdentifier' => $proposal->identifier,
+            'invoiceDescription' => $proposal->description,
+            'invoiceDiscount' => $proposal->discount,
+            'invoiceExpirationDate' => $proposal->expiration_date,
+            'invoiceInstallmentValue' => $proposal->installment_value,
+            'invoiceStatus' => $proposal->status,
+            'invoiceNumberInstallmentTotal' => $proposal->number_installment_total,
+            'invoiceTotalPrice' => $proposal->installment_value,
+            'opportunityDescription' => $proposal->opportunity->description,
+            'invoiceDiscount' => $proposal->discount,
+            'invoicePayday' => $proposal->pay_day,
+            'invoiceTotalPrice' => $proposal->totalPrice,
+            'customerName' => $proposal->opportunity->contact->name,
+//            'invoiceLines' => $proposalLines,
+            'invoiceTotalTransactions' => $totalTransactions,
+            'tasksOperational' => $tasksOperational,
+            'tasksOperationalPoints' => $tasksOperationalPoints,
+            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
+        ];
+//        dd($data);
+        $header = view('layouts/pdfHeader', compact('data'))->render();
+        $footer = view('layouts/pdfFooter', compact('data'))->render();
+        $pdf = PDF::loadView('sales.proposals.pdf_production', compact('data'))
+                ->setOptions([
+            'page-size' => 'A4',
+            'header-html' => $header,
+            'footer-html' => $footer,
+        ]);
+
+// download PDF file with download method
+        return $pdf->stream('Relatorio.pdf');
+    }
+
+}

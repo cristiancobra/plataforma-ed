@@ -763,6 +763,9 @@
                 <input type='hidden' name='department' value='vendas'>
                 <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
             </form>
+            <a class="text-button secondary"  style='display: inline-block;float: right'  href='{{route('proposal.pdfProduction', ['proposal' => $proposal])}}'>
+                RELATÓRIO PDF
+            </a>
         </div>
     </div>
     <div class='row'>

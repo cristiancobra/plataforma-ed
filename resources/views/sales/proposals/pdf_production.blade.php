@@ -145,127 +145,13 @@
             </p>
         </div>
         <br>
-        <h4 style="color:{{$data['accountPrincipalColor']}}">
-            DESCRIÇÃO:
-        </h4>
-        <p style="text-align: left;margin-top: 0px;">
-            {!!html_entity_decode($data['opportunityDescription'])!!}
-        </p>
-        <br>
-        <table style="width: 100%">
-            <tr>
-                <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
-                    QTDE
-                </td>
-                <td   class="table-list-header center" style="width: 50%;background-color:{{$data['accountComplementaryColor']}}">
-                    NOME
-                </td>
-                <td   class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
-                    IMPOSTO
-                </td>
-                <td   class="table-list-header center" style="width: 15%;background-color:{{$data['accountComplementaryColor']}}">
-                    UNITÁRIO
-                </td>
-                <td   class="table-list-header center" style="width: 15%;background-color:{{$data['accountComplementaryColor']}}">
-                    TOTAL
-                </td>
-            </tr>
-
-            @foreach ($data['invoiceLines'] as $invoiceLine)
-            <tr>
-                <td class="table-list center" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{$invoiceLine->amount}}
-                </td>
-                <td class="table-list left" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{$invoiceLine->product->name}}
-                </td>
-                <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{formatCurrencyReal($invoiceLine->subtotalTax_rate)}}
-                </td>
-                <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{formatCurrencyReal($invoiceLine->product->price)}}
-                </td>
-                <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
-                </td>
-            </tr>
-            <tr>
-                <td class="description left" colspan="5">
-                    {!!html_entity_decode($invoiceLine->product->description)!!}
-                </td>
-            </tr>
-            @endforeach
-
-            <tr>
-                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="3">
-                    desconto: 
-                </td>
-                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="2">
-                    - {{formatCurrencyReal($data['invoiceDiscount'])}}
-                </td>
-            </tr>
-
-            @if($data['invoiceTotalTransactions'])
-            <tr>
-                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="3">
-                    pagamentos: 
-                </td>
-                <td   class="table-list-header right" style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="2">
-                    - {{formatCurrencyReal($data['invoiceTotalTransactions'])}}
-                </td>
-            </tr>
-            @endif
-
-            <tr>
-                <td   class="table-list-header right"  style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="3">
-                    TOTAL: 
-                </td>
-                <td   class="table-list-header right"   style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="2">
-                    {{formatCurrencyReal($data['invoiceTotalPrice'] - $data['invoiceTotalTransactions'])}}
-                </td>
-            </tr>
-            @if($data['invoiceStatus'] == 'rascunho' OR $data['invoiceStatus'] == 'orçamento')
-            <tr>
-                <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="3">
-                    PARCELAMENTO: 
-                </td>
-                <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="2">
-                    @if($data['invoiceNumberInstallmentTotal'] == 1)
-                    À vista
-                    @else
-                    {{$data['invoiceNumberInstallmentTotal']}} x {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
-                    @endif
-                </td>
-                @endif
-            </tr>
-        </table>
-        <br>
-        <table style="width: 100%;text-align:left">
-            @if($data['invoiceDescription'])
-            <tr>
-                <td>
-                    <h4 style="margin-bottom: 0px;color:{{$data['accountPrincipalColor']}}">
-                        OBSERVAÇÕES:
-                    </h4>
-                    <p>
-                        {!!html_entity_decode($data['invoiceDescription'])!!}
-                    </p>
-                    <br>
-                    <hr>
-                </td>
-            </tr>
-            @endif
-        </table>
-        <!--QUEBRA 1-->
-        <p class="break"></p>
-
-        @if($data['tasksOperational'])
+    
         <br>
         <h4 style="color:{{$data['accountPrincipalColor']}}">
             EXECUÇÃO:
         </h4>
         <p style="text-align: left;margin-top: 0px;">
-            Os serviços contratados nesta fatura representam um total de pontos que foram utilizados como descrito abaixo:
+            Este relatório apresenta o resultado da execução destes serviços previamente contratados:
         </p>
         <br>
         <table style="width: 100%">
@@ -337,39 +223,6 @@
                 </td>
             </tr>
         </table>
-        <br>
-
-        <!--QUEBRA 2-->
-        <p class="break"></p>
-        @endif
-
-        <div style='padding-top: 60px;text-align: center'>
-            <h4 style="color:{{$data['accountPrincipalColor']}}">
-                DADOS PARA PAGAMENTO:
-            </h4>
-
-            @foreach ($data['bankAccounts'] as $bankAccount)
-
-            <p>
-                {{$bankAccount->bank->name}} - cód. {{$bankAccount->bank->bank_code}}
-                <br>
-                <br>
-                Agência: {{$bankAccount->agency}}
-                <br>
-                <br>
-                Conta: {{$bankAccount->account_number}}
-                @if($bankAccount->pix)
-                <br>
-                <br>
-                Chave PIX: {{$bankAccount->pix}}
-                @endif
-                <br>
-                <br>
-                CNPJ: {{$data['accountCnpj']}}
-            </p>
-            @endforeach			
-        </div>
-        <br>
         <br>
     </body>
 </html>
