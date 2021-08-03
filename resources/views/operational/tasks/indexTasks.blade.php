@@ -161,11 +161,6 @@
     </div>
     {{formatPriority($task)}}
 
-    @php
-    if($task->status == 'fazer' AND $task->journeys()->exists()) {
-    $task->status == 'fazendo';
-    }
-    @endphp
     {{formatStatus($task)}}
 
 </div>

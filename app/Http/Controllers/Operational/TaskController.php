@@ -27,6 +27,14 @@ class TaskController extends Controller {
         $today = date('Y-m-d');
         $tasks = $this->filterTasks($request);
 
+        foreach ($tasks as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+                $task->status = 'atrasada';
+            }
+        }
+
         $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->get();
@@ -188,7 +196,7 @@ class TaskController extends Controller {
         $task->type = 'bug';
         $task->name = "BUG: $request->module de " . $task->contact->name;
         $task->description = $task->contact->name . " encontrou um problema em " . mb_strtoupper($request->module, 'UTF-8') . " quando estava " . mb_strtoupper($request->action, 'UTF-8') . "<br><br> Ele adicionou: " . html_entity_decode($request->description);
-        
+
         $DateTime = new DateTime($request->date_start);
         $DateTime->add(new \DateInterval("P1D"));
         $task->date_due = $DateTime->format('Y-m-d');
@@ -202,7 +210,7 @@ class TaskController extends Controller {
 //        })
 //                ->first();
 //        $task->company_id = $authCompany->id;
-        
+
         $task->save();
 
         if ($request->file('image')) {
