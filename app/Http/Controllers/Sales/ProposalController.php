@@ -427,7 +427,6 @@ class ProposalController extends Controller {
                 ])
                 ->get();
 
-
 // definição do título
         if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
             $pdfTitle = 'ORÇAMENTO';
@@ -511,7 +510,7 @@ class ProposalController extends Controller {
 
     // Gera PDF do relatório de produção da proposta
     public function createProductionPdf(Proposal $proposal) {
-        
+
         $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($proposal) {
                     $query->where('proposal_id', $proposal->id);
                 })
@@ -534,6 +533,14 @@ class ProposalController extends Controller {
                 ->with('journeys')
                 ->get();
 
+        foreach ($tasksOperational as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+                $task->status = 'atrasada';
+            }
+        }
+
         $tasksOperationalPoints = $tasksOperational
                 ->sum('points');
 
@@ -545,7 +552,7 @@ class ProposalController extends Controller {
 //        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
 //            $pdfTitle = 'ORÇAMENTO';
 //        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
-            $pdfTitle = 'RELATÓRIO DE PRODUÇÃO';
+        $pdfTitle = 'RELATÓRIO DE PRODUÇÃO';
 //        }
 
         if ($proposal->company_id) {

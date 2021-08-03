@@ -193,6 +193,8 @@
                 </td>
                 @if($task->status == 'fazer')
                 <td class="toDo" style="font-color:{{$data['accountComplementaryColor']}}">
+                @elseif($task->status == 'fazendo')
+                <td class="doing" style="font-color:{{$data['accountComplementaryColor']}}">
                 @elseif($task->status == 'feito')
                 <td class="done" style="font-color:{{$data['accountComplementaryColor']}}">
                 @endif
