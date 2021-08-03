@@ -23,7 +23,13 @@
 
 
 @section('status')
+@if($task->status == 'fazer' AND $task->journeys()->exists())
+<div class='doing'>
+    fazendo
+</div>
+@else
 {{formatShowStatus($task)}}
+@endif
 @endsection
 
 
