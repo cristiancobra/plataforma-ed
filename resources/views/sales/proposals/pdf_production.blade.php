@@ -151,7 +151,7 @@
             EXECUÇÃO:
         </h4>
         <p style="text-align: left;margin-top: 0px;">
-            Este relatório apresenta o resultado da execução destes serviços previamente contratados:
+             Relatório detalhado da produção dos serviços contratados:
         </p>
         <br>
         <table style="width: 100%">
