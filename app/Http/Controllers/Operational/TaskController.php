@@ -30,8 +30,6 @@ class TaskController extends Controller {
         foreach ($tasks as $task) {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
                 $task->status = 'fazendo';
-            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-                $task->status = 'atrasada';
             }
         }
 
@@ -521,5 +519,5 @@ class TaskController extends Controller {
                                 'task',
         ));
     }
-    
+
 }

@@ -1563,6 +1563,24 @@ if (!function_exists('formatCurrency')) {
     }
 
 }
+//formatar data em páginas index
+if (!function_exists('formatDateDue')) {
+
+    function formatDateDue($model) {
+        echo "<div class='tb col-1'>";
+        if ($model->date_due == date('Y-m-d')) {
+            echo "<p>hoje";
+        } elseif ($model->date_due <= date('Y-m-d')) {
+            echo "<p style='color: red'>" . dateBr($model->date_due);
+        } else {
+            echo "<p>" . dateBr($model->date_due);
+        }
+        echo "</p></div>";
+    }
+
+}
+
+
 // formata um número com pontos de milhar
 if (!function_exists('formatThousands')) {
 
@@ -1998,7 +2016,7 @@ if (!function_exists('createFormPage')) {
         }
         if ($page->contact_state) {
             echo "<label class='labels' for='state'>Estado:</label>";
-                    createDoubleSelect('state', 'fields', returnStates());
+            createDoubleSelect('state', 'fields', returnStates());
 //            <input type='text' name='state'>
 //            <br>
 //            ";

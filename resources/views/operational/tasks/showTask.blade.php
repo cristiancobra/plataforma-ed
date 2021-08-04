@@ -71,12 +71,10 @@
     </div>
     <div class='show-field-end'>
         @isset($task->opportunity->id)
-        {{$task->opportunity->name}}
-        <button class='button-round'>
-            <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
-                <i class='fa fa-eye' style='color:white'></i>
-            </a>
-        </button>
+        <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
+            {{$task->opportunity->name}}
+            <i class='fa fa-eye' style='color:white'></i>
+        </a>
         @else
         Não possui
         @endisset
@@ -153,11 +151,11 @@
     </div>
 </div>
 <div class='row description-field justify-content-center'>
-        @foreach($task->images as $image)
-        <div class='col-2 mt-2 mb-2'>
-            <image src='{{asset($image->path)}}' widht='100%' height='120px'>
-        </div>
-        @endforeach
+    @foreach($task->images as $image)
+    <div class='col-2 mt-2 mb-2'>
+        <image src='{{asset($image->path)}}' widht='100%' height='120px'>
+    </div>
+    @endforeach
 </div>
 <div class='row' style='margin-top: 10px;text-align: right'>
     <div class='col-12'style='text-align: right'>
@@ -166,7 +164,7 @@
                                                                     'task_id' => $task->id,
                                                                     ]
                                 )}} " method="post" enctype='multipart/form-data'>
-        @csrf
+            @csrf
             <input type='file' name='image'>
             <button type='submit' class='circular-button primary'>
                 <i class='fa fa-plus' aria-hidden='true'></i>

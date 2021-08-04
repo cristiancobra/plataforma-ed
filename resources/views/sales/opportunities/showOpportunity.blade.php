@@ -802,13 +802,9 @@
         <div class='tb col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
-        <div class='tb col-1'>
-            @isset($task->date_conclusion)
-            {{date('d/m/Y', strtotime($task->date_conclusion))}}
-            @else
-            em aberto
-            @endisset
-        </div>
+
+        {{formatDateDue($task)}}
+
         {{formatPriority($task)}}
 
         {{formatStatus($task)}}
@@ -898,7 +894,7 @@
         </div>
         <div class='tb col-1'>
             @isset($task->date_conclusion)
-            {{date('d/m/Y', strtotime($task->date_conclusion))}}
+            {{dateBr($task->date_conclusion)}}
             @else
             em aberto
             @endisset

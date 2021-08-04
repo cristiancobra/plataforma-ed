@@ -204,9 +204,6 @@ class OpportunityController extends Controller {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
                 $task->status = 'fazendo';
             }
-            if ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-                $task->status = 'atrasada';
-            }
         }
 
 //        dd($tasksOperational);

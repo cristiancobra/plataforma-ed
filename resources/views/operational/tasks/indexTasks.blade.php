@@ -148,17 +148,9 @@
         funcionário excluído
         @endif
     </div>
-    <div class='tb col-1'>
-        @if($task->date_due == date('Y-m-d'))
-        hoje
-        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-        <p style="color: red">
-            {{dateBr($task->date_due)}}
-        </p>
-        @else
-        {{dateBr($task->date_due)}}
-        @endif
-    </div>
+
+    {{formatDateDue($task)}}
+    
     {{formatPriority($task)}}
 
     {{formatStatus($task)}}
