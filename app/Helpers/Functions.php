@@ -797,6 +797,9 @@ if (!function_exists('formatStatus')) {
             case 'aguardar':
                 echo '<div class="col-1 tb tb-stuck text-center">aguardar</div>';
                 break;
+            case 'atrasada':
+                echo '<div class="col-1 tb tb-late text-center">atrasada</div>';
+                break;
         }
     }
 

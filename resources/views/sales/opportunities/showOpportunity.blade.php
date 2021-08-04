@@ -379,7 +379,7 @@
             @else
             <div class='circular-button primary' style='display: inline-block;float: right'>
                 <i class='fa fa-check' aria-hidden='true'></i>
-            </>
+                </>
             </div>
             @endif
         </div>
@@ -844,38 +844,36 @@
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
              '>
-            <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-                @csrf
-                <input type='hidden' name='task_name' value='ATENDIMENTO:'>
-                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-                @endif
-                @if($opportunity->contact)
-                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-                @endif
-                <input type='hidden' name='department' value='atendimento'>
-                <input class='text-button secondary' type='submit' value='REGISTRAR ATENDIMENTO'>
-            </form>
+            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
+                                                                                                                                                                                        'task_name' => 'ATENDIMENTO',
+                                                                                                                                                                                        'opportunity_id' => $opportunity->id,
+                                                                                                                                                                                        'opportunity_name' => $opportunity->name,
+                                                                                                                                                                                        'company_name' => $opportunity->company->name,
+                                                                                                                                                                                        'company_id' => $opportunity->company->id,
+                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
+                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
+                                                                                                                                                                                        'department' => 'vendas',
+                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
+                                                                                                                                                                                        ]
+                    )}}'>
+                <i class='fa fa-plus' aria-hidden='true'></i>
+            </a>
         </div>
     </div>
     <div class='row'>
         <div class='col-2 tb tb-header'>
             CRIAÇÃO 
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-3 tb tb-header'>
             TAREFA 
         </div>
-        <div class='col-3 tb tb-header'>
+        <div class='col-4 tb tb-header'>
             DESCRIÇÃO 
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-1 tb tb-header'>
             CONCLUSÃO
         </div>
-        <div class='col-2 tb tb-header'>
+        <div class='col-1 tb tb-header'>
             PRIORIDADE
         </div>
         <div class='tb tb-header col-1'>
@@ -892,13 +890,13 @@
             </button>
             {{date('d/m/Y', strtotime($task->date_start))}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-3'>
             {{$task->name}}
         </div>
-        <div class='tb col-3'>
+        <div class='tb col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
-        <div class='tb col-3'>
+        <div class='tb col-1'>
             @isset($task->date_conclusion)
             {{date('d/m/Y', strtotime($task->date_conclusion))}}
             @else
@@ -907,17 +905,7 @@
         </div>
         {{formatPriority($task)}}
 
-        @if($task->status == 'fazer' AND $task->journeys()->exists())
-        <div class='tb col-1'>
-            andamento
-        </div>
-        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-        <div class='tb col-1'>
-            atrasada
-        </div>
-        @else
         {{formatStatus($task)}}
-        @endif
     </div>
     @endforeach
     <div class='row'>

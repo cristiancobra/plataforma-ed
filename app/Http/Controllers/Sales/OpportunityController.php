@@ -151,7 +151,7 @@ class OpportunityController extends Controller {
 //                ->with('transactions')
 //                ->orderBy('PAY_DAY', 'ASC')
                 ->get();
-        
+
         $proposalWon = $proposals->where('status', 'aprovada')->count();
 
         $invoices = Invoice::where('opportunity_id', $opportunity->id)
@@ -182,7 +182,7 @@ class OpportunityController extends Controller {
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->with('journeys')
                 ->get();
-        
+
         foreach ($tasks as $task) {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
                 $task->status = 'fazendo';
@@ -199,9 +199,17 @@ class OpportunityController extends Controller {
                 })
                 ->sum('duration');
 
-        $tasksOperational = $tasks->where('department', '=', 'produção');
+        $tasksOperational = $tasks->where('department', 'produção');
+        foreach ($tasksOperational as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            }
+            if ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+                $task->status = 'atrasada';
+            }
+        }
 
-//dd($tasksOperational);
+//        dd($tasksOperational);
         $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($opportunity) {
                     $query->where('opportunity_id', $opportunity->id);
                     $query->where('department', '=', 'produção');
@@ -209,7 +217,15 @@ class OpportunityController extends Controller {
                 ->with('journeys')
                 ->sum('duration');
 
-        $tasksCustomerServices =  $tasks->where('department', '=', 'atendimento');
+        $tasksCustomerServices = $tasks->where('department', '=', 'atendimento');
+        foreach ($tasksOperational as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            }
+            if ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+                $task->status = 'atrasada';
+            }
+        }
 
         $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($opportunity) {
                     $query->where('opportunity_id', $opportunity->id);
@@ -382,7 +398,6 @@ class OpportunityController extends Controller {
         return redirect()->action('Sales\\OpportunityController@index');
     }
 
-    
     // Gera PDF do relatório de produção da proposta
     public function createProductionPdf(Opportunity $opportunity) {
 //        $proposal = Proposal::where('opportunity_id', $opportunity->id)
@@ -391,11 +406,9 @@ class OpportunityController extends Controller {
 //                ->first();
 //dd($proposal);
 //        $totalTransactions = $proposal->invoices->transactions->sum('value');
-
 //        $proposalLines = ProductProposal::where('proposal_id', $proposal->id)
 //                ->with('product', 'opportunity')
 //                ->get();
-
 //        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
 //                ->where('status', 'LIKE', 'recebendo')
 //                ->with([
@@ -509,4 +522,5 @@ class OpportunityController extends Controller {
 // download PDF file with download method
         return $pdf->stream('Relatorio.pdf');
     }
+
 }

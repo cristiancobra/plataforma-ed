@@ -113,7 +113,7 @@ table{
     border-right-color: rgba(135, 73, 131,0.50);
     border-right-style: solid;
     border-right-width: 1px;
-        display: flex;
+    display: flex;
     justify-content: flex-start;
     align-items: center;
 }
@@ -142,7 +142,7 @@ table{
     color: white;
     text-align: center;
     background-color: #c28dbf;
-    font-size:15px;
+    font-size:14px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -339,6 +339,8 @@ td {
 }
 
 .tb-late{
+    color: white;
+    text-shadow: 2px 2px 4px #000000;
     background-color: #FDA15E;
 }
 
