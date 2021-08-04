@@ -226,12 +226,12 @@ class ContactController extends Controller {
 
     public function storeFromForm(Request $request, Page $page) {
         $messages = [
-            'unique' => 'Já existe um contato com este :attribute.',
-            'required' => '*preenchimento obrigatório.',
+            'unique' => ' *já existe um contato com este :attribute.',
+            'required' => ' *preenchimento obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
-                    'first_name' => 'required:contact',
-                    'email' => 'required:contact',
+                    'first_name' => 'required:contacts',
+                    'email' => 'unique:contacts',
                         ], $messages);
 
         if ($validator->fails()) {
@@ -245,6 +245,7 @@ class ContactController extends Controller {
             $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
             $contact->account_id = $page->account_id;
             $contact->type = 'cliente';
+//            dd($contact);
             $contact->save();
 //            $contact->companies()->sync($request->companies);
 

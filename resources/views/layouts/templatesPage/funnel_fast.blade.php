@@ -10,6 +10,8 @@
 
     </head>
     <body>
+        @yield('errors')
+        
         @yield('banner')
 
         @yield('text1')

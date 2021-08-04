@@ -2,16 +2,36 @@
 
 @section('page_name', $page->name)
 
-@if($page->image)
+
+@section('errors')
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
+</div>
+@endif
+@if(Session::has('success'))
+<div class="alert alert-success">
+    {{Session::get('success')}}
+    @php
+    Session::forget('success');
+    @endphp
+</div>
+@endif
+@endsection
+
+
 @section('banner')
 <div class="row justify-content-start" style="
      height: 60px;
-       width: 100%;
+     width: 100%;
      font-size: 20px;
      align-items: center;
-  opacity: 0.8;
-  position: absolute;
-   overflow: hidden;
+     opacity: 0.8;
+     position: absolute;
+     overflow: hidden;
      background-color: {{$page->principal_color}}
 ">
     @if($page->logo)
@@ -22,10 +42,11 @@
     {{strtoupper($page->name)}}
     @endif
 </div>
+@if($page->image)
 <div class='row pt-5' style='
-     height:500px;
+     height:600px;
      background-image: url({{asset($page->image->path)}});
-       background-size: cover;
+     background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
      '>
@@ -35,9 +56,7 @@
         </p>
     </div>
 </div>
-@endsection
 @else
-@section('banner')
 <div class='row pt-5' style='
      height:500px;
      background-color: {{$page->principal_color}};
@@ -48,8 +67,8 @@
         </p>
     </div>
 </div>
-@endsection
 @endif
+@endsection
 
 @section('text1')
 <div class='row' style='
@@ -77,22 +96,6 @@
 @endsection
 
 @section('form')
-@if(Session::has('failed'))
-<div class="alert alert-danger">
-    {{Session::get('failed')}}
-    @php
-    Session::forget('failed');
-    @endphp
-</div>
-@endif
-@if(Session::has('success'))
-<div class="alert alert-success">
-    {{Session::get('success')}}
-    @php
-    Session::forget('success');
-    @endphp
-</div>
-@endif
 <div class='row' style='
      height:200px;
      background-color: {{$page->opposite_color}};

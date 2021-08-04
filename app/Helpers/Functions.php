@@ -1964,7 +1964,7 @@ if (!function_exists('createFormPage')) {
             echo "<label class='labels' for='first_name'>Nome:</label>
             <input type='text' name='first_name'>";
             if ($errors->has('first_name')) {
-                echo "<span class='text-danger'>" . $errors->first('first_name') . "</span>";
+                echo "<br><span class='text-danger'>" . $errors->first('first_name') . "</span><br>";
             }
             echo "<br>";
         }
@@ -1972,7 +1972,7 @@ if (!function_exists('createFormPage')) {
             echo "<label class='labels' for='last_name'>Sobrenome:</label>
             <input type='text' name='last_name'>";
             if ($errors->has('last_name')) {
-                echo "<span class='text-danger'>" . $errors->first('last_name') . "</span>";
+                echo "<br><span class='text-danger'>" . $errors->first('last_name') . "</span><br>";
             }
             echo "<br>";
         }
@@ -1980,7 +1980,7 @@ if (!function_exists('createFormPage')) {
             echo "<label class='labels' for='email'>Email:</label>
             <input type='text' name='email'>";
             if ($errors->has('email')) {
-                echo "<span class='text-danger'>" . $errors->first('email') . "</span>";
+                echo "<br><span class='text-danger'>" . $errors->first('email') . "</span><br>";
             }
             echo "<br>";
         }
@@ -2017,9 +2017,6 @@ if (!function_exists('createFormPage')) {
         if ($page->contact_state) {
             echo "<label class='labels' for='state'>Estado:</label>";
             createDoubleSelect('state', 'fields', returnStates());
-//            <input type='text' name='state'>
-//            <br>
-//            ";
         }
         if ($page->contact_country) {
             echo "<label class='labels' for='country'>País:</label>
