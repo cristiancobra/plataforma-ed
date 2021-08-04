@@ -243,6 +243,9 @@ class TaskController extends Controller {
         foreach ($task->journeys as $journey) {
             $totalDuration = $totalDuration + $journey->duration;
         }
+        if($task->status == 'fazer' AND $task->journeys()->exists()) {
+            $task->status = 'fazendo';
+        }
 
         return view('operational.tasks.showTask', compact(
                         'today',
