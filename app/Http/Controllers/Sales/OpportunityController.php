@@ -16,6 +16,7 @@ use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
+use PDF;
 
 class OpportunityController extends Controller {
 
@@ -150,6 +151,8 @@ class OpportunityController extends Controller {
 //                ->with('transactions')
 //                ->orderBy('PAY_DAY', 'ASC')
                 ->get();
+        
+        $proposalWon = $proposals->where('status', 'aprovada')->count();
 
         $invoices = Invoice::where('opportunity_id', $opportunity->id)
                 ->where('trash', '==', 0)
@@ -220,6 +223,7 @@ class OpportunityController extends Controller {
         return view('sales.opportunities.showOpportunity', compact(
                         'opportunity',
                         'proposals',
+                        'proposalWon',
                         'invoices',
                         'invoiceInstallmentsTotal',
                         'invoicePaymentsTotal',
@@ -378,4 +382,131 @@ class OpportunityController extends Controller {
         return redirect()->action('Sales\\OpportunityController@index');
     }
 
+    
+    // Gera PDF do relatório de produção da proposta
+    public function createProductionPdf(Opportunity $opportunity) {
+//        $proposal = Proposal::where('opportunity_id', $opportunity->id)
+//                ->where('status', 'aprovada')
+//                ->with('invoices.transactions')
+//                ->first();
+//dd($proposal);
+//        $totalTransactions = $proposal->invoices->transactions->sum('value');
+
+//        $proposalLines = ProductProposal::where('proposal_id', $proposal->id)
+//                ->with('product', 'opportunity')
+//                ->get();
+
+//        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+//                ->where('status', 'LIKE', 'recebendo')
+//                ->with([
+//                    'account.image',
+//                    'bank',
+//                ])
+//                ->get();
+
+        $tasksOperational = Task::where('opportunity_id', $opportunity->id)
+                ->where('department', '=', 'produção')
+                ->with('journeys')
+                ->get();
+
+        foreach ($tasksOperational as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+                $task->status = 'atrasada';
+            }
+        }
+
+        $tasksOperationalPoints = $tasksOperational
+                ->sum('points');
+
+        $tasksOperationalPointsExecuted = $tasksOperational
+                ->where('status', 'feito')
+                ->sum('points');
+
+// definição do título
+//        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
+//            $pdfTitle = 'ORÇAMENTO';
+//        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
+        $pdfTitle = 'RELATÓRIO DE PRODUÇÃO';
+//        }
+
+        if ($opportunity->company_id) {
+            $email = $opportunity->company->email;
+            $phone = $opportunity->company->phone;
+            $address = $opportunity->company->address;
+            $city = $opportunity->company->city;
+            $state = $opportunity->company->state;
+            $country = $opportunity->company->country;
+            $companyName = $opportunity->company->name;
+            $companyCnpj = $opportunity->company->cnpj;
+            $contactCpf = null;
+        } else {
+            $email = $opportunity->contact->email;
+            $phone = $opportunity->contact->phone;
+            $address = $opportunity->contact->address;
+            $city = $opportunity->contact->city;
+            $state = $opportunity->contact->state;
+            $country = $opportunity->contact->country;
+            $companyName = null;
+            $companyCnpj = null;
+            $contactCpf = $opportunity->contact->cpf;
+        }
+
+        $data = [
+            'pdfTitle' => $pdfTitle,
+            'accountLogo' => $opportunity->account->image->path,
+            'accountPrincipalColor' => $opportunity->account->principal_color,
+            'accountComplementaryColor' => $opportunity->account->complementary_color,
+            'accountName' => $opportunity->account->name,
+            'accountEmail' => $opportunity->account->email,
+            'accountPhone' => $opportunity->account->phone,
+            'accountAddress' => $opportunity->account->address,
+            'accountCity' => $opportunity->account->city,
+            'accountState' => $opportunity->account->state,
+            'accountCnpj' => $opportunity->account->cnpj,
+//            'taskDescription' => $task->description,
+//            'customerName' => $task->contact->name,
+            'companyName' => $companyName,
+            'companyCnpj' => $companyCnpj,
+            'contactCpf' => $contactCpf,
+            'email' => $email,
+            'phone' => $phone,
+            'address' => $address,
+            'city' => $city,
+            'state' => $state,
+            'country' => $country,
+//            'bankAccounts' => $bankAccounts,
+            'invoiceIdentifier' => $opportunity->identifier,
+            'invoiceDescription' => $opportunity->description,
+            'invoiceDiscount' => $opportunity->discount,
+            'invoiceExpirationDate' => $opportunity->expiration_date,
+            'invoiceInstallmentValue' => $opportunity->installment_value,
+            'invoiceStatus' => $opportunity->status,
+            'invoiceNumberInstallmentTotal' => $opportunity->number_installment_total,
+            'invoiceTotalPrice' => $opportunity->installment_value,
+            'opportunityDescription' => $opportunity->description,
+            'invoiceDiscount' => $opportunity->discount,
+            'invoicePayday' => $opportunity->pay_day,
+            'invoiceTotalPrice' => $opportunity->totalPrice,
+            'customerName' => $opportunity->contact->name,
+//            'invoiceLines' => $proposalLines,
+//            'invoiceTotalTransactions' => $totalTransactions,
+            'tasksOperational' => $tasksOperational,
+            'tasksOperationalPoints' => $tasksOperationalPoints,
+            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
+        ];
+//        dd($data);
+        $header = view('layouts/pdfHeader', compact('data'))->render();
+        $footer = view('layouts/pdfFooter', compact('data'))->render();
+        $pdf = PDF::loadView('sales.proposals.pdf_production', compact('data'))
+                ->setOptions([
+            'page-size' => 'A4',
+            'header-html' => $header,
+            'footer-html' => $footer,
+        ]);
+
+// download PDF file with download method
+        return $pdf->stream('Relatorio.pdf');
+    }
 }

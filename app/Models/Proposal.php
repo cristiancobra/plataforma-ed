@@ -74,9 +74,9 @@ class Proposal extends Model {
         return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
     }
 
-    public function transactions() {
-        return $this->hasMany(Transaction::class);
-    }
+//    public function transactions() {
+//        return $this->hasMany(Transaction::class);
+//    }
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');

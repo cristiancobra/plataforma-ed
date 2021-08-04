@@ -333,6 +333,11 @@ Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
         ->parameters(['modelos-de-contratos' => 'contractTemplate']);
 
 // opportunities
+
+Route::get('oportunidades/pdf/relatorio-producao/{opportunity}', 'Sales\\OpportunityController@createProductionPdf')
+        ->name('opportunity.pdfProduction')
+        ->middleware('roles');
+
 Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
         ->name('opportunity.filter')
         ->middleware('roles');
@@ -383,10 +388,6 @@ Route::put('propostas/atualizar-parcelamento/{proposal}', 'Sales\\ProposalContro
 
 Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@createPdf')
         ->name('proposal.pdf')
-        ->middleware('roles');
-
-Route::get('propostas/pdf/relatorio-producao/{proposal}', 'Sales\\ProposalController@createProductionPdf')
-        ->name('proposal.pdfProduction')
         ->middleware('roles');
 
 Route::resource('propostas', 'Sales\\ProposalController')

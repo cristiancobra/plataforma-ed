@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Sales;
 use App\Http\Controllers\Controller;
 use App\Models\BankAccount;
 use App\Models\Contact;
+use App\Models\Contract;
 use App\Models\Company;
 use App\Models\Invoice;
 use App\Models\Journey;
@@ -272,7 +273,38 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Proposal $proposal) {
-        //
+        $users = User::myUsers();
+
+        $companies = Company::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $contracts = Contract::where('invoice_id', $proposal->id)
+                ->orderBy('ID', 'ASC')
+                ->get();
+
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
+        $productProposals = ProductProposal::where('proposal_id', $proposal->id)
+                ->get();
+
+        return view('sales.proposals.edit', compact(
+                        'users',
+                        'companies',
+                        'contracts',
+                        'contacts',
+//                        'proposalType',
+                        'proposal',
+                        'productProposals',
+//                        'invoices',
+//                        'totalInvoices',
+//                        'proposalPaymentsTotal',
+//                        'balance',
+//                        'tasksOperational',
+//                        'tasksOperationalHours',
+        ));
     }
 
     /**
@@ -283,7 +315,28 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Proposal $proposal) {
-        //
+           $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+
+        $validator = Validator::make($request->all(), [
+                    'pay_day' => 'required:invoices',
+                    'date_creation' => 'required:invoices',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $proposal->fill($request->all());
+            $proposal->totalPrice = str_replace(",", ".", $request->totalPrice);
+            $proposal->save();
+
+            return redirect()->route('proposal.show', compact('proposal'));
+        }
     }
 
     /**
@@ -506,132 +559,6 @@ class ProposalController extends Controller {
 
 // download PDF file with download method
         return $pdf->stream('Fatura.pdf');
-    }
-
-    // Gera PDF do relatório de produção da proposta
-    public function createProductionPdf(Proposal $proposal) {
-
-        $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($proposal) {
-                    $query->where('proposal_id', $proposal->id);
-                })
-                ->sum('value');
-
-//        $proposalLines = ProductProposal::where('proposal_id', $proposal->id)
-//                ->with('product', 'opportunity')
-//                ->get();
-
-        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
-                ->where('status', 'LIKE', 'recebendo')
-                ->with([
-                    'account.image',
-                    'bank',
-                ])
-                ->get();
-
-        $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
-                ->where('department', '=', 'produção')
-                ->with('journeys')
-                ->get();
-
-        foreach ($tasksOperational as $task) {
-            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-                $task->status = 'fazendo';
-            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-                $task->status = 'atrasada';
-            }
-        }
-
-        $tasksOperationalPoints = $tasksOperational
-                ->sum('points');
-
-        $tasksOperationalPointsExecuted = $tasksOperational
-                ->where('status', 'feito')
-                ->sum('points');
-
-// definição do título
-//        if ($proposal->status == 'orçamento' OR $proposal->status == 'rascunho') {
-//            $pdfTitle = 'ORÇAMENTO';
-//        } elseif ($proposal->status == 'aprovada' OR $proposal->status == 'paga') {
-        $pdfTitle = 'RELATÓRIO DE PRODUÇÃO';
-//        }
-
-        if ($proposal->company_id) {
-            $email = $proposal->company->email;
-            $phone = $proposal->company->phone;
-            $address = $proposal->company->address;
-            $city = $proposal->company->city;
-            $state = $proposal->company->state;
-            $country = $proposal->company->country;
-            $companyName = $proposal->company->name;
-            $companyCnpj = $proposal->company->cnpj;
-            $contactCpf = null;
-        } else {
-            $email = $proposal->contact->email;
-            $phone = $proposal->contact->phone;
-            $address = $proposal->contact->address;
-            $city = $proposal->contact->city;
-            $state = $proposal->contact->state;
-            $country = $proposal->contact->country;
-            $companyName = null;
-            $companyCnpj = null;
-            $contactCpf = $proposal->contact->cpf;
-        }
-
-        $data = [
-            'pdfTitle' => $pdfTitle,
-            'accountLogo' => $proposal->account->image->path,
-            'accountPrincipalColor' => $proposal->account->principal_color,
-            'accountComplementaryColor' => $proposal->account->complementary_color,
-            'accountName' => $proposal->account->name,
-            'accountEmail' => $proposal->account->email,
-            'accountPhone' => $proposal->account->phone,
-            'accountAddress' => $proposal->account->address,
-            'accountCity' => $proposal->account->city,
-            'accountState' => $proposal->account->state,
-            'accountCnpj' => $proposal->account->cnpj,
-//            'taskDescription' => $task->description,
-//            'customerName' => $task->contact->name,
-            'companyName' => $companyName,
-            'companyCnpj' => $companyCnpj,
-            'contactCpf' => $contactCpf,
-            'email' => $email,
-            'phone' => $phone,
-            'address' => $address,
-            'city' => $city,
-            'state' => $state,
-            'country' => $country,
-            'bankAccounts' => $bankAccounts,
-            'invoiceIdentifier' => $proposal->identifier,
-            'invoiceDescription' => $proposal->description,
-            'invoiceDiscount' => $proposal->discount,
-            'invoiceExpirationDate' => $proposal->expiration_date,
-            'invoiceInstallmentValue' => $proposal->installment_value,
-            'invoiceStatus' => $proposal->status,
-            'invoiceNumberInstallmentTotal' => $proposal->number_installment_total,
-            'invoiceTotalPrice' => $proposal->installment_value,
-            'opportunityDescription' => $proposal->opportunity->description,
-            'invoiceDiscount' => $proposal->discount,
-            'invoicePayday' => $proposal->pay_day,
-            'invoiceTotalPrice' => $proposal->totalPrice,
-            'customerName' => $proposal->opportunity->contact->name,
-//            'invoiceLines' => $proposalLines,
-            'invoiceTotalTransactions' => $totalTransactions,
-            'tasksOperational' => $tasksOperational,
-            'tasksOperationalPoints' => $tasksOperationalPoints,
-            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
-        ];
-//        dd($data);
-        $header = view('layouts/pdfHeader', compact('data'))->render();
-        $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('sales.proposals.pdf_production', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'header-html' => $header,
-            'footer-html' => $footer,
-        ]);
-
-// download PDF file with download method
-        return $pdf->stream('Relatorio.pdf');
     }
 
 }

@@ -173,7 +173,7 @@
             adicionar empresa
         </a>
         @else
-        <i class="fas fa-store me-2"></i>
+        <i class='fas fa-store me-2'></i>
         <a href='{{route('company.edit', [
                                                                 'company' => $opportunity->company,
                                                                  'typeCompanies' => 'cliente'
@@ -193,7 +193,7 @@
         @endif
     </div>
     <div class='tb-row'>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
             @if(isset($opportunity->company->competitive_advantage))
             {{$opportunity->company->competitive_advantage}}
@@ -201,7 +201,7 @@
             --
             @endif
         </div>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
             @if(isset($opportunity->company->business_model))
             {{$opportunity->company->business_model}}
@@ -212,7 +212,7 @@
     </div>
 
     <div class='tb-row'>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
             @if(isset($opportunity->company->sector))
             {{$opportunity->company->sector}}
@@ -220,7 +220,7 @@
             --
             @endif
         </div>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
             <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
                 @if(isset($opportunity->company->employees))
@@ -233,7 +233,7 @@
     </div>
 
     <div class='tb-row'>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
             @if(isset($opportunity->company->client_number))
             {{$opportunity->company->client_number}}
@@ -241,7 +241,7 @@
             --
             @endif
         </div>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
             @if(isset($opportunity->company->revenues))
             {{$opportunity->company->revenues}}
@@ -251,7 +251,7 @@
         </div>
     </div>
     <div class='tb-row pt-5'>
-        <i class="fas fa-users me-2"></i>
+        <i class='fas fa-users me-2'></i>
         @if($opportunity->contact->name)
         <a href='{{route('contact.show', ['contact' => $opportunity->contact])}}'>
             <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
@@ -265,11 +265,11 @@
         @endif
     </div>
     <div class='tb-row'>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Email: </label>
             {{$opportunity->contact->name}}
         </div>
-        <div class="col">
+        <div class='col'>
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Telefone: </label>
             {{$opportunity->contact->phone}}
         </div>
@@ -342,7 +342,7 @@
 
 
     <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
+        <div class='col-6 pt-3 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-left-style: solid;
@@ -353,31 +353,35 @@
             <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
             <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTAS</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style='
+        <div class='col-6 pt-3 pb-3' style='
              border-top-style: solid;
              border-top-width: 1px;
              border-right-style: solid;
              border-right-width: 1px;
              border-radius: 0px 7px 0px 0px;
-             border-color: #c28dbf
+             border-color: #c28dbf;
              '>
-            <form  style='display: inline-block;float: right' method='get' action='{{route('proposal.create')}}'>
-                @csrf
-
-                <input type='hidden' name='typeInvoices' value='receita'>
-                <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
-                <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
-                <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
-                @endif
-                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-                <input type='hidden' name='department' value='vendas'>
-                <input type='hidden' name='invoiceStatus' value='orçamento'>
-                <input class='text-button secondary' type='submit' value='GERAR PROPOSTA'>
-            </form>
+            @if($proposalWon == 0)
+            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('proposal.create', [
+                                                                                                                                                                                        'opportunityName' => $opportunity->name,
+                                                                                                                                                                                        'opportunityId' => $opportunity->id,
+                                                                                                                                                                                        'opportunityDescription' => $opportunity->description,
+                                                                                                                                                                                        'opportunityCompanyName' => $opportunity->company->name,
+                                                                                                                                                                                        'opportunityCompanyId' => $opportunity->company->id,
+                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
+                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
+                                                                                                                                                                                        'department' => 'vendas',
+                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
+                                                                                                                                                                                        ]
+                    )}}'>
+                <i class='fa fa-plus' aria-hidden='true'></i>
+            </a>
+            @else
+            <div class='circular-button primary' style='display: inline-block;float: right'>
+                <i class='fa fa-check' aria-hidden='true'></i>
+            </>
+            </div>
+            @endif
         </div>
     </div>
     <div class='row'>
@@ -431,13 +435,8 @@
     </div>
     @endforeach
     <div class='row mb-4'>
-        <div class='tb tb-header col-7 justify-content-end'>
-        </div>
+        <div class='tb tb-header col justify-content-end' style='height: 30px'>
 
-        <div class='tb tb-header col-2 justify-content-end'>
-            Pago:  {{formatCurrencyReal($balanceTotal)}}
-        </div>
-        <div class='tb tb-header col-1'>
         </div>
     </div>
 
@@ -763,7 +762,7 @@
                 <input type='hidden' name='department' value='vendas'>
                 <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
             </form>
-            <a class="text-button secondary"  style='display: inline-block;float: right'  href='{{route('proposal.pdfProduction', ['proposal' => $proposal])}}'>
+            <a class='text-button secondary'  style='display: inline-block;float: right'  href='{{route('opportunity.pdfProduction', ['opportunity' => $opportunity])}}'>
                 RELATÓRIO PDF
             </a>
         </div>

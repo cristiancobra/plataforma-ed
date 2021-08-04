@@ -88,21 +88,21 @@ $openJourney = \App\Models\Journey::myOpenJourney();
                         </form>
                     </div>
                 </li>
-                @if(isset($openJourney))
-                <a class='circular-nav-button secondary'  href='{{route('journey.show', ['journey' => $openJourney])}}'>
-                    <i class="fas fa-step-forward" title='Ir para a jornada aberta' style="color:#8B2485"></i>
-                </a>
-                @endif
-                @if(isset($lastJourney->task))
-                <a class='circular-nav-button secondary'  href='{{route('journey.create', ['taskName' => $lastJourney->task->name, 'taskId' => $lastJourney->task_id])}}'>
-                    <i class="fas fa-mug-hot" title='Criar nova jornada na última tarefa' style="color:#8B2485"></i>
-                </a>
-                @endif
-                <a class='circular-nav-button secondary'  href='{{route('task.create')}}'>
-                    <i class="fas fa-calendar-check" title='Criar nova tarefa' style="color:#8B2485"></i>
-                </a>
-                @endif
             </ul>
+            @if(isset($openJourney))
+            <a class='circular-nav-button secondary'  href='{{route('journey.show', ['journey' => $openJourney])}}'>
+                <i class="fas fa-step-forward" title='Ir para a jornada aberta' style="color:#8B2485"></i>
+            </a>
+            @endif
+            @if(isset($lastJourney->task))
+            <a class='circular-nav-button secondary'  href='{{route('journey.create', ['taskName' => $lastJourney->task->name, 'taskId' => $lastJourney->task_id])}}'>
+                <i class="fas fa-mug-hot" title='Criar nova jornada na última tarefa' style="color:#8B2485"></i>
+            </a>
+            @endif
+            <a class='circular-nav-button secondary'  href='{{route('task.create')}}'>
+                <i class="fas fa-calendar-check" title='Criar nova tarefa' style="color:#8B2485"></i>
+            </a>
+            @endif
         </div>
     </div>
 </nav>
