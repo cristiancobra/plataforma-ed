@@ -9,7 +9,7 @@
 @section('buttons')
 {{createButtonBack()}}
 
-@if($journey->status == 'fazer' AND $task->start != null)
+@if($journey->status == 'fazendo')
 <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('journey.complete', ['journey' => $journey]) }} " method="post">
     @csrf
     @method('put')

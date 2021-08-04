@@ -71,7 +71,7 @@
 </div>
 
 <div class='row' style='
-     height:200px;
+     height:300px;
      background-color: {{$page->opposite_color}};
      '>
     <div class='col  text-center  pb-5'>
