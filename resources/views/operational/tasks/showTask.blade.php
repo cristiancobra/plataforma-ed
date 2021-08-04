@@ -11,7 +11,7 @@
 <a class='circular-button secondary'  href='{{route('task.pdf', ['task' => $task])}}'>
     <i class='fas fa-print'></i>
 </a>
-@if($task->status == 'fazer' AND $task->journeys()->exists())
+@if($task->status == 'fazendo')
 <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
     @csrf
     @method('put')
