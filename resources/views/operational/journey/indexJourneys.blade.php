@@ -89,7 +89,7 @@
             @endif
         </td>
         <td class="table-list-center" style="color:white;background-color: #874983">
-            {{ gmdate('H:i', $journey->duration) }}
+            {{formatTotalHour($journey->duration)}}
         </td>
     </tr>
     @endforeach
