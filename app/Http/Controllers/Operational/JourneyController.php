@@ -240,7 +240,7 @@ class JourneyController extends Controller {
         $journey->trash = 1;
         $journey->save();
 
-        return redirect()->action('Sales\\JourneyController@index');
+        return redirect()->action('Operational\\JourneyController@index');
     }
 
     public function restoreFromTrash(Journey $journey) {
