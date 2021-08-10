@@ -20,6 +20,7 @@
     </button>
 </form>
 @endif
+{{createButtonTrash($task, 'task')}}
 {{createButtonEdit('task', 'task', $task)}}
 {{createButtonList('task')}}
 @endsection

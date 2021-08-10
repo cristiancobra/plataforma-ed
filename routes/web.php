@@ -253,6 +253,14 @@ Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
         ->name('task.pdf')
         ->middleware('roles');
 
+Route::put('/tarefas/apagar/{task}', 'Operational\\TaskController@sendToTrash')
+        ->name('task.trash')
+        ->middleware('roles');
+
+Route::put('/tarefas/restaurar/{task}', 'Operational\\TaskController@restoreFromTrash')
+        ->name('task.restore')
+        ->middleware('roles');
+
 Route::put('/tarefas/encerrar/{task}', 'Operational\\TaskController@completeTask')
         ->name('task.complete')
         ->middleware('roles');
