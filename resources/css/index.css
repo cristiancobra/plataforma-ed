@@ -232,16 +232,6 @@ td {
     justify-content: center;
 }
 
-.tb-emergency{
-    font-size: 14px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    background-color: #392F6D;
-    border-style: solid;
-    border-width: 1px; 
-    justify-content: center;
-}
-
 .td-contract{
     display: table-cell;  
     font-size: 14px;
@@ -291,6 +281,16 @@ td {
     text-shadow: 2px 2px 4px #000000;
     color: white;
     background-color: #92C4D4;
+    border-style: solid;
+    border-width: 1px; 
+    justify-content: center;
+}
+
+.tb-emergency{
+    font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #392F6D;
     border-style: solid;
     border-width: 1px; 
     justify-content: center;
@@ -391,105 +391,109 @@ td {
 
 /*  Oportunidades / Stage */
 
-.td-prospecting{
-    display: table-cell;  
-    font-size: 14px;
+.tb-prospecting{
+        font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #8B2485;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
-.td-presentation{
-    display: table-cell;  
+.tb-presentation{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #957799;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
-.td-proposal{
-    display: table-cell;  
+.tb-proposal{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #EDB4F4;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 .td-published{
-    display: table-cell;  
-    font-size: 14px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:super;
     background-color: #49d194;
-    border-style: solid;
-    border-width: 1px; 
-    border-color: white;
 }
 
-/*  Oportunidades / Status */
-.td-dealing{
-    display: table-cell;  
-    font-size: 14px;
+.tb-dealing{
+        font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #EDD500;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
-.td-won{
-    display: table-cell;  
+.tb-bill{
+        font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #F7AFB4;
+    border-style: solid;
+    border-width: 1px; 
+    justify-content: center;
+}
+
+.tb-contract{
+        font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #92C4D4;
+    border-style: solid;
+    border-width: 1px; 
+    justify-content: center;
+}
+
+.tb-production{
+        font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #09FBBE;
+    border-style: solid;
+    border-width: 1px; 
+    justify-content: center;
+}
+
+.tb-conclude{
+        font-size: 14px;
+    text-shadow: 2px 2px 4px #000000;
+    color: white;
+    background-color: #20EB48;
+    border-style: solid;
+    border-width: 1px; 
+    justify-content: center;
+}
+
+/*  Oportunidades / Status */
+.tb-won{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #97F80C;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
+    justify-content: center;
 }
 
-.td-lost{
-    display: table-cell;  
+.tb-lost{
     font-size: 14px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:super;
     background-color: #EF5362;
     border-style: solid;
     border-width: 1px; 
-    border-color: white;
-}
-
-/*Half Table*/
-/*.tb { 
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    color: #874983;
-    font-size:14px;
-    border-color: rgba(135, 73, 131,0.50);
-    border-style: solid;
-    border-width: 1px;
-    display: flex;
     justify-content: center;
-    align-items: center;
-}*/
+}
 
 
 .button-round {

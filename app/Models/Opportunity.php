@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 
 class Opportunity extends Model {
 
@@ -51,7 +52,72 @@ class Opportunity extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-// MÉTODOS PÚBLICOS
+    // MÉTODOS PÚBLICO
+
+
+    public static function filterOpportunities(Request $request) {
+        $opportunities = Opportunity::where(function ($query) use ($request) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    if ($request->user_id) {
+                        $query->where('user_id', $request->user_id);
+                    }
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
+                    }
+                    if ($request->department) {
+                        $query->where('department', $request->department);
+                    }
+                    if ($request->contact_id) {
+                        $query->where('contact_id', $request->contact_id);
+                    }
+                    if ($request->company_id) {
+                        $query->where('company_id', $request->company_id);
+                    }
+                    if ($request->priority) {
+                        $query->where('priority', $request->priority);
+                    }
+                    if ($request->type) {
+                        $query->where('type', $request->type);
+                    }
+                    if ($request->stage == '') {
+                        $query->where('stage', '!=', 'concluída');
+                    }else{
+                        $query->where('stage', $request->stage);
+                    }
+                    if ($request->status == '') {
+                        $query->where('status', '!=', 'perdemos');
+                    } elseif ($request->status == 'fazendo') {
+                        $query->where('status', 'fazer');
+                        $query->whereHas('journeys');
+                    } elseif ($request->status) {
+                        $query->where('status', $request->status);
+                    }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    } else {
+                        $query->where('trash', '!=', 1);
+                    }
+                })
+                ->with(
+                    'user',
+                    'account',
+                    'company',
+                    'contact',
+                    'tasks.journeys',
+                )
+                ->orderBy('DATE_CONCLUSION', 'ASC')
+                ->paginate(20);
+
+        $opportunities->appends([
+            'name' => $request->name,
+            'status' => $request->status,
+            'contact_id' => $request->contact_id,
+            'user_id' => $request->user_id,
+        ]);
+
+        return $opportunities;
+    }
+    
 // retorna os estágios das oportunidades
     public static function listStages() {
         return $stages = array(

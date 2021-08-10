@@ -35,6 +35,23 @@ if (!function_exists('createButtonBack')) {
     }
 
 }
+if (!function_exists('createButtonCreate')) {
+
+// cria um botao com simbolo que vai para o método create do model
+    function createButtonCreate($model, $parameter = null, $value = null) {
+        $route = "$model.create";
+        $message = 'Criar novo';
+
+        if ($parameter) {
+            echo "<a class='circular-button primary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
+        } else {
+            echo "<a class = 'circular-button primary' title='$message' href = " . route($route) . ">";
+        }
+        echo "<i class = 'fas fa-plus'></i>
+                     </a>";
+    }
+
+}
 if (!function_exists('createButtonList')) {
 
 // cria um botao com simbolo que vai para o index do model
@@ -751,27 +768,27 @@ if (!function_exists('phoneBr')) {
 if (!function_exists('formatStage')) {
 
     function formatStage($model) {
-        switch ($model) {
+        switch ($model->stage) {
             case 'prospecção':
-                echo '<td class="td-prospecting">prospecção</td>';
+                echo '<div class="tb col-1 tb-prospecting">prospecção</div>';
                 break;
             case 'apresentação':
-                echo '<td class="td-presentation">apresentação</td>';
+                echo '<div class="tb col-1 tb-presentation">apresentação</div>';
                 break;
             case 'proposta':
-                echo '<td class="td-proposal">proposta</td>';
+                echo '<div class="tb col-1 tb-proposal">proposta</div>';
                 break;
             case 'contrato':
-                echo '<td class="td-contract">contrato</td>';
+                echo '<div class="tb col-1 tb-contract">contrato</div>';
                 break;
             case 'cobrança':
-                echo '<td class="td-bill">cobrança</td>';
+                echo '<div class="tb col-1 tb-bill">cobrança</div>';
                 break;
             case 'produção':
-                echo '<td class="td-production">produção</td>';
+                echo '<div class="tb col-1 tb-production">produção</div>';
                 break;
             case 'concluída':
-                echo '<td class="td-conclude">concluída</td>';
+                echo '<div class="tb col-1 tb-conclude">concluída</div>';
                 break;
         }
     }
@@ -821,23 +838,14 @@ if (!function_exists('formatStatus')) {
             case 'atrasada':
                 echo '<div class="col-1 tb tb-late text-center">atrasada</div>';
                 break;
-        }
-    }
-
-}
-// gera uma coluna de tabela com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
-if (!function_exists('formatOpportunityStatus')) {
-
-    function formatOpportunityStatus($model) {
-        switch ($model) {
             case 'negociando':
-                echo '<td class="td-dealing">negociando</td>';
+                echo '<div class="col-1 tb tb-dealing">negociando</div>';
                 break;
             case 'perdemos':
-                echo '<td class="td-lost">perdemos</td>';
+                echo '<div class="col-1 tb tb-lost">perdemos</div>';
                 break;
             case 'ganhamos':
-                echo '<td class="td-won">ganhamos</td>';
+                echo '<div class="col-1 tb tb-won">ganhamos</div>';
                 break;
         }
     }

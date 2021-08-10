@@ -26,22 +26,24 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $opportunities = Opportunity::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                    $query->where('stage', '!=', 'concluída');
-                    $query->where('status', '!=', 'perdemos');
-                    $query->where('trash', '==', 0);
-                }
-                )
-                ->with([
-                    'user',
-                    'account',
-                    'company',
-                    'contact',
+                $opportunities = Opportunity::filterOpportunities($request);
+                
+//        $opportunities = Opportunity::where(function ($query) use ($request) {
+//                    $query->where('account_id', auth()->user()->account_id);
+//                    $query->where('stage', '!=', 'concluída');
+//                    $query->where('status', '!=', 'perdemos');
+//                    $query->where('trash', '==', 0);
+//                }
+//                )
+//                ->with([
+//                    'user',
+//                    'account',
+//                    'company',
+//                    'contact',
 //                    'tasks.journeys',
-                ])
-                ->orderBy('DATE_CONCLUSION', 'ASC')
-                ->paginate(20);
+//                ])
+//                ->orderBy('DATE_CONCLUSION', 'ASC')
+//                ->paginate(20);
 //dd($opportunities);
         $total = $opportunities->total();
 
@@ -56,6 +58,8 @@ class OpportunityController extends Controller {
         $users = User::myUsers();
         $stages = Opportunity::listStages();
         $status = Opportunity::listStatus();
+        
+                $trashStatus = request()->trash;
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
@@ -65,6 +69,7 @@ class OpportunityController extends Controller {
                         'users',
                         'stages',
                         'status',
+                        'trashStatus',
         ));
     }
 

@@ -7,18 +7,12 @@
 @endsection
 
 @section('buttons')
-<a class='circular-button secondary'  href="{{route('opportunity.filter', ['trash' => 1])}}">
-    <i class="fa fa-trash-restore" aria-hidden="true"></i>
-</a>
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
-<a class="circular-button secondary"  href="{{route('opportunity.create')}}">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-</a>
-{{createButtonList('opportunity')}}
+{{createButtonTrashIndex($trashStatus, 'opportunity')}}
 {{createButtonBack()}}
-{{createButtonList('opportunity')}}
+{{createButtonCreate('opportunity')}}
 @endsection
 
 @section('main')
@@ -37,78 +31,76 @@
     <input class="btn btn-primary" type="submit" value="FILTRAR">
 </form>
 <br>
-<table class="table-list">
-    <tr>
-        <td class="table-list-header" style="width: 35%">
-            NOME 
-        </td>
-        <td class="table-list-header" style="width: 15%">
-            CONTATO 
-        </td>
-        <td class="table-list-header" style="width: 15%">
-            EMPRESA
-        </td>
-        <td class="table-list-header" style="width: 15%">
-            RESPONSÁVEL 
-        </td>
-        <td class="table-list-header" style="width: 5%">
-            PRÓXIMO CONTATO
-        </td>
-        <td   class="table-list-header" style="width: 10%">
-            ETAPA DA VENDA
-        </td>
-        <td   class="table-list-header" style="width: 10%">
-            SITUAÇÃO
-        </td>
-    </tr>
+<div class="row">
+    <div class="tb tb-header-start col-4">
+        NOME 
+    </div>
+    <div class="tb tb-header col-2">
+        CONTATO 
+    </div>
+    <div class="tb tb-header col-2">
+        EMPRESA
+    </div>
+    <div class="tb tb-header col-2">
+        RESPONSÁVEL 
+    </div>
+    <div class="tb tb-header col-1">
+        ETAPA DA VENDA
+    </div>
+    <div class="tb tb-header-end col-1">
+        SITUAÇÃO
+    </div>
+</div>
 
-    @foreach ($opportunities as $opportunity)
-    <tr>
-        <td class="table-list-left">
-            <button class="button-round">
-                <a href=" {{route('opportunity.show', ['opportunity' => $opportunity])}}">
-                    <i class='fa fa-eye' style="color:white"></i>
-                </a>
-            </button>
+@foreach ($opportunities as $opportunity)
+<div class="row">
+    <div class="tb col-4 justify-content-start">
+        <button class="button-round">
+            <a href=" {{route('opportunity.show', ['opportunity' => $opportunity])}}">
+                <i class='fa fa-eye' style="color:white"></i>
+            </a>
+        </button>
             {{$opportunity->name}}
-        </td>
-        @if(isset($opportunity->contact->name))
-        <td class="table-list-center">
-            {{$opportunity->contact->name}}
-        </td>
-        @else
-        <td class="table-list-center">
-            Não possui
-        </td>
-        @endif
-        @if(isset($opportunity->company->name))
-        <td class="table-list-center">
-            {{$opportunity->company->name}}
-        </td>
-        @else
-        <td class="table-list-center">
-            Pessoa física
-        </td>
-        @endif
-        <td class="table-list-center">
+    </div>
+    @if(isset($opportunity->contact->name))
+    <div class="tb col-2">
+        {{$opportunity->contact->name}}
+    </div>
+    @else
+    <div class="tb col-2">
+        Não possui
+    </div>
+    @endif
+    @if(isset($opportunity->company->name))
+        <div class="tb col-2">
+        {{$opportunity->company->name}}
+    </div>
+    @else
+        <div class="tb col-2">
+        Pessoa física
+    </div>
+    @endif
+        <div class="tb col-2">
+        @if(isset($opportunity->user->image))
+        <div class='profile-picture-small'>
+            <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
+                <img src='{{asset($opportunity->user->image->path)}}' width='100%' height='100%'>
+            </a>
+        </div>
+        @elseif(isset($opportunity->user->contact->name))
+        <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
             {{$opportunity->user->contact->name}}
-        </td>
-        <td class="table-list-center">
-            @if($opportunity->date_conclusion == date('Y-m-d'))
-            hoje
-            @elseif($opportunity->stage != 'ganhamos' AND $opportunity->stage != 'perdemos' AND $opportunity->date_conclusion <= date('Y-m-d'))
-            <p style="color: red">
-                {{dateBr($opportunity->date_conclusion)}}
-            </p>
-            @else
-            {{dateBr($opportunity->date_conclusion)}}
-            @endif
-        </td>
-        {{formatStage($opportunity->stage)}}
-        {{formatOpportunityStatus($opportunity->status)}}
-    </tr>
-    @endforeach
-</table>
+        </a>
+        @else
+        funcionário excluído
+        @endif
+    </div>
+    {{formatStage($opportunity)}}
+    {{formatStatus($opportunity)}}
+</div>
+@endforeach
+
+
 <p style="text-align: right">
     <br>
     {{$opportunities->links()}}

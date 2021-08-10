@@ -11,9 +11,7 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
-<a class="circular-button primary"  href="{{route('task.create')}}">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-</a>
+{{createButtonCreate('task')}}
 @endsection
 
 
