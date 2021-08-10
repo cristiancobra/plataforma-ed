@@ -57,6 +57,9 @@ class Page extends Model {
         'company_phone',
         'company_cnpj',
         'company_type',
+        'authorization_data',
+        'authorization_contact',
+        'authorization_newsletter',
         'trash',
         'status',
     ];
@@ -92,29 +95,78 @@ class Page extends Model {
 //        return $this->belongsTo(User::class, 'user_id', 'id');
 //    }
 // MÉTODOS PÚBLICOS
-    
+
     public static function listTemplates() {
         return [
             'funnel_fast' => 'Funil de Vendas Rápido: funil de vendas com formulário de captação',
             'funnel_custom' => 'Funil de Vendas Personalizado: funil de vendas com personalização',
         ];
     }
-    
-      public static function returnTemplateName($template) {
-        switch ($template) {
-        case('funnel_fast');
-            return 'Funil de Vendas Rápido: funil de vendas com formulário de captação';
-            break;
-        case('funnel_custom');
-            return 'Home Rápida: Modelo para página inicial com formulário de captação';
-            break;
-    }
-}
 
-public static function returnStatus() {
-    return [
-      'ativada'  ,
-        'desativada',
-    ];
-}
+    public static function returnTemplateName($template) {
+        switch ($template) {
+            case('funnel_fast');
+                return 'Funil de Vendas Rápido: funil de vendas com formulário de captação';
+                break;
+            case('funnel_custom');
+                return 'Home Rápida: Modelo para página inicial com formulário de captação';
+                break;
+        }
+    }
+
+    public static function returnStatus() {
+        return [
+            'ativada',
+            'desativada',
+        ];
+    }
+
+    public static function formFields($page) {
+        $formFields = [];
+        $counter = 1;
+        $label = 0;
+        
+        foreach ($page->getAttributes() as $name => $value) {
+            switch ($name) {
+                case('contact_first_name'):
+                    $label = 'Primeiro nome';
+                    break;
+                case('contact_last_name'):
+                    $label = 'Sobrenome';
+                    break;
+                case('contact_email'):
+                    $label = 'Email';
+                    break;
+                case('contact_phone'):
+                    $label = 'Telefone';
+                    break;
+                case('contact_site'):
+                    $label = 'Site';
+                    break;
+                case('contact_address'):
+                    $label = 'Endereço';
+                    break;
+                case('contact_neighborhood'):
+                    $label = 'Bairro';
+                    break;
+                case('contact_city'):
+                    $label = 'Cidade';
+                    break;
+                case('contact_state'):
+                    $label = 'Estado';
+                    break;
+                case('contact_country'):
+                    $label = 'País';
+                    break;
+            }
+
+            if ($label != 0 AND $value == 1) {
+                $formFields[$counter]['label'] = $label;
+                $formFields[$counter]['name'] = $name;
+                $counter++;
+            }
+        }
+        return $formFields;
+    }
+
 }

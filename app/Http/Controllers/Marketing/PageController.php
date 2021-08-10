@@ -21,7 +21,7 @@ class PageController extends Controller {
                 ->with([
                     'image',
                     'logo',
-                    ])
+                ])
                 ->get();
 
         return view('marketing.pages.index', compact(
@@ -84,19 +84,10 @@ class PageController extends Controller {
             $page = new Page();
             $page->fill($request->all());
             $page->account_id = auth()->user()->account_id;
+            $page->authorization_data = 1;
+            $page->authorization_contact = $request->has('authorization_contact') ? true : false;
+            $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
-
-//            if ($request->file('image')) {
-//                $image = new Image();
-//                $image->account_id = auth()->user()->account_id;
-//                $image->task_id = $page->id;
-//                $image->type = 'tarefa';
-//                $image->name = 'Imagem da tarefa ' . $page->id;
-//                $image->status = 'disponível';
-//                $path = $request->file('image')->store('users_images');
-//                $image->path = $path;
-//                $image->save();
-//            }
 
             return redirect()->route('page.show', compact(
                                     'page',
@@ -138,6 +129,8 @@ class PageController extends Controller {
         $currentTemplate = Page::returnTemplateName($page->template);
         $status = Page::returnStatus();
 
+        $formFields = Page::formFields($page);
+
         return view('marketing.pages.edit', compact(
                         'page',
                         'images',
@@ -145,6 +138,7 @@ class PageController extends Controller {
                         'templates',
                         'currentTemplate',
                         'status',
+                        'formFields',
         ));
     }
 
@@ -174,6 +168,8 @@ class PageController extends Controller {
                             ->withInput();
         } else {
             $page->fill($request->all());
+            $page->authorization_contact = $request->has('authorization_contact') ? true : false;
+            $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
 
 //            if ($request->file('image')) {
@@ -207,7 +203,7 @@ class PageController extends Controller {
         $page = Page::with([
                     'image',
                     'logo',
-                    ])
+                ])
                 ->first();
 
         return view('marketing.pages.public', compact(

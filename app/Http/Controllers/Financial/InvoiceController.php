@@ -251,7 +251,7 @@ class InvoiceController extends Controller {
      * @param  \App\Models\Invoice  $invoice
      * @return \Illuminate\Http\Response
      */
-    public function show(Invoice $invoice) { 
+    public function show(Invoice $invoice) {
 //        $invoice2 = Invoice::where('proposal_id', $invoice->proposal_id)
 //                ->with('proposal')
 //                ->get();
@@ -278,7 +278,7 @@ class InvoiceController extends Controller {
             }
         }
 
-      $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
+        $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
                 ->get();
 
         $totalInvoices = $invoices->count();
@@ -339,7 +339,7 @@ class InvoiceController extends Controller {
 
         $productsChecked = Invoice::find($invoice->id);
 
-      $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
+        $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
                 ->get();
 
         $contracts = Contract::where('invoice_id', $invoice->id)
@@ -392,7 +392,6 @@ class InvoiceController extends Controller {
         } else {
             $invoice->fill($request->all());
 //            $invoice->save();
-
 //            // atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
 //            $totalPoints = 0;
 //            $totalPrice = 0;
@@ -637,7 +636,6 @@ class InvoiceController extends Controller {
 //            $invoiceNew->type = $invoice->type;
 //            $invoiceNew->status = $invoice->status;
 //            $invoiceNew->save();
-
 //			foreach ($invoiceLines as $invoiceLine) {
 //				$data = array(
 //					'invoice_id' => $invoice->id + $counter,
@@ -772,7 +770,7 @@ class InvoiceController extends Controller {
         $invoice->trash = 1;
         $invoice->save();
 
-       return redirect()->back();
+        return redirect()->back();
     }
 
     public function restoreFromTrash(Invoice $invoice) {
@@ -780,6 +778,69 @@ class InvoiceController extends Controller {
         $invoice->save();
 
         return redirect()->back();
+    }
+
+    public function report(Request $request) {
+        $months = returnMonths();
+        $pastMonths = date('m');
+
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $year = date('y');
+        }
+
+        $annualTotal = Journey::accountHoursByYear($year);
+        $monthlyAverage = $annualTotal / $pastMonths;
+
+        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
+        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+
+//        $monthlyTotals = Journey::accountHoursByMonth($year);
+
+        $revenues = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('type', 'receita')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
+                ->get();
+
+        $monthlyRevenues = Invoice::monthlyRevenues($revenues);
+
+        $expenses = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('type', 'despesa')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
+                ->get();
+
+        $monthlyExpenses = Invoice::monthlyExpenses($expenses);
+
+        $chartBackgroundColors = [
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(41, 221, 101, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+        ];
+
+        $chartBorderColors = [
+            'rgba(255, 206, 86, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(41, 221, 101, 1)',
+            'rgba(255, 99, 132, 1)',
+        ];
+
+        return view('financial.invoices.report', compact(
+                        'year',
+                        'months',
+                        'annualTotal',
+                        'monthlyRevenues',
+                        'monthlyExpenses',
+                        'monthlyAverage',
+                        'annualTotal',
+                        'chartBackgroundColors',
+                        'chartBorderColors',
+        ));
     }
 
 }

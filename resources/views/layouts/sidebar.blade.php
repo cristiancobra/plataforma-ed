@@ -58,6 +58,11 @@
                                                                                                                                                         'link' => route('journey.reportUsers')
                                                                                                                                                         ],
                                                                                                                                                         [
+                                                                                                                                                        'name' => 'RELATÓRIO DE PREVISIONAMENTO',
+                                                                                                                                                        'faIcon' => 'fas fa-chart-pie ',
+                                                                                                                                                        'link' => route('invoice.report')
+                                                                                                                                                        ],
+                                                                                                                                                        [
                                                                                                                                                         'name' => 'PLANEJAMENTO',
                                                                                                                                                         'faIcon' => 'fa fa-calendar-check',
                                                                                                                                                         'link' => route('planning.index')

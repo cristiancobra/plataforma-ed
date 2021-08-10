@@ -1687,6 +1687,37 @@ if (!function_exists('createSidebarItem')) {
         }
 
     }
+// Criar um checkbox para a página do edit
+
+    if (!function_exists('createCheckboxEdit')) {
+
+        function createCheckboxEdit($name, $value = null) {
+                        echo "<input type='checkbox' class='form-check-input' name=$name ";
+                                if($value) {
+                                    echo "value=$value ";
+                                }
+                   if ($value == 1) {
+            echo "checked";
+                   }
+            echo ">";              
+        
+        }
+
+    }
+// Criar um checkbox para a página show apenas leitura
+
+    if (!function_exists('createCheckboxReadOnly')) {
+
+        function createCheckboxReadOnly($name, $value) {
+                        echo "<input type='checkbox' class='form-check-input' name=$name value=$value ";
+                   if ($value == 1) {
+            echo "checked ";
+                   }
+            echo "onclick='return false;'>";              
+        
+        }
+
+    }
 // Gera Cabeçalho do relatório de concorrentes em reports 
 
     if (!function_exists('createCompetitorHeader')) {
@@ -1951,79 +1982,7 @@ if (!function_exists('createSelectYesOrNo')) {
                 não
             </option>";
         }
-        echo "</select><br>";
-    }
-
-}
-
-// cria um formulário de captação de contatos/leads
-if (!function_exists('createFormPage')) {
-
-    function createFormPage($page, $errors = null) {
-        if ($page->contact_first_name) {
-            echo "<label class='labels' for='first_name'>Nome:</label>
-            <input type='text' name='first_name'>";
-            if ($errors->has('first_name')) {
-                echo "<br><span class='text-danger'>" . $errors->first('first_name') . "</span><br>";
-            }
-            echo "<br>";
-        }
-        if ($page->contact_last_name) {
-            echo "<label class='labels' for='last_name'>Sobrenome:</label>
-            <input type='text' name='last_name'>";
-            if ($errors->has('last_name')) {
-                echo "<br><span class='text-danger'>" . $errors->first('last_name') . "</span><br>";
-            }
-            echo "<br>";
-        }
-        if ($page->contact_email) {
-            echo "<label class='labels' for='email'>Email:</label>
-            <input type='text' name='email'>";
-            if ($errors->has('email')) {
-                echo "<br><span class='text-danger'>" . $errors->first('email') . "</span><br>";
-            }
-            echo "<br>";
-        }
-        if ($page->contact_phone) {
-            echo "<label class='labels' for='phone'>Telefone:</label>
-            <input type='text' name='phone'>
-            <br>
-            ";
-        }
-        if ($page->contact_site) {
-            echo "<label class='labels' for='site'>Site:</label>
-            <input type='text' name='site'>
-            <br>
-            ";
-        }
-        if ($page->contact_address) {
-            echo "<label class='labels' for='address'>Endereço:</label>
-            <input type='text' name='address'>
-            <br>
-            ";
-        }
-        if ($page->contact_neighborhood) {
-            echo "<label class='labels' for='neighborhood'>Bairro:</label>
-            <input type='text' name='neighborhood'>
-            <br>
-            ";
-        }
-        if ($page->contact_city) {
-            echo "<label class='labels' for='city'>Cidade:</label>
-            <input type='text' name='city'>
-            <br>
-            ";
-        }
-        if ($page->contact_state) {
-            echo "<label class='labels' for='state'>Estado:</label>";
-            createDoubleSelect('state', 'fields', returnStates());
-        }
-        if ($page->contact_country) {
-            echo "<label class='labels' for='country'>País:</label>
-            <input type='text' name='country'>
-            <br>
-            ";
-        }
+        echo "</select>";
     }
 
 }

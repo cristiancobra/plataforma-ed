@@ -165,14 +165,8 @@
         <input type="text" name="zip_code" value="{{$contact->zip_code}}">
         <br>
         <br>
-        <h2 class="name" for="">PERFIL</h2>
-        <p>Utilize esses dados apenas com permissão dos contatos e se você for importante para seu modelo de negócio, obedecendo o previsto na
-            <a href="http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709.htm">
-                Lei Geral de Proteção de Dados
-            </a>
-        </p>
         <br>
-        <br>	
+        <h2 class="name" for="">PERFIL</h2>
         <label for="">Estado Civil: </label>
         <input type="text" name="civil_state" value="{{$contact->civil_state}}"> 
         <br>
@@ -199,11 +193,41 @@
         <br>
         <label for="">Tipo: </label>
         {{createSimpleSelect('type', 'fields',  $contactTypes)}}
+         <br>
+        <br>
+        <br>
+        <br>
+        <h2 class="name" for="">AUTORIZAÇÕES</h2>
+        <div class="row">
+            <div class="col-3">
+                <label class="labels"  for="">Dados pessoais:</label>
+            </div>
+            <div class="col-9">
+                {{createCheckboxEdit('authorization_data', $contact->authorization_data)}}
+                Autorizo o armazenamento dos meus dados.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="labels"  for="">Contato:</label>
+            </div>
+            <div class="col-9">
+                {{createCheckboxEdit('authorization_contact', $contact->authorization_contact)}} Permito que a empresa entre em contato comigo.
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3">
+                <label class="labels"  for="">Newsletter:</label>
+            </div>
+            <div class="col-9">
+                {{createCheckboxEdit('authorization_newsletter', $contact->authorization_newsletter)}} Quero receber notícias sobre a empresa e seus produtos/serviços.
+            </div>
+        </div>
         <br>
         <br>
         <label for="status">SITUAÇÃO: </label>
         <select class="fields" name="status">
-            <option value="{{ $contact->status }}">{{ $contact->status}}</option>
+            <option value="{{$contact->status}}">{{$contact->status}}</option>
             <option value="ativo">ativo</option>
             <option value="pendente">pendente</option>
             <option value="desativado">desativado</option>

@@ -205,6 +205,9 @@ class ContactController extends Controller {
     public function update(Request $request, Contact $contact) {
         $contact->fill($request->all());
         $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
+        $contact->authorization_data = $request->has('authorization_data') ? true : false;
+        $contact->authorization_contact = $request->has('authorization_contact') ? true : false;
+        $contact->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
         $contact->save();
         $contact->companies()->sync($request->companies);
 
@@ -226,11 +229,12 @@ class ContactController extends Controller {
 
     public function storeFromForm(Request $request, Page $page) {
         $messages = [
-            'unique' => ' *já existe um contato com este :attribute.',
-            'required' => ' *preenchimento obrigatório.',
+            'unique' => ' * :attribute já cadastrado.',
+            'required' => ' *obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
                     'first_name' => 'required:contacts',
+                    'authorization_data' => 'required:contacts',
                     'email' => 'unique:contacts',
                         ], $messages);
 
@@ -242,10 +246,11 @@ class ContactController extends Controller {
         } else {
             $contact = new Contact();
             $contact->fill($request->all());
+//            dd($contact);
             $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
             $contact->account_id = $page->account_id;
             $contact->type = 'cliente';
-//            dd($contact);
+            $contact->status = 'ativo';
             $contact->save();
 //            $contact->companies()->sync($request->companies);
 

@@ -70,24 +70,184 @@
     </div>
 </div>
 
-<div class='row' style='
-     height:300px;
+
+<div class='row mt-5' style='
+     height:200px;
      background-color: {{$page->opposite_color}};
      '>
-    <div class='col  text-center  pb-5'>
-        <form action="{{route('contact.storeForm', ['page' => $page])}}" method='post'>
-            @csrf
-            @if($errors)
-            {{createFormPage($page, $errors)}}
-            @else
-            {{createFormPage($page)}}
-            @endif
-            <br>
-            <button class="text-button" type='submit'>
-                CADASTRAR
-            </button>
-        </form>
+
+    @if ($page->contact_first_name)
+        <div class='row'>             
+            <div class='offset-5 col-1'>
+                <label class='labels' for='first_name'>Nome:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='first_name'>
+                @if ($errors->has('first_name'))
+                <span class='text-danger'>{{$errors->first('first_name')}}</span><br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_last_name)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='last_name'>Sobrenome:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='last_name'>
+                @if ($errors->has('last_name'))
+                <span class='text-danger'>{{$errors->first('last_name')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_email)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='email'>Email:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='email'>
+                @if ($errors->has('email'))
+                <span class='text-danger'>{{$errors->first('email')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_phone)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='phone'>Telefone:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='phone'>
+                @if ($errors->has('phone'))
+                <span class='text-danger'>{{$errors->first('phone')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_site)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='site'>Site:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='site'>
+                @if ($errors->has('phone'))
+                <span class='text-danger'>{{$errors->first('site')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_address)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='address'>Endereço:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='address'>
+                @if ($errors->has('address'))
+                <span class='text-danger'>{{$errors->first('address')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_neighborhood)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='neighborhood'>Bairro:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='neighborhood'>
+                @if ($errors->has('neighborhood'))
+                <span class='text-danger'>{{$errors->first('neighborhood')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_city)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='city'>Cidade:</label>
+            </div>
+            <div class='col-4'>
+                <input type='text' name='city'>
+                @if ($errors->has('neighborhood'))
+                <span class='text-danger'>{{$errors->first('city')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_state)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='state'>Estado:</label>
+            </div>
+            <div class='col-4'>
+                <input type='state' name='state'>
+                @if ($errors->has('state'))
+                <span class='text-danger'>{{$errors->first('state')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_country)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='country'>País:</label>
+            </div>
+            <div class='col-4'>
+                <input type='country' name='country'>
+                @if ($errors->has('state'))
+                <span class='text-danger'>{{$errors->first('country')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+        </div>
+
+
+<div class='row'>    
+    <div class='offset-4 col-5 pb-5'>
+        <br>
+        <input type="checkbox" name="authorization_data"> Autorizo o armazenamento dos meus dados.
+        @if ($errors->has('authorization_data'))
+        <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
+        @endif
+        <br>
+        <input type="checkbox" name="authorization_contact"> Permito que a empresa entre em contato comigo.
+        <br>
+        <input type="checkbox" name="authorization_newsletter"> Quero receber notícias sobre a empresa e seus produtos/serviços.
+        <br>
+        * você poderá alterar isso a qualquer momento.
     </div>
+    <div class='offset-4 col-4 pb-5 text-center'>
+        <button class="text-button primary" type='submit'>
+            CADASTRAR
+        </button>
+    </div>
+</div>
+</div>
 </div>
 @endsection
 

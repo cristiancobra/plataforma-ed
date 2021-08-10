@@ -37,15 +37,6 @@
         <input type='text' name='slug' size='60' value='{{old('slug')}}'>
         <br>
         <br>
-        <label class='labels' for='' >MODELO:</label>
-        <select name='template'>
-            @foreach($templates as $key => $value)
-            <option value='{{$key}}'>
-                {{$value}}
-            </option>
-            @endforeach
-        </select>
-        <br>
         <label class='labels' for='' >SLOGAN:</label>
         <input type='text' name='headline' size='100' value='{{old('headline')}}'>
         <br>
@@ -96,24 +87,115 @@
         </textarea>
         <br>
         <br>
-        <label class='labels' for='' >FORMULÁRIO DE CAPTAÇÃO:</label>
-        <br>
-        <input type='checkbox' name='use_form'>
-        não quero usar formulário
-        <br>
-        <br>
-        {{createSelectYesOrNo('Primeiro nome', 'contact_first_name')}}
-        {{createSelectYesOrNo('Sobrenome', 'contact_last_name')}}
-        {{createSelectYesOrNo('Email', 'contact_email')}}
-        {{createSelectYesOrNo('Telefone', 'contact_phone')}}
-        {{createSelectYesOrNo('Site', 'contact_site')}}
-        {{createSelectYesOrNo('Endereço', 'contact_address')}}
-        {{createSelectYesOrNo('Bairro', 'contact_neighborhood')}}
-        {{createSelectYesOrNo('Cidade', 'contact_city')}}
-        {{createSelectYesOrNo('Estado', 'contact_state')}}
-        {{createSelectYesOrNo('País', 'contact_country')}}
-        <br>
-        <br>
+      <div class='row'>
+        <div class='col-3 mt-2'>
+            <div class="row">
+                <label class='labels' for='' >FORMULÁRIO DE CAPTAÇÃO:</label>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_first_name')}}  Primeiro nome
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_last_name')}}  Sobrenome
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_email')}}  Email
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_phone')}}  Telefone
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_site')}}  Site
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_address')}}  Endereço
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_neighborhood')}}  Bairro
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_city')}}  Cidade
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_state')}}  Estado
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit('contact_country')}}  País
+                </div>
+            </div>
+        </div>
+        <div class='col-9' style='
+             height:300px;
+             border-left-style: solid;
+             border-right-style: solid;
+             border-bottom-style: solid;
+             border-left-width: 1px;
+             border-right-width: 1px;
+             border-bottom-width: 1px;
+             '>
+            <div class='col  text-center  pb-5'>
+                <div class='offset-4 col-5 pb-5'>
+                    <br>
+                    <input type="checkbox" name="authorization_data"> Autorizo o armazenamento dos meus dados.
+                    @if ($errors->has('authorization_data'))
+                    <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
+                    @endif
+                    <br>
+                    <input type="checkbox" name="authorization_contact"> Permito que a empresa entre em contato comigo.
+                    <br>
+                    <input type="checkbox" name="authorization_newsletter"> Quero receber notícias sobre a empresa e seus produtos/serviços.
+                    <br>
+                    * você poderá alterar isso a qualquer momento.
+                </div>
+                <div class='offset-4 col-4 pb-5 text-center'>
+                    <button class="text-button primary" type='submit'>
+                        CADASTRAR
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class='row'>
+        <div class='col mt-2'>
+            <label class='labels' for='' >AUTORIZAÇOES:</label>
+            <br>
+            {{createCheckboxReadOnly('authorization_data', 1)}}
+            <span class='labels'>Armazenar:</span>
+            Autorizo o armazenamento dos meus dados. * Obrigatório segundo a Lei Geral de Proteção de Dados.
+            <br>
+            {{createCheckboxEdit('authorization_contact')}}
+            <span class='labels'>Contato:</span>
+            Permito que a empresa entre em contato comigo.
+            <br>
+            {{createCheckboxEdit('authorization_newsletter')}}
+            <span class='labels'>Newsletter:</span>
+            Quero receber notícias sobre a empresa e seus produtos/serviços.
+            <br>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
         <label class="labels" for="" >SITUAÇAO:</label>
         {{createSimpleSelect('status', 'fields', $status)}}
         <br>

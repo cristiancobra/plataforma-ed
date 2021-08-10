@@ -53,7 +53,7 @@ class DashboardController extends Controller {
                     ->where('type', 'receita')
                     ->where('status', 'aprovada')
                     ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                    ->sum('installment_value');
+                    ->sum('totalPrice');
 
             $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
                     ->where('type', 'débito')
@@ -64,7 +64,7 @@ class DashboardController extends Controller {
                     ->where('type', 'despesa')
                     ->where('status', 'aprovada')
                     ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                    ->sum('installment_value');
+                    ->sum('totalPrice');
 
             $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                     ->get();

@@ -103,9 +103,9 @@ Route::get('faturas/enviar', function () {
         ->name('invoice.email')
         ->middleware('roles');
 
-//Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
-//        ->name('invoice.installment')
-//        ->middleware('roles');
+Route::any('/faturas/relatorio', 'Financial\\InvoiceController@report')
+        ->name('invoice.report')
+        ->middleware('roles');
 
 Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
         ->name('invoice.pdf')

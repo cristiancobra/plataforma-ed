@@ -48,6 +48,10 @@ class Contact extends Model {
         'linkedin',
         'twitter',
         'lead_source',
+        'authorization_data',
+        'authorization_contact',
+        'authorization_newsletter',
+        'status',
     ];
     protected $hidden = [
     ];
@@ -486,8 +490,8 @@ class Contact extends Model {
             'outro',
         ];
     }
-    
-        public static function returnStates() {
+
+    public static function returnStates() {
         return $states = array(
             '' => '',
             'AC' => 'Acre',
@@ -518,6 +522,15 @@ class Contact extends Model {
             'SE' => 'Sergipe',
             'TO' => 'Tocantins',
         );
+    }
+
+    public static function returnStatus() {
+        return [
+            'ativo',
+            'desativado',
+            'pendente',
+            'descadastrado',
+        ];
     }
 
     public static function totalAndPercentage($field, array $items) {
@@ -602,45 +615,44 @@ class Contact extends Model {
             return [];
         }
     }
-    
+
     public static function countSuspects() {
         return Contact::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'cliente')
-                    ->where('points', '<', 50)
-                    ->count();
+                        ->where('type', 'cliente')
+                        ->where('points', '<', 50)
+                        ->count();
     }
-    
+
     public static function countProspects() {
         return Contact::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'cliente')
-                    ->whereBetween('points', [50, 99])
-                    ->count();
+                        ->where('type', 'cliente')
+                        ->whereBetween('points', [50, 99])
+                        ->count();
     }
-    
+
     public static function countQualified() {
         return Contact::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'cliente')
-                    ->where('points', '>=', 100)
-                    ->count();
+                        ->where('type', 'cliente')
+                        ->where('points', '>=', 100)
+                        ->count();
     }
-    
+
     public static function countNewsContactsWeek() {
         $lastWeek = date("Y-m-d", strtotime("-7 days"));
-        
+
         return Contact::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'cliente')
-                    ->where('created_at', '>=', $lastWeek)
-                    ->count();
+                        ->where('type', 'cliente')
+                        ->where('created_at', '>=', $lastWeek)
+                        ->count();
     }
-    
-        
+
     public static function getNewsContactsWeek() {
         $lastWeek = date("Y-m-d", strtotime("-7 days"));
-        
+
         return Contact::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'cliente')
-                    ->where('created_at', '>=', $lastWeek)
-                    ->get();
+                        ->where('type', 'cliente')
+                        ->where('created_at', '>=', $lastWeek)
+                        ->get();
     }
 
 }

@@ -70,3 +70,9 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 } 
+
+
+.form-check-input:checked {
+background-color: #c28dbf;
+border-color: #c28dbf;
+}

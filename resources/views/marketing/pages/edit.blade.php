@@ -40,21 +40,18 @@
         <input type='text' name='slug' size='60' value='{{$page->url}}'>
         <br>
         <br>
-        <label class='labels' for='' >MODELO:</label>
-        <select name='template'>
-            @if($page->template)
-            <option value='{{$page->template}}'>
-                {{$currentTemplate}}
-            </option>
-            @endif
-            @foreach($templates as $key => $value)
-            <option value='{{$key}}'>
-                {{$value}}
-            </option>
-            @endforeach
-        </select>
-        <br>
     </div>
+    <br>
+    <br>
+    <label class='labels' for='' >COR PRINCIPAL:</label>
+    <input type='text' name='principal_color' size='10' value='{{$page->principal_color}}'>
+    <br>
+    <label class='labels' for='' >COR SECUNDÁRIA:</label>
+    <input type='text' name='complementary_color' size='10' value='{{$page->complementary_color}}'>
+    <br>
+    <label class='labels' for='' >COR OPOSTA:</label>
+    <input type='text' name='opposite_color' size='10' value='{{$page->opposite_color}}'>
+    <br>
     <br>
     <br>
     <div class='row'>
@@ -180,22 +177,16 @@
 
     <div class='row'>
         <div class='col-3 mt-2'>
-            <label class='labels' for='' >FORMULÁRIO DE CAPTAÇÃO:</label>
-            <br>
-            <input type='checkbox' name='use_form'>
-            não quero usar formulário
-            <br>
-            <br>
-            {{createSelectYesOrNo('Primeiro nome', 'contact_first_name', $page->contact_first_name)}}
-            {{createSelectYesOrNo('Sobrenome', 'contact_last_name', $page->contact_last_name)}}
-            {{createSelectYesOrNo('Email', 'contact_email', $page->contact_email)}}
-            {{createSelectYesOrNo('Telefone', 'contact_phone', $page->contact_phone)}}
-            {{createSelectYesOrNo('Site', 'contact_site', $page->contact_site)}}
-            {{createSelectYesOrNo('Endereço', 'contact_address', $page->contact_address)}}
-            {{createSelectYesOrNo('Bairo', 'contact_neighborhood', $page->contact_neighborhood)}}
-            {{createSelectYesOrNo('Cidade', 'contact_city', $page->contact_city)}}
-            {{createSelectYesOrNo('Estado', 'contact_state', $page->contact_state)}}
-            {{createSelectYesOrNo('País', 'contact_country', $page->contact_country)}}
+            <div class="row">
+                <label class='labels' for='' >FORMULÁRIO DE CAPTAÇÃO:</label>
+            </div>
+            @foreach($formFields as $formField)
+            <div class="row">
+                <div class="col">
+                    {{createCheckboxEdit($formField['name'])}}  {{$formField['label']}}
+                </div>
+            </div>
+            @endforeach            
         </div>
         <div class='col-9' style='
              height:300px;
@@ -208,25 +199,47 @@
              border-bottom-width: 1px;
              '>
             <div class='col  text-center  pb-5'>
-                {{createFormPage($page, $errors)}}
-                <br>
-                <div class="text-button primary">
-                    CADASTRAR
+                <div class='offset-4 col-5 pb-5'>
+                    <br>
+                    <input type="checkbox" name="authorization_data"> Autorizo o armazenamento dos meus dados.
+                    @if ($errors->has('authorization_data'))
+                    <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
+                    @endif
+                    <br>
+                    <input type="checkbox" name="authorization_contact"> Permito que a empresa entre em contato comigo.
+                    <br>
+                    <input type="checkbox" name="authorization_newsletter"> Quero receber notícias sobre a empresa e seus produtos/serviços.
+                    <br>
+                    * você poderá alterar isso a qualquer momento.
+                </div>
+                <div class='offset-4 col-4 pb-5 text-center'>
+                    <button class="text-button primary" type='submit'>
+                        CADASTRAR
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class='row'>
+        <div class='col mt-2'>
+            <label class='labels' for='' >AUTORIZAÇOES:</label>
+            <br>
+            {{createCheckboxReadOnly('authorization_data', 1)}}
+            <span class='labels'>Armazenar:</span>
+            Autorizo o armazenamento dos meus dados. * Obrigatório segundo a Lei Geral de Proteção de Dados.
+            <br>
+            {{createCheckboxEdit('authorization_contact', $page->authorization_contact)}}
+            <span class='labels'>Contato:</span>
+            Permito que a empresa entre em contato comigo.
+            <br>
+            {{createCheckboxEdit('authorization_newsletter', $page->authorization_newsletter)}}
+            <span class='labels'>Newsletter:</span>
+            Quero receber notícias sobre a empresa e seus produtos/serviços.
+            <br>
+        </div>
+    </div>
     <br>
-    <br>
-    <br>
-    <label class='labels' for='' >COR PRINCIPAL:</label>
-    <input type='text' name='principal_color' size='10' value='{{$page->principal_color}}'>
-    <br>
-    <label class='labels' for='' >COR SECUNDÁRIA:</label>
-    <input type='text' name='complementary_color' size='10' value='{{$page->complementary_color}}'>
-    <br>
-    <label class='labels' for='' >COR OPOSTA:</label>
-    <input type='text' name='opposite_color' size='10' value='{{$page->opposite_color}}'>
     <br>
     <br>
     <label class='labels' for='' >SITUAÇAO:</label>
