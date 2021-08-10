@@ -16,6 +16,7 @@
 <a class="circular-button secondary"  href="{{route('opportunity.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
+{{createButtonList('opportunity')}}
 {{createButtonBack()}}
 {{createButtonList('opportunity')}}
 @endsection

@@ -385,7 +385,7 @@ class OpportunityController extends Controller {
         $opportunity->trash = 1;
         $opportunity->save();
 
-        return redirect()->action('Sales\\OpportunityController@index');
+        return redirect()->action('Operational\\JourneyController@index');
     }
 
     public function restoreFromTrash(Opportunity $opportunity) {

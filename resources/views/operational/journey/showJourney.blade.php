@@ -25,7 +25,7 @@
     </button>
 </form>
 @endif
-
+{{createButtonTrash($journey, 'journey')}}
 {{createButtonEdit('journey', 'journey', $journey)}}
 {{createButtonList('journey')}}
 @endsection

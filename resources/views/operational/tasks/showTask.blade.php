@@ -216,7 +216,7 @@
     <div class='tb col-3'>
         {{$journey->user->contact->name}}
     </div>
-    <div class='tb col-4'>
+    <div class='tb-description col-4'>
         {!!html_entity_decode($journey->description)!!}
     </div>
     <div class='tb col-1 text-center'>

@@ -87,6 +87,11 @@ class Journey extends Model {
                             $query->where('department', $request->department);
                         });
                     }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    } else {
+                        $query->where('trash', '!=', 1);
+                    }
 //                    if ($request->contact_id) {
 //                        $query->where('contact_id', $request->contact_id);
 //                    }

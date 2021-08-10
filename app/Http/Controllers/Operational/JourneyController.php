@@ -35,6 +35,9 @@ class JourneyController extends Controller {
                 ->get();
 
         $departments = Task::returnDepartments();
+        
+        $trashStatus = request()->trash;
+        
 
         return view('operational.journey.indexJourneys', compact(
                         'journeys',
@@ -43,6 +46,7 @@ class JourneyController extends Controller {
                         'companies',
                         'status',
                         'departments',
+                        'trashStatus',
         ));
     }
 
@@ -143,6 +147,12 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Journey $journey) {
+        if($journey->end == null) {
+            $journey->end = 0;
+        }else{
+        $journey->end = date('H:i', strtotime($journey->end));
+        }
+                
         $tasks = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->orderBy('NAME', 'ASC')
@@ -223,6 +233,21 @@ class JourneyController extends Controller {
         return redirect()->route('journey.show', compact(
                                 'journey',
         ));
+    }
+    
+    
+    public function sendToTrash(Journey $journey) {
+        $journey->trash = 1;
+        $journey->save();
+
+        return redirect()->action('Sales\\JourneyController@index');
+    }
+
+    public function restoreFromTrash(Journey $journey) {
+        $journey->trash = 0;
+        $journey->save();
+
+        return redirect()->back();
     }
 
     // chama o método que completa a JORNADA E A TAREFA da jornada  e direciona para a view show

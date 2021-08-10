@@ -226,6 +226,15 @@ Route::any('/jornadas/relatorio-departamentos', 'Operational\\JourneyController@
         ->name('journey.reportDepartments')
         ->middleware('roles');
 
+Route::put('/jornadas/apagar/{journey}', 'Operational\\JourneyController@sendToTrash')
+        ->name('journey.trash')
+        ->middleware('roles');
+
+
+Route::put('/jornadas/restaurar/{journey}', 'Operational\\JourneyController@restoreFromTrash')
+        ->name('journey.restore')
+        ->middleware('roles');
+
 Route::put('/jornadas/encerrar/{journey}', 'Operational\\JourneyController@completeJourney')
         ->name('journey.complete')
         ->middleware('roles');

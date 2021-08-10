@@ -118,6 +118,27 @@ if (!function_exists('createButtonTrash')) {
     }
 
 }
+if (!function_exists('createButtonTrashIndex')) {
+
+// gera um botão no index que mostra os objetos na lixeira
+    function createButtonTrashIndex($trashStatus, $parameter, $variation = null) {
+//        dd($trashStatus);
+        if ($trashStatus == 1) {
+            $link = route("$parameter.index", ['variation' => $variation]);
+            $styleName = 'secondary';
+            $iconName = 'fa fa-list';
+        } else {
+            $link = route("$parameter.index", ['trash' => 1, 'variation' => $variation]);
+            $styleName = 'delete';
+            $iconName = 'fa fa-trash-restore';
+        };
+
+        echo "<a class='circular-button $styleName'  href=" . $link . ">
+                        <i class='$iconName' aria-hidden='true'></i>
+                    </a>";
+    }
+
+}
 if (!function_exists('createFilterSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
@@ -1692,15 +1713,14 @@ if (!function_exists('createSidebarItem')) {
     if (!function_exists('createCheckboxEdit')) {
 
         function createCheckboxEdit($name, $value = null) {
-                        echo "<input type='checkbox' class='form-check-input' name=$name ";
-                                if($value) {
-                                    echo "value=$value ";
-                                }
-                   if ($value == 1) {
-            echo "checked";
-                   }
-            echo ">";              
-        
+            echo "<input type='checkbox' class='form-check-input' name=$name ";
+            if ($value) {
+                echo "value=$value ";
+            }
+            if ($value == 1) {
+                echo "checked";
+            }
+            echo ">";
         }
 
     }
@@ -1709,12 +1729,11 @@ if (!function_exists('createSidebarItem')) {
     if (!function_exists('createCheckboxReadOnly')) {
 
         function createCheckboxReadOnly($name, $value) {
-                        echo "<input type='checkbox' class='form-check-input' name=$name value=$value ";
-                   if ($value == 1) {
-            echo "checked ";
-                   }
-            echo "onclick='return false;'>";              
-        
+            echo "<input type='checkbox' class='form-check-input' name=$name value=$value ";
+            if ($value == 1) {
+                echo "checked ";
+            }
+            echo "onclick='return false;'>";
         }
 
     }

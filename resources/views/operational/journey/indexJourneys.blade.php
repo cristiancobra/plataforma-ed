@@ -6,10 +6,9 @@
 {{asset('images/journey.png')}}
 @endsection
 
-@section('description')
-@endsection
 
 @section('buttons')
+{{createButtonTrashIndex($trashStatus, 'journey')}}
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
