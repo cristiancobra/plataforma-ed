@@ -347,7 +347,8 @@ Route::resource('empresas', 'Sales\\CompanyController')
 // contracts
 Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
         ->names('contractTemplate')
-        ->parameters(['modelos-de-contratos' => 'contractTemplate']);
+        ->parameters(['modelos-de-contratos' => 'contractTemplate'])
+        ->middleware('roles');
 
 // opportunities
 

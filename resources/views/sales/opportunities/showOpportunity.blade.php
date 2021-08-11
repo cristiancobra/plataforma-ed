@@ -34,10 +34,10 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
-        @if(isset($opportunity->company->name))
-        {{$opportunity->company->name}}
-        @else
+        @empty($companyName)
         Pessoa física
+        @else
+        {{$companyName}}
         @endif
     </div>
     <div class='show-field-end'>
@@ -138,10 +138,8 @@
                 <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
                 <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
                 <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-                @endif
+                <input type='hidden' name='company_name' value='{{$companyName}}'>
+                <input type='hidden' name='company_id' value='{{$companyId}}'>
                 @if($opportunity->contact)
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
@@ -154,10 +152,8 @@
                 <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
                 <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
                 <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-                @endif
+                <input type='hidden' name='company_name' value='{{$companyName}}'>
+                <input type='hidden' name='company_id' value='{{$companyId}}'>
                 @if($opportunity->contact)
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
@@ -168,7 +164,8 @@
         </div>
     </div>
     <div class='tb-row'>
-        @if(!$opportunity->company)
+        
+        @empty($companyName)
         <a href='{{route('company.create')}}'>
             adicionar empresa
         </a>
@@ -179,10 +176,9 @@
                                                                  'typeCompanies' => 'cliente'
                                                                 ])}}'>
             <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
-                {{mb_strtoupper($opportunity->company->name)}}
+                {{mb_strtoupper($companyName)}}
             </label>
         </a>
-        @endif
     </div>
     <div class='tb-row'>
         <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
@@ -250,6 +246,10 @@
             @endif
         </div>
     </div>
+    @endempty
+    </div>
+
+
     <div class='tb-row pt-5'>
         <i class='fas fa-users me-2'></i>
         @if($opportunity->contact->name)
@@ -366,8 +366,8 @@
                                                                                                                                                                                         'opportunityName' => $opportunity->name,
                                                                                                                                                                                         'opportunityId' => $opportunity->id,
                                                                                                                                                                                         'opportunityDescription' => $opportunity->description,
-                                                                                                                                                                                        'opportunityCompanyName' => $opportunity->company->name,
-                                                                                                                                                                                        'opportunityCompanyId' => $opportunity->company->id,
+                                                                                                                                                                                        'opportunityCompanyName' => $companyName,
+                                                                                                                                                                                        'opportunityCompanyId' => $companyId,
                                                                                                                                                                                         'contact_name' => $opportunity->contact->name,
                                                                                                                                                                                         'contact_id' => $opportunity->contact->id,
                                                                                                                                                                                         'department' => 'vendas',
@@ -465,11 +465,8 @@
                 <input type='hidden' name='task_name' value='FAZER ORÇAMENTO:'>
                 <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
                 <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-                @endif
-
+                <input type='hidden' name='company_name' value='{{$companyName}}'>
+                <input type='hidden' name='company_id' value='{{$companyId}}'>
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
 
@@ -483,10 +480,8 @@
                 <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
                 <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
                 <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
-                @endif
+                <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
+                <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
                 <input type='hidden' name='department' value='vendas'>
@@ -502,10 +497,8 @@
                 <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
                 <input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
                 <input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='opportunityCompanyName' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='opportunityCompanyId' value='{{$opportunity->company->id}}'>
-                @endif
+                <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
+                <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
                 <input type='hidden' name='department' value='vendas'>
@@ -628,10 +621,8 @@
                 <input type='hidden' name='task_name' value='CONTRATO:'>
                 <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
                 <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                @if(isset($opportunity->company))
-                <input type='hidden' name='company_name' value='{{$opportunity->company->name}}'>
-                <input type='hidden' name='company_id' value='{{$opportunity->company->id}}'>
-                @endif
+                <input type='hidden' name='company_name' value='{{$companyName}}'>
+                <input type='hidden' name='company_id' value='{{$companyId}}'>
                 @if($opportunity->contact)
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
@@ -844,8 +835,8 @@
                                                                                                                                                                                         'task_name' => 'ATENDIMENTO',
                                                                                                                                                                                         'opportunity_id' => $opportunity->id,
                                                                                                                                                                                         'opportunity_name' => $opportunity->name,
-                                                                                                                                                                                        'company_name' => $opportunity->company->name,
-                                                                                                                                                                                        'company_id' => $opportunity->company->id,
+                                                                                                                                                                                        'company_name' => $companyName,
+                                                                                                                                                                                        'company_id' => $companyId,
                                                                                                                                                                                         'contact_name' => $opportunity->contact->name,
                                                                                                                                                                                         'contact_id' => $opportunity->contact->id,
                                                                                                                                                                                         'department' => 'vendas',

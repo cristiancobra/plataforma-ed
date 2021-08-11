@@ -71,7 +71,21 @@ class Roles {
                     $permission = true;
                 }
                 break;
+            case 'account.edit':
+                if ($request->route('account')->id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
             case 'user.show':
+                if ($request->route('user')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'user.edit':
                 if ($request->route('user')->account_id != auth()->user()->account_id) {
                     $permission = false;
                 } else {
@@ -92,8 +106,218 @@ class Roles {
                     $permission = true;
                 }
                 break;
+            case 'planning.edit':
+                if ($request->route('planning')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'invoice.show':
+                if ($request->route('invoice')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'invoice.edit':
+                if ($request->route('invoice')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
             case 'transaction.show':
                 if ($request->route('transaction')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'transaction.edit':
+                if ($request->route('transaction')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'product.show':
+                if ($request->route('product')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'product.edit':
+                if ($request->route('product')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'bankAccount.show':
+                if ($request->route('bankAccount')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'bankAccount.edit':
+                if ($request->route('bankAccount')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'socialmedia.show':
+                if ($request->route('socialmedia')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'socialmedia.edit':
+                if ($request->route('socialmedia')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'page.show':
+                if ($request->route('page')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'page.edit':
+                if ($request->route('page')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'report.show':
+                if ($request->route('report')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'report.edit':
+                if ($request->route('report')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'image.show':
+                if ($request->route('image')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'image.edit':
+                if ($request->route('image')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'contact.show':
+                if ($request->route('contact')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'contact.edit':
+                if ($request->route('contact')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'opportunity.show':
+                if ($request->route('opportunity')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'opportunity.edit':
+                if ($request->route('opportunity')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'proposal.show':
+                if ($request->route('proposal')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'proposal.edit':
+                if ($request->route('proposal')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'contract.show':
+                if ($request->route('contract')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'contract.edit':
+                if ($request->route('contract')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'contractTemplate.show':
+                if ($request->route('contractTemplate')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'contractTemplate.edit':
+                if ($request->route('contractTemplate')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'task.show':
+                if ($request->route('task')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'task.edit':
+                if ($request->route('task')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'journey.show':
+                if ($request->route('journey')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'journey.edit':
+                if ($request->route('journey')->account_id != auth()->user()->account_id) {
                     $permission = false;
                 } else {
                     $permission = true;

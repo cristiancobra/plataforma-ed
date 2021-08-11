@@ -1,23 +1,23 @@
 @php
-        $empresaDigital = \App\Models\Account::find(1);
-        
-         if(auth()->user() == true AND auth()->user()->account->principal_color) {
-             $principalColor = auth()->user()->account->principal_color;
-         }else{
-             $principalColor = $empresaDigital->principal_color;
-         }
+$empresaDigital = \App\Models\Account::find(1);
 
-         if(auth()->user() == true AND auth()->user()->account->complementary_color) {
-             $complementaryColor = auth()->user()->account->complementary_color;
-         }else{
-             $complementaryColor = $empresaDigital->complementary_color;
-         }
-         
-         if(auth()->user() == true AND auth()->user()->account->opposite_color) {
-             $oppositeColor = auth()->user()->account->opposite_color;
-         }else{
-             $oppositeColor = $empresaDigital->opposite_color;
-         }
+if(auth()->user() == true AND auth()->user()->account->principal_color) {
+$principalColor = auth()->user()->account->principal_color;
+}else{
+$principalColor = $empresaDigital->principal_color;
+}
+
+if(auth()->user() == true AND auth()->user()->account->complementary_color) {
+$complementaryColor = auth()->user()->account->complementary_color;
+}else{
+$complementaryColor = $empresaDigital->complementary_color;
+}
+
+if(auth()->user() == true AND auth()->user()->account->opposite_color) {
+$oppositeColor = auth()->user()->account->opposite_color;
+}else{
+$oppositeColor = $empresaDigital->opposite_color;
+}
 @endphp
 
 <nav class="col-md-2 d-md-block sidebar" style="background-color: {{$complementaryColor}}">
@@ -107,24 +107,9 @@
                                                                                                                                                         'link' => '/redes-sociais'
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'SITES',
-                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
-                                                                                                                                                        'link' => '/sites'
-                                                                                                                                                        ],
-                                                                                                                                                        [
                                                                                                                                                         'name' => 'PÁGINAS',
                                                                                                                                                         'faIcon' => 'fas fa-window-maximize',
                                                                                                                                                         'link' => route('page.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'DOMÍNIOS',
-                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
-                                                                                                                                                        'link' => '/domains'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                       'name' => 'EMAILS',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => route('email.index')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                         'name' => 'RELATÓRIOS',
@@ -262,6 +247,21 @@
                                                                                                                                                         'faIcon' => 'fas fa-bullhorn',
                                                                                                                                                         'link' => 'http://saocarlos.ginfes.com.br/'
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'SITES antigo',
+                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
+                                                                                                                                                        'link' => '/sites'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'DOMÍNIOS antigo',
+                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
+                                                                                                                                                        'link' => '/domains'
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                       'name' => 'EMAILS antigo',
+                                                                                                                                                        'faIcon' => 'fas fa-envelope',
+                                                                                                                                                        'link' => route('email.index')
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
 
         {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
@@ -288,8 +288,8 @@
                                                                                                                                                     ])}}
 
         @endif
-        
-                {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
+
+        {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                             'name' => 'AJUDA',
                                                                                                                                                             'faIcon' => 'fas fa-question-circle',

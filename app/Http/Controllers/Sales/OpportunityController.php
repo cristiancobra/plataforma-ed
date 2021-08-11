@@ -26,8 +26,8 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-                $opportunities = Opportunity::filterOpportunities($request);
-                
+        $opportunities = Opportunity::filterOpportunities($request);
+
 //        $opportunities = Opportunity::where(function ($query) use ($request) {
 //                    $query->where('account_id', auth()->user()->account_id);
 //                    $query->where('stage', '!=', 'concluída');
@@ -58,8 +58,8 @@ class OpportunityController extends Controller {
         $users = User::myUsers();
         $stages = Opportunity::listStages();
         $status = Opportunity::listStatus();
-        
-                $trashStatus = request()->trash;
+
+        $trashStatus = request()->trash;
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
@@ -147,6 +147,13 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Opportunity $opportunity) {
+        if ($opportunity->company) {
+            $companyName = $opportunity->company->name;
+            $companyId = $opportunity->company->id;
+        } else {
+            $companyName = null;
+            $companyId = null;
+        }
         $contactCompanies = Company::whereHas('contacts', function ($query) use ($opportunity) {
                     $query->where('contacts.id', $opportunity->contact_id);
                 })
@@ -240,6 +247,8 @@ class OpportunityController extends Controller {
 
         return view('sales.opportunities.showOpportunity', compact(
                         'opportunity',
+                        'companyName',
+                        'companyId',
                         'proposals',
                         'proposalWon',
                         'invoices',
