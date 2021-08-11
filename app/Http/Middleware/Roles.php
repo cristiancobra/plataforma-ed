@@ -61,20 +61,64 @@ class Roles {
 //            } else {
 //                $oppositeColor = $empresaDigital->opposite_color;
 //            }
-   
-
-// verifica se o usuário tem permissão para acessar a rota
-        if ($request->route('account')) {
-            $account = $request->route('account');
-            $accountId = $account->id;
-        } else {
-            $accountId = auth()->user()->account_id;
+//   dd($request->route('account'));
+//        dd($request->route()->getName());
+        switch ($request->route()->getName()) {
+            case 'account.show':
+                if ($request->route('account')->id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'user.show':
+                if ($request->route('user')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'company.show':
+                if ($request->route('company')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'planning.show':
+                if ($request->route('planning')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            case 'transaction.show':
+                if ($request->route('transaction')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
+            default:
+                    $permission = true;
+                break;
         }
 
-        if ($accountId != auth()->user()->account_id) {
+        if ($permission == false) {
             abort(403);
         }
 
+// verifica se o usuário tem permissão para acessar a rota
+//        if ($request->route('account')) {
+//            $account = $request->route('account');
+//            $accountId = $account->id;
+//        } else {
+//            $accountId = auth()->user()->account_id;
+//        }
+//
+//        if ($accountId != auth()->user()->account_id) {
+//            abort(403);
+//        }
 //        Adiciona as variáveis no request e dá proseguimento
         $request->merge([
             'role' => $role,

@@ -90,4 +90,29 @@ class Proposal extends Model {
         );
     }
     
+        // MÉTODOS PÚBLICOS
+    public static function monthlyRevenues($revenues){
+                $months = returnMonths();
+                $year = 2021;
+
+        foreach ($months as $key => $month) {
+            $months[$key] = $revenues
+                    ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
+                    ->sum('totalPrice');
+        }
+        return $months;
+    }
+
+    public static function monthlyExpenses($expenses){
+                $months = returnMonths();
+                $year = 2021;
+
+        foreach ($months as $key => $month) {
+            $months[$key] = $expenses
+                    ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
+                    ->sum('totalPrice');
+        }
+        return $months;
+    }
+    
 }

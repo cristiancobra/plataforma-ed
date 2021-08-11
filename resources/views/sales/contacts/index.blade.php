@@ -8,23 +8,23 @@
 
 @section('buttons')
 <a id='filter_button' class='circular-button secondary' title='Filtrar lista'>
-    <i class="fa fa-filter" aria-hidden="true"></i>
+    <i class='fa fa-filter' aria-hidden='true'></i>
 </a>
-<a class="circular-button primary"  href="{{route('contact.create')}}" title='Criar novo'>
-    <i class="fa fa-plus" aria-hidden="true"></i>
+<a class='circular-button primary'  href='{{route('contact.create')}}' title='Criar novo'>
+    <i class='fa fa-plus' aria-hidden='true'></i>
 </a>
 @endsection
 
 @section('filter')
-<form id="filter" action="{{route('contact.index')}}" method="get" style="text-align: right">
-    <input type="text" name="name" placeholder="nome ou sobrenome" value="">
+<form id='filter' action='{{route('contact.index')}}' method='get' style='text-align: right'>
+    <input type='text' name='name' placeholder='nome ou sobrenome' value=''>
     {{createFilterSelect('type', 'select', $types)}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     <br>
-    <a class="text-button secondary" href='{{route('contact.index')}}'>
+    <a class='text-button secondary' href='{{route('contact.index')}}'>
         LIMPAR
     </a>
-    <input class="text-button primary" type="submit" value="FILTRAR">
+    <input class='text-button primary' type='submit' value='FILTRAR'>
 </form>
 @endsection
 
@@ -55,7 +55,7 @@
     </a>
 </div>
 <div class='col-lg-2 d-inline-block tasks-now'>
-<a style='text-decoration:none' href='{{route('contact.index', [
+    <a style='text-decoration:none' href='{{route('contact.index', [
 				'type' => 'cliente',
 				])}}'>
         <p class='panel-number'>
@@ -68,7 +68,7 @@
 </div>
 
 <div class='col-lg-2 d-inline-block tasks-emergency'>
-<a style='text-decoration:none' href='{{route('contact.index', [
+    <a style='text-decoration:none' href='{{route('contact.index', [
 				'type' => 'fornecedor',
 				])}}'>
         <p class='panel-number'>
@@ -83,72 +83,55 @@
 
 
 @section('table')
-<div class="row mt-5">
-    <table class="table-list">
-        <tr>
-            <td   class="table-list-header" style="width: 25%">
-                NOME
-            </td>
-            <td   class="table-list-header" style="width: 35%">
-                EMPRESA
-            </td>
-            <td   class="table-list-header" style="width: 25%">
-                EMAIL
-            </td>
-            <td   class="table-list-header" style="width: 15%">
-                TELEFONE
-            </td>
-        </tr>
+<div class='row mt-5'>
+    <div class='tb tb-header-start col-3'>
+        NOME
+    </div>
+    <div class='tb tb-header col-3'>
+        EMPRESA
+    </div>
+    <div class='tb tb-header col-3'>
+        EMAIL
+    </div>
+    <div class='tb tb-header col-2'>
+        TELEFONE
+    </div>
+    <div class='tb tb-header-end col-1'>
+        ORIGEM
+    </div>
+</div>
 
-        @foreach ($contacts as $contact)
-        <tr style="font-size: 14px">
-            <td class="table-list-left">
-                <a class="white" href=" {{route('contact.show', ['contact' => $contact->id])}}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
-                <a class="white" href=" {{route('contact.edit', ['contact' => $contact->id])}}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
-                </a>
-                {{$contact->name}}
-            </td>
-            <td class="table-list-left">
-                @if($contact->companies)
-                @foreach ($contact->companies as $company)
-                <a class="white" href=" {{route('company.show', ['company' => $company->id])}}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
-                <a class="white" href=" {{route('company.edit', ['company' => $company->id])}}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
-                </a>
-                {{$company->name}}
-                <br>
-                @endforeach
-                @else
-                Não possui
-                @endif
-            </td>
-            <td class="table-list-left">
-                {{$contact->email}}
-                <a class="white" href="">
-                    <button class="button-round">
-                        <i class='fa fa-envelope'></i>
-                    </button>
-                </a>
-            </td>
-            <td class="table-list-right">
-                {{$contact->phone}}
-            </td>
-        </tr>
+@foreach ($contacts as $contact)
+<div class='row'>
+    <div class='tb col-3 justify-content-start'>
+        <a class='white' href=' {{route('contact.show', ['contact' => $contact->id])}}'>
+            {{$contact->name}}
+        </a>
+    </div>
+    <div class='tb col-3 justify-content-start'>
+        @if($contact->companies)
+        @foreach ($contact->companies as $company)
+        <a class='white' href=' {{route('company.show', ['company' => $company->id])}}'>
+            {{$company->name}}
+        </a>
         @endforeach
-    </table>
-    @endsection
-    
-    @section('paginate', $contacts->links())
+        @else
+        Não possui
+        @endif
+    </div>
+    <div class='tb col-3 justify-content-start'>
+        <a class='white' href='mailto:{{$contact->email}}'>
+        {{$contact->email}}
+        </a>
+    </div>
+    <div class='tb col-2'>
+        {{$contact->phone}}
+    </div>
+    <div class='tb col-1'>
+        {{$contact->lead_source}}
+    </div>
+</div>
+@endforeach
+@endsection
+
+@section('paginate', $contacts->links())

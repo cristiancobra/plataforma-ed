@@ -58,7 +58,7 @@
                                                                                                                                                         'link' => route('journey.reportUsers')
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'RELATÓRIO DE PREVISIONAMENTO',
+                                                                                                                                                        'name' => 'PREVISIONAMENTO FINANCEIRO',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie ',
                                                                                                                                                         'link' => route('invoice.report')
                                                                                                                                                         ],

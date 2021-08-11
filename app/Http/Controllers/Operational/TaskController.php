@@ -192,6 +192,7 @@ class TaskController extends Controller {
         $task->date_start = date('Y-m-d');
         $task->department = 'desenvolvimento';
         $task->contact_id = auth()->user()->contact_id;
+        $task->company_id = 7;
         $task->priority = $request->priority;
         $task->status = 'fazer';
         $task->type = 'bug';

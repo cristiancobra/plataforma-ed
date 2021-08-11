@@ -12,6 +12,7 @@ use App\Models\Contract;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
+use App\Models\Proposal;
 use App\Models\ProductProposal;
 use App\Models\Transaction;
 use App\Models\Task;
@@ -798,21 +799,23 @@ class InvoiceController extends Controller {
 
 //        $monthlyTotals = Journey::accountHoursByMonth($year);
 
-        $revenues = Invoice::where('account_id', auth()->user()->account_id)
+        $revenues = Proposal::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
 
-        $monthlyRevenues = Invoice::monthlyRevenues($revenues);
+        $monthlyRevenues = Proposal::monthlyRevenues($revenues);
+        $annualRevenues = $revenues->sum('totalPrice');
 
-        $expenses = Invoice::where('account_id', auth()->user()->account_id)
+        $expenses = Proposal::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
 
-        $monthlyExpenses = Invoice::monthlyExpenses($expenses);
+        $monthlyExpenses = Proposal::monthlyExpenses($expenses);
+        $annualExpenses = $expenses->sum('totalPrice');
 
         $chartBackgroundColors = [
             'rgba(255, 206, 86, 0.2)',
@@ -835,7 +838,9 @@ class InvoiceController extends Controller {
                         'months',
                         'annualTotal',
                         'monthlyRevenues',
+                        'annualRevenues',
                         'monthlyExpenses',
+                        'annualExpenses',
                         'monthlyAverage',
                         'annualTotal',
                         'chartBackgroundColors',

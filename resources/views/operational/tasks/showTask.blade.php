@@ -56,30 +56,44 @@
     </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
+
+    @if(isset($task->contact->name))
+    <a href='{{route('contact.show', ['contact' => $task->contact_id])}}'>
+        <div class='show-field-end'>
+            {{$task->contact->name}}
+        </div>
+    </a>
+    @else
     <div class='show-field-end'>
-        @if(isset($task->contact->name))
-        {{$task->contact->name}}
-        @else
         Não possui
-        @endif
     </div>
+    @endif
+
+    @if(isset($task->company->name))
+    <a href='{{route('company.show', ['company' => $task->company_id])}}'>
+        <div class='show-field-end'>
+            {{$task->company->name}}
+        </div>
+    </a>
+    @else
     <div class='show-field-end'>
-        @if(isset($task->company->name))
-        {{$task->company->name}}
-        @else
         Pessoa física
-        @endif
     </div>
-    <div class='show-field-end'>
-        @isset($task->opportunity->id)
-        <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
+    @endif
+
+
+    @if(isset($task->opportunity->id))
+    <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
+        <div class='show-field-end'>
             {{$task->opportunity->name}}
             <i class='fa fa-eye' style='color:white'></i>
-        </a>
-        @else
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
         Não possui
-        @endisset
     </div>
+    @endif
 </div>
 
 <div class='col-md-2 col-sm-4' style='text-align: center'>
@@ -94,13 +108,20 @@
     <div class='show-field-end'>
         {{$task->department}}
     </div>
+
+
+    @if(isset($task->user->contact->name))
+    <a href=' {{route('user.show', ['user' => $task->user_id])}}'>
+        <div class='show-field-end'>
+            {{$task->user->contact->name}}
+        </div>
+    </a>
+    @else
     <div class='show-field-end'>
-        @if(isset($task->user->contact->name))
-        {{$task->user->contact->name}}
-        @else
         foi excluído
-        @endif
     </div>
+    @endif
+
 </div>
 @endsection
 
@@ -215,7 +236,9 @@
         {{$journey->id}}
     </div>
     <div class='tb col-3'>
-        {{$journey->user->contact->name}}
+        <a href=' {{route('user.show', ['user' => $task->user_id])}}'>
+            {{$journey->user->contact->name}}
+        </a>
     </div>
     <div class='tb-description col-4'>
         {!!html_entity_decode($journey->description)!!}

@@ -713,6 +713,11 @@ table{
     justify-content: center;
     align-items: center;
 }
+
+.tb:hover{ 
+    background-color: #f9d0ff;
+}
+
 .tb-description { 
     padding-left: 5px;
     padding-right: 5px;
@@ -725,7 +730,8 @@ table{
     border-width: 1px;
     text-align: left;
 }
-.tb::hover{ 
+
+.tb-description:hover{ 
     background-color: #f9d0ff;
 }
 
@@ -1716,6 +1722,10 @@ and open the template in the editor.
     border-style: solid;
     border-color: #c28dbf;
     border-width: 0.5px;
+}
+
+.show-field-end:hover {
+        background-color: #efe0ee;
 }
 
 .description-field {

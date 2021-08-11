@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','PRODUTIVIDADE')
+@section('title','PREVISIONAMENTO')
 
 @section('image-top')
 {{ asset('images/journey.png') }} 
@@ -63,7 +63,10 @@ $counterMonth = 1;
     $counterMonth++;
     $counterArray++;
     }
-@endphp
+    @endphp
+    <div class='tb tb-header col justify-content-end'>
+        {{formatCurrency($annualRevenues)}}
+    </div>
 </div>
 <div class="row mt-1">
     <div class="tb-header col-1 justify-content-start">
@@ -79,7 +82,10 @@ $counterMonth = 1;
     $counterMonth++;
     $counterArray++;
     }
-@endphp
+    @endphp
+    <div class='tb col justify-content-end'>
+        {{formatCurrency($annualExpenses)}}
+    </div>
 </div>
 
 

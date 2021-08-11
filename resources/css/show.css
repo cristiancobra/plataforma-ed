@@ -445,6 +445,10 @@ and open the template in the editor.
     border-width: 0.5px;
 }
 
+.show-field-end:hover {
+        background-color: #efe0ee;
+}
+
 .description-field {
     font-family: helvetica;
     color: #874983;

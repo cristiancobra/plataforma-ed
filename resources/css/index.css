@@ -96,6 +96,11 @@ table{
     justify-content: center;
     align-items: center;
 }
+
+.tb:hover{ 
+    background-color: #f9d0ff;
+}
+
 .tb-description { 
     padding-left: 5px;
     padding-right: 5px;
@@ -108,7 +113,8 @@ table{
     border-width: 1px;
     text-align: left;
 }
-.tb::hover{ 
+
+.tb-description:hover{ 
     background-color: #f9d0ff;
 }
 
