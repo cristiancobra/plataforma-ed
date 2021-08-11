@@ -28,23 +28,13 @@ class OpportunityController extends Controller {
     public function index(Request $request) {
         $opportunities = Opportunity::filterOpportunities($request);
 
-//        $opportunities = Opportunity::where(function ($query) use ($request) {
-//                    $query->where('account_id', auth()->user()->account_id);
-//                    $query->where('stage', '!=', 'concluída');
-//                    $query->where('status', '!=', 'perdemos');
-//                    $query->where('trash', '==', 0);
-//                }
-//                )
-//                ->with([
-//                    'user',
-//                    'account',
-//                    'company',
-//                    'contact',
-//                    'tasks.journeys',
-//                ])
-//                ->orderBy('DATE_CONCLUSION', 'ASC')
-//                ->paginate(20);
-//dd($opportunities);
+        $totalProspection = $opportunities->where('stage', 'prospecção')->count();
+        $totalPresentation = $opportunities->where('stage', 'apresentação')->count();
+        $totalProposal = $opportunities->where('stage', 'proposta')->count();
+        $totalContract = $opportunities->where('stage', 'contrato')->count();
+        $totalBill = $opportunities->where('stage', 'cobrança')->count();
+        $totalProduction = $opportunities->where('stage', 'produção')->count();
+
         $total = $opportunities->total();
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -63,6 +53,12 @@ class OpportunityController extends Controller {
 
         return view('sales.opportunities.indexOpportunities', compact(
                         'opportunities',
+                        'totalProspection',
+                        'totalPresentation',
+                        'totalProposal',
+                        'totalContract',
+                        'totalBill',
+                        'totalProduction',
                         'total',
                         'contacts',
                         'companies',

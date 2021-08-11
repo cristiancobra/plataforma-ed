@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title','OPORTUNIDADES')
 
@@ -15,8 +15,10 @@
 {{createButtonCreate('opportunity')}}
 @endsection
 
-@section('main')
-<form id="filter" action="{{route('opportunity.filter')}}" method="post" style="text-align: right;display:none">
+
+
+@section('filter')
+<form id="filter" action="{{route('opportunity.index')}}" method="get" style="text-align: right;display:none">
     @csrf
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
@@ -30,7 +32,97 @@
     </a>
     <input class="btn btn-primary" type="submit" value="FILTRAR">
 </form>
-<br>
+@endsection
+
+
+@section('shortcuts')
+<div class='col d-inline-block tasks-my'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+				'status' =>'negociando',
+				'stage' =>'prospecção',
+				])}}'>
+        <p class='panel-number'>
+            {{$totalProspection}}
+        </p>
+        <p class='panel-text'>
+            prospecções
+        </p>
+    </a>
+</div>
+<div class='col d-inline-block tasks-toDo'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+				'status' =>'negociando',
+				'stage' =>'apresentação',
+				])}}'>
+        <p class='panel-number'>
+ {{$totalPresentation}}
+        </p>
+        <p class='panel-text'>
+            apresentações
+        </p>
+    </a>
+</div>
+
+<div class='col d-inline-block tasks-now'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+				'status' =>'negociando',
+				'stage' =>'proposta',
+				])}}'>
+        <p class='panel-number'>
+            {{$totalProposal}}
+        </p>
+        <p class='panel-text'>
+            propostas
+        </p>
+    </a>
+</div>
+
+<div class='col d-inline-block tasks-emergency'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+				'status' =>'negociando',
+				'stage' =>'contrato',
+				])}}'>
+        <p class='panel-number'>
+            {{$totalContract}}
+        </p>
+        <p class='panel-text'>
+            contratos
+        </p>
+    </a>
+</div>
+
+<div class='col d-inline-block tasks-emergency'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+				'status' =>'negociando',
+				'stage' =>'cobrança',
+				])}}'>
+        <p class='panel-number'>
+            {{$totalBill}}
+        </p>
+        <p class='panel-text'>
+            cobrança
+        </p>
+    </a>
+</div>
+
+<div class='col d-inline-block tasks-emergency'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+				'status' =>'negociando',
+				'stage' =>'produção',
+				])}}'>
+        <p class='panel-number'>
+            {{$totalProduction}}
+        </p>
+        <p class='panel-text'>
+            produção
+        </p>
+    </a>
+</div>
+@endsection
+
+
+
+@section('table')
 <div class="row">
     <div class="tb tb-header-start col-4">
         NOME 
@@ -99,14 +191,11 @@
     {{formatStatus($opportunity)}}
 </div>
 @endforeach
-
-
-<p style="text-align: right">
-    <br>
-    {{$opportunities->links()}}
-</p>
-<br>
 @endsection
+
+
+@section('paginate', $opportunities->links())
+
 
 @section('js-scripts')
 <script>

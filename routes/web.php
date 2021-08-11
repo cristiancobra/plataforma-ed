@@ -355,10 +355,10 @@ Route::resource('modelos-de-contratos', 'Sales\\ContractTemplateController')
 Route::get('oportunidades/pdf/relatorio-producao/{opportunity}', 'Sales\\OpportunityController@createProductionPdf')
         ->name('opportunity.pdfProduction')
         ->middleware('roles');
-
-Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
-        ->name('opportunity.filter')
-        ->middleware('roles');
+//
+//Route::any('/oportunidades/filtros', 'Sales\\OpportunityController@filter')
+//        ->name('opportunity.filter')
+//        ->middleware('roles');
 
 Route::put('/oportunidades/apagar/{opportunity}', 'Sales\\OpportunityController@sendToTrash')
         ->name('opportunity.trash')

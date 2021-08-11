@@ -79,18 +79,18 @@ class Opportunity extends Model {
                     if ($request->type) {
                         $query->where('type', $request->type);
                     }
-                    if ($request->stage == '') {
-                        $query->where('stage', '!=', 'concluída');
-                    }else{
+                    if ($request->stage) {
                         $query->where('stage', $request->stage);
+                    } else {
+                        $query->where('stage', '!=', 'concluída');
                     }
-                    if ($request->status == '') {
-                        $query->where('status', '!=', 'perdemos');
-                    } elseif ($request->status == 'fazendo') {
+                    if ($request->status == 'fazendo') {
                         $query->where('status', 'fazer');
                         $query->whereHas('journeys');
                     } elseif ($request->status) {
                         $query->where('status', $request->status);
+                    }else{
+                        $query->where('status', 'negociando');
                     }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);
@@ -99,11 +99,11 @@ class Opportunity extends Model {
                     }
                 })
                 ->with(
-                    'user',
-                    'account',
-                    'company',
-                    'contact',
-                    'tasks.journeys',
+                        'user',
+                        'account',
+                        'company',
+                        'contact',
+                        'tasks.journeys',
                 )
                 ->orderBy('DATE_CONCLUSION', 'ASC')
                 ->paginate(20);
@@ -117,7 +117,7 @@ class Opportunity extends Model {
 
         return $opportunities;
     }
-    
+
 // retorna os estágios das oportunidades
     public static function listStages() {
         return $stages = array(
