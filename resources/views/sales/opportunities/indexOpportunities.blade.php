@@ -36,80 +36,74 @@
 
 
 @section('shortcuts')
-<div class='col d-inline-block tasks-my'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'prospecção',
-				])}}'>
-        <p class='panel-number'>
+<div class='col shortcut prospecting'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', ['stage' =>'prospecção'])}}'>
+        <h2>
             {{$totalProspection}}
-        </p>
-        <p class='panel-text'>
+        </h2>
+        <h3>
             prospecções
-        </p>
+        </h3>
     </a>
 </div>
-<div class='col d-inline-block tasks-toDo'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'apresentação',
-				])}}'>
-        <p class='panel-number'>
- {{$totalPresentation}}
-        </p>
-        <p class='panel-text'>
+<div class='col shortcut presentation'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', ['stage' =>'apresentação'])}}'>
+        <h2>
+            {{$totalPresentation}}
+        </h2>
+        <h3>
             apresentações
-        </p>
+        </h3>
     </a>
 </div>
 
-<div class='col d-inline-block tasks-now'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'proposta',
-				])}}'>
-        <p class='panel-number'>
+<div class='col shortcut proposal'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', ['stage' =>'proposta',])}}'>
+        <h2>
             {{$totalProposal}}
-        </p>
-        <p class='panel-text'>
+        </h2>
+        <h3>
             propostas
-        </p>
+        </h3>
     </a>
 </div>
 
-<div class='col d-inline-block tasks-emergency'>
+<div class='col shortcut contract'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
 				'stage' =>'contrato',
 				])}}'>
-        <p class='panel-number'>
+        <h2>
             {{$totalContract}}
-        </p>
-        <p class='panel-text'>
+        </h2>
+        <h3>
             contratos
-        </p>
+        </h3>
     </a>
 </div>
 
-<div class='col d-inline-block tasks-emergency'>
+<div class='col shortcut bill'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
 				'stage' =>'cobrança',
 				])}}'>
-        <p class='panel-number'>
+        <h2>
             {{$totalBill}}
-        </p>
-        <p class='panel-text'>
+        </h2>
+        <h3>
             cobrança
-        </p>
+        </h3>
     </a>
 </div>
 
-<div class='col d-inline-block tasks-emergency'>
+<div class='col shortcut production'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
 				'stage' =>'produção',
 				])}}'>
-        <p class='panel-number'>
+        <h2>
             {{$totalProduction}}
-        </p>
-        <p class='panel-text'>
+        </h2>
+        <h3>
             produção
-        </p>
+        </h3>
     </a>
 </div>
 @endsection
@@ -146,7 +140,7 @@
                 <i class='fa fa-eye' style="color:white"></i>
             </a>
         </button>
-            {{$opportunity->name}}
+        {{$opportunity->name}}
     </div>
     @if(isset($opportunity->contact->name))
     <div class="tb col-2">
@@ -158,15 +152,15 @@
     </div>
     @endif
     @if(isset($opportunity->company->name))
-        <div class="tb col-2">
+    <div class="tb col-2">
         {{$opportunity->company->name}}
     </div>
     @else
-        <div class="tb col-2">
+    <div class="tb col-2">
         Pessoa física
     </div>
     @endif
-        <div class="tb col-2">
+    <div class="tb col-2">
         @if(isset($opportunity->user->image))
         <div class='profile-picture-small'>
             <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>

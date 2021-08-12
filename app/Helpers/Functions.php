@@ -855,7 +855,7 @@ if (!function_exists('formatStatus')) {
 if (!function_exists('formatShowStage')) {
 
     function formatShowStage($model) {
-        switch ($model) {
+        switch ($model->stage) {
             case 'prospecção':
                 echo '<div class="prospecting">prospecção</div>';
                 break;

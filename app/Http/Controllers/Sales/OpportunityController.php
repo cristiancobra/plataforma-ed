@@ -27,7 +27,11 @@ class OpportunityController extends Controller {
      */
     public function index(Request $request) {
         $opportunities = Opportunity::filterOpportunities($request);
-        $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)->get();
+        $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
+                ->where('status', '!=', 'perdemos')
+                ->where('stage', '!=', 'concluída')
+                ->where('trash', '!=', 1)
+                ->get();
 
         $totalProspection = $allOpportunities->where('stage', 'prospecção')->count();
         $totalPresentation = $allOpportunities->where('stage', 'apresentação')->count();

@@ -19,7 +19,7 @@ and open the template in the editor.
     vertical-align:middle;
     background-color: #c28dbf;
     border-style: solid;
-    border-radius:10px;
+    border-radius:30px;
     border-width: 1px; 
     border-color: white;
     padding:5px;
@@ -156,146 +156,76 @@ and open the template in the editor.
 
 /*  Oportunidades / Stage */
 
-.prospecting{
+.show-stage{
     text-align: center;
     font-size: 18px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:middle;
-    background-color: #8B2485;
     border-style: solid;
-    border-radius:10px;
     border-width: 1px; 
     border-color: white;
+}
+
+.prospecting{
     padding:5px;
+    border-radius:30px;
+    background-color: #8B2485;
 }
 
 .presentation{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #957799;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #957799;
 }
 
 .proposal{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #EDB4F4;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #EDB4F4;
 }
 
 .contract{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #92C4D4;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #92C4D4;
 }
 
 .bill{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #F7AFB4;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #F7AFB4;
 }
 
 .production{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #09FBBE;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #09FBBE;
 }
 
 .conclude{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #20EB48;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #20EB48;
 }
 
 /*Opportunity status*/
 
 .dealing{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #EDD500;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #EDD500;
 }
 
 .won{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #97F80C;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #97F80C;
 }
 
 .lost{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
-    color: white;
-    vertical-align:middle;
-    background-color: #EF5362;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
     padding:5px;
+    border-radius:30px;
+    background-color: #EF5362;
 }
 
 /*dates*/
@@ -446,7 +376,7 @@ and open the template in the editor.
 }
 
 .show-field-end:hover {
-        background-color: #efe0ee;
+    background-color: #efe0ee;
 }
 
 .description-field {
@@ -500,7 +430,7 @@ and open the template in the editor.
     overflow: hidden;
     text-align: center;
     margin: 10px;
-        margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -514,7 +444,7 @@ and open the template in the editor.
     position: relative;
     overflow: hidden;
     text-align: center;
-        margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
 }
 
@@ -528,6 +458,6 @@ and open the template in the editor.
     position: relative;
     overflow: hidden;
     text-align: center;
-        margin-left: auto;
+    margin-left: auto;
     margin-right: auto;
 }

@@ -16,7 +16,7 @@
         <div class='container-fluid'>
             <div class='row' style='background-color: #EEEEEE'>
                 @include('layouts.sidebar')
-                <main role='main' class='offset-2 col-10 ml-sm-auto px-2' style='background-color: #EEEEEE'>
+                <main role='main' class='offset-2 col-10 ml-sm-auto px-4' style='background-color: #EEEEEE'>
 
                     <div class='row' style='
                          margin-top: 10px;
@@ -27,15 +27,15 @@
                         @include('layouts.header')
                     </div>
 
-                    <div style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white;padding: 50px;margin: 20px;margin-top:0px'>
-                        <div class='row' style='margin-top: -10px'>
-                            <div class='show-name col-sm-8'>
+                    <div id='white-page'  class='container' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
+                        <div class='row mt-4'>
+                            <div class='show-name col-8'>
                                 @yield('name')
                             </div>
-                            <div class='col-sm-2'>
+                            <div class='show-stage col-2'>
                                 @yield('priority')
                             </div>
-                            <div class='col-sm-2'>
+                            <div class='show-stage col-2'>
                                 @yield('status')
                             </div>
                         </div>

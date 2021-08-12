@@ -75,7 +75,7 @@ class Opportunity extends Model {
                         $query->where('company_id', $request->company_id);
                     }
                     if ($request->updated_at) {
-                        $query->whereBetween('updated_at', [$request->updated_at, date('Y-m-h')]);
+                        $query->whereBetween('updated_at', [$request->updated_at, date('Y-m-d')]);
                     }
                     if ($request->priority) {
                         $query->where('priority', $request->priority);
@@ -86,9 +86,15 @@ class Opportunity extends Model {
                     if ($request->stage) {
                         $query->where('stage', $request->stage);
                     }
+//                    } else {
+//                        $query->where('stage', '!=', 'concluída');
+//                    }
                     if ($request->status) {
                         $query->where('status', $request->status);
                     }
+//                    } else {
+//                        $query->where('status', '!=', 'perdemos');
+//                    }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);
                     } else {
