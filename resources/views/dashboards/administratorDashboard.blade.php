@@ -200,10 +200,16 @@
             <i class="fas fa-funnel-dollar" style="font-size:40px; color:#8B2485"></i>
             <br>
             OPORTUNIDADES
-            <a class="text-button btn-info mt-2" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+            <a class="text-button btn-info mt-2" name="new_contacts" href="{{route('opportunity.index', [
+                                                                                                                                                                    'status' => 'ganhamos',
+                                                                                                                                                                    'updated_at' => date("Y-m-d", strtotime("-7 days"))
+                                                                                                                                                                   ])}}">
                 +{{$opportunitiesWon}} esta semana
             </a>
-            <a class="text-button btn-danger mt-2" name="new_contacts" href="{{route('opportunity.index', ['created_at' => date("Y-m-d", strtotime("-7 days"))])}}">
+            <a class="text-button btn-danger mt-2" name="new_contacts" href="{{route('opportunity.index', [
+                                                                                                                                                                    'status' => 'perdemos',
+                                                                                                                                                                    'updated_at' => date("Y-m-d", strtotime("-7 days"))
+                                                                                                                                                                   ])}}">
                 +{{$opportunitiesLost}} esta semana
             </a>
         </p>

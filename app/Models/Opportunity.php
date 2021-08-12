@@ -14,6 +14,7 @@ class Opportunity extends Model {
         'contact_id',
         'user_id',
         'company_id',
+        'created_at',
         'name',
         'description',
         'category',
@@ -72,6 +73,9 @@ class Opportunity extends Model {
                     }
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
+                    }
+                    if ($request->updated_at) {
+                        $query->whereBetween('updated_at', [$request->updated_at, date('Y-m-h')]);
                     }
                     if ($request->priority) {
                         $query->where('priority', $request->priority);

@@ -80,8 +80,6 @@ class DashboardController extends Controller {
             $view = 'dashboards/administratorDashboard';
 
             $departments = "";
-            $opportunitiesWon = '';
-
             $opportunitiesLost = '';
 
             // SE FOR FUNCIONÁRIO
