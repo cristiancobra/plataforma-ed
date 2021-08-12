@@ -38,7 +38,6 @@
 @section('shortcuts')
 <div class='col d-inline-block tasks-my'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'status' =>'negociando',
 				'stage' =>'prospecção',
 				])}}'>
         <p class='panel-number'>
@@ -51,7 +50,6 @@
 </div>
 <div class='col d-inline-block tasks-toDo'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'status' =>'negociando',
 				'stage' =>'apresentação',
 				])}}'>
         <p class='panel-number'>
@@ -65,7 +63,6 @@
 
 <div class='col d-inline-block tasks-now'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'status' =>'negociando',
 				'stage' =>'proposta',
 				])}}'>
         <p class='panel-number'>
@@ -79,7 +76,6 @@
 
 <div class='col d-inline-block tasks-emergency'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'status' =>'negociando',
 				'stage' =>'contrato',
 				])}}'>
         <p class='panel-number'>
@@ -93,7 +89,6 @@
 
 <div class='col d-inline-block tasks-emergency'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'status' =>'negociando',
 				'stage' =>'cobrança',
 				])}}'>
         <p class='panel-number'>
@@ -107,7 +102,6 @@
 
 <div class='col d-inline-block tasks-emergency'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'status' =>'negociando',
 				'stage' =>'produção',
 				])}}'>
         <p class='panel-number'>
