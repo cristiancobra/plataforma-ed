@@ -86,15 +86,9 @@ class Opportunity extends Model {
                     if ($request->stage) {
                         $query->where('stage', $request->stage);
                     }
-//                    } else {
-//                        $query->where('stage', '!=', 'concluída');
-//                    }
                     if ($request->status) {
                         $query->where('status', $request->status);
                     }
-//                    } else {
-//                        $query->where('status', '!=', 'perdemos');
-//                    }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);
                     } else {
@@ -112,10 +106,17 @@ class Opportunity extends Model {
                 ->paginate(20);
 
         $opportunities->appends([
-            'name' => $request->name,
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
+            'name' => $request->name,
+            'department' => $request->department,
+            'contact_id' => $request->contact_id,
+            'updated_at' => $request->updated_at,
+            'company_id' => $request->company_id,
+            'priority' => $request->priority,
+            'type' => $request->type,
+            'stage' => $request->stage,
+            'status' => $request->status,
+            'trash' => $request->trash            
         ]);
 
         return $opportunities;
