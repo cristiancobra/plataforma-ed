@@ -27,13 +27,14 @@ class OpportunityController extends Controller {
      */
     public function index(Request $request) {
         $opportunities = Opportunity::filterOpportunities($request);
+        $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)->get();
 
-        $totalProspection = $opportunities->where('stage', 'prospecção')->count();
-        $totalPresentation = $opportunities->where('stage', 'apresentação')->count();
-        $totalProposal = $opportunities->where('stage', 'proposta')->count();
-        $totalContract = $opportunities->where('stage', 'contrato')->count();
-        $totalBill = $opportunities->where('stage', 'cobrança')->count();
-        $totalProduction = $opportunities->where('stage', 'produção')->count();
+        $totalProspection = $allOpportunities->where('stage', 'prospecção')->count();
+        $totalPresentation = $allOpportunities->where('stage', 'apresentação')->count();
+        $totalProposal = $allOpportunities->where('stage', 'proposta')->count();
+        $totalContract = $allOpportunities->where('stage', 'contrato')->count();
+        $totalBill = $allOpportunities->where('stage', 'cobrança')->count();
+        $totalProduction = $allOpportunities->where('stage', 'produção')->count();
 
         $total = $opportunities->total();
 

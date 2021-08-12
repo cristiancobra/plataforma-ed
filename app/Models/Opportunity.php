@@ -85,16 +85,9 @@ class Opportunity extends Model {
                     }
                     if ($request->stage) {
                         $query->where('stage', $request->stage);
-                    } else {
-                        $query->where('stage', '!=', 'concluída');
                     }
-                    if ($request->status == 'fazendo') {
-                        $query->where('status', 'fazer');
-                        $query->whereHas('journeys');
-                    } elseif ($request->status) {
+                    if ($request->status) {
                         $query->where('status', $request->status);
-                    }else{
-                        $query->where('status', 'negociando');
                     }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);
