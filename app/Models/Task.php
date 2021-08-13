@@ -194,5 +194,23 @@ class Task extends Model {
 
         return $task;
     }
+    
+    public static function getTasksEmergency() {
+        return Task::where('account_id', auth()->user()->account_id)
+                ->where('user_id', auth()->user()->id)
+                ->where('priority', 'emergência')
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->get();
+    }
+    
+    public static function countTasksEmergency() {
+        return Task::where('account_id', auth()->user()->account_id)
+                ->where('user_id', auth()->user()->id)
+                ->where('priority', 'emergência')
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
 
 }

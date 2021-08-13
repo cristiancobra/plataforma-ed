@@ -104,8 +104,6 @@
     <div class='col-lg-3 d-inline-block tasks-toDo'>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
-				'contact_id' => '',
-				'user_id' => '',
 				])}}'>
             <p class='panel-number'>
                 {{$tasks_pending}}
@@ -119,7 +117,6 @@
     <div class='col-lg-3 d-inline-block tasks-my'>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
-				'contact_id' => '',
 				'user_id' => Auth::user()->id,
 				])}}'>
             <p class='panel-number'>
@@ -134,8 +131,7 @@
     <div class='col-lg-3 d-inline-block tasks-emergency'>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
-                                                                        'priority' =>'emergência',
-				'contact_id' => '',
+                                                                                 'priority' =>'emergência',
 				'user_id' => Auth::user()->id,
 				])}}'>
             <p class='panel-number'>
@@ -167,15 +163,15 @@
                 +{{$contactsNewsTotal}} esta semana
             </a>
         </p>
-            @foreach($contactsNews as $contactNew)
-            <a class="white" href=" {{route('contact.show', ['contact' => $contactNew->id])}}">
-                <button class="button-round">
-                    <i class='fa fa-eye'></i>
-                </button>
-            </a>
-            {{$contactNew->name}}
-            <br>
-            @endforeach
+        @foreach($contactsNews as $contactNew)
+        <a class="white" href=" {{route('contact.show', ['contact' => $contactNew->id])}}">
+            <button class="button-round">
+                <i class='fa fa-eye'></i>
+            </button>
+        </a>
+        {{$contactNew->name}}
+        <br>
+        @endforeach
     </div>
     <div class="col-4" style="
          background-color: #fff6ff;

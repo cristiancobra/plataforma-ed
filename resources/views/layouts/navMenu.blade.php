@@ -28,6 +28,8 @@ $oppositeColor = $empresaDigital->opposite_color;
 if(auth()->user() == true) {
 $lastJourney = \App\Models\Journey::myLastJourney();
 $openJourney = \App\Models\Journey::myOpenJourney();
+$tasksEmergency = \App\Models\Task::getTasksEmergency();
+$tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
 }
 @endphp
 
@@ -102,6 +104,30 @@ $openJourney = \App\Models\Journey::myOpenJourney();
             <a class='circular-nav-button secondary'  href='{{route('task.create')}}'>
                 <i class="fas fa-calendar-check" title='Criar nova tarefa' style="color:#8B2485"></i>
             </a>
+            @if(isset($tasksEmergency))
+            <a class='circular-nav-button delete'  href='{{route('task.index', [
+                                                                                                                    'status' => 'fazer',
+                                                                                                                    'priority' => 'emergência',
+                                                                                                                    'user_id' => auth()->user()->id,
+                                                                                                                    ])}}'>
+                <i class="fas fa-exclamation-triangle" title='Tarefas emergenciais' style="color:#8B2485"></i>
+            <div style="
+                 border-radius: 50%;
+                 color:white;
+                 background-color: red;
+                 font-size: 11px;
+                 font-weight: 600;
+                 text-align: center;
+                 width: 17px;
+                 height: 17px;
+                 margin-top: -28px;
+                 margin-left: 15px;
+                 padding-bottom: 5px;
+                 ">
+                {{$tasksEmergencyTotal}}
+            </div>
+            </a>
+            @endif
             @endif
         </div>
     </div>

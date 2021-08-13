@@ -250,20 +250,18 @@ class JourneyController extends Controller {
 
     // chama o método que completa a JORNADA E A TAREFA da jornada  e direciona para a view show
     public function completeJourneyAndTask(Journey $journey) {
-        if ($journey->validateJourneyDuration($journey->duration) == true) {
+//        if ($journey->validateJourneyDuration($journey->duration) == true) {
         Journey::completeJourney($journey);
 //dd($journey->validateJourneyDuration($journey->duration));
             Task::completeTask($journey->task);
 
-            return redirect()->route('journey.show', compact(
-                                    'journey',
-            ));
-    
-        } else {
-            return redirect()->route('journey.show', compact(
-                                    'journey',
-            ));
-    }
+            return redirect()->back();
+//    
+//        } else {
+//            return redirect()->route('journey.show', compact(
+//                                    'journey',
+//            ));
+//    }
     }
 
     public function reportByUsers(Request $request) {

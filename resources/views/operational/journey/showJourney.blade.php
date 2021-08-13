@@ -17,10 +17,10 @@
         <i class='fas fa-clock'></i>
     </button>
 </form>
-<form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('journey.completeTask', ['journey' => $journey]) }} " method="post">
+<form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $journey->task]) }} " method="post">
     @csrf
     @method('put')
-    <button id='' class='circular-button secondary' title='Encerrar jornada e tarefa com data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+    <button id='' class='circular-button secondary' title='Encerrar tarefa com data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
         <i class='fas fa-clipboard-check'></i>
     </button>
 </form>

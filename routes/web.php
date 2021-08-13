@@ -239,9 +239,9 @@ Route::put('/jornadas/encerrar/{journey}', 'Operational\\JourneyController@compl
         ->name('journey.complete')
         ->middleware('roles');
 
-Route::put('/jornadas/finalizar-tarefa/{journey}', 'Operational\\JourneyController@completeJourneyAndTask')
-        ->name('journey.completeTask')
-        ->middleware('roles');
+//Route::put('/jornadas/finalizar-tarefa/{journey}', 'Operational\\JourneyController@completeJourneyAndTask')
+//        ->name('journey.completeTask')
+//        ->middleware('roles');
 
 Route::resource('jornadas', 'Operational\\JourneyController')
         ->names('journey')
