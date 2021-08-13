@@ -110,7 +110,7 @@ class Task extends Model {
                 })
                 ->with(
                         'opportunity',
-                        'journeys',
+//                        'journeys',
                         'user.contact',
                         'user.image',
                         'images',

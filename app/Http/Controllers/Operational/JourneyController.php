@@ -35,9 +35,8 @@ class JourneyController extends Controller {
                 ->get();
 
         $departments = Task::returnDepartments();
-        
+
         $trashStatus = request()->trash;
-        
 
         return view('operational.journey.indexJourneys', compact(
                         'journeys',
@@ -147,12 +146,12 @@ class JourneyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Journey $journey) {
-        if($journey->end == null) {
+        if ($journey->end == null) {
             $journey->end = 0;
-        }else{
-        $journey->end = date('H:i', strtotime($journey->end));
+        } else {
+            $journey->end = date('H:i', strtotime($journey->end));
         }
-                
+
         $tasks = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->orderBy('NAME', 'ASC')
@@ -234,8 +233,7 @@ class JourneyController extends Controller {
                                 'journey',
         ));
     }
-    
-    
+
     public function sendToTrash(Journey $journey) {
         $journey->trash = 1;
         $journey->save();
@@ -252,13 +250,20 @@ class JourneyController extends Controller {
 
     // chama o método que completa a JORNADA E A TAREFA da jornada  e direciona para a view show
     public function completeJourneyAndTask(Journey $journey) {
+        if ($journey->validateJourneyDuration($journey->duration) == true) {
         Journey::completeJourney($journey);
+//dd($journey->validateJourneyDuration($journey->duration));
+            Task::completeTask($journey->task);
 
-        $task = Task::completeTask($journey->task);
-
-        return redirect()->route('task.show', compact(
-                                'task',
-        ));
+            return redirect()->route('journey.show', compact(
+                                    'journey',
+            ));
+    
+        } else {
+            return redirect()->route('journey.show', compact(
+                                    'journey',
+            ));
+    }
     }
 
     public function reportByUsers(Request $request) {

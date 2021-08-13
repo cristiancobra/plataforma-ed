@@ -37,7 +37,10 @@
 
 @section('shortcuts')
 <div class='col shortcut prospecting'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', ['stage' =>'prospecção'])}}'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+                                                                                                            'stage' =>'prospecção',
+                                                                                                            'status' =>'ativo'
+                                                                                                               ])}}'>
         <h2>
             {{$totalProspection}}
         </h2>
@@ -47,7 +50,10 @@
     </a>
 </div>
 <div class='col shortcut presentation'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', ['stage' =>'apresentação'])}}'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+                                                                                                            'stage' =>'apresentação',
+                                                                                                            'status' =>'ativo'
+                                                                                                            ])}}'>
         <h2>
             {{$totalPresentation}}
         </h2>
@@ -58,7 +64,10 @@
 </div>
 
 <div class='col shortcut proposal'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', ['stage' =>'proposta',])}}'>
+    <a style='text-decoration:none' href='{{route('opportunity.index', [
+                                                                                                            'stage' =>'proposta',
+                                                                                                            'status' =>'ativo'
+                                                                                                            ])}}'>
         <h2>
             {{$totalProposal}}
         </h2>
@@ -69,9 +78,10 @@
 </div>
 
 <div class='col shortcut contract'>
-    <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'contrato',
-				])}}'>
+    <a style='text-decoration:none' href='{{route('opportunity.index',  [
+                                                                                                            'stage' =>'contrato',
+                                                                                                            'status' =>'ativo'
+                                                                                                            ])}}'>
         <h2>
             {{$totalContract}}
         </h2>
@@ -83,8 +93,9 @@
 
 <div class='col shortcut bill'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'cobrança',
-				])}}'>
+                                                                                                            'stage' =>'cobrança',
+                                                                                                            'status' =>'ativo'
+                                                                                                            ])}}'>
         <h2>
             {{$totalBill}}
         </h2>
@@ -96,8 +107,9 @@
 
 <div class='col shortcut production'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
-				'stage' =>'produção',
-				])}}'>
+                                                                                                            'stage' =>'produção',
+                                                                                                            'status' =>'ativo'
+                                                                                                            ])}}'>
         <h2>
             {{$totalProduction}}
         </h2>

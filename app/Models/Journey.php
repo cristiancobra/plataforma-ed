@@ -62,7 +62,25 @@ class Journey extends Model {
         $dateEnd = new DateTime('now');
         $journey->end = $dateEnd->format('Y-m-d H:i:s');
         $journey->duration = strtotime($journey->end) - strtotime($journey->start);
-        $journey->save();
+
+        if($journey->validateJourneyDuration($journey->duration) == true) {
+
+            return back()
+                            ->with('failed', 'Jornada muito grande... você está tentando finalizar uma jornada antiga com a data de hoje.')
+                            ->with('errou', true)
+                            ->withInput();
+        } else {
+            $journey->save();
+            
+            return redirect()->back();
+        }
+    }
+
+    public static function validateJourneyDuration($duration) {
+        if ($duration / 3600 >= 24) {
+            return true;
+        }
+
     }
 
     public static function filterJourneys(Request $request) {

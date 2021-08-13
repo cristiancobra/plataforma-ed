@@ -86,7 +86,10 @@ class Opportunity extends Model {
                     if ($request->stage) {
                         $query->where('stage', $request->stage);
                     }
-                    if ($request->status) {
+                    if ($request->status == 'ativo') {
+                        $query->where('status', '!=', 'perdemos');
+                        $query->where('stage', '!=', 'concluída');
+                    }elseif ($request->status) {
                         $query->where('status', $request->status);
                     }
                     if ($request->trash == 1) {
