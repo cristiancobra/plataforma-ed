@@ -799,22 +799,22 @@ class InvoiceController extends Controller {
 
 //        $monthlyTotals = Journey::accountHoursByMonth($year);
 
-        $revenues = Proposal::where('account_id', auth()->user()->account_id)
+        $revenues = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
 
-        $monthlyRevenues = Proposal::monthlyRevenues($revenues);
+        $monthlyRevenues = Invoice::monthlyRevenues($revenues);
         $annualRevenues = $revenues->sum('totalPrice');
 
-        $expenses = Proposal::where('account_id', auth()->user()->account_id)
+        $expenses = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
 
-        $monthlyExpenses = Proposal::monthlyExpenses($expenses);
+        $monthlyExpenses = Invoice::monthlyExpenses($expenses);
         $annualExpenses = $expenses->sum('totalPrice');
 
         $chartBackgroundColors = [

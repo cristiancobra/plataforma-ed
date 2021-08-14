@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','PREVISIONAMENTO')
+@section('title','FLUXO DE CAIXA')
 
 @section('image-top')
 {{ asset('images/journey.png') }} 
@@ -18,22 +18,50 @@
 @endsection
 
 @section('main')
-<form id="filter" action="{{route('invoice.report')}}" method="post" style="text-align: right">
-    @csrf
-    <select class="select"name="year">
-        <option  class="fields" value="2021">
-            2021
-        </option>
-        <option  class="fields" value="2020">
-            2020
-        </option>
-    </select>
-    <a class="text-button secondary" href='{{route('invoice.report')}}'>
-        LIMPAR
-    </a>
-    <input class="text-button secondary" type="submit" value="FILTRAR">
-</form>
-<div class="row mt-5">
+<div class='row'>
+    <form id="filter" action="{{route('invoice.report')}}" method="post" style="text-align: right">
+        @csrf
+        <select class="select"name="year">
+            <option  class="fields" value="2021">
+                2021
+            </option>
+            <option  class="fields" value="2020">
+                2020
+            </option>
+        </select>
+        <a class="text-button secondary" href='{{route('invoice.report')}}'>
+            LIMPAR
+        </a>
+        <input class="text-button secondary" type="submit" value="FILTRAR">
+    </form>
+</div>
+
+
+<div class='row mt-4'>
+    <div class="col-7">
+        <canvas id="chart" width="400" height="150"></canvas>
+    </div>
+    <div class="col-3 pt-5">
+        <br>
+        <span class="labels">{{$annualTotal}}</span> horas executadas em {{date('Y')}} .
+        <br>
+        <span class="labels">{{$monthlyAverage}}</span> horas de média mensal.
+        </p>
+    </div>
+    <div class="col-2 pt-5">
+        <a class='text-button secondary' href='{{route('invoice.report')}}'>
+            REALIZADO
+        </a>
+        <br>
+        <br>
+        <a class='text-button primary' href='{{route('journey.reportDepartments')}}'>
+            PREVISIONADO
+        </a>
+    </div>
+</div>
+
+
+<div class="row mt-4">
     <div class="tb-header col-1">
         TIPO 
     </div>
@@ -46,7 +74,7 @@
         TOTAL 
     </div>
 </div>
-<br>
+
 @php
 $counterArray = 1;
 $counterMonth = 1;
