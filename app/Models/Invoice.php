@@ -97,7 +97,7 @@ class Invoice extends Model {
         foreach ($months as $key => $month) {
             $months[$key] = $revenues
                     ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
-                    ->sum('totalPrice');
+                    ->sum('installment_value');
         }
         return $months;
     }

@@ -806,7 +806,7 @@ class InvoiceController extends Controller {
                 ->get();
 
         $monthlyRevenues = Invoice::monthlyRevenues($revenues);
-        $annualRevenues = $revenues->sum('totalPrice');
+        $annualRevenues = $revenues->sum('installment_value');
 
         $expenses = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
