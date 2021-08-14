@@ -70,8 +70,7 @@
 </div>
 <br>
 <br>
-<form id="filter" action="{{route('invoice.filter')}}" method="post" style="text-align: right;display:none">
-    @csrf
+<form id="filter" action="{{route('invoice.index')}}" method="get" style="text-align: right;display:none">
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
     <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
     <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>

@@ -12,7 +12,6 @@ use App\Models\Contract;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
-use App\Models\Proposal;
 use App\Models\ProductProposal;
 use App\Models\Transaction;
 use App\Models\Task;
@@ -802,6 +801,7 @@ class InvoiceController extends Controller {
         $revenues = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
                 ->where('status', 'aprovada')
+                ->where('trash', '!=', 1)
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
 

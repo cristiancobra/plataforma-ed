@@ -111,9 +111,9 @@ Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
         ->name('invoice.pdf')
         ->middleware('roles');
 
-Route::any('/faturas/filtros', 'Financial\\InvoiceController@filter')
-        ->name('invoice.filter')
-        ->middleware('roles');
+//Route::any('/faturas/filtros', 'Financial\\InvoiceController@filter')
+//        ->name('invoice.filter')
+//        ->middleware('roles');
 
 Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
         ->name('invoice.installment')
