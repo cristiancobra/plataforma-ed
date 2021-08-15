@@ -199,7 +199,6 @@ class Journey extends Model {
                     ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
 
-//                    array_push($monthlys, $month);
         }
         return $monthlys;
     }

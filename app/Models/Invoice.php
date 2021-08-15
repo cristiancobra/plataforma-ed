@@ -88,11 +88,11 @@ class Invoice extends Model {
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    
+
     // MÉTODOS PÚBLICOS
-    public static function monthlyRevenues($revenues){
-                $months = returnMonths();
-                $year = 2021;
+    public static function monthlyRevenues($revenues) {
+        $months = returnMonths();
+        $year = 2021;
 
         foreach ($months as $key => $month) {
             $months[$key] = $revenues
@@ -102,9 +102,59 @@ class Invoice extends Model {
         return $months;
     }
 
-    public static function monthlyExpenses($expenses){
-                $months = returnMonths();
-                $year = 2021;
+    // soma o valor da categoria para cada mês
+    public static function monthlyRevenuesCategories($year, $category) {
+        $months = returnMonths();
+//        $monthlys = [];
+
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = [];
+            $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                    ->where('status', 'aprovada')
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->with('invoiceLines.product')
+                    ->get();
+
+            foreach ($invoices as $invoice) {
+                foreach ($invoice->invoiceLines as $invoiceLine) {
+
+                    if ($invoiceLine->product->category == $category) {
+
+                        $monthlys[$month] = $invoiceLine->subtotalPrice;
+                    }
+                }
+            }
+        }
+        return $monthlys;
+    }
+
+    // retorna todas as horas registradas do usuário no ano
+    public static function annualRevenuesCategories($year, $category) {
+
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('status', 'aprovada')
+                ->where('trash', '!=', 1)
+                ->whereBetween('pay_day', [$year . '-01-01', $year . '-12-31'])
+                ->with('invoiceLines.product')
+                ->get();
+
+        $annual = 0;
+        
+        foreach ($invoices as $invoice) {
+            foreach ($invoice->invoiceLines as $invoiceLine) {
+
+                if ($invoiceLine->product->category == $category) {
+                    $annual += $invoiceLine->subtotalPrice;
+                }
+            }
+        }
+        return $annual;
+    }
+
+    public static function monthlyExpenses($expenses) {
+        $months = returnMonths();
+        $year = 2021;
 
         foreach ($months as $key => $month) {
             $months[$key] = $expenses

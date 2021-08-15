@@ -79,39 +79,70 @@
 $counterArray = 1;
 $counterMonth = 1;
 @endphp
+
 <div class="row mt-1">
-    <div class="tb-header col-1 justify-content-start">
+    <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0'>
         Receitas
     </div>
     @php
     while ($counterMonth <= 12) {
-    echo "<div class='tb col justify-content-end'>";
+    echo "<div class='tb col justify-content-end' style='background-color: lightblue'>";
         echo formatCurrency($monthlyRevenues[$counterArray]);
         echo "</div>";
+        
     $counterMonth++;
     $counterArray++;
     }
     @endphp
-    <div class='tb tb-header col justify-content-end'>
+    <div class='tb tb-header col justify-content-end'  style='background-color: #4863A0'>
         {{formatCurrency($annualRevenues)}}
     </div>
 </div>
-<div class="row mt-1">
-    <div class="tb-header col-1 justify-content-start">
+
+@php
+$counterArray = 1;
+$counterMonth = 1;
+@endphp
+
+@foreach($categories as $category)
+<div class="row">
+    <div class="tb col-1 justify-content-start">
+        {{$category['name']}}
+    </div>
+    @foreach($months as $key => $month)
+    <div class="tb col justify-content-end">
+        <a href="{{route('invoice.index', [
+                                                              'category' => $category,
+                                                              'start' => date("$year-$key-01"),
+                                                              'end' =>  date("$year-$key-t"),
+                                                             ])}}">
+            
+        {{formatCurrency(floatval($category['monthlys'][$month]))}}
+        </a>
+    </div>
+    @endforeach
+    <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
+        {{formatCurrency(floatval($category['year']))}}
+    </div>
+</div>
+@endforeach
+
+<div class="row mt-5">
+    <div class="tb-header col-1 justify-content-start" style='background-color: red;color:white'>
         Despesas
     </div>
     @php
     $counterArray = 1;
     $counterMonth = 1;
     while ($counterMonth <= 12) {
-    echo "<div class='tb col justify-content-end'>";
+    echo "<div class='tb col justify-content-end' style='background-color: #FDDBDD'>";
         echo formatCurrency($monthlyExpenses[$counterArray]);
         echo "</div>";
     $counterMonth++;
     $counterArray++;
     }
     @endphp
-    <div class='tb col justify-content-end'>
+    <div class='tb col justify-content-end' style='background-color: red;color:white'>
         {{formatCurrency($annualExpenses)}}
     </div>
 </div>

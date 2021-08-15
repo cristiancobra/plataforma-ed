@@ -48,4 +48,15 @@ class Product extends Model
                   public function image() {
 		return $this->hasOne(Image::class, 'id', 'image_id');
 	}
+        
+     // MÉTODOS PÚBLICOS
+     //    
+// retorna prioridade
+    static function returnCategories() {
+        return $categories = array(
+            'serviço',
+            'produto físico',
+            'produto digital',
+        );
+    }
 }

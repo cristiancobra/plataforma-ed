@@ -796,7 +796,7 @@ class InvoiceController extends Controller {
         $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
         $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
 
-//        $monthlyTotals = Journey::accountHoursByMonth($year);
+//   RECEITAS
 
         $revenues = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'receita')
@@ -806,7 +806,20 @@ class InvoiceController extends Controller {
                 ->get();
 
         $monthlyRevenues = Invoice::monthlyRevenues($revenues);
+        
+       $categoriesNames= Product::returnCategories();
+       $categories = [];
+        foreach ($categoriesNames as $category) {
+            $categories[$category]['name'] = $category;
+            $categories[$category]['monthlys'] = Invoice::monthlyRevenuesCategories($year, $category);
+            $categories[$category]['year'] = Invoice::annualRevenuesCategories($year, $category);
+        }
+//        dd($categories);
         $annualRevenues = $revenues->sum('installment_value');
+        
+        
+        
+        // DESPESAS
 
         $expenses = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('type', 'despesa')
@@ -838,6 +851,8 @@ class InvoiceController extends Controller {
                         'months',
                         'annualTotal',
                         'monthlyRevenues',
+                        'categories',
+                        'categoriesNames',
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',

@@ -1455,7 +1455,7 @@ if (!function_exists('returnInvoiceStatusToFilter')) {
 
 }
 
-// retorna a CATEGORIA do PRODUTO
+// retorna a CATEGORIA do PRODUTO ************ deprecated
 if (!function_exists('returnProductCategory')) {
 
     function returnProductCategory() {
