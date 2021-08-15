@@ -111,6 +111,7 @@ class Invoice extends Model {
             $monthlys[$month] = [];
             $invoices = Invoice::where('account_id', auth()->user()->account_id)
                     ->where('status', 'aprovada')
+                    ->where('type', 'receita')
                     ->where('trash', '!=', 1)
                     ->whereBetween('pay_day', [date("$year-$key-01"), date("$year-$key-t")])
                     ->with('invoiceLines.product')
