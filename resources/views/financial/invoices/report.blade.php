@@ -84,16 +84,25 @@ $counterMonth = 1;
     <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0'>
         Receitas
     </div>
+
+    @while($counterMonth <= 12)
+    <div class='tb col justify-content-end' style='background-color: lightblue'>
+        <a href='{{route('invoice.index', [
+                                                                    
+                                                                      'status' => 'aprovada',
+                                                                      'date_start' => date("$year-$counterMonth-01"),
+                                                                      'date_end' =>  date("$year-$counterMonth-t"),
+                                                                     ])}}'>
+
+            {{formatCurrency($monthlyRevenues[$counterArray])}}
+        </a>
+    </div>
     @php
-    while ($counterMonth <= 12) {
-    echo "<div class='tb col justify-content-end' style='background-color: lightblue'>";
-        echo formatCurrency($monthlyRevenues[$counterArray]);
-        echo "</div>";
-        
     $counterMonth++;
-    $counterArray++;
-    }
+    $counterArray++;    
     @endphp
+    @endwhile
+
     <div class='tb tb-header col justify-content-end'  style='background-color: #4863A0'>
         {{formatCurrency($annualRevenues)}}
     </div>
@@ -112,12 +121,12 @@ $counterMonth = 1;
     @foreach($months as $key => $month)
     <div class="tb col justify-content-end">
         <a href="{{route('invoice.index', [
-                                                              'category' => $category,
-                                                              'start' => date("$year-$key-01"),
-                                                              'end' =>  date("$year-$key-t"),
+                                                              'status' => 'aprovada',
+                                                              'date_start' => date("$year-$key-01"),
+                                                              'date_end' =>  date("$year-$key-t"),
                                                              ])}}">
-            
-        {{formatCurrency(floatval($category['monthlys'][$month]))}}
+
+            {{formatCurrency(floatval($category['monthlys'][$month]))}}
         </a>
     </div>
     @endforeach
@@ -134,14 +143,24 @@ $counterMonth = 1;
     @php
     $counterArray = 1;
     $counterMonth = 1;
-    while ($counterMonth <= 12) {
-    echo "<div class='tb col justify-content-end' style='background-color: #FDDBDD'>";
-        echo formatCurrency($monthlyExpenses[$counterArray]);
-        echo "</div>";
+    @endphp
+
+    @while ($counterMonth <= 12)
+    <div class='tb col justify-content-end' style='background-color: #FDDBDD'>
+        <a href='{{route('invoice.index', [
+                                                                    
+                                                                      'status' => 'aprovada',
+                                                                      'date_start' => date("$year-$counterMonth-01"),
+                                                                      'date_end' =>  date("$year-$counterMonth-t"),
+                                                                     ])}}'>
+            {{formatCurrency($monthlyExpenses[$counterArray])}}
+        </a>
+    </div>
+    @php
     $counterMonth++;
     $counterArray++;
-    }
     @endphp
+    @endwhile
     <div class='tb col justify-content-end' style='background-color: red;color:white'>
         {{formatCurrency($annualExpenses)}}
     </div>
