@@ -105,7 +105,6 @@ class Invoice extends Model {
     // soma o valor da categoria para cada mês
     public static function monthlyRevenuesCategories($year, $category) {
         $months = returnMonths();
-//        $monthlys = [];
 
         foreach ($months as $key => $month) {
             $monthlys[$month] = [];
@@ -130,22 +129,74 @@ class Invoice extends Model {
         return $monthlys;
     }
 
+    // soma o valor do grupo  para cada mês
+    public static function monthlyExpensesGroups($year, $group) {
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = [];
+            $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                    ->where('status', 'aprovada')
+                    ->where('type', 'despesa')
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->with('invoiceLines.product')
+                    ->get();
+
+            foreach ($invoices as $invoice) {
+                foreach ($invoice->invoiceLines as $invoiceLine) {
+
+                    if ($invoiceLine->product->group == $group) {
+
+                        $monthlys[$month] = $invoiceLine->subtotalPrice;
+                    }
+                }
+            }
+        }
+        return $monthlys;
+    }
+
     // retorna todas as horas registradas do usuário no ano
     public static function annualRevenuesCategories($year, $category) {
 
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
+                ->where('type', 'receita')
                 ->where('trash', '!=', 1)
                 ->whereBetween('pay_day', [$year . '-01-01', $year . '-12-31'])
                 ->with('invoiceLines.product')
                 ->get();
 
         $annual = 0;
-        
+
         foreach ($invoices as $invoice) {
             foreach ($invoice->invoiceLines as $invoiceLine) {
 
                 if ($invoiceLine->product->category == $category) {
+                    $annual += $invoiceLine->subtotalPrice;
+                }
+            }
+        }
+        return $annual;
+    }
+
+    // retorna todas as horas registradas do usuário no ano
+    public static function annualExpensesGroups($year, $group) {
+
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('status', 'aprovada')
+                ->where('type', 'despesa')
+                ->where('trash', '!=', 1)
+                ->whereBetween('pay_day', [$year . '-01-01', $year . '-12-31'])
+                ->with('invoiceLines.product')
+                ->get();
+
+        $annual = 0;
+
+        foreach ($invoices as $invoice) {
+            foreach ($invoice->invoiceLines as $invoiceLine) {
+
+                if ($invoiceLine->product->group == $group) {
                     $annual += $invoiceLine->subtotalPrice;
                 }
             }

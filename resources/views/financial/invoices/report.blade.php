@@ -81,12 +81,12 @@ $counterMonth = 1;
 @endphp
 
 <div class="row mt-1">
-    <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0'>
-        Receitas
+    <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0;font-weight: 600'>
+        RECEITAS
     </div>
 
     @while($counterMonth <= 12)
-    <div class='tb col justify-content-end' style='background-color: lightblue'>
+    <div class='tb col justify-content-end' style='background-color: lightblue;font-weight: 600'>
         <a href='{{route('invoice.index', [
                                                                     
                                                                       'status' => 'aprovada',
@@ -104,7 +104,7 @@ $counterMonth = 1;
     @endphp
     @endwhile
 
-    <div class='tb tb-header col justify-content-end'  style='background-color: #4863A0'>
+    <div class='tb tb-header col justify-content-end'  style='background-color: #4863A0;font-weight: 600'>
         {{formatCurrency($annualRevenues)}}
     </div>
 </div>
@@ -116,7 +116,7 @@ $counterMonth = 1;
 
 @foreach($categories as $category)
 <div class="row">
-    <div class="tb col-1 justify-content-start">
+    <div class="tb col-1 justify-content-start" style='background-color: lightblue;font-weight: 600'>
         {{$category['name']}}
     </div>
     @foreach($months as $key => $month)
@@ -132,15 +132,15 @@ $counterMonth = 1;
         </a>
     </div>
     @endforeach
-    <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
+    <div class="tb col justify-content-end" style='background-color: lightblue;font-weight: 600'>
         {{formatCurrency(floatval($category['year']))}}
     </div>
 </div>
 @endforeach
 
 <div class="row mt-5">
-    <div class="tb-header col-1 justify-content-start" style='background-color: red;color:white'>
-        Despesas
+    <div class="tb-header col-1 justify-content-start" style='background-color: red;color:white;font-weight: 600'>
+        DESPESAS
     </div>
     @php
     $counterArray = 1;
@@ -148,7 +148,7 @@ $counterMonth = 1;
     @endphp
 
     @while ($counterMonth <= 12)
-    <div class='tb col justify-content-end' style='background-color: #FDDBDD'>
+    <div class='tb col justify-content-end' style='background-color: #FDDBDD;font-weight: 600'>
         <a href='{{route('invoice.index', [
                                                                     
                                                                       'status' => 'aprovada',
@@ -164,11 +164,40 @@ $counterMonth = 1;
     $counterArray++;
     @endphp
     @endwhile
-    <div class='tb col justify-content-end' style='background-color: red;color:white'>
+    <div class='tb col justify-content-end' style='background-color: red;color:white;font-weight: 600'>
         {{formatCurrency($annualExpenses)}}
     </div>
 </div>
 
+
+@php
+$counterArray = 1;
+$counterMonth = 1;
+@endphp
+
+@foreach($groups as $group)
+<div class="row">
+    <div class="tb col-1 justify-content-start" style='background-color: #FDDBDD;font-weight: 600'>
+        {{$group['name']}}
+    </div>
+    @foreach($months as $key => $month)
+    <div class="tb col justify-content-end">
+        <a href="{{route('invoice.index', [
+                                                              'status' => 'aprovada',
+                                                                      'type' => 'receita',
+                                                              'date_start' => date("$year-$key-01"),
+                                                              'date_end' =>  date("$year-$key-t"),
+                                                             ])}}">
+
+            {{formatCurrency(floatval($group['monthlys'][$month]))}}
+        </a>
+    </div>
+    @endforeach
+    <div class="tb col justify-content-end"  style='background-color: #FDDBDD;font-weight: 600'>
+        {{formatCurrency(floatval($group['year']))}}
+    </div>
+</div>
+@endforeach
 
 
 <div class='table-list-right' style='color:white;background-color: #49d194'>

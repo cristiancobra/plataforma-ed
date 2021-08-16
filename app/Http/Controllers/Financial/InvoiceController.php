@@ -805,8 +805,6 @@ class InvoiceController extends Controller {
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
 
-        $monthlyRevenues = Invoice::monthlyRevenues($revenues);
-
         $categoriesNames = Product::returnCategories();
         $categories = [];
         foreach ($categoriesNames as $category) {
@@ -815,6 +813,7 @@ class InvoiceController extends Controller {
             $categories[$category]['year'] = Invoice::annualRevenuesCategories($year, $category);
         }
 
+        $monthlyRevenues = Invoice::monthlyRevenues($revenues);
         $annualRevenues = $revenues->sum('installment_value');
 
         // DESPESAS
@@ -828,14 +827,16 @@ class InvoiceController extends Controller {
         $groupsName = Product::returnGroups();
         $groups = [];
         foreach ($groupsName as $group) {
-            $groups[$category]['name'] = $category;
-            $groups[$category]['monthlys'] = Invoice::monthlyRevenuesCategories($year, $group);
-            $groups[$category]['year'] = Invoice::annualRevenuesCategories($year, $group);
+            $groups[$group]['name'] = $group;
+            $groups[$group]['monthlys'] = Invoice::monthlyExpensesGroups($year, $group);
+            $groups[$group]['year'] = Invoice::annualExpensesGroups($year, $group);
         }
 
         $monthlyExpenses = Invoice::monthlyExpenses($expenses);
         $annualExpenses = $expenses->sum('totalPrice');
 
+        
+        // Gráfico
         $chartBackgroundColors = [
             'rgba(255, 206, 86, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -860,7 +861,6 @@ class InvoiceController extends Controller {
                         'categories',
                         'categoriesNames',
                         'groups',
-                        'groupsNames',
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',
