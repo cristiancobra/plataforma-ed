@@ -145,7 +145,12 @@
 @endsection
 
 @section('main')
-<div class='row'>
+<div class='row show-label-large mt-5'>
+
+    PRECIFICAÇÃO
+</div>
+<div class='row description-field'>
+
     <div class='col-lg-3 col-xs-6' style='text-align: center'>
         <div class='show-label'>
             CUSTO 1
@@ -161,6 +166,9 @@
         </div>
         <div class='show-label'>
             MARGEM DE CONTRIBUIÇÃO
+        </div>
+        <div class='show-label'>
+            PREÇO
         </div>
     </div>
 
@@ -192,6 +200,9 @@
         <div class='show-field-start'>
             preço menos custos
         </div>
+        <div class='show-field-start'>
+            valor de venda
+        </div>
     </div>
 
 
@@ -211,7 +222,12 @@
         <div class='show-field-end text-end'>
             {{formatCurrencyReal($product->margin)}}
         </div>
+        <div class='show-field-end text-end'>
+            {{formatCurrencyReal($product->price)}}
+        </div>
     </div>
+
+</div>
 </div>
 @endsection
 

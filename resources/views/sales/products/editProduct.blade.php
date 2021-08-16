@@ -68,8 +68,8 @@
     <input type="text" name="cnae" size="20" value="{{$product->cnae}}"><span class="fields"></span>
     <br>
     @if($product->category == 'produto')
-    <label class="labels" for="" >ESTOQUE:</label>
-    <input type='number' name='stock'>
+    <label class="labels" for="" >ESTOQUE INICIAL:</label>
+    <input type='number' name='initial stock'>
     <br>
     @endif
     <br>

@@ -71,12 +71,17 @@ class ProductController extends Controller {
 
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
-                ->get();
+                ->get();  
+                
+        $categories = Product::returnCategories();
+        $groups = Product::returnGroups();
 
         return view('sales.products.createProduct', compact(
                         'products',
                         'variation',
                         'images',
+                        'categories',
+                        'groups',
         ));
     }
 

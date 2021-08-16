@@ -47,7 +47,7 @@
             <br>
             <br>
             <div class="p-2 flex-shrink-0 bd-highlight">
-            <input type='file' name='image'>
+                <input type='file' name='image'>
                 <button id="btn-save" class='circular-button primary' style="padding-top: 3px;padding-left: 2px" type="submit">
                     <i class="fas fa-cloud-upload-alt" aria-hidden='true'></i>
                 </button>
@@ -80,8 +80,18 @@
         <label class="labels" for="" >CNAE:</label>
         <input type="text" name="cnae" size="20" value="{{old('cnae')}}"><span class="fields"></span>
         <br>
+        <label class="labels" for="" >ESTOQUE INICIAL:</label>
+        * Apenas para produtos
+        <input type='number' name='initial stock'>
+        <br>
+        <br>
         <label class="labels" for="" >CATEGORIA:</label>
-        {{createSimpleSelect('category', 'fields', returnProductCategory())}}
+        {{createSimpleSelect('category', 'fields', $categories)}}
+        <br>
+        <label class="labels" for="" >GRUPO:</label>
+        {{createSimpleSelect('group', 'fields', $groups)}}
+        <br>
+
         <br>
         <br>
         <label class="labels" for="" >DESCRIÇÃO:</label>
@@ -141,16 +151,16 @@ CKEDITOR.replace('description');
         <input class="btn btn-secondary" type="submit" value="CRIAR PRODUTO">
     </form>
 </div>
-      <script>
-            // exibir form para adicionar nova imagem
-            $("#slider").change(function () {
-                if (this.checked) {
-                    $('#change').hide();
-                    $('#new').show();
-                } else {
-                    $('#change').show();
-                    $('#new').hide();
-                }
-            });
-        </script>
+<script>
+    // exibir form para adicionar nova imagem
+    $("#slider").change(function () {
+        if (this.checked) {
+            $('#change').hide();
+            $('#new').show();
+        } else {
+            $('#change').show();
+            $('#new').hide();
+        }
+    });
+</script>
 @endsection
