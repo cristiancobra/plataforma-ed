@@ -880,7 +880,7 @@
         <div class='tb col-3'>
             {{$task->name}}
         </div>
-        <div class='tb col-4'>
+        <div class='tb-description col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
         <div class='tb col-1'>
