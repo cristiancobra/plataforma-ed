@@ -887,7 +887,19 @@
         {!!html_entity_decode($task->description)!!}
     </div>
         <div class='tb col-2'>
-        {{$task->user->contact->name}}
+        @if(isset($task->user->image))
+        <div class='profile-picture-small'>
+            <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
+            </a>
+        </div>
+        @elseif(isset($task->user->contact->name))
+        <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+            {{$task->user->contact->name}}
+        </a>
+        @else
+        funcionário excluído
+        @endif
     </div>
     <div class='tb col-1'>
         @isset($task->date_conclusion)
