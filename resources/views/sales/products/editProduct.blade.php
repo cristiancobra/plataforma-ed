@@ -67,8 +67,18 @@
     <label class="labels" for="" >CNAE:</label>
     <input type="text" name="cnae" size="20" value="{{$product->cnae}}"><span class="fields"></span>
     <br>
+    @if($product->category == 'produto')
+    <label class="labels" for="" >ESTOQUE:</label>
+    <input type='number' name='stock'>
+    <br>
+    @endif
+    <br>
     <label class="labels" for="" >CATEGORIA:</label>
-    {{createSimpleSelect('category', 'fields', returnProductCategory(), $product->category)}}
+        @if($variation == 'receita')
+    {{createSimpleSelect('category', 'fields', $categoriesRevenues, $product->category)}}
+    @else
+    {{createSimpleSelect('category', 'fields', $categoriesExpenses, $product->category)}}
+    @endif
     <br>
     <br>
     <label class="labels" for="" >DESCRIÇÃO:</label>

@@ -41,6 +41,9 @@ class ProductController extends Controller {
         $total = $products->total();
 
         $variation = $request->variation;
+        
+        $categoriesRevenues= Product::returnRevenuesCategories();
+        $categoriesExpenses= Product::returnExpensesCategories();
 
         return view('sales.products.indexProducts', compact(
                         'products',
@@ -48,6 +51,8 @@ class ProductController extends Controller {
                         'users',
                         'total',
                         'variation',
+                        'categoriesRevenues',
+                        'categoriesExpenses',
         ));
     }
 
@@ -147,11 +152,16 @@ class ProductController extends Controller {
                 ->get();
 
         $variation = $request->variation;
+        
+        $categoriesRevenues= Product::returnRevenuesCategories();
+        $categoriesExpenses= Product::returnExpensesCategories();
 
         return view('sales.products.editProduct', compact(
                         'product',
                         'images',
                         'variation',
+                        'categoriesRevenues',
+                        'categoriesExpenses',
         ));
     }
 

@@ -807,7 +807,7 @@ class InvoiceController extends Controller {
 
         $monthlyRevenues = Invoice::monthlyRevenues($revenues);
         
-       $categoriesNames= Product::returnCategories();
+       $categoriesNames= Product::returnRevenuesCategories();
        $categories = [];
         foreach ($categoriesNames as $category) {
             $categories[$category]['name'] = $category;

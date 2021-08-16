@@ -19,7 +19,11 @@
 {{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}
 @endsection
 
+@if($invoice->opportunity)
 @section('name', $invoice->opportunity->name)
+@else
+@section('name', 'sem oportunidade')
+@endif
 
 @section('priority')
 @endsection

@@ -1455,18 +1455,6 @@ if (!function_exists('returnInvoiceStatusToFilter')) {
 
 }
 
-// retorna a CATEGORIA do PRODUTO ************ deprecated
-if (!function_exists('returnProductCategory')) {
-
-    function returnProductCategory() {
-        return $status = array(
-            'serviço',
-            'produto físico',
-            'produto digital',
-        );
-    }
-
-}
 // retorna a SITUAÇÃO do PRODUTO
 if (!function_exists('returnProductStatus')) {
 
