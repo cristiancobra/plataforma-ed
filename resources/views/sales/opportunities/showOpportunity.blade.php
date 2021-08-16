@@ -873,14 +873,14 @@
 
 @foreach ($tasksCustomerServices as $task)
 <div class='row'>
-    <div class='tb col-2'>
+    <div class='tb col-1'>
         <button class='button-round'>
             <a href=' {{route('task.show', ['task' => $task->id])}}'>
                 <i class='fa fa-eye' style='color:white'></i></a>
         </button>
         {{date('d/m/Y', strtotime($task->date_start))}}
     </div>
-    <div class='tb col-3'>
+    <div class='tb col-2'>
         {{$task->name}}
     </div>
     <div class='tb-description col-4'>
