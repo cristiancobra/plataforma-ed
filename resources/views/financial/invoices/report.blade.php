@@ -184,7 +184,7 @@ $counterMonth = 1;
     <div class="tb col justify-content-end">
         <a href="{{route('invoice.index', [
                                                               'status' => 'aprovada',
-                                                                      'type' => 'receita',
+                                                                      'type' => 'despesa',
                                                               'date_start' => date("$year-$key-01"),
                                                               'date_end' =>  date("$year-$key-t"),
                                                              ])}}">
