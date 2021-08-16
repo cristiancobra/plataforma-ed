@@ -750,7 +750,7 @@
                 <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
                 <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
                 @endif
-                <input type='hidden' name='department' value='vendas'>
+                <input type='hidden' name='department' value='produção'>
                 <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
             </form>
             <a class='text-button secondary'  style='display: inline-block;float: right'  href='{{route('opportunity.pdfProduction', ['opportunity' => $opportunity])}}'>
@@ -790,7 +790,7 @@
         <div class='tb col-3'>
             {{$task->name}}
         </div>
-        <div class='tb col-4'>
+        <div class='tb-description col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
 
@@ -839,7 +839,7 @@
                                                                                                                                                                                         'company_id' => $companyId,
                                                                                                                                                                                         'contact_name' => $opportunity->contact->name,
                                                                                                                                                                                         'contact_id' => $opportunity->contact->id,
-                                                                                                                                                                                        'department' => 'vendas',
+                                                                                                                                                                                        'department' => 'atendimento',
                                                                                                                                                                                         'invoiceStatus' => 'orçamento',
                                                                                                                                                                                         ]
                     )}}'>

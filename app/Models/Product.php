@@ -30,7 +30,8 @@ class Product extends Model
 		'margin_contribution',
 		'margin_rate',
 		'price',
-		'stock',
+		'initial_stock',
+		'group',
 		'status',
 	];
 	
@@ -51,8 +52,8 @@ class Product extends Model
         
      // MÉTODOS PÚBLICOS
     
-// retorna categoria de produtos de receita
-    static function returnRevenuesCategories() {
+// retorna categoria de produtos
+    static function returnCategories() {
         return $categories = array(
             'serviço',
             'produto físico',
@@ -60,9 +61,9 @@ class Product extends Model
         );
     }
 
-// retorna categoria de produtos de despesa
-    static function returnExpensesCategories() {
-        return $categories = array(
+// retorna categoria de produtos
+    static function returnGroups() {
+        return $groups = array(
             'prolabore',
             'salário',
             'marketing',

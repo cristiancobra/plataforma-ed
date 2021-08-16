@@ -85,12 +85,15 @@ if (!function_exists('createButtonShow')) {
 // cria um botao que vai para a tela de edição do model
 if (!function_exists('createButtonEdit')) {
 
-    function createButtonEdit($model, $parameter = null, $value = null) {
+    function createButtonEdit($model, $parameter1 = null, $value1 = null, $parameter2 = null, $value2 = null) {
         $route = "$model.edit";
         $message = 'Editar estas informações';
 
-        if ($parameter) {
-            echo "<a class='circular-button secondary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
+        if ($parameter1) {
+            echo "<a class='circular-button secondary' title='$message' href=" . route($route, [
+                                                                                                                                                  $parameter1 => $value1,
+                                                                                                                                                  $parameter2 => $value2,
+                                                                                                                                                 ]) . ">";
         } else {
             echo "<a class = 'circular-button secondary' title='$message' href = " . route($route) . ">";
         }

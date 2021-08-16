@@ -35,11 +35,8 @@
 <form id='filter' action='{{route('product.filter', ['variation' => $variation])}}' method='post' style='text-align: right;display:none'>
     @csrf
     <input type='text' name='name' placeholder='nome do produto' value=''>
-            @if($variation == 'receita')
-    {{createFilterSelect('category', 'select', $categoriesRevenues)}}
-    @else
-    {{createFilterSelect('category', 'select', $categoriesExpenses)}}
-    @endif
+    {{createFilterSelect('category', 'select', $categories)}}
+    {{createFilterSelect('group', 'select', $groups)}}
     {{createFilterSelect('status', 'select', returnProductStatus(), 'Todas as situações')}}
     <a class='button-secondary' href='{{route('product.index', ['variation' => $variation])}}'>
         LIMPAR

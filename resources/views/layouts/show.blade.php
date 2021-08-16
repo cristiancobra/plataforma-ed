@@ -74,6 +74,8 @@
                             </div>
                         </div>
 
+                        @yield('stock')
+
                         @yield('main')
 
                         @include('layouts.footer')

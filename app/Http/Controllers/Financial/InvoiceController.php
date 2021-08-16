@@ -806,19 +806,17 @@ class InvoiceController extends Controller {
                 ->get();
 
         $monthlyRevenues = Invoice::monthlyRevenues($revenues);
-        
-       $categoriesNames= Product::returnRevenuesCategories();
-       $categories = [];
+
+        $categoriesNames = Product::returnCategories();
+        $categories = [];
         foreach ($categoriesNames as $category) {
             $categories[$category]['name'] = $category;
             $categories[$category]['monthlys'] = Invoice::monthlyRevenuesCategories($year, $category);
             $categories[$category]['year'] = Invoice::annualRevenuesCategories($year, $category);
         }
-//        dd($categories);
+
         $annualRevenues = $revenues->sum('installment_value');
-        
-        
-        
+
         // DESPESAS
 
         $expenses = Invoice::where('account_id', auth()->user()->account_id)
@@ -826,6 +824,14 @@ class InvoiceController extends Controller {
                 ->where('status', 'aprovada')
                 ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
                 ->get();
+
+        $groupsName = Product::returnGroups();
+        $groups = [];
+        foreach ($groupsName as $group) {
+            $groups[$category]['name'] = $category;
+            $groups[$category]['monthlys'] = Invoice::monthlyRevenuesCategories($year, $group);
+            $groups[$category]['year'] = Invoice::annualRevenuesCategories($year, $group);
+        }
 
         $monthlyExpenses = Invoice::monthlyExpenses($expenses);
         $annualExpenses = $expenses->sum('totalPrice');
@@ -853,6 +859,8 @@ class InvoiceController extends Controller {
                         'monthlyRevenues',
                         'categories',
                         'categoriesNames',
+                        'groups',
+                        'groupsNames',
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',

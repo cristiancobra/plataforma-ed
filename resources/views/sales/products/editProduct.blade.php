@@ -74,12 +74,12 @@
     @endif
     <br>
     <label class="labels" for="" >CATEGORIA:</label>
-        @if($variation == 'receita')
-    {{createSimpleSelect('category', 'fields', $categoriesRevenues, $product->category)}}
-    @else
-    {{createSimpleSelect('category', 'fields', $categoriesExpenses, $product->category)}}
-    @endif
+    {{createSimpleSelect('category', 'fields', $categories, $product->category)}}
     <br>
+    <label class="labels" for="" >GRUPO:</label>
+    {{createSimpleSelect('group', 'fields', $groups, $product->group)}}
+    <br>
+    
     <br>
     <label class="labels" for="" >DESCRIÇÃO:</label>
     <textarea id="description" name="description" rows="20" cols="90">

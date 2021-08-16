@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStockColumnInProductsTable extends Migration
+class AddInitialStockColumnInProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddStockColumnInProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->decimal('stock', 6, 2)->nullable();
+            $table->decimal('initial_stock', 6,1)->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddStockColumnInProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->dropColumn('stock');
+            $table->dropColumn('initial_stock');
         });
     }
 }

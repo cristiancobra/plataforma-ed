@@ -90,7 +90,7 @@ $counterMonth = 1;
         <a href='{{route('invoice.index', [
                                                                     
                                                                       'status' => 'aprovada',
-                                                                              'type' => 'receita',
+                                                                      'type' => 'receita',
                                                                       'date_start' => date("$year-$counterMonth-01"),
                                                                       'date_end' =>  date("$year-$counterMonth-t"),
                                                                      ])}}'>
