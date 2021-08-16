@@ -55,9 +55,11 @@
     <div class='show-label'>
         PREÇO
     </div>
+    @if($product->initial_stock)
     <div class='show-label'>
         ESTOQUE
     </div>
+    @endif
     <div class='show-label mt-5'>
         PRODUÇÃO
     </div>
@@ -77,9 +79,11 @@
     <div class='show-field-start'>
         valor de venda
     </div>
+    @if($product->initial_stock)
     <div class='show-field-start'>
         situação atual
     </div>
+    @endif
     <div class='show-field-start mt-5'>
         em horas
     </div>
@@ -99,9 +103,11 @@
     <div class='show-field-end text-end'>
         {{formatCurrencyReal($product->price)}}
     </div>
+    @if($product->initial_stock)
     <div class='show-field-end text-end'>
         11
     </div>
+    @endif
     <div class='show-field-end text-end mt-5'>
         @if($product->work_hours)
         {{$product->work_hours}}
