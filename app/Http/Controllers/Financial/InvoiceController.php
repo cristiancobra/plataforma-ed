@@ -707,6 +707,7 @@ class InvoiceController extends Controller {
         $invoices->appends([
             'status' => $request->status,
             'contact_id' => $request->contact_id,
+            'company_id' => $request->company_id,
             'user_id' => $request->user_id,
         ]);
 
