@@ -56,7 +56,7 @@
             CATEGORIA
         </div>
         <div class='tb tb-header col-1'>
-            ENTREGA
+            GRUPO
         </div>
         <div class='tb tb-header col-2'>
             PREÇO
@@ -85,11 +85,7 @@
             {{$product->category}}
         </div>
         <div class='tb col-1 text-center'>
-            @if ($product->due_date == 0)
-            imediata
-            @else
-            {{$product->due_date}} dias
-            @endif
+            {{$product->group}}
         </div>
         <div class='tb col-2 text-right' style="text-align: right">
             {{formatCurrencyReal($product->price)}}
