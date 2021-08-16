@@ -71,9 +71,11 @@
     <div class='show-label'>
         PRAZO DE ENTREGA
     </div>
+    @if($variation == 'despesa')
     <div class='show-label mt-5'>
         GRUPO
     </div>
+    @endif
 </div>
 <div class='col-lg-3 col-xs-6' style='text-align: center'>
     <div class='show-field-start'>
@@ -95,9 +97,11 @@
     <div class='show-field-start'>
         estimativa
     </div>
+    @if($variation == 'despesa')
     <div class='show-field-start mt-5'>
         classificação para gerar relatório
     </div>
+    @endif
 </div>
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
     <div class='show-field-end text-end'>
@@ -127,9 +131,11 @@
         não informado
         @endif
     </div>
+    @if($variation == 'despesa')
     <div class='show-field-end text-end mt-5'>
         {{$product->group}}
     </div>
+    @endif
 </div>
 @endsection
 
