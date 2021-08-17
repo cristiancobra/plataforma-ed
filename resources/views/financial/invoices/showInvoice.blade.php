@@ -353,7 +353,7 @@
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'typeTransactions' => 'receita',
-		'invoiceTotalPrice' => $invoice->installment_value,
+		'invoiceTotalPrice' => $invoice->totalPrice,
 				
 	])}}'>
             <i class='fa fa-plus'></i>
@@ -365,7 +365,7 @@
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'typeTransactions' => 'despesa',
-		'invoiceTotalPrice' => $invoice->installment_value,
+		'invoiceTotalPrice' => $invoice->totalPrice,
 	])}}'>
             <i class='fa fa-plus'></i>
         </a>
