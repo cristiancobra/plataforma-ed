@@ -15,6 +15,7 @@ class Proposal extends Model {
         'opportunity_id',
         'company_id',
         'contact_id',
+        'name',
         'date_creation',
         'pay_day',
         'description',
