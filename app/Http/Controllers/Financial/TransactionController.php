@@ -141,6 +141,7 @@ class TransactionController extends Controller {
         } else {
             $transaction = new Transaction();
             $transaction->fill($request->all());
+            $transaction->account_id = auth()->user()->account_id;
             if ($transaction->type == 'crédito') {
                 $transaction->value = removeCurrency($request->value);
             } else {
@@ -152,6 +153,7 @@ class TransactionController extends Controller {
             if ($transaction->type == 'transferência') {
                 $transaction2 = new Transaction();
                 $transaction2->fill($request->all());
+                $transaction->account_id = auth()->user()->account_id;
                 $transaction2->bank_account_id = $request->bank_account_destiny_id;
                 $transaction2->value = removeCurrency($request->value);
                 $transaction2->save();
