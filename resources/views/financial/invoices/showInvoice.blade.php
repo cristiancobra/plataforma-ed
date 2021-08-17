@@ -215,7 +215,7 @@
     </div>
 
     <div class='row'>
-        <div class='tb col-12 justify-content-start'>
+        <div class='tb-description justify-content-start'>
             {!!html_entity_decode($productProposal->product->description)!!}
         </div>
     </div>
