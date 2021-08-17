@@ -151,11 +151,11 @@
         @endif
         @if($invoice->type == 'receita')
         <div class="tb col-1">
-            {{formatCurrencyReal($invoice->installment_value)}}
+            {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @else
         <div class="tb col-1" style="color: red">
-            - {{formatCurrencyReal($invoice->installment_value)}}
+            - {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @endif
         
