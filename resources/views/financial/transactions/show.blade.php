@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/show')
 
 @section('title','MOVIMENTAÇÕES')
 
@@ -6,101 +6,110 @@
 {{ asset('images/transaction.png') }} 
 @endsection
 
-@section('description')
-@endsection
-
 @section('buttons')
 {{createButtonBack()}}
+{{createButtonTrash($transaction, 'transaction')}}
+{{createButtonEdit('transaction', 'transaction', $transaction, 'typeTransactions', $transaction->type)}}
 {{createButtonList('transaction')}}
+@endsection
+
+@section('name')
+{{$transaction->type}}  por  {{strtoupper($transaction->payment_method)}}  em  {{strtoupper($transaction->bankAccount->name)}}
+@endsection
+
+@section('priority')
+<div class='pb-2 pt-1' style='background-color: #c28dbf; border-radius:30px'>
+    {{date('d/m/Y', strtotime($transaction->pay_day))}}
+</div>
+@endsection
+
+@section('status')
+@if($type == 'débito')
+<div class='pe-4 pb-2 pt-1' style='background-color: lightblue;border-radius:30px;text-align: right'>
+    {{formatCurrencyReal($transaction->value)}}
+</div>
+@else
+<div class='pe-4 pb-2 pt-1'  style='background-color: #FDDBDD;border-radius:30px;text-align: right'>
+    {{formatCurrencyReal($transaction->value)}}
+</div>
+@endif
+@endsection
+
+@section('description')
+{!!html_entity_decode($transaction->observations)!!}
+@endsection
+
+
+@section('fieldsId')
+<div class='col-lg-2 col-xs-6' style='text-align: center'>
+    <div class='show-label'>
+        EMPRESA
+    </div>
+    <div class='show-label'>
+        OPORTUNIDADE
+    </div>
+    <div class='show-label'>
+        FATURA
+    </div>
+</div>
+<div class='col-lg-4 col-xs-6' style='text-align: center'>
+    @if(isset($transaction->invoice->proposal->company->name))
+    <a href='{{route('company.show', ['company' => $transaction->invoice->proposal->company_id])}}'>
+        <div class='show-field-end'>
+            {{$transaction->invoice->proposal->company->name}}
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
+        Pessoa física
+    </div>
+    @endif
+    @if(isset($transaction->invoice->proposal->opportunity->name))
+    <a href='{{route('opportunity.show', ['opportunity' => transaction->invoice->proposal->opportunity_id])}}'>
+        <div class='show-field-end'>
+            {{$transaction->invoice->proposal->opportunity->name}}
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
+        Não possui
+    </div>
+    @endif
+    <a href='{{route('invoice.show', ['invoice' => $transaction->invoice_id])}}'>
+        <div class='show-field-end'>
+            {{$transaction->invoice->identifier}}
+        </div>
+    </a>
+</div>
+<div class='col-lg-2 col-xs-6' style='text-align: center'>
+    <div class='show-label'>
+        RESPONSÁVEL
+    </div>
+    <div class='show-label'>
+        CONTA
+    </div>
+    <div class='show-label'>
+        MÉTODO
+    </div>
+</div>
+<div class='col-lg-4 col-xs-6' style='text-align: center'>
+    <a href='{{route('user.show', ['user' => $transaction->user_id])}}'>
+    </a>
+    <div class='show-field-end'>
+        {{$transaction->user->contact->name}}
+    </div>
+    <a href='{{route('bankAccount.show', ['bankAccount' => $transaction->bank_account_id])}}'>
+        <div class='show-field-end'>
+            {{$transaction->bankAccount->name}}
+        </div>
+    </a>
+    <div class='show-field-end'>
+        {{$transaction->payment_method}}
+    </div>
+</div>
 @endsection
 
 @section('main')
 <br>
-<div>
-    <p class="labels">
-        RESPONSÁVEL:<span class="fields">{{$transaction->user->contact->name}}</span>
-    </p>
-    <br>
-    <p class="labels">
-        DATA:<span class="fields">  {{date('d/m/Y', strtotime($transaction->pay_day))}} </span>
-    </p>
-    <p class="labels">
-        @if($transaction->bankAccount)
-        CONTA:<span class="fields">{{$transaction->bankAccount->name}}</span>
-        @else
-        CONTA:<span class="fields">conta excluída</span>
-        @endif
-    </p>
-    <p class="labels">
-        @if(isset($transaction->invoice->opportunity))
-        OPORTUNIDADE:<span class="fields">{{$transaction->invoice->opportunity->name}}</span>
-        <a class="white" href=" {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity->id])}}">
-            <button class="button-round">
-                <i class='fa fa-eye'></i>
-            </button>
-        </a>
-        @else
-        OPORTUNIDADE:<span class="fields">Não possui</span>
-        @endif
-    </p>
-    <br>
-    <br>
-    <p class="labels">
-        FATURA:
-        @if($transaction->invoice)
-        <span class="fields">{{$transaction->invoice->identifier}}</span>
-        <a class="white" href=" {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}">
-            <button class="button-round">
-                <i class='fa fa-eye'></i>
-            </button>
-        </a>
-        @else
-        Não possui
-        @endif
-    </p>
-    <p class="labels">
-        TIPO:<span class="fields">{{$transaction->type}}</span>
-    </p>
-    <p class="labels">
-        VALOR:<span class="fields">{{formatCurrencyReal($transaction->value)}}</span>
-    </p>
-    <p class="labels">
-        MEIO DE PAGAMENTO:<span class="fields">{{$transaction->payment_method}}</span>
-    </p>
-    <br>
-    <div class='row' style='margin-top: 30px'>
-    <div class='col-12' style='text-align: left'>
-        <div class='show-label-large'>
-            DESCRIÇÃO
-        </div>
-        <div class='description-field'>
-            {!!html_entity_decode($transaction->observations)!!}
-        </div>
-    </div>
-</div>
-    <br>
-    <br>
-    <p class="labels">
-        SITUAÇAO:<span class="fields">  {{$transaction->status}} </span>
-    </p>
-    <br>
-    <p class="fields">Criado em:  {{date('d/m/Y H:i', strtotime($transaction->created_at))}}
-    </p>
-
-    <div style="text-align:right;padding: 2%">
-        <form   style="text-decoration: none;color: black;display: inline-block" action="{{route('transaction.destroy', ['transaction' => $transaction->id])}}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>            
-        <a class="btn btn-secondary" href=" {{ route('transaction.edit', [
-						'transaction' => $transaction->id,
-						'typeTransactions' => $transaction->type,
-						]) }}">
-            <i class='fa fa-edit'></i>EDITAR
-        </a>
-        <a class="btn btn-secondary" href="{{route('transaction.index')}}"><i class="fas fa-arrow-left"></i>
-        </a>
-    </div>
-</div>
-@endsection
+<p class='fields'>Criado em:  {{date('d/m/Y H:i', strtotime($transaction->created_at))}}
+    @endsection

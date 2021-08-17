@@ -49,7 +49,8 @@
         </select>
         <br>
         <br>
-        <label class='labels' for='' >OPORTUNIDADE:</label>
+        <label class='labels' for='' >NOME:</label>
+        <input type="text" name='name'>
         <br>
         <label class='labels' for='' >OPORTUNIDADE:</label>
         @if(!empty(app('request')->input('opportunityName')))

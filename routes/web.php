@@ -149,12 +149,16 @@ Route::resource('planejamentos', 'Administrative\\PlanningController')
 Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
 // transactions / movimentações financeiras
-Route::get('/movimentacoes/export-csv', 'Financial\\TransactionController@exportCsv')
-        ->name('transaction.export')
+Route::put('/movimentacoes/apagar/{transaction}', 'Financial\\TransactionController@sendToTrash')
+        ->name('transaction.trash')
         ->middleware('roles');
 
-Route::any('/movimentacoes/filtros', 'Financial\\TransactionController@filter')
-        ->name('transaction.filter')
+Route::put('/movimentacoes/restaurar/{transaction}', 'Financial\\TransactionController@restoreFromTrash')
+        ->name('transaction.restore')
+        ->middleware('roles');
+
+Route::get('/movimentacoes/export-csv', 'Financial\\TransactionController@exportCsv')
+        ->name('transaction.export')
         ->middleware('roles');
 
 Route::resource('movimentacoes', 'Financial\\TransactionController')

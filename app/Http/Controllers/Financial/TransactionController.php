@@ -20,19 +20,11 @@ class TransactionController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index(Request $request) {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-        $transactions = Transaction::where('account_id', auth()->user()->account_id)
-                ->with([
-                    'user',
-                    'bankAccount',
-                    'invoice',
-                    'invoice.company',
-                ])
-                ->orderBy('PAY_DAY', 'DESC')
-                ->paginate(20);
+        $transactions = Transaction::filterTransactions($request);
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -75,7 +67,9 @@ class TransactionController extends Controller {
 
             $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
         }
-//dd($transactions);
+
+        $trashStatus = request('trash');
+
         return view('financial.transactions.index', compact(
                         'transactions',
                         'contacts',
@@ -86,6 +80,7 @@ class TransactionController extends Controller {
                         'estimatedRevenueMonthly',
                         'expenseMonthly',
                         'estimatedExpenseMonthly',
+                        'trashStatus',
         ));
     }
 
@@ -169,10 +164,12 @@ class TransactionController extends Controller {
      * @param  \App\Models\Transaction  $transaction
      * @return \Illuminate\Http\Response
      */
-    public function show(Transaction $transaction) {
-//        dd($transaction);
+    public function show(Transaction $transaction, Request $request) {
+        $type = $request->type;
+
         return view('financial.transactions.show', compact(
                         'transaction',
+                        'type',
         ));
     }
 
@@ -233,106 +230,20 @@ class TransactionController extends Controller {
         return redirect()->action('Financial\\TransactionController@index');
     }
 
-    public function filter(Request $request) {
-        $monthStart = date('Y-m-01');
-        $monthEnd = date('Y-m-t');
+    public function sendToTrash(Transaction $transaction) {
+        $transaction->trash = 1;
+        $transaction->save();
 
-        $transactions = Transaction::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                    if ($request->name) {
-                        $query->whereHas('opportunity', function ($query) use ($request) {
-                            $query->where('name', 'like', "%$request->name%");
-                        });
-                    }
-                    if ($request->date_start) {
-                        $query->where('pay_day', '>', $request->date_start);
-                    }
-                    if ($request->date_end) {
-                        $query->where('pay_day', '<', $request->date_end);
-                    }
-                    if ($request->bank_account_id) {
-                        $query->where('bank_account_id', $request->bank_account_id);
-                    }
-                    if ($request->company_id) {
-                        $query->where('company_id', $request->company_id);
-                    }
-//                    if ($request->status) {
-//                        $query->where('status', '=', $request->status);
-//                    }
-                    if ($request->type) {
-                        $query->where('type', '=', $request->type);
-                    }
-                })
-                ->with([
-                    'user',
-                    'bankAccount',
-                    'invoice',
-                    'invoice.company',
-                    'invoice.opportunity',
-                ])
-                ->orderBy('pay_day', 'DESC')
-                ->paginate(20);
-
-        $transactions->appends([
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
-            'user_id' => $request->user_id,
-        ]);
-
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $companies = Company::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $users = User::myUsers();
-
-        $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
-                ->where('type', 'crédito')
-                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                ->sum('value');
-
-        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'receita')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                ->sum('installment_value');
-
-        $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
-                ->where('type', 'débito')
-                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                ->sum('value');
-
-        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'despesa')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                ->sum('installment_value');
-
-        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
-                ->get();
-
-        foreach ($bankAccounts as $key => $bankAccount) {
-            $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
-                    ->sum('value');
-
-            $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
-        }
-//dd($transactions);
-        return view('financial.transactions.index', compact(
-                        'transactions',
-                        'contacts',
-                        'companies',
-                        'users',
-                        'bankAccounts',
-                        'revenueMonthly',
-                        'estimatedRevenueMonthly',
-                        'expenseMonthly',
-                        'estimatedExpenseMonthly',
-        ));
+        return redirect()->back();
     }
+
+    public function restoreFromTrash(Transaction $transaction) {
+        $transaction->trash = 0;
+        $transaction->save();
+
+        return redirect()->back();
+    }
+
 
     public function exportCsv(Request $request) {
         $fileName = 'transactions.csv';
@@ -340,7 +251,7 @@ class TransactionController extends Controller {
                 ->with([
                     'invoice',
                     'user.contact',
-                    ])
+                ])
                 ->orderBy('pay_day', 'DESC')
                 ->get();
 
@@ -363,14 +274,14 @@ class TransactionController extends Controller {
                 $row['DATA'] = $transaction->pay_day;
                 $row['USUÁRIO'] = $transaction->user->contact->name;
                 $row['OBSERVAÇÕES'] = $transaction->observations;
-                if($transaction->invoice){
-                $row['FATURA'] = $transaction->invoice->identifier;
-                }else{
-                $row['FATURA'] = 'não possui';    
+                if ($transaction->invoice) {
+                    $row['FATURA'] = $transaction->invoice->identifier;
+                } else {
+                    $row['FATURA'] = 'não possui';
                 }
                 $row['MÉTODO DE PAGAMENTO'] = $transaction->payment_method;
                 $row['CONTA BANCÁRIA'] = $transaction->bankAccount->name;
-                $row['VALOR'] = str_replace('.',',', $transaction->value);
+                $row['VALOR'] = str_replace('.', ',', $transaction->value);
 
                 fputcsv($file, array($row['ID'], $row['DATA'], $row['USUÁRIO'], $row['OBSERVAÇÕES'], $row['FATURA'], $row['MÉTODO DE PAGAMENTO'], $row['CONTA BANCÁRIA'], $row['VALOR']));
             }

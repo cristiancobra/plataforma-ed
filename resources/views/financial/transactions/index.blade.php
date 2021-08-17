@@ -11,6 +11,7 @@ Total: <span class='labels'></span>
 @endsection
 
 @section('buttons')
+{{createButtonTrashIndex($trashStatus, 'transaction')}}
 <a id='filter_button' class='circular-button secondary'>
     <i class='fa fa-filter' aria-hidden='true'></i>
 </a>
@@ -78,7 +79,7 @@ Total: <span class='labels'></span>
 </div>
 <br>
 <br>
-<form id='filter' action='{{route('transaction.filter')}}' method='post' style='text-align: right;display:none'>
+<form id='filter' action='{{route('transaction.index')}}' method='post' style='text-align: right;display:none'>
     @csrf
     <input type='text' name='name' placeholder='nome da oportunidade' value=''>
     <input type='date' name='date_start' size='20' value='{{old('date_start')}}'><span class='fields'></span>

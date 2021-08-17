@@ -34,33 +34,6 @@ class InvoiceController extends Controller {
         $monthEnd = date('Y-m-t');
         $yearStart = date('Y-01-01');
         $yearEnd = date('Y-12-31');
-//
-//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
-//                ->with([
-//                    'account',
-//                    'opportunity',
-//                    'invoiceLines.product',
-//                    'account.bankAccounts',
-//                    'user.contact',
-//                    'contract',
-//                ])
-//                ->orderBy('pay_day', 'DESC')
-//                ->paginate(20);
-//        $invoices->appends([
-//            'status' => $request->status,
-//            'contact_id' => $request->contact_id,
-//            'user_id' => $request->user_id,
-//        ]);
-//        foreach ($invoices as $invoice) {
-//            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-//                    ->sum('value');
-//
-//            if ($invoice->paid >= $invoice->installment_value) {
-//                $invoice->status = 'paga';
-//            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
-//                $invoice->status = 'parcial';
-//            }
-//        }
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
