@@ -50,6 +50,8 @@
         <br>
         <br>
         <label class='labels' for='' >OPORTUNIDADE:</label>
+        <br>
+        <label class='labels' for='' >OPORTUNIDADE:</label>
         @if(!empty(app('request')->input('opportunityName')))
         {{app('request')->input('opportunityName')}}
         <input type='hidden' name='opportunity_id' value='{{app('request')->input('opportunityId')}}'>

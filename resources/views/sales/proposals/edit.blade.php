@@ -1,6 +1,10 @@
 @extends('layouts/master')
 
+@if($type == 'receita')
 @section('title','PROPOSTAS')
+@else
+@section('title','DESPESAS')
+@endif
 
 @section('image-top')
 {{ asset('images/proposal.png') }} 

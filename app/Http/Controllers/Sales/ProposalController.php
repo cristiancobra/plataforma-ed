@@ -267,7 +267,7 @@ class ProposalController extends Controller {
      * @param  \App\Models\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proposal $proposal) {
+    public function edit(Proposal $proposal, Request $request) {
         $users = User::myUsers();
 
         $companies = Company::where('account_id', auth()->user()->account_id)
@@ -284,13 +284,15 @@ class ProposalController extends Controller {
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
+        
+                $type = $request->type;
 
         return view('sales.proposals.edit', compact(
                         'users',
                         'companies',
                         'contracts',
                         'contacts',
-//                        'proposalType',
+                        'type',
                         'proposal',
                         'productProposals',
 //                        'invoices',
