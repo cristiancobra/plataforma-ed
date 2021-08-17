@@ -1,6 +1,10 @@
 @extends('layouts/show')
 
+@if($type == 'receita')
 @section('title','PROPOSTAS')
+@else
+@section('title','DESPESAS')
+@endif
 
 @section('image-top')
 {{asset('images/proposal.png')}} 
@@ -15,10 +19,14 @@
     <i class='fas fa-envelope'></i>
 </a>
 {{createButtonEdit('proposal', 'proposal', $proposal)}}
-{{createButtonList('proposal', 'typeProposals', $proposalType)}}
+{{createButtonList('proposal', 'type', $type)}}
 @endsection
 
+@if($type == 'receita')
 @section('name', $proposal->opportunity->name)
+@else
+@section('name', 'Sem nome')
+@endif
 
 @section('priority')
 @endsection
@@ -133,8 +141,10 @@
 
     @section('description')
     {!!html_entity_decode($proposal->description)!!}
+    @if($type == 'receita')
     <br>
     {!!html_entity_decode($proposal->opportunity->description)!!}
+    @endif
     @endsection
 
 
@@ -328,11 +338,11 @@
             <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
                 @csrf
                 <input type='hidden' name='task_name' value='PRODUZIR:'>
-                <input type='hidden' name='opportunity_id' value='{{$proposal->opportunity_id}}'>
-                <input type='hidden' name='opportunity_name' value='{{$proposal->opportunity->name}}'>
-                @if($proposal->opportunity->contact)
-                <input type='hidden' name='contact_name' value='{{$proposal->opportunity->contact->name}}'>
-                <input type='hidden' name='contact_id' value='{{$proposal->opportunity->contact->id}}'>
+                <input type='hidden' name='opportunity_id' value='{{$opportunityId}}'>
+                <input type='hidden' name='opportunity_name' value='{{$opportunityName}}'>
+                @if($proposal->contact_id)
+                <input type='hidden' name='contact_name' value='{{$proposal->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$proposal->contact_id}}'>
                 @endif
                 <input type='hidden' name='account_name' value='{{$proposal->account->name}}'>
                 <input type='hidden' name='account_id' value='{{$proposal->account->id}}'>

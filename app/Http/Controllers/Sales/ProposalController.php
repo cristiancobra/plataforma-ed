@@ -28,25 +28,8 @@ class ProposalController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $proposals = Proposal::where('account_id', auth()->user()->account_id)
-                ->with([
-                    'account',
-                    'invoices',
-//                    'opportunity',
-//                    'invoiceLines.product',
-//                    'account.bankAccounts',
-//                    'user.contact',
-//                    'contract',
-                ])
-                ->orderBy('pay_day', 'DESC')
-                ->paginate(20);
-
-//        $proposals->appends([
-//            'status' => $request->status,
-//            'contact_id' => $request->contact_id,
-//            'user_id' => $request->user_id,
-//        ]);
+    public function index(Request $request) {
+        $proposals = Proposal::filterProposals($request);
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -58,6 +41,7 @@ class ProposalController extends Controller {
 
         $users = User::myUsers();
         $types = Proposal::returnTypes();
+        $type = $request->type;
 
         $total = $proposals->total();
 
@@ -68,6 +52,7 @@ class ProposalController extends Controller {
                         'users',
                         'types',
                         'total',
+                        'type',
         ));
     }
 
@@ -77,9 +62,9 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        $typeInvoices = $request->input('typeInvoices');
+        $type = $request->type;
 
-        if ($typeInvoices == 'receita') {
+        if ($type == 'receita') {
             $typeCompanies = 'cliente';
         } else {
             $typeCompanies = 'fornecedor';
@@ -105,7 +90,7 @@ class ProposalController extends Controller {
                 ->get();
 
         $products = Product::where('account_id', auth()->user()->account_id)
-                ->where('type', 'LIKE', $typeInvoices)
+                ->where('type', 'LIKE', $type)
                 ->where('status', 'disponível')
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -120,7 +105,7 @@ class ProposalController extends Controller {
                         'products',
                         'users',
                         'types',
-                        'typeInvoices',
+                        'type',
         ));
     }
 
@@ -210,12 +195,21 @@ class ProposalController extends Controller {
      * @param  \App\Models\Proposal  $proposal
      * @return \Illuminate\Http\Response
      */
-    public function show(Proposal $proposal) {
+    public function show(Proposal $proposal, Request $request) {
         $DateTime = new DateTime($proposal->date_creation);
         $DateTime->add(new \DateInterval("P" . $proposal->expiration_date . "D"));
         $proposal->expiration_date = $DateTime->format('d/m/Y');
 
-        $proposalType = $proposal->type;
+        $type = $request->type;
+
+        if ($type == 'receita') {
+            $opportunityName = $proposal->opportunity->name;
+            $opportunityId = $proposal->opportunity->id;
+        } else {
+            $opportunityName = null;
+            $opportunityId = null;
+        }
+
 
         $sumInvoices = 0;
         foreach ($proposal->invoices as $invoice) {
@@ -254,10 +248,11 @@ class ProposalController extends Controller {
                 ->sum('duration');
 
         return view('sales.proposals.show', compact(
-                        'proposalType',
                         'proposal',
+                        'type',
+                        'opportunityName',
+                        'opportunityId',
                         'productProposals',
-//                        'invoices',
                         'totalInvoices',
                         'proposalPaymentsTotal',
                         'balance',
@@ -315,7 +310,7 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Proposal $proposal) {
-           $messages = [
+        $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
 
@@ -331,8 +326,29 @@ class ProposalController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
-            $proposal->fill($request->all());
-            $proposal->totalPrice = str_replace(",", ".", $request->totalPrice);
+
+            // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
+            $totalPrice = 0;
+            $totalTaxrate = 0;
+            foreach ($request->product_id as $key => $value) {
+                if ($request->product_amount [$key] > 0) {
+                    $data = array(
+                        'proposal_id' => $proposal->id,
+                        'product_id' => $request->product_id [$key],
+                        'amount' => $request->product_amount [$key],
+                        'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
+                        'subtotalDeadline' => $request->product_amount [$key] * $request->product_due_date [$key],
+                        'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
+                        'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
+                        'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
+                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
+                    );
+                    $totalPrice = $totalPrice + $data['subtotalPrice'];
+                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
+                    ProductProposal::where('id', $request->product_proposal_id[$key])->update($data);
+                }
+            }
+            $proposal->totalPrice = $totalPrice - $request->discount;
             $proposal->save();
 
             return redirect()->route('proposal.show', compact('proposal'));

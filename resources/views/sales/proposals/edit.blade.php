@@ -21,7 +21,7 @@
         @csrf
         @method('put')
         <label class='labels' for='' >IDENTIFICADOR:</label>
-        <input type='number' span class='fields' style='width: 80px;text-align: right' value='{{$proposal->identifier}}'>
+        <input type='number'  size='5' style='text-align: right' value='{{$proposal->identifier}}'>
         <br>
         <label class='labels' for='' >VENDEDOR: </label>
         <select name='user_id'>
@@ -36,7 +36,7 @@
         </select>
         <br>
         <br>
-        @if(isset($proposal->opportunity_id))
+        @if(isset($proposal->opportunity))
         <label class='labels' for='' >OPORTUNIDADE: </label>
         <input type='hidden' name='opportunity_id' value='{{$proposal->opportunity_id}}'>
         <span class='fields'>{{$proposal->opportunity->name}}</span>
@@ -86,118 +86,105 @@
         <br>
         <br>
         <label class='labels' for='' >PRODUTOS ATUAIS:</label>
-        <table class='table-list'>
-            <tr>
-                <td   class='table-list-header'>
-                    QTDE
-                </td>
-                <td   class='table-list-header'>
-                    FOTO
-                </td>
-                <td   class='table-list-header'>
-                    NOME
-                </td>
-                <td   class='table-list-header'>
-                    HORAS
-                </td>
-                <td   class='table-list-header'>
-                    PONTOS
-                </td>
-                <td   class='table-list-header'>
-                    PRAZO
-                </td>
-                <td   class='table-list-header'>
-                    CUSTOS
-                </td>
-                <td   class='table-list-header'>
-                    IMPOSTO
-                </td>
-                <td   class='table-list-header'>
-                    UNITÁRIO
-                </td>
-                <td   class='table-list-header'>
-                    PREÇO
-                </td>
-            </tr>
+        <div class='row'>
+            <div class='tb tb-header-start col-1'>
+                QTDE
+            </div>
+            <div class='tb tb-header col-1'>
+                FOTO
+            </div>
+            <div class='tb tb-header col-3'>
+                NOME
+            </div>
+            <div class='tb tb-header col-1'>
+                HORAS
+            </div>
+            <div class='tb tb-header col-1'>
+                PONTOS
+            </div>
+            <div class='tb tb-header col-1'>
+                PRAZO
+            </div>
+            <div class='tb tb-header col-1'>
+                CUSTOS
+            </div>
+            <div class='tb tb-header col-1'>
+                IMPOSTO
+            </div>
+            <div class='tb tb-header col-1'>
+                UNITÁRIO
+            </div>
+            <div class='tb tb-header-end col-1'>
+                PREÇO
+            </div>
+        </div>
 
-            @foreach ($productProposals as $productProposal)
-            <input type='hidden' name='product_margin[]' size='7' value='{{-$productProposal->product->price * $productProposal->product->tax_rate / 100 - $productProposal->product->cost1 - $productProposal->product->cost2 - $productProposal->product->cost3 + $productProposal->product->price}}'>
-            <tr style='font-size: 14px'>
-                <td class='table-list-center'>
-                    {{number_format($productProposal->amount)}}
-                </td>
-                <td class='table-list-right'>
-                    <image src='{{$productProposal->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
-                </td>
-                <td class='table-list-left'>
-                    <button class='button'>
-                        <a href=' {{route('product.show', ['product' => $productProposal->product->id])}}'>
-                            <i class='fa fa-eye' style='color:white'></i></a>
-                    </button>
-                    <button class='button'>
-                        <a href=' {{route('product.edit', ['product' => $productProposal->product->id])}}'>
-                            <i class='fa fa-edit' style='color:white'></i></a>
-                    </button>
-                    <span class='fields'>{{$productProposal->product->name}}</span>
-                </td>
-                <td class='table-list-center'>
-                    <input type='hidden' name='product_due_date[]' size='4' value='{{$productProposal->product->due_date}}'>
-                    {{number_format($productProposal->product->due_date)}}
-                </td>
-                <td class='table-list-center'>
-                    <input type='hidden' name='product_work_hours[]' size='4' value='{{$productProposal->product->work_hours}}'>
-                    {{number_format($productProposal->product->work_hours)}}
-                </td>
-                <td class='table-list-center'>
-                    <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
-                    {{number_format($productProposal->product->points)}}
-                </td>
-                <td class='table-list-right'>
-                    <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
-                    {{number_format($productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3, 2,',','.') }}
-                </td>
-                <td class='table-list-right'>
-                    <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
-                    {{number_format($productProposal->product->price * $productProposal->product->tax_rate / 100, 2,',','.') }}
-                </td>
-                <td class='table-list-right'>
-                    {{formatCurrency($productProposal->product->price)}}
-                </td>
-                <td class='table-list-right'>
-                    {{formatCurrency($productProposal->subtotalPrice)}}
-                </td>
-            </tr>
-            @endforeach
-            <tr>
-                <td   class='table-list-header-right' colspan='8'>
-                    desconto: 
-                </td>
-                <td   class='table-list-header-right' colspan='3'>
-                    - {{formatCurrencyReal($proposal->discount)}}
-                </td>
-            </tr>
-            <tr>
-                <td   class='table-list-header-right' colspan='8'>
-                    TOTAL DA COMPRA: 
-                </td>
-                <td   class='table-list-header-right' colspan='3'>
-                    {{formatCurrencyReal($proposal->totalPrice)}}
-                </td>
-            </tr>
-            <tr>
-                <td   class='table-list-header-right' colspan='8'>
-                    VALOR DESTA FATURA: 
-                </td>
-
-                <td   class='table-list-header-right' colspan='3'>
-                    @if($proposal->installment == 1)
-                    À vista
-                    @else
-                    <input type='decimal' name='totalPrice' value='{{formatCurrency($proposal->totalPrice)}}' style="text-align:right">
-                    @endif
-                </td>
-            </tr>
-        </table>
+        @foreach ($productProposals as $productProposal)
+        <input type='hidden' name='product_proposal_id[]' value='{{$productProposal->id}}'>
+        <input type='hidden' name='product_id[]' value='{{$productProposal->product->id}}'>
+        <input type='hidden' name='product_margin[]' size='7' value='{{-$productProposal->product->price * $productProposal->product->tax_rate / 100 - $productProposal->product->cost1 - $productProposal->product->cost2 - $productProposal->product->cost3 + $productProposal->product->price}}'>
+        <div class='row'>
+            <div class='tb -start col-1'>
+                <input type='number' name='product_amount[]' size='5' value='{{$productProposal->amount}}'>
+            </div>
+            <div class='tb  col-1'>
+                <image src='{{$productProposal->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
+            </div>
+            <div class='tb  col-3'>
+                <button class='button'>
+                    <a href=' {{route('product.show', ['product' => $productProposal->product->id])}}'>
+                        <i class='fa fa-eye' style='color:white'></i></a>
+                </button>
+                <button class='button'>
+                    <a href=' {{route('product.edit', ['product' => $productProposal->product->id])}}'>
+                        <i class='fa fa-edit' style='color:white'></i></a>
+                </button>
+                <span class='fields'>{{$productProposal->product->name}}</span>
+            </div>
+            <div class='tb  col-1'>
+                <input type='hidden' name='product_due_date[]' size='4' value='{{$productProposal->product->due_date}}'>
+                {{number_format($productProposal->product->due_date)}}
+            </div>
+            <div class='tb  col-1'>
+                <input type='hidden' name='product_work_hours[]' size='4' value='{{$productProposal->product->work_hours}}'>
+                {{number_format($productProposal->product->work_hours)}}
+            </div>
+            <div class='tb  col-1'>
+                <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
+                {{number_format($productProposal->product->points)}}
+            </div>
+            <div class='tb  col-1'>
+                <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
+                {{number_format($productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3, 2,',','.') }}
+            </div>
+            <div class='tb  col-1'>
+                <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
+                {{number_format($productProposal->product->price * $productProposal->product->tax_rate / 100, 2,',','.') }}
+            </div>
+            <div class='tb  col-1'>
+                <input type='decimal' name='product_price[]' size='7' value='{{formatCurrency($productProposal->product->price)}}' style='text-align: right'>
+            </div>
+            <div class='tb  col-1'>
+                {{formatCurrency($productProposal->subtotalPrice)}}
+            </div>
+        </div>
+        @endforeach
+        <div class='row'>
+            <div class='tb tb-header col-11'>
+                desconto: 
+            </div>
+            <div class='tb tb-header col-1'>
+                - {{formatCurrencyReal($proposal->discount)}}
+            </div>
+        </div>
+        <div class='row'>
+            <div class='tb tb-header col-11'>
+                TOTAL DA COMPRA: 
+            </div>
+            <div class='tb tb-header col-1'>
+                {{formatCurrencyReal($proposal->totalPrice)}}
+            </div>
+        </div>
         <br>
         <br>
         <br>

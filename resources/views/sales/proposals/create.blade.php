@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
-@if($typeInvoices == 'receita')
+@if($type == 'receita')
 @section('title','PROPOSTAS')
 @else
-@section('title','PROPOSTAS DE FORNECIMENTO')
+@section('title','DESPESAS')
 @endif
 
 @section('image-top')
@@ -15,7 +15,7 @@
 
 @section('buttons')
 {{createButtonBack()}}
-{{createButtonList('proposal', 'typeInvoices', $typeInvoices)}}
+{{createButtonList('proposal', 'type', $type)}}
 @endsection
 
 @section('main')
@@ -31,8 +31,8 @@
 <div>
     <form action=' {{route('proposal.store')}} ' method='post'>
         @csrf
-        <input type='hidden' name='type' value='{{$typeInvoices}}'>
-        @if($typeInvoices == 'receita')
+        <input type='hidden' name='type' value='{{$type}}'>
+        @if($type == 'receita')
         <label class='labels' for='' >VENDEDOR: </label>
         @else
         <label class='labels' for='' >REGISTRADO POR: </label>
@@ -53,7 +53,7 @@
         @if(!empty(app('request')->input('opportunityName')))
         {{app('request')->input('opportunityName')}}
         <input type='hidden' name='opportunity_id' value='{{app('request')->input('opportunityId')}}'>
-        @elseif($typeInvoices == 'despesa')
+        @elseif($type == 'despesa')
         não possui
         @else
         <select name='opportunity_id'>
@@ -73,7 +73,7 @@
         <label class='labels' for='' >EMPRESA:</label>
         {{app('request')->input('opportunityCompanyName')}}
         <input type='hidden' name='company_id' value='{{app('request')->input('opportunityCompanyId')}}'>
-        @elseif($typeInvoices == 'despesa')
+        @elseif($type == 'despesa')
         <label class='labels' for='' >FORNECEDOR:</label>
         <select name='company_id'>
             @foreach ($companies as $company)
@@ -154,7 +154,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class='labels' for='' >PRODUTOS: </label>
-        @if($typeInvoices == 'receita')
+        @if($type == 'receita')
         {{createButtonAdd('product.create', 'variation', 'receita')}}
         @else
         {{createButtonAdd('product.create', 'variation', 'despesa')}}
@@ -188,13 +188,13 @@ CKEDITOR.replace('description');
             @endphp
             @foreach ($products as $product)
             <div class='row'>
-            <input type='hidden' name='product_id[]' value='{{$product->id}}'><span class='fields'></span>
+            <input type='hidden' name='product_id[]' value='{{$product->id}}'>
             <div class='tb col-1'>
                 <input type='number' name='product_amount[]' size='4' value='{{old('product_amount.'.$counter)}}'>
             </div>
 
             <div class='tb col-1'>
-                <image src='{{$product->image}}' style='width:50px;height:50px; margin: 5px'></a>
+                <image src='{{$product->image}}' style='width:50px;height:50px; margin: 5px'>
             </div>
 
             <div class='tb col-6 justify-content-start'>
@@ -208,7 +208,7 @@ CKEDITOR.replace('description');
                         <i class='fa fa-edit' style='color:white'></i>
                     </a>
                 </button>
-                <input type='hidden' name='product_name[]' size='16' value='{{$product->name}}'><span class='fields'></span>
+                <input type='hidden' name='product_name[]' size='16' value='{{$product->name}}'>
                 {{$product->name}}
             </div>
 

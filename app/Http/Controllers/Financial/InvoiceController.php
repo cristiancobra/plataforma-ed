@@ -684,7 +684,7 @@ class InvoiceController extends Controller {
                         $query->where('status', '=', $request->status);
                     }
                     if ($request->type) {
-                        $query->where('type', '=', $request->type);
+                        $query->where('type', $request->type);
                     }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);
@@ -705,10 +705,11 @@ class InvoiceController extends Controller {
                 ->paginate(20);
 
         $invoices->appends([
-            'status' => $request->status,
             'contact_id' => $request->contact_id,
             'company_id' => $request->company_id,
             'user_id' => $request->user_id,
+            'type' => $request->type,
+            'status' => $request->status,
         ]);
 
         foreach ($invoices as $invoice) {

@@ -58,7 +58,7 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         'link' => route('journey.reportUsers')
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'PREVISIONAMENTO FINANCEIRO',
+                                                                                                                                                        'name' => 'RELATÓRIOS FINANCEIROS',
                                                                                                                                                         'faIcon' => 'fas fa-chart-pie ',
                                                                                                                                                         'link' => route('invoice.report')
                                                                                                                                                         ],
@@ -82,14 +82,19 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                             'link' => route('transaction.index')
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                            'name' => 'FORNECEDORES',
-                                                                                                                                                            'faIcon' => 'fas fa-boxes',
-                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'fornecedor']),
+                                                                                                                                                        'name' => 'DESPESAS',
+                                                                                                                                                        'faIcon' => 'fas fa-donate',
+                                                                                                                                                        'link' => route('proposal.index', ['type' => 'despesa']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'ITENS DE DESPESA',
                                                                                                                                                             'faIcon' => 'fas fa-boxes',
                                                                                                                                                             'link' => route('product.index', ['variation' => 'despesa']),
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                            'name' => 'FORNECEDORES',
+                                                                                                                                                            'faIcon' => 'fas fa-boxes',
+                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'fornecedor']),
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'CONTAS BANCÁRIAS',
@@ -152,7 +157,7 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PROPOSTAS',
                                                                                                                                                         'faIcon' => 'fas fa-donate',
-                                                                                                                                                        'link' => route('proposal.index', ['typeProposal' => 'receita']),
+                                                                                                                                                        'link' => route('proposal.index', ['type' => 'receita']),
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
