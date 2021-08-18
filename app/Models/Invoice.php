@@ -139,19 +139,25 @@ class Invoice extends Model {
                     ->where('status', 'aprovada')
                     ->where('type', 'despesa')
                     ->where('trash', '!=', 1)
+//                    ->whereHas('invoiceLines', function ($query) use ($group) {
+//                        $query->whereHas('product', function ($query2) use ($group) {
+//                            $query2->where('group', $group);
+//                        });
+//                    })
                     ->whereBetween('pay_day', [date("$year-$key-01"), date("$year-$key-t")])
                     ->with('invoiceLines.product')
                     ->get();
 
+            $monthTotal = 0;
             foreach ($invoices as $invoice) {
                 foreach ($invoice->invoiceLines as $invoiceLine) {
 
                     if ($invoiceLine->product->group == $group) {
-
-                        $monthlys[$month] = $invoiceLine->subtotalPrice;
+                        $monthTotal += $invoiceLine->subtotalPrice;
                     }
                 }
             }
+            $monthlys[$month] = $monthTotal;
         }
         return $monthlys;
     }

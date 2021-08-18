@@ -638,6 +638,13 @@ class InvoiceController extends Controller {
                     if ($request->contact_id) {
                         $query->where('contact_id', $request->contact_id);
                     }
+                    if ($request->group) {
+                        $query->whereHas('invoiceLines', function($query) use($request) {
+                            $query->whereHas('product', function($query2) use($request) {
+                                $query2->where('group', $request->group);
+                            });
+                        });
+                    }
                     if ($request->status) {
                         $query->where('status', '=', $request->status);
                     }

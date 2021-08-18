@@ -95,13 +95,13 @@
         <div   class="tb tb-header col-2">
             CONTATO
         </div>
-        <div   class="tb tb-header col-3">
-            CONTRATANTE 
+        <div   class="tb tb-header col-2">
+            EMPRESA 
         </div>
         <div   class="tb tb-header col-1">
             VENCIMENTO
         </div>
-        <div   class="tb tb-header col-1">
+        <div   class="tb tb-header col-2">
             VALOR
         </div>
         <div   class="tb tb-header-end col-1">
@@ -133,7 +133,7 @@
             não possui
             @endif
         </div>
-        <div class="tb col-3">
+        <div class="tb col-2">
         @if(isset($invoice->company))
             {{$invoice->company->name}}
         @else
@@ -150,11 +150,11 @@
         </div>
         @endif
         @if($invoice->type == 'receita')
-        <div class="tb col-1">
+        <div class="tb col-2" style="text-align: right">
             {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @else
-        <div class="tb col-1" style="color: red">
+        <div class="tb col-2" style="color: red;text-align: right">
             - {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @endif

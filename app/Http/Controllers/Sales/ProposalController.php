@@ -50,6 +50,7 @@ class ProposalController extends Controller {
                         'contacts',
                         'companies',
                         'users',
+                        'groups',
                         'types',
                         'total',
                         'type',
