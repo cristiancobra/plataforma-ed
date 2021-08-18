@@ -387,6 +387,7 @@ class ProposalController extends Controller {
 //            $invoice->opportunity_id = $invoice->opportunity_id;
             $invoice->user_id = auth()->user()->id;
             $invoice->account_id = auth()->user()->account_id;
+            $invoice->contact_id = $proposal->contact_id;
             $invoice->contract_id = $proposal->contract_id;
             $invoice->company_id = $proposal->company_id;
             $invoice->proposal_id = $proposal->id;
