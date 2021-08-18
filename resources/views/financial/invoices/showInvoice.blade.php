@@ -53,15 +53,15 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
-        @if(isset($invoice->opportunity->company->name))
-        {{$invoice->opportunity->company->name}}
+        @if(isset($invoice->proposal->company))
+        {{$invoice->proposal->company->name}}
         @else
         Pessoa física
         @endif
     </div>
     <div class='show-field-end'>
-        @if(isset($invoice->opportunity->contact->name))
-        {{$invoice->opportunity->contact->name}}
+        @if(isset($invoice->proposal->contact->name))
+        {{$invoice->proposal->contact->name}}
         @else
         Não possui
         @endif
