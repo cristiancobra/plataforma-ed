@@ -274,7 +274,7 @@
              border-radius: 0px 7px 0px 0px;
              border-color: #c28dbf
              '>
-            @if($totalInvoices <= 1 AND $proposal->installment > 1)
+            @if($invoicesCount <= 1 AND $proposal->installment > 1)
             <form  style='display: inline-block;float: right' action='{{route('proposal.generateInstallment', ['proposal' => $proposal])}}'' method='get'>
                 <input class='text-button secondary' type='submit' value=' GERAR  FATURAS'>
             </form>
@@ -332,8 +332,11 @@
     @endforeach
 
     <div class='row'>
-        <div   class='tb tb-header justify-content-end'>
-            {{formatCurrencyReal($balance)}}
+        <div   class='tb tb-header col-10 justify-content-end'>
+            {{formatCurrencyReal($balanceTotal)}}
+        </div>
+        <div   class='tb tb-header col-2 justify-content-end'>
+            {{formatCurrencyReal($invoicesTotal)}}
         </div>
     </div>
     <br>

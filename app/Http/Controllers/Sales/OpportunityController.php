@@ -184,11 +184,7 @@ class OpportunityController extends Controller {
                 $invoice->status = 'parcial';
             }
 
-            if($invoice->type == 'depesa') {
-            $invoice->balance = $invoice->totalPrice + $invoice->paid;
-            }else{
-            $invoice->balance = $invoice->totalPrice - $invoice->paid;    
-            }
+            $invoice->balance = $invoice->totalPrice - $invoice->paid;
         }
 
         $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');

@@ -211,7 +211,8 @@ class ProposalController extends Controller {
         }
 
 
-        $sumInvoices = 0;
+        $invoicesTotal = 0;
+        $balanceTotal = 0;
         foreach ($proposal->invoices as $invoice) {
             $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                     ->sum('value');
@@ -223,23 +224,20 @@ class ProposalController extends Controller {
                 $invoice->status = 'atrasada';
             }
 
-//            if ($invoice->type == 'depesa') {
                 $invoice->balance = $invoice->totalPrice - $invoice->paid;
-//            } else {
-//                $invoice->balance = $invoice->totalPrice - $invoice->paid;
-//            }
 
-            $sumInvoices += $invoice->totalPrice;
+            $invoicesTotal += $invoice->totalPrice;
+            $balanceTotal += $invoice->balance;
         }
 
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
 
-        $totalInvoices = $proposal->invoices->count();
+        $invoicesCount = $proposal->invoices->count();
 
-        $proposalPaymentsTotal = $proposal->invoices->sum('value');
-        $balance = $sumInvoices - $proposalPaymentsTotal;
+//        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
+//        $balanceTotal = $invoicesTotal - $proposalPaymentsTotal;
 
         $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
                 ->where('department', '=', 'produção')
@@ -261,9 +259,10 @@ class ProposalController extends Controller {
                         'opportunityName',
                         'opportunityId',
                         'productProposals',
-                        'totalInvoices',
-                        'proposalPaymentsTotal',
-                        'balance',
+                        'invoicesCount',
+                        'invoicesTotal',
+//                        'proposalPaymentsTotal',
+                        'balanceTotal',
                         'tasksOperational',
                         'tasksOperationalHours',
         ));
