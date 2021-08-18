@@ -89,7 +89,7 @@
     </a>
     <a href='{{route('proposal.show', ['proposal' => $transaction->invoice->proposal_id])}}'>
         <div class='show-field-end'>
-            {{$transaction->invoice->proposal}}
+            {{$transaction->invoice->proposal->name}}
         </div>
     </a>
 </div>
