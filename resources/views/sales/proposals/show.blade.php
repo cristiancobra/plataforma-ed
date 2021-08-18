@@ -47,7 +47,7 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
-        @if(isset($proposal->company->name))
+        @if(isset($proposal->company))
         {{$proposal->company->name}}
         @else
         Pessoa física
