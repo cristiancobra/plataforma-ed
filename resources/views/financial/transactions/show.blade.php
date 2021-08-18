@@ -51,6 +51,13 @@
     <div class='show-label'>
         FATURA
     </div>
+    <div class='show-label'>
+        @if($type == 'débito')
+        DESPESA
+        @else
+        PROPOSTA
+        @endif
+    </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     @if(isset($transaction->invoice->proposal->company->name))
@@ -78,6 +85,11 @@
     <a href='{{route('invoice.show', ['invoice' => $transaction->invoice_id])}}'>
         <div class='show-field-end'>
             {{$transaction->invoice->identifier}}
+        </div>
+    </a>
+    <a href='{{route('proposal.show', ['proposal' => $transaction->invoice->proposal_id])}}'>
+        <div class='show-field-end'>
+            {{$transaction->invoice->proposal}}
         </div>
     </a>
 </div>
