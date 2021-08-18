@@ -1040,7 +1040,7 @@ if (!function_exists('faiconInvoiceStatus')) {
     function faiconInvoiceStatus($status) {
         switch ($status) {
             case 'rascunho':
-                echo '<div class="tb tb-draft col-1">rascunho</div>';
+                echo "<i class='fas fa-edit draft-paid fs-5'></i>";
                 break;
             case 'orçamento':
                 echo '<div class="tb tb-pending col-1">orçamento</div>';

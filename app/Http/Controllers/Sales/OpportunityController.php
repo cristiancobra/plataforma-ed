@@ -176,16 +176,15 @@ class OpportunityController extends Controller {
         foreach ($invoices as $invoice) {
             if ($invoice->status == 'aprovada') {
                 $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-//                    ->where('department', '=', 'vendas')
                         ->sum('value');
             }
-            if ($invoice->paid >= $invoice->installment_value) {
+            if ($invoice->paid >= $invoice->totalPrice) {
                 $invoice->status = 'paga';
-            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->installment_value) {
+            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->totalPrice) {
                 $invoice->status = 'parcial';
             }
 
-            $invoice->balance = $invoice->installment_value - $invoice->paid;
+            $invoice->balance = $invoice->totalPrice - $invoice->paid;
         }
 
         $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');

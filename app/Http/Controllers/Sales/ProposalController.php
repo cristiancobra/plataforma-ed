@@ -222,8 +222,10 @@ class ProposalController extends Controller {
             } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
                 $invoice->status = 'atrasada';
             }
+            $invoice->balance = $invoice->totalPrice - $invoice->paid;
             $sumInvoices += $invoice->totalPrice;
         }
+
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();

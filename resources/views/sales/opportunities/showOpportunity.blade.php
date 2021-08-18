@@ -450,7 +450,7 @@
          border-color: #c28dbf;
          '>
         <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FINANCEIRO</label>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FATURAS</label>
     </div>
     <div class='col-6 pt-4 pb-3' style='
          border-top-style: solid;
@@ -551,7 +551,7 @@
         {{formatCurrencyReal($invoice->balance)}}
     </div>
     <div class='tb col-2 justify-content-end''>
-        {{formatCurrencyReal($invoice->installment_value)}}
+        {{formatCurrencyReal($invoice->totalPrice)}}
     </div>
     {{formatInvoiceStatus($invoice)}}
 </div>

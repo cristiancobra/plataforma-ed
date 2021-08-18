@@ -221,7 +221,7 @@
     </div>
 
     <div class='row'>
-        <div class='tb col-12 justify-content-start'>
+        <div class='tb-description col-12 justify-content-start'>
             {!!html_entity_decode($productProposal->product->description)!!}
         </div>
     </div>
@@ -285,27 +285,47 @@
         </div>
     </div>
 
+    <div class='row'>
+        <div   class='tb tb-header col-1'>
+            SITUAÇÃO
+        </div>
+        <div   class='tb tb-header col-5'>
+            FATURA
+        </div>
+        <div   class='tb tb-header col-2'>
+            VENCIMENTO
+        </div>
+        <div   class='tb tb-header col-2'>
+            A RECEBER
+        </div>
+        <div   class='tb tb-header col-2'>
+            VALOR DA FATURA
+        </div>
+    </div>
 
     @foreach ($proposal->invoices as $invoice)
     <div class='row'>
         <div class="tb col-1 text-center">
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-            {{faiconInvoiceStatus($invoice->status)}}
+                {{faiconInvoiceStatus($invoice->status)}}
             </a>
         </div>
-        <div   class='tb col-7 justify-content-start'>
+        <div   class='tb col-5 justify-content-start'>
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
                 FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$proposal->installment}}
             </a>
         </div>
         <div   class='tb col-2'>
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+                {{date('d/m/Y', strtotime($invoice->pay_day))}}
             </a>
         </div>
         <div   class='tb col-2 justify-content-end'>
+        {{formatCurrencyReal($invoice->balance)}}
+        </div>
+        <div   class='tb col-2 justify-content-end'>
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
+                {{formatCurrencyReal($invoice->totalPrice)}}
             </a>
         </div>
     </div>
