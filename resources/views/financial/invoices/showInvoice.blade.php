@@ -73,7 +73,7 @@
         Não possui
         @endif
     </div>
-    @if(isset($invoice->opportunity->name))
+    @if(isset($invoice->proposal->name))
     <a href='{{route('proposal.show', ['proposal' => $invoice->proposal_id])}}'>
         <div class='show-field-end'>
             {{$invoice->proposal->name}}
