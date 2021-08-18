@@ -48,7 +48,11 @@
         CONTATO
     </div>
     <div   class="tb tb-header col-2">
+        @if($type == 'receita')
         CONTRATANTE 
+        @else
+        FORNECEDOR
+        @endif
     </div>
     <div   class="tb tb-header col-1">
         VENCIMENTO
@@ -65,7 +69,7 @@
 <div class='row'>
     <div class="tb col-1 justify-content-start">
         <button class="button-round">
-            <a href=" {{route('proposal.show', ['proposal' => $proposal])}}">
+            <a href=" {{route('proposal.show', ['proposal' => $proposal,  'type' => $type])}}">
                 <i class='fa fa-eye' style="color:white"></i>
             </a>
         </button>
