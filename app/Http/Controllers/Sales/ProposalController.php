@@ -200,7 +200,11 @@ class ProposalController extends Controller {
         $DateTime->add(new \DateInterval("P" . $proposal->expiration_date . "D"));
         $proposal->expiration_date = $DateTime->format('d/m/Y');
 
+        if($request->type) {
         $type = $request->type;
+        }else{
+        $type = $proposal->type;
+        }
 
         if ($type == 'receita') {
             $opportunityName = $proposal->opportunity->name;

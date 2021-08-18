@@ -506,11 +506,6 @@
             {{formatTotalHour($tasksOperationalHours)}} horas
         </div>
     </div>
-    <br>
-    <br>
-    <br>
-    <label class='labels' for=''>SITUAÇÃO:</label>
-    <span class='fields'>{{$proposal->status}}</span>
     @endsection
 
     @section('createdAt')
