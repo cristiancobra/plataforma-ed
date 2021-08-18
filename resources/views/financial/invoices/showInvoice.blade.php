@@ -174,7 +174,7 @@
              border-radius: 10px 0 0 0;
              '>
             <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTA APROVADA</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTA</label>
         </div>
         <div class='col-6 pt-4 pb-3' style='
              border-right-style: solid;
@@ -299,7 +299,7 @@
              border-color: #c28dbf;
              '>
             <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FINANCEIRO</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PAGAMENTOS</label>
         </div>
         <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;
