@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use  Illuminate\Http\Request;
 
 class Invoice extends Model {
 
@@ -90,6 +91,79 @@ class Invoice extends Model {
     }
 
     // MÉTODOS PÚBLICOS
+
+    public static function filterInvoices(Request $request) {
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+        $yearStart = date('Y-01-01');
+        $yearEnd = date('Y-12-31');
+//dd($request);
+        $invoices = Invoice::where(function ($query) use ($request) {
+                    $query->where('account_id', auth()->user()->account_id);
+                    if ($request->name) {
+                        $query->whereHas('opportunity', function ($query) use ($request) {
+                            $query->where('name', 'like', "%$request->name%");
+                        });
+                    }
+                    if ($request->date_start) {
+                        $query->where('pay_day', '>', $request->date_start);
+                    }
+                    if ($request->date_end) {
+                        $query->where('pay_day', '<', $request->date_end);
+                    }
+                    if ($request->company_id) {
+                        $query->where('company_id', $request->company_id);
+                    }
+                    if ($request->contact_id) {
+                        $query->where('contact_id', $request->contact_id);
+                    }
+                    if ($request->group) {
+                        $query->whereHas('invoiceLines', function ($query) use ($request) {
+                            $query->whereHas('product', function ($query2) use ($request) {
+                                $query2->where('group', $request->group);
+                            });
+                        });
+                    }
+                    if ($request->status) {
+                        $query->where('status', '=', $request->status);
+                    }
+                    if ($request->type) {
+                        $query->where('type', $request->type);
+                    }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    } else {
+                        $query->where('trash', '!=', 1);
+                    }
+                })
+                ->with([
+                    'account',
+                    'opportunity',
+                    'invoiceLines.product',
+                    'account.bankAccounts',
+                    'user.contact',
+                    'contract',
+                    'proposal',
+                ])
+                ->orderBy('pay_day', 'DESC')
+                ->paginate(20);
+
+        $invoices->appends([
+            'contact_id' => $request->contact_id,
+            'company_id' => $request->company_id,
+            'user_id' => $request->user_id,
+            'type' => $request->type,
+            'status' => $request->status,
+        ]);
+
+        foreach ($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->sum('value');
+        }
+
+        return $invoices;
+    }
+
     public static function monthlyRevenues($revenues) {
         $months = returnMonths();
         $year = 2021;
