@@ -93,11 +93,11 @@ class Invoice extends Model {
     // MÉTODOS PÚBLICOS
 
     public static function filterInvoices(Request $request) {
-        $monthStart = date('Y-m-01');
-        $monthEnd = date('Y-m-t');
-        $yearStart = date('Y-01-01');
-        $yearEnd = date('Y-12-31');
-//dd($request);
+//        $monthStart = date('Y-m-01');
+//        $monthEnd = date('Y-m-t');
+//        $yearStart = date('Y-01-01');
+//        $yearEnd = date('Y-12-31');
+
         $invoices = Invoice::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
@@ -147,7 +147,7 @@ class Invoice extends Model {
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
-
+dd($invoices);
         $invoices->appends([
             'contact_id' => $request->contact_id,
             'company_id' => $request->company_id,

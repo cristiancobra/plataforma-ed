@@ -12,6 +12,7 @@ class InvoiceLine extends Model {
 		'account_id',
 		'opportunity_id',
 		'invoice_id',
+		'product_id',
 		'amount',
 		'subtotalHours',
 		'subtotalCost',
