@@ -147,7 +147,7 @@ class Invoice extends Model {
                 ])
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
-dd($invoices);
+//dd($invoices);
         $invoices->appends([
             'contact_id' => $request->contact_id,
             'company_id' => $request->company_id,

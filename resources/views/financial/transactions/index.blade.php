@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title','MOVIMENTAÇÕES')
 
@@ -29,56 +29,55 @@ Total: <span class='labels'></span>
 </a>
 @endsection
 
-@section('main')
-<div>
-    <div  style='display: inline-block;text-align:right;vertical-align:top;width: 10%'>
-        <img src='{{asset('images/financial-planning.png')}}' style='display:block;margin:auto;width:80%'>
-    </div>
-    <div  style='display: inline-block;vertical-align:top;width: 20%'>
-        <p class='labels' style='text-align:center'>
-            FATURAS DE {{strtoupper(returnMonth(date('m')))}}:
-        </p>
-        <p style='text-align:right;font-size:14px'>
-            RECEITAS:	+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
-            <br>
-            DESPESAS: - {{formatCurrencyReal($estimatedExpenseMonthly)}}
-            <br>
-            SALDO: {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
-            <br>
-    </div>
-    <div  style='display: inline-block;text-align:right;vertical-align:top;width: 10%'>
-        <img src='{{asset('images/invoice.png')}}' style='display:block;margin:auto;width:80%'>
-    </div>
-    <div  style='display: inline-block;vertical-align:top;width: 20%'>
-        <p class='labels' style='text-align:center'>
-            REALIZADO EM {{strtoupper(returnMonth(date('m')))}}:
-        </p>
-        <p style='text-align:right;font-size:14px'>
-            RECEITAS:	+ {{formatCurrencyReal($revenueMonthly)}}
-            <br>
-            DESPESAS: {{formatCurrencyReal($expenseMonthly)}}
-            <br>
-            SALDO: {{formatCurrencyReal($revenueMonthly + $expenseMonthly)}}
-            <br>
-        </p>
-    </div>
-    <div  style='display: inline-block;text-align:right;vertical-align:top;width: 10%'>
-        <img src='{{asset('images/financeiro.png')}}' style='display:block;margin:auto;width:80%'>
-    </div>
-    <div  style='display: inline-block;vertical-align:top;width: 20%'>
-        <p class='labels' style='text-align:center'>
-            DISPONÍVEL EM CAIXA:
-        </p>
-        <p style='text-align:right;font-size:14px'>
-            @foreach($bankAccounts as $bankAccount)
-            {{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->balance)}}
-            <br>
-            @endforeach
-        </p>
-    </div>
+@section('shortcuts')
+<div class='col1' style='display: inline-block;text-align:right;vertical-align:top;width: 10%'>
+    <img src='{{asset('images/financial-planning.png')}}' style='display:block;margin:auto;width:80%'>
 </div>
-<br>
-<br>
+<div class='col1' style='display: inline-block;vertical-align:top;width: 20%'>
+    <p class='labels' style='text-align:center'>
+        FATURAS DE {{strtoupper(returnMonth(date('m')))}}:
+    </p>
+    <p style='text-align:right;font-size:14px'>
+        RECEITAS:	+ {{formatCurrencyReal($estimatedRevenueMonthly)}}
+        <br>
+        DESPESAS: - {{formatCurrencyReal($estimatedExpenseMonthly)}}
+        <br>
+        SALDO: {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+        <br>
+</div>
+<div class='col1' style='display: inline-block;text-align:right;vertical-align:top;width: 10%'>
+    <img src='{{asset('images/invoice.png')}}' style='display:block;margin:auto;width:80%'>
+</div>
+<div class='col1' style='display: inline-block;vertical-align:top;width: 20%'>
+    <p class='labels' style='text-align:center'>
+        REALIZADO EM {{strtoupper(returnMonth(date('m')))}}:
+    </p>
+    <p style='text-align:right;font-size:14px'>
+        RECEITAS:	+ {{formatCurrencyReal($revenueMonthly)}}
+        <br>
+        DESPESAS: {{formatCurrencyReal($expenseMonthly)}}
+        <br>
+        SALDO: {{formatCurrencyReal($revenueMonthly + $expenseMonthly)}}
+        <br>
+    </p>
+</div>
+<div class='col1' style='display: inline-block;text-align:right;vertical-align:top;width: 10%'>
+    <img src='{{asset('images/financeiro.png')}}' style='display:block;margin:auto;width:80%'>
+</div>
+<div class='col1' style='display: inline-block;vertical-align:top;width: 20%'>
+    <p class='labels' style='text-align:center'>
+        DISPONÍVEL EM CAIXA:
+    </p>
+    <p style='text-align:right;font-size:14px'>
+        @foreach($bankAccounts as $bankAccount)
+        {{$bankAccount->name}}: {{formatCurrencyReal($bankAccount->balance)}}
+        <br>
+        @endforeach
+    </p>
+</div>
+@endsection
+
+@section('table')
 <form id='filter' action='{{route('transaction.index')}}' method='post' style='text-align: right;display:none'>
     @csrf
     <input type='text' name='name' placeholder='nome da oportunidade' value=''>
@@ -93,104 +92,93 @@ Total: <span class='labels'></span>
     </a>
     <input class='text-button primary' type='submit' value='FILTRAR'>
 </form>
-<br>
-<br>
-<div>
-    <table class='table-list'>
-        <tr>
-            <td   class='table-list-header' style='width: 10%'>
-                DATA
-            </td>
-            <td   class='table-list-header' style='width: 25%'>
-                OPORTUNIDADE
-            </td>
-            <td   class='table-list-header' style='width: 5%'>
-                FATURA
-            </td>
-            <td   class='table-list-header' style='width: 15%'>
-                CONTA BANCÁRIA
-            </td>
-            <td   class='table-list-header' style='width: 20%'>
-                CONTA
-            </td>
-            <td   class='table-list-header' style='width: 15%'>
-                ORIGEM / DESTINO
-            </td>
-            <td   class='table-list-header' style='width: 10%'>
-                VALOR
-            </td>
-        </tr>
-
-        @foreach ($transactions as $transaction)
-        <tr style='font-size: 14px'>
-            <td class='table-list-left'>
-                <a class='white' href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
-                    <button class='button-round'>
-                        <i class='fa fa-eye'></i>
-                    </button>
-                    {{dateBr($transaction->pay_day)}}
-                </a>
-            </td>
-            <td class='table-list-left'>
-                @if(isset($transaction->invoice->opportunity))
-                <a href=' {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity_id])}}'>
-                    {{$transaction->invoice->opportunity->name}}
-                </a>
-                @else
-                não possui
-                @endif
-            </td>
-            <td class='table-list-center'>
-                @if($transaction->invoice_id != null)
-                <a class='white' href=' {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}'>
-                    {{$transaction->invoice_id}}
-                </a>
-                @else
-                não possui
-                @endif
-            </td>
-            <td class='table-list-center'>
-                @if($transaction->bankAccount)
-                <a class='white' href=' {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}'>
-                    {{$transaction->bankAccount->name}}
-                </a>
-                @else
-                conta excluída
-                @endif
-            </td>
-            <td class='table-list-center'>
-                <a class='white' href=' {{route('account.show', ['account' => $transaction->account->id])}}'>
-                    {{$transaction->account->name}}
-                </a>
-            </td>
-            <td class='table-list-center'>
-                @if(isset($transaction->invoice->company->name))
-                <a class='white' href=' {{route('company.show', ['company' => $transaction->invoice->company->id])}}'>
-                    {{$transaction->invoice->company->name}}
-                </a>
-                @elseif(isset($transaction->invoice->contact->name))
-                <a class='white' href=' {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}'>
-                    {{$transaction->invoice->contact->name}}
-                </a>
-                @elseif($transaction->type == 'transferência')
-                {{$transaction->account->name}}
-                @else
-                Não possui
-                @endif
-            </td>
-            @if($transaction->type == 'débito')
-            <td class='table-list-right' style='color:red'>
-                @else
-            <td class='table-list-right'>
-                @endif
-                {{formatCurrencyReal($transaction->value)}}
-            </td>
-        </tr>
-        @endforeach
-    </table>
+<div class='row mt-3'>
+    <div class='tb tb-header-start col-2'>
+        DATA
+    </div>
+    <div class='tb tb-header col-4'>
+        OPORTUNIDADE
+    </div>
+    <div class='tb tb-header col-1'>
+        FATURA
+    </div>
+    <div class='tb tb-header col-2'>
+        CONTA BANCÁRIA
+    </div>
+    <div class='tb tb-header col-2'>
+        ORIGEM / DESTINO
+    </div>
+    <div class='tb tb-header-end col-1'>
+        VALOR
+    </div>
 </div>
-<br>
+
+@foreach ($transactions as $transaction)
+<div class='row'>
+    <div class='tb col-2'>
+        <a class='white' href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
+            <button class='button-round'>
+                <i class='fa fa-eye'></i>
+            </button>
+            {{dateBr($transaction->pay_day)}}
+        </a>
+    </div>
+    <div class='tb col-4'>
+        @if(isset($transaction->invoice->opportunity))
+        <a href=' {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity_id])}}'>
+            {{$transaction->invoice->opportunity->name}}
+        </a>
+        @else
+        não possui
+        @endif
+    </div>
+    <div class='tb col-1'>
+        @if($transaction->invoice_id != null)
+        <a class='white' href=' {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}'>
+            {{$transaction->invoice_id}}
+        </a>
+        @else
+        não possui
+        @endif
+    </div>
+    <div class='tb col-2'>
+        @if($transaction->bankAccount)
+        <a class='white' href=' {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}'>
+            {{$transaction->bankAccount->name}}
+        </a>
+        @else
+        conta excluída
+        @endif
+    </div>
+    <div class='tb col-2'>
+        @if(isset($transaction->invoice->company->name))
+        <a class='white' href=' {{route('company.show', ['company' => $transaction->invoice->company->id])}}'>
+            {{$transaction->invoice->company->name}}
+        </a>
+        @elseif(isset($transaction->invoice->contact->name))
+        <a class='white' href=' {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}'>
+            {{$transaction->invoice->contact->name}}
+        </a>
+        @elseif($transaction->type == 'transferência')
+        {{$transaction->account->name}}
+        @else
+        Não possui
+        @endif
+    </div>
+    @if($transaction->type == 'débito')
+    <div class='tb col-1 justify-content-end' style='color:red'>
+        {{formatCurrencyReal($transaction->value)}}
+    </div>
+    @else
+    <div class='tb col-1 justify-content-end'>
+        {{formatCurrencyReal($transaction->value)}}
+    </div>
+    @endif
+</div>
+@endforeach
 @endsection
+
+@section('paginate', $transactions->links())
 
 @section('js-scripts')
 <script>
@@ -203,9 +191,9 @@ Total: <span class='labels'></span>
     });
 
 // exportar em CSV
-   function exportTasks(_this) {
-      let _url = $(_this).data('href');
-      window.location.href = _url;
-   }
+    function exportTasks(_this) {
+        let _url = $(_this).data('href');
+        window.location.href = _url;
+    }
 </script>
 @endsection

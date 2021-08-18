@@ -89,12 +89,13 @@ class Transaction extends Model {
                     'invoice.opportunity',
                 ])
                 ->orderBy('pay_day', 'DESC')
-                ->paginate(20);
+                ->paginate(60);
 
         $transactions->appends([
             'status' => $request->status,
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
+            'bank_account_id' => $request->bank_account_id,
         ]);
 
         return $transactions;
