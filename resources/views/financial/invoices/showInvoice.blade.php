@@ -174,7 +174,7 @@
              border-radius: 10px 0 0 0;
              '>
             <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ITENS FATURADOS</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTA APROVADA</label>
         </div>
         <div class='col-6 pt-4 pb-3' style='
              border-right-style: solid;
