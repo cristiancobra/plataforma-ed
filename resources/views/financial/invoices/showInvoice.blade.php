@@ -99,11 +99,7 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
-        @if(isset($invoice->opportunity->user->contact->name))
-        {{$invoice->opportunity->user->contact->name}}
-        @else
-        foi excluído
-        @endif
+        {{$invoice->user->contact->name}}
     </div>
     <div class='show-field-end'>
         {{$invoice->identifier}}
