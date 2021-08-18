@@ -183,7 +183,7 @@ $counterMonth = 1;
     @foreach($months as $key => $month)
     <div class="tb col justify-content-end">
         <a href="{{route('invoice.index', [
-                                                              'group' => $group,
+                                                              'group' => $group['name'],
                                                               'type' => 'despesa',
                                                               'status' => 'aprovada',
                                                               'date_start' => date("$year-$key-01"),
@@ -200,14 +200,6 @@ $counterMonth = 1;
 </div>
 @endforeach
 
-
-<div class='table-list-right' style='color:white;background-color: #49d194'>
-
-</div>
-</div>
-<br>
-<br>
-<br>
 @endsection
 
 @section('js-scripts')
