@@ -87,7 +87,7 @@
             {{$transaction->invoice->identifier}}
         </div>
     </a>
-    @if($type == 'débito')
+            @if(isset($transaction->invoice->proposal))
     <a href='{{route('proposal.show', ['proposal' => $transaction->invoice->proposal_id])}}'>
         <div class='show-field-end'>
             {{$transaction->invoice->proposal->name}}
