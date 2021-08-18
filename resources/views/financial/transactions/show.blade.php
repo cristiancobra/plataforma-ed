@@ -65,7 +65,7 @@
     </div>
     @endif
     @if(isset($transaction->invoice->proposal->opportunity->name))
-    <a href='{{route('opportunity.show', ['opportunity' => transaction->invoice->proposal->opportunity_id])}}'>
+    <a href='{{route('opportunity.show', ['opportunity' => $transaction->invoice->proposal->opportunity_id])}}'>
         <div class='show-field-end'>
             {{$transaction->invoice->proposal->opportunity->name}}
         </div>
