@@ -174,7 +174,7 @@ class ProposalController extends Controller {
                         'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
                         'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
                         'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
-                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
+                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]) * -1,
                     );
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
@@ -222,7 +222,13 @@ class ProposalController extends Controller {
             } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
                 $invoice->status = 'atrasada';
             }
-            $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+//            if ($invoice->type == 'depesa') {
+                $invoice->balance = $invoice->totalPrice - $invoice->paid;
+//            } else {
+//                $invoice->balance = $invoice->totalPrice - $invoice->paid;
+//            }
+
             $sumInvoices += $invoice->totalPrice;
         }
 

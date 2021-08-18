@@ -73,7 +73,7 @@
         Não possui
         @endif
     </div>
-    @if(isset($invoice->proposal->name))
+    @if(isset($invoice->proposal))
     <a href='{{route('proposal.show', ['proposal' => $invoice->proposal_id])}}'>
         <div class='show-field-end'>
             {{$invoice->proposal->name}}
@@ -220,10 +220,10 @@
         <div class='tb col-2'>
             {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($productProposal->subtotalPrice)}}
         </div>
     </div>
@@ -337,7 +337,7 @@
         <div class='tb col-4'>
             {{$transaction->bankAccount->name}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($transaction->value)}}
         </div>
     </div>
@@ -379,18 +379,11 @@
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'typeTransactions' => 'despesa',
-		'invoiceTotalPrice' => $invoice->totalPrice,
+		'invoiceTotalPrice' => $invoice->totalPrice * -1,
 	])}}'>
             <i class='fa fa-plus'></i>
         </a>
         @endif
     </p>
-    <br>
-    <br>
-    <label class='labels' for=''>SITUAÇÃO:</label>
-    <span class='fields'>{{$invoice->status}}</span>
-    <br>
-    <br>
-    <br>
     <p class='labels'>  Criado em:   {{date('d/m/Y H:i', strtotime($invoice->created_at))}} </p>
     @endsection

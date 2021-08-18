@@ -214,9 +214,7 @@ class TransactionController extends Controller {
         $transaction->value = removeCurrency($request->value);
         $transaction->save();
 
-        return view('financial.transactions.show', compact(
-                        'transaction',
-        ));
+        return redirect()->route('transaction.show', compact('transaction'));
     }
 
     /**
@@ -243,7 +241,6 @@ class TransactionController extends Controller {
 
         return redirect()->back();
     }
-
 
     public function exportCsv(Request $request) {
         $fileName = 'transactions.csv';

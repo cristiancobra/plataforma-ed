@@ -25,11 +25,11 @@
 
 @section('status')
 @if($type == 'débito')
-<div class='pe-4 pb-2 pt-1' style='background-color: lightblue;border-radius:30px;text-align: right'>
+<div class='pe-4 pb-2 pt-1' style='background-color: #FDDBDD;border-radius:30px;text-align: right'>
     {{formatCurrencyReal($transaction->value)}}
 </div>
 @else
-<div class='pe-4 pb-2 pt-1'  style='background-color: #FDDBDD;border-radius:30px;text-align: right'>
+<div class='pe-4 pb-2 pt-1'  style='background-color: lightblue;border-radius:30px;text-align: right'>
     {{formatCurrencyReal($transaction->value)}}
 </div>
 @endif
