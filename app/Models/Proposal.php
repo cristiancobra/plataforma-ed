@@ -17,6 +17,7 @@ class Proposal extends Model {
         'contact_id',
         'name',
         'date_creation',
+        'expiration_date',
         'pay_day',
         'description',
         'discount',

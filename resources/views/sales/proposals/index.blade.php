@@ -41,13 +41,13 @@
     <div   class="tb tb-header-start col-1">
         ID
     </div>
-    <div   class="tb tb-header col-3">
-        OPORTUNIDADE
+    <div   class="tb tb-header col-4">
+        NOME
     </div>
     <div   class="tb tb-header col-2">
         CONTATO
     </div>
-    <div   class="tb tb-header col-3">
+    <div   class="tb tb-header col-2">
         CONTRATANTE 
     </div>
     <div   class="tb tb-header col-1">
@@ -71,11 +71,11 @@
         </button>
         {{$proposal->identifier}}
     </div>
-    <div class="tb col-3">
-        @if($proposal->opportunity)
-        {{$proposal->opportunity->name}}
+    <div class="tb col-4 justify-content-start">
+        @if($proposal->name)
+        {{$proposal->name}}
         @else
-        não possui
+        Sem nome
         @endif
     </div>
     <div class="tb col-2">
@@ -85,7 +85,7 @@
         não possui
         @endif
     </div>
-    <div class="tb col-3">
+    <div class="tb col-2">
         @if(isset($proposal->company))
         {{$proposal->company->name}}
         @else

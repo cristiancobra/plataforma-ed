@@ -225,11 +225,6 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Invoice $invoice) {
-//        $invoice2 = Invoice::where('proposal_id', $invoice->proposal_id)
-//                ->with('proposal')
-//                ->get();
-//        
-//        dd($invoice2);
         $DateTime = new DateTime($invoice->date_creation);
         $DateTime->add(new \DateInterval("P" . $invoice->expiration_date . "D"));
         $invoice->expiration_date = $DateTime->format('d/m/Y');
@@ -261,18 +256,9 @@ class InvoiceController extends Controller {
 
         $invoicePaymentsTotal = $transactions->sum('value');
         $balance = $invoice->totalPrice - $invoicePaymentsTotal;
-//
-//        $tasksOperational = Task::where('opportunity_id', $invoice->opportunity_id)
-//                ->where('department', '=', 'produção')
-//                ->with('journeys')
-//                ->get();
-//
-//        $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($invoice) {
-//                    $query->where('opportunity_id', $invoice->opportunity_id);
-//                    $query->where('department', '=', 'produção');
-//                })
-//                ->sum('duration');
-//
+
+                $variation = $invoice->type;
+
         return view('financial.invoices.showInvoice', compact(
                         'typeInvoices',
                         'invoice',
@@ -282,8 +268,7 @@ class InvoiceController extends Controller {
                         'transactions',
                         'invoicePaymentsTotal',
                         'balance',
-//                        'tasksOperational',
-//                        'tasksOperationalHours',
+                        'variation',
         ));
     }
 
@@ -692,53 +677,6 @@ class InvoiceController extends Controller {
 
         return $invoices;
 
-//        $contacts = Contact::where('account_id', auth()->user()->account_id)
-//                ->orderBy('NAME', 'ASC')
-//                ->get();
-//
-//        $companies = Company::where('account_id', auth()->user()->account_id)
-//                ->orderBy('NAME', 'ASC')
-//                ->get();
-//
-//        $users = User::myUsers();
-//
-//        $total = $invoices->total();
-//
-//        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
-//                ->where('type', 'receita')
-//                ->where('status', 'aprovada')
-//                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-//                ->sum('installment_value');
-//
-//        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
-//                ->where('type', 'despesa')
-//                ->where('status', 'aprovada')
-//                ->whereBetween('pay_day', [$monthStart, $monthEnd])
-//                ->sum('installment_value');
-//
-//        $estimatedRevenueYearly = Invoice::where('account_id', auth()->user()->account_id)
-//                ->where('type', 'receita')
-//                ->where('status', 'aprovada')
-//                ->whereBetween('pay_day', [$yearStart, $yearEnd])
-//                ->sum('installment_value');
-//
-//        $estimatedExpenseYearly = Invoice::where('account_id', auth()->user()->account_id)
-//                ->where('type', 'despesa')
-//                ->where('status', 'aprovada')
-//                ->whereBetween('pay_day', [$yearStart, $yearEnd])
-//                ->sum('installment_value');
-//
-//        return view('financial.invoices.indexInvoices', compact(
-//                        'invoices',
-//                        'companies',
-//                        'contacts',
-//                        'users',
-//                        'total',
-//                        'estimatedRevenueMonthly',
-//                        'estimatedExpenseMonthly',
-//                        'estimatedRevenueYearly',
-//                        'estimatedExpenseYearly',
-//        ));
     }
 
     public function sendToTrash(Invoice $invoice) {

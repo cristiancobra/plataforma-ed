@@ -1277,6 +1277,10 @@ td {
     color: #F2E28C;
 }
 
+.late-paid{
+    color: red;
+}
+
 
 /*SHORTCUTS*/
 .shortcut {

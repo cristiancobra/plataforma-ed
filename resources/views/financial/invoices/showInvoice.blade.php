@@ -43,6 +43,13 @@
     <div class='show-label'>
         OPORTUNIDADE
     </div>
+    <div class='show-label'>
+        @if($variation == 'débito')
+        DESPESA
+        @else
+        PROPOSTA
+        @endif
+    </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
@@ -66,6 +73,17 @@
         Não possui
         @endif
     </div>
+    @if(isset($invoice->opportunity->name))
+    <a href='{{route('proposal.show', ['proposal' => $invoice->proposal_id])}}'>
+        <div class='show-field-end'>
+            {{$invoice->proposal->name}}
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
+        Não possui
+    </div>
+    @endif
 </div>
 
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
@@ -91,19 +109,19 @@
         {{$invoice->identifier}}
     </div>
     <div class='show-field-end'>
-      @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
-    Sem contrato
-    @else
+        @if(!isset($invoice->contract_id) OR $invoice->contract_id == 0)
+        Sem contrato
+        @else
         <a href='{{route('contract.show', ['contract' => $invoice->contract_id])}}'>
-    <span class='fields'>{{$invoice->contract->name}}</span>
-            
+            <span class='fields'>{{$invoice->contract->name}}</span>
+
         </a>
-    @endif
+        @endif
     </div>
     @endsection
-    
+
     @section('description')
-            {!!html_entity_decode($invoice->description)!!}
+    {!!html_entity_decode($invoice->description)!!}
     @endsection
 
     @section('date_start')
@@ -131,7 +149,7 @@
         VALIDADE
     </p>
     @endsection
-    
+
     @section('date_conclusion')
     <div class='circle-date-conclusion'>
         @if($invoice->pay_day == null)

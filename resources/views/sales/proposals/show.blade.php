@@ -22,14 +22,12 @@
 {{createButtonList('proposal', 'type', $type)}}
 @endsection
 
-@if($type == 'receita')
-@section('name', $proposal->opportunity->name)
+@if($proposal->name)
+@section('name', $proposal->name)
 @else
 @section('name', 'Sem nome')
 @endif
 
-@section('priority')
-@endsection
 
 @section('status')
 {{formatShowStatus($proposal)}}
@@ -135,7 +133,12 @@
 
 
     @section('date_conclusion')
-
+    <div class='circle-date-due'>
+        {{$proposal->expiration_date}}
+    </div>
+    <p class='labels' style='text-align: center'>
+        VALIDADE
+    </p>
     @endsection
 
 
@@ -446,7 +449,7 @@
             </button>
             {{dateBr($journey->date)}}
         </div>
-        <div class='tb col-7 justify-content-start' colspan='3' style='background-color:#d8c2db'>
+        <div class='tb-description col-7 justify-content-start' colspan='3' style='background-color:#d8c2db'>
             {!!html_entity_decode($journey->description)!!}
         </div>
         <div class='tb col-2' style='background-color:#d8c2db'>

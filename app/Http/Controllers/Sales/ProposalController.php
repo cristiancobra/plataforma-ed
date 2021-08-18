@@ -284,8 +284,8 @@ class ProposalController extends Controller {
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
-        
-                $type = $request->type;
+
+        $type = $request->type;
 
         return view('sales.proposals.edit', compact(
                         'users',
@@ -350,6 +350,7 @@ class ProposalController extends Controller {
                     ProductProposal::where('id', $request->product_proposal_id[$key])->update($data);
                 }
             }
+            $proposal->fill($request->all());
             $proposal->totalPrice = $totalPrice - $request->discount;
             $proposal->save();
 

@@ -24,6 +24,9 @@
     <form action=' {{route('proposal.update', ['proposal' => $proposal])}} ' method='post'>
         @csrf
         @method('put')
+        <label class='labels' for='' >NOME:</label>
+        <input type='text' name='name' size='60'>
+        <br>
         <label class='labels' for='' >IDENTIFICADOR:</label>
         <input type='number'  size='5' style='text-align: right' value='{{$proposal->identifier}}'>
         <br>
@@ -55,7 +58,7 @@
         @endif
 
         <label class='labels' for='' >CONTATO: </label>
-        {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $proposal->contact, )}}
+        {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $proposal->contact)}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
         <br>
         @if(isset($proposal->opportunity_id))
@@ -76,7 +79,7 @@
         <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
         <input type='date' name='date_creation' size='20' value='{{$proposal->date_creation}}'>
         @if ($errors->has('date_creation'))
-        <span class="text-danger">{{$errors->first('date_creation')}}</span>
+        <span class='text-danger'>{{$errors->first('date_creation')}}</span>
         @endif
         <br>
         <label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
@@ -85,7 +88,7 @@
         <label class='labels' for='' >DATA DO PAGAMENTO:</label>
         <input type='date' name='pay_day' size='20' value='{{$proposal->pay_day}}'>
         @if ($errors->has('pay_day'))
-        <span class="text-danger">{{$errors->first('pay_day')}}</span>
+        <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
         <br>
         <br>

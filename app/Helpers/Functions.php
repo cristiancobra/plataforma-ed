@@ -919,8 +919,20 @@ if (!function_exists('formatShowStatus')) {
             case 'ganhamos':
                 echo '<div class="won">ganhamos</div>';
                 break;
+            case 'aprovada':
+                echo '<div class="won">aprovada</div>';
+                break;
             case 'perdemos':
                 echo '<div class="lost">perdemos</div>';
+                break;
+            case 'orçamento':
+                echo '<div class="lost">orçamento</div>';
+                break;
+            case 'rascunho':
+                echo '<div class="lost">rascunho</div>';
+                break;
+            case 'paga':
+                echo '<div class="lost">paga</div>';
                 break;
         }
     }
@@ -1046,7 +1058,7 @@ if (!function_exists('faiconInvoiceStatus')) {
                 echo "<i class='fas fa-exclamation-circle partial fs-5'></i>";
                 break;
             case 'atrasada':
-                echo '<div class="tb tb-late col-1">atrasada</div>';
+                echo "<i class='fas fa-clock late-paid fs-5'></i>";
                 break;
         }
     }
