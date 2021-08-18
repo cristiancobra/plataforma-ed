@@ -303,7 +303,7 @@
         </div>
     </div>
 
-    @foreach ($proposal->invoices as $invoice)
+    @foreach ($invoices as $invoice)
     <div class='row'>
         <div class="tb col-1 text-center">
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>

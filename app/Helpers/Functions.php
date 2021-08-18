@@ -1043,7 +1043,7 @@ if (!function_exists('faiconInvoiceStatus')) {
                 echo "<i class='fas fa-stop draft-paid fs-5'></i>";
                 break;
             case 'orçamento':
-                echo '<div class="tb tb-pending col-1">orçamento</div>';
+                echo "<i class='fas fa-clock fs-5'></i>";
                 break;
             case 'cancelada':
                 echo '<div class="tb tb-canceled col-1">cancelada</div>';

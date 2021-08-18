@@ -210,11 +210,16 @@ class ProposalController extends Controller {
             $opportunityId = null;
         }
 
-
+        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('proposal_id', $proposal->id)
+                    ->where('trash', '!=', 1)
+                ->get();
+        
         $invoicesTotal = 0;
         $balanceTotal = 0;
-        foreach ($proposal->invoices as $invoice) {
+        foreach ($invoices as $invoice) {
             $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->where('trash', '!=', 1)
                     ->sum('value');
             if ($invoice->totalPrice == $invoice->paid) {
                 $invoice->status = 'paga';
@@ -258,10 +263,10 @@ class ProposalController extends Controller {
                         'type',
                         'opportunityName',
                         'opportunityId',
+                        'invoices',
                         'productProposals',
                         'invoicesCount',
                         'invoicesTotal',
-//                        'proposalPaymentsTotal',
                         'balanceTotal',
                         'tasksOperational',
                         'tasksOperationalHours',
