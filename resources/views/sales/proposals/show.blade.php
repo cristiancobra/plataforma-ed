@@ -296,10 +296,10 @@
             VENCIMENTO
         </div>
         <div   class='tb tb-header col-2'>
-            A RECEBER
+            VALOR TOTAL
         </div>
         <div   class='tb tb-header col-2'>
-            VALOR DA FATURA
+            VALOR RESTANTE
         </div>
     </div>
 
@@ -321,22 +321,22 @@
             </a>
         </div>
         <div   class='tb col-2 justify-content-end'>
-        {{formatCurrencyReal($invoice->balance)}}
-        </div>
-        <div   class='tb col-2 justify-content-end'>
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
                 {{formatCurrencyReal($invoice->totalPrice)}}
             </a>
+        </div>
+        <div   class='tb col-2 justify-content-end'>
+            {{formatCurrencyReal($invoice->balance)}}
         </div>
     </div>
     @endforeach
 
     <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
-            {{formatCurrencyReal($balanceTotal)}}
-        </div>
         <div   class='tb tb-header col-2 justify-content-end'>
             {{formatCurrencyReal($invoicesTotal)}}
+        </div>
+        <div   class='tb tb-header col-10 justify-content-end'>
+            {{formatCurrencyReal($balanceTotal)}}
         </div>
     </div>
     <br>
