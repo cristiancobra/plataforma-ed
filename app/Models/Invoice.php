@@ -116,16 +116,15 @@ class Invoice extends Model {
                     ->with('invoiceLines.product')
                     ->get();
 
-            $monthTotal = 0;
             foreach ($invoices as $invoice) {
                 foreach ($invoice->invoiceLines as $invoiceLine) {
 
-                    if ($invoiceLine->product->group == $category) {
-                        $monthTotal += $invoiceLine->subtotalPrice;
+                    if ($invoiceLine->product->category == $category) {
+
+                        $monthlys[$month] = $invoiceLine->subtotalPrice;
                     }
                 }
             }
-            $monthlys[$month] = $monthTotal;
         }
         return $monthlys;
     }
