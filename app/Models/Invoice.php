@@ -237,12 +237,9 @@ class Invoice extends Model {
                     ->where('trash', '!=', 1)
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
                     ->with('proposal.productProposals')
-//                    ->limit(10)
                     ->get();
-//            dd($invoices);
-//            echo $monthEnd->format('Y-m-t') . "   " . $category;
-//            echo "<br>";
 
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $oldDay = $monthEnd->format("d");
             $monthEnd->add(new DateInterval("P28D"));
@@ -273,22 +270,14 @@ class Invoice extends Model {
 //                $monthEnd->add(new DateInterval("P3D"));  // x // 2021-03-31
 //            }
 
-$value = 0;
+            $value = 0;
             foreach ($invoices as $invoice) {
                 if ($invoice->proposal) {
-                    $installment = $invoice->proposal->installment;
-//                    $payday = $invoice->pay_day;
-//                    echo "proposta " . $invoice->proposal->id;
-//                    echo "parcelas" . $installment;
-//                            echo "<br>";
+                    $installment = $invoice->proposal->installment
                     foreach ($invoice->proposal->productProposals as $productProposal) {
-//                    foreach ($productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
                             $value += $productProposal->subtotalPrice / $installment;
-//                echo "ID DA LINHA" . $productProposal->id;
-//                            echo $productProposal->product->category . "---- DATA----" . $payday . "  -- preço total--  " . $productProposal->subtotalPrice . "    -- preço parcelado--  " . $productProposal->subtotalPrice / $installment  . "    ---- proposta::::  " . $productProposal->proposal_id . "<br>";
                             $monthlys[$month] = $value;
-//                            echo $monthlys[$month] . ' --- MES ---- ' . $month . ' --- produto ---- ' . $productProposal->product->name . ' --- CATEGORY ---- ' . $productProposal->product->category . '<br>';
                         }
                     }
                 }
@@ -339,14 +328,21 @@ $value = 0;
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
                     ->with('invoiceLines.product')
                     ->get();
-            $monthStart->add(new DateInterval("P" . $key . "M"));
-            $monthEnd->add(new DateInterval("P" . $key . "M"));
-//dd($invoices);
 
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $oldDay = $monthEnd->format("d");
+            $monthEnd->add(new DateInterval("P28D"));
+
+            $value = 0;
             foreach ($invoices as $invoice) {
-                foreach ($invoice->invoiceLines as $invoiceLine) {
-                    if ($invoiceLine->product->category == $group) {
-                        $monthlys[$month] = $invoiceLine->subtotalPrice;
+                if ($invoice->proposal) {
+                    $installment = $invoice->proposal->installment
+                    foreach ($invoice->proposal->productProposals as $productProposal) {
+                        if ($productProposal->product->group == $group) {
+                            $value += $productProposal->subtotalPrice / $installment;
+                            $monthlys[$month] = $value;
+                        }
                     }
                 }
             }
