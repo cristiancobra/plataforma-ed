@@ -52,7 +52,7 @@
 
         @if(isset($proposal->company))
         <label class='labels' for=''>EMPRESA:</label>
-        <input type='hidden' name='company_id' value='{{$proposal->company->name}}'>
+        {{createDoubleSelectIdName('company_id', 'fields', $ompanies,'Não possui', $proposal->company)}}
         <span class='fields'>{{$proposal->company->name}}</span>
         <br>
         @endif
