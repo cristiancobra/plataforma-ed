@@ -30,7 +30,7 @@
 @if($invoice->proposal->installment == 1)
 À vista
 @else
-parcelas {{$invoice->proposal->installment}}
+{{$invoice->proposal->number_installment}} de {{$invoice->proposal->installment}}
 @endif
 </div>
 @endsection
