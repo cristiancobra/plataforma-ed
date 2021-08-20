@@ -424,11 +424,11 @@ class ProposalController extends Controller {
             $invoice->status = 'aprovada';
 
             $DateTime = new DateTime($proposal->pay_day);
-            $DateTime->add(new \DateInterval("P" . $counter -1 . "M"));
+            $DateTime->add(new \DateInterval("P" . $counterMonth . "M"));
             $invoice->pay_day = $DateTime->format('Y-m-d');
 
             $DateTime2 = new DateTime($proposal->date_creation);
-            $DateTime2->add(new \DateInterval("P" . $counter -1 . "M"));
+            $DateTime2->add(new \DateInterval("P" . $counterMonth . "M"));
             $invoice->date_creation = $DateTime2->format('Y-m-d');
 
             $invoice->save();
