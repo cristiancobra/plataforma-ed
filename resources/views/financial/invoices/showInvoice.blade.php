@@ -26,11 +26,13 @@
 @endif
 
 @section('priority')
+<div style="background-color: lightblue">
 @if($invoice->proposal->installment == 1)
 À vista
 @else
 parcelas {{$invoice->proposal->installment}}
 @endif
+</div>
 @endsection
 
 @section('status')

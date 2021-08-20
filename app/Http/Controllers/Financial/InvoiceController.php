@@ -259,6 +259,7 @@ class InvoiceController extends Controller {
         $totalInvoices = $invoices->count();
 
         $transactions = Transaction::where('invoice_id', $invoice->id)
+                ->where('trash', '!=', 1)
                 ->get();
 
         $invoicePaymentsTotal = $transactions->sum('value');
