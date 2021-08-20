@@ -441,13 +441,12 @@ class ProposalController extends Controller {
 
     // exibe as faturas correspondentes ao parcelamento da proposta
     public function editInstallment(Proposal $proposal) {
-//                $proposal = Proposal::where('id', $proposal->id)
-//                ->with('transactions')
-//                ->orderBy('identifier', 'ASC')
-//                ->get();
-//                dd($proposal);
+                $invoices = Invoice:where('proposal_id', $proposal->id)
+                        ->where('trash', '!=', 1)
+                        ->get();
+
         return view('sales.proposals.editInstallment', compact(
-                        'proposal'
+                        'invoices'
         ));
     }
 
