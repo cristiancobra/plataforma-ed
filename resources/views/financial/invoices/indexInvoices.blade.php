@@ -90,7 +90,7 @@
             ID
         </div>
         <div   class="tb tb-header col-3">
-            OPORTUNIDADE
+            PROPOSTA
         </div>
         <div   class="tb tb-header col-2">
             CONTATO
@@ -120,11 +120,7 @@
             {{$invoice->identifier}}
         </div>
         <div class="tb col-3">
-            @if($invoice->opportunity)
-            {{$invoice->opportunity->name}}
-            @else
-            não possui
-            @endif
+            {{$invoice->proposal->name}}
         </div>
         <div class="tb col-2">
         @if($invoice->contact)
