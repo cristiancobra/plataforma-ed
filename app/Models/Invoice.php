@@ -272,7 +272,7 @@ class Invoice extends Model {
 
             $value = 0;
             foreach ($invoices as $invoice) {
-                if ($invoice->proposal->productProposals) {
+                if ($invoice->proposal) {
                     $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
