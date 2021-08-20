@@ -27,7 +27,7 @@
 <form action=' {{route('proposal.updateInstallment', ['proposal' => $proposal])}} ' method='post'>
     @csrf
     @method('put')
-    @foreach($proposal->invoices as $invoice)
+    @foreach($invoices as $invoice)
     <div class="row">
         <div class="col-2 tb tb-header">
             IDENTIFICADOR
@@ -44,7 +44,7 @@
     </div>
     <div class="row">
         <div class="col-2 tb">
-            {{$invoice->identifier}}
+            {{$invoice->id}}
         </div>
         <div class="col-6 tb">
             {{$invoice->pay_day}}
