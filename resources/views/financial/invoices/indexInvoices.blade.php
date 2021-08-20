@@ -13,10 +13,10 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
-<a class="circular-button secondary"  href="{{route('invoice.create', ['typeInvoices' => 'despesa'])}}">
+<a class="circular-button secondary" style="background-color: lightblue" href="{{route('proposal.create', ['type' => 'despesa'])}}">
     <i class="fas fa-minus"></i>
 </a>
-<a class="circular-button primary"  href="{{route('invoice.create', ['typeInvoices' => 'receita'])}}">
+<a class="circular-button primary"  style="background-color: lightblue" href="{{route('proposal.create', ['type' => 'receita'])}}">
     <i class="fas fa-plus"></i>
 </a>
 {{createButtonBack()}}
@@ -150,12 +150,12 @@
         </div>
         @endif
         @if($invoice->type == 'receita')
-        <div class="tb col-2" style="text-align: right">
+        <div class="tb col-2 justify-content-end" style="text-align: right">
             {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @else
-        <div class="tb col-2" style="color: red;text-align: right">
-            - {{formatCurrencyReal($invoice->totalPrice)}}
+        <div class="tb col-2 justify-content-end" style="color: red;text-align: right">
+            {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @endif
         

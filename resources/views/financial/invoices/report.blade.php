@@ -43,9 +43,9 @@
     </div>
     <div class="col-3 pt-5">
         <br>
-        <span class="labels">{{$annualTotal}}</span> horas executadas em {{date('Y')}} .
+        <span class="labels">xxxxxx</span> horas executadas em {{date('Y')}} .
         <br>
-        <span class="labels">{{$monthlyAverage}}</span> horas de média mensal.
+        <span class="labels">xxxx</span> horas de média mensal.
         </p>
     </div>
     <div class="col-2 pt-5">
@@ -122,10 +122,11 @@ $counterMonth = 1;
     @foreach($months as $key => $month)
     <div class="tb col justify-content-end">
         <a href="{{route('invoice.index', [
-                                                              'status' => 'aprovada',
-                                                                      'type' => 'receita',
-                                                              'date_start' => date("$year-$key-01"),
-                                                              'date_end' =>  date("$year-$key-t"),
+                                                            'category' => $category['name'],
+                                                            'status' => 'aprovada',
+                                                            'type' => 'receita',
+                                                            'date_start' => date("$year-$key-01"),
+                                                            'date_end' =>  date("$year-$key-t"),
                                                              ])}}">
 
             {{formatCurrency(floatval($category['monthlys'][$month]))}}

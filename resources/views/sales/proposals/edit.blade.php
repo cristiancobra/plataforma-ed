@@ -25,7 +25,7 @@
         @csrf
         @method('put')
         <label class='labels' for='' >NOME:</label>
-        <input type='text' name='name' size='60'>
+        <input type='text' name='name' size='80' value='{{$proposal->name}}'>
         <br>
         <label class='labels' for='' >IDENTIFICADOR:</label>
         <input type='number'  size='5' style='text-align: right' value='{{$proposal->identifier}}'>

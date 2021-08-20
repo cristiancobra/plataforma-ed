@@ -49,6 +49,16 @@
         </select>
         <br>
         <br>
+        <label class="labels" for="" >PROPOSTA:</label>
+        <select name="proposal_id">
+            @foreach ($proposals as $proposal)
+            <option  class="fields" value="{{$proposal->id}}">
+                {{$proposal->name}}
+            </option>
+            @endforeach
+        </select>
+        {{createButtonAdd('proposal.create')}}
+        <br>
         <label class="labels" for="" >OPORTUNIDADE:</label>
         @if(!empty(app('request')->input('opportunityName')))
         {{app('request')->input('opportunityName')}}

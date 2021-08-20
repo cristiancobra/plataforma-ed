@@ -3,7 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use  Illuminate\Http\Request;
+use Illuminate\Http\Request;
+use DateTime;
+use DateInterval;
+use App\Models\Proposal;
 
 class Invoice extends Model {
 
@@ -106,10 +109,10 @@ class Invoice extends Model {
                         });
                     }
                     if ($request->date_start) {
-                        $query->where('pay_day', '>', $request->date_start);
+                        $query->where('pay_day', '>=', $request->date_start);
                     }
                     if ($request->date_end) {
-                        $query->where('pay_day', '<', $request->date_end);
+                        $query->where('pay_day', '<=', $request->date_end);
                     }
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
@@ -118,9 +121,20 @@ class Invoice extends Model {
                         $query->where('contact_id', $request->contact_id);
                     }
                     if ($request->group) {
-                        $query->whereHas('invoiceLines', function ($query) use ($request) {
-                            $query->whereHas('product', function ($query2) use ($request) {
-                                $query2->where('group', $request->group);
+                        $query->whereHas('proposal', function ($query) use ($request) {
+                            $query->whereHas('productProposals', function ($query2) use ($request) {
+                                $query2->whereHas('product', function ($query3) use ($request) {
+                                    $query3->where('group', $request->group);
+                                });
+                            });
+                        });
+                    }
+                    if ($request->category) {
+                        $query->whereHas('proposal', function ($query) use ($request) {
+                            $query->whereHas('productProposals', function ($query2) use ($request) {
+                                $query2->whereHas('product', function ($query3) use ($request) {
+                                    $query3->where('category', $request->category);
+                                });
                             });
                         });
                     }
@@ -164,86 +178,135 @@ class Invoice extends Model {
         return $invoices;
     }
 
-    public static function monthlyRevenues($revenues) {
-        $months = returnMonths();
-        $year = 2021;
-
-        foreach ($months as $key => $month) {
-            $months[$key] = $revenues
-                    ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
-                    ->sum('installment_value');
-        }
-        return $months;
-    }
-
-    // soma o valor da categoria para cada mês
-    public static function monthlyRevenuesCategories($year, $category) {
+    // soma as faturas do TIPO recebido gerando um array com valor total TOTALPRICE de cada mês
+    public static function monthlyInvoicesTotal($year, $type) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
         $months = returnMonths();
 
         foreach ($months as $key => $month) {
-            $monthlys[$month] = [];
+            $monthlys[$key] = [];
+
             $invoices = Invoice::where('account_id', auth()->user()->account_id)
                     ->where('status', 'aprovada')
-                    ->where('type', 'receita')
+                    ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [date("$year-$key-01"), date("$year-$key-t")])
-                    ->with('invoiceLines.product')
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
                     ->get();
 
-            foreach ($invoices as $invoice) {
-                foreach ($invoice->invoiceLines as $invoiceLine) {
+            $monthlys[$key] = $invoices->sum('totalPrice');
 
-                    if ($invoiceLine->product->category == $category) {
-
-                        $monthlys[$month] = $invoiceLine->subtotalPrice;
-                    }
-                }
-            }
+            $monthStart->add(new DateInterval("P" . $key . "M"));
+            $monthEnd->add(new DateInterval("P" . $key . "M"));
         }
         return $monthlys;
     }
 
-    // soma o valor do grupo  para cada mês
-    public static function monthlyExpensesGroups($year, $group) {
+    // soma as faturas do TIPO recebido somando valor TOTALPRICE do ano todo
+    public static function annualInvoicesTotal($year, $type) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
+//        $months = returnMonths();
+//        foreach ($months as $key => $month) {
+//            $monthlys[$key] = [];
+
+        $annualInvoicesTotal = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('status', 'aprovada')
+                ->where('type', $type)
+                ->where('trash', '!=', 1)
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                ->sum('totalPrice');
+
+        return $annualInvoicesTotal;
+    }
+
+    // soma o valor da categoria para cada mês
+    public static function monthlysCategoriesTotal($year, $category, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
         $months = returnMonths();
+
+//        $dt = new DateTime("2016-01-31");
 
         foreach ($months as $key => $month) {
             $monthlys[$month] = [];
+
             $invoices = Invoice::where('account_id', auth()->user()->account_id)
                     ->where('status', 'aprovada')
-                    ->where('type', 'despesa')
+                    ->where('type', $type)
                     ->where('trash', '!=', 1)
-//                    ->whereHas('invoiceLines', function ($query) use ($group) {
-//                        $query->whereHas('product', function ($query2) use ($group) {
-//                            $query2->where('group', $group);
-//                        });
-//                    })
-                    ->whereBetween('pay_day', [date("$year-$key-01"), date("$year-$key-t")])
-                    ->with('invoiceLines.product')
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
+                    ->with('proposal.productProposals')
+//                    ->limit(10)
                     ->get();
+//            dd($invoices);
+//            echo $monthEnd->format('Y-m-t') . "   " . $category;
+//            echo "<br>";
 
-            $monthTotal = 0;
+            $monthStart->add(new DateInterval("P1M"));
+            $oldDay = $monthEnd->format("d");
+            $monthEnd->add(new DateInterval("P28D"));
+
+//            if ($month == 'Fevereiro') {
+//                $newDay = $monthEnd->format("d");  // 3 // 28
+//                if ($oldDay != $newDay) {
+//                 Check if the day is changed, if so we skipped to the next month.
+//                 Substract days to go back to the last day of previous month.
+//                    $monthEnd->sub(new DateInterval("P" . $newDay . "D")); // 2021-02-28  // 2021-03-28
+//                }
+//                }
+//            $monthEnd = date("Y-m-t", $monthEnd);
+//            
+//            function returnDates($parcelas, $ultima_data){
+//    for ($i = 1; $i <= $parcelas; $i++){   
+//       $date = strtotime("+$i month", strtotime($ultima_data));
+//       echo date("Y-m-t", $date)."\n";
+//    } 
+//}
+//            $oldDay = $monthEnd->format("d"); // 31 // 28
+//            $newDay = $monthEnd->format("d");  // 3 // 28
+//            if ($oldDay != $newDay) {
+            // Check if the day is changed, if so we skipped to the next month.
+            // Substract days to go back to the last day of previous month.
+//                $monthEnd->sub(new DateInterval("P" . $newDay . "D")); // 2021-02-28  // 2021-03-28
+//            }else{
+//                $monthEnd->add(new DateInterval("P3D"));  // x // 2021-03-31
+//            }
+
+$value = 0;
             foreach ($invoices as $invoice) {
-                foreach ($invoice->invoiceLines as $invoiceLine) {
-
-                    if ($invoiceLine->product->group == $group) {
-                        $monthTotal += $invoiceLine->subtotalPrice;
+                if ($invoice->proposal) {
+                    $installment = $invoice->proposal->installment;
+//                    $payday = $invoice->pay_day;
+//                    echo "proposta " . $invoice->proposal->id;
+//                    echo "parcelas" . $installment;
+//                            echo "<br>";
+                    foreach ($invoice->proposal->productProposals as $productProposal) {
+//                    foreach ($productProposals as $productProposal) {
+                        if ($productProposal->product->category == $category) {
+                            $value += $productProposal->subtotalPrice / $installment;
+//                echo "ID DA LINHA" . $productProposal->id;
+//                            echo $productProposal->product->category . "---- DATA----" . $payday . "  -- preço total--  " . $productProposal->subtotalPrice . "    -- preço parcelado--  " . $productProposal->subtotalPrice / $installment  . "    ---- proposta::::  " . $productProposal->proposal_id . "<br>";
+                            $monthlys[$month] = $value;
+//                            echo $monthlys[$month] . ' --- MES ---- ' . $month . ' --- produto ---- ' . $productProposal->product->name . ' --- CATEGORY ---- ' . $productProposal->product->category . '<br>';
+                        }
                     }
                 }
             }
-            $monthlys[$month] = $monthTotal;
         }
         return $monthlys;
     }
 
     // retorna todas as horas registradas do usuário no ano
-    public static function annualRevenuesCategories($year, $category) {
+    public static function annualCategoriesTotal($year, $category, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
 
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
-                ->where('type', 'receita')
+                ->where('type', $type)
                 ->where('trash', '!=', 1)
-                ->whereBetween('pay_day', [$year . '-01-01', $year . '-12-31'])
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
                 ->with('invoiceLines.product')
                 ->get();
 
@@ -260,14 +323,47 @@ class Invoice extends Model {
         return $annual;
     }
 
+    // soma o valor do grupo  para cada mês
+    public static function monthlysGroupsTotal($year, $group, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = [];
+
+            $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                    ->where('status', 'aprovada')
+                    ->where('type', $type)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                    ->with('invoiceLines.product')
+                    ->get();
+            $monthStart->add(new DateInterval("P" . $key . "M"));
+            $monthEnd->add(new DateInterval("P" . $key . "M"));
+//dd($invoices);
+
+            foreach ($invoices as $invoice) {
+                foreach ($invoice->invoiceLines as $invoiceLine) {
+                    if ($invoiceLine->product->category == $group) {
+                        $monthlys[$month] = $invoiceLine->subtotalPrice;
+                    }
+                }
+            }
+        }
+        return $monthlys;
+    }
+
     // retorna todas as horas registradas do usuário no ano
-    public static function annualExpensesGroups($year, $group) {
+    public static function annualGroupsTotal($year, $group, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
 
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
-                ->where('type', 'despesa')
+                ->where('type', $type)
                 ->where('trash', '!=', 1)
-                ->whereBetween('pay_day', [$year . '-01-01', $year . '-12-31'])
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
                 ->with('invoiceLines.product')
                 ->get();
 
@@ -282,18 +378,6 @@ class Invoice extends Model {
             }
         }
         return $annual;
-    }
-
-    public static function monthlyExpenses($expenses) {
-        $months = returnMonths();
-        $year = 2021;
-
-        foreach ($months as $key => $month) {
-            $months[$key] = $expenses
-                    ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
-                    ->sum('totalPrice');
-        }
-        return $months;
     }
 
 }

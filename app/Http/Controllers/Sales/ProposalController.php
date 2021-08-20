@@ -174,8 +174,11 @@ class ProposalController extends Controller {
                         'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
                         'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
                         'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
-                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]) * -1,
+                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
                     );
+                    if($request->type == 'despesa') {
+                        $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
+                    }
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
                     ProductProposal::insert($data);
@@ -392,9 +395,6 @@ class ProposalController extends Controller {
 
         $lastInvoice = max($invoicesIdentifiers);
 
-//        $invoice->save();
-//        $invoice->number_installment = 1;
-
         $counter = 1;
         while ($counter <= $proposal->installment) {
             $invoice = new Invoice();
@@ -423,11 +423,11 @@ class ProposalController extends Controller {
             $invoice->status = 'aprovada';
 
             $DateTime = new DateTime($proposal->pay_day);
-            $DateTime->add(new \DateInterval("P" . $counter . "M"));
+            $DateTime->add(new \DateInterval("P" . $counter -1 . "M"));
             $invoice->pay_day = $DateTime->format('Y-m-d');
 
             $DateTime2 = new DateTime($proposal->date_creation);
-            $DateTime2->add(new \DateInterval("P" . $counter . "M"));
+            $DateTime2->add(new \DateInterval("P" . $counter -1 . "M"));
             $invoice->date_creation = $DateTime2->format('Y-m-d');
 
             $invoice->save();

@@ -261,15 +261,8 @@
         </div>
     </div>
     <br>
-    @if($totalInvoices <= 1 AND $invoice->number_installment_total > 1)
-    <p  style='text-align: right'>
-        <a class='text-button secondary' href='{{route('invoice.installment', ['invoice' => $invoice])}}'>
-            GERAR FATURAS DO PARCELAMENTO
-        </a>
-    </p>
-    @endif
     <br>
-    @if($invoice->status == 'rascunho' OR $invoice->status == 'rascunho')
+    @if($invoice->status == 'rascunho' OR $invoice->status == 'orçamento')
     <br>
     <label class='labels' for='' >OPÇÕES DE PARCELAMENTO: </label>
     <br>

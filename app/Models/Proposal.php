@@ -79,6 +79,10 @@ class Proposal extends Model {
 //    public function transactions() {
 //        return $this->hasMany(Transaction::class);
 //    }
+    
+        public function productProposals() {
+        return $this->hasMany(ProductProposal::class, 'proposal_id', 'id');
+    }
 
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');

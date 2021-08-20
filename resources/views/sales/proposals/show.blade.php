@@ -215,7 +215,7 @@
         <div class='tb col-2'>
             {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
         </div>
-        <div class='tb col-2'>
+        <div class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($productProposal->subtotalPrice)}}
         </div>
     </div>
@@ -332,10 +332,10 @@
     @endforeach
 
     <div class='row'>
-        <div   class='tb tb-header col-2 justify-content-end'>
+        <div   class='tb tb-header col-10 justify-content-end'>
             {{formatCurrencyReal($invoicesTotal)}}
         </div>
-        <div   class='tb tb-header col-10 justify-content-end'>
+        <div   class='tb tb-header col-2 justify-content-end'>
             {{formatCurrencyReal($balanceTotal)}}
         </div>
     </div>

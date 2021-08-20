@@ -13,6 +13,7 @@ use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\ProductProposal;
+use App\Models\Proposal;
 use App\Models\Transaction;
 use App\Models\Task;
 use App\Models\User;
@@ -98,6 +99,11 @@ class InvoiceController extends Controller {
             $typeCompanies = 'fornecedor';
         }
 
+        $proposals = Proposal::where('account_id', auth()->user()->account_id)
+                ->where('type', $typeInvoices)
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->where('type', $typeCompanies)
                 ->orderBy('NAME', 'ASC')
@@ -124,6 +130,7 @@ class InvoiceController extends Controller {
 
         return view('financial.invoices.createInvoice', compact(
                         'request',
+                        'proposals',
                         'opportunities',
                         'contacts',
                         'companies',
@@ -257,7 +264,7 @@ class InvoiceController extends Controller {
         $invoicePaymentsTotal = $transactions->sum('value');
         $balance = $invoice->totalPrice - $invoicePaymentsTotal;
 
-                $variation = $invoice->type;
+        $variation = $invoice->type;
 
         return view('financial.invoices.showInvoice', compact(
                         'typeInvoices',
@@ -349,71 +356,7 @@ class InvoiceController extends Controller {
                             ->withInput();
         } else {
             $invoice->fill($request->all());
-//            $invoice->save();
-//            // atualiza produtos que JÁ EXISTEM na fatura se o status for RASCUNHO ou ESBOÇO
-//            $totalPoints = 0;
-//            $totalPrice = 0;
-//            $totalTaxrate = 0;
-//            $products = $request['product_id'];
-////            if ($invoiceStatus == "rascunho" OR $invoice->status == "orçamento") {
-//            if (isset($products)) {
-//                foreach ($products as $key => $id) {
-//                    $data = array(
-//                        'id' => $request->invoiceLine_id[$key],
-//                        'invoice_id' => $invoice->id,
-//                        'product_id' => $request->product_id[$key],
-//                        'amount' => $request->product_amount[$key],
-//                        'subtotalHours' => $request->product_amount[$key] * $request->product_work_hours[$key],
-//                        'subtotalDeadline' => $request->product_amount[$key] * $request->product_due_date[$key],
-//                        'subtotalCost' => $request->product_amount[$key] * $request->product_cost[$key],
-//                        'subtotalTax_rate' => $request->product_amount[$key] * $request->product_tax_rate[$key],
-//                        'subtotalMargin' => $request->product_amount[$key] * $request->product_margin[$key],
-//                        'subtotalPoints' => $request->product_amount[$key] * $request->product_points[$key],
-//                        'subtotalPrice' => $request->product_amount[$key] * removeCurrency($request->product_price [$key]),
-//                    );
-//                    $totalPoints = $totalPoints + $data['subtotalPoints'];
-//                    $totalPrice = $totalPrice + $data['subtotalPrice'];
-//                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-//                    if ($request->product_amount[$key] <= 0) {
-//                        invoiceLine::where('id', $request->invoiceLine_id)->delete();
-//                    } else {
-//                        invoiceLine::where('id', $request->invoiceLine_id[$key])->update($data);
-//                    }
-//                }
-//            }
-//            // adiciona NOVOS produtos na fatura  se o status for RASCUNHO ou ESBOÇO
-//            $newTotalPoints = 0;
-//            $newTotalPrice = 0;
-//            $newProducts = $request['new_product_id'];
-//
-//            foreach ($newProducts as $key => $newProductId) {
-//                if ($request->new_product_amount[$key] > 0) {
-//                    $data = array(
-//                        'invoice_id' => $invoice->id,
-//                        'product_id' => $request->new_product_id [$key],
-//                        'amount' => $request->new_product_amount [$key],
-//                        'subtotalHours' => $request->new_product_amount [$key] * $request->new_product_work_hours [$key],
-//                        'subtotalDeadline' => $request->new_product_amount [$key] * $request->new_product_due_date [$key],
-//                        'subtotalCost' => $request->new_product_amount [$key] * $request->new_product_cost [$key],
-//                        'subtotalTax_rate' => $request->new_product_amount [$key] * $request->new_product_tax_rate [$key],
-//                        'subtotalMargin' => $request->new_product_amount [$key] * $request->new_product_margin [$key],
-//                        'subtotalPoints' => $request->new_product_amount [$key] * $request->new_product_points[$key],
-//                        'subtotalPrice' => $request->new_product_amount [$key] * removeCurrency($request->new_product_price [$key]),
-//                    );
-//                    $newTotalPoints = $newTotalPoints + $data['subtotalPoints'];
-//                    $newTotalPrice = $newTotalPrice + $data['subtotalPrice'];
-//                    $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-//                    invoiceLine::insert($data);
-//                }
-//            }
-//            $invoice->totalPoints = $totalPoints + $newTotalPoints;
             $invoice->totalPrice = str_replace(",", ".", $request->totalPrice);
-//            if($request->installment_value) {
-//             $invoice->installment_value = $request->installment_value;   
-//            } else {
-//            $invoice->installment_value = $invoice->totalPrice / $request->number_installment_total;
-//            }
-//            $invoice->number_installment_total = $request->number_installment_total;
             $invoice->save();
 
             return redirect()->route('invoice.show', compact('invoice'));
@@ -550,7 +493,6 @@ class InvoiceController extends Controller {
         return $pdf->stream('Fatura.pdf');
     }
 
-
     public function sendToTrash(Invoice $invoice) {
         $invoice->trash = 1;
         $invoice->save();
@@ -575,52 +517,43 @@ class InvoiceController extends Controller {
             $year = date('y');
         }
 
-        $annualTotal = Journey::accountHoursByYear($year);
-        $monthlyAverage = $annualTotal / $pastMonths;
-
-        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
-        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+//        $annualTotal = Journey::accountHoursByYear($year);
+//        $monthlyAverage = $annualTotal / $pastMonths;
+//
+//        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
+//        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+//
+//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('status', 'aprovada')
+//                ->where('trash', '!=', 1)
+//                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
+//                ->with('invoiceLines.product')
+//                ->get();
 
 //   RECEITAS
-
-        $revenues = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'receita')
-                ->where('status', 'aprovada')
-                ->where('trash', '!=', 1)
-                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
-                ->get();
+        $monthlyRevenues = Invoice::monthlyInvoicesTotal($year, 'receita');
+        $annualRevenues = Invoice::annualInvoicesTotal($year, 'receita');
 
         $categoriesNames = Product::returnCategories();
         $categories = [];
         foreach ($categoriesNames as $category) {
             $categories[$category]['name'] = $category;
-            $categories[$category]['monthlys'] = Invoice::monthlyRevenuesCategories($year, $category);
-            $categories[$category]['year'] = Invoice::annualRevenuesCategories($year, $category);
+            $categories[$category]['monthlys'] = Invoice::monthlysCategoriesTotal($year, $category, 'receita');
+            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'receita');
         }
 
-        $monthlyRevenues = Invoice::monthlyRevenues($revenues);
-        $annualRevenues = $revenues->sum('installment_value');
-
         // DESPESAS
-
-        $expenses = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('type', 'despesa')
-                ->where('status', 'aprovada')
-                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
-                ->get();
+        $monthlyExpenses = Invoice::monthlyInvoicesTotal($year, 'despesa');
+        $annualExpenses = Invoice::annualInvoicesTotal($year, 'despesa');
 
         $groupsName = Product::returnGroups();
         $groups = [];
         foreach ($groupsName as $group) {
             $groups[$group]['name'] = $group;
-            $groups[$group]['monthlys'] = Invoice::monthlyExpensesGroups($year, $group);
-            $groups[$group]['year'] = Invoice::annualExpensesGroups($year, $group);
+            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'receita');
+            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'receita');
         }
 
-        $monthlyExpenses = Invoice::monthlyExpenses($expenses);
-        $annualExpenses = $expenses->sum('totalPrice');
-
-        
         // Gráfico
         $chartBackgroundColors = [
             'rgba(255, 206, 86, 0.2)',
@@ -641,7 +574,6 @@ class InvoiceController extends Controller {
         return view('financial.invoices.report', compact(
                         'year',
                         'months',
-                        'annualTotal',
                         'monthlyRevenues',
                         'categories',
                         'categoriesNames',
@@ -649,8 +581,6 @@ class InvoiceController extends Controller {
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',
-                        'monthlyAverage',
-                        'annualTotal',
                         'chartBackgroundColors',
                         'chartBorderColors',
         ));
