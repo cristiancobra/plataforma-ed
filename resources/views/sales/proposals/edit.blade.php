@@ -50,12 +50,11 @@
         <br>
         @endif
 
-        @if(isset($proposal->company))
+
         <label class='labels' for=''>EMPRESA:</label>
-        {{createDoubleSelectIdName('company_id', 'fields', $ompanies,'Não possui', $proposal->company)}}
+        {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $proposal->company)}}
         <span class='fields'>{{$proposal->company->name}}</span>
         <br>
-        @endif
 
         <label class='labels' for='' >CONTATO: </label>
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $proposal->contact)}}
