@@ -246,7 +246,7 @@ class ProposalController extends Controller {
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
 
-        $invoicesCount = $proposal->invoices->count();
+        $invoicesCount = $invoices->count();
 
 //        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
 //        $balanceTotal = $invoicesTotal - $proposalPaymentsTotal;
