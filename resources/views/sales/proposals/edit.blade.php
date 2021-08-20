@@ -53,7 +53,7 @@
 
         <label class='labels' for=''>EMPRESA:</label>
         {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $proposal->company)}}
-        <span class='fields'>{{$proposal->company->name}}</span>
+        
         <br>
 
         <label class='labels' for='' >CONTATO: </label>
