@@ -347,7 +347,7 @@
             PAGO: 
         </div>
         <div   class='tb tb-header col-2 justify-content-end'>
-            - {{formatCurrencyReal($invoicePaymentsTotal)}}
+           {{formatCurrencyReal($invoicePaymentsTotal)}}
         </div>
     </div>
     <div class='row'>
