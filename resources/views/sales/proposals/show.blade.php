@@ -280,7 +280,7 @@
             </form>
             @endif
             <form  style='display: inline-block;float: right' action='{{route('proposal.editInstallment', ['proposal' => $proposal])}}'' method='get'>
-                <input class='text-button secondary' type='submit' value=' EDITAR TODAS AS PARCELAS'>
+                <input class='text-button secondary' type='submit' value=' EDITAR TODAS'>
             </form>
         </div>
     </div>
