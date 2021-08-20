@@ -176,7 +176,7 @@ class ProposalController extends Controller {
                         'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
                         'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
                     );
-                    if($request->type == 'despesa') {
+                    if ($request->type == 'despesa') {
                         $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
                     }
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
@@ -203,10 +203,10 @@ class ProposalController extends Controller {
         $DateTime->add(new \DateInterval("P" . $proposal->expiration_date . "D"));
         $proposal->expiration_date = $DateTime->format('d/m/Y');
 
-        if($request->type) {
-        $type = $request->type;
-        }else{
-        $type = $proposal->type;
+        if ($request->type) {
+            $type = $request->type;
+        } else {
+            $type = $proposal->type;
         }
 
         if ($type == 'receita') {
@@ -219,9 +219,9 @@ class ProposalController extends Controller {
 
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('proposal_id', $proposal->id)
-                    ->where('trash', '!=', 1)
+                ->where('trash', '!=', 1)
                 ->get();
-        
+
         $invoicesTotal = 0;
         $balanceTotal = 0;
         foreach ($invoices as $invoice) {
@@ -236,7 +236,7 @@ class ProposalController extends Controller {
                 $invoice->status = 'atrasada';
             }
 
-                $invoice->balance = $invoice->totalPrice - $invoice->paid;
+            $invoice->balance = $invoice->totalPrice - $invoice->paid;
 
             $invoicesTotal += $invoice->totalPrice;
             $balanceTotal += $invoice->balance;
@@ -441,9 +441,9 @@ class ProposalController extends Controller {
 
     // exibe as faturas correspondentes ao parcelamento da proposta
     public function editInstallment(Proposal $proposal) {
-                $invoices = Invoice::where('proposal_id', $proposal->id)
-                        ->where('trash', '!=', 1)
-                        ->get();
+        $invoices = Invoice::where('proposal_id', $proposal->id)
+                ->where('trash', '!=', 1)
+                ->get();
 
         return view('sales.proposals.editInstallment', compact(
                         'proposal',
@@ -469,6 +469,7 @@ class ProposalController extends Controller {
                             ->withInput();
         } else {
 // soma novo total inserido para faturas
+//            dd($request);
             $sumInvoicesPrice = 0;
             $counter = 0;
             foreach ($request->totalPrice as $totalPrice) {
@@ -486,8 +487,12 @@ class ProposalController extends Controller {
                             ->withInput();
         } else {
 //atualiza valores das faturas
+            $invoices = Invoice::where('proposal_id', $proposal->id)
+                    ->where('trash', '!=', 1)
+                    ->get();
+
             $counter = 0;
-            foreach ($proposal->invoices as $invoice) {
+            foreach ($invoices as $invoice) {
                 $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
                 $invoice->update();
                 $counter++;
