@@ -446,7 +446,8 @@ class ProposalController extends Controller {
                         ->get();
 
         return view('sales.proposals.editInstallment', compact(
-                        'invoices'
+                        'proposal',
+                        'invoices',
         ));
     }
 
