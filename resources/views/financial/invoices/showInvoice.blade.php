@@ -26,6 +26,11 @@
 @endif
 
 @section('priority')
+@if($invoice->proposal->installment == 1)
+À vista
+@else
+parcelas {{$invoice->proposal->installment}}
+@endif
 @endsection
 
 @section('status')
