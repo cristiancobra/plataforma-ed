@@ -272,8 +272,8 @@ class Invoice extends Model {
 
             $value = 0;
             foreach ($invoices as $invoice) {
-                if ($invoice->proposal) {
-                    $installment = $invoice->proposal->installment
+                if ($invoice->proposal->productProposals) {
+                    $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
                             $value += $productProposal->subtotalPrice / $installment;
@@ -326,7 +326,7 @@ class Invoice extends Model {
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
-                    ->with('invoiceLines.product')
+                    ->with('proposal.productProposals')
                     ->get();
 
             // adiciona 1 mes com prevenção de erro no ultimo dia do mês
@@ -337,7 +337,7 @@ class Invoice extends Model {
             $value = 0;
             foreach ($invoices as $invoice) {
                 if ($invoice->proposal) {
-                    $installment = $invoice->proposal->installment
+                    $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->group == $group) {
                             $value += $productProposal->subtotalPrice / $installment;
