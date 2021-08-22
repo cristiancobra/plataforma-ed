@@ -182,7 +182,7 @@
             </tr>
             <tr>
                 <td   class='table-list-header-right' colspan='8'>
-                    VALOR DA PROPOSA: 
+                    VALOR DA PROPOSTA: 
                 </td>
                 <td   class='table-list-header-right' colspan='3'>
                     {{formatCurrencyReal($invoice->proposal->totalPrice)}}
