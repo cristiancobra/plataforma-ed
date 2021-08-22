@@ -21,8 +21,7 @@
 
 @section('table')
 <div class="row mb-5">
-    <form id="filter" action="{{route('proposal.index')}}" method="post" style="text-align: right;display:none">
-        @csrf
+    <form id="filter" action="{{route('proposal.index')}}" method="get" style="text-align: right;display:none">
         <input type="text" name="name" placeholder="nome da oportunidade" value="">
         <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
         <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
