@@ -213,69 +213,6 @@ $counterMonth = 1;
 
     });
     
-      //gráfico de linhas
 
-    var ctx = document.getElementById('chart');
-    var chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: [
-<?php
-foreach ($months as $key => $value) {
-    echo json_encode($value);
-    echo ",";
-}
-?>
-            ],
-            datasets: [
-<?php
-foreach ($users as $key => $user) {
-    echo "{
-                    label: '$user->name',
-                    data: [";
-
-    foreach ($months as $month) {
-        $result = number_format($user[$month] / 3600, 0, ',', '');
-//        dd($result);
-        echo json_encode($result);
-        echo ",";
-    }
-    echo "
-                    ],
-                    backgroundColor: [
-                        '$chartBackgroundColors[$key]',
-                    ],
-                    borderColor: [
-                        '$chartBorderColors[$key]',
-                    ],
-                    borderWidth: 2,
-                },
-        ";
-}
-?>
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'left',
-                },
-                title: {
-                    display: true,
-                    text: 'TOTAL DE HORAS POR MÊS'
-                }
-            },
-            responsive: true,
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true
-                }
-            }
-        },
-    });
 </script>
 @endsection
