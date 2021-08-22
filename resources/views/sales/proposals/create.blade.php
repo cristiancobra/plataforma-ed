@@ -101,10 +101,10 @@
         {{createButtonAdd('company.create', 'typeCompanies','cliente')}}
         @endif
         <br>
-         <label class='labels' for='' >CONTATO: </label>
+        <label class='labels' for='' >CONTATO: </label>
         @if(!empty(app('request')->input('contact_id')))
         <input type='hidden' name='contact_id' value='{{app('request')->input('contact_id')}}'>
-                {{app('request')->input('contact_name')}}
+        {{app('request')->input('contact_name')}}
         @else
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
@@ -118,13 +118,17 @@
         @endif
         <br>
         <label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
-             <input type='number' name='expiration_date' size='3' min='1' max='365' value='30'> dias
+        <input type='number' name='expiration_date' size='3' min='1' max='365' value='30'> dias
         <br>
         <label class='labels' for='' >DATA DO PAGAMENTO:</label>
         <input type='date' name='pay_day' size='20' value='{{old('pay_day')}}'><span class='fields'></span>
         @if ($errors->has('pay_day'))
         <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
+        <br>
+        <br>
+        <label class='labels' for='' >NÚMERO DE PARCELAS: </label>
+        <input type='number'  class='fields' style='text-align: right' name='installment' value='1' max='12'>
         <br>
         <br>
         @if(isset($proposal->opportunity_id))
@@ -162,35 +166,35 @@ CKEDITOR.replace('description');
         @else
         {{createButtonAdd('product.create', 'variation', 'despesa')}}
         @endif
-            <div class='row mt-3'>
-                <div   class='tb-header-start col-1'>
-                    QTDE 
-                </div>
-               <div   class='tb-header col-1'>
-                    FOTO 
-                </div>
-                <div   class='tb-header col-4'>
-                    NOME 
-                </div>
-                <div   class='tb-header col-1'>
-                    HORAS
-                </div>
-                <div   class='tb-header col-1'>
-                    ENTREGA
-                </div>
-                <div   class='tb-header col-2'>
-                    IMPOSTO
-                </div>
-                <div   class='tb-header-end col-2'>
-                    PREÇO
-                </div>
+        <div class='row mt-3'>
+            <div   class='tb-header-start col-1'>
+                QTDE 
             </div>
+            <div   class='tb-header col-1'>
+                FOTO 
+            </div>
+            <div   class='tb-header col-4'>
+                NOME 
+            </div>
+            <div   class='tb-header col-1'>
+                HORAS
+            </div>
+            <div   class='tb-header col-1'>
+                ENTREGA
+            </div>
+            <div   class='tb-header col-2'>
+                IMPOSTO
+            </div>
+            <div   class='tb-header-end col-2'>
+                PREÇO
+            </div>
+        </div>
 
-            @php
-            $counter = 0;
-            @endphp
-            @foreach ($products as $product)
-            <div class='row'>
+        @php
+        $counter = 0;
+        @endphp
+        @foreach ($products as $product)
+        <div class='row'>
             <input type='hidden' name='product_id[]' value='{{$product->id}}'>
             <div class='tb col-1'>
                 <input type='number' name='product_amount[]' size='4' value='{{old('product_amount.'.$counter)}}'>
@@ -236,21 +240,17 @@ CKEDITOR.replace('description');
             <div class='tb col-1 justify-content-end' style='color:white;background-color: #c28dbf;text-align: right'>
                 <input type='decimal' name='product_price[]' size='7' value='{{formatCurrency($product->price)}}' style='text-align: right'>
             </div>
-            </div>
-            @php
-            $counter++;
-            @endphp
-            @endforeach
+        </div>
+        @php
+        $counter++;
+        @endphp
+        @endforeach
 
-            
+
         <br>
         <br>
         <label class='labels' for='' >DESCONTO:</label><span style='margin-left:20px'>R$</span>
         <input type='number' name='discount'  step='any' style='text-align: right' size='6' value='{{formatCurrency(0)}}'><span class='fields'></span>
-        <br>
-        <br>
-        <label class='labels' for='' >NÚMERO DE PARCELAS: </label>
-        <input type='number'  class='fields' style='text-align: right' name='installment' value='1' max='12'>
         <br>
         <br>
         <label class='labels' for=''>SITUAÇÃO:</label>

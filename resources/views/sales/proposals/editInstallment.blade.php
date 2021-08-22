@@ -24,7 +24,10 @@
     @endphp
 </div>
 @endif
-<form action=' {{route('proposal.updateInstallment', ['proposal' => $proposal])}} ' method='post'>
+<form action=' {{route('proposal.updateInstallment', [
+                                                                                        'proposal' => $proposal,
+                                                                                        'invoice' => $invoices,
+                                                                                     ])}} ' method='post'>
     @csrf
     @method('put')
     @foreach($invoices as $invoice)

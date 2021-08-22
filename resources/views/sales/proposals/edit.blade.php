@@ -53,7 +53,7 @@
 
         <label class='labels' for=''>EMPRESA:</label>
         {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $proposal->company)}}
-        
+
         <br>
 
         <label class='labels' for='' >CONTATO: </label>
@@ -89,6 +89,10 @@
         @if ($errors->has('pay_day'))
         <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
+        <br>
+        <br>
+        <label class='labels' for='' >NÚMERO DE PARCELAS: </label>
+        <input type='number'  class='fields' style='text-align: right' name='installment' value='{{$proposal->installment}}' max='12'>
         <br>
         <br>
         <label class='labels' for='' >PRODUTOS ATUAIS:</label>
