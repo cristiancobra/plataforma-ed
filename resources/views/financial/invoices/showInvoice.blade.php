@@ -187,10 +187,10 @@
              border-color: #c28dbf;
              border-radius: 0 10px 0 0;
              '>
-                        <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
-                                                                                                                                                                                'proposal' => $proposal,
-                                                                                                                                                                                'type' => $type,
-                                                                                                                                                                                ])}}'>
+             <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
+                                                                                                                                                                                'proposal' => $invoice->proposal,
+                                                                                                                                                                                'type' => $invoice->type,
+                                                                                                                                                                                 ])}}'>
                 EDITAR
             </a>
         </div>
