@@ -212,7 +212,6 @@ $counterMonth = 1;
         });
 
     });
-    
 
 </script>
 @endsection
