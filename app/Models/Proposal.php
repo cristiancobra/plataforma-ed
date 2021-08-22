@@ -79,8 +79,8 @@ class Proposal extends Model {
 //    public function transactions() {
 //        return $this->hasMany(Transaction::class);
 //    }
-    
-        public function productProposals() {
+
+    public function productProposals() {
         return $this->hasMany(ProductProposal::class, 'proposal_id', 'id');
     }
 
@@ -98,37 +98,33 @@ class Proposal extends Model {
 
     // MÉTODOS PÚBLICOS
     public static function filterProposals($request) {
+//        dd($request);
         $proposals = Proposal::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->user_id) {
                         $query->where('user_id', $request->user_id);
                     }
-//                    if ($request->name) {
-//                        $query->where('name', 'like', "%$request->name%");
-//                    }
-//                    if ($request->department) {
-//                        $query->where('department', $request->department);
-//                    }
+                    if ($request->date_start) {
+                        $query->where('pay_day', '>=', $request->date_start);
+                    }
+                    if ($request->date_end) {
+                        $query->where('pay_day', '<=', $request->date_end);
+                    }
+                    if ($request->name) {
+                        $query->where('name', 'like', "%$request->name%");
+                    }
                     if ($request->contact_id) {
                         $query->where('contact_id', $request->contact_id);
                     }
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
                     }
-//                    if ($request->priority) {
-//                        $query->where('priority', $request->priority);
-//                    }
                     if ($request->type) {
                         $query->where('type', $request->type);
                     }
-//                    if ($request->status == '') {
-//                        // busca todos
-//                    } elseif ($request->status == 'fazendo') {
-//                        $query->where('status', 'fazer');
-//                        $query->whereHas('journeys');
-//                    } elseif ($request->status) {
-//                        $query->where('status', $request->status);
-//                    }
+                    if ($request->status) {
+                        $query->where('status', $request->status);
+                    }
 //                    if ($request->trash == 1) {
 //                        $query->where('trash', 1);
 //                    } else {
