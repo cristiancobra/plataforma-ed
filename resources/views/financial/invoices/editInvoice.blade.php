@@ -182,7 +182,7 @@
             </tr>
             <tr>
                 <td   class='table-list-header-right' colspan='8'>
-                    TOTAL DA COMPRA: 
+                    VALOR DA PROPOSA: 
                 </td>
                 <td   class='table-list-header-right' colspan='3'>
                     {{formatCurrencyReal($invoice->proposal->totalPrice)}}
@@ -194,11 +194,7 @@
                 </td>
 
                 <td   class='table-list-header-right' colspan='3'>
-                    @if($invoice->proposal->installment == 1)
-                    À vista
-                    @else
                     <input type='decimal' name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style="text-align:right">
-                    @endif
                 </td>
             </tr>
         </table>
