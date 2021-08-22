@@ -43,17 +43,6 @@
         <br>
         @endif
 
-        @if(isset($invoice->company))
-        <label class='labels' for=''>EMPRESA:</label>
-        {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $invoice->company)}}
-        <button class='button-round'>
-            <a href='{{route('company.show', ['company' => $invoice->company_id])}}'>
-                <i class='fa fa-eye' style='color:white'></i>
-            </a>
-        </button>
-        <br>
-        @endif
-
         <label class='labels' for='' >CONTATO: </label>
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $invoice->contact, )}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
