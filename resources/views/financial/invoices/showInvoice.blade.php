@@ -187,9 +187,12 @@
              border-color: #c28dbf;
              border-radius: 0 10px 0 0;
              '>
-            <form  style='display: inline-block;float: right' action='{{route('proposal.edit', ['proposal' => $invoice->proposal_id])}}' method='get'>
-                <input class='text-button secondary' type='submit' value='EDITAR'>
-            </form>
+                        <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
+                                                                                                                                                                                'proposal' => $proposal,
+                                                                                                                                                                                'type' => $type,
+                                                                                                                                                                                ])}}'>
+                EDITAR
+            </a>
         </div>
     </div>
     <div class='row'>
@@ -270,6 +273,8 @@
     <br>
     <br>
     @if($invoice->status == 'rascunho' OR $invoice->status == 'orçamento')
+    <br>
+    <br>
     <br>
     <label class='labels' for='' >OPÇÕES DE PARCELAMENTO: </label>
     <br>
