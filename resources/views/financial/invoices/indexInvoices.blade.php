@@ -120,21 +120,25 @@
             {{$invoice->identifier}}
         </div>
         <div class="tb col-3">
+            @if(isset($invoice->proposal->name))
             {{$invoice->proposal->name}}
+            @else
+            não possui
+            @endif
         </div>
         <div class="tb col-2">
-        @if($invoice->contact)
+            @if($invoice->contact)
             {{$invoice->contact->name}}
             @else
             não possui
             @endif
         </div>
         <div class="tb col-2">
-        @if(isset($invoice->proposal->company))
+            @if(isset($invoice->proposal->company))
             {{$invoice->proposal->company->name}}
-        @else
+            @else
             não possui
-        @endif
+            @endif
         </div>
         @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
         <div class="tb col-1" style="color: red">
@@ -154,7 +158,7 @@
             {{formatCurrencyReal($invoice->totalPrice)}}
         </div>
         @endif
-        
+
         {{formatInvoiceStatus($invoice)}}
     </div>
     @endforeach
