@@ -50,7 +50,7 @@
             {{$invoice->id}}
         </div>
         <div class="col-6 tb">
-            {{$invoice->pay_day}}
+            <input type='date' name='pay_day[]' value='{{$invoice->pay_day}}'>
         </div>
         <div class="col-2 tb justify-content-end">
             {{formatCurrency($invoice->totalPrice)}}

@@ -112,7 +112,7 @@
         <br>
         <br>
         <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
-        <input type='date' name='date_creation' size='20' value='{{old('date_creation')}}'><span class='fields'></span>
+        <input type='date' name='date_creation' size='20' value='{{old('date_creation')}}'>
         @if ($errors->has('date_creation'))
         <span class='text-danger'>{{$errors->first('date_creation')}}</span>
         @endif
@@ -121,7 +121,7 @@
         <input type='number' name='expiration_date' size='3' min='1' max='365' value='30'> dias
         <br>
         <label class='labels' for='' >DATA DO PAGAMENTO:</label>
-        <input type='date' name='pay_day' size='20' value='{{old('pay_day')}}'><span class='fields'></span>
+        <input type='date' name='pay_day' size='20' value='{{old('pay_day')}}'>
         @if ($errors->has('pay_day'))
         <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
@@ -250,7 +250,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class='labels' for='' >DESCONTO:</label><span style='margin-left:20px'>R$</span>
-        <input type='number' name='discount'  step='any' style='text-align: right' size='6' value='{{formatCurrency(0)}}'><span class='fields'></span>
+        <input type='number' name='discount'  step='any' style='text-align: right' size='6' value='{{formatCurrency(0)}}'>
         <br>
         <br>
         <label class='labels' for=''>SITUAÇÃO:</label>

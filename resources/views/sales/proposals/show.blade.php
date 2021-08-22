@@ -162,7 +162,7 @@
              border-radius: 10px 0 0 0;
              '>
             <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ITENS FATURADOS</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ITENS DA PROPOSTA</label>
         </div>
         <div class='col-6 pt-4 pb-3' style='
              border-right-style: solid;
@@ -172,9 +172,12 @@
              border-color: #c28dbf;
              border-radius: 0 10px 0 0;
              '>
-            <form  style='display: inline-block;float: right' action='{{route('proposal.edit', ['proposal' => $proposal])}}' method='get'>
-                <input class='text-button secondary' type='submit' value='EDITAR'>
-            </form>
+            <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
+                                                                                                                                       'proposal' => $proposal,
+                                                                                                                                       'type' => $type,
+                                                                                                                                       ])}}'>
+                EDITAR
+            </a>
         </div>
     </div>
     <div class='row'>

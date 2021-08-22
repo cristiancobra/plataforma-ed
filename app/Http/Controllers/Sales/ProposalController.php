@@ -442,6 +442,7 @@ class ProposalController extends Controller {
     // exibe as faturas correspondentes ao parcelamento da proposta
     public function editInstallment(Proposal $proposal) {
         $invoices = Invoice::where('proposal_id', $proposal->id)
+                ->where('status', 'aprovada')
                 ->where('trash', '!=', 1)
                 ->get();
 
@@ -469,7 +470,6 @@ class ProposalController extends Controller {
                             ->withInput();
         } else {
 // soma novo total inserido para faturas
-//            dd($request);
             $sumInvoicesPrice = 0;
             $counter = 0;
             foreach ($request->totalPrice as $totalPrice) {
@@ -488,12 +488,14 @@ class ProposalController extends Controller {
         } else {
 //atualiza valores das faturas
             $invoices = Invoice::where('proposal_id', $proposal->id)
+                    ->where('status', 'aprovada')
                     ->where('trash', '!=', 1)
                     ->get();
 
             $counter = 0;
             foreach ($invoices as $invoice) {
                 $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
+                $invoice->pay_day = $request->pay_day[$counter];
                 $invoice->update();
                 $counter++;
             }
