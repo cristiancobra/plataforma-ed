@@ -130,8 +130,8 @@
             @endif
         </div>
         <div class="tb col-2">
-        @if(isset($invoice->company))
-            {{$invoice->company->name}}
+        @if(isset($invoice->proposal->company))
+            {{$invoice->proposal->company->name}}
         @else
             não possui
         @endif
