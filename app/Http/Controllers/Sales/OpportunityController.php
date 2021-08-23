@@ -166,12 +166,20 @@ class OpportunityController extends Controller {
                 ->get();
 
         $proposalWon = $proposals->where('status', 'aprovada')->count();
+        
+        $proposalApproved = Proposal::where('opportunity_id', $opportunity->id)
+                ->where('status', 'aprovada')
+                ->where('trash', '!=', 1)
+                ->first();
 
-        $invoices = Invoice::where('opportunity_id', $opportunity->id)
+        if($proposalApproved != null) {
+
+        $invoices = Invoice::where('proposal_id', $proposalApproved->id)
                 ->where('trash', '!=', 1)
                 ->with('transactions')
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
+        
 
         foreach ($invoices as $invoice) {
             if ($invoice->status == 'aprovada') {
@@ -191,6 +199,13 @@ class OpportunityController extends Controller {
         $invoicePaymentsTotal = $invoices->sum('balance');
         $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
 
+        }else{
+            $invoices = [];
+            $invoiceInstallmentsTotal = 0;
+            $invoicePaymentsTotal = 0;
+            $balanceTotal = 0;
+        }
+        
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->with('journeys')
                 ->get();
