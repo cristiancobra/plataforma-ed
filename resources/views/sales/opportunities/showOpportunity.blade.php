@@ -573,7 +573,7 @@
         {{$transaction->id}}
     </div>
     <div class='tb col-3' style='background-color: #d8c2db'>
-        {{$transaction->pay_day}}
+                {{date('d/m/Y', strtotime($transaction->pay_day))}}
     </div>
     <div class='tb col-3' style='background-color: #d8c2db'>
         {{$transaction->bankAccount->name}}
