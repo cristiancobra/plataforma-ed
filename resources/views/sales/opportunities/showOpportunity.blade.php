@@ -371,6 +371,7 @@
                                                                                                                                                                                         'contact_name' => $opportunity->contact->name,
                                                                                                                                                                                         'contact_id' => $opportunity->contact->id,
                                                                                                                                                                                         'department' => 'vendas',
+                                                                                                                                                                                        'type' => 'receita',
                                                                                                                                                                                         'invoiceStatus' => 'orçamento',
                                                                                                                                                                                         ]
                     )}}'>
