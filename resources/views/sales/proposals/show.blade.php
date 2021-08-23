@@ -42,9 +42,11 @@
     <div class='show-label'>
         CONTATO
     </div>
+    @if(isset($proposal->opportunity))
     <div class='show-label'>
         OPORTUNIDADE
     </div>
+    @endif
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
@@ -61,15 +63,13 @@
         Não possui
         @endif
     </div>
+    @if(isset($proposal->opportunity))
     <div class='show-field-end'>
-        @if(isset($proposal->opportunity))
         <a href='{{route('opportunity.show', ['opportunity' => $proposal->opportunity_id])}}'>
             {{$proposal->opportunity->name}}
         </a>
-        @else
-        Sem oportunidade
-        @endif
     </div>
+    @endif
 </div>
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
     <div class='show-label'>
