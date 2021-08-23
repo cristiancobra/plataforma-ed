@@ -213,71 +213,58 @@ $counterMonth = 1;
         $("#filter_button").click(function () {
             $("#filter").slideToggle(600);
         });
-
     });
 
     //gráfico de linhas
 
-    var ctx = document.getElementById('chart');
-    var chart = new Chart(ctx, {
+<?php
+$monthsLabel = json_encode(array_values($months));
+$monthlyRevenues = json_encode(array_values($monthlyRevenues));
+
+$monthlyCategory = [];
+$counter = 1;
+foreach ($categories as $category) {
+    $monthlyCategory[] = json_encode(array_values($category['monthlys']));
+//    $monthlyCategory[$counter++] = json_encode(array_values($monthlyCategory));
+}
+//    dd($monthlyCategory[0]);
+?>
+
+    new Chart(document.getElementById("chart"), {
         type: 'line',
         data: {
-            labels: [
-<?php
-        foreach ($months as $month) {
-        echo json_encode($month);
-        echo ",";
-    }
-?>
-            ],
-            datasets: [
-<?php
-//foreach ($categories as $category) {
-//        echo "{
-//                    label: ' " . $category['name'] . " ',
-//                    data: [";
-
-//        foreach ($months as $key => $month) {
-//            $monthValue = formatCurrency(floatval($category['monthlys'][$month]));
-//            echo json_encode($monthValue);
-//            echo ",";
-//        }
-//        echo "
-//                    ],
-//                    backgroundColor: [
-//                        '$chartBackgroundColors[$key]',
-//                    ],
-//                    borderColor: [
-//                        '$chartBorderColors[$key]',
-//                    ],
-//                    borderWidth: 2,
-//                },
-//        ";
-//    }
-?>
+            labels: <?php echo $monthsLabel; ?>,
+            datasets: [{
+                    data: <?php echo $monthlyRevenues; ?>,
+                    label: "Receitas totais",
+                    borderColor: "#3e95cd",
+                    fill: false
+                }, {
+                    data: <?php echo $monthlyCategory[0]; ?>,
+                    label: "Serviços",
+                    borderColor: "#ffff00",
+                    fill: false
+                }, {
+                    data: <?php echo $monthlyCategory[1]; ?>,
+                    label: "Produtos",
+                    borderColor: "#8e5ea2",
+                    fill: false
+                }, {
+                    data: <?php echo $monthlyCategory[2]; ?>,
+                    label: "Produtos digitais",
+                    borderColor: "#3cba9f",
+                    fill: false
+                }
             ]
         },
         options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'left',
-                },
-                title: {
-                    display: true,
-                    text: 'TOTAL DE HORAS POR MÊS'
-                }
-            },
-            responsive: true,
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true
-                }
+            title: {
+                display: true,
+                text: 'World population per region (in millions)'
             }
-        },
+        }
     });
+
+
 </script>
 @endsection
