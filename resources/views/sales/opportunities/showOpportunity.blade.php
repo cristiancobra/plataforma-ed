@@ -402,7 +402,7 @@
         A RECEBER
     </div>
     <div class='col-1 tb tb-header'>
-        VALOR DA FATURA
+        VALOR
     </div>
     <div class='tb tb-header col-1'>
         SITUAÇÃO
