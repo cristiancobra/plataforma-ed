@@ -25,6 +25,9 @@
             <option  class="fields" value="2021">
                 2021
             </option>
+            <option  class="fields" value="2022">
+                2022
+            </option>
             <option  class="fields" value="2020">
                 2020
             </option>
@@ -213,5 +216,68 @@ $counterMonth = 1;
 
     });
 
+    //gráfico de linhas
+
+    var ctx = document.getElementById('chart');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: [
+<?php
+        foreach ($months as $month) {
+        echo json_encode($month);
+        echo ",";
+    }
+?>
+            ],
+            datasets: [
+<?php
+//foreach ($categories as $category) {
+//        echo "{
+//                    label: ' " . $category['name'] . " ',
+//                    data: [";
+
+//        foreach ($months as $key => $month) {
+//            $monthValue = formatCurrency(floatval($category['monthlys'][$month]));
+//            echo json_encode($monthValue);
+//            echo ",";
+//        }
+//        echo "
+//                    ],
+//                    backgroundColor: [
+//                        '$chartBackgroundColors[$key]',
+//                    ],
+//                    borderColor: [
+//                        '$chartBorderColors[$key]',
+//                    ],
+//                    borderWidth: 2,
+//                },
+//        ";
+//    }
+?>
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'left',
+                },
+                title: {
+                    display: true,
+                    text: 'TOTAL DE HORAS POR MÊS'
+                }
+            },
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
+        },
+    });
 </script>
 @endsection
