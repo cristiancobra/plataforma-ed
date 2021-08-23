@@ -371,6 +371,7 @@
 		'invoiceIdentifier' => $invoice->identifier,
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
+		'pay_day' => $invoice->pay_day,
 		'typeTransactions' => 'receita',
 		'invoiceTotalPrice' => $invoice->totalPrice,
 				
@@ -383,6 +384,7 @@
 		'invoiceIdentifier' => $invoice->identifier,
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
+                		'pay_day' => $invoice->pay_day,
 		'typeTransactions' => 'despesa',
 		'invoiceTotalPrice' => $invoice->totalPrice * -1,
 	])}}'>
