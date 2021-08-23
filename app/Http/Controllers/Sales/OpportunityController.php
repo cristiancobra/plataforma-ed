@@ -168,7 +168,7 @@ class OpportunityController extends Controller {
         $proposalWon = $proposals->where('status', 'aprovada')->count();
 
         $invoices = Invoice::where('opportunity_id', $opportunity->id)
-                ->where('trash', '==', 0)
+                ->where('trash', '!=', 1)
                 ->with('transactions')
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
