@@ -183,8 +183,8 @@
             <div class='tb tb-header col-11'>
                 desconto: 
             </div>
-            <div class='tb tb-header col-1'>
-                - {{formatCurrencyReal($proposal->discount)}}
+            <div class='tb tb-header col-1 justify-content-end'>
+                <input type='decimal' name='discount' value='{{formatCurrency($proposal->discount)}}' style="text-align: right;width: 90px">
             </div>
         </div>
         <div class='row'>
