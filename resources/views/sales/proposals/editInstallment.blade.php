@@ -65,7 +65,7 @@
             TOTAL DA PROPOSTA
         </div>
         <div class="col-2 tb-header justify-content-lg-end">
-            {{formatCurrencyReal($proposal->totalPrice)}}
+            {{formatCurrency($proposal->totalPrice)}}
         </div>
         <div class="col-2 tb-header">
             
