@@ -74,8 +74,8 @@
         @endif
     </div>
     <div class='show-field-end'>
-        @if(isset($invoice->opportunity->name))
-        {{$invoice->opportunity->name}}
+        @if(isset($invoice->proposal->opportunity->name))
+        {{$invoice->proposal->opportunity->name}}
         @else
         Não possui
         @endif
