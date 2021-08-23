@@ -19,7 +19,7 @@
     <i class='fas fa-envelope'></i>
 </a>
 {{createButtonTrash($proposal, 'proposal')}}
-{{createButtonEdit('proposal', 'proposal', $proposal)}}
+{{createButtonEdit('proposal', 'proposal', $proposal, 'type', $type)}}
 {{createButtonList('proposal', 'type', $type)}}
 @endsection
 
