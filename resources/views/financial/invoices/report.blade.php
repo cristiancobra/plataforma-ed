@@ -31,6 +31,9 @@
             <option  class="fields" value="2020">
                 2020
             </option>
+            <option  class="fields" value="2019">
+                2019
+            </option>
         </select>
         <a class="text-button secondary" href='{{route('invoice.report')}}'>
             LIMPAR
@@ -52,12 +55,12 @@
         </p>
     </div>
     <div class="col-2 pt-5">
-        <a class='text-button secondary' href='{{route('invoice.report')}}'>
+        <a class='text-button primary' href='{{route('transaction.report')}}'>
             REALIZADO
         </a>
         <br>
         <br>
-        <a class='text-button primary' href='{{route('journey.reportDepartments')}}'>
+        <a class='text-button secondary' href='{{route('invoice.report')}}'>
             PREVISIONADO
         </a>
     </div>
