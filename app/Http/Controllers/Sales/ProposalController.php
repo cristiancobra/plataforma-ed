@@ -372,7 +372,7 @@ class ProposalController extends Controller {
                 }
             }
             $proposal->fill($request->all());
-            $proposal->totalPrice = $totalPrice - $request->discount;
+            $proposal->totalPrice = $totalPrice - str_replace(",", ".", $request->discount);
             $proposal->save();
 
             return redirect()->route('proposal.show', compact('proposal'));
