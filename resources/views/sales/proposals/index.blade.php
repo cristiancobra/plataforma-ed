@@ -23,6 +23,7 @@
 @section('table')
 <div class="row mb-5">
     <form id="filter" action="{{route('proposal.index')}}" method="get" style="text-align: right;display:none">
+        <input type="hidden" name="type" value="{{$type}}">
         <input type="text" name="name" placeholder="nome da oportunidade" value="">
         <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
         <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
@@ -30,7 +31,7 @@
         {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todas os contatos')}}
         {{createFilterSelect('status', 'select', returnInvoiceStatusToFilter(), 'Todas as situações')}}
         <br>
-        <a class="text-button secondary" href='{{route('proposal.index')}}'>
+        <a class="text-button secondary" href='{{route('proposal.index', ['type' => $type])}}'>
             LIMPAR
         </a>
         <input class="text-button primary" type="submit" value="FILTRAR">
