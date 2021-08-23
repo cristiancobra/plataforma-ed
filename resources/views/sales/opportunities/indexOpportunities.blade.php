@@ -133,8 +133,11 @@
     <div class="tb tb-header col-2">
         EMPRESA
     </div>
-    <div class="tb tb-header col-2">
+    <div class="tb tb-header col-1">
         RESPONSÁVEL 
+    </div>
+    <div class="tb tb-header col-1">
+        CRIADO 
     </div>
     <div class="tb tb-header col-1">
         ETAPA DA VENDA
@@ -172,7 +175,7 @@
         Pessoa física
     </div>
     @endif
-    <div class="tb col-2">
+    <div class="tb col-1">
         @if(isset($opportunity->user->image))
         <div class='profile-picture-small'>
             <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
@@ -186,6 +189,9 @@
         @else
         funcionário excluído
         @endif
+    </div>
+    <div class="tb col-1">
+        {{dateBr($opportunity->date_start)}}
     </div>
     {{formatStage($opportunity)}}
     {{formatStatus($opportunity)}}
