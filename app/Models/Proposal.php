@@ -32,6 +32,7 @@ class Proposal extends Model {
         'receipt',
         'installment',
         'type',
+        'rash',
         'status',
     ];
     protected $hidden = [
@@ -98,7 +99,6 @@ class Proposal extends Model {
 
     // MÉTODOS PÚBLICOS
     public static function filterProposals($request) {
-//        dd($request);
         $proposals = Proposal::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->user_id) {
@@ -125,11 +125,11 @@ class Proposal extends Model {
                     if ($request->status) {
                         $query->where('status', $request->status);
                     }
-//                    if ($request->trash == 1) {
-//                        $query->where('trash', 1);
-//                    } else {
-//                        $query->where('trash', '!=', 1);
-//                    }
+                    if ($request->trash == 1) {
+                        $query->where('trash', 1);
+                    } else {
+                        $query->where('trash', '!=', 1);
+                    }
                 })
                 ->with(
                         'opportunity',

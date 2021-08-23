@@ -26,11 +26,11 @@
 @endif
 
 @section('priority')
-<div style="background-color: lightblue">
+<div style="background-color: lightblue;border-radius: 30px;padding-top: 5px;padding-bottom: 7px">
 @if($invoice->proposal->installment == 1)
 À vista
 @else
-{{$invoice->proposal->number_installment}} de {{$invoice->proposal->installment}}
+{{$invoice->number_installment}} de {{$invoice->proposal->installment}}
 @endif
 </div>
 @endsection

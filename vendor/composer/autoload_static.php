@@ -584,8 +584,10 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
 
     public static $classMap = array (
         'App\\Console\\Commands\\ConcateDateAndTime' => __DIR__ . '/../..' . '/app/Console/Commands/ConcateDateAndTime.php',
+        'App\\Console\\Commands\\CopyInstallmentValueToTotalPriceInInvoices' => __DIR__ . '/../..' . '/app/Console/Commands/CopyInstallmentValueToTotalPriceInInvoices.php',
         'App\\Console\\Commands\\CreateProposalsFromInvoices' => __DIR__ . '/../..' . '/app/Console/Commands/CreateProposalsFromInvoices.php',
         'App\\Console\\Commands\\FillNullFieldCommand' => __DIR__ . '/../..' . '/app/Console/Commands/FillNullFieldCommand.php',
+        'App\\Console\\Commands\\NegativeInvoicesTotalpriceOfExpenses' => __DIR__ . '/../..' . '/app/Console/Commands/NegativeInvoicesTotalpriceOfExpenses.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Administrative\\Accounts\\AccountController' => __DIR__ . '/../..' . '/app/Http/Controllers/Administrative/Accounts/AccountController.php',

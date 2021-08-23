@@ -18,6 +18,7 @@
 <a class='circular-button secondary' href='{{route('proposal.pdf', ['proposal' => $proposal])}}'>
     <i class='fas fa-envelope'></i>
 </a>
+{{createButtonTrash($proposal, 'proposal')}}
 {{createButtonEdit('proposal', 'proposal', $proposal)}}
 {{createButtonList('proposal', 'type', $type)}}
 @endsection
@@ -173,9 +174,9 @@
              border-radius: 0 10px 0 0;
              '>
             <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
-                                                                                                                                       'proposal' => $proposal,
-                                                                                                                                       'type' => $type,
-                                                                                                                                       ])}}'>
+                                                                                                                                                                                'proposal' => $proposal,
+                                                                                                                                                                                'type' => $type,
+                                                                                                                                                                                ])}}'>
                 EDITAR
             </a>
         </div>

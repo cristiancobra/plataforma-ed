@@ -412,6 +412,14 @@ Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@createPdf')
         ->name('proposal.pdf')
         ->middleware('roles');
 
+Route::put('/propostas/apagar/{proposal}', 'Sales\\ProposalController@sendToTrash')
+        ->name('proposal.trash')
+        ->middleware('roles');
+
+Route::put('/propostas/restaurar/{proposal}', 'Sales\\ProposalController@restoreFromTrash')
+        ->name('proposal.restore')
+        ->middleware('roles');
+
 Route::resource('propostas', 'Sales\\ProposalController')
         ->names('proposal')
         ->parameters(['propostas' => 'proposal'])

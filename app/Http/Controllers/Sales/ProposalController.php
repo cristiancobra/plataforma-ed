@@ -42,6 +42,7 @@ class ProposalController extends Controller {
         $users = User::myUsers();
         $types = Proposal::returnTypes();
         $type = $request->type;
+        $trashStatus = request()->trash;
 
         $total = $proposals->total();
 
@@ -53,6 +54,7 @@ class ProposalController extends Controller {
                         'types',
                         'total',
                         'type',
+                        'trashStatus',
         ));
     }
 
@@ -386,6 +388,22 @@ class ProposalController extends Controller {
     public function destroy(Proposal $proposal) {
         //
     }
+    
+    
+    public function sendToTrash(Proposal $proposal) {
+        $proposal->trash = 1;
+        $proposal->save();
+
+        return redirect()->back();
+    }
+
+    public function restoreFromTrash(Proposal $proposal) {
+        $proposal->trash = 0;
+        $proposal->save();
+
+        return redirect()->back();
+    }
+    
 
     // gera X faturas correspondentes ao parcelamento da proposta
     public function generateInstallment(Proposal $proposal) {

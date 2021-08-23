@@ -15,6 +15,7 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
+{{createButtonTrashIndex($trashStatus, 'proposal')}}
 {{createButtonBack()}}
 {{createButtonCreate('proposal', 'type', $type)}}
 @endsection
