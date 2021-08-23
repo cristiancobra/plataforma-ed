@@ -20,18 +20,18 @@
 @endsection
 
 @if($invoice->opportunity)
-@section('name', $invoice->opportunity->name)
+@section('name', $invoice->proposal->name)
 @else
 @section('name', 'sem oportunidade')
 @endif
 
 @section('priority')
 <div style="background-color: lightblue;border-radius: 30px;padding-top: 5px;padding-bottom: 7px">
-@if($invoice->proposal->installment == 1)
-À vista
-@else
-{{$invoice->number_installment}} de {{$invoice->proposal->installment}}
-@endif
+    @if($invoice->proposal->installment == 1)
+    À vista
+    @else
+    {{$invoice->number_installment}} de {{$invoice->proposal->installment}}
+    @endif
 </div>
 @endsection
 
@@ -47,9 +47,11 @@
     <div class='show-label'>
         CONTATO
     </div>
+    @if(isset($invoice->proposal->opportunity))
     <div class='show-label'>
         OPORTUNIDADE
     </div>
+    @endif
     <div class='show-label'>
         @if($variation == 'débito')
         DESPESA
@@ -73,13 +75,11 @@
         Não possui
         @endif
     </div>
+    @if(isset($invoice->proposal->opportunity))
     <div class='show-field-end'>
-        @if(isset($invoice->proposal->opportunity->name))
         {{$invoice->proposal->opportunity->name}}
-        @else
-        Não possui
-        @endif
     </div>
+    @endif
     @if(isset($invoice->proposal))
     <a href='{{route('proposal.show', ['proposal' => $invoice->proposal_id])}}'>
         <div class='show-field-end'>
@@ -187,7 +187,7 @@
              border-color: #c28dbf;
              border-radius: 0 10px 0 0;
              '>
-             <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
+            <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
                                                                                                                                                                                 'proposal' => $invoice->proposal,
                                                                                                                                                                                 'type' => $invoice->type,
                                                                                                                                                                                  ])}}'>
@@ -352,7 +352,7 @@
             PAGO: 
         </div>
         <div   class='tb tb-header col-2 justify-content-end'>
-           {{formatCurrencyReal($invoicePaymentsTotal)}}
+            {{formatCurrencyReal($invoicePaymentsTotal)}}
         </div>
     </div>
     <div class='row'>
