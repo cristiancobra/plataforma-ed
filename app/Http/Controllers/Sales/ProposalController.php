@@ -29,6 +29,8 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        $type = $request->type;
+        
         $proposals = Proposal::filterProposals($request);
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -41,7 +43,6 @@ class ProposalController extends Controller {
 
         $users = User::myUsers();
         $types = Proposal::returnTypes();
-        $type = $request->type;
         $trashStatus = request()->trash;
 
         $total = $proposals->total();
