@@ -328,7 +328,7 @@ class Invoice extends Model {
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
                     ->with('proposal.productProposals')
                     ->get();
-
+//dd($invoices);
             // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $oldDay = $monthEnd->format("d");

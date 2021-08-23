@@ -26,17 +26,13 @@
 @endif
 
 @section('priority')
-<div style="background-color: lightblue;border-radius: 30px;padding-top: 5px;padding-bottom: 7px">
-    @if($invoice->proposal->installment == 1)
-    À vista
-    @else
-    {{$invoice->number_installment}} de {{$invoice->proposal->installment}}
-    @endif
-</div>
+{{formatShowStatus($invoice)}}
 @endsection
 
 @section('status')
-{{formatShowStatus($invoice)}}
+<div style="background-color: lightblue;border-radius: 30px;padding-top: 5px;padding-bottom: 7px">
+    {{formatCurrencyReal($invoice->totalPrice)}}
+</div>
 @endsection
 
 @section('fieldsId')
@@ -103,6 +99,9 @@
     <div class='show-label'>
         CONTRATO
     </div>
+    <div class='show-label'>
+        PARCELA
+    </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
@@ -120,6 +119,9 @@
 
         </a>
         @endif
+    </div>
+    <div class='show-field-end'>
+        {{$invoice->number_installment}} de {{$invoice->proposal->installment}}
     </div>
     @endsection
 
@@ -167,129 +169,6 @@
     @endsection
 
     @section('main')
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-left-style: solid;
-             border-top-style: solid;
-             border-left-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 10px 0 0 0;
-             '>
-            <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTA</label>
-        </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-right-style: solid;
-             border-top-style: solid;
-             border-right-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 0 10px 0 0;
-             '>
-            <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
-                                                                                                                                                                                'proposal' => $invoice->proposal,
-                                                                                                                                                                                'type' => $invoice->type,
-                                                                                                                                                                                 ])}}'>
-                EDITAR
-            </a>
-        </div>
-    </div>
-    <div class='row'>
-        <div   class='tb tb-header col-1'>
-            QTDE
-        </div>
-        <div   class='tb tb-header col-4'>
-            NOME
-        </div>
-        <div   class='tb tb-header col-1'>
-            PRAZO
-        </div>
-        <div   class='tb tb-header col-2'>
-            IMPOSTO 
-        </div>
-        <div   class='tb tb-header col-2'>
-            UNITÁRIO
-        </div>
-        <div   class='tb tb-header col-2'>
-            TOTAL
-        </div>
-    </div>
-
-    @foreach ($productProposals as $productProposal)
-    <div class='row'>
-        <div class='tb col-1'>
-            {{$productProposal->amount}}
-        </div>
-        <div class='tb col-4'>
-            {{$productProposal->product->name}}
-        </div>
-        <div class='tb col-1'>
-            {{$productProposal->subtotalDeadline}} dia(s)
-        </div>
-        <div class='tb col-2'>
-            {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
-        </div>
-        <div class='tb col-2 justify-content-end'>
-            {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
-        </div>
-        <div class='tb col-2 justify-content-end'>
-            {{formatCurrencyReal($productProposal->subtotalPrice)}}
-        </div>
-    </div>
-
-    <div class='row'>
-        <div class='tb-description justify-content-start'>
-            {!!html_entity_decode($productProposal->product->description)!!}
-        </div>
-    </div>
-    @endforeach
-
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
-            pontos: 
-        </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
-            {{$invoice->totalPoints}}
-        </div>
-    </div>
-
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
-            TOTAL DA COMPRA: 
-        </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
-            {{formatCurrencyReal($invoice->proposal->totalPrice)}}
-        </div>
-    </div>
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
-            VALOR DESTA FATURA: 
-        </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </div>
-    </div>
-    <br>
-    <br>
-    @if($invoice->status == 'rascunho' OR $invoice->status == 'orçamento')
-    <br>
-    <br>
-    <br>
-    <label class='labels' for='' >OPÇÕES DE PARCELAMENTO: </label>
-    <br>
-    @php
-    $counter = 1;
-    while($counter <= $invoice->number_installment_total) {
-    echo '$counter x = R$ '.number_format($invoice->totalPrice / $counter, 2,',','.');
-    echo '<br>';
-    $counter++;
-    }
-    @endphp
-    <br>
-    <br>
-    <br>
-    @endif
     <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='
              border-top-style: solid;

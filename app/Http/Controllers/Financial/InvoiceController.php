@@ -551,8 +551,8 @@ class InvoiceController extends Controller {
         $groups = [];
         foreach ($groupsName as $group) {
             $groups[$group]['name'] = $group;
-            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'receita');
-            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'receita');
+            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
+            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
         }
 
         // Gráfico
