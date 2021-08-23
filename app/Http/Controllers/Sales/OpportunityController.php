@@ -161,7 +161,7 @@ class OpportunityController extends Controller {
                 ->get();
 
         $proposals = Proposal::where('opportunity_id', $opportunity->id)
-//                ->with('transactions')
+                ->where('trash', '!=', 1)
 //                ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
