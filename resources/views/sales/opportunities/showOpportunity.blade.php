@@ -424,7 +424,7 @@
         {{date('d/m/Y', strtotime($proposal->date_creation))}}
     </div>
     @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
-    <div class='tb col-2'>
+    <div class='tb col-1'>
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @else
