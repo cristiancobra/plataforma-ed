@@ -389,16 +389,19 @@
     <div class='col-1 tb tb-header'>
         ID
     </div>
-    <div class='col-3 tb tb-header'>
+    <div class='col-6 tb tb-header'>
+        NOME 
+    </div>
+    <div class='col-1 tb tb-header'>
         CRIAÇÃO 
     </div>
-    <div class='col-3 tb tb-header'>
+    <div class='col-1 tb tb-header'>
         VENCIMENTO
     </div>
-    <div class='col-2 tb tb-header'>
+    <div class='col-1 tb tb-header'>
         A RECEBER
     </div>
-    <div class='col-2 tb tb-header'>
+    <div class='col-1 tb tb-header'>
         VALOR DA FATURA
     </div>
     <div class='tb tb-header col-1'>
@@ -414,22 +417,25 @@
         </button>
         {{$proposal->identifier}}
     </div>
-    <div class='tb col-3'>
+    <div class='tb col-6 justify-content-start'>
+        {{$proposal->name}}
+    </div>
+    <div class='tb col-1'>
         {{date('d/m/Y', strtotime($proposal->date_creation))}}
     </div>
     @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
-    <div class='tb col-3'>
+    <div class='tb col-2'>
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @else
-    <div class='tb col-3'>
+    <div class='tb col-1'>
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @endif
-    <div class='tb col-2 justify-content-end''>
+    <div class='tb col-1 justify-content-end''>
         {{formatCurrencyReal($proposal->balance)}}
     </div>
-    <div class='tb col-2 justify-content-end''>
+    <div class='tb col-1 justify-content-end''>
         {{formatCurrencyReal($proposal->installment_value)}}
     </div>
     {{formatInvoiceStatus($proposal)}}
