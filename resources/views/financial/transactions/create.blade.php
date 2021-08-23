@@ -34,7 +34,7 @@
 <div>
     <form action=" {{route('transaction.store')}} " method="post">
         @csrf
-        
+
         @if(!empty(app('request')->input('invoiceType')))
         <input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
         @elseif($typeTransactions == 'receita')
@@ -44,7 +44,7 @@
         @elseif($typeTransactions == 'transferência')
         <input type='hidden' name='type' value='transferência'>
         @endif
-        
+
         <label class="labels" for="">REGISTRADO POR:</label>
         <select name="user_id">
             <option  class="fields" value="{{auth()->user()->id}}">
@@ -105,7 +105,11 @@
         @endif
         <br>
         <label class="labels" for="">DATA:</label>
+        @if(!empty(app('request')->input('pay_day')))
+        <input type="date" name="pay_day" value="{{app('request')->input('pay_day')}}">
+        @else
         <input type="date" name="pay_day" value="{{date('d-m-y')}}">
+        @endif
         @if ($errors->has('pay_day'))
         <span class="text-danger">{{$errors->first('pay_day')}}</span>
         @endif
@@ -119,7 +123,7 @@
         @else
         <input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(0)}}">
         @endif
-              <br>
+        <br>
         <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
         {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
         <br>
