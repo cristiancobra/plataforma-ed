@@ -7,9 +7,7 @@
 @endsection
 
 @section('buttons')
-<a class='circular-button secondary' href='{{route('invoice.pdf', ['invoice' => $invoice])}}'>
-    <i class='fas fa-print'></i>
-</a>
+{{createButtonPdf($invoice, 'invoice')}}
 <a class='circular-button secondary' href='{{route('invoice.email', ['invoice' => $invoice])}}'>
     <i class='fas fa-envelope'></i>
 </a>
@@ -128,7 +126,10 @@
         @endif
     </div>
     <div class='show-field-end'>
-        {{$invoice->number_installment}} de {{$invoice->proposal->installment}}
+        {{$invoice->number_installment}}
+        @if($invoice->proposal)
+        de {{$invoice->proposal->installment}}
+        @endif
     </div>
     @endsection
 
