@@ -13,6 +13,7 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
+
 {{createButtonBack()}}
 {{createButtonList('journey')}}
 @endsection

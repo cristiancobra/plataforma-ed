@@ -91,9 +91,9 @@ if (!function_exists('createButtonEdit')) {
 
         if ($parameter1) {
             echo "<a class='circular-button secondary' title='$message' href=" . route($route, [
-                                                                                                                                                  $parameter1 => $value1,
-                                                                                                                                                  $parameter2 => $value2,
-                                                                                                                                                 ]) . ">";
+                $parameter1 => $value1,
+                $parameter2 => $value2,
+            ]) . ">";
         } else {
             echo "<a class = 'circular-button secondary' title='$message' href = " . route($route) . ">";
         }
@@ -112,6 +112,18 @@ if (!function_exists('createButtonExternalLink')) {
         echo "<i class = 'fa fa-rocket' style = 'color:white'></i>";
         echo "</a>";
         echo "</button>";
+    }
+
+}
+if (!function_exists('createButtonPdf')) {
+
+// cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF
+    function createButtonPdf($model = null, $parameter = null) {
+        $link = "$parameter.pdf";
+
+        echo "<a class='circular-button secondary'  href=" . route($link, [$parameter => $model]) . ">
+                        <i class='fa fa-print' aria-hidden='true'></i>
+                    </a>";
     }
 
 }

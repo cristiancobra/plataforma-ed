@@ -12,9 +12,7 @@
 
 @section('buttons')
 {{createButtonBack()}}
-<a class='circular-button secondary' href='{{route('proposal.pdf', ['proposal' => $proposal])}}'>
-    <i class='fas fa-print'></i>
-</a>
+{{createButtonPdf($proposal, 'proposal')}}
 <a class='circular-button secondary' href='{{route('proposal.pdf', ['proposal' => $proposal])}}'>
     <i class='fas fa-envelope'></i>
 </a>

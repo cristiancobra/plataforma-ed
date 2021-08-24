@@ -10,9 +10,7 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button secondary"  href="{{route('contract.pdf', ['contract' => $contract->id])}}">
-    <i class="fas fa-print"></i>
-</a>
+{{createButtonPdf($contract, 'contract')}}
 {{createButtonBack()}}
 {{createButtonList('contract')}}
 @endsection

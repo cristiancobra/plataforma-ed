@@ -3,7 +3,7 @@
 @section('title','FLUXO DE CAIXA')
 
 @section('image-top')
-{{ asset('images/journey.png') }} 
+{{ asset('images/invoice.png') }} 
 @endsection
 
 @section('description')
@@ -13,8 +13,9 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
+
 {{createButtonBack()}}
-{{createButtonList('journey')}}
+{{createButtonList('invoice')}}
 @endsection
 
 @section('main')

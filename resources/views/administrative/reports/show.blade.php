@@ -7,9 +7,7 @@
 @endsection
 
 @section('buttons')
-<a class="circular-button secondary"  href="{{route('report.pdf', ['report' => $report])}}">
-    <i class="fas fa-print"></i>
-</a>
+{{createButtonPdf($report, 'report')}}
 {{createButtonBack()}}
 {{createButtonList('report')}}
 @endsection
