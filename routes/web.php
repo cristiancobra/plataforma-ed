@@ -161,6 +161,10 @@ Route::get('/movimentacoes/export-csv', 'Financial\\TransactionController@export
         ->name('transaction.export')
         ->middleware('roles');
 
+Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report')
+        ->name('transaction.report')
+        ->middleware('roles');
+
 Route::resource('movimentacoes', 'Financial\\TransactionController')
         ->names('transaction')
         ->parameters(['movimentacoes' => 'transaction'])

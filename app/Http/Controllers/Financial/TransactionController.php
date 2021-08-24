@@ -5,11 +5,11 @@ namespace App\Http\Controllers\Financial;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\Account;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Invoice;
+use App\Models\Product;
 use App\Models\Transaction;
 use App\Models\User;
 
@@ -242,6 +242,86 @@ class TransactionController extends Controller {
         return redirect()->back();
     }
 
+    public function report(Request $request) {
+        $months = returnMonths();
+        $pastMonths = date('m');
+
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $year = date('y');
+        }
+
+//        $annualTotal = Journey::accountHoursByYear($year);
+//        $monthlyAverage = $annualTotal / $pastMonths;
+//
+//        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
+//        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+//
+//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('status', 'aprovada')
+//                ->where('trash', '!=', 1)
+//                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
+//                ->with('invoiceLines.product')
+//                ->get();
+
+//   RECEITAS
+        $monthlyRevenues = Transaction::monthlyTransactionsTotal($year, 'crédito');
+        $annualRevenues = Invoice::annualInvoicesTotal($year, 'crédito');
+
+        $categoriesNames = Product::returnCategories();
+        $categories = [];
+        foreach ($categoriesNames as $category) {
+            $categories[$category]['name'] = $category;
+            $categories[$category]['monthlys'] = Transaction::monthlysCategoriesTotal($year, $category, 'crédito');
+            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'crédito');
+        }
+
+        // DESPESAS
+        $monthlyExpenses = Transaction::monthlyTransactionsTotal($year, 'débito');
+        $annualExpenses = Invoice::annualInvoicesTotal($year, 'débito');
+
+        $groupsName = Product::returnGroups();
+        $groups = [];
+        foreach ($groupsName as $group) {
+            $groups[$group]['name'] = $group;
+            $groups[$group]['monthlys'] = Transaction::monthlysGroupsTotal($year, $group, 'débito');
+            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'débito');
+        }
+
+        // Gráfico
+        $chartBackgroundColors = [
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(41, 221, 101, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+        ];
+
+        $chartBorderColors = [
+            'rgba(255, 206, 86, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(41, 221, 101, 1)',
+            'rgba(255, 99, 132, 1)',
+        ];
+
+        return view('financial.transactions.report', compact(
+                        'year',
+                        'months',
+                        'monthlyRevenues',
+                        'categories',
+                        'categoriesNames',
+                        'groups',
+                        'annualRevenues',
+                        'monthlyExpenses',
+                        'annualExpenses',
+                        'chartBackgroundColors',
+                        'chartBorderColors',
+        ));
+    }
+
+    
     public function exportCsv(Request $request) {
         $fileName = 'transactions.csv';
         $transactions = Transaction::where('account_id', auth()->user()->account_id)

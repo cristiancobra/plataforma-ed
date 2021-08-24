@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\BankAccount;
 use Illuminate\Http\Request;
+use DateTime;
+use DateInterval;
+use App\Models\BankAccount;
 
 class Transaction extends Model {
 
@@ -100,5 +102,116 @@ class Transaction extends Model {
 
         return $transactions;
     }
+    
+        // soma os pagamento/movimentações  do TIPO recebido gerando um array com valor total de cada mês
+    public static function monthlyTransactionsTotal($year, $type) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
 
+        foreach ($months as $key => $month) {
+            $monthlys[$key] = [];
+
+            $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                    ->where('type', $type)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                    ->get();
+            
+//            dd($transactions);
+//            $value = 0;
+//            foreach ($invoices as $invoice) {
+//                if ($invoice->transactions) {
+////                    $installment = $invoice->proposal->installment;
+//                    foreach ($invoice->transactions as $transaction) {
+//                        if ($transaction->pay_day == $type) {
+//                            $value += $transaction->value;
+////                        }
+//                    }
+//                }
+//            }
+
+            $monthlys[$key] = $transactions->sum('value');
+
+            $monthStart->add(new DateInterval("P" . $key . "M"));
+            $monthEnd->add(new DateInterval("P" . $key . "M"));
+        }
+        return $monthlys;
+    }
+    
+        // soma o valor dos pagamento da categoria para cada mês
+    public static function monthlysCategoriesTotal($year, $category, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = [];
+
+            $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                    ->where('type', $type)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
+                    ->with('invoice.proposal.productProposals')
+                    ->get();
+
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
+
+            $value = 0;
+            foreach ($transactions as $transaction) {
+                if ($transaction->invoice) {
+                    $installment = $transaction->invoice->proposal->installment;
+                    foreach ($transaction->invoice->proposal->productProposals as $productProposal) {
+                        if ($productProposal->product->category == $category) {
+                            $value += $transaction->value / $installment;
+                            $monthlys[$month] = $value;    
+                        }
+                    }
+                }
+            }
+        }
+        return $monthlys;
+    }
+
+        // soma o valor do grupo  para cada mês
+    public static function monthlysGroupsTotal($year, $group, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = [];
+
+            $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                    ->where('type', $type)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
+                    ->with('invoice.proposal.productProposals')
+                    ->get();
+
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
+
+                      $value = 0;
+            foreach ($transactions as $transaction) {
+//                dd($transaction);
+                if (isset($transaction->invoice->proposal)) {
+                    $installment = $transaction->invoice->proposal->installment;
+                    foreach ($transaction->invoice->proposal->productProposals as $productProposal) {
+                        if ($productProposal->product->group == $group) {
+                            $value += $transaction->value / $installment;
+                            $monthlys[$month] = $value;
+//                            echo $productProposal->product->name . "valor:   " . formatCurrency($value) . "<br>";
+                            
+                        }
+                    }
+                }
+            }
+        }
+        return $monthlys;
+    }
+    
 }

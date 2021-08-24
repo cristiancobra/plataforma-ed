@@ -33,20 +33,29 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
+    @empty($companyName)
     <div class='show-field-end'>
-        @empty($companyName)
         Pessoa física
-        @else
-        {{$companyName}}
-        @endif
     </div>
+    @else
+    <a href="{{route('company.show', ['company' => $opportunity->company])}}">
+        <div class='show-field-end'>
+            {{$companyName}}
+        </div>
+    </a>
+    @endif
+
+    @if(isset($opportunity->contact->name))
+    <a href="{{route('contact.show', ['contact' => $opportunity->contact])}}">
+        <div class='show-field-end'>
+            {{$opportunity->contact->name}}
+        </div>
+    </a>
+    @else
     <div class='show-field-end'>
-        @if(isset($opportunity->contact->name))
-        {{$opportunity->contact->name}}
-        @else
         Não possui
-        @endif
     </div>
+    @endif
 </div>
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
     <div class='show-label'>
@@ -54,13 +63,17 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
+    @if(isset($opportunity->user->contact->name))
+    <a href="{{route('user.show', ['user' => $opportunity->user])}}">
+        <div class='show-field-end'>
+            {{$opportunity->user->contact->name}}
+        </div>
+    </a>
+    @else
     <div class='show-field-end'>
-        @if(isset($opportunity->user->contact->name))
-        {{$opportunity->user->contact->name}}
-        @else
         foi excluído
-        @endif
     </div>
+    @endif
     @endsection
 
     @section('date_start')
@@ -573,7 +586,7 @@
         {{$transaction->id}}
     </div>
     <div class='tb col-3' style='background-color: #d8c2db'>
-                {{date('d/m/Y', strtotime($transaction->pay_day))}}
+        {{date('d/m/Y', strtotime($transaction->pay_day))}}
     </div>
     <div class='tb col-3' style='background-color: #d8c2db'>
         {{$transaction->bankAccount->name}}
@@ -893,7 +906,7 @@
     <div class='tb-description col-4'>
         {!!html_entity_decode($task->description)!!}
     </div>
-        <div class='tb col-2'>
+    <div class='tb col-2'>
         @if(isset($task->user->image))
         <div class='profile-picture-small'>
             <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>

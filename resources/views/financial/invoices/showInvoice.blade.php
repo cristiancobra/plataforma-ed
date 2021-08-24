@@ -30,7 +30,14 @@
 @endsection
 
 @section('status')
-<div style="background-color: lightblue;border-radius: 30px;padding-top: 5px;padding-bottom: 7px">
+<div style="
+                    background-color: lightblue;
+                    border-radius: 30px;
+                    padding-top: 5px;
+                    padding-bottom: 7px;
+                    padding-right: 15px;
+                    text-align: right
+                    ">
     {{formatCurrencyReal($invoice->totalPrice)}}
 </div>
 @endsection

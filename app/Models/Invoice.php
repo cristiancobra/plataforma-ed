@@ -244,32 +244,6 @@ class Invoice extends Model {
             $oldDay = $monthEnd->format("d");
             $monthEnd->add(new DateInterval("P28D"));
 
-//            if ($month == 'Fevereiro') {
-//                $newDay = $monthEnd->format("d");  // 3 // 28
-//                if ($oldDay != $newDay) {
-//                 Check if the day is changed, if so we skipped to the next month.
-//                 Substract days to go back to the last day of previous month.
-//                    $monthEnd->sub(new DateInterval("P" . $newDay . "D")); // 2021-02-28  // 2021-03-28
-//                }
-//                }
-//            $monthEnd = date("Y-m-t", $monthEnd);
-//            
-//            function returnDates($parcelas, $ultima_data){
-//    for ($i = 1; $i <= $parcelas; $i++){   
-//       $date = strtotime("+$i month", strtotime($ultima_data));
-//       echo date("Y-m-t", $date)."\n";
-//    } 
-//}
-//            $oldDay = $monthEnd->format("d"); // 31 // 28
-//            $newDay = $monthEnd->format("d");  // 3 // 28
-//            if ($oldDay != $newDay) {
-            // Check if the day is changed, if so we skipped to the next month.
-            // Substract days to go back to the last day of previous month.
-//                $monthEnd->sub(new DateInterval("P" . $newDay . "D")); // 2021-02-28  // 2021-03-28
-//            }else{
-//                $monthEnd->add(new DateInterval("P3D"));  // x // 2021-03-31
-//            }
-
             $value = 0;
             foreach ($invoices as $invoice) {
                 if ($invoice->proposal) {
