@@ -225,7 +225,7 @@ if (!function_exists('createDoubleSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
     function createDoubleSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
-        echo "<select class = '$class' name = '$name'>";
+        echo "<select class = '$class' name = '$name' style='width:88%;margin-right:3px'>";
         if ($currentValue) {
             echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
         }
@@ -1052,25 +1052,25 @@ if (!function_exists('faiconInvoiceStatus')) {
     function faiconInvoiceStatus($status) {
         switch ($status) {
             case 'rascunho':
-                echo "<i class='fas fa-stop draft-paid fs-5'></i>";
+                echo "<i class='fas fa-stop draft-paid' style='font-size:28px'></i>";
                 break;
             case 'orçamento':
-                echo "<i class='fas fa-clock fs-5'></i>";
+                echo "<i class='fas fa-clock' style='font-size:28px'></i>";
                 break;
             case 'cancelada':
-                echo '<div class="tb tb-canceled col-1">cancelada</div>';
+                echo "<div class='tb tb-canceled col-1' style='font-size:28px'>cancelada</div>";
                 break;
             case 'aprovada':
-                echo "<i class='fas fa-pause-circle aproved fs-5'></i>";
+                echo "<i class='fas fa-pause-circle aproved' style='font-size:28px'></i>";
                 break;
             case 'paga':
-                echo "<i class='fas fa-check-circle paid fs-5'></i>";
+                echo "<i class='fas fa-check-circle paid' style='font-size:28px'></i>";
                 break;
             case 'parcial':
-                echo "<i class='fas fa-exclamation-circle partial fs-5'></i>";
+                echo "<i class='fas fa-exclamation-circle partial' style='font-size:28px'></i>";
                 break;
             case 'atrasada':
-                echo "<i class='fas fa-clock late-paid fs-5'></i>";
+                echo "<i class='fas fa-clock late-paid ' style='font-size:28px'></i>";
                 break;
         }
     }

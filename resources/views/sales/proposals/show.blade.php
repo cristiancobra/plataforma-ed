@@ -27,9 +27,21 @@
 @section('name', 'Sem nome')
 @endif
 
+@section('priority')
+{{formatShowStatus($proposal)}}
+@endsection
 
 @section('status')
-{{formatShowStatus($proposal)}}
+<div style="
+                    background-color: lightblue;
+                    border-radius: 30px;
+                    padding-top: 5px;
+                    padding-bottom: 7px;
+                    padding-right: 15px;
+                    text-align: right
+                    ">
+    {{formatCurrencyReal($proposal->totalPrice)}}
+</div>
 @endsection
 
 @section('fieldsId')
@@ -79,6 +91,9 @@
     <div class='show-label'>
         CONTRATO
     </div>
+    <div class='show-label'>
+        PARCELAMENTO
+    </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     <div class='show-field-end'>
@@ -99,6 +114,13 @@
             {{$proposal->contract->name}}
         </a>
         @endif
+    </div>
+    <div class='show-field-end'>
+        @if($proposal->installment > 1)
+            {{$proposal->installment}} vezes
+            @else
+            À vista
+            @endif
     </div>
     @endsection
 

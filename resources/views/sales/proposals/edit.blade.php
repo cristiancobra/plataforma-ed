@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/edit')
 
 @if($type == 'receita')
 @section('title','PROPOSTAS')
@@ -10,91 +10,166 @@
 {{ asset('images/proposal.png') }} 
 @endsection
 
-@section('description')
-@endsection
+@section('form_start')
+<form action=' {{route('proposal.update', ['proposal' => $proposal])}} ' method='post'>
+    @csrf
+    @method('put')
+    @endsection
 
-@section('buttons')
-<a class='circular-button primary'  href='{{route('proposal.index')}}'>
-    <i class='fas fa-arrow-left'></i>
-</a>
-@endsection
 
-@section('main')
-<div>
-    <form action=' {{route('proposal.update', ['proposal' => $proposal])}} ' method='post'>
-        @csrf
-        @method('put')
-        <label class='labels' for='' >NOME:</label>
-        <input type='text' name='name' size='80' value='{{$proposal->name}}'>
-        <br>
-        <label class='labels' for='' >IDENTIFICADOR:</label>
-        <input type='number'  size='5' style='text-align: right' value='{{$proposal->identifier}}'>
-        <br>
-        <label class='labels' for='' >VENDEDOR: </label>
-        <select name='user_id'>
-            <option  class='fields' value='{{$proposal->user_id}}'>
-                {{$proposal->user->contact->name}}
-            </option>
-            @foreach ($users as $user)
-            <option  class='fields' value='{{$user->id}}'>
-                {{$user->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
-        <br>
+    @section('buttons')
+    <a class='circular-button secondary'  title='Cancelar alterações' href='{{url()->previous()}}'>
+        <i class='fas fa-times-circle'></i>
+    </a>
+    <button id='' class='circular-button primary' title='Salvar alterações' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+        <i class='fas fa-save'></i>
+    </button>
+    @endsection
+
+    @section('name')
+    NOME:
+    <input type='text' name='name' size='60' style="margin-left: 10px" value='{{$proposal->name}}'>
+    @endsection
+
+
+    @section('status')
+    SITUAÇÃO:
+    {{createSimpleSelect('status', 'fields', returnInvoiceStatus(), $proposal->status)}}
+    @endsection
+
+    @section('fieldsId')
+    <div class='col-lg-2 col-xs-6' style='text-align: center'>
+        <div class='show-label'>
+            EMPRESA
+        </div>
+        <div class='show-label'>
+            CONTATO
+        </div>
         @if(isset($proposal->opportunity))
-        <label class='labels' for='' >OPORTUNIDADE: </label>
-        <input type='hidden' name='opportunity_id' value='{{$proposal->opportunity_id}}'>
-        <span class='fields'>{{$proposal->opportunity->name}}</span>
-        <br>
+        <div class='show-label'>
+            OPORTUNIDADE
+        </div>
         @endif
-
-
-        <label class='labels' for=''>EMPRESA:</label>
-        {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $proposal->company)}}
-
-        <br>
-
-        <label class='labels' for='' >CONTATO: </label>
-        {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $proposal->contact)}}
-        {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
-        <br>
-        @if(isset($proposal->opportunity_id))
-        <label class='labels' for='' >CONTRATO: </label>
-        <select name='contract_id'>
-            <option  class='fields' value='{{$proposal->contract_id}}'>
-                {{$proposal->contract_id}}
-            </option>
-            @foreach ($contracts as $contract)
-            <option  class='fields' value='{{$contract->id}}'>
-                {{$contract->id}} - {{$contract->name}}
-            </option>
-            @endforeach
-        </select>
+    </div>
+    <div class='col-lg-4 col-xs-6' style='text-align: center'>
+        <div class='show-field-end'>
+            {{createDoubleSelectIdName('company_id', 'fields', $companies,'Não possui', $proposal->company)}}
+        </div>
+        <div class='show-field-end'>
+            {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $proposal->contact)}}
+            {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
+        </div>
+        @if(isset($proposal->opportunity))
+        <div class='show-field-end'>
+            <input type='hidden' name='opportunity_id' value='{{$proposal->opportunity_id}}'>
+            <span class='fields'>{{$proposal->opportunity->name}}</span>
+        </div>
         @endif
-        <br>
-        <br>
-        <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
+    </div>
+    <div class='col-lg-2 col-xs-6' style='text-align: center'>
+        <div class='show-label'>
+            RESPONSÁVEL
+        </div>
+        <div class='show-label'>
+            IDENTIFICADOR
+        </div>
+        <div class='show-label'>
+            CONTRATO
+        </div>
+        <div class='show-label'>
+            PARCELAMENTO
+        </div>
+    </div>
+    <div class='col-lg-4 col-xs-6' style='text-align: center'>
+        <div class='show-field-end'>
+            <select name='user_id' style="width: 89%">
+                <option  class='fields' value='{{$proposal->user_id}}'>
+                    {{$proposal->user->contact->name}}
+                </option>
+                @foreach ($users as $user)
+                <option  class='fields' value='{{$user->id}}'>
+                    {{$user->name}}
+                </option>
+                @endforeach
+            </select>
+        </div>
+        <div class='show-field-end'>
+            <input type='number'  name='identifier' size='5' style='text-align: right' value='{{$proposal->identifier}}'>
+        </div>
+        <div class='show-field-end'>
+            @if(!isset($proposal->contract_id) OR $proposal->contract_id == 0)
+            Sem contrato
+            @else
+            <select name='contract_id'>
+                <option  class='fields' value='{{$proposal->contract_id}}'>
+                    {{$proposal->contract_id}}
+                </option>
+                @foreach ($contracts as $contract)
+                <option  class='fields' value='{{$contract->id}}'>
+                    {{$contract->id}} - {{$contract->name}}
+                </option>
+                @endforeach
+            </select>
+            @endif
+        </div>
+        <div class='show-field-end'>
+            <input type='number'  class='fields' style='text-align: right' name='installment' value='{{$proposal->installment}}' max='12' size='4'>
+        </div>
+    </div>
+    @endsection
+
+
+
+    @section('date_start')
+    <div class='circle-date-start'>
         <input type='date' name='date_creation' size='20' value='{{$proposal->date_creation}}'>
         @if ($errors->has('date_creation'))
         <span class='text-danger'>{{$errors->first('date_creation')}}</span>
         @endif
-        <br>
-        <label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
-        <input type='number' name='expiration_date' size='3' min='1' max='365' value='{{$proposal->expiration_date}}'> dias
-        <br>
-        <label class='labels' for='' >DATA DO PAGAMENTO:</label>
+    </div>
+    <p class='labels' style='text-align: center'>
+        CRIAÇÃO
+    </p>
+    @endsection
+
+
+    @section('date_due')    
+    <div class='circle-date-due'>
         <input type='date' name='pay_day' size='20' value='{{$proposal->pay_day}}'>
         @if ($errors->has('pay_day'))
         <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
-        <br>
-        <br>
-        <label class='labels' for='' >NÚMERO DE PARCELAS: </label>
-        <input type='number'  class='fields' style='text-align: right' name='installment' value='{{$proposal->installment}}' max='12'>
-        <br>
-        <br>
+    </div>
+    <p class='labels' style='text-align: center'>
+        VENCIMENTO
+    </p>
+    @endsection
+
+
+    @section('date_conclusion')
+    <div class='circle-date-due'>
+        <input type='number' name='expiration_date' size='3' min='1' max='365' value='{{$proposal->expiration_date}}'> dias
+    </div>
+    <p class='labels' style='text-align: center'>
+        VALIDADE
+    </p>
+    @endsection
+
+
+    @section('description')
+    <textarea id='description' name='description' rows='20' cols='90'>
+		{{$proposal->description}}
+    </textarea>
+    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+    <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
+    <script>
+CKEDITOR.replace('description');
+    </script>
+    @endsection
+
+
+    @section('main')
+    <div>
         <label class='labels' for='' >PRODUTOS ATUAIS:</label>
         <div class='row'>
             <div class='tb tb-header-start col-1'>
@@ -184,7 +259,7 @@
                 desconto: 
             </div>
             <div class='tb tb-header col-1 justify-content-end'>
-                <input type='decimal' name='discount' value='{{formatCurrency($proposal->discount)}}' style="text-align: right;width: 90px">
+                <input type='text' id='discount' name='discount' value='{{formatCurrencyReal($proposal->discount)}}' style="text-align: right;width: 90px">
             </div>
         </div>
         <div class='row'>
@@ -195,27 +270,11 @@
                 {{formatCurrencyReal($proposal->totalPrice)}}
             </div>
         </div>
-        <br>
-        <br>
-        <br>
-        <label class='labels' for='' >OBSERVAÇÕES:</label>
-        <textarea id='description' name='description' rows='20' cols='90'>
-		{{$proposal->description}}
-        </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
-        <script>
-CKEDITOR.replace('description');
-        </script>
-        <br>
-        <br>
-        <label class='labels' for=''>SITUAÇÃO:</label>
-        {{createSimpleSelect('status', 'fields', returnInvoiceStatus(), $proposal->status)}}
-        <br>
-        <br>
-        <input type='submit' value='enviar'>
-    </form>
-</div>
-<br>
-<br>
-@endsection
+    </div>
+    @endsection
+
+    @section('js-scripts')
+    <script>
+        $("[name=discount]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+    </script>
+    @endsection

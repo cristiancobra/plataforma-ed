@@ -159,7 +159,11 @@
         </div>
         @endif
 
-        {{formatInvoiceStatus($invoice)}}
+        <div class="tb col-1" style="color: red;text-align: right">
+            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
+                {{faiconInvoiceStatus($invoice->status)}}
+            </a>
+        </div>
     </div>
     @endforeach
 </div>

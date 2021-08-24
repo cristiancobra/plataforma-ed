@@ -67,6 +67,7 @@ class Product extends Model
             'prolabore',
             'salário',
             'marketing',
+            'produção',
             'contabilidade',
             'jurídico',
             'infraestrutura',
