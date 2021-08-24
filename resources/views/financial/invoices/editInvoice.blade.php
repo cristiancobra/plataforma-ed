@@ -166,7 +166,7 @@
                     desconto: 
                 </td>
                 <td   class='table-list-header-right' colspan='3'>
-                    - {{formatCurrencyReal($invoice->proposal->discount)}}
+                    {{formatCurrencyReal($invoice->proposal->discount)}}
                 </td>
             </tr>
             <tr>

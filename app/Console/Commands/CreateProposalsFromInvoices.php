@@ -8,7 +8,7 @@ use App\Models\Opportunity;
 use App\Models\ProductProposal;
 use App\Models\Proposal;
 
-class CreateProposalsFromInvoices extends Command {
+class CreateExpensesProposalsFromInvoices extends Command {
 
     /**
      * The name and signature of the console command.
@@ -39,7 +39,7 @@ class CreateProposalsFromInvoices extends Command {
      * @return int
      */
     public function handle() {
-        $invoices = Invoice::where('type', '>', 1)
+        $invoices = Invoice::where('type', 'despesa')
                 ->with('invoiceLines')
                 ->get();
 
@@ -50,7 +50,7 @@ class CreateProposalsFromInvoices extends Command {
                 $proposal->identifier = $invoice->identifier;
                 $proposal->account_id = $invoice->account_id;
                 $proposal->user_id = $invoice->user_id;
-                $proposal->opportunity_id = $invoice->opportunity_id;
+//                $proposal->opportunity_id = $invoice->opportunity_id;
                 $proposal->company_id = $invoice->company_id;
                 $proposal->contact_id = $invoice->contact_id;
                 $proposal->date_creation = $invoice->date_creation;
@@ -72,25 +72,25 @@ class CreateProposalsFromInvoices extends Command {
                 $proposal->updated_at = $invoice->updated_at;
                 $proposal->expiration_date = $invoice->expiration_date;
                 $proposal->save();
-            }
-            $invoice->proposal_id = $proposal->id;
-//                dd($invoice);
-            $invoice->save();
 
-            foreach ($invoice->invoiceLines as $invoiceLine) {
-                $productProposal = new ProductProposal();
-                $productProposal->proposal_id = $proposal->id;
-                $productProposal->product_id = $invoiceLine->product_id;
-                $productProposal->amount = $invoiceLine->amount;
-                $productProposal->subtotalHours = $invoiceLine->subtotalHours;
-                $productProposal->subtotalDeadline = $invoiceLine->subtotalDeadline;
-                $productProposal->subtotalCost = $invoiceLine->subtotalCost;
-                $productProposal->subtotalTax_rate = $invoiceLine->subtotalTax_rate;
-                $productProposal->subtotalPrice = $invoiceLine->subtotalPrice;
-                $productProposal->subtotalMargin = $invoiceLine->subtotalMargin;
-                $productProposal->created_at = $invoiceLine->created_at;
-                $productProposal->updated_at = $invoiceLine->updated_at;
-                $productProposal->save();
+                $invoice->proposal_id = $proposal->id;
+                $invoice->save();
+
+                foreach ($invoice->invoiceLines as $invoiceLine) {
+                    $productProposal = new ProductProposal();
+                    $productProposal->proposal_id = $proposal->id;
+                    $productProposal->product_id = $invoiceLine->product_id;
+                    $productProposal->amount = $invoiceLine->amount;
+                    $productProposal->subtotalHours = $invoiceLine->subtotalHours;
+                    $productProposal->subtotalDeadline = $invoiceLine->subtotalDeadline;
+                    $productProposal->subtotalCost = $invoiceLine->subtotalCost;
+                    $productProposal->subtotalTax_rate = $invoiceLine->subtotalTax_rate;
+                    $productProposal->subtotalPrice = $invoiceLine->subtotalPrice;
+                    $productProposal->subtotalMargin = $invoiceLine->subtotalMargin;
+                    $productProposal->created_at = $invoiceLine->created_at;
+                    $productProposal->updated_at = $invoiceLine->updated_at;
+                    $productProposal->save();
+                }
             }
         }
     }

@@ -138,6 +138,17 @@ class Proposal extends Model {
                 )
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
+                
+                
+        $proposals->appends([
+            'user_id' => $request->user_id,
+            'name' => $request->name,
+            'contact_id' => $request->contact_id,
+            'company_id' => $request->company_id,
+            'type' => $request->type,
+            'status' => $request->status,
+            'trash' => $request->trash,
+        ]);
 
         return $proposals;
     }
