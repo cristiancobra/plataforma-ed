@@ -113,6 +113,7 @@ use RegistersUsers;
                 $contactEd = new Contact();
                 $contactEd->account_id = 1;
                 $contactEd->lead_source = 'site';
+                $contactEd->type = 'cliente';
                 $contactEd->first_name = ucfirst($request->first_name);
                 $contactEd->last_name = ucfirst($request->last_name);
                 $contactEd->name = $contact->first_name . " " . $contact->last_name;
