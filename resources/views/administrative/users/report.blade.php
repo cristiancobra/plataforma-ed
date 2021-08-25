@@ -29,7 +29,11 @@
 
         <td class="table-list-left">
             <i class="fa fa-store" aria-hidden="true">   </i>
+            @if($user->account)
             {{$user->account->name}}
+            @else
+            Conta excluída
+            @endif
             <br>
         </td>
         @endforeach

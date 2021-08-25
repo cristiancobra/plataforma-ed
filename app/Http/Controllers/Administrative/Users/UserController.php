@@ -360,7 +360,7 @@ class UserController extends Controller {
                 ->with(
                         'account',
                 )
-                ->orderBy('name', 'ASC')
+                ->orderBy('users.created_at', 'DESC')
                 ->paginate(50);
 
         $total = $users->total();

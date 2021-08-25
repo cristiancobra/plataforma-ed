@@ -1281,6 +1281,10 @@ td {
     color: red;
 }
 
+.draft-paid{
+    color: grey;
+}
+
 
 /*SHORTCUTS*/
 .shortcut {
