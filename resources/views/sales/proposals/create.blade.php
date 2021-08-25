@@ -106,7 +106,7 @@
         <input type='hidden' name='contact_id' value='{{app('request')->input('contact_id')}}'>
         {{app('request')->input('contact_name')}}
         @else
-        {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
+        {{createDoubleSelectIdName('contact_id', 'fields', $contacts, 'Não possui')}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
         @endif
         <br>
