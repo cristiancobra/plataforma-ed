@@ -24,7 +24,7 @@
     <tr>
         <td class="table-list-left">
             <i class="fa fa-id-card-alt" aria-hidden="true"></i>
-            {{ $user->name }}
+            {{$user->contact->name}}
         </td>
 
         <td class="table-list-left">
