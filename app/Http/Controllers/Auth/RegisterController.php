@@ -96,44 +96,45 @@ use RegistersUsers;
             $companyEd->save();
         }
 
-            // cria CONTATO para o novo usuário
-            $contact = new Contact();
-            $contact->account_id = $account->id;
-            $contact->first_name = ucfirst($request->first_name);
-            $contact->last_name = ucfirst($request->last_name);
-            $contact->name = $contact->first_name . " " . $contact->last_name;
-            $contact->email = $request->email;
-            $contact->save();
+        // cria CONTATO para o novo usuário
+        $contact = new Contact();
+        $contact->account_id = $account->id;
+        $contact->type = 'funcionário';
+        $contact->first_name = ucfirst($request->first_name);
+        $contact->last_name = ucfirst($request->last_name);
+        $contact->name = $contact->first_name . " " . $contact->last_name;
+        $contact->email = $request->email;
+        $contact->save();
 
-            // verifica se o email do CONTATO existe nos CONTATOS da EMPRESA DIGITAL. Se não existir, deve, criar.
-            $emailChecked = Contact::where('email', $request->email)
-                    ->where('account_id')
-                    ->first();
-            if (!$emailChecked) {
-                $contactEd = new Contact();
-                $contactEd->account_id = 1;
-                $contactEd->lead_source = 'site';
-                $contactEd->type = 'cliente';
-                $contactEd->first_name = ucfirst($request->first_name);
-                $contactEd->last_name = ucfirst($request->last_name);
-                $contactEd->name = $contact->first_name . " " . $contact->last_name;
-                $contactEd->email = $request->email;
-                $contactEd->save();
-                $contactEd->companies()->attach($contactEd->id);
-            }
+        // verifica se o email do CONTATO existe nos CONTATOS da EMPRESA DIGITAL. Se não existir, deve, criar.
+        $emailChecked = Contact::where('email', $request->email)
+                ->where('account_id')
+                ->first();
+        if (!$emailChecked) {
+            $contactEd = new Contact();
+            $contactEd->account_id = 1;
+            $contactEd->lead_source = 'site';
+            $contactEd->type = 'cliente';
+            $contactEd->first_name = ucfirst($request->first_name);
+            $contactEd->last_name = ucfirst($request->last_name);
+            $contactEd->name = $contact->first_name . " " . $contact->last_name;
+            $contactEd->email = $request->email;
+            $contactEd->save();
+            $contactEd->companies()->attach($contactEd->id);
+        }
 
-            // cria USUÁRIO para o novo usuário
-            $user = new User();
-            $user->contact_id = $contact->id;
-            $user->perfil = 'dono';
-            $user->email = $request->email;
+        // cria USUÁRIO para o novo usuário
+        $user = new User();
+        $user->contact_id = $contact->id;
+        $user->perfil = 'dono';
+        $user->email = $request->email;
 //        $user->default_password = $request->password;
-            $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-            $user->account_id = $account->id;
-            $today = new Datetime('now');
-            $today->add(new DateInterval('P1M'));
-            $user->due_date = $today;
-            $user->save();
+        $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        $user->account_id = $account->id;
+        $today = new Datetime('now');
+        $today->add(new DateInterval('P1M'));
+        $user->due_date = $today;
+        $user->save();
 
 //        $messages = [
 //            'required' => '*preenchimento obrigatório.',
@@ -153,14 +154,14 @@ use RegistersUsers;
 //        } else {
 //        dd($user);
 //            $user->save();
-            //        $this->createContact($user);
-            return redirect('/');
-        }
+        //        $this->createContact($user);
+        return redirect('/');
+    }
 
-        function createContact($user) {
-            $contact = new Contact();
-            $contact->fill($request->all());
-            $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
+    function createContact($user) {
+        $contact = new Contact();
+        $contact->fill($request->all());
+        $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
 
 //        $messages = [
 //            'unique' => 'Já existe um contato com este :attribute.',
@@ -177,9 +178,8 @@ use RegistersUsers;
 //                            ->withErrors($validator)
 //                            ->withInput();
 //        } else {
-            $contact->save();
+        $contact->save();
 //            $contact->companies()->sync($request->companies);
-        }
-
     }
-    
+
+}

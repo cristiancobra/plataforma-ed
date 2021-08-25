@@ -26,7 +26,7 @@ class ContactController extends Controller {
      */
     public function index(Request $request) {
         $contacts = Contact::filterModel($request);
-        $total = $contacts->total();
+        $total = $contacts->total();        
 
         $employees = Contact::where('account_id', auth()->user()->account_id)
                 ->where('type', 'funcionário')
@@ -76,7 +76,7 @@ class ContactController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create(Request $request) {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -90,6 +90,7 @@ class ContactController extends Controller {
         $professions = Contact::returnProfessions();
         $jobPositions = Contact::returnProfessions();
         $contactTypes = Contact::returnContactTypes();
+        $type = $request->type;
 
         return view('sales.contacts.create', compact(
                         'leadSources',
@@ -102,6 +103,7 @@ class ContactController extends Controller {
                         'professions',
                         'jobPositions',
                         'contactTypes',
+                        'type',
         ));
     }
 

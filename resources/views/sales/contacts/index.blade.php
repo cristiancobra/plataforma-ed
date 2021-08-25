@@ -32,7 +32,7 @@
 @section('shortcuts')
 <div class='col-lg-2 d-inline-block tasks-my' style="background-color: #52004d">
     <a style='text-decoration:none' href='{{route('contact.index', [
-				'type' => 'funcionário',
+				'filter' => 'news',
 				])}}'>
         <p class='panel-number'>
             {{$newsTotal}}

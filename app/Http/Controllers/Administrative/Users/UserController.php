@@ -50,6 +50,7 @@ class UserController extends Controller {
      */
     public function create(Request $request) {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
+                ->where('type', 'funcionário')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 

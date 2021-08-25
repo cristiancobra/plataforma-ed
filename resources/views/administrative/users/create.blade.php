@@ -28,7 +28,7 @@
         @csrf
         <label class="labels"'for="" >Contato: </label>
         {{createSelectIdName('contact_id', 'fields', $contacts, null)}}
-        {{createButtonAdd('contact.create')}}
+        {{createButtonAdd('contact.create', 'type', 'funcionário')}}
         <br>
         <label class="labels"for="" >Email (login): </label>
         <input class="fields" type="text" name="email" value="{{old('email')}}">

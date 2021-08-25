@@ -83,6 +83,14 @@ class Contact extends Model {
 
 //FUNÇÕES PÚBLICAS
     public static function filterModel(Request $request) {
+        if ($request->filter == 'news') {
+            $orderColumn = 'created_at';
+            $orderDirection = 'DESC';
+        } else {
+            $orderColumn = 'name';
+            $orderDirection = 'ASC';
+        };
+
         $items = Contact::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
@@ -114,7 +122,7 @@ class Contact extends Model {
 //                        'user.contact',
 //                        'user.image',
 //                )
-                ->orderBy('name', 'ASC')
+                ->orderBy($orderColumn, $orderDirection)
                 ->paginate(20);
 
         $items->appends([
@@ -192,7 +200,6 @@ class Contact extends Model {
 
     public static function returnContactTypes() {
         return [
-            '',
             'cliente',
             'funcionário',
             'fornecedor',
