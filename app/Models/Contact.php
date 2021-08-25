@@ -647,7 +647,7 @@ class Contact extends Model {
     }
 
     public static function getNewsContactsWeek() {
-        $lastWeek = date("Y-m-d", strtotime("-7 days"));
+        $lastWeek = date("Y-m-d", strtotime("-30 days"));
 
         return Contact::where('account_id', auth()->user()->account_id)
                         ->where('type', 'cliente')

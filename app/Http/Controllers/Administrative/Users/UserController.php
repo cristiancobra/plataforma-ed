@@ -356,13 +356,13 @@ class UserController extends Controller {
 
     public function report() {
         $users = User::where('users.id', '>', 0)
-                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
                 ->with(
                         'account',
+                        'contact',
                 )
                 ->orderBy('users.created_at', 'DESC')
                 ->paginate(50);
-
+        
         $total = $users->total();
 
         return view('administrative.users.report', compact(
