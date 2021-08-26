@@ -21,8 +21,6 @@
 @endsection
 
 @section('main')
-<br>
-
 @if(Session::has('failed'))
 <div class="alert alert-danger">
     {{Session::get('failed')}}
@@ -114,15 +112,11 @@
         <span class="text-danger">{{$errors->first('pay_day')}}</span>
         @endif
         <br>
-        <label class="labels" for="">VALOR: </label><span style='margin-left:20px'>R$</span>
+        <label class="labels" for="">VALOR: </label>
         @if ($errors->has('value'))
         <span class="text-danger">{{$errors->first('value')}}</span>
         @endif
-        @if(!empty(app('request')->input('invoiceTotalPrice')))
-        <input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(app('request')->input('invoiceTotalPrice'))}}">
-        @else
-        <input type="decimal" name="value" style="text-align: right" size='6' value="{{formatCurrency(0)}}">
-        @endif
+        <input type="decimal" name="value" style="text-align: right" size='12' value="{{formatCurrencyReal($invoiceTotalPrice)}}">
         <br>
         <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
         {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
@@ -143,4 +137,10 @@ CKEDITOR.replace('observations');
 </div>
 <br>
 <br>
+@endsection
+
+@section('js-scripts')
+    <script>
+        $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+    </script>
 @endsection

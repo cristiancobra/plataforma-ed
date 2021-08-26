@@ -16,8 +16,19 @@
 @endsection
 
 @section('main')
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
+</div>
+@endif
 <div>
-    <form action=" {{route('transaction.update', ['transaction' =>$transaction->id])}} " method="post" style="color: #874983">
+    <form action=" {{route('transaction.update', [
+                                                                            'transaction' => $transaction,
+                                                                            'typeTransactions' => 'débito',
+                                                                            ])}} " method="post" style="color: #874983">
         @csrf
         @method('put')
         <label class="labels" for="" >REGISTRADO POR:</label>
@@ -70,8 +81,8 @@
         <label class="labels" for="" >DATA:</label>
         <input type="date" name="pay_day" size="20" value="{{$transaction->pay_day}}"><span class="fields"></span>
         <br>
-        <label class="labels" for="">VALOR: </label><span style='margin-left:20px'>  R$</span>
-        <input type="decimal" name="value" size='6' style="text-align: right" value="{{formatCurrency($transaction->value)}}">
+        <label class="labels" for="">VALOR: </label>
+        <input type="decimal" name="value" size='12' style="text-align: right" value="{{formatCurrencyReal($transaction->value)}}">
         @if ($errors->has('value'))
         <span class="text-danger">{{$errors->first('value')}}</span>
         @endif
@@ -97,4 +108,11 @@ CKEDITOR.replace('description');
 </div>
 <br>
 <br>
+@endsection
+
+
+@section('js-scripts')
+    <script>
+        $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+    </script>
 @endsection

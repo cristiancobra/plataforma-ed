@@ -211,3 +211,10 @@ CKEDITOR.replace('description');
 <br>
 <br>
 @endsection
+
+
+@section('js-scripts')
+    <script>
+        $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+    </script>
+@endsection

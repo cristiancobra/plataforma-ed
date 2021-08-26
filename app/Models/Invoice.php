@@ -178,6 +178,19 @@ class Invoice extends Model {
         return $invoices;
     }
 
+    // Recebe uma fatura e soma seus pagamentos
+    public static function totalPaid($invoice) {
+        
+        $sumTransactions = 0;
+        foreach($invoice->transactions as $transaction) {
+            if($transaction->trash != 1) {
+            $sumTransactions += $transaction->value;
+            }
+        }
+        
+        return $sumTransactions;
+    }
+
     // soma as faturas do TIPO recebido gerando um array com valor total TOTALPRICE de cada mês
     public static function monthlyInvoicesTotal($year, $type) {
         $monthStart = new DateTime(date("$year-01-01"));

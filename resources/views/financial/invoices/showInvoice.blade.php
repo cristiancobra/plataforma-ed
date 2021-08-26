@@ -259,7 +259,7 @@
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'pay_day' => $invoice->pay_day,
-		'typeTransactions' => 'receita',
+		'typeTransactions' => 'crédiito',
 		'invoiceTotalPrice' => $invoice->totalPrice,
 				
 	])}}'>
@@ -272,8 +272,8 @@
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
                 		'pay_day' => $invoice->pay_day,
-		'typeTransactions' => 'despesa',
-		'invoiceTotalPrice' => $invoice->totalPrice * -1,
+		'typeTransactions' => 'débito',
+		'invoiceTotalPrice' => $balance,
 	])}}'>
             <i class='fa fa-plus'></i>
         </a>

@@ -91,6 +91,11 @@ class TransactionController extends Controller {
      */
     public function create(Request $request) {
         $typeTransactions = $request->input('typeTransactions');
+        if ($typeTransactions == 'débito') {
+            $invoiceTotalPrice = $request->input('invoiceTotalPrice') * -1;
+        } else {
+            $invoiceTotalPrice = $request->input('invoiceTotalPrice');
+        }
 
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -106,6 +111,7 @@ class TransactionController extends Controller {
 
         return view('financial.transactions.create', compact(
                         'typeTransactions',
+                        'invoiceTotalPrice',
                         'bankAccounts',
                         'invoices',
                         'users',
@@ -142,19 +148,35 @@ class TransactionController extends Controller {
             } else {
                 $transaction->value = removeCurrency($request->value) * -1;
             }
-//            dd($transaction);
-            $transaction->save();
 
-            if ($transaction->type == 'transferência') {
-                $transaction2 = new Transaction();
-                $transaction2->fill($request->all());
-                $transaction->account_id = auth()->user()->account_id;
-                $transaction2->bank_account_id = $request->bank_account_destiny_id;
-                $transaction2->value = removeCurrency($request->value);
-                $transaction2->save();
-            };
+            // verifica se o total de pagamentos é maior que o total da fatura
+            $invoice = Invoice::where('id', $request->invoice_id)
+                    ->with('transactions')
+                    ->first();
 
-            return redirect()->route('transaction.show', compact('transaction'));
+            $totalPaid = Invoice::totalPaid($invoice);
+            $newTotal = $totalPaid + $transaction->value;
+
+            if ($newTotal >= $invoice->totalPrice) {
+                $transaction->save();
+            
+
+                if ($transaction->type == 'transferência') {
+                    $transaction2 = new Transaction();
+                    $transaction2->fill($request->all());
+                    $transaction->account_id = auth()->user()->account_id;
+                    $transaction2->bank_account_id = $request->bank_account_destiny_id;
+                    $transaction2->value = removeCurrency($request->value);
+                    $transaction2->save();
+                };
+
+                return redirect()->route('transaction.show', compact('transaction'));
+                
+            } else {
+                return back()
+                                ->with('failed', 'A soma dos pagamentos não pode ser maior que o valor da fatura de' . formatCurrencyReal($invoice->totalPrice))
+                                ->withInput();
+            }
         }
     }
 
@@ -181,6 +203,9 @@ class TransactionController extends Controller {
      */
     public function edit(Request $request, Transaction $transaction) {
         $typeTransactions = $request->input('typeTransactions');
+        if ($typeTransactions == 'débito') {
+            $transaction->value = $transaction->value * -1;
+        } 
 
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -210,11 +235,38 @@ class TransactionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Transaction $transaction) {
+        $typeTransactions = $request->input('typeTransactions');
+        $oldTransactionValue = $transaction->value;
+
         $transaction->fill($request->all());
         $transaction->value = removeCurrency($request->value);
-        $transaction->save();
+        if ($typeTransactions == 'débito') {
+            $transaction->value = $transaction->value * -1;
+        }
 
-        return redirect()->route('transaction.show', compact('transaction'));
+        // verifica se o total de pagamentos é maior que o total da fatura
+        $invoice = Invoice::where('id', $request->invoice_id)
+                ->with('transactions')
+                ->first();
+
+        $totalPaid = Invoice::totalPaid($invoice) - $oldTransactionValue;
+        $newTotal = $totalPaid + $transaction->value;
+
+        if ($newTotal >= $invoice->totalPrice) {
+            $transaction->save();
+
+            return redirect()->route('transaction.show', compact('transaction'));
+        } else {
+        if ($typeTransactions == 'débito') {
+            $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
+        }else{
+            $totalPrice = formatCurrencyReal($invoice->totalPrice);
+            
+        }
+            return back()
+                            ->with('failed', "A soma dos pagamentos não pode ser maior que  $totalPrice")
+                            ->withInput();
+        }
     }
 
     /**
@@ -264,7 +316,6 @@ class TransactionController extends Controller {
 //                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
 //                ->with('invoiceLines.product')
 //                ->get();
-
 //   RECEITAS
         $monthlyRevenues = Transaction::monthlyTransactionsTotal($year, 'crédito');
         $annualRevenues = Invoice::annualInvoicesTotal($year, 'crédito');
@@ -321,7 +372,6 @@ class TransactionController extends Controller {
         ));
     }
 
-    
     public function exportCsv(Request $request) {
         $fileName = 'transactions.csv';
         $transactions = Transaction::where('account_id', auth()->user()->account_id)
