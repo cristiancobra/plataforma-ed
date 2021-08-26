@@ -125,6 +125,8 @@ class TransactionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+        $typeTransactions = $request->input('typeTransactions');
+
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -159,7 +161,6 @@ class TransactionController extends Controller {
 
             if ($newTotal >= $invoice->totalPrice) {
                 $transaction->save();
-            
 
                 if ($transaction->type == 'transferência') {
                     $transaction2 = new Transaction();
@@ -171,10 +172,14 @@ class TransactionController extends Controller {
                 };
 
                 return redirect()->route('transaction.show', compact('transaction'));
-                
             } else {
+                if ($typeTransactions == 'débito') {
+                    $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
+                } else {
+                    $totalPrice = formatCurrencyReal($invoice->totalPrice);
+                }
                 return back()
-                                ->with('failed', 'A soma dos pagamentos não pode ser maior que o valor da fatura de' . formatCurrencyReal($invoice->totalPrice))
+                                ->with('failed', "A soma dos pagamentos não pode ser maior que  $totalPrice")
                                 ->withInput();
             }
         }
@@ -205,7 +210,7 @@ class TransactionController extends Controller {
         $typeTransactions = $request->input('typeTransactions');
         if ($typeTransactions == 'débito') {
             $transaction->value = $transaction->value * -1;
-        } 
+        }
 
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -257,12 +262,11 @@ class TransactionController extends Controller {
 
             return redirect()->route('transaction.show', compact('transaction'));
         } else {
-        if ($typeTransactions == 'débito') {
-            $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
-        }else{
-            $totalPrice = formatCurrencyReal($invoice->totalPrice);
-            
-        }
+            if ($typeTransactions == 'débito') {
+                $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
+            } else {
+                $totalPrice = formatCurrencyReal($invoice->totalPrice);
+            }
             return back()
                             ->with('failed', "A soma dos pagamentos não pode ser maior que  $totalPrice")
                             ->withInput();

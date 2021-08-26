@@ -1,8 +1,8 @@
 @extends('layouts/master')
 
-@if($typeTransactions == 'receita')
+@if($typeTransactions == 'crédito')
 @section('title','ENTRADAS')
-@elseif($typeTransactions == 'despesa')
+@elseif($typeTransactions == 'débito')
 @section('title','SAÍDAS')
 @elseif($typeTransactions == 'transferência')
 @section('title','TRANSFERÊNCIAS')
@@ -35,9 +35,9 @@
 
         @if(!empty(app('request')->input('invoiceType')))
         <input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
-        @elseif($typeTransactions == 'receita')
+        @elseif($typeTransactions == 'crédito')
         <input type='hidden' name='type' value='crédito'>
-        @elseif($typeTransactions == 'despesa')
+        @elseif($typeTransactions == 'débito')
         <input type='hidden' name='type' value='débito'>
         @elseif($typeTransactions == 'transferência')
         <input type='hidden' name='type' value='transferência'>
