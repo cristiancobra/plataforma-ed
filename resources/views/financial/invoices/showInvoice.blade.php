@@ -259,7 +259,7 @@
 		'accountId' => $invoice->account_id,
 		'accountName' => $invoice->account->name,
 		'pay_day' => $invoice->pay_day,
-		'typeTransactions' => 'crédiito',
+		'typeTransactions' => 'crédito',
 		'invoiceTotalPrice' => $invoice->totalPrice,
 				
 	])}}'>
