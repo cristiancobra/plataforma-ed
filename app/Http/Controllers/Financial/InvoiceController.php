@@ -635,7 +635,8 @@ class InvoiceController extends Controller {
             'orientation' => 'Landscape',
             'header-html' => $header,
             'footer-html' => $footer,
-        ]);
+        ])
+             ;
 
 // download PDF file with download method
         return $pdf->stream('Relatório financeiro.pdf');
