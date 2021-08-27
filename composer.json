@@ -23,6 +23,7 @@
 		"laravel/tinker": "^2.0",
 		"laravel/ui": "^2.0",
 		"league/csv": "^9.7",
+		"nesbot/carbon": "^2.52",
 		"twbs/bootstrap": "5.1.0"
 	},
 	"require-dev": {
