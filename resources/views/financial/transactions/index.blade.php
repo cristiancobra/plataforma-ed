@@ -78,7 +78,7 @@ Total: <span class='labels'></span>
 @endsection
 
 @section('table')
-<form id='filter' action='{{route('transaction.index')}}' method='post' style='text-align: right;display:none'>
+<form id='filter' action='{{route('transaction.index')}}' method='get' style='text-align: right;display:none'>
     @csrf
     <input type='text' name='name' placeholder='nome da oportunidade' value=''>
     <input type='date' name='date_start' size='20' value='{{old('date_start')}}'><span class='fields'></span>
