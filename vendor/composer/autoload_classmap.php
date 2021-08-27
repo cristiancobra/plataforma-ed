@@ -8,9 +8,11 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Commands\\ConcateDateAndTime' => $baseDir . '/app/Console/Commands/ConcateDateAndTime.php',
     'App\\Console\\Commands\\CopyInstallmentValueToTotalPriceInInvoices' => $baseDir . '/app/Console/Commands/CopyInstallmentValueToTotalPriceInInvoices.php',
+    'App\\Console\\Commands\\CreateExpensesProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateExpensesProposalsFromInvoices.php',
     'App\\Console\\Commands\\CreateProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateProposalsFromInvoices.php',
     'App\\Console\\Commands\\FillNullFieldCommand' => $baseDir . '/app/Console/Commands/FillNullFieldCommand.php',
     'App\\Console\\Commands\\NegativeInvoicesTotalpriceOfExpenses' => $baseDir . '/app/Console/Commands/NegativeInvoicesTotalpriceOfExpenses.php',
+    'App\\Console\\Commands\\SetContactTypeClienteEmpresaDigital' => $baseDir . '/app/Console/Commands/SetContactTypeClienteEmpresaDigital.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Administrative\\Accounts\\AccountController' => $baseDir . '/app/Http/Controllers/Administrative/Accounts/AccountController.php',

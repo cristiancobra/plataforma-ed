@@ -13,7 +13,7 @@
 <a id='filter_button' class='circular-button secondary'>
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
-
+{{createButtonPdfReport('invoice')}}
 {{createButtonBack()}}
 {{createButtonList('invoice')}}
 @endsection
@@ -72,7 +72,7 @@
     <div class="tb-header col-1">
         TIPO 
     </div>
-    @foreach ($months as $month)
+    @foreach($months as $month)
     <div   class="tb-header col" style="width: 5%">
         {{$month}}
     </div>

@@ -118,10 +118,22 @@ if (!function_exists('createButtonExternalLink')) {
 if (!function_exists('createButtonPdf')) {
 
 // cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF
-    function createButtonPdf($model = null, $parameter = null) {
+    function createButtonPdf($model = null, $parameter) {
         $link = "$parameter.pdf";
 
         echo "<a class='circular-button secondary'  href=" . route($link, [$parameter => $model]) . ">
+                        <i class='fa fa-print' aria-hidden='true'></i>
+                    </a>";
+    }
+
+}
+if (!function_exists('createButtonPdfReport')) {
+
+// cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF específico para relatórios
+    function createButtonPdfReport($parameter) {
+        $link = "$parameter.pdfReport";
+
+        echo "<a class='circular-button secondary'  href=" . route($link) . ">
                         <i class='fa fa-print' aria-hidden='true'></i>
                     </a>";
     }

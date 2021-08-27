@@ -75,6 +75,12 @@
                     <br>
                     @break
 
+                    @case('RELATÓRIO FINANCEIRO')
+                <p style='font-size:32px'>
+                    RELATÓRIO FINANCEIRO
+                    <br>
+                    @break
+
                     @default
                 <p style='font-size:22px'>
                     Não possui título

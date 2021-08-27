@@ -107,7 +107,11 @@ Route::any('/faturas/relatorio', 'Financial\\InvoiceController@report')
         ->name('invoice.report')
         ->middleware('roles');
 
-Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPDF')
+Route::get('faturas/relatorio/pdf', 'Financial\\InvoiceController@createPdfReport')
+        ->name('invoice.pdfReport')
+        ->middleware('roles');
+
+Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPdf')
         ->name('invoice.pdf')
         ->middleware('roles');
 
