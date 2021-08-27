@@ -141,7 +141,8 @@ class TransactionController extends Controller {
                             ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
                             ->withErrors($validator)
                             ->withInput();
-        } else {
+        }
+        
             $transaction = new Transaction();
             $transaction->fill($request->all());
             $transaction->account_id = auth()->user()->account_id;
@@ -156,6 +157,9 @@ class TransactionController extends Controller {
                     ->with('transactions')
                     ->first();
 
+            if ($transaction->type != 'transferência') {
+                $transaction->save();
+            } else {
             $totalPaid = Invoice::totalPaid($invoice);
             $newTotal = $totalPaid + $transaction->value;
 
@@ -183,7 +187,7 @@ class TransactionController extends Controller {
                                 ->withInput();
             }
         }
-    }
+        }
 
     /**
      * Display the specified resource.
