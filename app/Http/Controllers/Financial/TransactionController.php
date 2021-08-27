@@ -157,7 +157,7 @@ class TransactionController extends Controller {
                     ->with('transactions')
                     ->first();
 
-            if ($transaction->type != 'transferência') {
+            if ($transaction->type == 'transferência') {
                 $transaction->save();
             } else {
             $totalPaid = Invoice::totalPaid($invoice);
