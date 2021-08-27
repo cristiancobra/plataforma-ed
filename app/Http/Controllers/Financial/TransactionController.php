@@ -118,6 +118,29 @@ class TransactionController extends Controller {
         ));
     }
 
+    public function createTransfer(Request $request) {
+
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->paginate(20);
+
+//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('status', 'aprovada')
+//                ->where('type', 'LIKE', $typeTransactions)
+//                ->orderBy('pay_day', 'ASC')
+//                ->paginate(20);
+
+        $users = User::myUsers();
+
+        return view('financial.transactions.transfer', compact(
+//                        'typeTransactions',
+//                        'invoiceTotalPrice',
+                        'bankAccounts',
+//                        'invoices',
+                        'users',
+        ));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -141,8 +164,7 @@ class TransactionController extends Controller {
                             ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
                             ->withErrors($validator)
                             ->withInput();
-        }
-        
+        } else {
             $transaction = new Transaction();
             $transaction->fill($request->all());
             $transaction->account_id = auth()->user()->account_id;
@@ -157,26 +179,14 @@ class TransactionController extends Controller {
                     ->with('transactions')
                     ->first();
 
-            if ($invoice) {
             $totalPaid = Invoice::totalPaid($invoice);
             $newTotal = $totalPaid + $transaction->value;
 
             if ($newTotal >= $invoice->totalPrice) {
                 $transaction->save();
-            }else{
-                $transaction->save();
-               }
-
-                if ($transaction->type == 'transferência') {
-                    $transaction2 = new Transaction();
-                    $transaction2->fill($request->all());
-                    $transaction->account_id = auth()->user()->account_id;
-                    $transaction2->bank_account_id = $request->bank_account_destiny_id;
-                    $transaction2->value = removeCurrency($request->value);
-                    $transaction2->save();
-                };
 
                 return redirect()->route('transaction.show', compact('transaction'));
+                
             } else {
                 if ($typeTransactions == 'débito') {
                     $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
@@ -188,7 +198,46 @@ class TransactionController extends Controller {
                                 ->withInput();
             }
         }
+    }
+
+    public function storeTransfer(Request $request) {
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'pay_day' => 'required:transactions',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } elseif ($request->bank_account_id == $request->bank_account_destiny_id) {
+            return back()
+                            ->with('failed', "As contas de origem e destino não podem ser iguais.")
+                            ->withInput();
+        } else {
+            $transaction = new Transaction();
+            $transaction->fill($request->all());
+            $transaction->type = 'transferência';
+            $transaction->account_id = auth()->user()->account_id;
+            $transaction->value = removeCurrency($request->value) * -1;
+            $transaction->save();
+
+            $transaction2 = new Transaction();
+            $transaction2->fill($request->all());
+            $transaction2->account_id = auth()->user()->account_id;
+            $transaction2->bank_account_id = $request->bank_account_destiny_id;
+            $transaction2->type = 'transferência';
+            $transaction2->value = removeCurrency($request->value);
+            $transaction2->save();
+//            dd($transaction2);
+
+            return redirect()->route('transaction.show', compact('transaction'));
         }
+    }
 
     /**
      * Display the specified resource.

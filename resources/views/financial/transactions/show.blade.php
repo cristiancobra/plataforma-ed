@@ -71,6 +71,7 @@
         Pessoa física
     </div>
     @endif
+    
     @if(isset($transaction->invoice->proposal->opportunity->name))
     <a href='{{route('opportunity.show', ['opportunity' => $transaction->invoice->proposal->opportunity_id])}}'>
         <div class='show-field-end'>
@@ -82,11 +83,19 @@
         Não possui
     </div>
     @endif
+    
+    @if(isset($transaction->invoice))
     <a href='{{route('invoice.show', ['invoice' => $transaction->invoice_id])}}'>
         <div class='show-field-end'>
             {{$transaction->invoice->identifier}}
         </div>
     </a>
+    @else
+        <div class='show-field-end'>
+            Não possui
+        </div>
+    @endif
+    
             @if(isset($transaction->invoice->proposal))
     <a href='{{route('proposal.show', ['proposal' => $transaction->invoice->proposal_id])}}'>
         <div class='show-field-end'>

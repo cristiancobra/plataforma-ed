@@ -169,6 +169,18 @@ Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report'
         ->name('transaction.report')
         ->middleware('roles');
 
+Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report')
+        ->name('transaction.report')
+        ->middleware('roles');
+
+ Route::get('/movimentacoes/transferencia', 'Financial\\TransactionController@createTransfer')
+        ->name('transaction.createTransfer')
+        ->middleware('roles');
+
+ Route::post('/movimentacoes/transferencia', 'Financial\\TransactionController@storeTransfer')
+        ->name('transaction.storeTransfer')
+        ->middleware('roles');
+
 Route::resource('movimentacoes', 'Financial\\TransactionController')
         ->names('transaction')
         ->parameters(['movimentacoes' => 'transaction'])

@@ -5,131 +5,235 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title></title>
-        <!-- Styles -->
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
-        
+
+        <style>
+            * {
+                font-family: Nunito, helvetica, sans-serif;
+            }
+            .break{
+                page-break-after: always;
+            }
+            .header2 {
+                color:white;
+                text-align: left;
+                font-size: 25px;
+                padding-top:0px;
+                padding-left:25px;
+                border-radius:20px;
+                background-color: grey;
+                height: 80px;
+            }
+            .table-list-header {
+                color:white;
+                font-size: 14px;
+                padding:8px;
+                margin-top: 5px;
+                margin-bottom: 5px;
+            }
+            .table-list {
+                color:black;
+                font-size: 14px;
+                font-weight: 300;
+                padding-top:20px;
+                padding-bottom: 10px;
+                margin-top: 10px;
+                margin-bottom: 5px;
+                margin-left: 10px;
+                margin-right: 10px;
+                border-style: solid;
+                border-bottom-width: 1px;
+            }
+            .toDo{
+                display: table-cell;
+                text-align: center;
+                font-size: 14px;
+                text-shadow: 2px 2px 4px #000000;
+                color: white;
+                vertical-align:middle;
+                background-color: #F2E28C;
+                border-style: solid;
+                border-width: 1px; 
+                border-color: white;
+                border-radius:10px;
+            }
+            .done{
+                display: table-cell;
+                text-align: center;
+                font-size: 14px;
+                text-shadow: 2px 2px 4px #000000;
+                color: white;
+                vertical-align:middle;
+                background-color: #A5D9CC;
+                border-style: solid;
+                border-width: 1px; 
+                border-color: white;
+                border-radius:10px;
+            }
+
+            .doing{
+                display: table-cell;
+                text-align: center;
+                font-size: 14px;
+                text-shadow: 2px 2px 4px #000000;
+                color: white;
+                vertical-align:middle;
+                background-color: #92C4D4;
+                border-style: solid;
+                border-width: 1px; 
+                border-color: white;
+                border-radius:10px;
+            }
+            .description {
+                color:black;
+                font-size: 12px;
+                padding:8px;
+                padding-left:30px;
+                margin-top: 0px;
+                margin-bottom: 5px;
+                margin-left: 40px;
+                margin-right: 10px;
+                border-radius:20px;
+                border-style: solid;
+                border-color: black;
+                border-bottom: 1px;
+                font-style: italic;
+            }
+            .right {
+                text-align: right;
+            }
+            .left {
+                text-align: left;
+            }
+            .center {
+                text-align: center;
+            }
+        </style>
+
     </head>
     <body>
+        <table style="width: 100%;padding-top: 30px">
+            <tr>
+                <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
+                    TIPO 
+                </td>
+                @foreach($data['months'] as $month)
+                <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
+                    {{$month}}
+                </td>
+                @endforeach
+                <td class="table-list-header center" style="width: 10%;background-color:{{$data['accountComplementaryColor']}}">
+                    TOTAL 
+                </td>
+            </tr>
 
-
-        <div class="row mt-4">
-            <div class="tb-header col-1">
-                TIPO 
-            </div>
-            @foreach($data['months'] as $month)
-            <div   class="tb-header col" style="width: 5%">
-                {{$month}}
-            </div>
-            @endforeach
-            <div   class="tb-header col" style="width: 10%">
-                TOTAL 
-            </div>
-        </div>
-
-        @php
-        $counterArray = 1;
-        $counterMonth = 1;
-        @endphp
-
-        <div class="row mt-1">
-            <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0;font-weight: 600'>
-                RECEITAS
-            </div>
-
-            @while($counterMonth <= 12)
-            <div class='tb col justify-content-end' style='background-color: lightblue;font-weight: 600'>
-
-                {{formatCurrency($data['monthlyRevenues'][$counterArray])}}
-            </div>
-            @php
-            $counterMonth++;
-            $counterArray++;    
-            @endphp
-            @endwhile
-
-            <div class='tb tb-header col justify-content-end'  style='background-color: #4863A0;font-weight: 600'>
-                {{formatCurrency($data['annualRevenues'])}}
-            </div>
-        </div>
-
-        @php
-        $counterArray = 1;
-        $counterMonth = 1;
-        @endphp
-
-        @foreach($data['categories'] as $category)
-        <div class="row">
-            <div class="tb col-1 justify-content-start" style='background-color: lightblue;font-weight: 600'>
-                {{$category['name']}}
-            </div>
-            @foreach($data['months'] as $key => $month)
-            <div class="tb col justify-content-end">
-
-                {{formatCurrency(floatval($category['monthlys'][$month]))}}
-            </div>
-            @endforeach
-            <div class="tb col justify-content-end" style='background-color: lightblue;font-weight: 600'>
-                {{formatCurrency(floatval($category['year']))}}
-            </div>
-        </div>
-        @endforeach
-
-        <div class="row mt-5">
-            <div class="tb-header col-1 justify-content-start" style='background-color: red;color:white;font-weight: 600'>
-                DESPESAS
-            </div>
             @php
             $counterArray = 1;
             $counterMonth = 1;
             @endphp
 
-            @while ($counterMonth <= 12)
-            <div class='tb col justify-content-end' style='background-color: #FDDBDD;font-weight: 600'>
-                {{formatCurrency($data['monthlyExpenses'][$counterArray])}}
-            </div>
+            <tr>
+                <td class="table-list-header left" style="width: 10%;font-weight: 600;background-color:#4863A0">
+                    RECEITAS
+                </td>
+
+                @while($counterMonth <= 12)
+                <td class="table-list right" style="background-color:lightblue">
+
+                    {{formatCurrency($data['monthlyRevenues'][$counterArray])}}
+                </td>
+                @php
+                $counterMonth++;
+                $counterArray++;    
+                @endphp
+                @endwhile
+
+                <td class="table-list-header center" style="width: 10%;font-weight: 600;background-color:#4863A0">
+                    {{formatCurrency($data['annualRevenues'])}}
+                </td>
+            </tr>
+
             @php
-            $counterMonth++;
-            $counterArray++;
+            $counterArray = 1;
+            $counterMonth = 1;
             @endphp
-            @endwhile
-            <div class='tb col justify-content-end' style='background-color: red;color:white;font-weight: 600'>
-                {{formatCurrency($data['annualExpenses'])}}
-            </div>
-        </div>
 
+            @foreach($data['categories'] as $category)
+            <div class="row">
+                <td class="table-list-header left" style="width: 10%;font-weight: 600;background-color:#4863A0">
+                    {{$category['name']}}
+                </td>
+                @foreach($data['months'] as $key => $month)
+                <td class="table-list right" style="background-color:white">
 
-        @php
-        $counterArray = 1;
-        $counterMonth = 1;
-        @endphp
-
-        @foreach($data['groups'] as $group)
-        <div class="row">
-            <div class="tb col-1 justify-content-start" style='background-color: #FDDBDD;font-weight: 600'>
-                {{$group['name']}}
-            </div>
-            @foreach($data['months'] as $key => $month)
-            <div class="tb col justify-content-end">
-                {{formatCurrency(floatval($group['monthlys'][$month]))}}
-            </div>
-            @endforeach
-            <div class="tb col justify-content-end"  style='background-color: #FDDBDD;font-weight: 600'>
-                {{formatCurrency(floatval($group['year']))}}
-            </div>
-        </div>
-        @endforeach
+                    {{formatCurrency(floatval($category['monthlys'][$month]))}}
+                </td>
+                @endforeach
+                <td class="table-list-header right" style="width: 10%;font-weight: 600;color:black;background-color:lightblue">
+                    {{formatCurrency(floatval($category['year']))}}
+                </td>
+                </tr>
+                @endforeach
+        </table>
         <br>
         <br>
+        <br>
+        <table>
 
-        <script>
-            $(document).ready(function () {
-                //botao de exibir filtro
-                $("#filter_button").click(function () {
-                    $("#filter").slideToggle(600);
-                });
-            });
+        <div class="row mt-5">
+            <div class="tb-header col-1 justify-content-start" style='background-color: red;color:white;font-weight: 600'>
+                DESPESAS
+                </td>
+                @php
+                $counterArray = 1;
+                $counterMonth = 1;
+                @endphp
 
-            //gráfico de linhas
+                @while ($counterMonth <= 12)
+                <div class='tb col justify-content-end' style='background-color: #FDDBDD;font-weight: 600'>
+                    {{formatCurrency($data['monthlyExpenses'][$counterArray])}}
+                    </td>
+                    @php
+                    $counterMonth++;
+                    $counterArray++;
+                    @endphp
+                    @endwhile
+                    <div class='tb col justify-content-end' style='background-color: red;color:white;font-weight: 600'>
+                        {{formatCurrency($data['annualExpenses'])}}
+                        </td>
+                        </tr>
+
+
+                        @php
+                        $counterArray = 1;
+                        $counterMonth = 1;
+                        @endphp
+
+                        @foreach($data['groups'] as $group)
+                        <div class="row">
+                            <div class="tb col-1 justify-content-start" style='background-color: #FDDBDD;font-weight: 600'>
+                                {{$group['name']}}
+                                </td>
+                                @foreach($data['months'] as $key => $month)
+                                <div class="tb col justify-content-end">
+                                    {{formatCurrency(floatval($group['monthlys'][$month]))}}
+                                    </tr>
+                                    @endforeach
+                                    <div class="tb col justify-content-end"  style='background-color: #FDDBDD;font-weight: 600'>
+                                        {{formatCurrency(floatval($group['year']))}}
+                                        </td>
+                                        </tr>
+                                        @endforeach
+                                        </table>
+
+                                        <script>
+                                            $(document).ready(function () {
+                                                //botao de exibir filtro
+                                                $("#filter_button").click(function () {
+                                                    $("#filter").slideToggle(600);
+                                                });
+                                            });
+
+                                            //gráfico de linhas
 
 <?php
 $monthsLabel = json_encode(array_values($data['months']));
@@ -139,48 +243,48 @@ $monthlyCategory = [];
 $counter = 1;
 foreach ($data['categories'] as $category) {
     $monthlyCategory[] = json_encode(array_values($category['monthlys']));
-    //    $monthlyCategory[$counter++] = json_encode(array_values($monthlyCategory));
+//    $monthlyCategory[$counter++] = json_encode(array_values($monthlyCategory));
 }
 //    dd($monthlyCategory[0]);
 ?>
 
-            new Chart(document.getElementById("chart"), {
-                type: 'line',
-                data: {
-                    labels: <?php echo $monthsLabel; ?>,
-                    datasets: [{
-                            data: <?php echo $monthlyRevenues; ?>,
-                            label: "Receitas totais",
-                            borderColor: "#3e95cd",
-                            fill: false
-                        }, {
-                            data: <?php echo $monthlyCategory[0]; ?>,
-                            label: "Serviços",
-                            borderColor: "#ffff00",
-                            fill: false
-                        }, {
-                            data: <?php echo $monthlyCategory[1]; ?>,
-                            label: "Produtos",
-                            borderColor: "#8e5ea2",
-                            fill: false
-                        }, {
-                            data: <?php echo $monthlyCategory[2]; ?>,
-                            label: "Produtos digitais",
-                            borderColor: "#3cba9f",
-                            fill: false
-                        }
-                    ]
-                },
-                options: {
-                    title: {
-                        display: true,
-                        text: 'World population per region (in millions)'
-                    }
-                }
-            });
+                                            new Chart(document.getElementById("chart"), {
+                                                type: 'line',
+                                                data: {
+                                                    labels: <?php echo $monthsLabel; ?>,
+                                                    datasets: [{
+                                                            data: <?php echo $monthlyRevenues; ?>,
+                                                            label: "Receitas totais",
+                                                            borderColor: "#3e95cd",
+                                                            fill: false
+                                                        }, {
+                                                            data: <?php echo $monthlyCategory[0]; ?>,
+                                                            label: "Serviços",
+                                                            borderColor: "#ffff00",
+                                                            fill: false
+                                                        }, {
+                                                            data: <?php echo $monthlyCategory[1]; ?>,
+                                                            label: "Produtos",
+                                                            borderColor: "#8e5ea2",
+                                                            fill: false
+                                                        }, {
+                                                            data: <?php echo $monthlyCategory[2]; ?>,
+                                                            label: "Produtos digitais",
+                                                            borderColor: "#3cba9f",
+                                                            fill: false
+                                                        }
+                                                    ]
+                                                },
+                                                options: {
+                                                    title: {
+                                                        display: true,
+                                                        text: 'World population per region (in millions)'
+                                                    }
+                                                }
+                                            });
 
 
-        </script>
+                                        </script>
 
-    </body>
-</html>
+                                        </body>
+                                        </html>

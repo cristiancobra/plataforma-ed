@@ -73,9 +73,8 @@ class Transaction extends Model {
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
                     }
-
                     if ($request->type) {
-                        $query->where('type', '=', $request->type);
+                        $query->where('type', $request->type);
                     }
                     if ($request->trash == 1) {
                         $query->where('trash', 1);

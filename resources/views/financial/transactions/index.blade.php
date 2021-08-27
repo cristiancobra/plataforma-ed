@@ -18,7 +18,7 @@ Total: <span class='labels'></span>
 <a id='export' class='circular-button secondary' href='{{route('transaction.export')}}' onclick='exportTasks(event.target);'>
     <i class='fa fa-table' aria-hidden='true'></i>
 </a>
-<a class='circular-button secondary' href='{{route('transaction.create', ['typeTransactions' => 'transferência'])}}'>
+<a class='circular-button secondary' href='{{route('transaction.createTransfer', ['typeTransactions' => 'transferência'])}}'>
     <i class='fas fa-sync'></i>
 </a>
 <a class='circular-button secondary' href='{{route('transaction.create', ['typeTransactions' => 'despesa'])}}'>
@@ -165,7 +165,7 @@ Total: <span class='labels'></span>
         Não possui
         @endif
     </div>
-    @if($transaction->type == 'débito')
+    @if($transaction->value < 1)
     <div class='tb col-1 justify-content-end' style='color:red'>
         {{formatCurrencyReal($transaction->value)}}
     </div>
