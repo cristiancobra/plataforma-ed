@@ -242,9 +242,15 @@
         <div class='tb col-4'>
             {{$transaction->bankAccount->name}}
         </div>
+        @if($transaction->value < 0)
+        <div class='tb col-2 justify-content-end' style="color: red">
+            {{formatCurrencyReal($transaction->value)}}
+        </div>
+        @else
         <div class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($transaction->value)}}
         </div>
+        @endif
     </div>
     @endforeach
     <div class='row'>
