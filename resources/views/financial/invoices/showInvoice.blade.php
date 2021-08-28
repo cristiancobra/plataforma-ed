@@ -28,7 +28,7 @@
 @endsection
 
 @section('status')
-@if($invoice->totalPrice > 0)
+@if($invoice->totalPrice < 0)
 <div style="
                     background-color: #FDDBDD;
                     border-radius: 30px;
