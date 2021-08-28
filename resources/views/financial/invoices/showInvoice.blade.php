@@ -28,6 +28,18 @@
 @endsection
 
 @section('status')
+@if($invoice->totalPrice > 0)
+<div style="
+                    background-color: #FDDBDD;
+                    border-radius: 30px;
+                    padding-top: 5px;
+                    padding-bottom: 7px;
+                    padding-right: 15px;
+                    text-align: right
+                    ">
+    {{formatCurrencyReal($invoice->totalPrice)}}
+</div>
+@else
 <div style="
                     background-color: lightblue;
                     border-radius: 30px;
@@ -38,6 +50,7 @@
                     ">
     {{formatCurrencyReal($invoice->totalPrice)}}
 </div>
+@endif
 @endsection
 
 @section('fieldsId')

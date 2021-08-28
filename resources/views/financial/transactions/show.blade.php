@@ -24,7 +24,7 @@
 @endsection
 
 @section('status')
-@if($type == 'débito')
+@if($transaction->value < 0)
 <div class='pe-4 pb-2 pt-1' style='background-color: #FDDBDD;border-radius:30px;text-align: right'>
     {{formatCurrencyReal($transaction->value)}}
 </div>
