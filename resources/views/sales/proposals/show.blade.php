@@ -357,14 +357,30 @@
                 {{date('d/m/Y', strtotime($invoice->pay_day))}}
             </a>
         </div>
+        
+        @if($invoice->totalPrice < 0)
+        <div   class='tb col-2 justify-content-end' style="color: red">
+            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
+                {{formatCurrencyReal($invoice->totalPrice)}}
+            </a>
+        </div>
+        @else
         <div   class='tb col-2 justify-content-end'>
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
                 {{formatCurrencyReal($invoice->totalPrice)}}
             </a>
         </div>
+        @endif
+        
+                @if($invoice->balance < 0)
+                <div   class='tb col-2 justify-content-end' style="color:red">
+            {{formatCurrencyReal($invoice->balance)}}
+        </div>
+                @else
         <div   class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($invoice->balance)}}
         </div>
+                @endif
     </div>
     @endforeach
 
