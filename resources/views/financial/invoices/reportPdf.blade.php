@@ -114,7 +114,7 @@
         <p>
             <br>
             <br>
-            Relatório financeiro mensal e anual previsionado (faturado). A presente tabela apresenta os números resumidos das vendas faturadas e despesas comprometidas.
+            Relatório financeiro mensal e anual previsionado (faturado). Apresenta os números resumidos das vendas faturadas e despesas comprometidas.
             <br>
             <br>
         </p>
