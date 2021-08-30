@@ -131,12 +131,6 @@
                     TOTAL 
                 </td>
             </tr>
-            <tr>
-                <td style="color:white">
-.
-                </td>                   
-            </tr>
-
             @php
             $counterArray = 1;
             $counterMonth = 1;
@@ -206,11 +200,6 @@
                 <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
                     TOTAL 
                 </td>
-            </tr>
-            <tr>
-                <td style="color:white">
-
-                </td>                   
             </tr>
 
             @php
