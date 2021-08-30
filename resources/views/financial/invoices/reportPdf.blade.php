@@ -111,193 +111,196 @@
 
     </head>
     <body>
-        <p>
-            <br>
-            <br>
-            Relatório financeiro mensal e anual previsionado (faturado). A presente tabela apresenta os números resumidos das vendas faturadas e despesas comprometidas.
-            <br>
-            <br>
-        </p>
-        <table style="width: 98%;padding-top: 30px;margin-top: -35px">
-            <tr>
-                <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
-                    TIPO 
-                </td>
-                @foreach($data['months'] as $month)
-                <td class="table-list-header center" style="width: 7%;background-color:{{$data['accountComplementaryColor']}}">
-                    {{$month}}
-                </td>
-                @endforeach
-                <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
-                    TOTAL 
-                </td>
-            </tr>
-            @php
-            $counterArray = 1;
-            $counterMonth = 1;
-            @endphp
-
-            <tr>
-                <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:#4863A0">
-                    RECEITAS
-                </td>
-
-                @while($counterMonth <= 12)
-                <td class="table-list right" style="width: 7%;background-color:lightblue;font-weight: 600;">
-                    {{formatCurrency($data['monthlyRevenues'][$counterArray])}}
-                </td>
-                @php
-                $counterMonth++;
-                $counterArray++;    
-                @endphp
-                @endwhile
-
-                <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:#4863A0">
-                    {{formatCurrency($data['annualRevenues'])}}
-                </td>
-            </tr>
-            <tr>
-                <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
-                    DESPESAS
-                </td>
-                @php
-                $counterArray = 1;
-                $counterMonth = 1;
-                @endphp
-
-                @while ($counterMonth <= 12)
-                <td class="table-list right" style="width: 7%;background-color:#FDDBDD;font-weight: 600;">
-                    {{formatCurrency($data['monthlyExpenses'][$counterArray])}}
-                </td>
-                @php
-                $counterMonth++;
-                $counterArray++;
-                @endphp
-                @endwhile
-                <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:red">
-                    {{formatCurrency($data['annualExpenses'])}}
-                </td>
-            </tr>
-        </table>
-        
-        
-        <!--PÁGINA 2-->
-        <p class="break"></p>
-        <p>
-            <br>
-            <br>
-            Relatório financeiro mensal e anual das receitas previsionadas (faturamento).
-        </p>
-        <table style="width: 98%;padding-top: 30px;margin-top: -35px">
-            <tr>
-                <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
-                    TIPO 
-                </td>
-                @foreach($data['months'] as $month)
-                <td class="table-list-header center" style="width: 7%;background-color:{{$data['accountComplementaryColor']}}">
-                    {{$month}}
-                </td>
-                @endforeach
-                <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
-                    TOTAL 
-                </td>
-            </tr>
-
-            @php
-            $counterArray = 1;
-            $counterMonth = 1;
-            @endphp
-
-            <tr>
-                <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:#4863A0">
-                    RECEITAS
-                </td>
-
-                @while($counterMonth <= 12)
-                <td class="table-list right" style="width: 7%;background-color:lightblue;font-weight: 600;">
-                    {{formatCurrency($data['monthlyRevenues'][$counterArray])}}
-                </td>
-                @php
-                $counterMonth++;
-                $counterArray++;    
-                @endphp
-                @endwhile
-
-                <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:#4863A0">
-                    {{formatCurrency($data['annualRevenues'])}}
-                </td>
-            </tr>
-
-            @php
-            $counterArray = 1;
-            $counterMonth = 1;
-            @endphp
-
-            @foreach($data['categories'] as $category)
-            <tr>
-                <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:#4863A0">
-                    {{$category['name']}}
-                </td>
-                @foreach($data['months'] as $key => $month)
-                <td class="table-list right" style="width: 7%">
-                    {{formatCurrency(floatval($category['monthlys'][$month]))}}
-                </td>
-                @endforeach
-                <td class="table-list-header right" style="width: 8%;font-weight: 600;color:black;background-color:lightblue">
-                    {{formatCurrency(floatval($category['year']))}}
-                </td>
-            </tr>
-            @endforeach
-        </table>
-        <br>
-        <p>
-            Relatório financeiro mensal e anual das despesas previsionadas.
-        </p>
-        <table style="width: 98%;padding-top: 30px;margin-top: -35px">
-            <tr>
-                <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
-                    DESPESAS
-                </td>
-                @php
-                $counterArray = 1;
-                $counterMonth = 1;
-                @endphp
-
-                @while ($counterMonth <= 12)
-                <td class="table-list right" style="width: 7%;background-color:#FDDBDD;font-weight: 600;">
-                    {{formatCurrency($data['monthlyExpenses'][$counterArray])}}
-                </td>
-                @php
-                $counterMonth++;
-                $counterArray++;
-                @endphp
-                @endwhile
-                <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:red">
-                    {{formatCurrency($data['annualExpenses'])}}
-                </td>
-            </tr>
-
-
-            @php
-            $counterArray = 1;
-            $counterMonth = 1;
-            @endphp
-
-            @foreach($data['groups'] as $group)
-            <tr>
-                <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
-                    {{$group['name']}}
-                </td>
-                @foreach($data['months'] as $key => $month)
-                <td class="table-list right" style="width: 7%">
-                    {{formatCurrency(floatval($group['monthlys'][$month]))}}
+        <div style="page-break-inside: avoid">
+            <p>
+                <br>
+                <br>
+                Relatório financeiro mensal e anual previsionado (faturado). A presente tabela apresenta os números resumidos das vendas faturadas e despesas comprometidas.
+                <br>
+                <br>
+            </p>
+            <table style="width: 98%;padding-top: 30px;margin-top: -35px">
+                <tr>
+                    <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
+                        TIPO 
+                    </td>
+                    @foreach($data['months'] as $month)
+                    <td class="table-list-header center" style="width: 7%;background-color:{{$data['accountComplementaryColor']}}">
+                        {{$month}}
+                    </td>
                     @endforeach
-                <td class="table-list-header right" style="width: 8%;font-weight: 600;color:black;background-color:#FDDBDD">
-                    {{formatCurrency(floatval($group['year']))}}
-                </td>
-            </tr>
-            @endforeach
-        </table>
+                    <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
+                        TOTAL 
+                    </td>
+                </tr>
+                @php
+                $counterArray = 1;
+                $counterMonth = 1;
+                @endphp
+
+                <tr>
+                    <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:#4863A0">
+                        RECEITAS
+                    </td>
+
+                    @while($counterMonth <= 12)
+                    <td class="table-list right" style="width: 7%;background-color:lightblue;font-weight: 600;">
+                        {{formatCurrency($data['monthlyRevenues'][$counterArray])}}
+                    </td>
+                    @php
+                    $counterMonth++;
+                    $counterArray++;    
+                    @endphp
+                    @endwhile
+
+                    <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:#4863A0">
+                        {{formatCurrency($data['annualRevenues'])}}
+                    </td>
+                </tr>
+                <tr>
+                    <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
+                        DESPESAS
+                    </td>
+                    @php
+                    $counterArray = 1;
+                    $counterMonth = 1;
+                    @endphp
+
+                    @while ($counterMonth <= 12)
+                    <td class="table-list right" style="width: 7%;background-color:#FDDBDD;font-weight: 600;">
+                        {{formatCurrency($data['monthlyExpenses'][$counterArray])}}
+                    </td>
+                    @php
+                    $counterMonth++;
+                    $counterArray++;
+                    @endphp
+                    @endwhile
+                    <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:red">
+                        {{formatCurrency($data['annualExpenses'])}}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+
+        <!--PÁGINA 2-->
+        <div style="page-break-inside: avoid">
+            <p>
+                <br>
+                <br>
+                Relatório financeiro mensal e anual das receitas previsionadas (faturamento).
+            </p>
+            <table style="width: 98%;padding-top: 30px;margin-top: -35px">
+                <tr>
+                    <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
+                        TIPO 
+                    </td>
+                    @foreach($data['months'] as $month)
+                    <td class="table-list-header center" style="width: 7%;background-color:{{$data['accountComplementaryColor']}}">
+                        {{$month}}
+                    </td>
+                    @endforeach
+                    <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
+                        TOTAL 
+                    </td>
+                </tr>
+
+                @php
+                $counterArray = 1;
+                $counterMonth = 1;
+                @endphp
+
+                <tr>
+                    <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:#4863A0">
+                        RECEITAS
+                    </td>
+
+                    @while($counterMonth <= 12)
+                    <td class="table-list right" style="width: 7%;background-color:lightblue;font-weight: 600;">
+                        {{formatCurrency($data['monthlyRevenues'][$counterArray])}}
+                    </td>
+                    @php
+                    $counterMonth++;
+                    $counterArray++;    
+                    @endphp
+                    @endwhile
+
+                    <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:#4863A0">
+                        {{formatCurrency($data['annualRevenues'])}}
+                    </td>
+                </tr>
+
+                @php
+                $counterArray = 1;
+                $counterMonth = 1;
+                @endphp
+
+                @foreach($data['categories'] as $category)
+                <tr>
+                    <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:#4863A0">
+                        {{$category['name']}}
+                    </td>
+                    @foreach($data['months'] as $key => $month)
+                    <td class="table-list right" style="width: 7%">
+                        {{formatCurrency(floatval($category['monthlys'][$month]))}}
+                    </td>
+                    @endforeach
+                    <td class="table-list-header right" style="width: 8%;font-weight: 600;color:black;background-color:lightblue">
+                        {{formatCurrency(floatval($category['year']))}}
+                    </td>
+                </tr>
+                @endforeach
+            </table>
+            <br>
+            <p>
+                Relatório financeiro mensal e anual das despesas previsionadas.
+            </p>
+            <table style="width: 98%;padding-top: 30px;margin-top: -35px">
+                <tr>
+                    <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
+                        DESPESAS
+                    </td>
+                    @php
+                    $counterArray = 1;
+                    $counterMonth = 1;
+                    @endphp
+
+                    @while ($counterMonth <= 12)
+                    <td class="table-list right" style="width: 7%;background-color:#FDDBDD;font-weight: 600;">
+                        {{formatCurrency($data['monthlyExpenses'][$counterArray])}}
+                    </td>
+                    @php
+                    $counterMonth++;
+                    $counterArray++;
+                    @endphp
+                    @endwhile
+                    <td class="table-list-header center" style="width: 8%;font-weight: 600;background-color:red">
+                        {{formatCurrency($data['annualExpenses'])}}
+                    </td>
+                </tr>
+
+
+                @php
+                $counterArray = 1;
+                $counterMonth = 1;
+                @endphp
+
+                @foreach($data['groups'] as $group)
+                <tr>
+                    <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
+                        {{$group['name']}}
+                    </td>
+                    @foreach($data['months'] as $key => $month)
+                    <td class="table-list right" style="width: 7%">
+                        {{formatCurrency(floatval($group['monthlys'][$month]))}}
+                        @endforeach
+                    <td class="table-list-header right" style="width: 8%;font-weight: 600;color:black;background-color:#FDDBDD">
+                        {{formatCurrency(floatval($group['year']))}}
+                    </td>
+                </tr>
+                @endforeach
+            </table>
+        </div>
 
         <script>
             $(document).ready(function () {
