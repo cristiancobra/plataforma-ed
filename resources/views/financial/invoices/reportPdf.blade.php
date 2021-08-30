@@ -117,7 +117,7 @@
             <br>
             Relatório financeiro mensal e anual das receitas previsionadas (faturamento).
         </p>
-        <table style="width: 98%;padding-top: 30px;margin-top: -35px">
+        <table style="width: 98%;padding-top: 30px;margin-top: -38px">
             <tr>
                 <td class="table-list-header center" style="width: 8%;background-color:{{$data['accountComplementaryColor']}}">
                     TIPO 
@@ -182,7 +182,7 @@
         <p>
             Relatório financeiro mensal e anual das despesas previsionadas.
         </p>
-        <table style="width: 98%;padding-top: 30px;margin-top: -35px">
+        <table style="width: 98%;padding-top: 30px;margin-top: -38px">
             <tr>
                 <td class="table-list-header left" style="width: 8%;font-weight: 600;background-color:red">
                     DESPESAS
