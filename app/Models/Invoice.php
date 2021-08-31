@@ -204,13 +204,17 @@ class Invoice extends Model {
                     ->where('status', 'aprovada')
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
                     ->get();
 
             $monthlys[$key] = $invoices->sum('totalPrice');
-
-            $monthStart->add(new DateInterval("P" . $key . "M"));
-            $monthEnd->add(new DateInterval("P" . $key . "M"));
+//        if($key == 3) {    
+//        dd($monthEnd->format('Y-m-t'));
+//        }
+            
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
         }
         return $monthlys;
     }
@@ -227,7 +231,7 @@ class Invoice extends Model {
                 ->where('status', 'aprovada')
                 ->where('type', $type)
                 ->where('trash', '!=', 1)
-                ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-d')])
                 ->sum('totalPrice');
 
         return $annualInvoicesTotal;
@@ -239,7 +243,6 @@ class Invoice extends Model {
         $monthEnd = new DateTime(date("$year-01-t"));
         $months = returnMonths();
 
-//        $dt = new DateTime("2016-01-31");
 
         foreach ($months as $key => $month) {
             $monthlys[$month] = [];
@@ -248,13 +251,12 @@ class Invoice extends Model {
                     ->where('status', 'aprovada')
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('proposal.productProposals')
                     ->get();
 
             // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
-            $oldDay = $monthEnd->format("d");
             $monthEnd->add(new DateInterval("P28D"));
 
             $value = 0;
@@ -282,7 +284,7 @@ class Invoice extends Model {
                 ->where('status', 'aprovada')
                 ->where('type', $type)
                 ->where('trash', '!=', 1)
-                ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                 ->with('invoiceLines.product')
                 ->get();
 
@@ -312,13 +314,12 @@ class Invoice extends Model {
                     ->where('status', 'aprovada')
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('proposal.productProposals')
                     ->get();
-//dd($invoices);
+            
             // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
-            $oldDay = $monthEnd->format("d");
             $monthEnd->add(new DateInterval("P28D"));
 
             $value = 0;
@@ -346,7 +347,7 @@ class Invoice extends Model {
                 ->where('status', 'aprovada')
                 ->where('type', $type)
                 ->where('trash', '!=', 1)
-                ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                 ->with('invoiceLines.product')
                 ->get();
 
