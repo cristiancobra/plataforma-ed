@@ -362,18 +362,6 @@ class TransactionController extends Controller {
             $year = date('y');
         }
 
-//        $annualTotal = Journey::accountHoursByYear($year);
-//        $monthlyAverage = $annualTotal / $pastMonths;
-//
-//        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
-//        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
-//
-//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
-//                ->where('status', 'aprovada')
-//                ->where('trash', '!=', 1)
-//                ->whereBetween('pay_day', [date("$year-01-01"), date("$year-12-t")])
-//                ->with('invoiceLines.product')
-//                ->get();
 //   RECEITAS
         $monthlyRevenues = Transaction::monthlyTransactionsTotal($year, 'crédito');
         $annualRevenues = Invoice::annualInvoicesTotal($year, 'crédito');

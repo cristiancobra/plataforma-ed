@@ -200,7 +200,7 @@ class PageController extends Controller {
 
     public function public(Page $page) {
         $states = Contact::returnStates();
-        $page = Page::with([
+        $page->with([
                     'image',
                     'logo',
                 ])

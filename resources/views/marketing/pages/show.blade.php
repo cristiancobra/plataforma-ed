@@ -35,6 +35,8 @@
     {{strtoupper($page->name)}}
     @endif
 </div>
+
+@if($page->image)
 <div class='row pt-5' style='
      height:460px;
      background-image: url({{asset($page->image->path)}});
@@ -42,6 +44,13 @@
      background-position: center;
      background-repeat: no-repeat;
      '>
+    @else
+    <div class='row pt-5' style='
+     height:460px;
+     background-color: {{$page->principal_color}}
+     '>
+    @endif
+    
     <div class='col text-center'>
         <p class="mt-5 pt-5" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 38px">
             {{$page->headline}}
