@@ -267,9 +267,6 @@ class Invoice extends Model {
                         if ($productProposal->product->category == $category) {
                             $value = $productProposal->subtotalPrice / $installment;
                             $sumValue += $value;
-                            if($key == 9) {    
-                            echo "FATURA: $invoice->id  -------  FATURA:  $invoice->totalPrice _______  PROPOSTA:" .  $invoice->proposal->totalPrice . "________ PRODUTO:: $productProposal->subtotalPrice / $installment ______ PARCELADO: $value   ______ PARCELA: $installment __________total___ $sumValue<br>";
-                            }
                             $monthlys[$month] = $sumValue;
                         }
                     }
