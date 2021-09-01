@@ -208,9 +208,6 @@ class Invoice extends Model {
                     ->get();
 
             $monthlys[$key] = $invoices->sum('totalPrice');
-//        if($key == 3) {    
-//        dd($monthEnd->format('Y-m-t'));
-//        }
             
             // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
@@ -254,19 +251,26 @@ class Invoice extends Model {
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('proposal.productProposals')
                     ->get();
-
+            
+//                      if($key == 12) {    
+//dd($monthlys);
+//                      }
             // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
 
-            $value = 0;
+            $sumValue = 0;
             foreach ($invoices as $invoice) {
                 if ($invoice->proposal) {
                     $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
-                            $value += $productProposal->subtotalPrice / $installment;
-                            $monthlys[$month] = $value;
+                            $value = $productProposal->subtotalPrice / $installment;
+                            $sumValue += $value;
+                            if($key == 9) {    
+                            echo "FATURA: $invoice->id  -------  FATURA:  $invoice->totalPrice _______  PROPOSTA:" .  $invoice->proposal->totalPrice . "________ PRODUTO:: $productProposal->subtotalPrice / $installment ______ PARCELADO: $value   ______ PARCELA: $installment __________total___ $sumValue<br>";
+                            }
+                            $monthlys[$month] = $sumValue;
                         }
                     }
                 }
@@ -322,14 +326,15 @@ class Invoice extends Model {
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
 
-            $value = 0;
+            $sumValue = 0;
             foreach ($invoices as $invoice) {
                 if ($invoice->proposal) {
                     $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->group == $group) {
-                            $value += $productProposal->subtotalPrice / $installment;
-                            $monthlys[$month] = $value;
+                            $value = $productProposal->subtotalPrice / $installment;
+                            $sumValue += $value;
+                            $monthlys[$month] = $sumValue;
                         }
                     }
                 }
