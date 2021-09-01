@@ -203,8 +203,7 @@ class PageController extends Controller {
         $page->with([
                     'image',
                     'logo',
-                ])
-                ->first();
+                ]);
 
         return view('marketing.pages.public', compact(
                         'page',
