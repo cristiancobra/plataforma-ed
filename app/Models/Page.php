@@ -162,8 +162,8 @@ class Page extends Model {
                     break;
             }
 
-            if ($label != 0) {
 dd($label);
+            if ($label != 0) {
                 $formFields[$counter]['label'] = $label;
                 $formFields[$counter]['name'] = $name;
                 $formFields[$counter]['value'] = $value;
