@@ -130,7 +130,7 @@ class PageController extends Controller {
         $status = Page::returnStatus();
 
         $formFields = Page::formFields($page);
-
+//dd($formFields);
         return view('marketing.pages.edit', compact(
                         'page',
                         'images',
@@ -170,6 +170,7 @@ class PageController extends Controller {
             $page->fill($request->all());
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
+            
             $page->save();
 
 //            if ($request->file('image')) {

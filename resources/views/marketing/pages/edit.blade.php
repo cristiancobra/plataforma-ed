@@ -183,7 +183,7 @@
             @foreach($formFields as $formField)
             <div class="row">
                 <div class="col">
-                    {{createCheckboxEdit($formField['name'])}}  {{$formField['label']}}
+                    {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
                 </div>
             </div>
             @endforeach            

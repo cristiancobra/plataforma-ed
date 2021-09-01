@@ -158,14 +158,19 @@ class Page extends Model {
                 case('contact_country'):
                     $label = 'País';
                     break;
+                default:
+                    $label = 0;
+                    break;
             }
 
-            if ($label != 0 AND $value == 1) {
+            if ($label != 0) {
                 $formFields[$counter]['label'] = $label;
                 $formFields[$counter]['name'] = $name;
+                $formFields[$counter]['value'] = $value;
                 $counter++;
             }
         }
+
         return $formFields;
     }
 
