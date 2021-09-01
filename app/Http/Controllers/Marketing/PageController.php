@@ -68,10 +68,8 @@ class PageController extends Controller {
             'required' => '*preenchimento obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
-                    'name' => 'required:PAGES',
-//                    'date_start' => 'required:tasks',
-//                    'date_due' => 'required:tasks',
-//                    'description' => 'required:tasks',
+                    'name' => 'required:pages',
+                    'slug' => 'required:pages',
                         ],
                         $messages);
 
@@ -85,6 +83,16 @@ class PageController extends Controller {
             $page->fill($request->all());
             $page->account_id = auth()->user()->account_id;
             $page->authorization_data = 1;
+            $page->contact_first_name = $request->has('contact_first_name') == 'on' ? 1 : 0;
+            $page->contact_last_name = $request->has('contact_last_name') == 'on' ? 1 : 0;
+            $page->contact_email = $request->has('contact_email') == 'on' ? 1 : 0;
+            $page->contact_phone = $request->has('contact_phone') == 'on' ? 1 : 0;
+            $page->contact_site = $request->has('contact_site') == 'on' ? 1 : 0;
+            $page->contact_address = $request->has('contact_address') == 'on' ? 1 : 0;
+            $page->contact_neighborhood = $request->has('contact_neighborhood') == 'on' ? 1 : 0;
+            $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
+            $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
+            $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
@@ -168,9 +176,19 @@ class PageController extends Controller {
                             ->withInput();
         } else {
             $page->fill($request->all());
+            $page->contact_first_name = $request->has('contact_first_name') == 'on' ? 1 : 0;
+            $page->contact_last_name = $request->has('contact_last_name') == 'on' ? 1 : 0;
+            $page->contact_email = $request->has('contact_email') == 'on' ? 1 : 0;
+            $page->contact_phone = $request->has('contact_phone') == 'on' ? 1 : 0;
+            $page->contact_site = $request->has('contact_site') == 'on' ? 1 : 0;
+            $page->contact_address = $request->has('contact_address') == 'on' ? 1 : 0;
+            $page->contact_neighborhood = $request->has('contact_neighborhood') == 'on' ? 1 : 0;
+            $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
+            $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
+            $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
+
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
-            
             $page->save();
 
 //            if ($request->file('image')) {
@@ -202,9 +220,9 @@ class PageController extends Controller {
     public function public(Page $page) {
         $states = Contact::returnStates();
         $page->with([
-                    'image',
-                    'logo',
-                ]);
+            'image',
+            'logo',
+        ]);
 
         return view('marketing.pages.public', compact(
                         'page',

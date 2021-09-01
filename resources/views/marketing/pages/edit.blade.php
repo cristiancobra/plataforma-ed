@@ -37,7 +37,7 @@
         <input type='text' name='url' size='60' value='{{$page->url}}'>
         <br>
         <label class='labels' for='' >NOME CURTO (slug):</label> * sem espaços e maiúsculas.
-        <input type='text' name='slug' size='60' value='{{$page->url}}'>
+        <input type='text' name='slug' size='60' value='{{$page->slug}}'>
         <br>
         <br>
     </div>
