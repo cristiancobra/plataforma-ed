@@ -138,7 +138,7 @@ class PageController extends Controller {
         $status = Page::returnStatus();
 
         $formFields = Page::formFields($page);
-dd($formFields);
+dd($page);
         return view('marketing.pages.edit', compact(
                         'page',
                         'images',
