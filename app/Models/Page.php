@@ -162,7 +162,7 @@ class Page extends Model {
                     break;
             }
 
-dd($label);
+echo $label . "<br>";
             if ($label != 0) {
                 $formFields[$counter]['label'] = $label;
                 $formFields[$counter]['name'] = $name;
