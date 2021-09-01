@@ -114,26 +114,15 @@ class Transaction extends Model {
             $transactions = Transaction::where('account_id', auth()->user()->account_id)
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-d')])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->get();
             
-//            dd($transactions);
-//            $value = 0;
-//            foreach ($invoices as $invoice) {
-//                if ($invoice->transactions) {
-////                    $installment = $invoice->proposal->installment;
-//                    foreach ($invoice->transactions as $transaction) {
-//                        if ($transaction->pay_day == $type) {
-//                            $value += $transaction->value;
-////                        }
-//                    }
-//                }
-//            }
 
             $monthlys[$key] = $transactions->sum('value');
 
-            $monthStart->add(new DateInterval("P" . $key . "M"));
-            $monthEnd->add(new DateInterval("P" . $key . "M"));
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
         }
         return $monthlys;
     }
@@ -150,7 +139,7 @@ class Transaction extends Model {
             $transactions = Transaction::where('account_id', auth()->user()->account_id)
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('invoice.proposal.productProposals')
                     ->get();
 
@@ -186,7 +175,7 @@ class Transaction extends Model {
             $transactions = Transaction::where('account_id', auth()->user()->account_id)
                     ->where('type', $type)
                     ->where('trash', '!=', 1)
-                    ->whereBetween('pay_day', [$monthStart->format('Y-m-d'), $monthEnd->format('Y-m-t')])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('invoice.proposal.productProposals')
                     ->get();
 
