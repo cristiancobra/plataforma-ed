@@ -1,4 +1,4 @@
-@extends("layouts/templatesPage/$page->template")
+@extends("layouts/templatesPage/funnel_fast")
 
 @section('page_name', $page->name)
 
