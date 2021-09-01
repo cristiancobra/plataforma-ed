@@ -163,13 +163,13 @@ class Page extends Model {
             }
 
             if ($label != 0) {
+dd($formF$labelields);
                 $formFields[$counter]['label'] = $label;
                 $formFields[$counter]['name'] = $name;
                 $formFields[$counter]['value'] = $value;
                 $counter++;
             }
         }
-dd($formFields);
         return $formFields;
     }
 
