@@ -124,7 +124,7 @@ class Page extends Model {
     public static function formFields($page) {
         $formFields = [];
         $counter = 1;
-dd($page->getAttributes());
+
         foreach ($page->getAttributes() as $name => $value) {
             switch ($name) {
                 case('contact_first_name'):
@@ -162,13 +162,13 @@ dd($page->getAttributes());
                     break;
             }
 
-            if ($label != 0) {
+
 echo $label . "<br>";
                 $formFields[$counter]['label'] = $label;
                 $formFields[$counter]['name'] = $name;
                 $formFields[$counter]['value'] = $value;
                 $counter++;
-            }
+
         }
         return $formFields;
     }
