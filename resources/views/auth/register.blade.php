@@ -107,11 +107,6 @@
                                 <br>
                                 * você poderá alterar isso a qualquer momento.
                             </div>
-                            <div class='offset-4 col-4 pb-5 text-center'>
-                                <button class="text-button primary" type='submit'>
-                                    CADASTRAR
-                                </button>
-                            </div>
                         </div>
 
                         <div class="form-group row mt-4 mb-0">
