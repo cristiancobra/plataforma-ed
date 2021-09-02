@@ -76,9 +76,6 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
                         <a class="dropdown-item" href="{{route('user.show', Auth::user()->id)}} ">
                             <i class="fas fa-user-astronaut" style="margin-right: 4px"></i>Perfil
                         </a>
-                        <a class="dropdown-item" href="https://financeiro.empresadigital.net.br" target="_blank">
-                            <i class="fas fa-piggy-bank" style="margin-right: 4px"></i>Débitos e serviços
-                        </a>
                         <a class="dropdown-item" href="{{route('logout')}}"
                            onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">

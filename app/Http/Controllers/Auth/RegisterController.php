@@ -104,6 +104,9 @@ use RegistersUsers;
         $contact->last_name = ucfirst($request->last_name);
         $contact->name = $contact->first_name . " " . $contact->last_name;
         $contact->email = $request->email;
+        $contact->authorization_data = 1;
+      $contact->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+      $contact->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
         $contact->save();
 
         // verifica se o email do CONTATO existe nos CONTATOS da EMPRESA DIGITAL. Se não existir, deve, criar.
