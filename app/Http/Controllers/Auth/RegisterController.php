@@ -82,7 +82,7 @@ use RegistersUsers;
         $account = new Account();
         $account->name = $request->account_name;
         $account->email = $request->email;
-        $account->save();
+//        $account->save();
 
         // verifica se o nome  da  CONTA do usuário existe em COMPANIES da EMPRESA DIGITAL. Se não existir, deve, criar.
         $nameChecked = Company::where('name', 'LIKE', $request->account_name)
@@ -93,7 +93,7 @@ use RegistersUsers;
             $companyEd->type = 'cliente';
             $companyEd->name = $request->account_name;
             $companyEd->email = $request->email;
-            $companyEd->save();
+//            $companyEd->save();
         }
 
         // cria CONTATO para o novo usuário
@@ -104,7 +104,7 @@ use RegistersUsers;
         $contact->last_name = ucfirst($request->last_name);
         $contact->name = $contact->first_name . " " . $contact->last_name;
         $contact->email = $request->email;
-        $contact->save();
+//        $contact->save();
 
         // verifica se o email do CONTATO existe nos CONTATOS da EMPRESA DIGITAL. Se não existir, deve, criar.
         $emailChecked = Contact::where('email', $request->email)
@@ -119,6 +119,9 @@ use RegistersUsers;
             $contactEd->last_name = ucfirst($request->last_name);
             $contactEd->name = $contact->first_name . " " . $contact->last_name;
             $contactEd->email = $request->email;
+            $contactEd->authorization_data = 1;
+      $contactEd->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+      $contactEd->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
             $contactEd->save();
             $contactEd->companies()->attach($contactEd->id);
         }
