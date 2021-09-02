@@ -158,17 +158,16 @@ class Page extends Model {
                     $label = 'País';
                     break;
                 default:
-                    $label = 0;
+                    $label = null;
                     break;
             }
 
-
-echo $label . "<br>";
+            if ($label != null) {
                 $formFields[$counter]['label'] = $label;
                 $formFields[$counter]['name'] = $name;
                 $formFields[$counter]['value'] = $value;
                 $counter++;
-
+            }
         }
         return $formFields;
     }
