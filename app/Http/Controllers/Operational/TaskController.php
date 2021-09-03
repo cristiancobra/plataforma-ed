@@ -242,8 +242,7 @@ class TaskController extends Controller {
      */
     public function show(task $task) {
         $today = date('Y-m-d');
-        
-        
+
         $totalDuration = 0;
         foreach ($task->journeys as $journey) {
             $totalDuration = $totalDuration + $journey->duration;
@@ -326,6 +325,9 @@ class TaskController extends Controller {
                             ->withInput();
         } else {
             $task->fill($request->all());
+            $dateStart = new DateTime($request->date_due . " " . $request->time_due);
+            $task->date_due = $dateStart->format('Y-m-d H:i:s');
+
             if (isset($request->cancelado)) {
                 $task->status = 'cancelado';
                 $task->date_conclusion = "";

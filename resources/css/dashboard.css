@@ -19,6 +19,15 @@ and open the template in the editor.
    margin-right: 1%;
 }
 
+.journey-display {
+    background-color: #c28dbf;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+       margin-left: 1%;
+   margin-right: 1%;
+}
+
 .financial-image {
      position: relative;
      display: inline-block;
@@ -402,7 +411,7 @@ and open the template in the editor.
     color: white;
     text-shadow: 2px 2px 4px #000000;
     font-weight:600;
-    font-size:18px;
+    font-size:20px;
     margin: 0px;
     padding-top: 0%;
 }
@@ -471,4 +480,38 @@ and open the template in the editor.
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     text-decoration:none;
+}
+
+.task {
+    color: white;
+    padding-top: 5px;
+    background-color: #D8C2DB;
+    border-left-style: solid;
+    border-left-width: 6px;
+    border-left-color: #52004d;
+    border-right-style: solid;
+    border-right-width: 12px;
+    border-right-color: white;
+    border-radius: 0 25px 25px 0;    
+}
+
+.task:hover{
+    background-color:  #c28dbf;
+}
+
+.task-emergency{
+    color: white;
+    padding-top: 5px;
+    background-color: #ffafac;
+    border-left-style: solid;
+    border-left-width: 6px;
+    border-left-color: #8b0000;
+    border-right-style: solid;
+    border-right-width: 12px;
+    border-right-color: white;
+    border-radius: 0 25px 25px 0;    
+}
+
+.task-emergency:hover{
+    background-color:  #f7736f ;
 }
