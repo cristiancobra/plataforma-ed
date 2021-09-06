@@ -107,7 +107,7 @@
                 </div>
             </div>
             @foreach($lastJourneys as $journey)
-            <div class='row ms-0 me-0 pt-2 pb-0 mb-3 mt-0' style="background-color:rgba(255,255,255, 0.3);border-radius:20px;max-height: 36px">
+            <div class='journey-display-row'>
                 <div class='col-4'>
                     <a class='white' href=' {{route('journey.show', ['journey' => $journey])}}'>
                         <p class='ps-3' style='color:white;font-weight:600;font-size: 15px'>
