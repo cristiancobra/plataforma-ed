@@ -55,7 +55,7 @@
 
         <div class='row mt-2'>
             <p class='text-center'>
-                Ufa! Sem emergêçncias.
+                Ufa! Sem emergências.
             </p>
         </div>
         @else
@@ -76,6 +76,7 @@
             </div>
         </a>
         @endforeach
+        @endif
     </div>
 
     <div class='col-4'>
