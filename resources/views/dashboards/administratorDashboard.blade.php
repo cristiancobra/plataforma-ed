@@ -51,6 +51,14 @@
         <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
             {{$myTasksEmergenciesAmount}} emergências
         </p>
+                @if($myTasksEmergencies->isEmpty())
+
+        <div class='row mt-2'>
+            <p class='text-center'>
+                Ufa! Sem emergêçncias.
+            </p>
+        </div>
+        @else
         @foreach($myTasksEmergencies as $task)
         <a style='text-decoration:none' href='{{route('task.show', ['task' => $task->id])}}'>
             <div class='row mb-3'>
