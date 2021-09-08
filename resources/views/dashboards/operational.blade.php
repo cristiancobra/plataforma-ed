@@ -11,8 +11,13 @@
 
 @section('main')
 <div class='row mt-2 mb-3'>
-    <div class='col-4'>
-        <div class='row'>
+    <div class='col' style="
+         border-style: solid;
+         border-width: 1px;
+         border-color: #c28dbf;
+         border-radius: 10px;
+         ">
+        <div class='row mt-2'>
             <p style='color: #52004d;font-weight: 600;text-align: center;font-size: 22px'>
                 HOJE
             </p>
@@ -25,6 +30,24 @@
             <p class='text-center fs-5'>
                 Sem tarefas hoje.
             </p>
+        </div>
+        <div class='row mt-2'>
+            <div class='col d-flex justify-content-center'>
+                <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
+//                                                                                                                                                                                        'task_name' => 'ATENDIMENTO',
+//                                                                                                                                                                                        'opportunity_id' => $opportunity->id,
+//                                                                                                                                                                                        'opportunity_name' => $opportunity->name,
+//                                                                                                                                                                                        'company_name' => $companyName,
+//                                                                                                                                                                                        'company_id' => $companyId,
+//                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
+//                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
+//                                                                                                                                                                                        'department' => 'atendimento',
+//                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
+                                                                                                                                                                                        ]
+                    )}}'>
+                    <i class='fa fa-plus text-center ' aria-hidden='true'></i>
+                </a>
+            </div>
         </div>
         @else
         @foreach($myTasksToday as $task)
@@ -51,7 +74,7 @@
         <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
             {{$myTasksEmergenciesAmount}} emergências
         </p>
-                @if($myTasksEmergencies->isEmpty())
+        @if($myTasksEmergencies->isEmpty())
 
         <div class='row mt-2'>
             <p class='text-center'>
@@ -127,21 +150,21 @@
                 </div>
                 <div class='col-6'>
                     <a class='white' href=' {{route('journey.show', ['journey' => $journey])}}'>
-                    <p style='color:white;font-weight:600;font-size: 14px;text-align: center'>
-                        [ {{date('H:m', strtotime($journey->start))}}                
-                        @if($journey->end == null)
-                        - fazendo ]
-                        @else
-                        - {{date('H:m', strtotime($journey->end))}} ]
-                        @endif
-                    </p>
+                        <p style='color:white;font-weight:600;font-size: 14px;text-align: center'>
+                            [ {{date('H:m', strtotime($journey->start))}}                
+                            @if($journey->end == null)
+                            - fazendo ]
+                            @else
+                            - {{date('H:m', strtotime($journey->end))}} ]
+                            @endif
+                        </p>
                     </a>
                 </div>
                 <div class='col-2'>
                     <a class='white' href=' {{route('journey.show', ['journey' => $journey])}}'>
-                    <p style='color:white;font-weight:600;font-size: 14px'>
-                         {{number_format($journey->duration / 3600, 1, ',','.')}}
-                    </p>
+                        <p style='color:white;font-weight:600;font-size: 14px'>
+                            {{number_format($journey->duration / 3600, 1, ',','.')}}
+                        </p>
                     </a>
                 </div>
             </div>
@@ -154,7 +177,7 @@
 				'status' =>'fazer',
 				])}}'>
                     <p class='panel-number mt-3'>
-                        {{$tasks_pending}}
+                        {{$teamTasksPendingCount}}
                     </p>
                     <p class='panel-text mb-3'>
                         equipe
@@ -168,7 +191,7 @@
 				'user_id' => Auth::user()->id,
 				])}}'>
                     <p class='panel-number mt-3'>
-                        {{$tasks_my}}
+                        {{$myTasksCount}}
                     </p>
                     <p class='panel-text mb-3'>
                         minhas

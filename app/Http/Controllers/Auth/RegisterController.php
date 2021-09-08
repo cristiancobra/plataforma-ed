@@ -78,7 +78,7 @@ use RegistersUsers;
     }
 
     public function register(Request $request) {
-        // cria CONTA para o novo usuário
+        // USUÁRIO: cria nova CONTA 
         $account = new Account();
         $account->name = $request->account_name;
         $account->email = $request->email;
@@ -96,7 +96,7 @@ use RegistersUsers;
             $companyEd->save();
         }
 
-        // cria CONTATO para o novo usuário
+        // USUÁRIO: cria um novo  CONTATO o usuário criado acima
         $contact = new Contact();
         $contact->account_id = $account->id;
         $contact->type = 'funcionário';
@@ -105,11 +105,24 @@ use RegistersUsers;
         $contact->name = $contact->first_name . " " . $contact->last_name;
         $contact->email = $request->email;
         $contact->authorization_data = 1;
-      $contact->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
-      $contact->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
+        $contact->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+        $contact->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
         $contact->save();
 
-        // verifica se o email do CONTATO existe nos CONTATOS da EMPRESA DIGITAL. Se não existir, deve, criar.
+        // EMPRESA DIGITAL:  cria USUÁRIO com o contato criado acima
+        $user = new User();
+        $user->contact_id = $contact->id;
+        $user->perfil = 'dono';
+        $user->email = $request->email;
+//        $user->default_password = $request->password;
+        $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        $user->account_id = $account->id;
+        $today = new Datetime('now');
+        $today->add(new DateInterval('P1M'));
+        $user->due_date = $today;
+        $user->save();
+
+//        EMPRESA DIGITAL:  cria novo CONTATO se o email fornecido existe nos CONTATOS da EMPRESA DIGITAL
         $emailChecked = Contact::where('email', $request->email)
                 ->where('account_id')
                 ->first();
@@ -123,24 +136,28 @@ use RegistersUsers;
             $contactEd->name = $contact->first_name . " " . $contact->last_name;
             $contactEd->email = $request->email;
             $contactEd->authorization_data = 1;
-      $contactEd->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
-      $contactEd->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
+            $contactEd->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+            $contactEd->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
             $contactEd->save();
             $contactEd->companies()->attach($contactEd->id);
         }
 
-        // cria USUÁRIO para o novo usuário
-        $user = new User();
-        $user->contact_id = $contact->id;
-        $user->perfil = 'dono';
-        $user->email = $request->email;
-//        $user->default_password = $request->password;
-        $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
-        $user->account_id = $account->id;
-        $today = new Datetime('now');
-        $today->add(new DateInterval('P1M'));
-        $user->due_date = $today;
-        $user->save();
+//        EMPRESA DIGITAL:  cria uma nova OPORTUNIDADE se o cadastro autorizar que entre em contato
+        if ($contactEd->authorization_contact == 1) {
+            $opportunityEd = new Opportunity();
+            $opportunityEd->name = "$contactEd cadastro do site";
+            $opportunityEd->account_id = 1;
+            $opportunityEd->lead_source = 'site';
+            $opportunityEd->type = 'cliente';
+            $opportunityEd->first_name = ucfirst($request->first_name);
+            $opportunityEd->last_name = ucfirst($request->last_name);
+            $opportunityEd->email = $request->email;
+            $opportunityEd->authorization_data = 1;
+            $opportunityEd->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+            $opportunityEd->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
+            $opportunityEd->save();
+            $opportunityEd->companies()->attach($contactEd->id);
+        }
 
 //        $messages = [
 //            'required' => '*preenchimento obrigatório.',

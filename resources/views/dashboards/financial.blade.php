@@ -10,9 +10,9 @@
 @endsection
 
 @section('main')
-<div class='row mt-2 mb-3 ms-2 me-2'>
+<div class='row offset-1 mt-2 mb-3 ms-2 me-2'>
 
-    <div class='financial-display col-lg-3'>
+    <div class='financial-display col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
             <img class='financial-image' src="{{asset('images/financial-planning.png')}}">
         </div>
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <div class='financial-display col-lg-3'>
+    <div class='financial-display col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
             <img class='financial-image' src="{{asset('images/invoice.png')}}" style='width:100%'>
         </div>
@@ -61,7 +61,7 @@
         </div>
     </div>
 
-    <div class='financial-display col-lg-3'>
+    <div class='financial-display col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
             <img class='financial-image' src="{{asset('images/financeiro.png')}}" style='width:100%'>
         </div>
