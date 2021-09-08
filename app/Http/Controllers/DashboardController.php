@@ -21,7 +21,9 @@ class DashboardController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-        $teamTasks = Task::where('account_id', auth()->user()->account_id)->get();
+        $teamTasks = Task::where('account_id', auth()->user()->account_id)
+                ->where('status', 'fazer')
+                ->get();
 
         $teamTasksPending = $teamTasks->where('status', 'fazer');
         $teamTasksPendingCount = $teamTasksPending->count();
@@ -29,7 +31,7 @@ class DashboardController extends Controller {
         $myTasks = $teamTasks->where('user_id', auth()->user()->id);
         $myTasksCount = $myTasks->count();
 
-        $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(3);
+        $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(5);
         $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
 
         $myTasksEmergenciesAmount = $myTasksEmergencies->count();
