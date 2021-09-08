@@ -62,7 +62,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >DATA:</label>
-        <input type="date" name="date" size="20" value="{{$journey->date}}"><span class="fields"></span>
+        <input type="date" name="date" size="20" value="{{$journey->date}}">
         @if ($errors->has('date'))
         <span class="text-danger">{{$errors->first('date')}}</span>
         @endif
@@ -70,7 +70,7 @@ CKEDITOR.replace('description');
         <label class="labels" for="">
             INÍCIO: 
         </label>
-        <input type="time" name="start" size="50"  value="{{date('H:i', strtotime($journey->start))}}"><span class="fields"></span>
+        <input type="time" name="start" size="50"  value="{{date('H:i', strtotime($journey->start))}}">
         @if ($errors->has('start'))
         <span class="text-danger">{{$errors->first('start')}}</span>
         @endif
@@ -79,7 +79,7 @@ CKEDITOR.replace('description');
             TÉRMINO: 
             <br>
         </label>
-        <input type="time" name="end" size="50"  value="{{$journey->end}}"><span class="fields"></span>
+        <input type="time" name="end" size="50"  value="{{$journey->end}}">
         <br>
         <br>
         <input class="btn btn-secondary" type="submit" value="ATUALIZAR">

@@ -28,19 +28,20 @@ class DashboardController extends Controller {
                 ->where('status', 'fazendo', 'fazer')
                 ->count();
 
-        $journeys = Journey::where('account_id', auth()->user()->account_id)
-                ->get();
+            $journeys = Journey::where('account_id', auth()->user()->account_id)
+                    ->get();
+            
+            $lastJourneys = $journeys->sortByDesc('date')->take(3);
 
-        $users = User::myUsers();
-
-        foreach ($users as $user) {
-            $user->hoursMonthly = Journey::where('user_id', $user->id)
-                    ->whereBetween('date', [$monthStart, $monthEnd])
-                    ->sum('duration');
-            $user->hoursToday = Journey::where('user_id', $user->id)
-                    ->where('date', date('Y-m-d'))
-                    ->sum('duration');
-        }
+//
+//        foreach ($users as $user) {
+//            $user->hoursMonthly = Journey::where('user_id', $user->id)
+//                    ->whereBetween('date', [$monthStart, $monthEnd])
+//                    ->sum('duration');
+//            $user->hoursToday = Journey::where('user_id', $user->id)
+//                    ->where('date', date('Y-m-d'))
+//                    ->sum('duration');
+//        }
 
         $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
                 ->where('type', 'crédito')
@@ -80,9 +81,10 @@ class DashboardController extends Controller {
                 ->where('status', 'fazer')
                 ->get();
 
-        $myTasksEmergencyAmount = $teamTasksPending->where('user_id', auth()->user()->id)
-                ->where('priority', 'emergência')
-                ->count();
+        $myTasksEmergenciesUnsorted = $teamTasksPending->where('priority', 'emergência')->take(3);
+        $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
+
+        $myTasksEmergenciesAmount = $myTasksEmergencies->count();
 
 //        $tasksDone = $tasks
 //                ->where('status', 'feito')
@@ -93,6 +95,10 @@ class DashboardController extends Controller {
                 ->whereIn('status', ['fazendo', 'fazer'])
                 ->where('user_id', Auth::user()->id)
                 ->count();
+        
+        $myTasksTodayUnsorted = $tasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
+        $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
+
 
         // opportunities stages
         $opportunities = [
@@ -142,8 +148,10 @@ class DashboardController extends Controller {
                         'contacts',
                         'contactsNews',
                         'contactsNewsTotal',
-                        'users',
-                        'myTasksEmergencyAmount',
+                        'hoursMonthly',
+                        'hoursToday',
+                        'myTasksEmergencies',
+                        'myTasksEmergenciesAmount',
                         'tasks_pending',
                         'tasks_my',
                         'opportunities',
@@ -164,6 +172,8 @@ class DashboardController extends Controller {
                         'expenseMonthly',
                         'estimatedExpenseMonthly',
                         'bankAccounts',
+                        'myTasksToday',
+                        'lastJourneys',
         ));
     }
 

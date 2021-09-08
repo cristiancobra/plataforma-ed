@@ -32,7 +32,7 @@
         <input type="text" name="name" value="{{old('name')}}">
         <span class="text-danger">{{$errors->first('name')}}</span>
         @else
-        <input type="text" name="name" size="20" value="{{$task->name}}"><span class="fields"></span>
+        <input type="text" name="name" size="20" value="{{$task->name}}">
         @endif
         <br>
         <label class="labels" for="" >DEPARTAMENTO:</label>
@@ -83,19 +83,20 @@
         <br>
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-        <input type="date" name="date_start" size="20" value="{{$task->date_start}}"><span class="fields"></span>
+        <input type="date" name="date_start" size="20" value="{{$task->date_start}}">
         @if ($errors->has('date_start'))
         <span class="text-danger">{{$errors->first('date_start')}}</span>
         @endif
         <br>
         <label class="labels" for="" >PRAZO FINAL:</label>
-        <input type="date" name="date_due" size="20" value="{{$task->date_due}}"><span class="fields"></span>
+        <input type="date" name="date_due" size="20" value="{{$task->date_due}}">
+                <input type="time" name="time_due" size="50"  value="{{date('H:i', strtotime($task->date_due))}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
         @endif
         <br>
         <label class="labels" for="" >DATA DE CONCLUSÃO:</label>
-        <input type="date" name="date_conclusion" size="20" value="{{$task->date_conclusion}}"><span class="fields"></span>
+        <input type="date" name="date_conclusion" size="20" value="{{$task->date_conclusion}}">
         <input type="checkbox" name="cancelado" value="cancelado"
                @if($task->status == "cancelado")
         checked="checked"
