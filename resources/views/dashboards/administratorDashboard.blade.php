@@ -19,10 +19,10 @@
         </div>
         @if($myTasksToday->isEmpty())
         <div class='row'>
-            <img class='align-items-center' src='{{asset('imagens/cao-astronaut.png')}}' width='150px' height='150px'>
+            <img class='ms-auto me-auto w-50 pt-3 pb-2' src='{{asset('images/cao-astronauta.png')}}'>
         </div>
         <div class='row mt-2'>
-            <p class='text-center'>
+            <p class='text-center fs-5'>
                 Sem tarefas hoje.
             </p>
         </div>
