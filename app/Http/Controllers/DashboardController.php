@@ -21,14 +21,25 @@ class DashboardController extends Controller {
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-        $tasks = Task::where('account_id', auth()->user()->account_id)
-                ->get();
+        $teamTasks = Task::where('account_id', auth()->user()->account_id)->get();
 
-        $tasks_pending = $tasks
-                ->where('status', 'fazendo', 'fazer')
-                ->count();
+        $teamTasksPending = $teamTasks->where('status', 'fazer');
+        $teamTasksPendingCount = $teamTasksPending->count();
+        
+        $myTasks = $teamTasks->where('user_id', auth()->user()->id);
+        $myTasksCount = $myTasks->count();
 
-            $journeys = Journey::where('account_id', auth()->user()->account_id)
+        $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(3);
+        $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
+
+        $myTasksEmergenciesAmount = $myTasksEmergencies->count();
+        
+        $myTasksTodayUnsorted = $teamTasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
+        $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
+
+
+
+            $journeys = Journey::where('user_id', auth()->user()->id)
                     ->get();
             
             $lastJourneys = $journeys->sortByDesc('date')->take(3);
@@ -36,47 +47,24 @@ class DashboardController extends Controller {
             $hoursMonthly = Journey::where('user_id', auth()->user()->id)
                     ->whereBetween('date', [$monthStart, $monthEnd])
                     ->sum('duration');
+            
             $hoursToday = Journey::where('user_id', auth()->user()->id)
                     ->where('date', date('Y-m-d'))
                     ->sum('duration');
-
-
-        $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
-                ->where('status', 'fazer')
-                ->get();
-
-        $myTasksEmergenciesUnsorted = $teamTasksPending->where('priority', 'emergência')->take(3);
-        $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
-
-        $myTasksEmergenciesAmount = $myTasksEmergencies->count();
-
-//        $tasksDone = $tasks
-//                ->where('status', 'feito')
-//                ->whereBetween('date_conclusion', [$monthStart, $monthEnd])
-//                ->count();
-
-        $tasks_my = $tasks
-                ->whereIn('status', ['fazendo', 'fazer'])
-                ->where('user_id', Auth::user()->id)
-                ->count();
-        
-        $myTasksTodayUnsorted = $tasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
-        $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
-
-
        
 
-        return view('dashboards/administratorDashboard', compact(
+        return view('dashboards/operational', compact(
                         'month',
                         'monthStart',
                         'monthEnd',
                         'month',
                         'hoursMonthly',
                         'hoursToday',
+                        'teamTasksPending',
+                        'teamTasksPendingCount',
+                        'myTasksCount',
                         'myTasksEmergencies',
                         'myTasksEmergenciesAmount',
-                        'tasks_pending',
-                        'tasks_my',
                         'myTasksToday',
                         'lastJourneys',
         ));
