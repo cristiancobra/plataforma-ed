@@ -16,97 +16,66 @@ use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller {
 
-    public function index(Request $request) {
+    public function operational() {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
-// SE FOR ADMINISTRADOR
-        if ($request['role'] === "administrator" OR $request['role'] === "superadmin" OR $request['role'] === "dono") {
-            $tasks = Task::where('account_id', auth()->user()->account_id)
-                    ->get();
+        $tasks = Task::where('account_id', auth()->user()->account_id)
+                ->get();
 
-            $tasks_pending = $tasks
-                    ->where('status', 'fazendo', 'fazer')
-                    ->count();
+        $tasks_pending = $tasks
+                ->where('status', 'fazendo', 'fazer')
+                ->count();
 
-            $journeys = Journey::where('account_id', auth()->user()->account_id)
-                    ->get();
+        $journeys = Journey::where('account_id', auth()->user()->account_id)
+                ->get();
 
-            $users = User::myUsers();
+        $users = User::myUsers();
 
-            foreach ($users as $user) {
-                $user->hoursMonthly = Journey::where('user_id', $user->id)
-                        ->whereBetween('date', [$monthStart, $monthEnd])
-                        ->sum('duration');
-                $user->hoursToday = Journey::where('user_id', $user->id)
-                        ->where('date', date('Y-m-d'))
-                        ->sum('duration');
-            }
-
-            $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'crédito')
-                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                    ->sum('value');
-
-            $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'receita')
-                    ->where('status', 'aprovada')
-                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                    ->sum('totalPrice');
-
-            $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'débito')
-                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                    ->sum('value');
-
-            $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
-                    ->where('type', 'despesa')
-                    ->where('status', 'aprovada')
-                    ->whereBetween('pay_day', [$monthStart, $monthEnd])
-                    ->sum('totalPrice');
-
-            $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
-                    ->get();
-
-            foreach ($bankAccounts as $key => $bankAccount) {
-                $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
-//                    ->where('type', 'crédito')
-                        ->sum('value');
-
-                $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
-            }
-
-            $view = 'dashboards/administratorDashboard';
-
-            $departments = "";
-            $opportunitiesLost = '';
-
-            // SE FOR FUNCIONÁRIO
-        } elseif ($request['role'] === "employee") {
-            $tasks = Task::where('user_id', Auth::user()->id)
-                    ->get();
-
-            $tasks_pending = $tasks
-                    ->where('status', 'fazendo', 'fazer')
-                    ->where('date_due', '<=', date('Y-m-d'))
-                    ->count();
-
-            $journeys = Journey::where('user_id', Auth::user()->id)
-                    ->get();
-
-            $users = "";
-            $tasks_my = "";
-            $revenueMonthly = null;
-            $estimatedRevenueMonthly = null;
-            $expenseMonthly = null;
-            $estimatedExpenseMonthly = null;
-            $bankAccounts = null;
-
-            $view = 'dashboards/employeeDashboard';
+        foreach ($users as $user) {
+            $user->hoursMonthly = Journey::where('user_id', $user->id)
+                    ->whereBetween('date', [$monthStart, $monthEnd])
+                    ->sum('duration');
+            $user->hoursToday = Journey::where('user_id', $user->id)
+                    ->where('date', date('Y-m-d'))
+                    ->sum('duration');
         }
 
-// PARTE COMUM DO CÓDIGO PARA ADMINISTRADOR E FUNCIONÁRIO
+        $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
+                ->where('type', 'crédito')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('value');
+
+        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('type', 'receita')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('totalPrice');
+
+        $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
+                ->where('type', 'débito')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('value');
+
+        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('type', 'despesa')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('totalPrice');
+
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+                ->get();
+
+        foreach ($bankAccounts as $key => $bankAccount) {
+            $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+//                    ->where('type', 'crédito')
+                    ->sum('value');
+
+            $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
+        }
+
+
         $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->get();
@@ -165,7 +134,7 @@ class DashboardController extends Controller {
                     ->sum('duration');
         }
 
-        return view($view, compact(
+        return view('dashboards/administratorDashboard', compact(
                         'month',
                         'monthStart',
                         'monthEnd',
@@ -195,6 +164,117 @@ class DashboardController extends Controller {
                         'expenseMonthly',
                         'estimatedExpenseMonthly',
                         'bankAccounts',
+        ));
+    }
+
+    public function financial() {
+        $month = returnMonth(date('m'));
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+
+        $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
+                ->where('type', 'crédito')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('value');
+
+        $estimatedRevenueMonthly = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('type', 'receita')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('totalPrice');
+
+        $expenseMonthly = Transaction::where('account_id', auth()->user()->account_id)
+                ->where('type', 'débito')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('value');
+
+        $estimatedExpenseMonthly = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('type', 'despesa')
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$monthStart, $monthEnd])
+                ->sum('totalPrice');
+
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+                ->get();
+
+        foreach ($bankAccounts as $key => $bankAccount) {
+            $subTotal[$key] = Transaction::where('bank_account_id', $bankAccount->id)
+//                    ->where('type', 'crédito')
+                    ->sum('value');
+
+            $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
+        }
+
+        return view('dashboards.financial', compact(
+                        'revenueMonthly',
+                        'estimatedRevenueMonthly',
+                        'expenseMonthly',
+                        'estimatedExpenseMonthly',
+                        'bankAccounts',
+        ));
+    }
+
+    public function sales() {
+        $month = returnMonth(date('m'));
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
+
+        // opportunities stages
+        $opportunities = [
+            $opportunitiesProspecting = Opportunity::countProspectings(),
+            $opportunitiesPresentation = Opportunity::countPresentations(),
+            $opportunitiesProposal = Opportunity::countProposals(),
+            $opportunitiesContract = Opportunity::countContracts(),
+            $opportunitiesBill = Opportunity::countBills(),
+            $opportunitiesProduction = Opportunity::countProductions(),
+            $opportunitiesConcluded = Opportunity::countCompletes(),
+        ];
+
+        $contacts = [
+            $contactsSuspects = Contact::countSuspects(),
+            $contactsProspects = Contact::countProspects(),
+            $contactsQualified = Contact::countQualified(),
+        ];
+
+        $contactsNewsTotal = Contact::countNewsContactsWeek();
+        $contactsNews = Contact::getNewsContactsWeek();
+        $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
+        $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
+
+        $departments = Task::returnDepartments();
+
+        foreach ($departments as $department) {
+            $departmentsMonthly[$department] = Journey::whereHas('task', function ($query) use ($department) {
+                        $query->where('department', $department);
+                    })
+                    ->where('user_id', Auth::user()->id)
+                    ->whereBetween('date', [$monthStart, $monthEnd])
+                    ->sum('duration');
+
+            $departmentsToday[$department] = Journey::whereHas('task', function ($query) use ($department) {
+                        $query->where('department', $department);
+                    })
+                    ->where('user_id', Auth::user()->id)
+                    ->where('date', date('Y-m-d'))
+                    ->sum('duration');
+        }
+
+
+
+        return view('dashboards.sales', compact(
+                        'contacts',
+                        'contactsNews',
+                        'contactsNewsTotal',
+                        'opportunities',
+                        'opportunitiesProspecting',
+                        'opportunitiesPresentation',
+                        'opportunitiesProposal',
+                        'opportunitiesContract',
+                        'opportunitiesBill',
+                        'opportunitiesProduction',
+                        'opportunitiesConcluded',
+                        'opportunitiesWon',
+                        'opportunitiesLost',
         ));
     }
 

@@ -16,8 +16,16 @@ use Illuminate\Support\Facades\Route;
 // ================================ SISTEMA ===================
 Auth::routes(['register' => 'false']);
 
-Route::get('/', 'DashboardController@index')
-        ->name('dashboard')
+Route::get('/', 'DashboardController@operational')
+        ->name('dashboard.operational')
+        ->middleware('roles');
+
+Route::get('/financial', 'DashboardController@financial')
+        ->name('dashboard.financial')
+        ->middleware('roles');
+
+Route::get('/sales', 'DashboardController@sales')
+        ->name('dashboard.sales')
         ->middleware('roles');
 
 Route::get('/configuracoes', 'ConfigurationsController@index')

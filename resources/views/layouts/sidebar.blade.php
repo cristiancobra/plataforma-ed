@@ -69,39 +69,11 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
+            <a class="dropdown-btn nav-link" href='{{route('dashboard.financial')}}' style="color: {{$principalColor}}">
+                <i class="fas fa-money-bill"></i>
+                <span class="d-none d-xl-inline">FINANCEIRO</span>
+            </a>
 
-        {{createSidebarItem('FINANCEIRO', 'fas fa-money-bill', 'dropdownMenuButtonFinanceiro', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'FATURAS',
-                                                                                                                                                            'faIcon' => 'fas fa-receipt',
-                                                                                                                                                            'link' => route('invoice.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'FLUXO DE CAIXA',
-                                                                                                                                                            'faIcon' => 'fas fa-sync-alt',
-                                                                                                                                                            'link' => route('transaction.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'DESPESAS',
-                                                                                                                                                        'faIcon' => 'fas fa-donate',
-                                                                                                                                                        'link' => route('proposal.index', ['type' => 'despesa']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'ITENS DE DESPESA',
-                                                                                                                                                            'faIcon' => 'fas fa-boxes',
-                                                                                                                                                            'link' => route('product.index', ['variation' => 'despesa']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'FORNECEDORES',
-                                                                                                                                                            'faIcon' => 'fas fa-boxes',
-                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'fornecedor']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'CONTAS BANCÁRIAS',
-                                                                                                                                                            'faIcon' => 'fas fa-piggy-bank',
-                                                                                                                                                            'link' => '/contas-bancarias'
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
 
         @endif
 
@@ -128,38 +100,10 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        {{createSidebarItem('VENDAS', 'fa fa-funnel-dollar', 'dropdownMenuVendas', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'CONTATOS',
-                                                                                                                                                        'faIcon' => 'fas fa-user-plus',
-                                                                                                                                                        'link' => route('contact.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PÚBLICO-ALVO',
-                                                                                                                                                        'faIcon' => 'fas fa-user-plus',
-                                                                                                                                                        'link' => route('contact.target')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'EMPRESAS',
-                                                                                                                                                        'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'cliente']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PRODUTOS',
-                                                                                                                                                        'faIcon' => 'fas fa-shopping-basket',
-                                                                                                                                                        'link' => route('product.index', ['variation' => 'receita']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'OPORTUNIDADES',
-                                                                                                                                                        'faIcon' => 'fas fa-donate',
-                                                                                                                                                        'link' => '/oportunidades'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PROPOSTAS',
-                                                                                                                                                        'faIcon' => 'fas fa-donate',
-                                                                                                                                                        'link' => route('proposal.index', ['type' => 'receita']),
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
+            <a class="dropdown-btn nav-link" href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
+                <i class="fas fa-funnel-dollar"></i>
+                <span class="d-none d-xl-inline">VENDAS</span>
+            </a>
 
         {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
