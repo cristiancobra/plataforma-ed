@@ -159,7 +159,7 @@ use RegistersUsers;
 
             $opportunityEd->contact_id = $contactEd->id;
             $opportunityEd->date_start = date('Y-m-d');
-            $opportunityEd->stage = 'prospecção';
+            $opportunityEd->stage = 'apresentação';
             $opportunityEd->status = 'negociando';
             $opportunityEd->save();
 
@@ -183,28 +183,10 @@ use RegistersUsers;
             }
             
             $taskOpportunity->priority = 'alta';
+            $taskOpportunity->status = 'fazer';
             $taskOpportunity->save();
         }
 
-//        $messages = [
-//            'required' => '*preenchimento obrigatório.',
-//            'unique' => '*já existe um usuário cadastrado com este email.',
-//        ];
-//        $validator = Validator::make($request->all(), [
-//                    'email' => 'required|unique:users',
-//                    'password' => 'required:users',
-//                        ],
-//                        $messages);
-//
-//        if ($validator->fails()) {
-//            return back()
-//                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-//                            ->withErrors($validator)
-//                            ->withInput();
-//        } else {
-//        dd($user);
-//            $user->save();
-        //        $this->createContact($user);
         return redirect('/');
     }
 

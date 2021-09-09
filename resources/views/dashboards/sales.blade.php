@@ -42,7 +42,7 @@
     </div>
 
     <div class='col-2 pt-5' style='
-         background-color: #fff6ff;
+         background-color: #E5FFE5;
          border-radius: 20px 0 0 20px;
          border-color: white;
          border-width: 5px;
@@ -68,7 +68,7 @@
         </p>
     </div>
     <div class='col-4' style='
-         background-color: #fff6ff;
+         background-color: #E5FFE5;
          border-radius: 0 20px 20px 0;
          border-color: white;
          border-width: 5px;
@@ -118,7 +118,7 @@
         @endforeach
     </div>
     <div class='col-6' style='
-         background-color: #fff6ff;
+         background-color: #E5FFE5;
          border-radius: 20px 0 0 20px;
          border-color: white;
          border-width: 5px;
