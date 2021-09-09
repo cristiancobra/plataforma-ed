@@ -226,5 +226,13 @@ class Opportunity extends Model {
                         ->where('updated_at', '>=', $lastWeek)
                         ->count();
     }
+    
+        public static function getOpportunitiesPresentations() {
+            
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                        ->where('stage', 'apresentação')
+                        ->where('status', 'negociando')
+                        ->get();
+    }
 
 }

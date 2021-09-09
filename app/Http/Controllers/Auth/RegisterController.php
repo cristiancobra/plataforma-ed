@@ -7,6 +7,8 @@ use App\Providers\RouteServiceProvider;
 use App\Models\Account;
 use App\Models\Company;
 use App\Models\Contact;
+use App\Models\Opportunity;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -145,18 +147,43 @@ use RegistersUsers;
 //        EMPRESA DIGITAL:  cria uma nova OPORTUNIDADE se o cadastro autorizar que entre em contato
         if ($contactEd->authorization_contact == 1) {
             $opportunityEd = new Opportunity();
-            $opportunityEd->name = "$contactEd cadastro do site";
+            $opportunityEd->name = "$contactEd->name cadastro do site";
             $opportunityEd->account_id = 1;
-            $opportunityEd->lead_source = 'site';
-            $opportunityEd->type = 'cliente';
-            $opportunityEd->first_name = ucfirst($request->first_name);
-            $opportunityEd->last_name = ucfirst($request->last_name);
-            $opportunityEd->email = $request->email;
-            $opportunityEd->authorization_data = 1;
-            $opportunityEd->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
-            $opportunityEd->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
+            $opportunityEd->user_id = 2;
+
+            if (!$nameChecked) {
+                $opportunityEd->company_id = $companyEd->id;
+            } else {
+                $opportunityEd->company_id = $nameChecked->id;
+            }
+
+            $opportunityEd->contact_id = $contactEd->id;
+            $opportunityEd->date_start = date('Y-m-d');
+            $opportunityEd->stage = 'prospecção';
+            $opportunityEd->status = 'negociando';
             $opportunityEd->save();
-            $opportunityEd->companies()->attach($contactEd->id);
+
+//        EMPRESA DIGITAL:  cria uma nova TAREFA  para entrar em contato com a OPORTUNIDADE criada acima
+            $taskOpportunity = new Task();
+            $taskOpportunity->name = "Fazer primeiro contato com $contactEd->name";
+            $taskOpportunity->account_id = 1;
+            $taskOpportunity->contact_id = $contactEd->id;
+            $taskOpportunity->user_id = 2;
+            $taskOpportunity->department = 'vendas';
+            $taskOpportunity->opportunity_id = $opportunityEd->id;
+            $taskOpportunity->date_start = date('Y-m-d');
+            $today = new Datetime('now');
+            $today->add(new DateInterval('P2D'));
+            $taskOpportunity->date_due = $today;
+
+            if (!$nameChecked) {
+                $taskOpportunity->company_id = $companyEd->id;
+            } else {
+                $taskOpportunity->company_id = $nameChecked->id;
+            }
+            
+            $taskOpportunity->priority = 'alta';
+            $taskOpportunity->save();
         }
 
 //        $messages = [

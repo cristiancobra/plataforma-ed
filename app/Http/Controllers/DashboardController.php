@@ -40,7 +40,6 @@ class DashboardController extends Controller {
         $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
 
 
-
             $journeys = Journey::where('user_id', auth()->user()->id)
                     ->get();
             
@@ -135,6 +134,10 @@ class DashboardController extends Controller {
             $opportunitiesConcluded = Opportunity::countCompletes(),
         ];
 
+        $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
+        $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
+        $opportunitiesNews = Opportunity::getOpportunitiesPresentations();
+        
         $contacts = [
             $contactsSuspects = Contact::countSuspects(),
             $contactsProspects = Contact::countProspects(),
@@ -143,8 +146,6 @@ class DashboardController extends Controller {
 
         $contactsNewsTotal = Contact::countNewsContactsWeek();
         $contactsNews = Contact::getNewsContactsWeek();
-        $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
-        $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
 
         $departments = Task::returnDepartments();
 
@@ -180,6 +181,7 @@ class DashboardController extends Controller {
                         'opportunitiesConcluded',
                         'opportunitiesWon',
                         'opportunitiesLost',
+                        'opportunitiesNews',
         ));
     }
 

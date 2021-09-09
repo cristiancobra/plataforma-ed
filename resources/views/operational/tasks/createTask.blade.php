@@ -84,6 +84,7 @@
         <br>
         <label class="labels" for="" >PRAZO FINAL:</label>
         <input type="date" name="date_due" value="{{old('date_due')}}">
+        <input type="time" name="time_due" size="50"  value="{{old('time_due')}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
         @endif

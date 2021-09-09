@@ -161,6 +161,8 @@ class TaskController extends Controller {
             $task->fill($request->all());
             $task->account_id = auth()->user()->account_id;
             $task->status = 'fazer';
+            $dateStart = new DateTime($request->date_due . " " . $request->time_due);
+            $task->date_due = $dateStart->format('Y-m-d H:i:s');
             $task->save();
 
             if ($request->file('image')) {
