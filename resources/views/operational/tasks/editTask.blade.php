@@ -89,8 +89,8 @@
         @endif
         <br>
         <label class="labels" for="" >PRAZO FINAL:</label>
-        <input type="date" name="date_due" size="20" value="{{$task->date_due}}">
-                <input type="time" name="time_due" size="50"  value="{{date('H:i', strtotime($task->time_due))}}">
+        <input type="date" name="date_due" size="20" value="{{date('Y-m-d', strtotime($task->date_due))}}">
+                <input type="time" name="time_due" size="50"  value="{{date('H:i', strtotime($task->date_due))}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
         @endif

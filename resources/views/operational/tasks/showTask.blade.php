@@ -137,6 +137,8 @@
 @section('date_due')
 <div class='circle-date-due'>
     {{dateBr($task->date_due)}}
+    <br>
+    {{date('H:i', strtotime($task->date_due))}}
 </div>
 <p class='labels' style='text-align: center'>
     PRAZO
