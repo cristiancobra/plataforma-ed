@@ -18,16 +18,6 @@
 <div>
 	<form action=" {{ route('contractTemplate.store') }} " method="post" style="padding: 40px;color: #874983">
 		@csrf
-		<label class="labels" for="" >EMPRESA: </label>
-		<select name="account_id">
-			@foreach ($accounts as $account)
-			<option  class="fields" value="{{ $account->id }}">
-				{{ $account->name }}
-			</option>
-			@endforeach
-		</select>
-		<br>
-		<br>
 		<label class="labels" for="" >NOME DO MODELO:</label>
 		<input type="text" name="name"value="">
 		<br>

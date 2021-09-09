@@ -10,9 +10,10 @@
 @endsection
 
 @section('main')
-<div class='row offset-1 mt-2 mb-3 ms-2 me-2'>
+<div class='row mt-2 mb-3 ms-1 me-1'>
 
     <div class='financial-display col-3'>
+    <div>
         <div style='display: inline-block;float: left;width: 20%'>
             <img class='financial-image' src="{{asset('images/financial-planning.png')}}">
         </div>
@@ -34,6 +35,47 @@
                 {{formatCurrency($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
         </div>
     </div>
+    </div>
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('invoice.index')}}'>
+            <p class='panel-text'>
+                <i class="fas fa-money-bill" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                FATURAS
+            </p>
+        </a>
+    </div>
+
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'despesa'])}}'>
+            <p class='panel-text'>
+                <i class="fas fa-donate" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                DESPESAS
+            </p>
+        </a>
+    </div>
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
+            <p class='panel-text'>
+                <i class="fas fa-boxes" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                ITENS DE DESPESA
+            </p>
+        </a>
+    </div>
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'fornecedor'])}}'>
+            <p class='panel-text'>
+                <i class="fas fa-boxes" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                FORNECEDORES
+            </p>
+        </a>
+    </div>
+</div>
+
+<div class='row mt-2 mb-3 ms-1 me-1'>
 
     <div class='financial-display col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
@@ -60,6 +102,18 @@
             </p>
         </div>
     </div>
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('transaction.index')}}'>
+            <p class='panel-text'>
+                <i class="fas fa-sync-alt" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                FLUXO DE CAIXA
+            </p>
+        </a>
+    </div>
+</div>
+
+<div class='row mt-2 mb-3 ms-1 me-1'>
 
     <div class='financial-display col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
@@ -85,54 +139,7 @@
             </p>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('invoice.index')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-money-bill" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
-                <br>
-                FATURAS
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('transaction.index')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-sync-alt" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
-                <br>
-                FLUXO DE CAIXA
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'despesa'])}}'>
-            <p class='panel-text'>
-                <i class="fas fa-donate" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
-                <br>
-                DESPESAS
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
-            <p class='panel-text'>
-                <i class="fas fa-boxes" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
-                <br>
-                ITENS DE DESPESA
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'fornecedor'])}}'>
-            <p class='panel-text'>
-                <i class="fas fa-boxes" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
-                <br>
-                FORNECEDORES
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
+    <div class='col-2 d-inline-block sales-button'>
         <a style='text-decoration:none' href='{{route('bankAccount.index')}}'>
             <p class='panel-text'>
                 <i class="fas fa-piggy-bank" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
@@ -141,5 +148,6 @@
             </p>
         </a>
     </div>
+</div>
 </div>
 @endsection

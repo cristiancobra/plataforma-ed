@@ -33,9 +33,7 @@ class ContractTemplateController extends Controller {
     public function create() {
 
 
-            return view('sales.contractsTemplates.createContractTemplate', compact(
-                            'contractTemplate',
-            ));
+            return view('sales.contractsTemplates.createContractTemplate');
     }
 
     /**

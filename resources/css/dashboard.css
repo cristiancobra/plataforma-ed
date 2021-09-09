@@ -116,6 +116,19 @@ and open the template in the editor.
     background-color: #AC56B8;
 }
 
+    .sales-button {
+    text-shadow: 2px 2px 4px #000000;
+    background-color: #49d194;
+    margin: 1%;
+    padding-top: 3.5%;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-decoration:none;
+}
+.sales-button:hover {
+    background-color: #09fbbe;
+}
 .opportunities-title{
     grid-area: opportunities-title;
     height: 100%;
