@@ -11,7 +11,7 @@
 
 @section('main')
 <div class='row mt-2 mb-3'>
-    <div class='col' style="
+    <div class='col-4' style="
          border-style: solid;
          border-width: 1px;
          border-color: #c28dbf;
@@ -69,38 +69,8 @@
         @endforeach
         @endif
     </div>
-
-    <div class='col-4'>
-        <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
-            {{$myTasksEmergenciesAmount}} emergências
-        </p>
-        @if($myTasksEmergencies->isEmpty())
-
-        <div class='row mt-2'>
-            <p class='text-center'>
-                Ufa! Sem emergências.
-            </p>
-        </div>
-        @else
-        @foreach($myTasksEmergencies as $task)
-        <a style='text-decoration:none' href='{{route('task.show', ['task' => $task->id])}}'>
-            <div class='row mb-3'>
-                <div class='col-2 text-end  my-auto' style='color: #8b0000;font-weight: 600;font-size: 18px'>
-                    {{date('d/m', strtotime($task->date_due))}}
-                </div>
-
-                <div class='col-9 justify-content-start task-emergency d-block'>
-                    <p>
-                        <span  style='font-weight: 600'>{{$task->name}}</span>
-                        <br>
-                        {{$task->department}}
-                    </p>
-                </div>
-            </div>
-        </a>
-        @endforeach
-        @endif
-    </div>
+    
+    <!-- coluna 2 -->
 
     <div class='col-4'>
         <div class='journey-display'>
@@ -199,7 +169,45 @@
                 </a>
             </div>
         </div>
+    </div>
+    
+<!--    coluna 3 -->
+    
+        <div class='col' style="
+         border-style: solid;
+         border-width: 1px;
+         border-color: #8b0000;
+         border-radius: 10px;
+         ">
+        <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
+            {{$myTasksEmergenciesAmount}} emergências
+        </p>
+        @if($myTasksEmergencies->isEmpty())
 
-        <br>
-        <br>
-        @endsection
+        <div class='row mt-2'>
+            <p class='text-center'>
+                Ufa! Sem emergências.
+            </p>
+        </div>
+        @else
+        @foreach($myTasksEmergencies as $task)
+        <a style='text-decoration:none' href='{{route('task.show', ['task' => $task->id])}}'>
+            <div class='row mb-3'>
+                <div class='col-2 text-end  my-auto' style='color: #8b0000;font-weight: 600;font-size: 18px'>
+                    {{date('d/m', strtotime($task->date_due))}}
+                </div>
+
+                <div class='col-9 justify-content-start task-emergency d-block'>
+                    <p>
+                        <span  style='font-weight: 600'>{{$task->name}}</span>
+                        <br>
+                        {{$task->department}}
+                    </p>
+                </div>
+            </div>
+        </a>
+        @endforeach
+        @endif
+    </div>
+</div>
+@endsection

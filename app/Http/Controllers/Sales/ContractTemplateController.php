@@ -45,6 +45,7 @@ class ContractTemplateController extends Controller {
     public function store(Request $request) {
         $contractTemplate = new ContractTemplate();
         $contractTemplate->fill($request->all());
+        $contractTemplate->account_id = auth()->user()->account_id;
         $contractTemplate->save();
 
         return redirect()->action('Sales\\ContractTemplateController@index');

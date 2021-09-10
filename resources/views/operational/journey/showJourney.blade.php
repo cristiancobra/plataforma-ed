@@ -17,6 +17,7 @@
         <i class='fas fa-clock'></i>
     </button>
 </form>
+@endif
 <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $journey->task]) }} " method="post">
     @csrf
     @method('put')
@@ -24,7 +25,6 @@
         <i class='fas fa-clipboard-check'></i>
     </button>
 </form>
-@endif
 {{createButtonTrash($journey, 'journey')}}
 {{createButtonEdit('journey', 'journey', $journey)}}
 {{createButtonList('journey')}}

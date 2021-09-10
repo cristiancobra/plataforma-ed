@@ -36,7 +36,7 @@ class DashboardController extends Controller {
 
         $myTasksEmergenciesAmount = $myTasksEmergencies->count();
         
-        $myTasksTodayUnsorted = $teamTasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
+        $myTasksTodayUnsorted = $myTasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
         $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
 
 
