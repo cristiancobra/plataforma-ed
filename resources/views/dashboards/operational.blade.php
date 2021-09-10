@@ -11,7 +11,7 @@
 
 @section('main')
 <div class='row mt-2 mb-3'>
-    <div class='col-4' style="
+    <div class='col-4 mt-3' style="
          border-style: solid;
          border-width: 1px;
          border-color: #c28dbf;
@@ -69,7 +69,7 @@
         @endforeach
         @endif
     </div>
-    
+
     <!-- coluna 2 -->
 
     <div class='col-4'>
@@ -170,18 +170,20 @@
             </div>
         </div>
     </div>
-    
-<!--    coluna 3 -->
-    
-        <div class='col' style="
+
+    <!--    coluna 3 -->
+
+    <div class='col-4 mt-3' style="
          border-style: solid;
          border-width: 1px;
          border-color: #8b0000;
          border-radius: 10px;
          ">
-        <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
-            {{$myTasksEmergenciesAmount}} emergências
-        </p>
+        <div class='row mt-2'>
+            <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
+                {{$myTasksEmergenciesAmount}} emergências
+            </p>
+        </div>
         @if($myTasksEmergencies->isEmpty())
 
         <div class='row mt-2'>

@@ -81,6 +81,8 @@ class Task extends Model {
                     }
                     if ($request->department) {
                         $query->where('department', $request->department);
+                    } else {
+                        $query->where('department', '!=', 'tarefa pessoal');
                     }
                     if ($request->contact_id) {
                         $query->where('contact_id', $request->contact_id);
@@ -138,6 +140,7 @@ class Task extends Model {
             'marketing',
             'produção',
             'vendas',
+            'tarefa pessoal',
         );
     }
 
