@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit0323879555619b3a853de7ca15a0e214
+class ComposerStaticInitff853cfbef6c0328db88506ca538dd4e
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -18,10 +18,10 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
-        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
         'e39a8b23c42d4e1452234d762b03835a' => __DIR__ . '/..' . '/ramsey/uuid/src/functions.php',
@@ -3448,12 +3448,7 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
         'League\\Flysystem\\Util\\ContentListingFormatter' => __DIR__ . '/..' . '/league/flysystem/src/Util/ContentListingFormatter.php',
         'League\\Flysystem\\Util\\MimeType' => __DIR__ . '/..' . '/league/flysystem/src/Util/MimeType.php',
         'League\\Flysystem\\Util\\StreamHasher' => __DIR__ . '/..' . '/league/flysystem/src/Util/StreamHasher.php',
-        'League\\MimeTypeDetection\\EmptyExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/EmptyExtensionToMimeTypeMap.php',
-        'League\\MimeTypeDetection\\ExtensionMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionMimeTypeDetector.php',
-        'League\\MimeTypeDetection\\ExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/ExtensionToMimeTypeMap.php',
-        'League\\MimeTypeDetection\\FinfoMimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/FinfoMimeTypeDetector.php',
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
-        'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\OAuth1\\Client\\Credentials\\ClientCredentials' => __DIR__ . '/..' . '/league/oauth1-client/src/Credentials/ClientCredentials.php',
         'League\\OAuth1\\Client\\Credentials\\ClientCredentialsInterface' => __DIR__ . '/..' . '/league/oauth1-client/src/Credentials/ClientCredentialsInterface.php',
         'League\\OAuth1\\Client\\Credentials\\Credentials' => __DIR__ . '/..' . '/league/oauth1-client/src/Credentials/Credentials.php',
@@ -4223,7 +4218,6 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
         'PhpParser\\Lexer\\TokenEmulator\\MatchTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/MatchTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\NullsafeTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/NullsafeTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\NumericLiteralSeparatorEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/NumericLiteralSeparatorEmulator.php',
-        'PhpParser\\Lexer\\TokenEmulator\\ReadonlyTokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReadonlyTokenEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ReverseEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReverseEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\TokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/TokenEmulator.php',
         'PhpParser\\NameContext' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/NameContext.php',
@@ -5918,10 +5912,10 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit0323879555619b3a853de7ca15a0e214::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit0323879555619b3a853de7ca15a0e214::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit0323879555619b3a853de7ca15a0e214::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit0323879555619b3a853de7ca15a0e214::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitff853cfbef6c0328db88506ca538dd4e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitff853cfbef6c0328db88506ca538dd4e::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitff853cfbef6c0328db88506ca538dd4e::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitff853cfbef6c0328db88506ca538dd4e::$classMap;
 
         }, null, ClassLoader::class);
     }

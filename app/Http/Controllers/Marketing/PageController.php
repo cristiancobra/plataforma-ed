@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Image;
 use App\Models\Page;
 use App\Models\Contact;
@@ -11,80 +12,80 @@ use Illuminate\Support\Facades\Validator;
 
 class PageController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index() {
-        $pages = Page::where('account_id', auth()->user()->account_id)
-                ->with([
-                    'image',
-                    'logo',
-                    ])
-                ->get();
+	/**
+	 * Display a listing of the resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function index() {
+		$pages = Page::where('account_id', auth()->user()->account_id)
+				->with([
+					'image',
+					'logo',
+				])
+				->get();
 
-        return view('marketing.pages.index', compact(
-                        'pages',
-        ));
-    }
+		return view('marketing.pages.index', compact(
+						'pages',
+		));
+	}
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create() {
-        $images = Image::where('account_id', auth()->user()->account_id)
-                ->where('status', 'disponível')
-                ->where('type', 'marketing')
-                ->get();
+	/**
+	 * Show the form for creating a new resource.
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function create() {
+		$images = Image::where('account_id', auth()->user()->account_id)
+				->where('status', 'disponível')
+				->where('type', 'marketing')
+				->get();
 
-        $logos = Image::where('account_id', auth()->user()->account_id)
-                ->where('status', 'disponível')
-                ->where('type', 'logo')
-                ->get();
+		$logos = Image::where('account_id', auth()->user()->account_id)
+				->where('status', 'disponível')
+				->where('type', 'logo')
+				->get();
 
-        $templates = Page::listTemplates();
+		$templates = Page::listTemplates();
 
-        $status = Page::returnStatus();
+		$status = Page::returnStatus();
 
-        return view('marketing.pages.create', compact(
-                        'images',
-                        'logos',
-                        'templates',
-                        'status',
-        ));
-    }
+		return view('marketing.pages.create', compact(
+						'images',
+						'logos',
+						'templates',
+						'status',
+		));
+	}
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:PAGES',
+	/**
+	 * Store a newly created resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @return \Illuminate\Http\Response
+	 */
+	public function store(Request $request) {
+		$messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:PAGES',
 //                    'date_start' => 'required:tasks',
 //                    'date_due' => 'required:tasks',
 //                    'description' => 'required:tasks',
-                        ],
-                        $messages);
+						],
+						$messages);
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
-        } else {
-            $page = new Page();
-            $page->fill($request->all());
-            $page->account_id = auth()->user()->account_id;
-            $page->save();
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$page = new Page();
+			$page->fill($request->all());
+			$page->account_id = auth()->user()->account_id;
+			$page->save();
 
 //            if ($request->file('image')) {
 //                $image = new Image();
@@ -98,83 +99,83 @@ class PageController extends Controller {
 //                $image->save();
 //            }
 
-            return redirect()->route('page.show', compact(
-                                    'page',
-            ));
-        }
-    }
+			return redirect()->route('page.show', compact(
+									'page',
+			));
+		}
+	}
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Page  $page
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Page $page) {
+	/**
+	 * Display the specified resource.
+	 *
+	 * @param  \App\Models\Page  $page
+	 * @return \Illuminate\Http\Response
+	 */
+	public function show(Page $page) {
 
-        return view('marketing.pages.show', compact(
-                        'page',
-        ));
-    }
+		return view('marketing.pages.show', compact(
+						'page',
+		));
+	}
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Page  $page
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Page $page) {
-        $images = Image::where('account_id', auth()->user()->account_id)
-                ->where('status', 'disponível')
-                ->where('type', 'marketing')
-                ->get();
+	/**
+	 * Show the form for editing the specified resource.
+	 *
+	 * @param  \App\Models\Page  $page
+	 * @return \Illuminate\Http\Response
+	 */
+	public function edit(Page $page) {
+		$images = Image::where('account_id', auth()->user()->account_id)
+				->where('status', 'disponível')
+				->where('type', 'marketing')
+				->get();
 
-        $logos = Image::where('account_id', auth()->user()->account_id)
-                ->where('status', 'disponível')
-                ->where('type', 'logo')
-                ->get();
+		$logos = Image::where('account_id', auth()->user()->account_id)
+				->where('status', 'disponível')
+				->where('type', 'logo')
+				->get();
 
-        $templates = Page::listTemplates();
-        $currentTemplate = Page::returnTemplateName($page->template);
-        $status = Page::returnStatus();
+		$templates = Page::listTemplates();
+		$currentTemplate = Page::returnTemplateName($page->template);
+		$status = Page::returnStatus();
 
-        return view('marketing.pages.edit', compact(
-                        'page',
-                        'images',
-                        'logos',
-                        'templates',
-                        'currentTemplate',
-                        'status',
-        ));
-    }
+		return view('marketing.pages.edit', compact(
+						'page',
+						'images',
+						'logos',
+						'templates',
+						'currentTemplate',
+						'status',
+		));
+	}
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Page  $page
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Page $page) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:pages',
+	/**
+	 * Update the specified resource in storage.
+	 *
+	 * @param  \Illuminate\Http\Request  $request
+	 * @param  \App\Models\Page  $page
+	 * @return \Illuminate\Http\Response
+	 */
+	public function update(Request $request, Page $page) {
+		$messages = [
+			'required' => '*preenchimento obrigatório.',
+		];
+		$validator = Validator::make($request->all(), [
+					'name' => 'required:pages',
 //                    'date_start' => 'required:tasks',
 //                    'date_due' => 'required:tasks',
 //                    'description' => 'required:tasks',
-                        ],
-                        $messages);
+						],
+						$messages);
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
-        } else {
-            $page->fill($request->all());
-            $page->save();
+		if ($validator->fails()) {
+			return back()
+							->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+							->withErrors($validator)
+							->withInput();
+		} else {
+			$page->fill($request->all());
+			$page->save();
 
 //            if ($request->file('image')) {
 //                $image = new Image();
@@ -188,32 +189,37 @@ class PageController extends Controller {
 //                $image->save();
 //            }
 
-            return redirect()->route('page.edit', [$page]);
-        }
-    }
+			return redirect()->route('page.edit', [$page]);
+		}
+	}
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Page  $page
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Page $page) {
-        //
-    }
+	/**
+	 * Remove the specified resource from storage.
+	 *
+	 * @param  \App\Models\Page  $page
+	 * @return \Illuminate\Http\Response
+	 */
+	public function destroy(Page $page) {
+		//
+	}
 
-    public function public(Page $page) {
-        $states = Contact::returnStates();
-        $page = Page::with([
-                    'image',
-                    'logo',
-                    ])
-                ->first();
+	public function public(Page $page) {
+		$states = Contact::returnStates();
+		$page = Page::with([
+					'image',
+					'logo',
+				])
+				->first();
 
-        return view('marketing.pages.public', compact(
-                        'page',
-                        'states',
-        ));
-    }
+		$user = User::where('account_id', $page->account_id)
+				->where('perfil', 'dono')
+				->first();
+			//dd($biographyImage);
+		return view('marketing.pages.public', compact(
+						'page',
+						'states',
+						'user',
+		));
+	}
 
 }

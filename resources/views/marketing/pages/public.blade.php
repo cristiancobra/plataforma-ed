@@ -35,7 +35,7 @@
      background-color: {{$page->principal_color}}
 ">
     @if($page->logo)
-    <div class="container" style="width: 250px;height: 50px">
+    <div class="container" style="width: 200px;height: 50px">
         <img src="{{asset($page->logo->path)}}" height="100%" width="100%">
     </div>
     @else
@@ -70,28 +70,88 @@
 @endif
 @endsection
 
-@section('text1')
-<div class='row' style='
-     height:200px;
-     background-color: {{$page->complementary_color}};
-     '>
-    <div class='col  text-center'>
-        <p class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px">
-            {{$page->text1}}
+@if($page->biography == 1)
+@section('biography')
+<div class="row">
+	<div class="col-6"  style='
+		 height:200px;
+		 background-color: {{$page->complementary_color}};
+		 '>
+		@if($page->logo)
+        <img src="{{asset($user->image->path)}}" height="100%" width="100%">
+        @else
+		{{strtoupper($page->name)}}
+		@endif
+	</div>
+	<div class="col-6" style='
+		 height:200px;
+		 background-color: {{$page->complementary_color}};
+		 ' >
+		<p class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px">
+            {{$page->biography_text}}
         </p>
-    </div>
+	</div>
+</div>
+@endsection
+@endif
+
+
+
+@section('categories')
+<div class="row " >
+	<div class="col-4 p-5 d-flex justify-content-center align-items-center"  style='background-color: red '>
+		<img src="{{asset($page->category_image_1->path)}}" height="30%" width="30%">
+	</div>
+	<div class="col-4  d-flex justify-content-center align-items-center"  style='
+		 background-color: blue;
+		 '>
+		<img src="{{asset($page->category_image_2->path)}}" height="30%" width="30%">
+	</div>
+	<div class="col-4  d-flex justify-content-center align-items-center"  style='
+		 background-color: green;
+		 '>
+		<img src="{{asset($page->category_image_3->path)}}" height="30%" width="30%">
+	</div>
+</div>
+<div class="row" >
+	<div class='col-4 text-center'  style='background-color: #66cca4'>
+		<p  class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px" >
+            {{$page->category_text_1}}
+        </p>
+	</div>
+	<div class='col-4 text-center'  style='background-color: #52d8a8'>
+		<p  class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px" >
+            {{$page->category_text_2}}
+        </p>
+	</div>
+	<div class='col-4 text-center'  style='background-color: #0abab5'>
+		<p  class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px" >
+            {{$page->category_text_3}}
+        </p>
+	</div>
 </div>
 @endsection
 
-@section('text2')
-<div class='row' style='
-     background-color: {{$page->opposite_color}};
-     '>
-    <div class='col  text-center'>
-        <p class="pt-5 mt-3" style="color: {{$page->principal_color}};font-size: 28px">
-            {{$page->text2}}
+@section('company-biography')
+<div class="row">
+	<div class="col-6"  style='
+		 height:200px;
+		 background-color: {{$page->complementary_color}};
+		 '>
+		@if($page->logo)
+        <img src="{{asset($page->company_biography_image->path)}}" height="100%" width="100%">
+        @else
+		{{strtoupper($page->name)}}
+		@endif
+	</div>
+	<div class="col-6" style='
+		 height:200px;
+		 background-color: {{$page->complementary_color}};
+		 ' >
+		<p class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px">
+            {{$page->company-biography_text}}
         </p>
-    </div>
+	</div>
 </div>
 @endsection
 

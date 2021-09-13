@@ -57,6 +57,7 @@ class Page extends Model {
         'company_phone',
         'company_cnpj',
         'company_type',
+       'biography',
         'trash',
         'status',
     ];
@@ -66,7 +67,7 @@ class Page extends Model {
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
-
+	
     public function image() {
         return $this->hasOne(Image::class, 'id', 'image_id');
     }
