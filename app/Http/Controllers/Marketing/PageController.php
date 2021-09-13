@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Image;
 use App\Models\Page;
 use App\Models\Contact;
@@ -96,6 +97,18 @@ class PageController extends Controller {
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
+
+//            if ($request->file('image')) {
+//                $image = new Image();
+//                $image->account_id = auth()->user()->account_id;
+//                $image->task_id = $page->id;
+//                $image->type = 'tarefa';
+//                $image->name = 'Imagem da tarefa ' . $page->id;
+//                $image->status = 'disponível';
+//                $path = $request->file('image')->store('users_images');
+//                $image->path = $path;
+//                $image->save();
+//            }
 
             return redirect()->route('page.show', compact(
                                     'page',
@@ -219,14 +232,20 @@ class PageController extends Controller {
 
     public function public(Page $page) {
         $states = Contact::returnStates();
-        $page->with([
-            'image',
-            'logo',
-        ]);
+        $page = Page::with([
+                    'image',
+                    'logo',
+                ])
+                ->first();
 
+        $user = User::where('account_id', $page->account_id)
+                ->where('perfil', 'dono')
+                ->first();
+        //dd($biographyImage);
         return view('marketing.pages.public', compact(
                         'page',
                         'states',
+                        'user',
         ));
     }
 

@@ -24,6 +24,10 @@ Route::get('/financial', 'DashboardController@financial')
         ->name('dashboard.financial')
         ->middleware('roles');
 
+Route::get('/marketing', 'DashboardController@marketing')
+        ->name('dashboard.marketing')
+        ->middleware('roles');
+
 Route::get('/sales', 'DashboardController@sales')
         ->name('dashboard.sales')
         ->middleware('roles');
@@ -201,6 +205,20 @@ Route::resource('biblioteca-images', 'Libraries\\ImageController')
         ->parameters(['biblioteca-images' => 'image'])
         ->middleware('roles');
 
+//texts
+Route::put('/textos/apagar/{text}', 'Libraries\\TextController@sendToTrash')
+        ->name('text.trash')
+        ->middleware('roles');
+
+Route::put('/textos/restaurar/{text}', 'Libraries\\TextController@restoreFromTrash')
+        ->name('text.restore')
+        ->middleware('roles');
+
+Route::resource('textos', 'Libraries\\TextController')
+        ->names('text')
+        ->parameters(['textos' => 'text'])
+        ->middleware('roles');
+
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')
         ->names('competitor')
@@ -238,7 +256,6 @@ Route::match(['get', 'post'], 'contatos/{page:slug}/cadastrar-contato', 'Sales\\
 Route::get('/paginas/public/{page:slug}', 'Marketing\\PageController@public')
         ->name('page.public');
 
-
 Route::resource('paginas', 'Marketing\\PageController')
         ->names('page')
         ->parameters(['paginas' => 'page'])
@@ -261,7 +278,6 @@ Route::any('/jornadas/relatorio-departamentos', 'Operational\\JourneyController@
 Route::put('/jornadas/apagar/{journey}', 'Operational\\JourneyController@sendToTrash')
         ->name('journey.trash')
         ->middleware('roles');
-
 
 Route::put('/jornadas/restaurar/{journey}', 'Operational\\JourneyController@restoreFromTrash')
         ->name('journey.restore')

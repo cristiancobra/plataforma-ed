@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Commands\\ConcateDateAndTime' => $baseDir . '/app/Console/Commands/ConcateDateAndTime.php',
+    'App\\Console\\Commands\\ConvertDateInTimestamp' => $baseDir . '/app/Console/Commands/ConvertDateInTimestamp.php',
     'App\\Console\\Commands\\CopyInstallmentValueToTotalPriceInInvoices' => $baseDir . '/app/Console/Commands/CopyInstallmentValueToTotalPriceInInvoices.php',
     'App\\Console\\Commands\\CreateExpensesProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateExpensesProposalsFromInvoices.php',
     'App\\Console\\Commands\\CreateProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateProposalsFromInvoices.php',
@@ -1021,6 +1022,7 @@ return array(
     'Facade\\Ignition\\Support\\LaravelVersion' => $vendorDir . '/facade/ignition/src/Support/LaravelVersion.php',
     'Facade\\Ignition\\Support\\Packagist\\Package' => $vendorDir . '/facade/ignition/src/Support/Packagist/Package.php',
     'Facade\\Ignition\\Support\\Packagist\\Packagist' => $vendorDir . '/facade/ignition/src/Support/Packagist/Packagist.php',
+    'Facade\\Ignition\\Support\\SentReports' => $vendorDir . '/facade/ignition/src/Support/SentReports.php',
     'Facade\\Ignition\\Support\\StringComparator' => $vendorDir . '/facade/ignition/src/Support/StringComparator.php',
     'Facade\\Ignition\\Tabs\\Tab' => $vendorDir . '/facade/ignition/src/Tabs/Tab.php',
     'Facade\\Ignition\\Views\\Compilers\\BladeSourceMapCompiler' => $vendorDir . '/facade/ignition/src/Views/Compilers/BladeSourceMapCompiler.php',

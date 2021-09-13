@@ -13,10 +13,16 @@
         @yield('errors')
         
         @yield('banner')
+		
+        @yield('biography')
 
-        @yield('text1')
+          @yield('categories')
+		
+@yield('company-biography')
 
-        @yield('text2')
+@yield('competitor_advantages')
+
+@yield('how-it-works')
 
         @yield('form')
 

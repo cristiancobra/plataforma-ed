@@ -14,6 +14,9 @@ use App\Models\Transaction;
 use App\Models\Opportunity;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Classe responsável por criar os dashboards (painéis) dos departamentos
+ */
 class DashboardController extends Controller {
 
     public function operational() {
@@ -118,6 +121,14 @@ class DashboardController extends Controller {
         ));
     }
 
+    public function marketing() {
+        $nada = 0;
+        
+        return view('dashboards.marketing', compact(
+                        'nada',
+        ));
+    }
+    
     public function sales() {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');

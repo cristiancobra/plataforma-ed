@@ -714,6 +714,33 @@ if (!function_exists('formatPriority')) {
     }
 
 }
+// gera uma DIV  com a formatação para TYPE
+if (!function_exists('formatType')) {
+
+    function formatType($model) {
+        switch ($model->type) {
+            case 'biografia':
+                echo '<div class="col-1 tb tb-low text-center">biografia</div>';
+                break;
+            case 'blog':
+                echo '<div class="col-1 tb tb-medium text-center">blog</div>';
+                break;
+            case 'copy de venda':
+                echo '<div class="col-1 tb tb-high text-center">copy de venda</div>';
+                break;
+            case 'perguntas frequentes':
+                echo '<div class="col-1 tb tb-emergency text-center">perguntas frequentes</div>';
+                break;
+            case 'tutorial':
+                echo '<div class="col-1 tb tb-emergency text-center">tutorial</div>';
+                break;
+            case 'desativado':
+                echo '<div class="col-1 tb tb-emergency text-center">tutorial</div>';
+                break;
+        }
+    }
+
+}
 // retorna métodos de pagamento
 if (!function_exists('returnPaymentMethods')) {
 
@@ -874,6 +901,12 @@ if (!function_exists('formatStatus')) {
             case 'ganhamos':
                 echo '<div class="col-1 tb tb-won">ganhamos</div>';
                 break;
+            case 'pronto':
+                echo '<div class="col-1 tb tb-won">pronto</div>';
+                break;
+            case 'rascunho':
+                echo '<div class="col-1 tb tb-stuck">rascunho</div>';
+                break;
         }
     }
 
@@ -946,8 +979,14 @@ if (!function_exists('formatShowStatus')) {
             case 'aprovada':
                 echo '<div class="won">aprovada</div>';
                 break;
+            case 'paga':
+                echo '<div class="lost">paga</div>';
+                break;
             case 'perdemos':
                 echo '<div class="lost">perdemos</div>';
+                break;
+            case 'pronto':
+                echo '<div class="done">pronto</div>';
                 break;
             case 'orçamento':
                 echo '<div class="lost">orçamento</div>';
@@ -955,8 +994,8 @@ if (!function_exists('formatShowStatus')) {
             case 'rascunho':
                 echo '<div class="lost">rascunho</div>';
                 break;
-            case 'paga':
-                echo '<div class="lost">paga</div>';
+            case 'revisão':
+                echo '<div class="to-do">revisão</div>';
                 break;
         }
     }
@@ -975,6 +1014,24 @@ if (!function_exists('formatShowType')) {
                 break;
             case 'imagem perfil':
                 echo '<div class="imagem perfil">feito</div>';
+                break;
+            case 'biografia':
+                echo '<div class="canceled">biografia</div>';
+                break;
+            case 'blog':
+                echo '<div class="to-do">blog</div>';
+                break;
+            case 'copy de venda':
+                echo '<div class="doing">copy de venda</div>';
+                break;
+            case 'perguntas frequentes':
+                echo '<div class="done">perguntas frequentes</div>';
+                break;
+            case 'tutorial':
+                echo '<div class="stuck">tutorial</div>';
+                break;
+            case 'desativado':
+                echo '<div class="done">desativado</div>';
                 break;
         }
     }

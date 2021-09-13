@@ -60,6 +60,7 @@ class Page extends Model {
         'authorization_data',
         'authorization_contact',
         'authorization_newsletter',
+       'biography',
         'trash',
         'status',
     ];
@@ -69,7 +70,7 @@ class Page extends Model {
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
-
+	
     public function image() {
         return $this->hasOne(Image::class, 'id', 'image_id');
     }
