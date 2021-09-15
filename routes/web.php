@@ -267,6 +267,13 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
+// jornadas
+Route::put('jornadas/comecar', 'Operational\\JourneyController@storeFromTask')
+        ->name('journey.storeFromTask');
+
+Route::put('/jornadas/encerrar/{journey}', 'Operational\\JourneyController@completeFromTask')
+        ->name('journey.completeFromTask');
+
 Route::any('/jornadas/relatorio-funcionarios', 'Operational\\JourneyController@reportByUsers')
         ->name('journey.reportUsers')
         ->middleware('roles');
@@ -283,9 +290,9 @@ Route::put('/jornadas/restaurar/{journey}', 'Operational\\JourneyController@rest
         ->name('journey.restore')
         ->middleware('roles');
 
-Route::put('/jornadas/encerrar/{journey}', 'Operational\\JourneyController@completeJourney')
-        ->name('journey.complete')
-        ->middleware('roles');
+//Route::put('/jornadas/finalizar/{journey}', 'Operational\\JourneyController@completeJourney')
+//        ->name('journey.complete')
+//        ->middleware('roles');
 
 //Route::put('/jornadas/finalizar-tarefa/{journey}', 'Operational\\JourneyController@completeJourneyAndTask')
 //        ->name('journey.completeTask')

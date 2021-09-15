@@ -11,18 +11,16 @@
     </head>
     <body>
         @yield('errors')
-        
+
         @yield('banner')
-		
+
         @yield('biography')
 
-          @yield('categories')
-		
-@yield('company-biography')
+        @yield('categories')		
 
-@yield('competitor_advantages')
+        @yield('competitor_advantages')
 
-@yield('how-it-works')
+        @yield('how-it-works')
 
         @yield('form')
 

@@ -191,10 +191,10 @@ Tarefa excluída
 </div>
 <div class="row">
     <div class='tb col-1'>
-        @if($journey->date == date('Y-m-d'))
+        @if($journey->start == date('Y-m-d'))
         hoje
         @else
-        {{dateBr($journey->date)}}
+        {{dateBr($journey->start)}}
         @endif
     </div>
     <div class='tb col-8 justify-content-start'>

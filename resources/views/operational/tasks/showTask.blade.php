@@ -194,6 +194,7 @@
         </form
     </div>
 </div>
+</div>
 
 
 
@@ -244,10 +245,10 @@
         {!!html_entity_decode($journey->description)!!}
     </div>
     <div class='tb col-1 text-center'>
-        @if($journey->date == date('Y-m-d'))
+        @if($journey->start == date('Y-m-d'))
         hoje
         @else
-        {{dateBr($journey->date)}}
+        {{dateBr($journey->start)}}
         @endif
     </div>
     <div class='tb col-1 text-center'>
@@ -283,6 +284,53 @@
             <i class='fa fa-plus' aria-hidden='true'></i>
         </a>
     </div>
+</div>
+
+<div class='row'>
+    @if(isset($openJourney))
+    <div class='col-2 d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.completeFromTask', ['journey' => $openJourney])}}" method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' emergency-button' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+                <p class='panel-text pt-2 mb-2'>
+                    <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    ENCERRAR JORNADA
+                </p>
+            </button>
+        </form>
+    </div>
+    @else
+    <div class='col-2 d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.storeFromTask', ['taskId' => $task->id])}}" method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' sales-button' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+                <p class='panel-text pt-2 mb-2'>
+                    <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    INICIAR JORNADA
+                </p>
+            </button>
+        </form>
+    </div>
+    @endif
+        @if($task->status == 'fazendo')
+    <div class='col-2 d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' emergency-button' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+                <p class='panel-text pt-2 mb-2'>
+                    <i class="fas fa-clipboard-check" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    ENCERRAR TAREFA
+                </p>
+            </button>
+        </form>
+    </div>                
+    @endif
 </div>
 @endsection
 

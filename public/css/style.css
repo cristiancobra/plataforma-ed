@@ -193,6 +193,21 @@ and open the template in the editor.
 .sales-button:hover {
     background-color: #09fbbe;
 }
+
+    .emergency-button {
+    text-shadow: 2px 2px 4px #000000;
+    background-color: red;
+    margin: 1%;
+    padding-top: 3.5%;
+    padding-bottom: 2%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-decoration:none;
+}
+.emergency-button:hover {
+    background-color: #49d194;
+}
+
 .opportunities-title{
     grid-area: opportunities-title;
     height: 100%;
@@ -505,7 +520,7 @@ and open the template in the editor.
     color: white;
     text-shadow: 2px 2px 4px #000000;
     font-weight:600;
-    font-size:20px;
+    font-size:18px;
     margin: 0px;
     padding-top: 0%;
 }

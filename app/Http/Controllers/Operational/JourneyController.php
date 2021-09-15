@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Operational;
 
 use App\Http\Controllers\Controller;
-use App\Models\Journey;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Models\Task;
 use App\Models\Company;
 use App\Models\Contact;
-use App\Models\Opportunity;
+use App\Models\Journey;
+use App\Models\Task;
 use App\Models\User;
 use DateTime;
 use DateInterval;
@@ -122,6 +121,28 @@ class JourneyController extends Controller {
     }
 
     /**
+     * Salva uma nova instância do modelo jornadas quando vem pela exibição de tarefa.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function storeFromTask(Request $request) {
+        $journey = new Journey();
+        $journey->account_id = auth()->user()->account_id;
+        $journey->user_id = auth()->user()->id;
+        $journey->task_id = $request->taskId;
+        $journey->status = 'fazer';
+
+        $dateStart = new DateTime('now');
+        $journey->start = $dateStart->format('Y-m-d H:i:s');
+//            dd($request);
+
+        $journey->save();
+
+        return redirect()->route('task.show', ['task' => $journey->task_id]);
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Journey  $journey
@@ -225,15 +246,6 @@ class JourneyController extends Controller {
         return redirect()->action('Operational\\JourneyController@index');
     }
 
-    // chama o método que completa a jornada e direciona para a view show
-    public function completeJourney(Journey $journey) {
-        Journey::completeJourney($journey);
-
-        return redirect()->route('journey.show', compact(
-                                'journey',
-        ));
-    }
-
     public function sendToTrash(Journey $journey) {
         $journey->trash = 1;
         $journey->save();
@@ -250,18 +262,16 @@ class JourneyController extends Controller {
 
     // chama o método que completa a JORNADA E A TAREFA da jornada  e direciona para a view show
     public function completeJourneyAndTask(Journey $journey) {
-//        if ($journey->validateJourneyDuration($journey->duration) == true) {
         Journey::completeJourney($journey);
-//dd($journey->validateJourneyDuration($journey->duration));
-            Task::completeTask($journey->task);
+        Task::completeTask($journey->task);
 
-            return redirect()->back();
-//    
-//        } else {
-//            return redirect()->route('journey.show', compact(
-//                                    'journey',
-//            ));
-//    }
+        return redirect()->back();
+    }
+    
+    public function completeFromTask(Journey $journey) {
+        Journey::completeJourney($journey);
+        
+        return redirect()->route('task.show', ['task' => $journey->task_id]);
     }
 
     public function reportByUsers(Request $request) {

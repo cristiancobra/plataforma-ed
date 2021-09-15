@@ -70,7 +70,7 @@
 @endif
 @endsection
 
-@if($page->biography == 1)
+@if($page->biography)
 @section('biography')
 <div class="row">
     <div class="col-6"  style='
@@ -132,28 +132,6 @@
 </div>
 @endsection
 
-@section('company-biography')
-<div class="row">
-    <div class="col-6"  style='
-         height:200px;
-         background-color: {{$page->complementary_color}};
-         '>
-        @if($page->logo)
-        <img src="{{asset($page->company_biography_image->path)}}" height="100%" width="100%">
-        @else
-        {{strtoupper($page->name)}}
-        @endif
-    </div>
-    <div class="col-6" style='
-         height:200px;
-         background-color: {{$page->complementary_color}};
-         ' >
-        <p class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px">
-            {{$page->company-biography_text}}
-        </p>
-    </div>
-</div>
-@endsection
 
 @section('form')
 <div class='row mt-5' style='

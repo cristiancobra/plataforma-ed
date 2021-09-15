@@ -60,7 +60,7 @@ class Page extends Model {
         'authorization_data',
         'authorization_contact',
         'authorization_newsletter',
-       'biography',
+       'biography_id',
         'trash',
         'status',
     ];
@@ -79,6 +79,9 @@ class Page extends Model {
         return $this->hasOne(Image::class, 'id', 'logo_id');
     }
 
+    public function biography() {
+        return $this->hasOne(Text::class, 'id', 'biography_id');
+    }
 //
 //    public function company() {
 //        return $this->belongsTo(Company::class, 'company_id', 'id');

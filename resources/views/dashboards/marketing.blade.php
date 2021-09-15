@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
-@section('title','FINANCEIRO')
+@section('title','MARKETING')
 
 @section('image-top')
-{{asset('images/financeiro.png')}}
+{{asset('images/marketing.png')}}
 @endsection
 
 @section('buttons')
@@ -11,31 +11,6 @@
 
 @section('main')
 <div class='row mt-2 mb-3 ms-1 me-1'>
-
-    <div class='financial-display col-3'>
-    <div>
-        <div style='display: inline-block;float: left;width: 20%'>
-            <img class='financial-image' src="{{asset('images/financial-planning.png')}}">
-        </div>
-        <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
-            <p style="color:white;font-size: 15px;text-align: left">
-                VENDIDO:
-                <br>
-                COMPROMETIDO:
-                <br>
-                SALDO:
-            </p>
-        </div>
-        <div style='display: inline-block;float:right;width: 30%'>
-            <p style="color:white;font-size: 15px;text-align: right">
-                
-                <br>
-                
-                <br>
-                
-        </div>
-    </div>
-    </div>
     
     <div class='col-2 d-inline-block sales-button'>
         <a style='text-decoration:none' href='{{route('text.index')}}'>
@@ -46,8 +21,46 @@
             </p>
         </a>
     </div>
-
-  
+    
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('socialmedia.index')}}'>
+            <p class='panel-text'>
+                <i class="fas fa-bullhorn" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                REDES SOCIAIS
+            </p>
+        </a>
+    </div>
+    
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('page.index')}}'>
+            <p class='panel-text'>
+                <i class="fas fa-window-maximize" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                PÁGINAS
+            </p>
+        </a>
+    </div>
+    
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('report.index')}}'>
+            <p class='panel-text'>
+                <i class="fas fa-chart-pie" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                RELATÓRIOS
+            </p>
+        </a>
+    </div>
+    
+    <div class='col-2 d-inline-block sales-button'>
+        <a style='text-decoration:none' href='{{route('image.index')}}'>
+            <p class='panel-text'>
+                <i class="fas fa-cloud-upload-alt" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
+                <br>
+                IMAGENS
+            </p>
+        </a>
+    </div>
 </div>
 
 @endsection

@@ -14,7 +14,7 @@ class AddBiographyColumnInPagesTable extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->tinyInteger('biography')->nullable();
+            $table->tinyInteger('biography_id')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddBiographyColumnInPagesTable extends Migration
     public function down()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropColumn('biography');
+            $table->dropColumn('biography_id');
         });
     }
 }

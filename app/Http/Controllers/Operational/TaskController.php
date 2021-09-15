@@ -252,11 +252,14 @@ class TaskController extends Controller {
         if ($task->status == 'fazer' AND $task->journeys()->exists()) {
             $task->status = 'fazendo';
         }
+        
+        $openJourney = Journey::myOpenJourney();
 
         return view('operational.tasks.showTask', compact(
                         'today',
                         'task',
                         'totalDuration',
+                        'openJourney',
         ));
     }
 

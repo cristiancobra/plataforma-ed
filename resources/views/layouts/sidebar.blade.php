@@ -82,29 +82,6 @@ $oppositeColor = $empresaDigital->opposite_color;
             <span class="d-none d-xl-inline">MARKETING</span>
         </a>
 
-        {{createSidebarItem('MARKETING', 'fa fa-bullhorn', 'dropdownMenuFinanceiro', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'REDES SOCIAIS',
-                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
-                                                                                                                                                        'link' => '/redes-sociais'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PÁGINAS',
-                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
-                                                                                                                                                        'link' => route('page.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'RELATÓRIOS',
-                                                                                                                                                        'faIcon' => 'fas fa-chart-pie',
-                                                                                                                                                        'link' => route('report.index'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'IMAGENS',
-                                                                                                                                                        'faIcon' => 'fas fa-cloud-upload-alt',
-                                                                                                                                                        'link' => route('image.index')
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
-
         <a class="dropdown-btn nav-link" href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
             <i class="fas fa-funnel-dollar"></i>
             <span class="d-none d-xl-inline">VENDAS</span>

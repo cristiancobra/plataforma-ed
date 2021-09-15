@@ -72,7 +72,7 @@ class Journey extends Model {
         } else {
             $journey->save();
             
-            return redirect()->back();
+            return $journey;
         }
     }
 

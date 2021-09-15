@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Marketing;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Image;
-use App\Models\Page;
 use App\Models\Contact;
+use App\Models\Page;
+use App\Models\Text;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -22,9 +23,10 @@ class PageController extends Controller {
                 ->with([
                     'image',
                     'logo',
+                    'biography',
                 ])
                 ->get();
-
+//dd($pages);
         return view('marketing.pages.index', compact(
                         'pages',
         ));
@@ -136,6 +138,7 @@ class PageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Page $page) {
+//                    dd($page);
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('status', 'disponível')
                 ->where('type', 'marketing')
@@ -146,16 +149,42 @@ class PageController extends Controller {
                 ->where('type', 'logo')
                 ->get();
 
+        $copys = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'copy de venda')
+                ->get();
+
+        $biographies = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'biografia')
+                ->get();
+        
+        if($page->biography) {
+        $biographyName = Text::find($page->biography)
+                ->pluck('name');
+        } else {
+            $biographyName = 'desativado';
+        }
+        
+        $text1Name = Text::find($page->text1)
+                ->pluck('name');
+        
+        $text2Name = Text::find($page->text2)
+                ->pluck('name');
+        
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
         $status = Page::returnStatus();
 
         $formFields = Page::formFields($page);
-//dd($formFields);
+
         return view('marketing.pages.edit', compact(
                         'page',
                         'images',
                         'logos',
+                        'copys',
+                        'biographies',
+                        'biographyName',
+                        'text1Name',
+                        'text2Name',
                         'templates',
                         'currentTemplate',
                         'status',
@@ -199,6 +228,7 @@ class PageController extends Controller {
             $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
             $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
             $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
+            $page->biography_id = $request->biography_id;
 
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
