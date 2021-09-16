@@ -130,6 +130,15 @@ class Task extends Model {
 
         return $tasks;
     }
+    
+//    
+//    public static function myOpenTask() {
+//        return Task::where('user_id', auth()->user()->id)
+//                        ->where('end', null)
+//                        ->with('journeys')
+//                        ->orderBy('id', 'DESC')
+//                        ->first();
+//    }
 
     static function returnDepartments() {
         return $departments = array(
