@@ -46,7 +46,7 @@ class DashboardController extends Controller {
             $journeys = Journey::where('user_id', auth()->user()->id)
                     ->get();
             
-            $lastJourneys = $journeys->sortByDesc('date')->take(3);
+            $lastJourneys = $journeys->sortByDesc('date')->take(5);
 
             $hoursMonthly = Journey::where('user_id', auth()->user()->id)
                     ->whereBetween('date', [$monthStart, $monthEnd])
@@ -55,6 +55,8 @@ class DashboardController extends Controller {
             $hoursToday = Journey::where('user_id', auth()->user()->id)
                     ->where('date', date('Y-m-d'))
                     ->sum('duration');
+            
+            $openJourney = Journey::myOpenJourney();
        
 
         return view('dashboards/operational', compact(
@@ -71,6 +73,7 @@ class DashboardController extends Controller {
                         'myTasksEmergenciesAmount',
                         'myTasksToday',
                         'lastJourneys',
+                        'openJourney',
         ));
     }
 

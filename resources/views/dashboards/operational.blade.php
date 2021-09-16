@@ -1,17 +1,11 @@
-@extends('layouts/master')
-
-@section('title','MEU PAINEL')
-
-@section('image-top')
-{{asset('images/rocket.png')}}
-@endsection
+@extends('layouts/dashboard')
 
 @section('buttons')
 @endsection
 
 @section('main')
 <div class='row mt-2 mb-3'>
-    <div class='col-4 mt-3' style="
+    <div class='col-4 mt-3 mb-3' style="
          border-style: solid;
          border-width: 1px;
          border-color: #c28dbf;
@@ -74,7 +68,12 @@
 
     <div class='col-4'>
         <div class='journey-display'>
-            <div class='row pt-0 mb-1'>
+            <div class='row'>
+                <p class='panel-text pt-0 pb-2 fs-5'>
+                    JORNADAS
+                </p>
+            </div>
+            <div class='row pb-1 mb-1'>
                 <p class='panel-text pt-2'>
                     <i class='fas fa-mug-hot' style='font-size:42px; color:white'></i>
                 </p>
@@ -140,40 +139,11 @@
             </div>
             @endforeach
         </div>
-
-        <div class='row mt-3 ps-3 pe-3'>
-            <div class='col tasks-toDo'>
-                <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				])}}'>
-                    <p class='panel-number mt-3'>
-                        {{$teamTasksPendingCount}}
-                    </p>
-                    <p class='panel-text mb-3'>
-                        equipe
-                    </p>
-                </a>
-            </div>
-
-            <div class='col tasks-my'>
-                <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'user_id' => Auth::user()->id,
-				])}}'>
-                    <p class='panel-number mt-3'>
-                        {{$myTasksCount}}
-                    </p>
-                    <p class='panel-text mb-3'>
-                        minhas
-                    </p>
-                </a>
-            </div>
-        </div>
     </div>
 
     <!--    coluna 3 -->
 
-    <div class='col-4 mt-3' style="
+    <div class='col-4 mt-3 mb-3' style="
          border-style: solid;
          border-width: 1px;
          border-color: #8b0000;
@@ -212,4 +182,62 @@
         @endif
     </div>
 </div>
+<div class='row mt-2 mb-3 ms-1 me-5 pt-2 pb-3' style="
+     border-style: solid;
+     border-width: 1px;
+     border-color: #c28dbf;
+     border-radius: 10px;
+     ">
+    <div class="col-1">
+        <div class='row pt-4 ms-auto me-auto'>
+            <i class="fas fa-exclamation-triangle" title="" style="color:#8B2485;font-size: 50px"></i>
+        </div>
+        <div class='row pt-3 labels'>
+            <p style="text-align: center">
+                TAREFAS
+            </p>
+        </div>
+    </div>
+
+    <div class='col-1 d-inline-block task-button'>
+        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'user_id' => Auth::user()->id,
+				])}}'>
+            <p class='panel-text'>
+                <span style="font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600">
+                    {{$myTasksCount}}
+                </span>
+                MINHAS
+            </p>
+        </a>
+    </div>
+
+    <div class='col-2 d-inline-block team-button'>
+        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				])}}'>
+            <p class='panel-text'>
+                <span style="font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600">
+                    {{$teamTasksPendingCount}}
+                </span>
+                EQUIPE
+            </p>
+        </a>
+    </div>
+
+
+    @if(isset($openJourney))
+    <div class='col-2 d-inline-block emergency-button'>
+        <a style='text-decoration:none' href='{{route('task.show', ['task' => $openJourney->task_id])}}'>
+            <p class='panel-text mt-3'>
+                <i class="fas fa-step-forward" style="font-size:30px; color:white;margin-top: 0px;padding-bottom: 10px"></i>
+                <br>
+                ATUAL
+            </p>
+        </a>
+    </div>
+    @endif
+</div>
+
 @endsection

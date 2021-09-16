@@ -33,7 +33,7 @@
                         </div>
                     </div>
                 </main>
-                                        @include('layouts.footer')
+                @include('layouts.footer')
             </div>
             @yield('js-scripts')
         </div>
