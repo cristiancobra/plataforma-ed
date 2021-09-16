@@ -8,23 +8,6 @@
 
 @section('buttons')
 {{createButtonBack()}}
-
-@if($journey->status == 'fazendo')
-<form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('journey.complete', ['journey' => $journey]) }} " method="post">
-    @csrf
-    @method('put')
-    <button id='' class='circular-button secondary' title='Encerrar jornada com a hora atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-        <i class='fas fa-clock'></i>
-    </button>
-</form>
-@endif
-<form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $journey->task]) }} " method="post">
-    @csrf
-    @method('put')
-    <button id='' class='circular-button secondary' title='Encerrar tarefa com data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-        <i class='fas fa-clipboard-check'></i>
-    </button>
-</form>
 {{createButtonTrash($journey, 'journey')}}
 {{createButtonEdit('journey', 'journey', $journey)}}
 {{createButtonList('journey')}}
@@ -229,13 +212,6 @@ Tarefa excluída
     @csrf
     <button id='' class='circular-button delete' style='border:none;padding-left:4px' "type='submit'>
         <i class='fa fa-trash'></i>
-    </button>
-</form>
-<form style='text-decoration: none;color: black;display: inline-block' action=" {{route('journey.complete', ['journey' => $journey])}} " method="post">
-    @method('put')
-    @csrf
-    <button id='' class='circular-button secondary' style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
-        <i class='fa fa-check-square'></i>
     </button>
 </form>
 @endsection

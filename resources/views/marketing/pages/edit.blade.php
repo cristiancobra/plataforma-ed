@@ -133,7 +133,7 @@
                     {{$text1Name}}
                 </option>
                 <option value=''>
-                    Não possui
+                    desativado
                 </option>
                 @foreach($copys as $text)
                 <option value='{{$text->id}}'>
@@ -142,7 +142,10 @@
                 @endforeach
             </select>
             <p class='pt-4 pb-4 text-center' style='color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 22px'>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+                @if($page->text1)
+                {{$page->text1->text}}
+                @else
+                @endif
             </p>
         </div>
     </div>
@@ -170,7 +173,10 @@
                 @endforeach
             </select>
             <p class='pt-4 pb-4 text-center' style='color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 22px'>
+                @if($page->biography)
                 {{$page->biography->text}}
+                @else
+                @endif
             </p>
         </div>
     </div>
@@ -187,7 +193,7 @@
                     {{$text2Name}}
                 </option>
                 <option value=''>
-                    Não possui
+                    desativado
                 </option>
                 @foreach($copys as $text)
                 <option value='{{$text->id}}'>
@@ -212,7 +218,7 @@
          border-right-width: 1px;
          border-bottom-width: 1px;
          '>
-        <div class='col-5'>
+        <div class='col-4'>
             <div class='row'>
                 <label class='labels mt-4' for='' >FORMULÁRIO DE CAPTAÇÃO:</label>
             </div>
@@ -224,24 +230,41 @@
             </div>
             @endforeach            
         </div>
-        <div class='col-7 text-center  pb-5'>
-            <div class='row'>
-                <br>
-                <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
-                @if ($errors->has('authorization_data'))
-                <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
-                @endif
-                <br>
-                <input type='checkbox' name='authorization_contact'> Permito que a empresa entre em contato comigo.
-                <br>
-                <input type='checkbox' name='authorization_newsletter'> Quero receber notícias sobre a empresa e seus produtos/serviços.
-                <br>
-                * você poderá alterar isso a qualquer momento.
+
+        <div class='col-8 text-center mt-5 pb-5'>
+            @foreach($formFields as $formField)
+            @if($formField['name'] == 'contact_state' AND $formField['value'] == 1)
+            <div class='row pt-1'>      
+                <div class='col-3 d-flex justify-content-start'>
+                    <label class='labels' for='contact_state'>{{$formField['label']}}:</label>
+                </div>
+                <div class='col-4 d-flex justify-content-start'>
+                    @if ($errors->has('contact_state'))
+                    <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
+                    @endif
+                    {{createDoubleSelect('state', 'fields', $states)}}
+                </div>
+            </div>                    
+            @elseif($formField['value'] == 1)
+            <div class='row pt-1'>   
+                <div class='col-3 d-flex justify-content-start'>
+                    <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                </div>
+                <div class='col-4 d-flex justify-content-start'>
+                    <input type='text' name='{{$formField['name']}}'>
+                    @if ($errors->has($formField['name']))
+                    <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
+                    @endif
+                </div>
             </div>
-            <div class='col-4 pb-5 text-center'>
-                <button class='text-button primary' type='submit'>
-                    CADASTRAR
-                </button>
+            @endif
+            @endforeach
+            <div class='row'>
+                <div class='col-4 mt-4 pb-5 text-center'>
+                    <button class='text-button' style="background-color: {{$page->complementary_color}}">
+                        CADASTRAR
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -249,7 +272,7 @@
 
     <div class='row' style='
          height:300px;
-         background-color: {{$page->opposite_color}};
+         background-color: white;
          border-left-style: solid;
          border-right-style: solid;
          border-bottom-style: solid;
@@ -257,29 +280,24 @@
          border-right-width: 1px;
          border-bottom-width: 1px;
          '>
-        <div class='col-5'>
+        <div class='col-4'>
             <label class='labels mt-4' for='' >AUTORIZAÇOES:</label>
             <br>
             {{createCheckboxReadOnly('authorization_data', 1)}}
             <span class='labels'>Armazenar:</span>
             <br>
-            Autorizo o armazenamento dos meus dados.
-            <br>
-            * Obrigatório segundo a Lei Geral de Proteção de Dados.
+            <span style='font-size: 14px;font-style: italic'>* Obrigatório pela Lei Geral de Proteção de Dados.</span>
             <br>
             {{createCheckboxEdit('authorization_contact', $page->authorization_contact)}}
             <span class='labels'>Contato:</span>
             <br>
-            Permito que a empresa entre em contato comigo.
-            <br>
             {{createCheckboxEdit('authorization_newsletter', $page->authorization_newsletter)}}
             <span class='labels'>Newsletter:</span>
             <br>
-            Quero receber notícias sobre a empresa e seus produtos/serviços.
         </div>
-        <div class='col-7'>
-            <div class='col  text-center  pb-5'>
-                <div class='col-5 pb-5'>
+        <div class='col-8'>
+            <div class='col pb-5 d-flex justify-content-center'>
+                <div class='col pb-5'>
                     <br>
                     <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
                     @if ($errors->has('authorization_data'))

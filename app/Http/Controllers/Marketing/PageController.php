@@ -172,6 +172,7 @@ class PageController extends Controller {
         
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
+        $states = returnStates();
         $status = Page::returnStatus();
 
         $formFields = Page::formFields($page);
@@ -187,6 +188,7 @@ class PageController extends Controller {
                         'text2Name',
                         'templates',
                         'currentTemplate',
+                        'states',
                         'status',
                         'formFields',
         ));
