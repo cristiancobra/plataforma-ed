@@ -15,7 +15,7 @@ and open the template in the editor.
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    
+
 }
 
 .journey-display {
@@ -115,7 +115,7 @@ and open the template in the editor.
     background-color: #AC56B8;
 }
 
-    .sales-button {
+.sales-button {
     text-shadow: 2px 2px 4px #000000;
     background-color: #49d194;
     width: 10%;
@@ -132,7 +132,7 @@ and open the template in the editor.
     background-color: #09fbbe;
 }
 
-    .sales-display {
+.sales-display {
     text-shadow: 2px 2px 4px #000000;
     background-color: #49d194;
     margin: 1%;
@@ -148,7 +148,7 @@ and open the template in the editor.
     background-color: #09fbbe;
 }
 
-    .task-button {
+.task-button {
     text-shadow: 2px 2px 4px #000000;
     background-color: #D8C2DB;
     width: 10%;
@@ -165,7 +165,58 @@ and open the template in the editor.
     background-color: #AC56B8;
 }
 
-    .task-display {
+.task-high-button {
+    text-shadow: 2px 2px 4px #000000;
+    background-color: #6357A1;
+    width: 10%;
+    margin: 1%;
+    padding-top: 1.5%;
+    padding-bottom: 1%;
+    padding-left: 0.8%;
+    padding-right: 0.8%;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-decoration:none;
+}
+.task-high-button:hover {
+    background-color: #AC56B8;
+}
+
+.task-medium-button {
+    text-shadow: 2px 2px 4px #000000;
+    background-color: #9a8abf;
+    width: 10%;
+    margin: 1%;
+    padding-top: 1.5%;
+    padding-bottom: 1%;
+    padding-left: 0.8%;
+    padding-right: 0.8%;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-decoration:none;
+}
+.task-medium-button:hover {
+    background-color: #AC56B8;
+}
+
+.task-low-button {
+    text-shadow: 2px 2px 4px #000000;
+    background-color: #b9a4d0;
+    width: 10%;
+    margin: 1%;
+    padding-top: 1.5%;
+    padding-bottom: 1%;
+    padding-left: 0.8%;
+    padding-right: 0.8%;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    text-decoration:none;
+}
+.task-low-button:hover {
+    background-color: #AC56B8;
+}
+
+.task-display {
     text-shadow: 2px 2px 4px #000000;
     background-color: #D8C2DB;
     margin: 1%;
@@ -181,10 +232,10 @@ and open the template in the editor.
     background-color: #AC56B8;
 }
 
-    .team-button {
+.team-button {
     text-shadow: 2px 2px 4px #000000;
     background-color: #F2E28C;
-       width: 10%;
+    width: 10%;
     margin: 1%;
     padding-top: 1.5%;
     padding-bottom: 1%;
@@ -198,7 +249,7 @@ and open the template in the editor.
     background-color: #FAD300;
 }
 
-    .team-display {
+.team-display {
     text-shadow: 2px 2px 4px #000000;
     background-color: #F2E28C;
     margin: 1%;
@@ -214,10 +265,10 @@ and open the template in the editor.
     background-color: #FAD300;
 }
 
-    .emergency-button {
+.emergency-button {
     text-shadow: 2px 2px 4px #000000;
     background-color: #ffafac;
-       width: 10%;
+    width: 10%;
     margin: 1%;
     padding-top: 1.5%;
     padding-bottom: 1%;
@@ -231,7 +282,7 @@ and open the template in the editor.
     background-color: #f7736f;
 }
 
-    .emergency-display {
+.emergency-display {
     text-shadow: 2px 2px 4px #000000;
     background-color: #ffafac;
     margin: 1%;

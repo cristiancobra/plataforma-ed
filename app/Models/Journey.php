@@ -63,7 +63,7 @@ class Journey extends Model {
         $journey->end = $dateEnd->format('Y-m-d H:i:s');
         $journey->duration = strtotime($journey->end) - strtotime($journey->start);
 
-        if($journey->validateJourneyDuration($journey->duration) == true) {
+        if ($journey->validateJourneyDuration($journey->duration) == true) {
 
             return back()
                             ->with('failed', 'Jornada muito grande... você está tentando finalizar uma jornada antiga com a data de hoje.')
@@ -71,7 +71,7 @@ class Journey extends Model {
                             ->withInput();
         } else {
             $journey->save();
-            
+
             return $journey;
         }
     }
@@ -80,7 +80,6 @@ class Journey extends Model {
         if ($duration / 3600 >= 24) {
             return true;
         }
-
     }
 
     public static function filterJourneys(Request $request) {
@@ -198,7 +197,6 @@ class Journey extends Model {
                     })
                     ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
-
         }
         return $monthlys;
     }
@@ -212,6 +210,18 @@ class Journey extends Model {
                         })
                         ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
+    }
+
+    /**
+     * 
+     * @return type
+     */
+    public static function openJourney($user) {
+        return Journey::where('user_id', $user->id)
+                        ->where('end', null)
+                        ->with('task')
+                        ->orderBy('id', 'DESC')
+                        ->first();
     }
 
     public static function myOpenJourney() {

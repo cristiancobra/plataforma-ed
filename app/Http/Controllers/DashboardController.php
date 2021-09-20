@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\User;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Invoice;
 use App\Models\Journey;
+use App\Models\Opportunity;
 use App\Models\Task;
 use App\Models\Transaction;
-use App\Models\Opportunity;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -33,6 +33,18 @@ class DashboardController extends Controller {
         
         $myTasks = $teamTasks->where('user_id', auth()->user()->id);
         $myTasksCount = $myTasks->count();
+        
+        $myTasksHigh = $myTasks->where('priority', 'alta');
+        $myTasksHighCount = $myTasksHigh->count();
+        
+        $myTasksMedium = $myTasks->where('priority', 'média');
+        $myTasksMediumCount = $myTasksMedium->count();
+        
+        $myTasksLow = $myTasks->where('priority', 'baixa');
+        $myTasksLowCount = $myTasksLow->count();
+
+        $myTasksLate = $myTasks->where('date_due', '<', date('Y-m-d'));
+        $myTasksLateCount = $myTasksLate->count();
 
         $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(5);
         $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
@@ -58,6 +70,15 @@ class DashboardController extends Controller {
             
             $openJourney = Journey::myOpenJourney();
        
+            $users = User::myUsers();
+            
+            foreach($users as $user) {
+                $openJourney = Journey::openJourney($user);
+                if($openJourney != null) {
+                $user['journeyName'] = $openJourney->task->name;
+                $user['taskId'] = $openJourney->task->id;
+            }
+            }
 
         return view('dashboards/operational', compact(
                         'month',
@@ -68,12 +89,20 @@ class DashboardController extends Controller {
                         'hoursToday',
                         'teamTasksPending',
                         'teamTasksPendingCount',
+                        'myTasksHigh',
+                        'myTasksHighCount',
+                        'myTasksMedium',
+                        'myTasksMediumCount',
                         'myTasksCount',
+                        'myTasksLow',
+                        'myTasksLowCount',
+                        'myTasksLateCount',
                         'myTasksEmergencies',
                         'myTasksEmergenciesAmount',
                         'myTasksToday',
                         'lastJourneys',
                         'openJourney',
+                        'users',
         ));
     }
 
