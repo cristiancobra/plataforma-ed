@@ -263,7 +263,7 @@
     </div>
 
 
-    <div class='col-2 d-inline-block team-button'>
+    <div class='col-2 d-inline-block sales-button'>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
 				])}}'>
