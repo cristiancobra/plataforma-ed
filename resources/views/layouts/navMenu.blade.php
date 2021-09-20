@@ -96,7 +96,7 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
             <a class='circular-nav-button secondary'  href='{{route('task.create')}}'>
                 <i class="fas fa-calendar-check" title='Criar nova tarefa' style="color:#8B2485"></i>
             </a>
-            @if(isset($tasksEmergency))
+            @if(count($tasksEmergency) > 0))
             <a class='circular-nav-button delete'  href='{{route('task.index', [
                                                                                                                     'status' => 'fazer',
                                                                                                                     'priority' => 'emergência',

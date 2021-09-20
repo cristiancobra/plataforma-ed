@@ -182,18 +182,18 @@
         @endif
     </div>
 </div>
-<div class='row mt-2 mb-3 ms-1 me-5 pt-2 pb-3' style="
+<div class='row mt-2 mb-3 ms-1 me-5 p-0' style="
      border-style: solid;
      border-width: 1px;
      border-color: #c28dbf;
      border-radius: 10px;
      ">
-    <div class="col-1">
-        <div class='row pt-4 ms-auto me-auto'>
-            <i class="fas fa-exclamation-triangle" title="" style="color:#8B2485;font-size: 50px"></i>
+    <div class="col-2" style="background-color: #c28dbf;  border-radius: 10px 0px 0px 10px">
+        <div class='row pt-4 text-center'>
+            <i class="fas fa-exclamation-triangle" title="" style="color:white;font-size: 50px"></i>
         </div>
         <div class='row pt-3 labels'>
-            <p style="text-align: center">
+            <p style="text-align: center;color:white">
                 TAREFAS
             </p>
         </div>
@@ -221,6 +221,7 @@
                 <span style="font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600">
                     {{$teamTasksPendingCount}}
                 </span>
+                <br>
                 EQUIPE
             </p>
         </a>

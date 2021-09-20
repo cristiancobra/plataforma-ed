@@ -88,10 +88,11 @@
         <label class="labels" for="" >CATEGORIA:</label>
         {{createSimpleSelect('category', 'fields', $categories)}}
         <br>
+        @if($variation == 'despesa')
         <label class="labels" for="" >GRUPO:</label>
         {{createSimpleSelect('group', 'fields', $groups)}}
         <br>
-
+        @endif
         <br>
         <br>
         <label class="labels" for="" >DESCRIÇÃO:</label>
