@@ -194,7 +194,7 @@
         </div>
         <div class='row pt-3 labels'>
             <p style='text-align: center;color:white'>
-                {{$myTasksHighCount}} TAREFAS
+                {{$myTasksCount}} TAREFAS
             </p>
         </div>
     </div>
