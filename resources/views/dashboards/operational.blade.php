@@ -208,6 +208,7 @@
                 <span style="font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600">
                     {{$myTasksCount}}
                 </span>
+                <br>
                 MINHAS
             </p>
         </a>
