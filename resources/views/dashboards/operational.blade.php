@@ -182,7 +182,7 @@
         @endif
     </div>
 </div>
-<div class='row mt-2 mb-3 ms-1 me-5 p-0' style="
+<div class='row mt-4 mb-3 ms-1 me-5 p-0' style="
      border-style: solid;
      border-width: 1px;
      border-color: #c28dbf;
