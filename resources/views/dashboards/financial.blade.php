@@ -36,7 +36,7 @@
         </div>
     </div>
     </div>
-    <div class='col-2 d-inline-block sales-button'>
+    <div class='col-2 d-inline-block sales-display'>
         <a style='text-decoration:none' href='{{route('invoice.index')}}'>
             <p class='panel-text'>
                 <i class="fas fa-money-bill" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
@@ -46,7 +46,7 @@
         </a>
     </div>
 
-    <div class='col-2 d-inline-block sales-button'>
+    <div class='col-2 d-inline-block sales-display'>
         <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'despesa'])}}'>
             <p class='panel-text'>
                 <i class="fas fa-donate" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
@@ -55,7 +55,7 @@
             </p>
         </a>
     </div>
-    <div class='col-2 d-inline-block sales-button'>
+    <div class='col-2 d-inline-block sales-display'>
         <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
             <p class='panel-text'>
                 <i class="fas fa-boxes" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
@@ -64,7 +64,7 @@
             </p>
         </a>
     </div>
-    <div class='col-2 d-inline-block sales-button'>
+    <div class='col-2 d-inline-block sales-display'>
         <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'fornecedor'])}}'>
             <p class='panel-text'>
                 <i class="fas fa-boxes" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
@@ -102,7 +102,7 @@
             </p>
         </div>
     </div>
-    <div class='col-2 d-inline-block sales-button'>
+    <div class='col-2 d-inline-block sales-display'>
         <a style='text-decoration:none' href='{{route('transaction.index')}}'>
             <p class='panel-text'>
                 <i class="fas fa-sync-alt" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
@@ -139,7 +139,7 @@
             </p>
         </div>
     </div>
-    <div class='col-2 d-inline-block sales-button'>
+    <div class='col-2 d-inline-block sales-display'>
         <a style='text-decoration:none' href='{{route('bankAccount.index')}}'>
             <p class='panel-text'>
                 <i class="fas fa-piggy-bank" style="font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px"></i>
