@@ -251,6 +251,7 @@
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
 				'user_id' => Auth::user()->id,
+				'date_due' => date('Y-m-d'),
 				])}}'>
             <p class='panel-text'>
                 <span style='font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
