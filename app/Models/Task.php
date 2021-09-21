@@ -90,6 +90,9 @@ class Task extends Model {
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
                     }
+                    if ($request->date_due) {
+                        $query->where('date_due', '<', $request->date_due);
+                    }
                     if ($request->priority) {
                         $query->where('priority', $request->priority);
                     }
