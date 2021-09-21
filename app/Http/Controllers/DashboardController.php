@@ -54,6 +54,8 @@ class DashboardController extends Controller {
         $myTasksTodayUnsorted = $myTasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
         $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
 
+            $openJourney = Journey::myOpenJourney();
+            $myLastJourney = Journey::myLastJourney();
 
             $journeys = Journey::where('user_id', auth()->user()->id)
                     ->get();
@@ -68,7 +70,6 @@ class DashboardController extends Controller {
                     ->where('date', date('Y-m-d'))
                     ->sum('duration');
             
-            $openJourney = Journey::myOpenJourney();
        
             $users = User::myUsers();
             
@@ -101,6 +102,7 @@ class DashboardController extends Controller {
                         'myTasksEmergenciesAmount',
                         'myTasksToday',
                         'lastJourneys',
+                        'myLastJourney',
                         'openJourney',
                         'users',
         ));

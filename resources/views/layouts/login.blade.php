@@ -8,6 +8,10 @@
 
         @include('layouts.assets')
 
+        <!--        Google recaptcha-->
+        <meta name="grecaptcha-key" content="{{config('recaptcha.v3.public_key')}}">
+        <script src="https://www.google.com/recaptcha/api.js?render={{config('recaptcha.v3.public_key')}}"></script>
+
     </head>
     <body style='background-color: #c28dbf'>
 
