@@ -29,10 +29,10 @@
     <div>
         <label class="labels" for="" >NOME DA TAREFA:</label>
         @if ($errors->has('name'))
-        <input type="text" name="name" value="{{old('name')}}">
+        <input type="text" name="name" size="80" value="{{old('name')}}">
         <span class="text-danger">{{$errors->first('name')}}</span>
         @else
-        <input type="text" name="name" size="20" value="{{$task->name}}">
+        <input type="text" name="name" size="80" value="{{$task->name}}">
         @endif
         <br>
         <label class="labels" for="" >DEPARTAMENTO:</label>

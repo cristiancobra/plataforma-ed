@@ -76,6 +76,7 @@ use RegistersUsers;
                     'email' => $data['email'],
                     'perfil' => 'administrador',
                     'password' => Hash::make($data['password']),
+                    'grepcaptcha' => ['required', new \App\Rules\ReCAPTCHAv3],
         ]);
     }
 

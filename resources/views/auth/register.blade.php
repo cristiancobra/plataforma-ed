@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Cria nova conta') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="" data-grecaptcha-action="message">
                         @csrf
 
                         <input type="hidden" name="perfil" value="dono">

@@ -26,6 +26,7 @@ class DashboardController extends Controller {
 
         $teamTasks = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
+                ->where('trash', '!=',  1)
                 ->get();
 
         $teamTasksPending = $teamTasks->where('status', 'fazer');
