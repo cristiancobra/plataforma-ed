@@ -35,6 +35,7 @@ class TaskController extends Controller {
 
         $teamTasksPending = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
                 ->get();
 
         $teamTasksEmergencyAmount = $teamTasksPending->where('account_id', auth()->user()->account_id)
