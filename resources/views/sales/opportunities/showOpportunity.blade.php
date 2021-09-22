@@ -754,10 +754,6 @@
             <input type='hidden' name='task_name' value='PRODUZIR:'>
             <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
             <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
             <input type='hidden' name='department' value='produção'>
             <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
         </form>

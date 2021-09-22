@@ -49822,6 +49822,34 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 var app = new Vue({
   el: '#app'
 });
+/**
+ * Script do recaptcha do Google v3
+ * @type Element
+ */
+
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+var grecaptchaKeyMeta = document.querySelector("meta[name='grecaptcha-key']");
+var grecaptchaKey = grecaptchaKeyMeta.getAttribute("content");
+grecaptcha.ready(function () {
+  var forms = document.querySelectorAll('form[data-grecaptcha-action]');
+  Array.from(forms).forEach(function (form) {
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      var grecaptchaAction = form.getAttribute('data-grecaptcha-action');
+      grecaptcha.execute(grecaptchaKey, {
+        action: grecaptchaAction
+      }).then(function (token) {
+        input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'grecaptcha';
+        input.value = token;
+        form.append(input);
+        form.submit();
+      });
+    };
+  });
+});
 
 /***/ }),
 

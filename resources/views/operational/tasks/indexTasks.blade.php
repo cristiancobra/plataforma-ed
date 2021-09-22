@@ -51,9 +51,8 @@
 <div class='col-lg-3 d-inline-block tasks-toDo'>
     <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
-				'priority' =>'',
+				'priority' =>'emergência',
 				'contact_id' => '',
-				'user_id' => '',
 				])}}'>
         <p class='panel-number'>
             {{$teamTasksEmergencyAmount}}
