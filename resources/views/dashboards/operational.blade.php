@@ -278,19 +278,7 @@
         </a>
     </div>
 
-
-    @if(isset($openJourney))
-    <div class='col-2 d-inline-block sales-button'>
-        <a style='text-decoration:none' href='{{route('task.show', ['task' => $openJourney->task_id])}}'>
-            <p class='panel-text mt-3'>
-                <i class='fas fa-step-forward' style='font-size:30px; color:white;margin-top: 0px;padding-bottom: 10px'></i>
-                <br>
-                ATUAL
-            </p>
-        </a>
-    </div>
-    @endif
-
+    
     @if(isset($myLastJourney))
     <div class='col-2 d-inline-block sales-button'>
         <a style='text-decoration:none' href='{{route('task.show', ['task' => $myLastJourney->task_id])}}'>
