@@ -169,11 +169,11 @@ class PageController extends Controller {
         $about = Text::myAbout();
             $strengths = Text::myStrengths();
 //        dd($strengths);
-        $text1Name = Text::find($page->text1)
-                ->pluck('name');
-        
-        $text2Name = Text::find($page->text2)
-                ->pluck('name');
+//        $text1Name = Text::find($page->text1)
+//                ->pluck('name');
+//        
+//        $text2Name = Text::find($page->text2)
+//                ->pluck('name');
         
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
@@ -192,8 +192,8 @@ class PageController extends Controller {
                         'valueOffer',
                         'about',
                         'strengths',
-                        'text1Name',
-                        'text2Name',
+//                        'text1Name',
+//                        'text2Name',
                         'templates',
                         'currentTemplate',
                         'states',
