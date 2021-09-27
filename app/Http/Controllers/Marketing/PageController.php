@@ -139,10 +139,7 @@ class PageController extends Controller {
      */
     public function edit(Page $page) {
 //                    dd($page->with('text'));
-        $images = Image::where('account_id', auth()->user()->account_id)
-                ->where('status', 'disponível')
-                ->where('type', 'marketing')
-                ->get();
+        $banners = Image::myBanners();
 
         $logos = Image::where('account_id', auth()->user()->account_id)
                 ->where('status', 'disponível')
@@ -183,7 +180,7 @@ class PageController extends Controller {
 
         return view('marketing.pages.edit', compact(
                         'page',
-                        'images',
+                        'banners',
                         'logos',
                         'copys',
                         'biographies',

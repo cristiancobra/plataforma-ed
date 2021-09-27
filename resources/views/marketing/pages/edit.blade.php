@@ -106,15 +106,15 @@
              border-right-width: 1px;
              '>
             <label class='labels mt-5' for='' >IMAGEM PRINCIPAL:</label>
-            <select name='image_id'>
-                @if($page->image)
-                <option value='{{$page->image_id}}'>
-                    {{$page->image->name}}
+            <select name='banner_image_id'>
+                @if($page->banner_image)
+                <option value='{{$page->banner_image_id}}'>
+                    {{$page->banner->name}}
                 </option>
                 @endif
-                @foreach($images as $image)
-                <option value='{{$image->id}}'>
-                    {{$image->name}}
+                @foreach($banners as $banner)
+                <option value='{{$banner->id}}'>
+                    {{$banner->name}}
                 </option>
                 @endforeach
             </select>

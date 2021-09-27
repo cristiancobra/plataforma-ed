@@ -26,4 +26,11 @@ class Image extends Model {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
+    public static function myBanners() {
+        return Image::where('account_id', auth()->user()->account_id)
+                        ->where('status', 'disponível')
+                        ->where('type', 'marketing')
+                        ->get();
+    }
+
 }
