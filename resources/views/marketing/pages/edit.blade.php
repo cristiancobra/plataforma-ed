@@ -405,7 +405,7 @@
                 @endif
                 @endforeach
                 <div class='row'>
-                    <div class='col-4 mt-4 pb-5 text-center'>
+                    <div class='col-4 mt-4 pb-2 text-center'>
                         <button class='text-button' style='background-color: {{$page->complementary_color}}'>
                             CADASTRAR
                         </button>
@@ -415,7 +415,6 @@
         </div>
         @else
         <div class='row' style='
-             height:300px;
              background-color: lightgray;
              border-left-style: solid;
              border-right-style: solid;
@@ -467,7 +466,7 @@
                     @endif
                     @endforeach
                     <div class='row'>
-                        <div class='col-4 mt-4 pb-5 text-center'>
+                        <div class='col-4 mt-4 pb-2 text-center'>
                             <button class='text-button' style='background-color: gray'>
                                 CADASTRAR
                             </button>
