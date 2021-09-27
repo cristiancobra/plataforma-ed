@@ -53,9 +53,9 @@
     <input type='text' name='opposite_color' size='10' value='{{$page->opposite_color}}'>
     <br>
     <br>
-    <div class='row'>
-        <div class='col-12 justify-content-start' style='
-             height: 60px;
+    
+        <div class='row' style='
+             height: 80px;
              font-size: 20px;
              align-items: center;
              opacity: 0.8;
@@ -66,18 +66,18 @@
              border-top-width: 1px;
              border-left-width: 1px;
              border-right-width: 1px;
-             background-color: {{$page->principal_color}}
+             background-color: {{$page->principal_color}};
 '>
-            <div class='container bg-white text-center mt-2 mb-1 pt-1' style='width: 300px;height: 40px'>
+            <div class='col-3 bg-white text-center mt-2 mb-1 ms-3 pt-1'>
                 <label class='labels' for='' >LOGOTIPO:</label>
                 <select name='logo_id'>
-                    @if($page->image == null)
-                    <option value='{{$page->logo_id}}'>
+                    @if($page->logo)
+                    <option value='{{$page->logo->id}}'>
                         {{$page->logo->name}}
                     </option>
                     @endif
                     <option value=''>
-                        não usar
+                        não
                     </option>
                     @foreach($logos as $logo)
                     <option value='{{$logo->id}}'>
@@ -86,8 +86,12 @@
                     @endforeach
                 </select>
             </div>
+            @if($page->logo)
+            <div class='offset-2 col-6'>
+                <img src="{{asset($page->logo->path)}}"  style='width: 250px;height: 60px'>
+            </div>
+            @endif
         </div>
-    </div>
 
     <div class='row'>
         <div class='col-12 text-center' style='
@@ -176,7 +180,7 @@
             </div>
         </div>
     </div>
-    @elseif($about->status != 'pronto' AND $about->status != 'indisponível')
+    @elseif($about->status != 'aprovado' AND $about->status != 'indisponível')
     <div class='row' style='
          border-style: solid;
          border-width: 1px;

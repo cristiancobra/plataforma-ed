@@ -16,7 +16,7 @@
 
         @yield('biography')
 
-        @yield('categories')		
+        @yield('strengths')		
 
         @yield('competitor_advantages')
 

@@ -38,8 +38,6 @@
     <div class="container" style="width: 200px;height: 50px">
         <img src="{{asset($page->logo->path)}}" height="100%" width="100%">
     </div>
-    @else
-    {{strtoupper($page->name)}}
     @endif
 </div>
 @if($page->banner)
@@ -70,25 +68,18 @@
 @endif
 @endsection
 
-@if($page->biography)
+@if($page->company_about == 1)
 @section('biography')
-<div class="row">
-    <div class="col-6"  style='
-         height:200px;
-         background-color: {{$page->complementary_color}};
-         '>
-        @if($page->logo)
-        <img src="{{asset($user->image->path)}}" height="100%" width="100%">
-        @else
-        {{strtoupper($page->name)}}
-        @endif
+<div class='row p-5' style='
+     border-style: solid;
+     border-width: 1px;
+     '>
+    <div class='offset-1 col-3 d-flex px-5'>
+        <img  src='{{asset('images/banner-example.jpg')}}' width="300px" height="300px" style="border-radius: 50%">
     </div>
-    <div class="col-6" style='
-         height:200px;
-         background-color: {{$page->complementary_color}};
-         ' >
-        <p class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px">
-            {{$page->biography_text}}
+    <div class='col-8 d-flex justify-content-center align-items-center'>
+        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+            {{$about->text}}
         </p>
     </div>
 </div>
@@ -96,45 +87,30 @@
 @endif
 
 
-
-@section('categories')
-<div class="row " >
-    <div class="col-4 p-5 d-flex justify-content-center align-items-center"  style='background-color: red '>
-
-    </div>
-    <div class="col-4  d-flex justify-content-center align-items-center"  style='
-         background-color: blue;
-         '>
-
-    </div>
-    <div class="col-4  d-flex justify-content-center align-items-center"  style='
-         background-color: green;
-         '>
-
-    </div>
-</div>
-<div class="row" >
-    <div class='col-4 text-center'  style='background-color: #66cca4'>
-        <p  class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px" >
-            {{$page->category_text_1}}
+@if($page->company_strengths == 1)
+@section('strengths')
+<div class='row pb-5 mt-5 pt-3'>
+    @foreach($strengths as $strenght)
+    <div class='col text-center'>
+        <img src='{{asset('images/user.png')}}'  style='
+             color: {{$page->opposite_color}};
+             font-size: 22px;
+             width:80px;
+             height:80px;
+             margin-bottom: 20px;
+             '>
+        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+            {{$strenght->text}}
         </p>
     </div>
-    <div class='col-4 text-center'  style='background-color: #52d8a8'>
-        <p  class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px" >
-            {{$page->category_text_2}}
-        </p>
-    </div>
-    <div class='col-4 text-center'  style='background-color: #0abab5'>
-        <p  class="pt-5 mt-3" style="color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 28px" >
-            {{$page->category_text_3}}
-        </p>
-    </div>
+    @endforeach
 </div>
 @endsection
+@endif
 
 
 @section('form')
-<div class='row mt-5' style='
+<div class='row mt-5 pt-5 pb-5' style='
      height:200px;
      background-color: {{$page->opposite_color}};
      '>

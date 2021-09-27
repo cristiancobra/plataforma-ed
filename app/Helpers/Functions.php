@@ -901,8 +901,8 @@ if (!function_exists('formatStatus')) {
             case 'ganhamos':
                 echo '<div class="col-1 tb tb-won">ganhamos</div>';
                 break;
-            case 'pronto':
-                echo '<div class="col-1 tb tb-won">pronto</div>';
+            case 'aprovado':
+                echo '<div class="col-1 tb tb-won">aprovado</div>';
                 break;
             case 'rascunho':
                 echo '<div class="col-1 tb tb-stuck">rascunho</div>';
@@ -988,8 +988,8 @@ if (!function_exists('formatShowStatus')) {
             case 'perdemos':
                 echo '<div class="lost">perdemos</div>';
                 break;
-            case 'pronto':
-                echo '<div class="done">pronto</div>';
+            case 'aprovado':
+                echo '<div class="done">aprovado</div>';
                 break;
             case 'orçamento':
                 echo '<div class="lost">orçamento</div>';

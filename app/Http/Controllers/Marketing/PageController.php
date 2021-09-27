@@ -112,7 +112,7 @@ class PageController extends Controller {
 //                $image->save();
 //            }
 
-            return redirect()->route('page.show', compact(
+            return redirect()->route('index.show', compact(
                                     'page',
             ));
         }
@@ -279,11 +279,16 @@ class PageController extends Controller {
         $user = User::where('account_id', $page->account_id)
                 ->where('perfil', 'dono')
                 ->first();
-        //dd($biographyImage);
+        
+         $about = Text::selectedAbout($page);
+         $strengths = Text::selectedStrengths($page);
+        
         return view('marketing.pages.public', compact(
                         'page',
                         'states',
                         'user',
+                        'about',
+                        'strengths',
         ));
     }
 
