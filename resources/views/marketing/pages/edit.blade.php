@@ -354,7 +354,6 @@
 
     @if($page->form == 1)
     <div class='row' style='
-         height:300px;
          background-color: {{$page->opposite_color}};
          border-left-style: solid;
          border-right-style: solid;
