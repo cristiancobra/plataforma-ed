@@ -109,6 +109,7 @@
 @endif
 
 
+@if($page->form == 1)
 @section('form')
 <div class='row mt-5 pt-5 pb-5' style='
      height:200px;
@@ -287,8 +288,7 @@
     </div>
 </div>
 </form>
-</div>
-</div>
 @endsection
+@endif
 
 @yield('js-scripts')
