@@ -907,6 +907,9 @@ if (!function_exists('formatStatus')) {
             case 'rascunho':
                 echo '<div class="col-1 tb tb-stuck">rascunho</div>';
                 break;
+                        case 'revisão':
+                echo '<div class="col-1 tb tb-late text-center">revisão</div>';
+                break;
         }
     }
 
@@ -2072,11 +2075,14 @@ if (!function_exists('createTablePercentual')) {
 
 }
 
-// cria um select com label e opção SIM e NÃO que retornam 1 ou 0
+/**
+ * cria um select com label e opção SIM e NÃO que retornam 1 ou 0
+ */
+
 if (!function_exists('createSelectYesOrNo')) {
 
     function createSelectYesOrNo($label, $field, $check = null) {
-        echo "<label class='labels' for='$field'>$label</label>
+        echo "<label class='labels me-2' for='$field'>$label</label>
         <select name='$field' id='$field'>";
         if ($check == 0) {
             echo "<option value='0'>

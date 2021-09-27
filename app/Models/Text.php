@@ -111,5 +111,22 @@ class Text extends Model
         );
     }
     
+    public static function myValueOffer() {
+            return Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'proposta de valor')
+                ->first();
+    }
+    
+    public static function myAbout() {
+            return Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'apresentação da empresa')
+                ->first();
+    }
+    
+    public static function myStrengths() {
+            return Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'força')
+                ->get();
+    }
     
 }

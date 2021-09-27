@@ -9,6 +9,7 @@
 @section('buttons')
 {{createButtonBack()}}
 {{createButtonPdf($task, 'task')}}
+
 @if($task->status == 'fazendo')
 <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
     @csrf
@@ -84,7 +85,6 @@
     <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
         <div class='show-field-end'>
             {{$task->opportunity->name}}
-            <i class='fa fa-eye' style='color:white'></i>
         </div>
     </a>
     @else
@@ -230,8 +230,8 @@
 <div class='row'>
     <div class='tb col-1'>
         <button class='button-round'>
-            <a href=' {{route('journey.show', ['journey' => $journey])}}'>
-                <i class='fa fa-eye' style='color:white'></i>
+            <a href=' {{route('journey.edit', ['journey' => $journey])}}'>
+                <i class='fa fa-edit' style='color:white'></i>
             </a>
         </button>
         {{$journey->id}}

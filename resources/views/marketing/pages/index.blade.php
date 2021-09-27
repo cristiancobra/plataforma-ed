@@ -42,14 +42,14 @@
 @foreach ($pages as $page)
 <div class='row'>
     <div class='tb col-4 justify-content-start' style="font-weight: 600">
-        <a class="white" href="{{route('page.show', ['page' => $page])}}">
-            <button class="button-round">
-                <i class='fa fa-eye'></i>
+        <a class="white" href="{{route('page.public', ['page' => $page])}}" target='_blank'>
+            <button class="button-round me-1">
+                <i class="fa fa-eye"></i>
             </button>
         </a>
-        <a class="white" href="{{route('page.public', ['page' => $page])}}" target='_blank'>
-            <button class="button-round">
-                <i class="far fa-window-maximize"></i>
+        <a class="white" href="{{route('page.edit', ['page' => $page])}}">
+            <button class="button-round me-2">
+                <i class='fa fa-edit'></i>
             </button>
         </a>
         {{$page->name}}

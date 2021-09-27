@@ -26,13 +26,13 @@
 <div>
     <form action=' {{route('text.store')}} ' method='post' enctype='multipart/form-data'>
         @csrf
-        <label class='labels' for='' >NOME:</label>
+        <label class='labels' for='' >NOME INTERNO:</label>
         <input type='text' name='name' style='width: 600px' value='{{old('name')}}'>
         @if ($errors->has('name'))
         <span class='text-danger'>{{$errors->first('name')}}</span>
         @endif
         <br>
-        <label class='labels' for='' >TÍTULO:</label>
+        <label class='labels' for='' >TÍTULO PÚBLICO:</label>
         <input type='title' name='title' style='width: 600px' value='{{old('title')}}'>
         @if ($errors->has('title'))
         <span class='text-danger'>{{$errors->first('title')}}</span>
@@ -58,9 +58,19 @@
         <input type='file' name='image'>
         <br>
         <br>
+
+        @if(app('request')->input('type') == 'proposta de valor')
+        <input type='hidden' name='type' value='proposta de valor'>
+        @elseif(app('request')->input('type') == 'apresentação da empresa')
+        <input type='hidden' name='type' value='apresentação da empresa'>
+        @elseif(app('request')->input('type') == 'força')
+        <input type='hidden' name='type' value='força'>
+        @else
         <label class='labels' for='' >TIPO:</label>
         {{createSimpleSelect('type', 'fields', $types)}}
         <br>
+        @endif
+
         <label class='labels' for='' >SITUAÇÃO:</label>
         {{createSimpleSelect('status', 'fields', $status)}}
         <br>

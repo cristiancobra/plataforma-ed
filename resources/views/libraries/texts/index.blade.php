@@ -42,7 +42,7 @@
     </a>
 </div>
 <div class='col shortcut presentation'>
-<a style='text-decoration:none' href='{{route('text.index', ['type' =>'blogs'])}}'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'blogs'])}}'>
         <h2>
 
         </h2>
@@ -53,7 +53,7 @@
 </div>
 
 <div class='col shortcut proposal'>
-<a style='text-decoration:none' href='{{route('text.index', ['type' =>'  copy de venda'])}}'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'  copy de venda'])}}'>
         <h2>
 
         </h2>
@@ -64,7 +64,7 @@
 </div>
 
 <div class='col shortcut contract'>
-<a style='text-decoration:none' href='{{route('text.index', ['type' =>'perguntas frequentes'])}}'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'perguntas frequentes'])}}'>
         <h2>
 
         </h2>
@@ -75,7 +75,7 @@
 </div>
 
 <div class='col shortcut bill'>
-<a style='text-decoration:none' href='{{route('text.index', ['type' =>'tutorial'])}}'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'tutorial'])}}'>
         <h2>
 
         </h2>
@@ -86,7 +86,7 @@
 </div>
 
 <div class='col shortcut production'>
-<a style='text-decoration:none' href='{{route('text.index', ['type' =>'desativado'])}}'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'desativado'])}}'>
         <h2>
 
         </h2>
@@ -99,6 +99,116 @@
 
 
 @section('table')
+<div class='row mt-2'>
+    <div class='col tb tb-header-start justify-content-start'>
+        MODELO DE NEGÓCIO
+    </div>
+</div>
+
+@if($valueOffer)
+<div class='row'>
+    <div class='col-3 tb justify-content-start' style="font-weight: 600">
+        <a class="white me-2" href=" {{ route('text.edit', ['text' => $valueOffer->id]) }}">
+            <button class="button-round">
+                <i class='fa fa-edit'></i>
+            </button>
+        </a>
+        PROPOSTA DE VALOR
+    </div>
+    <div class='col-8 tb justify-content-start'>
+        {{$valueOffer->text}}
+    </div>
+    {{formatStatus($valueOffer)}}
+</div>
+@else
+<div class='row'>
+    <div class='col-3 tb justify-content-start' style="font-weight: 600">
+        <a class="white me-2" href=" {{ route('text.create', ['type' => 'proposta de valor']) }}">
+            <button class="button-round">
+                <i class='fa fa-plus'></i>
+            </button>
+        </a>
+        PROPOSTA DE VALOR
+    </div>
+    <div class='col-8 tb justify-content-start'>
+        não possui
+    </div>
+</div>
+@endif
+
+@if($about)
+<div class='row'>
+    <div class='col-3 tb justify-content-start' style="font-weight: 600">
+        <a class="white me-2" href=" {{ route('text.edit', ['text' => $about->id]) }}">
+            <button class="button-round">
+                <i class='fa fa-edit'></i>
+            </button>
+        </a>
+        APRESENTAÇÃO DA EMPRESA
+    </div>
+    <div class='col-8 tb justify-content-start'>
+        {{$about->text}}
+    </div>
+    {{formatStatus($about)}}
+</div>
+@else
+<div class='row'>
+    <div class='col-3 tb justify-content-start' style="font-weight: 600">
+        <a class="white me-2" href=" {{ route('text.create', ['type' => 'apresentação da empresa']) }}">
+            <button class="button-round">
+                <i class='fa fa-plus'></i>
+            </button>
+        </a>
+        APRESENTAÇÃO DA EMPRESA
+    </div>
+    <div class='col-9 tb justify-content-start'>
+        não possui
+    </div>
+</div>
+@endif
+
+@if($strengths->isNotEmpty())
+<div class='row mb-5'>
+    <div class='col-3 tb justify-content-start' style="font-weight: 600">
+        <a class="white me-2" href=" {{ route('text.create', ['type' => 'força']) }}">
+            <button class="button-round">
+                <i class='fa fa-plus'></i>
+            </button>
+        </a>
+        PONTOS FORTES
+    </div>
+    <div class='col-9 tb d-block'>
+    @foreach($strengths as $strength)
+        <div class='row'>
+            <div class='col-10'>
+                <a class="white me-2" href=" {{ route('text.edit', ['text' => $strength->id]) }}">
+                    <button class="button-round">
+                        <i class='fa fa-edit'></i>
+                    </button>
+                </a>
+            {{$strength->text}}
+            </div>
+    {{formatStatus($strength)}}
+        </div>
+    @endforeach
+    </div>
+</div>
+@else
+<div class='row mb-5'>
+    <div class='col-3 tb justify-content-start' style="font-weight: 600">
+        <a class="white me-2" href=" {{ route('text.create', ['type' => 'força']) }}">
+            <button class="button-round">
+                <i class='fa fa-plus'></i>
+            </button>
+        </a>
+        PONTOS FORTES
+    </div>
+    <div class='col-9 tb justify-content-start'>
+        não possui
+    </div>
+</div>
+@endif
+
 <div class='row mt-2'>
     <div class='tb tb-header-start col-4'>
         NOME

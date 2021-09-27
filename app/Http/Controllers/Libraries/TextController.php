@@ -18,6 +18,10 @@ class TextController extends Controller {
     public function index(Request $request) {
         $texts = Text::filterTexts($request);
 
+        $valueOffer = Text::myValueOffer();
+        $about = Text::myAbout();
+        $strengths = Text::myStrengths();
+//dd($strengths);
         $users = User::myUsers();
         $status = Text::returnStatus();
         $departments = Text::returnDepartments();
@@ -29,6 +33,9 @@ class TextController extends Controller {
                         'status',
                         'departments',
                         'trashStatus',
+                        'valueOffer',
+                        'about',
+                        'strengths',
         ));
     }
 
@@ -128,10 +135,10 @@ class TextController extends Controller {
      */
     public function edit(text $text) {
         $users = User::myUsers();
-                $departments = Text::returnDepartments();
+        $departments = Text::returnDepartments();
         $status = Text::returnStatus();
         $types = Text::returnTypes();
-        
+
         return view('libraries/texts/edit', compact(
                         'users',
                         'text',
@@ -139,7 +146,7 @@ class TextController extends Controller {
                         'status',
                         'types',
         ));
-}
+    }
 
     /**
      * Update the specified resource in storage.

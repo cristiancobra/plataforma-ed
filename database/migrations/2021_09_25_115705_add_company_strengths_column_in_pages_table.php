@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBiographyColumnInPagesTable extends Migration
+class AddCompanyStrengthsColumnInPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddBiographyColumnInPagesTable extends Migration
     public function up()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->foreignId('biography_id')->nullable();
+                                    $table->tinyInteger('company_strengths')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddBiographyColumnInPagesTable extends Migration
     public function down()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->dropColumn('biography_id');
+                                    $table->dropColumn('company_strengths');
         });
     }
 }

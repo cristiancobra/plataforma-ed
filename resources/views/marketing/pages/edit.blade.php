@@ -123,89 +123,227 @@
 
 
 
-    <div class='row'>
-        <div class='col-12' style='
-             background-color: {{$page->complementary_color}};
-             '>
-            <label class='labels mt-4' style='color:white' for='' >TEXTO 1:</label>
-            <select name='text1'>
-                <option value='{{$page->text1}}'>
-                    {{$text1Name}}
-                </option>
-                <option value=''>
-                    desativado
-                </option>
-                @foreach($copys as $text)
-                <option value='{{$text->id}}'>
-                    {{$text->name}}
-                </option>
-                @endforeach
-            </select>
-            <p class='pt-4 pb-4 text-center' style='color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 22px'>
-                @if($page->text1)
-                {{$page->text1->text}}
+    <div class='row'  style='background-color: {{$page->complementary_color}}'>
+        <div class='row pt-3'>
+            <div class='col'>
+                @if($valueOffer == null)
+                <span class='labels'>PROPOSTA DE VALOR: </span>não possui texto
+                <input type='hidden' name='text_value_offer' value='0'>
                 @else
+                {{createSelectYesOrNo('PROPOSTA DE VALOR', 'text_value_offer', $page->text_value_offer)}}
                 @endif
-            </p>
+                <p style='font-size:14px'>
+                    * Qual a dor que seu produto resolve
+                </p>
+            </div>
+        </div>
+        <div class='row pb-5'>
+            <div class='col'>
+                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    @if($valueOffer == null)
+                    <a class='circular-button primary' title='criar uma proposta de valor' href='{{route('text.create', ['type' => 'proposta de valor'])}}'>
+                        <i class='fa fa-plus' aria-hidden='true'></i>
+                    </a>
+                    @elseif($page->text_value_offer == 1)
+                    {{$valueOffer->text}}
+                    @else
+                    @endif
+                </p>
+            </div>
         </div>
     </div>
 
-
+    @if($about == null)
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
          '>
-        <div class='col-12' style='
-             background-color: white;
-             '>
-            <label class='labels mt-4' for='' >BIOGRAFIA:</label>
-            <select name='biography'>
-                <option value='{{$page->biography}}'>
-                    {{$biographyName}}
-                </option>
-                <option value=''>
-                    desativado
-                </option>
-                @foreach($biographies as $text)
-                <option value='{{$text->id}}'>
-                    {{$text->name}}
-                </option>
-                @endforeach
-            </select>
-            <p class='pt-4 pb-4 text-center' style='color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 22px'>
-                @if($page->biography)
-                {{$page->biography->text}}
-                @else
-                @endif
-            </p>
+        <div class='row pt-3'>
+            <div class='col'>
+                <span class='labels'>APRESENTAÇÃO EMPRESA: </span>não possui texto
+                <input type='hidden' name='company_about' value='0'>
+            </div>
+            <div class='row pb-5 pt-2'>
+                <div class='col-7 d-flex justify-content-center align-items-center'>
+                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                        <a class='circular-button primary' title='criar um texto de apresentação' href='{{route('text.create', ['type' => 'apresentação da empresa'])}}'>
+                            <i class='fa fa-plus' aria-hidden='true'></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
-
-
-
-    <div class='row'>
-        <div class='col-12' style='
-             background-color: {{$page->complementary_color}};
-             '>
-            <label class='labels mt-4' style='color:white' for='' >TEXTO 2:</label>
-            <select name='text1'>
-                <option value='{{$page->text2}}'>
-                    {{$text2Name}}
-                </option>
-                <option value=''>
-                    desativado
-                </option>
-                @foreach($copys as $text)
-                <option value='{{$text->id}}'>
-                    {{$text->name}}
-                </option>
-                @endforeach
-            </select>
-            <p class='pt-4 pb-4 text-center' style='color: {{$page->opposite_color}};text-shadow: 2px 2px 4px #000000;font-size: 22px'>
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-            </p>
+    @elseif($about->status != 'pronto' AND $about->status != 'indisponível')
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                <span class='labels'>APRESENTAÇÃO EMPRESA: </span>texto precisa de revisão
+                <input type='hidden' name='company_about' value='0'>
+            </div>
+            <div class='row pb-5 pt-2'>
+                <div class='col-5 d-flex px-5'>
+                    <img  src='{{asset('images/banner-example.jpg')}}' width="320px" height="320px" style="border-radius: 50%">
+                </div>
+                <div class='col-7 d-flex justify-content-center align-items-center'>
+                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                        {{$about->text}}
+                        <br>
+                        <br>
+                        <a class='circular-button primary' title='editar o texto' href='{{route('text.edit', ['text' => $about->id])}}'>
+                            <i class='fa fa-edit' aria-hidden='true'></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
+    @elseif($page->company_about == 1)
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                {{createSelectYesOrNo('APRESENTAÇÃO EMPRESA', 'company_about', $page->company_about)}}
+            </div>
+            <div class='row pb-5 pt-2'>
+                <div class='col-5 d-flex px-5'>
+                    <img  src='{{asset('images/banner-example.jpg')}}' width="300px" height="300px" style="border-radius: 50%">
+                </div>
+                <div class='col-7 d-flex justify-content-center align-items-center'>
+                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                        {{$about->text}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         background-color: lightgray;
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                {{createSelectYesOrNo('APRESENTAÇÃO EMPRESA', 'company_about', $page->company_about)}}
+            </div>
+            <div class='row pb-5 pt-2'>
+                <div class='col-5 d-flex px-5'>
+                    <img  src='{{asset('images/banner-example.jpg')}}' style="
+                          width:300px;
+                          height:300px;
+                          border-radius: 50%;
+                          filter: gray; /* IE6-9 */
+                          -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+                          filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+                          ">
+                </div>
+                <div class='col-7 d-flex justify-content-center align-items-center'>
+                    <p class='text-center' style='color: gray;font-size: 22px'>
+                        {{$about->text}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
+
+
+    @if($strengths->isEmpty())
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                <span class='labels'>PONTOS FORTES: </span>não possui texto
+                <input type='hidden' name='' value='0'>
+            </div>
+            <div class='row pb-5 pt-2'>
+                <div class='col d-flex justify-content-center align-items-center'>
+                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                        <a class='circular-button primary' title='criar um ponto forte da empresa' href='{{route('text.create', ['type' => 'força'])}}'>
+                            <i class='fa fa-plus' aria-hidden='true'></i>
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @elseif($page->company_strengths == 1)
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                {{createSelectYesOrNo('PONTOS FORTES', 'company_strengths', $page->company_strengths)}}
+            </div>
+            <div class='row pb-5 mt-5'>
+                @foreach($strengths as $strenght)
+                <div class='col text-center'>
+                    <img src='{{asset('images/user.png')}}'  style='
+                         color: {{$page->opposite_color}};
+                         font-size: 22px;
+                         width:80px;
+                         height:80px;
+                         margin-bottom: 20px;
+                         '>
+                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                        {{$strenght->text}}
+                    </p>
+                </div>
+                @endforeach
+                <div class='row pb-0 pt-2'>
+                    <div class='col d-flex justify-content-center align-items-center'>
+                        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                            <a class='circular-button primary' title='criar um ponto forte da empresa' href='{{route('text.create', ['type' => 'força'])}}'>
+                                <i class='fa fa-plus' aria-hidden='true'></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @else
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                {{createSelectYesOrNo('PONTOS FORTES', 'company_strengths', $page->company_strengths)}}
+            </div>
+            <div class='row pb-5 mt-5'>
+                @foreach($strengths as $strenght)
+                <div class='col text-center'>
+                    <img src='{{asset('images/user.png')}}'  style='
+                         color: {{$page->opposite_color}};
+                         font-size: 22px;
+                         width:80px;
+                         height:80px;
+                         margin-bottom: 20px;
+                         filter: gray; /* IE6-9 */
+                         -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+                         filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+                         '>
+                    <p class='text-center' style='color: grey;font-size: 22px'>
+                        {{$strenght->text}}
+                    </p>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
+
 
 
     <div class='row' style='
@@ -261,7 +399,7 @@
             @endforeach
             <div class='row'>
                 <div class='col-4 mt-4 pb-5 text-center'>
-                    <button class='text-button' style="background-color: {{$page->complementary_color}}">
+                    <button class='text-button' style='background-color: {{$page->complementary_color}}'>
                         CADASTRAR
                     </button>
                 </div>

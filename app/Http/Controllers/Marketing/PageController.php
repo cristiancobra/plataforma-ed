@@ -26,7 +26,8 @@ class PageController extends Controller {
                     'biography',
                 ])
                 ->get();
-//dd($pages);
+        
+        
         return view('marketing.pages.index', compact(
                         'pages',
         ));
@@ -138,7 +139,7 @@ class PageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Page $page) {
-//                    dd($page);
+//                    dd($page->with('text'));
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('status', 'disponível')
                 ->where('type', 'marketing')
@@ -164,6 +165,10 @@ class PageController extends Controller {
             $biographyName = 'desativado';
         }
         
+        $valueOffer = Text::myValueOffer();
+        $about = Text::myAbout();
+            $strengths = Text::myStrengths();
+//        dd($strengths);
         $text1Name = Text::find($page->text1)
                 ->pluck('name');
         
@@ -184,6 +189,9 @@ class PageController extends Controller {
                         'copys',
                         'biographies',
                         'biographyName',
+                        'valueOffer',
+                        'about',
+                        'strengths',
                         'text1Name',
                         'text2Name',
                         'templates',
