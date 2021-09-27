@@ -74,8 +74,8 @@ class Page extends Model {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 	
-    public function image() {
-        return $this->hasOne(Image::class, 'id', 'image_id');
+    public function banner() {
+        return $this->hasOne(Image::class, 'id', 'banner_image_id');
     }
 
     public function logo() {

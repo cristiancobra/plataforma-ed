@@ -26,8 +26,7 @@ class PageController extends Controller {
                     'biography',
                 ])
                 ->get();
-        
-        
+
         return view('marketing.pages.index', compact(
                         'pages',
         ));
@@ -157,24 +156,24 @@ class PageController extends Controller {
         $biographies = Text::where('account_id', auth()->user()->account_id)
                 ->where('type', 'biografia')
                 ->get();
-        
-        if($page->biography) {
-        $biographyName = Text::find($page->biography)
-                ->pluck('name');
+
+        if ($page->biography) {
+            $biographyName = Text::find($page->biography)
+                    ->pluck('name');
         } else {
             $biographyName = 'desativado';
         }
-        
+
         $valueOffer = Text::myValueOffer();
         $about = Text::myAbout();
-            $strengths = Text::myStrengths();
+        $strengths = Text::myStrengths();
 //        dd($strengths);
 //        $text1Name = Text::find($page->text1)
 //                ->pluck('name');
 //        
 //        $text2Name = Text::find($page->text2)
 //                ->pluck('name');
-        
+
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
         $states = returnStates();
@@ -272,11 +271,10 @@ class PageController extends Controller {
 
     public function public(Page $page) {
         $states = Contact::returnStates();
-        $page = Page::with([
-                    'image',
-                    'logo',
-                ])
-                ->first();
+        $page->with([
+            'banner',
+            'logo',
+        ]);
 
         $user = User::where('account_id', $page->account_id)
                 ->where('perfil', 'dono')

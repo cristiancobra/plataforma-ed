@@ -21,7 +21,7 @@ class CreatePagesTable extends Migration
             $table->string('url')->nullable();
             $table->string('slug')->nullable();
             $table->string('template');
-            $table->foreignId('image_id')->nullable();
+            $table->foreignId('banner_image_id')->nullable();
             $table->string('headline')->nullable();
             $table->text('text1')->nullable();
             $table->text('text2')->nullable();

@@ -7,7 +7,9 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+<a class='circular-button primary' title='Visualizar página' href="{{route('page.public', ['page' => $page])}}" target='_blank'>
+    <i class = 'fas fa-eye'></i>
+</a>
 {{createButtonList('page')}}
 @endsection
 
@@ -315,6 +317,7 @@
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
+         background-color: lightgray;
          '>
         <div class='row pt-3'>
             <div class='col'>
@@ -345,7 +348,7 @@
 
 
 
-
+    @if($page->form == 1)
     <div class='row' style='
          height:300px;
          background-color: {{$page->opposite_color}};
@@ -358,108 +361,221 @@
          '>
         <div class='col-4'>
             <div class='row'>
-                <label class='labels mt-4' for='' >FORMULÁRIO DE CAPTAÇÃO:</label>
-            </div>
-            @foreach($formFields as $formField)
-            <div class='row'>
                 <div class='col'>
-                    {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
+                    {{createSelectYesOrNo('FORMULÁRIO DE CAPTAÇÃO', 'form', $page->form)}}
                 </div>
+                @foreach($formFields as $formField)
+                <div class='row'>
+                    <div class='col'>
+                        {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
+                    </div>
+                </div>
+                @endforeach            
             </div>
-            @endforeach            
-        </div>
 
-        <div class='col-8 text-center mt-5 pb-5'>
-            @foreach($formFields as $formField)
-            @if($formField['name'] == 'contact_state' AND $formField['value'] == 1)
-            <div class='row pt-1'>      
-                <div class='col-3 d-flex justify-content-start'>
-                    <label class='labels' for='contact_state'>{{$formField['label']}}:</label>
+            <div class='col-8 text-center mt-5 pb-5'>
+                @foreach($formFields as $formField)
+                @if($formField['name'] == 'contact_state' AND $formField['value'] == 1)
+                <div class='row pt-1'>      
+                    <div class='col-3 d-flex justify-content-start'>
+                        <label class='labels' for='contact_state'>{{$formField['label']}}:</label>
+                    </div>
+                    <div class='col-4 d-flex justify-content-start'>
+                        @if ($errors->has('contact_state'))
+                        <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
+                        @endif
+                        {{createDoubleSelect('state', 'fields', $states)}}
+                    </div>
+                </div>                    
+                @elseif($formField['value'] == 1)
+                <div class='row pt-1'>   
+                    <div class='col-3 d-flex justify-content-start'>
+                        <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                    </div>
+                    <div class='col-4 d-flex justify-content-start'>
+                        <input type='text' name='{{$formField['name']}}'>
+                        @if ($errors->has($formField['name']))
+                        <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
+                        @endif
+                    </div>
                 </div>
-                <div class='col-4 d-flex justify-content-start'>
-                    @if ($errors->has('contact_state'))
-                    <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
-                    @endif
-                    {{createDoubleSelect('state', 'fields', $states)}}
-                </div>
-            </div>                    
-            @elseif($formField['value'] == 1)
-            <div class='row pt-1'>   
-                <div class='col-3 d-flex justify-content-start'>
-                    <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
-                </div>
-                <div class='col-4 d-flex justify-content-start'>
-                    <input type='text' name='{{$formField['name']}}'>
-                    @if ($errors->has($formField['name']))
-                    <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
-                    @endif
+                @endif
+                @endforeach
+                <div class='row'>
+                    <div class='col-4 mt-4 pb-5 text-center'>
+                        <button class='text-button' style='background-color: {{$page->complementary_color}}'>
+                            CADASTRAR
+                        </button>
+                    </div>
                 </div>
             </div>
-            @endif
-            @endforeach
+        </div>
+        @else
+        <div class='row' style='
+             height:300px;
+             background-color: lightgray;
+             border-left-style: solid;
+             border-right-style: solid;
+             border-bottom-style: solid;
+             border-left-width: 1px;
+             border-right-width: 1px;
+             border-bottom-width: 1px;
+             '>
+            <div class='row mt-2'>
+                <div class='col'>
+                    {{createSelectYesOrNo('FORMULÁRIO DE CAPTAÇÃO', 'form', $page->form)}}
+                </div>
+            </div>
             <div class='row'>
-                <div class='col-4 mt-4 pb-5 text-center'>
-                    <button class='text-button' style='background-color: {{$page->complementary_color}}'>
-                        CADASTRAR
-                    </button>
+                <div class='col-4 mt-2 mb-2'>
+                    @foreach($formFields as $formField)
+                    <div class='row ms-2'>
+                        {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
+                    </div>
+                    @endforeach            
                 </div>
-            </div>
-        </div>
-    </div>
 
-
-    <div class='row' style='
-         height:300px;
-         background-color: white;
-         border-left-style: solid;
-         border-right-style: solid;
-         border-bottom-style: solid;
-         border-left-width: 1px;
-         border-right-width: 1px;
-         border-bottom-width: 1px;
-         '>
-        <div class='col-4'>
-            <label class='labels mt-4' for='' >AUTORIZAÇOES:</label>
-            <br>
-            {{createCheckboxReadOnly('authorization_data', 1)}}
-            <span class='labels'>Armazenar:</span>
-            <br>
-            <span style='font-size: 14px;font-style: italic'>* Obrigatório pela Lei Geral de Proteção de Dados.</span>
-            <br>
-            {{createCheckboxEdit('authorization_contact', $page->authorization_contact)}}
-            <span class='labels'>Contato:</span>
-            <br>
-            {{createCheckboxEdit('authorization_newsletter', $page->authorization_newsletter)}}
-            <span class='labels'>Newsletter:</span>
-            <br>
-        </div>
-        <div class='col-8'>
-            <div class='col pb-5 d-flex justify-content-center'>
-                <div class='col pb-5'>
-                    <br>
-                    <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
-                    @if ($errors->has('authorization_data'))
-                    <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
+                <div class='col-8 text-center mt-3 pb-5'>
+                    @foreach($formFields as $formField)
+                    @if($formField['name'] == 'contact_state' AND $formField['value'] == 1)
+                    <div class='row pt-1'>      
+                        <div class='col-3 d-flex justify-content-start'>
+                            <label class='labels' for='contact_state'>{{$formField['label']}}:</label>
+                        </div>
+                        <div class='col-4 d-flex justify-content-start'>
+                            @if ($errors->has('contact_state'))
+                            <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
+                            @endif
+                            {{createDoubleSelect('state', 'fields', $states)}}
+                        </div>
+                    </div>                    
+                    @elseif($formField['value'] == 1)
+                    <div class='row pt-1'>   
+                        <div class='col-3 d-flex justify-content-start'>
+                            <label class='labels' for='{{$formField['name']}}' style="color: gray">{{$formField['label']}}:</label>
+                        </div>
+                        <div class='col-4 d-flex justify-content-start'>
+                            <input type='text' name='{{$formField['name']}}'>
+                            @if ($errors->has($formField['name']))
+                            <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
+                            @endif
+                        </div>
+                    </div>
                     @endif
-                    <br>
-                    <input type='checkbox' name='authorization_contact'> Permito que a empresa entre em contato comigo.
-                    <br>
-                    <input type='checkbox' name='authorization_newsletter'> Quero receber notícias sobre a empresa e seus produtos/serviços.
-                    <br>
-                    * você poderá alterar isso a qualquer momento.
+                    @endforeach
+                    <div class='row'>
+                        <div class='col-4 mt-4 pb-5 text-center'>
+                            <button class='text-button' style='background-color: gray'>
+                                CADASTRAR
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <br>
-    <br>
-    <label class='labels' for='' >SITUAÇAO:</label>
-    {{createSimpleSelect('status', 'fields', $status, $page->status)}}
-    <br>
-    <br>
-    <input class='btn btn-secondary' type='submit' value='ATUALIZAR'>
-</form>
-<br>
-<br>
-</div>     
-@endsection
+        @endif
+
+        <!--autorizações do formulário-->
+        @if($page->form == 1)
+        <div class='row' style='
+             height:200px;
+             background-color: white;
+             border-left-style: solid;
+             border-right-style: solid;
+             border-bottom-style: solid;
+             border-left-width: 1px;
+             border-right-width: 1px;
+             border-bottom-width: 1px;
+             '>
+            <div class='col-4'>
+                <label class='labels mt-4' for='' >AUTORIZAÇOES:</label>
+                <br>
+                {{createCheckboxReadOnly('authorization_data', 1)}}
+                <span class='labels'>Armazenar:</span>
+                <br>
+                <span style='font-size: 14px;font-style: italic'>* Obrigatório pela Lei Geral de Proteção de Dados.</span>
+                <br>
+                {{createCheckboxEdit('authorization_contact', $page->authorization_contact)}}
+                <span class='labels'>Contato:</span>
+                <br>
+                {{createCheckboxEdit('authorization_newsletter', $page->authorization_newsletter)}}
+                <span class='labels'>Newsletter:</span>
+                <br>
+            </div>
+            <div class='col-8'>
+                <div class='col pb-5 d-flex justify-content-center'>
+                    <div class='col pb-5'>
+                        <br>
+                        <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
+                        @if ($errors->has('authorization_data'))
+                        <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
+                        @endif
+                        <br>
+                        <input type='checkbox' name='authorization_contact'> Permito que a empresa entre em contato comigo.
+                        <br>
+                        <input type='checkbox' name='authorization_newsletter'> Quero receber notícias sobre a empresa e seus produtos/serviços.
+                        <br>
+                        * você poderá alterar isso a qualquer momento.
+                    </div>
+                </div>
+            </div>
+        </div>
+        @else
+        <div class='row' style='
+             height:200px;
+             background-color: lightgray;
+             border-left-style: solid;
+             border-right-style: solid;
+             border-bottom-style: solid;
+             border-left-width: 1px;
+             border-right-width: 1px;
+             border-bottom-width: 1px;
+             '>
+            <div class='col-4'>
+                <label class='labels mt-4' for='' >AUTORIZAÇOES:</label>
+                <br>
+                {{createCheckboxReadOnly('authorization_data', 1)}}
+                <span class='labels'>Armazenar:</span>
+                <br>
+                <span style='font-size: 14px;font-style: italic'>* Obrigatório pela Lei Geral de Proteção de Dados.</span>
+                <br>
+                {{createCheckboxEdit('authorization_contact', $page->authorization_contact)}}
+                <span class='labels'>Contato:</span>
+                <br>
+                {{createCheckboxEdit('authorization_newsletter', $page->authorization_newsletter)}}
+                <span class='labels'>Newsletter:</span>
+                <br>
+            </div>
+            <div class='col-8'>
+                <div class='col pb-5 d-flex justify-content-center'>
+                    <div class='col pb-5'>
+                        <br>
+                        <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
+                        @if ($errors->has('authorization_data'))
+                        <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
+                        @endif
+                        <br>
+                        <input type='checkbox' name='authorization_contact'> Permito que a empresa entre em contato comigo.
+                        <br>
+                        <input type='checkbox' name='authorization_newsletter'> Quero receber notícias sobre a empresa e seus produtos/serviços.
+                        <br>
+                        * você poderá alterar isso a qualquer momento.
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
+
+        <div class="row mt-5">
+            <div class="col">
+                <label class='labels' for='' >SITUAÇAO:</label>
+                {{createSimpleSelect('status', 'fields', $status, $page->status)}}
+            </div>
+        </div>
+        <div class="row mt-5"> 
+            <div class="col">
+                <input class='btn btn-secondary' type='submit' value='ATUALIZAR'>
+                </form>
+            </div>
+        </div>
+        @endsection

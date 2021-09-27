@@ -42,10 +42,10 @@
     {{strtoupper($page->name)}}
     @endif
 </div>
-@if($page->image)
+@if($page->banner)
 <div class='row pt-5' style='
      height:600px;
-     background-image: url({{asset($page->image->path)}});
+     background-image: url({{asset($page->banner->path)}});
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;
