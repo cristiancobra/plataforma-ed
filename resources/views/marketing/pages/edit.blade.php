@@ -3,7 +3,7 @@
 @section('title','PÁGINAS')
 
 @section('image-top')
-{{asset('images/page.png')}} 
+{{asset('images/site.png')}} 
 @endsection
 
 @section('buttons')
@@ -192,6 +192,7 @@
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
+                  background-color: lightgray;
          '>
         <div class='row pt-3'>
             <div class='col'>

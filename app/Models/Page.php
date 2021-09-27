@@ -59,6 +59,7 @@ class Page extends Model {
         'company_type',
         'company_about',
         'company_strengths',
+        'form',
         'authorization_data',
         'authorization_contact',
         'authorization_newsletter',
