@@ -21,7 +21,7 @@ class PageController extends Controller {
     public function index() {
         $pages = Page::where('account_id', auth()->user()->account_id)
                 ->with([
-                    'image',
+                    'banner',
                     'logo',
                     'biography',
                 ])
