@@ -385,8 +385,7 @@ class InvoiceController extends Controller {
                 })
                 ->sum('value');
 
-        $invoiceLines = InvoiceLine::where('proposal_id', $invoice->proposal_id)
-                ->with('product')
+        $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
                 ->get();
 
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
@@ -475,7 +474,7 @@ class InvoiceController extends Controller {
             'invoicePayday' => $invoice->pay_day,
             'invoiceTotalPrice' => $invoice->totalPrice,
             'customerName' => $invoice->proposal->opportunity->contact->name,
-            'invoiceLines' => $invoiceLines,
+            'productProposals' => $productProposals,
             'invoiceTotalTransactions' => $totalTransactions,
 //            'tasksOperational' => $tasksOperational,
 //            'tasksOperationalPoints' => $tasksOperationalPoints,
@@ -636,8 +635,8 @@ class InvoiceController extends Controller {
             'orientation' => 'Landscape',
             'header-html' => $header,
             'footer-html' => $footer,
-        ])
-             ;
+                ])
+        ;
 
 // download PDF file with download method
         return $pdf->stream('Relatório financeiro.pdf');

@@ -170,27 +170,27 @@
                 </td>
             </tr>
 
-            @foreach ($data['invoiceLines'] as $invoiceLine)
+            @foreach ($data['productProposals'] as $productProposal)
             <tr>
                 <td class="table-list center" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{$invoiceLine->amount}}
+                    {{$productProposal->amount}}
                 </td>
                 <td class="table-list left" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{$invoiceLine->product->name}}
+                    {{$productProposal->product->name}}
                 </td>
                 <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{formatCurrencyReal($invoiceLine->subtotalTax_rate)}}
+                    {{formatCurrencyReal($productProposal->subtotalTax_rate)}}
                 </td>
                 <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{formatCurrencyReal($invoiceLine->product->price)}}
+                    {{formatCurrencyReal($productProposal->product->price)}}
                 </td>
                 <td class="table-list right" style="font-color:{{$data['accountComplementaryColor']}}">
-                    {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
+                    {{formatCurrencyReal($productProposal->subtotalPrice)}}
                 </td>
             </tr>
             <tr>
                 <td class="description left" colspan="5">
-                    {!!html_entity_decode($invoiceLine->product->description)!!}
+                    {!!html_entity_decode($productProposal->product->description)!!}
                 </td>
             </tr>
             @endforeach
