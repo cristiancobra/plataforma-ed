@@ -385,8 +385,8 @@ class InvoiceController extends Controller {
                 })
                 ->sum('value');
 
-        $invoiceLines = InvoiceLine::where('invoice_id', $invoice->id)
-                ->with('product', 'opportunity')
+        $invoiceLines = InvoiceLine::where('proposal_id', $invoice->proposal_id)
+                ->with('product')
                 ->get();
 
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
