@@ -157,16 +157,16 @@
     </div>
     @endif
 
-
-    <div class='row'  style='background-color: {{$page->complementary_color}}'>
+    @if($valueOffer == null)
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         background-color: lightgray;
+         '>
         <div class='row pt-3'>
             <div class='col'>
-                @if($valueOffer == null)
                 <span class='labels'>PROPOSTA DE VALOR: </span>não possui texto
                 <input type='hidden' name='text_value_offer' value='0'>
-                @else
-                {{createSelectYesOrNo('PROPOSTA DE VALOR', 'text_value_offer', $page->text_value_offer)}}
-                @endif
                 <p style='font-size:14px'>
                     * Qual a dor que seu produto resolve
                 </p>
@@ -175,18 +175,32 @@
         <div class='row pb-5'>
             <div class='col'>
                 <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
-                    @if($valueOffer == null)
                     <a class='circular-button primary' title='criar uma proposta de valor' href='{{route('text.create', ['type' => 'proposta de valor'])}}'>
                         <i class='fa fa-plus' aria-hidden='true'></i>
                     </a>
-                    @elseif($page->text_value_offer == 1)
-                    {{$valueOffer->text}}
-                    @else
-                    @endif
                 </p>
             </div>
         </div>
     </div>
+    @else
+    <div class='row'  style='background-color: {{$page->complementary_color}}'>
+        <div class='row pt-3'>
+            <div class='col'>
+                {{createSelectYesOrNo('PROPOSTA DE VALOR', 'text_value_offer', $page->text_value_offer)}}
+                <p style='font-size:14px'>
+                    * Qual a dor que seu produto resolve
+                </p>
+            </div>
+        </div>
+        <div class='row pb-5'>
+            <div class='col'>
+                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    {{$valueOffer->text}}
+                </p>
+            </div>
+        </div>
+    </div>
+    @endif
 
     @if($about == null)
     <div class='row' style='
@@ -214,6 +228,7 @@
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
+         background-color: lightgray;
          '>
         <div class='row pt-3'>
             <div class='col'>
@@ -238,10 +253,7 @@
         </div>
     </div>
     @elseif($page->company_about == 1)
-    <div class='row' style='
-         border-style: solid;
-         border-width: 1px;
-         '>
+    <div class='row'>
         <div class='row pt-3'>
             <div class='col'>
                 {{createSelectYesOrNo('APRESENTAÇÃO EMPRESA', 'company_about', $page->company_about)}}
@@ -294,6 +306,7 @@
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
+         background-color: lightgray;
          '>
         <div class='row pt-3'>
             <div class='col'>
@@ -312,10 +325,7 @@
         </div>
     </div>
     @elseif($page->company_strengths == 1)
-    <div class='row' style='
-         border-style: solid;
-         border-width: 1px;
-         '>
+    <div class='row'>
         <div class='row pt-3'>
             <div class='col'>
                 {{createSelectYesOrNo('PONTOS FORTES', 'company_strengths', $page->company_strengths)}}
@@ -383,15 +393,7 @@
 
 
     @if($page->form == 1)
-    <div class='row' style='
-         background-color: {{$page->opposite_color}};
-         border-left-style: solid;
-         border-right-style: solid;
-         border-bottom-style: solid;
-         border-left-width: 1px;
-         border-right-width: 1px;
-         border-bottom-width: 1px;
-         '>
+    <div class='row' style='background-color: {{$page->opposite_color}}'>
         <div class='row'>
             <div class='col'>
                 {{createSelectYesOrNo('FORMULÁRIO DE CAPTAÇÃO', 'form', $page->form)}}
@@ -512,11 +514,7 @@
     @if($page->form == 1)
     <div class='row' style='
          background-color: white;
-         border-left-style: solid;
-         border-right-style: solid;
          border-bottom-style: solid;
-         border-left-width: 1px;
-         border-right-width: 1px;
          border-bottom-width: 1px;
          '>
         <div class='col-4'>
