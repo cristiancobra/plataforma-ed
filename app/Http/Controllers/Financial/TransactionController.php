@@ -182,12 +182,14 @@ class TransactionController extends Controller {
             $totalPaid = Invoice::totalPaid($invoice);
             $newTotal = $totalPaid + $transaction->value;
 
-            if ($newTotal >= $invoice->totalPrice) {
+            if ($newTotal <= $invoice->totalPrice) {
                 $transaction->save();
 
                 return redirect()->route('transaction.show', compact('transaction'));
                 
             } else {
+//               echo "$newTotal é MENOR que $invoice->totalPrice";
+                
                 if ($typeTransactions == 'débito') {
                     $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
                 } else {
