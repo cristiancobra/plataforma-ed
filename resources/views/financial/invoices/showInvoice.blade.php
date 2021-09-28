@@ -91,7 +91,9 @@
     </div>
     @if(isset($invoice->proposal->opportunity))
     <div class='show-field-end'>
+            <a href='{{route('opportunity.show', ['opportunity' => $invoice->proposal->opportunity])}}'>
         {{$invoice->proposal->opportunity->name}}
+            </a>
     </div>
     @endif
     @if(isset($invoice->proposal))
