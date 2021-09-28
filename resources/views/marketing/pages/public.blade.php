@@ -89,7 +89,7 @@
 
 @if($page->company_strengths == 1)
 @section('strengths')
-<div class='row pb-5 mt-5 pt-3'>
+<div class='row pb-5 pt-5'>
     @foreach($strengths as $strenght)
     <div class='col text-center'>
         <img src='{{asset('images/user.png')}}'  style='
@@ -111,7 +111,7 @@
 
 @if($page->form == 1)
 @section('form')
-<div class='row mt-5 pt-5 pb-5' style='background-color: {{$page->opposite_color}}'>
+<div class='row pt-5 pb-5' style='background-color: {{$page->opposite_color}}'>
     <form action="{{route('contact.storeForm', ['page' => $page])}}" method='post'>
         @csrf
 
