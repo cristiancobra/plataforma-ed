@@ -379,6 +379,7 @@ class InvoiceController extends Controller {
 
 // Gera PDF da fatura
     public function createPdf(Invoice $invoice) {
+//        dd($invoice->opportunity);
         $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);
                 })
@@ -469,11 +470,11 @@ class InvoiceController extends Controller {
             'invoiceStatus' => $invoice->status,
             'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
             'invoiceTotalPrice' => $invoice->installment_value,
-            'opportunityDescription' => $invoice->opportunity->description,
+            'opportunityDescription' => $invoice->proposal->opportunity->description,
             'invoiceDiscount' => $invoice->discount,
             'invoicePayday' => $invoice->pay_day,
             'invoiceTotalPrice' => $invoice->totalPrice,
-            'customerName' => $invoice->opportunity->contact->name,
+            'customerName' => $invoice->proposal->opportunity->contact->name,
             'invoiceLines' => $invoiceLines,
             'invoiceTotalTransactions' => $totalTransactions,
 //            'tasksOperational' => $tasksOperational,
@@ -608,11 +609,11 @@ class InvoiceController extends Controller {
 //            'invoiceStatus' => $invoice->status,
 //            'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
 //            'invoiceTotalPrice' => $invoice->installment_value,
-//            'opportunityDescription' => $invoice->opportunity->description,
+//            'opportunityDescription' => $invoice->proposal->opportunity->description,
 //            'invoiceDiscount' => $invoice->discount,
 //            'invoicePayday' => $invoice->pay_day,
 //            'invoiceTotalPrice' => $invoice->totalPrice,
-//            'customerName' => $invoice->opportunity->contact->name,
+//            'customerName' => $invoice->proposal->opportunity->contact->name,
 //            'invoiceLines' => $invoiceLines,
 //            'invoiceTotalTransactions' => $totalTransactions,
 //            'tasksOperational' => $tasksOperational,
