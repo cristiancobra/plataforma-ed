@@ -111,10 +111,7 @@
 
 @if($page->form == 1)
 @section('form')
-<div class='row mt-5 pt-5 pb-5' style='
-     height:200px;
-     background-color: {{$page->opposite_color}};
-     '>
+<div class='row mt-5 pt-5 pb-5' style='background-color: {{$page->opposite_color}}'>
     <form action="{{route('contact.storeForm', ['page' => $page])}}" method='post'>
         @csrf
 
