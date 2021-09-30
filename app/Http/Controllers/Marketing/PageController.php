@@ -291,7 +291,10 @@ class PageController extends Controller {
 
     public function redirectDomain(Request $request) {
         $domain = $request->server ("SERVER_NAME");
+        $page = Page::find('url', $domain);
         dd($domain);
+        
+        return redirect()->route('page.public', compact('page'));
     }
 //getHost
 }

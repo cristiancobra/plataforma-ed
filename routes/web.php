@@ -18,7 +18,10 @@ Auth::routes(['register' => 'false']);
 
 Route::get('/', 'DashboardController@operational')
         ->name('dashboard.operational')
-        ->middleware('roles');
+        ->middleware([
+            'redirect_domain',
+            'roles',
+        ]);
 
 Route::get('/financial', 'DashboardController@financial')
         ->name('dashboard.financial')
@@ -66,7 +69,6 @@ Route::get('/logout', function () {
 //Route::get('/funil-vendas', function () {
 //    return view('admin.funil-vendas');
 //});
-
 // accounts
 Route::get('contas/dashboard/{account}', 'Administrative\\Accounts\\AccountController@dashboard')
         ->name('account.dashboard')
@@ -185,11 +187,11 @@ Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report'
         ->name('transaction.report')
         ->middleware('roles');
 
- Route::get('/movimentacoes/transferencia', 'Financial\\TransactionController@createTransfer')
+Route::get('/movimentacoes/transferencia', 'Financial\\TransactionController@createTransfer')
         ->name('transaction.createTransfer')
         ->middleware('roles');
 
- Route::post('/movimentacoes/transferencia', 'Financial\\TransactionController@storeTransfer')
+Route::post('/movimentacoes/transferencia', 'Financial\\TransactionController@storeTransfer')
         ->name('transaction.storeTransfer')
         ->middleware('roles');
 
@@ -296,7 +298,6 @@ Route::put('/jornadas/restaurar/{journey}', 'Operational\\JourneyController@rest
 //Route::put('/jornadas/finalizar/{journey}', 'Operational\\JourneyController@completeJourney')
 //        ->name('journey.complete')
 //        ->middleware('roles');
-
 //Route::put('/jornadas/finalizar-tarefa/{journey}', 'Operational\\JourneyController@completeJourneyAndTask')
 //        ->name('journey.completeTask')
 //        ->middleware('roles');
