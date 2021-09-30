@@ -22,14 +22,13 @@ class RedirectDomain {
         } 
         
         $allowedDomains = Page::allowedDomains();
-        dd($allowedDomains);
         
         if (in_array($domain, $allowedDomains)) {
             $page = Page::where('url', $domain)
                     ->first();
             return redirect()->route('page.public', compact('page'));
         } else {
-            echo "domínio nao autorizado";
+            echo "domínio não autorizado";
         };
 
     }
