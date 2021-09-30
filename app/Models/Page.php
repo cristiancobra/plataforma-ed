@@ -184,7 +184,8 @@ class Page extends Model {
     
     public static function allowedDomains() {
         return [
-            'tudovegano.com.br'
+            'tudovegano.com.br',
+            'rafaelavivianisemijoias.com.br',
         ];
     }
     
