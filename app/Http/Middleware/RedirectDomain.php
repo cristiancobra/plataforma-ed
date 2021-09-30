@@ -15,11 +15,11 @@ class RedirectDomain {
      */
     public function handle($request, Closure $next) {
         $domain = $request->server("SERVER_NAME");
-        $allowedDomains = ['tudovegano.com.br'];
+        $allowedDomains = ['tudovegano2.com.br'];
 
         if ($domain == 'plataforma.empresadigital.net.br' OR '127.0.0.1') {
             return $next($request);
-        } elseif ($domain->in_array($allowedDomains)) {
+        } elseif (in_array($domain, $allowedDomains)) {
             $page = Page::find('url', $domain);
             dd($domain);
             return redirect()->route('page.public', compact('page'));
