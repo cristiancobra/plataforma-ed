@@ -68,7 +68,9 @@
          border-right-width: 1px;
          background-color: {{$page->principal_color}};
          '>
-        <div class='col-3 bg-white text-center mt-2 mb-1 ms-3 pt-1'>
+        <div class='col-4 bg-white text-center mt-2 mb-1 ms-3 pt-1'>
+                {{createSelectYesOrNo('MENU', 'navbar', $page->navbar)}}
+                <br>
             <label class='labels' for='' >LOGOTIPO:</label>
             <select name='logo_id'>
                 @if($page->logo)
@@ -87,7 +89,7 @@
             </select>
         </div>
         @if($page->logo)
-        <div class='offset-2 col-6'>
+        <div class='col-6'>
             <img src="{{asset($page->logo->path)}}"  style='width: 250px;height: 60px'>
         </div>
         @endif

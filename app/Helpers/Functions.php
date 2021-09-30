@@ -2104,6 +2104,35 @@ if (!function_exists('createSelectYesOrNo')) {
 
 }
 
+/**
+ * cria um select com label e opção SIM e NÃO que retornam 1 ou 0 específico para o edit de páginas
+ */
+
+if (!function_exists('createSelectYesOrNoPages')) {
+
+    function createSelectYesOrNoPages($label, $field, $check = null, $page) {
+        echo "<label class='labels me-2' for='$field'>$label</label>
+        <select name='$field' id='$field'>";
+        if ($check == 0) {
+            echo "<option value='0'>
+                não
+            </option>
+            <option value='1'>
+                sim
+            </option>";
+        } else {
+            echo "<option value='1'>
+                sim
+            </option>
+                <option value='0'>
+                não
+            </option>";
+        }
+        echo "</select>";
+    }
+
+}
+
 // cria tuma pergunta com SIM ou NAO para EDITAR a análise da página em socialmedia
 if (!function_exists('editPageAnalysis')) {
 

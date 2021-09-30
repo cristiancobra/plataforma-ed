@@ -276,10 +276,10 @@ class PageController extends Controller {
         $user = User::where('account_id', $page->account_id)
                 ->where('perfil', 'dono')
                 ->first();
-        
-         $about = Text::selectedAbout($page);
-         $strengths = Text::selectedStrengths($page);
-        
+
+        $about = Text::selectedAbout($page);
+        $strengths = Text::selectedStrengths($page);
+
         return view('marketing.pages.public', compact(
                         'page',
                         'states',
@@ -289,4 +289,9 @@ class PageController extends Controller {
         ));
     }
 
+    public function redirectDomain(Request $request) {
+        $domain = $request->root();
+        dd($domain);
+    }
+//getHost
 }

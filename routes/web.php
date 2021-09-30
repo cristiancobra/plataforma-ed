@@ -253,6 +253,9 @@ Route::resource('redes-sociais', 'Marketing\\SocialmediaController')
 Route::match(['get', 'post'], 'contatos/{page:slug}/cadastrar-contato', 'Sales\\ContactController@storeFromForm')
         ->name('contact.storeForm');
 
+Route::get('/paginas/redirecionar', 'Marketing\\PageController@redirectDomain')
+        ->name('contact.domain');
+
 Route::get('/paginas/public/{page:slug}', 'Marketing\\PageController@public')
         ->name('page.public');
 

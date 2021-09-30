@@ -15,6 +15,7 @@ class Page extends Model {
         'url',
         'slug',
         'template',
+        'navbar',
         'banner_image_id',
         'headline',
         'text1',
