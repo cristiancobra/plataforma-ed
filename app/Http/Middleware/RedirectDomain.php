@@ -15,7 +15,7 @@ class RedirectDomain {
      */
     public function handle($request, Closure $next) {
         $domain = $request->server("SERVER_NAME");
-        $allowedDomains = ['tudovegano2.com.br'];
+        $allowedDomains = ['tudovegano.com.br'];
 //dd($domain);
         if ($domain == 'plataforma.empresadigital.net.br' OR $domain == '127.0.0.1') {
             return $next($request);
