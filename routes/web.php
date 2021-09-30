@@ -258,7 +258,7 @@ Route::match(['get', 'post'], 'contatos/{page:slug}/cadastrar-contato', 'Sales\\
 Route::get('/paginas/redirecionar', 'Marketing\\PageController@redirectDomain')
         ->name('contact.domain');
 
-Route::get('/paginas/public/{page:slug}', 'Marketing\\PageController@public')
+Route::get('/{page:slug}', 'Marketing\\PageController@public')
         ->name('page.public');
 
 Route::resource('paginas', 'Marketing\\PageController')
