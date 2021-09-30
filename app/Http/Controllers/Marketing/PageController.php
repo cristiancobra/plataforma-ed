@@ -290,7 +290,7 @@ class PageController extends Controller {
     }
 
     public function redirectDomain(Request $request) {
-        $domain = $request->root();
+        $domain = $request->server ("SERVER_NAME");
         dd($domain);
     }
 //getHost
