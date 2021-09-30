@@ -21,8 +21,8 @@ class RedirectDomain {
         if ($domain == 'plataforma.empresadigital.net.br' OR $domain == '127.0.0.1') {
             return $next($request);
         } elseif (in_array($domain, $allowedDomains)) {
-            $page = Page::find('url', $domain);
-            dd($domain);
+            $page = Page::where('url', $domain)
+                    ->first();
             return redirect()->route('page.public', compact('page'));
         } else {
             echo "domínio nao autorizado";
