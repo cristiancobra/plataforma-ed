@@ -181,4 +181,11 @@ class Page extends Model {
         return $formFields;
     }
 
+    
+    public static function allowedDomains() {
+        return [
+            'tudovegano.com.br'
+        ];
+    }
+    
 }
