@@ -28,7 +28,7 @@ class RedirectDomain {
                     ->first();
             return redirect()->route('page.public', compact('page'));
         } else {
-            echo "domínio não autorizado";
+            echo "domínio nao autorizado";
         };
 
     }

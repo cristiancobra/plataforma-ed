@@ -258,13 +258,13 @@ Route::match(['get', 'post'], 'contatos/{page:slug}/cadastrar-contato', 'Sales\\
 Route::get('/paginas/redirecionar', 'Marketing\\PageController@redirectDomain')
         ->name('contact.domain');
 
+Route::get('/paginas/public/{page}', 'Marketing\\PageController@public')
+        ->name('page.public');
+
 Route::resource('paginas', 'Marketing\\PageController')
         ->names('page')
         ->parameters(['paginas' => 'page'])
         ->middleware('roles');
-
-Route::get('/{page:slug}', 'Marketing\\PageController@public')
-        ->name('page.public');
 
 // ------------------------------------------------ MINHA CONTA ------------------------------------------------
 Route::get('/perfil', function () {

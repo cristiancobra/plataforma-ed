@@ -166,6 +166,9 @@ class Page extends Model {
                 case('contact_country'):
                     $label = 'País';
                     break;
+                case('contact_file'):
+                    $label = 'Permitir envio de arquivo';
+                    break;
                 default:
                     $label = null;
                     break;

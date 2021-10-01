@@ -437,6 +437,18 @@
                     @endif
                 </div>
             </div>
+            @elseif($formField['name'] == 'contact_state' AND $formField['value'] == 1)
+            <div class='row pt-1'>   
+                <div class='col-3 d-flex justify-content-start'>
+                    <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                </div>
+                <div class='col-4 d-flex justify-content-start'>
+                    <input type='text' name='{{$formField['name']}}'>
+                    @if ($errors->has($formField['name']))
+                    <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
+                    @endif
+                </div>
+            </div>
             @endif
             @endforeach
             <div class='row'>
