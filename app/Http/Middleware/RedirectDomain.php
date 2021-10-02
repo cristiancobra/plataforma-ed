@@ -19,18 +19,21 @@ class RedirectDomain {
 
         if ($domain == 'plataforma.empresadigital.net.br' OR $domain == '127.0.0.1') {
             return $next($request);
-        } 
-        
+        }
+
         $allowedDomains = Page::allowedDomains();
-        
+
         if (in_array($domain, $allowedDomains)) {
             $page = Page::where('url', $domain)
                     ->first();
-            return redirect()->route('page.public', compact('page'));
+            if ($page == null) {
+                echo "Você não possui landing page com este domínio configurado";
+            } else {
+                return redirect()->route('page.public', compact('page'));
+            }
         } else {
             echo "domínio nao autorizado";
         };
-
     }
 
 }
