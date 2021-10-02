@@ -27,11 +27,11 @@ class RedirectDomain {
             $page = Page::where('url', $domain)
                     ->where('slug', 'home')
                     ->get();
-dd($page);
+
             if ($page == null) {
                 echo "Você não possui landing page com SLUG 'HOME' configurada com este domínio";
             } else {
-                return redirect()->route('page.public', compact('page'));
+                return redirect()->route('page.public', ['page' => $page]);
             }
         } else {
             echo "domínio nao autorizado";
