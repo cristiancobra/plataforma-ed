@@ -26,6 +26,7 @@ class RedirectDomain {
         if (in_array($domain, $allowedDomains)) {
             $pages = Page::where('url', $domain)
                     ->get();
+            dd($pages);
             if ($pages == null) {
                 echo "Você não possui landing page com este domínio configurado";
             } else {
