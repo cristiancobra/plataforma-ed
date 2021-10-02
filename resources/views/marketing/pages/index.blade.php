@@ -32,10 +32,10 @@
     <div class='tb tb-header col-3'>
         ENDEREÇO
     </div>
-    <div class='tb tb-header col-3'>
-        MODELO
+    <div class='tb tb-header col-4'>
+        LINK
     </div>
-    <div class='tb tb-header-end col-2'>
+    <div class='tb tb-header-end col-1'>
         SITUAÇÃO
     </div>
 </div>
@@ -57,10 +57,10 @@
     <div class='tb col-3'>
         {{$page->url}}
     </div>
-    <div class='tb col-3'>
-        {{$page->template}}
+    <div class='tb col-4 text-center'>
+       https://{{$page->url}}/paginas/public/redirect/{{$page->id}}
     </div>
-    <div class='tb col-2'>
+    <div class='tb col-1'>
         {{$page->status}}
     </div>
 </div>
