@@ -31,8 +31,7 @@ class RedirectDomain {
             if ($page == null) {
                 echo "Você não possui landing page com SLUG 'HOME' configurada com este domínio";
             } else {
-
-                return route('page.public', ['page' => $page]);
+        return redirect()->route('page.public', ['page' => $page]);
             }
         } else {
             echo "domínio nao autorizado";
