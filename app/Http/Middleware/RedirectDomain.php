@@ -29,15 +29,13 @@ class RedirectDomain {
             if ($pages == null) {
                 echo "Você não possui landing page com este domínio configurado";
             } else {
-        $path = $request->path();
+                $path = $request->path();
 //        dd($path);
-        if($path == '/') {
-            $path = 'home';
-        }else{
-        $page = $pages->where('slug', $path);
-        }
-
-                
+                if ($path == '/') {
+                    $path = 'home';
+                } else {
+                    $page = $pages->where('slug', $path);
+                }
                 return redirect()->route('page.public', compact('page'));
             }
         } else {
