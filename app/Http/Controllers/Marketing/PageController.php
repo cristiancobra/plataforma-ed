@@ -289,5 +289,9 @@ class PageController extends Controller {
                         'strengths',
         ));
     }
+    
+    public function redirect(Page $page) {
+        return redirect()->route('page.public', ['slug' => $page->slug]);
+    }
 
 }

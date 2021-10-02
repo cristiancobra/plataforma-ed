@@ -261,6 +261,9 @@ Route::get('/paginas/redirecionar', 'Marketing\\PageController@redirectDomain')
 Route::get('/paginas/public/{page:slug}', 'Marketing\\PageController@public')
         ->name('page.public');
 
+Route::get('/paginas/public/redirect/{page}', 'Marketing\\PageController@redirect')
+        ->name('page.redirect');
+
 Route::resource('paginas', 'Marketing\\PageController')
         ->names('page')
         ->parameters(['paginas' => 'page'])

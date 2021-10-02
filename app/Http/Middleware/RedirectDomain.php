@@ -24,19 +24,13 @@ class RedirectDomain {
         $allowedDomains = Page::allowedDomains();
 
         if (in_array($domain, $allowedDomains)) {
-            $pages = Page::where('url', $domain)
+            $page = Page::where('url', $domain)
+                    ->where('slug', 'home')
                     ->get();
-            dd($pages);
-            if ($pages == null) {
-                echo "Você não possui landing page com este domínio configurado";
+
+            if ($page == null) {
+                echo "Você não possui landing page com SLUG 'HOME' configurada com este domínio";
             } else {
-                $path = $request->path();
-//        dd($path);
-                if ($path == '/') {
-                    $path = 'home';
-                } else {
-                    $page = $pages->where('slug', $path);
-                }
                 return redirect()->route('page.public', compact('page'));
             }
         } else {
