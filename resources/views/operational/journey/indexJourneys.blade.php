@@ -60,7 +60,7 @@
                 <button class="button-round">
                     <i class='fa fa-eye' style="color:white"></i>
                 </button>
-            {{date('d/m/Y', strtotime($journey->date))}}
+            {{date('d/m/Y', strtotime($journey->start))}}
             </a>
         </td>
         <td class="table-list-left">

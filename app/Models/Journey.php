@@ -129,8 +129,7 @@ class Journey extends Model {
                         'task.opportunity',
                         'user',
                 )
-                ->orderBy('DATE', 'DESC')
-                ->orderBy('START_TIME', 'DESC')
+                ->orderBy('start', 'DESC')
                 ->paginate(20);
 
         $journeys->appends([
@@ -149,7 +148,7 @@ class Journey extends Model {
     public static function accountHoursByYear($year) {
 
         return Journey::where('account_id', auth()->user()->account_id)
-                        ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
+                        ->whereBetween('start', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
     }
 
@@ -159,7 +158,7 @@ class Journey extends Model {
 
         foreach ($months as $key => $month) {
             $months[$key] = Journey::where('account_id', auth()->user()->account_id)
-                    ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
         }
 
@@ -172,7 +171,7 @@ class Journey extends Model {
         $months = returnMonths();
         foreach ($months as $key => $month) {
             $user[$month] = Journey::where('user_id', $user->id)
-                    ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
         }
         return $user;
@@ -182,7 +181,7 @@ class Journey extends Model {
     public static function userHoursByYear($year, $user) {
 
         return Journey::where('user_id', $user->id)
-                        ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
+                        ->whereBetween('start', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
     }
 
@@ -195,7 +194,7 @@ class Journey extends Model {
                         $query->where('account_id', auth()->user()->account_id);
                         $query->where('department', $department);
                     })
-                    ->whereBetween('date', [date("$year-$key-01"), date("$year-$key-t")])
+                    ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
         }
         return $monthlys;
@@ -208,7 +207,7 @@ class Journey extends Model {
                             $query->where('account_id', auth()->user()->account_id);
                             $query->where('department', $department);
                         })
-                        ->whereBetween('date', [$year . '-01-01', $year . '-12-31'])
+                        ->whereBetween('start', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
     }
 

@@ -240,7 +240,7 @@
                 <label class='labels' for='state'>Estado:</label>
             </div>
             <div class='col-4'>
-                <input type='state' name='state'>
+                <input type='text' name='state'>
                 @if ($errors->has('state'))
                 <span class='text-danger'>{{$errors->first('state')}}</span>
                 <br>
@@ -255,9 +255,24 @@
                 <label class='labels' for='country'>País:</label>
             </div>
             <div class='col-4'>
-                <input type='country' name='country'>
+                <input type='text' name='country'>
                 @if ($errors->has('state'))
                 <span class='text-danger'>{{$errors->first('country')}}</span>
+                <br>
+                @endif
+            </div>
+        </div>
+        @endif
+
+        @if($page->contact_upload_image)
+        <div class='row'>                
+            <div class='offset-5 col-1'>
+                <label class='labels' for='contact_upload_image'>Enviar imagem:</label>
+            </div>
+            <div class='col-4'>
+                <input type='file' name='contact_upload_image'>
+                @if ($errors->has('contact_upload_image'))
+                <span class='text-danger'>{{$errors->first('contact_upload_image')}}</span>
                 <br>
                 @endif
             </div>

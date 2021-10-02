@@ -52,6 +52,7 @@ class Page extends Model {
         'contact_twitter',
         'contact_lead_source',
         'contact_type',
+        'contact_upload_image',
         'company_name',
         'company_income',
         'company_site',
@@ -166,8 +167,8 @@ class Page extends Model {
                 case('contact_country'):
                     $label = 'País';
                     break;
-                case('contact_file'):
-                    $label = 'Permitir envio de arquivo';
+                case('contact_upload_image'):
+                    $label = 'Permitir envio de imagem';
                     break;
                 default:
                     $label = null;

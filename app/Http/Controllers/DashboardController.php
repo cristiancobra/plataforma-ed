@@ -61,14 +61,14 @@ class DashboardController extends Controller {
             $journeys = Journey::where('user_id', auth()->user()->id)
                     ->get();
             
-            $lastJourneys = $journeys->sortByDesc('date')->take(5);
+            $lastJourneys = $journeys->sortByDesc('start')->take(5);
 
             $hoursMonthly = Journey::where('user_id', auth()->user()->id)
-                    ->whereBetween('date', [$monthStart, $monthEnd])
+                    ->whereBetween('start', [$monthStart, $monthEnd])
                     ->sum('duration');
             
             $hoursToday = Journey::where('user_id', auth()->user()->id)
-                    ->where('date', date('Y-m-d'))
+                    ->where('start', date('Y-m-d'))
                     ->sum('duration');
             
        

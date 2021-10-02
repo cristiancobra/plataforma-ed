@@ -96,6 +96,7 @@ class PageController extends Controller {
             $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
             $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
             $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
+            $page->contact_upload_image = $request->has('contact_upload_image') == 'on' ? 1 : 0;
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
@@ -234,20 +235,20 @@ class PageController extends Controller {
             $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
             $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
             $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
+            $page->contact_upload_image = $request->has('contact_upload_image') == 'on' ? 1 : 0;
             $page->biography_id = $request->biography_id;
 
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
 
-//            if ($request->file('image')) {
+//            if ($request->file('contact_upload_image')) {
 //                $image = new Image();
-//                $image->account_id = auth()->user()->account_id;
-//                $image->task_id = $page->id;
-//                $image->type = 'tarefa';
-//                $image->name = 'Imagem da tarefa ' . $page->id;
-//                $image->status = 'disponível';
-//                $path = $request->file('image')->store('users_images');
+//                $image->account_id = $page->account_id;
+//                $image->type = 'upload_cliente';
+//                $image->name = 'Imagem enviada pelo cliente ';
+//                $image->status = 'revisar';
+//                $path = $request->file('contact_upload_image')->store('customers_images');
 //                $image->path = $path;
 //                $image->save();
 //            }

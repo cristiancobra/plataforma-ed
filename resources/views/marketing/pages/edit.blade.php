@@ -22,7 +22,7 @@
     @endphp
 </div>
 @endif
-<form action=' {{route('page.update', ['page' =>$page->id])}} ' method='post'>
+<form action=' {{route('page.update', ['page' =>$page->id])}} ' method='post'  enctype='multipart/form-data'>
     @csrf
     @method('put')
 
@@ -69,8 +69,8 @@
          background-color: {{$page->principal_color}};
          '>
         <div class='col-4 bg-white text-center mt-2 mb-1 ms-3 pt-1'>
-                {{createSelectYesOrNo('MENU', 'navbar', $page->navbar)}}
-                <br>
+            {{createSelectYesOrNo('MENU', 'navbar', $page->navbar)}}
+            <br>
             <label class='labels' for='' >LOGOTIPO:</label>
             <select name='logo_id'>
                 @if($page->logo)
@@ -396,7 +396,7 @@
 
     @if($page->form == 1)
     <div class='row' style='background-color: {{$page->opposite_color}}'>
-        <div class='row'>
+        <div class='row mt-2'>
             <div class='col'>
                 {{createSelectYesOrNo('FORMULÁRIO DE CAPTAÇÃO', 'form', $page->form)}}
             </div>
@@ -425,19 +425,19 @@
                     {{createDoubleSelect('state', 'fields', $states)}}
                 </div>
             </div>           
-            @elseif($formField['value'] == 1)
+            @elseif($formField['value'] == 'contact_upload_image' AND $formField['value'] == 1)
             <div class='row pt-1'>   
                 <div class='col-3 d-flex justify-content-start'>
                     <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
                 </div>
                 <div class='col-4 d-flex justify-content-start'>
-                    <input type='text' name='{{$formField['name']}}'>
+                    <input type='file' name='{{$formField['name']}}'>
                     @if ($errors->has($formField['name']))
                     <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
                     @endif
                 </div>
             </div>
-            @elseif($formField['name'] == 'contact_state' AND $formField['value'] == 1)
+            @elseif($formField['value'] == 1)
             <div class='row pt-1'>   
                 <div class='col-3 d-flex justify-content-start'>
                     <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
@@ -498,6 +498,18 @@
                         {{createDoubleSelect('state', 'fields', $states)}}
                     </div>
                 </div>                    
+                @elseif($formField['value'] == 'contact_upload_image' AND $formField['value'] == 1)
+                <div class='row pt-1'>   
+                    <div class='col-3 d-flex justify-content-start'>
+                        <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                    </div>
+                    <div class='col-4 d-flex justify-content-start'>
+                        <input type='file' name='{{$formField['name']}}'>
+                        @if ($errors->has($formField['name']))
+                        <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
+                        @endif
+                    </div>
+                </div>
                 @elseif($formField['value'] == 1)
                 <div class='row pt-1'>   
                     <div class='col-3 d-flex justify-content-start'>
