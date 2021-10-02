@@ -291,7 +291,7 @@ class PageController extends Controller {
     }
     
     public function redirect(Page $page) {
-        return redirect()->route('page.public', ['slug' => $page->slug]);
+        return redirect()->route('page.public', ['page' => $page]);
     }
 
 }
