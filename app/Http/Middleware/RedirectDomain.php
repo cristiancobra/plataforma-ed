@@ -30,7 +30,7 @@ class RedirectDomain {
                 echo "Você não possui landing page com este domínio configurado";
             } else {
         $path = $request->path();
-        
+        $page = $pages->where('slug', $path);
         dd($path);
                 
                 return redirect()->route('page.public', compact('page'));
