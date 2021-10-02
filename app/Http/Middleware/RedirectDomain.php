@@ -26,7 +26,7 @@ class RedirectDomain {
         if (in_array($domain, $allowedDomains)) {
             $page = Page::where('url', $domain)
                     ->where('slug', 'home')
-                    ->get();
+                    ->first();
 
             if ($page == null) {
                 echo "Você não possui landing page com SLUG 'HOME' configurada com este domínio";
