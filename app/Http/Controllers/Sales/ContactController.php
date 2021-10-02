@@ -10,6 +10,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Models\Image;
 use App\Models\Opportunity;
 use App\Models\Page;
 use App\Models\User;
@@ -26,7 +27,7 @@ class ContactController extends Controller {
      */
     public function index(Request $request) {
         $contacts = Contact::filterModel($request);
-        $total = $contacts->total();        
+        $total = $contacts->total();
 
         $employees = Contact::where('account_id', auth()->user()->account_id)
                 ->where('type', 'funcionário')
@@ -251,7 +252,19 @@ class ContactController extends Controller {
             $contact->type = 'cliente';
             $contact->status = 'ativo';
             $contact->save();
-//            $contact->companies()->sync($request->companies);
+
+            $page->contacts()->save($contact);
+
+            if ($request->file('contact_upload_image')) {
+                $image = new Image();
+                $image->account_id = $page->account_id;
+                $image->type = 'enviado por cliente';
+                $image->name = 'Imagem enviada pelo cliente ';
+                $image->status = 'revisar';
+                $path = $request->file('contact_upload_image')->store('customers_images');
+                $image->path = $path;
+                $image->save();
+            }
 
             return back()
                             ->with('success', 'Seus dados foram enviados com sucesso!')

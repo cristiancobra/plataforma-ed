@@ -15,12 +15,13 @@ class ImageController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $images = Image::where('account_id', auth()->user()->account_id)
-                ->get();
+    public function index(Request $request) {
+        $images = Image::filterModel($request);
+        $types = Image::returnTypes();
 
         return view('libraries/images/index', compact(
                         'images',
+                        'types',
         ));
     }
 

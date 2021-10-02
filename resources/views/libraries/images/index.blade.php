@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title','IMAGENS')
 
@@ -8,12 +8,32 @@
 
 
 @section('buttons')
+<a id='filter_button' class='circular-button secondary' title='Filtrar lista'>
+    <i class='fa fa-filter' aria-hidden='true'></i>
+</a>
 <a class="circular-button primary"  href="{{route('image.create')}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
 @endsection
 
-@section('main')
+@section('filter')
+<form id='filter' action='{{route('image.index')}}' method='get' style='text-align: right'>
+    <input type='text' name='name' placeholder='nome' value=''>
+    {{createFilterSelect('type', 'select', $types)}}
+    <br>
+    <a class='text-button secondary' href='{{route('image.index')}}'>
+        LIMPAR
+    </a>
+    <input class='text-button primary' type='submit' value='FILTRAR'>
+</form>
+@endsection
+
+@section('shortcuts')
+
+@endsection
+
+
+@section('table')
 <div class='row'>
     <div class='tb tb-header-start col-2'>
         IMAGEM
@@ -33,7 +53,7 @@
 </div>
 @foreach ($images as $image)
 <div class='row'>
-    <div class='tb col-2'>
+    <div class='tb col-2' style="background-color: lightgray">
         <div class='product-image-small'>
             <a href=' {{route('image.show', ['image' => $image->id])}}'>
                 <img src='{{asset($image->path)}}' width='100%' heigh='100%'>
@@ -46,7 +66,7 @@
     <div class='tb col-4'>
         {{$image->alt}}
     </div>
-    <div class='tb col-1'>
+    <div class='tb col-1 text-center'>
         {{$image->type}}
     </div>
     <div class='tb col-1'>
@@ -59,3 +79,5 @@
     </div>
 <br>
 @endsection
+
+@section('paginate', $images->links())

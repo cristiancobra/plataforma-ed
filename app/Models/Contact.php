@@ -73,6 +73,11 @@ class Contact extends Model {
         return $this->hasMany(Opportunity::class, 'contact_id', 'id');
     }
 
+    public function pages() {
+        return $this->belongsToMany(Page::class, 'contacts_pages');
+//        return $this->belongsToMany(Page::class);
+    }
+
     public function tasks() {
         return $this->hasMany(Task::class, 'id', 'contact_id');
     }
@@ -106,6 +111,11 @@ class Contact extends Model {
                     }
                     if ($request->created_at) {
                         $query->where('created_at', '>=', $request->created_at);
+                    }
+                    if ($request->page_id) {
+                        $query->whereHas('pages', function ($query) use ($request) {
+                            $query->where('page_id', $request->page_id);
+                        });
                     }
 //                    if ($request->status == '') {
 //                        // busca todos

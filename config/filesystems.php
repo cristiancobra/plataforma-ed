@@ -78,11 +78,9 @@ return [
       |
      */
     'links' => [
-//        public_path('storage') => storage_path('app/public'),
         public_path('images') => storage_path('app/images'),
         public_path('users_images') => storage_path('app/users_images'),
+        public_path('customers_images') => storage_path('app/customers_images'),
         public_path('bugs_images') => storage_path('app/bugs_images'),
-        public_path('profile_pictures') => storage_path('app/profile_pictures'),
-        public_path('products') => storage_path('app/products'),
     ],
 ];

@@ -26,7 +26,7 @@
 
 @section('table')
 <div class='row mt-2'>
-    <div class='tb tb-header-start col-4'>
+    <div class='tb tb-header-start col-3'>
         NOME
     </div>
     <div class='tb tb-header col-3'>
@@ -35,13 +35,16 @@
     <div class='tb tb-header col-4'>
         LINK
     </div>
+    <div class='tb tb-header col-1'>
+        CADASTROS
+    </div>
     <div class='tb tb-header-end col-1'>
         SITUAÇÃO
     </div>
 </div>
 @foreach ($pages as $page)
 <div class='row'>
-    <div class='tb col-4 justify-content-start' style="font-weight: 600">
+    <div class='tb col-3 justify-content-start' style="font-weight: 600">
         <a class="white" href="{{route('page.public', ['page' => $page])}}" target='_blank'>
             <button class="button-round me-1">
                 <i class="fa fa-eye"></i>
@@ -58,7 +61,12 @@
         {{$page->url}}
     </div>
     <div class='tb col-4 text-center'>
-       https://{{$page->url}}/paginas/public/redirect/{{$page->id}}
+        https://{{$page->url}}/paginas/public/redirect/{{$page->id}}
+    </div>
+    <div class='tb col-1'>
+        <a class="white" href="{{route('contact.index', ['page_id' => $page->id])}}">
+        {{$page->contacts()->count()}}
+        </a>
     </div>
     <div class='tb col-1'>
         {{$page->status}}

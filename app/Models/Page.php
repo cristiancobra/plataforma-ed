@@ -88,22 +88,12 @@ class Page extends Model {
     public function biography() {
         return $this->hasOne(Text::class, 'id', 'biography_id');
     }
-//
-//    public function company() {
-//        return $this->belongsTo(Company::class, 'company_id', 'id');
-//    }
-//
-//    public function contact() {
-//        return $this->belongsTo(Contact::class, 'contact_id', 'id');
-//    }
-//
-//    public function invoices() {
-//        return $this->hasMany(Invoice::class, 'opportunity_id', 'id');
-//    }
-//
-//    public function user() {
-//        return $this->belongsTo(User::class, 'user_id', 'id');
-//    }
+
+        public function contacts() {
+//        return $this->hasMany(Contact::class, 'contacts_pages', 'page_id', 'id');
+        return $this->belongsToMany(Contact::class, 'contacts_pages')->withTimestamps();
+    }
+    
 // MÉTODOS PÚBLICOS
 
     public static function listTemplates() {

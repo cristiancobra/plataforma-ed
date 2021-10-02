@@ -112,7 +112,7 @@
 @if($page->form == 1)
 @section('form')
 <div class='row pt-5 pb-5' style='background-color: {{$page->opposite_color}}'>
-    <form action="{{route('contact.storeForm', ['page' => $page])}}" method='post'>
+    <form action="{{route('contact.storeForm', ['page' => $page])}}" method='post' enctype="multipart/form-data">
         @csrf
 
         @if ($page->contact_first_name)
@@ -282,7 +282,7 @@
 <div class='row'>    
     <div class='offset-4 col-5 pb-5'>
         <br>
-        <input type="checkbox" name="authorization_data"> Autorizo o armazenamento dos meus dados.
+        <input type="checkbox" name="authorization_data"> Autorizo o armazenamento dos meus dados. <span class='text-danger'>* obrigatório</span>
         @if ($errors->has('authorization_data'))
         <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
         @endif

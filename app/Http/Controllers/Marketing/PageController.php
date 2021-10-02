@@ -242,17 +242,6 @@ class PageController extends Controller {
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
             $page->save();
 
-//            if ($request->file('contact_upload_image')) {
-//                $image = new Image();
-//                $image->account_id = $page->account_id;
-//                $image->type = 'upload_cliente';
-//                $image->name = 'Imagem enviada pelo cliente ';
-//                $image->status = 'revisar';
-//                $path = $request->file('contact_upload_image')->store('customers_images');
-//                $image->path = $path;
-//                $image->save();
-//            }
-
             return redirect()->route('page.edit', [$page]);
         }
     }
