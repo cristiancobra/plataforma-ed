@@ -15,7 +15,7 @@ class RedirectDomain {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        $domain = $request->server("SERVER_NAME");
+        $domain = $request->server('SERVER_NAME');
 
         if ($domain == 'plataforma.empresadigital.net.br' OR $domain == '127.0.0.1') {
             return $next($request);
@@ -24,11 +24,15 @@ class RedirectDomain {
         $allowedDomains = Page::allowedDomains();
 
         if (in_array($domain, $allowedDomains)) {
-            $page = Page::where('url', $domain)
-                    ->first();
-            if ($page == null) {
+            $pages = Page::where('url', $domain)
+                    ->get();
+            if ($pages == null) {
                 echo "Você não possui landing page com este domínio configurado";
             } else {
+        $path = $request->path();
+        
+        dd($path);
+                
                 return redirect()->route('page.public', compact('page'));
             }
         } else {
