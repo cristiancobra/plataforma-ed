@@ -190,6 +190,7 @@ class Page extends Model {
         return [
             'tudovegano.com.br',
             'rafaelavivianisemijoias.com.br',
+            'plataforma.atlassanca.eco.br',
         ];
     }
     
