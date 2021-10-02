@@ -31,7 +31,7 @@ class RedirectDomain {
             } else {
         $path = $request->path();
         $page = $pages->where('slug', $path);
-        dd($path);
+
                 
                 return redirect()->route('page.public', compact('page'));
             }
