@@ -30,6 +30,7 @@ class RedirectDomain {
                 echo "Você não possui landing page com este domínio configurado";
             } else {
         $path = $request->path();
+        dd($path);
         if($path == null) {
             $path = 'home';
         }
