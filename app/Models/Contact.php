@@ -672,4 +672,22 @@ class Contact extends Model {
                         ->get();
     }
 
+    /**
+     * checa se existe contato cadastrado
+     * @return type
+     */
+    public static function existingContact($account, $email) {
+        $contact = Contact::where('email', $email)
+                ->where('account_id', $account)
+                ->first();
+        
+        if($contact == null) {
+            return false;
+        }else{
+            return $contact;
+        }
+
+     
+    }
+
 }

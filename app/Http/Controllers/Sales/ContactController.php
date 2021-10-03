@@ -231,11 +231,14 @@ class ContactController extends Controller {
         $messages = [
             'unique' => ' * :attribute já cadastrado.',
             'required' => ' *obrigatório.',
+            'contact_upload_image.max' => 'A imagem selecionada não pode ser maior que  15MB.'
+//                        'image.uploaded' => 'Failed to upload an image. The image maximum size is 2MB.'
         ];
         $validator = Validator::make($request->all(), [
                     'first_name' => 'required:contacts',
                     'authorization_data' => 'required:contacts',
-                    'email' => 'unique:contacts',
+//                    'email' => 'unique:contacts',
+                    'contact_upload_image' => 'required|image|max:50000',
                         ], $messages);
 
         if ($validator->fails()) {
@@ -244,16 +247,19 @@ class ContactController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
-            $contact = new Contact();
-            $contact->fill($request->all());
-//            dd($contact);
-            $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
-            $contact->account_id = $page->account_id;
-            $contact->type = 'cliente';
-            $contact->status = 'ativo';
-            $contact->save();
-
-            $page->contacts()->save($contact);
+            $existingContact = Contact::existingContact($page->account_id,$request->email);
+            if ($existingContact == false) {
+                $contact = new Contact();
+                $contact->fill($request->all());
+                $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
+                $contact->account_id = $page->account_id;
+                $contact->type = 'cliente';
+                $contact->status = 'ativo';
+                $contact->save();
+                $page->contacts()->save($contact);
+            } else {
+                $page->contacts()->save($existingContact);
+            }
 
             if ($request->file('contact_upload_image')) {
                 $image = new Image();
@@ -294,7 +300,7 @@ class ContactController extends Controller {
 
         $totalClients = $clients->count();
 
-        // TOTAL
+// TOTAL
         $sourcesTotals = Contact::totalAndPercentage('lead_source', Contact::returnSources());
         $professionsTotals = Contact::totalAndPercentage('profession', Contact::returnProfessions());
         $etinicityTotals = Contact::totalAndPercentage('etinicity', Contact::returnEtinicity());
@@ -302,7 +308,7 @@ class ContactController extends Controller {
         $genderTypesTotals = Contact::totalAndPercentage('gender', Contact::returnGenderTypes());
         $hobbiesTotals = Contact::totalAndPercentage('hobbie', Contact::returnHobbie());
 
-        // WON
+// WON
         $sourcesWon = Contact::totalAndPercentageWon('lead_source', Contact::returnSources());
         $professionsWon = Contact::totalAndPercentageWon('profession', Contact::returnProfessions());
         $etinicityWon = Contact::totalAndPercentageWon('etinicity', Contact::returnEtinicity());

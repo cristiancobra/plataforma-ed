@@ -47,26 +47,43 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $image = new Image();
-        $image->fill($request->all());
-        $image->account_id = auth()->user()->account_id;
+        $messages = [
+            'unique' => ' * :attribute já cadastrado.',
+            'required' => ' *obrigatório.',
+
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:images',
+                    'image' => 'required|image|max:50000',
+                        ], $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $image = new Image();
+            $image->fill($request->all());
+            $image->account_id = auth()->user()->account_id;
 //  dd($request);      
 
-        if ($request->image_name) {
-            $image->name = "Imagem $image da tarefa $request->image_name";
-            $image->task_id = $request->task_id;
-        }
-        $path = $request->file('image')->store('users_images');
-        $image->path = $path;
-        $image->save();
+            if ($request->image_name) {
+                $image->name = "Imagem $image da tarefa $request->image_name";
+                $image->task_id = $request->task_id;
+            }
+            $path = $request->file('image')->store('users_images');
+            $image->path = $path;
+            $image->save();
 
-        if ($request->task_id) {
-            return redirect()->back();
-        } else {
+            if ($request->task_id) {
+                return redirect()->back();
+            } else {
 
-            return view('libraries/images/show', compact(
-                            'image',
-            ));
+                return view('libraries/images/show', compact(
+                                'image',
+                ));
+            }
         }
     }
 
@@ -132,7 +149,7 @@ class ImageController extends Controller {
         return redirect()->action('Libraries\\ImageController@index');
     }
 
-    // retorna os estágios das images
+// retorna os estágios das images
     public function listTypes() {
         return $stages = array(
             'produto',
@@ -142,7 +159,7 @@ class ImageController extends Controller {
         );
     }
 
-    // retorna os estágios das images
+// retorna os estágios das images
     public function listStatus() {
         return $status = array(
             'disponível',
