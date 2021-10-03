@@ -257,8 +257,6 @@ class ContactController extends Controller {
                 $contact->status = 'ativo';
                 $contact->save();
                 $page->contacts()->save($contact);
-            } else {
-                $page->contacts()->save($existingContact);
             }
 
             if ($request->file('contact_upload_image')) {
