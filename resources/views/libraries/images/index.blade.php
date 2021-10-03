@@ -38,14 +38,14 @@
     <div class='tb tb-header-start col-2'>
         IMAGEM
     </div>
-    <div class='tb tb-header col-4'>
+    <div class='tb tb-header col-5'>
         NOME
     </div>
-    <div class='tb tb-header col-4'>
-        TEXTO ALTERNATIVO
-    </div>
-    <div class='tb tb-header col-1'>
+    <div class='tb tb-header col-2'>
         TIPO
+    </div>
+    <div class='tb tb-header col-2'>
+        ENVIADO POR
     </div>
     <div class='tb tb-header-end col-1'>
         SITUAÇÃO
@@ -60,14 +60,30 @@
             </a>
         </div>
     </div>
-    <div class='tb col-4'>
+    <div class='tb col-5'>
         {{$image->name}}
     </div>
-    <div class='tb col-4'>
-        {{$image->alt}}
-    </div>
-    <div class='tb col-1 text-center'>
+    <div class='tb col-2 text-center'>
         {{$image->type}}
+    </div>
+     <div class='tb col-2'>
+        @if($image->contact_id != null OR $image->contact_id != 0)
+        <a  class='white' href=' {{route('contact.show', ['contact' => $image->contact_id])}}'>
+            {{$image->contact->name}}
+        </a>
+        @elseif(isset($image->user->image))
+        <div class='profile-picture-small'>
+            <a  class='white' href=' {{route('user.show', ['user' => $image->user_id])}}'>
+                <img src='{{asset($image->user->image->path)}}' width='100%' height='100%'>
+            </a>
+        </div>
+        @elseif(isset($image->user->contact->name))
+        <a  class='white' href=' {{route('user.show', ['user' => $image->user->id])}}'>
+            {{$image->user->contact->name}}
+        </a>
+        @else
+        funcionário excluído
+        @endif
     </div>
     <div class='tb col-1'>
         {{$image->status}}

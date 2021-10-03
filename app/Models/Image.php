@@ -21,9 +21,13 @@ class Image extends Model {
         'status'
     ];
 
-//    public function users() {
-//        return $this->belongsTo(User::class, 'user_id', 'id');
-//    }
+    public function contact() {
+        return $this->belongsTo(Contact::class, 'contact_id', 'id');
+    }
+
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
@@ -76,12 +80,13 @@ class Image extends Model {
 //                        $query->where('status', $request->status);
 //                    }
                 })
-//                ->with(
+                ->with(
 //                        'opportunity',
 //                        'journeys',
-//                        'user.contact',
+                        'user.contact',
+                        'contact',
 //                        'user.image',
-//                )
+                )
                 ->orderBy($orderColumn, $orderDirection)
                 ->paginate(20);
 

@@ -247,7 +247,7 @@ class ContactController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
-            $existingContact = Contact::existingContact($page->account_id,$request->email);
+            $existingContact = Contact::existingContact($page->account_id, $request->email);
             if ($existingContact == false) {
                 $contact = new Contact();
                 $contact->fill($request->all());
@@ -264,6 +264,11 @@ class ContactController extends Controller {
             if ($request->file('contact_upload_image')) {
                 $image = new Image();
                 $image->account_id = $page->account_id;
+                if ($existingContact == false) {
+                    $image->contact_id = $contact->id;
+                } else {
+                    $image->contact_id = $existingContact->id;
+                }
                 $image->type = 'enviado por cliente';
                 $image->name = 'Imagem enviada pelo cliente ';
                 $image->status = 'revisar';

@@ -24,9 +24,37 @@
 
 
 @section('fieldsId')
-<div class='col-lg-12 col-xs-6' style='text-align: center'>
-    <div class='image-show'>
-        <img src='{{asset($image->path)}}' width='100%' heigh='100%'>
+<div class="row">
+    <div class='col-md-2 col-sm-4' style='text-align: center'>
+        <div class='show-label'>
+            ENVIADO POR
+        </div>
+    </div>
+    <div class='col-md-4 col-sm-8' style='text-align: center'>
+        @if($image->contact_id != null OR $image->contact_id != 0)
+        <div class='show-field-end'>
+            <a  class='white' href=' {{route('contact.show', ['contact' => $image->contact_id])}}'>
+                {{$image->contact->name}}
+            </a>
+        </div>
+        @elseif(isset($image->user->image))
+        <a href=' {{route('user.show', ['user' => $task->user_id])}}'>
+            <div class='show-field-end'>
+                {{$task->user->contact->name}}
+            </div>
+        </a>
+        @else
+        <div class='show-field-end'>
+            foi excluído
+        </div>
+        @endif
+    </div>
+</div>
+<div class="row mt-5">
+    <div class='col-lg-12 col-xs-6' style='text-align: center'>
+        <div class='image-show'>
+            <img src='{{asset($image->path)}}' width='100%' heigh='100%'>
+        </div>
     </div>
 </div>
 @endsection
