@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+{{createButtonEdit('image', 'image', $image)}}
 {{createButtonList('image')}}
 @endsection
 

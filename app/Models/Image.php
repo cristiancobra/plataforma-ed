@@ -11,6 +11,8 @@ class Image extends Model {
     protected $fillable = [
         'id',
         'account_id',
+        'user_id',
+        'contact_id',
         'name',
         'alt',
         'path',

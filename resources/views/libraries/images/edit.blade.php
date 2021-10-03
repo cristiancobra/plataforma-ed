@@ -27,8 +27,21 @@
         </div>
         <br>
         <br>
+        <label class="labels" for="" >RESPONSÁVEL: </label>
+        <select name="user_id">
+            <option  class="fields" value="{{$image->user_id}}">
+                {{$image->user->contact->name}}
+            </option>
+            @foreach ($users as $user)
+            <option  class="fields" value="{{$user->id}}">
+                {{$user->name}}
+            </option>
+            @endforeach
+        </select>
+         <br>
         <label class="labels" for="" >NOME:</label>
         <input type='text' class='fields' name='name' size='50' value='{{$image->name}}'>
+        <br>
         <br>
         <label class="labels" for="" >TEXTO ALTERNATIVO:</label>
         <br>
