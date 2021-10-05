@@ -263,10 +263,16 @@
         <div class='row pt-3'>
             <div class='col'>
                 {{createSelectYesOrNo('APRESENTAÇÃO EMPRESA', 'company_about', $page->company_about)}}
+                <span class='labels ms-5'>IMAGEM: </span>
+                {{createSelectIdName('about_image_id', 'fields', $marketingImages, null, $page->aboutImage)}}
             </div>
             <div class='row pb-5 pt-2'>
                 <div class='col-5 d-flex px-5'>
+                    @if($page->aboutImage)
+                    <img  src='{{asset($page->aboutImage->path)}}' width="300px" height="300px" style="border-radius: 50%">
+                    @else
                     <img  src='{{asset('images/banner-example.jpg')}}' width="300px" height="300px" style="border-radius: 50%">
+                    @endif
                 </div>
                 <div class='col-7 d-flex justify-content-center align-items-center'>
                     <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>

@@ -201,11 +201,12 @@ Slogan da minha empresa
         <div class='row' style='
              border-style: solid;
              border-width: 1px;
-             background-color: lightgray;
              '>
             <div class='row pt-3'>
                 <div class='col'>
                     {{createSelectYesOrNo('APRESENTAÇÃO EMPRESA', 'company_about')}}
+                    <span class='labels ms-5'>IMAGEM: </span>
+                    {{createSelectIdName('about_image_id', 'fields', $marketingImages, null)}}
                 </div>
                 <div class='row pb-5 pt-2'>
                     <div class='col-5 d-flex px-5'>
@@ -213,9 +214,6 @@ Slogan da minha empresa
                               width:300px;
                               height:300px;
                               border-radius: 50%;
-                              filter: gray; /* IE6-9 */
-                              -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
-                              filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
                               ">
                     </div>
                     <div class='col-7 d-flex justify-content-center align-items-center'>

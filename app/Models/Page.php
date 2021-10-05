@@ -61,6 +61,7 @@ class Page extends Model {
         'company_type',
         'company_about',
         'company_strengths',
+        'about_image_id',
         'form',
         'authorization_data',
         'authorization_contact',
@@ -83,6 +84,10 @@ class Page extends Model {
 
     public function logo() {
         return $this->hasOne(Image::class, 'id', 'logo_id');
+    }
+
+    public function aboutImage() {
+        return $this->hasOne(Image::class, 'id', 'about_image_id');
     }
 
     public function biography() {

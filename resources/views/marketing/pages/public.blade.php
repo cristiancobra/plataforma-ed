@@ -75,7 +75,7 @@
      border-width: 1px;
      '>
     <div class='offset-1 col-3 d-flex px-5'>
-        <img  src='{{asset('images/banner-example.jpg')}}' width="300px" height="300px" style="border-radius: 50%">
+        <img  src='{{asset($page->aboutImage->path)}}' width="300px" height="300px" style="border-radius: 50%">
     </div>
     <div class='col-8 d-flex justify-content-center align-items-center'>
         <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>

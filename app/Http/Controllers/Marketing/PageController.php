@@ -45,10 +45,11 @@ class PageController extends Controller {
 
         $banners = Image::myBanners();
 
-        $logos = Image::where('account_id', auth()->user()->account_id)
+        $marketingImages = Image::where('account_id', auth()->user()->account_id)
                 ->where('status', 'disponível')
-                ->where('type', 'logo')
                 ->get();
+
+        $logos = $marketingImages->where('status', 'disponível');
 
         $copys = Text::where('account_id', auth()->user()->account_id)
                 ->where('type', 'copy de venda')
@@ -60,7 +61,7 @@ class PageController extends Controller {
 
         $formFields = Page::formFields();
         $templates = Page::listTemplates();
-                $states = returnStates();
+        $states = returnStates();
         $status = Page::returnStatus();
 
         //texts
@@ -71,6 +72,7 @@ class PageController extends Controller {
         return view('marketing.pages.create', compact(
                         'images',
                         'banners',
+                        'marketingImages',
                         'logos',
                         'copys',
                         'biographies',
@@ -121,8 +123,8 @@ class PageController extends Controller {
             $page->contact_state = $request->has('contact_state') ? 1 : 0;
             $page->contact_country = $request->has('contact_country') ? 1 : 0;
             $page->contact_upload_image = $request->has('contact_upload_image') ? 1 : 0;
-            $page->authorization_contact = $request->has('authorization_contact') ?  1 : 0;
-            $page->authorization_newsletter = $request->has('authorization_newsletter') ?  1 : 0;
+            $page->authorization_contact = $request->has('authorization_contact') ? 1 : 0;
+            $page->authorization_newsletter = $request->has('authorization_newsletter') ? 1 : 0;
             $page->save();
 
 //            if ($request->file('image')) {
@@ -164,10 +166,11 @@ class PageController extends Controller {
 
         $banners = Image::myBanners();
 
-        $logos = Image::where('account_id', auth()->user()->account_id)
+        $marketingImages = Image::where('account_id', auth()->user()->account_id)
                 ->where('status', 'disponível')
-                ->where('type', 'logo')
                 ->get();
+
+        $logos = $marketingImages->where('status', 'disponível');
 
         $copys = Text::where('account_id', auth()->user()->account_id)
                 ->where('type', 'copy de venda')
@@ -200,6 +203,7 @@ class PageController extends Controller {
         return view('marketing.pages.edit', compact(
                         'page',
                         'banners',
+                        'marketingImages',
                         'logos',
                         'copys',
                         'biographies',

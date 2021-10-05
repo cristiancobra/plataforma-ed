@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Libraries;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Image;
 use App\Models\Text;
 use App\Models\User;
 
@@ -100,7 +101,7 @@ class TextController extends Controller {
                 $image->account_id = auth()->user()->account_id;
                 $image->task_id = $text->id;
                 $image->type = 'tarefa';
-                $image->name = 'Imagem da tarefa ' . $text->id;
+                $image->name = 'Imagem do texto ' . $text->id;
                 $image->status = 'disponível';
                 $path = $request->file('image')->store('users_images');
                 $image->path = $path;
