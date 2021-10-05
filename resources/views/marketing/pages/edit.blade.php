@@ -420,37 +420,28 @@
             @if($formField['name'] == 'contact_state' AND $formField['value'] == 1)
             <div class='row pt-1'>      
                 <div class='col-3 d-flex justify-content-start'>
-                    <label class='labels' for='contact_state'>{{$formField['label']}}:</label>
+                    <label class='labels' for='contact_state_example'>{{$formField['label']}}:</label>
                 </div>
                 <div class='col-4 d-flex justify-content-start'>
-                    @if ($errors->has('contact_state'))
-                    <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
-                    @endif
-                    {{createDoubleSelect('state', 'fields', $states)}}
+                    {{createDoubleSelect('contact_state_example', 'fields', $states)}}
                 </div>
             </div>           
             @elseif($formField['name'] == 'contact_upload_image' AND $formField['value'] == 1)
             <div class='row pt-1'>   
                 <div class='col-3 d-flex justify-content-start'>
-                    <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                    <label class='labels' for=''>{{$formField['label']}}:</label>
                 </div>
                 <div class='col-4 d-flex justify-content-start'>
-                    <input type='file' name='{{$formField['name']}}'>
-                    @if ($errors->has($formField['name']))
-                    <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
-                    @endif
+                    <input type='file' name=''>
                 </div>
             </div>
             @elseif($formField['value'] == 1)
             <div class='row pt-1'>   
                 <div class='col-3 d-flex justify-content-start'>
-                    <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                    <label class='labels' for=''>{{$formField['label']}}:</label>
                 </div>
                 <div class='col-4 d-flex justify-content-start'>
-                    <input type='text' name='{{$formField['name']}}'>
-                    @if ($errors->has($formField['name']))
-                    <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
-                    @endif
+                    <input type='text' name=''>
                 </div>
             </div>
             @endif
@@ -483,7 +474,7 @@
             <div class='col-4 mt-2 mb-2'>
                 @foreach($formFields as $formField)
                 <div class='row ms-2'>
-                    {{createCheckboxEdit($formField['name'])}}  {{$formField['label']}}
+                    {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
                 </div>
                 @endforeach            
             </div>
@@ -493,41 +484,34 @@
                 @if($formField['name'] == 'contact_state' AND $formField['value'] == 1)
                 <div class='row pt-1'>      
                     <div class='col-3 d-flex justify-content-start'>
-                        <label class='labels' for='contact_state'>{{$formField['label']}}:</label>
+                        <label class='labels' for='contact_state_example'>{{$formField['label']}}:</label>
                     </div>
                     <div class='col-4 d-flex justify-content-start'>
-                        @if ($errors->has('contact_state'))
-                        <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
-                        @endif
-                        {{createDoubleSelect('contact_state', 'fields', $states)}}
+                        {{createDoubleSelect('contact_state_example', 'fields', $states)}}
                     </div>
                 </div>                    
                 @elseif($formField['name'] == 'contact_upload_image' AND $formField['value'] == 1)
                 <div class='row pt-1'>   
                     <div class='col-3 d-flex justify-content-start'>
-                        <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
+                        <label class='labels' for=''>{{$formField['label']}}:</label>
                     </div>
                     <div class='col-4 d-flex justify-content-start'>
-                        <input type='file' name='{{$formField['name']}}'>
-                        @if ($errors->has($formField['name']))
-                        <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
-                        @endif
+                        <input type='file' name=''>
                     </div>
                 </div>
                 @elseif($formField['value'] == 1)
                 <div class='row pt-1'>   
                     <div class='col-3 d-flex justify-content-start'>
-                        <label class='labels' for='{{$formField['name']}}' style="color: gray">{{$formField['label']}}:</label>
+                        <label class='labels' for='' style="color: gray">{{$formField['label']}}:</label>
                     </div>
                     <div class='col-4 d-flex justify-content-start'>
-                        <input type='text' name='{{$formField['name']}}'>
-                        @if ($errors->has($formField['name']))
-                        <span class='text-danger'>{{$errors->first($formField['name'])}}</span><br>
-                        @endif
+                        <input type='text' name=''>
                     </div>
                 </div>
                 @endif
                 @endforeach
+
+                @if($formFields)
                 <div class='row'>
                     <div class='col-4 mt-4 pb-2 text-center'>
                         <button class='text-button' style='background-color: gray'>
@@ -535,6 +519,7 @@
                         </button>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -566,14 +551,11 @@
             <div class='col pb-5 d-flex justify-content-center'>
                 <div class='col pb-5'>
                     <br>
-                    <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
-                    @if ($errors->has('authorization_data'))
-                    <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
-                    @endif
+                    <input type='checkbox' name='authorization_data_example'> Autorizo o armazenamento dos meus dados.
                     <br>
-                    <input type='checkbox' name='authorization_contact'> Permito que a empresa entre em contato comigo.
+                    <input type='checkbox' name='authorization_contact_example'> Permito que a empresa entre em contato comigo.
                     <br>
-                    <input type='checkbox' name='authorization_newsletter'> Quero receber notícias sobre a empresa e seus produtos/serviços.
+                    <input type='checkbox' name='authorization_newsletter_example'> Quero receber notícias sobre a empresa e seus produtos/serviços.
                     <br>
                     * você poderá alterar isso a qualquer momento.
                 </div>
@@ -609,14 +591,11 @@
             <div class='col pb-5 d-flex justify-content-center'>
                 <div class='col pb-5'>
                     <br>
-                    <input type='checkbox' name='authorization_data'> Autorizo o armazenamento dos meus dados.
-                    @if ($errors->has('authorization_data'))
-                    <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
-                    @endif
+                    <input type='checkbox' name='authorization_data_example'> Autorizo o armazenamento dos meus dados.
                     <br>
-                    <input type='checkbox' name='authorization_contact'> Permito que a empresa entre em contato comigo.
+                    <input type='checkbox' name='authorization_contact_example'> Permito que a empresa entre em contato comigo.
                     <br>
-                    <input type='checkbox' name='authorization_newsletter'> Quero receber notícias sobre a empresa e seus produtos/serviços.
+                    <input type='checkbox' name='authorization_newsletter_example'> Quero receber notícias sobre a empresa e seus produtos/serviços.
                     <br>
                     * você poderá alterar isso a qualquer momento.
                 </div>

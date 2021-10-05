@@ -121,9 +121,8 @@ class PageController extends Controller {
             $page->contact_state = $request->has('contact_state') ? 1 : 0;
             $page->contact_country = $request->has('contact_country') ? 1 : 0;
             $page->contact_upload_image = $request->has('contact_upload_image') ? 1 : 0;
-            $page->authorization_contact = $request->has('authorization_contact') ? true : false;
-            $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
-//            dd($request);
+            $page->authorization_contact = $request->has('authorization_contact') ?  1 : 0;
+            $page->authorization_newsletter = $request->has('authorization_newsletter') ?  1 : 0;
             $page->save();
 
 //            if ($request->file('image')) {
@@ -244,7 +243,6 @@ class PageController extends Controller {
                             ->withInput();
         } else {
             $page->fill($request->all());
-            dd($request);
             $page->contact_first_name = $request->has('contact_first_name') ? 1 : 0;
             $page->contact_last_name = $request->has('contact_last_name') ? 1 : 0;
             $page->contact_email = $request->has('contact_email') ? 1 : 0;
@@ -257,10 +255,8 @@ class PageController extends Controller {
             $page->contact_country = $request->has('contact_country') ? 1 : 0;
             $page->contact_upload_image = $request->has('contact_upload_image') ? 1 : 0;
             $page->biography_id = $request->biography_id;
-
             $page->authorization_contact = $request->has('authorization_contact') ? 1 : 0;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? 1 : 0;
-                        dd($page);
             $page->save();
 
             return redirect()->route('page.edit', [$page]);
