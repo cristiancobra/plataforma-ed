@@ -43,20 +43,44 @@ class PageController extends Controller {
                 ->where('type', 'marketing')
                 ->get();
 
+        $banners = Image::myBanners();
+
         $logos = Image::where('account_id', auth()->user()->account_id)
                 ->where('status', 'disponível')
                 ->where('type', 'logo')
                 ->get();
 
-        $templates = Page::listTemplates();
+        $copys = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'copy de venda')
+                ->get();
 
+        $biographies = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'biografia')
+                ->get();
+
+        $formFields = Page::formFields();
+        $templates = Page::listTemplates();
+                $states = returnStates();
         $status = Page::returnStatus();
+
+        //texts
+        $valueOffer = Text::myValueOffer();
+        $about = Text::myAbout();
+        $strengths = Text::myStrengths();
 
         return view('marketing.pages.create', compact(
                         'images',
+                        'banners',
                         'logos',
+                        'copys',
+                        'biographies',
+                        'formFields',
                         'templates',
+                        'states',
                         'status',
+                        'valueOffer',
+                        'about',
+                        'strengths',
         ));
     }
 
@@ -86,19 +110,20 @@ class PageController extends Controller {
             $page->fill($request->all());
             $page->account_id = auth()->user()->account_id;
             $page->authorization_data = 1;
-            $page->contact_first_name = $request->has('contact_first_name') == 'on' ? 1 : 0;
-            $page->contact_last_name = $request->has('contact_last_name') == 'on' ? 1 : 0;
-            $page->contact_email = $request->has('contact_email') == 'on' ? 1 : 0;
-            $page->contact_phone = $request->has('contact_phone') == 'on' ? 1 : 0;
-            $page->contact_site = $request->has('contact_site') == 'on' ? 1 : 0;
-            $page->contact_address = $request->has('contact_address') == 'on' ? 1 : 0;
-            $page->contact_neighborhood = $request->has('contact_neighborhood') == 'on' ? 1 : 0;
-            $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
-            $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
-            $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
-            $page->contact_upload_image = $request->has('contact_upload_image') == 'on' ? 1 : 0;
+            $page->contact_first_name = $request->has('contact_first_name') ? 1 : 0;
+            $page->contact_last_name = $request->has('contact_last_name') ? 1 : 0;
+            $page->contact_email = $request->has('contact_email') ? 1 : 0;
+            $page->contact_phone = $request->has('contact_phone') ? 1 : 0;
+            $page->contact_site = $request->has('contact_site') ? 1 : 0;
+            $page->contact_address = $request->has('contact_address') ? 1 : 0;
+            $page->contact_neighborhood = $request->has('contact_neighborhood') ? 1 : 0;
+            $page->contact_city = $request->has('contact_city') ? 1 : 0;
+            $page->contact_state = $request->has('contact_state') ? 1 : 0;
+            $page->contact_country = $request->has('contact_country') ? 1 : 0;
+            $page->contact_upload_image = $request->has('contact_upload_image') ? 1 : 0;
             $page->authorization_contact = $request->has('authorization_contact') ? true : false;
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
+//            dd($request);
             $page->save();
 
 //            if ($request->file('image')) {
@@ -113,9 +138,7 @@ class PageController extends Controller {
 //                $image->save();
 //            }
 
-            return redirect()->route('index.show', compact(
-                                    'page',
-            ));
+            return redirect()->route('page.edit', [$page]);
         }
     }
 
@@ -139,7 +162,7 @@ class PageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Page $page) {
-//                    dd($page->with('text'));
+
         $banners = Image::myBanners();
 
         $logos = Image::where('account_id', auth()->user()->account_id)
@@ -162,23 +185,19 @@ class PageController extends Controller {
             $biographyName = 'desativado';
         }
 
+        //texts
         $valueOffer = Text::myValueOffer();
         $about = Text::myAbout();
         $strengths = Text::myStrengths();
-//        dd($strengths);
-//        $text1Name = Text::find($page->text1)
-//                ->pluck('name');
-//        
-//        $text2Name = Text::find($page->text2)
-//                ->pluck('name');
 
+        //
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
         $states = returnStates();
         $status = Page::returnStatus();
 
-        $formFields = Page::formFields($page);
-
+        $formFields = Page::formFieldsEdit($page);
+//dd($formFields);
         return view('marketing.pages.edit', compact(
                         'page',
                         'banners',
@@ -225,21 +244,23 @@ class PageController extends Controller {
                             ->withInput();
         } else {
             $page->fill($request->all());
-            $page->contact_first_name = $request->has('contact_first_name') == 'on' ? 1 : 0;
-            $page->contact_last_name = $request->has('contact_last_name') == 'on' ? 1 : 0;
-            $page->contact_email = $request->has('contact_email') == 'on' ? 1 : 0;
-            $page->contact_phone = $request->has('contact_phone') == 'on' ? 1 : 0;
-            $page->contact_site = $request->has('contact_site') == 'on' ? 1 : 0;
-            $page->contact_address = $request->has('contact_address') == 'on' ? 1 : 0;
-            $page->contact_neighborhood = $request->has('contact_neighborhood') == 'on' ? 1 : 0;
-            $page->contact_city = $request->has('contact_city') == 'on' ? 1 : 0;
-            $page->contact_state = $request->has('contact_state') == 'on' ? 1 : 0;
-            $page->contact_country = $request->has('contact_country') == 'on' ? 1 : 0;
-            $page->contact_upload_image = $request->has('contact_upload_image') == 'on' ? 1 : 0;
+            dd($request);
+            $page->contact_first_name = $request->has('contact_first_name') ? 1 : 0;
+            $page->contact_last_name = $request->has('contact_last_name') ? 1 : 0;
+            $page->contact_email = $request->has('contact_email') ? 1 : 0;
+            $page->contact_phone = $request->has('contact_phone') ? 1 : 0;
+            $page->contact_site = $request->has('contact_site') ? 1 : 0;
+            $page->contact_address = $request->has('contact_address') ? 1 : 0;
+            $page->contact_neighborhood = $request->contact_neighborhood ? 1 : 0;
+            $page->contact_city = $request->has('contact_city') ? 1 : 0;
+            $page->contact_state = $request->has('contact_state') ? 1 : 0;
+            $page->contact_country = $request->has('contact_country') ? 1 : 0;
+            $page->contact_upload_image = $request->has('contact_upload_image') ? 1 : 0;
             $page->biography_id = $request->biography_id;
 
-            $page->authorization_contact = $request->has('authorization_contact') ? true : false;
-            $page->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
+            $page->authorization_contact = $request->has('authorization_contact') ? 1 : 0;
+            $page->authorization_newsletter = $request->has('authorization_newsletter') ? 1 : 0;
+                        dd($page);
             $page->save();
 
             return redirect()->route('page.edit', [$page]);
@@ -278,7 +299,7 @@ class PageController extends Controller {
                         'strengths',
         ));
     }
-    
+
     public function redirect(Page $page) {
         return redirect()->route('page.public', ['page' => $page]);
     }

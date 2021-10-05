@@ -66,7 +66,7 @@ class Page extends Model {
         'authorization_contact',
         'authorization_newsletter',
         'text_value_offer',
-       'biography_id',
+        'biography_id',
         'trash',
         'status',
     ];
@@ -76,7 +76,7 @@ class Page extends Model {
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
-	
+
     public function banner() {
         return $this->hasOne(Image::class, 'id', 'banner_image_id');
     }
@@ -89,11 +89,11 @@ class Page extends Model {
         return $this->hasOne(Text::class, 'id', 'biography_id');
     }
 
-        public function contacts() {
+    public function contacts() {
 //        return $this->hasMany(Contact::class, 'contacts_pages', 'page_id', 'id');
         return $this->belongsToMany(Contact::class, 'contacts_pages')->withTimestamps();
     }
-    
+
 // MÉTODOS PÚBLICOS
 
     public static function listTemplates() {
@@ -121,10 +121,59 @@ class Page extends Model {
         ];
     }
 
-    public static function formFields($page) {
+    public static function formFields() {
+        return [
+            [
+                'name' => 'contact_first_name',
+                'label' => 'Primeiro nome'
+            ],
+            [
+                'name' => 'contact_last_name',
+                'label' => 'Sobrenome'
+            ],
+            [
+                'name' => 'contact_email',
+                'label' => 'Email'
+            ],
+            [
+                'name' => 'contact_phone',
+                'label' => 'Telefone'
+            ],
+            [
+                'name' => 'contact_site',
+                'label' => 'Site'
+            ],
+            [
+                'name' => 'contact_address',
+                'label' => 'Endereço'
+            ],
+            [
+                'name' => 'contact_neighborhood',
+                'label' => 'Bairro'
+            ],
+            [
+                'name' => 'contact_city',
+                'label' => 'Cidade'
+            ],
+            [
+                'name' => 'contact_state',
+                'label' => 'Estado'
+            ],
+            [
+                'name' => 'contact_country',
+                'label' => 'País'
+            ],
+            [
+                'name' => 'contact_upload_image',
+                'label' => 'Permitir envio de imagem'
+            ],
+        ];
+    }
+
+    public static function formFieldsEdit($page) {
         $formFields = [];
         $counter = 1;
-
+//dd($page->getAttributes());
         foreach ($page->getAttributes() as $name => $value) {
             switch ($name) {
                 case('contact_first_name'):
@@ -172,10 +221,10 @@ class Page extends Model {
                 $counter++;
             }
         }
+//        dd($formFields);
         return $formFields;
     }
 
-    
     public static function allowedDomains() {
         return [
             'tudovegano.com.br',
@@ -183,5 +232,5 @@ class Page extends Model {
             'plataforma.atlassanca.eco.br',
         ];
     }
-    
+
 }

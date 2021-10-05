@@ -27,7 +27,7 @@
     @method('put')
 
     <div>
-        <label class='labels' for='' >NOME DA PÁGINA:</label>
+        <label class='labels' for='' >TÍTULO DA PÁGINA:</label>
         @if ($errors->has('name'))
         <input type='text' name='name' value='{{old('name')}}'>
         <span class='text-danger'>{{$errors->first('name')}}</span>
@@ -35,11 +35,15 @@
         <input type='text' name='name' size='80' value='{{$page->name}}'>
         @endif
         <br>
+        * Será exibido na barra superior da janela do navegador.
+        <br>
         <label class='labels' for='' >DOMÍNIO (URL):</label>
         <input type='text' name='url' size='60' value='{{$page->url}}'>
         <br>
-        <label class='labels' for='' >NOME CURTO (slug):</label> * sem espaços e maiúsculas.
+        <label class='labels' for='' >LINK (slug):</label>
         <input type='text' name='slug' size='60' value='{{$page->slug}}'>
+        <br>
+        * SEM espaços e maiúsculas. Será exibido na URL da página depois do domínio.
         <br>
         <br>
     </div>
@@ -215,14 +219,14 @@
                 <span class='labels'>APRESENTAÇÃO EMPRESA: </span>não possui texto
                 <input type='hidden' name='company_about' value='0'>
             </div>
-            <div class='row pb-5 pt-2'>
-                <div class='col-7 d-flex justify-content-center align-items-center'>
-                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
-                        <a class='circular-button primary' title='criar um texto de apresentação' href='{{route('text.create', ['type' => 'apresentação da empresa'])}}'>
-                            <i class='fa fa-plus' aria-hidden='true'></i>
-                        </a>
-                    </p>
-                </div>
+        </div>
+        <div class='row pb-5 pt-2'>
+            <div class='col d-flex justify-content-center align-items-center'>
+                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    <a class='circular-button primary' title='criar um texto de apresentação' href='{{route('text.create', ['type' => 'apresentação da empresa'])}}'>
+                        <i class='fa fa-plus' aria-hidden='true'></i>
+                    </a>
+                </p>
             </div>
         </div>
     </div>
@@ -315,14 +319,14 @@
                 <span class='labels'>PONTOS FORTES: </span>não possui texto
                 <input type='hidden' name='' value='0'>
             </div>
-            <div class='row pb-5 pt-2'>
-                <div class='col d-flex justify-content-center align-items-center'>
-                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
-                        <a class='circular-button primary' title='criar um ponto forte da empresa' href='{{route('text.create', ['type' => 'força'])}}'>
-                            <i class='fa fa-plus' aria-hidden='true'></i>
-                        </a>
-                    </p>
-                </div>
+        </div>
+        <div class='row pb-5 pt-2'>
+            <div class='col d-flex justify-content-center align-items-center'>
+                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    <a class='circular-button primary' title='criar um ponto forte da empresa' href='{{route('text.create', ['type' => 'força'])}}'>
+                        <i class='fa fa-plus' aria-hidden='true'></i>
+                    </a>
+                </p>
             </div>
         </div>
     </div>
@@ -408,7 +412,7 @@
                     {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
                 </div>
             </div>
-            @endforeach            
+            @endforeach
         </div>
 
         <div class='col-8 text-center mt-5 pb-5'>
@@ -425,7 +429,7 @@
                     {{createDoubleSelect('state', 'fields', $states)}}
                 </div>
             </div>           
-            @elseif($formField['value'] == 'contact_upload_image' AND $formField['value'] == 1)
+            @elseif($formField['name'] == 'contact_upload_image' AND $formField['value'] == 1)
             <div class='row pt-1'>   
                 <div class='col-3 d-flex justify-content-start'>
                     <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>
@@ -479,7 +483,7 @@
             <div class='col-4 mt-2 mb-2'>
                 @foreach($formFields as $formField)
                 <div class='row ms-2'>
-                    {{createCheckboxEdit($formField['name'], $formField['value'])}}  {{$formField['label']}}
+                    {{createCheckboxEdit($formField['name'])}}  {{$formField['label']}}
                 </div>
                 @endforeach            
             </div>
@@ -495,10 +499,10 @@
                         @if ($errors->has('contact_state'))
                         <span class='text-danger'>{{$errors->first('contact_state')}}</span><br>
                         @endif
-                        {{createDoubleSelect('state', 'fields', $states)}}
+                        {{createDoubleSelect('contact_state', 'fields', $states)}}
                     </div>
                 </div>                    
-                @elseif($formField['value'] == 'contact_upload_image' AND $formField['value'] == 1)
+                @elseif($formField['name'] == 'contact_upload_image' AND $formField['value'] == 1)
                 <div class='row pt-1'>   
                     <div class='col-3 d-flex justify-content-start'>
                         <label class='labels' for='{{$formField['name']}}'>{{$formField['label']}}:</label>

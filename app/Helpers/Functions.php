@@ -1809,11 +1809,13 @@ if (!function_exists('createSidebarItem')) {
 
         function createCheckboxEdit($name, $value = null) {
             echo "<input type='checkbox' class='form-check-input' name=$name ";
-            if ($value) {
-                echo "value=$value ";
-            }
+//            if ($value) {
+//                echo "value=$value ";
+//            }else{
+//                echo "value=0";
+//            }
             if ($value == 1) {
-                echo "checked";
+                echo "checked=checked";
             }
             echo ">";
         }
