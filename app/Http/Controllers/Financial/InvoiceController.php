@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Financial;
 
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
-use App\Models\InvoiceLine;
 use App\Models\BankAccount;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Contract;
-use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\ProductProposal;

@@ -341,6 +341,8 @@
         <div class='row pt-3'>
             <div class='col'>
                 {{createSelectYesOrNo('PONTOS FORTES', 'company_strengths', $page->company_strengths)}}
+                <span class='labels ms-5'>IMAGEM: </span>
+                {{createSelectIdName('about_image_id', 'fields', $marketingImages, null, $page->aboutImage)}}
             </div>
             <div class='row pb-5 mt-5'>
                 @foreach($strengths as $strenght)

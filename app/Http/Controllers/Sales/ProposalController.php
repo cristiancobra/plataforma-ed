@@ -30,7 +30,7 @@ class ProposalController extends Controller {
      */
     public function index(Request $request) {
         $type = $request->type;
-        
+
         $proposals = Proposal::filterProposals($request);
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -373,10 +373,13 @@ class ProposalController extends Controller {
                 }
             }
             $proposal->fill($request->all());
-            if($proposal->discount == null) {
+            if ($proposal->discount == null) {
                 $proposal->discount = 0;
-            }else {
-            $proposal->discount = removeCurrency($request->discount);
+            } else {
+                $proposal->discount = removeCurrency($request->discount);
+            }
+            if ($request->type == 'despesa') {
+                $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
             }
             $proposal->totalPrice = $totalPrice - $proposal->discount;
             $proposal->save();
@@ -394,8 +397,7 @@ class ProposalController extends Controller {
     public function destroy(Proposal $proposal) {
         //
     }
-    
-    
+
     public function sendToTrash(Proposal $proposal) {
         $proposal->trash = 1;
         $proposal->save();
@@ -409,7 +411,6 @@ class ProposalController extends Controller {
 
         return redirect()->back();
     }
-    
 
     // gera X faturas correspondentes ao parcelamento da proposta
     public function generateInstallment(Proposal $proposal) {

@@ -24,6 +24,7 @@ class PageController extends Controller {
                     'banner',
                     'logo',
                     'biography',
+                    'contacts',
                 ])
                 ->get();
 
@@ -191,7 +192,7 @@ class PageController extends Controller {
         $valueOffer = Text::myValueOffer();
         $about = Text::myAbout();
         $strengths = Text::myStrengths();
-
+dd($strengths);
         //
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);

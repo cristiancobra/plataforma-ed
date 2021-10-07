@@ -238,7 +238,7 @@ class ContactController extends Controller {
                     'first_name' => 'required:contacts',
                     'authorization_data' => 'required:contacts',
 //                    'email' => 'unique:contacts',
-                    'contact_upload_image' => 'required|image|max:50000',
+                    'contact_upload_image' => 'image|max:50000',
                         ], $messages);
 
         if ($validator->fails()) {

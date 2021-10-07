@@ -69,6 +69,10 @@ class Contact extends Model {
         return $this->belongsToMany(Company::class);
     }
 
+    public function images() {
+        return $this->hasMany(Image::class, 'contact_id', 'id');
+    }
+
     public function opportunities() {
         return $this->hasMany(Opportunity::class, 'contact_id', 'id');
     }

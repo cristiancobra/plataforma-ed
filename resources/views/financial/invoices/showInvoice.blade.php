@@ -30,24 +30,24 @@
 @section('status')
 @if($invoice->totalPrice < 0)
 <div style="
-                    background-color: #FDDBDD;
-                    border-radius: 30px;
-                    padding-top: 5px;
-                    padding-bottom: 7px;
-                    padding-right: 15px;
-                    text-align: right
-                    ">
+     background-color: #FDDBDD;
+     border-radius: 30px;
+     padding-top: 5px;
+     padding-bottom: 7px;
+     padding-right: 15px;
+     text-align: right
+     ">
     {{formatCurrencyReal($invoice->totalPrice)}}
 </div>
 @else
 <div style="
-                    background-color: lightblue;
-                    border-radius: 30px;
-                    padding-top: 5px;
-                    padding-bottom: 7px;
-                    padding-right: 15px;
-                    text-align: right
-                    ">
+     background-color: lightblue;
+     border-radius: 30px;
+     padding-top: 5px;
+     padding-bottom: 7px;
+     padding-right: 15px;
+     text-align: right
+     ">
     {{formatCurrencyReal($invoice->totalPrice)}}
 </div>
 @endif
@@ -91,9 +91,9 @@
     </div>
     @if(isset($invoice->proposal->opportunity))
     <div class='show-field-end'>
-            <a href='{{route('opportunity.show', ['opportunity' => $invoice->proposal->opportunity])}}'>
-        {{$invoice->proposal->opportunity->name}}
-            </a>
+        <a href='{{route('opportunity.show', ['opportunity' => $invoice->proposal->opportunity])}}'>
+            {{$invoice->proposal->opportunity->name}}
+        </a>
     </div>
     @endif
     @if(isset($invoice->proposal))
@@ -257,7 +257,11 @@
     @endforeach
     <div class='row'>
         <div   class='tb tb-header col-10 justify-content-end'>
-            PAGO: 
+            @if($typeInvoices == 'receita')
+            TOTAL RECEBIDO: 
+            @elseif($typeInvoices == 'despesa')
+            TOTAL PAGO: 
+            @endif
         </div>
         <div   class='tb tb-header col-2 justify-content-end'>
             {{formatCurrencyReal($invoicePaymentsTotal)}}

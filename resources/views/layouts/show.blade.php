@@ -53,7 +53,7 @@
                             @yield('fieldsId')
                         </div>
 
-                        <div class='row' style='margin-top: 50px'>
+                        <div class='row mt-5'>
                             <div class='col-4' style='text-align: center'>
                                 @yield('date_start')
                             </div>
@@ -66,7 +66,7 @@
                         </div>
 
                         <div class='row mt-5'>
-                            <div class='show-label-large col-12'>
+                            <div class='show-label-large col'>
                                 DESCRIÇÃO
                             </div>
                             <div class='description-field'>

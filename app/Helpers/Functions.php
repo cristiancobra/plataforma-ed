@@ -23,6 +23,23 @@ if (!function_exists('createButtonAdd')) {
     }
 
 }
+if (!function_exists('createButtonPlus')) {
+
+// cria um botao com simbolo de + para rota create do model fornecido
+    function createButtonPlus($route, $title = null, $parameter = null, $value = null) {
+        if ($parameter) {
+            $route = route($route, [$parameter => $value]);
+        } else {
+            $route = route($route);
+        }
+
+        echo "<a class='circular-button primary ms-3' title='$title' href='$route'>
+                                <i class='fa fa-plus' aria-hidden='true'></i>
+                            </a>
+                            </button>";
+    }
+
+}
 if (!function_exists('createButtonBack')) {
 
 // cria um botao com simbolo de <- para retornar para página anterior
@@ -907,7 +924,7 @@ if (!function_exists('formatStatus')) {
             case 'rascunho':
                 echo '<div class="col-1 tb tb-stuck">rascunho</div>';
                 break;
-                        case 'revisão':
+            case 'revisão':
                 echo '<div class="col-1 tb tb-late text-center">revisão</div>';
                 break;
         }
@@ -963,6 +980,9 @@ if (!function_exists('formatShowStatus')) {
                 break;
             case 'aguardar':
                 echo '<div class="stuck">aguardar</div>';
+                break;
+            case 'ativo':
+                echo '<div class="done">ativo</div>';
                 break;
             case 'disponível':
                 echo '<div class="done">disponível</div>';
@@ -2080,7 +2100,6 @@ if (!function_exists('createTablePercentual')) {
 /**
  * cria um select com label e opção SIM e NÃO que retornam 1 ou 0
  */
-
 if (!function_exists('createSelectYesOrNo')) {
 
     function createSelectYesOrNo($label, $field, $check = null) {
@@ -2109,7 +2128,6 @@ if (!function_exists('createSelectYesOrNo')) {
 /**
  * cria um select com label e opção SIM e NÃO que retornam 1 ou 0 específico para o edit de páginas
  */
-
 if (!function_exists('createSelectYesOrNoPages')) {
 
     function createSelectYesOrNoPages($label, $field, $check = null, $page) {
