@@ -215,9 +215,11 @@ class ProposalController extends Controller {
         if ($type == 'receita') {
             $opportunityName = $proposal->opportunity->name;
             $opportunityId = $proposal->opportunity->id;
+            $itensName = ' ITENS DA PROPOSTA';
         } else {
             $opportunityName = null;
             $opportunityId = null;
+            $itensName = ' ITENS DA DESPESA';
         }
 
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
@@ -244,7 +246,6 @@ class ProposalController extends Controller {
             $invoicesTotal += $invoice->totalPrice;
             $balanceTotal += $invoice->balance;
         }
-
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
@@ -273,6 +274,7 @@ class ProposalController extends Controller {
                         'type',
                         'opportunityName',
                         'opportunityId',
+                        'itensName',
                         'invoices',
                         'productProposals',
                         'invoicesCount',
@@ -350,7 +352,7 @@ class ProposalController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
-
+//dd($request);
             // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
             $totalPrice = 0;
             $totalTaxrate = 0;
@@ -360,28 +362,37 @@ class ProposalController extends Controller {
                         'proposal_id' => $proposal->id,
                         'product_id' => $request->product_id [$key],
                         'amount' => $request->product_amount [$key],
+                        'price' => removeCurrency($request->price [$key]),
                         'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
                         'subtotalDeadline' => $request->product_amount [$key] * $request->product_due_date [$key],
                         'subtotalCost' => $request->product_amount [$key] * $request->product_cost [$key],
                         'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
                         'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
-                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
+                        'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->price [$key]),
                     );
+                    if ($proposal->type == 'despesa') {
+                    $data['price'] = $data['price'] * -1;
+                    $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
+                    }
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
                     ProductProposal::where('id', $request->product_proposal_id[$key])->update($data);
                 }
             }
             $proposal->fill($request->all());
+                
             if ($proposal->discount == null) {
                 $proposal->discount = 0;
-            } else {
+            } elseif ($proposal->type == 'despesa') {
                 $proposal->discount = removeCurrency($request->discount);
+            } elseif ($proposal->type == 'receita') {
+                $proposal->discount = removeCurrency($request->discount);
+                $proposal->discount = $proposal->discount * -1;
             }
-            if ($request->type == 'despesa') {
-                $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
-            }
-            $proposal->totalPrice = $totalPrice - $proposal->discount;
+//            if ($request->type == 'despesa') {
+//                $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
+//            }
+            $proposal->totalPrice = $totalPrice + $proposal->discount;
             $proposal->save();
 
             return redirect()->route('proposal.show', compact('proposal'));

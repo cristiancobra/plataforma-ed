@@ -268,3 +268,19 @@ CKEDITOR.replace('description');
 <br>
 <br>
 @endsection
+
+<script>
+    // exibir form para adicionar nova imagem
+    $("#slider").change(function () {
+        if (this.checked) {
+            $('#change').hide();
+            $('#new').show();
+        } else {
+            $('#change').show();
+            $('#new').hide();
+        }
+    });
+        // formatar entrada do dinheiro
+        $("[name=price]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+</script>
+@endsection

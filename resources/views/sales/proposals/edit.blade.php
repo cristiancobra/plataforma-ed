@@ -21,14 +21,14 @@
     <a class='circular-button secondary'  title='Cancelar alterações' href='{{url()->previous()}}'>
         <i class='fas fa-times-circle'></i>
     </a>
-    <button id='' class='circular-button primary' title='Salvar alterações' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+    <button id='' class='circular-button primary' title='Salvar alterações' style='border:none;padding-left:4px;padding-top:2px' 'type='submit'>
         <i class='fas fa-save'></i>
     </button>
     @endsection
 
     @section('name')
     NOME:
-    <input type='text' name='name' size='60' style="margin-left: 10px" value='{{$proposal->name}}'>
+    <input type='text' name='name' size='60' style='margin-left: 10px' value='{{$proposal->name}}'>
     @endsection
 
 
@@ -82,7 +82,7 @@
     </div>
     <div class='col-lg-4 col-xs-6' style='text-align: center'>
         <div class='show-field-end'>
-            <select name='user_id' style="width: 89%">
+            <select name='user_id' style='width: 89%'>
                 <option  class='fields' value='{{$proposal->user_id}}'>
                     {{$proposal->user->contact->name}}
                 </option>
@@ -247,10 +247,14 @@ CKEDITOR.replace('description');
                 {{number_format($productProposal->product->price * $productProposal->product->tax_rate / 100, 2,',','.') }}
             </div>
             <div class='tb  col-1'>
-                <input type='decimal' name='product_price[]' size='7' value='{{formatCurrency($productProposal->product->price)}}' style='text-align: right'>
+                @if($type == 'despesa')
+                <input type='decimal' name='price[]' id='product_price' size='7' value='{{formatCurrency($productProposal->price * -1)}}' style='text-align: right'>
+                @else
+                <input type='decimal' name='price[]' id='product_price' size='7' value='{{formatCurrency($productProposal->price)}}' style='text-align: right'>
+                @endif
             </div>
             <div class='tb  col-1'>
-                {{formatCurrency($productProposal->subtotalPrice)}}
+                {{formatCurrencyReal($productProposal->subtotalPrice)}}
             </div>
         </div>
         @endforeach
@@ -259,7 +263,7 @@ CKEDITOR.replace('description');
                 desconto: 
             </div>
             <div class='tb tb-header col-1 justify-content-end'>
-                <input type='text' id='discount' name='discount' value='{{formatCurrencyReal($proposal->discount)}}' style="text-align: right;width: 90px">
+                <input type='text' id='discount' name='discount' value='{{formatCurrency($proposal->discount)}}' style='text-align: right;width: 90px'>
             </div>
         </div>
         <div class='row'>
@@ -275,6 +279,7 @@ CKEDITOR.replace('description');
 
     @section('js-scripts')
     <script>
-        $("[name=discount]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+        $('[name=discount]').maskMoney({prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
+        $('[id=product_price]').maskMoney({prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
     </script>
     @endsection

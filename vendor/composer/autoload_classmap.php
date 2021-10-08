@@ -13,6 +13,7 @@ return array(
     'App\\Console\\Commands\\CreateProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateProposalsFromInvoices.php',
     'App\\Console\\Commands\\FillNullFieldCommand' => $baseDir . '/app/Console/Commands/FillNullFieldCommand.php',
     'App\\Console\\Commands\\NegativeInvoicesTotalpriceOfExpenses' => $baseDir . '/app/Console/Commands/NegativeInvoicesTotalpriceOfExpenses.php',
+    'App\\Console\\Commands\\NegativeProductDespesaPrice' => $baseDir . '/app/Console/Commands/NegativeProductDespesaPrice.php',
     'App\\Console\\Commands\\SetContactTypeClienteEmpresaDigital' => $baseDir . '/app/Console/Commands/SetContactTypeClienteEmpresaDigital.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',

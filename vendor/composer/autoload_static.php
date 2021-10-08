@@ -601,6 +601,7 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
         'App\\Console\\Commands\\CreateProposalsFromInvoices' => __DIR__ . '/../..' . '/app/Console/Commands/CreateProposalsFromInvoices.php',
         'App\\Console\\Commands\\FillNullFieldCommand' => __DIR__ . '/../..' . '/app/Console/Commands/FillNullFieldCommand.php',
         'App\\Console\\Commands\\NegativeInvoicesTotalpriceOfExpenses' => __DIR__ . '/../..' . '/app/Console/Commands/NegativeInvoicesTotalpriceOfExpenses.php',
+        'App\\Console\\Commands\\NegativeProductDespesaPrice' => __DIR__ . '/../..' . '/app/Console/Commands/NegativeProductDespesaPrice.php',
         'App\\Console\\Commands\\SetContactTypeClienteEmpresaDigital' => __DIR__ . '/../..' . '/app/Console/Commands/SetContactTypeClienteEmpresaDigital.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',

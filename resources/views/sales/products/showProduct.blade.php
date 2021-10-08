@@ -79,7 +79,11 @@
 </div>
 <div class='col-lg-3 col-xs-6' style='text-align: center'>
     <div class='show-field-start'>
+        @if($variation == 'despesa')
+        valor de compra
+        @else
         valor de venda
+        @endif
     </div>
     @if($product->initial_stock)
     <div class='show-field-start'>
@@ -104,9 +108,15 @@
     @endif
 </div>
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
+    @if($variation == 'despesa')
+    <div class='show-field-end text-end' style='color:red'>
+        {{formatCurrencyReal($product->price)}}
+    </div>
+    @else
     <div class='show-field-end text-end'>
         {{formatCurrencyReal($product->price)}}
     </div>
+    @endif
     @if($product->initial_stock)
     <div class='show-field-end text-end'>
         11
@@ -121,7 +131,11 @@
     </div>
     @if($product->category == 'serviço')
     <div class='show-field-end text-end'>
+                @if($product->points)
         {{$product->points}}
+        @else
+        0
+        @endif
     </div>
     @endif
     <div class='show-field-end text-end'>
@@ -156,9 +170,9 @@
 {!!html_entity_decode($product->description)!!}
 @endsection
 
+    @if($variation == 'receita')
 @section('main')
 <div class='row show-label-large mt-5'>
-
     PRECIFICAÇÃO
 </div>
 <div class='row description-field'>
@@ -240,9 +254,8 @@
     </div>
 
 </div>
-</div>
 @endsection
-
+@endif
 
 @section('createdAt')
 <div class='row' style='margin-top: 30px'>

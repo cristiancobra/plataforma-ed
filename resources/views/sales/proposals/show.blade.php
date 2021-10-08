@@ -32,26 +32,26 @@
 @endsection
 
 @section('status')
-@if($proposal->totalPrice > 0)
-<div style="
-                    background-color: #FDDBDD;
-                    border-radius: 30px;
-                    padding-top: 5px;
-                    padding-bottom: 7px;
-                    padding-right: 15px;
-                    text-align: right
-                    ">
+@if($proposal->totalPrice < 0)
+<div style='
+     background-color: #FDDBDD;
+     border-radius: 30px;
+     padding-top: 5px;
+     padding-bottom: 7px;
+     padding-right: 15px;
+     text-align: right
+     '>
     {{formatCurrencyReal($proposal->totalPrice)}}
 </div>
 @else
-<div style="
-                    background-color: lightblue;
-                    border-radius: 30px;
-                    padding-top: 5px;
-                    padding-bottom: 7px;
-                    padding-right: 15px;
-                    text-align: right
-                    ">
+<div style='
+     background-color: lightblue;
+     border-radius: 30px;
+     padding-top: 5px;
+     padding-bottom: 7px;
+     padding-right: 15px;
+     text-align: right
+     '>
     {{formatCurrencyReal($proposal->totalPrice)}}
 </div>
 @endif
@@ -130,10 +130,10 @@
     </div>
     <div class='show-field-end'>
         @if($proposal->installment > 1)
-            {{$proposal->installment}} vezes
-            @else
-            À vista
-            @endif
+        {{$proposal->installment}} vezes
+        @else
+        À vista
+        @endif
     </div>
     @endsection
 
@@ -196,7 +196,7 @@
              border-radius: 10px 0 0 0;
              '>
             <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ITENS DA PROPOSTA</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >{{$itensName}}</label>
         </div>
         <div class='col-6 pt-4 pb-3' style='
              border-right-style: solid;
@@ -249,11 +249,27 @@
         <div class='tb col-2'>
             {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
         </div>
-        <div class='tb col-2'>
-            {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
+        <div class='tb col-2 justify-content-end pt-3'>
+            @if($productProposal->subtotalPrice < 0)
+            <p style='color:red'>
+                {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
+            </p>
+            @else
+            <p style='text-align: right'>
+                {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
+            </p>
+            @endif
         </div>
-        <div class='tb col-2 justify-content-end'>
-            {{formatCurrencyReal($productProposal->subtotalPrice)}}
+        <div class='tb col-2 justify-content-end pt-3'>
+            @if($productProposal->subtotalPrice < 0)
+            <p style='color:red'>
+                {{formatCurrencyReal($productProposal->subtotalPrice)}}
+            </p>
+            @else
+            <p style='text-align: right'>
+                {{formatCurrencyReal($productProposal->subtotalPrice)}}
+            </p>
+            @endif
         </div>
     </div>
 
@@ -278,7 +294,7 @@
             desconto: 
         </div>
         <div   class='tb tb-header col-2 justify-content-end'>
-            - {{formatCurrencyReal($proposal->discount)}}
+           {{formatCurrencyReal($proposal->discount)}}
         </div>
     </div>
     <div class='row'>
@@ -342,7 +358,7 @@
 
     @foreach ($invoices as $invoice)
     <div class='row'>
-        <div class="tb col-1 text-center">
+        <div class='tb col-1 text-center'>
             <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
                 {{faiconInvoiceStatus($invoice->status)}}
             </a>
@@ -357,10 +373,10 @@
                 {{date('d/m/Y', strtotime($invoice->pay_day))}}
             </a>
         </div>
-        
+
         @if($invoice->totalPrice < 0)
-        <div   class='tb col-2 justify-content-end' style="color: red">
-            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
+        <div   class='tb col-2 justify-content-end'>
+            <a href='{{route('invoice.show', ['invoice' => $invoice])}}' style='color: red'>
                 {{formatCurrencyReal($invoice->totalPrice)}}
             </a>
         </div>
@@ -371,16 +387,16 @@
             </a>
         </div>
         @endif
-        
-                @if($invoice->balance < 0)
-                <div   class='tb col-2 justify-content-end' style="color:red">
+
+        @if($invoice->balance < 0)
+        <div   class='tb col-2 justify-content-end' style='color:red'>
             {{formatCurrencyReal($invoice->balance)}}
         </div>
-                @else
+        @else
         <div   class='tb col-2 justify-content-end'>
             {{formatCurrencyReal($invoice->balance)}}
         </div>
-                @endif
+        @endif
     </div>
     @endforeach
 

@@ -13,6 +13,7 @@ class ProductProposal extends Model {
 		'opportunity_id',
 		'invoice_id',
 		'amount',
+		'price',
 		'subtotalHours',
 		'subtotalCost',
 		'subtotalTax_rate',

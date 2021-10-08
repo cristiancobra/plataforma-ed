@@ -106,13 +106,13 @@
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @endif
-    @if($proposal->type == 'receita')
+    @if($proposal->totalPrice > 0)
     <div class="tb col-1 justify-content-end">
         {{formatCurrencyReal($proposal->totalPrice)}}
     </div>
     @else
     <div class="tb col-1 justify-content-end" style="color: red">
-        - {{formatCurrencyReal($proposal->totalPrice)}}
+        {{formatCurrencyReal($proposal->totalPrice)}}
     </div>
     @endif
 

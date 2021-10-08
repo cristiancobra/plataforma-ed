@@ -113,6 +113,7 @@ CKEDITOR.replace('description');
 
 @section('js-scripts')
     <script>
+    // formatar entrada do dinheiro
         $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
     </script>
 @endsection
