@@ -41,7 +41,7 @@ class NegativeProposalTotalPriceWhenDespesa extends Command
       $proposals = Proposal::where('type', 'despesa')->get();
       
       foreach($proposals as $proposal) {
-                    if($productProposal->totalPrice > 0) {
+                    if($proposal->totalPrice > 0) {
           $proposal->totalPrice = $proposal->totalPrice * -1;
           $proposal->save();
       }
