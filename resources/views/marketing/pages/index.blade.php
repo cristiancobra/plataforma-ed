@@ -68,9 +68,7 @@
         {{$page->contacts()->count()}}
         </a>
     </div>
-    <div class='tb col-1'>
-        {{$page->status}}
-    </div>
+        {{formatStatus($page)}}
 </div>
 @endforeach
 @endsection

@@ -121,7 +121,7 @@ class Page extends Model {
 
     public static function returnStatus() {
         return [
-            'ativada',
+            'ativa',
             'desativada',
         ];
     }

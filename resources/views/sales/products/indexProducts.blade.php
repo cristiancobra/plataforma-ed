@@ -87,9 +87,15 @@
         <div class='tb col-1 text-center'>
             {{$product->group}}
         </div>
-        <div class='tb col-2 text-right' style="text-align: right">
+        @if($product->price < 0)
+        <div class='tb col-2 justify-content-end' style="text-align: right; color:red">
             {{formatCurrencyReal($product->price)}}
         </div>
+        @else
+        <div class='tb col-2 justify-content-end' style="text-align: right">
+            {{formatCurrencyReal($product->price)}}
+        </div>
+        @endif
         {{formatTableStatus($product)}}
     </div>
     @endforeach

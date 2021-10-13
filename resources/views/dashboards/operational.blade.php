@@ -189,6 +189,10 @@
      border-radius: 10px;
      '>
     <div class='col-2' style='background-color: #c28dbf;  border-radius: 10px 0px 0px 10px'>
+        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'user_id' => Auth::user()->id,
+				])}}'>
         <div class='row pt-4 text-center'>
             <i class='fas fa-exclamation-triangle' title='' style='color:white;font-size: 50px'></i>
         </div>
@@ -197,6 +201,7 @@
                 {{$myTasksCount}} TAREFAS
             </p>
         </div>
+        </a>
     </div>
 
     <div class='col-1 d-inline-block task-high-button'>

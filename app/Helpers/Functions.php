@@ -891,6 +891,18 @@ if (!function_exists('formatStatus')) {
 
     function formatStatus($model) {
         switch ($model->status) {
+            case 'aguardar':
+                echo '<div class="col-1 tb tb-stuck text-center">aguardar</div>';
+                break;
+            case 'aprovado':
+                echo '<div class="col-1 tb tb-won">aprovado</div>';
+                break;
+            case 'ativa':
+                echo '<div class="col-1 tb tb-done text-center">ativa</div>';
+                break;
+            case 'atrasada':
+                echo '<div class="col-1 tb tb-late text-center">atrasada</div>';
+                break;
             case 'cancelado':
                 echo '<div class="col-1 tb tb-canceled text-center">cancelada</div>';
                 break;
@@ -903,12 +915,6 @@ if (!function_exists('formatStatus')) {
             case 'feito':
                 echo '<div class="col-1 tb tb-done text-center">feito</div>';
                 break;
-            case 'aguardar':
-                echo '<div class="col-1 tb tb-stuck text-center">aguardar</div>';
-                break;
-            case 'atrasada':
-                echo '<div class="col-1 tb tb-late text-center">atrasada</div>';
-                break;
             case 'negociando':
                 echo '<div class="col-1 tb tb-dealing">negociando</div>';
                 break;
@@ -917,9 +923,6 @@ if (!function_exists('formatStatus')) {
                 break;
             case 'ganhamos':
                 echo '<div class="col-1 tb tb-won">ganhamos</div>';
-                break;
-            case 'aprovado':
-                echo '<div class="col-1 tb tb-won">aprovado</div>';
                 break;
             case 'rascunho':
                 echo '<div class="col-1 tb tb-stuck">rascunho</div>';
