@@ -549,7 +549,7 @@ class ProposalController extends Controller {
                 })
                 ->sum('value');
 
-        $proposalLines = ProductProposal::where('proposal_id', $proposal->id)
+        $productsProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->with('product', 'opportunity')
                 ->get();
 
@@ -625,13 +625,13 @@ class ProposalController extends Controller {
             'invoicePayday' => $proposal->pay_day,
             'invoiceTotalPrice' => $proposal->totalPrice,
             'customerName' => $proposal->opportunity->contact->name,
-            'invoiceLines' => $proposalLines,
+            'productsProposals' => $productsProposals,
             'invoiceTotalTransactions' => $totalTransactions,
         ];
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
+        $pdf = PDF::loadView('sales.proposals.pdf', compact('data'))
                 ->setOptions([
             'page-size' => 'A4',
             'header-html' => $header,
@@ -639,7 +639,7 @@ class ProposalController extends Controller {
         ]);
 
 // download PDF file with download method
-        return $pdf->stream('Fatura.pdf');
+        return $pdf->stream("Proposta " . $proposal->account->name . ".pdf");
     }
 
 }
