@@ -53,6 +53,11 @@
         <textarea id='text' name='text' rows='20' cols='90'>
   {{old('text')}}
         </textarea>
+                <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+        <script>
+CKEDITOR.replace('text');
+        </script>
         <br>
         <label class='labels' for='' >ANEXAR IMAGEM:</label>
         <input type='file' name='image'>

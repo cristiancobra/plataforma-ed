@@ -61,10 +61,11 @@
 
 @section('description')
 <br>
-{{$text->title}}
+{!!html_entity_decode($text->title)!!}
 <br>
 <br>
-{{$text->text}}
+          {!!html_entity_decode($text->text)!!}
+
 <br>
 <br>
 @endsection
