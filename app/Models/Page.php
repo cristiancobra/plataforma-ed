@@ -74,20 +74,16 @@ class Page extends Model {
     protected $hidden = [
     ];
 
+    public function aboutImage() {
+        return $this->hasOne(Image::class, 'id', 'about_image_id');
+    }
+    
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
     public function banner() {
         return $this->hasOne(Image::class, 'id', 'banner_image_id');
-    }
-
-    public function logo() {
-        return $this->hasOne(Image::class, 'id', 'logo_id');
-    }
-
-    public function aboutImage() {
-        return $this->hasOne(Image::class, 'id', 'about_image_id');
     }
 
     public function biography() {
@@ -99,6 +95,10 @@ class Page extends Model {
         return $this->belongsToMany(Contact::class, 'contacts_pages')->withTimestamps();
     }
 
+    public function logo() {
+        return $this->hasOne(Image::class, 'id', 'logo_id');
+    }
+    
 // MÉTODOS PÚBLICOS
 
     public static function listTemplates() {
@@ -238,4 +238,14 @@ class Page extends Model {
         ];
     }
 
+    public function accountType($pageId) {
+        $account = Account::find($pageId);
+
+        $type = $account->sector;
+        if($type == 'educação') {
+            return 'instituição';
+        } else {
+            return 'empresa';
+        }
+    }
 }

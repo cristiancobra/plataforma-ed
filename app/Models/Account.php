@@ -32,6 +32,7 @@ class Account extends Model {
 		'business_model',
 		'competitive_advantage',
 		'revenues',
+		'sector',
 		'value_offer',
 		'status',
 	];

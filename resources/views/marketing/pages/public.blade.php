@@ -287,7 +287,7 @@
         <span class='text-danger'>{{$errors->first('authorization_data')}}</span>
         @endif
         <br>
-        <input type="checkbox" name="authorization_contact"> Permito que a empresa entre em contato comigo.
+        <input type="checkbox" name="authorization_contact"> Permito que a {{$accountType}} entre em contato comigo.
         <br>
         <input type="checkbox" name="authorization_newsletter"> Quero receber notícias sobre a empresa e seus produtos/serviços.
         <br>

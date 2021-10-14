@@ -89,7 +89,7 @@ CKEDITOR.replace('description');
     <br>
     <label class="labels" for="">Setor: </label>
     <select name="sector">
-        <option value="{{$account->type}}">{{$account->type}}</option>
+        <option value="{{$account->sector}}">{{$account->sector}}</option>
         <option value="agricultura">Agricultura</option>
         <option value="biotecnologia">Biotecnologia</option>
         <option value="química">Substâncias e produtos químicos</option>

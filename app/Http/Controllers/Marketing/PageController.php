@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Marketing;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
 use App\Models\Image;
 use App\Models\Contact;
 use App\Models\Page;
 use App\Models\Text;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -289,6 +289,8 @@ dd($strengths);
                 ->where('perfil', 'dono')
                 ->first();
 
+        $accountType = $page->accountType(auth()->user()->account_id);
+        
         $about = Text::selectedAbout($page);
         $strengths = Text::selectedStrengths($page);
 
@@ -296,6 +298,7 @@ dd($strengths);
                         'page',
                         'states',
                         'user',
+                        'accountType',
                         'about',
                         'strengths',
         ));

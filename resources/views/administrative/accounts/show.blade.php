@@ -141,7 +141,7 @@
 </p>
 <br>
 <p style="text-align:left;color: #874983">
-    Segmento:  {{$account->type}}
+    Setor:  {{$account->sector}}
 </p>
 <p style="text-align:left;color: #874983">
     Qtde empregados:  {{$account->employees}}
