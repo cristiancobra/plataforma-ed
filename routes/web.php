@@ -311,6 +311,10 @@ Route::resource('jornadas', 'Operational\\JourneyController')
         ->middleware('roles');
 
 // tasks
+Route::get('tarefas/agenda', 'Operational\\TaskController@monthlyCalendar')
+        ->name('task.calendar')
+        ->middleware('roles');
+
 Route::get('tarefas/pdf/{task}', 'Operational\\TaskController@createPDF')
         ->name('task.pdf')
         ->middleware('roles');

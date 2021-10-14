@@ -25,24 +25,6 @@
                 Sem tarefas hoje.
             </p>
         </div>
-        <div class='row mt-2'>
-            <div class='col d-flex justify-content-center'>
-                <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
-//                                                                                                                                                                                        'task_name' => 'ATENDIMENTO',
-//                                                                                                                                                                                        'opportunity_id' => $opportunity->id,
-//                                                                                                                                                                                        'opportunity_name' => $opportunity->name,
-//                                                                                                                                                                                        'company_name' => $companyName,
-//                                                                                                                                                                                        'company_id' => $companyId,
-//                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
-//                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
-//                                                                                                                                                                                        'department' => 'atendimento',
-//                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
-                                                                                                                                                                                        ]
-                    )}}'>
-                    <i class='fa fa-plus text-center ' aria-hidden='true'></i>
-                </a>
-            </div>
-        </div>
         @else
         @foreach($myTasksToday as $task)
         <a style='text-decoration:none' href='{{route('task.show', ['task' => $task->id])}}'>
@@ -62,6 +44,27 @@
         </a>
         @endforeach
         @endif
+        <div class='row mt-2'>
+            <div class='col d-flex justify-content-center'>
+                <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
+//                                                                                                                                                                                        'task_name' => 'ATENDIMENTO',
+//                                                                                                                                                                                        'opportunity_id' => $opportunity->id,
+//                                                                                                                                                                                        'opportunity_name' => $opportunity->name,
+//                                                                                                                                                                                        'company_name' => $companyName,
+//                                                                                                                                                                                        'company_id' => $companyId,
+//                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
+//                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
+//                                                                                                                                                                                        'department' => 'atendimento',
+//                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
+                                                                                                                                                                                        ]
+                    )}}'>
+                    <i class='fa fa-plus text-center ' aria-hidden='true'></i>
+                </a>
+                <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.calendar')}}'>
+                    <i class='fa fa-calendar text-center ' aria-hidden='true'></i>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- coluna 2 -->

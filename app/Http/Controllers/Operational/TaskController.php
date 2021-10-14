@@ -496,4 +496,19 @@ class TaskController extends Controller {
         ));
     }
 
+    // chama o método que completa a tarefa e direciona para a view show
+    public function monthlyCalendar() {
+        $month = date('m');
+        $monthName = returnMonth($month);
+        $totalDays = date('t');
+        $counter =1;
+
+                return view('operational.tasks.monthly_calendar', compact(
+                        'month',
+                        'monthName',
+                        'totalDays',
+                        'counter',
+        ));
+    }
+
 }
