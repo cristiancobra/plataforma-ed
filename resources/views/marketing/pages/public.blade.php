@@ -289,7 +289,7 @@
         <br>
         <input type="checkbox" name="authorization_contact"> Permito que a {{$accountType}} entre em contato comigo.
         <br>
-        <input type="checkbox" name="authorization_newsletter"> Quero receber notícias sobre a empresa e seus produtos/serviços.
+        <input type="checkbox" name="authorization_newsletter"> Quero receber notícias sobre a {{$accountType}} e seus produtos/serviços.
         <br>
         * você poderá alterar isso a qualquer momento.
     </div>
