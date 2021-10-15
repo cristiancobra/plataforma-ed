@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use DB;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Invoice;
@@ -12,7 +14,6 @@ use App\Models\Opportunity;
 use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 /**
  * Classe responsável por criar os dashboards (painéis) dos departamentos
@@ -27,12 +28,14 @@ class DashboardController extends Controller {
         $teamTasks = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
                 ->where('trash', '!=',  1)
+                ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
                 ->get();
 
         $teamTasksPending = $teamTasks->where('status', 'fazer');
         $teamTasksPendingCount = $teamTasksPending->count();
         
         $myTasks = $teamTasks->where('user_id', auth()->user()->id);
+        $myTasksLimited = $myTasks->take(4);
         $myTasksCount = $myTasks->count();
         
         $myTasksHigh = $myTasks->where('priority', 'alta');
@@ -91,6 +94,7 @@ class DashboardController extends Controller {
                         'hoursToday',
                         'teamTasksPending',
                         'teamTasksPendingCount',
+                        'myTasksLimited',
                         'myTasksHigh',
                         'myTasksHighCount',
                         'myTasksMedium',

@@ -154,32 +154,36 @@
          '>
         <div class='row mt-2'>
             <p style='color: #8b0000;font-weight: 600;text-align: center;font-size: 22px'>
-                {{$myTasksEmergenciesAmount}} emergências
+                Próximas tarefas
             </p>
         </div>
-        @if($myTasksEmergencies->isEmpty())
+        @if($myTasksLimited->isEmpty())
 
         <div class='row mt-2'>
             <p class='text-center'>
-                Ufa! Sem emergências.
+                Ufa...Tudo feito.
             </p>
         </div>
         @else
-        @foreach($myTasksEmergencies as $task)
+        @foreach($myTasksLimited as $task)
         <a style='text-decoration:none' href='{{route('task.show', ['task' => $task->id])}}'>
             <div class='row mb-3'>
                 <div class='col-2 text-end  my-auto' style='color: #8b0000;font-weight: 600;font-size: 18px'>
                     {{date('d/m', strtotime($task->date_due))}}
                 </div>
 
+                @if($task->priority == 'emergência')
                 <div class='col-9 justify-content-start task-emergency d-block'>
-                    <p>
-                        <span  style='font-weight: 600'>{{$task->name}}</span>
-                        <br>
-                        {{$task->department}}
-                    </p>
+                    @else
+                    <div class='col-9 justify-content-start task d-block'>
+                        @endif
+                        <p>
+                            <span  style='font-weight: 600'>{{$task->name}}</span>
+                            <br>
+                            {{$task->department}}
+                        </p>
+                    </div>
                 </div>
-            </div>
         </a>
         @endforeach
         @endif
@@ -196,14 +200,14 @@
 				'status' =>'fazer',
 				'user_id' => Auth::user()->id,
 				])}}'>
-        <div class='row pt-4 text-center'>
-            <i class='fas fa-exclamation-triangle' title='' style='color:white;font-size: 50px'></i>
-        </div>
-        <div class='row pt-3 labels'>
-            <p style='text-align: center;color:white'>
-                {{$myTasksCount}} TAREFAS
-            </p>
-        </div>
+            <div class='row pt-4 text-center'>
+                <i class='fas fa-exclamation-triangle' title='' style='color:white;font-size: 50px'></i>
+            </div>
+            <div class='row pt-3 labels'>
+                <p style='text-align: center;color:white'>
+                    {{$myTasksCount}} TAREFAS
+                </p>
+            </div>
         </a>
     </div>
 
@@ -286,7 +290,7 @@
         </a>
     </div>
 
-    
+
     @if(isset($myLastJourney))
     <div class='col-2 d-inline-block sales-button'>
         <a style='text-decoration:none' href='{{route('task.show', ['task' => $myLastJourney->task_id])}}'>
@@ -323,11 +327,11 @@
             @endif
         </div>
         <div class='col-2 tb tb-header mt-4 mb-4' style="border-radius: 10px 0px 0px 10px">
-                FAZENDO
-            </div>
+            FAZENDO
+        </div>
         <div class="col-8 mt-4 mb-4 pt-3 show-field-end">
             <a  class='white' href=' {{route('task.show', ['task' => $user['taskId']])}}'>
-            {{$user['journeyName']}}
+                {{$user['journeyName']}}
             </a>
         </div>
     </div>
