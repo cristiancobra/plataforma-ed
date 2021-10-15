@@ -763,6 +763,23 @@ and open the template in the editor.
     background-color:  #c28dbf;
 }
 
+.task-mini {
+    color: white;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    background-color: #D8C2DB;
+    border-left-style: solid;
+    border-left-width: 6px;
+    border-left-color: #52004d;
+    border-radius: 0 10px 10px 0;    
+line-height: 0.4;
+}
+
+.task-mini:hover{
+    background-color:  #c28dbf;
+}
+
 .task-emergency{
     color: white;
     padding-top: 5px;
@@ -2544,6 +2561,23 @@ h5{
     transition: 0.3s;
     width: 38px;
     height: 38px;
+    display:inline-block;
+}
+
+.circular-button-mini {
+    border-color: #49d194;
+    padding-top: 2px;
+    padding-left: 4px;
+    font-size: 12px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    margin: 4px;
+    vertical-align: middle;
+    text-decoration: none;
+    text-align: center;
+    transition: 0.3s;
+    width: 20px;
+    height: 20px;
     display:inline-block;
 }
 

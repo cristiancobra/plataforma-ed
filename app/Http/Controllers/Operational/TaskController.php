@@ -498,16 +498,61 @@ class TaskController extends Controller {
 
     // chama o método que completa a tarefa e direciona para a view show
     public function monthlyCalendar() {
+        $startMonth = new DateTime(date('Y-m-01'));
+        $startDay = $startMonth->format('l');
         $month = date('m');
         $monthName = returnMonth($month);
         $totalDays = date('t');
         $counter =1;
+        $day =1;
+        
+        switch($startDay) {
+            case 'Tuesday':
+        $nullDays = 1;
+                break;
+            case 'Wednesday':
+        $nullDays = 2;
+                break;
+            case 'Thursday':
+        $nullDays = 3;
+                break;
+            case 'Friday':
+        $nullDays = 4;
+                break;
+            case 'Saturday':
+        $nullDays = 5;
+                break;
+            case 'Sunday':
+        $nullDays = 6;
+                break;
+        }
+        
+          $month = returnMonth(date('m'));
+        $monthStart = date('Y-m-01');
+        $monthEnd = date('Y-m-t');
 
+        $myTasks = Task::where('user_id', auth()->user()->id)
+//->where('date_due', '<', date('Y-m-d'))
+                ->whereBetween('date_due', [$monthStart, $monthEnd])
+                ->where('status', 'fazer')
+                ->where('trash', '!=',  1)
+                ->get();
+
+//        $teamTasksPending = $teamTasks->where('status', 'fazer');
+//        $teamTasksPendingCount = $teamTasksPending->count();
+//        
+//        $myTasks = $teamTasks->where('user_id', auth()->user()->id);
+//        $myTasksCount = $myTasks->count();
+        
                 return view('operational.tasks.monthly_calendar', compact(
-                        'month',
+                        'startMonth',
+                        'startDay',
                         'monthName',
                         'totalDays',
                         'counter',
+                        'day',
+                        'nullDays',
+                        'myTasks',
         ));
     }
 

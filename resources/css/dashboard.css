@@ -698,6 +698,23 @@ and open the template in the editor.
     background-color:  #c28dbf;
 }
 
+.task-mini {
+    color: white;
+    padding-top: 0px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+    background-color: #D8C2DB;
+    border-left-style: solid;
+    border-left-width: 6px;
+    border-left-color: #52004d;
+    border-radius: 0 10px 10px 0;    
+line-height: 0.4;
+}
+
+.task-mini:hover{
+    background-color:  #c28dbf;
+}
+
 .task-emergency{
     color: white;
     padding-top: 5px;

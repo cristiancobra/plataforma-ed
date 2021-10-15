@@ -89,7 +89,11 @@
         @endif
         <br>
         <label class="labels" for="" >PRAZO FINAL:</label>
+        @if(!empty(app('request')->input('date_due')))
+        <input type="date" name="date_due" value="{{app('request')->input('date_due')}}">
+        @else
         <input type="date" name="date_due" value="{{old('date_due')}}">
+        @endif
         <input type="time" name="time_due" size="50"  value="{{old('time_due')}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
