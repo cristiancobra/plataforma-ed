@@ -62,7 +62,7 @@ CKEDITOR.replace('description');
         <br>
         <br>
         <label class="labels" for="" >DATA:</label>
-        <input type="date" name="date" size="20" value="{{$journey->date}}">
+        <input type="date" name="date" size="20" value="{{date($journey->date)}}">
         @if ($errors->has('date'))
         <span class="text-danger">{{$errors->first('date')}}</span>
         @endif
