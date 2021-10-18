@@ -58,13 +58,8 @@
     </div>
 </div>
 <div>
-    <form action='{{route('product.store')}}' method='post'>
+    <form action='{{route('product.store', ['variation' => $variation])}}' method='post'>
         @csrf
-        @if($variation == 'receita')
-        <input type='hidden' name='type' value='receita'>
-        @else
-        <input type='hidden' name='type' value='despesa'>
-        @endif
         <div id='change' style='display:inline'>
             <label class='labels' for='' >SELECIONAR IMAGEM:</label>
             {{createSelectIdName('image_id', 'select', $images, 'Nenhuma')}}

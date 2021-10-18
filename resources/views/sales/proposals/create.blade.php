@@ -238,7 +238,11 @@ CKEDITOR.replace('description');
             <input type='hidden' name='product_margin[]' size='7' value='{{-$product->price * $product->tax_rate / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price}}' >
 
             <div class='tb col-1 justify-content-end' style='color:white;background-color: #c28dbf;text-align: right'>
+                @if($type == 'receita')
                 <input type='decimal' name='product_price[]' size='7' value='{{formatCurrency($product->price)}}' style='text-align: right'>
+                @else
+                <input type='decimal' name='product_price[]' size='7' value='{{formatCurrency($product->price * -1)}}' style='text-align: right'>
+                @endif
             </div>
         </div>
         @php
