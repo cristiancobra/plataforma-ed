@@ -182,21 +182,21 @@ class TransactionController extends Controller {
             $totalPaid = Invoice::totalPaid($invoice);
             $newTotal = $totalPaid + $transaction->value;
 
-            if ($newTotal <= $invoice->totalPrice) {
+            if ($transaction->type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
                 $transaction->save();
-
                 return redirect()->route('transaction.show', compact('transaction'));
-                
-            } else {
-//               echo "$newTotal é MENOR que $invoice->totalPrice";
-                
-                if ($typeTransactions == 'débito') {
-                    $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
-                } else {
-                    $totalPrice = formatCurrencyReal($invoice->totalPrice);
-                }
+            } elseif ($transaction->type == 'débito' AND $newTotal >= $invoice->totalPrice) {
+                $transaction->save();
+                return redirect()->route('transaction.show', compact('transaction'));
+            } elseif ($transaction->type == 'crédito') {
+                $totalPrice = formatCurrencyReal($invoice->totalPrice);
                 return back()
-                                ->with('failed', "A soma dos pagamentos não pode ser maior que  $totalPrice")
+                                ->with('failed', "A soma dos recebimento não pode ser maior que  $totalPrice")
+                                ->withInput();
+            } else {
+                $totalPrice = formatCurrencyReal($invoice->totalPrice);
+                return back()
+                                ->with('failed', "A soma dos pagamentos não pode ser menor que  $totalPrice")
                                 ->withInput();
             }
         }
