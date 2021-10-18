@@ -107,22 +107,23 @@ class ProductController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
+            $variation = $request->input('variation');
+
             $product = new Product();
             $product->fill($request->all());
             $product->account_id = auth()->user()->account_id;
         $product->price = removeCurrency($request->price);
-        if ($product->type == 'receita') {
+        if ($variation == 'receita') {
             $product->price = $product->price;
         } else {
             $product->price = $product->price * -1;
-        }
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $request->type;
             $product->image_id = $this->saveImage($request);
             $product->save();
 
-            $type = $product->type;
-            $variation = $type;
+            $type = $variation;
+
 
             return view('sales.products.showProduct', compact(
                             'product',
