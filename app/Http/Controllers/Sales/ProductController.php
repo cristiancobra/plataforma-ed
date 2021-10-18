@@ -159,13 +159,17 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product, Request $request) {
+        $variation = $request->variation;
+        if($variation == 'receita') {
+        $product->price = $product->price;
+        }else{
         $product->price = $product->price * -1;
+        }
 
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
                 ->get();
 
-        $variation = $request->variation;
 
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();

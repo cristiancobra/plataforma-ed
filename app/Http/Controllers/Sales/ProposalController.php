@@ -127,6 +127,7 @@ class ProposalController extends Controller {
         $products = Product::where('account_id', auth()->user()->account_id)
                 ->where('type', 'LIKE', $type)
                 ->where('status', 'disponível')
+                ->where('trash', '!=', 1)
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
