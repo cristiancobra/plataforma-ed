@@ -119,7 +119,7 @@ class ProductController extends Controller {
             $product->price = $product->price * -1;
         }
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
-            $product->type = $request->type;
+            $product->type = $variation;
             $product->image_id = $this->saveImage($request);
             $product->save();
 
