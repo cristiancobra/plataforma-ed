@@ -28,12 +28,31 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $invoices = Invoice::filterInvoices($request);
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
         $yearStart = date('Y-01-01');
         $yearEnd = date('Y-12-31');
 
+        $invoices = Invoice::filterInvoices($request);
+        
+                foreach ($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->where('trash', '!=', 1)
+                    ->sum('value');
+            if ($invoice->totalPrice == $invoice->paid) {
+                $invoice->status = 'paga';
+            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+                $invoice->status = 'parcial';
+            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+                $invoice->status = 'atrasada';
+            }
+
+            $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+//            $invoicesTotal += $invoice->totalPrice;
+//            $proposal->balance += $invoice->balance;
+        }
+        
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -71,6 +90,8 @@ class InvoiceController extends Controller {
                 ->sum('installment_value');
 
         return view('financial.invoices.indexInvoices', compact(
+                        'monthStart',
+                        'monthEnd',
                         'invoices',
                         'contacts',
                         'companies',
