@@ -110,8 +110,12 @@ class ProductController extends Controller {
             $product = new Product();
             $product->fill($request->all());
             $product->account_id = auth()->user()->account_id;
-            $product->price = str_replace(",", ".", $request->price);
+        $product->price = removeCurrency($request->price);
+        if ($product->type == 'receita') {
+            $product->price = $product->price;
+        } else {
             $product->price = $product->price * -1;
+        }
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $request->type;
             $product->image_id = $this->saveImage($request);
