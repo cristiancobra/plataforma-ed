@@ -428,7 +428,8 @@ class ProposalController extends Controller {
         $invoicesIdentifiers = Invoice::where('account_id', auth()->user()->account_id)
                 ->pluck('identifier')
                 ->toArray();
-
+dd($invoicesIdentifiers);
+        if($invoicesIdentifiers)
         $lastInvoice = max($invoicesIdentifiers);
 
         $counter = 1;
