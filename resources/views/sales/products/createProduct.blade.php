@@ -163,17 +163,17 @@ CKEDITOR.replace('description');
             $('#new').hide();
         }
     });
-        // formatar entrada do dinheiro
-//        $('[name=price]').maskMoney({
-//            prefix:'R$ ',
-//            allowNegative: true,
-//            thousands:'.',
-//            decimal:',',
-//            affixesStay: false
-//        });
-//        $('[name=work_hours]').on("input", ".decimal-number", function (e) {
-//    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-//});
+         formatar entrada do dinheiro
+        $('[name=price]').maskMoney({
+            prefix:'R$ ',
+            allowNegative: true,
+            thousands:'.',
+            decimal:',',
+            affixesStay: false
+        });
+        $('[name=work_hours]').on("input", ".decimal-number", function (e) {
+    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+});
 
         // formatar entrada para decimal
 //        $('[name=work_hours]').inputmask({
