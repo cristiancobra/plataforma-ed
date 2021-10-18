@@ -41,7 +41,7 @@ class ProductController extends Controller {
         $total = $products->total();
 
         $variation = $request->variation;
-        
+
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
 
@@ -71,8 +71,8 @@ class ProductController extends Controller {
 
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
-                ->get();  
-                
+                ->get();
+
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
 
@@ -111,7 +111,7 @@ class ProductController extends Controller {
             $product->fill($request->all());
             $product->account_id = auth()->user()->account_id;
             $product->price = str_replace(",", ".", $request->price);
-                    $product->price = $product->price * -1;
+            $product->price = $product->price * -1;
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $request->type;
             $product->image_id = $this->saveImage($request);
@@ -154,16 +154,15 @@ class ProductController extends Controller {
      */
     public function edit(Product $product, Request $request) {
         $product->price = $product->price * -1;
-                
+
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
                 ->get();
 
         $variation = $request->variation;
-        
-        $categories= Product::returnCategories();
+
+        $categories = Product::returnCategories();
         $groups = Product::returnGroups();
-        
 
         return view('sales.products.editProduct', compact(
                         'product',
@@ -183,8 +182,12 @@ class ProductController extends Controller {
      */
     public function update(Request $request, Product $product) {
         $product->fill($request->all());
-        $product->price = str_replace(",", ".", $request->price);
-        $product->price = $product->price * -1;
+        $product->price = removeCurrency($request->price);
+        if ($product->type == 'receita') {
+            $product->price = $product->price;
+        } else {
+            $product->price = $product->price * -1;
+        }
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
         $product->image_id = $this->saveImage($request);
 //        dd($product->image_id);
