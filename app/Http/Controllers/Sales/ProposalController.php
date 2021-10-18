@@ -428,10 +428,12 @@ class ProposalController extends Controller {
         $invoicesIdentifiers = Invoice::where('account_id', auth()->user()->account_id)
                 ->pluck('identifier')
                 ->toArray();
-dd($invoicesIdentifiers);
-        if($invoicesIdentifiers)
+dd($invoicesIdentifiers->isNull);
+        if($invoicesIdentifiers) {
         $lastInvoice = max($invoicesIdentifiers);
-
+        }else{
+        $lastInvoice = 0;    
+        }
         $counter = 1;
         $counterMonth = 0;
         while ($counter <= $proposal->installment) {
