@@ -133,13 +133,20 @@ class Text extends Model {
      * @return type
      */
     public static function selectedAbout($page) {
-        if ($page->company_about == 1) {
             return Text::where('account_id', auth()->user()->account_id)
                             ->where('type', 'apresentação da empresa')
                             ->first();
-        } else {
-            return null;
-        }
+    }
+
+    /**
+     * Se o valor for 1, exibe na landing page pública a Proposta de Valor da empresa.
+     * @param type $page
+     * @return type
+     */
+    public static function selectedValueOffer($page) {
+            return Text::where('account_id', auth()->user()->account_id)
+                            ->where('type', 'proposta de valor')
+                            ->first();
     }
 
     /**
@@ -148,13 +155,24 @@ class Text extends Model {
      * @return type
      */
     public static function selectedStrengths($page) {
-        if ($page->company_strengths == 1) {
             return Text::where('account_id', auth()->user()->account_id)
                             ->where('type', 'força')
                             ->get();
-        } else {
-            return null;
-        }
+    }
+
+    /**
+     * * Recebe um texto com tags html e remove estas Tags e converte caracteres especiais 
+     * @param type $page
+     * @return type
+     */
+    public static function unformatText($text) {
+        $text = strip_tags($text);
+        
+// Clean up things like &amp;
+        $text = html_entity_decode($text);
+
+
+        return $text;
     }
 
 }

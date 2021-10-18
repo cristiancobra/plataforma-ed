@@ -163,16 +163,19 @@
     </div>
     @endif
 
-    @if($valueOffer == null)
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
-         background-color: lightgray;
+         background-color: {{$valueOfferBackgroundColor}}
          '>
         <div class='row pt-3'>
             <div class='col'>
+                @if($valueOffer == null)
                 <span class='labels'>PROPOSTA DE VALOR: </span>não possui texto
                 <input type='hidden' name='text_value_offer' value='0'>
+                @else
+                {{createSelectYesOrNo('PROPOSTA DE VALOR', 'text_value_offer', $page->text_value_offer)}}
+                @endif
                 <p style='font-size:14px'>
                     * Qual a dor que seu produto resolve
                 </p>
@@ -180,33 +183,19 @@
         </div>
         <div class='row pb-5'>
             <div class='col'>
-                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                <p class='text-center' style='color: {{$valueOfferOppositeColor}};font-size: 22px'>
+                    @if($valueOffer == null)
                     <a class='circular-button primary' title='criar uma proposta de valor' href='{{route('text.create', ['type' => 'proposta de valor'])}}'>
                         <i class='fa fa-plus' aria-hidden='true'></i>
                     </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    @else
-    <div class='row'  style='background-color: {{$page->complementary_color}}'>
-        <div class='row pt-3'>
-            <div class='col'>
-                {{createSelectYesOrNo('PROPOSTA DE VALOR', 'text_value_offer', $page->text_value_offer)}}
-                <p style='font-size:14px'>
-                    * Qual a dor que seu produto resolve
-                </p>
-            </div>
-        </div>
-        <div class='row pb-5'>
-            <div class='col'>
-                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    @else
                     {{$valueOffer->text}}
+                    @endif
                 </p>
             </div>
         </div>
     </div>
-    @endif
+
 
     @if($about == null)
     <div class='row' style='
@@ -246,7 +235,7 @@
                     <img  src='{{asset('images/banner-example.jpg')}}' width="320px" height="320px" style="border-radius: 50%">
                 </div>
                 <div class='col-7 d-flex justify-content-center align-items-center'>
-                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
                         {{$about->text}}
                         <br>
                         <br>
@@ -275,7 +264,7 @@
                     @endif
                 </div>
                 <div class='col-7 d-flex justify-content-center align-items-center'>
-                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
                         {{$about->text}}
                     </p>
                 </div>
@@ -314,7 +303,7 @@
     @endif
 
 
-    @if($strengths->isEmpty())
+    @if(!$strengths)
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
@@ -328,7 +317,7 @@
         </div>
         <div class='row pb-5 pt-2'>
             <div class='col d-flex justify-content-center align-items-center'>
-                <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
                     <a class='circular-button primary' title='criar um ponto forte da empresa' href='{{route('text.create', ['type' => 'força'])}}'>
                         <i class='fa fa-plus' aria-hidden='true'></i>
                     </a>
@@ -354,14 +343,14 @@
                          height:80px;
                          margin-bottom: 20px;
                          '>
-                    <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                    <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
                         {{$strenght->text}}
                     </p>
                 </div>
                 @endforeach
                 <div class='row pb-0 pt-2'>
                     <div class='col d-flex justify-content-center align-items-center'>
-                        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
+                        <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
                             <a class='circular-button primary' title='criar um ponto forte da empresa' href='{{route('text.create', ['type' => 'força'])}}'>
                                 <i class='fa fa-plus' aria-hidden='true'></i>
                             </a>

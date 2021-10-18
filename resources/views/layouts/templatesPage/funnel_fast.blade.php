@@ -14,7 +14,9 @@
 
         @yield('banner')
 
-        @yield('biography')
+        @yield('value_offer')
+        
+        @yield('about')
 
         @yield('strengths')		
 

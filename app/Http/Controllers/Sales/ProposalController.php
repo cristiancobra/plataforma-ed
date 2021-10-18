@@ -33,6 +33,37 @@ class ProposalController extends Controller {
 
         $proposals = Proposal::filterProposals($request);
 
+        // Cálculo do saldo / balance
+        foreach ($proposals as $proposal) {
+                    
+            $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('proposal_id', $proposal->id)
+                ->where('trash', '!=', 1)
+                ->get();
+        
+        $invoicesTotal = 0;
+        $balanceTotal = 0;
+        
+        foreach ($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->where('trash', '!=', 1)
+                    ->sum('value');
+            if ($invoice->totalPrice == $invoice->paid) {
+                $invoice->status = 'paga';
+            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+                $invoice->status = 'parcial';
+            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+                $invoice->status = 'atrasada';
+            }
+
+            $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+            $invoicesTotal += $invoice->totalPrice;
+            $proposal->balance += $invoice->balance;
+        }
+        }
+        
+        
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -46,6 +77,7 @@ class ProposalController extends Controller {
         $trashStatus = request()->trash;
 
         $total = $proposals->total();
+
 
         return view('sales.proposals.index', compact(
                         'proposals',
@@ -371,8 +403,8 @@ class ProposalController extends Controller {
                         'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->price [$key]),
                     );
                     if ($proposal->type == 'despesa') {
-                    $data['price'] = $data['price'] * -1;
-                    $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
+                        $data['price'] = $data['price'] * -1;
+                        $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
                     }
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
@@ -380,7 +412,7 @@ class ProposalController extends Controller {
                 }
             }
             $proposal->fill($request->all());
-                
+
             if ($proposal->discount == null) {
                 $proposal->discount = 0;
             } elseif ($proposal->type == 'despesa') {
@@ -429,10 +461,10 @@ class ProposalController extends Controller {
                 ->pluck('identifier')
                 ->toArray();
 
-        if($invoicesIdentifiers) {
-        $lastInvoice = max($invoicesIdentifiers);
-        }else{
-        $lastInvoice = 0;    
+        if ($invoicesIdentifiers) {
+            $lastInvoice = max($invoicesIdentifiers);
+        } else {
+            $lastInvoice = 0;
         }
         $counter = 1;
         $counterMonth = 0;

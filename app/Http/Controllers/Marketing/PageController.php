@@ -189,10 +189,31 @@ class PageController extends Controller {
         }
 
         //texts
-        $valueOffer = Text::myValueOffer();
-        $about = Text::myAbout();
-        $strengths = Text::myStrengths();
-
+        $valueOffer = Text::selectedValueOffer($page);
+            if($valueOffer == null) {
+                $valueOfferBackgroundColor = 'lightgray';
+                $valueOfferOppositeColor = 'gray';
+            }elseif($page->text_value_offer == 0) {
+                $valueOfferBackgroundColor = 'lightgray';
+                $valueOfferOppositeColor = 'gray';
+                $valueOffer->text = Text::unformatText($valueOffer->text);
+            }else{
+                $valueOfferBackgroundColor = $page->principal_color;
+                $valueOfferOppositeColor = $page->opposite_color;
+            $valueOffer->text = Text::unformatText($valueOffer->text);
+            }
+        
+        $about = Text::selectedAbout($page);
+        if ($about) {
+            $about->text = Text::unformatText($about->text);
+        }
+        $strengths = Text::selectedStrengths($page);
+        if ($strengths) {
+            foreach ($strengths as $strength) {
+                $strength->text = Text::unformatText($strength->text);
+            }
+        }
+//dd($strengths);
         //
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
@@ -210,6 +231,8 @@ class PageController extends Controller {
                         'biographies',
                         'biographyName',
                         'valueOffer',
+                        'valueOfferBackgroundColor',
+                        'valueOfferOppositeColor',
                         'about',
                         'strengths',
 //                        'text1Name',
@@ -290,15 +313,23 @@ class PageController extends Controller {
                 ->first();
 
         $accountType = $page->accountType(auth()->user()->account_id);
-        
+
+        $valueOffer = Text::selectedValueOffer($page);
+        $valueOffer->text = Text::unformatText($valueOffer->text);
         $about = Text::selectedAbout($page);
+        $about->text = Text::unformatText($about->text);
+
         $strengths = Text::selectedStrengths($page);
+        foreach ($strengths as $strength) {
+            $strength->text = Text::unformatText($strength->text);
+        }
 
         return view('marketing.pages.public', compact(
                         'page',
                         'states',
                         'user',
                         'accountType',
+                        'valueOffer',
                         'about',
                         'strengths',
         ));

@@ -50,11 +50,27 @@
     <div class='show-label'>
         DEPARTAMENTO
     </div>
+    <div class='show-label'>
+        PÁGINAS
+    </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         {{$text->department}}
     </div>
+    @if($pages == null)
+    <div class='show-field-end'>
+        não vinculado
+    </div>
+    @else
+    @foreach($pages as $page)
+    <a href=' {{route('page.edit', ['page' => $page])}}'>
+        <div class='show-field-end'>
+            {{$page->name}}
+        </div>
+    </a>
+    @endforeach
+    @endif
 </div>
 @endsection
 

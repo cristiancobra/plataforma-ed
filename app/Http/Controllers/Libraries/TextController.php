@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
+use App\Models\Page;
 use App\Models\Text;
 use App\Models\User;
 
@@ -123,8 +124,29 @@ class TextController extends Controller {
      */
     public function show(text $text) {
 
+        switch ($text->type) {
+            case 'apresentação da empresa':
+                $pages = Page::where('account_id', auth()->user()->account_id)
+                        ->where('company_about', 1)
+                        ->get();
+                break;
+            case 'proposta de valor':
+                $pages = Page::where('account_id', auth()->user()->account_id)
+                        ->where('text_value_offer', 1)
+                        ->get();
+                break;
+            case 'força':
+                $pages = Page::where('account_id', auth()->user()->account_id)
+                        ->where('company_strengths', 1)
+                        ->get();
+                break;
+            default:
+                $pages = null;
+        }
+//        dd($pages);
         return view('libraries/texts/show', compact(
                         'text',
+                        'pages',
         ));
     }
 

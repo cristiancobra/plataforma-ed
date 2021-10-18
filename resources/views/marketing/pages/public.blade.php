@@ -68,18 +68,38 @@
 @endif
 @endsection
 
+@if($page->text_value_offer == 1)
+@section('value_offer')
+<div class='row p-5' style='
+     border-style: solid;
+     border-width: 1px;
+          background-color: {{$page->principal_color}}
+     '>
+    <div class='col d-flex justify-content-center align-items-center'>
+        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 42px'>
+            {{$valueOffer->text}}
+        </p>
+    </div>
+</div>
+@endsection
+@endif
+
 @if($page->company_about == 1)
-@section('biography')
+@section('about')
 <div class='row p-5' style='
      border-style: solid;
      border-width: 1px;
      '>
     <div class='offset-1 col-3 d-flex px-5'>
+        @if($page->aboutImage)
         <img  src='{{asset($page->aboutImage->path)}}' width="300px" height="300px" style="border-radius: 50%">
+        @else
+        <img  src='{{asset('images/banner-example.jpg')}}' width="320px" height="320px" style="border-radius: 50%">
+        @endif
     </div>
-    <div class='col-8 d-flex justify-content-center align-items-center'>
-        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
-            {{$about->text}}
+    <div class='col d-flex justify-content-center align-items-center'>
+        <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
+            {{ $about->text }}
         </p>
     </div>
 </div>
@@ -93,14 +113,15 @@
     @foreach($strengths as $strenght)
     <div class='col text-center'>
         <img src='{{asset('images/user.png')}}'  style='
+                       background-color: {{$page->principal_color}}
              color: {{$page->opposite_color}};
              font-size: 22px;
              width:80px;
              height:80px;
              margin-bottom: 20px;
              '>
-        <p class='text-center' style='color: {{$page->opposite_color}};font-size: 22px'>
-            {{$strenght->text}}
+        <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
+                        {{ $strenght->text }}
         </p>
     </div>
     @endforeach
