@@ -58,7 +58,12 @@
         <div class='tb tb-header col-1'>
             GRUPO
         </div>
-        <div class='tb tb-header col-2'>
+        @if($variation == 'receita')
+        <div class='tb tb-header col-1'>
+            LOJA
+        </div>
+        @endif
+        <div class='tb tb-header col-1'>
             PREÇO
         </div>
         <div class='tb tb-header-end col-1'>
@@ -87,12 +92,21 @@
         <div class='tb col-1 text-center'>
             {{$product->group}}
         </div>
+        @if($variation == 'receita')
+        <div class='tb col-1'>
+                <a  class="white" href=" {{route('product.public', ['product' => $product])}}">
+                    <button class="button-round">
+                        <i class='fa fa-eye'></i>
+                    </button>
+                </a>
+        </div>
+        @endif
         @if($product->price < 0)
         <div class='tb col-2 justify-content-end' style="text-align: right; color:red">
             {{formatCurrencyReal($product->price)}}
         </div>
         @else
-        <div class='tb col-2 justify-content-end' style="text-align: right">
+        <div class='tb col-1 justify-content-end' style="text-align: right">
             {{formatCurrencyReal($product->price)}}
         </div>
         @endif

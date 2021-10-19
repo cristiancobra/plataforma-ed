@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Sales;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use App\Models\Image;
+use App\Models\Account;
 use App\Models\Contact;
+use App\Models\Image;
 use App\Models\Product;
 use App\Models\User;
 
@@ -305,6 +306,7 @@ class ProductController extends Controller {
 
         public function public(Request $request, Product $product) {
             $variation = $request->input('variation');
+            $whatsappLink = Product::whatsappLink($product);
 //            dd($variation);
 //        $states = Contact::returnStates();
 //        $page->with([
@@ -331,6 +333,7 @@ class ProductController extends Controller {
         return view('sales.products.public', compact(
                 'product',
                 'variation',
+                'whatsappLink',
 //                        'page',
 //                        'states',
 //                        'user',

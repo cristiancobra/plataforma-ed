@@ -46,7 +46,7 @@
                 <div class='col-2 col-xs-6' style='text-align: center'>
                     @yield('fields')
                        <div class='col mt-5 d-flex justify-content-center'>
-                    <a class='text-button primary' target='_blank' href='https://api.whatsapp.com/send?phone=5516981076049&text=Preciso%20de%20ajuda%20com%20a%20minha%20empresa!%20'>WHATSAPP</a>
+                    <a class='text-button primary' target='_blank' href='{{$whatsappLink}}'>WHATSAPP</a>
                     <a class='text-button secondary' href='{{route('product.redirect', [
                                                                                                                                 'product' => 76, 
                                                                                                                                 ])}}'>

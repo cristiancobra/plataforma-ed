@@ -987,6 +987,9 @@ if (!function_exists('formatShowStatus')) {
             case 'ativo':
                 echo '<div class="done">ativo</div>';
                 break;
+            case 'ativa':
+                echo '<div class="done">ativa</div>';
+                break;
             case 'disponível':
                 echo '<div class="done">disponível</div>';
                 break;

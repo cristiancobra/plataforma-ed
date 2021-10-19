@@ -143,6 +143,17 @@
             Faturamento:
         </label>
         {{$account->revenues}}
+        <br>
+        <br>
+        <label class="labels"  for="" >
+            Diferencial competitivo:
+        </label>
+        {{$account->competitive_advantage}}
+        <br>
+        <label class="labels"  for="" >
+            Modelo de neǵocio:
+        </label>
+        {{$account->business_model}}
     </div>
 
     <div class="col-6">
