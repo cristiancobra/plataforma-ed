@@ -74,6 +74,10 @@ Route::get('contas/dashboard/{account}', 'Administrative\\Accounts\\AccountContr
         ->name('account.dashboard')
         ->middleware('roles');
 
+Route::get('contas/liberar/{account}', 'Administrative\\Accounts\\AccountController@allowAccount')
+        ->name('account.allow')
+        ->middleware('roles');
+
 Route::get('contas/report', 'Administrative\\Accounts\\AccountController@report')
         ->name('account.report')
         ->middleware('roles');
@@ -451,6 +455,12 @@ Route::put('/produtos/apagar/{product}', 'Sales\\ProductController@sendToTrash')
 Route::put('/produtos/restaurar/{product}', 'Sales\\ProductController@restoreFromTrash')
         ->name('product.restore')
         ->middleware('roles');
+
+Route::get('/produtos/public/{product:name}', 'Sales\\ProductController@public')
+        ->name('product.public');
+
+Route::get('/produtos/public/redirect/{product}', 'Sales\\ProductController@redirect')
+        ->name('product.redirect');
 
 Route::resource('produtos', 'Sales\\ProductController')
         ->names('product')

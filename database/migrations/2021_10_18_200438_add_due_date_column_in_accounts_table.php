@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddDueDateInUsersTable extends Migration
+class AddDueDateColumnInAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddDueDateInUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->date('due_date');
+        Schema::table('accounts', function (Blueprint $table) {
+                        $table->date('due_date');
         });
     }
 
@@ -25,8 +25,8 @@ class AddDueDateInUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('due_date');
+        Schema::table('accounts', function (Blueprint $table) {
+                        $table->dropColumn('due_date');
         });
     }
 }

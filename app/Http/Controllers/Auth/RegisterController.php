@@ -85,6 +85,9 @@ use RegistersUsers;
         $account = new Account();
         $account->name = $request->account_name;
         $account->email = $request->email;
+        $today = new Datetime('now');
+        $dueDate = $today->add(new DateInterval('P30D'));
+        $account->due_date = $dueDate->format('Y-m-d');
         $account->save();
 
         // verifica se o nome  da  CONTA do usuário existe em COMPANIES da EMPRESA DIGITAL. Se não existir, deve, criar.
@@ -99,7 +102,7 @@ use RegistersUsers;
             $companyEd->save();
         }
 
-        // USUÁRIO: cria um novo  CONTATO o usuário criado acima
+        // USUÁRIO: cria um novo  CONTATO para o usuário criado acima
         $contact = new Contact();
         $contact->account_id = $account->id;
         $contact->type = 'funcionário';
@@ -122,7 +125,6 @@ use RegistersUsers;
         $user->account_id = $account->id;
         $today = new Datetime('now');
         $today->add(new DateInterval('P1M'));
-        $user->due_date = $today;
         $user->save();
 
 //        EMPRESA DIGITAL:  cria novo CONTATO se o email fornecido existe nos CONTATOS da EMPRESA DIGITAL
@@ -182,7 +184,7 @@ use RegistersUsers;
             } else {
                 $taskOpportunity->company_id = $nameChecked->id;
             }
-            
+
             $taskOpportunity->priority = 'alta';
             $taskOpportunity->status = 'fazer';
             $taskOpportunity->save();

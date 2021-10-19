@@ -13,6 +13,7 @@ class Account extends Model {
 		'user_id',
 		'image_id',
 		'name',
+		'due_date',
 		'email',
 		'phone',
 		'site',

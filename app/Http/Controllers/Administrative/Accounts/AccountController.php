@@ -193,4 +193,14 @@ class AccountController extends Controller {
         ));
     }
     
+    public function allowAccount() {
+        $user = auth()->user();
+        $account = Account::find($user->account_id);
+        
+        return view('administrative.accounts.allow', compact(
+                        'user',
+                        'account',
+        ));
+    }
+    
 }

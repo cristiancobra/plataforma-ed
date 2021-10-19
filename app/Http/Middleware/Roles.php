@@ -17,18 +17,28 @@ class Roles {
      */
     public function handle($request, Closure $next) {
 
-//        Define o perfil do usuário
+//  Redireciona usuário para tela de login se não estiver logado
         if (Auth::user() == false) {
             return redirect('login');
-        } elseif (Auth::user()->perfil == 'super administrador') {
+        }
+                
+        $user = Auth::user();
+        $account = Account::find($user->account_id);
+        $today = date('Y-m-d');
+
+        if ($account->due_date < $today) {
+            return response()->view('administrative.accounts.allow');
+        }
+        
+        if ($user->perfil == 'super administrador') {
             $role = "superadmin";
-        } elseif (Auth::user()->perfil == 'dono') {
+        } elseif ($user->perfil == 'dono') {
             $role = "dono";
-        } elseif (Auth::user()->perfil == 'administrador') {
+        } elseif ($user->perfil == 'administrador') {
             $role = "administrator";
-        } elseif (Auth::user()->perfil == 'funcionario') {
+        } elseif ($user->perfil == 'funcionario') {
             $role = "employee";
-        } elseif (Auth::user()->perfil == 'cliente') {
+        } elseif ($user->perfil == 'cliente') {
             $role = "customer";
         } else {
             return redirect('painel');
@@ -324,7 +334,7 @@ class Roles {
                 }
                 break;
             default:
-                    $permission = true;
+                $permission = true;
                 break;
         }
 

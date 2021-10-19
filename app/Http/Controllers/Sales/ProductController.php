@@ -303,4 +303,44 @@ class ProductController extends Controller {
         return $imageId;
     }
 
+        public function public(Product $product) {
+//        $states = Contact::returnStates();
+//        $page->with([
+//            'banner',
+//            'logo',
+//        ]);
+//
+//        $user = User::where('account_id', $page->account_id)
+//                ->where('perfil', 'dono')
+//                ->first();
+//
+//        $accountType = $page->accountType(auth()->user()->account_id);
+//
+//        $valueOffer = Text::selectedValueOffer($page);
+//        $valueOffer->text = Text::unformatText($valueOffer->text);
+//        $about = Text::selectedAbout($page);
+//        $about->text = Text::unformatText($about->text);
+//
+//        $strengths = Text::selectedStrengths($page);
+//        foreach ($strengths as $strength) {
+//            $strength->text = Text::unformatText($strength->text);
+//        }
+
+        return view('sales.products.public', compact(
+                'product',
+//                        'page',
+//                        'states',
+//                        'user',
+//                        'accountType',
+//                        'valueOffer',
+//                        'about',
+//                        'strengths',
+        ));
+    }
+    
+    
+    public function redirect(Product $product) {
+        return redirect()->route('product.public', ['product' => $product]);
+    }
+    
 }
