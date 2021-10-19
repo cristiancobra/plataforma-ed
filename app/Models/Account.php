@@ -16,6 +16,7 @@ class Account extends Model {
 		'due_date',
 		'email',
 		'phone',
+		'whatsapp_sales',
 		'site',
 		'address',
 		'city',

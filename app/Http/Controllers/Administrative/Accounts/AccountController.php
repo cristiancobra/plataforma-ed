@@ -85,11 +85,15 @@ class AccountController extends Controller {
                 })
                 ->with('invoice')
                 ->get();
-//                dd($invoiceLines);
+
+           $owner = User::where('account_id', auth()->user()->account_id)
+                   ->where('perfil', 'dono')
+                   ->first();
 
         return view('administrative.accounts.show', compact(
                         'account',
                         'invoiceLines',
+                        'owner',
         ));
     }
 

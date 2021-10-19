@@ -29,6 +29,9 @@
     <label for="">Telefone: </label>
     <input type="text" name="phone">   
     <br>
+    <label for="">WhatsApp para vendas: </label>
+    <input type="text" name="whatsapp_sales">   
+    <br>
     <label for="">Site: </label>
     <input type="text" name="site">   
     <br>

@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/show')
 
 @section('title','MINHA EMPRESA')
 
@@ -6,195 +6,204 @@
 {{asset('images/empresa.png')}} 
 @endsection
 
-@section('description')
-@endsection
-
 @section('buttons')
 {{createButtonEdit('account', 'account', $account)}}
 {{createButtonBack()}}
 @endsection
 
-@section('main')
-<div class="row">
-    <div class="col-12">
-        <h1 style="text-align:left;color: #874983;margin-bottom: 20px">
-            {{$account->name}}
-        </h1>
-    </div>
-</div>
-@if(1 > 2)
-<div class="row mb-2 mt-2">
-    <div class="col-12">
-        <h5>
-            <i class="fas fa-rocket"></i>
-            SERVIÇOS CONTRATADOS
-        </h5>
-    </div>
-</div>
-<div class="row mb-2 mt-2">
-    <div class='tb tb-header-start col-2'>
-        IDENTIFICADOR
-    </div>
-    <div class='tb tb-header col-4'>
-        DATA CRIAÇÃO 
-    </div>
-    <div class='tb tb-header col-2'>
-        DATA PAGAMENTO
-    </div>
-    <div class='tb tb-header col-1'>
-        VALOR DA FATURA
-    </div>
-    <div class='tb tb-header col-2'>
-        PREÇO
-    </div>
-    <div class='tb tb-header-end col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($invoiceLines as $invoiceLine)
-<div class='row'>
-    <div class='tb col-12 text-left'>
-        <button class="button-round">
-            <a href=" {{route('invoice.show', ['invoice' => $invoiceLine->invoice_id])}}">
-                <i class='fa fa-eye' style="color:white"></i>
-            </a>
-        </button>
-        @if($invoiceLine->invoice)
-        FATURA {{$invoiceLine->invoice->id}}
-        @else
-        FATURA com problema
-        @endif
-    </div>
-</div>
-    <div class='row'>
-    <div class='tb col-3'>
-        {{$invoiceLine->product->name}}
-    </div>
-    <div class='tb col-3'>
-        {{$invoiceLine->amount}}
-    </div>
-    <div class='tb col-3'>
-        {{$invoiceLine->subtotalPrice}}
-    </div>
-    <div class='tb col-3 text-right'>
-        {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
-    </div>
-    {{formatTableStatus($invoiceLine)}}
-</div>
-@endforeach
-<div class='row'>
-    <div class='tb-footer'></div>
-</div>
-</div>
-<br>
-<br>
-@endif
+@section('name', $account->name)
 
-<p style="text-align:left;color: #874983">
-    CNPJ:  {{formatCnpj($account->cnpj)}}
-</p>
-<p style="text-align:left;color: #874983">
-    Descrição:  {{$account->description}}
-</p>
-<p style="text-align:left;color: #874983">
-    Colaboradores: 
-</p>
-@foreach ($account->users as $user)
-<a  class="white" href="https://nuvem.empresadigital.net.br/index.php/apps/spreed/" target="_blank">
-    <button class="button-round">
-        <i class='fas fa-comment-dots'></i>
-    </button>
-</a>
+@section('priority')
+<div class="high pe-2 d-flex justify-content-end">
+    {{formatCnpj($account->cnpj)}}
+</div>
+@endsection
 
-<a  class="white" href=" {{route('user.show', ['user' => $user->id])}}">
-    <button class="button-round">
-        <i class='fa fa-eye'></i>
-    </button>
-</a>
-{{$user->contact->name}}
-<br>
-@endforeach	
-<br>
-<p style="text-align:left;color: #874983">
-    Email:  {{$account->email}}
-</p>
-<p style="text-align:left;color: #874983">
-    Telefone:  {{$account->phone}}
-</p>
-<p style="text-align:left;color: #874983">
-    Site:  {{$account->site}}
-</p>
-<p style="text-align:left;color: #874983">
-    Endereço:  {{$account->address}}
-</p>
-<p style="text-align:left;color: #874983">
-    Cidade:  {{$account->city}}
-</p>
-<p style="text-align:left;color: #874983">
-    Estado:  {{returnStateName($account->state)}}
-</p>
-<p style="text-align:left;color: #874983">
-    País:  {{$account->country}}
-</p>
-<p style="text-align:left;color: #874983">
-    CEP:  {{$account->zip_code}}
-</p>
-<br>
-<p style="text-align:left;color: #874983">
-    Setor:  {{$account->sector}}
-</p>
-<p style="text-align:left;color: #874983">
-    Qtde empregados:  {{$account->employees}}
-</p>
-<p style="text-align:left;color: #874983">
-    Faturamento:  {{$account->revenues}}
-</p>
-<br>
-<p style="text-align:left;color: #874983">
-    Logomarca:
-    @if($account->image)
-    <img src="{{asset($account->image->path)}}" width="180px" height="60px" style="background-color:gainsboro;border-radius: 10px">
+
+@section('status')
+{{formatShowStatus($account)}}
+@endsection
+
+@section('fieldsId')
+<div class='col-md-2 col-sm-4' style='text-align: center'>
+    <div class='show-label'>
+        DONO
+    </div>
+    <div class='show-label'>
+        VENCIMENTO
+    </div>
+</div>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
+    @if($owner)
+    <a href='{{route('user.show', ['user' => $owner])}}'>
+        <div class='show-field-end'>
+            {{$owner->contact->name}}
+        </div>
+    </a>
     @else
-    não possui
+    <div class='show-field-end'>
+        --
+    </div>
     @endif
-</p>
-<p style="text-align:left;color: #874983">
-    Cor principal: 
-    <button type="button" style="color:white;background-color:{{$account->principal_color}};display: inline-block;border-radius:50%">P</button> {{$account->principal_color}}
-</p>
-<p style="text-align:left;color: #874983">
-    Cor complementar: 
-    <button type="button" style="color:white;background-color:{{$account->complementary_color}};display: inline-block;border-radius:50%">C</button> {{$account->complementary_color}}
-</p>
-<p style="text-align:left;color: #874983">
-    Cor oposta: 
-    <button type="button" style="color:{{$account->principal_color}};background-color:{{$account->opposite_color}};display: inline-block;border-radius:50%">O</button> {{$account->opposite_color}}
-</p>
-<br>
-<p class="labels">SITUAÇAO:<span class="fields">  {{$account->status}} </span></p>
-<br>
-<p style="text-align:left;color: #874983">
-    Criado em:   {{date('d/m/Y H:i', strtotime($account->created_at))}}
-</p>
+            <div class='show-field-end'>
+            {{$account->due_date}}
+        </div>
+</div>
 
-<div style="text-align:center;color: #874983;padding: 10px;margin-left: 15px; display: inline-block">
-    <a href="{{route('account.edit', ['account' => $account->id])}}"  style="text-decoration: none;color: black">
-        <button class="btn btn-secondary">
-            <i class='fa fa-edit'></i>EDITAR
-        </button>	
-    </a>
-    <a href="{{route('account.index')}}"  style="text-decoration: none;color: black">
-        <button class="btn btn-secondary">
-            <i class='fa fa-edit'></i>VOLTAR
-        </button>	
-    </a>
+<div class='col-md-2 col-sm-4' style='text-align: center'>
+    <div class='show-label'>
+        CRIADA EM
+    </div>
 </div>
-<div style="text-align:center;color: #874983;padding: 10px; display: inline-block">
-    <form action="" method="post">
-        @csrf
-        @method('delete')
-        <input class="button-delete" type="submit" value="APAGAR">
-    </form>
+<div class='col-md-4 col-sm-8' style='text-align: center'>
+    <div class='show-field-end d-flex justify-content-end'>
+        {{date('d/m/Y H:i', strtotime($account->created_at))}}
+    </div>
 </div>
-<br>
+@endsection
+
+@section('description')
+{{$account->description}}
+@endsection
+
+
+@section('main')
+<div class="row mt-5">
+    <div class="col-6">
+        <div class='col d-flex justify-content-start'>
+            <label class="labels"  for="" >
+                CNPJ: 
+            </label>
+            <div id="cnpj">
+                {{formatCnpj($account->cnpj)}}  
+            </div>
+            <button type="button" class="button-round primary" onclick="copyData(cnpj)">
+                <i class="fa fa-clone" aria-hidden="true"></i>
+            </button>
+        </div>
+        <label class="labels"  for="" >
+            Email:
+        </label>
+        {{$account->email}}
+        <br>
+        <label class="labels"  for="" >
+            Telefone:
+        </label>
+        {{$account->phone}}
+        <br>
+        <label class="labels"  for="" >
+            WhatsApp para vendas:
+        </label>
+        {{$account->whatsapp_sales}}
+        <br>
+        <label class="labels"  for="" >
+            Site:
+        </label>
+        {{$account->site}}
+        <br>
+        <br>
+        <br>
+        <label class="labels"  for="" >
+            Endereço:
+        </label>
+        {{$account->address}}
+        <br>
+        <label class="labels"  for="" >
+            Cidade:
+        </label>
+        {{$account->city}}
+        <br>
+        <label class="labels"  for="" >
+            Estado:
+        </label>
+        {{$account->state}}
+        <br>
+        <label class="labels"  for="" >
+            País:
+        </label>
+        {{$account->country}}
+        <br>
+        <label class="labels"  for="" >
+            CEP:
+        </label>
+        {{$account->zip_code}}
+        <br>
+        <br>
+        <label class="labels"  for="" >
+            Setor:
+        </label>
+        {{$account->sector}}
+        <br>
+        <label class="labels"  for="" >
+            Qtde empregados:
+        </label>
+        {{$account->employees}}
+        <br>
+        <label class="labels"  for="" >
+            Faturamento:
+        </label>
+        {{$account->revenues}}
+    </div>
+
+    <div class="col-6">
+        <div class='row mt-0'>
+            <div class='show-label-large col'>
+                FUNCIONÁRIOS:
+            </div>
+            <div class='description-field'>
+                @foreach ($account->users as $user)
+                <a  class="white" href=" {{route('user.show', ['user' => $user])}}">
+                    <button class="button-round">
+                        <i class='fa fa-eye'></i>
+                    </button>
+                </a>
+                {{$user->contact->name}}
+                <br>
+                @endforeach	
+            </div>
+        </div>
+
+        
+            <div class='row mt-4'>
+                <div class='show-label-large col'>
+                    IDENTIDADE VISUAL:
+                </div>
+                <div class='description-field'>
+                    <p class="labels"">
+                        Logomarca:
+                        @if($account->image)
+                        <img src="{{asset($account->image->path)}}" width="180px" height="60px" style="background-color:gainsboro;border-radius: 10px">
+                        @else
+                        não possui
+                        @endif
+                    </p>
+                    <p class="labels"">
+                        Cor principal: 
+                        <button type="button" style="color:white;background-color:{{$account->principal_color}};display: inline-block;border-radius:50%">P</button> {{$account->principal_color}}
+                    </p>
+                    <p class="labels"">
+                        Cor complementar: 
+                        <button type="button" style="color:white;background-color:{{$account->complementary_color}};display: inline-block;border-radius:50%">C</button> {{$account->complementary_color}}
+                    </p>
+                    <p class="labels"">
+                        Cor oposta: 
+                        <button type="button" style="color:{{$account->principal_color}};background-color:{{$account->opposite_color}};display: inline-block;border-radius:50%">O</button> {{$account->opposite_color}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+@section('js-scripts')
+<script>
+    function copyData(containerid) {
+        var range = document.createRange();
+        range.selectNode(cnpj); //changed here
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        document.execCommand("copy");
+        window.getSelection().removeAllRanges();
+    }
+</script>
 @endsection

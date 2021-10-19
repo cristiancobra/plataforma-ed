@@ -303,7 +303,9 @@ class ProductController extends Controller {
         return $imageId;
     }
 
-        public function public(Product $product) {
+        public function public(Request $request, Product $product) {
+            $variation = $request->input('variation');
+//            dd($variation);
 //        $states = Contact::returnStates();
 //        $page->with([
 //            'banner',
@@ -328,6 +330,7 @@ class ProductController extends Controller {
 
         return view('sales.products.public', compact(
                 'product',
+                'variation',
 //                        'page',
 //                        'states',
 //                        'user',
@@ -339,8 +342,13 @@ class ProductController extends Controller {
     }
     
     
-    public function redirect(Product $product) {
-        return redirect()->route('product.public', ['product' => $product]);
+    public function redirect(Request $request, Product $product) {
+        $variation = $request->input('variation');
+        
+        return redirect()->route('product.public', [
+                                                                          'product' => $product,
+                                                                          'variation' => $variation,
+                                                                         ]);
     }
     
 }

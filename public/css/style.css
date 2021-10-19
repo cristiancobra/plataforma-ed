@@ -2032,6 +2032,22 @@ and open the template in the editor.
     margin-right: auto;
 }
 
+.product-image-public {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #c28dbf;
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
 .image-show {
     border-style: solid;
     border-width: 2px;

@@ -54,6 +54,9 @@ CKEDITOR.replace('description');
     <label class="labels" for="">Telefone: </label>
     <input type="text" name="phone" value="{{$account->phone}}">   
     <br>
+    <label class="labels" for="">WhatsApp para vendas: </label>
+    <input type="text" name="whatsapp_sales" value="{{$account->whatsapp_sales}}">   
+    <br>
     <label class="labels" for="">Site: </label>
     <input type="text" name="site" value="{{$account->site}}">   
     <br>

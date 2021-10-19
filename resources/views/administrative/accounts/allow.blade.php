@@ -27,7 +27,11 @@
             <div class='row mt-2 mb-5'>
                 <div class='col d-flex justify-content-center'>
                     <a class='text-button primary' target='_blank' href='https://api.whatsapp.com/send?phone=5516981076049&text=Preciso%20de%20ajuda%20com%20a%20minha%20empresa!%20'>WHATSAPP</a>
-                    <a class='text-button secondary' href='{{route('product.redirect', ['product' => 76])}}'>REATIVAR CONTA</a>
+                    <a class='text-button secondary' href='{{route('product.redirect', [
+                                                                                                                                'product' => 76, 
+                                                                                                                                ])}}'>
+                        REATIVAR CONTA
+                    </a>
                 </div>
             </div>
         </div>
