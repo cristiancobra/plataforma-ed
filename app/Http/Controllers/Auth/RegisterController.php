@@ -81,14 +81,9 @@ use RegistersUsers;
     }
 
     public function register(Request $request) {
-        // USUÁRIO: cria nova CONTA 
-        $account = new Account();
-        $account->name = $request->account_name;
-        $account->email = $request->email;
-        $today = new Datetime('now');
-        $dueDate = $today->add(new DateInterval('P30D'));
-        $account->due_date = $dueDate->format('Y-m-d');
-        $account->save();
+        
+            Account::registerAccount($request);
+
 
         // verifica se o nome  da  CONTA do usuário existe em COMPANIES da EMPRESA DIGITAL. Se não existir, deve, criar.
         $nameChecked = Company::where('name', 'LIKE', $request->account_name)
