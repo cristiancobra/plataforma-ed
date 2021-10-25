@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Administrative\Users;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Image;
 use App\Models\Journey;
 use App\Models\Task;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+use DB;
 
 class UserController extends Controller {
 
@@ -103,8 +104,21 @@ class UserController extends Controller {
      */
     public function show(User $user) {
 
+        $userTasks = Task::where('user_id', $user->id)
+                ->where('trash', '!=', 1)
+                ->orderBy('date_due', 'DESC')
+                                ->paginate(15);
+
+        foreach ($userTasks as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            }
+        }
+
+
         return view('administrative.users.show', compact(
                         'user',
+                        'userTasks',
         ));
     }
 
@@ -363,7 +377,7 @@ class UserController extends Controller {
                 )
                 ->orderBy('users.created_at', 'DESC')
                 ->paginate(50);
-        
+
         $total = $users->total();
 
         return view('administrative.users.report', compact(
