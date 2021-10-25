@@ -24,7 +24,7 @@
 </div>
 @endif
 <div>
-    <form action=' {{route('systemtext.store')}} ' method='post' enctype='multipart/form-data'>
+    <form action=' {{route('systemText.store')}} ' method='post' enctype='multipart/form-data'>
         @csrf
         <label class='labels' for='' >NOME INTERNO:</label>
         <input type='text' name='name' style='width: 600px' value='{{old('name')}}'>
