@@ -77,7 +77,7 @@ class SystemTextsController extends Controller {
             $systemText->fill($request->all());
             $systemText->save();
 
-            return redirect()->route('systemtext.show', [$systemText]);
+            return redirect()->route('systemText.show', [$systemText]);
         }
     }
 
