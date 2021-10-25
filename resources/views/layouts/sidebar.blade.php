@@ -156,6 +156,11 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         'faIcon' => 'fas fa-question',
                                                                                                                                                         'link' => route('question.index'),
                                                                                                                                                         ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'TEXTOS DO SISTEMA',
+                                                                                                                                                        'faIcon' => 'fa fa-file-text-o',
+                                                                                                                                                        'link' => route('systemText.index'),
+                                                                                                                                                        ],
                                                                                                                                                     ])}}
         {{createSidebarItem('ATALHOS ED', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [

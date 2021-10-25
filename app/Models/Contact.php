@@ -684,14 +684,69 @@ class Contact extends Model {
         $contact = Contact::where('email', $email)
                 ->where('account_id', $account)
                 ->first();
-        
-        if($contact == null) {
+
+        if ($contact == null) {
             return false;
-        }else{
+        } else {
             return $contact;
         }
+    }
 
-     
+    //  cria  contato  para o novo USUÁRIO  quando uma nova conta é registrada
+    public static function registerContact($request, $accountId) {
+        $contact = new Contact();
+        $contact->account_id = $accountId;
+        $contact->type = 'funcionário';
+        $contact->first_name = ucfirst($request->first_name);
+        $contact->last_name = ucfirst($request->last_name);
+        $contact->name = $contact->first_name . " " . $contact->last_name;
+        $contact->email = $request->email;
+        $contact->authorization_data = 1;
+        $contact->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+        $contact->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
+        $contact->save();
+
+        return $contact;
+    }
+
+    //  Cria novo CONTATO na EMPRESA DIGITAL se o email fornecido NÃO existe nos CONTATOS da EMPRESA DIGITAL
+    public static function registerContactEd($request) {
+        $ContactEmailChecked = Contact::where('email', $request->email)
+                ->where('account_id', 1)
+                ->first();
+        if (!$ContactEmailChecked) {
+            $contactEd = new Contact();
+            $contactEd->account_id = 1;
+            $contactEd->lead_source = 'site';
+            $contactEd->type = 'cliente';
+            $contactEd->first_name = ucfirst($request->first_name);
+            $contactEd->last_name = ucfirst($request->last_name);
+            $contactEd->name = $request->first_name . " " . $request->last_name;
+            $contactEd->email = $request->email;
+            $contactEd->authorization_data = 1;
+            $contactEd->authorization_contact = $request->authorization_contact == "on" ? 1 : 0;
+            $contactEd->authorization_newsletter = $request->authorization_newsletter == "on" ? 1 : 0;
+            $contactEd->save();
+            $contactEd->companies()->attach($contactEd->id);
+        } else {
+            $contactEd = $ContactEmailChecked;
+        }
+        return $contactEd;
+    }
+
+    // cria um CONTATO com dados da NATHALIA DA EMPRESA DIGITAL para a nova conta registrada
+    public static function registerContactEdCustomer($account, $empresaDigital, $companyEdCustomer) {
+
+        $contactEdCustomer = new Contact();
+        $contactEdCustomer->account_id = $account->id;
+        $contactEdCustomer->type = 'fornecedor';
+        $contactEdCustomer->name = 'Nathalia Locks';
+        $contactEdCustomer->email = $empresaDigital->email;
+        $contactEdCustomer->authorization_data = 1;
+        $contactEdCustomer->save();
+                    $contactEdCustomer->companies()->sync($companyEdCustomer);
+
+        return $contactEdCustomer;
     }
 
 }

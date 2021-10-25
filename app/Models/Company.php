@@ -105,7 +105,7 @@ class Company extends Model {
                     if ($request->type == 'cliente e fornecedor') {
                         $query->where('type', $request->type)
                         ->orWhere('type', 'cliente e fornecedor');
-                    }else{
+                    } else {
                         $query->where('type', $request->type);
                     }
                 })
@@ -126,6 +126,39 @@ class Company extends Model {
         ]);
 
         return $items;
+    }
+
+    // Verifica duplicidade e cria uma conta ne Empresa Digital com o mesmo nome da Empresa criada quando o usuário se registra
+    public static function registerCompanyEd($request) {
+        $nameChecked = Company::where('name', 'LIKE', $request->account_name)
+                ->where('account_id', 1)
+                ->first();
+        
+        if (!$nameChecked) {
+            $companyEd = new Company();
+            $companyEd->account_id = 1;
+            $companyEd->type = 'cliente';
+            $companyEd->name = $request->account_name;
+            $companyEd->email = $request->email;
+            $companyEd->save();
+        } else {
+            $companyEd = $nameChecked;
+        }
+        
+        return $companyEd;
+    }
+
+    // cria uma EMPRESA com dados da EMPRESA DIGITAL para a nova conta registrada
+    public static function registerCompanyEdCustomer($account, $empresaDigital) {
+        
+            $companyEdCustomer = new Company();
+            $companyEdCustomer->account_id = $account->id;
+            $companyEdCustomer->type = 'fornecedor';
+            $companyEdCustomer->name = $empresaDigital->name;
+            $companyEdCustomer->email = $empresaDigital->email;
+            $companyEdCustomer->save();
+        
+        return $companyEdCustomer;
     }
 
 }

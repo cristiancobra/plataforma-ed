@@ -71,7 +71,7 @@ class DashboardController extends Controller {
                     ->sum('duration');
             
             $hoursToday = Journey::where('user_id', auth()->user()->id)
-                    ->where('start', date('Y-m-d'))
+                    ->whereBetween('start', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
                     ->sum('duration');
             
        

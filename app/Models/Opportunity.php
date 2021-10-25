@@ -89,7 +89,7 @@ class Opportunity extends Model {
                     if ($request->status == 'ativo') {
                         $query->where('status', '!=', 'perdemos');
                         $query->where('stage', '!=', 'concluída');
-                    }elseif ($request->status) {
+                    } elseif ($request->status) {
                         $query->where('status', $request->status);
                     }
                     if ($request->trash == 1) {
@@ -119,7 +119,7 @@ class Opportunity extends Model {
             'type' => $request->type,
             'stage' => $request->stage,
             'status' => $request->status,
-            'trash' => $request->trash            
+            'trash' => $request->trash
         ]);
 
         return $opportunities;
@@ -226,13 +226,32 @@ class Opportunity extends Model {
                         ->where('updated_at', '>=', $lastWeek)
                         ->count();
     }
-    
-        public static function getOpportunitiesPresentations() {
-            
+
+    public static function getOpportunitiesPresentations() {
+
         return Opportunity::where('account_id', auth()->user()->account_id)
                         ->where('stage', 'apresentação')
                         ->where('status', 'negociando')
                         ->get();
+    }
+
+    // cria uma nova OPORTUNIDADE para Empresa Digital quando uma nova conta é criada SE e o cadastro autorizar que entre em contato
+    public static function registerOpportunityEd($contactEd, $companyEd) {
+//        dd($contactEd);
+        if ($contactEd->authorization_contact == 1) {
+            $opportunityEd = new Opportunity();
+            $opportunityEd->name = "$contactEd->name cadastro do site";
+            $opportunityEd->account_id = 1;
+            $opportunityEd->user_id = 2;
+                $opportunityEd->company_id = $companyEd->id;
+            $opportunityEd->contact_id = $contactEd->id;
+            $opportunityEd->date_start = date('Y-m-d');
+            $opportunityEd->stage = 'apresentação';
+            $opportunityEd->status = 'negociando';
+            $opportunityEd->save();
+            
+            return $opportunityEd;
+        }
     }
 
 }

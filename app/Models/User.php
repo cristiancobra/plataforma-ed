@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use DateTime;
+use DateInterval;
 
 class User extends Authenticatable implements MustVerifyEmail {
 
@@ -93,6 +95,21 @@ class User extends Authenticatable implements MustVerifyEmail {
                 ->with('image')
                 ->orderBy('NAME', 'ASC')
                 ->get();
+    }
+
+    // EMPRESA DIGITAL:  cria USUÁRIO com o contato fornecido quando uma nova conta é registrada
+    public static function registerUser($request, $contactId, $accountId) {
+        $user = new User();
+        $user->contact_id = $contactId;
+        $user->perfil = 'dono';
+        $user->email = $request->email;
+        $user->password = \Illuminate\Support\Facades\Hash::make($request->password);
+        $user->account_id = $accountId;
+        $today = new Datetime('now');
+        $today->add(new DateInterval('P1M'));
+        $user->save();
+
+        return $user;
     }
 
 }

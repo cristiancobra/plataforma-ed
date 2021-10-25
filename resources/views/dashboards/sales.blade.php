@@ -10,6 +10,64 @@
 @endsection
 
 @section('main')
+<div class='row'>
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('contact.index')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-user-plus' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                CONTATOS
+            </p>
+        </a>
+    </div>
+    <div class='col-2 d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('contact.target')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-user-plus' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                PÚBLICO-ALVO
+            </p>
+        </a>
+    </div>
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'cliente'])}}'>
+            <p class='panel-text'>
+                <i class='fas fa-store' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                EMPRESAS
+            </p>
+        </a>
+    </div>
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'receita'])}}'>
+            <p class='panel-text'>
+                <i class='fas fa-shopping-basket' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                PRODUTOS
+            </p>
+        </a>
+    </div>
+
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('opportunity.index')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-donate' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                OPORTUNIDADES
+            </p>
+        </a>
+    </div>
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'receita'])}}'>
+            <p class='panel-text'>
+                <i class='fas fa-donate' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                PROPOSTAS
+            </p>
+        </a>
+    </div>
+
+    
 <div class='row pt-5 pb-0'>
     <div class='col-2 pt-5' style='
          background-color: #fff6ff;
@@ -152,62 +210,6 @@
     </div>
 </div>
 
-
-<div class='row'>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('contact.index')}}'>
-            <p class='panel-text'>
-                <i class='fas fa-user-plus' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                CONTATOS
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('contact.target')}}'>
-            <p class='panel-text'>
-                <i class='fas fa-user-plus' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                PÚBLICO-ALVO
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'cliente'])}}'>
-            <p class='panel-text'>
-                <i class='fas fa-store' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                EMPRESAS
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'receita'])}}'>
-            <p class='panel-text'>
-                <i class='fas fa-shopping-basket' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                PRODUTOS
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('opportunity.index')}}'>
-            <p class='panel-text'>
-                <i class='fas fa-donate' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                OPORTUNIDADES
-            </p>
-        </a>
-    </div>
-    <div class='col-2 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'receita'])}}'>
-            <p class='panel-text'>
-                <i class='fas fa-donate' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                PROPOSTAS
-            </p>
-        </a>
-    </div>
 </div>
 @endsection
 

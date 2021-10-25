@@ -38,6 +38,14 @@
                     @endif
 
                     <div id='white-page'  class='container' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
+                        @if(Session::has('failed'))
+                        <div class='alert alert-danger'>
+                            {{Session::get('failed')}}
+                            @php
+                            Session::forget('failed');
+                            @endphp
+                        </div>
+                        @endif
                         <div class='row mt-4'>
                             <div class='show-name col-8'>
                                 @yield('name')
@@ -80,7 +88,7 @@
                         @yield('main')
 
                         @include('layouts.footer')
-                        
+
                         </form>
 
                         @yield('createdAt')

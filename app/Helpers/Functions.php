@@ -984,11 +984,11 @@ if (!function_exists('formatShowStatus')) {
             case 'aguardar':
                 echo '<div class="stuck">aguardar</div>';
                 break;
-            case 'ativo':
-                echo '<div class="done">ativo</div>';
+            case 'ativada':
+                echo '<div class="done">ativada</div>';
                 break;
-            case 'ativa':
-                echo '<div class="done">ativa</div>';
+            case 'desativada':
+                echo '<div class="lost">desativada</div>';
                 break;
             case 'disponível':
                 echo '<div class="done">disponível</div>';

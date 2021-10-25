@@ -61,6 +61,16 @@ Route::get('/logout', function () {
     return Redirect::to('/');
 });
 
+Route::resource('textos-do-sistema', 'System\\SystemTextsController')
+        ->names('systemText')
+        ->parameters(['textos-do-sistema' => 'systemText'])
+        ->middleware('roles');
+
+
+Route::get('/configuracoes', 'ConfigurationsController@index')
+        ->name('configurations')
+        ->middleware('roles');
+
 // ================================ ADMINISTRATIVO ===================
 //Route::get('/admin/NovaPlataforma/form_plataforma', function () {
 //    return view('admin.NovaPlataforma.form_plataforma');

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use App\Models\User;
 use DateTime;
+use DateInterval;
 
 class Task extends Model {
 
@@ -227,5 +228,46 @@ class Task extends Model {
                 ->where('trash', '!=', 1)
                 ->count();
     }
-
+    
+    // cria uma nova TAREFA para entrar em contato com o novo usuário registrado
+    public static function registerTaskOpportunity($contactEd, $companyEd, $opportunityEd) {
+            $taskOpportunity = new Task();
+            $taskOpportunity->name = "Fazer primeiro contato com $contactEd->name";
+            $taskOpportunity->account_id = 1;
+            $taskOpportunity->contact_id = $contactEd->id;
+            $taskOpportunity->company_id = $companyEd->id;
+            $taskOpportunity->user_id = 2;
+            $taskOpportunity->department = 'vendas';
+            $taskOpportunity->opportunity_id = $opportunityEd->id;
+            $taskOpportunity->date_start = date('Y-m-d');
+            $today = new Datetime('now');
+            $today->add(new DateInterval('P2D'));
+            $taskOpportunity->date_due = $today;
+            $taskOpportunity->priority = 'alta';
+            $taskOpportunity->status = 'fazer';
+            $taskOpportunity->save();
+        }
+    
+    // cria a primeira TAREFA tutorial para a nova conta registrada.
+    public static function registerTask1($user, $companyEdCustomer, $contact, $account, $contactEdCustomer) {
+        $systemText =SystemText::find(1); // texto da empresa digital que serve de base para a descrição da tarefa
+        
+            $task = new Task();
+            $task->user_id = $user->id;
+            $task->company_id = $companyEdCustomer->id;
+            $task->name = "$contact->first_name clique aqui AGORA!";
+            $task->account_id = $account->id;
+            $task->contact_id = $contactEdCustomer->id;
+            $task->company_id = $companyEdCustomer->id;
+            $task->department = 'administrativo';
+            $task->description = $systemText->text;
+            $task->date_start = date('Y-m-d');
+            $today = new Datetime('now');
+            $today->add(new DateInterval('P1D'));
+            $task->date_due = $today;
+            $task->priority = 'emergência';
+            $task->points = 1;
+            $task->status = 'fazer';
+            $task->save();
+        }
 }
