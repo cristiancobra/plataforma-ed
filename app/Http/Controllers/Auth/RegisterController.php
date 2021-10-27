@@ -99,9 +99,13 @@ use RegistersUsers;
             $taskOpportunity = Task::registerTaskOpportunity($contactEd, $companyEd, $opportunityEd);
         }
         
-        // Cria primeiras tarefas di usuário registrado  
-        $task1 = Task::registerTask1($user, $companyEdCustomer, $contact, $account, $contactEdCustomer);
-
+        $systemTextsTutorials = SystemTask::where('type', 'primeiros passos')
+                ->where('status', 'ativada')
+                ->get();
+        
+        foreach($systemTextsTutorials as $systemText) {
+            SystemText::registerTasksTutorials($systemText, $user, $companyEdCustomer, $contact, $account, $contactEdCustomer);
+        }
 
         return redirect('/');
     }

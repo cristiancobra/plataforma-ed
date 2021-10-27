@@ -237,4 +237,11 @@ class Journey extends Model {
                         ->first();
     }
 
+    public static function userLastJourney($user) {
+        return Journey::where('user_id', $user->id)
+                        ->with('task')
+                        ->orderBy('id', 'DESC')
+                        ->first();
+    }
+
 }

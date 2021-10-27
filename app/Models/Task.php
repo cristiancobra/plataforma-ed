@@ -202,6 +202,14 @@ class Task extends Model {
                         ->first();
     }
 
+    // retorna a última tarefa feita do usuário indicado
+    public static function userLastTask($user) {
+        return Task::where('user_id', $user->id)
+                        ->orderBy('date_conclusion', 'DESC')
+                        ->first();
+    }
+
+
     public static function completeTask(Task $task) {
         $dateNow = new DateTime('now');
         $task->date_conclusion = $dateNow->format('Y-m-d H:i');
@@ -229,6 +237,53 @@ class Task extends Model {
                 ->count();
     }
     
+    public static function countUserTasks($user) {
+        return Task::where('user_id', $user->id)
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
+    
+    public static function countUserTasksLates($user) {
+        return Task::where('user_id', $user->id)
+                ->where('date_due', '<', date('Y-m-d'))
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
+    
+    public static function countUserEmergencies($user) {
+        return Task::where('user_id', $user->id)
+                ->where('priority', 'emergência')
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
+    
+    public static function countUserHigh($user) {
+        return Task::where('user_id', $user->id)
+                ->where('priority', 'alta')
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
+    
+    public static function countUserMedium($user) {
+        return Task::where('user_id', $user->id)
+                ->where('priority', 'média')
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
+    
+    public static function countUserLow($user) {
+        return Task::where('user_id', $user->id)
+                ->where('priority', 'baixa')
+                ->where('status', 'fazer')
+                ->where('trash', '!=', 1)
+                ->count();
+    }
+    
     // cria uma nova TAREFA para entrar em contato com o novo usuário registrado
     public static function registerTaskOpportunity($contactEd, $companyEd, $opportunityEd) {
             $taskOpportunity = new Task();
@@ -249,13 +304,11 @@ class Task extends Model {
         }
     
     // cria a primeira TAREFA tutorial para a nova conta registrada.
-    public static function registerTask1($user, $companyEdCustomer, $contact, $account, $contactEdCustomer) {
-        $systemText =SystemText::find(1); // texto da empresa digital que serve de base para a descrição da tarefa
-        
+    public static function registerTasksTutorials($systemText, $user, $companyEdCustomer, $contact, $account, $contactEdCustomer) {    
             $task = new Task();
             $task->user_id = $user->id;
             $task->company_id = $companyEdCustomer->id;
-            $task->name = "$contact->first_name clique aqui AGORA!";
+            $task->name = $systemText->title;
             $task->account_id = $account->id;
             $task->contact_id = $contactEdCustomer->id;
             $task->company_id = $companyEdCustomer->id;

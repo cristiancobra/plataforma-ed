@@ -146,7 +146,7 @@
 
     <!--    coluna 3 -->
 
-    <div class='col-4 mt-3 mb-3' style='
+    <div class='col-4 mt-3 mb-0' style='
          border-style: solid;
          border-width: 1px;
          border-color: #8b0000;
@@ -186,156 +186,265 @@
                 </div>
         </a>
         @endforeach
+        <div class="row mb-2 mt-1">
+            <div class="col d-flex justify-content-center">
+                <a  href='{{route('task.index', [
+				'status' =>'fazer',
+				'user_id' => Auth::user()->id,
+				])}}'>
+                    {{$myTasksCount}} tarefas abertas
+                </a>
+            </div>
+        </div>
         @endif
     </div>
 </div>
-<div class='row mt-4 mb-3 ms-1 me-5 p-0' style='
-     border-style: solid;
-     border-width: 1px;
-     border-color: #c28dbf;
-     border-radius: 10px;
-     '>
-    <div class='col-2' style='background-color: #c28dbf;  border-radius: 10px 0px 0px 10px'>
+
+<!--    linha  -->
+
+<div class='row mt-4 mb-0 ms-1 me-5 pe-3'>
+    <div class='offset-7 col-2' style='
+         background-color: #c28dbf;
+         border-radius: 10px 0px 0px 0px
+         '>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
 				'user_id' => Auth::user()->id,
 				])}}'>
-            <div class='row pt-4 text-center'>
-                <i class='fas fa-exclamation-triangle' title='' style='color:white;font-size: 50px'></i>
+            <div class='row pt-3 text-center'>
+                <i class='fas fa-users' title='' style='color:white;font-size: 40px'></i>
             </div>
-            <div class='row pt-3 labels'>
+            <div class='row pt-1 labels'>
                 <p style='text-align: center;color:white'>
-                    {{$myTasksCount}} TAREFAS
+                    EQUIPE
                 </p>
             </div>
         </a>
     </div>
-
-    <div class='col-1 d-inline-block task-high-button'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'priority' =>'alta',
-				'user_id' => Auth::user()->id,
-				])}}'>
-            <p class='panel-text'>
-                <span style='font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                    {{$myTasksHighCount}}
-                </span>
-                <br>
-                ALTA
-            </p>
-        </a>
-    </div>
-
-    <div class='col-1 d-inline-block task-medium-button'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'priority' =>'média',
-				'user_id' => Auth::user()->id,
-				])}}'>
-            <p class='panel-text'>
-                <span style='font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                    {{$myTasksMediumCount}}
-                </span>
-                <br>
-                MÉDIA
-            </p>
-        </a>
-    </div>
-
-    <div class='col-1 d-inline-block task-low-button'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'priority' =>'baixa',
-				'user_id' => Auth::user()->id,
-				])}}'>
-            <p class='panel-text'>
-                <span style='font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                    {{$myTasksLowCount}}
-                </span>
-                <br>
-                BAIXA
-            </p>
-        </a>
-    </div>
-
-    <div class='col-1 d-inline-block emergency-button'>
-        <a style='text-decoration:none' href='{{route('task.index', [
-				'status' =>'fazer',
-				'user_id' => Auth::user()->id,
-				'date_due' => date('Y-m-d'),
-				])}}'>
-            <p class='panel-text'>
-                <span style='font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                    {{$myTasksLateCount}}
-                </span>
-                <br>
-                ATRASADAS
-            </p>
-        </a>
-    </div>
-
-
-    <div class='col-2 d-inline-block team-button'>
-        <a style='text-decoration:none' href='{{route('task.index', [
+    <div class='col-3'>
+        <div class="row pt-2 pb-2 ps-2 pe-2" style='
+             border-style: solid;
+             border-width: 1px;
+             border-color: #c28dbf;
+             border-radius: 0px 10px 0px 0px;
+             border-bottom-color: white;
+             border-bottom-style: solid;
+             border-bottom-width: 1px;
+             '>
+            <div class='col task-high-button'>
+                <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
 				])}}'>
-            <p class='panel-text'>
-                <span style='font-size:36px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                    {{$teamTasksPendingCount}}
-                </span>
-                <br>
-                EQUIPE
-            </p>
-        </a>
-    </div>
+                    <p class='ps-0 pe-0' style='font-size:12px; color:white;text-align: center;font-weight: 600'>
+                        <span style='font-size:32px'>
+                            {{$teamTasksCount}}
+                        </span>
+                        <br>
+                        TAREFAS
+                    </p>
+                </a>
+            </div>
+
+            <div class='col emergency-button'>
+                <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                        		'priority' =>'emergência',
+				])}}'>
+                    <p class='ps-0 pe-0' style='font-size:12px; color:white;text-align: center;font-weight: 600'>
+                        <span style='font-size:32px'>
+                            {{$teamTasksEmergenciesCount}}
+                        </span>
+                        <br>
+                        EMERGÊNCIAS
+                    </p>
+                </a>
+            </div>
 
 
-    @if(isset($myLastJourney))
-    <div class='col-2 d-inline-block sales-button'>
-        <a style='text-decoration:none' href='{{route('task.show', ['task' => $myLastJourney->task_id])}}'>
-            <p class='panel-text mt-3'>
-                <i class='fas fa-step-forward' style='font-size:30px; color:white;margin-top: 0px;padding-bottom: 10px'></i>
-                <br>
-                ÚLTIMA
-            </p>
-        </a>
+            <div class='col  team-button'>
+                <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+				'date_due' =>date('Y-m-d'),
+				])}}'>
+                    <p class='ps-0 pe-0' style='font-size:12px; color:white;text-align: center;font-weight: 600'>
+                        <span style='font-size:32px'>
+                            {{$teamTasksLatesCount}}
+                        </span>
+                        <br>
+                        ATRASADAS
+                    </p>
+                </a>
+            </div>
+
+        </div>
     </div>
-    @endif
 </div>
 
-<div class='row mt-4 mb-3 ms-1 me-5 p-0' style='
+<!--users-->
+<div class="row pt-1 pb-2 ps-2 pe-2" style='
      border-style: solid;
      border-width: 1px;
      border-color: #c28dbf;
-     border-radius: 10px;
+     border-radius: 10px 0px 10px 0px;
      '>
-    @foreach($users as $user)
-    @if($user['journeyName'])
-    <div class='row'>
-        <div class='col-2 d-inline-block'>
-            @if(isset($user->image))
-            <div class='profile-picture-small'>
-                <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
-                    <img src='{{asset($user->image)}}' width='100%' height='100%'>
-                </a>
+    <div class='row mt-0 mb-2 ms-1 me-1 p-0'>
+        <div class="col">
+            @foreach($users as $user)
+            <div class='row mt-5 me-1' style='
+                 border-style: solid;
+                 border-width: 1px;
+                 border-color: #c28dbf;
+                 border-radius: 10px;
+                 background-color: {{$user['backgroundColor']}};
+                 '>
+                <div class='col-1 d-inline-block'>
+                    @if(isset($user->image))
+                    <div class='profile-picture-small'>
+                        <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
+                            <img src='{{asset($user->image)}}' width='100%' height='100%'>
+                        </a>
+                    </div>
+                    @else
+                    <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
+                        {{$user->name}}
+                    </a>
+                    @endif
+                </div>
+
+                @if($user['backgroundColor'] == null)
+                <div class='col-1 mt-3 mb-4 ms-2 ps-1' style="
+                     border-radius: 10px 0px 0px 10px;
+                     background-color: {{$complementaryColor}};
+                     color: white;
+                     font-size:14px; 
+                     margin-top: -0px;
+                     padding-bottom: 0px;
+                     padding-top: 15px;
+                     text-align: left;
+                     font-weight: 600;
+                     ">
+                    FAZENDO
+                </div>
+                @else
+                <div class='col-1 mt-3 mb-4 ms-2 ps-1' style="
+                     border-radius: 10px 0px 0px 10px;
+                     border-color: gray;
+                     border-style: solid;
+                     border-width: 1px;
+                     background-color: {{$user['backgroundColor']}};
+                     color: white;
+                     font-size:14px; 
+                     margin-top: -0px;
+                     padding-bottom: 0px;
+                     padding-top: 15px;
+                     text-align: left;
+                     font-weight: 600;
+                     ">
+                    FAZENDO
+                </div>
+                @endif
+
+                <div class="col-3 mt-3 mb-4 pt-3 show-field-end">
+                    @if($user['taskId'] == null)
+                    {{$user['journeyName']}}
+                    @else
+                    <a  class='white' style="font-size: 14px" href=' {{route('task.show', ['task' => $user['taskId']])}}'>
+                        {{$user['journeyName']}}
+                    </a>
+                    @endif
+                </div>
+
+                @if($user['backgroundColor'] == null)
+                <div class='col-1 mt-3 mb-4 ms-5 ps-3' style="
+                     border-radius: 10px 0px 0px 10px;
+                     background-color: {{$oppositeColor}};
+                     color: white;
+                     font-size:14px; 
+                     margin-top: -0px;
+                     padding-bottom: 0px;
+                     padding-top: 15px;
+                     text-align: left;
+                     font-weight: 600;
+                     ">
+                    FEZ
+                </div>
+                @else
+                <div class='col-1 mt-3 mb-4 ms-5 ps-3' style="
+                     border-radius: 10px 0px 0px 10px;
+                     border-color: gray;
+                     border-style: solid;
+                     border-width: 1px;
+                     background-color: {{$user['backgroundColor']}};
+                     color: white;
+                     font-size:14px; 
+                     margin-top: -0px;
+                     padding-bottom: 0px;
+                     padding-top: 15px;
+                     text-align: left;
+                     font-weight: 600;
+                     ">
+                    FEZ
+                </div>
+                @endif
+
+                <div class="col-3 mt-3 mb-4 pt-2 show-field-end">
+                    <a  class='white' style="font-size: 14px" href=' {{route('task.show', ['task' => $user->lastTask->id])}}'>
+                    {{$user->lastTask->name}}
+                    </a>
+                </div>
+
+                <div class="col-3 text-end">
+                    <div class="col d-inline-block mt-3 pt-2 task-high-button" style="width: 48px" title='tarefas abertas'>
+                        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                                                                'user_id' => $user->id,
+				])}}'>
+                            <p style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
+                                {{$user->tasks}}
+                            </p>
+                        </a>
+                    </div>
+
+                    <div class='col d-inline-block  mt-3 pt-2 emergency-button' style="width: 48px" title='tarefas emergenciais'>
+                        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' => 'fazer',
+                                                                                'priority' => 'emergência',
+                                        		'user_id' => $user->id,
+				])}}'>
+                            <p style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
+                                {{$user->emergencies}}
+                            </p>
+                        </a>
+                    </div>
+
+                    <div class='col d-inline-block  mt-3 pt-2  team-button' style="width: 48px" title='tarefas atrasadas'>
+                        <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                                                                'priority' =>'emergência',
+                                        		'user_id' => $user->id,
+                                                        		'date_due' =>date('Y-m-d'),
+				])}}'>
+                            <p style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
+                                {{$user->lates}}
+                            </p>
+                        </a>
+                    </div>
+
+                    @if(isset($myLastJourney))
+                    <div class='d-inline-block mt-3  pt-2  sales-button' style="width: 48px" title='última tarefa'>
+                        <a style='text-decoration:none' href='{{route('task.show', ['task' => $user->lastJourney->task_id])}}'>
+                            <p style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
+                                <i class='fas fa-step-forward' style='font-size:20px; color:white;margin-top: 0px;padding-bottom: 0px'></i>
+                            </p>
+                        </a>
+                    </div>
+                    @endif
+
+                </div>
             </div>
-            @else
-            <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
-                {{$user->name}}
-            </a>
-            @endif
-        </div>
-        <div class='col-2 tb tb-header mt-4 mb-4' style="border-radius: 10px 0px 0px 10px">
-            FAZENDO
-        </div>
-        <div class="col-8 mt-4 mb-4 pt-3 show-field-end">
-            <a  class='white' href=' {{route('task.show', ['task' => $user['taskId']])}}'>
-                {{$user['journeyName']}}
-            </a>
+            @endforeach
         </div>
     </div>
-    @endif
-    @endforeach
+</div>
 </div>
 @endsection

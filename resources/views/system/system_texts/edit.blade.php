@@ -76,7 +76,9 @@
             @if ($errors->has('systemText'))
             <span class='text-danger'>{{$errors->first('text')}}</span>
             @endif
-            <textarea id='systemText' name='text' rows='20' cols='120'>
+            <div class="row mb-5">
+                <div class="col">
+            <textarea id='systemText' name='text' rows='200' cols='320'>
   {{$systemText->text}}
             </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
@@ -84,8 +86,8 @@
         <script>
 CKEDITOR.replace('systemText');
         </script>
-            <br>
-            <br>
+            </div>
+            </div>
             <label class='labels' for='' >ANEXAR IMAGEM:</label>
             <input type='file' name='image'>
             <br>

@@ -31,15 +31,36 @@ class DashboardController extends Controller {
                 ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
                 ->get();
 
-        $teamTasksPending = $teamTasks->where('status', 'fazer');
-        $teamTasksPendingCount = $teamTasksPending->count();
+//        $teamTasksPending = $teamTasks->where('status', 'fazer');
+        $teamTasksCount = $teamTasks->count();
+
+        $teamTasksEmergencies = $teamTasks->where('priority', 'emergência');
+        $teamTasksEmergenciesCount = $teamTasksEmergencies->count();
+
+        $teamTasksLates = $teamTasks->where('date_due', '<', date('Y-m-d'));
+        $teamTasksLatesCount = $teamTasksLates->count();
         
         $myTasks = $teamTasks->where('user_id', auth()->user()->id);
         $myTasksLimited = $myTasks->take(4);
         $myTasksCount = $myTasks->count();
         
-        $myTasksHigh = $myTasks->where('priority', 'alta');
-        $myTasksHighCount = $myTasksHigh->count();
+            $users = User::myUsers();
+            foreach($users as $user) {
+                $user->emergencies = Task::countUserEmergencies($user);
+                $user->high = Task::countUserHigh($user);
+                $user->medium = Task::countUserMedium($user);
+                $user->low = Task::countUserLow($user);
+                $user->tasks = Task::countUserTasks($user);
+                $user->lates = Task::countUserTasksLates($user);
+                $user->lastJourney = Journey::userLastJourney($user);
+                $user->lastTask = Task::userLastTask($user);
+            }
+//        
+        $myTasksEmergencies = $myTasks->where('priority', 'emergência');
+//        $myTasksEmergenciesCount = $myTasksEmergencies->count();
+//        
+//        $myTasksHigh = $myTasks->where('priority', 'alta');
+//        $myTasksHighCount = $myTasksHigh->count();
         
         $myTasksMedium = $myTasks->where('priority', 'média');
         $myTasksMediumCount = $myTasksMedium->count();
@@ -50,10 +71,10 @@ class DashboardController extends Controller {
         $myTasksLate = $myTasks->where('date_due', '<', date('Y-m-d'));
         $myTasksLateCount = $myTasksLate->count();
 
-        $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(5);
-        $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
+//        $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(5);
+//        $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
 
-        $myTasksEmergenciesAmount = $myTasksEmergencies->count();
+//        $myTasksEmergenciesAmount = $myTasksEmergencies->count();
         
         $myTasksTodayUnsorted = $myTasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
         $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
@@ -75,13 +96,19 @@ class DashboardController extends Controller {
                     ->sum('duration');
             
        
-            $users = User::myUsers();
             
             foreach($users as $user) {
                 $openJourney = Journey::openJourney($user);
                 if($openJourney != null) {
                 $user['journeyName'] = $openJourney->task->name;
                 $user['taskId'] = $openJourney->task->id;
+                          $user['color'] = 'white';
+                          $user['backgroundColor'] = null;
+            } else {
+                $user['journeyName'] = 'ZZZzz';
+                $user['taskId'] = null;
+                $user['color'] = 'gray';
+                $user['backgroundColor'] = 'lightgray';
             }
             }
 
@@ -92,19 +119,22 @@ class DashboardController extends Controller {
                         'month',
                         'hoursMonthly',
                         'hoursToday',
-                        'teamTasksPending',
-                        'teamTasksPendingCount',
+                        'teamTasks',
+                        'teamTasksCount',
+                        'teamTasksEmergencies',
+                        'teamTasksEmergenciesCount',
+                        'teamTasksLatesCount',
                         'myTasksLimited',
-                        'myTasksHigh',
-                        'myTasksHighCount',
+//                        'myTasksHigh',
+//                        'myTasksHighCount',
                         'myTasksMedium',
                         'myTasksMediumCount',
                         'myTasksCount',
                         'myTasksLow',
                         'myTasksLowCount',
                         'myTasksLateCount',
-                        'myTasksEmergencies',
-                        'myTasksEmergenciesAmount',
+//                        'myTasksEmergencies',
+//                        'myTasksEmergenciesCount',
                         'myTasksToday',
                         'lastJourneys',
                         'myLastJourney',
