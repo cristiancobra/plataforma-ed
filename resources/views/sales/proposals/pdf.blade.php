@@ -232,7 +232,7 @@
                     @if($data['invoiceNumberInstallmentTotal'] == 1)
                     À vista
                     @else
-                    {{formatCurrencyReal($data['invoiceTotalPrice'] / $data['proposalInstallment'])}}
+                    {{$data['proposalInstallment']}}x  {{formatCurrencyReal($data['invoiceTotalPrice'] / $data['proposalInstallment'])}}
                     @endif
                 </td>
                 
