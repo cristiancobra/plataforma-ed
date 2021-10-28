@@ -652,7 +652,7 @@ class ProposalController extends Controller {
             'invoiceDescription' => $proposal->description,
             'invoiceDiscount' => $proposal->discount,
             'invoiceExpirationDate' => $proposal->expiration_date,
-            'invoiceInstallmentValue' => $proposal->installment_value,
+            'proposalInstallment' => $proposal->installment,
             'invoiceStatus' => $proposal->status,
             'invoiceNumberInstallmentTotal' => $proposal->number_installment_total,
             'invoiceTotalPrice' => $proposal->installment_value,
