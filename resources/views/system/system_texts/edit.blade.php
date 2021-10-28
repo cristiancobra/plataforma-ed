@@ -14,12 +14,8 @@
 
 
     @section('buttons')
-    <a class='circular-button secondary'  title='Cancelar alterações' href='{{url()->previous()}}'>
-        <i class='fas fa-times-circle'></i>
-    </a>
-    <button id='' class='circular-button primary' title='Salvar alterações' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-        <i class='fas fa-save'></i>
-    </button>
+    {{createButtonCancel()}}
+    {{createButtonSave()}}
     @endsection
 
     @section('name')
@@ -33,7 +29,7 @@
     {{createSimpleSelect('type', 'fields', $types, $systemText->type)}}
     @endsection
 
-    
+
     @section('status')
     SITUAÇÃO:
     {{createSimpleSelect('status', 'fields', $status, $systemText->status)}}
@@ -78,21 +74,21 @@
             @endif
             <div class="row mb-5">
                 <div class="col">
-            <textarea id='systemText' name='text' rows='200' cols='320'>
+                    <textarea id='systemText' name='text' rows='200' cols='320'>
   {{$systemText->text}}
-            </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-        <script>
+                    </textarea>
+                    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+                    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+                    <script>
 CKEDITOR.replace('systemText');
-        </script>
-            </div>
+                    </script>
+                </div>
             </div>
             <label class='labels' for='' >ANEXAR IMAGEM:</label>
             <input type='file' name='image'>
             <br>
             <br>
-    </div>
-    <br>
-    <br>
-    @endsection
+            </div>
+            <br>
+            <br>
+            @endsection

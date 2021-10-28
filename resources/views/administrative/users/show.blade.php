@@ -10,9 +10,8 @@
 @endsection
 
 @section('buttons')
-<a class='button-secondary'  href='{{route('user.index')}}'>
-    <i class='fas fa-arrow-left'></i>
-</a>
+{{createButtonEdit('user', 'user', $user)}}
+{{createButtonList('user')}}
 @endsection
 
 @section('main')
@@ -32,15 +31,13 @@
         </h1>
         <br>
         <p class='labels'>
-            EMAIL:<span class='fields'> {{$user->email}} </span>
-        </p>
-        <p class='labels'>
-            ID PLATAFORMA:<span class='fields'> {{$user->id}} </span>
+            EMAIL DE ACESSO (login):<span class='fields'> {{$user->email}} </span>
         </p>
         <p class='labels'>
             PERFIL: <span class='fields'>  {{$user->perfil}} </span>
         </p>
-        <p class='fields'>Criado em  {{date('d/m/Y H:i', strtotime($user->created_at))}}
+        <p class='labels'>
+            CRIADO EM: <span class='fields'>  {{date('d/m/Y H:i', strtotime($user->created_at))}} </span>
         </p>
         <br>
         <p class='labels'>

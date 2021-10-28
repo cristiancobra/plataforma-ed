@@ -66,7 +66,6 @@ class ImageController extends Controller {
             $image = new Image();
             $image->fill($request->all());
             $image->account_id = auth()->user()->account_id;
-//  dd($request);      
 
             if ($request->image_name) {
                 $image->name = "Imagem $image da tarefa $request->image_name";

@@ -112,5 +112,26 @@ class Image extends Model {
             'enviado por cliente',
         ];
     }
+    
+        
+    /**
+     * Update tIMAGE in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public static function updateProfilePicture(Request $request, User $user) {
+                    $image = new Image();
+            $image->fill($request->all());
+            $image->account_id = auth()->user()->account_id;
+            $image->user_id = $user->id;
+                $image->name = "Foto de perfil " . $user->contact->name . " - " . date('d/m/Y - H:m');
+            $path = $request->file('image')->store('users_images');
+            $image->path = $path;
+            $image->save();
+
+        return $image;
+    }
 
 }

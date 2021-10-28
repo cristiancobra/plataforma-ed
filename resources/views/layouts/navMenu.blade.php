@@ -80,7 +80,7 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
                            onclick="event.preventDefault();
                                    document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt" style="margin-right: 4px"></i>
-                            {{__('Logout')}}
+                            {{__('Sair')}}
                         </a>
                         <form id="logout-form" action="{{route('logout')}}" method="POST" style="display: none;">
                             @csrf

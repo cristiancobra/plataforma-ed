@@ -52,6 +52,30 @@ if (!function_exists('createButtonBack')) {
     }
 
 }
+if (!function_exists('createButtonCancel')) {
+
+// cria um botao com simbolo de X cancelar as alterações do edit
+    function createButtonCancel() {
+        $message = 'Cancelar alterações';
+
+        echo "<a class='circular-button secondary' title='$message' href=" . url()->previous() . ">
+                         <i class='fas fa-times-circle'></i>
+                  </a>";
+    }
+
+}
+if (!function_exists('createButtonSave')) {
+
+// cria um botao com simbolo de DISQUETE que envia o form no edita para salvar as alterações
+    function createButtonSave() {
+        $message = 'Salvar alterações';
+
+        echo "<button id='' class='circular-button primary' title='$message' style='border:none;padding-left:4px;padding-top:2px' type='submit'>
+                         <i class='fas fa-save'></i>
+                  </button>";
+    }
+
+}
 if (!function_exists('createButtonCreate')) {
 
 // cria um botao com simbolo que vai para o método create do model

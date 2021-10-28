@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/edit')
 
 @section('title','FUNCIONÁRIOS')
 
@@ -6,79 +6,167 @@
 {{ asset('images/user.png') }} 
 @endsection
 
-@section('description')
-@endsection
 
-@section('buttons')
-{{createButtonBack()}}
-{{createButtonList('user')}}
-@endsection
-
-@section('main')
+@section('form_start')
 <form action=" {{route('user.update', ['user' =>$user->id])}} " method="post" enctype='multipart/form-data'>
     @csrf
     @method('put')
-    <div class="col-6">
-        <label class="labels" for="" >ADICIONAR NOVA IMAGEM:</label>
-        <label class="switch">
-            <input type="checkbox" id="slider">
-            <span class="slider round"></span>
-        </label>
-        <br>
-        <br>
-        <div id="change" style="display:inline">
-            <label class="labels" for="" >SELECIONAR IMAGEM:</label>
-            {{createSelectIdName('image_id', 'select', $images, 'Nenhuma', $user->image)}}
-        </div>
-        <div id="new" style="display:none">
-            <label class="labels" for="" >NOME DA IMAGEM:</label>
-            <input type="text" name="name" id="name" size="20"><span class="fields"></span>
-            <br>
-            <label class="labels" for="" >DESCRIÇÃO DA IMAGEM:</label>
-            <textarea id="alt" name="alt" id="alt" rows="3" cols="50">
-            </textarea>
-            <br>
-            <br>
-            <input type='file' name='image'>
-            <div class="p-2 flex-shrink-0 bd-highlight">
-                <button class="btn btn-primary" id="btn-save">
-                    Add Todo
-                </button>
-            </div>
-            <input type="hidden" name="image_type" value="produto"><span class="fields"></span>
-        </div>
-    </div>
-    <div class='container text-center'>
-        <div class='profile-picture'>
-            @if($user->image)
-            <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
-            @else
-            <img src='{{asset('images/user.png')}}' width='100%' height='100%'>
-            @endif
-        </div>
-    </div>
-    <br>
-    <br>
-    <label class='labels' for="" >Nome: </label>
-    {{createSelectIdName('contact_id', 'fields', $contacts, null, $user->contact)}}
-    </a>
-    <br>
-    <label  class='labels' for="" >Email: </label>
-    <input type="text" name="email" value="{{ $user->email }} ">
-    <br>
-    <label class="labels" for="" >Perfil:</label>
+    @endsection
+
+
+    @section('buttons')
+    {{createButtonCancel()}}
+    {{createButtonSave()}}
+    @endsection
+
+    @section('name')
+    {{$user->contact->name}}
+    @endsection
+
+
+    @section('status')
+    PERFIL:
     <select class="fields" name="perfil">
-        <option value="{{ $user->perfil }}">{{ $user->perfil }}</option>
-        @if($user->perfil == 'super administrador')
-        <option value="super administrador">super administrador</option>
+        <option value="{{ $user->perfil }}">
+            {{ $user->perfil }}
+        </option>
+        @if(auth()->user()->perfil == 'super administrador')
+        <option value="super administrador">
+            super administrador
+        </option>
         @endif
-        <option value="funcionario">funcionário</option>
-        <option value="administrador">administrador</option>
+        <option value="funcionario">
+            funcionário
+        </option>
+        <option value="administrador">
+            administrador
+        </option>
     </select>
-    <br>
-    <br>
-    <br>
-    <input class="btn btn-secondary" type="submit" class="button" value="SALVAR">
-</form>
-</div>     
-@endsection
+    @endsection
+
+    @section('status')
+    PERFIL:
+    <select class="fields" name="perfil">
+        <option value="{{ $user->perfil }}">
+            {{ $user->perfil }}
+        </option>
+        @if(auth()->user()->perfil == 'super administrador')
+        <option value="super administrador">
+            super administrador
+        </option>
+        @endif
+        <option value="funcionario">
+            funcionário
+        </option>
+        <option value="administrador">
+            administrador
+        </option>
+    </select>
+    @endsection
+
+
+    @section('fieldsId')
+    <div class="row">
+        <div class="col-4">
+            <div class="row mt-4">
+                <div class='profile-picture'>
+                    @if($user->image)
+                    <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
+                    @else
+                    <img src='{{asset('images/user.png')}}' width='100%' height='100%'>
+                    @endif
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col d-flex justify-content-center">
+                    <p class='labels pt-2'>
+                        ALTERAR:
+                    </p>
+                    {{createSelectIdName('image_id', 'fields', $images, 'nenhuma', $user->image)}}
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col d-flex justify-content-center text-button ms-5 me-5 pt-2" style="background-color: {{$oppositeColor}}">
+                    <i class='fa fa-camera me-3' style='color:white;font-size: 22px'></i>
+                    <label for="image" class="labels" style='color:white'>
+                        NOVA FOTO
+                    </label>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col d-flex justify-content-center">
+                    <input type='file' id='image' name='image'>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="row">
+                <div class="col">
+                    <label  class='labels' for="" >Email de acesso (login): </label>
+                    <input type="text" name="email" size='40' value="{{ $user->email }} ">
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <p class='labels'>
+                        DADOS PESSOAIS  
+                        <a  class='white' href=' {{route('contact.edit', ['contact' => $user->contact_id])}}'>
+                            <button class='button-round'>
+                                <i class='fa fa-edit'></i>
+                            </button>
+                        </a>
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <p class='labels'>
+                        Nome:
+                    </p>
+                </div>
+                <div class="col-11">
+                    <p>
+                        {{$user->contact->name}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <p class='labels'>
+                        Email:
+                    </p>
+                </div>
+                <div class="col-11">
+                    <p>
+                        {{$user->contact->email}}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-1">
+                    <p class='labels'>
+                        Telefone:
+                    </p>
+                </div>
+                <div class="col-11">
+                    <p>
+                        {{$user->contact->phone}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endsection
+
+
+    @section('description')
+    {{$user->contact->observations}}
+    @endsection
+
+
+    @section('main')
+    <input type="hidden" name="alt" id="alt" value="foto do usuário {{$user->contact->name}}">
+    <input type="hidden" name="image_type" value="imagem perfil">
+    <input type="hidden" name="name" id="name" value="foto do usuário {{$user->contact->name}}">
+
+    @endsection

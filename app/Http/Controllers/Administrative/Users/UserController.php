@@ -129,16 +129,13 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user) {
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
         $images = Image::where('account_id', auth()->user()->account_id)
+                ->where('user_id', $user->id)
+                ->where('type', 'imagem perfil')
                 ->get();
 
         return view('administrative.users.edit', compact(
                         'user',
-                        'contacts',
                         'images',
         ));
     }
@@ -152,16 +149,11 @@ class UserController extends Controller {
      */
     public function update(Request $request, User $user) {
         $user->fill($request->all());
-
-        if ($request->file) {
-            $path = $request->file('image_id')->store('users_images');
-            $user->profile_picture = $path;
+        if ($request->file('image')) {
+            $image = Image::updateProfilePicture($request, $user);
+            $user->image_id = $image->id;
         }
         $user->update();
-
-        if (!empty($request->accounts)) {
-            $user->accounts()->sync($request->accounts);
-        }
 
         return redirect()->route('user.index');
     }
@@ -176,7 +168,7 @@ class UserController extends Controller {
         $user->delete();
         return redirect()->route('user.index');
     }
-
+    
     public function dashboardUser() {
         $userAuth = Auth::user();
         $today = date('Y-m-d');
