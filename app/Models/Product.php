@@ -123,6 +123,7 @@ class Product extends Model {
             'status' => $request->status,
             'category' => $request->category,
             'variation' => $request->variation,
+            'trash' => $request->trash,
         ]);
 
         return $products;
