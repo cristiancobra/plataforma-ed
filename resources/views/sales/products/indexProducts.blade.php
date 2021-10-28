@@ -51,10 +51,14 @@
         <div class='tb tb-header col-1'>
             LOJA
         </div>
-        @endif
         <div class='tb tb-header col-1'>
             PREÇO
         </div>
+        @else
+        <div class='tb tb-header col-2'>
+            PREÇO
+        </div>
+        @endif
         <div class='tb tb-header-end col-1'>
             SITUAÇÃO
         </div>
