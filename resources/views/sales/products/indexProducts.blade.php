@@ -11,28 +11,17 @@
 @endsection
 
 @section('buttons')
-@if(request('trash') == null)
-<a class='circular-button delete'  href="{{route('product.filter', ['variation' => $variation, 'trash' => 1])}}">
-    <i class="fa fa-trash" aria-hidden="true"></i>
-</a>
-@endif
+{{createButtonTrashIndex(request('trash'), 'product', $variation)}}
 <a id='filter_button' class='circular-button secondary'>
     <i class='fa fa-filter' aria-hidden='true'></i>
 </a>
-@if(request('trash') == 1)
-<a class='circular-button secondary'  href='{{route('product.create', ['variation' => $variation])}}'>
-    <i class='fa fa-plus' aria-hidden='true'></i>
-</a>
-{{createButtonList('product', 'variation', $variation)}}
-@else
 <a class='circular-button primary'  href='{{route('product.create', ['variation' => $variation])}}'>
     <i class='fa fa-plus' aria-hidden='true'></i>
 </a>
-@endif
 @endsection
 
 @section('main')
-<form id='filter' action='{{route('product.filter', ['variation' => $variation])}}' method='post' style='text-align: right;display:none'>
+<form id='filter' action='{{route('product.index', ['variation' => $variation])}}' method='post' style='text-align: right;display:none'>
     @csrf
     <input type='text' name='name' placeholder='nome do produto' value=''>
     {{createFilterSelect('category', 'select', $categories)}}

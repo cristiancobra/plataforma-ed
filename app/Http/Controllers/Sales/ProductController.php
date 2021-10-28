@@ -19,19 +19,7 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        $products = Product::where('account_id', auth()->user()->account_id)
-                ->where('type', '=', $request->variation)
-                ->where('trash', '==', 0)
-                ->with('image')
-                ->orderBy('name', 'ASC')
-                ->paginate(20);
-
-        $products->appends([
-            'status' => $request->status,
-            'contact_id' => $request->contact_id,
-            'user_id' => $request->user_id,
-            'variation' => $request->variation,
-        ]);
+                $products = Product::filterProducts($request);
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -45,7 +33,7 @@ class ProductController extends Controller {
 
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
-
+//dd($categories);
         return view('sales.products.indexProducts', compact(
                         'products',
                         'contacts',
