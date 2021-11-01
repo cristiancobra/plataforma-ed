@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Image;
 use App\Models\Contact;
 use App\Models\Page;
+use App\Models\Product;
 use App\Models\Text;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -128,18 +129,6 @@ class PageController extends Controller {
             $page->authorization_newsletter = $request->has('authorization_newsletter') ? 1 : 0;
             $page->save();
 
-//            if ($request->file('image')) {
-//                $image = new Image();
-//                $image->account_id = auth()->user()->account_id;
-//                $image->task_id = $page->id;
-//                $image->type = 'tarefa';
-//                $image->name = 'Imagem da tarefa ' . $page->id;
-//                $image->status = 'disponível';
-//                $path = $request->file('image')->store('users_images');
-//                $image->path = $path;
-//                $image->save();
-//            }
-
             return redirect()->route('page.edit', [$page]);
         }
     }
@@ -190,30 +179,43 @@ class PageController extends Controller {
 
         //texts
         $valueOffer = Text::selectedValueOffer($page);
-            if($valueOffer == null) {
-                $valueOfferBackgroundColor = 'lightgray';
-                $valueOfferOppositeColor = 'gray';
-            }elseif($page->text_value_offer == 0) {
-                $valueOfferBackgroundColor = 'lightgray';
-                $valueOfferOppositeColor = 'gray';
-                $valueOffer->text = Text::unformatText($valueOffer->text);
-            }else{
-                $valueOfferBackgroundColor = $page->principal_color;
-                $valueOfferOppositeColor = $page->opposite_color;
+        if ($valueOffer == null) {
+            $valueOfferBackgroundColor = 'lightgray';
+            $valueOfferOppositeColor = 'gray';
+        } elseif ($page->text_value_offer == 0) {
+            $valueOfferBackgroundColor = 'lightgray';
+            $valueOfferOppositeColor = 'gray';
             $valueOffer->text = Text::unformatText($valueOffer->text);
-            }
-        
+        } else {
+            $valueOfferBackgroundColor = $page->principal_color;
+            $valueOfferOppositeColor = $page->opposite_color;
+            $valueOffer->text = Text::unformatText($valueOffer->text);
+        }
+
         $about = Text::selectedAbout($page);
         if ($about) {
             $about->text = Text::unformatText($about->text);
         }
+
         $strengths = Text::selectedStrengths($page);
         if ($strengths) {
             foreach ($strengths as $strength) {
                 $strength->text = Text::unformatText($strength->text);
             }
         }
-//dd($strengths);
+
+        $products = Product::activatedProducts($page->account_id)->take(5);
+        if ($products == null) {
+            $shopBackgroundColor = 'lightgray';
+            $shopOppositeColor = 'gray';
+        } elseif ($page->shop == 0) {
+            $shopBackgroundColor = 'lightgray';
+            $shopOppositeColor = 'gray';
+        } else {
+            $shopBackgroundColor = $page->principal_color;
+            $shopOppositeColor = $page->opposite_color;
+        }
+
         //
         $templates = Page::listTemplates();
         $currentTemplate = Page::returnTemplateName($page->template);
@@ -233,6 +235,9 @@ class PageController extends Controller {
                         'valueOffer',
                         'valueOfferBackgroundColor',
                         'valueOfferOppositeColor',
+                        'products',
+                        'shopBackgroundColor',
+                        'shopOppositeColor',
                         'about',
                         'strengths',
 //                        'text1Name',

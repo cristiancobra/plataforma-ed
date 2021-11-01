@@ -507,6 +507,11 @@ Route::resource('propostas', 'Sales\\ProposalController')
         ->parameters(['propostas' => 'proposal'])
         ->middleware('roles');
 
+Route::resource('loja', 'Sales\\ShopController')
+        ->names('shop')
+        ->parameters(['loja' => 'shop'])
+        ->middleware('roles');
+
 // ------------------------------------------------ SITE  ------------------------------------------------
 Route::get('/editarsite', 'SiteCliente@EditarSite')
         ->name('editar-site');

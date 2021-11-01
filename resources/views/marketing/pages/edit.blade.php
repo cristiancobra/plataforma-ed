@@ -394,6 +394,59 @@
     @endif
 
 
+    <div class='row' style='
+         border-style: solid;
+         border-width: 1px;
+         background-color: {{$shopBackgroundColor}}
+         '>
+        <div class='row pt-3'>
+            <div class='col'>
+                @if($products == null)
+                <span class='labels'>LOJA: </span>não possui produtos
+                <input type='hidden' name='shop' value='0'>
+                @else
+                {{createSelectYesOrNo('LOJA', 'shop', $page->shop)}}
+                @endif
+                <p style='font-size:14px'>
+                    * Qual a dor que seu produto resolve
+                </p>
+            </div>
+        </div>
+        <div class='row pb-5'>
+            <div class='col'>
+                <p class='text-center' style='color: {{$shopOppositeColor}};font-size: 22px'>
+                    @if($products == null)
+                    <a class='circular-button primary' title='criar produto' href='{{route('text.create', ['type' => 'proposta de valor'])}}'>
+                        <i class='fa fa-plus' aria-hidden='true'></i>
+                    </a>
+                    @else
+                                <div class='row pb-5 mt-5'>
+                    @foreach($products as $product)
+                <div class='col text-center'>
+                    <img src='{{asset('images/user.png')}}'  style='
+                         color: {{$page->opposite_color}};
+                         font-size: 22px;
+                         width:80px;
+                         height:80px;
+                         margin-bottom: 20px;
+                         filter: gray; /* IE6-9 */
+                         -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+                         filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+                         '>
+                    <p class='text-center' style='color: grey;font-size: 22px'>
+                        {{$product->name}}
+                    </p>
+                </div>
+                @endforeach
+                </div>
+                @endif
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+
 
     @if($page->form == 1)
     <div class='row' style='background-color: {{$page->opposite_color}}'>

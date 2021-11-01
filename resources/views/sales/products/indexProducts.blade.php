@@ -87,7 +87,7 @@
         </div>
         @if($variation == 'receita')
         <div class='tb col-1'>
-                <a  class="white" href=" {{route('product.public', ['product' => $product])}}">
+            <a  class="white" href=" {{route('product.public', ['product' => $product])}}" target="_blank">
                     <button class="button-round">
                         <i class='fa fa-eye'></i>
                     </button>

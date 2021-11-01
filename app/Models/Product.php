@@ -49,6 +49,10 @@ class Product extends Model {
         return $this->hasOne(Image::class, 'id', 'image_id');
     }
 
+//    public function shop() {
+//        return $this->hasOne(Shop::class, 'account_id', 'account_id');
+//    }
+
     // MÉTODOS PÚBLICOS
 // retorna categoria de produtos
     static function returnCategories() {
@@ -127,6 +131,22 @@ class Product extends Model {
         ]);
 
         return $products;
+    }
+    
+    public static function activatedProducts($accountId) {
+        return Product::where('account_id', $accountId)
+                ->where('status', 'ativada')
+                ->where('trash', '!=', 1)
+                ->get();
+    }
+    
+    public static function favoriteProducts($accountId) {
+        return Product::where('account_id', $accountId)
+                ->where('status', 'ativada')
+                ->where('trash', '!=', 1)
+                                ->orderBy('priority', 'DESC')
+                ->take(5)
+                ->get();
     }
 
 }

@@ -9,6 +9,7 @@ use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Shop;
 use App\Models\User;
 
 class ProductController extends Controller {
@@ -293,6 +294,8 @@ class ProductController extends Controller {
     }
 
         public function public(Request $request, Product $product) {
+            $shop = Shop::find($product->account_id);
+//            dd($product);
             $variation = $request->input('variation');
             $whatsappLink = Product::whatsappLink($product);
 //            dd($variation);
@@ -322,6 +325,7 @@ class ProductController extends Controller {
                 'product',
                 'variation',
                 'whatsappLink',
+                'shop',
 //                        'page',
 //                        'states',
 //                        'user',

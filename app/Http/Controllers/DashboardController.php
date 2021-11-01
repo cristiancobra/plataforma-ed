@@ -11,6 +11,7 @@ use App\Models\Contact;
 use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Opportunity;
+use App\Models\Shop;
 use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
@@ -245,7 +246,10 @@ class DashboardController extends Controller {
                     ->sum('duration');
         }
 
-
+        $shop = Shop::where('account_id', auth()->user()->account_id)
+                ->with('banner')
+                ->first();
+//dd($shop);
 
         return view('dashboards.sales', compact(
                         'contacts',
@@ -262,6 +266,7 @@ class DashboardController extends Controller {
                         'opportunitiesWon',
                         'opportunitiesLost',
                         'opportunitiesNews',
+                        'shop',
         ));
     }
 

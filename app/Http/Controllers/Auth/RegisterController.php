@@ -8,6 +8,7 @@ use App\Models\Account;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Opportunity;
+use App\Models\SystemText;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -99,12 +100,12 @@ use RegistersUsers;
             $taskOpportunity = Task::registerTaskOpportunity($contactEd, $companyEd, $opportunityEd);
         }
         
-        $systemTextsTutorials = SystemTask::where('type', 'primeiros passos')
+        $systemTextsTutorials = SystemText::where('type', 'primeiros passos')
                 ->where('status', 'ativada')
                 ->get();
         
         foreach($systemTextsTutorials as $systemText) {
-            SystemText::registerTasksTutorials($systemText, $user, $companyEdCustomer, $contact, $account, $contactEdCustomer);
+            Task::registerTasksTutorials($systemText, $user, $companyEdCustomer, $contact, $account, $contactEdCustomer);
         }
 
         return redirect('/');

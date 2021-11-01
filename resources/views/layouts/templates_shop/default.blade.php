@@ -20,6 +20,8 @@
             @endphp
         </div>
         @endif
+        
+                    @yield('banner')
 
         <div id='white-page' class='row m-2 p-5' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
 
@@ -28,6 +30,9 @@
                     @yield('image')
                 </div>
                 <div class='offset-1 col-2 col-xs-3' style='text-align: center'>
+                    <div class='show-label'>
+                        NOME
+                    </div>
                     <div class='show-label'>
                         PREÇO
                     </div>
@@ -71,8 +76,6 @@
             @yield('main')
 
             @include('layouts.footer')
-
-            @yield('createdAt')
 
         </div>
         <script>

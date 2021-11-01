@@ -24,6 +24,8 @@
 
         @yield('how-it-works')
 
+        @yield('shop')
+
         @yield('form')
 
         @yield('js-scripts')

@@ -130,29 +130,6 @@
 @endif
 
 
-@if($page->shop == 1)
-@section('shop')
-<div class='row pb-5 pt-5'>
-    @foreach($products as $product)
-    <div class='col text-center'>
-        <img src='{{asset('images/user.png')}}'  style='
-                       background-color: {{$page->principal_color}}
-             color: {{$page->opposite_color}};
-             font-size: 22px;
-             width:80px;
-             height:80px;
-             margin-bottom: 20px;
-             '>
-        <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>
-                        {{ $strenght->text }}
-        </p>
-    </div>
-    @endforeach
-</div>
-@endsection
-@endif
-
-
 @if($page->form == 1)
 @section('form')
 <div class='row pt-5 pb-5' style='background-color: {{$page->opposite_color}}'>

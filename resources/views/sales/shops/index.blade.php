@@ -45,7 +45,7 @@
 @foreach ($pages as $page)
 <div class='row'>
     <div class='tb col-3 justify-content-start' style="font-weight: 600">
-        <a class="white" href="{{route('page.public', ['page' => $page->id])}}" target='_blank'>
+        <a class="white" href="{{route('page.public', ['page' => $page])}}" target='_blank'>
             <button class="button-round me-1">
                 <i class="fa fa-eye"></i>
             </button>

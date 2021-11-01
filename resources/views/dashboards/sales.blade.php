@@ -66,6 +66,27 @@
             </p>
         </a>
     </div>
+    @if($shop == null)
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('shop.create')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-plus' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                CRIAR LOJA
+            </p>
+        </a>
+    </div>
+    @else
+    <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('shop.edit', ['shop' => $shop])}}'>
+            <p class='panel-text'>
+                <i class='fas fa-edit' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                EDITAR LOJA
+            </p>
+        </a>
+    </div>
+    @endif
 
     
 <div class='row pt-5 pb-0'>
