@@ -13,18 +13,18 @@
 <div class='row mt-2 mb-3 ms-1 me-1'>
     <div class="col">
                     <p class='h2' style='color: {{$principalColor}}'>
-        METAS
+        METAS 
                     </p>
     </div>
 </div>
 <div class='row mt-2 mb-3 ms-1 me-1'>
      
         <div class='col d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('opportunity.index', ['department' => 'desenvolvimento'])}}'>
+        <a style='text-decoration:none' href='{{route('goal.index', ['department' => 'desenvolvimento'])}}'>
             <p class='panel-text'>
-                <i class='fas fa-flask' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <i class='fas fa-bullseye' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
                 <br>
-                METAS
+                METAS TRIMESTRAIS
             </p>
         </a>
     </div>
@@ -32,7 +32,7 @@
         <div class='col d-inline-block tasks-toDo'>
         <a style='text-decoration:none' href='{{route('opportunity.index', ['department' => 'desenvolvimento'])}}'>
             <p class='panel-text'>
-                <i class='fas fa-flask' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <i class='fas fa-project-diagram' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
                 <br>
                 PROJETOS
             </p>

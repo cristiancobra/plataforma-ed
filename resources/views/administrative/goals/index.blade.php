@@ -108,9 +108,6 @@
     <div class='tb tb-header col-2'>
         RESPONSÁVEL
     </div>
-    <div class='tb tb-header col-1'>
-        TIPO
-    </div>
     <div class='tb tb-header-end col-1'>
         SITUAÇÃO
     </div>
@@ -143,8 +140,6 @@
         funcionário excluído
         @endif
     </div>
-
-    {{formatType($goal)}}
 
     {{formatStatus($goal)}}
 
