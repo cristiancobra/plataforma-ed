@@ -196,8 +196,6 @@ Route::resource('planejamentos', 'Administrative\\PlanningController')
         ->parameters(['planejamentos' => 'planning'])
         ->middleware('roles');
 
-// dashboar financeiro
-Route::get('financeiro', 'Financial\\TransactionController@dashboard');
 
 // transactions / movimentações financeiras
 Route::put('/movimentacoes/apagar/{transaction}', 'Financial\\TransactionController@sendToTrash')

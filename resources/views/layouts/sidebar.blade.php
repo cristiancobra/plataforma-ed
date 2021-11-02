@@ -74,7 +74,7 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        <a class="dropdown-btn nav-link" href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
+        <a class="dropdown-btn nav-link" href='{{route('dashboard.financial')}}' style="color: {{$principalColor}}">
             <i class="fas fa-money-bill"></i>
             <span class="d-none d-xl-inline">FINANCEIRO</span>
         </a>
