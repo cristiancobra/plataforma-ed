@@ -97,6 +97,7 @@ class OpportunityController extends Controller {
             $status = Opportunity::listStatusDevelopment();
         } else {
             $title = 'OPORTUNIDADES';
+            $department = null;
             $stages = Opportunity::listStages();
             $status = Opportunity::listStatus();
         }
