@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','EDITAR TAREFA')
+@section('title','TAREFAS')
 
 @section('image-top')
 {{asset('images/rocket.png')}} 
@@ -57,7 +57,11 @@
         </select>
         <br>
         <br>
+               @if($task->department == 'desenvolvimento' 
+        <label class="labels" for="" >PROJETO:</label>
+        @else
         <label class="labels" for="" >OPORTUNIDADE:</label>
+        @endif
         <select class = 'fields' name='opportunity_id' style='width:700px'>
             @if($task->opportunity_id != null)
             <option value='{{$task->opportunity_id}}'>

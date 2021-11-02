@@ -17,6 +17,16 @@
             <p class='panel-text'>
                 <i class='fas fa-flask' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
                 <br>
+                METAS
+            </p>
+        </a>
+    </div>
+     
+        <div class='col d-inline-block tasks-toDo'>
+        <a style='text-decoration:none' href='{{route('opportunity.index', ['department' => 'desenvolvimento'])}}'>
+            <p class='panel-text'>
+                <i class='fas fa-flask' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
                 PROJETOS
             </p>
         </a>
