@@ -5,19 +5,28 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Goal extends Model
-{
+class Goal extends Model {
+
     protected $table = 'goals';
     protected $fillable = [
         'id',
         'account_id',
-        'user_id',
-        'opportunity_id',
+        'department',
         'name',
         'description',
-        'points',
-        'start',
-        'end',
+        'opportunity_id',
+        'date_start',
+        'date_due',
+        'date_conclusion',
+        'goal_contacts',
+        'goal_points',
+        'goal_invoice_revenues',
+        'goal_invoice_expenses',
+        'goal_transactions_expenses',
+        'goal_transactions_revenues',
+        'goal_opportunities',
+        'goal_opportunities_won',
+        'trash',
         'status',
     ];
     protected $hidden = [
@@ -31,9 +40,8 @@ class Goal extends Model
         return $this->hasMany(Task::class, 'stage_id', 'id');
     }
 
-
 // MÉTODOS PÚBLICOS
-    
+
 
     public static function filterGoals(Request $request) {
         $goals = Goal::where(function ($query) use ($request) {
@@ -87,7 +95,6 @@ class Goal extends Model
 
         return $goals;
     }
-    
 
     public static function returnStatus() {
         return [

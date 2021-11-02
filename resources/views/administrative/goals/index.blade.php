@@ -99,7 +99,7 @@
 
 @section('table')
 <div class='row mt-2'>
-    <div class='tb tb-header-start col-4'>
+    <div class='tb tb-header-start col-5'>
         NOME
     </div>
     <div class='tb tb-header col-4'>
@@ -114,7 +114,7 @@
 </div>
 @foreach ($goals as $goal)
 <div class='row'>
-    <div class='tb col-4 justify-content-start' style="font-weight: 600">
+    <div class='tb col-5 justify-content-start' style="font-weight: 600">
         <a class="white" href=" {{ route('goal.show', ['goal' => $goal->id]) }}">
             <button class="button-round">
                 <i class='fa fa-eye'></i>

@@ -73,6 +73,10 @@ class GoalController extends Controller
             $goal = new Goal();
             $goal->fill($request->all());
             $goal->account_id = auth()->user()->account_id;
+            
+            if($request->department == 'desenvolvimento') {
+                
+            }
             $goal->save();
 
             if ($request->file('image')) {
