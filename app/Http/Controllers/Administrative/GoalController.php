@@ -75,7 +75,7 @@ class GoalController extends Controller
             $goal->account_id = auth()->user()->account_id;
             
             if($request->department == 'desenvolvimento') {
-                
+                $goal->goal_points = 1;
             }
             $goal->save();
 
