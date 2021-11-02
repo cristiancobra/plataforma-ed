@@ -84,7 +84,7 @@
     </div>
     @endif
 
-        @if($task->department == 'desenvolvimento')
+        @if($task->department == 'desenvolvimento' AND isset($task->opportunity->id))
         <a href=' {{route('opportunity.show', [
                                                                     'opportunity' => $task->opportunity,
                                                                     'department' => 'desenvolvimento',
