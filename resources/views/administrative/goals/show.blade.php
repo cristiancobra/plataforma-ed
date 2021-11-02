@@ -111,9 +111,6 @@
             CONCLUSÃO
         </div>
         <div class='col-1 tb tb-header'>
-            PRIORIDADE
-        </div>
-        <div class='col-1 tb tb-header'>
             SITUAÇÃO
         </div>
     </div>
@@ -137,8 +134,6 @@
         </div>
 
         {{formatDateDue($project)}}
-
-        {{formatPriority($project)}}
 
         {{formatStatus($project)}}
     </div>
