@@ -57,7 +57,7 @@
         </select>
         <br>
         <br>
-               @if($task->department == 'desenvolvimento' 
+               @if($task->department == 'desenvolvimento')
         <label class="labels" for="" >PROJETO:</label>
         @else
         <label class="labels" for="" >OPORTUNIDADE:</label>
