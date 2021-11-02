@@ -20,8 +20,9 @@ class CreateGoalsTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->decimal('points', 4, 1)->nullable();
-            $table->timestamp('start');
-            $table->timestamp('end');
+            $table->timestamp('date_start');
+            $table->timestamp('date_due');
+            $table->timestamp('date_conclusion');
             $table->integer('goals_contacts')->nullable();
             $table->decimal('goals_points', 4, 1)->nullable();
             $table->decimal('goals_invoice_revenues', 8, 2)->nullable();
@@ -30,6 +31,7 @@ class CreateGoalsTable extends Migration
             $table->decimal('goals_transactions_revenues', 8, 2)->nullable(); 
             $table->integer('goals_opportunities')->nullable();
             $table->integer('goals_opportunities_won')->nullable();
+            $table->tinyInteger('trash');
             $table->string('status');
             $table->timestamps();
         });

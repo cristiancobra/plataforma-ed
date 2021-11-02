@@ -10,13 +10,20 @@ class Stage extends Model {
     protected $fillable = [
         'id',
         'account_id',
-        'user_id',
-        'opportunity_id',
+        'department',
         'name',
         'description',
         'points',
         'start',
         'end',
+        'goals_contacts',
+        'goals_points',
+        'goals_invoice_revenues',
+        'goals_invoice_expenses',
+        'goals_transactions_expenses',
+        'goals_transactions_revenues',
+        'goals_opportunities',
+        'goals_opportunities_won',
         'status',
     ];
     protected $hidden = [
@@ -37,8 +44,6 @@ class Stage extends Model {
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
-
 
 // MÉTODOS PÚBLICOS
 

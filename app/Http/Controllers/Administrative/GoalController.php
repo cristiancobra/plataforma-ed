@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Administrative;
 
 use App\Http\Controllers\Controller;
 use App\Models\Goal;
+use App\Models\Opportunity;
+use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class GoalController extends Controller
 {
@@ -13,13 +16,19 @@ class GoalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $goals = Goal::where('account_id', auth()->user()->account_id)
-                ->get();
+        $goals = Goal::filterGoals($request);
+        
+                $departments = Task::returnDepartments();
+                $status = Goal::returnStatus();
+                $trashStatus = request()->trash;
         
         return view('administrative.goals.index', compact(
                 'goals',
+                'departments',
+                'status',
+                'trashStatus',
         ));
     }
 
@@ -30,7 +39,13 @@ class GoalController extends Controller
      */
     public function create()
     {
-        //
+                $departments = Task::returnDepartments();
+                $status = Goal::returnStatus();
+        
+        return view('administrative.goals.create', compact(
+                'departments',
+                'status',
+        ));
     }
 
     /**
@@ -41,7 +56,39 @@ class GoalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:goals',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $goal = new Goal();
+            $goal->fill($request->all());
+            $goal->account_id = auth()->user()->account_id;
+            $goal->save();
+
+            if ($request->file('image')) {
+                $image = new Image();
+                $image->account_id = auth()->user()->account_id;
+                $image->task_id = $goal->id;
+                $image->type = 'tarefa';
+                $image->name = 'Imagem da meta ' . $goal->name;
+                $image->status = 'disponível';
+                $path = $request->file('image')->store('users_images');
+                $image->path = $path;
+                $image->save();
+            }
+
+            return redirect()->route('goal.show', [$goal]);
+        }
     }
 
     /**
@@ -52,7 +99,12 @@ class GoalController extends Controller
      */
     public function show(Goal $goal)
     {
-        //
+        $projects = Opportunity::getProjects();
+
+        return view('administrative.goals.show', compact(
+                        'goal',
+                        'projects',
+        ));
     }
 
     /**
@@ -88,4 +140,20 @@ class GoalController extends Controller
     {
         //
     }
+    
+    
+    public function sendToTrash(Goal $goal) {
+        $goal->trash = 1;
+        $goal->save();
+
+        return redirect()->back();
+    }
+
+    public function restoreFromTrash(Goal $goal) {
+        $goal->trash = 0;
+        $goal->save();
+
+        return redirect()->back();
+    }
+
 }

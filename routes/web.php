@@ -116,6 +116,15 @@ Route::resource('usuarios', 'Administrative\\Users\\UserController')
         ->middleware('roles');
 
 //goals
+
+Route::put('/metas/apagar/{goal}', 'Administrative\\GoalController@sendToTrash')
+        ->name('goal.trash')
+        ->middleware('roles');
+
+Route::put('/metas/restaurar/{goal}', 'Administrative\\GoalController@restoreFromTrash')
+        ->name('goal.restore')
+        ->middleware('roles');
+
 Route::resource('metas', 'Administrative\\GoalController')
         ->names('goal')
         ->parameters(['metas' => 'goal'])

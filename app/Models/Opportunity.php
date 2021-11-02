@@ -184,6 +184,19 @@ class Opportunity extends Model {
         ;
     }
 
+    public static function getProjects() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                ->where('department', 'desenvolvimento')
+                ->where('trash', '!=', 1)
+//                ->with([
+//                    'company',
+//                    'contact',
+//                ])
+                ->orderBy('date_start', 'DESC')
+                ->get();
+        ;
+    }
+
     public static function countProspectings() {
         return Opportunity::where('account_id', auth()->user()->account_id)
                         ->where('stage', 'prospecção')
