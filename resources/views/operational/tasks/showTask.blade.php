@@ -51,7 +51,11 @@
         EMPRESA
     </div>
     <div class='show-label'>
+        @if($task->department == 'desenvolvimento')
+        PROJETO
+        @else
         OPORTUNIDADE
+        @endif
     </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
@@ -80,8 +84,16 @@
     </div>
     @endif
 
-
-    @if(isset($task->opportunity->id))
+        @if($task->department == 'desenvolvimento')
+        <a href=' {{route('opportunity.show', [
+                                                                    'opportunity' => $task->opportunity,
+                                                                    'department' => 'desenvolvimento',
+                                                                    ])}}'>
+        <div class='show-field-end'>
+            {{$task->opportunity->name}}
+        </div>
+    </a>
+    @elseif(isset($task->opportunity->id))
     <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
         <div class='show-field-end'>
             {{$task->opportunity->name}}
@@ -316,7 +328,7 @@
         </form>
     </div>
     @endif
-        @if($task->status == 'fazendo')
+    @if($task->status == 'fazendo')
     <div class='col-2 d-inline-block'>
         <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
             @csrf

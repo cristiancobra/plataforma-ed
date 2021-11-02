@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Operationl;
+namespace App\Http\Controllers\Operational;
 
 use App\Http\Controllers\Controller;
 use App\Models\Stage;
 use Illuminate\Http\Request;
 
-class StagesController extends Controller
+class StageController extends Controller
 {
     /**
      * Display a listing of the resource.

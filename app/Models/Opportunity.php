@@ -17,6 +17,7 @@ class Opportunity extends Model {
         'created_at',
         'name',
         'description',
+        'department',
         'category',
         'stage',
         'price',
@@ -147,8 +148,31 @@ class Opportunity extends Model {
         );
     }
 
+// retorna os estágios das oportunidades do tipo DESENVOLVIMENTO
+    public static function listStatusDevelopment() {
+        return $status = array(
+            'rascunho',
+            'fazer',
+            'concluída',
+        );
+    }
+
     public static function openOpportunities() {
         return $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
+                ->where('stage', '!=', 'perdemos')
+                ->where('stage', '!=', 'concluída')
+                ->with([
+                    'company',
+                    'contact',
+                ])
+                ->orderBy('date_conclusion', 'DESC')
+                ->get();
+        ;
+    }
+
+    public static function openOpportunitiesDevelopment() {
+        return $accountOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
+                ->where('department', 'desenvolvimento')
                 ->where('stage', '!=', 'perdemos')
                 ->where('stage', '!=', 'concluída')
                 ->with([

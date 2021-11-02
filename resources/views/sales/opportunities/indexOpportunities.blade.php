@@ -1,6 +1,6 @@
 @extends('layouts/index')
 
-@section('title','OPORTUNIDADES')
+@section('title',$title)
 
 @section('image-top')
 {{asset('images/financeiro.png')}} 
@@ -12,7 +12,7 @@
 </a>
 {{createButtonTrashIndex($trashStatus, 'opportunity')}}
 {{createButtonBack()}}
-{{createButtonCreate('opportunity')}}
+{{createButtonCreate('opportunity', 'department',  $department)}}
 @endsection
 
 
@@ -36,6 +36,8 @@
 
 
 @section('shortcuts')
+@if($department == 'desenvolvimento')
+@else
 <div class='col shortcut prospecting'>
     <a style='text-decoration:none' href='{{route('opportunity.index', [
                                                                                                             'stage' =>'prospecção',
@@ -118,6 +120,7 @@
         </h3>
     </a>
 </div>
+@endif
 @endsection
 
 
@@ -127,9 +130,17 @@
     <div class="tb tb-header-start col-4">
         NOME 
     </div>
+
+    @if($department != 'desenvolvimento')
     <div class="tb tb-header col-2">
         CONTATO 
     </div>
+    @else
+    <div class="tb tb-header col-3">
+        CONTATO 
+    </div>
+    @endif
+
     <div class="tb tb-header col-2">
         EMPRESA
     </div>
@@ -139,9 +150,13 @@
     <div class="tb tb-header col-1">
         CRIADO 
     </div>
+
+    @if($department != 'desenvolvimento')
     <div class="tb tb-header col-1">
         ETAPA DA VENDA
     </div>
+    @endif
+
     <div class="tb tb-header-end col-1">
         SITUAÇÃO
     </div>
@@ -157,60 +172,68 @@
         </button>
         {{$opportunity->name}}
     </div>
-    @if(isset($opportunity->contact->name))
+
+    @if($department != 'desenvolvimento')
     <div class="tb col-2">
-        {{$opportunity->contact->name}}
-    </div>
-    @else
-    <div class="tb col-2">
-        Não possui
-    </div>
-    @endif
-    @if(isset($opportunity->company->name))
-    <div class="tb col-2">
-        {{$opportunity->company->name}}
-    </div>
-    @else
-    <div class="tb col-2">
-        Pessoa física
-    </div>
-    @endif
-    <div class="tb col-1">
-        @if(isset($opportunity->user->image))
-        <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
-                <img src='{{asset($opportunity->user->image->path)}}' width='100%' height='100%'>
-            </a>
-        </div>
-        @elseif(isset($opportunity->user->contact->name))
-        <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
-            {{$opportunity->user->contact->name}}
-        </a>
         @else
-        funcionário excluído
+        <div class="tb col-3">    
+            @endif
+            @if(isset($opportunity->contact->name))
+            {{$opportunity->contact->name}}
+            @else
+            Não possui
+            @endif
+        </div>
+
+        @if(isset($opportunity->company->name))
+        <div class="tb col-2">
+            {{$opportunity->company->name}}
+        </div>
+        @else
+        <div class="tb col-2">
+            Pessoa física
+        </div>
         @endif
+        <div class="tb col-1">
+            @if(isset($opportunity->user->image))
+            <div class='profile-picture-small'>
+                <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
+                    <img src='{{asset($opportunity->user->image->path)}}' width='100%' height='100%'>
+                </a>
+            </div>
+            @elseif(isset($opportunity->user->contact->name))
+            <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
+                {{$opportunity->user->contact->name}}
+            </a>
+            @else
+            funcionário excluído
+            @endif
+        </div>
+        <div class="tb col-1">
+            {{dateBr($opportunity->date_start)}}
+        </div>
+
+        @if($department != 'desenvolvimento')
+        {{formatStage($opportunity)}}
+        @endif
+
+        {{formatStatus($opportunity)}}
     </div>
-    <div class="tb col-1">
-        {{dateBr($opportunity->date_start)}}
-    </div>
-    {{formatStage($opportunity)}}
-    {{formatStatus($opportunity)}}
-</div>
-@endforeach
-@endsection
+    @endforeach
+    @endsection
 
 
-@section('paginate', $opportunities->links())
+    @section('paginate', $opportunities->links())
 
 
-@section('js-scripts')
-<script>
-    $(document).ready(function () {
-        //botao de exibir filtro
-        $("#filter_button").click(function () {
-            $("#filter").slideToggle(600);
+    @section('js-scripts')
+    <script>
+        $(document).ready(function () {
+            //botao de exibir filtro
+            $("#filter_button").click(function () {
+                $("#filter").slideToggle(600);
+            });
+
         });
-
-    });
-</script>
-@endsection
+    </script>
+    @endsection

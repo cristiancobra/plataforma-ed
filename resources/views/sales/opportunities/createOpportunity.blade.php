@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','OPORTUNIDADES')
+@section('title', $title)
 
 @section('image-top')
 {{ asset('images/financeiro.png') }} 
@@ -26,6 +26,9 @@
 <div>
     <form action=" {{route('opportunity.store')}} " method="post" style="color: #874983">
         @csrf
+        @if($department == 'desenvolvimento')
+        <input type="hidden" name="department" value="{{$department}}">
+        @endif
         <label class="labels" for="" >NOME:</label>
         <input type="text" name="name" size="60" value="{{old('name')}}"><span class="fields"></span>
         @if ($errors->has('name'))
@@ -36,14 +39,16 @@
         {{createSelectUsers('fields', $users)}}
         <br>
         <br>
+                @if($department != 'desenvolvimento')
         <label class="labels" for="" >EMPRESA: </label>
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         {{createButtonAdd('company.create', 'typeCompanies', 'cliente')}}
         <br>
+        @endif
         <label class="labels" for="" >CONTATO: </label>
         @if(!empty(app('request')->input('contact_id')))
         <input type="hidden" name="contact_id" value="{{app('request')->input('contact_id')}}">
-                {{app('request')->input('contact_name')}}
+        {{app('request')->input('contact_name')}}
         @else
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
         @endif
@@ -77,9 +82,13 @@ CKEDITOR.replace('description');
         </script>
         <br>
         <br>
+        
+        @if($stages != null)
         <label class="labels" for="">ETAPA:</label>
         {{createSimpleSelect('stage', 'fields', $stages)}}
         <br>
+        @endif
+        
         <label class="labels" for="">SITUAÇÃO:</label>
         {{createSimpleSelect('status', 'fields', $status)}}
         <br>

@@ -20,6 +20,14 @@ use App\Models\User;
  * Classe responsável por criar os dashboards (painéis) dos departamentos
  */
 class DashboardController extends Controller {
+    
+        public function development() {
+        $nada = 0;
+        
+        return view('dashboards.development', compact(
+                        'nada',
+        ));
+    }
 
     public function operational() {
         $month = returnMonth(date('m'));

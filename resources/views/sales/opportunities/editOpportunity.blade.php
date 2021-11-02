@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','OPORTUNIDADES')
+@section('title', $title)
 
 @section('image-top')
 {{asset('images/financeiro.png')}} 
@@ -10,8 +10,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
-{{createButtonList('opportunity')}}
+{{createButtonList('opportunity', 'department',  $opportunity->department)}}
 @endsection
 
 @section('main')
@@ -27,6 +26,9 @@
     <form action=" {{route('opportunity.update', ['opportunity' =>$opportunity->id])}} " method="post">
         @csrf
         @method('put')
+        @if($opportunity->department == 'desenvolvimento')
+        <input type="hidden" name="department" value="{{$opportunity->department}}">
+        @endif
         <label class="labels" for="" >NOME:</label>
         <input type="text" name="name" size="20" value="{{$opportunity->name}}"><span class="fields"></span>
         @if ($errors->has('name'))
@@ -46,6 +48,7 @@
         </select>
         <br>
         <br>
+                        @if($opportunity->department != 'desenvolvimento')
         <label class="labels" for="" >EMPRESA: </label>
         @if(isset($opportunity->company))
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física', $opportunity->company)}}
@@ -53,6 +56,7 @@
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         @endif
         <br>
+        @endif
         <label class="labels" for="" >CONTATO: </label>
         <select name="contact_id">
             @if(isset($opportunity->contact_id))
@@ -85,11 +89,13 @@
 CKEDITOR.replace('description');
         </script>
         <br>
-
         <br>
+                @if($stages != null)
         <label class="labels" for="">ETAPA DA VENDA:</label>
         {{createSimpleSelect('stage', 'fields', $stages, $opportunity->stage)}}
         <br>
+        @endif
+        
         <label class="labels" for="" >DATA DE CONCLUSÃO:</label>
         <input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>
         <br>

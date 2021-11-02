@@ -1,16 +1,15 @@
 @extends('layouts/show')
 
-@section('title','OPORTUNIDADES')
+@section('title', $title)
 
 @section('image-top')
 {{asset('images/financeiro.png')}}
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
 {{createButtonTrash($opportunity, 'opportunity')}}
-{{createButtonEdit('opportunity', 'opportunity', $opportunity)}}
-{{createButtonList('opportunity')}}
+{{createButtonEdit('opportunity', 'opportunity', $opportunity, 'department', $opportunity->department)}}
+{{createButtonList('opportunity', 'department',  $opportunity->department)}}
 @endsection
 
 @section('name', $opportunity->name)
@@ -25,14 +24,17 @@
 
 @section('fieldsId')
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
+    @if($opportunity->department != 'desenvolvimento')
     <div class='show-label'>
         EMPRESA
     </div>
+    @endif
     <div class='show-label'>
         CONTATO
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
+    @if($opportunity->department != 'desenvolvimento')
     @empty($companyName)
     <div class='show-field-end'>
         Pessoa física
@@ -43,6 +45,7 @@
             {{$companyName}}
         </div>
     </a>
+    @endif
     @endif
 
     @if(isset($opportunity->contact->name))
@@ -99,7 +102,7 @@
         @endif
     </div>
     <p class='labels' style='text-align: center'>
-        PRÓXIMO CONTATO
+        {{$dateDue}}
     </p>
     @endsection
 
@@ -126,6 +129,101 @@
 
 
     @section('main')
+    @if($opportunity->department == 'desenvolvimento')
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: #c28dbf
+             '>
+            <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >EXECUÇÃO</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: #c28dbf
+             '>
+            <a class='text-button secondary'  style='display: inline-block;float: right'  href='{{route('opportunity.pdfProduction', ['opportunity' => $opportunity])}}'>
+                RELATÓRIO PDF
+            </a>
+            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
+                                                                                                                                                                                        'opportunityName' => $opportunity->name,
+                                                                                                                                                                                        'opportunityId' => $opportunity->id,
+                                                                                                                                                                                        'opportunityDescription' => $opportunity->description,
+                                                                                                                                                                                        'opportunityCompanyName' => $companyName,
+                                                                                                                                                                                        'opportunityCompanyId' => $companyId,
+                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
+                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
+                                                                                                                                                                                        'department' => 'desenvolvimento',
+                                                                                                                                                                                        'type' => 'projeto',
+                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
+                                                                                                                                                                                        ]
+                    )}}'>
+                <i class='fa fa-plus' aria-hidden='true'></i>
+            </a>
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-2 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-3 tb tb-header'>
+            TAREFA 
+        </div>
+        <div class='col-4 tb tb-header'>
+            DESCRIÇÃO 
+        </div>
+        <div class='col-1 tb tb-header'>
+            CONCLUSÃO
+        </div>
+        <div class='col-1 tb tb-header'>
+            PRIORIDADE
+        </div>
+        <div class='col-1 tb tb-header'>
+            SITUAÇÃO
+        </div>
+    </div>
+    @foreach ($tasksDevelopment as $task)
+    <div class='row'>
+        <div class='tb col-2'>
+            <button class='button-round'>
+                <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{date('d/m/Y', strtotime($task->date_start))}}
+        </div>
+        <div class='tb col-3'>
+            {{$task->name}}
+        </div>
+        <div class='tb-description col-4'>
+            {!!html_entity_decode($task->description)!!}
+        </div>
+
+        {{formatDateDue($task)}}
+
+        {{formatPriority($task)}}
+
+        {{formatStatus($task)}}
+    </div>
+    @endforeach
+    <div class='row mb-4'>
+        <div class='tb tb-header col-11 justify-content-end'>
+            TOTAL:
+        </div>
+        <div class='tb tb-header col-1'>
+            {{formatTotalHour($tasksOperationalHours)}} horas
+        </div>
+    </div>
+
+    @else   
+
     <div class='row mt-5'>
         <div class='col-6 pt-4 pb-3' style='
              border-left-style: solid;
@@ -937,6 +1035,7 @@
         {{formatTotalHour($tasksCustomerServicesHours)}} horas
     </div>
 </div>
+@endif
 @endsection
 
 @section('deleteButton')

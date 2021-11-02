@@ -69,13 +69,18 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-        <a class="dropdown-btn nav-link" href='{{route('dashboard.financial')}}' style="color: {{$principalColor}}">
+        <a class="dropdown-btn nav-link" href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
             <i class="fas fa-money-bill"></i>
             <span class="d-none d-xl-inline">FINANCEIRO</span>
         </a>
 
 
         @endif
+
+        <a class="dropdown-btn nav-link" href='{{route('dashboard.development')}}' style="color: {{$principalColor}}">
+            <i class="fas fa-flask"></i>
+            <span class="d-none d-xl-inline">DESENVOLVIMENTO</span>
+        </a>
 
         <a class="dropdown-btn nav-link" href='{{route('dashboard.marketing')}}' style="color: {{$principalColor}}">
             <i class="fas fa-bullhorn"></i>

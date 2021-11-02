@@ -26,6 +26,14 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        if ($request->department == 'desenvolvimento') {
+            $title = 'PROJETOS';
+            $department = 'desenvolvimento';
+        } else {
+            $title = 'OPORTUNIDADES';
+            $department = null;
+        }
+
         $opportunities = Opportunity::filterOpportunities($request);
         $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->where('status', '!=', 'perdemos')
@@ -57,6 +65,8 @@ class OpportunityController extends Controller {
         $trashStatus = request()->trash;
 
         return view('sales.opportunities.indexOpportunities', compact(
+                        'title',
+                        'department',
                         'opportunities',
                         'totalProspection',
                         'totalPresentation',
@@ -79,7 +89,18 @@ class OpportunityController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create() {
+    public function create(Request $request) {
+        if ($request->department == 'desenvolvimento') {
+            $title = 'PROJETOS';
+            $department = 'desenvolvimento';
+            $stages = null;
+            $status = Opportunity::listStatusDevelopment();
+        } else {
+            $title = 'OPORTUNIDADES';
+            $stages = Opportunity::listStages();
+            $status = Opportunity::listStatus();
+        }
+
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -92,11 +113,11 @@ class OpportunityController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $stages = Opportunity::listStages();
-        $status = Opportunity::listStatus();
         $users = User::myUsers();
 
         return view('sales.opportunities.createOpportunity', compact(
+                        'title',
+                        'department',
                         'users',
                         'companies',
                         'contacts',
@@ -148,6 +169,14 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Opportunity $opportunity) {
+        if ($opportunity->department == 'desenvolvimento') {
+            $title = 'PROJETOS';
+            $dateDue = 'PRAZO FINAL';
+        } else {
+            $title = 'OPORTUNIDADES';
+            $dateDue = 'PRÓXIMO CONTATO';
+        }
+
         if ($opportunity->company) {
             $companyName = $opportunity->company->name;
             $companyId = $opportunity->company->id;
@@ -166,46 +195,44 @@ class OpportunityController extends Controller {
                 ->get();
 
         $proposalWon = $proposals->where('status', 'aprovada')->count();
-        
+
         $proposalApproved = Proposal::where('opportunity_id', $opportunity->id)
                 ->where('status', 'aprovada')
                 ->where('trash', '!=', 1)
                 ->first();
 
-        if($proposalApproved != null) {
+        if ($proposalApproved != null) {
 
-        $invoices = Invoice::where('proposal_id', $proposalApproved->id)
-                ->where('trash', '!=', 1)
-                ->with('transactions')
-                ->orderBy('PAY_DAY', 'ASC')
-                ->get();
-        
+            $invoices = Invoice::where('proposal_id', $proposalApproved->id)
+                    ->where('trash', '!=', 1)
+                    ->with('transactions')
+                    ->orderBy('PAY_DAY', 'ASC')
+                    ->get();
 
-        foreach ($invoices as $invoice) {
-            if ($invoice->status == 'aprovada') {
-                $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-                        ->sum('value');
+            foreach ($invoices as $invoice) {
+                if ($invoice->status == 'aprovada') {
+                    $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                            ->sum('value');
+                }
+                if ($invoice->paid >= $invoice->totalPrice) {
+                    $invoice->status = 'paga';
+                } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->totalPrice) {
+                    $invoice->status = 'parcial';
+                }
+
+                $invoice->balance = $invoice->totalPrice - $invoice->paid;
             }
-            if ($invoice->paid >= $invoice->totalPrice) {
-                $invoice->status = 'paga';
-            } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->totalPrice) {
-                $invoice->status = 'parcial';
-            }
 
-            $invoice->balance = $invoice->totalPrice - $invoice->paid;
-        }
-
-        $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
-        $invoicePaymentsTotal = $invoices->sum('balance');
-        $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
-
-        }else{
+            $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
+            $invoicePaymentsTotal = $invoices->sum('balance');
+            $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
+        } else {
             $invoices = [];
             $invoiceInstallmentsTotal = 0;
             $invoicePaymentsTotal = 0;
             $balanceTotal = 0;
         }
-        
+
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->with('journeys')
                 ->get();
@@ -225,6 +252,13 @@ class OpportunityController extends Controller {
                     $query->where('department', '=', 'vendas');
                 })
                 ->sum('duration');
+
+        $tasksDevelopment = $tasks->where('department', 'desenvolvimento');
+        foreach ($tasksDevelopment as $task) {
+            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+                $task->status = 'fazendo';
+            }
+        }
 
         $tasksOperational = $tasks->where('department', 'produção');
         foreach ($tasksOperational as $task) {
@@ -261,6 +295,8 @@ class OpportunityController extends Controller {
                 ->get();
 
         return view('sales.opportunities.showOpportunity', compact(
+                        'dateDue',
+                        'title',
                         'opportunity',
                         'companyName',
                         'companyId',
@@ -273,6 +309,7 @@ class OpportunityController extends Controller {
                         'tasks',
                         'tasksSales',
                         'tasksSalesHours',
+                'tasksDevelopment',
                         'tasksOperational',
                         'tasksOperationalHours',
                         'tasksCustomerServices',
@@ -289,6 +326,16 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Opportunity $opportunity) {
+        if ($opportunity->department == 'desenvolvimento') {
+            $title = 'PROJETOS';
+            $stages = null;
+            $status = Opportunity::listStatusDevelopment();
+        } else {
+            $title = 'OPORTUNIDADES';
+            $stages = Opportunity::listStages();
+            $status = Opportunity::listStatus();
+        }
+
         $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -307,10 +354,8 @@ class OpportunityController extends Controller {
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
-        $stages = Opportunity::listStages();
-        $status = Opportunity::listStatus();
-
         return view('sales.opportunities.editOpportunity', compact(
+                        'title',
                         'opportunity',
                         'users',
                         'contacts',

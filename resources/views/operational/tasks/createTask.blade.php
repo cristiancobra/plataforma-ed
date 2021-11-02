@@ -50,7 +50,12 @@
         {{createSelectUsers('fields', $users)}}
         <br>
         <br>
+        @if(app('request')->input('department') != 'desenvolvimento')
         <label class="labels" for="" >OPORTUNIDADE:</label>
+        @else
+        <label class="labels" for="" >PROJETO:</label>
+        @endif
+        
         @if(!empty(app('request')->input('opportunity_id')))
         {{app('request')->input('opportunity_name')}}
         <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
@@ -82,6 +87,7 @@
         </select>
         @endif
         <br>
+        
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" value="{{$today}}">
         @if ($errors->has('date_start'))
@@ -129,6 +135,8 @@ CKEDITOR.replace('description');
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
         @endif
         <br>
+
+        @if(app('request')->input('department') != 'desenvolvimento')
         <label class="labels" for="" >EMPRESA: </label>
         @if(!empty(app('request')->input('company_id')))
         <input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
@@ -137,6 +145,8 @@ CKEDITOR.replace('description');
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         @endif
         <br>
+        @endif
+
         <label class="labels" for="" >PRIORIDADE:</label>
         {{createSimpleSelect('priority', 'fields', $priorities)}}
         <br>

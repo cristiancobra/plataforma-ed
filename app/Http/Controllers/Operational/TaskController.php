@@ -86,6 +86,12 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
+        if ($request->department == 'desenvolvimento') {
+            $opportunities = Opportunity::openOpportunitiesDevelopment();
+        } else {
+            $opportunities = Opportunity::openOpportunities();
+        }
+
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -95,8 +101,6 @@ class TaskController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-
-        $opportunities = Opportunity::openOpportunities();
 
         $today = date("Y-m-d");
         $departments = Task::returnDepartments();
@@ -253,7 +257,7 @@ class TaskController extends Controller {
         if ($task->status == 'fazer' AND $task->journeys()->exists()) {
             $task->status = 'fazendo';
         }
-        
+
         $openJourney = Journey::myOpenJourney();
 
         return view('operational.tasks.showTask', compact(
@@ -503,31 +507,31 @@ class TaskController extends Controller {
         $month = date('m');
         $monthName = returnMonth($month);
         $totalDays = date('t');
-        $counter =1;
-        $day =1;
-        
-        switch($startDay) {
+        $counter = 1;
+        $day = 1;
+
+        switch ($startDay) {
             case 'Tuesday':
-        $nullDays = 1;
+                $nullDays = 1;
                 break;
             case 'Wednesday':
-        $nullDays = 2;
+                $nullDays = 2;
                 break;
             case 'Thursday':
-        $nullDays = 3;
+                $nullDays = 3;
                 break;
             case 'Friday':
-        $nullDays = 4;
+                $nullDays = 4;
                 break;
             case 'Saturday':
-        $nullDays = 5;
+                $nullDays = 5;
                 break;
             case 'Sunday':
-        $nullDays = 6;
+                $nullDays = 6;
                 break;
         }
-        
-          $month = returnMonth(date('m'));
+
+        $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
 
@@ -535,7 +539,7 @@ class TaskController extends Controller {
 //->where('date_due', '<', date('Y-m-d'))
                 ->whereBetween('date_due', [$monthStart, $monthEnd])
                 ->where('status', 'fazer')
-                ->where('trash', '!=',  1)
+                ->where('trash', '!=', 1)
                 ->get();
 
 //        $teamTasksPending = $teamTasks->where('status', 'fazer');
@@ -543,8 +547,8 @@ class TaskController extends Controller {
 //        
 //        $myTasks = $teamTasks->where('user_id', auth()->user()->id);
 //        $myTasksCount = $myTasks->count();
-        
-                return view('operational.tasks.monthly_calendar', compact(
+
+        return view('operational.tasks.monthly_calendar', compact(
                         'startMonth',
                         'startDay',
                         'monthName',
