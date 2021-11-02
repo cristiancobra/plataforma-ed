@@ -504,6 +504,7 @@ class TaskController extends Controller {
     public function monthlyCalendar() {
         $startMonth = new DateTime(date('Y-m-01'));
         $startDay = $startMonth->format('l');
+
         $month = date('m');
         $monthName = returnMonth($month);
         $totalDays = date('t');
@@ -511,6 +512,9 @@ class TaskController extends Controller {
         $day = 1;
 
         switch ($startDay) {
+            case 'Monday':
+                $nullDays = 0;
+                break;
             case 'Tuesday':
                 $nullDays = 1;
                 break;

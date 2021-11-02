@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Administrative;
 
 use App\Http\Controllers\Controller;
-use App\Models\Goals;
+use App\Models\Goal;
 use Illuminate\Http\Request;
 
-class GoalsController extends Controller
+class GoalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,12 @@ class GoalsController extends Controller
      */
     public function index()
     {
-        //
+        $goals = Goal::where('account_id', auth()->user()->account_id)
+                ->get();
+        
+        return view('administrative.goals.index', compact(
+                'goals',
+        ));
     }
 
     /**
@@ -42,10 +47,10 @@ class GoalsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Goals  $goals
+     * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function show(Goals $goals)
+    public function show(Goal $goal)
     {
         //
     }
@@ -53,10 +58,10 @@ class GoalsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Goals  $goals
+     * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Goals $goals)
+    public function edit(Goal $goal)
     {
         //
     }
@@ -65,10 +70,10 @@ class GoalsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Goals  $goals
+     * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Goals $goals)
+    public function update(Request $request, Goal $goal)
     {
         //
     }
@@ -76,10 +81,10 @@ class GoalsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Goals  $goals
+     * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Goals $goals)
+    public function destroy(Goal $goal)
     {
         //
     }

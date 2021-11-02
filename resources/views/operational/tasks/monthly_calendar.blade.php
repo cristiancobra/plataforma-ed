@@ -34,18 +34,20 @@
     </div>
 </div>
 
-@while($totalDays >= $day)
+@while($counter <= 35)
 
 @if($counter == 1 OR $counter == 8 OR $counter == 15 OR $counter == 22 OR $counter == 29)
 <div class='row ms-1 me-1'>
     @endif
 
-    @if($counter == 1)
-    @for ($i = 0; $i < $nullDays; $i++)
+
+    @while($counter <= $nullDays)
     <div class='col tb' id='{{$counter++}}'>
     </div>
-    @endfor
-    @else
+    @endwhile
+
+
+    @if($totalDays >= $day)
     <div class='col tb d-flex justify-content-start' style='font-size: 36px;color:{{$oppositeColor}}' id='{{$counter++}}'>
         <div class="col-3">
             <div class='row justify-content-center'>
@@ -76,13 +78,16 @@
             @endforeach
         </div>
     </div>
+    @else
+    <div class='col tb' id='{{$counter++}}'>
+    </div>
+    @endif
 
 
-    @if($counter == 8 OR $counter == 15 OR $counter == 22 OR $counter == 29 OR $totalDays < $day)
+    @if($counter == 8 OR $counter == 15 OR $counter == 22 OR $counter == 29 OR $counter == 36)
 </div>
 @endif
 
-@endif
 @endwhile
 
 

@@ -24,6 +24,13 @@ a {
     text-decoration: none;
 }
 
+.h2{
+    font-size: 32px;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
 h5{
     color: #874983;
     font-weight: 700;
@@ -78,7 +85,7 @@ h5{
     border: none;
     width: 100%;
     text-align: left;
-        text-decoration: none;
+    text-decoration: none;
 }
 
 .sidebar-subitem:hover{
@@ -297,7 +304,7 @@ h5{
 }
 
 .dropdown-btn {
-    
+
     color: white;
     padding: 6px 6px 6px 8px;
     font-size: 16px;
@@ -568,13 +575,13 @@ h5{
     transition: 0.3s;
     display:inline-block;
     width: 170px;
-    
+
 }
 
 .primary {
     color: #874983;
     background-color: #49d194;
-        border-color: #49d194;
+    border-color: #49d194;
 }
 
 .primary:hover {
@@ -679,7 +686,7 @@ h5{
 }
 
 .table-list-center:hover{ 
-background-color: #f9d0ff;
+    background-color: #f9d0ff;
 }
 
 .table-list-right{ 
@@ -694,7 +701,7 @@ background-color: #f9d0ff;
     font-size: 13px;
 }
 .table-list-right:hover{ 
-background-color: #f9d0ff;
+    background-color: #f9d0ff;
 }
 .table-list-left{ 
     background-color: #EEEEEE;
@@ -708,7 +715,7 @@ background-color: #f9d0ff;
     font-size: 13px;
 }
 .table-list-left:hover{ 
-background-color: #f9d0ff;
+    background-color: #f9d0ff;
 }
 
 .table-list-left ul{ 

@@ -115,6 +115,12 @@ Route::resource('usuarios', 'Administrative\\Users\\UserController')
         ->parameters(['usuarios' => 'user'])
         ->middleware('roles');
 
+//goals
+Route::resource('metas', 'Administrative\\GoalController')
+        ->names('goal')
+        ->parameters(['metas' => 'goal'])
+        ->middleware('roles');
+
 // ================================ FINANCIAL ===================
 // banks
 Route::resource('bancos', 'Financial\\BankController')
@@ -511,6 +517,7 @@ Route::resource('propostas', 'Sales\\ProposalController')
         ->parameters(['propostas' => 'proposal'])
         ->middleware('roles');
 
+// shop
 Route::resource('loja', 'Sales\\ShopController')
         ->names('shop')
         ->parameters(['loja' => 'shop'])

@@ -11,6 +11,13 @@
 
 @section('main')
 <div class='row mt-2 mb-3 ms-1 me-1'>
+    <div class="col">
+                    <p class='h2' style='color: {{$principalColor}}'>
+        METAS
+                    </p>
+    </div>
+</div>
+<div class='row mt-2 mb-3 ms-1 me-1'>
      
         <div class='col d-inline-block tasks-toDo'>
         <a style='text-decoration:none' href='{{route('opportunity.index', ['department' => 'desenvolvimento'])}}'>

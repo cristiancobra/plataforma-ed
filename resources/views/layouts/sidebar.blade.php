@@ -63,7 +63,12 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         'link' => route('invoice.report')
                                                                                                                                                         ],
                                                                                                                                                         [
-                                                                                                                                                        'name' => 'PLANEJAMENTO',
+                                                                                                                                                        'name' => 'METAS',
+                                                                                                                                                        'faIcon' => 'fa fa-calendar-check',
+                                                                                                                                                        'link' => route('goal.index')
+                                                                                                                                                        ],
+                                                                                                                                                        [
+                                                                                                                                                        'name' => 'PLANEJAMENTO FINANCEIRO',
                                                                                                                                                         'faIcon' => 'fa fa-calendar-check',
                                                                                                                                                         'link' => route('planning.index')
                                                                                                                                                         ],
