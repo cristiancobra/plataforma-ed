@@ -61,7 +61,7 @@
 
 @section('description')
 
-          {!!html_entity_decode($goal->text)!!}
+          {!!html_entity_decode($goal->description)!!}
 
 <br>
 <br>
