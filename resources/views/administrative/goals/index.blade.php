@@ -103,10 +103,13 @@
         NOME
     </div>
     <div class='tb tb-header col-4'>
-        TÍTULO
+        DEPARTAMENTO
     </div>
-    <div class='tb tb-header col-2'>
-        RESPONSÁVEL
+    <div class='tb tb-header col-1'>
+        INÍCIO
+    </div>
+    <div class='tb tb-header col-1'>
+        FIM
     </div>
     <div class='tb tb-header-end col-1'>
         SITUAÇÃO
@@ -123,22 +126,13 @@
         {{$goal->name}}
     </div>
     <div class='tb col-4'>
-        {{$goal->title}}
+        {{$goal->department}}
     </div>
-    <div class='tb col-2'>
-        @if(isset($goal->user->image))
-        <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' => $goal->user->id])}}'>
-                <img src='{{asset($goal->user->image->path)}}' width='100%' height='100%'>
-            </a>
-        </div>
-        @elseif(isset($goal->user->contact->name))
-        <a  class='white' href=' {{route('user.show', ['user' => $goal->user->id])}}'>
-            {{$goal->user->contact->name}}
-        </a>
-        @else
-        funcionário excluído
-        @endif
+    <div class='tb col-1'>
+    {{date('d/m/Y', strtotime($goal->date_start))}}
+    </div>
+    <div class='tb col-1'>
+    {{date('d/m/Y', strtotime($goal->date_due))}}
     </div>
 
     {{formatStatus($goal)}}

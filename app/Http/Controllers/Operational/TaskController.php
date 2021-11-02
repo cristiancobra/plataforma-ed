@@ -292,6 +292,7 @@ class TaskController extends Controller {
         $users = User::myUsers();
 
         $opportunities = Opportunity::openOpportunities();
+        $projects = Opportunity::getProjects();
 
         $departments = Task::returnDepartments();
         $status = $this->returnStatus();
@@ -301,6 +302,7 @@ class TaskController extends Controller {
                         'task',
                         'users',
                         'opportunities',
+                        'projects',
                         'contacts',
                         'companies',
                         'departments',

@@ -184,10 +184,23 @@ class Opportunity extends Model {
         ;
     }
 
-    public static function getProjects($goalId) {
+    public static function getProjectsOfGoal($goalId) {
         return Opportunity::where('account_id', auth()->user()->account_id)
                 ->where('department', 'desenvolvimento')
                 ->where('goal_id', $goalId)
+                ->where('trash', '!=', 1)
+//                ->with([
+//                    'company',
+//                    'contact',
+//                ])
+                ->orderBy('date_start', 'DESC')
+                ->get();
+        ;
+    }
+
+    public static function getProjects() {
+        return Opportunity::where('account_id', auth()->user()->account_id)
+                ->where('department', 'desenvolvimento')
                 ->where('trash', '!=', 1)
 //                ->with([
 //                    'company',

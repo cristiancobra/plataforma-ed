@@ -103,7 +103,7 @@ class GoalController extends Controller
      */
     public function show(Goal $goal)
     {
-        $projects = Opportunity::getProjects($goal->id);
+        $projects = Opportunity::getProjectsOfGoal($goal->id);
 
         return view('administrative.goals.show', compact(
                         'goal',

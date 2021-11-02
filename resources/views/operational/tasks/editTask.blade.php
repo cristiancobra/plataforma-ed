@@ -57,11 +57,27 @@
         </select>
         <br>
         <br>
-               @if($task->department == 'desenvolvimento')
+        @if($task->department == 'desenvolvimento')
         <label class="labels" for="" >PROJETO:</label>
+        <select class = 'fields' name='opportunity_id' style='width:700px'>
+            @if($task->opportunity_id != null)
+            <option value='{{$task->opportunity_id}}'>
+                {{$task->opportunity->name}}
+            </option>
+            @endif
+            <option value=''>
+                Não possui
+            </option>
+            @foreach ($projects as $project)
+            <option value='{{$project->id}}'>
+                {{$project->name}}
+            </option>
+            @endforeach
+        </select>
+        <br>
+        <br>
         @else
         <label class="labels" for="" >OPORTUNIDADE:</label>
-        @endif
         <select class = 'fields' name='opportunity_id' style='width:700px'>
             @if($task->opportunity_id != null)
             <option value='{{$task->opportunity_id}}'>
@@ -73,7 +89,7 @@
             </option>
             @foreach ($opportunities as $opportunity)
             <option value='{{$opportunity->id}}'>
-            {{$opportunity->date_start}}  //  
+                {{$opportunity->date_start}}  //  
                 @if($opportunity->company)
                 {{$opportunity->company->name}}  --
                 @endif
@@ -86,6 +102,7 @@
         </select>
         <br>
         <br>
+        @endif
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" size="20" value="{{$task->date_start}}">
         @if ($errors->has('date_start'))
@@ -94,7 +111,7 @@
         <br>
         <label class="labels" for="" >PRAZO FINAL:</label>
         <input type="date" name="date_due" size="20" value="{{date('Y-m-d', strtotime($task->date_due))}}">
-                <input type="time" name="time_due" size="50"  value="{{date('H:i', strtotime($task->date_due))}}">
+        <input type="time" name="time_due" size="50"  value="{{date('H:i', strtotime($task->date_due))}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
         @endif
