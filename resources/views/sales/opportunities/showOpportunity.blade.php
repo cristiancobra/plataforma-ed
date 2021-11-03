@@ -24,7 +24,11 @@
 
 @section('fieldsId')
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
-    @if($opportunity->department != 'desenvolvimento')
+    @if($opportunity->department == 'desenvolvimento')
+    <div class='show-label'>
+        META
+    </div>
+    @else
     <div class='show-label'>
         EMPRESA
     </div>
@@ -34,7 +38,13 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-    @if($opportunity->department != 'desenvolvimento')
+    @if($opportunity->department == 'desenvolvimento')
+    <a href="{{route('goal.show', ['goal' => $opportunity->goal_id])}}">
+        <div class='show-field-end'>
+            {{$opportunity->goal->name}}
+        </div>
+    </a>
+    @else
     @empty($companyName)
     <div class='show-field-end'>
         Pessoa física

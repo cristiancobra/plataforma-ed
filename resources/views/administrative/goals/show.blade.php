@@ -7,7 +7,6 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
 {{createButtonTrash($goal, 'goal')}}
 {{createButtonEdit('goal', 'goal', $goal)}}
 {{createButtonList('goal')}}
@@ -28,22 +27,13 @@
 @section('fieldsId')
 <div class='col-md-2 col-sm-4' style='text-align: center'>
     <div class='show-label'>
-        RESPONSÁVEL
+        TIPO DE META
     </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
-
-    @if(isset($goal->user->contact->name))
-    <a href=' {{route('user.show', ['user' => $goal->user_id])}}'>
-        <div class='show-field-end'>
-            {{$goal->user->contact->name}}
-        </div>
-    </a>
-    @else
     <div class='show-field-end'>
-        foi excluído
+        {{$goal->type}}
     </div>
-    @endif
 </div>
 
 <div class='col-md-2 col-sm-4' style='text-align: center'>

@@ -386,6 +386,7 @@ if (!function_exists('editDoubleSelect')) {
     }
 
 }
+
 if (!function_exists('createSimpleSelect')) {
 
 // cria as opções de um select recebendo um array com 1 posição
@@ -406,7 +407,34 @@ if (!function_exists('createSimpleSelect')) {
 
 }
 
-if (!function_exists('userAccounts')) {
+if (!function_exists('createSimpleRadio')) {
+
+// cria as opções de um seletor do tipo radio com value e label iguais
+    function createSimpleRadio($name, array $options, $currentValue = null) {
+        if ($currentValue != null) {
+            echo "<div class='form-check mb-3'>";
+            echo "<input class='form-check-input' type='radio' name='$name' id='$name' value='$currentValue' checked>";
+            echo "<label class='form-check-label' for='$name'>$currentValue</label>";
+            echo "</div>";
+        }
+        foreach ($options as $option) {
+            $counter = 1;
+            if (old($name) == $option) {
+                echo "<div class='form-check mb-3'>";
+                echo "<input class='form-check-input' type='radio' name='$name' id='$option' value='$option' checked>";
+                echo "<label class='form-check-label' for='$option'>$option</label>";
+                echo "</div>";
+            } else {
+                echo "<div class='form-check mb-3'>";
+                echo "<input class='form-check-input' type='radio' name='$name' id='$option' value='$option'>";
+                echo "<label class='form-check-label' for='$option'>$option</label>";
+                echo "</div>";
+            }
+        }
+    }
+    }
+
+    if (!function_exists('userAccounts')) {
 
 //  retorna o ID das empresas ao qual o usuário pertence
     function userAccounts() {

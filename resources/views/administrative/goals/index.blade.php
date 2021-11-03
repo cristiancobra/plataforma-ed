@@ -30,70 +30,17 @@
 
 
 @section('shortcuts')
-<div class='col shortcut prospecting'>
-    <a style='text-decoration:none' href='{{route('goal.index', ['type' =>'biografia'])}}'>
+<div class='col-3 shortcut prospecting'>
+    <a style='text-decoration:none' href='{{route('goal.index', ['department' =>'desenvolvimento'])}}'>
         <h2>
 
         </h2>
         <h3>
-            biografias
-        </h3>
-    </a>
-</div>
-<div class='col shortcut presentation'>
-    <a style='text-decoration:none' href='{{route('goal.index', ['type' =>'blogs'])}}'>
-        <h2>
-
-        </h2>
-        <h3>
-            blogs
+            DESENVOLVIMENTO
         </h3>
     </a>
 </div>
 
-<div class='col shortcut proposal'>
-    <a style='text-decoration:none' href='{{route('goal.index', ['type' =>'  copy de venda'])}}'>
-        <h2>
-
-        </h2>
-        <h3>
-            copys de venda
-        </h3>
-    </a>
-</div>
-
-<div class='col shortcut contract'>
-    <a style='text-decoration:none' href='{{route('goal.index', ['type' =>'perguntas frequentes'])}}'>
-        <h2>
-
-        </h2>
-        <h3>
-            perguntas frequentes
-        </h3>
-    </a>
-</div>
-
-<div class='col shortcut bill'>
-    <a style='text-decoration:none' href='{{route('goal.index', ['type' =>'tutorial'])}}'>
-        <h2>
-
-        </h2>
-        <h3>
-            tutorial
-        </h3>
-    </a>
-</div>
-
-<div class='col shortcut production'>
-    <a style='text-decoration:none' href='{{route('goal.index', ['type' =>'desativado'])}}'>
-        <h2>
-
-        </h2>
-        <h3>
-            desativado
-        </h3>
-    </a>
-</div>
 @endsection
 
 

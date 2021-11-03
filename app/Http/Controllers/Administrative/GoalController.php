@@ -119,7 +119,18 @@ class GoalController extends Controller
      */
     public function edit(Goal $goal)
     {
-        //
+        $projects = Opportunity::getProjectsOfGoal($goal->id);
+                        $departments = Task::returnDepartments();
+                $types = Goal::returnTypes();
+                $status = Goal::returnStatus();
+
+        return view('administrative.goals.edit', compact(
+                        'goal',
+                        'projects',
+                        'departments',
+                        'types',
+                        'status',
+        ));
     }
 
     /**
@@ -131,7 +142,53 @@ class GoalController extends Controller
      */
     public function update(Request $request, Goal $goal)
     {
-        //
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:goals',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $goal->department = $request->department;
+            $goal->name = $request->name;
+            $goal->description = $request->description;
+            $goal->date_start = $request->date_start;
+            $goal->date_due = $request->date_due;
+            $goal->date_conclusion = $request->date_conclusion;
+            $goal->type = $request->type;
+
+//            dd($request);
+            switch($goal->type) {
+                case 'execução':
+                    $goal->goal_points = 0;
+                    break;
+                case 'contatos':
+                    $goal->goal_contacts = $request->goal_contacts;
+                    break;
+                case 'receita':
+                    $goal->goal_invoices_revenues = $request->goal_invoices_revenues;
+                    break;
+                case 'despesa':
+                    $goal->goal_invoices_expenses = $request->goal_invoices_expenses;
+                    break;
+                case 'entrada':
+                    $goal->goal_transactions_revenues = $request->goal_transactions_revenues;
+                    break;
+                case 'saída':
+                    $goal->goal_transactions_expenses = $request->goal_transactions_expenses;
+                    break;
+            }
+            $goal->save();
+
+            return redirect()->route('goal.show', [$goal]);
+        }
     }
 
     /**

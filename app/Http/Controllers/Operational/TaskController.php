@@ -337,8 +337,8 @@ class TaskController extends Controller {
                             ->withInput();
         } else {
             $task->fill($request->all());
-            $dateStart = new DateTime($request->date_due . " " . $request->time_due);
-            $task->date_due = $dateStart->format('Y-m-d H:i:s');
+            $dateDue = new DateTime($request->date_due . " " . $request->time_due);
+            $task->date_due = $dateDue->format('Y-m-d H:i:s');
 
             if (isset($request->cancelado)) {
                 $task->status = 'cancelado';
@@ -351,7 +351,7 @@ class TaskController extends Controller {
             } else {
                 $task->status = 'fazer';
             }
-
+//dd($task);
             $task->save();
 
             return redirect()->route('task.show', [$task]);
@@ -495,6 +495,7 @@ class TaskController extends Controller {
 
     // chama o método que completa a tarefa e direciona para a view show
     public function completeTask(task $task) {
+        dd($task);
         Task::completeTask($task);
 
         return redirect()->route('task.show', compact(

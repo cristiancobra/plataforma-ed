@@ -20,12 +20,13 @@ class Goal extends Model {
         'date_conclusion',
         'goal_contacts',
         'goal_points',
-        'goal_invoice_revenues',
-        'goal_invoice_expenses',
+        'goal_invoices_revenues',
+        'goal_invoices_expenses',
         'goal_transactions_expenses',
         'goal_transactions_revenues',
         'goal_opportunities',
         'goal_opportunities_won',
+        'type',
         'trash',
         'status',
     ];
@@ -96,9 +97,19 @@ class Goal extends Model {
         return $goals;
     }
 
+    public static function returnTypes() {
+        return [
+            'execução',
+            'receitas',
+            'despesas',
+            'entradas',
+            'saídas',
+        ];
+    }
+
     public static function returnStatus() {
         return [
-            'ativa',
+            'ativada',
             'desativada',
         ];
     }
