@@ -65,6 +65,9 @@
                 {{$task->opportunity->name}}
             </option>
             @endif
+                        <option value=''>
+                Não possui
+            </option>
             @foreach ($projects as $project)
             <option value='{{$project->id}}'>
                 {{$project->name}}
