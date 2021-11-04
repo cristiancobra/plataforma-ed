@@ -114,4 +114,15 @@ class Goal extends Model {
         ];
     }
 
+//    retorna o valor da meta de acordo com o tipo da meta
+    public static function goalSelected($type) {
+        switch($type) {
+            case 'execução';
+                $project = Opportunity::where()
+                $goalSelected = 
+        }
+        
+        return $goalSelected;
+    }
+
 }

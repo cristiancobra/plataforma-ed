@@ -123,6 +123,8 @@ class GoalController extends Controller
                         $departments = Task::returnDepartments();
                 $types = Goal::returnTypes();
                 $status = Goal::returnStatus();
+                
+                $goalSelected = Goal::goalSelected($goal->type);
 
         return view('administrative.goals.edit', compact(
                         'goal',
@@ -130,6 +132,7 @@ class GoalController extends Controller
                         'departments',
                         'types',
                         'status',
+                        'goalSelected',
         ));
     }
 

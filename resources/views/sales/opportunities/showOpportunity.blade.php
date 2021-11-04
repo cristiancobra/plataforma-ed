@@ -38,14 +38,17 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-    @if($opportunity->department == 'desenvolvimento')
+    @if($opportunity->department == 'desenvolvimento' AND $opportunity->goal)
     <a href="{{route('goal.show', ['goal' => $opportunity->goal_id])}}">
         <div class='show-field-end'>
             {{$opportunity->goal->name}}
         </div>
     </a>
-    @else
-    @empty($companyName)
+    @elseif($opportunity->department == 'desenvolvimento' AND $opportunity->goal == null)
+    <div class='show-field-end'>
+        Não possui
+    </div>
+    @elseif(empty($companyName))
     <div class='show-field-end'>
         Pessoa física
     </div>
@@ -55,7 +58,6 @@
             {{$companyName}}
         </div>
     </a>
-    @endif
     @endif
 
     @if(isset($opportunity->contact->name))

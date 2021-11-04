@@ -29,8 +29,7 @@
 
 
     @section('priority')
-    TIPO:
-
+    {{$goalSelected}}
     @endsection
 
 
@@ -47,46 +46,40 @@
     </div>
     <div class='col-lg-5 col-xs-6' style='text-align: center'>
                 <div class='show-field-end'>
-        @if($goal->type != null)
-        <div class='form-check mb-3'>
-            <input class='form-check-input' type='radio' name='type' id='{{$goal->type}}' value='{{$goal->type}}' checked>
-            <label class='form-check-label' for='{{$goal->type}}''>{{$goal->type}}'</label>
-        </div>
-        @endif    
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' checked>
+            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' checked='{{$goal->type == 'execução' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='execução' style="text-align: right;font-weight:600">EXECUÇÃO:</label>
             <p class='form-check-label pt-2 ms-2' for='execução' style="text-align: right">concluir todas as tarefas</p>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' checked>
+            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' checked='{{$goal->type == 'contatos' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right;font-weight:600">MARKETING:</label>
             <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right">aumentar contatos para </p>
             <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' checked>
+            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' checked='{{$goal->type == 'receita' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='receita' style="text-align: right;font-weight:600">RECEITA:</label>
             <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">atingir faturamento de </p>
             <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' checked>
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' checked='{{$goal->type == 'despesa' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right;font-weight:600">DESPESA:</label>
             <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">manter despesas abaixo de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses' value='{{$goal->goal_invoices_expenses}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' checked>
+            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' checked='{{$goal->type == 'entrada' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right;font-weight:600">ENTRADAS:</label>
             <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">atingir entradas de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues' value='{{$goal->goal_transactions_revenues}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' checked>
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' checked='{{$goal->type == 'execução' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='saída' style="text-align: right;font-weight:600">SAÍDAS:</label>
             <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">manter saídas abaixo de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses' value='{{$goal->goal_transactions_expenses}}'>
         </div>
     </div>
     </div>
@@ -102,6 +95,45 @@
         </div>
     </div>
     @endsection
+    
+    
+
+    @section('date_start')
+    <div class='circle-date-start'>
+        <input type='date' name='date_start' size='20' value='{{$goal->date_start}}'>
+        @if ($errors->has('date_start'))
+        <span class='text-danger'>{{$errors->first('date_start')}}</span>
+        @endif
+    </div>
+    <p class='labels' style='text-align: center'>
+        INÍCIO
+    </p>
+    @endsection
+
+
+    @section('date_due')    
+    <div class='circle-date-due'>
+        <input type='date' name='date_due' size='20' value='{{$goal->date_due}}'>
+        @if ($errors->has('date_due'))
+        <span class='text-danger'>{{$errors->first('date_due')}}</span>
+        @endif
+    </div>
+    <p class='labels' style='text-align: center'>
+        PRAZO
+    </p>
+    @endsection
+
+
+    @section('date_conclusion')
+    <div class='circle-date-due'>
+        <input type='number' name='date_conclusion' size='3' min='1' max='365' value='{{$goal->date_conclusion}}'> dias
+    </div>
+    <p class='labels' style='text-align: center'>
+        CONCLUSÃO
+    </p>
+    @endsection
+
+
 
 
     @section('description')
