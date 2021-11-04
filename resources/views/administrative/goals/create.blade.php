@@ -11,7 +11,7 @@
 
 @section('buttons')
 {{createButtonBack()}}
-{{createButtonList('text')}}
+{{createButtonList('goal')}}
 @endsection
 
 @section('main')
@@ -36,6 +36,13 @@
         {{createSimpleSelect('department', 'fields', $departments)}}
         @if ($errors->has('department'))
         <span class='text-danger'>{{$errors->first('department')}}</span>
+        @endif
+        <br>
+                <br>
+        <label class="labels" for="" >INÍCIO:</label>
+        <input type="date" name="date_start" value="{{old('date_start') ? old('date_start') : date('Y-m-d')}}">
+        @if ($errors->has('date_start'))
+        <span class="text-danger">{{$errors->first('date_start')}}</span>
         @endif
         <br>
         <br>
