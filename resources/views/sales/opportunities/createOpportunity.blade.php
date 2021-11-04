@@ -35,11 +35,17 @@
         <span class="text-danger">{{$errors->first('name') }}</span>
         @endif
         <br>
+        @if($department == 'desenvolvimento')
+        <label class="labels" for="" >METAS: </label>
+        {{createSelectIdName('goal', 'fields', $goals, 'Não possui')}}
+        <br>
+        <br>
+        @endif
         <label class="labels" for="" >RESPONSÁVEL: </label>
         {{createSelectUsers('fields', $users)}}
         <br>
         <br>
-                @if($department != 'desenvolvimento')
+        @if($department != 'desenvolvimento')
         <label class="labels" for="" >EMPRESA: </label>
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         {{createButtonAdd('company.create', 'typeCompanies', 'cliente')}}
@@ -82,13 +88,13 @@ CKEDITOR.replace('description');
         </script>
         <br>
         <br>
-        
+
         @if($stages != null)
         <label class="labels" for="">ETAPA:</label>
         {{createSimpleSelect('stage', 'fields', $stages)}}
         <br>
         @endif
-        
+
         <label class="labels" for="">SITUAÇÃO:</label>
         {{createSimpleSelect('status', 'fields', $status)}}
         <br>

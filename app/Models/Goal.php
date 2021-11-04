@@ -116,13 +116,20 @@ class Goal extends Model {
 
 //    retorna o valor da meta de acordo com o tipo da meta
     public static function goalSelected($type) {
-        switch($type) {
+        switch ($type) {
             case 'execução';
-                $project = Opportunity::where()
-                $goalSelected = 
+                $project = Opportunity::all();
+                $goalSelected = null;
         }
-        
+
         return $goalSelected;
+    }
+
+//    retorna as metas abertas
+    public static function openGoals() {
+        return Goal::where('account_id', auth()->user()->account_id)
+                        ->where('status', 'ativada')
+                        ->get();
     }
 
 }

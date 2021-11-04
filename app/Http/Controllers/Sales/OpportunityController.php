@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Contact;
 use App\Models\Contract;
 use App\Models\Company;
+use App\Models\Goal;
 use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Opportunity;
@@ -95,11 +96,13 @@ class OpportunityController extends Controller {
             $department = 'desenvolvimento';
             $stages = null;
             $status = Opportunity::listStatusDevelopment();
+            $goals = Goal::openGoals();
         } else {
             $title = 'OPORTUNIDADES';
             $department = null;
             $stages = Opportunity::listStages();
             $status = Opportunity::listStatus();
+            $goals = null;
         }
 
         $companies = Company::where('account_id', auth()->user()->account_id)
@@ -124,6 +127,7 @@ class OpportunityController extends Controller {
                         'contacts',
                         'products',
                         'stages',
+                        'goals',
                         'status',
         ));
     }
