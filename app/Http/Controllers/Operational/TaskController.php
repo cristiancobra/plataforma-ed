@@ -58,7 +58,7 @@ class TaskController extends Controller {
                 ->get();
 
         $users = User::myUsers();
-        $status = $this->returnStatus();
+        $status = Task::returnStatus();
         $departments = Task::returnDepartments();
         $priorities = Task::returnPriorities();
 
@@ -104,7 +104,7 @@ class TaskController extends Controller {
 
         $today = date("Y-m-d");
         $departments = Task::returnDepartments();
-        $status = $this->returnStatus();
+        $status = Task::returnStatus();
         $priorities = Task::returnPriorities();
 
         // campos enviados por request
@@ -295,7 +295,7 @@ class TaskController extends Controller {
         $projects = Opportunity::getProjects();
 
         $departments = Task::returnDepartments();
-        $status = $this->returnStatus();
+        $status = Task::returnStatus();
         $priorities = Task::returnPriorities();
 
         return view('operational.tasks.editTask', compact(
@@ -372,16 +372,6 @@ class TaskController extends Controller {
     public function duration(start_time $start_time, end_time $end_time) {
         $this->$end_time->subHour(1);
         return $this;
-    }
-
-    function returnStatus() {
-        return $status = array(
-            'fazer',
-            'aguardar',
-            'feito',
-            'fazendo',
-            'cancelado',
-        );
     }
 
     public function sendToTrash(Task $task) {
@@ -495,7 +485,6 @@ class TaskController extends Controller {
 
     // chama o método que completa a tarefa e direciona para a view show
     public function completeTask(task $task) {
-        dd($task);
         Task::completeTask($task);
 
         return redirect()->route('task.show', compact(
