@@ -29,10 +29,16 @@
     <div class='show-label'>
         TIPO DE META
     </div>
+    <div class='show-label'>
+        META
+    </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
         {{$goal->type}}
+    </div>
+    <div class='show-field-end'>
+        {{$goalSelected}}
     </div>
 </div>
 

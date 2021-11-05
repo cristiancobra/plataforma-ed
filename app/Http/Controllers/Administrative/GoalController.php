@@ -104,10 +104,12 @@ class GoalController extends Controller
     public function show(Goal $goal)
     {
         $projects = Opportunity::getProjectsOfGoal($goal->id);
+                        $goalSelected = Goal::goalSelected($goal);
 
         return view('administrative.goals.show', compact(
                         'goal',
                         'projects',
+                        'goalSelected',
         ));
     }
 
@@ -124,7 +126,7 @@ class GoalController extends Controller
                 $types = Goal::returnTypes();
                 $status = Goal::returnStatus();
                 
-                $goalSelected = Goal::goalSelected($goal->type);
+                $goalSelected = Goal::goalSelected($goal);
 
         return view('administrative.goals.edit', compact(
                         'goal',

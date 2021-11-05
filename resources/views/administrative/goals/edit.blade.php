@@ -76,7 +76,7 @@
             <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues' value='{{$goal->goal_transactions_revenues}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' checked='{{$goal->type == 'execução' ? 'checked' : ''}}'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' checked='{{$goal->type == 'saída' ? 'checked' : ''}}'>
             <label class='form-check-label pt-2 ms-2' for='saída' style="text-align: right;font-weight:600">SAÍDAS:</label>
             <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">manter saídas abaixo de </p>
             <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses' value='{{$goal->goal_transactions_expenses}}'>

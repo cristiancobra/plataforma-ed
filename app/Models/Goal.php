@@ -115,11 +115,18 @@ class Goal extends Model {
     }
 
 //    retorna o valor da meta de acordo com o tipo da meta
-    public static function goalSelected($type) {
-        switch ($type) {
+    public static function goalSelected($goal) {
+        switch ($goal->type) {
             case 'execução';
                 $project = Opportunity::all();
                 $goalSelected = null;
+                break;
+            case 'contatos';
+                $goalSelected = $goal->goal_contacts;
+                break;
+            case 'receita';
+                $goalSelected = formatCurrencyReal($goal->goal_invoices_revenues);
+                break;
         }
 
         return $goalSelected;
