@@ -317,7 +317,7 @@ class PageController extends Controller {
                 ->where('perfil', 'dono')
                 ->first();
 
-        $accountType = $page->accountType(auth()->user()->account_id);
+        $accountType = $page->accountType($page->account_id);
 
         $valueOffer = Text::selectedValueOffer($page);
         if ($valueOffer) {
