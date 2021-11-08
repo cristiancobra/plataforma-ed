@@ -194,6 +194,18 @@ class Task extends Model {
             'sugestão de nova funcionalidade',
         );
     }
+    
+    
+    static function returnStatus() {
+        return $status = array(
+            'fazer',
+            'aguardar',
+            'feito',
+            'fazendo',
+            'cancelado',
+        );
+    }
+
 
     // retorna a última tarefa feita pelo usuário logado
     public static function myLastTask() {
