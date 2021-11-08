@@ -46,6 +46,13 @@
         @endif
         <br>
         <br>
+            <label class="labels" for="" >PRAZO FINAL:</label>
+        <input type="date" name="date_due" value="{{old('date_due') ? old('date_due') : date('Y-m-d')}}">
+        @if ($errors->has('date_due'))
+        <span class="text-danger">{{$errors->first('date_due')}}</span>
+        @endif
+        <br>
+        <br>
         <div class='row'>
             <div class='col'>
         <div class='form-check d-flex justify-content-start'>

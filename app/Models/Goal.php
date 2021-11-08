@@ -116,8 +116,21 @@ class Goal extends Model {
     public static function goalSelected($goal) {
         switch ($goal->type) {
             case 'execução';
-                $project = Opportunity::all();
-                $goalSelected = null;
+                $projects = Opportunity::where('goal_id', $goal->id)
+                        ->with('tasks')
+                        ->get();
+
+                if (count($projects) >= 0) {
+                    $goalSelected = 'Adicione todos os projetos e tarefas para saber sua meta';
+                } else {
+                    foreach($projects as $project) {
+                        foreach($project->tasks as $task) {
+                            $sumDuration = $sumDuration + $task->duration;
+                            dd($sumDuration);
+                        }
+                    }
+                    $goalSelected = "$sumDuration pontos";
+                }
                 break;
             case 'contatos';
                 $goalSelected = $goal->goal_contacts;

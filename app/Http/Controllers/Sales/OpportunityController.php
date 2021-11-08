@@ -239,10 +239,10 @@ class OpportunityController extends Controller {
             $balanceTotal = 0;
         }
 
-        $stages = Stage::where('opportunity_id', $opportunity)
+        $stages = Stage::where('opportunity_id', $opportunity->id)
                 ->with('tasks')
                 ->get();
-        
+
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->with('journeys')
                 ->get();
@@ -308,6 +308,8 @@ class OpportunityController extends Controller {
         $status = Task::returnStatus();
         $departments = Task::returnDepartments();
         $priorities = Task::returnPriorities();
+        
+        $counter = 1;
 
         return view('sales.opportunities.showOpportunity', compact(
                         'dateDue',
@@ -336,6 +338,7 @@ class OpportunityController extends Controller {
                         'status',
                         'departments',
                         'priorities',
+                'counter',
         ));
     }
 

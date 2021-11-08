@@ -169,7 +169,7 @@
     </div>
 </div>
 
-<!--  adicionar ETAPA  -->
+<!--  div oculta ADICIONAR ETAPA  -->
 
 @if(Session::has('failed'))
 <div class="alert alert-danger">
@@ -186,111 +186,16 @@
      border-right-width: 1px;
      border-color: {{$principalColor}};
      '>
-    <div class='col-5' style='text-align:left'>
-        <form id='addStage' action='{{route('stage.store')}}' method='post' style='text-align: left'>
-            @csrf
-            <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
-                NOME DA ETAPA
-            </label>
-            <br>
-            <input type='text' name='name'  placeholder='nome da tarefa' value=''>
-            </div>
-            <div class='col-2' style='text-align:left'>
-                <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
-                    RESPONSÁVEL
-                </label>
-                <br>
-                {{createFilterSelectModels('user_id', 'select', $users)}}
-            </div>
-            <div class='col-2' style='text-align:left'>
-                <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
-                    PRIORIDADE
-                </label>
-                <br>
-                {{createFilterSelect('priority', 'select', $priorities)}}
-            </div>
-            <div class='col-2' style='text-align:left'>
-                <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
-                    SITUAÇÃO
-                </label>
-                <br>
-                {{createFilterSelect('status', 'select', $status)}}
-            </div>
-            <div class='col-1'>
-                {{createButtonSave()}}
-        </form>
-    </div>
-</div>
-
-<!--cabeçalho--> 
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        RESPONSÁVEL
-    </div>
-    <div class='col-1 tb tb-header'>
-        INÍCIO 
-    </div>
-    <div class='col-3 tb tb-header'>
-        TAREFA 
-    </div>
-    <div class='col-4 tb tb-header'>
-        DESCRIÇÃO 
-    </div>
-    <div class='col-1 tb tb-header'>
-        CONCLUSÃO
-    </div>
-    <div class='col-1 tb tb-header'>
-        PRIORIDADE
-    </div>
-    <div class='col-1 tb tb-header'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach($stages as $stage)
-<div class='row'>
-    <div class='tb col-11 justify-content-start'>
-        <p  class='labels' style="text-align: left; color: {{$principalColor}}">
-            {{$stage->name}}
-        </p>
-    </div>
-    <div class='tb col-1'>
-        <a id='taskButtonOnOff' class='circular-button primary' title='Criar nova tarefa'>
-            <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
-        </a>
-    </div>
-</div>
-
-<!--linha oculta criar nova tarefa-->
-@if(Session::has('failed'))
-<div class="alert alert-danger">
-    {{Session::get('failed')}}
-    @php
-    Session::forget('failed');
-    @endphp
-</div>
-@endif
-<div class='pt-5 pb-5' id='taskRow' style='display: none;
-     border-left-style: solid;
-     border-left-width: 1px;
-     border-right-style: solid;
-     border-right-width: 1px;
-     border-color: {{$principalColor}};
-     '>
-<div class='row pt-5 pb-5' style='
-     border-left-style: solid;
-     border-left-width: 1px;
-     border-right-style: solid;
-     border-right-width: 1px;
-     border-color: {{$principalColor}};
-     '>
+    <div class="row">
         <div class='col-5' style='text-align:left'>
-            <form id='addStage' action='{{route('task.store')}}' method='post' style='text-align: left'>
+            <form id='addStage' action='{{route('stage.store')}}' method='post' style='text-align: left'>
                 @csrf
+                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
                 <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
-                    NOME DA TAREFA
+                    NOME DA ETAPA
                 </label>
                 <br>
-                <input type='text' name='name'  placeholder='nome da tarefa' value=''>
+                <input type='text' name='name'  placeholder='nome da etapa' value=''>
                 </div>
                 <div class='col-2' style='text-align:left'>
                     <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
@@ -313,335 +218,479 @@
                     <br>
                     {{createFilterSelect('status', 'select', $status)}}
                 </div>
-                <div class='col-1'>
-                    {{createButtonSave()}}
+        </div>
+        <div class="row pt-5">
+            <div class='col-5' style='text-align:left'>
+                <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
+                    DESCRIÇÃO
+                </label>
+            </div>
+        </div>
+        <div class="row pt-1">
+            <div class='col' style='text-align:left'>
+                @if ($errors->has('description'))
+                <span class="text-danger">{{$errors->first('description')}}</span>
+                @endif
+                <textarea id="description" name="description" rows="20" cols="90">
+  {{old('description')}}
+                </textarea>
+                <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+                <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+                <script>
+CKEDITOR.replace('description');
+                </script>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class='col d-flex justify-content-end'>
+                {{createButtonSave()}}
+            </div>
             </form>
         </div>
     </div>
-    @foreach ($stage->tasks as $task)
+
+    <!--cabeçalho--> 
+    <div class='row mt-4'>
+        <div class='col-1 tb tb-header'>
+            RESPONSÁVEL
+        </div>
+        <div class='col-1 tb tb-header'>
+            INÍCIO 
+        </div>
+        <div class='col-3 tb tb-header'>
+            TAREFA 
+        </div>
+        <div class='col-4 tb tb-header'>
+            DESCRIÇÃO 
+        </div>
+        <div class='col-1 tb tb-header'>
+            CONCLUSÃO
+        </div>
+        <div class='col-1 tb tb-header'>
+            PRIORIDADE
+        </div>
+        <div class='col-1 tb tb-header'>
+            SITUAÇÃO
+        </div>
+    </div>
+    @foreach($stages as $stage)
     <div class='row'>
-        <div class='tb col-1'>
-            @if(isset($opportunity->user->image))
-            <div class='profile-picture-small'>
-                <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
-                    <img src='{{asset($opportunity->user->image->path)}}' width='100%' height='100%'>
-                </a>
-            </div>
-            @elseif(isset($opportunity->user->contact->name))
-            <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
-                {{$opportunity->user->contact->name}}
-            </a>
-            @else
-            funcionário excluído
-            @endif
+        <div class='tb col-11 justify-content-start'>
+            <p  class='labels' style="text-align: left; color: {{$principalColor}}">
+                {{$stage->name}}
+            </p>
         </div>
         <div class='tb col-1'>
+            <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
+                <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
+            </a>
+        </div>
+    </div>
+
+    <!--linha oculta criar nova tarefa-->
+    @if(Session::has('failed'))
+    <div class="alert alert-danger">
+        {{Session::get('failed')}}
+        @php
+        Session::forget('failed');
+        @endphp
+    </div>
+    @endif
+    <div class='pt-5 pb-5' id="taskRow_{{$counter++}}" style='display: none;
+         border-left-style: solid;
+         border-left-width: 1px;
+         border-right-style: solid;
+         border-right-width: 1px;
+         border-color: {{$principalColor}};
+         '>
+        <div class="row">
+            <div class='col-3' style='text-align:left'>
+                <form id='addStage' action='{{route('task.store')}}' method='post' style='text-align: left'>
+                    <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                    <input type='hidden' name='stage_id' value='{{$stage->id}}'>
+                    @csrf
+                    <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
+                        NOME DA TAREFA
+                    </label>
+                    <br>
+                    <input type='text' name='name'  placeholder='nome da tarefa' value=''>
+                    </div>
+                    <div class='col-2' style='text-align:left'>
+
+                        <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
+                        <input type="date" name="date_start" value="{{date('Y-m-d')}}">
+                        @if ($errors->has('date_start'))
+                        <span class="text-danger">{{ $errors->first('date_start') }}</span>
+                        @endif
+                        <br>
+                    </div>
+                    <div class='col-2' style='text-align:left'>
+                        <label class="labels" for="" >PRAZO FINAL:</label>
+                        @if(!empty(app('request')->input('date_due')))
+                        <input type="date" name="date_due" value="{{app('request')->input('date_due')}}">
+                        @else
+                        <input type="date" name="date_due" value="{{old('date_due')}}">
+                        @endif
+                        <input type="time" name="time_due" size="50"  value="{{old('time_due')}}">
+                        @if ($errors->has('date_due'))
+                        <span class="text-danger">{{$errors->first('date_due')}}</span>
+                        @endif
+                        <br>
+                    </div>
+                    <div class='col-2' style='text-align:left'>
+                        <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
+                            RESPONSÁVEL
+                        </label>
+                        <br>
+                        {{createFilterSelectModels('user_id', 'select', $users)}}
+                    </div>
+                    <div class='col-2' style='text-align:left'>
+                        <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
+                            PRIORIDADE
+                        </label>
+                        <br>
+                        {{createFilterSelect('priority', 'select', $priorities)}}
+                    </div>
+                    <div class='col-1' style='text-align:left'>
+                        <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
+                            SITUAÇÃO
+                        </label>
+                        <br>
+                        {{createFilterSelect('status', 'select', $status)}}
+                    </div>
+            </div>
+            <div class="row pt-5">
+                <div class='col-5' style='text-align:left'>
+                    <label class='labels' for='description' style='text-align:left;color:{{$principalColor}}'>
+                        DESCRIÇÃO
+                    </label>
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class='col' style='text-align:left'>
+                    @if ($errors->has('description'))
+                    <span class="text-danger">{{$errors->first('description')}}</span>
+                    @endif
+                    <textarea id="description" name="description" rows="20" cols="90">
+  {{old('description')}}
+                    </textarea>
+                    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+                    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+                    <script>
+    CKEDITOR.replace('description');
+                    </script>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class='col d-flex justify-content-end'>
+                    {{createButtonSave()}}
+                </div>
+                </form>
+            </div>
+            </div>
+    
+            @foreach ($stage->tasks as $task)
+            <div class='row'>
+                <div class='tb col-1'>
+                    @if(isset($task->user->image))
+                    <div class='profile-picture-small'>
+                        <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                            <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
+                        </a>
+                    </div>
+                    @elseif(isset($task->user->contact->name))
+                    <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                        {{$task->user->contact->name}}
+                    </a>
+                    @else
+                    funcionário excluído
+                    @endif
+                </div>
+                <div class='tb col-1'>
+                    <button class='button-round'>
+                        <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
+                            <i class='fa fa-eye' style='color:white'></i></a>
+                    </button>
+                    {{date('d/m/Y', strtotime($task->date_start))}}
+                </div>
+                <div class='tb col-3'>
+                    {{$task->name}}
+                </div>
+                <div class='tb-description col-4'>
+                    {!!html_entity_decode($task->description)!!}
+                </div>
+                {{formatDateDue($task)}}
+
+                {{formatPriority($task)}}
+
+                {{formatStatus($task)}}
+
+            </div>
+        
+            @endforeach
+        
+        @endforeach
+        <div class='row mb-4'>
+            <div class='tb tb-header col-11 justify-content-end'>
+                TOTAL:
+            </div>
+            <div class='tb tb-header col-1'>
+                {{formatTotalHour($tasksOperationalHours)}} horas
+            </div>
+        </div>
+
+        @else   
+
+        <div class='row mt-5'>
+            <div class='col-6 pt-4 pb-3' style='
+                 border-left-style: solid;
+                 border-top-style: solid;
+                 border-left-width: 1px;
+                 border-top-width: 1px;
+                 border-color: {{$principalColor}};
+                 border-radius: 10px 0 0 0;
+                 '>
+                <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
+                <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROSPECÇÃO</label>
+            </div>
+            <div class='col-6 pt-4 pb-3' style='
+                 border-right-style: solid;
+                 border-top-style: solid;
+                 border-right-width: 1px;
+                 border-top-width: 1px;
+                 border-color: {{$principalColor}};
+                 border-radius: 0 10px 0 0;
+                 '>
+                <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
+                    @csrf
+                    <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
+                    <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                    <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                    <input type='hidden' name='company_name' value='{{$companyName}}'>
+                    <input type='hidden' name='company_id' value='{{$companyId}}'>
+                    @if($opportunity->contact)
+                    <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                    <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                    @endif
+                    <input type='hidden' name='department' value='vendas'>
+                    <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
+                </form>
+                <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
+                    @csrf
+                    <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
+                    <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                    <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                    <input type='hidden' name='company_name' value='{{$companyName}}'>
+                    <input type='hidden' name='company_id' value='{{$companyId}}'>
+                    @if($opportunity->contact)
+                    <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                    <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                    @endif
+                    <input type='hidden' name='department' value='vendas'>
+                    <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
+                </form>
+            </div>
+        </div>
+        <div class='tb-row'>
+
+            @empty($companyName)
+            <a href='{{route('company.create')}}'>
+                adicionar empresa
+            </a>
+            @else
+            <i class='fas fa-store me-2'></i>
+            <a href='{{route('company.edit', [
+                                                                'company' => $opportunity->company,
+                                                                 'typeCompanies' => 'cliente'
+                                                                ])}}'>
+                <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                    {{mb_strtoupper($companyName)}}
+                </label>
+            </a>
+        </div>
+        <div class='tb-row'>
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
+            @if(isset($opportunity->company->value_offer))
+            {!!html_entity_decode($opportunity->company->value_offer)!!}
+            @else
+            --
+            @endif
+        </div>
+        <div class='tb-row'>
+            <div class='col'>
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
+                @if(isset($opportunity->company->competitive_advantage))
+                {{$opportunity->company->competitive_advantage}}
+                @else
+                --
+                @endif
+            </div>
+            <div class='col'>
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
+                @if(isset($opportunity->company->business_model))
+                {{$opportunity->company->business_model}}
+                @else
+                --
+                @endif
+            </div>
+        </div>
+
+        <div class='tb-row'>
+            <div class='col'>
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
+                @if(isset($opportunity->company->sector))
+                {{$opportunity->company->sector}}
+                @else
+                --
+                @endif
+            </div>
+            <div class='col'>
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
+                <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                    @if(isset($opportunity->company->employees))
+                    {{$opportunity->company->employees}}
+                    @else
+                    --
+                    @endif
+                </label>
+            </div>
+        </div>
+
+        <div class='tb-row'>
+            <div class='col'>
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
+                @if(isset($opportunity->company->client_number))
+                {{$opportunity->company->client_number}}
+                @else
+                --
+                @endif
+            </div>
+            <div class='col'>
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
+                @if(isset($opportunity->company->revenues))
+                {{$opportunity->company->revenues}}
+                @else
+                --
+                @endif
+            </div>
+        </div>
+        @endempty
+    </div>
+
+
+    <div class='tb-row pt-5'>
+        <i class='fas fa-users me-2'></i>
+        @if($opportunity->contact->name)
+        <a href='{{route('contact.show', ['contact' => $opportunity->contact])}}'>
+            <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+                {{mb_strtoupper($opportunity->contact->name)}}
+            </label>
+        </a>
+        @else
+        <a href='{{route('contact.create')}}'>
+            adicionar
+        </a>
+        @endif
+    </div>
+    <div class='tb-row'>
+        <div class='col'>
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Email: </label>
+            {{$opportunity->contact->name}}
+        </div>
+        <div class='col'>
+            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Telefone: </label>
+            {{$opportunity->contact->phone}}
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-2 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='tb tb-header col-3'>
+            TAREFA 
+        </div>
+        <div class='tb tb-header col-4'>
+            DESCRIÇÃO 
+        </div>
+        <div class='tb tb-header col-1'>
+            CONCLUSÃO
+        </div>
+        <div class='tb tb-header col-1'>
+            PRIORIDADE
+        </div>
+        <div class='tb tb-header col-1'>
+            SITUAÇÃO
+        </div>
+    </div>
+    @foreach ($tasksSales as $task)
+    <div class='row'>
+        <div class='tb col-2'>
             <button class='button-round'>
-                <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                    <i class='fa fa-eye' style='color:white'></i></a>
+                <a href=' {{route('task.show', ['task' => $task->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i>
+                </a>
             </button>
             {{date('d/m/Y', strtotime($task->date_start))}}
         </div>
         <div class='tb col-3'>
             {{$task->name}}
         </div>
-        <div class='tb-description col-4'>
+        <div class='tb col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
-        {{formatDateDue($task)}}
-
-        {{formatPriority($task)}}
-
-        {{formatStatus($task)}}
-
-    </div>
-    <div class='row'>
-        <div class='col'>
-            <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
-                DESCRIÇÃO
-            </label>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col'>
-            <br>
-            @if ($errors->has('description'))
-            <span class="text-danger">{{$errors->first('description')}}</span>
-            @endif
-            <textarea id="description" name="description" rows="20" cols="90">
-  {{old('description')}}
-            </textarea>
-            <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-            <script>
-CKEDITOR.replace('description');
-            </script>
-        </div>
-    </div>
-@endforeach
-@endforeach
-</div>
-<div class='row mb-4'>
-    <div class='tb tb-header col-11 justify-content-end'>
-        TOTAL:
-    </div>
-    <div class='tb tb-header col-1'>
-        {{formatTotalHour($tasksOperationalHours)}} horas
-    </div>
-</div>
-
-@else   
-
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-left-style: solid;
-         border-top-style: solid;
-         border-left-width: 1px;
-         border-top-width: 1px;
-         border-color: {{$principalColor}};
-         border-radius: 10px 0 0 0;
-         '>
-        <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROSPECÇÃO</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-right-style: solid;
-         border-top-style: solid;
-         border-right-width: 1px;
-         border-top-width: 1px;
-         border-color: {{$principalColor}};
-         border-radius: 0 10px 0 0;
-         '>
-        <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='company_name' value='{{$companyName}}'>
-            <input type='hidden' name='company_id' value='{{$companyId}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
-        </form>
-        <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='company_name' value='{{$companyName}}'>
-            <input type='hidden' name='company_id' value='{{$companyId}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
-        </form>
-    </div>
-</div>
-<div class='tb-row'>
-
-    @empty($companyName)
-    <a href='{{route('company.create')}}'>
-        adicionar empresa
-    </a>
-    @else
-    <i class='fas fa-store me-2'></i>
-    <a href='{{route('company.edit', [
-                                                                'company' => $opportunity->company,
-                                                                 'typeCompanies' => 'cliente'
-                                                                ])}}'>
-        <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
-            {{mb_strtoupper($companyName)}}
-        </label>
-    </a>
-</div>
-<div class='tb-row'>
-    <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
-    @if(isset($opportunity->company->value_offer))
-    {!!html_entity_decode($opportunity->company->value_offer)!!}
-    @else
-    --
-    @endif
-</div>
-<div class='tb-row'>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
-        @if(isset($opportunity->company->competitive_advantage))
-        {{$opportunity->company->competitive_advantage}}
-        @else
-        --
-        @endif
-    </div>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
-        @if(isset($opportunity->company->business_model))
-        {{$opportunity->company->business_model}}
-        @else
-        --
-        @endif
-    </div>
-</div>
-
-<div class='tb-row'>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
-        @if(isset($opportunity->company->sector))
-        {{$opportunity->company->sector}}
-        @else
-        --
-        @endif
-    </div>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
-        <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
-            @if(isset($opportunity->company->employees))
-            {{$opportunity->company->employees}}
+        <div class='tb col-1'>
+            @isset($task->date_conclusion)
+            {{date('d/m/Y', strtotime($task->date_conclusion))}}
             @else
-            --
-            @endif
-        </label>
-    </div>
-</div>
-
-<div class='tb-row'>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
-        @if(isset($opportunity->company->client_number))
-        {{$opportunity->company->client_number}}
+            em aberto
+            @endisset
+        </div>
+        {{formatPriority($task)}}
+        @if($task->status == 'fazer' AND $task->journeys()->exists())
+        <div class='tb tb-doing col-1'>
+            fazendo
+        </div>
+        @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
+        <div class='tb tb-late col-1'>
+            atrasada
+        </div>
         @else
-        --
+        {{formatStatus($task)}}
         @endif
     </div>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
-        @if(isset($opportunity->company->revenues))
-        {{$opportunity->company->revenues}}
-        @else
-        --
-        @endif
+    @endforeach
+    <div class='row mb-4'>
+        <div class='tb tb-header col-11 justify-content-end'>
+            TOTAL
+        </div>
+        <div class='tb tb-header col-1'>
+            {{formatTotalHour($tasksSalesHours)}} horas
+        </div>
     </div>
-</div>
-@endempty
-</div>
 
 
-<div class='tb-row pt-5'>
-    <i class='fas fa-users me-2'></i>
-    @if($opportunity->contact->name)
-    <a href='{{route('contact.show', ['contact' => $opportunity->contact])}}'>
-        <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
-            {{mb_strtoupper($opportunity->contact->name)}}
-        </label>
-    </a>
-    @else
-    <a href='{{route('contact.create')}}'>
-        adicionar
-    </a>
-    @endif
-</div>
-<div class='tb-row'>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Email: </label>
-        {{$opportunity->contact->name}}
-    </div>
-    <div class='col'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Telefone: </label>
-        {{$opportunity->contact->phone}}
-    </div>
-</div>
-<div class='row'>
-    <div class='col-2 tb tb-header'>
-        CRIAÇÃO 
-    </div>
-    <div class='tb tb-header col-3'>
-        TAREFA 
-    </div>
-    <div class='tb tb-header col-4'>
-        DESCRIÇÃO 
-    </div>
-    <div class='tb tb-header col-1'>
-        CONCLUSÃO
-    </div>
-    <div class='tb tb-header col-1'>
-        PRIORIDADE
-    </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($tasksSales as $task)
-<div class='row'>
-    <div class='tb col-2'>
-        <button class='button-round'>
-            <a href=' {{route('task.show', ['task' => $task->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i>
-            </a>
-        </button>
-        {{date('d/m/Y', strtotime($task->date_start))}}
-    </div>
-    <div class='tb col-3'>
-        {{$task->name}}
-    </div>
-    <div class='tb col-4'>
-        {!!html_entity_decode($task->description)!!}
-    </div>
-    <div class='tb col-1'>
-        @isset($task->date_conclusion)
-        {{date('d/m/Y', strtotime($task->date_conclusion))}}
-        @else
-        em aberto
-        @endisset
-    </div>
-    {{formatPriority($task)}}
-    @if($task->status == 'fazer' AND $task->journeys()->exists())
-    <div class='tb tb-doing col-1'>
-        fazendo
-    </div>
-    @elseif($task->status == 'fazer' AND $task->date_due <= date('Y-m-d'))
-    <div class='tb tb-late col-1'>
-        atrasada
-    </div>
-    @else
-    {{formatStatus($task)}}
-    @endif
-</div>
-@endforeach
-<div class='row mb-4'>
-    <div class='tb tb-header col-11 justify-content-end'>
-        TOTAL
-    </div>
-    <div class='tb tb-header col-1'>
-        {{formatTotalHour($tasksSalesHours)}} horas
-    </div>
-</div>
-
-
-<div class='row mt-5'>
-    <div class='col-6 pt-3 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}};
-         '>
-        <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTAS</label>
-    </div>
-    <div class='col-6 pt-3 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}};
-         '>
-        @if($proposalWon == 0)
-        <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('proposal.create', [
+    <div class='row mt-5'>
+        <div class='col-6 pt-3 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: {{$principalColor}};
+             '>
+            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTAS</label>
+        </div>
+        <div class='col-6 pt-3 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: {{$principalColor}};
+             '>
+            @if($proposalWon == 0)
+            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('proposal.create', [
                                                                                                                                                                                         'opportunityName' => $opportunity->name,
                                                                                                                                                                                         'opportunityId' => $opportunity->id,
                                                                                                                                                                                         'opportunityDescription' => $opportunity->description,
@@ -654,466 +703,466 @@ CKEDITOR.replace('description');
                                                                                                                                                                                         'invoiceStatus' => 'orçamento',
                                                                                                                                                                                         ]
                     )}}'>
-            <i class='fa fa-plus' aria-hidden='true'></i>
-        </a>
+                <i class='fa fa-plus' aria-hidden='true'></i>
+            </a>
+            @else
+            <div class='circular-button primary' style='display: inline-block;float: right'>
+                <i class='fa fa-check' aria-hidden='true'></i>
+                </>
+            </div>
+            @endif
+        </div>
+    </div>
+    <div class='row'>
+        <div class='col-1 tb tb-header'>
+            ID
+        </div>
+        <div class='col-6 tb tb-header'>
+            NOME 
+        </div>
+        <div class='col-1 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-1 tb tb-header'>
+            VENCIMENTO
+        </div>
+        <div class='col-1 tb tb-header'>
+            A RECEBER
+        </div>
+        <div class='col-1 tb tb-header'>
+            VALOR
+        </div>
+        <div class='tb tb-header col-1'>
+            SITUAÇÃO
+        </div>
+    </div>
+    @foreach ($proposals as $proposal)
+    <div class='row'>
+        <div class='tb col-1'>
+            <button class='button-round'>
+                <a href=' {{route('proposal.show', ['proposal' => $proposal->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{$proposal->identifier}}
+        </div>
+        <div class='tb col-6 justify-content-start'>
+            {{$proposal->name}}
+        </div>
+        <div class='tb col-1'>
+            {{date('d/m/Y', strtotime($proposal->date_creation))}}
+        </div>
+        @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
+        <div class='tb col-1'>
+            {{date('d/m/Y', strtotime($proposal->pay_day))}}
+        </div>
         @else
-        <div class='circular-button primary' style='display: inline-block;float: right'>
-            <i class='fa fa-check' aria-hidden='true'></i>
-            </>
+        <div class='tb col-1'>
+            {{date('d/m/Y', strtotime($proposal->pay_day))}}
         </div>
         @endif
+        <div class='tb col-1 justify-content-end''>
+            {{formatCurrencyReal($proposal->balance)}}
+        </div>
+        <div class='tb col-1 justify-content-end''>
+            {{formatCurrencyReal($proposal->installment_value)}}
+        </div>
+        {{formatInvoiceStatus($proposal)}}
     </div>
-</div>
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        ID
-    </div>
-    <div class='col-6 tb tb-header'>
-        NOME 
-    </div>
-    <div class='col-1 tb tb-header'>
-        CRIAÇÃO 
-    </div>
-    <div class='col-1 tb tb-header'>
-        VENCIMENTO
-    </div>
-    <div class='col-1 tb tb-header'>
-        A RECEBER
-    </div>
-    <div class='col-1 tb tb-header'>
-        VALOR
-    </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($proposals as $proposal)
-<div class='row'>
-    <div class='tb col-1'>
-        <button class='button-round'>
-            <a href=' {{route('proposal.show', ['proposal' => $proposal->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{$proposal->identifier}}
-    </div>
-    <div class='tb col-6 justify-content-start'>
-        {{$proposal->name}}
-    </div>
-    <div class='tb col-1'>
-        {{date('d/m/Y', strtotime($proposal->date_creation))}}
-    </div>
-    @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
-    <div class='tb col-1'>
-        {{date('d/m/Y', strtotime($proposal->pay_day))}}
-    </div>
-    @else
-    <div class='tb col-1'>
-        {{date('d/m/Y', strtotime($proposal->pay_day))}}
-    </div>
-    @endif
-    <div class='tb col-1 justify-content-end''>
-        {{formatCurrencyReal($proposal->balance)}}
-    </div>
-    <div class='tb col-1 justify-content-end''>
-        {{formatCurrencyReal($proposal->installment_value)}}
-    </div>
-    {{formatInvoiceStatus($proposal)}}
-</div>
-@endforeach
-<div class='row mb-4'>
-    <div class='tb tb-header col justify-content-end' style='height: 30px'>
+    @endforeach
+    <div class='row mb-4'>
+        <div class='tb tb-header col justify-content-end' style='height: 30px'>
 
+        </div>
     </div>
-</div>
 
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}};
-         '>
-        <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FATURAS</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='FAZER ORÇAMENTO:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='company_name' value='{{$companyName}}'>
-            <input type='hidden' name='company_id' value='{{$companyId}}'>
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: {{$principalColor}};
+             '>
+            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FATURAS</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
+                @csrf
+                <input type='hidden' name='task_name' value='FAZER ORÇAMENTO:'>
+                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                <input type='hidden' name='company_name' value='{{$companyName}}'>
+                <input type='hidden' name='company_id' value='{{$companyId}}'>
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
 
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='FAZER ORÇAMENTO'>
-        </form>
-        <form  style='display: inline-block;float: right' method='POST' action='{{route('invoice.create')}}'>
-            @csrf
-            @method('post')
-            <input type='hidden' name='typeInvoices' value='receita'>
-            <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
-            <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-            <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
-            <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            <input type='hidden' name='department' value='vendas'>
-            <input type='hidden' name='invoiceStatus' value='orçamento'>
-            <input class='text-button secondary' type='submit' value='GERAR ORÇAMENTO'>
-        </form>
-        <form  style='display: inline-block;float: right'  method='POST' action='{{route('invoice.create')}}'>
-            @csrf
-            @method('post')
-            <input type='hidden' name='typeInvoices' value='receita'>
-            <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
-            <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-            <input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
-            <input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
-            <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
-            <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='GERAR FATURA'>
-        </form>
+                <input type='hidden' name='department' value='vendas'>
+                <input class='text-button secondary' type='submit' value='FAZER ORÇAMENTO'>
+            </form>
+            <form  style='display: inline-block;float: right' method='POST' action='{{route('invoice.create')}}'>
+                @csrf
+                @method('post')
+                <input type='hidden' name='typeInvoices' value='receita'>
+                <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
+                <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
+                <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
+                <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                <input type='hidden' name='department' value='vendas'>
+                <input type='hidden' name='invoiceStatus' value='orçamento'>
+                <input class='text-button secondary' type='submit' value='GERAR ORÇAMENTO'>
+            </form>
+            <form  style='display: inline-block;float: right'  method='POST' action='{{route('invoice.create')}}'>
+                @csrf
+                @method('post')
+                <input type='hidden' name='typeInvoices' value='receita'>
+                <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
+                <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
+                <input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
+                <input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
+                <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
+                <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                <input type='hidden' name='department' value='vendas'>
+                <input class='text-button secondary' type='submit' value='GERAR FATURA'>
+            </form>
+        </div>
     </div>
-</div>
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        ID
+    <div class='row'>
+        <div class='col-1 tb tb-header'>
+            ID
+        </div>
+        <div class='col-3 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-3 tb tb-header'>
+            VENCIMENTO
+        </div>
+        <div class='col-2 tb tb-header'>
+            A RECEBER
+        </div>
+        <div class='col-2 tb tb-header'>
+            VALOR DA FATURA
+        </div>
+        <div class='tb tb-header col-1'>
+            SITUAÇÃO
+        </div>
     </div>
-    <div class='col-3 tb tb-header'>
-        CRIAÇÃO 
+    @foreach ($invoices as $invoice)
+    <div class='row'>
+        <div class='tb col-1'>
+            <button class='button-round'>
+                <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{$invoice->identifier}}
+        </div>
+        <div class='tb col-3'>
+            {{date('d/m/Y', strtotime($invoice->date_creation))}}
+        </div>
+        @if($invoice->status == 'aprovada' AND $invoice->paid == 0 AND $invoice->pay_day < date('Y-m-d'))
+        <div class='tb col-3'>
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </div>
+        @else
+        <div class='tb col-3'>
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </div>
+        @endif
+        <div class='tb col-2 justify-content-end''>
+            {{formatCurrencyReal($invoice->balance)}}
+        </div>
+        <div class='tb col-2 justify-content-end''>
+            {{formatCurrencyReal($invoice->totalPrice)}}
+        </div>
+        {{formatInvoiceStatus($invoice)}}
     </div>
-    <div class='col-3 tb tb-header'>
-        VENCIMENTO
+    @foreach($invoice->transactions as $transaction)
+    <div class='row'>
+        <div class='tb col-1' style='background-color: #d8c2db'>
+            <button class='button-round'>
+                <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i>
+                </a>
+            </button>
+            {{$transaction->id}}
+        </div>
+        <div class='tb col-3' style='background-color: #d8c2db'>
+            {{date('d/m/Y', strtotime($transaction->pay_day))}}
+        </div>
+        <div class='tb col-3' style='background-color: #d8c2db'>
+            {{$transaction->bankAccount->name}}
+        </div>
+        <div class='tb col-2' style='background-color: #d8c2db'>
+            {{$transaction->observations}}
+        </div>
+        <div class='tb col-2 justify-content-end' style='background-color: #d8c2db'>
+            {{formatCurrencyReal($transaction->value)}}
+        </div>
+        <div class='tb col-1' style='background-color: #d8c2db'>
+        </div>
     </div>
-    <div class='col-2 tb tb-header'>
-        A RECEBER
+    @endforeach
+    @endforeach
+    <div class='row mb-4'>
+        <div class='tb tb-header col-7 justify-content-end'>
+        </div>
+        <div class='tb tb-header col-2 justify-content-end'>
+            Falta receber:  {{formatCurrencyReal($invoicePaymentsTotal)}}
+        </div>
+        <div class='tb tb-header col-2 justify-content-end'>
+            Pago:  {{formatCurrencyReal($balanceTotal)}}
+        </div>
+        <div class='tb tb-header col-1'>
+        </div>
     </div>
-    <div class='col-2 tb tb-header'>
-        VALOR DA FATURA
+
+
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <img src='{{asset('images/contract.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >CONTRATOS</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
+                @csrf
+                <input type='hidden' name='task_name' value='CONTRATO:'>
+                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                <input type='hidden' name='company_name' value='{{$companyName}}'>
+                <input type='hidden' name='company_id' value='{{$companyId}}'>
+                @if($opportunity->contact)
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                @endif
+                <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+                <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+                <input type='hidden' name='department' value='vendas'>
+                <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
+            </form>
+            <form style='display: inline-block;float: right' action='{{route('contract.create')}}' method='post'>
+                @csrf
+                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                <input type='hidden' name='opportunity_description' value='{{$opportunity->description}}'>
+                @if($opportunity->contact)
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                @endif
+                <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
+                <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
+                <input type='hidden' name='company_names' value='{{$contactCompanies}}'>
+                <input type='hidden' name='company_ids' value='{{$contactCompanies}}'>
+                <input type='hidden' name='department' value='vendas'>
+                <input type='hidden' name='status' value='pendente'>
+                <input class='text-button secondary' type='submit' value='  GERAR CONTRATO'>
+            </form>
+        </div>
     </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
+    <div class='row'>
+        <div class='col-1 tb tb-header'>
+            ID
+        </div>
+        <div class='col-2 tb tb-header'>
+            TÍTULO
+        </div>
+        <div class='col-2 tb tb-header'>
+            CONTRATADA
+        </div>
+        <div class='col-2 tb tb-header'>
+            CONTRATANTE
+        </div>
+        <div class='col-2 tb tb-header'>
+            RESPONSÁVEL
+        </div>
+        <div class='col-1 tb tb-header'>
+            ÍNICIO
+        </div>
+        <div class='col-1 tb tb-header'>
+            VENCIMENTO
+        </div>
+        <div class='col-1 tb tb-header'>
+            SITUAÇÃO
+        </div>
     </div>
-</div>
-@foreach ($invoices as $invoice)
-<div class='row'>
-    <div class='tb col-1'>
-        <button class='button-round'>
-            <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{$invoice->identifier}}
+    @foreach ($contracts as $contract)
+    <div class='row mb-5'>
+        <div class='tb col-2'>
+            <button class='button-round'>
+                <a href=' {{route('contract.show', ['contract' => $contract->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{$contract->identifier}}
+        </div>
+        <div class='tb col-2'>
+            {{$contract->name}}
+        </div>
+        <div class='tb col-2'>
+            {{$contract->account->name}}
+        </div>
+        <div class='tb col-2'>
+            {{$contract->company->name}}
+        </div>
+        <div class='tb col-2'>
+            {{$contract->contact->name}}
+        </div>
+        <div class='tb col-2'>
+            {{date('d/m/Y', strtotime($contract->date_start))}}
+        </div>
+        <div class='tb col-2'>
+            {{date('d/m/Y', strtotime($contract->date_due))}}
+        </div>
+        {{formatInvoiceStatus($contract)}}
     </div>
-    <div class='tb col-3'>
-        {{date('d/m/Y', strtotime($invoice->date_creation))}}
-    </div>
-    @if($invoice->status == 'aprovada' AND $invoice->paid == 0 AND $invoice->pay_day < date('Y-m-d'))
-    <div class='tb col-3'>
-        {{date('d/m/Y', strtotime($invoice->pay_day))}}
-    </div>
-    @else
-    <div class='tb col-3'>
-        {{date('d/m/Y', strtotime($invoice->pay_day))}}
-    </div>
-    @endif
-    <div class='tb col-2 justify-content-end''>
-        {{formatCurrencyReal($invoice->balance)}}
-    </div>
-    <div class='tb col-2 justify-content-end''>
-        {{formatCurrencyReal($invoice->totalPrice)}}
-    </div>
-    {{formatInvoiceStatus($invoice)}}
-</div>
-@foreach($invoice->transactions as $transaction)
-<div class='row'>
-    <div class='tb col-1' style='background-color: #d8c2db'>
-        <button class='button-round'>
-            <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i>
+    @endforeach
+
+
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PRODUÇÃO</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
+                @csrf
+                <input type='hidden' name='task_name' value='PRODUZIR:'>
+                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                <input type='hidden' name='department' value='produção'>
+                <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
+            </form>
+            <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
+                @csrf
+                <input type='hidden' name='task_name' value='ENTREGAR:'>
+                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+                @if($opportunity->contact)
+                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+                @endif
+                <input type='hidden' name='department' value='produção'>
+                <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
+            </form>
+            <a class='text-button secondary'  style='display: inline-block;float: right'  href='{{route('opportunity.pdfProduction', ['opportunity' => $opportunity])}}'>
+                RELATÓRIO PDF
             </a>
-        </button>
-        {{$transaction->id}}
+        </div>
     </div>
-    <div class='tb col-3' style='background-color: #d8c2db'>
-        {{date('d/m/Y', strtotime($transaction->pay_day))}}
+    <div class='row'>
+        <div class='col-2 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-3 tb tb-header'>
+            TAREFA 
+        </div>
+        <div class='col-4 tb tb-header'>
+            DESCRIÇÃO 
+        </div>
+        <div class='col-1 tb tb-header'>
+            CONCLUSÃO
+        </div>
+        <div class='col-1 tb tb-header'>
+            PRIORIDADE
+        </div>
+        <div class='col-1 tb tb-header'>
+            SITUAÇÃO
+        </div>
     </div>
-    <div class='tb col-3' style='background-color: #d8c2db'>
-        {{$transaction->bankAccount->name}}
+    @foreach ($tasksOperational as $task)
+    <div class='row'>
+        <div class='tb col-2'>
+            <button class='button-round'>
+                <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{date('d/m/Y', strtotime($task->date_start))}}
+        </div>
+        <div class='tb col-3'>
+            {{$task->name}}
+        </div>
+        <div class='tb-description col-4'>
+            {!!html_entity_decode($task->description)!!}
+        </div>
+
+        {{formatDateDue($task)}}
+
+        {{formatPriority($task)}}
+
+        {{formatStatus($task)}}
     </div>
-    <div class='tb col-2' style='background-color: #d8c2db'>
-        {{$transaction->observations}}
+    @endforeach
+    <div class='row mb-4'>
+        <div class='tb tb-header col-11 justify-content-end'>
+            TOTAL:
+        </div>
+        <div class='tb tb-header col-1'>
+            {{formatTotalHour($tasksOperationalHours)}} horas
+        </div>
     </div>
-    <div class='tb col-2 justify-content-end' style='background-color: #d8c2db'>
-        {{formatCurrencyReal($transaction->value)}}
-    </div>
-    <div class='tb col-1' style='background-color: #d8c2db'>
-    </div>
-</div>
-@endforeach
-@endforeach
-<div class='row mb-4'>
-    <div class='tb tb-header col-7 justify-content-end'>
-    </div>
-    <div class='tb tb-header col-2 justify-content-end'>
-        Falta receber:  {{formatCurrencyReal($invoicePaymentsTotal)}}
-    </div>
-    <div class='tb tb-header col-2 justify-content-end'>
-        Pago:  {{formatCurrencyReal($balanceTotal)}}
-    </div>
-    <div class='tb tb-header col-1'>
-    </div>
-</div>
 
 
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <img src='{{asset('images/contract.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >CONTRATOS</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='CONTRATO:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='company_name' value='{{$companyName}}'>
-            <input type='hidden' name='company_id' value='{{$companyId}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-            <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
-        </form>
-        <form style='display: inline-block;float: right' action='{{route('contract.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='opportunity_description' value='{{$opportunity->description}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='account_name' value='{{$opportunity->account->name}}'>
-            <input type='hidden' name='account_id' value='{{$opportunity->account->id}}'>
-            <input type='hidden' name='company_names' value='{{$contactCompanies}}'>
-            <input type='hidden' name='company_ids' value='{{$contactCompanies}}'>
-            <input type='hidden' name='department' value='vendas'>
-            <input type='hidden' name='status' value='pendente'>
-            <input class='text-button secondary' type='submit' value='  GERAR CONTRATO'>
-        </form>
-    </div>
-</div>
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        ID
-    </div>
-    <div class='col-2 tb tb-header'>
-        TÍTULO
-    </div>
-    <div class='col-2 tb tb-header'>
-        CONTRATADA
-    </div>
-    <div class='col-2 tb tb-header'>
-        CONTRATANTE
-    </div>
-    <div class='col-2 tb tb-header'>
-        RESPONSÁVEL
-    </div>
-    <div class='col-1 tb tb-header'>
-        ÍNICIO
-    </div>
-    <div class='col-1 tb tb-header'>
-        VENCIMENTO
-    </div>
-    <div class='col-1 tb tb-header'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($contracts as $contract)
-<div class='row mb-5'>
-    <div class='tb col-2'>
-        <button class='button-round'>
-            <a href=' {{route('contract.show', ['contract' => $contract->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{$contract->identifier}}
-    </div>
-    <div class='tb col-2'>
-        {{$contract->name}}
-    </div>
-    <div class='tb col-2'>
-        {{$contract->account->name}}
-    </div>
-    <div class='tb col-2'>
-        {{$contract->company->name}}
-    </div>
-    <div class='tb col-2'>
-        {{$contract->contact->name}}
-    </div>
-    <div class='tb col-2'>
-        {{date('d/m/Y', strtotime($contract->date_start))}}
-    </div>
-    <div class='tb col-2'>
-        {{date('d/m/Y', strtotime($contract->date_due))}}
-    </div>
-    {{formatInvoiceStatus($contract)}}
-</div>
-@endforeach
-
-
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PRODUÇÃO</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='PRODUZIR:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='department' value='produção'>
-            <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
-        </form>
-        <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='ENTREGAR:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='department' value='produção'>
-            <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
-        </form>
-        <a class='text-button secondary'  style='display: inline-block;float: right'  href='{{route('opportunity.pdfProduction', ['opportunity' => $opportunity])}}'>
-            RELATÓRIO PDF
-        </a>
-    </div>
-</div>
-<div class='row'>
-    <div class='col-2 tb tb-header'>
-        CRIAÇÃO 
-    </div>
-    <div class='col-3 tb tb-header'>
-        TAREFA 
-    </div>
-    <div class='col-4 tb tb-header'>
-        DESCRIÇÃO 
-    </div>
-    <div class='col-1 tb tb-header'>
-        CONCLUSÃO
-    </div>
-    <div class='col-1 tb tb-header'>
-        PRIORIDADE
-    </div>
-    <div class='col-1 tb tb-header'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($tasksOperational as $task)
-<div class='row'>
-    <div class='tb col-2'>
-        <button class='button-round'>
-            <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{date('d/m/Y', strtotime($task->date_start))}}
-    </div>
-    <div class='tb col-3'>
-        {{$task->name}}
-    </div>
-    <div class='tb-description col-4'>
-        {!!html_entity_decode($task->description)!!}
-    </div>
-
-    {{formatDateDue($task)}}
-
-    {{formatPriority($task)}}
-
-    {{formatStatus($task)}}
-</div>
-@endforeach
-<div class='row mb-4'>
-    <div class='tb tb-header col-11 justify-content-end'>
-        TOTAL:
-    </div>
-    <div class='tb tb-header col-1'>
-        {{formatTotalHour($tasksOperationalHours)}} horas
-    </div>
-</div>
-
-
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <img src='{{asset('images/customer-service.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ATENDIMENTO</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
+    <div class='row mt-5'>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-left-style: solid;
+             border-left-width: 1px;
+             border-radius: 7px 0px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <img src='{{asset('images/customer-service.png')}}' width='25px' height='25px'>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ATENDIMENTO</label>
+        </div>
+        <div class='col-6 pt-4 pb-3' style='
+             border-top-style: solid;
+             border-top-width: 1px;
+             border-right-style: solid;
+             border-right-width: 1px;
+             border-radius: 0px 7px 0px 0px;
+             border-color: {{$principalColor}}
+             '>
+            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
                                                                                                                                                                                         'task_name' => 'ATENDIMENTO',
                                                                                                                                                                                         'opportunity_id' => $opportunity->id,
                                                                                                                                                                                         'opportunity_name' => $opportunity->name,
@@ -1125,119 +1174,129 @@ CKEDITOR.replace('description');
                                                                                                                                                                                         'invoiceStatus' => 'orçamento',
                                                                                                                                                                                         ]
                     )}}'>
-            <i class='fa fa-plus' aria-hidden='true'></i>
-        </a>
-    </div>
-</div>
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        CRIAÇÃO 
-    </div>
-    <div class='col-2 tb tb-header'>
-        TAREFA 
-    </div>
-    <div class='col-4 tb tb-header'>
-        DESCRIÇÃO 
-    </div>
-    <div class='col-2 tb tb-header'>
-        RESPONSÁVEL
-    </div>
-    <div class='col-1 tb tb-header'>
-        CONCLUSÃO
-    </div>
-    <div class='col-1 tb tb-header'>
-        PRIORIDADE
-    </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-
-@foreach ($tasksCustomerServices as $task)
-<div class='row'>
-    <div class='tb col-1'>
-        <button class='button-round'>
-            <a href=' {{route('task.show', ['task' => $task->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{date('d/m/Y', strtotime($task->date_start))}}
-    </div>
-    <div class='tb col-2'>
-        {{$task->name}}
-    </div>
-    <div class='tb-description col-4'>
-        {!!html_entity_decode($task->description)!!}
-    </div>
-    <div class='tb col-2'>
-        @if(isset($task->user->image))
-        <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-                <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
+                <i class='fa fa-plus' aria-hidden='true'></i>
             </a>
         </div>
-        @elseif(isset($task->user->contact->name))
-        <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-            {{$task->user->contact->name}}
-        </a>
-        @else
-        funcionário excluído
-        @endif
     </div>
-    <div class='tb col-1'>
-        @isset($task->date_conclusion)
-        {{dateBr($task->date_conclusion)}}
-        @else
-        em aberto
-        @endisset
+    <div class='row'>
+        <div class='col-1 tb tb-header'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-2 tb tb-header'>
+            TAREFA 
+        </div>
+        <div class='col-4 tb tb-header'>
+            DESCRIÇÃO 
+        </div>
+        <div class='col-2 tb tb-header'>
+            RESPONSÁVEL
+        </div>
+        <div class='col-1 tb tb-header'>
+            CONCLUSÃO
+        </div>
+        <div class='col-1 tb tb-header'>
+            PRIORIDADE
+        </div>
+        <div class='tb tb-header col-1'>
+            SITUAÇÃO
+        </div>
     </div>
-    {{formatPriority($task)}}
 
-    {{formatStatus($task)}}
-</div>
-@endforeach
-<div class='row'>
-    <div class='tb tb-header col-11 justify-content-end'>
-        TOTAL:
+    @foreach ($tasksCustomerServices as $task)
+    <div class='row'>
+        <div class='tb col-1'>
+            <button class='button-round'>
+                <a href=' {{route('task.show', ['task' => $task->id])}}'>
+                    <i class='fa fa-eye' style='color:white'></i></a>
+            </button>
+            {{date('d/m/Y', strtotime($task->date_start))}}
+        </div>
+        <div class='tb col-2'>
+            {{$task->name}}
+        </div>
+        <div class='tb-description col-4'>
+            {!!html_entity_decode($task->description)!!}
+        </div>
+        <div class='tb col-2'>
+            @if(isset($task->user->image))
+            <div class='profile-picture-small'>
+                <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                    <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
+                </a>
+            </div>
+            @elseif(isset($task->user->contact->name))
+            <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                {{$task->user->contact->name}}
+            </a>
+            @else
+            funcionário excluído
+            @endif
+        </div>
+        <div class='tb col-1'>
+            @isset($task->date_conclusion)
+            {{dateBr($task->date_conclusion)}}
+            @else
+            em aberto
+            @endisset
+        </div>
+        {{formatPriority($task)}}
+
+        {{formatStatus($task)}}
     </div>
-    <div class='tb tb-header col-1'>
-        {{formatTotalHour($tasksCustomerServicesHours)}} horas
+    @endforeach
+    <div class='row'>
+        <div class='tb tb-header col-11 justify-content-end'>
+            TOTAL:
+        </div>
+        <div class='tb tb-header col-1'>
+            {{formatTotalHour($tasksCustomerServicesHours)}} horas
+        </div>
     </div>
-</div>
-@endif
-@endsection
+    @endif
+    @endsection
 
-@section('deleteButton')
-{{createButtonTrash($opportunity, 'opportunity')}}
-@endsection
+    @section('deleteButton')
+    {{createButtonTrash($opportunity, 'opportunity')}}
+    @endsection
 
-@section('editButton', route('opportunity.edit', ['opportunity' => $opportunity->id]))
+    @section('editButton', route('opportunity.edit', ['opportunity' => $opportunity->id]))
 
-@section('backButton', route('opportunity.index'))
+    @section('backButton', route('opportunity.index'))
 
-@section('createdAt')
-<div class='row' style='margin-top: 30px'>
-    <div class='col-12'style='padding-top: -10px'>
-        Primeiro registro em: {{date('d/m/Y H:i', strtotime($opportunity->created_at))}}
+    @section('createdAt')
+    <div class='row' style='margin-top: 30px'>
+        <div class='col-12'style='padding-top: -10px'>
+            Primeiro registro em: {{date('d/m/Y H:i', strtotime($opportunity->created_at))}}
+        </div>
     </div>
-</div>
-@endsection
+    @endsection
 
 
-@section('js-scripts')
-<script>
-    // botão do filtro
-    $(document).ready(function () {
+    @section('js-scripts')
+    <script>
+        // botão do filtro
+        $(document).ready(function () {
         console.log('filter button')
-        //botao de exibir filtro
-        $('#stageButtonOnOff').click(function () {
-            $('#stageRow').slideToggle(600);
-            $('#buttonOnOff').toggleClass('plus minus');
+                //botao de exibir filtro
+                $('#stageButtonOnOff').click(function () {
+        $('#stageRow').slideToggle(600);
+        $('#buttonOnOff').toggleClass('plus minus');
         });
         $('#taskButtonOnOff').click(function () {
-            $('#taskRow').slideToggle(600);
-//            $('#buttonOnOff').toggleClass('plus minus');
+        $('#taskRow').slideToggle(600);
         });
+        @php
+                $counterJs = 1;
+        foreach($stages as $stage) {
+        echo "
+                $('#taskButtonOnOff_$counterJs').click(function () {
+        $('#taskRow_$counterJs').slideToggle(600);
+        });
+        ";
+                $counterJs++;
+        }
+        @endphp
 
-    });
-</script>
-@endsection
+        });
+    </script>
+    @endsection

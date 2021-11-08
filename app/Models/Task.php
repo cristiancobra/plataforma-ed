@@ -19,6 +19,7 @@ class Task extends Model {
         'account_id',
         'contact_id',
         'opportunity_id',
+        'stage_id',
         'date_entered',
         'created_by',
         'name',
