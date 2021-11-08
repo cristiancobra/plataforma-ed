@@ -320,9 +320,14 @@ class PageController extends Controller {
         $accountType = $page->accountType(auth()->user()->account_id);
 
         $valueOffer = Text::selectedValueOffer($page);
-        $valueOffer->text = Text::unformatText($valueOffer->text);
+        if ($valueOffer) {
+            $valueOffer->text = Text::unformatText($valueOffer->text);
+        }
+
         $about = Text::selectedAbout($page);
-        $about->text = Text::unformatText($about->text);
+        if ($valueOffer) {
+            $about->text = Text::unformatText($about->text);
+        }
 
         $strengths = Text::selectedStrengths($page);
         foreach ($strengths as $strength) {

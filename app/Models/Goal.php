@@ -52,8 +52,6 @@ class Goal extends Model {
                     }
                     if ($request->department) {
                         $query->where('department', $request->department);
-                    } else {
-                        $query->where('department', '!=', 'tarefa pessoal');
                     }
                     if ($request->date_due) {
                         $query->where('date_due', '<', $request->date_due);

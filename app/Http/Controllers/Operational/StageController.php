@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Operational;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Goal;
 use App\Models\Stage;
 use Illuminate\Http\Request;
 
@@ -36,7 +38,39 @@ class StageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $messages = [
+            'required' => '*preenchimento obrigatório.',
+        ];
+        $validator = Validator::make($request->all(), [
+                    'name' => 'required:stages',
+                        ],
+                        $messages);
+
+        if ($validator->fails()) {
+            return back()
+                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
+                            ->withErrors($validator)
+                            ->withInput();
+        } else {
+            $stage = new Stage();
+            $stage->fill($request->all());
+            $stage->account_id = auth()->user()->account_id;
+            $stage->save();
+//
+//            if ($request->file('image')) {
+//                $image = new Image();
+//                $image->account_id = auth()->user()->account_id;
+//                $image->task_id = $stage->id;
+//                $image->type = 'tarefa';
+//                $image->name = 'Imagem da meta ' . $stage->name;
+//                $image->status = 'disponível';
+//                $path = $request->file('image')->store('users_images');
+//                $image->path = $path;
+//                $image->save();
+//            }
+
+            return redirect()->back();
+        }
     }
 
     /**

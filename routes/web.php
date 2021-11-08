@@ -115,8 +115,7 @@ Route::resource('usuarios', 'Administrative\\Users\\UserController')
         ->parameters(['usuarios' => 'user'])
         ->middleware('roles');
 
-//goals
-
+// goals
 Route::put('/metas/apagar/{goal}', 'Administrative\\GoalController@sendToTrash')
         ->name('goal.trash')
         ->middleware('roles');
@@ -128,6 +127,20 @@ Route::put('/metas/restaurar/{goal}', 'Administrative\\GoalController@restoreFro
 Route::resource('metas', 'Administrative\\GoalController')
         ->names('goal')
         ->parameters(['metas' => 'goal'])
+        ->middleware('roles');
+
+// stages
+Route::put('/etapas/apagar/{stage}', 'Operational\\StageController@sendToTrash')
+        ->name('stage.trash')
+        ->middleware('roles');
+
+Route::put('/etapas/restaurar/{stage}', 'Operational\\StageController@restoreFromTrash')
+        ->name('stage.restore')
+        ->middleware('roles');
+
+Route::resource('etapas', 'Operational\\StageController')
+        ->names('stage')
+        ->parameters(['etapas' => 'stage'])
         ->middleware('roles');
 
 // ================================ FINANCIAL ===================

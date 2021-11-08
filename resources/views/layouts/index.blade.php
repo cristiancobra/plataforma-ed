@@ -40,8 +40,9 @@
                     </div>
                 </main>
                 <script>
+                    // botão do filtro
                     $(document).ready(function () {
-                        console.log('executing js here..')
+                        console.log('filter button')
                         //botao de exibir filtro
                         $('#filter_button').click(function () {
                             $('#filter_row').slideToggle(600);

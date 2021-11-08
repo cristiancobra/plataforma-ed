@@ -39,7 +39,7 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     @if($opportunity->department == 'desenvolvimento' AND $opportunity->goal)
-    <a href="{{route('goal.show', ['goal' => $opportunity->goal_id])}}">
+    <a href='{{route('goal.show', ['goal' => $opportunity->goal_id])}}'>
         <div class='show-field-end'>
             {{$opportunity->goal->name}}
         </div>
@@ -53,7 +53,7 @@
         Pessoa física
     </div>
     @else
-    <a href="{{route('company.show', ['company' => $opportunity->company])}}">
+    <a href='{{route('company.show', ['company' => $opportunity->company])}}'>
         <div class='show-field-end'>
             {{$companyName}}
         </div>
@@ -61,7 +61,7 @@
     @endif
 
     @if(isset($opportunity->contact->name))
-    <a href="{{route('contact.show', ['contact' => $opportunity->contact])}}">
+    <a href='{{route('contact.show', ['contact' => $opportunity->contact])}}'>
         <div class='show-field-end'>
             {{$opportunity->contact->name}}
         </div>
@@ -79,7 +79,7 @@
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
     @if(isset($opportunity->user->contact->name))
-    <a href="{{route('user.show', ['user' => $opportunity->user])}}">
+    <a href='{{route('user.show', ['user' => $opportunity->user])}}'>
         <div class='show-field-end'>
             {{$opportunity->user->contact->name}}
         </div>
@@ -88,123 +88,254 @@
     <div class='show-field-end'>
         foi excluído
     </div>
+</div>
+@endif
+@endsection
+
+@section('date_start')
+<div class='circle-date-start'>
+    @if($opportunity->date_start == null)
+    indefinida
+    @else
+    {{date('d/m/Y', strtotime($opportunity->date_start))}}
     @endif
-    @endsection
+</div>
+<p class='labels' style='text-align: center'>
+    CRIAÇÃO
+</p>
+@endsection
 
-    @section('date_start')
-    <div class='circle-date-start'>
-        @if($opportunity->date_start == null)
-        indefinida
-        @else
-        {{date('d/m/Y', strtotime($opportunity->date_start))}}
-        @endif
-    </div>
-    <p class='labels' style='text-align: center'>
-        CRIAÇÃO
+
+@section('date_due')    
+<div class='circle-date-due'>
+    @if($opportunity->pay_day == null)
+    indefinida
+    @else
+    {{date('d/m/Y', strtotime($opportunity->pay_day))}}
+    @endif
+</div>
+<p class='labels' style='text-align: center'>
+    {{$dateDue}}
+</p>
+@endsection
+
+
+@section('date_conclusion')
+<div class='circle-date-conclusion'>
+    @if($opportunity->date_conclusion == null)
+    --
+    @else
+    <p style='color:white'>
+        {{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
     </p>
-    @endsection
+    @endif
+</div>
+<p class='labels' style='text-align: center'>
+    CONCLUSÃO
+</p>
+@endsection
 
 
-    @section('date_due')    
-    <div class='circle-date-due'>
-        @if($opportunity->pay_day == null)
-        indefinida
-        @else
-        {{date('d/m/Y', strtotime($opportunity->pay_day))}}
-        @endif
+@section('description')
+{!!html_entity_decode($opportunity->description)!!}
+@endsection
+
+
+@section('main')
+@if($opportunity->department == 'desenvolvimento')
+<div class='row mt-5'>
+    <div class='col-6 pt-4 pb-3' style='
+         border-top-style: solid;
+         border-top-width: 1px;
+         border-left-style: solid;
+         border-left-width: 1px;
+         border-radius: 7px 0px 0px 0px;
+         border-color: {{$principalColor}}
+         '>
+        <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >EXECUÇÃO</label>
     </div>
-    <p class='labels' style='text-align: center'>
-        {{$dateDue}}
-    </p>
-    @endsection
-
-
-    @section('date_conclusion')
-    <div class='circle-date-conclusion'>
-        @if($opportunity->date_conclusion == null)
-        --
-        @else
-        <p style='color:white'>
-            {{date('d/m/Y', strtotime($opportunity->date_conclusion))}}
-        </p>
-        @endif
+    <div class='col-6 pt-4 pb-3 d-flex justify-content-end' style='
+         border-top-style: solid;
+         border-top-width: 1px;
+         border-right-style: solid;
+         border-right-width: 1px;
+         border-radius: 0px 7px 0px 0px;
+         border-color: {{$principalColor}}
+         '>
+        <a id='stageButtonOnOff' class='circular-button primary' title='Criar nova etapa'>
+            <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
+        </a>
     </div>
-    <p class='labels' style='text-align: center'>
+</div>
+
+<!--  adicionar ETAPA  -->
+
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
+</div>
+@endif
+<div class='row pt-5 pb-5' id='stageRow' style='display: none;
+     border-left-style: solid;
+     border-left-width: 1px;
+     border-right-style: solid;
+     border-right-width: 1px;
+     border-color: {{$principalColor}};
+     '>
+    <div class='col-5' style='text-align:left'>
+        <form id='addStage' action='{{route('stage.store')}}' method='post' style='text-align: left'>
+            @csrf
+            <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
+                NOME DA ETAPA
+            </label>
+            <br>
+            <input type='text' name='name'  placeholder='nome da tarefa' value=''>
+            </div>
+            <div class='col-2' style='text-align:left'>
+                <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
+                    RESPONSÁVEL
+                </label>
+                <br>
+                {{createFilterSelectModels('user_id', 'select', $users)}}
+            </div>
+            <div class='col-2' style='text-align:left'>
+                <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
+                    PRIORIDADE
+                </label>
+                <br>
+                {{createFilterSelect('priority', 'select', $priorities)}}
+            </div>
+            <div class='col-2' style='text-align:left'>
+                <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
+                    SITUAÇÃO
+                </label>
+                <br>
+                {{createFilterSelect('status', 'select', $status)}}
+            </div>
+            <div class='col-1'>
+                {{createButtonSave()}}
+        </form>
+    </div>
+</div>
+
+<!--cabeçalho--> 
+<div class='row'>
+    <div class='col-1 tb tb-header'>
+        RESPONSÁVEL
+    </div>
+    <div class='col-1 tb tb-header'>
+        INÍCIO 
+    </div>
+    <div class='col-3 tb tb-header'>
+        TAREFA 
+    </div>
+    <div class='col-4 tb tb-header'>
+        DESCRIÇÃO 
+    </div>
+    <div class='col-1 tb tb-header'>
         CONCLUSÃO
-    </p>
-    @endsection
+    </div>
+    <div class='col-1 tb tb-header'>
+        PRIORIDADE
+    </div>
+    <div class='col-1 tb tb-header'>
+        SITUAÇÃO
+    </div>
+</div>
+@foreach($stages as $stage)
+<div class='row'>
+    <div class='tb col-11 justify-content-start'>
+        <p  class='labels' style="text-align: left; color: {{$principalColor}}">
+            {{$stage->name}}
+        </p>
+    </div>
+    <div class='tb col-1'>
+        <a id='taskButtonOnOff' class='circular-button primary' title='Criar nova tarefa'>
+            <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
+        </a>
+    </div>
+</div>
 
-
-    @section('description')
-    {!!html_entity_decode($opportunity->description)!!}
-    @endsection
-
-
-    @section('main')
-    @if($opportunity->department == 'desenvolvimento')
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-top-style: solid;
-             border-top-width: 1px;
-             border-left-style: solid;
-             border-left-width: 1px;
-             border-radius: 7px 0px 0px 0px;
-             border-color: #c28dbf
-             '>
-            <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >EXECUÇÃO</label>
-        </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-top-style: solid;
-             border-top-width: 1px;
-             border-right-style: solid;
-             border-right-width: 1px;
-             border-radius: 0px 7px 0px 0px;
-             border-color: #c28dbf
-             '>
-            <a class='text-button secondary'  style='display: inline-block;float: right'  href='{{route('opportunity.pdfProduction', ['opportunity' => $opportunity])}}'>
-                RELATÓRIO PDF
-            </a>
-            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
-                                                                                                                                                                                        'opportunityName' => $opportunity->name,
-                                                                                                                                                                                        'opportunityId' => $opportunity->id,
-                                                                                                                                                                                        'opportunityDescription' => $opportunity->description,
-                                                                                                                                                                                        'opportunityCompanyName' => $companyName,
-                                                                                                                                                                                        'opportunityCompanyId' => $companyId,
-                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
-                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
-                                                                                                                                                                                        'department' => 'desenvolvimento',
-                                                                                                                                                                                        'type' => 'projeto',
-                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
-                                                                                                                                                                                        ]
-                    )}}'>
-                <i class='fa fa-plus' aria-hidden='true'></i>
-            </a>
+<!--linha oculta criar nova tarefa-->
+@if(Session::has('failed'))
+<div class="alert alert-danger">
+    {{Session::get('failed')}}
+    @php
+    Session::forget('failed');
+    @endphp
+</div>
+@endif
+<div class='pt-5 pb-5' id='taskRow' style='display: none;
+     border-left-style: solid;
+     border-left-width: 1px;
+     border-right-style: solid;
+     border-right-width: 1px;
+     border-color: {{$principalColor}};
+     '>
+<div class='row pt-5 pb-5' style='
+     border-left-style: solid;
+     border-left-width: 1px;
+     border-right-style: solid;
+     border-right-width: 1px;
+     border-color: {{$principalColor}};
+     '>
+        <div class='col-5' style='text-align:left'>
+            <form id='addStage' action='{{route('task.store')}}' method='post' style='text-align: left'>
+                @csrf
+                <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
+                    NOME DA TAREFA
+                </label>
+                <br>
+                <input type='text' name='name'  placeholder='nome da tarefa' value=''>
+                </div>
+                <div class='col-2' style='text-align:left'>
+                    <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
+                        RESPONSÁVEL
+                    </label>
+                    <br>
+                    {{createFilterSelectModels('user_id', 'select', $users)}}
+                </div>
+                <div class='col-2' style='text-align:left'>
+                    <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
+                        PRIORIDADE
+                    </label>
+                    <br>
+                    {{createFilterSelect('priority', 'select', $priorities)}}
+                </div>
+                <div class='col-2' style='text-align:left'>
+                    <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
+                        SITUAÇÃO
+                    </label>
+                    <br>
+                    {{createFilterSelect('status', 'select', $status)}}
+                </div>
+                <div class='col-1'>
+                    {{createButtonSave()}}
+            </form>
         </div>
     </div>
+    @foreach ($stage->tasks as $task)
     <div class='row'>
-        <div class='col-2 tb tb-header'>
-            CRIAÇÃO 
+        <div class='tb col-1'>
+            @if(isset($opportunity->user->image))
+            <div class='profile-picture-small'>
+                <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
+                    <img src='{{asset($opportunity->user->image->path)}}' width='100%' height='100%'>
+                </a>
+            </div>
+            @elseif(isset($opportunity->user->contact->name))
+            <a  class='white' href=' {{route('user.show', ['user' => $opportunity->user->id])}}'>
+                {{$opportunity->user->contact->name}}
+            </a>
+            @else
+            funcionário excluído
+            @endif
         </div>
-        <div class='col-3 tb tb-header'>
-            TAREFA 
-        </div>
-        <div class='col-4 tb tb-header'>
-            DESCRIÇÃO 
-        </div>
-        <div class='col-1 tb tb-header'>
-            CONCLUSÃO
-        </div>
-        <div class='col-1 tb tb-header'>
-            PRIORIDADE
-        </div>
-        <div class='col-1 tb tb-header'>
-            SITUAÇÃO
-        </div>
-    </div>
-    @foreach ($tasksDevelopment as $task)
-    <div class='row'>
-        <div class='tb col-2'>
+        <div class='tb col-1'>
             <button class='button-round'>
                 <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
                     <i class='fa fa-eye' style='color:white'></i></a>
@@ -217,159 +348,184 @@
         <div class='tb-description col-4'>
             {!!html_entity_decode($task->description)!!}
         </div>
-
         {{formatDateDue($task)}}
 
         {{formatPriority($task)}}
 
         {{formatStatus($task)}}
-    </div>
-    @endforeach
-    <div class='row mb-4'>
-        <div class='tb tb-header col-11 justify-content-end'>
-            TOTAL:
-        </div>
-        <div class='tb tb-header col-1'>
-            {{formatTotalHour($tasksOperationalHours)}} horas
-        </div>
-    </div>
 
-    @else   
-
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-left-style: solid;
-             border-top-style: solid;
-             border-left-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 10px 0 0 0;
-             '>
-            <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROSPECÇÃO</label>
-        </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-right-style: solid;
-             border-top-style: solid;
-             border-right-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 0 10px 0 0;
-             '>
-            <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
-                @csrf
-                <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
-                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                <input type='hidden' name='company_name' value='{{$companyName}}'>
-                <input type='hidden' name='company_id' value='{{$companyId}}'>
-                @if($opportunity->contact)
-                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-                @endif
-                <input type='hidden' name='department' value='vendas'>
-                <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
-            </form>
-            <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
-                @csrf
-                <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
-                <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-                <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-                <input type='hidden' name='company_name' value='{{$companyName}}'>
-                <input type='hidden' name='company_id' value='{{$companyId}}'>
-                @if($opportunity->contact)
-                <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-                <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-                @endif
-                <input type='hidden' name='department' value='vendas'>
-                <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
-            </form>
+    </div>
+    <div class='row'>
+        <div class='col'>
+            <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
+                DESCRIÇÃO
+            </label>
         </div>
     </div>
-    <div class='tb-row'>
+    <div class='row'>
+        <div class='col'>
+            <br>
+            @if ($errors->has('description'))
+            <span class="text-danger">{{$errors->first('description')}}</span>
+            @endif
+            <textarea id="description" name="description" rows="20" cols="90">
+  {{old('description')}}
+            </textarea>
+            <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+            <script>
+CKEDITOR.replace('description');
+            </script>
+        </div>
+    </div>
+@endforeach
+@endforeach
+</div>
+<div class='row mb-4'>
+    <div class='tb tb-header col-11 justify-content-end'>
+        TOTAL:
+    </div>
+    <div class='tb tb-header col-1'>
+        {{formatTotalHour($tasksOperationalHours)}} horas
+    </div>
+</div>
 
-        @empty($companyName)
-        <a href='{{route('company.create')}}'>
-            adicionar empresa
-        </a>
-        @else
-        <i class='fas fa-store me-2'></i>
-        <a href='{{route('company.edit', [
+@else   
+
+<div class='row mt-5'>
+    <div class='col-6 pt-4 pb-3' style='
+         border-left-style: solid;
+         border-top-style: solid;
+         border-left-width: 1px;
+         border-top-width: 1px;
+         border-color: {{$principalColor}};
+         border-radius: 10px 0 0 0;
+         '>
+        <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROSPECÇÃO</label>
+    </div>
+    <div class='col-6 pt-4 pb-3' style='
+         border-right-style: solid;
+         border-top-style: solid;
+         border-right-width: 1px;
+         border-top-width: 1px;
+         border-color: {{$principalColor}};
+         border-radius: 0 10px 0 0;
+         '>
+        <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
+            @csrf
+            <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
+            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+            <input type='hidden' name='company_name' value='{{$companyName}}'>
+            <input type='hidden' name='company_id' value='{{$companyId}}'>
+            @if($opportunity->contact)
+            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+            @endif
+            <input type='hidden' name='department' value='vendas'>
+            <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
+        </form>
+        <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
+            @csrf
+            <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
+            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
+            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
+            <input type='hidden' name='company_name' value='{{$companyName}}'>
+            <input type='hidden' name='company_id' value='{{$companyId}}'>
+            @if($opportunity->contact)
+            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
+            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
+            @endif
+            <input type='hidden' name='department' value='vendas'>
+            <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
+        </form>
+    </div>
+</div>
+<div class='tb-row'>
+
+    @empty($companyName)
+    <a href='{{route('company.create')}}'>
+        adicionar empresa
+    </a>
+    @else
+    <i class='fas fa-store me-2'></i>
+    <a href='{{route('company.edit', [
                                                                 'company' => $opportunity->company,
                                                                  'typeCompanies' => 'cliente'
                                                                 ])}}'>
-            <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
-                {{mb_strtoupper($companyName)}}
-            </label>
-        </a>
-    </div>
-    <div class='tb-row'>
-        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
-        @if(isset($opportunity->company->value_offer))
-        {!!html_entity_decode($opportunity->company->value_offer)!!}
+        <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+            {{mb_strtoupper($companyName)}}
+        </label>
+    </a>
+</div>
+<div class='tb-row'>
+    <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Proposta de valor: </label>
+    @if(isset($opportunity->company->value_offer))
+    {!!html_entity_decode($opportunity->company->value_offer)!!}
+    @else
+    --
+    @endif
+</div>
+<div class='tb-row'>
+    <div class='col'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
+        @if(isset($opportunity->company->competitive_advantage))
+        {{$opportunity->company->competitive_advantage}}
         @else
         --
         @endif
     </div>
-    <div class='tb-row'>
-        <div class='col'>
-            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Diferencial competitivo: </label>
-            @if(isset($opportunity->company->competitive_advantage))
-            {{$opportunity->company->competitive_advantage}}
-            @else
-            --
-            @endif
-        </div>
-        <div class='col'>
-            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
-            @if(isset($opportunity->company->business_model))
-            {{$opportunity->company->business_model}}
-            @else
-            --
-            @endif
-        </div>
+    <div class='col'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Modelo de negócio: </label>
+        @if(isset($opportunity->company->business_model))
+        {{$opportunity->company->business_model}}
+        @else
+        --
+        @endif
     </div>
+</div>
 
-    <div class='tb-row'>
-        <div class='col'>
-            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
-            @if(isset($opportunity->company->sector))
-            {{$opportunity->company->sector}}
+<div class='tb-row'>
+    <div class='col'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Setor: </label>
+        @if(isset($opportunity->company->sector))
+        {{$opportunity->company->sector}}
+        @else
+        --
+        @endif
+    </div>
+    <div class='col'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
+        <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
+            @if(isset($opportunity->company->employees))
+            {{$opportunity->company->employees}}
             @else
             --
             @endif
-        </div>
-        <div class='col'>
-            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Funcionários: </label>
-            <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for='' >
-                @if(isset($opportunity->company->employees))
-                {{$opportunity->company->employees}}
-                @else
-                --
-                @endif
-            </label>
-        </div>
+        </label>
     </div>
+</div>
 
-    <div class='tb-row'>
-        <div class='col'>
-            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
-            @if(isset($opportunity->company->client_number))
-            {{$opportunity->company->client_number}}
-            @else
-            --
-            @endif
-        </div>
-        <div class='col'>
-            <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
-            @if(isset($opportunity->company->revenues))
-            {{$opportunity->company->revenues}}
-            @else
-            --
-            @endif
-        </div>
+<div class='tb-row'>
+    <div class='col'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Clientes: </label>
+        @if(isset($opportunity->company->client_number))
+        {{$opportunity->company->client_number}}
+        @else
+        --
+        @endif
     </div>
-    @endempty
+    <div class='col'>
+        <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for='' >Faturamento: </label>
+        @if(isset($opportunity->company->revenues))
+        {{$opportunity->company->revenues}}
+        @else
+        --
+        @endif
+    </div>
+</div>
+@endempty
 </div>
 
 
@@ -471,7 +627,7 @@
          border-left-style: solid;
          border-left-width: 1px;
          border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf;
+         border-color: {{$principalColor}};
          '>
         <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
         <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTAS</label>
@@ -482,7 +638,7 @@
          border-right-style: solid;
          border-right-width: 1px;
          border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf;
+         border-color: {{$principalColor}};
          '>
         @if($proposalWon == 0)
         <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('proposal.create', [
@@ -577,7 +733,7 @@
          border-left-style: solid;
          border-left-width: 1px;
          border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf;
+         border-color: {{$principalColor}};
          '>
         <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
         <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FATURAS</label>
@@ -588,7 +744,7 @@
          border-right-style: solid;
          border-right-width: 1px;
          border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
             @csrf
@@ -733,7 +889,7 @@
          border-left-style: solid;
          border-left-width: 1px;
          border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <img src='{{asset('images/contract.png')}}' width='25px' height='25px'>
         <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >CONTRATOS</label>
@@ -744,7 +900,7 @@
          border-right-style: solid;
          border-right-width: 1px;
          border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
             @csrf
@@ -846,7 +1002,7 @@
          border-left-style: solid;
          border-left-width: 1px;
          border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
         <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PRODUÇÃO</label>
@@ -857,7 +1013,7 @@
          border-right-style: solid;
          border-right-width: 1px;
          border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <form  style='display: inline-block;float: right'  action='{{route('task.create')}}' method='post'>
             @csrf
@@ -944,7 +1100,7 @@
          border-left-style: solid;
          border-left-width: 1px;
          border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <img src='{{asset('images/customer-service.png')}}' width='25px' height='25px'>
         <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ATENDIMENTO</label>
@@ -955,7 +1111,7 @@
          border-right-style: solid;
          border-right-width: 1px;
          border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf
+         border-color: {{$principalColor}}
          '>
         <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('task.create', [
                                                                                                                                                                                         'task_name' => 'ATENDIMENTO',
@@ -1068,4 +1224,20 @@
 
 
 @section('js-scripts')
+<script>
+    // botão do filtro
+    $(document).ready(function () {
+        console.log('filter button')
+        //botao de exibir filtro
+        $('#stageButtonOnOff').click(function () {
+            $('#stageRow').slideToggle(600);
+            $('#buttonOnOff').toggleClass('plus minus');
+        });
+        $('#taskButtonOnOff').click(function () {
+            $('#taskRow').slideToggle(600);
+//            $('#buttonOnOff').toggleClass('plus minus');
+        });
+
+    });
+</script>
 @endsection

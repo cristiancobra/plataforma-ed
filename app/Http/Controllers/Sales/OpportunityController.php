@@ -13,6 +13,7 @@ use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Product;
 use App\Models\Proposal;
+use App\Models\Stage;
 use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
@@ -238,6 +239,10 @@ class OpportunityController extends Controller {
             $balanceTotal = 0;
         }
 
+        $stages = Stage::where('opportunity_id', $opportunity)
+                ->with('tasks')
+                ->get();
+        
         $tasks = Task::where('opportunity_id', $opportunity->id)
                 ->with('journeys')
                 ->get();
@@ -298,6 +303,11 @@ class OpportunityController extends Controller {
 
         $contracts = Contract::where('opportunity_id', $opportunity->id)
                 ->get();
+        
+                $users = User::myUsers();
+        $status = Task::returnStatus();
+        $departments = Task::returnDepartments();
+        $priorities = Task::returnPriorities();
 
         return view('sales.opportunities.showOpportunity', compact(
                         'dateDue',
@@ -311,6 +321,7 @@ class OpportunityController extends Controller {
                         'invoiceInstallmentsTotal',
                         'invoicePaymentsTotal',
                         'balanceTotal',
+                        'stages',
                         'tasks',
                         'tasksSales',
                         'tasksSalesHours',
@@ -321,6 +332,10 @@ class OpportunityController extends Controller {
                         'tasksCustomerServicesHours',
                         'contracts',
                         'contactCompanies',
+                        'users',
+                        'status',
+                        'departments',
+                        'priorities',
         ));
     }
 
