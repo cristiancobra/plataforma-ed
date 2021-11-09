@@ -264,9 +264,7 @@ CKEDITOR.replace('description');
             </div>
         </div>
         @foreach($stages as $stage)
-        <div class='row pt-3 pb-2  position-relative' style="background-color: {{$oppositeColor}}">
-            <a class="stretched-link" href=' {{ route('stage.show', ['stage' => $stage->id]) }}'>
-            </a>
+        <div class='row pt-3 pb-2 ' style="background-color: {{$oppositeColor}}">
             <div class='col-7 justify-content-start'>
                 <p  class='labels' style="text-align: left; color: {{$principalColor}}">
                     ETAPA:  {{$stage->name}}
