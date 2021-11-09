@@ -162,16 +162,16 @@
 
     @section('description')
     <br>
-    @if ($errors->has('text'))
+    @if ($errors->has('description'))
     <span class='text-danger'>{{$errors->first('text')}}</span>
     @endif
     <textarea id='text' name='text' rows='20' cols='120'>
-  {{$goal->text}}
+  {{$goal->description}}
     </textarea>
     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
     <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
     <script>
-CKEDITOR.replace('text');
+CKEDITOR.replace('description');
     </script>
     @endsection
 
