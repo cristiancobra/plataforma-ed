@@ -185,7 +185,7 @@ class TaskController extends Controller {
 //            $journeys = Journey::where('task_id', $task->id)
 //                    ->get();
 
-            return redirect()->route('task.show', [$task]);
+            return redirect()->back();
         }
     }
 

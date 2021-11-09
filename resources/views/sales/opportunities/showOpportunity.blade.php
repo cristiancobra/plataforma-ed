@@ -195,7 +195,7 @@
                     NOME DA ETAPA
                 </label>
                 <br>
-                <input type='text' name='name'  placeholder='nome da etapa' value=''>
+                <input type='text' name='name'  placeholder='nome do projeto' value=''>
                 </div>
                 <div class='col-2' style='text-align:left'>
                     <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
@@ -390,7 +390,9 @@ CKEDITOR.replace('description');
             </div>
     
             @foreach ($stage->tasks as $task)
-            <div class='row'>
+            <div class='row position-relative'>
+                <a class="stretched-link" href=' {{ route('task.show', ['task' => $task->id]) }}'>
+                        </a>
                 <div class='tb col-1'>
                     @if(isset($task->user->image))
                     <div class='profile-picture-small'>
@@ -407,10 +409,6 @@ CKEDITOR.replace('description');
                     @endif
                 </div>
                 <div class='tb col-1'>
-                    <button class='button-round'>
-                        <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                            <i class='fa fa-eye' style='color:white'></i></a>
-                    </button>
                     {{date('d/m/Y', strtotime($task->date_start))}}
                 </div>
                 <div class='tb col-3'>

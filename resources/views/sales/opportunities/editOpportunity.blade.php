@@ -30,7 +30,7 @@
         <input type="hidden" name="department" value="{{$opportunity->department}}">
         @endif
         <label class="labels" for="" >NOME:</label>
-        <input type="text" name="name" size="20" value="{{$opportunity->name}}"><span class="fields"></span>
+        <input type="text" name="name" size="20" value="{{$opportunity->name}}">
         @if ($errors->has('name'))
         <span class="text-danger">{{$errors->first('name')}}</span>
         @endif
@@ -75,11 +75,23 @@
             @endforeach
         </select>
         <br>
-        <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-        <input type="date" name="date_start" size="20" value="{{$opportunity->date_start}}"><span class="fields"></span>
+        <label class="labels" for="" >
+            DATA DE CRIAÇÃO:
+        </label>
+        <input type="date" name="date_start" size="20" value="{{$opportunity->date_start}}">
+        <br>
+                <label class="labels" for="" >
+                    PRAZO FINAL:
+                </label>
+        <input type="date" name="date_due" size="20" value="{{old('date_due')}}">
+        @if ($errors->has('date_due'))
+        <span class="text-danger">{{$errors->first('date_due')}}</span>
+        @endif
         <br>
         <br>
-        <label class="labels" for="" >DESCRIÇÃO:</label>
+        <label class="labels" for="" >
+            DESCRIÇÃO:
+        </label>
         <textarea id="description" name="description" rows="20" cols="90">
 		{{$opportunity->description}}
         </textarea>
@@ -97,7 +109,7 @@ CKEDITOR.replace('description');
         @endif
         
         <label class="labels" for="" >DATA DE CONCLUSÃO:</label>
-        <input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}"><span class="fields"></span>
+        <input type="date" name="date_conclusion" size="20" value="{{$opportunity->date_conclusion}}">
         <br>
         <br>
         <label class="labels" for="">SITUAÇÃO:</label>

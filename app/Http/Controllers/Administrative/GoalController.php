@@ -6,29 +6,29 @@ use App\Http\Controllers\Controller;
 use App\Models\Goal;
 use App\Models\Opportunity;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class GoalController extends Controller
-{
+class GoalController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
-    {
+    public function index(Request $request) {
         $goals = Goal::filterGoals($request);
-        
-                $departments = Task::returnDepartments();
-                $status = Goal::returnStatus();
-                $trashStatus = request()->trash;
-        
+
+        $departments = Task::returnDepartments();
+        $status = Goal::returnStatus();
+        $trashStatus = request()->trash;
+
         return view('administrative.goals.index', compact(
-                'goals',
-                'departments',
-                'status',
-                'trashStatus',
+                        'goals',
+                        'departments',
+                        'status',
+                        'trashStatus',
         ));
     }
 
@@ -37,14 +37,13 @@ class GoalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-                $departments = Task::returnDepartments();
-                $status = Goal::returnStatus();
-        
+    public function create() {
+        $departments = Task::returnDepartments();
+        $status = Goal::returnStatus();
+
         return view('administrative.goals.create', compact(
-                'departments',
-                'status',
+                        'departments',
+                        'status',
         ));
     }
 
@@ -54,8 +53,7 @@ class GoalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -73,8 +71,8 @@ class GoalController extends Controller
             $goal = new Goal();
             $goal->fill($request->all());
             $goal->account_id = auth()->user()->account_id;
-            
-            if($request->department == 'desenvolvimento') {
+
+            if ($request->department == 'desenvolvimento') {
                 $goal->goal_points = 1;
             }
             $goal->save();
@@ -91,7 +89,8 @@ class GoalController extends Controller
                 $image->save();
             }
 
-            return redirect()->route('goal.show', [$goal]);
+            return redirect()->back();
+//            return redirect()->route('goal.show', [$goal]);
         }
     }
 
@@ -101,15 +100,19 @@ class GoalController extends Controller
      * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function show(Goal $goal)
-    {
+    public function show(Goal $goal) {
         $projects = Opportunity::getProjectsOfGoal($goal->id);
-                        $goalSelected = Goal::goalSelected($goal);
+        $goalSelected = Goal::goalSelected($goal);
+
+        $users = User::myUsers();
+        $status = Task::returnStatus();
 
         return view('administrative.goals.show', compact(
                         'goal',
                         'projects',
                         'goalSelected',
+                        'users',
+                        'status',
         ));
     }
 
@@ -119,14 +122,13 @@ class GoalController extends Controller
      * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function edit(Goal $goal)
-    {
+    public function edit(Goal $goal) {
         $projects = Opportunity::getProjectsOfGoal($goal->id);
-                        $departments = Task::returnDepartments();
-                $types = Goal::returnTypes();
-                $status = Goal::returnStatus();
-                
-                $goalSelected = Goal::goalSelected($goal);
+        $departments = Task::returnDepartments();
+        $types = Goal::returnTypes();
+        $status = Goal::returnStatus();
+
+        $goalSelected = Goal::goalSelected($goal);
 
         return view('administrative.goals.edit', compact(
                         'goal',
@@ -145,8 +147,7 @@ class GoalController extends Controller
      * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Goal $goal)
-    {
+    public function update(Request $request, Goal $goal) {
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -170,7 +171,7 @@ class GoalController extends Controller
             $goal->type = $request->type;
 
 //            dd($request);
-            switch($goal->type) {
+            switch ($goal->type) {
                 case 'execução':
                     $goal->goal_points = 0;
                     break;
@@ -202,12 +203,10 @@ class GoalController extends Controller
      * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Goal $goal)
-    {
+    public function destroy(Goal $goal) {
         //
     }
-    
-    
+
     public function sendToTrash(Goal $goal) {
         $goal->trash = 1;
         $goal->save();

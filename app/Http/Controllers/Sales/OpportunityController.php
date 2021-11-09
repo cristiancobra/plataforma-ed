@@ -150,7 +150,7 @@ class OpportunityController extends Controller {
         $validator = Validator::make($request->all(), [
                     'name' => 'required:opportunities',
                     'date_start' => 'required:opportunities',
-                    'date_conclusion' => 'required:opportunities',
+                    'date_due' => 'required:opportunities',
                     'description' => 'required:opportunities',
                         ],
                         $messages);
