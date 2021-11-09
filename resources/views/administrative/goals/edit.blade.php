@@ -29,7 +29,7 @@
 
 
     @section('priority')
-    {{$goalSelected}}
+    {{$goal->type}}
     @endsection
 
 
@@ -45,43 +45,67 @@
         </div>
     </div>
     <div class='col-lg-5 col-xs-6' style='text-align: center'>
-                <div class='show-field-end'>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' checked='{{$goal->type == 'execução' ? 'checked' : ''}}'>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="text-align: right;font-weight:600">EXECUÇÃO:</label>
-            <p class='form-check-label pt-2 ms-2' for='execução' style="text-align: right">concluir todas as tarefas</p>
+        <div class='show-field-end'>
+            <div class='form-check d-flex justify-content-start'>
+                <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' {{$goal->type == 'execução' ? 'checked' : ''}}>
+                <label class='form-check-label pt-2 ms-2' for='execução' style="text-align: right;font-weight:600">
+                    EXECUÇÃO:
+                </label>
+                <p class='form-check-label pt-2 ms-2' for='execução' style="text-align: right">
+                    concluir todas as tarefas
+                </p>
+            </div>
+            <div class='form-check d-flex justify-content-start'>
+                <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' {{$goal->type == 'contatos' ? 'checked' : ''}}'>
+                <label class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right;font-weight:600">
+                    MARKETING:
+                </label>
+                <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right">
+                    aumentar contatos para 
+                </p>
+                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts'>
+            </div>
+            <div class='form-check d-flex justify-content-start'>
+                <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' {{$goal->type == 'receita' ? 'checked' : ''}}'>
+                <label class='form-check-label pt-2 ms-2' for='receita' style="text-align: right;font-weight:600">
+                    RECEITA:
+                </label>
+                <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
+                    atingir faturamento de 
+                </p>
+                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues'>
+            </div>
+            <div class='form-check d-flex justify-content-start'>
+                <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' {{$goal->type == 'despesa' ? 'checked' : ''}}'>
+                <label class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right;font-weight:600">
+                    DESPESA:
+                </label>
+                <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">
+                    manter despesas abaixo de 
+                </p>
+                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses' value='{{$goal->goal_invoices_expenses}}'>
+            </div>
+            <div class='form-check d-flex justify-content-start'>
+                <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' {{$goal->type == 'entrada' ? 'checked' : ''}}'>
+                <label class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right;font-weight:600">
+                    ENTRADAS:
+                </label>
+                <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">
+                    atingir entradas de 
+                </p>
+                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues' value='{{$goal->goal_transactions_revenues}}'>
+            </div>
+            <div class='form-check d-flex justify-content-start'>
+                <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' {{$goal->type == 'saída' ? 'checked' : ''}}'>
+                <label class='form-check-label pt-2 ms-2' for='saída' style="text-align: right;font-weight:600">
+                    SAÍDAS:
+                </label>
+                <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">
+                    manter saídas abaixo de 
+                </p>
+                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses' value='{{$goal->goal_transactions_expenses}}'>
+            </div>
         </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' checked='{{$goal->type == 'contatos' ? 'checked' : ''}}'>
-            <label class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right;font-weight:600">MARKETING:</label>
-            <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right">aumentar contatos para </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' checked='{{$goal->type == 'receita' ? 'checked' : ''}}'>
-            <label class='form-check-label pt-2 ms-2' for='receita' style="text-align: right;font-weight:600">RECEITA:</label>
-            <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">atingir faturamento de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' checked='{{$goal->type == 'despesa' ? 'checked' : ''}}'>
-            <label class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right;font-weight:600">DESPESA:</label>
-            <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">manter despesas abaixo de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses' value='{{$goal->goal_invoices_expenses}}'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' checked='{{$goal->type == 'entrada' ? 'checked' : ''}}'>
-            <label class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right;font-weight:600">ENTRADAS:</label>
-            <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">atingir entradas de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues' value='{{$goal->goal_transactions_revenues}}'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' checked='{{$goal->type == 'saída' ? 'checked' : ''}}'>
-            <label class='form-check-label pt-2 ms-2' for='saída' style="text-align: right;font-weight:600">SAÍDAS:</label>
-            <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">manter saídas abaixo de </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses' value='{{$goal->goal_transactions_expenses}}'>
-        </div>
-    </div>
     </div>
 
     <div class='col-lg-2 col-xs-6' style='text-align: center'>
@@ -95,8 +119,8 @@
         </div>
     </div>
     @endsection
-    
-    
+
+
 
     @section('date_start')
     <div class='circle-date-start'>
