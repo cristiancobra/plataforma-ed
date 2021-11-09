@@ -74,7 +74,7 @@
          border-color: #c28dbf
          '>
         <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >EXECUÇÃO</label>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROJETOS</label>
     </div>
     <div class='col-6 pt-4 pb-3 d-flex justify-content-end' style='
          border-top-style: solid;
@@ -198,7 +198,7 @@ CKEDITOR.replace('description');
             CRIAÇÃO 
         </div>
         <div class='col-4 tb tb-header'>
-            TAREFA 
+            PROJETO 
         </div>
         <div class='col-4 tb tb-header'>
             DESCRIÇÃO 

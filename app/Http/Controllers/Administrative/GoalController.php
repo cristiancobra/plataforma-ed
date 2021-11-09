@@ -19,6 +19,10 @@ class GoalController extends Controller {
      */
     public function index(Request $request) {
         $goals = Goal::filterGoals($request);
+        
+        foreach($goals as $goal) {
+            $goal->result = Goal::goalResult($goal);
+        }
 
         $departments = Task::returnDepartments();
         $status = Goal::returnStatus();
@@ -127,7 +131,7 @@ class GoalController extends Controller {
         $departments = Task::returnDepartments();
         $types = Goal::returnTypes();
         $status = Goal::returnStatus();
-
+//dd($goal);
         $goalSelected = Goal::goalSelected($goal);
 
         return view('administrative.goals.edit', compact(
@@ -169,7 +173,7 @@ class GoalController extends Controller {
             $goal->date_due = $request->date_due;
             $goal->date_conclusion = $request->date_conclusion;
             $goal->type = $request->type;
-
+//dd($request->type);
 //            dd($request);
             switch ($goal->type) {
                 case 'execução':

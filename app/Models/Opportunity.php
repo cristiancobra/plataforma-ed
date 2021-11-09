@@ -43,6 +43,10 @@ class Opportunity extends Model {
     public function contact() {
         return $this->belongsTo(Contact::class, 'contact_id', 'id');
     }
+    
+        public function goal() {
+        return $this->belongsTo(Goal::class, 'goal_id', 'id');
+    }
 
     public function invoices() {
         return $this->hasMany(Invoice::class, 'opportunity_id', 'id');
@@ -187,14 +191,12 @@ class Opportunity extends Model {
     }
 
     public static function getProjectsOfGoal($goalId) {
-        return Opportunity::where('account_id', auth()->user()->account_id)
-                ->where('department', 'desenvolvimento')
-                ->where('goal_id', $goalId)
+        return Opportunity::where('goal_id', $goalId)
+//                ->where('department', 'desenvolvimento')
                 ->where('trash', '!=', 1)
-//                ->with([
-//                    'company',
-//                    'contact',
-//                ])
+                ->with([
+                    'tasks',
+                ])
                 ->orderBy('date_start', 'DESC')
                 ->get();
         ;

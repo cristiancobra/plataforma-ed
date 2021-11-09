@@ -124,7 +124,7 @@
 
     @section('date_start')
     <div class='circle-date-start'>
-        <input type='date' name='date_start' size='20' value='{{$goal->date_start}}'>
+        <input type='date' name='date_start' size='20' value='{{dateBr($goal->date_start)}}'>
         @if ($errors->has('date_start'))
         <span class='text-danger'>{{$errors->first('date_start')}}</span>
         @endif
@@ -165,7 +165,7 @@
     @if ($errors->has('description'))
     <span class='text-danger'>{{$errors->first('text')}}</span>
     @endif
-    <textarea id='text' name='text' rows='20' cols='120'>
+    <textarea id='text' name='description' rows='20' cols='120'>
   {{$goal->description}}
     </textarea>
     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->

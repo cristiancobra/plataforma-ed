@@ -37,6 +37,10 @@ class Goal extends Model {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
+//    public function opportunities() {
+//        return $this->hasMany(Opportunity, 'goal_id', 'id');
+//    }
+    
     public function tasks() {
         return $this->hasMany(Task::class, 'stage_id', 'id');
     }
@@ -120,20 +124,27 @@ class Goal extends Model {
                         ->with('tasks')
                         ->get();
 
-                if (count($projects) >= 0) {
+                if (count($projects) <= 0) {
                     $goalSelected = 'Adicione todos os projetos e tarefas para saber sua meta';
                 } else {
+                    $sumDuration = 0;
                     foreach($projects as $project) {
+//                        dd($projects);
                         foreach($project->tasks as $task) {
                             $sumDuration = $sumDuration + $task->duration;
-                            dd($sumDuration);
+//                            dd($sumDuration);
                         }
                     }
-                    $goalSelected = "$sumDuration pontos";
+                    
+                    if($sumDuration) {
+                    $goalSelected = "Concluir $sumDuration pontos";
+                    } else {
+                        $goalSelected = 'Adicione todos os projetos e tarefas para saber sua meta';
+                    }
                 }
                 break;
             case 'contatos';
-                $goalSelected = $goal->goal_contacts;
+                $goalSelected = "Capturar $goal->goal_contacts contatos";
                 break;
             case 'receita';
                 $goalSelected = formatCurrencyReal($goal->goal_invoices_revenues);
@@ -150,4 +161,34 @@ class Goal extends Model {
                         ->get();
     }
 
+    // método que retorna o resultado de uma meta
+    static function goalResult($goal) {
+        switch($goal->type) {
+            case 'execução';
+                $projects = Opportunity::where('goal_id', $goal->id)
+                        ->with('tasks')
+                        ->get();
+
+                if (count($projects) >= 0) {
+                    $goalResult = 'Adicione todos os projetos e tarefas para saber sua meta';
+                } else {
+                    foreach($projects as $project) {
+                        foreach($project->tasks as $task) {
+                            $sumDuration = $sumDuration + $task->duration;
+//                            dd($sumDuration);
+                        }
+                    }
+                    $goalResult = "Concluir $sumDuration pontos";
+                }
+                break;
+            case 'contatos';
+                $goalResult = "Capturar $goal->goal_contacts contatos";
+                break;
+            case 'receita';
+                $goalResult = formatCurrencyReal($goal->goal_invoices_revenues);
+                break;
+        }
+
+        return $goalResult;
+    }
 }

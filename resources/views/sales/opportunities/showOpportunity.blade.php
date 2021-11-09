@@ -38,7 +38,7 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-    @if($opportunity->department == 'desenvolvimento' AND $opportunity->goal)
+    @if($opportunity->department == 'desenvolvimento')
     <a href='{{route('goal.show', ['goal' => $opportunity->goal_id])}}'>
         <div class='show-field-end'>
             {{$opportunity->goal->name}}
@@ -143,8 +143,7 @@
 
 @section('main')
 @if($opportunity->department == 'desenvolvimento')
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
+<div class='container mt-5' style='
          border-top-style: solid;
          border-top-width: 1px;
          border-left-style: solid;
@@ -152,16 +151,13 @@
          border-radius: 7px 0px 0px 0px;
          border-color: {{$principalColor}}
          '>
-        <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >EXECUÇÃO</label>
+    
+<div class='row mt-0'>
+    <div class='col-6 pt-3 pb-3'>
+        <img src='{{asset('images/task-new.png')}}' width='25px' height='25px'>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >TAREFAS DESTE PROJETO</label>
     </div>
-    <div class='col-6 pt-4 pb-3 d-flex justify-content-end' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}}
+    <div class='col-6 pt-4 pb-3 d-flex justify-content-end'
          '>
         <a id='stageButtonOnOff' class='circular-button primary' title='Criar nova etapa'>
             <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
@@ -179,13 +175,7 @@
     @endphp
 </div>
 @endif
-<div class='row pt-5 pb-5' id='stageRow' style='display: none;
-     border-left-style: solid;
-     border-left-width: 1px;
-     border-right-style: solid;
-     border-right-width: 1px;
-     border-color: {{$principalColor}};
-     '>
+<div class='row pt-5 pb-5' id='stageRow' style='display: none'>
     <div class="row">
         <div class='col-5' style='text-align:left'>
             <form id='addStage' action='{{route('stage.store')}}' method='post' style='text-align: left'>
@@ -274,13 +264,13 @@ CKEDITOR.replace('description');
         </div>
     </div>
     @foreach($stages as $stage)
-    <div class='row'>
-        <div class='tb col-11 justify-content-start'>
+    <div class='row pt-3 pb-2' style="background-color: {{$oppositeColor}}">
+        <div class='col-11 justify-content-start'>
             <p  class='labels' style="text-align: left; color: {{$principalColor}}">
                 {{$stage->name}}
             </p>
         </div>
-        <div class='tb col-1'>
+        <div class='col-1' style="background-color: {{$oppositeColor}}">
             <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
                 <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
             </a>
@@ -296,13 +286,7 @@ CKEDITOR.replace('description');
         @endphp
     </div>
     @endif
-    <div class='pt-5 pb-5' id="taskRow_{{$counter++}}" style='display: none;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-color: {{$principalColor}};
-         '>
+    <div class='pt-5 pb-5' id="taskRow_{{$counter++}}" style='display: none'>
         <div class="row">
             <div class='col-3' style='text-align:left'>
                 <form id='addStage' action='{{route('task.store')}}' method='post' style='text-align: left'>
@@ -435,6 +419,7 @@ CKEDITOR.replace('description');
             <div class='tb tb-header col-1'>
                 {{formatTotalHour($tasksOperationalHours)}} horas
             </div>
+        </div>
         </div>
 
         @else   
