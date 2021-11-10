@@ -84,16 +84,19 @@ class User extends Authenticatable implements MustVerifyEmail {
 //MÉTODOS PÚBLICO
 
     public static function myUsers() {
-        return $users = User::where('users.account_id', auth()->user()->account_id)
-                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
-                ->join('images', 'images.id', '=', 'users.image_id')
-                ->select(
-                        'users.id as id',
-                        'contacts.name as name',
-                        'images.path as image',
-                )
-                ->with('image')
-                ->orderBy('NAME', 'ASC')
+        return $users = User::where('account_id', auth()->user()->account_id)
+//                ->join('contacts', 'contacts.id', '=', 'users.contact_id')
+//                ->join('images', 'images.id', '=', 'users.image_id')
+//                ->select(
+//                        'users.id as id',
+//                        'contacts.name as name',
+//                        'images.path as image',
+//                )
+                ->with([
+                    'image',
+                    'contact',
+                    ])
+//                ->orderBy('NAME', 'ASC')
                 ->get();
     }
 

@@ -301,7 +301,7 @@
                     @if(isset($user->image))
                     <div class='profile-picture-small'>
                         <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
-                            <img src='{{asset($user->image)}}' width='100%' height='100%'>
+                            <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
                         </a>
                     </div>
                     @else
