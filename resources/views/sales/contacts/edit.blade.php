@@ -192,7 +192,7 @@
         {{createSimpleSelect('gender', 'fields',  $genderTypes, $contact->gender)}}
         <br>
         <label for="">Tipo: </label>
-        {{createSimpleSelect('type', 'fields',  $contactTypes)}}
+        {{createSimpleSelect('type', 'fields',  $contactTypes, $contact->type)}}
          <br>
         <br>
         <br>
@@ -225,13 +225,10 @@
         </div>
         <br>
         <br>
-        <label for="status">SITUAÇÃO: </label>
-        <select class="fields" name="status">
-            <option value="{{$contact->status}}">{{$contact->status}}</option>
-            <option value="ativo">ativo</option>
-            <option value="pendente">pendente</option>
-            <option value="desativado">desativado</option>
-        </select>
+        <label for="status">
+            SITUAÇÃO:
+        </label>
+        {{createSimpleSelect('status', 'fields', $status, $contact->status)}}
         <br>
         <br>
         <input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">

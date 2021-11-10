@@ -84,6 +84,7 @@ class ContactController extends Controller {
 
         $leadSources = Contact::returnSources();
         $states = returnStates();
+                $status = Contact::returnStatus();
         $genderTypes = Contact::returnGenderTypes();
         $hobbies = Contact::returnHobbie();
         $religions = Contact::returnReligion();
@@ -96,6 +97,7 @@ class ContactController extends Controller {
         return view('sales.contacts.create', compact(
                         'leadSources',
                         'states',
+                        'status',
                         'companies',
                         'genderTypes',
                         'hobbies',
@@ -172,6 +174,7 @@ class ContactController extends Controller {
                 ->toArray();
 
         $states = returnStates();
+        $status = Contact::returnStatus();
         $genderTypes = Contact::returnGenderTypes();
         $hobbies = Contact::returnHobbie();
         $religions = Contact::returnReligion();
@@ -185,6 +188,7 @@ class ContactController extends Controller {
                         'companies',
                         'companiesChecked',
                         'states',
+                        'status',
                         'genderTypes',
                         'hobbies',
                         'religions',

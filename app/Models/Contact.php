@@ -547,9 +547,8 @@ class Contact extends Model {
 
     public static function returnStatus() {
         return [
-            'ativo',
-            'desativado',
-            'pendente',
+            'ativada',
+            'desativada',
             'descadastrado',
         ];
     }

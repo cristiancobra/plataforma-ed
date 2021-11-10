@@ -341,6 +341,7 @@ class Task extends Model {
             return Stage::where('opportunity_id', $task->opportunity_id)
 //                    ->where('trash', '1=', 1)
                     ->get();
+//        dd($task);
         }
 }
 

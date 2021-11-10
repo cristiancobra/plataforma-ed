@@ -57,18 +57,13 @@ Total: <span class='labels'>{{$total}} </span>
             </div>
         </td>
         <td class='table-list-left'>
-            <a  class='white' href='https://nuvem.empresadigital.net.br/index.php/apps/spreed/' target='_blank'>
-                <button class='button-round'>
-                    <i class='fas fa-comment-dots'></i>
-                </button>
-            </a>
 
             <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
                 <button class='button-round'>
                     <i class='fa fa-eye'></i>
                 </button>
             </a>
-            {{$user->name}}
+            {{$user->contact->name}}
         </td>
 
         <td class='table-list-left'>
