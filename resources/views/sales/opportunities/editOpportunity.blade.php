@@ -57,9 +57,11 @@
         @endif
         <br>
         @endif
-        <label class="labels" for="" >CONTATO: </label>
+        <label class="labels" for="" >
+            CONTATO:
+        </label>
         <select name="contact_id">
-            @if(isset($opportunity->contact_id))
+            @if(isset($opportunity->contact))
             <option  class="fields" value="{{$opportunity->contact_id}}">
                 {{$opportunity->contact->name}}
             </option>
