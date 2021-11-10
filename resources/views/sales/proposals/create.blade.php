@@ -43,7 +43,7 @@
             </option>
             @foreach ($users as $user)
             <option  class='fields' value='{{$user->id}}'>
-                {{$user->name}}
+                {{$user->contact->name}}
             </option>
             @endforeach
         </select>

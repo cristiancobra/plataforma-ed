@@ -253,7 +253,7 @@
                             <i class='fa fa-eye'></i>
                         </button>
                     </a>
-                    {{$user->name}}
+                    {{$user->contact->name}}
                 </td>
                 <td class='table-list-center'>
                     <a class='white' href=' {{route('journey.index', [

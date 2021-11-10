@@ -306,7 +306,7 @@
                     </div>
                     @else
                     <a  class='white' href=' {{route('user.show', ['user' => $user->id])}}'>
-                        {{$user->name}}
+                        {{$user->contact->name}}
                     </a>
                     @endif
                 </div>

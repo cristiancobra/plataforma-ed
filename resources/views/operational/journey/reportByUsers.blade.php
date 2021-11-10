@@ -76,7 +76,7 @@
 @foreach($users as $key => $user)
 <div class="row">
     <div class="tb col-2 justify-content-start">
-        {{$user->name}}
+        {{$user->contact->name}}
     </div>
     @foreach($months as $key => $month)
     <div class="tb col justify-content-end">
