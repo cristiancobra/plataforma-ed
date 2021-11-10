@@ -59,7 +59,7 @@
         <label class="labels" for="" >
             ETAPAS:
         </label>
-        {{createSelectIdName('stage', 'fields', $taskStages, 'Não possui', $task->stage)}}
+        {{createSelectIdName('stage_id', 'fields', $taskStages, 'Não possui', $task->stage)}}
         <br>
         <label class="labels" for="" >RESPONSÁVEL: </label>
         <select name="user_id">
