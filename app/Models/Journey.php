@@ -148,6 +148,7 @@ class Journey extends Model {
     public static function accountHoursByYear($year) {
 
         return Journey::where('account_id', auth()->user()->account_id)
+                        ->where('trash', '!=', 1)
                         ->whereBetween('start', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
     }
@@ -158,6 +159,7 @@ class Journey extends Model {
 
         foreach ($months as $key => $month) {
             $months[$key] = Journey::where('account_id', auth()->user()->account_id)
+                    ->where('trash', '!=', 1)
                     ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
         }
@@ -171,6 +173,7 @@ class Journey extends Model {
         $months = returnMonths();
         foreach ($months as $key => $month) {
             $user[$month] = Journey::where('user_id', $user->id)
+                    ->where('trash', '!=', 1)
                     ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
         }
@@ -181,6 +184,7 @@ class Journey extends Model {
     public static function userHoursByYear($year, $user) {
 
         return Journey::where('user_id', $user->id)
+                        ->where('trash', '!=', 1)
                         ->whereBetween('start', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
     }
@@ -194,6 +198,7 @@ class Journey extends Model {
                         $query->where('account_id', auth()->user()->account_id);
                         $query->where('department', $department);
                     })
+                    ->where('trash', '!=', 1)
                     ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
         }
@@ -207,6 +212,7 @@ class Journey extends Model {
                             $query->where('account_id', auth()->user()->account_id);
                             $query->where('department', $department);
                         })
+                        ->where('trash', '!=', 1)
                         ->whereBetween('start', [$year . '-01-01', $year . '-12-31'])
                         ->sum('duration');
     }
@@ -217,6 +223,7 @@ class Journey extends Model {
      */
     public static function openJourney($user) {
         return Journey::where('user_id', $user->id)
+                        ->where('trash', '!=', 1)
                         ->where('end', null)
                         ->with('task')
                         ->orderBy('id', 'DESC')
@@ -225,6 +232,7 @@ class Journey extends Model {
 
     public static function myOpenJourney() {
         return Journey::where('user_id', auth()->user()->id)
+                        ->where('trash', '!=', 1)
                         ->where('end', null)
                         ->orderBy('id', 'DESC')
                         ->first();
@@ -232,6 +240,7 @@ class Journey extends Model {
 
     public static function myLastJourney() {
         return Journey::where('user_id', auth()->user()->id)
+                        ->where('trash', '!=', 1)
                         ->with('task')
                         ->orderBy('id', 'DESC')
                         ->first();
@@ -239,6 +248,7 @@ class Journey extends Model {
 
     public static function userLastJourney($user) {
         return Journey::where('user_id', $user->id)
+                        ->where('trash', '!=', 1)
                         ->with('task')
                         ->orderBy('id', 'DESC')
                         ->first();

@@ -56,23 +56,6 @@
             @endif
         </select>
         <br>
-        <label class="labels" for="" >RESPONSÁVEL: </label>
-        <select name="user_id">
-            @if(!isset($task->user->contact->name))
-            <option  class="fields" value="">
-                contato excluído
-            </option>
-            @else
-            <option  class="fields" value="{{$task->user->id}}">
-                {{$task->user->contact->name}}
-            </option>
-            @foreach ($users as $user)
-            <option  class="fields" value="{{$user->id}}">
-                {{$user->contact->name}}
-            </option>
-            @endforeach
-            @endif
-        </select>
         <br>
         <br>
         @if($task->department == 'desenvolvimento')
