@@ -90,9 +90,7 @@ class UserController extends Controller {
         } else {
             $user->save();
 
-            return view('administrative.users.show', compact(
-                            'user',
-            ));
+                    return redirect()->route('user.show');
         }
     }
 
