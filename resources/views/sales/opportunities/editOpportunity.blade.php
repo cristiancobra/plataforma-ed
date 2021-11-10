@@ -30,7 +30,7 @@
         <input type="hidden" name="department" value="{{$opportunity->department}}">
         @endif
         <label class="labels" for="" >NOME:</label>
-        <input type="text" name="name" size="20" value="{{$opportunity->name}}">
+        <input type="text" name="name" style="width: 700px" value="{{$opportunity->name}}">
         @if ($errors->has('name'))
         <span class="text-danger">{{$errors->first('name')}}</span>
         @endif

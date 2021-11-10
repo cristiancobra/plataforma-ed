@@ -155,7 +155,9 @@
     <div class='row mt-0'>
         <div class='col-6 pt-3 pb-3'>
             <img src='{{asset('images/task-new.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >TAREFAS DESTE PROJETO</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
+                ETAPAS
+            </label>
         </div>
         <div class='col-6 pt-4 pb-3 d-flex justify-content-end'
              '>
@@ -286,6 +288,7 @@ CKEDITOR.replace('description');
 
         <!--várias linhas de tarefas-->
             @foreach ($stage->tasks as $task)
+            @if($task->trash != 1)
             <div class='row position-relative'>
                 <a class="stretched-link" href=' {{ route('task.show', ['task' => $task->id]) }}'>
                 </a>
@@ -320,7 +323,7 @@ CKEDITOR.replace('description');
                 {{formatStatus($task)}}
 
             </div>
-
+@endif
             @endforeach
 
 

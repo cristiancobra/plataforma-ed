@@ -93,8 +93,8 @@ class GoalController extends Controller {
                 $image->save();
             }
 
-            return redirect()->back();
-//            return redirect()->route('goal.show', [$goal]);
+//            return redirect()->back();
+            return redirect()->route('goal.show', [$goal]);
         }
     }
 
