@@ -90,7 +90,9 @@ class UserController extends Controller {
         } else {
             $user->save();
 
-                    return redirect()->route('user.show');
+            return redirect()->route('user.show', compact(
+                                    'user',
+            ));
         }
     }
 
@@ -105,7 +107,7 @@ class UserController extends Controller {
         $userTasks = Task::where('user_id', $user->id)
                 ->where('trash', '!=', 1)
                 ->orderBy('date_due', 'DESC')
-                                ->paginate(15);
+                ->paginate(15);
 
         foreach ($userTasks as $task) {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
@@ -166,7 +168,7 @@ class UserController extends Controller {
         $user->delete();
         return redirect()->route('user.index');
     }
-    
+
     public function dashboardUser() {
         $userAuth = Auth::user();
         $today = date('Y-m-d');
