@@ -297,6 +297,7 @@ class TaskController extends Controller {
         $departments = Task::returnDepartments();
         $status = Task::returnStatus();
         $priorities = Task::returnPriorities();
+        $taskStages = Task::returnTaskStages($task);
 
         return view('operational.tasks.editTask', compact(
                         'task',
@@ -308,6 +309,7 @@ class TaskController extends Controller {
                         'departments',
                         'status',
                         'priorities',
+                        'taskStages',
         ));
     }
 

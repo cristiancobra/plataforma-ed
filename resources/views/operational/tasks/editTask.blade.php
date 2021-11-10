@@ -56,6 +56,29 @@
             @endif
         </select>
         <br>
+        <label class="labels" for="" >
+            ETAPAS:
+        </label>
+        {{createSelectIdName('stage', 'fields', $taskStages, 'Não possui', $task->stage)}}
+        <br>
+        <label class="labels" for="" >RESPONSÁVEL: </label>
+        <select name="user_id">
+            @if(!isset($task->user->contact->name))
+            <option  class="fields" value="">
+                contato excluído
+            </option>
+            @else
+            <option  class="fields" value="{{$task->user->id}}">
+                {{$task->user->contact->name}}
+            </option>
+            @foreach ($users as $user)
+            <option  class="fields" value="{{$user->id}}">
+                {{$user->name}}
+            </option>
+            @endforeach
+            @endif
+        </select>
+        <br>
         <br>
         @if($task->department == 'desenvolvimento')
         <label class="labels" for="" >PROJETO:</label>
