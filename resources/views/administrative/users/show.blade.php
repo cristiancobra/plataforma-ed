@@ -82,13 +82,13 @@
         {{$task->name}}
     </div>
     <div class='tb col-3'>
+            @if(isset($task->contact))
         <a  class="white" href=" {{ route('contact.show', ['contact' => $task->contact_id]) }}">
-            @if(isset($task->contact->name))
             {{$task->contact->name}}
+        </a>
             @else
             contato excluído
             @endif
-        </a>
     </div>
     <div class='tb col-3'>
         @if(isset($task->company->name))

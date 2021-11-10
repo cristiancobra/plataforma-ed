@@ -387,11 +387,13 @@
                 </div>
                 @endif
 
+                @if($user->lastTask)
                 <div class="col-3 mt-3 mb-4 pt-2 show-field-end">
                     <a  class='white' style="font-size: 14px" href=' {{route('task.show', ['task' => $user->lastTask->id])}}'>
-                    {{$user->lastTask->name}}
+                        {{$user->lastTask->name}}
                     </a>
                 </div>
+                @endif
 
                 <div class="col-3 text-end">
                     <div class="col d-inline-block mt-3 pt-2 task-high-button" style="width: 48px" title='tarefas abertas'>
@@ -430,7 +432,7 @@
                         </a>
                     </div>
 
-                    @if(isset($myLastJourney))
+                    @if(isset($user->lastJourney))
                     <div class='d-inline-block mt-3  pt-2  sales-button' style="width: 48px" title='última tarefa'>
                         <a style='text-decoration:none' href='{{route('task.show', ['task' => $user->lastJourney->task_id])}}'>
                             <p style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
