@@ -11,6 +11,7 @@
 
 @section('buttons')
 {{createButtonPdf($contract, 'contract')}}
+{{createButtonEdit('contract', 'contract', $contract)}}
 {{createButtonList('contract')}}
 @endsection
 
@@ -123,7 +124,10 @@
 <h3>
     Serviços/produtos contratados
     <button class="button-round">
-        <a href=" {{ route('proposal.edit', ['proposal' => $contract->proposal_id]) }}">
+        <a href=" {{ route('proposal.edit', [
+                                                                'proposal' => $contract->proposal_id,
+                                                                'type' => 'receita',
+                                                               ]) }}">
             <i class='fa fa-edit' style="color:white"></i></a>
     </button>
 </h3>

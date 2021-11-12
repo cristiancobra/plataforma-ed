@@ -165,8 +165,10 @@ class ContractController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $invoices = Invoice::where('account_id', auth()->user()->account_id)
-                ->orderBy('IDENTIFIER', 'DESC')
+        $proposals = Proposal::where('account_id', auth()->user()->account_id)
+                ->where('trash', '!=', 1)
+                ->where('status', 'aprovada')
+                ->orderBy('id', 'DESC')
                 ->get();
 
         $witness1 = Contact::find($contract->witness1);
@@ -192,7 +194,7 @@ class ContractController extends Controller {
                         'opportunities',
                         'contacts',
                         'companies',
-                        'invoices',
+                        'proposals',
                         'witnessName1',
                         'witnessName2',
                         'contractsTemplates',

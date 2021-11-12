@@ -43,18 +43,18 @@
             @endforeach
         </select>
         <br>
-        <label class="labels" for="" >FATURA: </label>
-        <select name="invoice_id">
-            <option  class="fields" value="{{$contract->invoice_id}}">
-                {{$contract->invoice->identifier}} - {{$contract->company->name}} - {{formatCurrencyReal($contract->invoice->totalPrice)}}
+        <label class="labels" for="" >PROPOSTA: </label>
+        <select name="proposal_id">
+            <option  class="fields" value="{{$contract->proposal_id}}">
+                {{$contract->proposal->identifier}} - {{$contract->company->name}} - {{formatCurrencyReal($contract->proposal->totalPrice)}}
             </option>
-            @foreach ($invoices as $invoice)
-            <option  class="fields" value="{{$invoice->id}}">
-                {{$invoice->identifier}} - 
-                @isset($invoice->company)
-                {{$invoice->company->name}} - 
+            @foreach ($proposals as $proposal)
+            <option  class="fields" value="{{$proposal->id}}">
+                {{$proposal->identifier}} - 
+                @isset($proposal->company)
+                {{$proposal->company->name}} - 
                 @endisset
-                {{formatCurrencyReal($invoice->totalPrice)}}
+                {{formatCurrencyReal($proposal->totalPrice)}}
             </option>
             @endforeach
         </select>
