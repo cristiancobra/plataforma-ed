@@ -331,7 +331,7 @@ class ProposalController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $contracts = Contract::where('invoice_id', $proposal->id)
+        $contracts = Contract::where('proposal_id', $proposal->id)
                 ->orderBy('ID', 'ASC')
                 ->get();
 

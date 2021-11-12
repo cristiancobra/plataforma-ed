@@ -78,17 +78,18 @@
     <div class="tb col-2 justify-content-start">
         {{$user->contact->name}}
     </div>
-    @foreach($months as $key => $month)
+
+    @for($i = 1; $i <= 12; $i++)
     <div class="tb col justify-content-end">
         <a href="{{route('journey.index', [
                                                               'user_id' => $user->id,
-                                                              'start' => date("$year-$key-01"),
-                                                              'end' =>  date("$year-$key-t"),
+                                                              'start' => date("$year-$i-01"),
+                                                              'end' =>  date("$year-$i-t"),
                                                              ])}}">
-            {{number_format($user[$month] / 3600, 1, ',','.')}}
+            {{number_format($user["$month $i"] / 3600, 1, ',','.')}}
         </a>
     </div>
-    @endforeach
+    @endfor
     <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
         {{number_format($user['year'] / 3600, 1, ',','.')}}
     </div>
@@ -132,40 +133,30 @@
     var chart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: [
-<?php
-foreach ($months as $key => $value) {
-    echo json_encode($value);
-    echo ",";
-}
-?>
-            ],
+            labels: {!! json_encode($namesMonths) !!},
             datasets: [
-<?php
-foreach ($users as $key => $user) {
-    echo "{
-                    label: '$user->name',
-                    data: [";
 
-    foreach ($months as $month) {
-        $result = number_format($user[$month] / 3600, 0, ',', '');
-//        dd($result);
-        echo json_encode($result);
-        echo ",";
-    }
-    echo "
+
+@foreach ($users as $key => $user)
+            {
+                    label: {{$user->contact->name}},
+                    data: [
+
+
+    @for ($i = 1; $i <= 12; $i++)
+    {{number_format($user["$month $i"] / 3600, 0, ',', '')}},
+    @endfor
+   
                     ],
                     backgroundColor: [
-                        '$chartBackgroundColors[$key]',
+                        '$chartBackgroundColors[{{$key}}]',
                     ],
                     borderColor: [
-                        '$chartBorderColors[$key]',
+                        '$chartBorderColors[{{$key}}]',
                     ],
                     borderWidth: 2,
                 },
-        ";
-}
-?>
+    @endforeach
             ]
         },
         options: {

@@ -275,7 +275,8 @@ class JourneyController extends Controller {
     }
 
     public function reportByUsers(Request $request) {
-        $months = returnMonths();
+        $months = returnMonths(); // método antigo
+        $namesMonths = namesMonths(); // método novo
         $pastMonths = date('m');
 
         if (isset($request->year)) {
@@ -319,6 +320,7 @@ class JourneyController extends Controller {
                         'year',
                         'users',
                         'months',
+                        'namesMonths',
                         'annualTotal',
                         'monthlyTotals',
                         'monthlyAverage',

@@ -11,7 +11,6 @@
 
 @section('buttons')
 {{createButtonPdf($contract, 'contract')}}
-{{createButtonBack()}}
 {{createButtonList('contract')}}
 @endsection
 
@@ -124,7 +123,7 @@
 <h3>
     Serviços/produtos contratados
     <button class="button-round">
-        <a href=" {{ route('invoice.edit', ['invoice' => $contract->invoice_id]) }}">
+        <a href=" {{ route('proposal.edit', ['proposal' => $contract->proposal_id]) }}">
             <i class='fa fa-edit' style="color:white"></i></a>
     </button>
 </h3>
@@ -154,31 +153,31 @@
         </td>
     </tr>
 
-    @foreach ($invoiceLines as $invoiceLine)
+    @foreach ($productProposals as $productProposal)
     <tr style="font-size: 14px">
         <td class="table-list-center">
-            {{$invoiceLine->amount}}
+            {{$productProposal->amount}}
         </td>
         <td class="table-list-left">
-            {{$invoiceLine->product->name}}
+            {{$productProposal->product->name}}
         </td>
         <td class="table-list-center">
-            {{$invoiceLine->subtotalDeadline}} dia(s)
+            {{$productProposal->subtotalDeadline}} dia(s)
         </td>
         <td class="table-list-right">
-            {{formatCurrencyReal($invoiceLine->subtotalTax_rate)}}
+            {{formatCurrencyReal($productProposal->subtotalTax_rate)}}
         </td>
         <td class="table-list-right">
-            {{formatCurrencyReal($invoiceLine->product->price)}}
+            {{formatCurrencyReal($productProposal->product->price)}}
         </td>
         <td class="table-list-right">
-            {{formatCurrencyReal($invoiceLine->subtotalPrice)}}
+            {{formatCurrencyReal($productProposal->subtotalPrice)}}
         </td>
     </tr>
 
     <tr style="font-size: 12px">
         <td class="table-list-left" colspan="6">
-            {!!html_entity_decode($invoiceLine->product->description)!!}
+            {!!html_entity_decode($productProposal->product->description)!!}
         </td>
     </tr>
     @endforeach
@@ -190,8 +189,8 @@
             desconto: 
         </td>
         <td   class="table-list-header-right">
-            @if($contract->invoice)
-            - {{formatCurrencyReal($contract->invoice->discount)}}
+            @if($contract->proposal)
+            - {{formatCurrencyReal($contract->proposal->discount)}}
             @else
             fatura excluída
             @endif
@@ -205,8 +204,8 @@
         </td>
         </td>
         <td   class="table-list-header-right">
-            @if($contract->invoice)
-            {{formatCurrencyReal($contract->invoice->totalPrice) }}
+            @if($contract->proposal)
+            {{formatCurrencyReal($contract->proposal->totalPrice) }}
             @else
             fatura excluída
             @endif
@@ -220,11 +219,11 @@
         </td>
 
         <td   class="table-list-header-right" colspan="2">
-            @if($contract->invoice)
-            @if($contract->invoice->number_installment_total == 1)
+            @if($contract->proposal)
+            @if($contract->proposal->installment == 1)
             À vista
             @else
-            {{$contract->invoice->number_installment_total}} x {{formatCurrencyReal($contract->invoice->installment_value)}}
+            {{$contract->proposal->installment}}x
             @endif
             @else
             fatura excluída
@@ -299,14 +298,13 @@
 <p class="labels">Criado em:  {{date('d/m/Y H:i', strtotime($contract->created_at))}}</p>
 
 <div style="text-align:right">
-    <form   style="text-decoration: none;display: inline-block" action="{{ route('contract.destroy', ['contract' => $contract->id]) }}" method="post">
-        @csrf
-        @method('delete')
-        <input class="btn btn-danger" type="submit" value="APAGAR">
-    </form>
     <a class="btn btn-secondary" href=" {{ route('contract.edit', ['contract' => $contract->id]) }} "  style="text-decoration: none;color: white;display: inline-block">
-        <i class='fa fa-edit'></i>EDITAR</a>
-    <a class="btn btn-secondary" href="{{route('contract.index')}}"><i class="fas fa-arrow-left"></i></a>
+        <i class='fa fa-edit'></i>
+        EDITAR
+    </a>
+    <a class="btn btn-secondary" href="{{route('contract.index')}}">
+        <i class="fas fa-arrow-left"></i>
+    </a>
 </div>
 <br>
 

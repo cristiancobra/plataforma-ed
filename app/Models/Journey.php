@@ -170,12 +170,15 @@ class Journey extends Model {
     // retorna todas as horas registradas do usuário por mês
     public static function userHoursByMonth($year, $user) {
 
-        $months = returnMonths();
+        $months = namesMonths();
+        
+//        for($i = 1; $i <= 12; $i++) {
         foreach ($months as $key => $month) {
-            $user[$month] = Journey::where('user_id', $user->id)
+            $user[$key++] = Journey::where('user_id', $user->id)
                     ->where('trash', '!=', 1)
                     ->whereBetween('start', [date("$year-$key-01"), date("$year-$key-t")])
                     ->sum('duration');
+//        echo "key $key -------  $month  ------ months: " . $user[$key] . " <br>";
         }
         return $user;
     }

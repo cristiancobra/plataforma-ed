@@ -18,7 +18,7 @@ class Contract extends Model {
 		'opportunity_id',
 		'contact_id',
 		'company_id',
-		'invoice_id',
+		'proposal_id',
 		'date_start',
 		'date_due',
 		'observations',
@@ -39,8 +39,8 @@ class Contract extends Model {
 	public function company() {
 		return $this->hasOne(Company::class, 'id', 'company_id');
 	}
-	public function invoice() {
-		return $this->hasOne(Invoice::class, 'id', 'invoice_id');
+	public function proposal() {
+		return $this->hasOne(Proposal::class, 'id', 'proposal_id');
 	}
 	public function opportunity() {
 		return $this->hasOne(Opportunity::class, 'id', 'opportunity_id');

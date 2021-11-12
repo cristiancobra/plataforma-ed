@@ -12,8 +12,9 @@ use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Invoice;
-use App\Models\InvoiceLine;
 use App\Models\Opportunity;
+use App\Models\ProductProposal;
+use App\Models\Proposal;
 use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
@@ -34,7 +35,7 @@ class ContractController extends Controller {
                     'opportunity',
                     'user',
                     'userContact',
-                    'invoice.invoiceLines.product',
+//                    'invoice.invoiceLines.product',
                 ])
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
@@ -59,8 +60,10 @@ class ContractController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $invoices = Invoice::where('account_id', auth()->user()->account_id)
-                ->orderBy('IDENTIFIER', 'DESC')
+        $proposals = Proposal::where('account_id', auth()->user()->account_id)
+                ->where('trash', '!=', 1)
+                ->where('status', 'aprovada')
+                ->orderBy('id', 'DESC')
                 ->get();
 
         $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
@@ -77,7 +80,7 @@ class ContractController extends Controller {
 
         return view('sales.contracts.createContract', compact(
                         'users',
-                        'invoices',
+                        'proposals',
                         'opportunities',
                         'contacts',
                         'contractsTemplates',
@@ -111,6 +114,7 @@ class ContractController extends Controller {
      */
     public function show(Contract $contract) {
         $users = User::myUsers();
+//        dd($contract->proposal);
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -120,8 +124,8 @@ class ContractController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
-                ->with('product', 'opportunity')
+        $productProposals = ProductProposal::where('proposal_id', $contract->proposal_id)
+//                ->with('product', 'opportunity')
                 ->get();
 
         $userContact = userContact($contract->user_id);
@@ -139,7 +143,7 @@ class ContractController extends Controller {
                         'users',
                         'opportunities',
                         'contacts',
-                        'invoiceLines',
+                        'productProposals',
                         'userContact',
                         'witnessName1',
                         'witnessName2',

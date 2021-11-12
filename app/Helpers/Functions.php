@@ -528,6 +528,27 @@ if (!function_exists('returnMonths')) {
     }
 
 }
+// retorna os NOMES dos meses
+if (!function_exists('namesMonths')) {
+
+    function namesMonths() {
+        return [
+            'Janeiro',
+            'Fevereiro',
+            'Março',
+            'Abril',
+            'Maio',
+            'Junho',
+            'Julho',
+            'Agosto',
+            'Setembro',
+            'Outubro',
+            'Novembro',
+            'Dezembro',
+        ];
+    }
+
+}
 // retorna o nome do mês a partir do parâmetro recebido
 if (!function_exists('returnMonth')) {
 
