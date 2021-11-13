@@ -319,6 +319,22 @@ Route::get('/perfil', function () {
 });
 
 // ------------------------------------------------ OPERATIONAL  ------------------------------------------------
+// // projects
+// 
+
+Route::put('/projetos/apagar/{project}', 'Operational\\ProjectController@sendToTrash')
+        ->name('project.trash')
+        ->middleware('roles');
+
+Route::put('/projetos/restaurar/{project}', 'Operational\\ProjectController@restoreFromTrash')
+        ->name('project.restore')
+        ->middleware('roles');
+
+Route::resource('projetos', 'Operational\\ProjectController')
+        ->names('project')
+        ->parameters(['projetos' => 'project'])
+        ->middleware('roles');
+
 // jornadas
 Route::put('jornadas/comecar', 'Operational\\JourneyController@storeFromTask')
         ->name('journey.storeFromTask');

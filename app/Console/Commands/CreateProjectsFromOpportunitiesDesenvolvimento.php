@@ -40,6 +40,7 @@ class CreateProjectsFromOpportunitiesDesenvolvimento extends Command
     public function handle()
     {
         $opportunities = Opportunity::where('department', 'desenvolvimento')
+                ->with('stages')
                 ->get();
         
         foreach($opportunities as $opportunity) {
@@ -49,7 +50,6 @@ class CreateProjectsFromOpportunitiesDesenvolvimento extends Command
         $project->user_id  = $opportunity->user_id;
         $project->contact_id  = $opportunity->contact_id;
         $project->company_id  = $opportunity->company_id;
-        $project->goal_id  = $opportunity->goal_id;
         $project->name  = $opportunity->name;
         $project->department  = $opportunity->department;
         $project->date_start  = $opportunity->date_start;
@@ -60,10 +60,18 @@ class CreateProjectsFromOpportunitiesDesenvolvimento extends Command
         $project->status  = $opportunity->status;
         $project->created_at  = $opportunity->created_at;
         $project->updated_at  = $opportunity->updated_at;
+        
+        if($project->goal_id) {
+        $project->goal_id  = $opportunity->goal_id;
+        }else{
+        $project->goal_id  = 0;    
+        }
+        
         $project->save();
         
-        foreach($opportunity-stages as $stage) {
+        foreach($opportunity->stages as $stage) {
             $stage->project_id = $project->id;
+        $stage->save();
         }
     }
 }

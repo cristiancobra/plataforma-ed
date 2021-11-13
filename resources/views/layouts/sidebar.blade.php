@@ -117,6 +117,11 @@ $oppositeColor = $empresaDigital->opposite_color;
 
         {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
+                                                                                                                                                        'name' => 'PROJETOS',
+                                                                                                                                                        'faIcon' => 'fas fa-calendar-check',
+                                                                                                                                                        'link' => route('project.index')
+                                                                                                                                                        ],
+                                                                                                                                                        [
                                                                                                                                                         'name' => 'TAREFAS',
                                                                                                                                                         'faIcon' => 'fas fa-calendar-check',
                                                                                                                                                         'link' => route('task.index')
