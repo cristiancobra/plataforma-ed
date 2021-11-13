@@ -14,7 +14,7 @@ class AddProjectIdColumnInTasksTable extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->foreignId('project_id')->after('user_id');
+            $table->foreignId('project_id');
         });
     }
 
