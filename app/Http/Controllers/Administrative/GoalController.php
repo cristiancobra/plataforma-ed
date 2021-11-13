@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Administrative;
 use App\Http\Controllers\Controller;
 use App\Models\Goal;
 use App\Models\Opportunity;
+use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -105,7 +106,7 @@ class GoalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Goal $goal) {
-        $projects = Opportunity::getProjectsOfGoal($goal->id);
+        $projects = Project::getProjectsOfGoal($goal->id);
         $goalSelected = Goal::goalSelected($goal);
 
         $users = User::myUsers();

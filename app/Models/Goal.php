@@ -191,4 +191,17 @@ class Goal extends Model {
 
         return $goalResult;
     }
+    
+    
+    public static function getProjectsOfGoal($goalId) {
+        return Opportunity::where('goal_id', $goalId)
+//                ->where('department', 'desenvolvimento')
+                ->where('trash', '!=', 1)
+                ->with([
+                    'tasks',
+                ])
+                ->orderBy('date_start', 'DESC')
+                ->get();
+        ;
+    }
 }

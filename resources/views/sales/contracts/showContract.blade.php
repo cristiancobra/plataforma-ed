@@ -144,7 +144,7 @@
             PRAZO
         </td>
         <td   class="table-list-header" style="width: 10%">
-            IMPOSTO 
+            IMPOSTO
         </td>
         <td   class="table-list-header" style="width: 10%">
             UNITÁRIO

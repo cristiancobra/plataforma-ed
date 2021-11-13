@@ -28,13 +28,8 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-        if ($request->department == 'desenvolvimento') {
-            $title = 'PROJETOS';
-            $department = 'desenvolvimento';
-        } else {
             $title = 'OPORTUNIDADES';
             $department = null;
-        }
 
         $opportunities = Opportunity::filterOpportunities($request);
         $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
@@ -66,7 +61,7 @@ class OpportunityController extends Controller {
 
         $trashStatus = request()->trash;
 
-        return view('sales.opportunities.indexOpportunities', compact(
+        return view('sales.opportunities.index', compact(
                         'title',
                         'department',
                         'opportunities',
@@ -120,7 +115,7 @@ class OpportunityController extends Controller {
 
         $users = User::myUsers();
 
-        return view('sales.opportunities.createOpportunity', compact(
+        return view('sales.opportunities.create', compact(
                         'title',
                         'department',
                         'users',
@@ -311,7 +306,7 @@ class OpportunityController extends Controller {
         
         $counter = 1;
 
-        return view('sales.opportunities.showOpportunity', compact(
+        return view('sales.opportunities.show', compact(
                         'dateDue',
                         'title',
                         'opportunity',
@@ -349,15 +344,9 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Opportunity $opportunity) {
-        if ($opportunity->department == 'desenvolvimento') {
-            $title = 'PROJETOS';
-            $stages = null;
-            $status = Opportunity::listStatusDevelopment();
-        } else {
             $title = 'OPORTUNIDADES';
             $stages = Opportunity::listStages();
             $status = Opportunity::listStatus();
-        }
 
         $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -377,7 +366,7 @@ class OpportunityController extends Controller {
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
-        return view('sales.opportunities.editOpportunity', compact(
+        return view('sales.opportunities.edit', compact(
                         'title',
                         'opportunity',
                         'users',
