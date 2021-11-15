@@ -212,9 +212,8 @@ CKEDITOR.replace('description');
     </div>
     @foreach ($projects as $project)
         <div class='row position-relative'>
-            <a class="stretched-link" href=' {{ route('opportunity.show', [
-                                                                            'opportunity' => $project->id,
-                                                                            'department' => 'desenvolvimento',
+            <a class="stretched-link" href=' {{ route('project.show', [
+                                                                            'project' => $project->id,
                                                                             ])}}'>
                 </a>
             <div class='tb col-1'>
