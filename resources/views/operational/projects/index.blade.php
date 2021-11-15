@@ -138,7 +138,7 @@
         EMPRESA
     </div>
     <div class="col-1">
-        CRIADO 
+        PRAZO 
     </div>
     <div class="col-1">
         SITUAÇÃO
@@ -186,7 +186,7 @@
         </div>
         @endif
         <div class="cel col-1">
-            {{dateBr($project->date_start)}}
+            {{dateBr($project->date_due)}}
         </div>
 
         {{formatStatus($project)}}
