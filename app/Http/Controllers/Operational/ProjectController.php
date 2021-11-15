@@ -397,7 +397,7 @@ class ProjectController extends Controller {
         $project->trash = 0;
         $project->save();
 
-        return redirect()->action('Operationa\\ProjectController@index');
+        return redirect()->action('Operational\\ProjectController@index');
     }
 
 }
