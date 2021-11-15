@@ -136,6 +136,18 @@ class Project extends Model
         ];
     }
 
+    
+    public static function getProjects() {
+        return Project::where('account_id', auth()->user()->account_id)
+                ->where('trash', '!=', 1)
+//                ->with([
+//                    'company',
+//                    'contact',
+//                ])
+                ->orderBy('date_start', 'DESC')
+                ->get();
+        ;
+    }
         
     public static function getProjectsOfGoal($goalId) {
         return Project::where('goal_id', $goalId)
