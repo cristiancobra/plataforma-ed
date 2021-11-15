@@ -182,10 +182,10 @@ class TaskController extends Controller {
                 $image->save();
             }
 
-//            $journeys = Journey::where('task_id', $task->id)
-//                    ->get();
+            $journeys = Journey::where('task_id', $task->id)
+                    ->get();
 
-            return redirect()->back();
+//            return redirect()->back();
         }
     }
 

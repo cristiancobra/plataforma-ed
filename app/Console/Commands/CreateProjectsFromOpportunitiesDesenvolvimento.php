@@ -42,7 +42,7 @@ class CreateProjectsFromOpportunitiesDesenvolvimento extends Command
         $opportunities = Opportunity::where('department', 'desenvolvimento')
                 ->with('stages')
                 ->get();
-        
+        dd($opportunities);
         foreach($opportunities as $opportunity) {
         $project = new Project();
         

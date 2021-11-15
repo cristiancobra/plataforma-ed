@@ -108,7 +108,7 @@
 
 @section('date_due')    
 <div class='circle-date-due'>
-    {{date('d/m/Y', strtotime($project->pay_day))}}
+    {{date('d/m/Y', strtotime($project->date_due))}}
 </div>
 <p class='labels' style='text-align: center'>
     PRAZO FINAL
