@@ -338,8 +338,8 @@ class Task extends Model {
         }
         
         public static function returnTaskStages($task) {
-            return Stage::where('opportunity_id', $task->opportunity_id)
-//                    ->where('trash', '1=', 1)
+            return Stage::where('project_id', $task->project_id)
+                    ->where('trash', '1=', 1)
                     ->get();
 //        dd($task);
         }

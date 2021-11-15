@@ -76,6 +76,11 @@
         </select>
                 {{createButtonAdd('opportunity.create', 'department', 'desenvolvimento')}}
         <br>
+                        <label class="labels" for="" >
+            ETAPAS:
+        </label>
+        {{createSelectIdName('stage_id', 'fields', $taskStages, 'Não possui', $task->stage)}}
+        <br>
         <br>
         <label class="labels" for="" >OPORTUNIDADE:</label>
         <select class = 'fields' name='opportunity_id' style='width:700px'>
@@ -100,11 +105,6 @@
             </option>
             @endforeach
         </select>
-        <br>
-                <label class="labels" for="" >
-            ETAPAS:
-        </label>
-        {{createSelectIdName('stage_id', 'fields', $taskStages, 'Não possui', $task->stage)}}
         <br>
         <br>
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
