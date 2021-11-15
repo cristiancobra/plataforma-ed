@@ -56,7 +56,7 @@
         <div class='row'>
             <div class='col'>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' {{old('type') == 'execução' ? 'checked' : ''}}>
             <label class='form-check-label pt-2 ms-2' for='execução' style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
@@ -69,7 +69,7 @@
             </p>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' {{old('type') == 'contatos' ? 'checked' : ''}}>
             <label class='form-check-label pt-2 ms-2' for='execução' style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
@@ -80,10 +80,10 @@
             <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right">
                 aumentar contatos para 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts' value='{{old('goal_contacts')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' {{old('type') == 'receita' ? 'checked' : ''}}>
             <label class='form-check-label pt-2 ms-2' for='execução' style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
@@ -94,10 +94,10 @@
             <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
                 atingir faturamento de
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues' value='{{old('goal_invoices_revenues')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' {{old('type') == 'despesa' ? 'checked' : ''}}>
             <label class='form-check-label pt-2 ms-2' for='execução' style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
@@ -108,10 +108,10 @@
             <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">
                 manter despesas abaixo de 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses' value='{{old('goal_invoices_expenses')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' {{old('type') == 'entrada' ? 'checked' : ''}}>
             <label class='form-check-label pt-2 ms-2' for='execução' style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
@@ -122,10 +122,10 @@
             <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">
                 atingir entradas de 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues' value='{{old('goal_transactions_revenues')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' {{old('type') == 'saída' ? 'checked' : ''}}>
             <label class='form-check-label pt-2 ms-2' for='execução' style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
@@ -136,7 +136,7 @@
             <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">
                 manter saídas abaixo de 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses' value='{{old('goal_transactions_expenses')}}'>
         </div>
         </div>
         </div>

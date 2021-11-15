@@ -64,6 +64,7 @@ class GoalController extends Controller {
         ];
         $validator = Validator::make($request->all(), [
                     'name' => 'required:goals',
+                    'description' => 'required:goals',
                         ],
                         $messages);
 
