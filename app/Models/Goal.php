@@ -120,7 +120,7 @@ class Goal extends Model {
     public static function goalSelected($goal) {
         switch ($goal->type) {
             case 'execução';
-                $projects = Opportunity::where('goal_id', $goal->id)
+                $projects = Project::where('goal_id', $goal->id)
                         ->with('tasks')
                         ->get();
 
