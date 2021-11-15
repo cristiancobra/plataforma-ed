@@ -390,7 +390,7 @@ class ProjectController extends Controller {
         $project->trash = 1;
         $project->save();
 
-        return redirect()->action('Operationa\\ProjectController@index');
+        return redirect()->action('Operational\\ProjectController@index');
     }
 
     public function restoreFromTrash(Project $project) {
