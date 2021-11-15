@@ -144,7 +144,7 @@ class Project extends Model
                 ->with([
                     'tasks',
                 ])
-                ->orderBy('date_start', 'DESC')
+                ->orderBy('date_start', 'ASC')
                 ->get();
         ;
     }

@@ -129,7 +129,7 @@
         NOME 
     </div>
     <div class="tb tb-header col-3">
-        CONTATO 
+        META 
     </div>
     <div class="tb tb-header col-2">
         EMPRESA
@@ -157,8 +157,8 @@
     </div>
 
         <div class="tb col-3">    
-            @if(isset($project->contact->name))
-            {{$project->contact->name}}
+            @if(isset($project->goal))
+            {{$project->goal->name}}
             @else
             Não possui
             @endif
