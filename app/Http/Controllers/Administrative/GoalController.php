@@ -185,7 +185,7 @@ class GoalController extends Controller {
                     $goal->goal_contacts = $request->goal_contacts;
                     break;
                 case 'receita':
-                    $goal->goal_invoices_revenues = $request->goal_invoices_revenues;
+                    $goal->goal_invoices_revenues = removeCurrency($request->goal_invoices_revenues);
                     break;
                 case 'despesa':
                     $goal->goal_invoices_expenses = $request->goal_invoices_expenses;

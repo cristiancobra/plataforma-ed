@@ -149,6 +149,15 @@ class Goal extends Model {
             case 'receita';
                 $goalSelected = formatCurrencyReal($goal->goal_invoices_revenues);
                 break;
+            case 'despesa';
+                $goalSelected = formatCurrencyReal($goal->goal_invoices_expenses);
+                break;
+            case 'entrada';
+                $goalSelected = formatCurrencyReal($goal->goal_transactions_revenues);
+                break;
+            case 'saída';
+                $goalSelected = formatCurrencyReal($goal->goal_transactions_expenses);
+                break;
         }
 
         return $goalSelected;

@@ -73,7 +73,7 @@
                 <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
                     atingir faturamento de 
                 </p>
-                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues'>
+                <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues' value='{{$goal->goal_invoices_revenues}}'>
             </div>
             <div class='form-check d-flex justify-content-start'>
                 <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' {{$goal->type == 'despesa' ? 'checked' : ''}}'>
@@ -124,7 +124,7 @@
 
     @section('date_start')
     <div class='circle-date-start'>
-        <input type='date' name='date_start' size='20' value='{{dateBr($goal->date_start)}}'>
+        <input type='date' name='date_start' size='20' value='{{date('Y-m-d', strtotime($goal->date_start))}}'>
         @if ($errors->has('date_start'))
         <span class='text-danger'>{{$errors->first('date_start')}}</span>
         @endif
@@ -137,7 +137,7 @@
 
     @section('date_due')    
     <div class='circle-date-due'>
-        <input type='date' name='date_due' size='20' value='{{$goal->date_due}}'>
+        <input type='date' name='date_due' size='20' value='{{date('Y-m-d', strtotime($goal->date_due))}}'>
         @if ($errors->has('date_due'))
         <span class='text-danger'>{{$errors->first('date_due')}}</span>
         @endif
@@ -150,7 +150,10 @@
 
     @section('date_conclusion')
     <div class='circle-date-due'>
-        <input type='number' name='date_conclusion' size='3' min='1' max='365' value='{{$goal->date_conclusion}}'> dias
+                <input type='date' name='date_conclusion' size='20' value='{{date('Y-m-d', strtotime($goal->date_conclusion))}}'>
+        @if ($errors->has('date_conclusion'))
+        <span class='text-danger'>{{$errors->first('date_conclusion')}}</span>
+        @endif
     </div>
     <p class='labels' style='text-align: center'>
         CONCLUSÃO
