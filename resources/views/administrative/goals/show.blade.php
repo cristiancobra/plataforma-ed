@@ -148,7 +148,7 @@
                         RESPONSÁVEL
                     </label>
                     <br>
-                    {{createFilterSelectModels('user_id', 'select', $users)}}
+                    {{createSelectUsers('select', $users)}}
                 </div>
                 <div class='col-2' style='text-align:left'>
                     <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
