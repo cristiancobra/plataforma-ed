@@ -51,11 +51,7 @@
         EMPRESA
     </div>
     <div class='show-label'>
-        @if($task->department == 'desenvolvimento')
-        PROJETO
-        @else
         OPORTUNIDADE
-        @endif
     </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
@@ -84,16 +80,8 @@
     </div>
     @endif
 
-        @if($task->department == 'desenvolvimento' AND isset($task->opportunity->id))
-        <a href=' {{route('opportunity.show', [
-                                                                    'opportunity' => $task->opportunity,
-                                                                    'department' => 'desenvolvimento',
-                                                                    ])}}'>
-        <div class='show-field-end'>
-            {{$task->opportunity->name}}
-        </div>
-    </a>
-    @elseif(isset($task->opportunity->id))
+
+    @if(isset($task->opportunity->id))
     <a href=' {{route('opportunity.show', ['opportunity' => $task->opportunity])}}'>
         <div class='show-field-end'>
             {{$task->opportunity->name}}
@@ -113,6 +101,12 @@
     <div class='show-label'>
         RESPONSÁVEL
     </div>
+        <div class='show-label'>
+        PROJETO
+    </div>
+        <div class='show-label'>
+        META
+    </div>
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
@@ -129,6 +123,30 @@
     @else
     <div class='show-field-end'>
         foi excluído
+    </div>
+    @endif
+    
+        @if(isset($task->project))
+    <a href=' {{route('project.show', ['project' => $task->project])}}'>
+        <div class='show-field-end'>
+            {{$task->project->name}}
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
+        Não possui
+    </div>
+    @endif
+    
+        @if(isset($task->goal))
+    <a href=' {{route('goal.show', ['goal' => $task->goal])}}'>
+        <div class='show-field-end'>
+            {{$task->goal->name}}
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
+        Não possui
     </div>
     @endif
 

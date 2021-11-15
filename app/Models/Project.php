@@ -140,6 +140,7 @@ class Project extends Model
     public static function getProjects() {
         return Project::where('account_id', auth()->user()->account_id)
                 ->where('trash', '!=', 1)
+                ->where('status', '!=', 'rascunho')
 //                ->with([
 //                    'company',
 //                    'contact',
