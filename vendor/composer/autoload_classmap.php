@@ -10,6 +10,7 @@ return array(
     'App\\Console\\Commands\\ConvertDateInTimestamp' => $baseDir . '/app/Console/Commands/ConvertDateInTimestamp.php',
     'App\\Console\\Commands\\CopyInstallmentValueToTotalPriceInInvoices' => $baseDir . '/app/Console/Commands/CopyInstallmentValueToTotalPriceInInvoices.php',
     'App\\Console\\Commands\\CreateExpensesProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateExpensesProposalsFromInvoices.php',
+    'App\\Console\\Commands\\CreateProjectsFromOpportunitiesDesenvolvimento' => $baseDir . '/app/Console/Commands/CreateProjectsFromOpportunitiesDesenvolvimento.php',
     'App\\Console\\Commands\\CreateProposalsFromInvoices' => $baseDir . '/app/Console/Commands/CreateProposalsFromInvoices.php',
     'App\\Console\\Commands\\DivideSubtotalToUnitPrice' => $baseDir . '/app/Console/Commands/DivideSubtotalToUnitPrice.php',
     'App\\Console\\Commands\\FillNullFieldCommand' => $baseDir . '/app/Console/Commands/FillNullFieldCommand.php',

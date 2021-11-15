@@ -57,7 +57,6 @@
         </select>
         <br>
         <br>
-        <br>
         <label class="labels" for="" >PROJETO:</label>
         <select class = 'fields' name='project_id' style='width:700px'>
             @if($task->project != null)

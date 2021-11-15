@@ -598,6 +598,7 @@ class ComposerStaticInit0323879555619b3a853de7ca15a0e214
         'App\\Console\\Commands\\ConvertDateInTimestamp' => __DIR__ . '/../..' . '/app/Console/Commands/ConvertDateInTimestamp.php',
         'App\\Console\\Commands\\CopyInstallmentValueToTotalPriceInInvoices' => __DIR__ . '/../..' . '/app/Console/Commands/CopyInstallmentValueToTotalPriceInInvoices.php',
         'App\\Console\\Commands\\CreateExpensesProposalsFromInvoices' => __DIR__ . '/../..' . '/app/Console/Commands/CreateExpensesProposalsFromInvoices.php',
+        'App\\Console\\Commands\\CreateProjectsFromOpportunitiesDesenvolvimento' => __DIR__ . '/../..' . '/app/Console/Commands/CreateProjectsFromOpportunitiesDesenvolvimento.php',
         'App\\Console\\Commands\\CreateProposalsFromInvoices' => __DIR__ . '/../..' . '/app/Console/Commands/CreateProposalsFromInvoices.php',
         'App\\Console\\Commands\\DivideSubtotalToUnitPrice' => __DIR__ . '/../..' . '/app/Console/Commands/DivideSubtotalToUnitPrice.php',
         'App\\Console\\Commands\\FillNullFieldCommand' => __DIR__ . '/../..' . '/app/Console/Commands/FillNullFieldCommand.php',
