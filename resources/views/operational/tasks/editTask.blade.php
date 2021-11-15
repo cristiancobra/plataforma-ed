@@ -58,12 +58,11 @@
         <br>
         <br>
         <br>
-        @if($task->department == 'desenvolvimento')
         <label class="labels" for="" >PROJETO:</label>
-        <select class = 'fields' name='opportunity_id' style='width:700px'>
-            @if($task->opportunity_id != null)
-            <option value='{{$task->opportunity_id}}'>
-                {{$task->opportunity->name}}
+        <select class = 'fields' name='project_id' style='width:700px'>
+            @if($task->project != null)
+            <option value='{{$task->project_id}}'>
+                {{$task->project->name}}
             </option>
             @endif
                         <option value=''>
@@ -78,7 +77,6 @@
                 {{createButtonAdd('opportunity.create', 'department', 'desenvolvimento')}}
         <br>
         <br>
-        @else
         <label class="labels" for="" >OPORTUNIDADE:</label>
         <select class = 'fields' name='opportunity_id' style='width:700px'>
             @if($task->opportunity_id != null)
@@ -109,7 +107,6 @@
         {{createSelectIdName('stage_id', 'fields', $taskStages, 'Não possui', $task->stage)}}
         <br>
         <br>
-        @endif
         <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
         <input type="date" name="date_start" size="20" value="{{$task->date_start}}">
         @if ($errors->has('date_start'))
