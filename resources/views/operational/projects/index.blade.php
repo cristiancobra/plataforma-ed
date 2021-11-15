@@ -146,7 +146,10 @@
 </div>
 
 @foreach ($projects as $project)
-<div class="row table position-relative"  style="color: {{$principalColor}}">
+<div class="row table2 position-relative"  style="
+                                                                            color: {{$principalColor}};
+                                                                            border-left-color: {{$complementaryColor}}
+                                                                            ">
     <a class="stretched-link "href=" {{route('project.show', ['project' => $project])}}">
             </a>
             <div class="cel col-1">
