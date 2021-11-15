@@ -35,25 +35,25 @@
     </div>
 </div>
 <div class='col-lg-4 col-xs-6' style='text-align: center'>
-        @if($project->goal)
+    @if($project->goal)
     <a href='{{route('goal.show', ['goal' => $project->goal_id])}}'>
         <div class='show-field-end'>
             {{$project->goal->name}}
         </div>
     </a>
-            @else
+    @else
     <div class='show-field-end'>
         Não possui
     </div>
     @endif
 
-            @if($project->company)
+    @if($project->company)
     <a href='{{route('company.show', ['company' => $project->company])}}'>
         <div class='show-field-end'>
             {{$companyName}}
         </div>
     </a>
-                @else
+    @else
     <div class='show-field-end'>
         Não possui
     </div>
@@ -108,7 +108,7 @@
 
 @section('date_due')    
 <div class='circle-date-due'>
-        @if($project->date_due)
+    @if($project->date_due)
     {{date('d/m/Y', strtotime($project->date_due))}}
     @else
     --
@@ -281,67 +281,72 @@ CKEDITOR.replace('description');
                     prazo:  {{dateBr($stage->end)}}
                 </p>
             </div>
+            <div class='col-1 d-flex justify-content-center'>
+                {{createButtonEdit('stage', 'stage', $stage)}}
+            </div>
         </div>
         <div class='row pt-3 pb-2 ' style="background-color: {{$oppositeColor}}">
             <div class='col justify-content-start'>
-                    {{formatedText($stage->description)}}
+                {{formatedText($stage->description)}}
             </div>
         </div>
 
-        
+
 
         <!--várias linhas de tarefas-->
-            @foreach ($stage->tasks as $task)
-            @if($task->trash != 1)
-            <div class='row position-relative'>
-                <a class="stretched-link" href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                </a>
-                <div class='tb col-1'>
-                    @if(isset($task->user->image))
-                    <div class='profile-picture-small'>
-                        <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-                            <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
-                        </a>
-                    </div>
-                    @elseif(isset($task->user->contact->name))
+        @foreach ($stage->tasks as $task)
+        @if($task->trash != 1)
+        <div class='row position-relative'>
+            <a class="stretched-link" href=' {{ route('task.show', ['task' => $task->id]) }}'>
+            </a>
+            <div class='tb col-1'>
+                @if(isset($task->user->image))
+                <div class='profile-picture-small'>
                     <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-                        {{$task->user->contact->name}}
-                    </a>
-                    @else
-                    funcionário excluído
-                    @endif
-                </div>
-                <div class='tb col-1'>
-                    {{date('d/m/Y', strtotime($task->date_start))}}
-                </div>
-                <div class='tb col-3'>
-                    {{$task->name}}
-                </div>
-                <div class='tb-description col-4'>
-                    {!!html_entity_decode($task->description)!!}
-                </div>
-                {{formatDateDue($task)}}
-
-                {{formatPriority($task)}}
-
-                {{formatStatus($task)}}
-
-            </div>
-@endif
-            @endforeach
-
-
-            <!--linha com botao ADICIONAR TAREFA-->
-            <div class='row'>
-                <div class='tb col d-flex justify-content-end'>
-                    adicionar tarefa nesta etapa
-                    <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
-                        <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
+                        <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
                     </a>
                 </div>
+                @elseif(isset($task->user->contact->name))
+                <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
+                    {{$task->user->contact->name}}
+                </a>
+                @else
+                funcionário excluído
+                @endif
             </div>
-            
-            <!--linha oculta criar nova tarefa-->
+            <div class='tb col-1'>
+                {{date('d/m/Y', strtotime($task->date_start))}}
+            </div>
+            <div class='tb col-3'>
+                {{$task->name}}
+            </div>
+            <div class='tb-description col-4'>
+                {!!html_entity_decode($task->description)!!}
+            </div>
+            {{formatDateDue($task)}}
+
+            {{formatPriority($task)}}
+
+            {{formatStatus($task)}}
+
+        </div>
+        @endif
+        @endforeach
+
+
+        <!--linha com botao ADICIONAR TAREFA-->
+        <div class='row'>
+            <div class='col-11 d-flex justify-content-end pt-3'>
+                adicionar tarefa nesta etapa
+            </div>
+            <div class='col-1 d-flex justify-content-center pt-2 pb-2'>
+                <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
+                    <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
+                </a>
+            </div>
+        </div>
+
+        <!--linha oculta criar nova tarefa-->
         @if(Session::has('failed'))
         <div class="alert alert-danger">
             {{Session::get('failed')}}
@@ -448,50 +453,50 @@ CKEDITOR.replace('description');
                 </div>
             </div>
         </div>
-    @endsection
+        @endsection
 
-    @section('deleteButton')
-    {{createButtonTrash($project, 'project')}}
-    @endsection
+        @section('deleteButton')
+        {{createButtonTrash($project, 'project')}}
+        @endsection
 
-    @section('editButton', route('project.edit', ['project' => $project->id]))
+        @section('editButton', route('project.edit', ['project' => $project->id]))
 
-    @section('backButton', route('project.index'))
+        @section('backButton', route('project.index'))
 
-    @section('createdAt')
-    <div class='row' style='margin-top: 30px'>
-        <div class='col-12'style='padding-top: -10px'>
-            Primeiro registro em: {{date('d/m/Y H:i', strtotime($project->created_at))}}
+        @section('createdAt')
+        <div class='row' style='margin-top: 30px'>
+            <div class='col-12'style='padding-top: -10px'>
+                Primeiro registro em: {{date('d/m/Y H:i', strtotime($project->created_at))}}
+            </div>
         </div>
-    </div>
-    @endsection
+        @endsection
 
 
-    @section('js-scripts')
-    <script>
-        // botão do filtro
-        $(document).ready(function () {
-        console.log('filter button')
-                //botao de exibir filtro
-                $('#stageButtonOnOff').click(function () {
-        $('#stageRow').slideToggle(600);
-        $('#buttonOnOff').toggleClass('plus minus');
-        });
-        $('#taskButtonOnOff').click(function () {
-        $('#taskRow').slideToggle(600);
-        });
-        @php
-                $counterJs = 1;
-        foreach($stages as $stage) {
-        echo "
-                $('#taskButtonOnOff_$counterJs').click(function () {
-        $('#taskRow_$counterJs').slideToggle(600);
-        });
-        ";
-                $counterJs++;
-        }
-        @endphp
+        @section('js-scripts')
+        <script>
+            // botão do filtro
+            $(document).ready(function () {
+            console.log('filter button')
+                    //botao de exibir filtro
+                    $('#stageButtonOnOff').click(function () {
+            $('#stageRow').slideToggle(600);
+            $('#buttonOnOff').toggleClass('plus minus');
+            });
+            $('#taskButtonOnOff').click(function () {
+            $('#taskRow').slideToggle(600);
+            });
+            @php
+                    $counterJs = 1;
+            foreach($stages as $stage) {
+            echo "
+                    $('#taskButtonOnOff_$counterJs').click(function () {
+            $('#taskRow_$counterJs').slideToggle(600);
+            });
+            ";
+                    $counterJs++;
+            }
+            @endphp
 
-        });
-    </script>
-    @endsection
+            });
+        </script>
+        @endsection

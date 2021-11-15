@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Goal;
 use App\Models\Stage;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class StageController extends Controller
@@ -92,7 +93,32 @@ class StageController extends Controller
      */
     public function edit(Stage $stage)
     {
-        //
+//        dd($stage);
+        $title = 'ETAPAS';
+        $status = Stage::returnStatus();
+//
+//        $projects = Project::where('account_id', auth()->user()->account_id)
+//                ->orderBy('NAME', 'ASC')
+//                ->get();
+//
+        $users = User::myUsers();
+//
+//        $goals = Goal::openGoals();
+
+//        $contacts = Contact::where('account_id', auth()->user()->account_id)
+//                ->orderBy('NAME', 'ASC')
+//                ->get();
+
+        return view('operational.stages.edit', compact(
+                        'title',
+                        'stage',
+//                        'project',
+                        'users',
+//                        'goals',
+//                        'contacts',
+//                        'projects',
+                        'status',
+        ));
     }
 
     /**
@@ -104,7 +130,10 @@ class StageController extends Controller
      */
     public function update(Request $request, Stage $stage)
     {
-        //
+        $stage->fill($request->all());
+        $stage->save();
+
+        return redirect()->route('project.show', [$stage->project_id]);
     }
 
     /**
