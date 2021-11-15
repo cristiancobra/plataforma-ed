@@ -181,6 +181,7 @@
             <div class='col-5' style='text-align:left'>
                 <form id='addStage' action='{{route('stage.store')}}' method='post' style='text-align: left'>
                     @csrf
+                    <input type='hidden' name='project_id'  value='{{$project->id}}'>
                     <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
                         NOME DA ETAPA
                     </label>
@@ -192,7 +193,7 @@
                             RESPONSÁVEL
                         </label>
                         <br>
-                        {{createFilterSelectModels('user_id', 'select', $users)}}
+                        {{createSelectUsers('select', $users)}}
                     </div>
                     <div class='col-2' style='text-align:left'>
                         <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
@@ -279,6 +280,11 @@ CKEDITOR.replace('description');
                 <p  class='labels' style="text-align: left; color: {{$principalColor}}">
                     prazo:  {{dateBr($stage->end)}}
                 </p>
+            </div>
+        </div>
+        <div class='row pt-3 pb-2 ' style="background-color: {{$oppositeColor}}">
+            <div class='col justify-content-start'>
+                    {{formatedText($stage->description)}}
             </div>
         </div>
 

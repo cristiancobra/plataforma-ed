@@ -355,6 +355,15 @@ if (!function_exists('createSelectUsers')) {
     }
 
 }
+
+if (!function_exists('formatedText(stage->description')) {
+
+// formata textos longos feitos com ckeditor
+    function formatedText($text) {
+     echo html_entity_decode($text);
+}
+}
+
 if (!function_exists('editDoubleSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME

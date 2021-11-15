@@ -124,56 +124,32 @@
 
 
 @section('table')
-<div class="row">
-    <div class="tb tb-header-start col-4">
-        NOME 
-    </div>
-    <div class="tb tb-header col-3">
-        META 
-    </div>
-    <div class="tb tb-header col-2">
-        EMPRESA
-    </div>
-    <div class="tb tb-header col-1">
+<div class="row table-header" style="background-color: {{$principalColor}}">
+    <div class="col-1">
         RESPONSÁVEL 
     </div>
-    <div class="tb tb-header col-1">
+    <div class="col-4">
+        NOME 
+    </div>
+    <div class="col-3">
+        META 
+    </div>
+    <div class="col-2">
+        EMPRESA
+    </div>
+    <div class="col-1">
         CRIADO 
     </div>
-    <div class="tb tb-header-end col-1">
+    <div class="col-1">
         SITUAÇÃO
     </div>
 </div>
 
 @foreach ($projects as $project)
-<div class="row">
-    <div class="tb col-4 justify-content-start">
-        <button class="button-round">
-            <a href=" {{route('project.show', ['project' => $project])}}">
-                <i class='fa fa-eye' style="color:white"></i>
+<div class="row table position-relative"  style="color: {{$principalColor}}">
+    <a class="stretched-link "href=" {{route('project.show', ['project' => $project])}}">
             </a>
-        </button>
-        {{$project->name}}
-    </div>
-
-        <div class="tb col-3">    
-            @if(isset($project->goal))
-            {{$project->goal->name}}
-            @else
-            Não possui
-            @endif
-        </div>
-
-        @if(isset($project->company->name))
-        <div class="tb col-2">
-            {{$project->company->name}}
-        </div>
-        @else
-        <div class="tb col-2">
-            Pessoa física
-        </div>
-        @endif
-        <div class="tb col-1">
+            <div class="cel col-1">
             @if(isset($project->user->image))
             <div class='profile-picture-small'>
                 <a  class='white' href=' {{route('user.show', ['user' => $project->user->id])}}'>
@@ -188,7 +164,28 @@
             funcionário excluído
             @endif
         </div>
-        <div class="tb col-1">
+    <div class="cel col-4 justify-content-start">
+        {{$project->name}}
+    </div>
+
+        <div class="cel col-3">    
+            @if(isset($project->goal))
+            {{$project->goal->name}}
+            @else
+            Não possui
+            @endif
+        </div>
+
+        @if(isset($project->company->name))
+        <div class="cel col-2">
+            {{$project->company->name}}
+        </div>
+        @else
+        <div class="cel col-2">
+            Pessoa física
+        </div>
+        @endif
+        <div class="cel col-1">
             {{dateBr($project->date_start)}}
         </div>
 
