@@ -165,7 +165,6 @@ class ProjectController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Project $project) {
-        dd($project->goal);
         $title = 'PROJETOS';
 
         if ($project->company) {
