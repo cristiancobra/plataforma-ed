@@ -109,10 +109,9 @@
      '>
     <div class="row">
         <div class='col-3' style='text-align:left'>
-            <form id='addStage' action='{{route('opportunity.store')}}' method='post' style='text-align: left'>
+            <form id='addStage' action='{{route('project.store')}}' method='post' style='text-align: left'>
                 @csrf
                 <input type='hidden' name='goal_id' value='{{$goal->id}}'>
-                <input type='hidden' name='department' value='desenvolvimento'>
                 <input type='hidden' name='type' value='projeto'>
                 <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
                     NOME DO PROJETO
