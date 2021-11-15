@@ -10,6 +10,7 @@ use App\Models\Company;
 use App\Models\Image;
 use App\Models\Journey;
 use App\Models\Opportunity;
+use App\Models\Project;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -292,7 +293,7 @@ class TaskController extends Controller {
         $users = User::myUsers();
 
         $opportunities = Opportunity::openOpportunities();
-        $projects = Opportunity::getProjects();
+        $projects = Project::getProjects();
 
         $departments = Task::returnDepartments();
         $status = Task::returnStatus();

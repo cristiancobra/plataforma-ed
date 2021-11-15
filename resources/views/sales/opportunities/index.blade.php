@@ -23,7 +23,7 @@
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
-    {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+        {{createSelectUsers('select', $users, 'Todos os usuários')}}
     {{createFilterSelect('stage', 'select', $stages, 'Todas as etapas')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>

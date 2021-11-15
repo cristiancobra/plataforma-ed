@@ -21,7 +21,7 @@
     {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
-    {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+        {{createSelectUsers('select', $users, 'Todos os usuários')}}
     {{createFilterSelect('priority', 'select', $priorities, 'Todas as prioridades')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>

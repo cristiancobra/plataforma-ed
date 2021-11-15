@@ -22,7 +22,7 @@
         <input type="date" name="start" size="20" value="{{old('start')}}">
         <input type="date" name="end" size="20" value="{{old('end')}}">
         {{createFilterSelect('department', 'select', $departments, 'Todos os departamentos')}}
-        {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+        {{createSelectUsers('select', $users, 'Todos os usuários')}}
         <br>
         <a class="text-button secondary" href='{{route('journey.index')}}'>
             LIMPAR

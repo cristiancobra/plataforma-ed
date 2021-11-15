@@ -19,7 +19,7 @@
 <form id="filter" action="{{route('text.index')}}" method="get" style="text-align: right">
     <input type="text" name="name" placeholder="nome da tarefa" value="">
     {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
-    {{createFilterSelectModels('user_id', 'select', $users, 'Todos os usuários')}}
+        {{createSelectUsers('select', $users, 'Todos os usuários')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>
     <a class="text-button secondary" href='{{route('text.index')}}'>
