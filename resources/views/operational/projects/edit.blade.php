@@ -106,7 +106,12 @@ CKEDITOR.replace('description');
         <br>
         
         <label class="labels" for="" >DATA DE CONCLUSÃO:</label>
+                @if($project->date_conclusion)
         <input type="date" name="date_conclusion" size="20" value="{{date('Y-m-d', strtotime($project->date_conclusion))}}">
+        @else
+        <input type="date" name="date_conclusion" size="20">
+        @endif
+        
         <br>
         <br>
         <label class="labels" for="">SITUAÇÃO:</label>

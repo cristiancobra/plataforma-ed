@@ -108,7 +108,11 @@
 
 @section('date_due')    
 <div class='circle-date-due'>
+        @if($project->date_due)
     {{date('d/m/Y', strtotime($project->date_due))}}
+    @else
+    --
+    @endif
 </div>
 <p class='labels' style='text-align: center'>
     PRAZO FINAL
