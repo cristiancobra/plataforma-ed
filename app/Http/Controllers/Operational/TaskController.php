@@ -187,6 +187,7 @@ class TaskController extends Controller {
                     ->get();
 
 //            return redirect()->back();
+                        return redirect()->route('task.show', [$task]);
         }
     }
 
