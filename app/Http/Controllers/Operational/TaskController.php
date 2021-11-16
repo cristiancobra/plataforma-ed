@@ -251,7 +251,7 @@ class TaskController extends Controller {
      */
     public function show(task $task) {
         $today = date('Y-m-d');
-
+//dd($task->project->goal);
         $totalDuration = 0;
         foreach ($task->journeys as $journey) {
             $totalDuration = $totalDuration + $journey->duration;

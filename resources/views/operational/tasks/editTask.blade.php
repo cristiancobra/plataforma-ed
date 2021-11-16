@@ -64,7 +64,7 @@
                 {{$task->project->name}}
             </option>
             @endif
-                        <option value=''>
+            <option value=''>
                 Não possui
             </option>
             @foreach ($projects as $project)
@@ -73,9 +73,9 @@
             </option>
             @endforeach
         </select>
-                {{createButtonAdd('opportunity.create', 'department', 'desenvolvimento')}}
+        {{createButtonAdd('opportunity.create', 'department', 'desenvolvimento')}}
         <br>
-                        <label class="labels" for="" >
+        <label class="labels" for="" >
             ETAPAS:
         </label>
         {{createSelectIdName('stage_id', 'fields', $taskStages, 'Não possui', $task->stage)}}

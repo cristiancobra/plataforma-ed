@@ -126,7 +126,7 @@
     </div>
     @endif
     
-        @if(isset($task->project))
+        @if($task->project)
     <a href=' {{route('project.show', ['project' => $task->project])}}'>
         <div class='show-field-end'>
             {{$task->project->name}}
@@ -138,10 +138,10 @@
     </div>
     @endif
     
-        @if(isset($task->goal))
-    <a href=' {{route('goal.show', ['goal' => $task->goal])}}'>
+        @if(isset($task->project->goal))
+    <a href=' {{route('goal.show', ['goal' => $task->project->goal])}}'>
         <div class='show-field-end'>
-            {{$task->goal->name}}
+            {{$task->project->goal->name}}
         </div>
     </a>
     @else

@@ -53,7 +53,7 @@ class Task extends Model {
     public function company() {
         return $this->belongsTo(Company::class, 'company_id', 'id');
     }
-
+    
     public function images() {
         return $this->hasMany(Image::class, 'task_id', 'id');
     }
@@ -64,6 +64,10 @@ class Task extends Model {
 
     public function opportunity() {
         return $this->hasOne(Opportunity::class, 'id', 'opportunity_id');
+    }
+
+    public function project() {
+        return $this->hasOne(Project::class, 'id', 'project_id');
     }
 
     public function user() {
