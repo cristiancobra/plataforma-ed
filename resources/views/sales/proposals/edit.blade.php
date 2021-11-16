@@ -218,7 +218,8 @@ CKEDITOR.replace('description');
             <div class='tb  col-3'>
                 <button class='button'>
                     <a href=' {{route('product.show', ['product' => $productProposal->product->id])}}'>
-                        <i class='fa fa-eye' style='color:white'></i></a>
+                        <i class='fa fa-eye' style='color:white'></i>
+                    </a>
                 </button>
                 <button class='button'>
                     <a href=' {{route('product.edit', ['product' => $productProposal->product->id])}}'>
