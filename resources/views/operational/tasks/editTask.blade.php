@@ -58,7 +58,7 @@
         <br>
         <br>
         <label class="labels" for="" >PROJETO:</label>
-        <select class = 'fields' name='project_id' style='width:700px'>
+        <select class = 'fields' name='project_id' style='width:700px' onchange='populate(this.name, 'stage_id')'>
             @if($task->project)
             <option value='{{$task->project_id}}'>
                 {{$task->project->name}}
@@ -83,7 +83,7 @@
         <br>
         <label class="labels" for="" >OPORTUNIDADE:</label>
         <select class = 'fields' name='opportunity_id' style='width:700px'>
-            @if($task->opportunity_id != null)
+            @if($task->opportunity)
             <option value='{{$task->opportunity_id}}'>
                 {{$task->opportunity->name}}
             </option>
@@ -145,7 +145,7 @@
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
         <script>
-CKEDITOR.replace('description');
+            CKEDITOR.replace('description');
         </script>
         <br>
         <label class="labels" for="" >CONTATO: </label>
@@ -183,4 +183,63 @@ CKEDITOR.replace('description');
         <br>
         <br>
     </div>     
+    @endsection
+
+    @section('js_scripts')
+    <script>
+function populate(project_id, stage_id) {
+    
+};
+
+function loadAjaxGenericOptions(target, changeSelector, jsonUrl, inputId) {
+	var changeInputId = $(changeSelector).val();
+	var $target = $(target);
+	if(!changeInputId) {
+		$target.removeOption(/./);
+		$target.change();
+	}
+	else {
+		$.ajax({
+			async: false,
+			url: jsonUrl + '/' + changeInputId,
+			success: function(response, textStatus, jqXHR) {
+				if(response != "") {
+					$target.removeOption(/./);
+					$target.addOption(response,false);
+					$target.val(inputId);
+					$target.change();
+				}
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				catchError(jqXHR, textStatus, errorThrown);		
+			}
+		});
+	}
+	$(changeSelector).change(function() {
+		var changeInputId = $(this).val();
+		if(!changeInputId) {
+			$target.removeOption(/./);
+			$target.change();
+		}
+		else {
+			$.ajax({
+				async: false,
+				url: jsonUrl + '/' + changeInputId,
+				success: function(response, textStatus, jqXHR) {
+					if(response != "") {
+						$target.removeOption(/./);
+						$target.addOption(response,false);
+						$target.val(inputId);
+						$target.change();
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown){
+					catchError(jqXHR, textStatus, errorThrown);		
+				}
+			});
+		}
+	});
+}
+
+    </script>
     @endsection
