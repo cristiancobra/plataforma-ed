@@ -70,6 +70,10 @@ class Task extends Model {
         return $this->hasOne(Project::class, 'id', 'project_id');
     }
 
+    public function stage() {
+        return $this->belongsTo(Stage::class, 'stage_id', 'id');
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
