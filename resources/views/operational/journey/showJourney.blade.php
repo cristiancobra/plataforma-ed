@@ -59,12 +59,12 @@ Tarefa excluída
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
-        @if($journey->task)
+        @if($journey->task->contact)
         <a href="{{route('contact.show', ['contact' => $journey->task->contact->id])}}">
             {{$journey->task->contact->name}}
         </a>
         @else
-        Tarefa excluída
+        --
         @endif
     </div>
 </div>
