@@ -37,6 +37,9 @@
                     <p>
                         <span  style='font-weight: 600'>{{$task->name}}</span>
                         <br>
+                        @if($task->project)
+                        {{$task->project->name}} - 
+                        @endif
                         {{$task->department}}
                     </p>
                 </div>
