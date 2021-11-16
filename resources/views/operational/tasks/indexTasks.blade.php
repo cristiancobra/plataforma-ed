@@ -117,7 +117,7 @@
     </div>
     <div class='tb col-2'>
         <a  class="white" href=" {{ route('contact.show', ['contact' => $task->contact_id]) }}">
-            @if(isset($task->contact->name))
+            @if($task->contact)
             {{$task->contact->name}}
             @else
             contato excluído
@@ -125,7 +125,7 @@
         </a>
     </div>
     <div class='tb col-2'>
-        @if(isset($task->company->name))
+        @if($task->company)
         {{$task->company->name}}
         @else
         não possui
@@ -138,7 +138,7 @@
                 <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
             </a>
         </div>
-        @elseif(isset($task->user->contact->name))
+        @elseif($task->user->contact))
         <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
             {{$task->user->contact->name}}
         </a>
