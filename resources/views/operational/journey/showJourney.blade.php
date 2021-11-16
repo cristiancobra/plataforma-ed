@@ -43,13 +43,13 @@ Tarefa excluída
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
-            @if($journey->task)
+        @if($journey->task)
         <a href="{{route('task.show', ['task' => $journey->task->id])}}">
             {{$journey->task->name}}
         </a>
-            @else
-            Tarefa excluída
-            @endif
+        @else
+        Tarefa excluída
+        @endif
     </div>
 </div>
 <div class='col-md-2 col-sm-4' style='text-align: center'>
@@ -83,9 +83,9 @@ Tarefa excluída
         @else
         Não possui
         @endif
-@else
-Tarefa excluída
-@endif
+        @else
+        Tarefa excluída
+        @endif
     </div>
 </div>
 <div class='col-md-2 col-sm-4' style='text-align: center'>
@@ -95,11 +95,11 @@ Tarefa excluída
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
-        @if($journey->task)
+        @if($journey->task->department)
         {{$journey->task->department}}
-@else
-Tarefa excluída
-@endif
+        @else
+        --
+        @endif
     </div>
 </div>
 @endsection
@@ -107,11 +107,11 @@ Tarefa excluída
 
 @section('date_start')
 <div class="circle-date-start">
-@if($journey->task)
+    @if($journey->task)
     {{date('d/m/Y', strtotime($journey->task->date_start))}}
-@else
---
-@endif
+    @else
+    --
+    @endif
 </div>
 <p class="labels" style="text-align: center">
     CRIAÇÃO DA TAREFA
@@ -123,9 +123,9 @@ Tarefa excluída
 <div class="circle-date-due">
     @if($journey->task)
     {{dateBr($journey->task->date_due)}}
-@else
---
-@endif
+    @else
+    --
+    @endif
 </div>
 <p class="labels" style="text-align: center">
     PRAZO DA TAREFA
@@ -143,9 +143,9 @@ Tarefa excluída
         --
     </p>
     @endif
-@else
---
-@endif
+    @else
+    --
+    @endif
 </div>
 <p class="labels" style="text-align: center">
     CONCLUSÃO DA TAREFA
