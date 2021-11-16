@@ -59,7 +59,7 @@
         <br>
         <label class="labels" for="" >PROJETO:</label>
         <select class = 'fields' name='project_id' style='width:700px'>
-            @if($task->project != null)
+            @if($task->project)
             <option value='{{$task->project_id}}'>
                 {{$task->project->name}}
             </option>
