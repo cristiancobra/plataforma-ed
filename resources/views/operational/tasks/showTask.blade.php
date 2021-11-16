@@ -110,7 +110,7 @@
 </div>
 <div class='col-md-4 col-sm-8' style='text-align: center'>
     <div class='show-field-end'>
-    @if(isset($task->user->contact->name))
+    @if(isset($task->department))
         {{$task->department}}
         @else
         --
