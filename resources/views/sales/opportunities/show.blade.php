@@ -126,33 +126,6 @@
 
 
 @section('main')
-@if($opportunity->department == 'desenvolvimento')
-<div class='container mt-5' style='
-     border-top-style: solid;
-     border-top-width: 1px;
-     border-left-style: solid;
-     border-left-width: 1px;
-     border-radius: 7px 0px 0px 0px;
-     border-color: {{$principalColor}}
-     '>
-
-    <div class='row mt-0'>
-        <div class='col-6 pt-3 pb-3'>
-            <img src='{{asset('images/task-new.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
-                ETAPAS
-            </label>
-        </div>
-        <div class='col-6 pt-4 pb-3 d-flex justify-content-end'
-             '>
-            <a id='stageButtonOnOff' class='circular-button primary' title='Criar nova etapa'>
-                <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
-            </a>
-        </div>
-    </div>
-
-    <!--  div oculta ADICIONAR ETAPA  -->
-
     @if(Session::has('failed'))
     <div class="alert alert-danger">
         {{Session::get('failed')}}
@@ -980,7 +953,6 @@
         {{formatTotalHour($tasksCustomerServicesHours)}} horas
     </div>
 </div>
-@endif
 @endsection
 
 @section('deleteButton')
