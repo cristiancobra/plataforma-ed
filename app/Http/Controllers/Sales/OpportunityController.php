@@ -87,19 +87,11 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-        if ($request->department == 'desenvolvimento') {
-            $title = 'PROJETOS';
-            $department = 'desenvolvimento';
-            $stages = null;
-            $status = Opportunity::listStatusDevelopment();
-            $goals = Goal::openGoals();
-        } else {
             $title = 'OPORTUNIDADES';
             $department = null;
             $stages = Opportunity::listStages();
             $status = Opportunity::listStatus();
             $goals = null;
-        }
 
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -170,13 +162,8 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Opportunity $opportunity) {
-        if ($opportunity->department == 'desenvolvimento') {
-            $title = 'PROJETOS';
-            $dateDue = 'PRAZO FINAL';
-        } else {
             $title = 'OPORTUNIDADES';
             $dateDue = 'PRÓXIMO CONTATO';
-        }
 
         if ($opportunity->company) {
             $companyName = $opportunity->company->name;
