@@ -179,6 +179,15 @@ class ProjectController extends Controller {
                 })
                 ->get();
 
+        $stages = Stage::where('project_id', $project->id)
+                ->orderBy('start', 'ASC')
+                ->with('tasks')
+                ->get();
+
+        $tasksWithoutStage = Task::where('project_id', $project->id)
+                ->where('stage_id', 0)
+                ->get();
+
 //        $proposals = Proposal::where('project_id', $project->id)
 //                ->where('trash', '!=', 1)
 //                ->orderBy('PAY_DAY', 'ASC')
@@ -220,68 +229,65 @@ class ProjectController extends Controller {
 //            $invoicePaymentsTotal = 0;
 //            $balanceTotal = 0;
 //        }
+//
+//        foreach ($tasks as $task) {
+//            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+//                $task->status = 'fazendo';
+//            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+//                $task->status = 'atrasada';
+//            }
+//        }
+//
+//        $tasksSales = $tasks->where('department', '=', 'vendas');
+//
+//        $tasksSalesHours = Journey::whereHas('task', function ($query) use ($project) {
+//                    $query->where('project_id', $project->id);
+//                    $query->where('department', '=', 'vendas');
+//                })
+//                ->sum('duration');
+//
+//        $tasksDevelopment = $tasks->where('department', 'desenvolvimento');
+//        foreach ($tasksDevelopment as $task) {
+//            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+//                $task->status = 'fazendo';
+//            }
+//        }
 
-        $stages = Stage::where('project_id', $project->id)
-                ->with('tasks')
-                ->get();
-
-        $tasks = Task::where('project_id', $project->id)
+                $tasks = Task::where('project_id', $project->id)
                 ->with('journeys')
                 ->get();
-
-        foreach ($tasks as $task) {
-            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-                $task->status = 'fazendo';
-            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-                $task->status = 'atrasada';
-            }
-        }
-//dd($tasks);
-        $tasksSales = $tasks->where('department', '=', 'vendas');
-
-        $tasksSalesHours = Journey::whereHas('task', function ($query) use ($project) {
-                    $query->where('project_id', $project->id);
-                    $query->where('department', '=', 'vendas');
-                })
-                ->sum('duration');
-
-        $tasksDevelopment = $tasks->where('department', 'desenvolvimento');
-        foreach ($tasksDevelopment as $task) {
-            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-                $task->status = 'fazendo';
-            }
-        }
-
+        
+        
         $tasksOperational = $tasks->where('department', 'produção');
         foreach ($tasksOperational as $task) {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
                 $task->status = 'fazendo';
             }
         }
-
-//        dd($tasksOperational);
+//
+////        dd($tasksOperational);
         $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($project) {
                     $query->where('project_id', $project->id);
                     $query->where('department', '=', 'produção');
                 })
                 ->with('journeys')
                 ->sum('duration');
-
-        $tasksCustomerServices = $tasks->where('department', '=', 'atendimento');
-        foreach ($tasksOperational as $task) {
-            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-                $task->status = 'fazendo';
-            }
-            if ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-                $task->status = 'atrasada';
-            }
-        }
-
-        $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($project) {
-                    $query->where('project_id', $project->id);
-                    $query->where('department', '=', 'atendimento');
-                })
-                ->sum('duration');
+//
+//        $tasksCustomerServices = $tasks->where('department', '=', 'atendimento');
+//        foreach ($tasksOperational as $task) {
+//            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+//                $task->status = 'fazendo';
+//            }
+//            if ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
+//                $task->status = 'atrasada';
+//            }
+//        }
+//
+//        $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($project) {
+//                    $query->where('project_id', $project->id);
+//                    $query->where('department', '=', 'atendimento');
+//                })
+//                ->sum('duration');
 //
 //        $contracts = Contract::where('project_id', $project->id)
 //                ->get();
@@ -298,21 +304,22 @@ class ProjectController extends Controller {
                         'project',
                         'companyName',
                         'companyId',
+                        'stages',
+                        'tasksWithoutStage',
 //                        'proposals',
 //                        'proposalWon',
 //                        'invoices',
 //                        'invoiceInstallmentsTotal',
 //                        'invoicePaymentsTotal',
 //                        'balanceTotal',
-                        'stages',
-                        'tasks',
-                        'tasksSales',
-                        'tasksSalesHours',
-                        'tasksDevelopment',
-                        'tasksOperational',
+//                        'tasks',
+//                        'tasksSales',
+//                        'tasksSalesHours',
+//                        'tasksDevelopment',
+//                        'tasksOperational',
                         'tasksOperationalHours',
-                        'tasksCustomerServices',
-                        'tasksCustomerServicesHours',
+//                        'tasksCustomerServices',
+//                        'tasksCustomerServicesHours',
 //                        'contracts',
                         'contactCompanies',
                         'users',
