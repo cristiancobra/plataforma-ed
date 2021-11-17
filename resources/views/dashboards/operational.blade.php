@@ -144,6 +144,15 @@
                 </div>
             </div>
             @endforeach
+            <div class="row">
+                <div class="col d-flex justify-content-center">
+                    <a class='white' style="color: white" href=' {{route('journey.index', [
+                                                                                            'user_id' => auth()->user()->id,
+                                                                                            ])}}'>
+                        ver todas
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

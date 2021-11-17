@@ -250,13 +250,13 @@
             {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
         </div>
         <div class='tb col-2 justify-content-end pt-3'>
-            @if($productProposal->subtotalPrice < 0)
+            @if($productProposal->price < 0)
             <p style='color:red'>
-                {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
+                {{formatCurrencyReal($productProposal->price)}}
             </p>
             @else
             <p style='text-align: right'>
-                {{formatCurrencyReal($productProposal->subtotalPrice / $productProposal->amount)}}
+                {{formatCurrencyReal($productProposal->price)}}
             </p>
             @endif
         </div>

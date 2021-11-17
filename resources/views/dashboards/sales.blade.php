@@ -47,16 +47,6 @@
             </p>
         </a>
     </div>
-
-    <div class='col d-inline-block tasks-toDo'>
-        <a style='text-decoration:none' href='{{route('opportunity.index')}}'>
-            <p class='panel-text'>
-                <i class='fas fa-donate' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                OPORTUNIDADES
-            </p>
-        </a>
-    </div>
     <div class='col d-inline-block tasks-toDo'>
         <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'receita'])}}'>
             <p class='panel-text'>
@@ -87,149 +77,218 @@
         </a>
     </div>
     @endif
+    <div class='row'>
+        <div class='col-2' style='
+             text-shadow: 2px 2px 4px #000000;
+             background-color:{{$complementaryColor}};
+             margin-left: 10px;
+             margin-top: 10px;
+             padding-top: 30px;
+             padding-bottom: 2%;
+             border-radius: 10px 0px 0px 10px;
+             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+             text-decoration:none;
+             '>
+                <p class='panel-text'>
+                    <i class='fas fa-donate' style='font-size:36px; color:white;padding-bottom: 10px'></i>
+                    <br>
+                    OPORTUNIDADES
+                </p>
+        </div>
+        <div class='col-3' style='
+             text-shadow: 2px 2px 4px #000000;
+             border-color: {{$complementaryColor}};
+             border-style: solid;
+             border-width: 4px;
+             margin-right: 10px;
+             margin-top: 10px;
+             padding-top: 10px;
+             padding-bottom: 2%;
+             border-radius: 0px 10px 10px 00px;
+             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+             text-decoration:none;
+             '>
+            <div class='row' style='
+                 font-size: 16px;
+                 font-weight: 600;
+                 color: {{$complementaryColor}};
+                 text-shadow: none;
+                 margin-top: 3px;
+                 '>
+                <a style='text-decoration:none' href='{{route('opportunity.create')}}'>
+                    <i class='fas fa-plus-circle pe-1'></i>
+                    nova oportunidade
+                </a>
+            </div>
+            <div class='row' style='
+                 font-size: 16px;
+                 font-weight: 600;
+                 color: {{$complementaryColor}};
+                 text-shadow: none;
+                 margin-top: 5px;
+                 '>
+                <a style='text-decoration:none' href='{{route('opportunity.index')}}'>
+                    <i class='fas fa-list-alt pe-1'></i>
+                    ver todas
+                </a>
+            </div>
+            <div class='row' style='
+                 font-size: 16px;
+                 font-weight: 600;
+                 color: {{$complementaryColor}};
+                 text-shadow: none;
+                 margin-top: 5px;
+                 '>
+                <a style='text-decoration:none' href='{{route('opportunity.index', ['user_id' => auth()->user()->id])}}'>
+                    <i class='fas fa-paperclip pe-1'></i>
+                    ver minhas
+                </a>
+            </div>
+        </div>
+    </div>    
 
-    
-<div class='row pt-5 pb-0'>
-    <div class='col-2 pt-5' style='
-         background-color: #fff6ff;
-         border-radius: 20px 0 0 20px;
-         border-color: white;
-         border-width: 5px;
-         border-style: solid;
-         border-right-style: none;
-         '>
-        <p class='mt-2 text-center' style='color:#8B2485'>
-            <i class='fas fa-user-plus' style='font-size:40px; color:#8B2485'></i>
-            <br>
-            CONTATOS
-            <br>
-            <a class='text-button btn-info mt-2' name='new_contacts' href='{{route('contact.index', ['created_at' => date('Y-m-d', strtotime('-7 days'))])}}'>
-                +{{$contactsNewsTotal}} esta semana
-            </a>
-        </p>
-    </div>
-    <div class='col-4' style='
-         background-color: #fff6ff;
-         border-radius: 0 20px 20px 0;
-         border-color: white;
-         border-width: 5px;
-         border-style: solid;
-         border-left-style: none;
-         padding: 15px;
-         '>
-        <canvas id='contactsChart' width='400' height='250'></canvas>
-    </div>
 
-    <div class='col-2 pt-5' style='
-         background-color: #E5FFE5;
-         border-radius: 20px 0 0 20px;
-         border-color: white;
-         border-width: 5px;
-         border-style: solid;
-         border-right-style: none;
-         '>
-        <p class='mt-2 text-center' style='color:#8B2485'>
-            <i class='fas fa-funnel-dollar' style='font-size:40px; color:#8B2485'></i>
-            <br>
-            OPORTUNIDADES
-            <a class='text-button btn-info mt-2' name='new_contacts' href='{{route('opportunity.index', [
+    <div class='row pt-5 pb-0'>
+        <div class='col-2 pt-5' style='
+             background-color: #fff6ff;
+             border-radius: 20px 0 0 20px;
+             border-color: white;
+             border-width: 5px;
+             border-style: solid;
+             border-right-style: none;
+             '>
+            <p class='mt-2 text-center' style='color:#8B2485'>
+                <i class='fas fa-user-plus' style='font-size:40px; color:#8B2485'></i>
+                <br>
+                CONTATOS
+                <br>
+                <a class='text-button btn-info mt-2' name='new_contacts' href='{{route('contact.index', ['created_at' => date('Y-m-d', strtotime('-7 days'))])}}'>
+                    +{{$contactsNewsTotal}} esta semana
+                </a>
+            </p>
+        </div>
+        <div class='col-4' style='
+             background-color: #fff6ff;
+             border-radius: 0 20px 20px 0;
+             border-color: white;
+             border-width: 5px;
+             border-style: solid;
+             border-left-style: none;
+             padding: 15px;
+             '>
+            <canvas id='contactsChart' width='400' height='250'></canvas>
+        </div>
+
+        <div class='col-2 pt-5' style='
+             background-color: #E5FFE5;
+             border-radius: 20px 0 0 20px;
+             border-color: white;
+             border-width: 5px;
+             border-style: solid;
+             border-right-style: none;
+             '>
+            <p class='mt-2 text-center' style='color:#8B2485'>
+                <i class='fas fa-funnel-dollar' style='font-size:40px; color:#8B2485'></i>
+                <br>
+                OPORTUNIDADES
+                <a class='text-button btn-info mt-2' name='new_contacts' href='{{route('opportunity.index', [
                                                                                                                                                                     'status' => 'ganhamos',
                                                                                                                                                                     'updated_at' => date('Y-m-d', strtotime('-7 days'))
                                                                                                                                                                    ])}}'>
-                +{{$opportunitiesWon}} esta semana
-            </a>
-            <a class='text-button btn-danger mt-2' name='new_contacts' href='{{route('opportunity.index', [
+                    +{{$opportunitiesWon}} esta semana
+                </a>
+                <a class='text-button btn-danger mt-2' name='new_contacts' href='{{route('opportunity.index', [
                                                                                                                                                                     'status' => 'perdemos',
                                                                                                                                                                     'updated_at' => date('Y-m-d', strtotime('-7 days'))
                                                                                                                                                                    ])}}'>
-                +{{$opportunitiesLost}} esta semana
-            </a>
-        </p>
+                    +{{$opportunitiesLost}} esta semana
+                </a>
+            </p>
+        </div>
+        <div class='col-4' style='
+             background-color: #E5FFE5;
+             border-radius: 0 20px 20px 0;
+             border-color: white;
+             border-width: 5px;
+             border-style: solid;
+             border-left-style: none;
+             padding: 15px;
+             '>
+            <canvas id='opportunitiesChart' width='400' height='250'></canvas>
+        </div>
     </div>
-    <div class='col-4' style='
-         background-color: #E5FFE5;
-         border-radius: 0 20px 20px 0;
-         border-color: white;
-         border-width: 5px;
-         border-style: solid;
-         border-left-style: none;
-         padding: 15px;
-         '>
-        <canvas id='opportunitiesChart' width='400' height='250'></canvas>
-    </div>
-</div>
 
-<div class='row mt-0 pb-2'>
-    <div class='col-6' style='
-         background-color: #fff6ff;
-         border-radius: 20px 0 0 20px;
-         border-color: white;
-         border-width: 5px;
-         border-style: solid;
-         border-right-style: none;
-         '>
-        <div class='row'>
-            <div class="col pt-2 pb-2">
-                <p class="labels text-center">
-                    ÚLTIMOS 7 DIAS
-                </p>
+    <div class='row mt-0 pb-2'>
+        <div class='col-6' style='
+             background-color: #fff6ff;
+             border-radius: 20px 0 0 20px;
+             border-color: white;
+             border-width: 5px;
+             border-style: solid;
+             border-right-style: none;
+             '>
+            <div class='row'>
+                <div class="col pt-2 pb-2">
+                    <p class="labels text-center">
+                        ÚLTIMOS 7 DIAS
+                    </p>
+                </div>
             </div>
+            @foreach($contactsNews as $contactNew)
+            <div class='row'>
+                <div class='col'>
+                    <a class='white' href=' {{route('contact.show', ['contact' => $contactNew->id])}}'>
+                        <button class='button-round'>
+                            <i class='fa fa-eye'></i>
+                        </button>
+                    </a>
+                    {{$contactNew->name}}
+                </div>
+                <div class='col'>
+                    {{$contactNew->email}}
+                </div>
+                @if($contactNew->company)
+                <div class='col'>
+                    {{$contactNew->company->name}}
+                </div>
+                @endif
+            </div>
+            @endforeach
         </div>
-        @foreach($contactsNews as $contactNew)
-        <div class='row'>
-            <div class='col'>
-                <a class='white' href=' {{route('contact.show', ['contact' => $contactNew->id])}}'>
-                    <button class='button-round'>
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
-                {{$contactNew->name}}
+        <div class='col-6' style='
+             background-color: #E5FFE5;
+             border-radius: 20px 0 0 20px;
+             border-color: white;
+             border-width: 5px;
+             border-style: solid;
+             border-right-style: none;
+             '>
+            <div class='row'>
+                <div class="col pt-2 pb-2">
+                    <p class="labels text-center">
+                        AGUARDANDO PRIMEIRO CONTATO
+                    </p>
+                </div>
             </div>
-            <div class='col'>
-                {{$contactNew->email}}
+            @foreach($opportunitiesNews as $opportunity)
+            <div class='row'>
+                <div class='col-8'>
+                    <a class='white' href=' {{route('opportunity.show', ['opportunity' => $opportunity->id])}}'>
+                        <button class='button-round'>
+                            <i class='fa fa-eye'></i>
+                        </button>
+                    </a>
+                    {{$opportunity->name}}
+                </div>
+                @if($opportunity->company)
+                <div class='col-4'>
+                    {{$opportunity->company->name}}
+                </div>
+                @endif
             </div>
-            @if($contactNew->company)
-            <div class='col'>
-                {{$contactNew->company->name}}
-            </div>
-            @endif
+            @endforeach
         </div>
-        @endforeach
     </div>
-    <div class='col-6' style='
-         background-color: #E5FFE5;
-         border-radius: 20px 0 0 20px;
-         border-color: white;
-         border-width: 5px;
-         border-style: solid;
-         border-right-style: none;
-         '>
-        <div class='row'>
-            <div class="col pt-2 pb-2">
-                <p class="labels text-center">
-                    AGUARDANDO PRIMEIRO CONTATO
-                </p>
-            </div>
-        </div>
-        @foreach($opportunitiesNews as $opportunity)
-        <div class='row'>
-            <div class='col-8'>
-                <a class='white' href=' {{route('opportunity.show', ['opportunity' => $opportunity->id])}}'>
-                    <button class='button-round'>
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
-                {{$opportunity->name}}
-            </div>
-            @if($opportunity->company)
-            <div class='col-4'>
-                {{$opportunity->company->name}}
-            </div>
-            @endif
-        </div>
-        @endforeach
-    </div>
-</div>
 
 </div>
 @endsection
