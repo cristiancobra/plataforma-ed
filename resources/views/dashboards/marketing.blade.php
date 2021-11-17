@@ -62,5 +62,19 @@
         </a>
     </div>
 </div>
+<div class='row mt-2 mb-3 ms-1 me-1'>
+    
+    <div class='col-2 sales-display'>
+<a style='text-decoration:none' href='{{route('contact.target')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-user-plus' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                PÚBLICO-ALVO
+            </p>
+        </a>
+    </div>
+    
+ 
+</div>
 
 @endsection
