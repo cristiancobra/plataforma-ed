@@ -126,11 +126,11 @@
                 <div class='col-6'>
                     <a class='white' href=' {{route('journey.show', ['journey' => $journey])}}'>
                         <p style='color:white;font-weight:600;font-size: 14px;text-align: center'>
-                            [ {{date('H:m', strtotime($journey->start))}}                
+                            [ {{date('H:i', strtotime($journey->start))}}                
                             @if($journey->end == null)
                             - fazendo ]
                             @else
-                            - {{date('H:m', strtotime($journey->end))}} ]
+                            - {{date('H:i', strtotime($journey->end))}} ]
                             @endif
                         </p>
                     </a>
