@@ -266,31 +266,31 @@ CKEDITOR.replace('description');
                 </form>
 
         <!--cabeçalho--> 
-        <div class='row mt-4'>
-            <div class='col-1 tb tb-header'>
+        <div class='row table-header mt-4'  style="background-color: {{$principalColor}}">
+            <div class='col-1'>
                 RESPONSÁVEL
             </div>
-            <div class='col-1 tb tb-header'>
+            <div class='col-1'>
                 INÍCIO 
             </div>
-            <div class='col-3 tb tb-header'>
+            <div class='col-3'>
                 TAREFA 
             </div>
-            <div class='col-4 tb tb-header'>
+            <div class='col-4'>
                 DESCRIÇÃO 
             </div>
-            <div class='col-1 tb tb-header'>
+            <div class='col-1'>
                 CONCLUSÃO
             </div>
-            <div class='col-1 tb tb-header'>
+            <div class='col-1'>
                 PRIORIDADE
             </div>
-            <div class='col-1 tb tb-header'>
+            <div class='col-1'>
                 SITUAÇÃO
             </div>
         </div>
         @foreach($stages as $stage)
-        <div class='row pt-3 pb-2 ' style="background-color: {{$oppositeColor}}">
+        <div class='row pt-3 pb-2' style="background-color: {{$oppositeColor}}">
             <div class='col-7 justify-content-start'>
                 <p  class='labels' style="text-align: left; color: {{$principalColor}}">
                     ETAPA:  {{$stage->name}}
@@ -321,10 +321,12 @@ CKEDITOR.replace('description');
         <!--várias linhas de tarefas-->
         @foreach ($stage->tasks as $task)
         @if($task->trash != 1)
-        <div class='row position-relative'>
+        <div class='row table2 position-relative' style="color: {{$principalColor}};
+                                                                                    border-left-color: {{$complementaryColor}};
+                                                                                    ">
             <a class="stretched-link" href=' {{ route('task.show', ['task' => $task->id]) }}'>
             </a>
-            <div class='tb col-1'>
+            <div class='cel col-1'>
                 @if(isset($task->user->image))
                 <div class='profile-picture-small'>
                     <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
@@ -339,13 +341,13 @@ CKEDITOR.replace('description');
                 funcionário excluído
                 @endif
             </div>
-            <div class='tb col-1'>
+            <div class='cel col-1'>
                 {{date('d/m/Y', strtotime($task->date_start))}}
             </div>
-            <div class='tb col-3'>
+            <div class='cel col-3'>
                 {{$task->name}}
             </div>
-            <div class='tb-description col-4'>
+            <div class='cel-description col-4'>
                 {!!html_entity_decode($task->description)!!}
             </div>
             {{formatDateDue($task)}}
@@ -373,156 +375,8 @@ CKEDITOR.replace('description');
 
 
 
-        <!-- linhas de tarefas sem estágio -->
-        @foreach ($tasksWithoutStage as $task)
-        @if($task->trash != 1)
-        <div class='row position-relative'>
-            <a class="stretched-link" href=' {{ route('task.show', ['task' => $task->id]) }}'>
-            </a>
-            <div class='tb col-1'>
-                @if(isset($task->user->image))
-                <div class='profile-picture-small'>
-                    <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-                        <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
-                    </a>
-                </div>
-                @elseif(isset($task->user->contact->name))
-                <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-                    {{$task->user->contact->name}}
-                </a>
-                @else
-                funcionário excluído
-                @endif
-            </div>
-            <div class='tb col-1'>
-                {{date('d/m/Y', strtotime($task->date_start))}}
-            </div>
-            <div class='tb col-3'>
-                {{$task->name}}
-            </div>
-            <div class='tb-description col-4'>
-                {!!html_entity_decode($task->description)!!}
-            </div>
-            {{formatDateDue($task)}}
 
-            {{formatPriority($task)}}
-
-            {{formatStatus($task)}}
-
-        </div>
-        @endif
-
-
-
-        <!--linha com botao ADICIONAR TAREFA-->
-        <div class='row'>
-            <div class='col-11 d-flex justify-content-end pt-3'>
-                adicionar tarefa nesta etapa
-            </div>
-            <div class='col-1 d-flex justify-content-center pt-2 pb-2'>
-                <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
-                    <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
-                </a>
-            </div>
-        </div>
-
-        <!--linha oculta criar nova tarefa-->
-        @if(Session::has('failed'))
-        <div class="alert alert-danger">
-            {{Session::get('failed')}}
-            @php
-            Session::forget('failed');
-            @endphp
-        </div>
-        @endif
-        <div class='pt-5 pb-5' id="taskRow_{{$counter++}}" style='display: none'>
-            <div class="row">
-                <div class='col-3' style='text-align:left'>
-                    <form id='addStage' action='{{route('task.store')}}' method='post' style='text-align: left'>
-                        <input type='hidden' name='project_id' value='{{$project->id}}'>
-                        <input type='hidden' name='stage_id' value='{{$stage->id}}'>
-                        @csrf
-                        <label class='labels' for='name' style='text-align:left;color:{{$principalColor}}'>
-                            NOME DA TAREFA
-                        </label>
-                        <br>
-                        <input type='text' name='name'  placeholder='nome da tarefa' value=''>
-                        </div>
-                        <div class='col-2' style='text-align:left'>
-
-                            <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
-                            <input type="date" name="date_start" value="{{date('Y-m-d')}}">
-                            @if ($errors->has('date_start'))
-                            <span class="text-danger">{{ $errors->first('date_start') }}</span>
-                            @endif
-                            <br>
-                        </div>
-                        <div class='col-2' style='text-align:left'>
-                            <label class="labels" for="" >PRAZO FINAL:</label>
-                            @if(!empty(app('request')->input('date_due')))
-                            <input type="date" name="date_due" value="{{app('request')->input('date_due')}}">
-                            @else
-                            <input type="date" name="date_due" value="{{old('date_due')}}">
-                            @endif
-                            <input type="time" name="time_due" size="50"  value="{{old('time_due')}}">
-                            @if ($errors->has('date_due'))
-                            <span class="text-danger">{{$errors->first('date_due')}}</span>
-                            @endif
-                            <br>
-                        </div>
-                        <div class='col-2' style='text-align:left'>
-                            <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
-                                RESPONSÁVEL
-                            </label>
-                            <br>
-                            {{createSelectUsers('select', $users, 'Todos os usuários')}}
-                        </div>
-                        <div class='col-2' style='text-align:left'>
-                            <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
-                                PRIORIDADE
-                            </label>
-                            <br>
-                            {{createFilterSelect('priority', 'select', $priorities)}}
-                        </div>
-                        <div class='col-1' style='text-align:left'>
-                            <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
-                                SITUAÇÃO
-                            </label>
-                            <br>
-                            {{createFilterSelect('status', 'select', $status)}}
-                        </div>
-                </div>
-                <div class="row pt-5">
-                    <div class='col-5' style='text-align:left'>
-                        <label class='labels' for='description' style='text-align:left;color:{{$principalColor}}'>
-                            DESCRIÇÃO
-                        </label>
-                    </div>
-                </div>
-                <div class="row pt-1">
-                    <div class='col' style='text-align:left'>
-                        @if ($errors->has('description'))
-                        <span class="text-danger">{{$errors->first('description')}}</span>
-                        @endif
-                        <textarea id="description" name="description" rows="20" cols="90">
-  {{old('description')}}
-                        </textarea>
-                        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-                        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-                        <script>
-CKEDITOR.replace('description');
-                        </script>
-                    </div>
-                </div>
-                <div class="row pt-4">
-                    <div class='col d-flex justify-content-end'>
-                        {{createButtonSave()}}
-                    </div>
-                    </form>
-                </div>
-            </div>
-            @endforeach
-
+        
 
             <!--tarefas sem etapas-->
             @if(Session::has('failed'))
@@ -621,6 +475,20 @@ CKEDITOR.replace('description');
                 </div>
                 @endforeach
 
+                
+                
+
+        <!--linha com botao ADICIONAR TAREFA-->
+        <div class='row'>
+            <div class='col-11 d-flex justify-content-end pt-3'>
+                adicionar tarefa nesta etapa
+            </div>
+            <div class='col-1 d-flex justify-content-center pt-2 pb-2'>
+                <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
+                    <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
+                </a>
+            </div>
+        </div>
 
 
                 <!--linha total--> 

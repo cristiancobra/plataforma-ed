@@ -82,68 +82,62 @@
 
 
 @section('table')
-<div class='row mt-2'>
-    <div class='tb tb-header-start col-3'>
-        NOME
-    </div>
-    <div class='tb tb-header col-2'>
-        CONTATO
-    </div>
-    <div class='tb tb-header col-2'>
-        EMPRESA
-    </div>
-    <div class='tb tb-header col-2'>
+<div class='row  table-header mt-2 mb-2' style="background-color: {{$principalColor}}">
+    <div class='col-1'>
         RESPONSÁVEL
     </div>
-    <div class='tb tb-header col-1'>
+    <div class='col-3'>
+        NOME
+    </div>
+    <div class='col-2'>
+        CONTATO
+    </div>
+    <div class='col-3'>
+        EMPRESA
+    </div>
+    <div class='col-1'>
         PRAZO
     </div>
-    <div class='tb tb-header col-1'>
+    <div class='col-1'>
         PRIORIDADE
     </div>
-    <div class='tb tb-header-end col-1'>
+    <div class='col-1'>
         SITUAÇÃO
     </div>
 </div>
 @foreach ($tasks as $task)
-<div class='row'>
-    <div class='tb col-3 justify-content-start' style="font-weight: 600">
-        <a class="white" href=" {{ route('task.show', ['task' => $task->id]) }}">
-            <button class="button-round">
-                <i class='fa fa-eye'></i>
-            </button>
-        </a>
+<div class="row table2 position-relative"  style="
+                                                                            color: {{$principalColor}};
+                                                                            border-left-color: {{$complementaryColor}}
+                                                                            ">
+    <a class="stretched-link "href=" {{route('task.show', ['task' => $task])}}">
+            </a>
+        <div class='cel col-1'>
+        @if(isset($task->user->image))
+        <div class='profile-picture-small'>
+                <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
+        </div>
+        @elseif($task->user->contact))
+            {{$task->user->contact->name}}
+        @else
+        funcionário excluído
+        @endif
+    </div>
+    <div class='cel col-3 justify-content-start' style="font-weight: 600">
         {{$task->name}}
     </div>
-    <div class='tb col-2'>
-        <a  class="white" href=" {{ route('contact.show', ['contact' => $task->contact_id]) }}">
+    <div class='cel col-2'>
             @if($task->contact)
             {{$task->contact->name}}
             @else
             contato excluído
             @endif
-        </a>
     </div>
-    <div class='tb col-2'>
+    <div class='cel col-3 text-center'>
         @if($task->company)
         {{$task->company->name}}
         @else
         não possui
-        @endif
-    </div>
-    <div class='tb col-2'>
-        @if(isset($task->user->image))
-        <div class='profile-picture-small'>
-            <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-                <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
-            </a>
-        </div>
-        @elseif($task->user->contact))
-        <a  class='white' href=' {{route('user.show', ['user' => $task->user->id])}}'>
-            {{$task->user->contact->name}}
-        </a>
-        @else
-        funcionário excluído
         @endif
     </div>
 

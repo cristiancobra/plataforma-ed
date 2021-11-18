@@ -92,9 +92,13 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
             <a class='circular-nav-button secondary'  href='{{route('task.show', ['task' => $openJourney->task_id])}}'>
                 <i class="fas fa-step-forward" title='Ir para a jornada aberta' style="color:#8B2485"></i>
             </a>
+            @else
+            <a class='circular-nav-button-stop'  href='{{route('task.index', ['user_id' => auth()->user()->id])}}'>
+                <i class="fas fa-stop" title='Crie tarefa para contabilizar seu tempo'></i>
+            </a>
             @endif
             <a class='circular-nav-button secondary'  href='{{route('task.create')}}'>
-                <i class="fas fa-calendar-check" title='Criar nova tarefa' style="color:#8B2485"></i>
+                <i class="fas fa-calendar-check" title='Criar nova tarefa'></i>
             </a>
             @if(count($tasksEmergency) > 0))
             <a class='circular-nav-button delete'  href='{{route('task.index', [
@@ -102,7 +106,7 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
                                                                                                                     'priority' => 'emergência',
                                                                                                                     'user_id' => auth()->user()->id,
                                                                                                                     ])}}'>
-                <i class="fas fa-exclamation-triangle" title='Tarefas emergenciais' style="color:#8B2485"></i>
+                <i class="fas fa-exclamation-triangle" title='Tarefas emergenciais'"></i>
             <div style="
                  border-radius: 50%;
                  color:white;

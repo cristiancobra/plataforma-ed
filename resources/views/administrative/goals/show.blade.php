@@ -189,102 +189,103 @@ CKEDITOR.replace('description');
 
 
     <!--cabeçalho--> 
-    <div class='row'>
-        <div class='col-1 tb tb-header'>
+    <div class="row table-header" style="background-color: {{$principalColor}}">
+        <div class='col-1'>
             RESPONSÁVEL 
         </div>
-        <div class='col-1 tb tb-header'>
+        <div class='col-1'>
             CRIAÇÃO 
         </div>
-        <div class='col-4 tb tb-header'>
+        <div class='col-4'>
             PROJETO 
         </div>
-        <div class='col-4 tb tb-header'>
+        <div class='col-4'>
             DESCRIÇÃO 
         </div>
-        <div class='col-1 tb tb-header'>
+        <div class='col-1'>
             CONCLUSÃO
         </div>
-        <div class='col-1 tb tb-header'>
+        <div class='col-1'>
             SITUAÇÃO
         </div>
     </div>
     @foreach ($projects as $project)
-        <div class='row position-relative'>
-            <a class="stretched-link" href=' {{ route('project.show', [
-                                                                            'project' => $project->id,
-                                                                            ])}}'>
-                </a>
-            <div class='tb col-1'>
-                @if(isset($project->user->image))
-                <div class='profile-picture-small'>
-                        <img src='{{asset($project->user->image->path)}}' width='100%' height='100%'>
-                </div>
-                @elseif(isset($project->user->contact->name))
-                    {{$project->user->contact->name}}
-                @else
-                funcionário excluído
-                @endif
+    <div class="row table2 position-relative"  style="
+         color: {{$principalColor}};
+         border-left-color: {{$complementaryColor}}
+         ">
+        <a class="stretched-link "href=" {{route('project.show', ['project' => $project])}}">
+        </a>
+        <div class='cel col-1'>
+            @if(isset($project->user->image))
+            <div class='profile-picture-small'>
+                <img src='{{asset($project->user->image->path)}}' width='100%' height='100%'>
             </div>
-            <div class='tb col-1'>
-                {{date('d/m/Y', strtotime($project->date_start))}}
-            </div>
-            <div class='tb col-4'>
-                {{$project->name}}
-            </div>
-            <div class='tb-description col-4'>
-                {!!html_entity_decode($project->description)!!}
-            </div>
-
-            {{formatDateDue($project)}}
-
-            {{formatStatus($project)}}
+            @elseif(isset($project->user->contact->name))
+            {{$project->user->contact->name}}
+            @else
+            funcionário excluído
+            @endif
         </div>
-    </a>
-    @endforeach
-    @endsection
-
-
-    @section('editButton', route('goal.edit', ['goal' => $goal->id]))
-
-    @section('backButton', route('goal.index'))
-
-    @section('createdAt')
-    <div class='row' style='margin-top: 30px'>
-        <div class='col-12'style='padding-top: -10px'>
-            Primeiro registro em: {{date('d/m/Y H:i', strtotime($goal->created_at))}}
+        <div class='cel col-1'>
+            {{date('d/m/Y', strtotime($project->date_start))}}
         </div>
+        <div class='cel col-4'>
+            {{$project->name}}
+        </div>
+        <div class='cel-description col-4'>
+            {!!html_entity_decode($project->description)!!}
+        </div>
+
+        {{formatDateDue($project)}}
+
+        {{formatStatus($project)}}
     </div>
-    @endsection
+</a>
+@endforeach
+@endsection
+
+
+@section('editButton', route('goal.edit', ['goal' => $goal->id]))
+
+@section('backButton', route('goal.index'))
+
+@section('createdAt')
+<div class='row' style='margin-top: 30px'>
+    <div class='col-12'style='padding-top: -10px'>
+        Primeiro registro em: {{date('d/m/Y H:i', strtotime($goal->created_at))}}
+    </div>
+</div>
+@endsection
 
 
 
 
-    @section('js-scripts')
-    <script>
-        // botão do filtro
-        $(document).ready(function () {
-        console.log('filter button')
-                //botao de exibir filtro
-                $('#stageButtonOnOff').click(function () {
-        $('#stageRow').slideToggle(600);
-        $('#buttonOnOff').toggleClass('plus minus');
-        });
-        $('#taskButtonOnOff').click(function () {
-        $('#taskRow').slideToggle(600);
-        });
-        @php
-                $counterJs = 1;
-        foreach($projects as $project) {
-        echo "
-                $('#taskButtonOnOff_$counterJs').click(function () {
-        $('#taskRow_$counterJs').slideToggle(600);
-        });
-        ";
-                $counterJs++;
-        }
-        @endphp
+@section('js-scripts')
+<script>
+    // botão do filtro
+    $(document).ready(function () {
+    console.log('filter button')
+            //botao de exibir filtro
+            $('#stageButtonOnOff').click(function () {
+    $('#stageRow').slideToggle(600);
+    $('#buttonOnOff').toggleClass('plus minus');
+    });
+    $('#taskButtonOnOff').click(function () {
+    $('#taskRow').slideToggle(600);
+    });
+    @php
+            $counterJs = 1;
+    foreach($projects as $project) {
+    echo "
+            $('#taskButtonOnOff_$counterJs').click(function () {
+    $('#taskRow_$counterJs').slideToggle(600);
+    });
+    ";
+            $counterJs++;
+    }
+    @endphp
 
-        });
-    </script>
-    @endsection
+    });
+</script>
+@endsection

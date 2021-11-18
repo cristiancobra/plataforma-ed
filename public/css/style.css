@@ -948,7 +948,9 @@ table{
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 6px 20px 20px 6px;
+    border-left-style: solid;
+    border-left-width: 6px;
 box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
@@ -2640,6 +2642,31 @@ h5{
     display:inline-block;
 }
 
+
+.circular-nav-button-stop {
+        color:#d60000;
+    background-color: #FDDBDD;
+    padding-top: 1px;
+    padding-left: 0px;
+    font-size: 14px;
+    border-color: #49d194;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 5px;
+    vertical-align: middle;
+    text-decoration: none;
+    text-align: center;
+    transition: 0.3s;
+    width: 24px;
+    height: 24px;
+    display:inline-block;
+}
+
+.circular-nav-button-stop:hover {
+        background-color: #82c91e;
+        color: white;
+}
+
 .text-button {
     padding-top: 5px;
     padding-bottom: 5px;
@@ -2678,7 +2705,7 @@ h5{
 }
 
 .secondary:hover {
-    color: #874983;
+    color: #e25bff;
     background-color: #f9d0ff;
     text-decoration: none;
 }
