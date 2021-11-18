@@ -82,11 +82,6 @@ $oppositeColor = $empresaDigital->opposite_color;
 
         @endif
 
-        <a class="dropdown-btn nav-link" href='{{route('dashboard.development')}}' style="color: {{$principalColor}}">
-            <i class="fas fa-flask"></i>
-            <span class="d-none d-xl-inline">DESENVOLVIMENTO</span>
-        </a>
-
         <a class="dropdown-btn nav-link" href='{{route('dashboard.marketing')}}' style="color: {{$principalColor}}">
             <i class="fas fa-bullhorn"></i>
             <span class="d-none d-xl-inline">MARKETING</span>
