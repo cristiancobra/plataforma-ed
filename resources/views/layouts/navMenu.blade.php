@@ -89,8 +89,8 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
                 </li>
             </ul>
             @if(isset($openJourney))
-            <a class='circular-nav-button secondary'  href='{{route('task.show', ['task' => $openJourney->task_id])}}'>
-                <i class="fas fa-step-forward" title='Ir para a jornada aberta' style="color:#8B2485"></i>
+            <a class='circular-nav-button-start'  href='{{route('task.show', ['task' => $openJourney->task_id])}}'>
+                <i class="fas fa-step-forward" title='Ir para a jornada aberta'></i>
             </a>
             @else
             <a class='circular-nav-button-stop'  href='{{route('task.index', ['user_id' => auth()->user()->id])}}'>
