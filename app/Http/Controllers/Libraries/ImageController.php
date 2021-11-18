@@ -54,6 +54,7 @@ class ImageController extends Controller {
         ];
         $validator = Validator::make($request->all(), [
                     'name' => 'required:images',
+                    'alt' => 'required:images',
                     'image' => 'required|image|max:50000',
                         ], $messages);
 
@@ -66,6 +67,7 @@ class ImageController extends Controller {
             $image = new Image();
             $image->fill($request->all());
             $image->account_id = auth()->user()->account_id;
+            $image->user_id = auth()->user()->id;
 
             if ($request->image_name) {
                 $image->name = "Imagem $image da tarefa $request->image_name";

@@ -34,20 +34,20 @@
 
 
 @section('table')
-<div class='row'>
-    <div class='tb tb-header-start col-2'>
+<div class="row table-header mb-2" style="background-color: {{$principalColor}}">
+    <div class='col-2'>
         IMAGEM
     </div>
-    <div class='tb tb-header col-5'>
+    <div class='col-5'>
         NOME
     </div>
-    <div class='tb tb-header col-2'>
+    <div class='col-2'>
         TIPO
     </div>
-    <div class='tb tb-header col-2'>
+    <div class='col-2'>
         ENVIADO POR
     </div>
-    <div class='tb tb-header-end col-1'>
+    <div class='col-1'>
         SITUAÇÃO
     </div>
 </div>

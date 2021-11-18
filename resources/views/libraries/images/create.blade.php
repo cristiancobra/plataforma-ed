@@ -10,7 +10,6 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
 {{createButtonList('image')}}
 @endsection
 
@@ -34,14 +33,19 @@
                       width='100%' height='100%'>
             </div>
             <input  type='file' name='image'>
+                            @if ($errors->has('image'))
+        <span class="text-danger">{{$errors->first('image')}}</span>
+        @endif
         </div>
         <br>
         <br>
         <label class="labels" for="">NOME:</label>
         <input type='text' class='fields' name='name' size='50'>
+                @if ($errors->has('name'))
+        <span class="text-danger">{{$errors->first('name')}}</span>
+        @endif
         <br>
         <label class="labels" for="" >TEXTO ALTERNATIVO:</label>
-        <br>
         @if ($errors->has('alt'))
         <span class="text-danger">{{$errors->first('alt')}}</span>
         @endif

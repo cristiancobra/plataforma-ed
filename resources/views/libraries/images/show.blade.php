@@ -38,9 +38,9 @@
             </a>
         </div>
         @elseif(isset($image->user->image))
-        <a href=' {{route('user.show', ['user' => $task->user_id])}}'>
+        <a href=' {{route('user.show', ['user' => $image->user_id])}}'>
             <div class='show-field-end'>
-                {{$task->user->contact->name}}
+                {{$image->user->contact->name}}
             </div>
         </a>
         @else
