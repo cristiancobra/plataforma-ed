@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DateTime;
+use DateInterval;
 use DB;
 use App\Models\BankAccount;
 use App\Models\Contact;
@@ -157,6 +159,49 @@ class DashboardController extends Controller {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
+        
+         $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                 ->where('trash', '!=', 1)
+                 ->take(6)
+                ->orderBy('pay_day', 'DESC')
+                 ->get();
+        
+         $dateDue = new DateTime('now');
+         $dateDue->add(new DateInterval('P2D'));
+         $dateDue = $dateDue->format('Y-m-d');
+        
+         $dateLimit = new DateTime('now');
+         $dateLimit->sub(new DateInterval('P1M'));
+         $dateLimit = $dateLimit->format('Y-m-d');
+       
+         $invoices = Invoice::where('account_id', auth()->user()->account_id)
+                 ->where('trash', '!=', 1)
+                 ->where('status', 'aprovada')
+                 ->where('pay_day', '>', $dateDue)
+//                 ->whereBetween('pay_day', [$dateDue, $dateLimit])
+                 ->take(6)
+                ->orderBy('pay_day', 'ASC')
+                 ->get();
+         
+//                 $invoices = Invoice::filterInvoices($request);
+//        
+//                foreach ($invoices as $invoice) {
+//            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+//                    ->where('trash', '!=', 1)
+//                    ->sum('value');
+//            if ($invoice->totalPrice == $invoice->paid) {
+//                $invoice->status = 'paga';
+//            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+//                $invoice->status = 'parcial';
+//            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+//                $invoice->status = 'atrasada';
+//            }
+//
+//            $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+//            $invoicesTotal += $invoice->totalPrice;
+//            $proposal->balance += $invoice->balance;
+//        }
 
         $revenueMonthly = Transaction::where('account_id', auth()->user()->account_id)
                 ->where('type', 'crédito')
@@ -192,6 +237,8 @@ class DashboardController extends Controller {
         }
 
         return view('dashboards.financial', compact(
+                        'transactions',
+                        'invoices',
                         'revenueMonthly',
                         'estimatedRevenueMonthly',
                         'expenseMonthly',

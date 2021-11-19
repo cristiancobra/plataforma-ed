@@ -167,13 +167,13 @@ CKEDITOR.replace('description');
         {{createButtonAdd('product.create', 'variation', 'despesa')}}
         @endif
         <div class='row mt-3'>
-            <div   class='tb-header-start col-1'>
-                QTDE 
-            </div>
             <div   class='tb-header col-1'>
                 FOTO 
             </div>
-            <div   class='tb-header col-4'>
+            <div   class='tb-header-start col-1'>
+                QTDE 
+            </div>
+            <div   class='tb-header col-6'>
                 NOME 
             </div>
             <div   class='tb-header col-1'>
@@ -182,10 +182,10 @@ CKEDITOR.replace('description');
             <div   class='tb-header col-1'>
                 ENTREGA
             </div>
-            <div   class='tb-header col-2'>
+            <div   class='tb-header col-1'>
                 IMPOSTO
             </div>
-            <div   class='tb-header-end col-2'>
+            <div   class='tb-header-end col-1'>
                 PREÇO
             </div>
         </div>
@@ -197,13 +197,11 @@ CKEDITOR.replace('description');
         <div class='row'>
             <input type='hidden' name='product_id[]' value='{{$product->id}}'>
             <div class='tb col-1'>
-                <input type='number' name='product_amount[]' size='4' value='{{old('product_amount.'.$counter)}}'>
-            </div>
-
-            <div class='tb col-1'>
                 <image src='{{$product->image}}' style='width:50px;height:50px; margin: 5px'>
             </div>
-
+            <div class='tb col-1'>
+                <input type='number' name='product_amount[]' size='4' value='{{old('product_amount.'.$counter)}}'>
+            </div>
             <div class='tb col-6 justify-content-start'>
                 <button class='button-round'>
                     <a href=' {{route('product.show', ['product' => $product->id])}}'>

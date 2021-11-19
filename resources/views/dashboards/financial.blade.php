@@ -10,74 +10,609 @@
 @endsection
 
 @section('main')
-<div class='row mt-2 mb-3 ms-1 me-1'>
 
-    <div class='financial-display col-3'>
-    <div>
-        <div style='display: inline-block;float: left;width: 20%'>
-            <img class='financial-image' src="{{asset('images/financial-planning.png')}}">
-        </div>
-        <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
-            <p style="color:white;font-size: 15px;text-align: left">
-                VENDIDO:
-                <br>
-                COMPROMETIDO:
-                <br>
-                SALDO:
-            </p>
-        </div>
-        <div style='display: inline-block;float:right;width: 30%'>
-            <p style="color:white;font-size: 15px;text-align: right">
-                {{formatCurrency($estimatedRevenueMonthly)}}
-                <br>
-                {{formatCurrency($estimatedExpenseMonthly)}}
-                <br>
-                {{formatCurrency($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
-        </div>
-    </div>
-    </div>
-    <div class='col-2 pt-4 d-inline-block sales-display'>
-        <a style='text-decoration:none' href='{{route('invoice.index')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-money-bill" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                <br>
-                FATURAS
-            </p>
-        </a>
-    </div>
+<!--     linha 1 de blocos-->
+<div class='row'>
 
-    <div class='col-2 pt-4 d-inline-block sales-display'>
-        <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'despesa'])}}'>
-            <p class='panel-text'>
-                <i class="fas fa-donate" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                <br>
-                DESPESAS
-            </p>
-        </a>
-    </div>
-    <div class='col-2 pt-4 d-inline-block sales-display'>
-        <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
-            <p class='panel-text'>
-                <i class="fas fa-boxes" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                <br>
-                ITENS DE DESPESA
-            </p>
-        </a>
-    </div>
-    <div class='col-2 pt-4 d-inline-block sales-display'>
-        <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'fornecedor'])}}'>
-            <p class='panel-text'>
-                <i class="fas fa-boxes" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                <br>
+    <!--     começo bloco FORNECEDORES-->
+    <!--coluna 1-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-truck' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
                 FORNECEDORES
-            </p>
-        </a>
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('company.create', ['typeCompanies' => 'fornecedor'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova oportunidade'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'fornecedor'])}}'>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todos os fornecedores'></i>
+                </a>
+            </div>
+        </div>
     </div>
+    <!--fim do bloco de FORNECEDORES-->
+
+
+
+    <!--     começo bloco DESPESAS-->
+    <!--coluna 1-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-boxes' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
+                DESPESAS
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('product.create', ['variation' => 'despesa'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='novo item de despesa'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas os itens de desepsas'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--fim do bloco de DESPESAS-->
+
+
+    <!--     começo bloco ITENS DE DESPESA-->
+    <!--coluna 1-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-boxes' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
+                ITENS DE DESPESA
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('product.create', ['variation' => 'despesa'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='novo item de despesa'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas os itens de desepsas'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--fim do bloco de ITENS DE DESPESA-->
+
+
+
+    <!--     começo bloco CONTAS BANCÁRIAS-->
+    <!--coluna 1-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-piggy-bank' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
+                CONTAS BANCÁRIAS
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('bankAccount.create')}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova conta bancária'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('bankAccount.index')}}'>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas as contas bancárias'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--fim do bloco de CONTAS BANCÁRIAS-->
+
+
+
+
+    <!--fim da LINHA 1 de blocos-->    
 </div>
 
-<div class='row mt-2 mb-3 ms-1 me-1'>
 
+
+<!--     linha 2 REALIZADO-->
+<div class='row mt-5'>
+
+    <!--     começo bloco REALIZADO-->
+    <!--coluna 1-->
+    <div class='col-1' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 0px;
+         margin-top: 10px;
+         padding-top: 30px;
+         border-radius: 10px 0px 0px 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-check-square' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3' style='
+                 font-size: 16px;
+                 margin-left: -8px;
+                 '>
+                REALIZADO
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none;color: #0088ff' href='{{route('transaction.create', ['typeTransactions' => 'crédito'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='registrar nova entrada'></i>
+                </a>
+                <a style='text-decoration:none;color: #0088ff' href='{{route('transaction.index', ['type' => 'crédito'])}}'>
+                    <i class='fas fa-list ps-2 pe-2' title='todas as entradas'></i>
+                </a>
+                <a style='text-decoration:none;color: #c40233' href='{{route('transaction.create', ['typeTransactions' => 'débito'])}}'>
+                    <i class='fas fa-minus-circle ps-2 pe-2 pt-4' title='registrar nova saída'></i>
+                </a>
+                <a style='text-decoration:none;color: #c40233' href='{{route('transaction.index', ['type' => 'débito'])}}'>
+                    <i class='fas fa-list ps-2 pe-2' title='todas as saídas'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('transaction.createTransfer', ['typeTransactions' => 'transferência'])}}'>
+                    <i class='fas fa-sync-alt ps-2 pe-2 pt-4' title='registrar nova transferência'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--coluna 2-->
+    <div class='col-10' style='
+         border-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 0px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 0px 10px 10px 0px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         font-weight: 600;
+         '>
+
+
+        <!--linha das últimas transações-->
+        @foreach ($transactions as $transaction)
+        @php
+        if($transaction->type == 'crédito') {
+        $typeColor = '#0088ff';
+        } else {
+        $typeColor = '#c40233';
+        }
+        @endphp
+        <div class='container'>
+            <div class='row table2 position-relative' style="
+                 color: {{$principalColor}};
+                 border-left-color: {{$typeColor}};
+                 ">
+                <a class='stretched-link' href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
+                </a>
+                <div class='cel col-1'>
+                    {{dateBr($transaction->pay_day)}}
+                </div>
+                <div class='cel col-3'>
+                    @if($transaction->bankAccount)
+                    <a class='white' href=' {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}'>
+                        {{$transaction->bankAccount->name}}
+                    </a>
+                    @else
+                    conta excluída
+                    @endif
+                </div>
+                <div class='cel col-6 justify-content-start'>
+                    @if(isset($transaction->invoice->company->name))
+                    <a class='white' href=' {{route('company.show', ['company' => $transaction->invoice->company->id])}}'>
+                        {{$transaction->invoice->company->name}}
+                    </a>
+                    @elseif(isset($transaction->invoice->contact->name))
+                    <a class='white' href=' {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}'>
+                        {{$transaction->invoice->contact->name}}
+                    </a>
+                    @elseif($transaction->type == 'transferência')
+                    {{$transaction->account->name}}
+                    @else
+                    Não possui
+                    @endif
+                </div>
+                <div class='cel col-2 justify-content-end' style='color:{{$typeColor}}'>
+                    {{formatCurrencyReal($transaction->value)}}
+                </div>
+
+            </div>
+        </div>
+        @endforeach
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 0px 0px;
+             '>
+            <div class="col">
+
+            </div>
+        </div>
+
+        <!--linha VER TODAS transações-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 16px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 0px 0px;
+             '>
+            <div class="col">
+                <a href="{{route('transaction.index')}}">
+                    ver todas as movimentações
+                </a>
+            </div>
+        </div>
+
+
+    </div>        
+    <!--fim do bloco de REALIZADO-->
+
+    <!--fim da LINHA REALIZADO-->    
+</div>
+
+
+<!--     linha 2 PREVISTO-->
+<div class='row mt-5'>
+
+    <!--     começo bloco PREVISTO-->
+    <!--coluna 1-->
+    <div class='col-1' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 0px;
+         margin-top: 10px;
+         padding-top: 30px;
+         border-radius: 10px 0px 0px 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-calendar-times' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3' style='
+                 font-size: 17px;
+                 margin-left: -3px;
+                 '>
+                PREVISTO
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none;color: #0088ff' href='{{route('invoice.create', ['typeInvoices' => 'receita'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='registrar nova entrada'></i>
+                </a>
+                <a style='text-decoration:none;color: #0088ff' href='{{route('invoice.index', ['type' => 'receita'])}}'>
+                    <i class='fas fa-list ps-2 pe-2' title='todas as entradas'></i>
+                </a>
+                <a style='text-decoration:none;color: #c40233' href='{{route('invoice.create', ['typeInvoices' => 'despesa'])}}'>
+                    <i class='fas fa-minus-circle ps-2 pe-2 pt-4' title='registrar nova saída'></i>
+                </a>
+                <a style='text-decoration:none;color: #c40233' href='{{route('invoice.index', ['type' => 'despesa'])}}'>
+                    <i class='fas fa-list ps-2 pe-2' title='todas as saídas'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!--coluna 2-->
+    <div class='col-10' style='
+         border-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 0px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 0px 10px 10px 0px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         font-weight: 600;
+         '>
+
+
+        <!--linha das últimas FATURAS-->
+        @foreach ($invoices as $invoice)
+        @php
+        if($invoice->type == 'crédito') {
+        $typeColor = '#0088ff';
+        } else {
+        $typeColor = '#c40233';
+        }
+
+        if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+        $dateColor = '#0088ff';
+        } else {
+        $dateColor = '#c40233';
+        }
+        @endphp
+
+        <div class='container'>
+            <div class='row table2 position-relative' style="
+                 color: {{$principalColor}};
+                 border-left-color: {{$typeColor}};
+                 ">
+                <a class='stretched-link' href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
+                </a>
+                <div class='cel col-1' style="color: {{$dateColor}}">
+                    {{dateBr($invoice->pay_day)}}
+                </div>
+                <div class='cel col-3'>
+                    @if($invoice->proposal)
+                    <a class='white' href=' {{route('proposal.show', ['proposal' => $invoice->proposal])}}'>
+                        {{$invoice->proposal->name}}
+                    </a>
+                    @else
+                    não possui
+                    @endif
+                </div>
+                <div class='cel col-4 justify-content-start'>
+                    @if($invoice->proposal->company)
+                    {{$invoice->proposal->company->name}}
+                    @elseif($invoice->proposal->contact)
+                    {{$invoice->proposal->contact->name}}
+                    @elseif($invoice->type == 'transferência')
+                    {{$invoice->account->name}}
+                    @else
+                    Não possui
+                    @endif
+                </div>
+                <div class='cel col-2 justify-content-end' style='color:{{$typeColor}}'>
+                    {{formatCurrencyReal($invoice->totalPrice)}}
+                </div>
+                <div class='cel col-2 justify-content-end' style='color:{{$typeColor}}'>
+                    {{formatCurrencyReal($invoice->value)}}
+                </div>
+            </div>
+        </div>
+
+        @endforeach
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 0px 0px;
+             '>
+            <div class="col">
+
+            </div>
+        </div>
+
+        <!--linha VER TODAS faturas-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 16px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 0px 0px;
+             '>
+            <div class="col">
+                <a href="{{route('invoice.index')}}">
+                    ver todas as faturas
+                </a>
+            </div>
+        </div>
+
+
+    </div>        
+    <!--fim do bloco de PREVISTO-->
+
+    <!--fim da LINHA PREVISTO-->    
+</div>
+
+
+
+<div class='row mt-5 mb-3 ms-1 me-1'>
     <div class='financial-display col-3'>
+        <div>
+            <div style='display: inline-block;float: left;width: 20%'>
+                <img class='financial-image' src="{{asset('images/financial-planning.png')}}">
+            </div>
+            <div style='display: inline-block;float:left;width: 40%;padding-left: 10px'>
+                <p style="color:white;font-size: 15px;text-align: left">
+                    VENDIDO:
+                    <br>
+                    COMPROMETIDO:
+                    <br>
+                    SALDO:
+                </p>
+            </div>
+            <div style='display: inline-block;float:right;width: 30%'>
+                <p style="color:white;font-size: 15px;text-align: right">
+                    {{formatCurrency($estimatedRevenueMonthly)}}
+                    <br>
+                    {{formatCurrency($estimatedExpenseMonthly)}}
+                    <br>
+                    {{formatCurrency($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+            </div>
+        </div>
+    </div>
+
+
+    <div class='financial-display ms-5 me-5 col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
             <img class='financial-image' src="{{asset('images/invoice.png')}}" style='width:100%'>
         </div>
@@ -102,18 +637,7 @@
             </p>
         </div>
     </div>
-    <div class='col-2 pt-4 d-inline-block sales-display'>
-        <a style='text-decoration:none' href='{{route('transaction.index')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-sync-alt" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                <br>
-                FLUXO DE CAIXA
-            </p>
-        </a>
-    </div>
-</div>
 
-<div class='row mt-2 mb-3 ms-1 me-1'>
 
     <div class='financial-display col-3'>
         <div style='display: inline-block;float: left;width: 20%'>
@@ -139,15 +663,5 @@
             </p>
         </div>
     </div>
-    <div class='col-2 pt-4 d-inline-block sales-display'>
-        <a style='text-decoration:none' href='{{route('bankAccount.index')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-piggy-bank" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                <br>
-                CONTAS BANCÁRIAS
-            </p>
-        </a>
-    </div>
-</div>
 </div>
 @endsection

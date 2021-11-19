@@ -11,7 +11,6 @@
 <a class='circular-button secondary' href='{{route('invoice.email', ['invoice' => $invoice])}}'>
     <i class='fas fa-envelope'></i>
 </a>
-{{createButtonBack()}}
 {{createButtonTrash($invoice, 'invoice')}}
 {{createButtonEdit('invoice', 'invoice', $invoice)}}
 {{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}

@@ -33,14 +33,17 @@ $tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
 }
 @endphp
 
-<nav class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: {{$principalColor}}">
-    <div class="container">
+<nav class="navbar navbar-expand-md navbar-dark shadow-sm fixed-top" style="
+height:56px;
+     background-color: {{$principalColor}}
+">
+    <div class="container-fluid ms-5 me-5">
         <a class="navbar-brand" href="{{url('/')}}">
             @guest
-            <img src="{{asset('/images/logo-empresa-digital.png')}}" width="150px" height="50px">
+            <img src="{{asset('/images/logo-empresa-digital.png')}}" width="120px" height="40px">
             @endguest
             @auth
-            <img src="{{asset($logo)}}" width="150px" height="50px">
+            <img src="{{asset($logo)}}" width="120px" height="40px">
             @endauth
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{__('Toggle navigation')}}">
