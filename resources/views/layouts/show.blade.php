@@ -13,7 +13,7 @@
 
         @include('layouts.navMenu')
 
-        <div class='container-fluid'>
+        <div class='container-fluid' style="margin-top: 56px">
             <div class='row' style='background-color: #EEEEEE'>
                 @include('layouts.sidebar')
                 <main role='main' class='offset-2 col-10 pt-2' style='background-color: #EEEEEE'>
