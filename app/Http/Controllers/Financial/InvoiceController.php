@@ -89,7 +89,7 @@ class InvoiceController extends Controller {
                 ->whereBetween('pay_day', [$yearStart, $yearEnd])
                 ->sum('installment_value');
 
-        return view('financial.invoices.indexInvoices', compact(
+        return view('financial.invoices.index', compact(
                         'monthStart',
                         'monthEnd',
                         'invoices',
@@ -147,7 +147,7 @@ class InvoiceController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        return view('financial.invoices.createInvoice', compact(
+        return view('financial.invoices.create', compact(
                         'request',
                         'proposals',
                         'opportunities',
@@ -286,7 +286,7 @@ class InvoiceController extends Controller {
 
         $variation = $invoice->type;
 
-        return view('financial.invoices.showInvoice', compact(
+        return view('financial.invoices.show', compact(
                         'typeInvoices',
                         'invoice',
                         'invoices',
@@ -327,7 +327,7 @@ class InvoiceController extends Controller {
         $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
                 ->get();
 
-        $contracts = Contract::where('invoice_id', $invoice->id)
+        $contracts = Contract::where('proposal_id', $invoice->proposal_id)
                 ->orderBy('ID', 'ASC')
                 ->get();
 
@@ -336,8 +336,10 @@ class InvoiceController extends Controller {
                 ->get();
 
         $variation = $invoice->type;
+        
+        $status = Proposal::returnStatus();
 
-        return view('financial.invoices.editInvoice', compact(
+        return view('financial.invoices.edit', compact(
                         'invoice',
                         'productProposals',
                         'users',
@@ -348,6 +350,7 @@ class InvoiceController extends Controller {
                         'contracts',
                         'contacts',
                         'variation',
+                        'status',
         ));
     }
 

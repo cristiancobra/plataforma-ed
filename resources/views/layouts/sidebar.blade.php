@@ -237,6 +237,11 @@ $oppositeColor = $empresaDigital->opposite_color;
 
         {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
+                                                                                                                                                            'name' => 'TUTORIAIS',
+                                                                                                                                                            'faIcon' => 'fas fa-question-circle',
+                                                                                                                                                            'link' => route('systemText.tutorial')
+                                                                                                                                                        ],
+                                                                                                                                                        [
                                                                                                                                                             'name' => 'AJUDA',
                                                                                                                                                             'faIcon' => 'fas fa-question-circle',
                                                                                                                                                             'link' => 'https://empresadigital.net.br/empreender/'

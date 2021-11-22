@@ -62,6 +62,7 @@ class SystemText extends Model
     public static function returnTypes() {
         return $status = array(
             'primeiros passos',
+            'tutorial',
         );
     }
 }

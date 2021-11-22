@@ -155,4 +155,24 @@ class SystemTextsController extends Controller {
         //
     }
 
+    public function tutorial() {
+           $tutorials = SystemText::where('type', 'tutorial')
+                   ->where('status', 'ativada')
+                ->orderBy('name', 'ASC')
+                ->paginate(20);
+
+        $tutorials->appends([
+            'type' => 'tutorial',
+            'status' => 'ativada',
+        ]);
+        
+                $departments = Text::returnDepartments();
+                        $status = SystemText::returnStatus();
+        
+        return view('system.system_texts.index_tutorials', compact(
+                'tutorials',
+                'departments',
+                'status',
+        ));
+    }
 }

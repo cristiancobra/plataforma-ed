@@ -138,8 +138,7 @@ class Proposal extends Model {
                 )
                 ->orderBy('pay_day', 'DESC')
                 ->paginate(20);
-                
-                
+
         $proposals->appends([
             'user_id' => $request->user_id,
             'name' => $request->name,
@@ -175,6 +174,17 @@ class Proposal extends Model {
                     ->sum('totalPrice');
         }
         return $months;
+    }
+
+    // retorna o STATUS / SITUAÇÃO da fatura 
+    public static function returnStatus() {
+
+        return $status = array(
+            'rascunho',
+            'orçamento',
+            'cancelada',
+            'aprovada',
+        );
     }
 
 }

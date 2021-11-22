@@ -45,6 +45,7 @@ Route::get('/configuracoes', 'ConfigurationsController@index')
 
 Route::get('/tutorial-plataforma', 'NovaPlataformaController@modelo')->name('tutorial_plataforma');
 
+
 Route::get('/clear', function () {
     $exitCode = Artisan::call('config:cache');
     $exitCode = Artisan::call('config:clear');
@@ -64,6 +65,8 @@ Route::get('/logout', function () {
     Auth::logout();
     return Redirect::to('/');
 });
+
+Route::get('/tutoriais', 'System\\SystemTextsController@tutorial')->name('systemText.tutorial');
 
 Route::resource('textos-do-sistema', 'System\\SystemTextsController')
         ->names('systemText')
@@ -179,9 +182,9 @@ Route::get('faturas/pdf/{invoice}', 'Financial\\InvoiceController@createPdf')
 //        ->name('invoice.filter')
 //        ->middleware('roles');
 
-Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
-        ->name('invoice.installment')
-        ->middleware('roles');
+//Route::any('faturas/gerar/{invoice}', 'Financial\\InvoiceController@generateInstallment')
+//        ->name('invoice.installment')
+//        ->middleware('roles');
 
 Route::put('/faturas/apagar/{invoice}', 'Financial\\InvoiceController@sendToTrash')
         ->name('invoice.trash')

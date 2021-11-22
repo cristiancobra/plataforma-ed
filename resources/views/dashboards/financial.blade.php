@@ -335,7 +335,7 @@
                  ">
                 <a class='stretched-link' href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
                 </a>
-                <div class='cel col-1'>
+                <div class='cel col-1' style="color: {{$typeColor}}">
                     {{dateBr($transaction->pay_day)}}
                 </div>
                 <div class='cel col-3 justify-content-start'>
@@ -499,12 +499,6 @@
         } else {
         $typeColor = '#c40233';
         }
-
-        if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
-        $dateColor = '#0088ff';
-        } else {
-        $dateColor = '#c40233';
-        }
         @endphp
 
         <div class='container'>
@@ -514,7 +508,7 @@
                  ">
                 <a class='stretched-link' href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
                 </a>
-                <div class='cel col-1' style="color: {{$dateColor}}">
+                <div class='cel col-1' style="color: {{$typeColor}}">
                     {{dateBr($invoice->pay_day)}}
                 </div>
                 <div class='cel col-3 justify-content-start'>

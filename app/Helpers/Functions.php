@@ -1633,19 +1633,6 @@ if (!function_exists('returnContractStatus')) {
     }
 
 }
-// retorna o STATUS / SITUAÇÃO da fatura 
-if (!function_exists('returnInvoiceStatus')) {
-
-    function returnInvoiceStatus() {
-        return $status = array(
-            'rascunho',
-            'orçamento',
-            'cancelada',
-            'aprovada',
-        );
-    }
-
-}
 // retorna o STATUS / SITUAÇÃO da fatura especificamente para o filtro
 if (!function_exists('returnInvoiceStatusToFilter')) {
 

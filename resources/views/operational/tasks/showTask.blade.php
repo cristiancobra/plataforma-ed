@@ -326,7 +326,7 @@
         <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.completeFromTask', ['journey' => $openJourney])}}" method="post">
             @csrf
             @method('put')
-            <button id='' class=' emergency-display' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+            <button id='' class=' emergency-display' title='Encerrar jornada com a hora atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
                 <p class='panel-text pt-2 mb-2'>
                     <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
                     <br>

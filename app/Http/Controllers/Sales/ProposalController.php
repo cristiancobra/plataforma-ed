@@ -132,6 +132,7 @@ class ProposalController extends Controller {
                 ->get();
 
         $types = Proposal::returnTypes();
+        $status = Proposal::returnStatus();
 
         return view('sales.proposals.create', compact(
                         'request',
@@ -141,6 +142,7 @@ class ProposalController extends Controller {
                         'products',
                         'users',
                         'types',
+                        'status',
                         'type',
         ));
     }

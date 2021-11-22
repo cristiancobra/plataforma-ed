@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/edit')
 
 @section('title','EDITAR PARCELAMENTO')
 

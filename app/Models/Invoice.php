@@ -383,4 +383,15 @@ class Invoice extends Model {
         return $invoices->where('status', '!=', 'paga');
     }
 
+    // retorna o STATUS / SITUAÇÃO da fatura 
+public static function returnStatus() {
+
+        return $status = array(
+            'rascunho',
+            'orçamento',
+            'cancelada',
+            'aprovada',
+        );
+    }
+
 }

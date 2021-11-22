@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/edit')
 
 @section('title','FATURAS')
 
@@ -6,78 +6,166 @@
 {{ asset('images/invoice.png') }} 
 @endsection
 
-@section('description')
-@endsection
 
-@section('buttons')
-<a class='circular-button primary'  href='{{route('invoice.index')}}'>
-    <i class='fas fa-arrow-left'></i>
-</a>
-@endsection
+@section('form_start')
+<form action=' {{route('invoice.update', ['invoice' => $invoice])}} ' method='post'>
+    @csrf
+    @method('put')
+    @endsection
 
-@section('main')
-<div>
-    <form action=' {{route('invoice.update', ['invoice' => $invoice])}} ' method='post'>
-        @csrf
-        @method('put')
-        <label class='labels' for='' >IDENTIFICADOR:</label>
-        <input type='number' span class='fields' style='width: 80px;text-align: right' value='{{$invoice->identifier}}'>
-        <br>
-        <label class='labels' for='' >VENDEDOR: </label>
-        <select name='user_id'>
-            <option  class='fields' value='{{$invoice->user_id}}'>
-                {{$invoice->user->contact->name}}
-            </option>
-            @foreach ($users as $user)
-            <option  class='fields' value='{{$user->id}}'>
-                {{$user->contact->name}}
-            </option>
-            @endforeach
-        </select>
-        <br>
-        <br>
-        @if(isset($invoice->opportunity_id))
-        <label class='labels' for='' >OPORTUNIDADE: </label>
-        <input type='hidden' name='opportunity_id' value='{{$invoice->opportunity_id}}'>
-        <span class='fields'>{{$invoice->opportunity->name}}</span>
-        <br>
+
+    @section('buttons')
+    <a class='circular-button secondary'  title='Cancelar alterações' href='{{url()->previous()}}'>
+        <i class='fas fa-times-circle'></i>
+    </a>
+    <button id='' class='circular-button primary' title='Salvar alterações' style='border:none;padding-left:4px;padding-top:2px' 'type='submit'>
+        <i class='fas fa-save'></i>
+    </button>
+    @endsection
+
+
+    @section('name')
+    NOME:
+    <input type='text' name='name' size='60' style='margin-left: 10px' value='{{$invoice->proposal->name}}'>
+    @endsection
+
+
+    @section('priority')
+    IDENTIFICADOR:
+    <input type='number' name='identifier'  style='width: 80px;text-align: right' value='{{$invoice->identifier}}'>
+    @endsection
+
+
+    @section('status')
+    SITUAÇÃO:
+    {{createSimpleSelect('status', 'fields', $status, $invoice->proposal->status)}}
+    @endsection
+
+
+    @section('fieldsId')
+    <div class='col-lg-2 col-xs-6' style='text-align: center'>
+        <div class='show-label'>
+            PROPOSTA
+        </div>
+        <div class='show-label'>
+            EMPRESA
+        </div>
+        <div class='show-label'>
+            CONTATO
+        </div>
+        @if($invoice->proposal->opportunity)
+        <div class='show-label'>
+            OPORTUNIDADE
+        </div>
         @endif
-
-        <label class='labels' for='' >CONTATO: </label>
-        {{createDoubleSelectIdName('contact_id', 'fields', $contacts,'Não possui', $invoice->contact, )}}
-        {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
-        <br>
-        @if(isset($invoice->opportunity_id))
-        <label class='labels' for='' >CONTRATO: </label>
-        <select name='contract_id'>
-            <option  class='fields' value='{{$invoice->contract_id}}'>
-                {{$invoice->contract_id}}
-            </option>
-            @foreach ($contracts as $contract)
-            <option  class='fields' value='{{$contract->id}}'>
-                {{$contract->id}} - {{$contract->name}}
-            </option>
-            @endforeach
-        </select>
+    </div>
+    <div class='col-lg-4 col-xs-6' style='text-align: center'>
+        <a href="{{route('proposal.show', ['proposal' => $invoice->proposal])}}">
+            <div class='show-field-end'>
+                {{$invoice->proposal->name}}
+            </div>
+        </a>
+        <div class='show-field-end'>
+            {{$invoice->proposal->company->name}}
+        </div>
+        <div class='show-field-end'>
+            @if($invoice->proposal->contact)
+            {{$invoice->proposal->contact->name}}
+            @else
+            Nao possui
+            @endif
+        </div>
+        @if(isset($invoice->proposal->opportunity))
+        <div class='show-field-end'>
+            <input type='hidden' name='opportunity_id' value='{{$invoice->proposal->opportunity_id}}'>
+            <span class='fields'>{{$invoice->proposal->opportunity->name}}</span>
+        </div>
         @endif
-        <br>
-        <br>
-        <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
+    </div>
+    <div class='col-lg-2 col-xs-6' style='text-align: center'>
+        <div class='show-label'>
+            VENDEDOR
+        </div>
+        <div class='show-label'>
+            CONTRATO
+        </div>
+        <div class='show-label'>
+            PARCELAMENTO
+        </div>
+    </div>
+    <div class='col-lg-4 col-xs-6' style='text-align: center'>
+        <div class='show-field-end'>
+            {{$invoice->proposal->user->contact->name}}
+        </div>
+        <div class='show-field-end'>
+            @if(!isset($invoice->proposal->contract_id) OR $invoice->proposal->contract_id == 0)
+            Sem contrato
+            @else
+            <select name='contract_id'>
+                <option  class='fields' value='{{$invoice->proposal->contract_id}}'>
+                    {{$invoice->proposal->contract_id}}
+                </option>
+                @foreach ($contracts as $contract)
+                <option  class='fields' value='{{$contract->id}}'>
+                    {{$contract->id}} - {{$contract->name}}
+                </option>
+                @endforeach
+            </select>
+            @endif
+        </div>
+        <div class='show-field-end'>
+            {{$invoice->proposal->installment}}
+        </div>
+    </div>
+    @endsection
+
+
+
+
+
+    @section('date_start')
+    <div class='circle-date-start'>
         <input type='date' name='date_creation' size='20' value='{{$invoice->date_creation}}'>
         @if ($errors->has('date_creation'))
         <span class="text-danger">{{$errors->first('date_creation')}}</span>
         @endif
-        <br>
-        <label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
-        <input type='number' name='expiration_date' size='3' min='1' max='365' value='{{$invoice->expiration_date}}'> dias
-        <br>
-        <label class='labels' for='' >DATA DO PAGAMENTO:</label>
+    </div>
+    <p class='labels' style='text-align: center'>
+        CRIAÇÃO
+    </p>
+    @endsection
+
+
+    @section('date_due')    
+    <div class='circle-date-due'>
         <input type='date' name='pay_day' size='20' value='{{$invoice->pay_day}}'>
         @if ($errors->has('pay_day'))
-        <span class="text-danger">{{$errors->first('pay_day')}}</span>
+        <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
-        <br>
-        <br>
+    </div>
+    <p class='labels' style='text-align: center'>
+        VENCIMENTO
+    </p>
+    @endsection
+
+
+
+
+    @section('description')
+    <textarea id='description' name='description' rows='20' cols='90'>
+		{{$invoice->proposal->description}}
+    </textarea>
+    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+    <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
+    <script>
+CKEDITOR.replace('description');
+    </script>
+    @endsection
+
+
+
+    @section('main')
+    <div class="row table-header mt-5">
         <label class='labels' for='' >PRODUTOS ATUAIS:</label>
         <table class='table-list'>
             <tr>
@@ -187,34 +275,12 @@
                 </td>
             </tr>
         </table>
-        <br>
-        <br>
-        <br>
-        <label class='labels' for='' >OBSERVAÇÕES:</label>
-        <textarea id='description' name='description' rows='20' cols='90'>
-		{{$invoice->description}}
-        </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
-        <script>
-CKEDITOR.replace('description');
-        </script>
-        <br>
-        <br>
-        <label class='labels' for=''>SITUAÇÃO:</label>
-        {{createSimpleSelect('status', 'fields', returnInvoiceStatus(), $invoice->status)}}
-        <br>
-        <br>
-        <input type='submit' value='enviar'>
-    </form>
-</div>
-<br>
-<br>
-@endsection
+    </div>
+    @endsection
 
 
-@section('js-scripts')
+    @section('js-scripts')
     <script>
-        $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+        $("[name=value]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
     </script>
-@endsection
+    @endsection

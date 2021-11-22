@@ -260,7 +260,7 @@ CKEDITOR.replace('description');
         <input type='hidden' name='status' value='{{app('request')->input('proposalStatus')}}'>
         {{app('request')->input('proposalStatus')}}
         @else
-        {{createSimpleSelect('status', 'fields', returnInvoiceStatus())}}
+        {{createSimpleSelect('status', 'fields', $status)}}
         @endif
         <br>
         <br>

@@ -34,7 +34,7 @@
 
     @section('status')
     SITUAÇÃO:
-    {{createSimpleSelect('status', 'fields', returnInvoiceStatus(), $proposal->status)}}
+    {{createSimpleSelect('status', 'fields', $status, $proposal->status)}}
     @endsection
 
     @section('fieldsId')
