@@ -9,7 +9,7 @@
 
 
 @section('buttons')
-<a class = 'circular-button primary' title='todos os tutoriais' href = "{{route('systemText.indexTutorials')}}">
+<a class = 'circular-button primary' title='todos os tutoriais' href = '{{route('systemText.indexTutorials')}}'>
     <i class = 'fas fa-list'></i>
 </a>
 @endsection
@@ -41,14 +41,16 @@
 
 
 @section('main')
-<br>
-{!!html_entity_decode($systemText->title)!!}
-<br>
-<br>
+<div class='row'>
+    <div class='col'>
+        <h1 style='color: {{$principalColor}}'>
+            {{$systemText->title}}
+        </h1>
+    </div>
+</div>
+<section id='description' class="mt-4">
 {!!html_entity_decode($systemText->text)!!}
-
-<br>
-<br>
+</section>
 @endsection
 
 @section('editButton', route('systemText.edit', ['systemText' => $systemText->id]))

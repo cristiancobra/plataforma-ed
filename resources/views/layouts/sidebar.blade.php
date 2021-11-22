@@ -20,7 +20,7 @@ $oppositeColor = $empresaDigital->opposite_color;
 }
 @endphp
 
-<nav class="col-md-2 d-md-block sidebar" style="background-color: {{$complementaryColor}}">
+<aside class="col-md-2 d-md-block sidebar position-fixed" style="background-color: {{$complementaryColor}}">
     <div class="sidebar-sticky">
         <div class="dropdown">
             <a class="dropdown-btn nav-link" href='/' style="color: {{$principalColor}}">
@@ -254,7 +254,7 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                     ])}}
 
     </div>
-</nav>
+</aside>
 
 <script>
 

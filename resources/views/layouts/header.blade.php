@@ -1,4 +1,4 @@
-<div class='row mt-3 mb-3' style='
+<header class='row mt-3 mb-3' style='
      margin-left:13px;
      margin-right: 6px
      '>
@@ -12,4 +12,4 @@
     <div class="col-sm-4 col-xs-12 d-inline-block" style="text-align: right">
         @yield('buttons')
     </div>
-</div>
+</header>

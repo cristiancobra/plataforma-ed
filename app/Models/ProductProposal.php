@@ -11,7 +11,7 @@ class ProductProposal extends Model {
 		'id',
 		'account_id',
 		'opportunity_id',
-		'invoice_id',
+		'proposal_id',
 		'amount',
 		'price',
 		'subtotalHours',
@@ -27,9 +27,9 @@ class ProductProposal extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
-	public function invoice() {
-		return $this->belongsTo(Invoice::class, 'invoice_id', 'id');
-	}
+//	public function proposal() {
+//		return $this->belongsTo(Proposal::class, 'proposal_id', 'id');
+//	}
 
 	public function opportunity() {
 		return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
