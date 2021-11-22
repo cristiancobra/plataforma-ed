@@ -22,10 +22,10 @@ use App\Models\User;
  * Classe responsável por criar os dashboards (painéis) dos departamentos
  */
 class DashboardController extends Controller {
-    
-        public function development() {
+
+    public function development() {
         $nada = 0;
-        
+
         return view('dashboards.development', compact(
                         'nada',
         ));
@@ -38,7 +38,7 @@ class DashboardController extends Controller {
 
         $teamTasks = Task::where('account_id', auth()->user()->account_id)
                 ->where('status', 'fazer')
-                ->where('trash', '!=',  1)
+                ->where('trash', '!=', 1)
                 ->orderByRaw(DB::raw("FIELD(priority, 'emergência', 'alta', 'média', 'baixa')"))
                 ->get();
 
@@ -50,32 +50,32 @@ class DashboardController extends Controller {
 
         $teamTasksLates = $teamTasks->where('date_due', '<', date('Y-m-d'));
         $teamTasksLatesCount = $teamTasksLates->count();
-        
+
         $myTasks = $teamTasks->where('user_id', auth()->user()->id);
         $myTasksLimited = $myTasks->take(4);
         $myTasksCount = $myTasks->count();
-        
-            $users = User::myUsers();
-            foreach($users as $user) {
-                $user->emergencies = Task::countUserEmergencies($user);
-                $user->high = Task::countUserHigh($user);
-                $user->medium = Task::countUserMedium($user);
-                $user->low = Task::countUserLow($user);
-                $user->tasks = Task::countUserTasks($user);
-                $user->lates = Task::countUserTasksLates($user);
-                $user->lastJourney = Journey::userLastJourney($user);
-                $user->lastTask = Task::userLastTask($user);
-            }
+
+        $users = User::myUsers();
+        foreach ($users as $user) {
+            $user->emergencies = Task::countUserEmergencies($user);
+            $user->high = Task::countUserHigh($user);
+            $user->medium = Task::countUserMedium($user);
+            $user->low = Task::countUserLow($user);
+            $user->tasks = Task::countUserTasks($user);
+            $user->lates = Task::countUserTasksLates($user);
+            $user->lastJourney = Journey::userLastJourney($user);
+            $user->lastTask = Task::userLastTask($user);
+        }
 //        
         $myTasksEmergencies = $myTasks->where('priority', 'emergência');
 //        $myTasksEmergenciesCount = $myTasksEmergencies->count();
 //        
 //        $myTasksHigh = $myTasks->where('priority', 'alta');
 //        $myTasksHighCount = $myTasksHigh->count();
-        
+
         $myTasksMedium = $myTasks->where('priority', 'média');
         $myTasksMediumCount = $myTasksMedium->count();
-        
+
         $myTasksLow = $myTasks->where('priority', 'baixa');
         $myTasksLowCount = $myTasksLow->count();
 
@@ -84,45 +84,42 @@ class DashboardController extends Controller {
 
 //        $myTasksEmergenciesUnsorted = $myTasks->where('priority', 'emergência')->take(5);
 //        $myTasksEmergencies =  $myTasksEmergenciesUnsorted->sortBy('date_due');
-
 //        $myTasksEmergenciesAmount = $myTasksEmergencies->count();
-        
+
         $myTasksTodayUnsorted = $myTasks->whereBetween('date_due', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])->take(3);
-        $myTasksToday =  $myTasksTodayUnsorted->sortBy('date_due');
+        $myTasksToday = $myTasksTodayUnsorted->sortBy('date_due');
 
-            $openJourney = Journey::myOpenJourney();
-            $myLastJourney = Journey::myLastJourney();
+        $openJourney = Journey::myOpenJourney();
+        $myLastJourney = Journey::myLastJourney();
 
-            $journeys = Journey::where('user_id', auth()->user()->id)
-                    ->get();
-            
-            $lastJourneys = $journeys->sortByDesc('start')->take(5);
+        $journeys = Journey::where('user_id', auth()->user()->id)
+                ->get();
+
+        $lastJourneys = $journeys->sortByDesc('start')->take(5);
 //            dd($lastJourneys);
 
-            $hoursMonthly = Journey::where('user_id', auth()->user()->id)
-                    ->whereBetween('start', [$monthStart, $monthEnd])
-                    ->sum('duration');
-            
-            $hoursToday = Journey::where('user_id', auth()->user()->id)
-                    ->whereBetween('start', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
-                    ->sum('duration');
-            
-       
-            
-            foreach($users as $user) {
-                $openJourney = Journey::openJourney($user);
-                if($openJourney != null) {
+        $hoursMonthly = Journey::where('user_id', auth()->user()->id)
+                ->whereBetween('start', [$monthStart, $monthEnd])
+                ->sum('duration');
+
+        $hoursToday = Journey::where('user_id', auth()->user()->id)
+                ->whereBetween('start', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')])
+                ->sum('duration');
+
+        foreach ($users as $user) {
+            $openJourney = Journey::openJourney($user);
+            if ($openJourney != null) {
                 $user['journeyName'] = $openJourney->task->name;
                 $user['taskId'] = $openJourney->task->id;
-                          $user['color'] = 'white';
-                          $user['backgroundColor'] = null;
+                $user['color'] = 'white';
+                $user['backgroundColor'] = null;
             } else {
                 $user['journeyName'] = 'ZZZzz';
                 $user['taskId'] = null;
                 $user['color'] = 'gray';
                 $user['backgroundColor'] = 'lightgray';
             }
-            }
+        }
 
         return view('dashboards/operational', compact(
                         'month',
@@ -159,45 +156,31 @@ class DashboardController extends Controller {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
         $monthEnd = date('Y-m-t');
-        
-         $transactions = Transaction::where('account_id', auth()->user()->account_id)
-                 ->where('trash', '!=', 1)
-                 ->take(6)
+
+        $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                ->where('trash', '!=', 1)
+                ->take(6)
                 ->orderBy('pay_day', 'DESC')
-                 ->get();
-        
-         $dateDue = new DateTime('now');
-         $dateDue->add(new DateInterval('P2D'));
-         $dateDue = $dateDue->format('Y-m-d');
-        
-         $dateLimit = new DateTime('now');
-         $dateLimit->sub(new DateInterval('P1M'));
-         $dateLimit = $dateLimit->format('Y-m-d');
-//       dd($dateLimit);
-         $invoices = Invoice::where('account_id', auth()->user()->account_id)
-                 ->where('trash', '!=', 1)
-                 ->where('status', 'aprovada')
-//                 ->where('pay_day', '>', $dateDue)
-                 ->whereBetween('pay_day', [$dateLimit, $dateDue])
-//                 ->whereBetween('pay_day', ['2021-10-24', '2021-12-22'])
-                 ->take(6)
+                ->get();
+
+        $dateDue = new DateTime('now');
+        $dateDue->add(new DateInterval('P2D'));
+        $dateDue = $dateDue->format('Y-m-d');
+
+        $dateLimit = new DateTime('now');
+        $dateLimit->sub(new DateInterval('P1M'));
+        $dateLimit = $dateLimit->format('Y-m-d');
+
+        $periodInvoices = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('trash', '!=', 1)
+                ->where('status', 'aprovada')
+                ->whereBetween('pay_day', [$dateLimit, $dateDue])
+                ->take(6)
                 ->orderBy('pay_day', 'ASC')
-                 ->get();
-         
-//                 $invoices = Invoice::filterInvoices($request);
-//        
-//                foreach ($invoices as $invoice) {
-//            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-//                    ->where('trash', '!=', 1)
-//                    ->sum('value');
-//            if ($invoice->totalPrice == $invoice->paid) {
-//                $invoice->status = 'paga';
-//            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
-//                $invoice->status = 'parcial';
-//            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
-//                $invoice->status = 'atrasada';
-//            }
-//
+                ->get();
+
+        $invoices = Invoice::getPaidInvoices($periodInvoices);
+        
 //            $invoice->balance = $invoice->totalPrice - $invoice->paid;
 
 //            $invoicesTotal += $invoice->totalPrice;
@@ -250,12 +233,12 @@ class DashboardController extends Controller {
 
     public function marketing() {
         $nada = 0;
-        
+
         return view('dashboards.marketing', compact(
                         'nada',
         ));
     }
-    
+
     public function sales() {
         $month = returnMonth(date('m'));
         $monthStart = date('Y-m-01');
@@ -275,7 +258,7 @@ class DashboardController extends Controller {
         $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
         $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
         $opportunitiesNews = Opportunity::getOpportunitiesPresentations();
-        
+
         $contacts = [
             $contactsSuspects = Contact::countSuspects(),
             $contactsProspects = Contact::countProspects(),
