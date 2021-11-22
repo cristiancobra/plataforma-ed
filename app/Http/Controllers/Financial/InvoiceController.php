@@ -379,7 +379,12 @@ class InvoiceController extends Controller {
                             ->withInput();
         } else {
             $invoice->fill($request->all());
+            if($invoice->type == 'receita') {
             $invoice->totalPrice = str_replace(",", ".", $request->totalPrice);
+            }else{
+            $totalPrice = str_replace(",", ".", $request->totalPrice);
+            $invoice->totalPrice = ($totalPrice * -1);
+            }
             $invoice->save();
 
             return redirect()->route('invoice.show', compact('invoice'));

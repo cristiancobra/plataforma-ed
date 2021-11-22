@@ -42,7 +42,7 @@
 
 @section('main')
 <div class='row'>
-    <div class='col'>
+    <div class='col text-center'>
         <h1 style='color: {{$principalColor}}'>
             {{$systemText->title}}
         </h1>

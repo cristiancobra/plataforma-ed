@@ -171,27 +171,18 @@ CKEDITOR.replace('description');
                 PRODUTOS ATUAIS:
             </label>
         </div>
-        <div class='row table-header mt-5'>
+        <div class='row table-header mt-3'>
             <div class='col-1'>
                 FOTO
             </div>
             <div class='col-1'>
                 QTDE
             </div>
-            <div class='col-3'>
+            <div class='col-6'>
                 NOME
             </div>
             <div class='col-1'>
-                HORAS
-            </div>
-            <div class='col-1'>
                 PONTOS
-            </div>
-            <div class='col-1'>
-                PRAZO
-            </div>
-            <div class='col-1'>
-                CUSTOS
             </div>
             <div class='col-1'>
                 IMPOSTO
@@ -206,6 +197,10 @@ CKEDITOR.replace('description');
 
         @foreach ($productProposals as $productProposal)
         <input type='hidden' name='product_margin[]' size='7' value='{{-$productProposal->product->price * $productProposal->product->tax_rate / 100 - $productProposal->product->cost1 - $productProposal->product->cost2 - $productProposal->product->cost3 + $productProposal->product->price}}'>
+        <input type='hidden' name='product_work_hours[]' size='4' value='{{$productProposal->product->work_hours}}'>
+        <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
+        <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
+        <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
         <div class='row table2 position-relative'  style='
              color: {{$principalColor}};
              border-left-color: {{$complementaryColor}}
@@ -218,64 +213,49 @@ CKEDITOR.replace('description');
             <div class='cel col-1'>
                 {{number_format($productProposal->amount)}}
             </div>
-            <div class='cel col-3'>
-                <span class='fields'>
-                    {{$productProposal->product->name}}
-                </span>
+            <div class='cel col-6'>
+                {{$productProposal->product->name}}
             </div>
             <div class='cel col-1'>
-                <input type='hidden' name='product_work_hours[]' size='4' value='{{$productProposal->product->work_hours}}'>
-                {{number_format($productProposal->product->work_hours)}}
+                {{number_format($productProposal->product->points)}}
             </div>
-            <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
-            {{number_format($productProposal->product->points)}}
-        </div>
-        <div class='cel col-1'>
-            <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
-            {{number_format($productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3, 2,',','.') }}
-        </div>
-        <div class='cel col-1'>
-            <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
-            {{number_format($productProposal->product->price * $productProposal->product->tax_rate / 100, 2,',','.') }}
-        </div>
-        <div class='cel col-1'>
-            {{formatCurrency($productProposal->product->price)}}
-        </div>
-        <div class='cel col-1'>
-            {{formatCurrency($productProposal->subtotalPrice)}}
-        </div>
+            <div class='cel col-1'>
+                {{number_format($productProposal->product->price * $productProposal->product->tax_rate / 100, 2,',','.') }}
+            </div>
+            <div class='cel col-1'>
+                {{formatCurrency($productProposal->product->price)}}
+            </div>
+            <div class='cel col-1'>
+                {{formatCurrency($productProposal->subtotalPrice)}}
+            </div>
         </div>
         @endforeach
-        <div class='row'>
-            <div class='col'>
+        <div class='row mt-1'>
+            <div class='cel offset-8 col-2 table-header justify-content-end' style="background-color: {{$oppositeColor}}">
                 desconto: 
             </div>
-            <div class='col'>
+            <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
                 {{formatCurrencyReal($invoice->proposal->discount)}}
             </div>
         </div>
-        <div class='row'>
-            <div class='col'>
-                VALOR DA PROPOSTA: 
+        <div class='row mt-1'>
+            <div class='cel offset-8 col-2  table-header justify-content-end'>
+                TOTAL: 
             </div>
-            <div class='col'>
-                {{formatCurrencyReal($invoice->proposal->totalPrice)}}
-            </div>
-        </div>
-        <div class='row'>
-            <div class='col'>
-                VALOR DESTA FATURA: 
-            </div>
-            <div class='col'>
-                <input type='decimal' name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style='text-align:right'>
+            <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
+                @if($invoice->totalPrice >= 0)
+                <input type='decimal' name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style='text-align:right;width: 150px'>
+                @else
+                <input type='decimal' name='totalPrice' value='{{formatCurrency($invoice->totalPrice * -1)}}' style='text-align:right;width: 150px'>
+                @endif
             </div>
         </div>
-        </div>
+        </section>
         @endsection
 
 
         @section('js-scripts')
         <script>
-            $('[name=value]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
+            $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
         </script>
         @endsection

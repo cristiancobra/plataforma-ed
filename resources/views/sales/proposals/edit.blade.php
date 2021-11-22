@@ -169,37 +169,41 @@ CKEDITOR.replace('description');
 
 
     @section('main')
-    <div>
-        <label class='labels' for='' >PRODUTOS ATUAIS:</label>
-        <div class='row'>
-            <div class='tb tb-header-start col-1'>
-                QTDE
-            </div>
-            <div class='tb tb-header col-1'>
+    <section class='container' id='productsProposals'>
+        <div class='row mt-5'>
+            <label class='labels' for='' >
+                PRODUTOS ATUAIS:
+            </label>
+        </div>
+        <div class='row table-header mt-3'>
+            <div class='col-1'>
                 FOTO
             </div>
-            <div class='tb tb-header col-3'>
+            <div class='col-1'>
+                QTDE
+            </div>
+            <div class='col-3'>
                 NOME
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='col-1'>
                 HORAS
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='col-1'>
                 PONTOS
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='col-1'>
                 PRAZO
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='col-1'>
                 CUSTOS
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='col-1'>
                 IMPOSTO
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='col-1'>
                 UNITÁRIO
             </div>
-            <div class='tb tb-header-end col-1'>
+            <div class='col-1'>
                 PREÇO
             </div>
         </div>
@@ -208,79 +212,77 @@ CKEDITOR.replace('description');
         <input type='hidden' name='product_proposal_id[]' value='{{$productProposal->id}}'>
         <input type='hidden' name='product_id[]' value='{{$productProposal->product->id}}'>
         <input type='hidden' name='product_margin[]' size='7' value='{{-$productProposal->product->price * $productProposal->product->tax_rate / 100 - $productProposal->product->cost1 - $productProposal->product->cost2 - $productProposal->product->cost3 + $productProposal->product->price}}'>
-        <div class='row'>
-            <div class='tb -start col-1'>
+        <input type='hidden' name='product_due_date[]' size='4' value='{{$productProposal->product->due_date}}'>
+        <input type='hidden' name='product_work_hours[]' size='4' value='{{$productProposal->product->work_hours}}'>
+        <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
+        <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
+        <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
+        <div class='row table2'  style='
+             color: {{$principalColor}};
+             border-left-color: {{$complementaryColor}}
+             '>
+            <div class='cel col-1'>
+            <a class='stretched-link 'href=' {{route('product.show', ['product' => $productProposal->product_id])}}'>
+                <image src='{{$productProposal->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
+            </a>
+            </div>
+            <div class='cel col-1'>
                 <input type='number' name='product_amount[]' size='5' value='{{$productProposal->amount}}'>
             </div>
-            <div class='tb  col-1'>
-                <image src='{{$productProposal->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
+            <div class='cel col-3'>
+                <span class='fields'>
+                    {{$productProposal->product->name}}
+                </span>
             </div>
-            <div class='tb  col-3'>
-                <button class='button'>
-                    <a href=' {{route('product.show', ['product' => $productProposal->product->id])}}'>
-                        <i class='fa fa-eye' style='color:white'></i>
-                    </a>
-                </button>
-                <button class='button'>
-                    <a href=' {{route('product.edit', ['product' => $productProposal->product->id])}}'>
-                        <i class='fa fa-edit' style='color:white'></i></a>
-                </button>
-                <span class='fields'>{{$productProposal->product->name}}</span>
-            </div>
-            <div class='tb  col-1'>
-                <input type='hidden' name='product_due_date[]' size='4' value='{{$productProposal->product->due_date}}'>
+            <div class='cel col-1'>
                 {{number_format($productProposal->product->due_date)}}
             </div>
-            <div class='tb  col-1'>
-                <input type='hidden' name='product_work_hours[]' size='4' value='{{$productProposal->product->work_hours}}'>
+            <div class='cel col-1'>
                 {{number_format($productProposal->product->work_hours)}}
             </div>
-            <div class='tb  col-1'>
-                <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
+            <div class='cel col-1'>
                 {{number_format($productProposal->product->points)}}
             </div>
-            <div class='tb  col-1'>
-                <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
+            <div class='cel col-1'>
                 {{number_format($productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3, 2,',','.') }}
             </div>
-            <div class='tb  col-1'>
-                <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
+            <div class='cel col-1'>
                 {{number_format($productProposal->product->price * $productProposal->product->tax_rate / 100, 2,',','.') }}
             </div>
-            <div class='tb  col-1'>
+            <div class='cel col-1'>
                 @if($type == 'despesa')
                 <input type='decimal' name='price[]' id='product_price' size='7' value='{{formatCurrency($productProposal->price * -1)}}' style='text-align: right'>
                 @else
                 <input type='decimal' name='price[]' id='product_price' size='7' value='{{formatCurrency($productProposal->price)}}' style='text-align: right'>
                 @endif
             </div>
-            <div class='tb  col-1'>
+            <div class='cel col-1'>
                 {{formatCurrencyReal($productProposal->subtotalPrice)}}
             </div>
         </div>
         @endforeach
-        <div class='row'>
-            <div class='tb tb-header col-11'>
+        <div class='row mt-1'>
+            <div class='cel offset-8 col-2 table-header justify-content-end' style="background-color: {{$oppositeColor}}">
                 desconto: 
             </div>
-            <div class='tb tb-header col-1 justify-content-end'>
+            <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
                 <input type='text' id='discount' name='discount' value='{{formatCurrency($proposal->discount)}}' style='text-align: right;width: 90px'>
             </div>
         </div>
-        <div class='row'>
-            <div class='tb tb-header col-11'>
-                TOTAL DA COMPRA: 
+        <div class='row mt-1'>
+            <div class='cel offset-8 col-2  table-header justify-content-end'>
+                TOTAL: 
             </div>
-            <div class='tb tb-header col-1'>
+            <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
                 {{formatCurrencyReal($proposal->totalPrice)}}
             </div>
         </div>
-    </div>
-    @endsection
+        </div>
+        @endsection
 
-    @section('js-scripts')
-    <script>
-        $('[name=discount]').maskMoney({prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
-        $('[id=product_price]').maskMoney({prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
-    </script>
-    @endsection
+        @section('js-scripts')
+        <script>
+            $('[name=discount]').maskMoney({prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
+            $('[id=product_price]').maskMoney({prefix: 'R$ ', allowNegative: false, thousands: '.', decimal: ',', affixesStay: false});
+        </script>
+        @endsection

@@ -345,15 +345,17 @@ class ProposalController extends Controller {
                 ->get();
 
         $type = $request->type;
+        $status = Proposal::returnStatus();;
 
         return view('sales.proposals.edit', compact(
                         'users',
                         'companies',
                         'contracts',
                         'contacts',
-                        'type',
                         'proposal',
                         'productProposals',
+                        'type',
+                        'status',
 //                        'invoices',
 //                        'totalInvoices',
 //                        'proposalPaymentsTotal',
