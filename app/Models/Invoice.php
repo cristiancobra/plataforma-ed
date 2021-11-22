@@ -66,14 +66,14 @@ class Invoice extends Model {
         return $this->hasMany(InvoiceLine::class, 'invoice_id', 'id');
     }
 
-    // this is a recommended way to declare event handlers
+// this is a recommended way to declare event handlers
     public static function boot() {
         parent::boot();
         self::deleting(function ($invoice) { // before delete() method call this
             $invoice->invoiceLines()->each(function ($invoiceLines) {
                 $invoiceLines->delete(); // <-- direct deletion
             });
-            // do the rest of the cleanup...
+// do the rest of the cleanup...
         });
     }
 
@@ -93,7 +93,7 @@ class Invoice extends Model {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    // MÉTODOS PÚBLICOS
+// MÉTODOS PÚBLICOS
 
     public static function filterInvoices(Request $request) {
 //        $monthStart = date('Y-m-01');
@@ -178,20 +178,20 @@ class Invoice extends Model {
         return $invoices;
     }
 
-    // Recebe uma fatura e soma seus pagamentos
+// Recebe uma fatura e soma seus pagamentos
     public static function totalPaid($invoice) {
-        
+
         $sumTransactions = 0;
-        foreach($invoice->transactions as $transaction) {
-            if($transaction->trash != 1) {
-            $sumTransactions += $transaction->value;
+        foreach ($invoice->transactions as $transaction) {
+            if ($transaction->trash != 1) {
+                $sumTransactions += $transaction->value;
             }
         }
-        
+
         return $sumTransactions;
     }
 
-    // soma as faturas do TIPO recebido gerando um array com valor total TOTALPRICE de cada mês
+// soma as faturas do TIPO recebido gerando um array com valor total TOTALPRICE de cada mês
     public static function monthlyInvoicesTotal($year, $type) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
@@ -208,15 +208,15 @@ class Invoice extends Model {
                     ->get();
 
             $monthlys[$key] = $invoices->sum('totalPrice');
-            
-            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+
+// adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
         }
         return $monthlys;
     }
 
-    // soma as faturas do TIPO recebido somando valor TOTALPRICE do ano todo
+// soma as faturas do TIPO recebido somando valor TOTALPRICE do ano todo
     public static function annualInvoicesTotal($year, $type) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-12-t"));
@@ -234,12 +234,11 @@ class Invoice extends Model {
         return $annualInvoicesTotal;
     }
 
-    // soma o valor da categoria para cada mês
+// soma o valor da categoria para cada mês
     public static function monthlysCategoriesTotal($year, $category, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
         $months = returnMonths();
-
 
         foreach ($months as $key => $month) {
             $monthlys[$month] = [];
@@ -251,11 +250,11 @@ class Invoice extends Model {
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('proposal.productProposals')
                     ->get();
-            
+
 //                      if($key == 12) {    
 //dd($monthlys);
 //                      }
-            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+// adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
 
@@ -276,7 +275,7 @@ class Invoice extends Model {
         return $monthlys;
     }
 
-    // retorna todas as horas registradas do usuário no ano
+// retorna todas as horas registradas do usuário no ano
     public static function annualCategoriesTotal($year, $category, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-12-t"));
@@ -302,7 +301,7 @@ class Invoice extends Model {
         return $annual;
     }
 
-    // soma o valor do grupo  para cada mês
+// soma o valor do grupo  para cada mês
     public static function monthlysGroupsTotal($year, $group, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
@@ -318,8 +317,8 @@ class Invoice extends Model {
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->with('proposal.productProposals')
                     ->get();
-            
-            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+
+// adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
 
@@ -340,7 +339,7 @@ class Invoice extends Model {
         return $monthlys;
     }
 
-    // retorna todas as horas registradas do usuário no ano
+// retorna todas as horas registradas do usuário no ano
     public static function annualGroupsTotal($year, $group, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-12-t"));
@@ -364,6 +363,24 @@ class Invoice extends Model {
             }
         }
         return $annual;
+    }
+
+// recebe faturas e seleciona apenas as pagas
+    public static function getPaidInvoices($invoices) {
+        foreach ($invoices as $invoice) {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->where('trash', '!=', 1)
+                    ->sum('value');
+            if ($invoice->totalPrice == $invoice->paid) {
+                $invoice->status = 'paga';
+            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+                $invoice->status = 'parcial';
+            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+                $invoice->status = 'atrasada';
+            }
+        }
+        
+        return $invoices->where('status', '!=', 'paga');
     }
 
 }
