@@ -66,7 +66,9 @@ Route::get('/logout', function () {
     return Redirect::to('/');
 });
 
-Route::get('/tutoriais', 'System\\SystemTextsController@tutorial')->name('systemText.tutorial');
+Route::get('/tutoriais', 'System\\SystemTextsController@tutorial')->name('systemText.indexTutorials');
+
+Route::get('/tutoriais/{systemText}', 'System\\SystemTextsController@showTutorial')->name('systemText.showTutorial');
 
 Route::resource('textos-do-sistema', 'System\\SystemTextsController')
         ->names('systemText')

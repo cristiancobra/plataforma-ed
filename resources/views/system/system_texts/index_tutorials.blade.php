@@ -50,7 +50,7 @@
 @foreach ($tutorials as $tutorial)
 <div class='row'>
     <div class='tb col-5 justify-content-start' style="font-weight: 600">
-        <a class="white" href=" {{ route('systemText.show', ['systemText' => $tutorial->id]) }}">
+        <a class="white" href=" {{ route('systemText.showTutorial', ['systemText' => $tutorial->id]) }}">
             <button class="button-round">
                 <i class='fa fa-eye'></i>
             </button>

@@ -239,7 +239,7 @@ $oppositeColor = $empresaDigital->opposite_color;
                                                                                                                                                         [
                                                                                                                                                             'name' => 'TUTORIAIS',
                                                                                                                                                             'faIcon' => 'fas fa-question-circle',
-                                                                                                                                                            'link' => route('systemText.tutorial')
+                                                                                                                                                            'link' => route('systemText.indexTutorials')
                                                                                                                                                         ],
                                                                                                                                                         [
                                                                                                                                                             'name' => 'AJUDA',

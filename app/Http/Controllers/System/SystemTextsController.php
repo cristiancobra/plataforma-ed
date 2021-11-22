@@ -175,4 +175,11 @@ class SystemTextsController extends Controller {
                 'status',
         ));
     }
+    
+        public function showTutorial(SystemText $systemText) {
+
+        return view('system/system_texts/show_tutorial', compact(
+                        'systemText',
+        ));
+    }
 }
