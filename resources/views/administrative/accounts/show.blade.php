@@ -197,7 +197,7 @@
                         <button type="button" style="color:white;background-color:{{$account->complementary_color}};display: inline-block;border-radius:50%">C</button> {{$account->complementary_color}}
                     </p>
                     <p class="labels"">
-                        Cor oposta: 
+                        Cor secundária: 
                         <button type="button" style="color:{{$account->principal_color}};background-color:{{$account->opposite_color}};display: inline-block;border-radius:50%">O</button> {{$account->opposite_color}}
                     </p>
                 </div>

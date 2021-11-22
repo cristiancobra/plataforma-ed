@@ -979,8 +979,8 @@ if (!function_exists('formatStatus')) {
             case 'aprovado':
                 echo '<div class="col-1 tb tb-won">aprovado</div>';
                 break;
-            case 'ativa':
-                echo '<div class="col-1 tb tb-done text-center">ativa</div>';
+            case 'ativada':
+                echo '<div class="col-1 tb tb-done text-center">ativada</div>';
                 break;
             case 'atrasada':
                 echo '<div class="col-1 tb tb-late text-center">atrasada</div>';

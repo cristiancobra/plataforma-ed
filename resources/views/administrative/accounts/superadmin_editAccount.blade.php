@@ -106,7 +106,7 @@
     <label class="labels" for="">Cor complementar: </label>
     <input type="text" name="complementary_color" value="{{ $account->complementary_color }}">   
     <br>
-    <label class="labels" for="">Cor oposta: </label>
+    <label class="labels" for="">Cor secundária: </label>
     <input type="text" name="opposite_color" value="{{ $account->opposite_color }}">   
     <br>
     <br>

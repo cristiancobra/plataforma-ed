@@ -104,13 +104,19 @@
     <label for="">Logomarca: </label>
     {{createSelectIdName('image_id', 'fields', $logos, 'Sem logo')}}
     <br>
-    <label for="">Cor principal: </label>
+    <label for="">
+        Cor principal (escura): 
+    </label>
     <input type="text" name="principal_color" value="#874983">   
     <br>
-    <label for="">Cor complementar: </label>
+    <label for="">
+        Cor secundária: 
+    </label>
     <input type="text" name="complementary_color" value="#c28dbf">   
     <br>
-    <label for="">Cor oposta: </label>
+    <label for="">
+        Cor oposta: 
+    </label>
     <input type="text" name="opposite_color" value="#49d194">
     <br>
     <br>
