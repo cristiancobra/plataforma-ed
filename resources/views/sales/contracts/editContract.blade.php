@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonList('contract')}}
 @endsection
 

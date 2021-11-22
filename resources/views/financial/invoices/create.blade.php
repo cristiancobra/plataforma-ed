@@ -14,7 +14,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonList('invoice', 'typeInvoices', $typeInvoices)}}
 @endsection
 

@@ -18,7 +18,7 @@ Total: <span class="labels">{{$total}}</span>
 ])}}">
     <i class="fa fa-plus" aria-hidden="true"></i>
 </a>
-{{createButtonBack()}}
+
 {{createButtonList('socialmedia')}}
 @endsection
 

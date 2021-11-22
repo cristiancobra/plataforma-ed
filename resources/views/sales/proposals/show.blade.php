@@ -11,7 +11,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonPdf($proposal, 'proposal')}}
 <a class='circular-button secondary' href='{{route('proposal.pdf', ['proposal' => $proposal])}}'>
     <i class='fas fa-envelope'></i>

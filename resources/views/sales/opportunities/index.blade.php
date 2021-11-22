@@ -11,7 +11,7 @@
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
 {{createButtonTrashIndex($trashStatus, 'opportunity')}}
-{{createButtonBack()}}
+
 {{createButtonCreate('opportunity', 'department',  $department)}}
 @endsection
 

@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonTrash($transaction, 'transaction')}}
 {{createButtonEdit('transaction', 'transaction', $transaction, 'typeTransactions', $transaction->type)}}
 {{createButtonList('transaction')}}

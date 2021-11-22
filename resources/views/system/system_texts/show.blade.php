@@ -7,7 +7,6 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
 {{createButtonEdit('systemText', 'systemText', $systemText)}}
 {{createButtonList('systemText')}}
 @endsection

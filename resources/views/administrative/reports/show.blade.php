@@ -8,7 +8,7 @@
 
 @section('buttons')
 {{createButtonPdf($report, 'report')}}
-{{createButtonBack()}}
+
 {{createButtonList('report')}}
 @endsection
 

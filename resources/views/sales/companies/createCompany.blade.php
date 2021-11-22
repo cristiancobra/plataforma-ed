@@ -19,7 +19,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonList('company', 'typeCompanies', $typeCompanies)}}
 @endsection
 

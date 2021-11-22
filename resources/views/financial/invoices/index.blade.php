@@ -36,7 +36,7 @@
 <a class="circular-button primary"  style="background-color: lightblue" href="{{route('proposal.create', ['type' => 'receita'])}}">
     <i class="fas fa-plus"></i>
 </a>
-{{createButtonBack()}}
+
 {{createButtonList('invoice')}}
 @endsection
 

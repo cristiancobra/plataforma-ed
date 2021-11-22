@@ -16,7 +16,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonList('transaction')}}
 @endsection
 

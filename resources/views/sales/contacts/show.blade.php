@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonEdit('contact', 'contact', $contact)}}
 {{createButtonList('contact')}}
 @endsection

@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 @endsection
 
 @section('main')

@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 <a class="circular-button secondary"  href="{{route('page.public', ['page' => $page])}}" target='_blank'>
     <i class="fa fa-eye" aria-hidden="true"></i>
 </a>

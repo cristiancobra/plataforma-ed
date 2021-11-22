@@ -830,6 +830,9 @@ if (!function_exists('formatType')) {
             case 'perguntas frequentes':
                 echo '<div class="col-1 tb tb-emergency text-center">perguntas frequentes</div>';
                 break;
+            case 'primeiros passos':
+                echo '<div class="col-1 tb tb-emergency text-center">primeiros passos</div>';
+                break;
             case 'tutorial':
                 echo '<div class="col-1 tb tb-emergency text-center">tutorial</div>';
                 break;

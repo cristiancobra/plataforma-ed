@@ -14,7 +14,7 @@
     <i class="fa fa-filter" aria-hidden="true"></i>
 </a>
 
-{{createButtonBack()}}
+
 {{createButtonList('journey')}}
 @endsection
 

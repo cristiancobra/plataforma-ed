@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonPdf($task, 'task')}}
 
 @if($task->status == 'fazendo')

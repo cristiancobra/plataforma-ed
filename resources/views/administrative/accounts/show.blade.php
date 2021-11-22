@@ -8,7 +8,7 @@
 
 @section('buttons')
 {{createButtonEdit('account', 'account', $account)}}
-{{createButtonBack()}}
+
 @endsection
 
 @section('name', $account->name)

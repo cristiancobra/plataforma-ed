@@ -8,7 +8,7 @@
 
 
 @section('buttons')
-{{createButtonBack()}}
+
 {{createButtonList('bank')}}
 @endsection
 
