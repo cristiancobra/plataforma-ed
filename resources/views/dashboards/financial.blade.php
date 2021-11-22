@@ -278,8 +278,10 @@
              text-shadow: none;
              padding-top: 10px;
              padding-bottom: 10px;
+             margin-top: 15px;
+             margin-bottom: 15px;
              text-align: center;
-             border-radius: 0px 0px 10px 10px;
+             border-radius: 10px 10px 10px 10px;
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none;color: #0088ff' href='{{route('transaction.create', ['typeTransactions' => 'crédito'])}}'>
@@ -336,7 +338,7 @@
                 <div class='cel col-1'>
                     {{dateBr($transaction->pay_day)}}
                 </div>
-                <div class='cel col-3'>
+                <div class='cel col-3 justify-content-start'>
                     @if($transaction->bankAccount)
                     <a class='white' href=' {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}'>
                         {{$transaction->bankAccount->name}}
@@ -451,8 +453,10 @@
              text-shadow: none;
              padding-top: 10px;
              padding-bottom: 10px;
+             margin-top: 15px;
+             margin-bottom: 15px;
              text-align: center;
-             border-radius: 0px 0px 10px 10px;
+             border-radius: 10px 10px 10px 10px;
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none;color: #0088ff' href='{{route('invoice.create', ['typeInvoices' => 'receita'])}}'>
@@ -513,7 +517,7 @@
                 <div class='cel col-1' style="color: {{$dateColor}}">
                     {{dateBr($invoice->pay_day)}}
                 </div>
-                <div class='cel col-3'>
+                <div class='cel col-3 justify-content-start'>
                     @if($invoice->proposal)
                     <a class='white' href=' {{route('proposal.show', ['proposal' => $invoice->proposal])}}'>
                         {{$invoice->proposal->name}}
@@ -584,6 +588,7 @@
 </div>
 
 
+<!--linha com paines antigos-->
 
 <div class='row mt-5 mb-3 ms-1 me-1'>
     <div class='financial-display col-3'>

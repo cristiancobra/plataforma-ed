@@ -173,12 +173,13 @@ class DashboardController extends Controller {
          $dateLimit = new DateTime('now');
          $dateLimit->sub(new DateInterval('P1M'));
          $dateLimit = $dateLimit->format('Y-m-d');
-       
+//       dd($dateLimit);
          $invoices = Invoice::where('account_id', auth()->user()->account_id)
                  ->where('trash', '!=', 1)
                  ->where('status', 'aprovada')
-                 ->where('pay_day', '>', $dateDue)
-//                 ->whereBetween('pay_day', [$dateDue, $dateLimit])
+//                 ->where('pay_day', '>', $dateDue)
+                 ->whereBetween('pay_day', [$dateLimit, $dateDue])
+//                 ->whereBetween('pay_day', ['2021-10-24', '2021-12-22'])
                  ->take(6)
                 ->orderBy('pay_day', 'ASC')
                  ->get();
