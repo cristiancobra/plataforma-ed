@@ -283,7 +283,7 @@
              text-align: center;
              border-radius: 10px 10px 10px 10px;
              '>
-            <div class="col d-inline-block">
+            <div class="col">
                 <a style='text-decoration:none;color: #0088ff' href='{{route('transaction.create', ['typeTransactions' => 'crédito'])}}'>
                     <i class='fas fa-plus-circle ps-2 pe-2' title='registrar nova entrada'></i>
                 </a>
@@ -458,7 +458,7 @@
              text-align: center;
              border-radius: 10px 10px 10px 10px;
              '>
-            <div class="col d-inline-block">
+            <div class="col">
                 <a style='text-decoration:none;color: #0088ff' href='{{route('invoice.create', ['typeInvoices' => 'receita'])}}'>
                     <i class='fas fa-plus-circle ps-2 pe-2' title='registrar nova entrada'></i>
                 </a>
@@ -494,7 +494,7 @@
         <!--linha das últimas FATURAS-->
         @foreach ($invoices as $invoice)
         @php
-        if($invoice->type == 'crédito') {
+        if($invoice->type == 'receita') {
         $typeColor = '#0088ff';
         } else {
         $typeColor = '#c40233';
