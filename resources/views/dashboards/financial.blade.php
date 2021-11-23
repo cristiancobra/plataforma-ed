@@ -109,10 +109,10 @@
              border-radius: 0px 0px 10px 10px;
              '>
             <div class="col d-inline-block">
-                <a style='text-decoration:none' href='{{route('product.create', ['variation' => 'despesa'])}}'>
+                <a style='text-decoration:none' href='{{route('proposal.create', ['variation' => 'despesa'])}}'>
                     <i class='fas fa-plus-circle ps-2 pe-2' title='novo item de despesa'></i>
                 </a>
-                <a style='text-decoration:none' href='{{route('product.index', ['variation' => 'despesa'])}}'>
+                <a style='text-decoration:none' href='{{route('proposal.index', ['variation' => 'despesa'])}}'>
                     <i class='fas fa-list-alt ps-2 pe-2' title='todas os itens de desepsas'></i>
                 </a>
             </div>
