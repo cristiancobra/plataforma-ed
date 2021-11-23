@@ -521,10 +521,13 @@ class ProposalController extends Controller {
                 ->where('status', 'aprovada')
                 ->where('trash', '!=', 1)
                 ->get();
+        
+        $counter = 1;
 
-        return view('sales.proposals.editInstallment', compact(
+        return view('sales.proposals.edit_installment', compact(
                         'proposal',
                         'invoices',
+                        'counter',
         ));
     }
 
@@ -555,11 +558,15 @@ class ProposalController extends Controller {
             }
         }
 
-        // erro se o total inserido foir maior que o valor da proposta.
-        if ($sumInvoicesPrice > $proposal->totalPrice) {
+        // erro se o total inserido for maior que o valor da proposta.
+        if ($proposal->type == 'despesa') {
+            $sumInvoicesPrice = $sumInvoicesPrice * -1;
+        }
+//        dd($proposal->totalPrice);
+        $diferential = 0.001;
+            if(abs($sumInvoicesPrice - $proposal->totalPrice) > $diferential) {
             return back()
-                            ->with('failed', 'A soma das faturas NÃO pode ser maior que o total da proposta.')
-//                            ->withErrors($validator)
+                            ->with('failed', "A soma das faturas   (" . formatCurrencyReal($sumInvoicesPrice) . ")   NÃO pode ser diferente do total da proposta   (" . formatCurrencyReal($proposal->totalPrice) . ")  .")
                             ->withInput();
         } else {
 //atualiza valores das faturas
@@ -571,6 +578,9 @@ class ProposalController extends Controller {
             $counter = 0;
             foreach ($invoices as $invoice) {
                 $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
+                if ($proposal->type == 'despesa' ) {
+                    $invoice->totalPrice = $invoice->totalPrice * -1;
+                }
                 $invoice->pay_day = $request->pay_day[$counter];
                 $invoice->update();
                 $counter++;

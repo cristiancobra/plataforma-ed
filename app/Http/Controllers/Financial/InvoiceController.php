@@ -406,7 +406,7 @@ class InvoiceController extends Controller {
 
 // Gera PDF da fatura
     public function createPdf(Invoice $invoice) {
-//        dd($invoice->opportunity);
+//        dd($invoice->proposal);
         $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);
                 })
@@ -434,6 +434,18 @@ class InvoiceController extends Controller {
         $tasksOperationalPointsExecuted = $tasksOperational
                 ->where('status', 'feito')
                 ->sum('points');
+        
+        if($invoice->proposal->opportunity) {
+        $opportunityDescription = $invoice->proposal->opportunity->description;
+        }else{
+            $opportunityDescription = 'Não possui';
+        }
+        
+        if($invoice->proposal->contact) {
+        $customerName = $invoice->proposal->opportunity->description;
+        }else{
+            $customerName = 'Não possui';
+        }
 
 // definição do título
         if ($invoice->status == 'orçamento' OR $invoice->status == 'rascunho') {
@@ -496,11 +508,12 @@ class InvoiceController extends Controller {
             'invoiceStatus' => $invoice->status,
             'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
             'invoiceTotalPrice' => $invoice->installment_value,
-            'opportunityDescription' => $invoice->proposal->opportunity->description,
+//            'opportunityDescription' => $invoice->proposal->opportunity->description,
+            'opportunityDescription' => $opportunityDescription,
             'invoiceDiscount' => $invoice->discount,
             'invoicePayday' => $invoice->pay_day,
             'invoiceTotalPrice' => $invoice->totalPrice,
-            'customerName' => $invoice->proposal->opportunity->contact->name,
+            'customerName' => $customerName,
             'productProposals' => $productProposals,
             'invoiceTotalTransactions' => $totalTransactions,
 //            'tasksOperational' => $tasksOperational,

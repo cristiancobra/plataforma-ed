@@ -74,14 +74,14 @@
                             </div>
                         </div>
 
-                        <div class='row mt-5'>
+                        <section class='container mt-4' id='description'>
                             <div class='show-label-large col-12'>
                                 DESCRIÇÃO
                             </div>
                             <div class='description-field'>
                                 @yield('description')
                             </div>
-                        </div>
+                        </section>
 
                         @yield('stock')
 
