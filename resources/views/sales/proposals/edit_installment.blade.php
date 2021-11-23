@@ -182,7 +182,7 @@
                     </a>
                 </button>
                 <button class="button-round ms-1">
-                    <a title='PDF da fatura' href = "{{route('invoice.pdf', ['invoice' => $invoice])}}" target='_blank' style="color:white">
+                    <a title='PDF ou imprimir fatura' href = "{{route('invoice.pdf', ['invoice' => $invoice])}}" target='_blank' style="color:white">
                         <i class = 'fas fa-file-pdf'></i>
                     </a>
                 </button>
