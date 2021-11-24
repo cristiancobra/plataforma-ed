@@ -35,7 +35,6 @@ class ContractController extends Controller {
                     'opportunity',
                     'user',
                     'userContact',
-//                    'invoice.invoiceLines.product',
                 ])
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
@@ -125,7 +124,6 @@ class ContractController extends Controller {
                 ->get();
 
         $productProposals = ProductProposal::where('proposal_id', $contract->proposal_id)
-//                ->with('product', 'opportunity')
                 ->get();
 
         $userContact = userContact($contract->user_id);
@@ -257,11 +255,10 @@ class ContractController extends Controller {
                 })
                 ->sum('value');
 
-        $invoiceLines = InvoiceLine::where('invoice_id', $contract->invoice_id)
-                ->with('product', 'opportunity')
+        $productProposals = ProductProposal::where('proposal_id', $contract->proposal_id)
                 ->get();
-
-        $tasksOperational = Task::where('opportunity_id', $contract->invoice->opportunity_id)
+        
+        $tasksOperational = Task::where('opportunity_id', $contract->proposal->opportunity_id)
                 ->where('department', '=', 'produção')
                 ->with('journeys')
                 ->get();
@@ -331,17 +328,17 @@ class ContractController extends Controller {
             'contractWitness1' => $witnessName1,
             'contractWitness2' => $witnessName2,
             // outros dados
-            'invoiceIdentifier' => $contract->invoice->identifier,
-            'invoiceDescription' => $contract->invoice->description,
-            'invoiceDiscount' => $contract->invoice->discount,
-            'invoiceInstallmentValue' => $contract->invoice->installment_value,
-            'invoiceStatus' => $contract->invoice->status,
-            'invoiceNumberInstallmentTotal' => $contract->invoice->number_installment_total,
-            'invoiceTotalPrice' => $contract->invoice->totalPrice,
+            'invoiceIdentifier' => $contract->proposal->identifier,
+            'invoiceDescription' => $contract->proposal->description,
+            'invoiceDiscount' => $contract->proposal->discount,
+            'invoiceInstallmentValue' => $contract->proposal->installment_value,
+            'invoiceStatus' => $contract->proposal->status,
+            'invoiceNumberInstallmentTotal' => $contract->proposal->number_installment_total,
+            'invoiceTotalPrice' => $contract->proposal->totalPrice,
             'opportunityDescription' => $contract->opportunity->description,
-            'invoiceDiscount' => $contract->invoice->discount,
-            'invoicePayday' => $contract->invoice->pay_day,
-            'invoiceTotalPrice' => $contract->invoice->totalPrice,
+            'invoiceDiscount' => $contract->proposal->discount,
+            'invoicePayday' => $contract->proposal->pay_day,
+            'invoiceTotalPrice' => $contract->proposal->totalPrice,
             'customerName' => $contract->contact->name,
             'customerEmail' => $contract->contact->email,
             'customerPhone' => $contract->contact->phone,
@@ -349,7 +346,7 @@ class ContractController extends Controller {
             'customerCity' => $contract->contact->city,
             'customerState' => $contract->contact->state,
             'customerCountry' => $contract->contact->country,
-            'invoiceLines' => $invoiceLines,
+            'productProposals' => $productProposals,
             'invoiceTotalTransactions' => $totalTransactions,
             'tasksOperational' => $tasksOperational,
             'tasksOperationalPoints' => $tasksOperationalPoints,
