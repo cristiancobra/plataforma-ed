@@ -9,8 +9,8 @@
 @section('filter')
 <form id="filter" action="{{route('invoice.index')}}" method="get" style="text-align: right;display:none">
     <input type="text" name="name" placeholder="nome da oportunidade" value="">
-    <input type="date" name="date_start" size="20" value="{{old('date_start')}}"><span class="fields"></span>
-    <input type="date" name="date_end" size="20" value="{{old('date_end')}}"><span class="fields"></span>
+    <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
+    <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todas os contatos')}}
     {{createFilterSelect('status', 'select', returnInvoiceStatusToFilter(), 'Todas as situações')}}

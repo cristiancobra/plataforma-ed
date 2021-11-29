@@ -49,13 +49,23 @@
         </select>
         <br>
         <br>
-        <label class='labels' for='' >NOME:</label>
-        <input type="text" name='name'>
+        <label class='labels' for='' >
+            NOME:
+        </label>
+        <input type="text" name='name' value='{{old('name')}}'>
+                @if ($errors->has('name'))
+        <span class='text-danger'>
+            {{$errors->first('name')}}
+        </span>
+        @endif
         <br>
-        <label class='labels' for='' >OPORTUNIDADE:</label>
-        @if(!empty(app('request')->input('opportunityName')))
-        {{app('request')->input('opportunityName')}}
-        <input type='hidden' name='opportunity_id' value='{{app('request')->input('opportunityId')}}'>
+
+        <label class='labels' for='' >
+            OPORTUNIDADE:
+        </label>
+        @if($opportunity)
+        {{$opportunity->name}}
+        <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
         @elseif($type == 'despesa')
         não possui
         @else
@@ -72,22 +82,21 @@
         <span class='text-danger'>{{$errors->first('opportunity_id')}}</span>
         @endif
         <br>
-        @if(!empty(app('request')->input('opportunityCompanyName')))
-        <label class='labels' for='' >EMPRESA:</label>
-        {{app('request')->input('opportunityCompanyName')}}
-        <input type='hidden' name='company_id' value='{{app('request')->input('opportunityCompanyId')}}'>
-        @elseif($type == 'despesa')
-        <label class='labels' for='' >FORNECEDOR:</label>
-        <select name='company_id'>
-            @foreach ($companies as $company)
-            <option  class='fields' value='{{$company->id}}'>
-                {{$company->name}}
-            </option>
-            @endforeach
-        </select>
-        {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
+
+        @if($type == 'receita')
+        <label class='labels' for='' >
+            EMPRESA:
+        </label>
         @else
-        <label class='labels' for='' >EMPRESA:</label>
+        <label class='labels' for='' >
+            FORNECEDOR:
+        </label>
+        @endif
+
+        @if($opportunity)
+        {{$opportunity->company->name}}
+        <input type='hidden' name='company_id' value='{{$opportunity->company_id}}'>
+        @else
         <select name='company_id'>
             <option  class='fields' value=''>
                 Não possui
@@ -98,36 +107,52 @@
             </option>
             @endforeach
         </select>
+
+        @if($type == 'despesa')
+        {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
+        @else        
         {{createButtonAdd('company.create', 'typeCompanies','cliente')}}
         @endif
+
+        @endif
         <br>
+
         <label class='labels' for='' >CONTATO: </label>
-        @if(!empty(app('request')->input('contact_id')))
-        <input type='hidden' name='contact_id' value='{{app('request')->input('contact_id')}}'>
-        {{app('request')->input('contact_name')}}
+        @if($opportunity)
+        {{$opportunity->contact->name}}
+        <input type='hidden' name='contact_id' value='{{$opportunity->contact->name}}'>
         @else
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts, 'Não possui')}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
         @endif
+
         <br>
         <br>
-        <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
-        <input type='date' name='date_creation' size='20' value='{{old('date_creation')}}'>
+        <label class='labels' for='' >
+            DATA DE CRIAÇÃO:
+        </label>
+        <input type='date' name='date_creation' size='20' value='{{old('date_creation') ? old('date_creation') : date('Y-m-d')}}'>
         @if ($errors->has('date_creation'))
         <span class='text-danger'>{{$errors->first('date_creation')}}</span>
         @endif
         <br>
-        <label class='labels' for='' >VALIDADE DA PROPOSTA:</label>
+        <label class='labels' for='' >
+            VALIDADE DA PROPOSTA:
+        </label>
         <input type='number' name='expiration_date' size='3' min='1' max='365' value='30'> dias
         <br>
-        <label class='labels' for='' >DATA DO PAGAMENTO:</label>
+        <label class='labels' for='' >
+            DATA DO PAGAMENTO:
+        </label>
         <input type='date' name='pay_day' size='20' value='{{old('pay_day')}}'>
         @if ($errors->has('pay_day'))
         <span class='text-danger'>{{$errors->first('pay_day')}}</span>
         @endif
         <br>
         <br>
-        <label class='labels' for='' >NÚMERO DE PARCELAS: </label>
+        <label class='labels' for='' >
+            NÚMERO DE PARCELAS: 
+        </label>
         <input type='number'  class='fields' style='text-align: right' name='installment' value='1' max='12'>
         <br>
         <br>
@@ -282,6 +307,6 @@ CKEDITOR.replace('description');
             $('#new').hide();
         }
     });
-        // formatar entrada do dinheiro
-        $("[name=price]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+    // formatar entrada do dinheiro
+    $("[name=price]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
 </script>

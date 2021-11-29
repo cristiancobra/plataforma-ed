@@ -104,6 +104,12 @@ class ProposalController extends Controller {
         } else {
             $typeCompanies = 'fornecedor';
         }
+        
+        if($request->opportunity) {
+        $opportunity = Opportunity::find($request->opportunity);
+    }else {
+        $opportunity = null;
+    }
 
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->where('type', $typeCompanies)
@@ -136,6 +142,7 @@ class ProposalController extends Controller {
 
         return view('sales.proposals.create', compact(
                         'request',
+                        'opportunity',
                         'opportunities',
                         'contacts',
                         'companies',
@@ -256,36 +263,37 @@ class ProposalController extends Controller {
             $opportunityId = null;
             $itensName = ' ITENS DA DESPESA';
         }
+//
+//        $invoices = Invoice::where('account_id', auth()->user()->account_id)
+//                ->where('proposal_id', $proposal->id)
+//                ->where('trash', '!=', 1)
+//                ->get();
+//
+//        $invoicesTotal = 0;
+//        $balanceTotal = 0;
+//        foreach ($invoices as $invoice) {
+//            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+//                    ->where('trash', '!=', 1)
+//                    ->sum('value');
+//            if ($invoice->totalPrice == $invoice->paid) {
+//                $invoice->status = 'paga';
+//            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+//                $invoice->status = 'parcial';
+//            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+//                $invoice->status = 'atrasada';
+//            }
+//
+//            $invoice->balance = $invoice->totalPrice - $invoice->paid;
+//
+//            $invoicesTotal += $invoice->totalPrice;
+//            $balanceTotal += $invoice->balance;
+//        }
 
-        $invoices = Invoice::where('account_id', auth()->user()->account_id)
-                ->where('proposal_id', $proposal->id)
-                ->where('trash', '!=', 1)
-                ->get();
-
-        $invoicesTotal = 0;
-        $balanceTotal = 0;
-        foreach ($invoices as $invoice) {
-            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-                    ->where('trash', '!=', 1)
-                    ->sum('value');
-            if ($invoice->totalPrice == $invoice->paid) {
-                $invoice->status = 'paga';
-            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
-                $invoice->status = 'parcial';
-            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
-                $invoice->status = 'atrasada';
-            }
-
-            $invoice->balance = $invoice->totalPrice - $invoice->paid;
-
-            $invoicesTotal += $invoice->totalPrice;
-            $balanceTotal += $invoice->balance;
-        }
-
+//        $invoicesCount = $invoices->count();
+        
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
 
-        $invoicesCount = $invoices->count();
 
 //        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
 //        $balanceTotal = $invoicesTotal - $proposalPaymentsTotal;
@@ -310,11 +318,7 @@ class ProposalController extends Controller {
                         'opportunityName',
                         'opportunityId',
                         'itensName',
-                        'invoices',
                         'productProposals',
-                        'invoicesCount',
-                        'invoicesTotal',
-                        'balanceTotal',
                         'tasksOperational',
                         'tasksOperationalHours',
         ));

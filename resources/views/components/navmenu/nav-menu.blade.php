@@ -1,40 +1,5 @@
-@php
-$empresaDigital = \App\Models\Account::find(1);
-
-if(auth()->user() == true AND auth()->user()->account->image) {
-$logo = auth()->user()->account->image->path;
-}else{
-$logo = $empresaDigital->image->path;
-}
-
-if(auth()->user() == true AND auth()->user()->account->principal_color) {
-$principalColor = auth()->user()->account->principal_color;
-}else{
-$principalColor = $empresaDigital->principal_color;
-}
-
-if(auth()->user() == true AND auth()->user()->account->complementary_color) {
-$complementaryColor = auth()->user()->account->complementary_color;
-}else{
-$complementaryColor = $empresaDigital->complementary_color;
-}
-
-if(auth()->user() == true AND auth()->user()->account->opposite_color) {
-$oppositeColor = auth()->user()->account->opposite_color;
-}else{
-$oppositeColor = $empresaDigital->opposite_color;
-}
-
-if(auth()->user() == true) {
-$lastJourney = \App\Models\Journey::myLastJourney();
-$openJourney = \App\Models\Journey::myOpenJourney();
-$tasksEmergency = \App\Models\Task::getTasksEmergency();
-$tasksEmergencyTotal = \App\Models\Task::countTasksEmergency();
-}
-@endphp
-
 <nav class="navbar navbar-expand-md navbar-dark shadow-sm fixed-top" style="
-height:56px;
+     height:56px;
      background-color: {{$principalColor}}
 ">
     <div class="container-fluid ms-5 me-5">
@@ -110,21 +75,21 @@ height:56px;
                                                                                                                     'user_id' => auth()->user()->id,
                                                                                                                     ])}}'>
                 <i class="fas fa-exclamation-triangle" title='Tarefas emergenciais'"></i>
-            <div style="
-                 border-radius: 50%;
-                 color:white;
-                 background-color: red;
-                 font-size: 11px;
-                 font-weight: 600;
-                 text-align: center;
-                 width: 17px;
-                 height: 17px;
-                 margin-top: -28px;
-                 margin-left: 15px;
-                 padding-bottom: 5px;
-                 ">
-                {{$tasksEmergencyTotal}}
-            </div>
+                <div style="
+                     border-radius: 50%;
+                     color:white;
+                     background-color: red;
+                     font-size: 11px;
+                     font-weight: 600;
+                     text-align: center;
+                     width: 17px;
+                     height: 17px;
+                     margin-top: -28px;
+                     margin-left: 15px;
+                     padding-bottom: 5px;
+                     ">
+                    {{$tasksEmergencyTotal}}
+                </div>
             </a>
             @endif
             @endif

@@ -129,83 +129,73 @@
         @endif
     </div>
     <div class='show-field-end'>
+        <a href="{{route('proposal.editInstallment', ['proposal' => $proposal])}}">
         @if($proposal->installment > 1)
-        {{$proposal->installment}} vezes
+            {{$proposal->installment}} vezes
         @else
         À vista
         @endif
+        </a>
     </div>
-    @endsection
+</div>
+@endsection
 
 
-    @section('date_start')
-    <div class='circle-date-start'>
-        @if($proposal->date_creation == null)
-        indefinida
-        @else
-        {{date('d/m/Y', strtotime($proposal->date_creation))}}
-        @endif
-    </div>
-    <p class='labels' style='text-align: center'>
-        CRIAÇÃO
-    </p>
-    @endsection
-
-
-    @section('date_due')    
-    <div class='circle-date-due'>
-        @if($proposal->pay_day == null)
-        indefinida
-        @else
-        {{date('d/m/Y', strtotime($proposal->pay_day))}}
-        @endif
-    </div>
-    <p class='labels' style='text-align: center'>
-        VENCIMENTO
-    </p>
-    @endsection
-
-
-    @section('date_conclusion')
-    <div class='circle-date-due'>
-        {{$proposal->expiration_date}}
-    </div>
-    <p class='labels' style='text-align: center'>
-        VALIDADE
-    </p>
-    @endsection
-
-
-    @section('description')
-    {!!html_entity_decode($proposal->description)!!}
-    @if($type == 'receita')
-    <br>
-    {!!html_entity_decode($proposal->opportunity->description)!!}
+@section('date_start')
+<div class='circle-date-start'>
+    @if($proposal->date_creation == null)
+    indefinida
+    @else
+    {{date('d/m/Y', strtotime($proposal->date_creation))}}
     @endif
-    @endsection
+</div>
+<p class='labels' style='text-align: center'>
+    CRIAÇÃO
+</p>
+@endsection
 
 
-    @section('main')
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-left-style: solid;
-             border-top-style: solid;
-             border-left-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 10px 0 0 0;
-             '>
+@section('date_due')    
+<div class='circle-date-due'>
+    @if($proposal->pay_day == null)
+    indefinida
+    @else
+    {{date('d/m/Y', strtotime($proposal->pay_day))}}
+    @endif
+</div>
+<p class='labels' style='text-align: center'>
+    VENCIMENTO
+</p>
+@endsection
+
+
+@section('date_conclusion')
+<div class='circle-date-due'>
+    {{$proposal->expiration_date}}
+</div>
+<p class='labels' style='text-align: center'>
+    VALIDADE
+</p>
+@endsection
+
+
+@section('description')
+{!!html_entity_decode($proposal->description)!!}
+@if($type == 'receita')
+<br>
+{!!html_entity_decode($proposal->opportunity->description)!!}
+@endif
+@endsection
+
+
+@section('main')
+<section class='container frame mt-5 pb-5' id='productProposals'>
+    <div class="row">
+        <div class='col-6 pt-4 pb-3'>
             <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
             <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >{{$itensName}}</label>
         </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-right-style: solid;
-             border-top-style: solid;
-             border-right-width: 1px;
-             border-top-width: 1px;
-             border-color: #c28dbf;
-             border-radius: 0 10px 0 0;
-             '>
+        <div class='col-6 pt-4 pb-3'>
             <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
                                                                                                                                                                                 'proposal' => $proposal,
                                                                                                                                                                                 'type' => $type,
@@ -214,206 +204,110 @@
             </a>
         </div>
     </div>
-    <div class='row'>
-        <div   class='tb tb-header col-1'>
-            QTDE
-        </div>
-        <div   class='tb tb-header col-4'>
+
+    <div class='row table-header mt-3'>
+        <div   class='col-6'>
             NOME
         </div>
-        <div   class='tb tb-header col-1'>
+        <div   class='col-1'>
             PRAZO
         </div>
-        <div   class='tb tb-header col-2'>
+        <div   class='col-2'>
             IMPOSTO 
         </div>
-        <div   class='tb tb-header col-2'>
-            UNITÁRIO
+        <div class='col-1'>
+            QTDE
         </div>
-        <div   class='tb tb-header col-2'>
-            TOTAL
+        <div   class='col-1'>
+            PREÇO UNITÁRIO
+        </div>
+        <div   class='col-1'>
+            PREÇO TOTAL
         </div>
     </div>
 
     @foreach ($productProposals as $productProposal)
-    <div class='row'>
-        <div class='tb col-1'>
-            {{$productProposal->amount}}
+    <div class='row table2 position-relative'  style='
+         color: {{$principalColor}};
+         border-left-color: {{$complementaryColor}}
+         '>
+        <div class="row">
+            <div class='cel col-6 justify-content-start' style="font-weight: 600">
+                {{$productProposal->product->name}}
+            </div>
+            <div class='cel col-1'>
+                {{$productProposal->subtotalDeadline}} dia(s)
+            </div>
+            <div class='cel col-2'>
+                {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
+            </div>
+            <div class='cel col-1 justify-content-center' style="font-weight: 600">
+                {{$productProposal->amount}}
+            </div>
+            <div class='cel col-1 justify-content-end pt-3'>
+                @if($productProposal->price < 0)
+                <p style='color:red'>
+                    {{formatCurrencyReal($productProposal->price)}}
+                </p>
+                @else
+                <p style='text-align: right'>
+                    {{formatCurrencyReal($productProposal->price)}}
+                </p>
+                @endif
+            </div>
+            <div class='cel col-1 justify-content-end pt-3'>
+                @if($productProposal->subtotalPrice < 0)
+                <p style='color:red'>
+                    {{formatCurrencyReal($productProposal->subtotalPrice)}}
+                </p>
+                @else
+                <p style='text-align: right'>
+                    {{formatCurrencyReal($productProposal->subtotalPrice)}}
+                </p>
+                @endif
+            </div>
         </div>
-        <div class='tb col-4'>
-            {{$productProposal->product->name}}
-        </div>
-        <div class='tb col-1'>
-            {{$productProposal->subtotalDeadline}} dia(s)
-        </div>
-        <div class='tb col-2'>
-            {{number_format($productProposal->subtotalTax_rate, 2,',','.')}}
-        </div>
-        <div class='tb col-2 justify-content-end pt-3'>
-            @if($productProposal->price < 0)
-            <p style='color:red'>
-                {{formatCurrencyReal($productProposal->price)}}
-            </p>
-            @else
-            <p style='text-align: right'>
-                {{formatCurrencyReal($productProposal->price)}}
-            </p>
-            @endif
-        </div>
-        <div class='tb col-2 justify-content-end pt-3'>
-            @if($productProposal->subtotalPrice < 0)
-            <p style='color:red'>
-                {{formatCurrencyReal($productProposal->subtotalPrice)}}
-            </p>
-            @else
-            <p style='text-align: right'>
-                {{formatCurrencyReal($productProposal->subtotalPrice)}}
-            </p>
-            @endif
-        </div>
-    </div>
 
-    <div class='row'>
-        <div class='tb-description col-12 justify-content-start'>
-            {!!html_entity_decode($productProposal->product->description)!!}
+        <div class='row'>
+            <div class='cel col-6 justify-content-start' style="font-weight: 300;display: inline">
+                {!!html_entity_decode($productProposal->product->description)!!}
+            </div>
         </div>
     </div>
     @endforeach
 
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
+    <div class='row mt-1'>
+        <div class='cel offset-8 col-2 table-header justify-content-end' style="background-color: {{$oppositeColor}}">
             pontos: 
         </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
+        <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
             {{$proposal->totalPoints}}
         </div>
     </div>
 
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
+    <div class='row mt-1'>
+        <div class='cel offset-8 col-2 table-header justify-content-end' style="background-color: {{$oppositeColor}}">
             desconto: 
         </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
-           {{formatCurrencyReal($proposal->discount)}}
+        <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
+            {{formatCurrencyReal($proposal->discount)}}
         </div>
     </div>
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
+    <div class='row mt-1'>
+        <div class='cel offset-8 col-2  table-header justify-content-end'>
             TOTAL: 
         </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
+        <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
             {{formatCurrencyReal($proposal->totalPrice)}}
         </div>
     </div>
-    <br>
-    <br>
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3' style='
-             border-top-style: solid;
-             border-top-width: 1px;
-             border-left-style: solid;
-             border-left-width: 1px;
-             border-radius: 7px 0px 0px 0px;
-             border-color: #c28dbf;
-             '>
-            <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FATURAS</label>
-        </div>
-        <div class='col-6 pt-4 pb-3' style='
-             border-top-style: solid;
-             border-top-width: 1px;
-             border-right-style: solid;
-             border-right-width: 1px;
-             border-radius: 0px 7px 0px 0px;
-             border-color: #c28dbf
-             '>
-            @if($invoicesCount <= 1)
-            <form  style='display: inline-block;float: right' action='{{route('proposal.generateInstallment', ['proposal' => $proposal])}}'' method='get'>
-                <input class='text-button secondary' type='submit' value=' GERAR  FATURAS'>
-            </form>
-            @endif
-            <form  style='display: inline-block;float: right' action='{{route('proposal.editInstallment', ['proposal' => $proposal])}}'' method='get'>
-                <input class='text-button secondary' type='submit' value=' EDITAR TODAS'>
-            </form>
-        </div>
+</section>
+@endsection
+
+@section('createdAt')
+<div class='row' style='margin-top: 30px'>
+    <div class='col-12'style='padding-top: -10px'>
+        Primeiro registro em: {{date('d/m/Y H:i', strtotime($proposal->created_at))}}
     </div>
-
-    <div class='row'>
-        <div   class='tb tb-header col-1'>
-            SITUAÇÃO
-        </div>
-        <div   class='tb tb-header col-5'>
-            FATURA
-        </div>
-        <div   class='tb tb-header col-2'>
-            VENCIMENTO
-        </div>
-        <div   class='tb tb-header col-2'>
-            VALOR TOTAL
-        </div>
-        <div   class='tb tb-header col-2'>
-            VALOR RESTANTE
-        </div>
-    </div>
-
-    @foreach ($invoices as $invoice)
-    <div class='row'>
-        <div class='tb col-1 text-center'>
-            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-                {{faiconInvoiceStatus($invoice->status)}}
-            </a>
-        </div>
-        <div   class='tb col-5 justify-content-start'>
-            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-                FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$proposal->installment}}
-            </a>
-        </div>
-        <div   class='tb col-2'>
-            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-                {{date('d/m/Y', strtotime($invoice->pay_day))}}
-            </a>
-        </div>
-
-        @if($invoice->totalPrice < 0)
-        <div   class='tb col-2 justify-content-end'>
-            <a href='{{route('invoice.show', ['invoice' => $invoice])}}' style='color: red'>
-                {{formatCurrencyReal($invoice->totalPrice)}}
-            </a>
-        </div>
-        @else
-        <div   class='tb col-2 justify-content-end'>
-            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-                {{formatCurrencyReal($invoice->totalPrice)}}
-            </a>
-        </div>
-        @endif
-
-        @if($invoice->balance < 0)
-        <div   class='tb col-2 justify-content-end' style='color:red'>
-            {{formatCurrencyReal($invoice->balance)}}
-        </div>
-        @else
-        <div   class='tb col-2 justify-content-end'>
-            {{formatCurrencyReal($invoice->balance)}}
-        </div>
-        @endif
-    </div>
-    @endforeach
-
-    <div class='row'>
-        <div   class='tb tb-header col-10 justify-content-end'>
-            {{formatCurrencyReal($invoicesTotal)}}
-        </div>
-        <div   class='tb tb-header col-2 justify-content-end'>
-            {{formatCurrencyReal($balanceTotal)}}
-        </div>
-    </div>
-    @endsection
-
-    @section('createdAt')
-    <div class='row' style='margin-top: 30px'>
-        <div class='col-12'style='padding-top: -10px'>
-            Primeiro registro em: {{date('d/m/Y H:i', strtotime($proposal->created_at))}}
-        </div>
-    </div>
-    @endsection
+</div>
+@endsection

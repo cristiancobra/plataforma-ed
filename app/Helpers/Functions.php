@@ -5,6 +5,21 @@ use App\Models\Account;
 use App\Models\User;
 use App\Models\Question;
 
+// cria um botao para criar nova tarefa de vendas
+if (!function_exists('buttonTaskSales')) {
+
+    function buttonTaskSales($parameter, $model, $name = null) {
+        echo "<a class='circular-button secondary' title='$name' href = " . route('task.create', [
+                                                                                                                                                    $parameter => $model,
+                                                                                                                                                    'name' => $name,
+                                                                                                                                                    'department' => 'vendas',
+                                                                                                                                                    ]) . ">";
+        echo "<i class = 'fa fa-funnel-dollar'></i>";
+        echo "</a>";
+    }
+
+}
+
 if (!function_exists('createButtonAdd')) {
 
 // cria um botao com simbolo de + para adicionar model  a partir da rota
@@ -368,7 +383,7 @@ if (!function_exists('editDoubleSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
     function editDoubleSelectIdName($name, $class, $models, $currentValue = null, $nullLabel = null) {
-        echo "<select class = '$class' name = '$name'>";
+        echo "<select class = '$class' name = '$name' style='width:100%'>";
         echo "<option value=''>$currentValue</option><br>";
         if ($nullLabel) {
             echo "<option value=''>$nullLabel</option><br>";
@@ -400,7 +415,7 @@ if (!function_exists('createSimpleSelect')) {
 
 // cria as opções de um select recebendo um array com 1 posição
     function createSimpleSelect($name, $class, array $options, $currentValue = null) {
-        echo "<select class=$class name=$name>";
+        echo "<select class=$class name=$name  style='width:100%'>";
         if ($currentValue != null) {
             echo "<option value='$currentValue'>$currentValue</option>";
         }
@@ -1679,7 +1694,7 @@ if (!function_exists('createSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE, COLLECTION e aplica ID em VALUE e NAME no label
     function createSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
-        echo "<select class = '$class' name = '$name'  value='old('$name')>";
+        echo "<select class = '$class' name = '$name'  value='old('$name') style='width:100%'>";
         if ($currentValue) {
             echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
         }
@@ -1845,9 +1860,10 @@ if (!function_exists('createSidebarItem')) {
     function createSidebarItem($groupName, $groupFaIcon, $aria, $backgroundColor, $oppositeColor, $principalColor, array $itens) {
         echo "
          <div class='dropdown'>
-            <button class='dropdown-btn dropdown-toggle' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'  style='background-color:$backgroundColor'>
+            <button class='dropdown-btn dropdown-toggle text-center' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'  style='background-color:$backgroundColor'>
                 <i class='$groupFaIcon'></i>
-                <span class='d-none d-xl-inline'>$groupName</span>
+                    <br>
+                <span class='d-none d-xl-inline' style='font-size:13px'>$groupName</span>
             </button>
             <ul class='dropdown-menu' style='background-color:$oppositeColor;color:$principalColor' aria-labelledby='$aria'>
                 ";

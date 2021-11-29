@@ -477,3 +477,70 @@ and open the template in the editor.
     margin-left: auto;
     margin-right: auto;
 }
+
+.frame {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #c28dbf;
+    border-radius: 10px 10px 10px 10px;
+}
+
+.form-button {
+    font-size:18px;
+    border-style: none;
+    padding-left:4px;
+    padding-top:2px;
+    border-radius: 50%;
+    border-width: 0px;
+    padding:5px 8px 6px 8px;
+    margin: 1px;
+    height: 40px;
+    width: 40px;
+box-shadow: rgba(0, 0, 0, 0.15) 6.95px 6.95px 12.6px;
+    text-align: center;
+    transition: transform .2s; /* Animation */
+}
+
+.form-button:hover {
+    font-size:20px;
+    transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    filter: brightness(130%);
+}
+
+.ellipse-start {
+        font-size: 14px;
+    text-align: right;
+    border-style: solid;
+    border-width: 1px;
+    border-right-style: none;
+    border-radius: 20px 0 0 20px;
+    padding: 4px 10px;
+    color:white;
+    font-weight: 600;
+}
+
+.ellipse-end {
+    font-size: 14px;
+    text-align: right;
+    border-style: solid;
+    border-width: 1px;
+    border-left-style: none;
+    border-radius: 0px 20px 20px 0px;
+    padding: 4px 10px;
+        font-weight: 600;
+}
+
+
+.ellipse {
+        font-size: 14px;
+    text-align: right;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+    padding: 4px 10px;
+    margin-right: -10px;
+    color:white;
+    font-weight: 600;
+    margin-left: 10px;
+    width: 100%;
+}

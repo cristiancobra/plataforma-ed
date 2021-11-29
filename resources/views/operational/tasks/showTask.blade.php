@@ -319,53 +319,6 @@
         </a>
     </div>
 </div>
-
-<div class='row'>
-    @if(isset($openJourney))
-    <div class='col-2 d-inline-block'>
-        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.completeFromTask', ['journey' => $openJourney])}}" method="post">
-            @csrf
-            @method('put')
-            <button id='' class=' emergency-display' title='Encerrar jornada com a hora atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-                <p class='panel-text pt-2 mb-2'>
-                    <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                    <br>
-                    ENCERRAR JORNADA
-                </p>
-            </button>
-        </form>
-    </div>
-    @else
-    <div class='col-2 d-inline-block'>
-        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.storeFromTask', ['taskId' => $task->id])}}" method="post">
-            @csrf
-            @method('put')
-            <button id='' class=' sales-display' title='Iniciar com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-                <p class='panel-text pt-2 mb-2'>
-                    <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                    <br>
-                    INICIAR JORNADA
-                </p>
-            </button>
-        </form>
-    </div>
-    @endif
-    @if($task->status == 'fazendo')
-    <div class='col-2 d-inline-block'>
-        <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
-            @csrf
-            @method('put')
-            <button id='' class=' emergency-display' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-                <p class='panel-text pt-2 mb-2'>
-                    <i class="fas fa-clipboard-check" style="font-size:36px; color:white;padding-bottom: 10px"></i>
-                    <br>
-                    ENCERRAR TAREFA
-                </p>
-            </button>
-        </form>
-    </div>                
-    @endif
-</div>
 @endsection
 
 @section('extraButton')
@@ -382,10 +335,65 @@
 
 @section('backButton', route('task.index'))
 
+
 @section('createdAt')
 <div class='row' style='margin-top: 30px'>
     <div class='col-12'style='padding-top: -10px'>
         Primeiro registro em: {{date('d/m/Y H:i', strtotime($task->created_at))}}
     </div>
 </div>
+@endsection
+
+
+@section('workflow')
+    @if(isset($openJourney))
+<div class='row'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.completeFromTask', ['journey' => $openJourney])}}" method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' emergency-display' title='Encerrar jornada com a hora atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+                <p class='panel-text pt-2 mb-2'>
+                    <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    ENCERRAR JORNADA
+                </p>
+            </button>
+        </form>
+    </div>
+    </div>
+    @else
+    <div class='row mt'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.storeFromTask', ['taskId' => $task->id])}}" method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' sales-display' title='Iniciar com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+                <p class='panel-text pt-2 mb-2'>
+                    <i class="fas fa-stopwatch" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    INICIAR JORNADA
+                </p>
+            </button>
+        </form>
+    </div>
+    </div>
+    @endif
+    @if($task->status == 'fazendo')
+    <div class='row mt-3'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' emergency-display' title='Encerrar tarefa com a data atual' style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
+                <p class='panel-text pt-2 mb-2'>
+                    <i class="fas fa-clipboard-check" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    ENCERRAR TAREFA
+                </p>
+            </button>
+        </form>
+    </div>                
+</div>
+    @endif
 @endsection

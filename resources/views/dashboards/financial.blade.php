@@ -267,6 +267,10 @@
                  margin-left: -8px;
                  '>
                 REALIZADO
+                <br>
+                <span style="font-weight:400;font-size: 12px;text-shadow:none">
+                    (movimentações)
+                </span>
             </div>
         </div>
         <!--linha dos botoes-->
@@ -442,10 +446,14 @@
                  margin-left: -3px;
                  '>
                 PREVISTO
+                <br>
+                <span style="font-weight:400;font-size: 16px;text-shadow:none">
+                    (faturas)
+                </span>
             </div>
         </div>
         <!--linha dos botoes-->
-        <div class='row d-flex justify-content-center' style='
+        <div class='row  justify-content-center' style='
              font-size: 20px;
              font-weight: 600;
              color: {{$complementaryColor}};

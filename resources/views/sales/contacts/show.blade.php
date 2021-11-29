@@ -11,6 +11,7 @@
 
 @section('buttons')
 
+{{buttonTaskSales('contact', $contact, "Vender para $contact->first_name")}}
 {{createButtonEdit('contact', 'contact', $contact)}}
 {{createButtonList('contact')}}
 @endsection

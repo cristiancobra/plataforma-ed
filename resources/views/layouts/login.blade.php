@@ -15,7 +15,7 @@
     </head>
     <body style='background-color: #c28dbf'>
 
-        @include('layouts.navMenu')
+        <x-navmenu.nav-menu/>
 
         <div class='container-fluid'>
             <div class='row'>

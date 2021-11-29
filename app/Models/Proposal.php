@@ -180,10 +180,10 @@ class Proposal extends Model {
     public static function returnStatus() {
 
         return $status = array(
-            'rascunho',
             'orçamento',
-            'cancelada',
             'aprovada',
+            'rascunho',
+            'cancelada',
         );
     }
 

@@ -11,12 +11,12 @@
     </head>
     <body>
 
-        @include('layouts.navMenu')
+            <x-Navmenu.nav-menu/>
 
-        <div class='container-fluid' style="margin-top: 56px">
+        <div class='container-fluid' style="margin-top: 55px">
             <div class='row' style='background-color: #EEEEEE'>
-                @include('layouts.sidebar')
-                <main role='main' class='offset-2 col-10 ml-sm-auto px-2' style='background-color: #EEEEEE'>
+                <x-sidebar.sidebar/>
+                <main role='main' class='offset-1 col-11 ml-sm-auto px-2' style='background-color: #EEEEEE'>
 
                     <div class='row' style='
                          margin-top: 10px;

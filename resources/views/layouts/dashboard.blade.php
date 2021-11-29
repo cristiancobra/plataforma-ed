@@ -9,21 +9,24 @@
         @include('layouts.assets')
 
     </head>
-    <body>
+    <body style='width:100%;overflow-x: hidden'>
 
-        @include('layouts.navMenu')
+    <x-Navmenu.nav-menu/>
 
-        <div class='container-fluid' style="margin-top: 56px">
-            <div class='row' id='background-gray' style='background-color: #EEEEEE'>
-                @include('layouts.sidebar')
-                <main role='main' class='row offset-2 col-10 ps-3 pe-1 mt-3' id='whitepaper' style='background-color: #EEEEEE'>
+    <x-sidebar.sidebar/>
 
-                    <div class='row ps-4 pt-4 ' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
-                        @yield('main')
-                    </div>
-                </main>
+    <div class="row"style='
+         margin-top: 55px;
+         margin-left: 120px;
+         background-color: #EEEEEE;
+         min-height: 100vh;
+         '>
+        <div class="col">
+            <div id='white-page' class='container mt-5 mb-5 px-5 pt-3 pb-5' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
+                @yield('main')
             </div>
-            @yield('js-scripts')
         </div>
-    </body>
+    </div>
+    @yield('js-scripts')
+</body>
 </html>

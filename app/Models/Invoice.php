@@ -379,12 +379,12 @@ class Invoice extends Model {
                 $invoice->status = 'atrasada';
             }
         }
-        
+
         return $invoices->where('status', '!=', 'paga');
     }
 
     // retorna o STATUS / SITUAÇÃO da fatura 
-public static function returnStatus() {
+    public static function returnStatus() {
 
         return $status = array(
             'rascunho',
@@ -392,6 +392,24 @@ public static function returnStatus() {
             'cancelada',
             'aprovada',
         );
+    }
+
+    // retorna uma cor de acordo com o  STATUS / SITUAÇÃO da fatura 
+    public static function statusColor($invoice) {
+        if ($invoice->status == 'aprovada') {
+            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                    ->sum('value');
+        }
+        if ($invoice->paid >= $invoice->totalPrice) {
+            $color = 'green';
+        } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->totalPrice) {
+            $color = 'blue';
+        } else {
+            $color = 'white';
+            
+        }
+
+        return $color;
     }
 
 }

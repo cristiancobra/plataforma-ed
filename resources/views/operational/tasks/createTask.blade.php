@@ -26,9 +26,12 @@
 <div>
     <form action=" {{route('task.store')}} " method="post" enctype='multipart/form-data'>
         @csrf
-        <label class="labels" for="" >NOME:</label>
-        @if(!empty(app('request')->input('task_name')))
-        <input type="text" name="name" value="{{app('request')->input('task_name')}}" style="width: 600px">
+
+        <label class="labels" for="" >
+            NOME:
+        </label>
+        @if($name)
+        <input type="text" name="name" value="{{$name}}" style="width: 600px">
         @else
         <input type="text" name="name" style="width: 600px" value="{{old('name')}}">
         @if ($errors->has('name'))
@@ -36,7 +39,13 @@
         @endif
         @endif
         <br>
-        <label class="labels" for="" >DEPARTAMENTO:</label>
+
+        @if($department)
+        <input type="hidden" name="department"value="{{$department}}">
+        @else
+        <label class="labels" for="" >
+            DEPARTAMENTO:
+        </label>
         @if(!empty(app('request')->input('department')))
         {{app('request')->input('department')}}
         <input type="hidden" name="department"value="{{app('request')->input('department')}}">
@@ -46,16 +55,26 @@
         {{createSimpleSelect('department', 'fields', $departments)}}
         @endif
         <br>
-        <label class="labels" for="" >RESPONSÁVEL: </label>
+        @endif
+
+        <label class="labels" for="" >
+            RESPONSÁVEL: 
+        </label>
         {{createSelectUsers('fields', $users)}}
         <br>
         <br>
-        @if(app('request')->input('department') != 'desenvolvimento')
-        <label class="labels" for="" >OPORTUNIDADE:</label>
+
+        @if($department == 'vendas')
         @else
-        <label class="labels" for="" >PROJETO:</label>
+        @if(app('request')->input('department') != 'desenvolvimento')
+        <label class="labels" for="" >
+            OPORTUNIDADE:
+        </label>
+        @else
+        <label class="labels" for="" >
+            PROJETO:
+        </label>
         @endif
-        
         @if(!empty(app('request')->input('opportunity_id')))
         {{app('request')->input('opportunity_name')}}
         <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
@@ -87,29 +106,69 @@
         </select>
         @endif
         <br>
-        
-        <label class="labels" for="" >DATA DE CRIAÇÃO:</label>
+        @endif
+
+        <label class="labels" for="" >
+            CONTATO: 
+        </label>
+        @if($contact)
+        <input type="hidden" name="contact_id" value=" {{$contact->id}}">
+        {{$contact->name}}
+        @else
+        {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
+        @endif
+        <br>
+
+        @if(app('request')->input('department') != 'desenvolvimento')
+        <label class="labels" for="" >
+            EMPRESA: 
+        </label>
+        @if(!empty(app('request')->input('company_id')))
+        <input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
+        {{app('request')->input('company_name')}}
+        @else
+        {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
+        @endif
+        <br>
+        @endif
+
+        <label class="labels" for="" >
+            PRIORIDADE:
+        </label>
+        {{createSimpleSelect('priority', 'fields', $priorities)}}
+        <br>
+        <br>
+
+        <label class="labels" for="" >
+            DATA DE CRIAÇÃO:
+        </label>
         <input type="date" name="date_start" value="{{$today}}">
         @if ($errors->has('date_start'))
         <span class="text-danger">{{ $errors->first('date_start') }}</span>
         @endif
         <br>
-        <label class="labels" for="" >PRAZO FINAL:</label>
+        <label class="labels" for="" >
+            PRAZO FINAL:
+        </label>
         @if(!empty(app('request')->input('date_due')))
         <input type="date" name="date_due" value="{{app('request')->input('date_due')}}">
         @else
-        <input type="date" name="date_due" value="{{old('date_due')}}">
+        <input type="date" name="date_due" value="{{old('date_due') ? old('date_due') : $dateDue}}">
         @endif
         <input type="time" name="time_due" size="50"  value="{{old('time_due')}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
         @endif
         <br>
-        <label class="labels" for="" >PONTOS:</label>
+        <label class="labels" for="" >
+            PONTOS:
+        </label>
         <input type='number' value='{{old('points')}}' style="text-align: right;width: 100px">
         <br>
         <br>
-        <label class="labels" for="" >DESCRIÇÃO:</label>
+        <label class="labels" for="" >
+            DESCRIÇÃO:
+        </label>
         <br>
         @if ($errors->has('description'))
         <span class="text-danger">{{$errors->first('description')}}</span>
@@ -123,34 +182,13 @@
 CKEDITOR.replace('description');
         </script>
         <br>
-        <label class='labels' for='' >ANEXAR IMAGEM:</label>
+        <label class='labels' for='' >
+            ANEXAR IMAGEM:
+        </label>
         <input type='file' name='image'>
         <br>
         <br>
-        <label class="labels" for="" >CONTATO: </label>
-        @if(!empty(app('request')->input('contact_id')))
-        <input type="hidden" name="contact_id" value="{{app('request')->input('contact_id')}}">
-        {{app('request')->input('contact_name')}}
-        @else
-        {{createDoubleSelectIdName('contact_id', 'fields', $contacts)}}
-        @endif
-        <br>
 
-        @if(app('request')->input('department') != 'desenvolvimento')
-        <label class="labels" for="" >EMPRESA: </label>
-        @if(!empty(app('request')->input('company_id')))
-        <input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
-        {{app('request')->input('company_name')}}
-        @else
-        {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
-        @endif
-        <br>
-        @endif
-
-        <label class="labels" for="" >PRIORIDADE:</label>
-        {{createSimpleSelect('priority', 'fields', $priorities)}}
-        <br>
-        <br>
         <p style="text-align: right">
             <input class="btn btn-secondary" type="submit" value="CRIAR TAREFA">
         </p>

@@ -26,13 +26,17 @@
 <div>
     <form action=' {{route('goal.store')}} ' method='post' enctype='multipart/form-data'>
         @csrf
-        <label class='labels' for='' >NOME:</label>
+        <label class='labels' for='' >
+            NOME:
+        </label>
         <input type='text' name='name' style='width: 600px' value='{{old('name')}}'>
         @if ($errors->has('name'))
         <span class='text-danger'>{{$errors->first('name')}}</span>
         @endif
         <br>
-        <label class='labels' for='' >DEPARTAMENTO:</label>
+        <label class='labels' for='' >
+            DEPARTAMENTO:
+        </label>
         {{createSimpleSelect('department', 'fields', $departments)}}
         @if ($errors->has('department'))
         <span class='text-danger'>{{$errors->first('department')}}</span>

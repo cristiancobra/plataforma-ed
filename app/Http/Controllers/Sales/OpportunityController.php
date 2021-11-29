@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Contract;
 use App\Models\Company;
@@ -28,8 +29,8 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-            $title = 'OPORTUNIDADES';
-            $department = null;
+        $title = 'OPORTUNIDADES';
+        $department = null;
 
         $opportunities = Opportunity::filterOpportunities($request);
         $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
@@ -87,11 +88,11 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
-            $title = 'OPORTUNIDADES';
-            $department = null;
-            $stages = Opportunity::listStages();
-            $status = Opportunity::listStatus();
-            $goals = null;
+        $title = 'OPORTUNIDADES';
+        $department = null;
+        $stages = Opportunity::listStages();
+        $status = Opportunity::listStatus();
+        $goals = null;
 
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -162,8 +163,8 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Opportunity $opportunity) {
-            $title = 'OPORTUNIDADES';
-            $dateDue = 'PRÓXIMO CONTATO';
+        $title = 'OPORTUNIDADES';
+        $dateDue = 'PRÓXIMO CONTATO';
 
         if ($opportunity->company) {
             $companyName = $opportunity->company->name;
@@ -190,6 +191,7 @@ class OpportunityController extends Controller {
                 ->first();
 
         if ($proposalApproved != null) {
+            $invoiceFrameColor = auth()->user()->account->principal_color;
 
             $invoices = Invoice::where('proposal_id', $proposalApproved->id)
                     ->where('trash', '!=', 1)
@@ -197,7 +199,14 @@ class OpportunityController extends Controller {
                     ->orderBy('PAY_DAY', 'ASC')
                     ->get();
 
+            $invoicesCount = $invoices->count();
+
+            $invoicesTotal = 0;
+            $balanceTotal = 0;
+
             foreach ($invoices as $invoice) {
+                $invoice->color = Invoice::statusColor($invoice);
+                
                 if ($invoice->status == 'aprovada') {
                     $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                             ->sum('value');
@@ -209,7 +218,11 @@ class OpportunityController extends Controller {
                 }
 
                 $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+                $invoicesTotal += $invoice->totalPrice;
+                $balanceTotal += $invoice->balance;
             }
+
 
             $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
             $invoicePaymentsTotal = $invoices->sum('balance');
@@ -218,8 +231,15 @@ class OpportunityController extends Controller {
             $invoices = [];
             $invoiceInstallmentsTotal = 0;
             $invoicePaymentsTotal = 0;
+            $invoicesTotal = 0;
             $balanceTotal = 0;
+            $invoicesCount = 0;
+            $invoiceFrameColor = 'lightgray';
         }
+                
+        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->paginate(20);
 
         $stages = Stage::where('opportunity_id', $opportunity->id)
                 ->with('tasks')
@@ -285,12 +305,12 @@ class OpportunityController extends Controller {
 
         $contracts = Contract::where('opportunity_id', $opportunity->id)
                 ->get();
-        
-                $users = User::myUsers();
+
+        $users = User::myUsers();
         $status = Task::returnStatus();
         $departments = Task::returnDepartments();
         $priorities = Task::returnPriorities();
-        
+
         $counter = 1;
 
         return view('sales.opportunities.show', compact(
@@ -301,15 +321,20 @@ class OpportunityController extends Controller {
                         'companyId',
                         'proposals',
                         'proposalWon',
+                        'proposalApproved',
                         'invoices',
+                        'invoicesCount',
+                        'invoiceFrameColor',
                         'invoiceInstallmentsTotal',
                         'invoicePaymentsTotal',
+                        'invoicesTotal',
                         'balanceTotal',
+                        'bankAccounts',
                         'stages',
                         'tasks',
                         'tasksSales',
                         'tasksSalesHours',
-                'tasksDevelopment',
+                        'tasksDevelopment',
                         'tasksOperational',
                         'tasksOperationalHours',
                         'tasksCustomerServices',
@@ -320,7 +345,7 @@ class OpportunityController extends Controller {
                         'status',
                         'departments',
                         'priorities',
-                'counter',
+                        'counter',
         ));
     }
 
@@ -331,9 +356,9 @@ class OpportunityController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Opportunity $opportunity) {
-            $title = 'OPORTUNIDADES';
-            $stages = Opportunity::listStages();
-            $status = Opportunity::listStatus();
+        $title = 'OPORTUNIDADES';
+        $stages = Opportunity::listStages();
+        $status = Opportunity::listStatus();
 
         $opportunities = Opportunity::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')

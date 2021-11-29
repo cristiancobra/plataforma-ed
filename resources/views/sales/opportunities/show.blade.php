@@ -144,7 +144,9 @@
          border-radius: 10px 0 0 0;
          '>
         <img src='{{asset('images/vendas.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROSPECÇÃO</label>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
+            PROSPECÇÃO
+        </label>
     </div>
     <div class='col-6 pt-4 pb-3' style='
          border-right-style: solid;
@@ -374,259 +376,330 @@
 </div>
 
 
-<div class='row mt-5'>
-    <div class='col-6 pt-3 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}};
-         '>
-        <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROPOSTAS</label>
+<section class='container frame mt-5 pb-3' id='invoices' style="border-color:{{$principalColor}}">
+    <div class="row">
+        <div class='col-11 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$principalColor}}'>
+            <i class="fa fa-receipt"></i>
+            PROPOSTAS
+        </div>
+        <div class='col-1 pt-3 pb-3'>
+            @if($proposalWon == 0)
+            <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('proposal.create', [
+            'type' => 'receita',
+            'opportunity' => $opportunity,
+        ])}}'>
+                <i class='fa fa-plus' aria-hidden='true'></i>
+            </a>
+            @else
+            <div class='circular-button primary' style='display: inline-block;float: right'>
+                <i class='fa fa-check' aria-hidden='true'></i>
+                </>
+            </div>
+        </div>
     </div>
-    <div class='col-6 pt-3 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}};
+    <div class='row table-header mt-3'>
+        <div class='col-1'>
+            ID
+        </div>
+        <div class='col-6'>
+            NOME 
+        </div>
+        <div class='col-1'>
+            CRIAÇÃO 
+        </div>
+        <div class='col-1'>
+            VENCIMENTO
+        </div>
+        <div class='col-1'>
+            A RECEBER
+        </div>
+        <div class='col-1'>
+            VALOR
+        </div>
+        <div class='col-1'>
+            SITUAÇÃO
+        </div>
+    </div>
+    @foreach ($proposals as $proposal)
+    <div class='row table2 position-relative'  style='
+         color: {{$principalColor}};
+         border-left-color: {{$complementaryColor}};
+         background-color: white;
          '>
-        @if($proposalWon == 0)
-        <a class='circular-button primary' style='display: inline-block;float: right' href='{{route('proposal.create', ['opportunity' => $opportunity])}}'>
-            <i class='fa fa-plus' aria-hidden='true'></i>
+        <a class="stretched-link "href=' {{route('proposal.show', ['proposal' => $proposal->id])}}'>
         </a>
+        <div class='cel col-1'>
+            {{$proposal->identifier}}
+        </div>
+        <div class='cel col-6 justify-content-start'>
+            {{$proposal->name}}
+        </div>
+        <div class='cel col-1'>
+            {{date('d/m/Y', strtotime($proposal->date_creation))}}
+        </div>
+        @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
+        <div class='cel col-1'>
+            {{date('d/m/Y', strtotime($proposal->pay_day))}}
+        </div>
         @else
-        <div class='circular-button primary' style='display: inline-block;float: right'>
-            <i class='fa fa-check' aria-hidden='true'></i>
-            </>
+        <div class='cel col-1'>
+            {{date('d/m/Y', strtotime($proposal->pay_day))}}
         </div>
         @endif
+        <div class='cel col-1 justify-content-end''>
+            {{formatCurrencyReal($proposal->balance)}}
+        </div>
+        <div class='cel col-1 justify-content-end''>
+            {{formatCurrencyReal($proposal->installment_value)}}
+        </div>
+        {{formatInvoiceStatus($proposal)}}
     </div>
-</div>
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        ID
-    </div>
-    <div class='col-6 tb tb-header'>
-        NOME 
-    </div>
-    <div class='col-1 tb tb-header'>
-        CRIAÇÃO 
-    </div>
-    <div class='col-1 tb tb-header'>
-        VENCIMENTO
-    </div>
-    <div class='col-1 tb tb-header'>
-        A RECEBER
-    </div>
-    <div class='col-1 tb tb-header'>
-        VALOR
-    </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($proposals as $proposal)
-<div class='row'>
-    <div class='tb col-1'>
-        <button class='button-round'>
-            <a href=' {{route('proposal.show', ['proposal' => $proposal->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{$proposal->identifier}}
-    </div>
-    <div class='tb col-6 justify-content-start'>
-        {{$proposal->name}}
-    </div>
-    <div class='tb col-1'>
-        {{date('d/m/Y', strtotime($proposal->date_creation))}}
-    </div>
-    @if($proposal->status == 'aprovada' AND $proposal->paid == 0 AND $proposal->pay_day < date('Y-m-d'))
-    <div class='tb col-1'>
-        {{date('d/m/Y', strtotime($proposal->pay_day))}}
-    </div>
-    @else
-    <div class='tb col-1'>
-        {{date('d/m/Y', strtotime($proposal->pay_day))}}
-    </div>
+    @endforeach
     @endif
-    <div class='tb col-1 justify-content-end''>
-        {{formatCurrencyReal($proposal->balance)}}
-    </div>
-    <div class='tb col-1 justify-content-end''>
-        {{formatCurrencyReal($proposal->installment_value)}}
-    </div>
-    {{formatInvoiceStatus($proposal)}}
-</div>
-@endforeach
-<div class='row mb-4'>
-    <div class='tb tb-header col justify-content-end' style='height: 30px'>
+</section>
 
-    </div>
-</div>
 
-<div class='row mt-5'>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{$principalColor}};
-         '>
-        <img src='{{asset('images/invoice.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >FATURAS</label>
-    </div>
-    <div class='col-6 pt-4 pb-3' style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{$principalColor}}
-         '>
-        <form  style='display: inline-block;float: right' action='{{route('task.create')}}' method='post'>
-            @csrf
-            <input type='hidden' name='task_name' value='FAZER ORÇAMENTO:'>
-            <input type='hidden' name='opportunity_id' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunity_name' value='{{$opportunity->name}}'>
-            <input type='hidden' name='company_name' value='{{$companyName}}'>
-            <input type='hidden' name='company_id' value='{{$companyId}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='FAZER ORÇAMENTO'>
-        </form>
-        <form  style='display: inline-block;float: right' method='POST' action='{{route('invoice.create')}}'>
-            @csrf
-            @method('post')
-            <input type='hidden' name='typeInvoices' value='receita'>
-            <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
-            <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-            <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
-            <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='department' value='vendas'>
-            <input type='hidden' name='invoiceStatus' value='orçamento'>
-            <input class='text-button secondary' type='submit' value='GERAR ORÇAMENTO'>
-        </form>
-        <form  style='display: inline-block;float: right'  method='POST' action='{{route('invoice.create')}}'>
-            @csrf
-            @method('post')
-            <input type='hidden' name='typeInvoices' value='receita'>
-            <input type='hidden' name='opportunityName' value='{{$opportunity->name}}'>
-            <input type='hidden' name='opportunityId' value='{{$opportunity->id}}'>
-            <input type='hidden' name='opportunityDescription' value='{{$opportunity->description}}'>
-            <input type='hidden' name='opportunityAccountName' value='{{$opportunity->account->name}}'>
-            <input type='hidden' name='opportunityAccountId' value='{{$opportunity->account->id}}'>
-            <input type='hidden' name='opportunityCompanyName' value='{{$companyName}}'>
-            <input type='hidden' name='opportunityCompanyId' value='{{$companyId}}'>
-            @if($opportunity->contact)
-            <input type='hidden' name='contact_name' value='{{$opportunity->contact->name}}'>
-            <input type='hidden' name='contact_id' value='{{$opportunity->contact->id}}'>
-            @endif
-            <input type='hidden' name='department' value='vendas'>
-            <input class='text-button secondary' type='submit' value='GERAR FATURA'>
-        </form>
-    </div>
-</div>
-<div class='row'>
-    <div class='col-1 tb tb-header'>
-        ID
-    </div>
-    <div class='col-3 tb tb-header'>
-        CRIAÇÃO 
-    </div>
-    <div class='col-3 tb tb-header'>
-        VENCIMENTO
-    </div>
-    <div class='col-2 tb tb-header'>
-        A RECEBER
-    </div>
-    <div class='col-2 tb tb-header'>
-        VALOR DA FATURA
-    </div>
-    <div class='tb tb-header col-1'>
-        SITUAÇÃO
-    </div>
-</div>
-@foreach ($invoices as $invoice)
-<div class='row'>
-    <div class='tb col-1'>
-        <button class='button-round'>
-            <a href=' {{route('invoice.show', ['invoice' => $invoice->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i></a>
-        </button>
-        {{$invoice->identifier}}
-    </div>
-    <div class='tb col-3'>
-        {{date('d/m/Y', strtotime($invoice->date_creation))}}
-    </div>
-    @if($invoice->status == 'aprovada' AND $invoice->paid == 0 AND $invoice->pay_day < date('Y-m-d'))
-    <div class='tb col-3'>
-        {{date('d/m/Y', strtotime($invoice->pay_day))}}
-    </div>
-    @else
-    <div class='tb col-3'>
-        {{date('d/m/Y', strtotime($invoice->pay_day))}}
-    </div>
-    @endif
-    <div class='tb col-2 justify-content-end''>
-        {{formatCurrencyReal($invoice->balance)}}
-    </div>
-    <div class='tb col-2 justify-content-end''>
-        {{formatCurrencyReal($invoice->totalPrice)}}
-    </div>
-    {{formatInvoiceStatus($invoice)}}
-</div>
-@foreach($invoice->transactions as $transaction)
-<div class='row'>
-    <div class='tb col-1' style='background-color: #d8c2db'>
-        <button class='button-round'>
-            <a href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
-                <i class='fa fa-eye' style='color:white'></i>
+
+
+<section class='container frame mt-5' id='invoices' style="border-color:{{$invoiceFrameColor}}">
+    <div class="row">
+        <div class='col-11 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
+            <i class="fa fa-receipt"></i>
+            COBRANÇA
+        </div>
+        <div class='col-1 pt-4 pb-3 text-end' style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
+            @if($proposalApproved == null)
+            <i class='fas fa-ban ms-2' style='font-size:28px'></i>
+            @elseif($invoicesCount <= 1)
+            <a href="{{route('proposal.generateInstallment', ['proposal' => $proposalApproved])}}">
+                <button class='form-button' style="
+                        color: {{$principalColor}};
+                        background-color: {{$oppositeColor}};
+                        border-color: {{$principalColor}};
+                        " type='submit' title='GERAR  FATURAS'>
+                    <i class="fa fa-file-invoice-dollar"></i>
+                </button>
             </a>
-        </button>
-        {{$transaction->id}}
+
+            <form  style='display: inline-block;float: right' action='{{route('proposal.generateInstallment', ['proposal' => $proposalApproved])}}' method='get'>
+                <input class='text-button secondary' type='submit' value=' GERAR  FATURAS'>
+            </form>
+            @else
+            <a href="{{route('proposal.editInstallment', ['proposal' => $proposalApproved])}}">
+                <button class='form-button' style="
+                        color: {{$principalColor}};
+                        background-color: {{$oppositeColor}};
+                        border-color: {{$principalColor}};
+                        " type='submit' title='EDITAR TODAS'>
+                    <i class="fa fa-edit"></i>
+                </button>
+            </a>
+        </div>
     </div>
-    <div class='tb col-3' style='background-color: #d8c2db'>
-        {{date('d/m/Y', strtotime($transaction->pay_day))}}
+
+    <div class='row table-header mt-3'>
+        <div class='col-1'>
+
+        </div>
+        <div   class='col-4'>
+            FATURA
+        </div>
+        <div   class='col-2'>
+            VENCIMENTO
+        </div>
+        <div   class='col-2'>
+            VALOR TOTAL
+        </div>
+        <div   class='col-2'>
+            VALOR RESTANTE
+        </div>
     </div>
-    <div class='tb col-3' style='background-color: #d8c2db'>
-        {{$transaction->bankAccount->name}}
+
+    @foreach ($invoices as $invoice)
+    <div class='row table2 position-relative'  style='
+         color: {{$principalColor}};
+         border-left-color: {{$complementaryColor}};
+         background-color: {{$invoice->color}};
+         '>
+        <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
+            {{$counter}}
+            <i class="fas fa-file-invoice-dollar" style='
+               display:block;
+               padding-left:10px;
+               width:25%;
+               font-size: 30px;
+               '>
+            </i>
+        </div>
+        <div class='cel col-4 justify-content-start'>
+            FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$proposal->installment}}
+        </div>
+        <div class='cel col-2'>
+            {{date('d/m/Y', strtotime($invoice->pay_day))}}
+        </div>
+
+        @if($invoice->totalPrice < 0)
+        <div class='cel col-2 justify-content-end'>
+            {{formatCurrencyReal($invoice->totalPrice)}}
+        </div>
+        @else
+        <div class='cel col-2 justify-content-end'>
+            {{formatCurrencyReal($invoice->totalPrice)}}
+        </div>
+        @endif
+
+        @if($invoice->balance < 0)
+        <div class='cel col-2 justify-content-end' style='color:red'>
+            {{formatCurrencyReal($invoice->balance)}}
+        </div>
+        @else
+        <div class='cel col-2 justify-content-end'>
+            {{formatCurrencyReal($invoice->balance)}}
+        </div>
+        @endif
+        <div class='cel col-1'>
+            <a title='PDF ou imprimir fatura' href = "{{route('invoice.pdf', ['invoice' => $invoice])}}" target='_blank' style="color:white">
+                <button class='form-button' style="
+                        color: {{$principalColor}};
+                        background-color: {{$oppositeColor}};
+                        border-color: {{$principalColor}};
+                        " type='submit' title='EDITAR TODAS'>
+                    <i class="fa fa-file-download"></i>
+                </button>
+            </a>
+            <a id='invoicePaymentButtonOnOff_{{$counter}}'  title='Criar nova etapa'>
+                <button class='form-button' style="
+                        color: {{$principalColor}};
+                        background-color: {{$oppositeColor}};
+                        border-color: {{$principalColor}};
+                        " type='submit' title='EDITAR PAGAMENTOS'>
+                    <i class="fa fa-money-bill"></i>
+                </button>
+            </a>
+        </div>
     </div>
-    <div class='tb col-2' style='background-color: #d8c2db'>
-        {{$transaction->observations}}
+
+
+    <!--  div oculta ADICIONAR PAGAMENTO  -->
+
+    @if(Session::has('failed'))
+    <div class="alert alert-danger">
+        {{Session::get('failed')}}
+        @php
+        Session::forget('failed');
+        @endphp
     </div>
-    <div class='tb col-2 justify-content-end' style='background-color: #d8c2db'>
-        {{formatCurrencyReal($transaction->value)}}
+    @endif
+    <div class='container pt-5 pb-5' id='paymentRow_{{$counter++}}' style='display: none;background-color: #f1f1f1'>
+        <form id='addPayment' action='{{route('transaction.store')}}' method='post' style='text-align: left'>
+            @csrf
+            <input type='hidden' name='invoice_id'  value='{{$invoice->id}}'>
+            <div class="row mt-2">
+                <div class='col-3' style='text-align:left'>
+                    <label class='labels' for='user_id' style='text-align:left;color:{{$principalColor}}'>
+                        REGISTRADO POR
+                    </label>
+                    <br>
+                    {{createSelectUsers('select', $users)}}
+                </div>
+                <div class='col-3' style='text-align:left'>
+                    <label class="labels" for="" >
+                        CONTA:
+                    </label>
+                    <br>
+                    <select name="bank_account_id">
+                        @foreach ($bankAccounts as $bankAccount)
+                        <option  class="fields" value="{{$bankAccount->id}}">
+                            {{$bankAccount->name}}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class='col-2' style='text-align:left'>
+                    <label class="labels" for="" >
+                        DATA:
+                    </label>
+                    <br>
+                    @if(!empty(app('request')->input('pay_day')))
+                    <input type="date" name="pay_day" value="{{app('request')->input('pay_day')}}">
+                    @else
+                    <input type="date" name="pay_day" value="{{date('d-m-y')}}">
+                    @endif
+                    @if ($errors->has('pay_day'))
+                    <span class="text-danger">{{$errors->first('pay_day')}}</span>
+                    @endif
+                </div>
+                <div class='col-2' style='text-align:left'>
+                    <label class='labels' for='priority' style='text-align:left;color:{{$principalColor}}'>
+                        MEIO
+                    </label>
+                    <br>
+        {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
+                </div>
+                <div class='col-1' style='text-align:left'>
+                    <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
+                        VALOR
+                    </label>
+                    <br>
+        @if ($errors->has('value'))
+        <span class="text-danger">{{$errors->first('value')}}</span>
+        @endif
+        <input type="decimal" name="value" style="text-align: right" size='12' value="{{formatCurrencyReal($invoice->totalPrice)}}">
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class='col-5' style='text-align:left'>
+                    <label class='labels' for='description' style='text-align:left;color:{{$principalColor}}'>
+                        OBSERVAÇÕES
+                    </label>
+                    @if ($errors->has('observations'))
+                    <span class="text-danger">{{$errors->first('observations')}}</span>
+                    @endif
+                </div>
+            </div>
+            <div class="row pt-1">
+                <div class='col' style='text-align:left'>
+                    <textarea id="descriptionStage" name="observations" rows="6" cols="90">
+  {{old('observations')}}
+                    </textarea>
+                    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+                    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+                    <script>
+CKEDITOR.replace('observations');
+                    </script>
+                </div>
+            </div>
+            <div class="row pt-4">
+                <div class='col d-flex justify-content-end'>
+                    {{createButtonSave()}}
+                </div>
+            </div>
+        </form>
     </div>
-    <div class='tb col-1' style='background-color: #d8c2db'>
+    <!--  FIM div oculta ADICIONAR PAGAMENTO  -->
+    @endforeach
+
+    <div class='row mt-4 mb-4'>
+        <div class='offset-8 col-2 d-flex justify-content-end'>
+            <div class='ellipse' style='color:{{$oppositeColor}}'>
+                @if(isset($invoicesTotal))
+                {{formatCurrencyReal($invoicesTotal)}}
+                @endif
+            </div>
+        </div>
+        <div class='col-2 d-flex justify-content-end'>
+            <div class='ellipse' style='color:{{$principalColor}}'>
+                {{formatCurrencyReal($balanceTotal)}}
+            </div>
+        </div>
     </div>
-</div>
-@endforeach
-@endforeach
-<div class='row mb-4'>
-    <div class='tb tb-header col-7 justify-content-end'>
-    </div>
-    <div class='tb tb-header col-2 justify-content-end'>
-        Falta receber:  {{formatCurrencyReal($invoicePaymentsTotal)}}
-    </div>
-    <div class='tb tb-header col-2 justify-content-end'>
-        Pago:  {{formatCurrencyReal($balanceTotal)}}
-    </div>
-    <div class='tb tb-header col-1'>
-    </div>
-</div>
+
+    @endif
+</section>
+
+
+
+
 
 
 <div class='row mt-5'>
@@ -639,7 +712,9 @@
          border-color: {{$principalColor}}
          '>
         <img src='{{asset('images/contract.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >CONTRATOS</label>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
+            CONTRATOS
+        </label>
     </div>
     <div class='col-6 pt-4 pb-3' style='
          border-top-style: solid;
@@ -850,7 +925,9 @@
          border-color: {{$principalColor}}
          '>
         <img src='{{asset('images/customer-service.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >ATENDIMENTO</label>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
+            ATENDIMENTO
+        </label>
     </div>
     <div class='col-6 pt-4 pb-3' style='
          border-top-style: solid;
@@ -964,19 +1041,19 @@
     $(document).ready(function () {
     console.log('filter button')
             //botao de exibir filtro
-            $('#stageButtonOnOff').click(function () {
-    $('#stageRow').slideToggle(600);
-    $('#buttonOnOff').toggleClass('plus minus');
-    });
-    $('#taskButtonOnOff').click(function () {
+//            $('#invoicePaymentButtonOnOff').click(function () {
+//    $('#stageRow').slideToggle(600);
+//    $('#buttonOnOff').toggleClass('plus minus');
+//    });
+            $('#taskButtonOnOff').click(function () {
     $('#taskRow').slideToggle(600);
     });
     @php
             $counterJs = 1;
-    foreach($stages as $stage) {
+    foreach($invoices as $invoice) {
     echo "
-            $('#taskButtonOnOff_$counterJs').click(function () {
-    $('#taskRow_$counterJs').slideToggle(600);
+            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
+    $('#paymentRow_$counterJs').slideToggle(600);
     });
     ";
             $counterJs++;

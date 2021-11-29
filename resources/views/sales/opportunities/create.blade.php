@@ -51,7 +51,10 @@
         {{createButtonAdd('company.create', 'typeCompanies', 'cliente')}}
         <br>
         @endif
-        <label class="labels" for="" >CONTATO: </label>
+        
+        <label class="labels" for="" >
+            CONTATO: 
+        </label>
         @if(!empty(app('request')->input('contact_id')))
         <input type="hidden" name="contact_id" value="{{app('request')->input('contact_id')}}">
         {{app('request')->input('contact_name')}}

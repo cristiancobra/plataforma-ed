@@ -9,16 +9,25 @@
         @include('layouts.assets')
 
     </head>
-    <body>
+    <body style='width:100%;overflow-x: hidden'>
 
-        @include('layouts.navMenu')
+    <x-Navmenu.nav-menu/>
 
-        <div class='container-fluid' style="margin-top: 56px">
-            <div class='row' style='background-color: #EEEEEE'>
-                @include('layouts.sidebar')
-                <main role='main' class='offset-2 col-10 ml-sm-auto px-4' style='background-color: #EEEEEE'>
+    <x-sidebar.sidebar/>
 
-                        @include('layouts.header')
+    <div class="row"style='
+         margin-top: 55px;
+         margin-left: 120px;
+         background-color: #EEEEEE;
+         min-height: 100vh;
+         '>
+        <div class="col">
+            <header class='row' style='
+                    padding-top: 10px;
+                    padding-bottom: 15px;
+                    '>
+                @include('layouts.header')
+            </header>
 
                     <div id='white-page' class='container mt-0 mb-5 px-5 pt-3' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
                         <div class='row justify-content-end mt-3 mb-4 offset-2'>

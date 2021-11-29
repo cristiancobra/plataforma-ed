@@ -87,6 +87,24 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request) {
+        if($request->contact) {
+            $contact = Contact::find($request->contact);
+        }else{
+            $contact = null;
+        }
+
+        if($request->name) {
+            $name= $request->name;
+        }else{
+            $name = null;
+        }
+
+        if($request->department) {
+            $department= $request->department;
+        }else{
+            $department = null;
+        }
+        
         if ($request->department == 'desenvolvimento') {
             $opportunities = Opportunity::openOpportunitiesDevelopment();
         } else {
@@ -117,9 +135,16 @@ class TaskController extends Controller {
         $taskAccountName = $request->account_name;
         $taskAccountId = $request->account_id;
         $department = 'vendas';
+        
+        $dateDue = new DateTime('now');
+        $dateDue = $dateDue->add(new \DateInterval('P5D')); 
+        $dateDue = $dateDue->format('Y-m-d'); 
 
         return view('operational.tasks.createTask', compact(
                         'users',
+                        'name',
+                        'department',
+                        'contact',
                         'contacts',
                         'companies',
                         'taskName',
@@ -136,6 +161,7 @@ class TaskController extends Controller {
                         'taskAccountId',
                         'department',
                         'opportunities',
+                        'dateDue',
         ));
     }
 
@@ -153,7 +179,6 @@ class TaskController extends Controller {
                     'name' => 'required:tasks',
                     'date_start' => 'required:tasks',
                     'date_due' => 'required:tasks',
-                    'description' => 'required:tasks',
                         ],
                         $messages);
 
@@ -330,7 +355,6 @@ class TaskController extends Controller {
                     'name' => 'required:tasks',
                     'date_start' => 'required:tasks',
                     'date_due' => 'required:tasks',
-                    'description' => 'required:tasks',
                         ],
                         $messages);
 
@@ -355,7 +379,7 @@ class TaskController extends Controller {
             } else {
                 $task->status = 'fazer';
             }
-//dd($task);
+
             $task->save();
 
             return redirect()->route('task.show', [$task]);

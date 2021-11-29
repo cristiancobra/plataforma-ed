@@ -9,101 +9,104 @@
         @include('layouts.assets')
 
     </head>
-    <body>
+    <body style='width:100%;overflow-x: hidden'>
 
-        @include('layouts.navMenu')
+    <x-Navmenu.nav-menu/>
 
-        <div class='container-fluid' style="margin-top: 56px">
-            <div class='row' style='background-color: #EEEEEE'>
-                @include('layouts.sidebar')
-                <main role='main' class='offset-2 col-10 ml-sm-auto px-4' style='background-color: #EEEEEE'>
+    <x-sidebar.sidebar/>
 
-                    <div class='row' style='
-                         margin-top: 10px;
-                         margin-bottom: 15px;
-                         margin-left:13px;
-                         margin-right: 6px
-                         '>
-                        @yield('form_start')
-                        @include('layouts.header')
+    <div class="row"style='
+         margin-top: 55px;
+         margin-left: 120px;
+         background-color: #EEEEEE;
+         min-height: 100vh;
+         '>
+        <div class="col">
+            <header class='row' style='
+                    padding-top: 10px;
+                    padding-bottom: 15px;
+                    '>
+                @include('layouts.header')
+            </header>
+
+            @if(Session::has('failed'))
+            <div class="alert alert-danger">
+                {{ Session::get('failed') }}
+                @php
+                Session::forget('failed');
+                @endphp
+            </div>
+            @endif
+
+            <div id='white-page'  class='container' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
+                @if(Session::has('failed'))
+                <div class='alert alert-danger'>
+                    {{Session::get('failed')}}
+                    @php
+                    Session::forget('failed');
+                    @endphp
+                </div>
+                @endif
+                <div class='row mt-4'>
+                    <div class='show-name col-8'>
+                        @yield('name')
                     </div>
-
-                    @if(Session::has('failed'))
-                    <div class="alert alert-danger">
-                        {{ Session::get('failed') }}
-                        @php
-                        Session::forget('failed');
-                        @endphp
+                    <div class='show-stage col-2' style='background-color:#c28dbf;border-radius: 30px'>
+                        @yield('priority')
                     </div>
-                    @endif
-
-                    <div id='white-page'  class='container' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
-                        @if(Session::has('failed'))
-                        <div class='alert alert-danger'>
-                            {{Session::get('failed')}}
-                            @php
-                            Session::forget('failed');
-                            @endphp
-                        </div>
-                        @endif
-                        <div class='row mt-4'>
-                            <div class='show-name col-8'>
-                                @yield('name')
-                            </div>
-                            <div class='show-stage col-2' style='background-color:#c28dbf;border-radius: 30px'>
-                                @yield('priority')
-                            </div>
-                            <div class='show-stage col-2' style='background-color:#c28dbf;border-radius: 30px'>
-                                @yield('status')
-                            </div>
-                        </div>
-
-                        <div class='row' style='margin-top: 40px'>
-                            @yield('fieldsId')
-                        </div>
-
-                        <div class='row' style='margin-top: 50px'>
-                            <div class='col-4' style='text-align: center'>
-                                @yield('date_start')
-                            </div>
-                            <div class='col-4'>
-                                @yield('date_due')
-                            </div>
-                            <div class='col-4'>
-                                @yield('date_conclusion')
-                            </div>
-                        </div>
-
-                        <section class='container mt-4' id='description'>
-                            <div class='show-label-large col-12'>
-                                DESCRIÇÃO
-                            </div>
-                            <div class='description-field'>
-                                @yield('description')
-                            </div>
-                        </section>
-
-                        @yield('stock')
-
-                        @yield('main')
-
-                        @include('layouts.footer')
-
-                        </form>
-
-                        @yield('createdAt')
-
+                    <div class='show-stage col-2' style='background-color:#c28dbf;border-radius: 30px'>
+                        @yield('status')
                     </div>
-                </main>
-                <script>
-                    $("#delete-button").click(function () {
-                        if (!confirm("Tem certeza que você quer apagar?")) {
-                            return false;
-                        }
-                    });
-                </script>
-                @yield('js-scripts')
+                </div>
+
+                <div class='row' style='margin-top: 40px'>
+                    @yield('fieldsId')
+                </div>
+
+                <div class='row' style='margin-top: 50px'>
+                    <div class='col-4' style='text-align: center'>
+                        @yield('date_start')
+                    </div>
+                    <div class='col-4'>
+                        @yield('date_due')
+                    </div>
+                    <div class='col-4'>
+                        @yield('date_conclusion')
+                    </div>
+                </div>
+
+                <div class='row mt-5'>
+                    <div class='show-label-large col'>
+                        DESCRIÇÃO
+                    </div>
+                    <div class='description-field'>
+                        @yield('description')
+                    </div>
+                </div>
+
+                @yield('stock')
+
+                @yield('main')
+
+                </section>
+
+                @include('layouts.footer')
+
+                @yield('createdAt')
             </div>
         </div>
-    </body>
+    </main>
+
+
+    <script>
+        $("#delete-button").click(function () {
+            if (!confirm("Tem certeza que você quer apagar?")) {
+                return false;
+            }
+        });
+    </script>
+    @yield('js-scripts')
+</div>
+</div>
+</body>
 </html>

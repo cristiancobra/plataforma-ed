@@ -146,10 +146,10 @@
     @endif
     <section class='container mt-5' id='invoicesLines'>
         <div class='row table-header mt-3'>
-            <div class='col-2'>
+            <div class='col-1'>
                 FATURA
             </div>
-            <div class='col-4'>
+            <div class='col-5'>
                 PROPOSTA
             </div>
             <div class="col-2">
@@ -167,27 +167,17 @@
              color: {{$principalColor}};
              border-left-color: {{$complementaryColor}}
              '>
-            <div class='cel col-2 justify-content-start'  style="font-size: 26px;font-weight: 600">
+            <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
                 {{$counter}}
                 <i class="fas fa-file-invoice-dollar" style='
                    display:block;
                    padding-left:10px;
                    width:25%;
-                   font-size: 34px;
+                   font-size: 30px;
                    '>
                 </i>
-                <button class="button-round">
-                    <a title='visualizar fatura' href = "{{route('invoice.show', ['invoice' => $invoice])}}" style="color:white">
-                        <i class = 'fas fa-eye'></i>
-                    </a>
-                </button>
-                <button class="button-round ms-1">
-                    <a title='PDF ou imprimir fatura' href = "{{route('invoice.pdf', ['invoice' => $invoice])}}" target='_blank' style="color:white">
-                        <i class = 'fas fa-file-pdf'></i>
-                    </a>
-                </button>
             </div>
-            <div class='cel col-4 justify-content-start'>
+            <div class='cel col-5 justify-content-start'>
                 {{$invoice->proposal->name}}
             </div>
             <div class='cel col-2'>
