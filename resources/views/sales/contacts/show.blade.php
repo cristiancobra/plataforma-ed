@@ -263,15 +263,15 @@
     <div class='row'>
         <div class='col'>
             <div class='emergency-display'>
-                <a style='text-decoration: none;color: black;display: inline-block' href="{{route('contact.create', [
+                <a style='text-decoration: none;color: black;display: inline-block' href="{{route('opportunity.create', [
                                                                                                                                                                             'contact' => $contact,
                                                                                                                                                                             'name' => "Vender para $contact->first_name",
                                                                                                                                                                             'department' => 'vendas',
                                                                                                                                                                           ])}}">
                     <p class='panel-text p-3 mb-2'>
-                        <i class="fas fa-funnel-dollar" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                        <i class="fas fa-funnel-dollar" style="font-size:30px; color:white;padding-bottom: 10px"></i>
                         <br>
-                        CRIAR OPORTUNIDADE DE VENDA
+                        CRIAR OPORTUNIDADE
                     </p>
                 </a>
             </div>

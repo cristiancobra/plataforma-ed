@@ -10,7 +10,7 @@
 
     </head>
     <body style='width:100%;
-          /*overflow-x: hidden;*/
+          overflow-x: hidden;
           '>
     <x-Navmenu.nav-menu/>
 
