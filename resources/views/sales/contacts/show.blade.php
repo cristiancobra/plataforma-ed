@@ -6,12 +6,8 @@
 {{ asset('images/contact.png') }} 
 @endsection
 
-@section('description')
-@endsection
 
 @section('buttons')
-
-{{buttonTaskSales('contact', $contact, "Vender para $contact->first_name")}}
 {{createButtonEdit('contact', 'contact', $contact)}}
 {{createButtonList('contact')}}
 @endsection
@@ -226,7 +222,7 @@
             </div>
         </div>
 
-      
+
 
         <div class='row mt-5'>
             <div class='show-label-large col'>
@@ -234,30 +230,51 @@
             </div>
             <div class='description-field'>
                 <div class="row mt-3">
-                @foreach($contact->images as $image)
-                <div class="col-6">
-                    <a  class="white" href=" {{route('image.show', ['image' => $image->id])}}">
-                        <img src='{{asset($image->path)}}' style='width: 50px; height:50px'>
-                    </a>
-                    {{$image->name}}
+                    @foreach($contact->images as $image)
+                    <div class="col-6">
+                        <a  class="white" href=" {{route('image.show', ['image' => $image->id])}}">
+                            <img src='{{asset($image->path)}}' style='width: 50px; height:50px'>
+                        </a>
+                        {{$image->name}}
+                    </div>
+                    @endforeach
                 </div>
-                @endforeach
+            </div>
+
+            @foreach ($contact->opportunities as $opportunity)
+            <div class="row">
+                <div class='col'>
+                    <a  class="white" href=" {{route('opportunity.show', ['opportunity' => $opportunity->id])}}">
+                        <button class="button-round">
+                            <i class='fa fa-eye'></i>
+                        </button>
+                    </a>
+                    {{$opportunity->name}}
+                </div>
+            </div>
+            @endforeach	
+        </div>
+    </div>
+    @endsection
+
+
+
+    @section('workflow')
+    <div class='row'>
+        <div class='col'>
+            <div class='emergency-display'>
+                <a style='text-decoration: none;color: black;display: inline-block' href="{{route('contact.create', [
+                                                                                                                                                                            'contact' => $contact,
+                                                                                                                                                                            'name' => "Vender para $contact->first_name",
+                                                                                                                                                                            'department' => 'vendas',
+                                                                                                                                                                          ])}}">
+                    <p class='panel-text p-3 mb-2'>
+                        <i class="fas fa-funnel-dollar" style="font-size:36px; color:white;padding-bottom: 10px"></i>
+                        <br>
+                        CRIAR OPORTUNIDADE DE VENDA
+                    </p>
+                </a>
             </div>
         </div>
-
-        @foreach ($contact->opportunities as $opportunity)
-        <div class="row">
-            <div class='col'>
-            <a  class="white" href=" {{route('opportunity.show', ['opportunity' => $opportunity->id])}}">
-                <button class="button-round">
-                    <i class='fa fa-eye'></i>
-                </button>
-            </a>
-            {{$opportunity->name}}
-        </div>
-        </div>
-        @endforeach	
     </div>
-</div>
-
-@endsection
+    @endsection

@@ -9,19 +9,22 @@
         @include('layouts.assets')
 
     </head>
-    <body style='width:100%;overflow-x: hidden'>
+    <body style='width:100%;
+          /*overflow-x: hidden;*/
+          '>
     <x-Navmenu.nav-menu/>
 
     <x-sidebar.sidebar/>
 
 
-    <div class="row"style='
+    <div class="row" id='mainframe' style='
          margin-top: 55px;
          margin-left: 120px;
          background-color: #EEEEEE;
          min-height: 100vh;
          '>
         <header class='row' style='
+                padding-left: 30px;
                 padding-top: 10px;
                 padding-bottom: 15px;
                 '>
@@ -38,7 +41,7 @@
             </div>
             @endif
 
-            <section id='white-page' class='container ms-2' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
+            <section id='white-page' class='container ms-3 me-3' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
                 <div class='row mt-4'>
                     <div class='show-name col-8'>
                         @yield('name')
@@ -88,11 +91,31 @@
             @yield('createdAt')
         </div>
 
-        <section  id='workflow' class='col-2 text-center'>
-            @yield('workflow')
+        <section  id='workflow' class='col-2 ps-3 pe-4 text-center'>
+            <div  id='workflow-container' class='conteiner' style="
+                  border-style: solid;
+                  border-width: 1px;
+                  border-radius: 10px;
+                  border-color: grey;
+                  background-color: #D3D3D3;
+                  position: fixed;
+                  width: 200px;
+                  ">
+                <div class='row mb-3'>
+                    <div class='col'>
+                        <p style="font-size:26px">
+                            FLUXO
+                        </p>
+                    </div>
+                </div>
+                <div class='row mb-3'>
+                    <div class='col'>
+                        @yield('workflow')
+                    </div>
+                </div>
+            </div>
         </section>
     </div>
-</main>
 
 
 <script>
