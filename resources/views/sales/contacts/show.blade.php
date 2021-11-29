@@ -262,19 +262,17 @@
     @section('workflow')
     <div class='row'>
         <div class='col'>
-            <div class='emergency-display'>
-                <a style='text-decoration: none;color: black;display: inline-block' href="{{route('opportunity.create', [
+                        <button id='' class='workflow-button-red' title='Encerrar tarefa com a data atual' type='submit'>
+                <a style='text-decoration: none;color: white;display: inline-block' href="{{route('task.create', [
                                                                                                                                                                             'contact' => $contact,
                                                                                                                                                                             'name' => "Vender para $contact->first_name",
                                                                                                                                                                             'department' => 'vendas',
                                                                                                                                                                           ])}}">
-                    <p class='panel-text p-3 mb-2'>
                         <i class="fas fa-funnel-dollar" style="font-size:30px; color:white;padding-bottom: 10px"></i>
                         <br>
                         CRIAR OPORTUNIDADE
-                    </p>
                 </a>
-            </div>
+            </button>
         </div>
     </div>
     @endsection

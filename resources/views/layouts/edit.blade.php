@@ -15,21 +15,23 @@
 
     <x-sidebar.sidebar/>
 
-    <div class="row"style='
+    <div class="row" id='mainframe' style='
          margin-top: 55px;
          margin-left: 120px;
          background-color: #EEEEEE;
          min-height: 100vh;
          '>
-        <div class="col">
+                @yield('form_start')
             <header class='row' style='
                     padding-left: 30px;
+                    padding-right: 30px;
                     padding-top: 10px;
                     padding-bottom: 15px;
                     '>
                 @include('layouts.header')
             </header>
 
+             <div class="col">
             @if(Session::has('failed'))
             <div class="alert alert-danger">
                 {{ Session::get('failed') }}
@@ -39,15 +41,7 @@
             </div>
             @endif
 
-            <div id='white-page'  class='container' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
-                @if(Session::has('failed'))
-                <div class='alert alert-danger'>
-                    {{Session::get('failed')}}
-                    @php
-                    Session::forget('failed');
-                    @endphp
-                </div>
-                @endif
+            <section id='white-page'  class='container pb-5' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
                 <div class='row mt-4'>
                     <div class='show-name col-8'>
                         @yield('name')
@@ -89,6 +83,7 @@
 
                 @yield('main')
 
+            </form>
                 </section>
 
                 @include('layouts.footer')
@@ -96,7 +91,7 @@
                 @yield('createdAt')
             </div>
         </div>
-    </main>
+    
 
 
     <script>

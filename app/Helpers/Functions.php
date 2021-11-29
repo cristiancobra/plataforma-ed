@@ -293,7 +293,7 @@ if (!function_exists('createDoubleSelectIdName')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
     function createDoubleSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
-        echo "<select class = '$class' name = '$name' style='width:88%;margin-right:3px'>";
+        echo "<select class = '$class' name = '$name' style='width:100%;margin-right:3px'>";
         if ($currentValue) {
             echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
         }

@@ -93,6 +93,7 @@
 
         <section  id='workflow' class='col-2 ps-3 pe-4 text-center'>
             <div  id='workflow-container' class='conteiner' style="
+                  margin-top:30px;
                   border-style: solid;
                   border-width: 1px;
                   border-radius: 10px;
@@ -100,8 +101,9 @@
                   background-color: #D3D3D3;
                   position: fixed;
                   width: 200px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                   ">
-                <div class='row mb-3'>
+                <div class='row pb-0 pt-3'>
                     <div class='col'>
                         <p style="font-size:26px">
                             FLUXO
