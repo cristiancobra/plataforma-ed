@@ -23,6 +23,7 @@
          '>
         <div class="col">
             <header class='row' style='
+                    padding-left: 30px;
                     padding-top: 10px;
                     padding-bottom: 15px;
                     '>
