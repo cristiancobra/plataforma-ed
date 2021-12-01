@@ -71,7 +71,14 @@ class Transaction extends Model {
                         $query->where('bank_account_id', $request->bank_account_id);
                     }
                     if ($request->company_id) {
-                        $query->where('company_id', $request->company_id);
+                        $query->whereHas('invoice', function ($query) use ($request) {
+                            $query->where('company_id', $request->company_id);
+                        });
+                    }
+                    if ($request->contact_id) {
+                        $query->whereHas('invoice', function ($query) use ($request) {
+                            $query->where('contact_id', $request->contact_id);
+                        });
                     }
                     if ($request->type) {
                         $query->where('type', $request->type);
@@ -101,8 +108,8 @@ class Transaction extends Model {
 
         return $transactions;
     }
-    
-        // soma os pagamento/movimentações  do TIPO recebido gerando um array com valor total de cada mês
+
+    // soma os pagamento/movimentações  do TIPO recebido gerando um array com valor total de cada mês
     public static function monthlyTransactionsTotal($year, $type) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
@@ -116,7 +123,6 @@ class Transaction extends Model {
                     ->where('trash', '!=', 1)
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->get();
-            
 
             $monthlys[$key] = $transactions->sum('value');
 
@@ -126,8 +132,8 @@ class Transaction extends Model {
         }
         return $monthlys;
     }
-    
-        // soma o valor dos pagamento da categoria para cada mês
+
+    // soma o valor dos pagamento da categoria para cada mês
     public static function monthlysCategoriesTotal($year, $category, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
@@ -154,7 +160,7 @@ class Transaction extends Model {
                     foreach ($transaction->invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
                             $value += $transaction->value / $installment;
-                            $monthlys[$month] = $value;    
+                            $monthlys[$month] = $value;
                         }
                     }
                 }
@@ -163,7 +169,7 @@ class Transaction extends Model {
         return $monthlys;
     }
 
-        // soma o valor do grupo  para cada mês
+    // soma o valor do grupo  para cada mês
     public static function monthlysGroupsTotal($year, $group, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
@@ -183,7 +189,7 @@ class Transaction extends Model {
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
 
-                      $value = 0;
+            $value = 0;
             foreach ($transactions as $transaction) {
 //                dd($transaction);
                 if (isset($transaction->invoice->proposal)) {
@@ -193,7 +199,6 @@ class Transaction extends Model {
                             $value += $transaction->value / $installment;
                             $monthlys[$month] = $value;
 //                            echo $productProposal->product->name . "valor:   " . formatCurrency($value) . "<br>";
-                            
                         }
                     }
                 }
@@ -201,5 +206,13 @@ class Transaction extends Model {
         }
         return $monthlys;
     }
-    
+
+    public static function returnTypes() {
+        return [
+            'entradas',
+            'saídas',
+            'transferência entre minhas contas',
+        ];
+    }
+
 }

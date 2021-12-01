@@ -508,7 +508,7 @@ CKEDITOR.replace("descriptionTask_{{$counter++}}");
 
 
     <!--linhas de tarefas-->
-    @foreach ($stage->tasks as $task)
+    @foreach ($tasksWithoutStage as $task)
     @if($task->trash != 1)
     <div class='row table2 position-relative' style="color: {{$principalColor}};
          border-left-color: {{$complementaryColor}};

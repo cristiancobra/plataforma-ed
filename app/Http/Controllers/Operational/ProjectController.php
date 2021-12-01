@@ -253,11 +253,10 @@ class ProjectController extends Controller {
 //            }
 //        }
 
-                $tasks = Task::where('project_id', $project->id)
+        $tasks = Task::where('project_id', $project->id)
                 ->with('journeys')
                 ->get();
-        
-        
+
         $tasksOperational = $tasks->where('department', 'produção');
         foreach ($tasksOperational as $task) {
             if ($task->status == 'fazer' AND $task->journeys()->exists()) {
@@ -405,6 +404,13 @@ class ProjectController extends Controller {
         $project->save();
 
         return redirect()->action('Operational\\ProjectController@index');
+    }
+
+    public function jsonStages(Project $project) {
+        $stages = Stage::where('project_id', $project->id)
+                ->get();
+
+        return response()->json($stages);
     }
 
 }

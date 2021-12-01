@@ -206,7 +206,7 @@
     </div>
 
     <div class='row table-header mt-3'>
-        <div   class='col-6'>
+        <div   class='col-4'>
             NOME
         </div>
         <div   class='col-1'>
@@ -218,10 +218,10 @@
         <div class='col-1'>
             QTDE
         </div>
-        <div   class='col-1'>
+        <div   class='col-2'>
             PREÇO UNITÁRIO
         </div>
-        <div   class='col-1'>
+        <div   class='col-2'>
             PREÇO TOTAL
         </div>
     </div>

@@ -68,6 +68,7 @@ class TransactionController extends Controller {
             $bankAccount->balance = $bankAccount->opening_balance + $subTotal[$key];
         }
 
+        $types = Transaction::returnTypes();
         $trashStatus = request('trash');
 
         return view('financial.transactions.index', compact(
@@ -80,6 +81,7 @@ class TransactionController extends Controller {
                         'estimatedRevenueMonthly',
                         'expenseMonthly',
                         'estimatedExpenseMonthly',
+                        'types',
                         'trashStatus',
         ));
     }

@@ -335,6 +335,10 @@ Route::put('/projetos/restaurar/{project}', 'Operational\\ProjectController@rest
         ->name('project.restore')
         ->middleware('roles');
 
+Route::get('/projetos/{project}/jsonStages', 'Operational\\ProjectController@jsonStages')
+        ->name('project.jsonStages')
+        ->middleware('roles');
+
 Route::resource('projetos', 'Operational\\ProjectController')
         ->names('project')
         ->parameters(['projetos' => 'project'])

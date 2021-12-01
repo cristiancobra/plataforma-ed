@@ -78,52 +78,101 @@ Total: <span class='labels'></span>
 @endsection
 
 @section('table')
-<form id='filter' action='{{route('transaction.index')}}' method='get' style='text-align: right;display:none'>
+<form id='filter' action='{{route('transaction.index')}}' method='get'display:none'>
     @csrf
-    <input type='text' name='name' placeholder='nome da oportunidade' value=''>
-    <input type='date' name='date_start' size='20' value='{{old('date_start')}}'><span class='fields'></span>
-    <input type='date' name='date_end' size='20' value='{{old('date_end')}}'><span class='fields'></span>
-    {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
-    {{createFilterSelectModels('bank_account_id', 'select', $bankAccounts, 'Todas as contas')}}
-    {{returnType('type', 'select', 'transaction')}}
-    <br>
-    <a class='text-button secondary' href='{{route('transaction.index')}}'>
-        LIMPAR
-    </a>
-    <input class='text-button primary' type='submit' value='FILTRAR'>
+    <div class="row">
+        <div class="col">
+            <label class='labels' for='name'>
+                NOME
+            </label>
+            <input type='text' name='name' placeholder='nome da oportunidade'style="width:100%" value=''>
+        </div>
+        </div>
+        <div class="row mt-4">
+        <div class="col-2">
+            <label class='labels' for='date_start'>
+                INÍCIO
+            </label>
+            <br>
+            <input type='date' name='date_start' size='20' value='{{old('date_start')}}'><span class='fields'></span>
+        </div>
+        <div class="col-2">
+            <label class='labels' for='date_end'>
+                FIM
+            </label>
+            <br>
+            <input type='date' name='date_end' size='20' value='{{old('date_end')}}'><span class='fields'></span>
+        </div>
+        <div class="col-2">
+            <label class='labels' for='company_id'>
+                EMPRESAS
+            </label>
+            <br>
+            {{createFilterSelectModels('company_id', 'select', $companies, 'todas')}}
+        </div>
+        <div class="col-2">
+            <label class='labels' for='contact_id'>
+                CONTATO
+            </label>
+            <br>
+            {{createFilterSelectModels('contact_id', 'select', $contacts, 'todas')}}
+        </div>
+        <div class="col-2">
+            <label class='labels' for='bank_account_id'>
+                CONTA BANCÁRIA
+            </label>
+            <br>
+            {{createFilterSelectModels('bank_account_id', 'select', $bankAccounts, 'todas')}}
+        </div>
+        <div class="col-2">
+            <label class='labels' for='type'>
+                TIPO
+            </label>
+            <br>
+            {{createFilterSelect('type', 'select', $types, 'todos')}}
+        </div>
+    </div>
+        <div class="row mt-4">
+        <div class="col d-flex justify-content-end">
+            <a class='text-button secondary' href='{{route('transaction.index')}}'>
+                LIMPAR
+            </a>
+            <input class='text-button primary' type='submit' value='FILTRAR'>
+        </div>
+    </div>
 </form>
-<div class='row mt-3'>
-    <div class='tb tb-header-start col-2'>
+<div class='row  table-header mt-5 mb-2' style="background-color: {{$complementaryColor}}">
+    <div class='col-2'>
         DATA
     </div>
-    <div class='tb tb-header col-4'>
+    <div class='col-4'>
         OPORTUNIDADE
     </div>
-    <div class='tb tb-header col-1'>
+    <div class='col-1'>
         FATURA
     </div>
-    <div class='tb tb-header col-2'>
+    <div class='col-2'>
         CONTA BANCÁRIA
     </div>
-    <div class='tb tb-header col-2'>
+    <div class='col-2'>
         ORIGEM / DESTINO
     </div>
-    <div class='tb tb-header-end col-1'>
+    <div class='col-1'>
         VALOR
     </div>
 </div>
 
 @foreach ($transactions as $transaction)
-<div class='row'>
-    <div class='tb col-2'>
-        <a class='white' href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
-            <button class='button-round'>
-                <i class='fa fa-eye'></i>
-            </button>
-            {{dateBr($transaction->pay_day)}}
-        </a>
+<div class="row table2 position-relative"  style="
+     color: {{$principalColor}};
+     border-left-color: {{$complementaryColor}}
+     ">
+    <a class='stretched-link' href=' {{route('transaction.show', ['transaction' => $transaction->id])}}'>
+    </a>
+    <div class='cel col-2'>
+        {{dateBr($transaction->pay_day)}}
     </div>
-    <div class='tb col-4'>
+    <div class='cel col-4'>
         @if(isset($transaction->invoice->opportunity))
         <a href=' {{route('opportunity.show', ['opportunity' => $transaction->invoice->opportunity_id])}}'>
             {{$transaction->invoice->opportunity->name}}
@@ -132,7 +181,7 @@ Total: <span class='labels'></span>
         não possui
         @endif
     </div>
-    <div class='tb col-1'>
+    <div class='cel col-1'>
         @if($transaction->invoice_id != null)
         <a class='white' href=' {{route('invoice.show', ['invoice' => $transaction->invoice_id])}}'>
             {{$transaction->invoice_id}}
@@ -141,7 +190,7 @@ Total: <span class='labels'></span>
         não possui
         @endif
     </div>
-    <div class='tb col-2'>
+    <div class='cel col-2'>
         @if($transaction->bankAccount)
         <a class='white' href=' {{route('bankAccount.show', ['bankAccount' => $transaction->bankAccount->id])}}'>
             {{$transaction->bankAccount->name}}
@@ -150,8 +199,12 @@ Total: <span class='labels'></span>
         conta excluída
         @endif
     </div>
-    <div class='tb col-2'>
-        @if(isset($transaction->invoice->company->name))
+    <div class='cel col-2'>
+        @if(app('request')->input('contact_id'))
+        <a class='white' href=' {{route('contact.show', ['contact' => app('request')->input('contact_id')])}}'>
+            {{$transaction->invoice->contact->name}}
+        </a>
+        @elseif(isset($transaction->invoice->company->name))
         <a class='white' href=' {{route('company.show', ['company' => $transaction->invoice->company->id])}}'>
             {{$transaction->invoice->company->name}}
         </a>
@@ -166,11 +219,11 @@ Total: <span class='labels'></span>
         @endif
     </div>
     @if($transaction->value < 1)
-    <div class='tb col-1 justify-content-end' style='color:red'>
+    <div class='cel col-1 justify-content-end' style='color:red'>
         {{formatCurrencyReal($transaction->value)}}
     </div>
     @else
-    <div class='tb col-1 justify-content-end'>
+    <div class='cel col-1 justify-content-end'>
         {{formatCurrencyReal($transaction->value)}}
     </div>
     @endif

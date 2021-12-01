@@ -132,7 +132,8 @@
             {{createSimpleSelect('department', 'fields', $departments, $task->department)}}
         </div>
         <div class='show-field-end'>
-            <select class = 'fields' name='project_id' style='width:100%' onchange='populate(this.name, 'stage_id')'>
+            @if($projects)
+            <select id='project_id' class = 'fields' name='project_id' style='width:100%'>
                 @if($task->project)
                 <option value='{{$task->project_id}}'>
                     {{$task->project->name}}
@@ -147,6 +148,30 @@
                 </option>
                 @endforeach
             </select>
+            @else
+            não existe nenhum projeto
+            @endif
+        </div>
+        <div class='show-field-end'>
+            @if(isset($stages))
+            <select class = 'fields' name='project_id' style='width:100%'>
+                @if($task->stage)
+                <option value='{{$task->stage_id}}'>
+                    {{$task->stage->name}}
+                </option>
+                @endif
+                <option value=''>
+                    Não possui
+                </option>
+                @foreach ($stages as $stage)
+                <option value='{{$stage->id}}'>
+                    {{$stage->name}}
+                </option>
+                @endforeach
+            </select>
+            @else
+            sem projeto ou etapas
+            @endif
         </div>
         <div class='show-field-end'>
                         <input type='number' name='points' value='{{$task->points}}' style="text-align: right;width: 100px">
@@ -240,59 +265,24 @@ CKEDITOR.replace('description');
 
 
     @section('js_scripts')
-    <script>
-        function populate(project_id, stage_id) {
 
-        }
-        ;
-
-        function loadAjaxGenericOptions(target, changeSelector, jsonUrl, inputId) {
-            var changeInputId = $(changeSelector).val();
-            var $target = $(target);
-            if (!changeInputId) {
-                $target.removeOption(/./);
-                $target.change();
-            } else {
-                $.ajax({
-                    async: false,
-                    url: jsonUrl + '/' + changeInputId,
-                    success: function (response, textStatus, jqXHR) {
-                        if (response != "") {
-                            $target.removeOption(/./);
-                            $target.addOption(response, false);
-                            $target.val(inputId);
-                            $target.change();
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        catchError(jqXHR, textStatus, errorThrown);
-                    }
-                });
-            }
-            $(changeSelector).change(function () {
-                var changeInputId = $(this).val();
-                if (!changeInputId) {
-                    $target.removeOption(/./);
-                    $target.change();
-                } else {
-                    $.ajax({
-                        async: false,
-                        url: jsonUrl + '/' + changeInputId,
-                        success: function (response, textStatus, jqXHR) {
-                            if (response != "") {
-                                $target.removeOption(/./);
-                                $target.addOption(response, false);
-                                $target.val(inputId);
-                                $target.change();
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            catchError(jqXHR, textStatus, errorThrown);
-                        }
-                    });
-                }
-            });
-        }
-
-    </script>
+    console.log(testeerroo);
+    
+               loadRoteirosSimuladosOrderListJson(
+	'project_id',
+	'stage_id',
+	route('project.jsonStages'),
+	'targetOptionSelected',
+)}}
+            
     @endsection
+<!--    
+    [11:48, 23/11/2021] Giordano: tem dois select na view, ele vai ficar vendo o valor de um pra mudar as opções do outro
+[11:48, 23/11/2021] Giordano: as opções do outro tão num json que vc passa o valor do primeiro select
+[11:48, 23/11/2021] Giordano: são selects pais e filhos
+[11:48, 23/11/2021] Giordano: tipo estado cidade
+[11:49, 23/11/2021] Giordano: na função principal vc passa os ids desses selects e a url do json
+[11:50, 23/11/2021] Giordano: aí chama essa url, passando o valor do select pai
+[11:51, 23/11/2021] Giordano: qdo chega a resposta ele limpa as opções do filho e completa com oq veio do json
+[11:51, 23/11/2021] Giordano: essa função tb tem a opção de vc passar o valor que já tá definido no select filho. Ele verifica se passou esse valor e atribui depois da primeira chamada do json
+[11:53, 23/11/2021] Giordano: veio, o ajax javascript mesmo é muito mais legal dq com jquery-->

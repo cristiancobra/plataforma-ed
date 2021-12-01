@@ -326,7 +326,7 @@ class TaskController extends Controller {
         $priorities = Task::returnPriorities();
         $taskStages = Task::returnTaskStages($task);
 
-        return view('operational.tasks.editTask', compact(
+        return view('operational.tasks.edit', compact(
                         'task',
                         'users',
                         'opportunities',
