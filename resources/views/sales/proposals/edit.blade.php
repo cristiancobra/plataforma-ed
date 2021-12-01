@@ -217,7 +217,7 @@ CKEDITOR.replace('description');
         <input type='hidden' name='product_points[]' size='4' value='{{$productProposal->product->points}}'>
         <input type='hidden' name='product_cost[]' size='7' value='{{ $productProposal->product->cost1 + $productProposal->product->cost2 + $productProposal->product->cost3}}' >
         <input type='hidden' name='product_tax_rate[]' size='7' value='{{$productProposal->product->price * $productProposal->product->tax_rate / 100}}' >
-        <div class='row table2'  style='
+        <div class='row table2 position-relative'  style='
              color: {{$principalColor}};
              border-left-color: {{$complementaryColor}}
              '>
@@ -276,7 +276,6 @@ CKEDITOR.replace('description');
             <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
                 {{formatCurrencyReal($proposal->totalPrice)}}
             </div>
-        </div>
         </div>
         @endsection
 
