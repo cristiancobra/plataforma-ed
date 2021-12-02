@@ -216,6 +216,9 @@ Route::resource('planejamentos', 'Administrative\\PlanningController')
 
 
 // transactions / movimentações financeiras
+Route::post('/movimentacoes/adicionar', 'Financial\\TransactionController@storeFromOpportunity')
+        ->name('transaction.storeOpportunity');
+
 Route::put('/movimentacoes/apagar/{transaction}', 'Financial\\TransactionController@sendToTrash')
         ->name('transaction.trash')
         ->middleware('roles');
@@ -226,10 +229,6 @@ Route::put('/movimentacoes/restaurar/{transaction}', 'Financial\\TransactionCont
 
 Route::get('/movimentacoes/export-csv', 'Financial\\TransactionController@exportCsv')
         ->name('transaction.export')
-        ->middleware('roles');
-
-Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report')
-        ->name('transaction.report')
         ->middleware('roles');
 
 Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report')

@@ -8,7 +8,6 @@ use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Contract;
 use App\Models\Company;
-use App\Models\Goal;
 use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Opportunity;
@@ -198,14 +197,14 @@ class OpportunityController extends Controller {
                     ->with('transactions')
                     ->orderBy('PAY_DAY', 'ASC')
                     ->get();
-
+//dd($invoices);
             $invoicesCount = $invoices->count();
 
             $invoicesTotal = 0;
             $balanceTotal = 0;
 
             foreach ($invoices as $invoice) {
-                $invoice->color = Invoice::statusColor($invoice);
+//                $invoice->color = Invoice::statusColor($invoice);
                 
                 if ($invoice->status == 'aprovada') {
                     $invoice->paid = Transaction::where('invoice_id', $invoice->id)
@@ -223,7 +222,6 @@ class OpportunityController extends Controller {
                 $balanceTotal += $invoice->balance;
             }
 
-
             $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
             $invoicePaymentsTotal = $invoices->sum('balance');
             $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
@@ -237,9 +235,9 @@ class OpportunityController extends Controller {
             $invoiceFrameColor = 'lightgray';
         }
                 
-        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->paginate(20);
+//        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
+//                ->orderBy('NAME', 'ASC')
+//                ->paginate(20);
 
         $stages = Stage::where('opportunity_id', $opportunity->id)
                 ->with('tasks')
@@ -306,7 +304,7 @@ class OpportunityController extends Controller {
         $contracts = Contract::where('opportunity_id', $opportunity->id)
                 ->get();
 
-        $users = User::myUsers();
+//        $users = User::myUsers();
         $status = Task::returnStatus();
         $departments = Task::returnDepartments();
         $priorities = Task::returnPriorities();
@@ -329,7 +327,7 @@ class OpportunityController extends Controller {
                         'invoicePaymentsTotal',
                         'invoicesTotal',
                         'balanceTotal',
-                        'bankAccounts',
+//                        'bankAccounts',
                         'stages',
                         'tasks',
                         'tasksSales',
@@ -341,7 +339,7 @@ class OpportunityController extends Controller {
                         'tasksCustomerServicesHours',
                         'contracts',
                         'contactCompanies',
-                        'users',
+//                        'users',
                         'status',
                         'departments',
                         'priorities',

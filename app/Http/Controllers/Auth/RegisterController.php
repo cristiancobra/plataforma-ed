@@ -94,11 +94,11 @@ use RegistersUsers;
 //  Cria novo CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE na EMPRESA DIGITAL
         $contactEd = Contact::registerContactEd($request);
         $companyEd = Company::registerCompanyEd($request);
-        $opportunityEd = Opportunity::registerOpportunityEd($contactEd, $companyEd);
-
-        if ($opportunityEd) {
-            $taskOpportunity = Task::registerTaskOpportunity($contactEd, $companyEd, $opportunityEd);
-        }
+//        $opportunityEd = Opportunity::registerOpportunityEd($contactEd, $companyEd);
+//
+//        if ($opportunityEd) {
+//            $taskOpportunity = Task::registerTaskOpportunity($contactEd, $companyEd, $opportunityEd);
+//        }
         
         $systemTextsTutorials = SystemText::where('type', 'primeiros passos')
                 ->where('status', 'ativada')
