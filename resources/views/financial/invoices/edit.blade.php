@@ -66,7 +66,11 @@
             </div>
         </a>
         <div class='show-field-end'>
+            @if($proposal->company)
             {{$invoice->proposal->company->name}}
+            @else
+            Nao possui
+            @endif
         </div>
         <div class='show-field-end'>
             @if($invoice->proposal->contact)
@@ -250,12 +254,12 @@ CKEDITOR.replace('description');
                 @endif
             </div>
         </div>
-        </section>
-        @endsection
+    </section>
+    @endsection
 
 
-        @section('js-scripts')
-        <script>
-            $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        </script>
-        @endsection
+    @section('js-scripts')
+    <script>
+        $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
+    </script>
+    @endsection
