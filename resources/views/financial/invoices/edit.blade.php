@@ -66,7 +66,7 @@
             </div>
         </a>
         <div class='show-field-end'>
-            @if($proposal->company)
+            @if($invoice->proposal->company)
             {{$invoice->proposal->company->name}}
             @else
             Nao possui
