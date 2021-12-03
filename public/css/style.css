@@ -806,9 +806,10 @@ and open the template in the editor.
     font-weight: 600;
     font-size: 14px;
     background-color: #ffafac;
-    margin: 1%;
-    padding: 10px;
+    margin: 0%;
+    padding: 0px;
     border-radius: 30px;
+    border-width: 2px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     text-decoration:none;
     text-align: center;
@@ -2199,10 +2200,73 @@ and open the template in the editor.
 */
 
 /*NOVO*/
+/*Resetando os valores de espaçamento */
+
+* {
+    margin: 0;
+    padding: 0;
+}
 
 html,body{
     height:100%;
 }
+
+/*FRAME PRINCIPAL*/
+
+.grid {
+    display: grid;
+    height: auto;
+    text-align: left;
+    margin-top: 2%;
+    grid-template-columns: 6% 94%;
+    grid-template-areas: 
+        "sidebar main2";
+    gap: 0%;
+}
+
+.nav-menu {
+    height:7%;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+}
+
+
+.sidebar {
+    grid-area: sidebar;
+    width: 6%;
+    height: 100vh;
+    position:fixed;
+    top: 7%;
+    right: 0;
+    left: 0;
+    z-index: 1029;
+    padding: 0;
+}
+
+.main2{
+    grid-area: main2;
+    height: 100%;
+    background-color: #EEEEEE;
+    /*background-color: red;*/
+}
+
+.white-page {
+    border-style: solid;
+    border-width: 0.8px;
+    border-color: #c28dbf;
+    border-radius: 10px;
+    background-color: white;
+    margin-left:4%;
+    margin-right: 4%;
+    margin-top:4%;
+    padding:3%;
+    padding-top:1%;
+}
+
+/*fim*/
 
 a:hover {
     color: #F905E9;
@@ -2286,16 +2350,16 @@ h5{
 
 
 /* ------------------------------------------------ GRID INICIO -------------------------- */
-.grid-start {
+/*.grid {
     display: grid;
     height: auto;
     text-align: left;
     margin-top: 2%;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 6% 94%;
     grid-template-areas: 
-        "tasks-now tasks-pending tasks-my hours";
-    gap: 5% 2%;
-}
+        "sidebar main";
+    gap: 0%;
+}*/
 
 /*.tasks-now{
         grid-area: tasks-now;
@@ -2304,14 +2368,14 @@ h5{
         padding: 4%;
         border-radius: 20px;
 }*/
-
+/*
 .tasks-pending {
     grid-area: tasks-pending;
     color: white;
     background-color: #ffe924;
     padding: 4%;
     border-radius: 20px;
-}
+}*/
 
 /*.tasks-my {
         grid-area: tasks-my;
@@ -2321,7 +2385,7 @@ h5{
         border-radius: 20px;
 }*/
 
-.hours {
+/*.hours {
     grid-area: hours;
     color: white;
     background-color: #874983;
@@ -2332,7 +2396,7 @@ h5{
 .destaque{
     margin-top:0px;
     background-color: white;
-}
+}*/
 
 
 /* ------------------------------------------------ MENU -------------------------- */
@@ -2620,7 +2684,7 @@ h5{
 
 
 .circular-nav-button-stop {
-        color:#d60000;
+    color:#d60000;
     background-color: #FDDBDD;
     padding-top: 1px;
     padding-left: 0px;
@@ -2639,13 +2703,13 @@ h5{
 }
 
 .circular-nav-button-stop:hover {
-        background-color: #82c91e;
-        color: white;
+    background-color: #82c91e;
+    color: white;
 }
 
 .circular-nav-button-start {
-            background-color: #82c91e;
-        color: white;
+    background-color: #82c91e;
+    color: white;
     padding-top: 1px;
     padding-left: 0px;
     font-size: 14px;

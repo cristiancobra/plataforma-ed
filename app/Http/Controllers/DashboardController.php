@@ -13,6 +13,7 @@ use App\Models\Contact;
 use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Opportunity;
+use App\Models\Project;
 use App\Models\Shop;
 use App\Models\Task;
 use App\Models\Transaction;
@@ -22,6 +23,14 @@ use App\Models\User;
  * Classe responsável por criar os dashboards (painéis) dos departamentos
  */
 class DashboardController extends Controller {
+    
+      public function administrative() {
+        $nada = 0;
+
+        return view('dashboards.administrative', compact(
+                        'nada',
+        ));
+    }
 
     public function development() {
         $nada = 0;
@@ -121,6 +130,19 @@ class DashboardController extends Controller {
             }
         }
 
+        $projects = Project::where('user_id', auth()->user()->id)
+                ->where(function ($query) {
+                    $query->where('status', 'fazer')
+                    ->orWhere('status', 'fazendo');
+                })
+                ->where('trash', '!=', 1)
+                ->get();
+
+                $projectsCount = $projects->count();
+                
+                $delayedProjectsCount = $projects->where('date_due', '<=', date('Y-m-d'))
+                        ->count();
+                
         return view('dashboards/operational', compact(
                         'month',
                         'monthStart',
@@ -149,6 +171,9 @@ class DashboardController extends Controller {
                         'myLastJourney',
                         'openJourney',
                         'users',
+                        'projects',
+                        'projectsCount',
+                        'delayedProjectsCount',
         ));
     }
 
@@ -180,9 +205,8 @@ class DashboardController extends Controller {
                 ->get();
 
         $invoices = Invoice::getPaidInvoices($periodInvoices);
-        
-//            $invoice->balance = $invoice->totalPrice - $invoice->paid;
 
+//            $invoice->balance = $invoice->totalPrice - $invoice->paid;
 //            $invoicesTotal += $invoice->totalPrice;
 //            $proposal->balance += $invoice->balance;
 //        }

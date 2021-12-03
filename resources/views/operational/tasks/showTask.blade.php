@@ -321,20 +321,6 @@
 </div>
 @endsection
 
-@section('extraButton')
-<form style='text-decoration: none;color: black;display: inline-block' action='{{route('task.destroy', ['task' => $task])}}' method='post'>
-    @method('delete')
-    @csrf
-    <button id='' class='circular-button delete' style='border:none;padding-left:4px' 'type='submit'>
-        <i class='fa fa-trash'></i>
-    </button>
-</form>
-@endsection
-
-@section('editButton', route('task.edit', ['task' => $task->id]))
-
-@section('backButton', route('task.index'))
-
 
 @section('createdAt')
 <div class='row' style='margin-top: 30px'>

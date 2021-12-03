@@ -4,7 +4,7 @@
 @endsection
 
 @section('main')
-<div class='row mt-2 mb-3'>
+<div class='row'>
     <div class='col-4 mt-3 mb-3' style='
          border-style: solid;
          border-width: 1px;
@@ -214,10 +214,68 @@
 
 <!--    linha  -->
 
-<div class='row mt-4 mb-0 ms-1 me-5 pe-3'>
-    <div class='offset-7 col-2' style='
+<div class='row mt-5 mb-5 ms-0 me-0 pe-3'>
+    <div class='offset-1 col-2' style='
          background-color: #c28dbf;
-         border-radius: 10px 0px 0px 0px
+         border-radius: 10px 0px 0px 10px
+         '>
+            <div class='row pt-3 text-center'>
+                <i class='fas fa-check-circle' title='' style='color:white;font-size: 40px'></i>
+            </div>
+        <div class='row pt-1 labels' style="margin-bottom: -30px">
+                <p style='text-align: center;color:white'>
+                    PROJETOS
+                    <br>
+                    <a class='white' style="font-size: 12px" href=' {{route('project.index', [
+                                                                                            'account_id' => auth()->user()->account_id,
+                                                                                            ])}}'>
+                        ver todos
+                    </a>
+                </p>
+            </div>
+    </div>
+    <div class='col-2'>
+        <div class="row pt-2 pb-2 ps-2 pe-2" style='
+             border-style: solid;
+             border-width: 1px;
+             border-color: #c28dbf;
+             border-radius: 0px 10px 10px 0px;
+             '>
+            <div class='col task-high-button'>
+                <a style='text-decoration:none' href='{{route('project.index', [
+				'status' =>'fazer',
+				])}}'>
+                    <p class='ps-0 pe-0' style='font-size:12px; color:white;text-align: center;font-weight: 600'>
+                        <span style='font-size:32px'>
+                            {{$projectsCount}}
+                        </span>
+                        <br>
+                        ANDAMENTO
+                    </p>
+                </a>
+            </div>
+
+            <div class='col emergency-button'>
+                <a style='text-decoration:none' href='{{route('task.index', [
+				'status' =>'fazer',
+                                        		'date_due' => date('Y-m-d'),
+				])}}'>
+                    <p class='ps-0 pe-0' style='font-size:12px; color:white;text-align: center;font-weight: 600'>
+                        <span style='font-size:32px'>
+                            {{$delayedProjectsCount}}
+                        </span>
+                        <br>
+                        ATRASADOS
+                    </p>
+                </a>
+            </div>
+
+
+        </div>
+    </div>
+    <div class='offset-1 col-2' style='
+         background-color: #c28dbf;
+         border-radius: 10px 0px 0px 10px
          '>
         <a style='text-decoration:none' href='{{route('task.index', [
 				'status' =>'fazer',
@@ -238,10 +296,7 @@
              border-style: solid;
              border-width: 1px;
              border-color: #c28dbf;
-             border-radius: 0px 10px 0px 0px;
-             border-bottom-color: white;
-             border-bottom-style: solid;
-             border-bottom-width: 1px;
+             border-radius: 0px 10px 10px 0px;
              '>
             <div class='col task-high-button'>
                 <a style='text-decoration:none' href='{{route('task.index', [

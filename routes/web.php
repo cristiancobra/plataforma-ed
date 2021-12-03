@@ -35,6 +35,10 @@ Route::get('/marketing', 'DashboardController@marketing')
         ->name('dashboard.marketing')
         ->middleware('roles');
 
+Route::get('/administrativo', 'DashboardController@administrative')
+        ->name('dashboard.administrative')
+        ->middleware('roles');
+
 Route::get('/vendas', 'DashboardController@sales')
         ->name('dashboard.sales')
         ->middleware('roles');

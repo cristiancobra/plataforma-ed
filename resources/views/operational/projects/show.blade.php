@@ -681,13 +681,6 @@ CKEDITOR.replace("descriptionTaskExtra");
 </div>
 @endsection
 
-@section('deleteButton')
-{{createButtonTrash($project, 'project')}}
-@endsection
-
-@section('editButton', route('project.edit', ['project' => $project->id]))
-
-@section('backButton', route('project.index'))
 
 @section('createdAt')
 <div class='row' style='margin-top: 30px'>
@@ -695,6 +688,71 @@ CKEDITOR.replace("descriptionTaskExtra");
         Primeiro registro em: {{date('d/m/Y H:i', strtotime($project->created_at))}}
     </div>
 </div>
+@endsection
+
+
+
+@section('workflow')
+@if(isset($openJourney))
+<div class='row'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.completeFromTask', ['journey' => $openJourney])}}" method="post">
+            @csrf
+            @method('put')
+            @if($openJourney->task_id == $task->id)
+            <button id='' class=' workflow-button-red' title='Encerrar jornada com a hora atual' type='submit'>
+                <i class="fas fa-stopwatch" style="font-size:30px; color:white;padding-bottom: 10px"></i>
+                <br>
+                ENCERRAR
+                <br>
+                ESTA JORNADA
+            </button>
+            @else
+            <button id='' class=' workflow-button-red' title='Encerrar jornada com a hora atual' type='submit'>
+                <i class="fas fa-stopwatch" style="font-size:30px; color:white;padding-bottom: 10px"></i>
+                <br>
+                ENCERRAR
+                <br>
+                <span style="font-weight: 600;text-shadow:none">
+                    {{$openJourney->task->name}}
+                </span>
+            </button>
+            @endif
+        </form>
+    </div>
+</div>
+@else
+<div class='row mt'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('journey.storeFromTask', ['taskId' => $task->id])}}" method="post">
+            @csrf
+            @method('put')
+            <button id='' class='workflow-button-green' title='Iniciar com a data atual' type='submit'>
+                <i class="fas fa-stopwatch" style="font-size:30px; color:white;padding-bottom: 10px"></i>
+                <br>
+                INICIAR JORNADA
+            </button>
+        </form>
+    </div>
+</div>
+@endif
+@if($task->status == 'fazendo')
+<div class='row mt-3'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action=" {{ route('task.complete', ['task' => $task]) }} " method="post">
+            @csrf
+            @method('put')
+            <button id='' class='workflow-button-red' title='Encerrar tarefa com a data atual' type='submit'>
+                <i class="fas fa-clipboard-check" style="font-size:30px; color:white;padding-bottom: 10px"></i>
+                <br>
+                CONCLUIR
+                <br>
+                TAREFA
+            </button>
+        </form>
+    </div>                
+</div>
+@endif
 @endsection
 
 

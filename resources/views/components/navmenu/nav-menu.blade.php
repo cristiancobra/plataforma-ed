@@ -1,4 +1,4 @@
-<nav class="nav-menu navbar navbar-expand-md navbar-dark shadow-sm fixed-top" style="
+<nav class="nav-menu navbar navbar-expand-md navbar-dark shadow-sm" style="
      background-color: {{$principalColor}}
 ">
     <div class="container-fluid ms-5 me-5">

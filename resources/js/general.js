@@ -29,66 +29,66 @@ function confirmDelete() {
 //    }
 //    return txt;
 }
+//
+//
+//    function loadRoteirosSimuladosOrderListJson(
+//	changeId,
+//	targetId,
+//	url,
+//	targetOptionSelected
+//) {
+//	var changeableElement = document.getElementById(changeId);
+//	var targetElement = document.getElementById(targetId);
+//	
+//	var removeOptions = function() {
+//		// remove options except empty (first, 0)
+//		while (targetElement.options.length > 1) {
+//			targetElement.remove(1);
+//		}
+//	};
+//	
+//	var runXhrRequest = function() {
+//		if(changeableElement.value) {
+//			var xhr = new XMLHttpRequest();
+//
+//			xhr.responseType = 'json';
+//			xhr.open('GET', url + '/' + changeableElement.value, true);
+//			xhr.onload = function() {
+//				removeOptions();
+//				
+//				// add options to select element
+//				for(var index in xhr.response) {
+//					var newOption = new Option(
+//						xhr.response[index],
+//						index
+//					);
+//					targetElement.add(newOption);
+//				}
+//				
+//				if(targetOptionSelected) {
+//					if (
+//						targetElement.querySelector('[value="' + targetOptionSelected + '"]')
+//					) {
+//						targetElement.value = targetOptionSelected;
+//					}
+//					else {
+//						targetElement.value = '';
+//					}
+//					
+//					// select only first time
+//					targetOptionSelected = false;
+//				}
+//			};
+//			xhr.send();
+//		}
+//		else {
+//			removeOptions();
+//		}
+//	};
+//	
+//	runXhrRequest();
+//	
+//	changeableElement.onchange = runXhrRequest;
+//}
 
-   <script>
-    function loadRoteirosSimuladosOrderListJson(
-	changeId,
-	targetId,
-	url,
-	targetOptionSelected
-) {
-	var changeableElement = document.getElementById(changeId);
-	var targetElement = document.getElementById(targetId);
-	
-	var removeOptions = function() {
-		// remove options except empty (first, 0)
-		while (targetElement.options.length > 1) {
-			targetElement.remove(1);
-		}
-	};
-	
-	var runXhrRequest = function() {
-		if(changeableElement.value) {
-			var xhr = new XMLHttpRequest();
-
-			xhr.responseType = 'json';
-			xhr.open('GET', url + '/' + changeableElement.value, true);
-			xhr.onload = function() {
-				removeOptions();
-				
-				// add options to select element
-				for(var index in xhr.response) {
-					var newOption = new Option(
-						xhr.response[index],
-						index
-					);
-					targetElement.add(newOption);
-				}
-				
-				if(targetOptionSelected) {
-					if (
-						targetElement.querySelector('[value="' + targetOptionSelected + '"]')
-					) {
-						targetElement.value = targetOptionSelected;
-					}
-					else {
-						targetElement.value = '';
-					}
-					
-					// select only first time
-					targetOptionSelected = false;
-				}
-			};
-			xhr.send();
-		}
-		else {
-			removeOptions();
-		}
-	};
-	
-	runXhrRequest();
-	
-	changeableElement.onchange = runXhrRequest;
-}
-
-    </script>
+    

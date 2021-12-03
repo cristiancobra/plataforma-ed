@@ -130,9 +130,11 @@ class Project extends Model
 
     public static function returnStatus() {
         return [
-            'ativada',
-            'desativada',
-            'descadastrado',
+            'fazer',
+            'aguardar',
+            'feito',
+            'fazendo',
+            'cancelado',
         ];
     }
 

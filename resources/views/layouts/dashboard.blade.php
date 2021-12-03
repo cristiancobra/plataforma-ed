@@ -9,23 +9,18 @@
         @include('layouts.assets')
 
     </head>
-    <body style='width:100%;overflow-x: hidden'>
+    <body>
 
     <x-Navmenu.nav-menu/>
-
+    
+    <div class="grid">
     <x-sidebar.sidebar/>
 
-    <div class="row"style='
-         margin-top: 55px;
-         margin-left: 120px;
-         background-color: #EEEEEE;
-         min-height: 100vh;
-         '>
-        <div class="col">
-            <div id='white-page' class='container mt-5 mb-5 px-5 pt-3 pb-5' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
+    <main class='main2'>
+            <section id='white-page' class='white-page'>
                 @yield('main')
-            </div>
-        </div>
+            </section>
+    </main>
     </div>
     @yield('js-scripts')
 </body>

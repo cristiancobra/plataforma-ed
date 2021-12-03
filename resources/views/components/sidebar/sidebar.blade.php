@@ -1,9 +1,5 @@
-<aside class="position-fixed" style="
-       margin-top:0px;
+<aside class="sidebar" style="
        background-color: {{$complementaryColor}};
-       height: 100%;
-       margin-left: 0px;
-       width:120px;
        ">
 
     <div class="row pt-3">
@@ -11,7 +7,7 @@
             <a class='stretched-link' href='/'>
             </a>
             <i class="fas fa-rocket"></i>
-            <p class="mb-0"style='font-size:13px'>
+            <p class="mb-0"style='font-size:12px'>
                 PAINEL
             </p>
         </div>
@@ -19,7 +15,7 @@
 
     @if (auth()->user()->perfil == "super administrador" OR auth()->user()->perfil == "administrador" OR auth()->user()->perfil == "dono")
 
-    {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
+<!--    {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'MINHA EMPRESA',
                                                                                                                                                         'faIcon' => 'fas fa-store',
@@ -60,14 +56,25 @@
                                                                                                                                                         'faIcon' => 'fa fa-calendar-check',
                                                                                                                                                         'link' => route('planning.index')
                                                                                                                                                         ],
-                                                                                                                                                    ])}}
+                                                                                                                                                    ])}}-->
 
-    <div class="row">                                                                                                                                         
+    <div class="row">
+        <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
+            <a class='stretched-link' href='{{route('dashboard.administrative')}}' style="color: {{$principalColor}}">
+            </a>
+            <i class="fas fa-money-bill"></i>
+            <p class="mb-0"style='font-size:12px'>
+                ADMINISTRATIVO
+            </p>
+        </div>
+    </div>
+
+    <div class="row">                                                                                                                                    
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.financial')}}' style="color: {{$principalColor}}">
             </a>
             <i class="fas fa-money-bill"></i>
-            <p class="mb-0"style='font-size:13px'>
+            <p class="mb-0"style='font-size:12px'>
                 FINANCEIRO
             </p>
         </div>
@@ -81,7 +88,7 @@
             <a class='stretched-link' href='{{route('dashboard.marketing')}}' style="color: {{$principalColor}}">
             </a>
             <i class="fas fa-bullhorn"></i>
-            <p class="mb-0"style='font-size:13px'>
+            <p class="mb-0"style='font-size:12px'>
                 MARKETING
             </p>
         </div>
@@ -92,7 +99,7 @@
             <a class='stretched-link' href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
             </a>
             <i class="fas fa-funnel-dollar"></i>
-            <p class="mb-0"style='font-size:13px'>
+            <p class="mb-0"style='font-size:12px'>
                 VENDAS
             </p>
             </a>
@@ -118,7 +125,7 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-    {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor, $principalColor, [
+<!--    {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
                                                                                                                                                         'name' => 'PROJETOS',
                                                                                                                                                         'faIcon' => 'fas fa-calendar-check',
@@ -134,7 +141,7 @@
                                                                                                                                                         'faIcon' => 'fas fa-mug-hot',
                                                                                                                                                         'link' => route('journey.index')
                                                                                                                                                         ],
-                                                                                                                                                    ])}}
+                                                                                                                                                    ])}}-->
 
     @if (auth()->user()->perfil == "super administrador")
 
