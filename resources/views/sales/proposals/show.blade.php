@@ -189,11 +189,16 @@
 
 
 @section('main')
+
+<!--ITENS DA PROPOSTA / FATURA-->
+
 <section class='container frame mt-5 pb-5' id='productProposals'>
     <div class="row">
         <div class='col-6 pt-4 pb-3'>
             <img src='{{asset('images/products.png')}}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >{{$itensName}}</label>
+            <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
+                {{$itensName}}
+            </label>
         </div>
         <div class='col-6 pt-4 pb-3'>
             <a  class='text-button secondary' style='display: inline-block;float: right' href='{{route('proposal.edit', [
@@ -302,6 +307,12 @@
         </div>
     </div>
 </section>
+
+
+<x-sections.invoices :proposal='$proposal' />
+
+
+
 @endsection
 
 @section('createdAt')

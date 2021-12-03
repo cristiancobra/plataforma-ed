@@ -32,7 +32,7 @@
     </div>
 
     <div class='row table-header mt-3'>
-        <div   class='col-4'>
+        <div   class='col-3'>
             FATURA
         </div>
         <div   class='col-2'>
@@ -48,7 +48,7 @@
 
     @foreach ($invoices as $invoice)
     <div class="row">
-        <div class='col-11'>
+        <div class='col-10'>
             <div class='row table2 position-relative'  style='
                  color: {{$principalColor}};
                  border-left-color: {{$complementaryColor}};
@@ -57,7 +57,7 @@
                 <a class='stretched-link' href="{{route('invoice.show', ['invoice' => $invoice])}}" target='_blank' style="color:white">
                 </a>
                 <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
-                    {{$counter}}
+                    {{$counterInvoices}}
                     <i class="fas fa-file-invoice-dollar" style='
                        display:block;
                        padding-left:10px;
@@ -94,14 +94,35 @@
                 @endif
             </div>
         </div>
-
-        <div class='col-1 pt-4 d-flex justify-content-center'>
+        <div class='col-2 pt-4 d-flex justify-content-center'>
+            @if($invoice->balance == $invoice->totalPrice)
+            <a href='{{route('task.create')}}'>
+                <button class='form-button' style="
+                        color: {{$principalColor}};
+                        background-color: {{$oppositeColor}};
+                        border-color: {{$principalColor}};
+                        " type='' title='COBRAR'>
+                    <i class="fa fa-bell"></i>
+                </button>
+            </a>
+            @else
+            <a id='listPaymentsButtonOnOff_{{$counterInvoices}}'>
+                <button class='form-button' style="
+                        color: {{$principalColor}};
+                        background-color: {{$oppositeColor}};
+                        border-color: {{$principalColor}};
+                        " type='submit' title='VER PAGAMENTOS'>
+                    <i class="fa fa-list"></i>
+                </button>
+            </a>
+            @endif
+            
             @if($invoice->balance == 0)
-            <p class="pt-2">
+            <p class="pt-2" id='{{$counterInvoices}}'>
                 {{faiconInvoiceStatus($invoice->status)}}
             </p>
             @else
-            <a id='invoicePaymentButtonOnOff_{{$counter}}'  title='Criar nova etapa'>
+            <a id='invoicePaymentButtonOnOff_{{$counterInvoices}}'>
                 <button class='form-button' style="
                         color: {{$principalColor}};
                         background-color: {{$oppositeColor}};
@@ -112,9 +133,9 @@
             </a>
             @endif
         </div>
-    </div>
+        </div>
 
-
+       
     <!--  div oculta ADICIONAR PAGAMENTO  -->
 
     @if(Session::has('failed'))
@@ -125,7 +146,7 @@
         @endphp
     </div>
     @endif
-    <div class='container pt-5 pb-5' id='paymentRow_{{$counter++}}' style='display: none;background-color: #f1f1f1'>
+    <div class='container pt-5 pb-5' id='newPaymentRow_{{$counterInvoices++}}' style='display: none;background-color: #f1f1f1'>
         <form id='addPayment' action='{{route('transaction.storeOpportunity')}}' method='post' style='text-align: left'>
             @csrf
             <input type='hidden' name='invoice_id'  value='{{$invoice->id}}'>
@@ -194,7 +215,7 @@
             </div>
             <div class="row pt-1">
                 <div class='col' style='text-align:left'>
-                    <textarea id="descriptionStage" name="observations" rows="6" cols="90">
+                    <textarea id="" name="observations" rows="6" cols="90">
   {{old('observations')}}
                     </textarea>
                     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
@@ -212,6 +233,53 @@ CKEDITOR.replace('observations');
         </form>
     </div>
     <!--  FIM div oculta ADICIONAR PAGAMENTO  -->
+    
+    
+     <!--LINHA DE PAGAMENTOS / TRANSACTIONS-->
+        <div id='paymentsRow_{{$counterTransactions}}'  class='row' style="display:none">
+            @foreach($invoice->transactions as $transaction)
+            <div class="row">
+                <div class='offset-1 col-9'>
+                    <div class='row table2 position-relative'  style='
+                         color: {{$principalColor}};
+                         border-left-color: {{$complementaryColor}};
+
+                         '>
+                        <a class='stretched-link' href="{{route('transaction.show', ['transaction' => $transaction])}}" target='_blank' style="color:white">
+                        </a>
+                        <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
+                            {{$counterTransactions++}}
+                            <i class="fas fa-coins" style='
+                               display:block;
+                               padding-left:10px;
+                               width:25%;
+                               font-size: 30px;
+                               '>
+                            </i>
+                        </div>
+                        <div class='cel col-2'>
+                            {{date('d/m/Y', strtotime($transaction->pay_day))}}
+                        </div>
+                        <div class='cel col-3'>
+                            {{$transaction->user->contact->name}}
+                        </div>
+                        <div class='cel col-2 justify-content-start'>
+                            {{$transaction->bankAccount->name}}
+                        </div>
+                        <div class='cel col-2 justify-content-start'>
+                            {{$transaction->payment_method}}
+                        </div>
+                        <div class='cel col-2 justify-content-end'>
+                            {{formatCurrencyReal($transaction->value)}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+
+        <!--fim de transações-->
+       
     @endforeach
 
     <div class='row mt-4 mb-4'>
@@ -231,3 +299,24 @@ CKEDITOR.replace('observations');
 
     @endif
 </section>
+
+<script>
+    @php
+            $counterJs = 1;
+        foreach($invoices as $invoice) {
+    
+        echo "
+            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
+    $('#newPaymentRow_$counterJs').slideToggle(600);
+    });
+    ";
+    
+    echo "
+            $('#listPaymentsButtonOnOff_$counterJs').click(function () {
+    $('#paymentsRow_$counterJs').slideToggle(600);
+    });
+    ";
+            $counterJs++;
+    }
+    @endphp
+    </script>

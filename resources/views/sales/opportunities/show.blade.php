@@ -807,20 +807,20 @@
 //    $('#stageRow').slideToggle(600);
 //    $('#buttonOnOff').toggleClass('plus minus');
 //    });
-            $('#taskButtonOnOff').click(function () {
-    $('#taskRow').slideToggle(600);
-    });
-    @php
-            $counterJs = 1;
-    foreach($invoices as $invoice) {
-    echo "
-            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
-    $('#paymentRow_$counterJs').slideToggle(600);
-    });
-    ";
-            $counterJs++;
-    }
-    @endphp
+//            $('#taskButtonOnOff').click(function () {
+//    $('#taskRow').slideToggle(600);
+//    });
+//    @php
+//            $counterJs = 1;
+//    foreach($invoices as $invoice) {
+//    echo "
+//            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
+//    $('#paymentRow_$counterJs').slideToggle(600);
+//    });
+//    ";
+//            $counterJs++;
+//    }
+//    @endphp
 
     });
 </script>

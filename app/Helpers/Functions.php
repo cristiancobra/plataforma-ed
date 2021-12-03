@@ -1250,25 +1250,25 @@ if (!function_exists('faiconInvoiceStatus')) {
     function faiconInvoiceStatus($status) {
         switch ($status) {
             case 'rascunho':
-                echo "<i class='fas fa-stop draft-paid' style='font-size:28px'></i>";
+                echo "<i class='fas fa-stop draft-paid ms-1 me-1' style='font-size:34px'></i>";
                 break;
             case 'orçamento':
-                echo "<i class='fas fa-clock' style='font-size:28px'></i>";
+                echo "<i class='fas fa-clock ms-1 me-1' style='font-size:34px'></i>";
                 break;
             case 'cancelada':
-                echo "<div class='tb tb-canceled col-1' style='font-size:28px'>cancelada</div>";
+                echo "<div class='tb tb-canceled col-1 ms-1 me-1' style='font-size:34px'>cancelada</div>";
                 break;
             case 'aprovada':
-                echo "<i class='fas fa-pause-circle aproved' style='font-size:28px'></i>";
+                echo "<i class='fas fa-pause-circle aproved ms-1 me-1' style='font-size:34px'></i>";
                 break;
             case 'paga':
-                echo "<i class='fas fa-check-circle paid' style='font-size:28px'></i>";
+                echo "<i class='fas fa-check-circle paid ms-1 me-1' style='font-size:34px'></i>";
                 break;
             case 'parcial':
-                echo "<i class='fas fa-exclamation-circle partial' style='font-size:28px'></i>";
+                echo "<i class='fas fa-exclamation-circle partial ms-1 me-1' style='font-size:34px'></i>";
                 break;
             case 'atrasada':
-                echo "<i class='fas fa-clock late-paid ' style='font-size:28px'></i>";
+                echo "<i class='fas fa-clock late-paid ms-1 me-1' style='font-size:34px'></i>";
                 break;
         }
     }

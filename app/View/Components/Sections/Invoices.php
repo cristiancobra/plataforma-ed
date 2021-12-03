@@ -75,7 +75,8 @@ class Invoices extends Component {
             $invoiceFrameColor = 'lightgray';
         }
 
-        $counter = 1;
+        $counterInvoices = 1;
+        $counterTransactions = 1;
         $users = User::myUsers();
 
         $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
@@ -91,7 +92,8 @@ class Invoices extends Component {
                         'balanceTotal',
                         'invoicesCount',
                         'invoiceFrameColor',
-                        'counter',
+                        'counterInvoices',
+                        'counterTransactions',
                         'users',
                         'bankAccounts',
         ));
