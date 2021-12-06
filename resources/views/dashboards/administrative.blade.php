@@ -53,34 +53,46 @@
         </a>
     </div>
 
-    <div class='col sales-display'>
-        <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-chart-pie" style="font-size:36px; color:white; margin-top: -15px;padding-bottom: 10px "></i>
-                <br>
-                RELATÓRIO DE PRODUTIVIDADE
-            </p>
-        </a>
-    </div>
 </div>
 
 
 <div class='row mt-2 mb-3 ms-1 me-1'>
 
-    <div class='col-2 sales-display'>
-        <a style='text-decoration:none' href='{{route('goal.index')}}'>
+    <div class='col sales-display'>
+        <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
             <p class='panel-text'>
-                <i class='fas fa-calendar-check' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <i class="fas fa-chart-bar" style="font-size:36px; color:white; margin-top: -15px;padding-bottom: 10px "></i>
+                <br>
+                RELATÓRIO DE PRODUTIVIDADE
+            </p>
+        </a>
+    </div>
+
+    <div class='col sales-display'>
+        <a style='text-decoration:none' href='{{route('invoice.report')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-chart-line' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
                 <br>
                 RELATÓRIOS FINANCEIROS
             </p>
         </a>
     </div>
 
-    <div class='col-2 sales-display'>
+    
+    <div class='col sales-display'>
+        <a style='text-decoration:none' href='{{route('goal.index')}}'>
+            <p class='panel-text'>
+                <i class='fas fa-bullseye' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <br>
+                METAS
+            </p>
+        </a>
+    </div>
+    
+    <div class='col sales-display'>
         <a style='text-decoration:none' href='{{route('planning.index')}}'>
             <p class='panel-text'>
-                <i class='fas fa-calendar-check ' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
+                <i class='fas fa-chart-pie ' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
                 <br>
                 PLANEJAMENTO FINANCEIRO
             </p>

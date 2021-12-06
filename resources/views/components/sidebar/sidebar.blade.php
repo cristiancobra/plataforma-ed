@@ -7,7 +7,7 @@
             <a class='stretched-link' href='/'>
             </a>
             <i class="fas fa-rocket"></i>
-            <p class="mb-0"style='font-size:12px'>
+            <p class="mb-0"style='font-size:10px'>
                 PAINEL
             </p>
         </div>
@@ -62,8 +62,8 @@
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.administrative')}}' style="color: {{$principalColor}}">
             </a>
-            <i class="fas fa-money-bill"></i>
-            <p class="mb-0"style='font-size:12px'>
+            <i class="fas fa-user-tie"></i>
+            <p class="mb-0"style='font-size:10px'>
                 ADMINISTRATIVO
             </p>
         </div>
@@ -74,7 +74,7 @@
             <a class='stretched-link' href='{{route('dashboard.financial')}}' style="color: {{$principalColor}}">
             </a>
             <i class="fas fa-money-bill"></i>
-            <p class="mb-0"style='font-size:12px'>
+            <p class="mb-0"style='font-size:10px'>
                 FINANCEIRO
             </p>
         </div>
@@ -88,7 +88,7 @@
             <a class='stretched-link' href='{{route('dashboard.marketing')}}' style="color: {{$principalColor}}">
             </a>
             <i class="fas fa-bullhorn"></i>
-            <p class="mb-0"style='font-size:12px'>
+            <p class="mb-0"style='font-size:10px'>
                 MARKETING
             </p>
         </div>
@@ -99,7 +99,7 @@
             <a class='stretched-link' href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
             </a>
             <i class="fas fa-funnel-dollar"></i>
-            <p class="mb-0"style='font-size:12px'>
+            <p class="mb-0"style='font-size:10px'>
                 VENDAS
             </p>
             </a>
