@@ -442,7 +442,7 @@ class InvoiceController extends Controller {
         }
         
         if($invoice->proposal->contact) {
-        $customerName = $invoice->proposal->user->contact->name;
+        $customerName = $invoice->proposal->contact->name;
         }else{
             $customerName = 'Não possui';
         }
