@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 // ================================ SISTEMA ===================
 Auth::routes(['register' => 'false']);
 
-Route::get('/', 'DashboardController@operational')
-        ->name('dashboard.operational')
-        ->middleware([
-            'redirect_domain',
-            'roles',
-        ]);
+// panels
+
+Route::get('/administrativo', 'DashboardController@administrative')
+        ->name('dashboard.administrative')
+        ->middleware('roles');
+
 
 Route::get('/desenvolvimento', 'DashboardController@development')
         ->name('dashboard.development')
@@ -35,13 +35,27 @@ Route::get('/marketing', 'DashboardController@marketing')
         ->name('dashboard.marketing')
         ->middleware('roles');
 
-Route::get('/administrativo', 'DashboardController@administrative')
-        ->name('dashboard.administrative')
-        ->middleware('roles');
+Route::get('/', 'DashboardController@operational')
+        ->name('dashboard.operational')
+        ->middleware([
+            'redirect_domain',
+            'roles',
+        ]);
 
 Route::get('/vendas', 'DashboardController@sales')
         ->name('dashboard.sales')
         ->middleware('roles');
+
+Route::get('/plataforma', 'DashboardController@plataforma')
+        ->name('dashboard.plataforma')
+        ->middleware('roles');
+
+Route::get('/suporte', 'DashboardController@support')
+        ->name('dashboard.support')
+        ->middleware('roles');
+
+// ////
+
 
 Route::get('/configuracoes', 'ConfigurationsController@index')
         ->name('configurations')

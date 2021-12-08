@@ -15,6 +15,7 @@ use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Project;
 use App\Models\Shop;
+use App\Models\SystemText;
 use App\Models\Task;
 use App\Models\Transaction;
 use App\Models\User;
@@ -282,6 +283,7 @@ class DashboardController extends Controller {
         $opportunitiesWon = Opportunity::countOpportunitiesWonWeek();
         $opportunitiesLost = Opportunity::countOpportunitiesLostWeek();
         $opportunitiesNews = Opportunity::getOpportunitiesPresentations();
+        $opportunitiesNews = $opportunitiesNews->take(6);
 
         $contacts = [
             $contactsSuspects = Contact::countSuspects(),
@@ -291,6 +293,7 @@ class DashboardController extends Controller {
 
         $contactsNewsTotal = Contact::countNewsContactsWeek();
         $contactsNews = Contact::getNewsContactsWeek();
+        $contactsNews = $contactsNews->take(6);
 
         $departments = Task::returnDepartments();
 
@@ -331,6 +334,23 @@ class DashboardController extends Controller {
                         'opportunitiesLost',
                         'opportunitiesNews',
                         'shop',
+        ));
+    }
+    
+        public function plataforma() {
+                $tutorials = 0;
+
+        return view('dashboards.plataforma', compact(
+                        'tutorials',
+        ));
+    }
+    
+        public function support() {
+                $tutorials = SystemText::where('type', 'tutorial')
+                        ->get();
+
+        return view('dashboards.support', compact(
+                        'tutorials',
         ));
     }
 

@@ -15,48 +15,48 @@
 
     @if (auth()->user()->perfil == "super administrador" OR auth()->user()->perfil == "administrador" OR auth()->user()->perfil == "dono")
 
-<!--    {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'MINHA EMPRESA',
-                                                                                                                                                        'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => route('account.show', ['account' => auth()->user()->account_id])
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'MODELO DE NEGÓCIO',
-                                                                                                                                                        'faIcon' => 'fas fa-store',
-                                                                                                                                                        'link' => route('account.dashboard', ['account' => auth()->user()->account_id])
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'FUNCIONÁRIOS',
-                                                                                                                                                        'faIcon' => 'fa fa-id-card-alt',
-                                                                                                                                                        'link' => route('user.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'CONCORRENTES',
-                                                                                                                                                        'faIcon' => 'fas fa-trophy',
-                                                                                                                                                        'link' => route('company.index', ['typeCompanies' => 'concorrente']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'RELATÓRIO DE PRODUTIVIDADE',
-                                                                                                                                                        'faIcon' => 'fas fa-chart-pie ',
-                                                                                                                                                        'link' => route('journey.reportUsers')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'RELATÓRIOS FINANCEIROS',
-                                                                                                                                                        'faIcon' => 'fas fa-chart-pie ',
-                                                                                                                                                        'link' => route('invoice.report')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'METAS',
-                                                                                                                                                        'faIcon' => 'fa fa-calendar-check',
-                                                                                                                                                        'link' => route('goal.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PLANEJAMENTO FINANCEIRO',
-                                                                                                                                                        'faIcon' => 'fa fa-calendar-check',
-                                                                                                                                                        'link' => route('planning.index')
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}-->
+    <!--    {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'MINHA EMPRESA',
+                                                                                                                                                            'faIcon' => 'fas fa-store',
+                                                                                                                                                            'link' => route('account.show', ['account' => auth()->user()->account_id])
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'MODELO DE NEGÓCIO',
+                                                                                                                                                            'faIcon' => 'fas fa-store',
+                                                                                                                                                            'link' => route('account.dashboard', ['account' => auth()->user()->account_id])
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'FUNCIONÁRIOS',
+                                                                                                                                                            'faIcon' => 'fa fa-id-card-alt',
+                                                                                                                                                            'link' => route('user.index')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'CONCORRENTES',
+                                                                                                                                                            'faIcon' => 'fas fa-trophy',
+                                                                                                                                                            'link' => route('company.index', ['typeCompanies' => 'concorrente']),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'RELATÓRIO DE PRODUTIVIDADE',
+                                                                                                                                                            'faIcon' => 'fas fa-chart-pie ',
+                                                                                                                                                            'link' => route('journey.reportUsers')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'RELATÓRIOS FINANCEIROS',
+                                                                                                                                                            'faIcon' => 'fas fa-chart-pie ',
+                                                                                                                                                            'link' => route('invoice.report')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'METAS',
+                                                                                                                                                            'faIcon' => 'fa fa-calendar-check',
+                                                                                                                                                            'link' => route('goal.index')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'PLANEJAMENTO FINANCEIRO',
+                                                                                                                                                            'faIcon' => 'fa fa-calendar-check',
+                                                                                                                                                            'link' => route('planning.index')
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}-->
 
     <div class="row">
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
@@ -106,44 +106,70 @@
         </div>
     </div>
 
-
-    {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'CONTRATOS',
-                                                                                                                                                        'faIcon' => 'fas fa-handshake',
-                                                                                                                                                        'link' => route('contract.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'MODELOS DE CONTRATO',
-                                                                                                                                                        'faIcon' => 'fas fa-file-signature',
-                                                                                                                                                        'link' => route('contractTemplate.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'AUTENTICAÇÃO DIGITAL',
-                                                                                                                                                        'faIcon' => 'fas fa-certificate',
-                                                                                                                                                        'link' => 'https://painel.autentique.com.br/',
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
-
-<!--    {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PROJETOS',
-                                                                                                                                                        'faIcon' => 'fas fa-calendar-check',
-                                                                                                                                                        'link' => route('project.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'TAREFAS',
-                                                                                                                                                        'faIcon' => 'fas fa-calendar-check',
-                                                                                                                                                        'link' => route('task.index')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'JORNADAS',
-                                                                                                                                                        'faIcon' => 'fas fa-mug-hot',
-                                                                                                                                                        'link' => route('journey.index')
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}-->
+    <div class="row">
+        <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
+            <a class='stretched-link' href='{{route('dashboard.support')}}' style="color: {{$principalColor}}">
+            </a>
+            <i class="fas fa-question-circle"></i>
+            <p class="mb-0"style='font-size:10px'>
+                SUPORTE
+            </p>
+            </a>
+        </div>
+    </div>
 
     @if (auth()->user()->perfil == "super administrador")
+    <div class="row">
+        <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
+            <a class='stretched-link' href='{{route('dashboard.plataforma')}}' style="color: {{$principalColor}}">
+            </a>
+            <i class="fas fa-rocket"></i>
+            <p class="mb-0"style='font-size:10px'>
+                PLATAFORMA
+            </p>
+            </a>
+        </div>
+    </div>
+    @endif
+
+    <!--
+        {{createSidebarItem('JURÍDICO', 'fa fa-shield-alt', 'dropdownMenuJuridico', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'CONTRATOS',
+                                                                                                                                                            'faIcon' => 'fas fa-handshake',
+                                                                                                                                                            'link' => route('contract.index')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'MODELOS DE CONTRATO',
+                                                                                                                                                            'faIcon' => 'fas fa-file-signature',
+                                                                                                                                                            'link' => route('contractTemplate.index')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'AUTENTICAÇÃO DIGITAL',
+                                                                                                                                                            'faIcon' => 'fas fa-certificate',
+                                                                                                                                                            'link' => 'https://painel.autentique.com.br/',
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}-->
+
+    <!--    {{createSidebarItem('PRODUÇÃO', 'fa fa-check-circle', 'dropdownMenuProducao', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'PROJETOS',
+                                                                                                                                                            'faIcon' => 'fas fa-calendar-check',
+                                                                                                                                                            'link' => route('project.index')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'TAREFAS',
+                                                                                                                                                            'faIcon' => 'fas fa-calendar-check',
+                                                                                                                                                            'link' => route('task.index')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'JORNADAS',
+                                                                                                                                                            'faIcon' => 'fas fa-mug-hot',
+                                                                                                                                                            'link' => route('journey.index')
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}-->
+
+<!--    @if (auth()->user()->perfil == "super administrador")
 
     {{createSidebarItem('PLATAFORMA', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                         [
@@ -248,25 +274,25 @@
                                                                                                                                                         ],
                                                                                                                                                     ])}}
 
-    @endif
+    @endif-->
 
-    {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'TUTORIAIS',
-                                                                                                                                                            'faIcon' => 'fas fa-question-circle',
-                                                                                                                                                            'link' => route('systemText.indexTutorials')
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'AJUDA',
-                                                                                                                                                            'faIcon' => 'fas fa-question-circle',
-                                                                                                                                                            'link' => 'https://empresadigital.net.br/empreender/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                            'name' => 'REPORTAR BUG',
-                                                                                                                                                            'faIcon' => 'fas fa-bug',
-                                                                                                                                                            'link' => route('task.bug')
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
+    <!--    {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                                'name' => 'TUTORIAIS',
+                                                                                                                                                                'faIcon' => 'fas fa-question-circle',
+                                                                                                                                                                'link' => route('systemText.indexTutorials')
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                                'name' => 'AJUDA',
+                                                                                                                                                                'faIcon' => 'fas fa-question-circle',
+                                                                                                                                                                'link' => 'https://empresadigital.net.br/empreender/'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                                'name' => 'REPORTAR BUG',
+                                                                                                                                                                'faIcon' => 'fas fa-bug',
+                                                                                                                                                                'link' => route('task.bug')
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}-->
 
 </aside>
 
