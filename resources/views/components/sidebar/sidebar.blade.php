@@ -58,7 +58,7 @@
                                                                                                                                                             ],
                                                                                                                                                         ])}}-->
 
-    <div class="row">
+    <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.administrative')}}' style="color: {{$principalColor}}">
             </a>
@@ -69,7 +69,7 @@
         </div>
     </div>
 
-    <div class="row">                                                                                                                                    
+    <div class="row pt-2">                                                                                                              
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.financial')}}' style="color: {{$principalColor}}">
             </a>
@@ -83,7 +83,7 @@
     @endif
 
 
-    <div class="row">
+    <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.marketing')}}' style="color: {{$principalColor}}">
             </a>
@@ -94,7 +94,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.sales')}}' style="color: {{$principalColor}}">
             </a>
@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.support')}}' style="color: {{$principalColor}}">
             </a>
@@ -119,7 +119,7 @@
     </div>
 
     @if (auth()->user()->perfil == "super administrador")
-    <div class="row">
+    <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{$principalColor}}">
             <a class='stretched-link' href='{{route('dashboard.plataforma')}}' style="color: {{$principalColor}}">
             </a>
@@ -169,112 +169,112 @@
                                                                                                                                                             ],
                                                                                                                                                         ])}}-->
 
-<!--    @if (auth()->user()->perfil == "super administrador")
-
-    {{createSidebarItem('PLATAFORMA', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'CONTAS',
-                                                                                                                                                        'faIcon' => 'fa fa-store',
-                                                                                                                                                        'link' => route('account.report'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'USUÁRIOS',
-                                                                                                                                                        'faIcon' => 'fa fa-id-card-alt',
-                                                                                                                                                        'link' => route('user.report'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'BUGS',
-                                                                                                                                                        'faIcon' => 'fa fa-bug',
-                                                                                                                                                        'link' => route('task.index', ['type' => 'bug']),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'IMPORTAR CONTATOS',
-                                                                                                                                                        'faIcon' => 'fa fa-id-card-alt',
-                                                                                                                                                        'link' => route('contact.config'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PALETAS DE CORES',
-                                                                                                                                                        'faIcon' => 'fas fa-palette',
-                                                                                                                                                        'link' => route('configurations'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'ADICIONAR BANCO',
-                                                                                                                                                        'faIcon' => 'fas fa-university',
-                                                                                                                                                        'link' => route('bank.index'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'QUESTÕES DO RELATÓRIO',
-                                                                                                                                                        'faIcon' => 'fas fa-question',
-                                                                                                                                                        'link' => route('question.index'),
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'TEXTOS DO SISTEMA',
-                                                                                                                                                        'faIcon' => 'fa fa-file-text-o',
-                                                                                                                                                        'link' => route('systemText.index'),
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
-    {{createSidebarItem('ATALHOS ED', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'SERVIDOR APLICAÇÕES <br> login: admin',
-                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
-                                                                                                                                                        'link' => 'https://62.171.185.126:8090/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'SERVIDOR NUVEM <br> login: admin',
-                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
-                                                                                                                                                        'link' => 'https://167.86.97.159:2087/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'PAGAR SERVIDOR <br> login: admin',
-                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
-                                                                                                                                                        'link' => 'https://my.contabo.com/account/login'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'NOTA FISCAL<br> lnsc. Municipal : 58029',
-                                                                                                                                                        'faIcon' => 'fas fa-bullhorn',
-                                                                                                                                                        'link' => 'http://saocarlos.ginfes.com.br/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'SITES antigo',
-                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
-                                                                                                                                                        'link' => '/sites'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'DOMÍNIOS antigo',
-                                                                                                                                                        'faIcon' => 'fas fa-window-maximize',
-                                                                                                                                                        'link' => '/domains'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                       'name' => 'EMAILS antigo',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => route('email.index')
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
-
-    {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'EMAIL DO USUÁRIO<br>',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => 'https://acadia.mxroute.com:2083/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'GERENCIAR EMAILS<br> login: solucoes',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => 'https://acadia.mxroute.com:2096/'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'GERENCIAR CONTA<br> login: solucoes',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => 'https://portal.mxroute.com/index.php'
-                                                                                                                                                        ],
-                                                                                                                                                        [
-                                                                                                                                                        'name' => 'SUPORTE<br> login: contato@empresadigital.net.br',
-                                                                                                                                                        'faIcon' => 'fas fa-envelope',
-                                                                                                                                                        'link' => 'https://chat.mxroute.com/channel/support'
-                                                                                                                                                        ],
-                                                                                                                                                    ])}}
-
-    @endif-->
+    <!--    @if (auth()->user()->perfil == "super administrador")
+    
+        {{createSidebarItem('PLATAFORMA', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'CONTAS',
+                                                                                                                                                            'faIcon' => 'fa fa-store',
+                                                                                                                                                            'link' => route('account.report'),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'USUÁRIOS',
+                                                                                                                                                            'faIcon' => 'fa fa-id-card-alt',
+                                                                                                                                                            'link' => route('user.report'),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'BUGS',
+                                                                                                                                                            'faIcon' => 'fa fa-bug',
+                                                                                                                                                            'link' => route('task.index', ['type' => 'bug']),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'IMPORTAR CONTATOS',
+                                                                                                                                                            'faIcon' => 'fa fa-id-card-alt',
+                                                                                                                                                            'link' => route('contact.config'),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'PALETAS DE CORES',
+                                                                                                                                                            'faIcon' => 'fas fa-palette',
+                                                                                                                                                            'link' => route('configurations'),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'ADICIONAR BANCO',
+                                                                                                                                                            'faIcon' => 'fas fa-university',
+                                                                                                                                                            'link' => route('bank.index'),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'QUESTÕES DO RELATÓRIO',
+                                                                                                                                                            'faIcon' => 'fas fa-question',
+                                                                                                                                                            'link' => route('question.index'),
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'TEXTOS DO SISTEMA',
+                                                                                                                                                            'faIcon' => 'fa fa-file-text-o',
+                                                                                                                                                            'link' => route('systemText.index'),
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}
+        {{createSidebarItem('ATALHOS ED', 'fa fa-rocket', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'SERVIDOR APLICAÇÕES <br> login: admin',
+                                                                                                                                                            'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                            'link' => 'https://62.171.185.126:8090/'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'SERVIDOR NUVEM <br> login: admin',
+                                                                                                                                                            'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                            'link' => 'https://167.86.97.159:2087/'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'PAGAR SERVIDOR <br> login: admin',
+                                                                                                                                                            'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                            'link' => 'https://my.contabo.com/account/login'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'NOTA FISCAL<br> lnsc. Municipal : 58029',
+                                                                                                                                                            'faIcon' => 'fas fa-bullhorn',
+                                                                                                                                                            'link' => 'http://saocarlos.ginfes.com.br/'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'SITES antigo',
+                                                                                                                                                            'faIcon' => 'fas fa-window-maximize',
+                                                                                                                                                            'link' => '/sites'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'DOMÍNIOS antigo',
+                                                                                                                                                            'faIcon' => 'fas fa-window-maximize',
+                                                                                                                                                            'link' => '/domains'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                           'name' => 'EMAILS antigo',
+                                                                                                                                                            'faIcon' => 'fas fa-envelope',
+                                                                                                                                                            'link' => route('email.index')
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}
+    
+        {{createSidebarItem('EMAIL ED', 'fa fa-envelope', 'dropdownMenuEmpresaDigital', $complementaryColor, $oppositeColor, $principalColor, [
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'EMAIL DO USUÁRIO<br>',
+                                                                                                                                                            'faIcon' => 'fas fa-envelope',
+                                                                                                                                                            'link' => 'https://acadia.mxroute.com:2083/'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'GERENCIAR EMAILS<br> login: solucoes',
+                                                                                                                                                            'faIcon' => 'fas fa-envelope',
+                                                                                                                                                            'link' => 'https://acadia.mxroute.com:2096/'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'GERENCIAR CONTA<br> login: solucoes',
+                                                                                                                                                            'faIcon' => 'fas fa-envelope',
+                                                                                                                                                            'link' => 'https://portal.mxroute.com/index.php'
+                                                                                                                                                            ],
+                                                                                                                                                            [
+                                                                                                                                                            'name' => 'SUPORTE<br> login: contato@empresadigital.net.br',
+                                                                                                                                                            'faIcon' => 'fas fa-envelope',
+                                                                                                                                                            'link' => 'https://chat.mxroute.com/channel/support'
+                                                                                                                                                            ],
+                                                                                                                                                        ])}}
+    
+        @endif-->
 
     <!--    {{createSidebarItem('SUPORTE', 'fas fa-question-circle', 'dropdownMenuButtonSuporte', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                             [
