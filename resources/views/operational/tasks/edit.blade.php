@@ -154,7 +154,7 @@
         </div>
         <div class='show-field-end'>
             <select id='stage_id' name='stage_id' class = 'fields' style='width:100%'>
-
+                <option value=''>Não possui</option>
 
             </select>
         </div>
