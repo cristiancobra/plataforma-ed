@@ -121,6 +121,8 @@ class Proposal extends Model {
                     }
                     if ($request->type) {
                         $query->where('type', $request->type);
+                    } elseif($request->variation) {
+                        $query->where('type', $request->variation);
                     }
                     if ($request->status) {
                         $query->where('status', $request->status);
