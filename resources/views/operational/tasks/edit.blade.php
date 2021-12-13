@@ -263,7 +263,7 @@ CKEDITOR.replace('description');
     
     @section('footer-scripts')
     <script>
-       loadProjectStagesJson('project_id', 'stage_id', '/projetos/jsonStages', '{{$task->project_id}}');
+       loadProjectStagesJson('project_id', 'stage_id', '/projetos/jsonStages', '{{$task->stage_id}}');
     </script>
     @endsection
     
