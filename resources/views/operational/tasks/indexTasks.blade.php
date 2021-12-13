@@ -21,7 +21,7 @@
     {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
     {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos')}}
     {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
-        {{createSelectUsers('select', $users, 'Todos os usuários')}}
+    {{createSelectUsers('select', $users, 'Todos os usuários')}}
     {{createFilterSelect('priority', 'select', $priorities, 'Todas as prioridades')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
     <br>
@@ -107,18 +107,18 @@
 </div>
 @foreach ($tasks as $task)
 <div class="row table2 position-relative"  style="
-                                                                            color: {{$principalColor}};
-                                                                            border-left-color: {{$complementaryColor}}
-                                                                            ">
+     color: {{$principalColor}};
+     border-left-color: {{$complementaryColor}}
+     ">
     <a class="stretched-link "href=" {{route('task.show', ['task' => $task])}}">
-            </a>
-        <div class='cel col-1'>
+    </a>
+    <div class='cel col-1'>
         @if(isset($task->user->image))
         <div class='profile-picture-small'>
-                <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
+            <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
         </div>
         @elseif($task->user->contact))
-            {{$task->user->contact->name}}
+        {{$task->user->contact->name}}
         @else
         funcionário excluído
         @endif
@@ -127,11 +127,11 @@
         {{$task->name}}
     </div>
     <div class='cel col-2'>
-            @if($task->contact)
-            {{$task->contact->name}}
-            @else
-            contato excluído
-            @endif
+        @if($task->contact)
+        {{$task->contact->name}}
+        @else
+        contato excluído
+        @endif
     </div>
     <div class='cel col-3 text-center'>
         @if($task->company)
@@ -142,7 +142,7 @@
     </div>
 
     {{formatDateDue($task)}}
-    
+
     {{formatPriority($task)}}
 
     {{formatStatus($task)}}

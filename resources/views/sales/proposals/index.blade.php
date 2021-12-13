@@ -38,59 +38,59 @@
     </form>
 </div>
 
-<div class='row'>
-    <div   class="tb tb-header-start col-1">
+<div class='row  table-header mt-2 mb-2' style="background-color: {{$principalColor}}">
+    <div   class="col-1">
         ID
     </div>
-    <div   class="tb tb-header col-4">
+    <div   class="col-4">
         NOME
     </div>
-    <div   class="tb tb-header col-2">
+    <div   class="col-2">
         CONTATO
     </div>
-    <div   class="tb tb-header col-2">
+    <div   class="col-2">
         @if($type == 'receita')
         CONTRATANTE 
         @else
         FORNECEDOR
         @endif
     </div>
-    <div   class="tb tb-header col-1">
+    <div   class="col-1">
         VENCIMENTO
     </div>
-    <div   class="tb tb-header col-1">
+    <div   class="col-1">
         VALOR
     </div>
-    <div   class="tb tb-header-end col-1">
+    <div   class="col-1">
         SITUAÇÃO
     </div>
 </div>
 
 @foreach ($proposals as $proposal)
-<div class='row'>
-    <div class="tb col-1 justify-content-start">
-        <button class="button-round">
-            <a href=" {{route('proposal.show', ['proposal' => $proposal,  'type' => $type])}}">
-                <i class='fa fa-eye' style="color:white"></i>
+<div class="row table2 position-relative"  style="
+                                                                            color: {{$principalColor}};
+                                                                            border-left-color: {{$complementaryColor}}
+                                                                            ">
+    <a class="stretched-link "href=" {{route('proposal.show', ['proposal' => $proposal,  'type' => $type])}}">
             </a>
-        </button>
+    <div class="cel col-1 justify-content-center">
         {{$proposal->identifier}}
     </div>
-    <div class="tb col-4 justify-content-start">
+    <div class="cel col-4 justify-content-start">
         @if($proposal->name)
         {{$proposal->name}}
         @else
         Sem nome
         @endif
     </div>
-    <div class="tb col-2">
+    <div class="cel col-2">
         @if($proposal->contact)
         {{$proposal->contact->name}}
         @else
         não possui
         @endif
     </div>
-    <div class="tb col-2">
+    <div class="cel col-2">
         @if(isset($proposal->company))
         {{$proposal->company->name}}
         @else
@@ -98,20 +98,20 @@
         @endif
     </div>
     @if($proposal->status == 'aprovada' AND $proposal->pay_day < date('Y-m-d'))
-    <div class="tb col-1" style="color: red">
+    <div class="cel col-1" style="color: red">
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @else
-    <div class="tb col-1">
+    <div class="cel col-1">
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @endif
     @if($proposal->balance > 0)
-    <div class="tb col-1 justify-content-end">
+    <div class="cel col-1 justify-content-end">
         {{formatCurrencyReal($proposal->balance)}}
     </div>
     @else
-    <div class="tb col-1 justify-content-end" style="color: red">
+    <div class="cel col-1 justify-content-end" style="color: red">
         {{formatCurrencyReal($proposal->balance)}}
     </div>
     @endif
