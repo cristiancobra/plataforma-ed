@@ -11,12 +11,10 @@
     </head>
     <body>
 
-
     <x-Navmenu.nav-menu/>
     
     <div class="grid">
     <x-sidebar.sidebar/>
-
 
         <main class='main2'>
             <header class='row pt-5 ps-5 pb-0'>

@@ -36,7 +36,7 @@ const app = new Vue({
  * @type Element
  */
 
-require('./bootstrap');
+
 
 let grecaptchaKeyMeta = document.querySelector("meta[name='grecaptcha-key']");
 let grecaptchaKey = grecaptchaKeyMeta.getAttribute("content");

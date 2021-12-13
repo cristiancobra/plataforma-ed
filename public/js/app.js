@@ -49827,8 +49827,6 @@ var app = new Vue({
  * @type Element
  */
 
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
 var grecaptchaKeyMeta = document.querySelector("meta[name='grecaptcha-key']");
 var grecaptchaKey = grecaptchaKeyMeta.getAttribute("content");
 grecaptcha.ready(function () {

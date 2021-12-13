@@ -16,8 +16,8 @@ mix.js('resources/js/app.js', 'public/js')
 
         .js([
     'resources/js/general.js',
-    'resources/js/menu.js'
-    ], 'public/js/script.js')
+//    'resources/js/menu.js'
+    ], 'public/js/scripts.js')
 
         .styles([
     'resources/css/report.css',

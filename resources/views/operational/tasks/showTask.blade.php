@@ -105,6 +105,9 @@
         PROJETO
     </div>
     <div class='show-label'>
+        ETAPA
+    </div>
+    <div class='show-label'>
         META
     </div>
 </div>
@@ -134,6 +137,18 @@
     <a href=' {{route('project.show', ['project' => $task->project])}}'>
         <div class='show-field-end'>
             {{$task->project->name}}
+        </div>
+    </a>
+    @else
+    <div class='show-field-end'>
+        Não possui
+    </div>
+    @endif
+
+    @if($task->stage)
+    <a href=' {{route('stage.show', ['stage' => $task->stage])}}'>
+        <div class='show-field-end'>
+            {{$task->stage->name}}
         </div>
     </a>
     @else

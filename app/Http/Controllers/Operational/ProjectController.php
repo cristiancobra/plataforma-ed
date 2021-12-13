@@ -407,6 +407,7 @@ class ProjectController extends Controller {
     }
 
     public function jsonStages(Project $project) {
+        
         $stages = Stage::where('project_id', $project->id)
                 ->get();
 

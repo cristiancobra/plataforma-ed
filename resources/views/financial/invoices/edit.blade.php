@@ -248,9 +248,9 @@ CKEDITOR.replace('description');
             </div>
             <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
                 @if($invoice->totalPrice >= 0)
-                <input type='decimal' name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style='text-align:right;width: 150px'>
+                <input type='decimal' id='totalPrice' maxlength="11" onkeyup="formatCurrencyReal()" name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style='text-align:right;width: 150px'>
                 @else
-                <input type='decimal' name='totalPrice' value='{{formatCurrency($invoice->totalPrice * -1)}}' style='text-align:right;width: 150px'>
+                <input type='decimal' id='totalPrice' maxlength="11" onkeyup="formatCurrencyReal()" name='totalPrice' value='{{formatCurrency($invoice->totalPrice * -1)}}' style='text-align:right;width: 150px'>
                 @endif
             </div>
         </div>
@@ -258,8 +258,14 @@ CKEDITOR.replace('description');
     @endsection
 
 
-    @section('js-scripts')
+    @push('scripts')
+    <script src='{{url(mix('js/scripts.js'))}}'></script>
+    @endpush
+    
+    
+    @section('footer-scripts')
     <script>
-        $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
+       formatCurrencyReal();
+//        $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
     </script>
     @endsection

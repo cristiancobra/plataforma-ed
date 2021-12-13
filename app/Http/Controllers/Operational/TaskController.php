@@ -305,16 +305,10 @@ class TaskController extends Controller {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-//dd($task->stage);
+
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-
-//        $tasks = Task::whereHas('account', function ($query) {
-//                    $query->where('account_id', auth()->user()->account_id);
-//                })
-//                ->with('contact')
-//                ->paginate(20);
 
         $users = User::myUsers();
 
@@ -322,6 +316,7 @@ class TaskController extends Controller {
         $projects = Project::getProjects();
 
         $departments = Task::returnDepartments();
+//        $stages = Task::returnStages();
         $status = Task::returnStatus();
         $priorities = Task::returnPriorities();
         $taskStages = Task::returnTaskStages($task);
