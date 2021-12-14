@@ -525,14 +525,11 @@ CKEDITOR.replace("descriptionTask_{{$counter++}}");
             funcionário excluído
             @endif
         </div>
-        <div class='cel col-1'>
+            <div class='cel col-1' style="font-weight: 600">
             {{date('d/m/Y', strtotime($task->date_start))}}
         </div>
-        <div class='cel col-3'>
+        <div class='cel col-7'>
             {{$task->name}}
-        </div>
-        <div class='cel-description col-4'>
-            {!!html_entity_decode($task->description)!!}
         </div>
         {{formatDateDue($task)}}
 
