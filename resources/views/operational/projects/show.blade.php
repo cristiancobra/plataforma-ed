@@ -273,11 +273,8 @@ CKEDITOR.replace('descriptionStage');
         <div class='col-1'>
             INÍCIO 
         </div>
-        <div class='col-3'>
+        <div class='col-7'>
             TAREFA 
-        </div>
-        <div class='col-4'>
-            DESCRIÇÃO 
         </div>
         <div class='col-1'>
             CONCLUSÃO
@@ -353,15 +350,13 @@ CKEDITOR.replace('descriptionStage');
                 funcionário excluído
                 @endif
             </div>
-            <div class='cel col-1'>
+            <div class='cel col-1' style="font-weight: 600">
                 {{date('d/m/Y', strtotime($task->date_start))}}
             </div>
-            <div class='cel col-3'>
+            <div class='cel col-7 justify-content-start'>
                 {{$task->name}}
             </div>
-            <div class='cel-description col-4'>
-                {!!html_entity_decode($task->description)!!}
-            </div>
+            
             {{formatDateDue($task)}}
 
             {{formatPriority($task)}}
