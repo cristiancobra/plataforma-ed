@@ -528,7 +528,7 @@ CKEDITOR.replace("descriptionTask_{{$counter++}}");
             <div class='cel col-1' style="font-weight: 600">
             {{date('d/m/Y', strtotime($task->date_start))}}
         </div>
-        <div class='cel col-7'>
+        <div class='cel col-7 justify-content-start'>
             {{$task->name}}
         </div>
         {{formatDateDue($task)}}
