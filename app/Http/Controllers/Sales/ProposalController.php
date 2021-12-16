@@ -201,7 +201,7 @@ class ProposalController extends Controller {
             } else {
                 $proposal->identifier = max($proposalsIdentifier) + 1;
             }
-dd($proposal->type);
+
             $proposal->save();
 
             // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
