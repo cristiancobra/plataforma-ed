@@ -96,10 +96,7 @@
         </label>
         @endif
 
-        @if($opportunity)
-        {{$opportunity->company->name}}
-        <input type='hidden' name='company_id' value='{{$opportunity->company_id}}'>
-        @else
+
         <select name='company_id'>
             <option  class='fields' value=''>
                 Não possui
@@ -117,19 +114,15 @@
         {{createButtonAdd('company.create', 'typeCompanies','cliente')}}
         @endif
 
-        @endif
+
         <br>
 
         <label class='labels' for='' >
             CONTATO: 
         </label>
-        @if($opportunity)
-        {{$opportunity->contact->name}}
-        <input type='hidden' name='contact_id' value='{{$opportunity->contact->name}}'>
-        @else
         {{createDoubleSelectIdName('contact_id', 'fields', $contacts, 'Não possui')}}
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
-        @endif
+
 
         <br>
         <br>
