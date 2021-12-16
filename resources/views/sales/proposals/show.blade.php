@@ -181,7 +181,7 @@
 
 @section('description')
 {!!html_entity_decode($proposal->description)!!}
-@if($type == 'receita')
+@if($proposal->opportunity AND $type == 'receita')
 <br>
 {!!html_entity_decode($proposal->opportunity->description)!!}
 @endif
