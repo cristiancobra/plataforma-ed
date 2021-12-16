@@ -253,7 +253,7 @@ class ProposalController extends Controller {
             $type = $proposal->type;
         }
 
-        if ($type == 'receita') {
+        if ($proposal->opportunity AND $type == 'receita') {
             $opportunityName = $proposal->opportunity->name;
             $opportunityId = $proposal->opportunity->id;
             $itensName = ' ITENS DA PROPOSTA';
