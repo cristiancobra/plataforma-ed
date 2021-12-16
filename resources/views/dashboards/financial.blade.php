@@ -235,10 +235,10 @@
 
 
 
-<!--     linha 2 REALIZADO-->
+<!--     linha 2 PAGAMENTOS-->
 <div class='row mt-5'>
 
-    <!--     começo bloco REALIZADO-->
+    <!--     começo bloco PAGAMENTOS-->
     <!--coluna 1-->
     <div class='col-1' style='
          text-shadow: 2px 2px 4px #000000;
@@ -263,14 +263,10 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3' style='
-                 font-size: 16px;
+                 font-size: 14px;
                  margin-left: -8px;
                  '>
-                REALIZADO
-                <br>
-                <span style="font-weight:400;font-size: 12px;text-shadow:none">
-                    (movimentações)
-                </span>
+                PAGAMENTOS
             </div>
         </div>
         <!--linha dos botoes-->
@@ -311,6 +307,7 @@
     <div class='col-10' style='
          border-color:{{$complementaryColor}};
          border-style: solid;
+                           border-left-style: none;
          border-width: 4px;
          margin-left: 0px;
          margin-right: 20px;
@@ -352,13 +349,13 @@
                     @endif
                 </div>
                 <div class='cel col-6 justify-content-start'>
-                    @if(isset($transaction->invoice->company->name))
-                    <a class='white' href=' {{route('company.show', ['company' => $transaction->invoice->company->id])}}'>
-                        {{$transaction->invoice->company->name}}
+                    @if(isset($transaction->invoice->proposal->company->name))
+                    <a class='white' href=' {{route('company.show', ['company' => $transaction->invoice->proposal->company->id])}}'>
+                        {{$transaction->invoice->proposal->company->name}}
                     </a>
-                    @elseif(isset($transaction->invoice->contact->name))
-                    <a class='white' href=' {{route('contact.show', ['contact' => $transaction->invoice->contact->id])}}'>
-                        {{$transaction->invoice->contact->name}}
+                    @elseif(isset($transaction->invoice->proposal->contact->name))
+                    <a class='white' href=' {{route('contact.show', ['contact' => $transaction->invoice->proposal->contact->id])}}'>
+                        {{$transaction->invoice->proposal->contact->name}}
                     </a>
                     @elseif($transaction->type == 'transferência')
                     {{$transaction->account->name}}
@@ -408,16 +405,16 @@
 
 
     </div>        
-    <!--fim do bloco de REALIZADO-->
+    <!--fim do bloco de PAGAMENTOS-->
 
-    <!--fim da LINHA REALIZADO-->    
+    <!--fim da LINHA PAGAMENTOS-->    
 </div>
 
 
-<!--     linha 2 PREVISTO-->
+<!--     linha 2 FATURAS-->
 <div class='row mt-5'>
 
-    <!--     começo bloco PREVISTO-->
+    <!--     começo bloco FATURAS-->
     <!--coluna 1-->
     <div class='col-1' style='
          text-shadow: 2px 2px 4px #000000;
@@ -442,14 +439,10 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3' style='
-                 font-size: 17px;
+                 font-size: 14px;
                  margin-left: -3px;
                  '>
-                PREVISTO
-                <br>
-                <span style="font-weight:400;font-size: 16px;text-shadow:none">
-                    (faturas)
-                </span>
+                FATURAS
             </div>
         </div>
         <!--linha dos botoes-->
@@ -487,6 +480,7 @@
     <div class='col-10' style='
          border-color:{{$complementaryColor}};
          border-style: solid;
+                  border-left-style: none;
          border-width: 4px;
          margin-left: 0px;
          margin-right: 20px;
@@ -584,9 +578,9 @@
 
 
     </div>        
-    <!--fim do bloco de PREVISTO-->
+    <!--fim do bloco de FATURAS-->
 
-    <!--fim da LINHA PREVISTO-->    
+    <!--fim da LINHA FATURAS-->    
 </div>
 
 
