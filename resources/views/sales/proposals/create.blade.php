@@ -53,7 +53,7 @@
             NOME:
         </label>
         <input type="text" name='name' value='{{old('name')}}'>
-                @if ($errors->has('name'))
+        @if ($errors->has('name'))
         <span class='text-danger'>
             {{$errors->first('name')}}
         </span>
@@ -70,6 +70,9 @@
         não possui
         @else
         <select name='opportunity_id'>
+            <option  class='fields' value=''>
+                Não possui
+            </option>
             @foreach ($opportunities as $opportunity)
             <option  class='fields' value='{{$opportunity->id}}'>
                 {{$opportunity->name}}
@@ -117,7 +120,9 @@
         @endif
         <br>
 
-        <label class='labels' for='' >CONTATO: </label>
+        <label class='labels' for='' >
+            CONTATO: 
+        </label>
         @if($opportunity)
         {{$opportunity->contact->name}}
         <input type='hidden' name='contact_id' value='{{$opportunity->contact->name}}'>
