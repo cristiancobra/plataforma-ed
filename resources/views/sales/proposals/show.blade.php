@@ -237,7 +237,7 @@
          border-left-color: {{$complementaryColor}}
          '>
         <div class="row">
-            <div class='cel col-6 justify-content-start' style="font-weight: 600">
+            <div class='cel col-4 justify-content-start' style="font-weight: 600">
                 {{$productProposal->product->name}}
             </div>
             <div class='cel col-1'>
@@ -249,7 +249,7 @@
             <div class='cel col-1 justify-content-center' style="font-weight: 600">
                 {{$productProposal->amount}}
             </div>
-            <div class='cel col-1 justify-content-end pt-3'>
+            <div class='cel col-2 justify-content-end pt-3'>
                 @if($productProposal->price < 0)
                 <p style='color:red'>
                     {{formatCurrencyReal($productProposal->price)}}
@@ -260,7 +260,7 @@
                 </p>
                 @endif
             </div>
-            <div class='cel col-1 justify-content-end pt-3'>
+            <div class='cel col-2 justify-content-end pt-3'>
                 @if($productProposal->subtotalPrice < 0)
                 <p style='color:red'>
                     {{formatCurrencyReal($productProposal->subtotalPrice)}}
