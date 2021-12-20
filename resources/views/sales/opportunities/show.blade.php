@@ -452,7 +452,7 @@
             {{formatCurrencyReal($proposal->balance)}}
         </div>
         <div class='cel col-1 justify-content-end''>
-            {{formatCurrencyReal($proposal->installment_value)}}
+            {{formatCurrencyReal($proposal->totalPrice)}}
         </div>
         {{formatInvoiceStatus($proposal)}}
     </div>
