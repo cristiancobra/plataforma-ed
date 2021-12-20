@@ -38,15 +38,15 @@ class Invoices extends Component {
                     ->get();
 
             $invoicesCount = $invoices->count();
-//dd($invoices);
+            
             $invoicesTotal = 0;
             $balanceTotal = 0;
 
             foreach ($invoices as $invoice) {
-//                $invoice->color = Invoice::statusColor($invoice);
 
                 if ($invoice->status == 'aprovada') {
                     $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                            ->where('trash', '!=', 1)
                             ->sum('value');
                 }
                 if ($invoice->paid >= $invoice->totalPrice) {
