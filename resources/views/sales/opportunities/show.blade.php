@@ -376,7 +376,7 @@
 </div>
 
 
-<section class='container frame mt-5 pb-3' id='invoices' style="border-color:{{$principalColor}}">
+<section class='container frame mt-5 p-3' id='invoices' style="border-color:{{$principalColor}}">
     <div class="row">
         <div class='col-11 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$principalColor}}'>
             <i class="fa fa-receipt"></i>
@@ -396,7 +396,9 @@
                 </>
             </div>
         </div>
+        @endif
     </div>
+    <div class='container p-3'>
     <div class='row table-header mt-3'>
         <div class='col-1'>
             ID
@@ -411,7 +413,7 @@
             VENCIMENTO
         </div>
         <div class='col-1'>
-            A RECEBER
+            RECEBER
         </div>
         <div class='col-1'>
             VALOR
@@ -455,7 +457,7 @@
         {{formatInvoiceStatus($proposal)}}
     </div>
     @endforeach
-    @endif
+    </div>
 </section>
 
 
