@@ -224,6 +224,7 @@ class ProposalController extends Controller {
                         'subtotalTax_rate' => $request->product_amount [$key] * $request->product_tax_rate [$key],
                         'subtotalMargin' => $request->product_amount [$key] * $request->product_margin [$key],
                         'subtotalPrice' => $request->product_amount [$key] * removeCurrency($request->product_price [$key]),
+                        'price' => removeCurrency($request->product_price [$key]),
                     );
                     if ($request->type == 'despesa') {
                         $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
