@@ -109,9 +109,8 @@ function buttonFilter() {
 
 ;
 
-window.formatCurrencyReal = function () {
-  //        $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-  var elemento = document.getElementById('totalPrice');
+window.formatCurrencyReal = function (fieldId) {
+  var elemento = document.getElementById(fieldId);
   var valor = elemento.value;
   valor = valor + '';
   valor = parseInt(valor.replace(/[\D]+/g, ''));
@@ -124,7 +123,45 @@ window.formatCurrencyReal = function () {
 
   elemento.value = valor;
   if (valor == 'NaN') elemento.value = '';
-}; //};
+};
+
+window.formatCurrencyRealAll = function (inputClass) {
+  var elements = document.querySelectorAll(inputClass); //const highlightedItems = userList.querySelectorAll(".highlighted");
+  //elements.forEach(function(userItem) {
+  //  deleteUser(userItem);
+  //});
+
+  elements.forEach(function (elemento) {
+    //    var elemento = document.getElementById(fieldId);
+    var valor = elemento.value;
+    valor = valor + '';
+    valor = parseInt(valor.replace(/[\D]+/g, ''));
+    valor = valor + '';
+    valor = valor.replace(/([0-9]{2})$/g, ",$1");
+
+    if (valor.length > 6) {
+      valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+    }
+
+    elemento.value = valor;
+    if (valor == 'NaN') elemento.value = '';
+  });
+}; //        var valor = elemento.value;
+//        
+//
+//        valor = valor + '';
+//        valor = parseInt(valor.replace(/[\D]+/g, ''));
+//        valor = valor + '';
+//        valor = valor.replace(/([0-9]{2})$/g, ",$1");
+//
+//        if (valor.length > 6) {
+//            valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+//        }
+//
+//        elemento.value = valor;
+//        if(valor == 'NaN') elemento.value = '';
+//        
+//    };
 
 
 window.loadProjectStagesJson = function (changeId, targetId, url, targetOptionSelected) {
