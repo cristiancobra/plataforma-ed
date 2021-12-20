@@ -222,17 +222,19 @@ CKEDITOR.replace('description');
              border-left-color: {{$complementaryColor}}
              '>
             <div class='cel col-1'>
-            <a class='stretched-link 'href=' {{route('product.show', ['product' => $productProposal->product_id])}}'>
-                <image src='{{$productProposal->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
-            </a>
+                <a class='' href=' {{route('product.show', ['product' => $productProposal->product_id])}}'>
+                    <image src='{{$productProposal->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
+                </a>
             </div>
             <div class='cel col-1'>
-                <input type='number' name='product_amount[]' size='5' value='{{$productProposal->amount}}'>
+                <input style="text-align: right" type='number' name='product_amount[]' size='5' value='{{$productProposal->amount}}'>
             </div>
-            <div class='cel col-3'>
+            <div class='cel col-3 justify-content-start'>
+                <a class='' href=' {{route('product.show', ['product' => $productProposal->product_id])}}'>
                 <span class='fields'>
                     {{$productProposal->product->name}}
                 </span>
+                </a>
             </div>
             <div class='cel col-1'>
                 {{number_format($productProposal->product->due_date)}}
