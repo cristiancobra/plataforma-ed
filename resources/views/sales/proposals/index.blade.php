@@ -29,6 +29,7 @@
         <input type="date" name="date_end" size="20" value="{{old('date_end')}}">
         {{createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas')}}
         {{createFilterSelectModels('contact_id', 'select', $contacts, 'Todas os contatos')}}
+        {{createFilterSelectModels('product_id', 'select', $products, 'Todos os produtos')}}
         {{createFilterSelect('status', 'select', returnInvoiceStatusToFilter(), 'Todas as situações')}}
         <br>
         <a class="text-button secondary" href='{{route('proposal.index', ['type' => $type])}}'>
@@ -106,13 +107,13 @@
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @endif
-    @if($proposal->balance > 0)
+    @if($proposal->totalPrice > 0)
     <div class="cel col-1 justify-content-end">
-        {{formatCurrencyReal($proposal->balance)}}
+        {{formatCurrencyReal($proposal->totalPrice)}}
     </div>
     @else
     <div class="cel col-1 justify-content-end" style="color: red">
-        {{formatCurrencyReal($proposal->balance)}}
+        {{formatCurrencyReal($proposal->totalPrice)}}
     </div>
     @endif
 
