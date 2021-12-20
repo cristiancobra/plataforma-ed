@@ -70,6 +70,10 @@ class ProposalController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
+        
+        $products = Product::where('account_id', auth()->user()->account_id)
+                ->orderBy('NAME', 'ASC')
+                ->get();
 
         $users = User::myUsers();
         $types = Proposal::returnTypes();
@@ -82,6 +86,7 @@ class ProposalController extends Controller {
                         'proposals',
                         'contacts',
                         'companies',
+                        'products',
                         'users',
                         'types',
                         'total',
