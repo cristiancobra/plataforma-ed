@@ -403,7 +403,7 @@
         <div class='col-1'>
             ID
         </div>
-        <div class='col-6'>
+        <div class='col-4'>
             NOME 
         </div>
         <div class='col-1'>
@@ -412,10 +412,10 @@
         <div class='col-1'>
             VENCIMENTO
         </div>
-        <div class='col-1'>
+        <div class='col-2'>
             RECEBER
         </div>
-        <div class='col-1'>
+        <div class='col-2'>
             VALOR
         </div>
         <div class='col-1'>
@@ -433,7 +433,7 @@
         <div class='cel col-1'>
             {{$proposal->identifier}}
         </div>
-        <div class='cel col-6 justify-content-start'>
+        <div class='cel col-4 justify-content-start'>
             {{$proposal->name}}
         </div>
         <div class='cel col-1'>
@@ -448,10 +448,10 @@
             {{date('d/m/Y', strtotime($proposal->pay_day))}}
         </div>
         @endif
-        <div class='cel col-1 justify-content-end''>
+        <div class='cel col-2 justify-content-end''>
             {{formatCurrencyReal($proposal->balance)}}
         </div>
-        <div class='cel col-1 justify-content-end''>
+        <div class='cel col-2 justify-content-end''>
             {{formatCurrencyReal($proposal->totalPrice)}}
         </div>
         {{formatInvoiceStatus($proposal)}}
