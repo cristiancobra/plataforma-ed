@@ -54,7 +54,7 @@
                  border-left-color: {{$complementaryColor}};
 
                  '>
-                <a class='stretched-link' href="{{route('invoice.show', ['invoice' => $invoice])}}" target='_blank' style="color:white">
+                <a class='stretched-link' href="{{route('invoice.show', ['invoice' => $invoice])}}" style="color:white">
                 </a>
                 <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
                     {{$counterInvoices}}
@@ -245,7 +245,7 @@ CKEDITOR.replace('observations');
                          border-left-color: {{$complementaryColor}};
 
                          '>
-                        <a class='stretched-link' href="{{route('transaction.show', ['transaction' => $transaction])}}" target='_blank' style="color:white">
+                        <a class='stretched-link' href="{{route('transaction.show', ['transaction' => $transaction])}}" style="color:white">
                         </a>
                         <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
                             {{$counterTransactions++}}
