@@ -210,6 +210,7 @@ Route::put('/faturas/apagar/{invoice}', 'Financial\\InvoiceController@sendToTras
         ->name('invoice.trash')
         ->middleware('roles');
 
+
 Route::put('/faturas/restaurar/{invoice}', 'Financial\\InvoiceController@restoreFromTrash')
         ->name('invoice.restore')
         ->middleware('roles');
@@ -568,6 +569,10 @@ Route::get('propostas/pdf/{proposal}', 'Sales\\ProposalController@createPdf')
 
 Route::put('/propostas/apagar/{proposal}', 'Sales\\ProposalController@sendToTrash')
         ->name('proposal.trash')
+        ->middleware('roles');
+
+Route::put('/propostas/apagar-faturas/{proposal}', 'Sales\\ProposalController@sendToTrashInvoices')
+        ->name('proposal.trashInvoices')
         ->middleware('roles');
 
 Route::put('/propostas/restaurar/{proposal}', 'Sales\\ProposalController@restoreFromTrash')
