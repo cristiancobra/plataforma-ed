@@ -52,6 +52,17 @@
             SALDO
         </div>
     </div>
+    
+    <!--// erro de adicionar pagamento-->
+    @if(Session::has('failed'))
+    <div class="alert alert-danger">
+        {{Session::get('failed')}}
+        @php
+        Session::forget('failed');
+        @endphp
+    </div>
+    @endif
+    
 
     @foreach ($invoices as $invoice)
     <div class="row">
@@ -145,16 +156,8 @@
        
     <!--  div oculta ADICIONAR PAGAMENTO  -->
 
-    @if(Session::has('failed'))
-    <div class="alert alert-danger">
-        {{Session::get('failed')}}
-        @php
-        Session::forget('failed');
-        @endphp
-    </div>
-    @endif
-    <div class='container pt-5 pb-5' id='newPaymentRow_{{$counterInvoices++}}' style='display: none;background-color: #f1f1f1'>
-        <form id='addPayment' action='{{route('transaction.storeOpportunity')}}' method='post' style='text-align: left'>
+    <div class='container pt-5 pb-5' id='newPaymentRow_{{$counterInvoices}}' style='display: none;background-color: #f1f1f1'>
+        <form id='addPayment' action='{{route('transaction.storeOpportunity', ['type' => $invoice->proposal->type])}}' method='post' style='text-align: left'>
             @csrf
             <input type='hidden' name='invoice_id'  value='{{$invoice->id}}'>
             <div class="row mt-2">
@@ -207,7 +210,13 @@
                     @if ($errors->has('value'))
                     <span class="text-danger">{{$errors->first('value')}}</span>
                     @endif
+                    
+                    @if($proposal->type == 'receita')
                     <input type="text" name="value" style="text-align: right" size='12' class='prices' onkeyup="formatCurrencyRealAll('input.prices')" value="{{formatCurrencyReal($invoice->totalPrice)}}">
+                    @elseif($proposal->type == 'despesa')
+                    <input type="text" name="value" style="text-align: right" size='12' class='prices' onkeyup="formatCurrencyRealAll('input.prices')" value="{{formatCurrencyReal($invoice->totalPrice * -1)}}">
+                    @endif
+                    
                 </div>
             </div>
             <div class="row pt-4">
@@ -241,16 +250,17 @@ CKEDITOR.replace('observations');
     </div>
     <!--  FIM div oculta ADICIONAR PAGAMENTO  -->
     
-    
+    @php
+    $counterTransactions = 1;
+    @endphp
      <!--LINHA DE PAGAMENTOS / TRANSACTIONS-->
-        <div id='paymentsRow_{{$counterTransactions}}'  class='row' style="display:none">
+        <div id='paymentsRow_{{$counterInvoices++}}'  class='row' style="display:none">
             @foreach($invoice->transactions as $transaction)
             <div class="row">
                 <div class='offset-1 col-9'>
                     <div class='row table2 position-relative'  style='
                          color: {{$principalColor}};
                          border-left-color: {{$complementaryColor}};
-
                          '>
                         <a class='stretched-link' href="{{route('transaction.show', ['transaction' => $transaction])}}" style="color:white">
                         </a>
@@ -267,14 +277,11 @@ CKEDITOR.replace('observations');
                         <div class='cel col-2'>
                             {{date('d/m/Y', strtotime($transaction->pay_day))}}
                         </div>
-                        <div class='cel col-3'>
+                        <div class='cel col-5 justify-content-start'>
                             {{$transaction->user->contact->name}}
                         </div>
                         <div class='cel col-2 justify-content-start'>
                             {{$transaction->bankAccount->name}}
-                        </div>
-                        <div class='cel col-2 justify-content-start'>
-                            {{$transaction->payment_method}}
                         </div>
                         <div class='cel col-2 justify-content-end'>
                             {{formatCurrencyReal($transaction->value)}}
