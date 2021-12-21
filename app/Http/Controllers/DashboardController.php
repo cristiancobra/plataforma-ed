@@ -258,9 +258,14 @@ class DashboardController extends Controller {
 
     public function marketing() {
         $nada = 0;
+         
+        $shop = Shop::where('account_id', auth()->user()->account_id)
+                ->with('banner')
+                ->first();
 
         return view('dashboards.marketing', compact(
                         'nada',
+                        'shop',
         ));
     }
 
