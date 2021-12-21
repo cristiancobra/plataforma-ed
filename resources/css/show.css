@@ -12,11 +12,12 @@ and open the template in the editor.
 }
 
 .show-name {
-    text-align: center;
+display: flex;
+align-items:center;
+justify-content: center;
     font-size: 18px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:middle;
     background-color: #c28dbf;
     border-style: solid;
     border-radius:30px;
@@ -157,7 +158,9 @@ and open the template in the editor.
 /*  Oportunidades / Stage */
 
 .show-stage{
-    text-align: center;
+display: flex;
+align-items:center;
+justify-content: center;
     font-size: 18px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
@@ -301,6 +304,8 @@ and open the template in the editor.
     font-family: helvetica;
     color: white;
     background-color: #c28dbf;
+        display: flex;
+    justify-content: flex-start;
     margin-top: 3px;
     margin-bottom: 5px;
     margin-right: 0px;
@@ -309,7 +314,6 @@ and open the template in the editor.
     padding-bottom: 4px;
     padding-left: 10px;
     font-weight:600;
-    text-align:left;
     font-size:14px;
     border-radius:7px 0px 0px 7px;
     border-style: solid;
@@ -340,7 +344,7 @@ and open the template in the editor.
     background-color: #EEEEEE;
     margin-top: 3px;
     margin-bottom: 5px;
-    margin-left: -30px;
+    margin-left: 0px;
     margin-right: 0px;
     padding-top: 7px;
     padding-bottom: 4px;
@@ -348,7 +352,7 @@ and open the template in the editor.
     padding-right: 10px;
     font-weight:normal;
     text-align:left;
-    font-size:16px;
+    font-size:14px;
     border-style: solid;
     border-color: #c28dbf;
     border-width: 0.5px;
@@ -358,16 +362,18 @@ and open the template in the editor.
     font-family: helvetica;
     color: #874983;
     background-color: #EEEEEE;
+    display: flex;
+    justify-content: flex-end;
+    text-align: right;
     margin-top: 3px;
     margin-bottom: 5px;
-    margin-left: -30px;
+    margin-left: 0px;
     margin-right: 0px;
     padding-top: 7px;
     padding-bottom: 4px;
     padding-left: 10px;
     padding-right: 10px;
     font-weight:normal;
-    text-align:left;
     font-size:14px;
     border-radius:0px 7px 7px 0px;
     border-style: solid;
@@ -505,6 +511,33 @@ box-shadow: rgba(0, 0, 0, 0.15) 6.95px 6.95px 12.6px;
     font-size:20px;
     transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     filter: brightness(130%);
+}
+
+.form-button-red {
+        color: #874983;
+            background-color: #FDDBDD;
+    font-size:18px;
+    border-style: none;
+    padding-left:4px;
+    padding-top:2px;
+    border-radius: 50%;
+    border-width: 0px;
+    padding:5px 8px 6px 8px;
+    margin: 1px;
+    height: 40px;
+    width: 40px;
+box-shadow: rgba(0, 0, 0, 0.15) 6.95px 6.95px 12.6px;
+    text-align: center;
+    transition: transform .2s; /* Animation */
+}
+
+.form-button-red:hover {
+    font-size:20px;
+    transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    filter: brightness(130%);
+        background-color: #DF4650;
+    color: white;
+    text-decoration: none;
 }
 
 .ellipse-start {
