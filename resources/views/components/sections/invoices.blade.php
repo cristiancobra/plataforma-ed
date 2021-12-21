@@ -207,7 +207,7 @@
                     @if ($errors->has('value'))
                     <span class="text-danger">{{$errors->first('value')}}</span>
                     @endif
-                    <input type="decimal" name="value" style="text-align: right" size='12' value="{{formatCurrencyReal($invoice->totalPrice)}}">
+                    <input type="text" name="value" style="text-align: right" size='12' class='prices' onkeyup="formatCurrencyRealAll('input.prices')" value="{{formatCurrencyReal($invoice->totalPrice)}}">
                 </div>
             </div>
             <div class="row pt-4">
