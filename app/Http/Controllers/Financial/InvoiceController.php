@@ -34,8 +34,8 @@ class InvoiceController extends Controller {
         $yearEnd = date('Y-12-31');
 
         $invoices = Invoice::filterInvoices($request);
-        
-                foreach ($invoices as $invoice) {
+
+        foreach ($invoices as $invoice) {
             $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                     ->where('trash', '!=', 1)
                     ->sum('value');
@@ -52,7 +52,7 @@ class InvoiceController extends Controller {
 //            $invoicesTotal += $invoice->totalPrice;
 //            $proposal->balance += $invoice->balance;
         }
-        
+
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -147,6 +147,8 @@ class InvoiceController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
+        $status = Proposal::returnStatus();
+
         return view('financial.invoices.create', compact(
                         'request',
                         'proposals',
@@ -156,6 +158,7 @@ class InvoiceController extends Controller {
                         'products',
                         'users',
                         'typeInvoices',
+                        'status',
         ));
     }
 
@@ -212,13 +215,13 @@ class InvoiceController extends Controller {
 
             $invoice->save();
 
-            // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
+            // Cria e salva um relacionamento ProductProposal para cada PRODUTO com quantidade maior que zero
             $totalPrice = 0;
             $totalTaxrate = 0;
             foreach ($request->product_id as $key => $value) {
                 if ($request->product_amount [$key] > 0) {
                     $data = array(
-                        'invoice_id' => $invoice->id,
+                        'proposal_id' => $request->proposal_id,
                         'product_id' => $request->product_id [$key],
                         'amount' => $request->product_amount [$key],
                         'subtotalHours' => $request->product_amount [$key] * $request->product_work_hours [$key],
@@ -230,7 +233,7 @@ class InvoiceController extends Controller {
                     );
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                    invoiceLine::insert($data);
+                    ProductProposal::insert($data);
 //					dd($request->product_margin [$key]);
                 }
             }
@@ -336,7 +339,7 @@ class InvoiceController extends Controller {
                 ->get();
 
         $variation = $invoice->type;
-        
+
         $status = Proposal::returnStatus();
 
         return view('financial.invoices.edit', compact(
@@ -379,12 +382,12 @@ class InvoiceController extends Controller {
                             ->withInput();
         } else {
             $invoice->fill($request->all());
-            if($invoice->type == 'receita') {
-            $invoice->totalPrice = str_replace(",", ".", $request->totalPrice);
-            }else{
-            $totalPrice = str_replace(",", ".", $request->totalPrice);
-            $invoice->totalPrice = ($totalPrice * -1);
+            if ($invoice->type == 'receita') {
+                $totalPrice = removeCurrency($request->totalPrice);
+            } else {
+                $totalPrice = removeCurrency($request->totalPrice) * -1;
             }
+            $invoice->totalPrice = $totalPrice;
             $invoice->save();
 
             return redirect()->route('invoice.show', compact('invoice'));
@@ -434,16 +437,16 @@ class InvoiceController extends Controller {
         $tasksOperationalPointsExecuted = $tasksOperational
                 ->where('status', 'feito')
                 ->sum('points');
-        
-        if($invoice->proposal->opportunity) {
-        $opportunityDescription = $invoice->proposal->opportunity->description;
-        }else{
+
+        if ($invoice->proposal->opportunity) {
+            $opportunityDescription = $invoice->proposal->opportunity->description;
+        } else {
             $opportunityDescription = 'Não possui';
         }
-        
-        if($invoice->proposal->contact) {
-        $customerName = $invoice->proposal->contact->name;
-        }else{
+
+        if ($invoice->proposal->contact) {
+            $customerName = $invoice->proposal->contact->name;
+        } else {
             $customerName = 'Não possui';
         }
 
@@ -688,6 +691,7 @@ class InvoiceController extends Controller {
 
         return redirect()->back();
     }
+
 
     public function restoreFromTrash(Invoice $invoice) {
         $invoice->trash = 0;
