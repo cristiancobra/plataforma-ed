@@ -1,10 +1,10 @@
 <section class='container frame mt-5' id='invoices' style="border-color:{{$invoiceFrameColor}}">
     <div class="row">
-        <div class='col-11 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
+        <div class='col-10 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
             <i class="fa fa-receipt"></i>
             PAGAMENTOS
         </div>
-        <div class='col-1 pt-4 pb-3 text-end' style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
+        <div class='col-2 pt-4 pb-3 text-end' style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
             @if($proposal == null)
             <i class='fas fa-ban ms-2' style='font-size:28px'></i>
             @elseif($invoicesCount < 1)
@@ -19,12 +19,19 @@
             </a>
 
             @else
+            <form action="{{route('proposal.trashInvoices', ['proposal' => $proposal])}}" method="post">
+                @csrf
+                @method('put')
+                <button class='form-button-red' type='submit' title='Apagar TODAS as faturas'>
+                    <i class="fa fa-trash"></i>
+                </button>
+            </form>
             <a href="{{route('proposal.editInstallment', ['proposal' => $proposal])}}">
                 <button class='form-button' style="
                         color: {{$principalColor}};
                         background-color: {{$oppositeColor}};
                         border-color: {{$principalColor}};
-                        " type='submit' title='EDITAR TODAS'>
+                        " type='submit' title='Editar TODAS as faturas'>
                     <i class="fa fa-edit"></i>
                 </button>
             </a>
