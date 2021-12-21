@@ -199,7 +199,7 @@ class OpportunityController extends Controller {
                     ->get();
 //dd($invoices);
             $invoicesCount = $invoices->count();
-
+//dd($invoicesCount);
             $invoicesTotal = 0;
             $balanceTotal = 0;
 
