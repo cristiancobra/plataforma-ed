@@ -322,3 +322,23 @@
     </div>
 </div>
 @endsection
+
+@section('workflow')
+@if($invoicesCount < 1)
+<div class='row'>
+    <div class='col d-inline-block'>
+        <form style='text-decoration: none;color: black;display: inline-block' action="{{route('proposal.generateInstallment', ['proposal' => $proposal])}}" method="post">
+            @csrf
+            @method('put')
+            <button id='' class=' workflow-button-red' title='Gerar faturas dos pagamentos' type='submit'>
+                <i class="fas fa-file-invoice-dollar" style="font-size:30px; color:white;padding-bottom: 10px"></i>
+                <br>
+                GERAR
+                <br>
+                FATURAS
+            </button>
+        </form>
+    </div>
+</div>
+            @endif
+@endsection
