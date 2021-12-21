@@ -536,6 +536,9 @@ class ProposalController extends Controller {
             $counter++;
             $counterMonth++;
         }
+//        atualizar status da fatura para aprovada
+        $proposal->status = 'aprovada';
+        
         return redirect()->back();
     }
 
