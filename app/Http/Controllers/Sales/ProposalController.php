@@ -294,8 +294,8 @@ class ProposalController extends Controller {
             $balanceTotal += $invoice->balance;
         }
 
-//        $invoicesCount = $invoices->count();
-        
+ $invoicesCount = $invoices->count();
+
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
 
@@ -320,6 +320,7 @@ class ProposalController extends Controller {
         return view('sales.proposals.show', compact(
                         'proposal',
                         'invoices',
+                        'invoicesCount',
                         'type',
                         'opportunityName',
                         'opportunityId',
