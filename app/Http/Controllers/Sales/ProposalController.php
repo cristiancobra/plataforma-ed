@@ -464,6 +464,19 @@ class ProposalController extends Controller {
         return redirect()->back();
     }
 
+    
+    public function sendToTrashInvoices(Proposal $proposal) {
+        $invoices = Invoice::where('proposal_id', $proposal->id)
+                ->get();
+
+        foreach ($invoices as $invoice) {
+            $invoice->trash = 1;
+            $invoice->save();
+        }
+
+        return redirect()->back();
+    }
+    
     public function restoreFromTrash(Proposal $proposal) {
         $proposal->trash = 0;
         $proposal->save();
