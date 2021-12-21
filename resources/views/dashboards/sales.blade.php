@@ -55,16 +55,16 @@
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none' href='{{route('proposal.create', ['type' => 'receita'])}}'>
-                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova oportunidade'></i>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova proposta'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'receita'])}}'>
-                    <i class='fas fa-list-alt ps-2 pe-2' title='todas as oportunidade'></i>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas as propostas'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('proposal.index', [
                                                                                                                             'type' => 'receita',
                                                                                                                             'user_id' => auth()->user()->id
                                                                                                                             ])}}'>
-                    <i class='fas fa-paperclip ps-2 pe-2' title='minhas oportunidade'></i>
+                    <i class='fas fa-paperclip ps-2 pe-2' title='minhas propostas'></i>
                 </a>
             </div>
         </div>
@@ -274,7 +274,7 @@
                     <i class='fas fa-plus-circle ps-2 pe-2' title='criar loja'></i>
                 </a>
                 @else
-                <a style='text-decoration:none' href='{{route('shop.edit', ['id' => $shop->id])}}'>
+                <a style='text-decoration:none' href='{{route('shop.edit', ['shop' => $shop])}}'>
                     <i class='fas fa-edit ps-2 pe-2' title='editar loja'></i>
                 </a>
                 @endif
@@ -287,7 +287,7 @@
             </div>
         </div>
     </div>
-    <!--fim do bloco de EMPRESAS-->
+    <!--fim do bloco de LOJA-->
 
     <!--fim da LINHA 1 de blocos-->    
 </div>
