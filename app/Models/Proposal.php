@@ -119,6 +119,11 @@ class Proposal extends Model {
                     if ($request->company_id) {
                         $query->where('company_id', $request->company_id);
                     }
+                    if ($request->product_id) {
+                    $query->whereHas('productProposals', function($query) use($request) {
+                        $query->where('product_id', $request->product_id);
+                    });
+                    }
                     if ($request->type) {
                         $query->where('type', $request->type);
                     } elseif($request->variation) {
