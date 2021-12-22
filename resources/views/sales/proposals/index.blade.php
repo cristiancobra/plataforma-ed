@@ -40,10 +40,7 @@
 </div>
 
 <div class='row  table-header mt-2 mb-2' style="background-color: {{$principalColor}}">
-    <div   class="col-1">
-        ID
-    </div>
-    <div   class="col-4">
+    <div   class="col-3">
         NOME
     </div>
     <div   class="col-2">
@@ -60,24 +57,27 @@
         VENCIMENTO
     </div>
     <div   class="col-1">
-        VALOR
+        TOTAL
+    </div>
+    <div   class="col-1">
+        SALDO
     </div>
     <div   class="col-1">
         SITUAÇÃO
+    </div>
+    <div   class="col-1">
+        PAGAMENTO
     </div>
 </div>
 
 @foreach ($proposals as $proposal)
 <div class="row table2 position-relative"  style="
-                                                                            color: {{$principalColor}};
-                                                                            border-left-color: {{$complementaryColor}}
-                                                                            ">
+     color: {{$principalColor}};
+     border-left-color: {{$complementaryColor}}
+     ">
     <a class="stretched-link "href=" {{route('proposal.show', ['proposal' => $proposal,  'type' => $type])}}">
-            </a>
-    <div class="cel col-1 justify-content-center">
-        {{$proposal->identifier}}
-    </div>
-    <div class="cel col-4 justify-content-start">
+    </a>
+    <div class="cel col-3 justify-content-start">
         @if($proposal->name)
         {{$proposal->name}}
         @else
@@ -107,6 +107,7 @@
         {{date('d/m/Y', strtotime($proposal->pay_day))}}
     </div>
     @endif
+
     @if($proposal->totalPrice > 0)
     <div class="cel col-1 justify-content-end">
         {{formatCurrencyReal($proposal->totalPrice)}}
@@ -117,7 +118,22 @@
     </div>
     @endif
 
+    @if($proposal->paid > 0)
+    <div class="cel col-1 justify-content-end">
+        {{formatCurrencyReal($proposal->paid)}}
+    </div>
+    @else
+    <div class="cel col-1 justify-content-end" style="color: red">
+        {{formatCurrencyReal($proposal->paid)}}
+    </div>
+    @endif
+
     {{formatInvoiceStatus($proposal)}}
+
+    <div class="cel col-1">
+        {{faiconInvoiceStatus($proposal->status)}}
+    </div>
+
 </div>
 @endforeach
 
