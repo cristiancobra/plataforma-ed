@@ -35,34 +35,42 @@ class ProposalController extends Controller {
 
         // Cálculo do saldo / balance
         foreach ($proposals as $proposal) {
-                    
+
             $invoices = Invoice::where('proposal_id', $proposal->id)
-                ->where('trash', '!=', 1)
-                ->get();
-        
-        $invoicesTotal = 0;
-        $balanceTotal = 0;
-        
-        foreach ($invoices as $invoice) {
-            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                     ->where('trash', '!=', 1)
-                    ->sum('value');
-            if ($invoice->totalPrice == $invoice->paid) {
-                $invoice->status = 'paga';
-            } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
-                $invoice->status = 'parcial';
-            } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
-                $invoice->status = 'atrasada';
+                    ->get();
+
+            $invoicesTotal = 0;
+            $balanceTotal = 0;
+
+            foreach ($invoices as $invoice) {
+                $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                        ->where('trash', '!=', 1)
+                        ->sum('value');
+                if ($invoice->totalPrice == $invoice->paid) {
+                    $invoice->status = 'paga';
+                } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+                    $invoice->status = 'parcial';
+                } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+                    $invoice->status = 'atrasada';
+                }
+
+                $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+                $invoicesTotal += $invoice->totalPrice;
+                $proposal->balance += $invoice->balance;
             }
 
-            $invoice->balance = $invoice->totalPrice - $invoice->paid;
+            if ($proposal->totalPrice == $proposal->balance) {
+                $proposal->status = 'paga';
+            } elseif ($proposal->totalPrice > $proposal->balance AND $proposal->balance > 0) {
+                $proposal->status = 'parcial';
+            } elseif ($proposal->status == 'aprovada' AND $proposal->pay_day < date('Y-m-d')) {
+                $proposal->status = 'atrasada';
+            }
+        }
 
-            $invoicesTotal += $invoice->totalPrice;
-            $proposal->balance += $invoice->balance;
-        }
-        }
-        
-        
+
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -70,7 +78,7 @@ class ProposalController extends Controller {
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
-        
+
         $products = Product::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -80,7 +88,6 @@ class ProposalController extends Controller {
         $trashStatus = request()->trash;
 
         $total = $proposals->total();
-
 
         return view('sales.proposals.index', compact(
                         'proposals',
@@ -108,12 +115,12 @@ class ProposalController extends Controller {
         } else {
             $typeCompanies = 'fornecedor';
         }
-        
-        if($request->opportunity) {
-        $opportunity = Opportunity::find($request->opportunity);
-    }else {
-        $opportunity = null;
-    }
+
+        if ($request->opportunity) {
+            $opportunity = Opportunity::find($request->opportunity);
+        } else {
+            $opportunity = null;
+        }
 
         $companies = Company::where('account_id', auth()->user()->account_id)
                 ->where('type', $typeCompanies)
@@ -294,11 +301,10 @@ class ProposalController extends Controller {
             $balanceTotal += $invoice->balance;
         }
 
- $invoicesCount = $invoices->count();
+        $invoicesCount = $invoices->count();
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
                 ->get();
-
 
 //        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
 //        $balanceTotal = $invoicesTotal - $proposalPaymentsTotal;
@@ -356,7 +362,8 @@ class ProposalController extends Controller {
                 ->get();
 
         $type = $request->type;
-        $status = Proposal::returnStatus();;
+        $status = Proposal::returnStatus();
+        ;
 
         return view('sales.proposals.edit', compact(
                         'users',
@@ -464,7 +471,6 @@ class ProposalController extends Controller {
         return redirect()->back();
     }
 
-    
     public function sendToTrashInvoices(Proposal $proposal) {
         $invoices = Invoice::where('proposal_id', $proposal->id)
                 ->get();
@@ -476,7 +482,7 @@ class ProposalController extends Controller {
 
         return redirect()->back();
     }
-    
+
     public function restoreFromTrash(Proposal $proposal) {
         $proposal->trash = 0;
         $proposal->save();
@@ -538,7 +544,7 @@ class ProposalController extends Controller {
         }
 //        atualizar status da fatura para aprovada
         $proposal->status = 'aprovada';
-        
+
         return redirect()->back();
     }
 
@@ -548,7 +554,7 @@ class ProposalController extends Controller {
                 ->where('status', 'aprovada')
                 ->where('trash', '!=', 1)
                 ->get();
-        
+
         $counter = 1;
 
         return view('sales.proposals.edit_installment', compact(
@@ -591,7 +597,7 @@ class ProposalController extends Controller {
         }
 //        dd($proposal->totalPrice);
         $diferential = 0.001;
-            if(abs($sumInvoicesPrice - $proposal->totalPrice) > $diferential) {
+        if (abs($sumInvoicesPrice - $proposal->totalPrice) > $diferential) {
             return back()
                             ->with('failed', "A soma das faturas   (" . formatCurrencyReal($sumInvoicesPrice) . ")   NÃO pode ser diferente do total da proposta   (" . formatCurrencyReal($proposal->totalPrice) . ")  .")
                             ->withInput();
@@ -605,7 +611,7 @@ class ProposalController extends Controller {
             $counter = 0;
             foreach ($invoices as $invoice) {
                 $invoice->totalPrice = removeCurrency($request->totalPrice[$counter]);
-                if ($proposal->type == 'despesa' ) {
+                if ($proposal->type == 'despesa') {
                     $invoice->totalPrice = $invoice->totalPrice * -1;
                 }
                 $invoice->pay_day = $request->pay_day[$counter];
