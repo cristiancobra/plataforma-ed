@@ -13,6 +13,120 @@
 
 <!--     linha 1 de blocos-->
 <div class='row'>
+    
+       <!--     começo bloco de propostas-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-donate' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
+                PROPOSTAS
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('proposal.create', ['type' => 'receita'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova proposta'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'receita'])}}'>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas as propostas'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('proposal.index', [
+                                                                                                                            'type' => 'receita',
+                                                                                                                            'user_id' => auth()->user()->id
+                                                                                                                            ])}}'>
+                    <i class='fas fa-paperclip ps-2 pe-2' title='minhas propostas'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--fim do bloco de PROPOSTAS-->
+    
+    
+    
+    <!--     começo bloco DESPESAS-->
+    <!--coluna 1-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-boxes' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
+                DESPESAS
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('proposal.create', ['type' => 'despesa'])}}'>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='novo item de despesa'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'despesa'])}}'>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas os itens de desepsas'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--fim do bloco de DESPESAS-->
+
+    
+    
 
     <!--     começo bloco FORNECEDORES-->
     <!--coluna 1-->
@@ -68,58 +182,7 @@
 
 
 
-    <!--     começo bloco DESPESAS-->
-    <!--coluna 1-->
-    <div class='col-2' style='
-         text-shadow: 2px 2px 4px #000000;
-         border-color:{{$complementaryColor}};
-         background-color:{{$complementaryColor}};
-         border-style: solid;
-         border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
-         padding-top: 10px;
-         border-radius: 10px;
-         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-         text-decoration:none;
-         '>
-        <!--lícone do título-->
-        <div class='row'>
-            <div class='col panel-text pt-2'>
-                <i class='fas fa-boxes' style='font-size:36px; color:white'></i>
-            </div>
-        </div>
-        <!--linha do título-->
-        <div class='row pb-2'>
-            <div class='col panel-text pt-3'>
-                DESPESAS
-            </div>
-        </div>
-        <!--linha dos botoes-->
-        <div class='row d-flex justify-content-center' style='
-             font-size: 20px;
-             font-weight: 600;
-             color: {{$complementaryColor}};
-             background-color: white;
-             text-shadow: none;
-             padding-top: 10px;
-             padding-bottom: 10px;
-             text-align: center;
-             border-radius: 0px 0px 10px 10px;
-             '>
-            <div class="col d-inline-block">
-                <a style='text-decoration:none' href='{{route('proposal.create', ['type' => 'despesa'])}}'>
-                    <i class='fas fa-plus-circle ps-2 pe-2' title='novo item de despesa'></i>
-                </a>
-                <a style='text-decoration:none' href='{{route('proposal.index', ['type' => 'despesa'])}}'>
-                    <i class='fas fa-list-alt ps-2 pe-2' title='todas os itens de desepsas'></i>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!--fim do bloco de DESPESAS-->
-
+    
 
     <!--     começo bloco ITENS DE DESPESA-->
     <!--coluna 1-->
