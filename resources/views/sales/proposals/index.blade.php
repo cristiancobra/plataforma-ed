@@ -120,11 +120,11 @@
 
     @if($proposal->paid > 0)
     <div class="cel col-1 justify-content-end">
-        {{formatCurrencyReal($proposal->paid)}}
+        {{formatCurrencyReal($proposal->balance)}}
     </div>
     @else
     <div class="cel col-1 justify-content-end" style="color: red">
-        {{formatCurrencyReal($proposal->paid)}}
+        {{formatCurrencyReal($proposal->balance)}}
     </div>
     @endif
 
