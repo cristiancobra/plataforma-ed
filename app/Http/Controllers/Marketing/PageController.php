@@ -224,6 +224,7 @@ class PageController extends Controller {
 
         $formFields = Page::formFieldsEdit($page);
 //dd($formFields);
+        
         return view('marketing.pages.edit', compact(
                         'page',
                         'banners',
@@ -333,7 +334,16 @@ class PageController extends Controller {
         foreach ($strengths as $strength) {
             $strength->text = Text::unformatText($strength->text);
         }
+        
+        $products = Product::where('account_id', $page->account_id)
+                ->where('shop', 1)
+                ->take(3)
+                ->get();
 
+        foreach($products as $product) {
+            $product->image = Product::getImage($product);
+        }
+        
         return view('marketing.pages.public', compact(
                         'page',
                         'states',
@@ -342,6 +352,7 @@ class PageController extends Controller {
                         'valueOffer',
                         'about',
                         'strengths',
+                        'products',
         ));
     }
 

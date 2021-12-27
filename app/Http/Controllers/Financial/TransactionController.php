@@ -223,11 +223,19 @@ class TransactionController extends Controller {
             $transaction = new Transaction();
             $transaction->fill($request->all());
             $transaction->account_id = auth()->user()->account_id;
-            if ($transaction->type == 'crédito') {
+
+            if ($request->type == 'receita') {
+                $type = 'crédito';
+            } elseif ($request->type == 'despesa') {
+                $type = 'débito';
+            }
+
+            if ($type == 'crédito') {
                 $transaction->value = removeCurrency($request->value);
             } else {
-                $transaction->value = removeCurrency($request->value) * -1;
+                $type = removeCurrency($request->value) * -1;
             }
+
 
             // verifica se o total de pagamentos é maior que o total da fatura
             $invoice = Invoice::where('id', $request->invoice_id)
@@ -236,17 +244,17 @@ class TransactionController extends Controller {
 
             $totalPaid = Invoice::totalPaid($invoice);
             $newTotal = $totalPaid + $transaction->value;
-//dd($transaction->type);
-            if ($transaction->type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
+            if ($type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
                 $transaction->save();
-                return redirect()->route('transaction.show', compact('transaction'));
-            } elseif ($transaction->type == 'despesa' AND $newTotal >= $invoice->totalPrice) {
+                return redirect()->back();
+            } elseif ($type == 'despesa' AND $newTotal >= $invoice->totalPrice) {
                 $transaction->save();
-                                return redirect()->back();
+                return redirect()->back();
             } else {
                 $totalPrice = formatCurrencyReal($invoice->totalPrice);
+                $newTotal = formatCurrencyReal($newTotal);
                 return back()
-                                ->with('failed', "A soma das parcelas: $totalPaid  não pode ser maior que  $totalPrice")
+                                ->with('failed', "A soma dos pagamentos $newTotal  não pode ser maior que total da fatura  $totalPrice")
                                 ->withInput();
             }
         }

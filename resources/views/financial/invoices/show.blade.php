@@ -34,7 +34,8 @@
      padding-top: 5px;
      padding-bottom: 7px;
      padding-right: 15px;
-     text-align: right
+     text-align: right;
+     width: 100%;
      ">
     {{formatCurrencyReal($invoice->totalPrice)}}
 </div>
@@ -45,7 +46,8 @@
      padding-top: 5px;
      padding-bottom: 7px;
      padding-right: 15px;
-     text-align: right
+     text-align: right;
+     width: 100%;
      ">
     {{formatCurrencyReal($invoice->totalPrice)}}
 </div>
@@ -53,7 +55,7 @@
 @endsection
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
     <div class='show-label'>
         EMPRESA
     </div>
@@ -73,7 +75,7 @@
         @endif
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($invoice->proposal->company))
         {{$invoice->proposal->company->name}}
@@ -108,7 +110,7 @@
     @endif
 </div>
 
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
@@ -122,7 +124,7 @@
         PARCELA
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         {{$invoice->user->contact->name}}
     </div>

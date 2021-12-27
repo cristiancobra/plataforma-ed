@@ -63,6 +63,9 @@ class Image extends Model {
                     if ($request->type) {
                         $query->where('type', $request->type);
                     }
+                    if ($request->user_id) {
+                        $query->where('user_id', $request->user_id);
+                    }
 //                    if ($request->created_at) {
 //                        $query->where('created_at', '>=', $request->created_at);
 //                    }

@@ -12,8 +12,6 @@
 {{asset('images/transaction.png')}} 
 @endsection
 
-@section('description')
-@endsection
 
 @section('buttons')
 
@@ -112,17 +110,23 @@
         <span class="text-danger">{{$errors->first('pay_day')}}</span>
         @endif
         <br>
-        <label class="labels" for="">VALOR: </label>
+        <label class="labels" for="">
+            VALOR:
+        </label>
         @if ($errors->has('value'))
         <span class="text-danger">{{$errors->first('value')}}</span>
         @endif
-        <input type="decimal" name="value" style="text-align: right" size='12' value="{{formatCurrencyReal($invoiceTotalPrice)}}">
+        <input type="decimal" name="value" id='value' onkeyup="formatCurrencyReal('totalPrice')" style="text-align: right" size='12' value="{{formatCurrencyReal($invoiceTotalPrice)}}">
         <br>
-        <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+        <label class="labels" for="" >
+            MEIO DE PAGAMENTO:
+        </label>
         {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods())}}
         <br>
         <br>
-        <label class="labels" for="">Observações: </label>
+        <label class="labels" for="">
+            Observações:
+        </label>
         <textarea id="observations" name="observations" rows="5" cols="90" value="{{old('observations')}}">
         </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
@@ -140,7 +144,5 @@ CKEDITOR.replace('observations');
 @endsection
 
 @section('js-scripts')
-    <script>
-        $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
-    </script>
+
 @endsection

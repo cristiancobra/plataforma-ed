@@ -53,16 +53,6 @@
         </div>
     </div>
     
-    <!--// erro de adicionar pagamento-->
-    @if(Session::has('failed'))
-    <div class="alert alert-danger">
-        {{Session::get('failed')}}
-        @php
-        Session::forget('failed');
-        @endphp
-    </div>
-    @endif
-    
 
     @foreach ($invoices as $invoice)
     <div class="row">

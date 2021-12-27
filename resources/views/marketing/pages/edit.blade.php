@@ -27,7 +27,9 @@
     @method('put')
 
     <div>
-        <label class='labels' for='' >TÍTULO DA PÁGINA:</label>
+        <label class='labels' for='' >
+            TÍTULO DA PÁGINA:
+        </label>
         @if ($errors->has('name'))
         <input type='text' name='name' value='{{old('name')}}'>
         <span class='text-danger'>{{$errors->first('name')}}</span>
@@ -47,13 +49,19 @@
         <br>
         <br>
     </div>
-    <label class='labels' for='' >COR PRINCIPAL:</label>
+    <label class='labels' for='' >
+        COR PRINCIPAL:
+    </label>
     <input type='text' name='principal_color' size='10' value='{{$page->principal_color}}'>
     <br>
-    <label class='labels' for='' >COR SECUNDÁRIA:</label>
+    <label class='labels' for='' >
+        COR SECUNDÁRIA:
+    </label>
     <input type='text' name='complementary_color' size='10' value='{{$page->complementary_color}}'>
     <br>
-    <label class='labels' for='' >COR OPOSTA:</label>
+    <label class='labels' for='' >
+        COR OPOSTA:
+    </label>
     <input type='text' name='opposite_color' size='10' value='{{$page->opposite_color}}'>
     <br>
     <br>
@@ -394,6 +402,7 @@
     @endif
 
 
+        @if($page->shop == 1)
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
@@ -402,13 +411,16 @@
         <div class='row pt-3'>
             <div class='col'>
                 @if($products == null)
-                <span class='labels'>LOJA: </span>não possui produtos
+                <span class='labels'>
+                    LOJA:
+                </span>
+                não possui produtos
                 <input type='hidden' name='shop' value='0'>
                 @else
                 {{createSelectYesOrNo('LOJA', 'shop', $page->shop)}}
                 @endif
                 <p style='font-size:14px'>
-                    * Qual a dor que seu produto resolve
+                    * exibir produtos 
                 </p>
             </div>
         </div>
@@ -444,6 +456,7 @@
             </div>
         </div>
     </div>
+        @endif
 
 
 

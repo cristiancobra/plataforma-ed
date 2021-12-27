@@ -406,7 +406,7 @@ td {
 
 /*-------FATURAS-----*/
 .tb-draft{
-    background-color: #F9D0FF;
+    background-color: gray;
 }
 
 .tb-aproved{

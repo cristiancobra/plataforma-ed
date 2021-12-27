@@ -23,7 +23,7 @@
 
             <div class="col">
                 @if(Session::has('failed'))
-                <div class="alert alert-danger">
+                <div class="alert alert-danger ms-5 mt-5 mb-5">
                     {{ Session::get('failed') }}
                     @php
                     Session::forget('failed');

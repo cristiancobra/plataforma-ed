@@ -11,8 +11,13 @@
 @endsection
 
 @section('buttons')
-
 {{createButtonTrash($product, 'product')}}
+<a class='circular-button secondary' title='Ver na loja' href='{{route('product.public', ['product' => $product])}}' target="_blank">
+    <i class="fas fa-shopping-cart"></i>
+</a>
+<a class='circular-button secondary' title='Vendas deste produto' href='{{route('proposal.index', ['product_id' => $product->id])}}' >
+    <i class="fas fa-gifts"></i>
+</a>
 {{createButtonEdit('product', 'product', $product, 'variation', $variation)}}
 {{createButtonList('product', 'variation', $variation)}}
 @endsection
@@ -55,9 +60,12 @@
     <div class='show-label'>
         PREÇO
     </div>
-    @if($product->initial_stock)
     <div class='show-label'>
-        ESTOQUE
+        LOJA
+    </div>
+    @if($product->category != 'serviço')
+    <div class='show-label'>
+        ESTOQUE 
     </div>
     @endif
     <div class='show-label mt-5'>
@@ -85,7 +93,10 @@
         valor de venda
         @endif
     </div>
-    @if($product->initial_stock)
+    <div class='show-field-start'>
+        disponibilizar na loja virtual
+    </div>
+    @if($product->category != 'serviço')
     <div class='show-field-start'>
         situação atual
     </div>
@@ -117,9 +128,18 @@
         {{formatCurrencyReal($product->price)}}
     </div>
     @endif
-    @if($product->initial_stock)
+    
+        <div class='show-field-end text-end'>
+        @if($product->shop == 1)
+        Sim
+        @else
+        Não
+        @endif
+    </div>
+    
+    @if($product->category != 'serviço')
     <div class='show-field-end text-end'>
-        11
+        {{$product->stock}}
     </div>
     @endif
     <div class='show-field-end text-end mt-5'>
@@ -131,7 +151,7 @@
     </div>
     @if($product->category == 'serviço')
     <div class='show-field-end text-end'>
-                @if($product->points)
+        @if($product->points)
         {{$product->points}}
         @else
         0
@@ -170,7 +190,7 @@
 {!!html_entity_decode($product->description)!!}
 @endsection
 
-    @if($variation == 'receita')
+@if($variation == 'receita')
 @section('main')
 <div class='row show-label-large mt-5'>
     PRECIFICAÇÃO

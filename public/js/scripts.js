@@ -126,13 +126,8 @@ window.formatCurrencyReal = function (fieldId) {
 };
 
 window.formatCurrencyRealAll = function (inputClass) {
-  var elements = document.querySelectorAll(inputClass); //const highlightedItems = userList.querySelectorAll(".highlighted");
-  //elements.forEach(function(userItem) {
-  //  deleteUser(userItem);
-  //});
-
+  var elements = document.querySelectorAll(inputClass);
   elements.forEach(function (elemento) {
-    //    var elemento = document.getElementById(fieldId);
     var valor = elemento.value;
     valor = valor + '';
     valor = parseInt(valor.replace(/[\D]+/g, ''));
@@ -146,23 +141,25 @@ window.formatCurrencyRealAll = function (inputClass) {
     elemento.value = valor;
     if (valor == 'NaN') elemento.value = '';
   });
-}; //        var valor = elemento.value;
-//        
-//
-//        valor = valor + '';
-//        valor = parseInt(valor.replace(/[\D]+/g, ''));
-//        valor = valor + '';
-//        valor = valor.replace(/([0-9]{2})$/g, ",$1");
-//
-//        if (valor.length > 6) {
-//            valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
-//        }
-//
-//        elemento.value = valor;
-//        if(valor == 'NaN') elemento.value = '';
-//        
-//    };
+};
 
+window.buttonOpenBox = function (inputClass) {
+  var elements = document.querySelectorAll(inputClass);
+  elements.forEach(function (elemento) {
+    var valor = elemento.value;
+    valor = valor + '';
+    valor = parseInt(valor.replace(/[\D]+/g, ''));
+    valor = valor + '';
+    valor = valor.replace(/([0-9]{2})$/g, ",$1");
+
+    if (valor.length > 6) {
+      valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+    }
+
+    elemento.value = valor;
+    if (valor == 'NaN') elemento.value = '';
+  });
+};
 
 window.loadProjectStagesJson = function (changeId, targetId, url, targetOptionSelected) {
   //    function loadRoteirosSimuladosOrderListJson(

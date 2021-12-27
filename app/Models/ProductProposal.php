@@ -27,9 +27,9 @@ class ProductProposal extends Model {
 		return $this->belongsTo(Account::class, 'account_id', 'id');
 	}
 
-//	public function proposal() {
-//		return $this->belongsTo(Proposal::class, 'proposal_id', 'id');
-//	}
+	public function proposal() {
+		return $this->belongsTo(Proposal::class, 'proposal_id', 'id');
+	}
 
 	public function opportunity() {
 		return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
@@ -39,9 +39,9 @@ class ProductProposal extends Model {
 		return $this->hasOne(Product::class, 'id', 'product_id');
 	}
 
-	public function proposal() {
-		return $this->hasMany(Proposal::class, 'id', 'proposal_id');
-	}
+//	public function proposal() {
+//		return $this->hasMany(Proposal::class, 'id', 'proposal_id');
+//	}
 	
 	public function user() {
 		return $this->belongsTo(User::class, 'user_id', 'id');

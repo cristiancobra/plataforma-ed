@@ -32,6 +32,7 @@ class Product extends Model {
         'price',
         'initial_stock',
         'group',
+        'shop',
         'status',
     ];
     protected $hidden = [
@@ -52,7 +53,6 @@ class Product extends Model {
 //    public function shop() {
 //        return $this->hasOne(Shop::class, 'account_id', 'account_id');
 //    }
-
     // MÉTODOS PÚBLICOS
 // retorna categoria de produtos
     static function returnCategories() {
@@ -73,6 +73,14 @@ class Product extends Model {
             'contabilidade',
             'jurídico',
             'infraestrutura',
+        );
+    }
+
+// retorna categoria de produtos
+    static function returnStatus() {
+        return $status = array(
+            'disponível',
+            'indisponível',
         );
     }
 
@@ -132,21 +140,62 @@ class Product extends Model {
 
         return $products;
     }
-    
+
     public static function activatedProducts($accountId) {
         return Product::where('account_id', $accountId)
-                ->where('status', 'ativada')
-                ->where('trash', '!=', 1)
-                ->get();
+                        ->where('status', 'ativada')
+                        ->where('trash', '!=', 1)
+                        ->get();
     }
-    
+
     public static function favoriteProducts($accountId) {
         return Product::where('account_id', $accountId)
-                ->where('status', 'ativada')
-                ->where('trash', '!=', 1)
-                                ->orderBy('priority', 'DESC')
-                ->take(5)
-                ->get();
+                        ->where('status', 'ativada')
+                        ->where('trash', '!=', 1)
+                        ->orderBy('priority', 'DESC')
+                        ->take(5)
+                        ->get();
+    }
+
+    public static function countStock($product) {
+        if ($product->category == 'serviço') {
+            return 'serviço';
+        } else {
+            $stockRecords = ProductProposal::where('product_id', $product->id)
+                    ->whereHas('proposal', function ($query) {
+                        $query->where('status', 'aprovada');
+                    }
+                    )
+                    ->get();
+//                    dd($stockRecords);
+            $productsSold = 0;
+            $purchasedProducts = 0;
+            foreach ($stockRecords as $record) {
+                if ($record->proposal->type == 'receita') {
+                    $productsSold += $record->amount;
+                } elseif ($record->proposal->type == 'despesa') {
+                    $purchasedProducts += $record->amount;
+                }
+//dd($product->product);
+            }
+
+            if ($product->type == 'receita') {
+                $stock = $product->initial_stock - $productsSold;
+            } else {
+                $stock = $product->initial_stock + $purchasedProducts;
+            }
+            return $stock;
+        }
+//        dd($stock);
+    }
+
+    public static function getImage($product) {
+        if ($product->image) {
+            $image = asset($product->image->path);
+        } else {
+            $image = asset('images/products.png');
+        }
+        return $image;
     }
 
 }

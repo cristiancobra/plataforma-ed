@@ -22,7 +22,7 @@
 
 @section('table')
 <div class="row mb-5">
-    <form id="filter" action="{{route('proposal.index')}}" method="get" style="text-align: right;display:none">
+    <form id="filter" action="{{route('proposal.index')}}" method="get" style="text-align: right;display:inline">
         <input type="hidden" name="type" value="{{$type}}">
         <input type="text" name="name" placeholder="nome da oportunidade" value="">
         <input type="date" name="date_start" size="20" value="{{old('date_start')}}">
@@ -40,7 +40,7 @@
 </div>
 
 <div class='row  table-header mt-2 mb-2' style="background-color: {{$principalColor}}">
-    <div   class="col-3">
+    <div   class="col-4">
         NOME
     </div>
     <div   class="col-2">
@@ -63,9 +63,6 @@
         SALDO
     </div>
     <div   class="col-1">
-        SITUAÇÃO
-    </div>
-    <div   class="col-1">
         PAGAMENTO
     </div>
 </div>
@@ -77,7 +74,7 @@
      ">
     <a class="stretched-link "href=" {{route('proposal.show', ['proposal' => $proposal,  'type' => $type])}}">
     </a>
-    <div class="cel col-3 justify-content-start">
+    <div class="cel col-4 justify-content-start">
         @if($proposal->name)
         {{$proposal->name}}
         @else
@@ -127,8 +124,6 @@
         {{formatCurrencyReal($proposal->balance)}}
     </div>
     @endif
-
-    {{formatInvoiceStatus($proposal)}}
 
     <div class="cel col-1">
         {{faiconInvoiceStatus($proposal->status)}}

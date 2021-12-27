@@ -1217,8 +1217,8 @@ if (!function_exists('formatStatusActive')) {
 // gera uma coluna TD com a formatação para STATUS / SITUAÇÃO da Fatura  a partir de  $model
 if (!function_exists('formatInvoiceStatus')) {
 
-    function formatInvoiceStatus($model) {
-        switch ($model->status) {
+    function formatInvoiceStatus($invoice) {
+        switch ($invoice->status) {
             case 'rascunho':
                 echo '<div class="tb tb-draft col-1">rascunho</div>';
                 break;
@@ -1253,7 +1253,7 @@ if (!function_exists('faiconInvoiceStatus')) {
                 echo "<i class='fas fa-stop draft-paid ms-1 me-1' style='font-size:28px'></i>";
                 break;
             case 'orçamento':
-                echo "<i class='fas fa-clock ms-1 me-1' style='font-size:28px'></i>";
+                echo "<i class='fas fa-stop draft-paid  ms-1 me-1' style='font-size:28px'></i>";
                 break;
             case 'cancelada':
                 echo "<div class='tb tb-canceled col-1 ms-1 me-1' style='font-size:28px'>cancelada</div>";

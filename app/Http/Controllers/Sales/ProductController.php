@@ -20,8 +20,12 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
-                $products = Product::filterProducts($request);
+        $products = Product::filterProducts($request);
 
+        foreach ($products as $product) {
+            $product->stock = Product::countStock($product);
+        }
+//dd($products);
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -34,8 +38,9 @@ class ProductController extends Controller {
 
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
-//dd($categories);
-        return view('sales.products.indexProducts', compact(
+        $status = Product::returnStatus();
+
+        return view('sales.products.index', compact(
                         'products',
                         'contacts',
                         'users',
@@ -43,6 +48,7 @@ class ProductController extends Controller {
                         'variation',
                         'categories',
                         'groups',
+                        'status',
         ));
     }
 
@@ -65,13 +71,15 @@ class ProductController extends Controller {
 
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
+        $status = Product::returnStatus();
 
-        return view('sales.products.createProduct', compact(
+        return view('sales.products.create', compact(
                         'products',
                         'variation',
                         'images',
                         'categories',
                         'groups',
+                        'status',
         ));
     }
 
@@ -102,21 +110,21 @@ class ProductController extends Controller {
             $product = new Product();
             $product->fill($request->all());
             $product->account_id = auth()->user()->account_id;
-        $product->price = removeCurrency($request->price);
-        if ($variation == 'receita') {
-            $product->price = $product->price;
-        } else {
-            $product->price = $product->price * -1;
-        }
+            $product->price = removeCurrency($request->price);
+            if ($variation == 'receita') {
+                $product->price = $product->price;
+            } else {
+                $product->price = $product->price * -1;
+            }
             $product->tax_rate = str_replace(",", ".", $request->tax_rate);
             $product->type = $variation;
             $product->image_id = $this->saveImage($request);
+            $product->shop = $request->has('shop') ? 1 : 0;
             $product->save();
 
             $type = $variation;
 
-
-            return view('sales.products.showProduct', compact(
+        return redirect()->route('product.show', compact(
                             'product',
                             'type',
                             'variation',
@@ -134,9 +142,11 @@ class ProductController extends Controller {
         $variation = $request->variation;
         $product->taxPrice = $product->price * $product->tax_rate / 100;
         $product->margin = $product->price - $product->taxPrice - $product->cost1 - $product->cost2 - $product->cost3;
-//        dd($product);
 
-        return view('sales.products.showProduct', compact(
+        $product->stock = Product::countStock($product);
+
+
+        return view('sales.products.show', compact(
                         'variation',
                         'product',
         ));
@@ -150,26 +160,29 @@ class ProductController extends Controller {
      */
     public function edit(Product $product, Request $request) {
         $variation = $request->variation;
-        if($variation == 'receita') {
-        $product->price = $product->price;
-        }else{
-        $product->price = $product->price * -1;
+        if ($variation == 'receita') {
+            $product->price = $product->price;
+        } else {
+            $product->price = $product->price * -1;
         }
 
         $images = Image::where('account_id', auth()->user()->account_id)
                 ->where('type', 'produto')
                 ->get();
 
-
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
+        $status = Product::returnStatus();
+        
+                $product->stock = Product::countStock($product);
 
-        return view('sales.products.editProduct', compact(
+        return view('sales.products.edit', compact(
                         'product',
                         'images',
                         'variation',
                         'categories',
                         'groups',
+                        'status',
         ));
     }
 
@@ -190,11 +203,11 @@ class ProductController extends Controller {
         }
         $product->tax_rate = str_replace(",", ".", $request->tax_rate);
         $product->image_id = $this->saveImage($request);
-//        dd($product->image_id);
+        $product->shop = $request->has('shop') ? 1 : 0;
         $product->save();
         $variation = $request->variation;
 
-        return view('sales.products.showProduct', compact(
+        return redirect()->route('product.show', compact(
                         'product',
                         'variation',
         ));
@@ -266,7 +279,7 @@ class ProductController extends Controller {
 
         $variation = $request->variation;
 
-        return view('sales.products.indexProducts', compact(
+        return view('sales.products.index', compact(
                         'products',
                         'contacts',
                         'users',
@@ -293,11 +306,11 @@ class ProductController extends Controller {
         return $imageId;
     }
 
-        public function public(Request $request, Product $product) {
-            $shop = Shop::find($product->account_id);
-//            dd($product);
-            $variation = $request->input('variation');
-            $whatsappLink = Product::whatsappLink($product);
+    public function public(Request $request, Product $product) {
+        $shop = Shop::find($product->account_id);
+//            dd($shop->banner);
+        $variation = $request->input('variation');
+        $whatsappLink = Product::whatsappLink($product);
 //            dd($variation);
 //        $states = Contact::returnStates();
 //        $page->with([
@@ -322,10 +335,10 @@ class ProductController extends Controller {
 //        }
 
         return view('sales.products.public', compact(
-                'product',
-                'variation',
-                'whatsappLink',
-                'shop',
+                        'product',
+                        'variation',
+                        'whatsappLink',
+                        'shop',
 //                        'page',
 //                        'states',
 //                        'user',
@@ -335,15 +348,14 @@ class ProductController extends Controller {
 //                        'strengths',
         ));
     }
-    
-    
+
     public function redirect(Request $request, Product $product) {
         $variation = $request->input('variation');
-        
+
         return redirect()->route('product.public', [
-                                                                          'product' => $product,
-                                                                          'variation' => $variation,
-                                                                         ]);
+                    'product' => $product,
+                    'variation' => $variation,
+        ]);
     }
-    
+
 }

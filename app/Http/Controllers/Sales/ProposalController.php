@@ -47,13 +47,13 @@ class ProposalController extends Controller {
                 $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                         ->where('trash', '!=', 1)
                         ->sum('value');
-                if ($invoice->totalPrice == $invoice->paid) {
-                    $invoice->status = 'paga';
-                } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
-                    $invoice->status = 'parcial';
-                } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
-                    $invoice->status = 'atrasada';
-                }
+//                if ($invoice->totalPrice == $invoice->paid) {
+//                    $invoice->status = 'paga';
+//                } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
+//                    $invoice->status = 'parcial';
+//                } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
+//                    $invoice->status = 'atrasada';
+//                }
 
                 $invoice->balance = $invoice->totalPrice - $invoice->paid;
 
@@ -61,12 +61,12 @@ class ProposalController extends Controller {
                 $proposal->balance += $invoice->balance;
             }
 
-            if ($proposal->totalPrice == $proposal->balance) {
+            if ($proposal->balance == 0) {
                 $proposal->status = 'paga';
-            } elseif ($proposal->totalPrice > $proposal->balance AND $proposal->balance > 0) {
-                $proposal->status = 'parcial';
             } elseif ($proposal->status == 'aprovada' AND $proposal->pay_day < date('Y-m-d')) {
                 $proposal->status = 'atrasada';
+            } elseif ($proposal->totalPrice > $proposal->balance AND $proposal->balance > 0) {
+                $proposal->status = 'parcial';
             }
         }
 

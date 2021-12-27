@@ -28,7 +28,9 @@
 </div>
 @endif
 <div class='col-6'>
-    <label class='labels' for='' >ADICIONAR NOVA IMAGEM:</label>
+    <label class='labels' for='' >
+        ADICIONAR NOVA IMAGEM:
+    </label>
     <label class='switch'>
         <input type='checkbox' id='slider'>
         <span class='slider round'></span>
@@ -140,8 +142,10 @@ CKEDITOR.replace('description');
         <input class='text-right' type='integer' name='due_date' size='5' value='{{old('due_date')}}'>
         <br>
         <br>
-        <label class='labels' for=''>SITUAÇÃO:</label>
-        {{createSimpleSelect('status', 'fields', returnProductStatus())}}
+        <label class='labels' for=''>
+            SITUAÇÃO:
+        </label>
+        {{createSimpleSelect('status', 'fields', $status)}}
         <br>
         <br>
         <input class='btn btn-secondary' type='submit' value='CRIAR PRODUTO'>

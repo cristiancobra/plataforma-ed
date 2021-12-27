@@ -58,7 +58,7 @@
 @endsection
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
     <div class='show-label'>
         EMPRESA
     </div>
@@ -71,17 +71,21 @@
     </div>
     @endif
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($proposal->company))
+        <a href='{{route('company.show', ['company' => $proposal->company_id])}}'>
         {{$proposal->company->name}}
+        </a>
         @else
         Pessoa física
         @endif
     </div>
     <div class='show-field-end'>
         @if(isset($proposal->contact->name))
+        <a href='{{route('user.show', ['user' => $proposal->user_id])}}'>
         {{$proposal->contact->name}}
+        </a>
         @else
         Não possui
         @endif
@@ -94,7 +98,7 @@
     </div>
     @endif
 </div>
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
@@ -108,7 +112,7 @@
         PARCELAMENTO
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($proposal->user->contact->name))
         {{$proposal->user->contact->name}}

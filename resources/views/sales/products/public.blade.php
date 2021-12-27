@@ -13,10 +13,11 @@
 ">
 
 </div>
+
 @if($shop)
 <div class='row pt-5' style='
      height:250px;
-     background-image: url({{asset($shop->banner->path)}});
+     background-image: url({{$shop->banner ? asset($shop->banner->path) : null}});
      background-size: cover;
      background-position: center;
      background-repeat: no-repeat;

@@ -981,8 +981,8 @@ table{
 
 /*nova tabela com DIVS e bootstrap*/
 .table2 { 
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     font-size:14px;
     display: flex;
     justify-content: center;
@@ -1304,7 +1304,7 @@ td {
 
 /*-------FATURAS-----*/
 .tb-draft{
-    background-color: #F9D0FF;
+    background-color: gray;
 }
 
 .tb-aproved{
@@ -1684,6 +1684,7 @@ justify-content: center;
     border-width: 1px; 
     border-color: white;
     padding:5px;
+    width: 100%;
 }
 
 .doing{
@@ -1698,6 +1699,7 @@ justify-content: center;
     border-width: 1px; 
     border-color: white;
     padding:5px;
+        width: 100%;
 }
 
 .done{
@@ -1712,6 +1714,7 @@ justify-content: center;
     border-width: 1px; 
     border-color: white;
     padding:5px;
+        width: 100%;
 }
 
 .stuck{
@@ -1726,6 +1729,7 @@ justify-content: center;
     border-width: 1px; 
     border-color: white;
     padding:5px;
+        width: 100%;
 }
 
 .to-do{
@@ -1740,6 +1744,7 @@ justify-content: center;
     border-width: 1px; 
     border-color: white;
     padding:5px;
+        width: 100%;
 }
 
 /*priority*/
@@ -2007,8 +2012,8 @@ justify-content: center;
     color: #874983;
     background-color: #EEEEEE;
     display: flex;
-    justify-content: flex-end;
-    text-align: right;
+    justify-content: flex-start;
+    text-align: left;
     margin-top: 3px;
     margin-bottom: 5px;
     margin-left: 0px;
@@ -2155,6 +2160,33 @@ box-shadow: rgba(0, 0, 0, 0.15) 6.95px 6.95px 12.6px;
     font-size:20px;
     transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     filter: brightness(130%);
+}
+
+.form-button-red {
+        color: #874983;
+            background-color: #FDDBDD;
+    font-size:18px;
+    border-style: none;
+    padding-left:4px;
+    padding-top:2px;
+    border-radius: 50%;
+    border-width: 0px;
+    padding:5px 8px 6px 8px;
+    margin: 1px;
+    height: 40px;
+    width: 40px;
+box-shadow: rgba(0, 0, 0, 0.15) 6.95px 6.95px 12.6px;
+    text-align: center;
+    transition: transform .2s; /* Animation */
+}
+
+.form-button-red:hover {
+    font-size:20px;
+    transform: scale(0.9); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    filter: brightness(130%);
+        background-color: #DF4650;
+    color: white;
+    text-decoration: none;
 }
 
 .ellipse-start {

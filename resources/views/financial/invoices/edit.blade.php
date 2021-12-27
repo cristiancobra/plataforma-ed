@@ -2,6 +2,12 @@
 
 @section('title','FATURAS')
 
+
+@push('scripts')
+<script src='{{url(mix('js/scripts.js'))}}'></script>
+@endpush
+
+
 @section('image-top')
 {{ asset('images/invoice.png') }} 
 @endsection
@@ -235,7 +241,7 @@ CKEDITOR.replace('description');
         </div>
         @endforeach
         <div class='row mt-1'>
-            <div class='cel offset-8 col-2 table-header justify-content-end' style="background-color: {{$oppositeColor}}">
+            <div class='cel offset-8 col-2 table-header justify-content-end' style='background-color: {{$oppositeColor}}'>
                 desconto: 
             </div>
             <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
@@ -248,24 +254,11 @@ CKEDITOR.replace('description');
             </div>
             <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{$principalColor}}'>
                 @if($invoice->totalPrice >= 0)
-                <input type='decimal' id='totalPrice' maxlength="11" onkeyup="formatCurrencyReal()" name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style='text-align:right;width: 150px'>
+                <input type='decimal' id='totalPrice' maxlength='11' onkeyup="formatCurrencyReal('totalPrice')" name='totalPrice' value='{{formatCurrency($invoice->totalPrice)}}' style='text-align:right;width: 150px'>
                 @else
-                <input type='decimal' id='totalPrice' maxlength="11" onkeyup="formatCurrencyReal()" name='totalPrice' value='{{formatCurrency($invoice->totalPrice * -1)}}' style='text-align:right;width: 150px'>
+                <input type='decimal' id='totalPrice' maxlength='11' onkeyup="formatCurrencyReal('totalPrice')" name='totalPrice' value='{{formatCurrency($invoice->totalPrice * -1)}}' style='text-align:right;width: 150px'>
                 @endif
             </div>
         </div>
     </section>
-    @endsection
-
-
-    @push('scripts')
-    <script src='{{url(mix('js/scripts.js'))}}'></script>
-    @endpush
-    
-    
-    @section('footer-scripts')
-    <script>
-       formatCurrencyReal();
-//        $('[name=totalPrice]').maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-    </script>
     @endsection
