@@ -81,15 +81,10 @@
                     {{date('d/m/Y', strtotime($invoice->pay_day))}}
                 </div>
 
-                @if($invoice->totalPrice < 0)
                 <div class='cel col-2 justify-content-end'>
                     {{formatCurrencyReal($invoice->totalPrice)}}
                 </div>
-                @else
-                <div class='cel col-2 justify-content-end'>
-                    {{formatCurrencyReal($invoice->totalPrice)}}
-                </div>
-                @endif
+
 
                 @if($invoice->balance < 0)
                 <div class='cel col-2 justify-content-end' style='color:red'>
@@ -246,6 +241,7 @@ CKEDITOR.replace('observations');
      <!--LINHA DE PAGAMENTOS / TRANSACTIONS-->
         <div id='paymentsRow_{{$counterInvoices++}}'  class='row' style="display:none">
             @foreach($invoice->transactions as $transaction)
+            @if($transaction->trash != 1)
             <div class="row">
                 <div class='offset-1 col-9'>
                     <div class='row table2 position-relative'  style='
@@ -279,6 +275,7 @@ CKEDITOR.replace('observations');
                     </div>
                 </div>
             </div>
+            @endif
             @endforeach
         </div>
 

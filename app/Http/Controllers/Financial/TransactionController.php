@@ -233,7 +233,7 @@ class TransactionController extends Controller {
             if ($type == 'crédito') {
                 $transaction->value = removeCurrency($request->value);
             } else {
-                $type = removeCurrency($request->value) * -1;
+                $transaction->value = removeCurrency($request->value) * -1;
             }
 
 
@@ -243,11 +243,12 @@ class TransactionController extends Controller {
                     ->first();
 
             $totalPaid = Invoice::totalPaid($invoice);
+//            dd($transaction->value);
             $newTotal = $totalPaid + $transaction->value;
             if ($type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
                 $transaction->save();
                 return redirect()->back();
-            } elseif ($type == 'despesa' AND $newTotal >= $invoice->totalPrice) {
+            } elseif ($type == 'débito' AND $newTotal >= $invoice->totalPrice) {
                 $transaction->save();
                 return redirect()->back();
             } else {

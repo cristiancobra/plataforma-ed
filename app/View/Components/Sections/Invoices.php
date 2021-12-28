@@ -33,6 +33,9 @@ class Invoices extends Component {
 
             $invoices = Invoice::where('proposal_id', $proposal->id)
                     ->where('trash', '!=', 1)
+//                    ->whereHas('transactions', function($query) {
+//                        $query->where('trash', '!=', 1);
+//                    })
                     ->with('transactions')
                     ->orderBy('PAY_DAY', 'ASC')
                     ->get();
