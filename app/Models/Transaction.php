@@ -133,6 +133,29 @@ class Transaction extends Model {
         return $monthlys;
     }
 
+    // soma os pagamento/movimentações  do TIPO recebido gerando um array com valor total de cada mês
+    public static function monthlyTransactionsBalance($year) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$key] = [];
+
+            $transactions = Transaction::where('account_id', auth()->user()->account_id)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
+                    ->get();
+
+            $monthlys[$key] = $transactions->sum('value');
+
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
+        }
+        return $monthlys;
+    }
+
     // soma o valor dos pagamento da categoria para cada mês
     public static function monthlysCategoriesTotal($year, $category, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
@@ -196,7 +219,7 @@ class Transaction extends Model {
                     $installment = $transaction->invoice->proposal->installment;
                     foreach ($transaction->invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->group == $group) {
-                            $value += $transaction->value / $installment;
+                            $value += $transaction->value;
                             $monthlys[$month] = $value;
 //                            echo $productProposal->product->name . "valor:   " . formatCurrency($value) . "<br>";
                         }

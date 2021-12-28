@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','FLUXO DE CAIXA')
+@section('title','CAIXA PREVISTO')
 
 @section('image-top')
 {{ asset('images/invoice.png') }} 
@@ -57,12 +57,8 @@
     </div>
     <div class="col-2 pt-5">
         <a class='text-button primary' href='{{route('transaction.report')}}'>
-            REALIZADO
-        </a>
-        <br>
-        <br>
-        <a class='text-button secondary' href='{{route('invoice.report')}}'>
-            PREVISIONADO
+            FLUXO DE CAIXA
+            (pagamentos)
         </a>
     </div>
 </div>

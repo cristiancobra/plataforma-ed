@@ -217,7 +217,25 @@ class Invoice extends Model {
     }
 
 // soma as faturas do TIPO recebido somando valor TOTALPRICE do ano todo
-    public static function annualInvoicesTotal($year, $type) {
+    public static function annualInvoicesTotal($year, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
+//        $months = returnMonths();
+//        foreach ($months as $key => $month) {
+//            $monthlys[$key] = [];
+
+        $annualInvoicesTotal = Invoice::where('account_id', auth()->user()->account_id)
+                ->where('status', 'aprovada')
+                ->where('type', $type)
+                ->where('trash', '!=', 1)
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-d')])
+                ->sum('totalPrice');
+
+        return $annualInvoicesTotal;
+    }
+
+// soma as faturas do TIPO recebido somando valor TOTALPRICE do ano todo
+    public static function annualInvoicesBalance($year, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-12-t"));
 //        $months = returnMonths();

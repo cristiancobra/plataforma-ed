@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','RELATÓRIO DE FLUXO DE CAIXA')
+@section('title','FLUXO DE CAIXA')
 
 @section('image-top')
 {{ asset('images/journey.png') }} 
@@ -53,28 +53,24 @@
         </p>
     </div>
     <div class="col-2 pt-5">
-        <a class='text-button primary' href='{{route('transaction.report')}}'>
-            REALIZADO
-        </a>
-        <br>
-        <br>
         <a class='text-button secondary' href='{{route('invoice.report')}}'>
-            PREVISIONADO
+            CAIXA PREVISTO
+            (faturas)
         </a>
     </div>
 </div>
 
 
-<div class="row mt-4">
-    <div class="tb-header col-1">
-        TIPO 
+<div class="row mt-5 table-header ">
+    <div class="col-1">
+
     </div>
     @foreach ($months as $month)
-    <div   class="tb-header col" style="width: 5%">
+    <div   class="col" style="width: 5%">
         {{$month}}
     </div>
     @endforeach
-    <div   class="tb-header col" style="width: 10%">
+    <div   class="col" style="width: 10%">
         TOTAL 
     </div>
 </div>
@@ -84,11 +80,16 @@ $counterArray = 1;
 $counterMonth = 1;
 @endphp
 
-<div class="row mt-1">
-    <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0;font-weight: 600'>
+<div class="row mt-4">
+    <div class="tb-header col-1 justify-content-start"  style='
+         background-color: #4863A0;
+         font-weight: 600;
+         border-radius: 8px 0px 0px 8px;
+         '>
         RECEITAS
     </div>
 
+    <!--soma mensal--> 
     @while($counterMonth <= 12)
     <div class='tb col justify-content-end' style='background-color: lightblue;font-weight: 600'>
         <a href='{{route('transaction.index', [
@@ -106,44 +107,27 @@ $counterMonth = 1;
     @endphp
     @endwhile
 
-    <div class='tb tb-header col justify-content-end'  style='background-color: #4863A0;font-weight: 600'>
+    <div class='tb tb-header col justify-content-end'  style='
+         background-color: #4863A0;
+         font-weight: 600;
+         border-radius: 0px 8px 8px 0px;
+         '>
         {{formatCurrency($annualRevenues)}}
     </div>
 </div>
 
-@php
-$counterArray = 1;
-$counterMonth = 1;
-@endphp
 
-@foreach($categories as $category)
-<div class="row">
-    <div class="tb col-1 justify-content-start" style='background-color: lightblue;font-weight: 600'>
-        {{$category['name']}}
-    </div>
-    @foreach($months as $key => $month)
-    <div class="tb col justify-content-end">
-        <a href="{{route('transaction.index', [
-                                                            'category' => $category['name'],
-                                                            'type' => 'crédito',
-                                                            'date_start' => date("$year-$key-01"),
-                                                            'date_end' =>  date("$year-$key-t"),
-                                                             ])}}">
-
-            {{formatCurrency(floatval($category['monthlys'][$month]))}}
-        </a>
-    </div>
-    @endforeach
-    <div class="tb col justify-content-end" style='background-color: lightblue;font-weight: 600'>
-        {{formatCurrency(floatval($category['year']))}}
-    </div>
-</div>
-@endforeach
-
-<div class="row mt-5">
-    <div class="tb-header col-1 justify-content-start" style='background-color: red;color:white;font-weight: 600'>
+<div class="row mt-3">
+    <div class="tb-header col-1 justify-content-start" style='
+         background-color: red;
+         color:white;
+         font-weight: 600;
+         border-radius: 8px 0px 0px 8px;
+         '>
         DESPESAS
     </div>
+
+    <!--soma mensal--> 
     @php
     $counterArray = 1;
     $counterMonth = 1;
@@ -151,7 +135,7 @@ $counterMonth = 1;
 
     @while ($counterMonth <= 12)
     <div class='tb col justify-content-end' style='background-color: #FDDBDD;font-weight: 600'>
-        <a href='{{route('transaction.index', [
+        <a  style="color:red"  href='{{route('transaction.index', [
                                                                       'type' => 'débito',
                                                                       'date_start' => date("$year-$counterMonth-01"),
                                                                       'date_end' =>  date("$year-$counterMonth-t"),
@@ -164,40 +148,57 @@ $counterMonth = 1;
     $counterArray++;
     @endphp
     @endwhile
-    <div class='tb col justify-content-end' style='background-color: red;color:white;font-weight: 600'>
+    <div class='tb col justify-content-end' style='
+         background-color: red;
+         color:white;
+         font-weight: 600;
+         border-radius: 0px 8px 8px 0px;
+         '>
         {{formatCurrency($annualExpenses)}}
     </div>
 </div>
 
 
-@php
-$counterArray = 1;
-$counterMonth = 1;
-@endphp
-
-@foreach($groups as $group)
-<div class="row">
-    <div class="tb col-1 justify-content-start" style='background-color: #FDDBDD;font-weight: 600'>
-        {{$group['name']}}
+<div class="row mt-3 mb-5">
+    <div class="tb-header col-1 justify-content-start" style='
+         background-color: {{$principalColor}};
+         color:white;
+         font-weight: 600;
+         border-radius: 8px 0px 0px 8px;
+         '>
+        SALDO
     </div>
-    @foreach($months as $key => $month)
-    <div class="tb col justify-content-end">
-        <a href="{{route('transaction.index', [
-                                                              'group' => $group['name'],
-                                                              'type' => 'débito',
-                                                              'date_start' => date("$year-$key-01"),
-                                                              'date_end' =>  date("$year-$key-t"),
-                                                             ])}}">
 
-            {{formatCurrency(floatval($group['monthlys'][$month]))}}
+    <!--soma saldo mensal--> 
+    @php
+    $counterArray = 1;
+    $counterMonth = 1;
+    @endphp
+
+    @while ($counterMonth <= 12)
+    <div class='tb col justify-content-end' style='background-color: lightgray;font-weight: 600'>
+        <a href='{{route('transaction.index', [
+                                                                      'date_start' => date("$year-$counterMonth-01"),
+                                                                      'date_end' =>  date("$year-$counterMonth-t"),
+                                                                     ])}}'>
+            {{formatCurrency($monthlysTotals[$counterArray])}}
         </a>
     </div>
-    @endforeach
-    <div class="tb col justify-content-end"  style='background-color: #FDDBDD;font-weight: 600'>
-        {{formatCurrency(floatval($group['year']))}}
+    @php
+    $counterMonth++;
+    $counterArray++;
+    @endphp
+    @endwhile
+    <div class='tb col justify-content-end' style='
+         background-color: {{$principalColor}};
+         color:white;
+         font-weight: 600;
+         border-radius: 0px 8px 8px 0px;
+         '>
+        {{formatCurrency($annualExpenses)}}
     </div>
 </div>
-@endforeach
+
 
 @endsection
 
@@ -216,12 +217,19 @@ $counterMonth = 1;
 $monthsLabel = json_encode(array_values($months));
 $monthlyRevenues = json_encode(array_values($monthlyRevenues));
 
-$monthlyCategory = [];
-$counter = 1;
-foreach ($categories as $category) {
-    $monthlyCategory[] = json_encode(array_values($category['monthlys']));
-//    $monthlyCategory[$counter++] = json_encode(array_values($monthlyCategory));
+foreach($monthlyExpenses as $key => $value) {
+    $monthlyExpensesPositive[$key] = $value * -1;
 }
+
+$monthlyExpenses = json_encode(array_values($monthlyExpensesPositive));
+$monthlysTotals = json_encode(array_values($monthlysTotals));
+//dd($monthlyRevenues[0]);
+//$monthlyCategory = [];
+//$counter = 1;
+//foreach ($categories as $category) {
+//    $monthlyCategory[] = json_encode(array_values($category['monthlys']));
+//    $monthlyCategory[$counter++] = json_encode(array_values($monthlyCategory));
+//}
 //    dd($monthlyCategory[0]);
 ?>
 
@@ -230,24 +238,19 @@ foreach ($categories as $category) {
         data: {
             labels: <?php echo $monthsLabel; ?>,
             datasets: [{
-                    data: <?php echo $monthlyRevenues; ?>,
-                    label: "Receitas totais",
+                    data: {{$monthlyRevenues}},
+                    label: "Receitas",
                     borderColor: "#3e95cd",
                     fill: false
                 }, {
-                    data: <?php echo $monthlyCategory[0]; ?>,
-                    label: "Serviços",
-                    borderColor: "#ffff00",
+                    data: {{$monthlyExpenses}},
+                    label: "Despesas",
+                    borderColor: "red",
                     fill: false
                 }, {
-                    data: <?php echo $monthlyCategory[1]; ?>,
-                    label: "Produtos",
+                    data: {{$monthlysTotals}},
+                    label: "Saldo",
                     borderColor: "#8e5ea2",
-                    fill: false
-                }, {
-                    data: <?php echo $monthlyCategory[2]; ?>,
-                    label: "Produtos digitais",
-                    borderColor: "#3cba9f",
                     fill: false
                 }
             ]

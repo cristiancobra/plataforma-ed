@@ -233,6 +233,68 @@
 </div>
 
 
+<!--     linha 2 de blocos-->
+<div class='row mt-5'>
+
+    <!--     começo bloco de RELATÓRIOS-->
+    <div class='col-2' style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{$complementaryColor}};
+         background-color:{{$complementaryColor}};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+        <!--lícone do título-->
+        <div class='row'>
+            <div class='col panel-text pt-2'>
+                <i class='fas fa-chart-bar' style='font-size:36px; color:white'></i>
+            </div>
+        </div>
+        <!--linha do título-->
+        <div class='row pb-2'>
+            <div class='col panel-text pt-3'>
+                RELATÓRIOS
+            </div>
+        </div>
+        <!--linha dos botoes-->
+        <div class='row d-flex justify-content-center' style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{$complementaryColor}};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+            <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('invoice.report')}}'>
+                    <i class='fas fa-money-bill ps-2 pe-2' title='relatórios financeiros'></i>
+                </a>
+                <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
+                    <i class='fas fa-users ps-2 pe-2' title='relatórios de produtividade'></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!--fim do bloco de RELATÓRIOS-->
+
+    
+    
+    
+
+    <!--fim da LINHA 2 de blocos-->    
+</div>
+
+
 
 
 <div class='row mt-5 mb-3 ms-1 me-1'>

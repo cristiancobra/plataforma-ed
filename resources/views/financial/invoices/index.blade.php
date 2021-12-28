@@ -41,12 +41,12 @@
 @endsection
 
 @section('shortcuts')
-<div class='col-2 offset-4 d-inline-block tasks-my'>
+<div class='col-2 offset-4 d-inline-block tasks-my mt-3 mb-5 me-5'>
     <a style='text-decoration:none' href='{{route('invoice.index', [
 				'date_start' => $monthStart,
 				'date_end' => $monthEnd,
 				])}}'>
-                            <p class='panel-text' style="font-size: 20px">
+        <p class='panel-text' style="font-size: 20px">
             MÊS
             <br>
             ATUAL
@@ -54,152 +54,150 @@
     </a>
 </div>
 <div class='col-6'>
-<div class='row mt-2'>
-    <div class="tb tb-header-start col">
-        PREVISÃO
+    <div class='row  table-header mb-2' style="background-color: {{$principalColor}}">
+    <div class='col-1'>
+            PREVISÃO
+        </div>
+        <div   class="cel col">
+            MÊS
+        </div>
+        <div   class="cel col">
+            ANO
+        </div>
     </div>
-    <div   class="tb tb-header col">
-        MÊS
+    <div class='row'>
+        <div class="cel col justify-content-start">
+            RECEITAS:
+        </div>
+        <div class="cel col justify-content-end">
+            + {{formatCurrencyReal($estimatedRevenueMonthly)}}
+        </div>
+        <div class="cel col justify-content-end">
+            + {{formatCurrencyReal($estimatedRevenueYearly)}}
+        </div>
     </div>
-    <div   class="tb tb-header-end col">
-        ANO
+    <div class='row'>
+        <div class="cel col justify-content-start">
+            DESPESAS:
+        </div>
+        <div class="cel col justify-content-end">
+            - {{formatCurrencyReal($estimatedExpenseMonthly)}}
+        </div>
+        <div class="cel col justify-content-end">
+            - {{formatCurrencyReal($estimatedExpenseYearly)}}
+        </div>
     </div>
-</div>
-<div class='row'>
-    <div class="tb col justify-content-start">
-        RECEITAS:
+    <div class='row'>
+        <div class="cel col justify-content-start">
+            SALDO:
+        </div>
+        <div class="cel col justify-content-end">
+            {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
+        </div>
+        <div class="cel col justify-content-end">
+            {{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
+        </div>
     </div>
-    <div class="tb col justify-content-end">
-        + {{formatCurrencyReal($estimatedRevenueMonthly)}}
-    </div>
-    <div class="tb col justify-content-end">
-        + {{formatCurrencyReal($estimatedRevenueYearly)}}
-    </div>
-</div>
-<div class='row'>
-    <div class="tb col justify-content-start">
-        DESPESAS:
-    </div>
-    <div class="tb col justify-content-end">
-        - {{formatCurrencyReal($estimatedExpenseMonthly)}}
-    </div>
-    <div class="tb col justify-content-end">
-        - {{formatCurrencyReal($estimatedExpenseYearly)}}
-    </div>
-</div>
-<div class='row'>
-    <div class="tb col justify-content-start">
-        SALDO:
-    </div>
-    <div class="tb col justify-content-end">
-        {{formatCurrencyReal($estimatedRevenueMonthly - $estimatedExpenseMonthly)}}
-    </div>
-    <div class="tb col justify-content-end">
-        {{formatCurrencyReal($estimatedRevenueYearly - $estimatedExpenseYearly)}}
-    </div>
-</div>
 </div>
 @endsection
 
 
 @section('table')
-<div>
-    <div class='row mt-2'>
-        <div   class="tb tb-header-start col-1">
-            ID
-        </div>
-        <div   class="tb tb-header col-3">
-            PROPOSTA
-        </div>
-        <div   class="tb tb-header col-2">
-            CONTATO
-        </div>
-        <div   class="tb tb-header col-2">
-            EMPRESA 
-        </div>
-        <div   class="tb tb-header col-1">
-            VENCIMENTO
-        </div>
-        <div   class="tb tb-header col-1">
-            TOTAL
-        </div>
-        <div   class="tb tb-header col-1">
-            SALDO
-        </div>
-        <div   class="tb tb-header-end col-1">
-            SITUAÇÃO
-        </div>
+<div class='row  table-header mt-5 mb-2' style="background-color: {{$principalColor}}">
+    <div class='col-1'>
+        ID
     </div>
-
-    @foreach ($invoices as $invoice)
-    <div class='row'>
-        <div class="tb col-1 justify-content-start">
-            <button class="button-round">
-                <a href=" {{route('invoice.show', ['invoice' => $invoice])}}">
-                    <i class='fa fa-eye' style="color:white"></i>
-                </a>
-            </button>
-            {{$invoice->identifier}}
-        </div>
-        <div class="tb col-3">
-            @if(isset($invoice->proposal->name))
-            {{$invoice->proposal->name}}
-            @else
-            não possui
-            @endif
-        </div>
-        <div class="tb col-2">
-            @if($invoice->contact)
-            {{$invoice->contact->name}}
-            @else
-            não possui
-            @endif
-        </div>
-        <div class="tb col-2">
-            @if(isset($invoice->proposal->company))
-            {{$invoice->proposal->company->name}}
-            @else
-            não possui
-            @endif
-        </div>
-        @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
-        <div class="tb col-1" style="color: red">
-            {{date('d/m/Y', strtotime($invoice->pay_day))}}
-        </div>
-        @else
-        <div class="tb col-1">
-            {{date('d/m/Y', strtotime($invoice->pay_day))}}
-        </div>
-        @endif
-        
-        @if($invoice->totalPrice >= 0)
-        <div class="tb col-1 justify-content-end" style="text-align: right">
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </div>
-        @else
-        <div class="tb col-1 justify-content-end" style="color: red;text-align: right">
-            {{formatCurrencyReal($invoice->totalPrice)}}
-        </div>
-        @endif
-        
-        @if($invoice->totalPrice >= 0)
-        <div class="tb col-1 justify-content-end" style="text-align: right">
-            {{formatCurrencyReal($invoice->balance)}}
-        </div>
-        @else
-        <div class="tb col-1 justify-content-end" style="color: red;text-align: right">
-            {{formatCurrencyReal($invoice->balance)}}
-        </div>
-        @endif
-
-        <div class="tb col-1" style="color: red;text-align: right">
-            <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
-                {{faiconInvoiceStatus($invoice->status)}}
-            </a>
-        </div>
+    <div   class="col-3">
+        PROPOSTA
     </div>
-    @endforeach
+    <div   class="col-2">
+        CONTATO
+    </div>
+    <div   class="col-2">
+        EMPRESA 
+    </div>
+    <div   class="col-1">
+        VENCIMENTO
+    </div>
+    <div   class="col-1">
+        TOTAL
+    </div>
+    <div   class="col-1">
+        SALDO
+    </div>
+    <div   class="col-1">
+        SITUAÇÃO
+    </div>
 </div>
+
+@foreach ($invoices as $invoice)
+<div class="row table2 position-relative"  style="
+     color: {{$principalColor}};
+     border-left-color: {{$complementaryColor}}
+     ">
+    <a class="stretched-link "href=" {{route('invoice.show', ['invoice' => $invoice])}}">
+    </a>
+    <div class='cel col-1'>
+        {{$invoice->identifier}}
+    </div>
+    <div class="cel col-3">
+        @if(isset($invoice->proposal->name))
+        {{$invoice->proposal->name}}
+        @else
+        não possui
+        @endif
+    </div>
+    <div class="cel col-2">
+        @if($invoice->contact)
+        {{$invoice->contact->name}}
+        @else
+        não possui
+        @endif
+    </div>
+    <div class="cel col-2">
+        @if(isset($invoice->proposal->company))
+        {{$invoice->proposal->company->name}}
+        @else
+        não possui
+        @endif
+    </div>
+    @if($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d'))
+    <div class="cel col-1" style="color: red">
+        {{date('d/m/Y', strtotime($invoice->pay_day))}}
+    </div>
+    @else
+    <div class="cel col-1">
+        {{date('d/m/Y', strtotime($invoice->pay_day))}}
+    </div>
+    @endif
+
+    @if($invoice->totalPrice >= 0)
+    <div class="cel col-1 justify-content-end" style="text-align: right">
+        {{formatCurrencyReal($invoice->totalPrice)}}
+    </div>
+    @else
+    <div class="cel col-1 justify-content-end" style="color: red;text-align: right">
+        {{formatCurrencyReal($invoice->totalPrice)}}
+    </div>
+    @endif
+
+    @if($invoice->totalPrice >= 0)
+    <div class="cel col-1 justify-content-end" style="text-align: right">
+        {{formatCurrencyReal($invoice->balance)}}
+    </div>
+    @else
+    <div class="cel col-1 justify-content-end" style="color: red;text-align: right">
+        {{formatCurrencyReal($invoice->balance)}}
+    </div>
+    @endif
+
+    <div class="cel col-1" style="color: red;text-align: right">
+        <a href=' {{route('invoice.show', ['invoice' => $invoice])}}'>
+            {{faiconInvoiceStatus($invoice->status)}}
+        </a>
+    </div>
+</div>
+@endforeach
 <p style="text-align: right">
     <br>
     {{$invoices->links()}}

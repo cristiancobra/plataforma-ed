@@ -427,25 +427,30 @@ class TransactionController extends Controller {
         $monthlyRevenues = Transaction::monthlyTransactionsTotal($year, 'crédito');
         $annualRevenues = Invoice::annualInvoicesTotal($year, 'crédito');
 
-        $categoriesNames = Product::returnCategories();
-        $categories = [];
-        foreach ($categoriesNames as $category) {
-            $categories[$category]['name'] = $category;
-            $categories[$category]['monthlys'] = Transaction::monthlysCategoriesTotal($year, $category, 'crédito');
-            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'crédito');
-        }
+//        $categoriesNames = Product::returnCategories();
+//        $categories = [];
+//        foreach ($categoriesNames as $category) {
+//            $categories[$category]['name'] = $category;
+//            $categories[$category]['monthlys'] = Transaction::monthlysCategoriesTotal($year, $category, 'crédito');
+//            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'crédito');
+//        }
 
+//
         // DESPESAS
         $monthlyExpenses = Transaction::monthlyTransactionsTotal($year, 'débito');
         $annualExpenses = Invoice::annualInvoicesTotal($year, 'débito');
-
-        $groupsName = Product::returnGroups();
-        $groups = [];
-        foreach ($groupsName as $group) {
-            $groups[$group]['name'] = $group;
-            $groups[$group]['monthlys'] = Transaction::monthlysGroupsTotal($year, $group, 'débito');
-            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'débito');
-        }
+        
+        // SALDO
+        $monthlysTotals = Transaction::monthlyTransactionsBalance($year);
+        $annualTotal = Invoice::annualInvoicesTotal($year);
+        
+//        $groupsName = Product::returnGroups();
+//        $groups = [];
+//        foreach ($groupsName as $group) {
+//            $groups[$group]['name'] = $group;
+//            $groups[$group]['monthlys'] = Transaction::monthlysGroupsTotal($year, $group, 'débito');
+//            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'débito');
+//        }
 
         // Gráfico
         $chartBackgroundColors = [
@@ -468,12 +473,14 @@ class TransactionController extends Controller {
                         'year',
                         'months',
                         'monthlyRevenues',
-                        'categories',
-                        'categoriesNames',
-                        'groups',
+//                        'categories',
+//                        'categoriesNames',
+//                        'groups',
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',
+                        'monthlysTotals',
+                        'annualTotal',
                         'chartBackgroundColors',
                         'chartBorderColors',
         ));
