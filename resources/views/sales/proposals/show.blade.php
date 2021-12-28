@@ -83,7 +83,7 @@
     </div>
     <div class='show-field-end'>
         @if(isset($proposal->contact->name))
-        <a href='{{route('user.show', ['user' => $proposal->user_id])}}'>
+        <a href='{{route('contact.show', ['contact' => $proposal->contact_id])}}'>
         {{$proposal->contact->name}}
         </a>
         @else
