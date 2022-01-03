@@ -25,9 +25,9 @@ class TransactionController extends Controller {
         $monthEnd = date('Y-m-t');
 
         $transactions = Transaction::filterTransactions($request);
-        
-        $transactionsTotal = 0; 
-        foreach($transactions as $transaction) {
+
+        $transactionsTotal = 0;
+        foreach ($transactions as $transaction) {
             $transactionsTotal += $transaction->value;
         }
 
@@ -35,9 +35,23 @@ class TransactionController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        $companies = Company::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
+        if ($request->type == 'débito') {
+            $companies = Company::where('account_id', auth()->user()->account_id)
+                    ->where(function ($query) {
+                        $query->where('type', 'fornecedor')
+                        ->orWhere('type', 'cliente e fornecedor');
+                    })
+                    ->orderBy('NAME', 'ASC')
+                    ->get();
+        } else {
+            $companies = Company::where('account_id', auth()->user()->account_id)
+                    ->where(function ($query) {
+                        $query->where('type', 'cliente')
+                        ->orWhere('type', 'cliente e fornecedor');
+                    })
+                    ->orderBy('NAME', 'ASC')
+                    ->get();
+        }
 
         $users = User::myUsers();
 
@@ -440,16 +454,16 @@ class TransactionController extends Controller {
 //            $categories[$category]['monthlys'] = Transaction::monthlysCategoriesTotal($year, $category, 'crédito');
 //            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'crédito');
 //        }
-
 //
         // DESPESAS
         $monthlyExpenses = Transaction::monthlyTransactionsTotal($year, 'débito');
+//        dd($monthlyExpenses);
         $annualExpenses = Invoice::annualInvoicesTotal($year, 'débito');
-        
+
         // SALDO
         $monthlysTotals = Transaction::monthlyTransactionsBalance($year);
         $annualTotal = Invoice::annualInvoicesTotal($year);
-        
+
 //        $groupsName = Product::returnGroups();
 //        $groups = [];
 //        foreach ($groupsName as $group) {
@@ -457,7 +471,6 @@ class TransactionController extends Controller {
 //            $groups[$group]['monthlys'] = Transaction::monthlysGroupsTotal($year, $group, 'débito');
 //            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'débito');
 //        }
-
         // Gráfico
         $chartBackgroundColors = [
             'rgba(255, 206, 86, 0.2)',

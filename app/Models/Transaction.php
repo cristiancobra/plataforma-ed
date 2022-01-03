@@ -126,6 +126,7 @@ class Transaction extends Model {
                     ->where('trash', '!=', 1)
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->get();
+            
 
             $monthlys[$key] = $transactions->sum('value');
 
@@ -133,6 +134,7 @@ class Transaction extends Model {
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
         }
+//            dd($monthlys);
         return $monthlys;
     }
 
