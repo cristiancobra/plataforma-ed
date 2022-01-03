@@ -24,12 +24,12 @@
     <tr style="font-size: 16px">
         <td class="table-list-left">
             <i class="fa fa-store" aria-hidden="true"></i>
-            {{ $account->name }}
+            ID: {{ $account->id }} - {{ $account->name }}
         </td>
         <td class="table-list-left">
             @foreach ($account->users as $user)
             <i class="fa fa-id-card-alt" aria-hidden="true"></i>
-            {{$user->contact->name}}
+            ID: {{ $user->id }} - {{$user->contact->name}}
             <br>
             @endforeach	
         </td>
