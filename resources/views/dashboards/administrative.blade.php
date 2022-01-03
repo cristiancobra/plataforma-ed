@@ -117,7 +117,7 @@
     <!--fim do bloco de USUÁRIOS-->
 
     
-    <!--     começo bloco de propostas-->
+    <!--     começo bloco de METAS-->
     <div class='col-2' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -168,10 +168,13 @@
                                                                                                                             ])}}'>
                     <i class='fas fa-paperclip ps-2 pe-2' title='minhas metas'></i>
                 </a>
+                <a style='text-decoration:none' href='{{route('planning.index')}}'>
+                    <i class='fas fa-dollar-sign ps-2 pe-2' title='planejamento financeiro'></i>
+                </a>
             </div>
         </div>
     </div>
-    <!--fim do bloco de PROPOSTAS-->
+    <!--fim do bloco de METAS-->
 
     
 
@@ -227,16 +230,7 @@
     <!--fim do bloco de CONCORRENTES-->
 
     
-    
-
-    <!--fim da LINHA 1 de blocos-->    
-</div>
-
-
-<!--     linha 2 de blocos-->
-<div class='row mt-5'>
-
-    <!--     começo bloco de RELATÓRIOS-->
+       <!--     começo bloco de RELATÓRIOS-->
     <div class='col-2' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -276,8 +270,11 @@
              border-radius: 0px 0px 10px 10px;
              '>
             <div class="col d-inline-block">
+                <a style='text-decoration:none' href='{{route('transaction.report')}}'>
+                    <i class='fas fa-expand-alt ps-2 pe-2' title='fluxo de caixa presente (pagamentos)'></i>
+                </a>
                 <a style='text-decoration:none' href='{{route('invoice.report')}}'>
-                    <i class='fas fa-money-bill ps-2 pe-2' title='relatórios financeiros'></i>
+                    <i class='fas fa-chart-area ps-2 pe-2' title='faturamento e previsão de gastos'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
                     <i class='fas fa-users ps-2 pe-2' title='relatórios de produtividade'></i>
@@ -289,49 +286,19 @@
 
     
     
-    
 
+    <!--fim da LINHA 1 de blocos-->    
+</div>
+
+
+<!--     linha 2 de blocos-->
+<div class='row mt-5'>
+
+ 
+    
+    
     <!--fim da LINHA 2 de blocos-->    
 </div>
 
-
-
-
-<div class='row mt-5 mb-3 ms-1 me-1'>
-
-
-    <div class='col sales-display'>
-        <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
-            <p class='panel-text'>
-                <i class="fas fa-chart-bar" style="font-size:36px; color:white; margin-top: -15px;padding-bottom: 10px "></i>
-                <br>
-                RELATÓRIO DE PRODUTIVIDADE
-            </p>
-        </a>
-    </div>
-
-    <div class='col sales-display'>
-        <a style='text-decoration:none' href='{{route('invoice.report')}}'>
-            <p class='panel-text'>
-                <i class='fas fa-chart-line' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                RELATÓRIOS FINANCEIROS
-            </p>
-        </a>
-    </div>
-
-    
-    <div class='col sales-display'>
-        <a style='text-decoration:none' href='{{route('planning.index')}}'>
-            <p class='panel-text'>
-                <i class='fas fa-chart-pie ' style='font-size:36px; color:white;margin-top: -15px;padding-bottom: 10px'></i>
-                <br>
-                PLANEJAMENTO FINANCEIRO
-            </p>
-        </a>
-    </div>
-
-
-</div>
 
 @endsection

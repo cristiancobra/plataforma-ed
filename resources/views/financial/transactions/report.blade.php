@@ -19,44 +19,29 @@
 @endsection
 
 @section('main')
-<div class='row'>
-    <form id="filter" action="{{route('transaction.report')}}" method="post" style="text-align: right">
-        @csrf
-        <select class="select"name="year">
-            <option  class="fields" value="2021">
-                2021
-            </option>
-            <option  class="fields" value="2022">
-                2022
-            </option>
-            <option  class="fields" value="2020">
-                2020
-            </option>
-        </select>
-        <a class="text-button secondary" href='{{route('invoice.report')}}'>
-            LIMPAR
-        </a>
-        <input class="text-button secondary" type="submit" value="FILTRAR">
-    </form>
-</div>
-
-
 <div class='row mt-4'>
     <div class="col-7">
         <canvas id="chart" width="400" height="150"></canvas>
     </div>
-    <div class="col-3 pt-5">
-        <br>
-        <span class="labels">xxxxxx</span> horas executadas em {{date('Y')}} .
-        <br>
-        <span class="labels">xxxx</span> horas de média mensal.
-        </p>
-    </div>
-    <div class="col-2 pt-5">
-        <a class='text-button secondary' href='{{route('invoice.report')}}'>
-            CAIXA PREVISTO
-            (faturas)
-        </a>
+    <div class="col-5 pt-5">
+        <form id="filter" action="{{route('transaction.report')}}" method="post" style="text-align: right">
+            @csrf
+            <select class="select"name="year">
+                <option  class="fields" value="2022">
+                    2022
+                </option>
+                <option  class="fields" value="2021">
+                    2021
+                </option>
+                <option  class="fields" value="2020">
+                    2020
+                </option>
+            </select>
+            <input class="text-button secondary" type="submit" value="FILTRAR">
+            <a class="text-button secondary" href='{{route('invoice.report')}}'>
+                LIMPAR
+            </a>
+        </form>
     </div>
 </div>
 
@@ -205,19 +190,18 @@ $counterMonth = 1;
 @section('js-scripts')
 <script>
     $(document).ready(function () {
-        //botao de exibir filtro
-        $("#filter_button").click(function () {
-            $("#filter").slideToggle(600);
-        });
+    //botao de exibir filtro
+    $("#filter_button").click(function () {
+    $("#filter").slideToggle(600);
     });
-
+    });
     //gráfico de linhas
 
 <?php
 $monthsLabel = json_encode(array_values($months));
 $monthlyRevenues = json_encode(array_values($monthlyRevenues));
 
-foreach($monthlyExpenses as $key => $value) {
+foreach ($monthlyExpenses as $key => $value) {
     $monthlyExpensesPositive[$key] = $value * -1;
 }
 
@@ -234,33 +218,33 @@ $monthlysTotals = json_encode(array_values($monthlysTotals));
 ?>
 
     new Chart(document.getElementById("chart"), {
-        type: 'line',
-        data: {
+    type: 'line',
+            data: {
             labels: <?php echo $monthsLabel; ?>,
-            datasets: [{
+                    datasets: [{
                     data: {{$monthlyRevenues}},
-                    label: "Receitas",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }, {
+                            label: "Receitas",
+                            borderColor: "#3e95cd",
+                            fill: false
+                    }, {
                     data: {{$monthlyExpenses}},
-                    label: "Despesas",
-                    borderColor: "red",
-                    fill: false
-                }, {
+                            label: "Despesas",
+                            borderColor: "red",
+                            fill: false
+                    }, {
                     data: {{$monthlysTotals}},
-                    label: "Saldo",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                }
-            ]
-        },
-        options: {
+                            label: "Saldo",
+                            borderColor: "#8e5ea2",
+                            fill: false
+                    }
+                    ]
+            },
+            options: {
             title: {
-                display: true,
-                text: 'World population per region (in millions)'
+            display: true,
+                    text: 'World population per region (in millions)'
             }
-        }
+            }
     });
 
 

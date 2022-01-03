@@ -19,15 +19,19 @@
 @endsection
 
 @section('main')
-<div class='row'>
+<div class='row mt-4'>
+    <div class="col-7">
+        <canvas id="chart" width="400" height="150"></canvas>
+    </div>
+    <div class="col-5 pt-5">
     <form id="filter" action="{{route('invoice.report')}}" method="post" style="text-align: right">
         @csrf
         <select class="select"name="year">
-            <option  class="fields" value="2021">
-                2021
-            </option>
             <option  class="fields" value="2022">
                 2022
+            </option>
+            <option  class="fields" value="2021">
+                2021
             </option>
             <option  class="fields" value="2020">
                 2020
@@ -36,30 +40,11 @@
                 2019
             </option>
         </select>
+        <input class="text-button secondary" type="submit" value="FILTRAR">
         <a class="text-button secondary" href='{{route('invoice.report')}}'>
             LIMPAR
         </a>
-        <input class="text-button secondary" type="submit" value="FILTRAR">
     </form>
-</div>
-
-
-<div class='row mt-4'>
-    <div class="col-7">
-        <canvas id="chart" width="400" height="150"></canvas>
-    </div>
-    <div class="col-3 pt-5">
-        <br>
-        <span class="labels">xxxxxx</span> horas executadas em {{date('Y')}} .
-        <br>
-        <span class="labels">xxxx</span> horas de média mensal.
-        </p>
-    </div>
-    <div class="col-2 pt-5">
-        <a class='text-button primary' href='{{route('transaction.report')}}'>
-            FLUXO DE CAIXA
-            (pagamentos)
-        </a>
     </div>
 </div>
 
