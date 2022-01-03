@@ -229,6 +229,16 @@ Total: <span class='labels'></span>
     @endif
 </div>
 @endforeach
+
+<div class='row  table-header mt-5 mb-2' style="background-color: {{$complementaryColor}}">
+    <div class='offset-9 col-1'>
+        TOTAL
+    </div>
+    <div class='col-2 justify-content-end pe-0'>
+        {{formatCurrencyReal($transactionsTotal)}}
+    </div>
+</div>
+
 @endsection
 
 @section('paginate', $transactions->links())

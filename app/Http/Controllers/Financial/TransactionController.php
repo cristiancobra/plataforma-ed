@@ -25,6 +25,11 @@ class TransactionController extends Controller {
         $monthEnd = date('Y-m-t');
 
         $transactions = Transaction::filterTransactions($request);
+        
+        $transactionsTotal = 0; 
+        foreach($transactions as $transaction) {
+            $transactionsTotal += $transaction->value;
+        }
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
@@ -73,6 +78,7 @@ class TransactionController extends Controller {
 
         return view('financial.transactions.index', compact(
                         'transactions',
+                        'transactionsTotal',
                         'contacts',
                         'companies',
                         'users',

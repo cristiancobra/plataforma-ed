@@ -97,7 +97,7 @@ class Transaction extends Model {
                     'invoice.opportunity',
                 ])
                 ->orderBy('pay_day', 'DESC')
-                ->paginate(60);
+                ->paginate(100);
 
         $transactions->appends([
             'status' => $request->status,
