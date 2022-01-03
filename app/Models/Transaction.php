@@ -103,6 +103,9 @@ class Transaction extends Model {
             'status' => $request->status,
             'contact_id' => $request->contact_id,
             'user_id' => $request->user_id,
+            'type' => $request->type,
+            'date_start' => $request->date_start,
+            'date_end' => $request->date_end,
             'bank_account_id' => $request->bank_account_id,
         ]);
 
