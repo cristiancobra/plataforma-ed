@@ -226,7 +226,6 @@
         </div>
     </div>
     
-    </div>
 
     <!--mensagem sem transaçoes-->
     @else
@@ -237,6 +236,7 @@
     </div>
 
     @endif
+
 
 
     <!--cabeçalho de faturas APAGADAS-->

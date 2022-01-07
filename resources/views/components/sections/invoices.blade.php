@@ -35,6 +35,7 @@
                     <i class="fa fa-edit"></i>
                 </button>
             </a>
+            @endif
         </div>
     </div>
 
@@ -148,7 +149,7 @@
         <!--  div oculta ADICIONAR PAGAMENTO  -->
 
         <div class='container pt-5 pb-5' id='newPaymentRow_{{$counterInvoices}}' style='display: none;background-color: #f1f1f1'>
-            <form id='addPayment' action='{{route('transaction.store', ['type' => $type])}}' method='post' style='text-align: left'>
+            <form id='addPayment' action='{{route('transaction.store', ['type' => $proposal->type])}}' method='post' style='text-align: left'>
                 @csrf
                 <input type='hidden' name='invoice_id'  value='{{$invoice->id}}'>
                 <div class="row mt-2">
@@ -291,22 +292,9 @@
     </div>
 
 
-    <div class='row mt-4 mb-4'>
-        <div class='offset-8 col-2 d-flex justify-content-end'>
-            <div class='ellipse' style='color:{{$oppositeColor}}'>
-                @if(isset($invoicesTotal))
-                {{formatCurrencyReal($invoicesTotal)}}
-                @endif
-            </div>
-        </div>
-        <div class='col-2 d-flex justify-content-end'>
-            <div class='ellipse' style='color:{{$principalColor}}'>
-                {{formatCurrencyReal($balanceTotal)}}
-            </div>
-        </div>
-    </div>
 
-    @endif
+
+
 
 
     <!--cabeçalho de faturas APAGADAS-->
@@ -314,7 +302,7 @@
     <div class="container" id="invoices">
         <div class='row table-header mt-5 mb-3'  style="background-color: {{$oppositeColor}}">
             <div   class='col d-flex justify-content-start'>
-                FATURA APAGADAS DESTA PROPOSTA
+                FATURAS APAGADAS DESTA PROPOSTA
             </div>
         </div>
     </div>
@@ -425,13 +413,6 @@
 
         @endforeach
     </div>
-
-
-
-
-
-
-
 
 </section>
 
