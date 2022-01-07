@@ -170,8 +170,6 @@ class TransactionController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-        $typeTransactions = $request->input('typeTransactions');
-
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -190,6 +188,8 @@ class TransactionController extends Controller {
             $transaction = new Transaction();
             $transaction->fill($request->all());
             $transaction->account_id = auth()->user()->account_id;
+            
+            $transaction->type = $request->input('typeTransactions');
             if ($transaction->type == 'crédito') {
                 $transaction->value = removeCurrency($request->value);
             } else {
@@ -218,7 +218,7 @@ class TransactionController extends Controller {
             } else {
                 $totalPrice = formatCurrencyReal($invoice->totalPrice);
                 return back()
-                                ->with('failed', "A soma dos pagamentos não pode ser menor que  $totalPrice")
+                                ->with('failed', "A soma dos pagamentos  $newTotal  não pode ser menor que  $totalPrice")
                                 ->withInput();
             }
         }

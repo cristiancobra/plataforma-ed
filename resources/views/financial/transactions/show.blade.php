@@ -41,7 +41,7 @@
 
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         EMPRESA
     </div>
@@ -59,7 +59,7 @@
         @endif
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     @if(isset($transaction->invoice->proposal->company->name))
     <a href='{{route('company.show', ['company' => $transaction->invoice->proposal->company_id])}}'>
         <div class='show-field-end'>
@@ -108,7 +108,7 @@
     </div>
     @endif
 </div>
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
@@ -119,7 +119,7 @@
         MÉTODO
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <a href='{{route('user.show', ['user' => $transaction->user_id])}}'>
     </a>
     <div class='show-field-end'>

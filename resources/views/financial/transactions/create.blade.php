@@ -80,7 +80,9 @@
         @if(!empty(app('request')->input('invoiceId')))
         <input type="hidden" name='invoice_id' value="{{app('request')->input('invoiceId')}}">
         @else
-        <label class="labels" for="">FATURA: </label>
+        <label class="labels" for="">
+            FATURA:
+        </label>
         <select name="invoice_id">
             @foreach ($invoices as $invoice)
             <option  class="fields" value="{{$invoice->id}}" style="max-width:600px">
@@ -100,7 +102,9 @@
         @endif
         @endif
         <br>
-        <label class="labels" for="">DATA:</label>
+        <label class="labels" for="">
+            DATA:
+        </label>
         @if(!empty(app('request')->input('pay_day')))
         <input type="date" name="pay_day" value="{{app('request')->input('pay_day')}}">
         @else
@@ -116,7 +120,7 @@
         @if ($errors->has('value'))
         <span class="text-danger">{{$errors->first('value')}}</span>
         @endif
-        <input type="decimal" name="value" id='value' onkeyup="formatCurrencyReal('totalPrice')" style="text-align: right" size='12' value="{{formatCurrencyReal($invoiceTotalPrice)}}">
+        <input type="decimal" name="value" id='value' onkeyup="formatCurrencyReal('value')" style="text-align: right" size='12' value="{{formatCurrencyReal($invoiceTotalPrice)}}">
         <br>
         <label class="labels" for="" >
             MEIO DE PAGAMENTO:

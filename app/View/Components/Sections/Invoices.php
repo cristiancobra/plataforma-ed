@@ -31,14 +31,13 @@ class Invoices extends Component {
         if ($proposal) {
             $invoiceFrameColor = auth()->user()->account->principal_color;
 
-            $invoices = Invoice::where('proposal_id', $proposal->id)
-                    ->where('trash', '!=', 1)
-//                    ->whereHas('transactions', function($query) {
-//                        $query->where('trash', '!=', 1);
-//                    })
+            $allInvoices = Invoice::where('proposal_id', $proposal->id)
                     ->with('transactions')
                     ->orderBy('PAY_DAY', 'ASC')
                     ->get();
+
+            $invoices = $allInvoices->where('trash', '!=', 1);
+            $deletedInvoices = $allInvoices->where('trash', '==', 1);
 
             $invoicesCount = $invoices->count();
             
@@ -89,6 +88,7 @@ class Invoices extends Component {
         return view('components.sections.invoices', compact(
                         'proposal',
                         'invoices',
+                        'deletedInvoices',
                         'invoiceInstallmentsTotal',
                         'invoicePaymentsTotal',
                         'invoicesTotal',

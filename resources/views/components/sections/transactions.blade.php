@@ -1,49 +1,28 @@
-<section class='container frame mt-5' id='invoices' style="border-color:{{$invoiceFrameColor}}">
+<section class='container frame mt-5' id='transactions' style="border-color:{{$transactionFrameColor}}">
     <div class="row">
-        <div class='col-10 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
+        <div class='col-10 pt-4 pb-3' style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{$transactionFrameColor}}'>
             <i class="fa fa-receipt"></i>
             PAGAMENTOS
         </div>
-        <div class='col-2 d-flex justify-content-end pt-4 pb-3 text-end' style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{$invoiceFrameColor}}'>
-            @if($proposal == null)
-            <i class='fas fa-ban ms-2' style='font-size:28px'></i>
-            @elseif($invoicesCount < 1)
-            <a href="{{route('proposal.generateInstallment', ['proposal' => $proposal])}}">
-                <button class='form-button' style="
-                        color: {{$principalColor}};
-                        background-color: {{$oppositeColor}};
-                        border-color: {{$principalColor}};
-                        " type='submit' title='GERAR  FATURAS'>
-                    <i class="fa fa-file-invoice-dollar"></i>
-                </button>
-            </a>
-
-            @else
-            <form action="{{route('proposal.trashInvoices', ['proposal' => $proposal])}}" method="post">
-                @csrf
-                @method('put')
-                <button class='form-button-red ms-1 me-1' type='submit' title='Apagar TODAS as faturas'>
-                    <i class="fa fa-trash"></i>
-                </button>
-            </form>
-            <a href="{{route('proposal.editInstallment', ['proposal' => $proposal])}}">
-                <button class='form-button ms-1 me-1' style="
-                        color: {{$principalColor}};
-                        background-color: {{$oppositeColor}};
-                        border-color: {{$principalColor}};
-                        " type='submit' title='Editar TODAS as faturas'>
-                    <i class="fa fa-edit"></i>
-                </button>
-            </a>
+        <div class='col-2 d-flex justify-content-end pt-4 pb-3 text-end' style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{$transactionFrameColor}}'>
+            <button id='paymentButtonOnOff' class='form-button' style="
+                    color: {{$principalColor}};
+                    background-color: {{$oppositeColor}};
+                    border-color: {{$principalColor}};
+                    " type='submit' title='ADICIONAR PAGAMENTO'>
+                <i class="fa fa-money-bill"></i>
+            </button>
         </div>
     </div>
 
+    @if($transactions->isNotEmpty())
+
     <!--cabeçalho de faturas-->
 
-    <div class="container" id="invoices-header">
+    <div class="container" id="transactions-header">
         <div class='row table-header mt-3 mb-3'>
-            <div   class='col-3'>
-                FATURA
+            <div   class='col-4'>
+                ORIGEM
             </div>
             <div   class='col-2'>
                 VENCIMENTO
@@ -51,16 +30,13 @@
             <div   class='col-2'>
                 VALOR
             </div>
-            <div   class='col-2'>
-                SALDO
-            </div>
         </div>
     </div>
 
     <!--linhas de  faturas-->
-    <div class="container" id="invoices-lines">
+    <div class="container" id="transactions-lines">
 
-        @foreach ($invoices as $invoice)
+        @foreach ($transactions as $transaction)
         <div class="row">
             <div class='col-10'>
                 <div class='row table2 position-relative'  style='
@@ -68,11 +44,11 @@
                      border-left-color: {{$complementaryColor}};
 
                      '>
-                    <a class='stretched-link' href="{{route('invoice.show', ['invoice' => $invoice])}}" style="color:white">
+                    <a class='stretched-link' href="{{route('transaction.show', ['transaction' => $transaction])}}" style="color:white">
                     </a>
                     <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
                         {{$counterInvoices}}
-                        <i class="fas fa-file-invoice-dollar" style='
+                        <i class="fas fa-coins" style='
                            display:block;
                            padding-left:10px;
                            width:25%;
@@ -80,31 +56,21 @@
                            '>
                         </i>
                     </div>
-                    <div class='cel col-4 justify-content-start'>
-                        FATURA {{$invoice->identifier}}: parcela {{$invoice->number_installment}} de {{$proposal->installment}}
+                    <div class='cel col-5 justify-content-start'>
+                        {{$transaction->BankAccount->name}}
                     </div>
-                    <div class='cel col-2'>
-                        {{date('d/m/Y', strtotime($invoice->pay_day))}}
+                    <div class='cel col-2 justify-content-center'>
+                        {{date('d/m/Y', strtotime($transaction->pay_day))}}
                     </div>
 
                     <div class='cel col-2 justify-content-end'>
-                        {{formatCurrencyReal($invoice->totalPrice)}}
+                        {{formatCurrencyReal($transaction->value)}}
                     </div>
 
-
-                    @if($invoice->balance < 0)
-                    <div class='cel col-2 justify-content-end' style='color:red'>
-                        {{formatCurrencyReal($invoice->balance)}}
-                    </div>
-                    @else
-                    <div class='cel col-2 justify-content-end'>
-                        {{formatCurrencyReal($invoice->balance)}}
-                    </div>
-                    @endif
                 </div>
             </div>
             <div class='col-2 pt-4 d-flex justify-content-center'>
-                @if($invoice->balance == $invoice->totalPrice)
+                @if($transaction->balance == $transaction->totalPrice)
                 <a href='{{route('task.create')}}'>
                     <button class='form-button' style="
                             color: {{$principalColor}};
@@ -126,12 +92,12 @@
                 </a>
                 @endif
 
-                @if($invoice->balance == 0)
+                @if($transaction->balance == 0)
                 <p class="pt-2" id='{{$counterInvoices}}'>
-                    {{faiconInvoiceStatus($invoice->status)}}
+                    {{faiconInvoiceStatus($transaction->status)}}
                 </p>
                 @else
-                <a id='invoicePaymentButtonOnOff_{{$counterInvoices}}'>
+                <a id='transactionPaymentButtonOnOff_{{$counterInvoices}}'>
                     <button class='form-button' style="
                             color: {{$principalColor}};
                             background-color: {{$oppositeColor}};
@@ -144,11 +110,14 @@
             </div>
         </div>
 
+        <!--fim de transações-->
+        @endforeach
 
-        <!--  div oculta ADICIONAR PAGAMENTO  -->
 
-        <div class='container pt-5 pb-5' id='newPaymentRow_{{$counterInvoices}}' style='display: none;background-color: #f1f1f1'>
-            <form id='addPayment' action='{{route('transaction.store', ['type' => $type])}}' method='post' style='text-align: left'>
+        <!--  div oculta ADICIONAR TRANSACAO  -->
+
+        <div class='container pt-5 pb-5' id='newPaymentRow' style='display: none;background-color: #f1f1f1'>
+            <form id='addPayment' action='{{route('transaction.store', ['typeTransactions' => $type])}}' method='post' style='text-align: left'>
                 @csrf
                 <input type='hidden' name='invoice_id'  value='{{$invoice->id}}'>
                 <div class="row mt-2">
@@ -202,9 +171,9 @@
                         <span class="text-danger">{{$errors->first('value')}}</span>
                         @endif
 
-                        @if($proposal->type == 'receita')
+                        @if($invoice->type == 'receita')
                         <input type="text" name="value" style="text-align: right" size='12' class='prices' onkeyup="formatCurrencyRealAll('input.prices')" value="{{formatCurrencyReal($invoice->totalPrice)}}">
-                        @elseif($proposal->type == 'despesa')
+                        @elseif($invoice->type == 'despesa')
                         <input type="text" name="value" style="text-align: right" size='12' class='prices' onkeyup="formatCurrencyRealAll('input.prices')" value="{{formatCurrencyReal($invoice->totalPrice * -1)}}">
                         @endif
 
@@ -239,70 +208,31 @@
                 </div>
             </form>
         </div>
-        <!--  FIM div oculta ADICIONAR PAGAMENTO  -->
-
-        @php
-        $counterTransactions = 1;
-        @endphp
-        <!--LINHA DE PAGAMENTOS / TRANSACTIONS-->
-        <div id='paymentsRow_{{$counterInvoices++}}'  class='row' style="display:none">
-            @foreach($invoice->transactions as $transaction)
-            @if($transaction->trash != 1)
-            <div class="row">
-                <div class='offset-1 col-9'>
-                    <div class='row table2 position-relative'  style='
-                         color: {{$principalColor}};
-                         border-left-color: {{$complementaryColor}};
-                         '>
-                        <a class='stretched-link' href="{{route('transaction.show', ['transaction' => $transaction])}}" style="color:white">
-                        </a>
-                        <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
-                            {{$counterTransactions++}}
-                            <i class="fas fa-coins" style='
-                               display:block;
-                               padding-left:10px;
-                               width:25%;
-                               font-size: 30px;
-                               '>
-                            </i>
-                        </div>
-                        <div class='cel col-2'>
-                            {{date('d/m/Y', strtotime($transaction->pay_day))}}
-                        </div>
-                        <div class='cel col-5 justify-content-start'>
-                            {{$transaction->user->contact->name}}
-                        </div>
-                        <div class='cel col-2 justify-content-start'>
-                            {{$transaction->bankAccount->name}}
-                        </div>
-                        <div class='cel col-2 justify-content-end'>
-                            {{formatCurrencyReal($transaction->value)}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endif
-            @endforeach
-        </div>
-
-        <!--fim de transações-->
-
-        @endforeach
-    </div>
+        <!--  FIM div oculta ADICIONAR transação  -->
 
 
+
+    <!--    SALDO  e TOTAL-->
     <div class='row mt-4 mb-4'>
         <div class='offset-8 col-2 d-flex justify-content-end'>
             <div class='ellipse' style='color:{{$oppositeColor}}'>
-                @if(isset($invoicesTotal))
-                {{formatCurrencyReal($invoicesTotal)}}
-                @endif
+                {{formatCurrencyReal($transactionsTotal)}}
             </div>
         </div>
         <div class='col-2 d-flex justify-content-end'>
             <div class='ellipse' style='color:{{$principalColor}}'>
-                {{formatCurrencyReal($balanceTotal)}}
+                {{formatCurrencyReal($invoiceBalance)}}
             </div>
+        </div>
+    </div>
+    
+    </div>
+
+    <!--mensagem sem transaçoes-->
+    @else
+    <div class='row mt-4 mb-4'>
+        <div class='col d-flex justify-content-center'>
+            Nenhuma movimentação registrada para esta fatura
         </div>
     </div>
 
@@ -310,7 +240,7 @@
 
 
     <!--cabeçalho de faturas APAGADAS-->
-
+    @if($deletedTransactions->isNotEmpty())
     <div class="container" id="invoices">
         <div class='row table-header mt-5 mb-3'  style="background-color: {{$oppositeColor}}">
             <div   class='col d-flex justify-content-start'>
@@ -327,7 +257,7 @@
         @php
         $counterInvoices = 1;
         @endphp
-        @foreach ($deletedInvoices as $deletedInvoice)
+        @foreach ($deletedTransactions as $deletedTransaction)
         <div class="row">
             <div class='col-10'>
                 <div class='row table2 position-relative'  style='
@@ -335,7 +265,7 @@
                      border-left-color: {{$oppositeColor}};
 
                      '>
-                    <a class='stretched-link' href="{{route('invoice.show', ['invoice' => $deletedInvoice])}}" style="color:white">
+                    <a class='stretched-link' href="{{route('invoice.show', ['invoice' => $deletedTransaction])}}" style="color:white">
                     </a>
                     <div class='cel col-1 justify-content-start'  style="font-size: 26px;font-weight: 600">
                         <i class="fas fa-file-invoice-dollar" style='
@@ -348,30 +278,30 @@
                         </i>
                     </div>
                     <div class='cel col-4 justify-content-start'>
-                        FATURA {{$deletedInvoice->identifier}}: parcela {{$deletedInvoice->number_installment}} de {{$proposal->installment}}
+                        FATURA {{$deletedTransaction->identifier}}: parcela {{$deletedTransaction->number_installment}} de {{$invoice->installment}}
                     </div>
                     <div class='cel col-2'>
-                        {{date('d/m/Y', strtotime($deletedInvoice->pay_day))}}
+                        {{date('d/m/Y', strtotime($deletedTransaction->pay_day))}}
                     </div>
 
                     <div class='cel col-2 justify-content-end'>
-                        {{formatCurrencyReal($deletedInvoice->totalPrice)}}
+                        {{formatCurrencyReal($deletedTransaction->totalPrice)}}
                     </div>
 
 
-                    @if($deletedInvoice->balance < 0)
+                    @if($deletedTransaction->balance < 0)
                     <div class='cel col-2 justify-content-end' style='color:red'>
-                        {{formatCurrencyReal($deletedInvoice->balance)}}
+                        {{formatCurrencyReal($deletedTransaction->balance)}}
                     </div>
                     @else
                     <div class='cel col-2 justify-content-end'>
-                        {{formatCurrencyReal($deletedInvoice->balance)}}
+                        {{formatCurrencyReal($deletedTransaction->balance)}}
                     </div>
                     @endif
                 </div>
             </div>
             <div class='col-2 d-flex justify-content-center'>
-                {{createButtonTrash($deletedInvoice, 'invoice')}}
+                {{createButtonTrash($deletedTransaction, 'invoice')}}
             </div>
         </div>
 
@@ -379,9 +309,9 @@
         @php
         $counterTransactions = 1;
         @endphp
-        <!--LINHA DE PAGAMENTOS / TRANSACTIONS-->
+        <!--LINHA DE PAGAMENTOS / TRANSACTIONS apagadas-->
         <div id='paymentsRow_{{$counterInvoices++}}'  class='row' style="display:">
-            @foreach($deletedInvoice->transactions as $transaction)
+            @foreach($deletedTransaction->transactions as $transaction)
             @if($transaction->trash != 1)
             <div class="row">
                 <div class='offset-1 col-9'>
@@ -421,10 +351,11 @@
             @endforeach
         </div>
 
-        <!--fim de transações-->
+        <!--fim de transações apagadas-->
 
         @endforeach
     </div>
+        @endif
 
 
 
@@ -437,22 +368,7 @@
 
 
 <script>
-    @php
-            $counterJs = 1;
-    foreach($invoices as $invoice) {
-
-    echo "
-            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
-    $('#newPaymentRow_$counterJs').slideToggle(600);
+            $('#paymentButtonOnOff').click(function () {
+    $('#newPaymentRow').slideToggle(600);
     });
-    ";
-
-            echo "
-            $('#listPaymentsButtonOnOff_$counterJs').click(function () {
-    $('#paymentsRow_$counterJs').slideToggle(600);
-    });
-    ";
-            $counterJs++;
-    }
-    @endphp
 </script>

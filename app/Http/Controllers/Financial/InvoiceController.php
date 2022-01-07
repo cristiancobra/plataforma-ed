@@ -686,12 +686,17 @@ class InvoiceController extends Controller {
     }
 
     public function sendToTrash(Invoice $invoice) {
-        $invoice->trash = 1;
-        $invoice->save();
+        if ($invoice->transactions) {
+            foreach ($invoice->transactions as $transaction) {
+                $transaction->trash = 1;
+                $transaction->save();
+            }
+            $invoice->trash = 1;
+            $invoice->save();
+        }
 
         return redirect()->back();
     }
-
 
     public function restoreFromTrash(Invoice $invoice) {
         $invoice->trash = 0;

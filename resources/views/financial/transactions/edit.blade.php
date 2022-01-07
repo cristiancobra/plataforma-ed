@@ -75,23 +75,39 @@
             @endforeach
         </select>
         <br>
-        <label class="labels" for="" >TIPO: </label>
+        <label class="labels" for="" >
+            TIPO: 
+        </label>
         {{app('request')->input('typeTransactions')}}
         <br>
-        <label class="labels" for="" >DATA:</label>
+        <label class="labels" for="" >
+            DATA:
+        </label>
         <input type="date" name="pay_day" size="20" value="{{$transaction->pay_day}}"><span class="fields"></span>
         <br>
-        <label class="labels" for="">VALOR: </label>
-        <input type="decimal" name="value" size='12' style="text-align: right" value="{{formatCurrencyReal($transaction->value)}}">
+        
+        <label class="labels" for="">
+            VALOR: 
+        </label>
+            @if($transaction->value < 0)
+        <input type="decimal" name="value" size='12' style="text-align: right" id='value'  onkeyup="formatCurrencyReal('value')" value="{{formatCurrencyReal($transaction->value * -1)}}">
+        @else
+        <input type="decimal" name="value" size='12' style="text-align: right" id='value'  onkeyup="formatCurrencyReal('value')"  value="{{formatCurrencyReal($transaction->value * -1)}}">
+        @endif
         @if ($errors->has('value'))
         <span class="text-danger">{{$errors->first('value')}}</span>
         @endif
         <br>
-        <label class="labels" for="" >MEIO DE PAGAMENTO: </label>
+        
+        <label class="labels" for="" >
+            MEIO DE PAGAMENTO:
+        </label>
         {{createSimpleSelect('payment_method', 'fields', returnPaymentMethods(), $transaction->payment_method)}}
         <br>
         <br>
-        <label class="labels" for="" >OBSERVAÇÕES:</label>
+        <label class="labels" for="" >
+            OBSERVAÇÕES:
+        </label>
         <br>
         <textarea id="description" name="observations" rows="5" cols="90"  value="{{old('observations')}}">
 		{{$transaction->observations}}
@@ -112,8 +128,4 @@ CKEDITOR.replace('description');
 
 
 @section('js-scripts')
-    <script>
-    // formatar entrada do dinheiro
-        $("[name=value]").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
-    </script>
 @endsection

@@ -476,8 +476,14 @@ class ProposalController extends Controller {
                 ->get();
 
         foreach ($invoices as $invoice) {
-            $invoice->trash = 1;
+            if ($invoice->transactions) {
+                foreach ($invoice->transactions as $transaction) {
+                    $transaction->trash = 1;
+                    $transaction->save();
+                }
+                $invoice->trash = 1;
             $invoice->save();
+            }
         }
 
         return redirect()->back();
