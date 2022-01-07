@@ -35,40 +35,12 @@ class ProposalController extends Controller {
 
         // Cálculo do saldo / balance
         foreach ($proposals as $proposal) {
-
-            $invoices = Invoice::where('proposal_id', $proposal->id)
-                    ->where('trash', '!=', 1)
-                    ->get();
-
-            $invoicesTotal = 0;
-            $balanceTotal = 0;
-
-            foreach ($invoices as $invoice) {
-                $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-                        ->where('trash', '!=', 1)
-                        ->sum('value');
-//                if ($invoice->totalPrice == $invoice->paid) {
-//                    $invoice->status = 'paga';
-//                } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
-//                    $invoice->status = 'parcial';
-//                } elseif ($invoice->status == 'aprovada' AND $invoice->pay_day < date('Y-m-d')) {
-//                    $invoice->status = 'atrasada';
-//                }
-
-                $invoice->balance = $invoice->totalPrice - $invoice->paid;
-
-                $invoicesTotal += $invoice->totalPrice;
-                $proposal->balance += $invoice->balance;
-            }
-
-            if ($proposal->balance == 0) {
-                $proposal->status = 'paga';
-            } elseif ($proposal->status == 'aprovada' AND $proposal->pay_day < date('Y-m-d')) {
-                $proposal->status = 'atrasada';
-            } elseif ($proposal->totalPrice > $proposal->balance AND $proposal->balance > 0) {
-                $proposal->status = 'parcial';
-            }
-        }
+//                echo "<br>$proposal->id --> $proposal->status  /  ";
+                $proposal->status = Proposal::paymentsStatus($proposal);
+//                echo "<br>$proposal->id --> $proposal->status  /  ";
+                }
+//                $proposal = Proposal::find(302);
+//        dd($proposal);
 
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -482,7 +454,7 @@ class ProposalController extends Controller {
                     $transaction->save();
                 }
                 $invoice->trash = 1;
-            $invoice->save();
+                $invoice->save();
             }
         }
 

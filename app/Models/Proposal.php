@@ -120,13 +120,13 @@ class Proposal extends Model {
                         $query->where('company_id', $request->company_id);
                     }
                     if ($request->product_id) {
-                    $query->whereHas('productProposals', function($query) use($request) {
-                        $query->where('product_id', $request->product_id);
-                    });
+                        $query->whereHas('productProposals', function ($query) use ($request) {
+                            $query->where('product_id', $request->product_id);
+                        });
                     }
                     if ($request->type) {
                         $query->where('type', $request->type);
-                    } elseif($request->variation) {
+                    } elseif ($request->variation) {
                         $query->where('type', $request->variation);
                     }
                     if ($request->status) {
@@ -192,6 +192,39 @@ class Proposal extends Model {
             'rascunho',
             'cancelada',
         );
+    }
+
+    // verifica o saldo da proposta e determina um status
+    public static function paymentsStatus($proposal) {
+
+        $invoicesTotal = 0;
+        $balanceTotal = 0;
+
+        foreach ($proposal->invoices as $invoice) {
+//            dd($invoice);
+            if ($invoice->trash != 1) {
+                $invoice->paid = Transaction::where('invoice_id', $invoice->id)
+                        ->where('trash', '!=', 1)
+                        ->sum('value');
+
+                $invoice->balance = $invoice->totalPrice - $invoice->paid;
+
+                $invoicesTotal += $invoice->totalPrice;
+                $proposal->balance += $invoice->balance;
+            }
+        }
+//echo $proposal->id . " + "  . $proposal->status;
+
+        if ($proposal->status === 'orçamento') {
+            $status = 'orçamento';
+        } elseif ($proposal->balance == 0) {
+            $status = 'paga';
+        } elseif ($proposal->status == 'aprovada' AND $proposal->pay_day < date('Y-m-d')) {
+            $status = 'atrasada';
+        } elseif ($proposal->totalPrice > $proposal->balance AND $proposal->balance > 0) {
+            $status = 'parcial';
+        }
+        return $status;
     }
 
 }
