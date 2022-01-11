@@ -413,6 +413,7 @@ class InvoiceController extends Controller {
         $totalTransactions = Transaction::whereHas('invoice', function ($query) use ($invoice) {
                     $query->where('invoice_id', $invoice->id);
                 })
+                ->where('trash', '!=', 1)
                 ->sum('value');
 
         $productProposals = ProductProposal::where('proposal_id', $invoice->proposal_id)
@@ -509,7 +510,7 @@ class InvoiceController extends Controller {
             'invoiceExpirationDate' => $invoice->expiration_date,
             'invoiceInstallmentValue' => $invoice->installment_value,
             'invoiceStatus' => $invoice->status,
-            'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
+            'invoiceNumberInstallment' => $invoice->number_installment,
             'invoiceTotalPrice' => $invoice->installment_value,
 //            'opportunityDescription' => $invoice->proposal->opportunity->description,
             'opportunityDescription' => $opportunityDescription,
@@ -518,6 +519,7 @@ class InvoiceController extends Controller {
             'invoiceTotalPrice' => $invoice->totalPrice,
             'customerName' => $customerName,
             'productProposals' => $productProposals,
+            'proposalInstallment' => $invoice->proposal->installment,
             'invoiceTotalTransactions' => $totalTransactions,
 //            'tasksOperational' => $tasksOperational,
 //            'tasksOperationalPoints' => $tasksOperationalPoints,

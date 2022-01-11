@@ -215,6 +215,20 @@
             </tr>
             @endif
 
+
+            @if($data['proposalInstallment'] > 1)
+            <tr>
+                <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="3">
+                    PARCELA: 
+                </td>
+                <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="2">
+                    {{$data['invoiceNumberInstallment']}}
+                    de 
+                    {{$data['proposalInstallment']}}
+                </td>
+            </tr>
+            @endif
+
             <tr>
                 <td   class="table-list-header right"  style="font-size: 14px;background-color:{{$data['accountComplementaryColor']}}" colspan="3">
                     TOTAL: 
@@ -223,20 +237,7 @@
                     {{formatCurrencyReal($data['invoiceTotalPrice'] - $data['invoiceTotalTransactions'])}}
                 </td>
             </tr>
-            
-            <tr>
-                <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="3">
-                    PARCELA: 
-                </td>
-                <td   class="table-list-header right" style="background-color:{{$data['accountComplementaryColor']}}" colspan="2">
-                    @if($data['invoiceNumberInstallmentTotal'] == 1)
-                    À vista
-                    @else
-                    {{formatCurrencyReal($data['invoiceInstallmentValue'])}}
-                    @endif
-                </td>
-                
-            </tr>
+
         </table>
         <br>
         <table style="width: 100%;text-align:left">
@@ -255,8 +256,8 @@
             </tr>
             @endif
         </table>
-  
-        
+
+
         <!--QUEBRA 2-->
         <p class="break"></p>
 

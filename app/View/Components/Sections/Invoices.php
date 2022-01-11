@@ -28,7 +28,15 @@ class Invoices extends Component {
      */
     public function render() {
         $proposal = $this->proposal;
+        
         if ($proposal) {
+            
+            if($proposal->type == 'receita') {        
+        $proposal->transactionType = 'crédito';
+            }else{
+        $proposal->transactionType = 'dédito';        
+            }
+            
             $invoiceFrameColor = auth()->user()->account->principal_color;
 
             $allInvoices = Invoice::where('proposal_id', $proposal->id)

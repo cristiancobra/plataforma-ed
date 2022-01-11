@@ -149,7 +149,7 @@
         <!--  div oculta ADICIONAR PAGAMENTO  -->
 
         <div class='container pt-5 pb-5' id='newPaymentRow_{{$counterInvoices}}' style='display: none;background-color: #f1f1f1'>
-            <form id='addPayment' action='{{route('transaction.store', ['type' => $proposal->type])}}' method='post' style='text-align: left'>
+            <form id='addPayment' action='{{route('transaction.store', ['typeTransactions' => $proposal->transactionType])}}' method='post' style='text-align: left'>
                 @csrf
                 <input type='hidden' name='invoice_id'  value='{{$invoice->id}}'>
                 <div class="row mt-2">
