@@ -207,10 +207,10 @@ class TransactionController extends Controller {
 
             if ($transaction->type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
                 $transaction->save();
-                return redirect()->route('transaction.show', compact('transaction'));
+                return redirect()->back();
             } elseif ($transaction->type == 'débito' AND $newTotal >= $invoice->totalPrice) {
                 $transaction->save();
-                return redirect()->route('transaction.show', compact('transaction'));
+                return redirect()->back();
             } elseif ($transaction->type == 'crédito') {
                 $totalPrice = formatCurrencyReal($invoice->totalPrice);
                 return back()
