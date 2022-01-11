@@ -213,7 +213,7 @@ class Proposal extends Model {
                 $proposal->balance += $invoice->balance;
             }
         }
-echo $proposal->id . " + "  . $proposal->status;
+
 
         if ($proposal->status === 'orçamento') {
             $status = 'orçamento';

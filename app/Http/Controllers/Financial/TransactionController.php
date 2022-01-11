@@ -210,7 +210,11 @@ class TransactionController extends Controller {
                 return redirect()->back();
             } elseif ($transaction->type == 'débito' AND $newTotal >= $invoice->totalPrice) {
                 $transaction->save();
-                return redirect()->back();
+                $payment = formatCurrencyReal($transaction->value);
+                
+                                return back()
+                                ->with('success', "Pagamento de $payment adicionado!")
+                                ->withInput();
             } elseif ($transaction->type == 'crédito') {
                 $totalPrice = formatCurrencyReal($invoice->totalPrice);
                 return back()
