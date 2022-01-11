@@ -213,7 +213,7 @@ class Proposal extends Model {
                 $proposal->balance += $invoice->balance;
             }
         }
-//echo $proposal->id . " + "  . $proposal->status;
+echo $proposal->id . " + "  . $proposal->status;
 
         if ($proposal->status === 'orçamento') {
             $status = 'orçamento';
@@ -221,6 +221,8 @@ class Proposal extends Model {
             $status = 'paga';
         } elseif ($proposal->status == 'aprovada' AND $proposal->pay_day < date('Y-m-d')) {
             $status = 'atrasada';
+        } elseif ($proposal->status == 'aprovada' AND $proposal->pay_day >= date('Y-m-d')) {
+            $status = 'aprovada';
         } elseif ($proposal->totalPrice > $proposal->balance AND $proposal->balance > 0) {
             $status = 'parcial';
         }

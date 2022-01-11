@@ -190,6 +190,7 @@ class TransactionController extends Controller {
             $transaction->account_id = auth()->user()->account_id;
             
             $transaction->type = $request->input('typeTransactions');
+//            dd($transaction->type);
             if ($transaction->type == 'crédito') {
                 $transaction->value = removeCurrency($request->value);
             } else {

@@ -36,9 +36,9 @@ class ProposalController extends Controller {
         // Cálculo do saldo / balance
         foreach ($proposals as $proposal) {
 //                echo "<br>$proposal->id --> $proposal->status  /  ";
-                $proposal->status = Proposal::paymentsStatus($proposal);
+            $proposal->status = Proposal::paymentsStatus($proposal);
 //                echo "<br>$proposal->id --> $proposal->status  /  ";
-                }
+        }
 //                $proposal = Proposal::find(302);
 //        dd($proposal);
 
@@ -237,6 +237,14 @@ class ProposalController extends Controller {
         } else {
             $type = $proposal->type;
         }
+
+        // definie tipo da transação crédito/débito
+        if ($proposal->type == 'receita') {
+            $proposal->transactionType = 'crédito';
+        } else {
+            $proposal->transactionType = 'débito';
+        }
+
 
         if ($proposal->opportunity AND $type == 'receita') {
             $opportunityName = $proposal->opportunity->name;

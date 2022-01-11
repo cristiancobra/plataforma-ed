@@ -34,7 +34,7 @@ class Invoices extends Component {
             if($proposal->type == 'receita') {        
         $proposal->transactionType = 'crédito';
             }else{
-        $proposal->transactionType = 'dédito';        
+        $proposal->transactionType = 'débito';        
             }
             
             $invoiceFrameColor = auth()->user()->account->principal_color;
