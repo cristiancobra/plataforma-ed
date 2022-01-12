@@ -711,4 +711,221 @@ class ProposalController extends Controller {
         return $pdf->stream("Proposta " . $proposal->account->name . ".pdf");
     }
 
+    
+//    relatórios anuais
+    public function report(Request $request) {
+        $months = returnMonths();
+        $pastMonths = date('m');
+
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $year = date('y');
+        }
+
+//   RECEITAS
+        $monthlyRevenues = Proposal::monthlyRevenues($year);
+        $annualRevenues = Proposal::annualTotal($year, 'receita');
+
+        $categoriesNames = Product::returnCategories();
+        $categories = [];
+        foreach ($categoriesNames as $category) {
+            $categories[$category]['name'] = $category;
+            $categories[$category]['monthlys'] = Proposal::monthlysCategoriesTotal($year, $category, 'receita');
+            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'receita');
+        }
+
+        // DESPESAS
+        $monthlyExpenses = Invoice::monthlyInvoicesTotal($year, 'despesa');
+        $annualExpenses = Invoice::annualInvoicesTotal($year, 'despesa');
+
+        $groupsName = Product::returnGroups();
+        $groups = [];
+        foreach ($groupsName as $group) {
+            $groups[$group]['name'] = $group;
+            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
+            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
+        }
+
+        // Gráfico
+        $chartBackgroundColors = [
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(41, 221, 101, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+        ];
+
+        $chartBorderColors = [
+            'rgba(255, 206, 86, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(41, 221, 101, 1)',
+            'rgba(255, 99, 132, 1)',
+        ];
+
+        return view('sales.proposals.report', compact(
+                        'year',
+                        'months',
+                        'monthlyRevenues',
+                        'categories',
+                        'categoriesNames',
+                        'groups',
+                        'annualRevenues',
+                        'monthlyExpenses',
+                        'annualExpenses',
+                        'chartBackgroundColors',
+                        'chartBorderColors',
+        ));
+    }
+
+    
+    
+// Gera PDF de relatório
+    public function createPdfReport() {
+        $months = returnMonths();
+        $pastMonths = date('m');
+
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $year = date('y');
+        }
+
+//   RECEITAS
+        $monthlyRevenues = Invoice::monthlyInvoicesTotal($year, 'receita');
+        $annualRevenues = Invoice::annualInvoicesTotal($year, 'receita');
+
+        $categoriesNames = Product::returnCategories();
+        $categories = [];
+        foreach ($categoriesNames as $category) {
+            $categories[$category]['name'] = $category;
+            $categories[$category]['monthlys'] = Invoice::monthlysCategoriesTotal($year, $category, 'receita');
+            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'receita');
+        }
+
+        // DESPESAS
+        $monthlyExpenses = Invoice::monthlyInvoicesTotal($year, 'despesa');
+        $annualExpenses = Invoice::annualInvoicesTotal($year, 'despesa');
+
+        $groupsName = Product::returnGroups();
+        $groups = [];
+        foreach ($groupsName as $group) {
+            $groups[$group]['name'] = $group;
+            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
+            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
+        }
+
+        // Gráfico
+        $chartBackgroundColors = [
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(41, 221, 101, 0.2)',
+            'rgba(255, 99, 132, 0.2)',
+        ];
+
+        $chartBorderColors = [
+            'rgba(255, 206, 86, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(41, 221, 101, 1)',
+            'rgba(255, 99, 132, 1)',
+        ];
+
+// definição do título
+//        if ($invoice->status == 'orçamento' OR $invoice->status == 'rascunho') {
+//            $pdfTitle = 'ORÇAMENTO';
+//        } elseif ($invoice->status == 'aprovada' OR $invoice->status == 'paga') {
+//            $pdfTitle = 'FATURA';
+//        }
+//        if ($invoice->company_id) {
+//            $email = $invoice->company->email;
+//            $phone = $invoice->company->phone;
+//            $address = $invoice->company->address;
+//            $city = $invoice->company->city;
+//            $state = $invoice->company->state;
+//            $country = $invoice->company->country;
+//            $companyName = $invoice->company->name;
+//            $companyCnpj = $invoice->company->cnpj;
+//            $contactCpf = null;
+//        } else {
+//            $email = $invoice->contact->email;
+//            $phone = $invoice->contact->phone;
+//            $address = $invoice->contact->address;
+//            $city = $invoice->contact->city;
+//            $state = $invoice->contact->state;
+//            $country = $invoice->contact->country;
+//            $companyName = null;
+//            $companyCnpj = null;
+//            $contactCpf = $invoice->contact->cpf;
+//        }
+
+        $account = auth()->user()->account;
+
+        $data = [
+            'pdfTitle' => 'RELATÓRIO FINANCEIRO',
+            'accountLogo' => $account->image->path,
+            'accountPrincipalColor' => $account->principal_color,
+            'accountComplementaryColor' => $account->complementary_color,
+            'accountName' => $account->name,
+            'accountEmail' => $account->email,
+            'accountPhone' => $account->phone,
+            'accountAddress' => $account->address,
+            'accountCity' => $account->city,
+            'accountState' => $account->state,
+            'accountCnpj' => $account->cnpj,
+//            'taskDescription' => $task->description,
+//            'customerName' => $task->contact->name,
+//            'companyName' => $companyName,
+//            'companyCnpj' => $companyCnpj,
+//            'contactCpf' => $contactCpf,
+//            'email' => $email,
+//            'phone' => $phone,
+//            'address' => $address,
+//            'city' => $city,
+//            'state' => $state,
+//            'country' => $country,
+//            'bankAccounts' => $bankAccounts,
+//            'invoiceIdentifier' => $invoice->identifier,
+//            'invoiceDescription' => $invoice->description,
+//            'invoiceDiscount' => $invoice->discount,
+//            'invoiceExpirationDate' => $invoice->expiration_date,
+//            'invoiceInstallmentValue' => $invoice->installment_value,
+//            'invoiceStatus' => $invoice->status,
+//            'invoiceNumberInstallmentTotal' => $invoice->number_installment_total,
+//            'invoiceTotalPrice' => $invoice->installment_value,
+//            'opportunityDescription' => $invoice->proposal->opportunity->description,
+//            'invoiceDiscount' => $invoice->discount,
+//            'invoicePayday' => $invoice->pay_day,
+//            'invoiceTotalPrice' => $invoice->totalPrice,
+//            'customerName' => $invoice->proposal->opportunity->contact->name,
+//            'invoiceLines' => $invoiceLines,
+//            'invoiceTotalTransactions' => $totalTransactions,
+//            'tasksOperational' => $tasksOperational,
+//            'tasksOperationalPoints' => $tasksOperationalPoints,
+//            'tasksOperationalPointsExecuted' => $tasksOperationalPointsExecuted,
+            'months' => $months,
+            'monthlyRevenues' => $monthlyRevenues,
+            'annualRevenues' => $annualRevenues,
+            'categories' => $categories,
+            'monthlyExpenses' => $monthlyExpenses,
+            'annualExpenses' => $annualExpenses,
+            'groups' => $groups,
+        ];
+//        dd($data);
+        $header = view('layouts/pdfHeader', compact('data'))->render();
+        $footer = view('layouts/pdfFooter', compact('data'))->render();
+        $pdf = PDF::loadView('financial.invoices.reportPdf', compact('data'))
+                ->setOptions([
+            'page-size' => 'A4',
+            'orientation' => 'Landscape',
+            'header-html' => $header,
+            'footer-html' => $footer,
+                ])
+        ;
+
+// download PDF file with download method
+        return $pdf->stream('Relatório financeiro.pdf');
+    }
 }

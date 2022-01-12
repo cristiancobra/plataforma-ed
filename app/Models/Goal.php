@@ -118,6 +118,7 @@ class Goal extends Model {
 
 //    retorna o valor da meta de acordo com o tipo da meta
     public static function goalSelected($goal) {
+//        dd($goal);
         switch ($goal->type) {
             case 'execução';
                 $projects = Project::where('goal_id', $goal->id)
@@ -195,6 +196,15 @@ class Goal extends Model {
                 break;
             case 'receita';
                 $goalResult = formatCurrencyReal($goal->goal_invoices_revenues);
+                break;
+            case 'despesa';
+                $goalResult = formatCurrencyReal($goal->goal_invoices_expenses);
+                break;
+            case 'entrada';
+                $goalResult = formatCurrencyReal($goal->goal_transactions_revenues);
+                break;
+            case 'saída';
+                $goalResult = formatCurrencyReal($goal->goal_transactions_expenses);
                 break;
         }
 

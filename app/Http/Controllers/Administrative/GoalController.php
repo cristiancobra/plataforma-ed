@@ -64,7 +64,6 @@ class GoalController extends Controller {
         ];
         $validator = Validator::make($request->all(), [
                     'name' => 'required:goals',
-                    'description' => 'required:goals',
                         ],
                         $messages);
 
@@ -168,6 +167,7 @@ class GoalController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
+//            dd($goal);
             $goal->department = $request->department;
             $goal->name = $request->name;
             $goal->description = $request->description;
@@ -176,7 +176,7 @@ class GoalController extends Controller {
             $goal->date_conclusion = $request->date_conclusion;
             $goal->type = $request->type;
 //dd($request->type);
-//            dd($request);
+//            dd($goal->type);
             switch ($goal->type) {
                 case 'execução':
                     $goal->goal_points = 0;
@@ -188,13 +188,13 @@ class GoalController extends Controller {
                     $goal->goal_invoices_revenues = removeCurrency($request->goal_invoices_revenues);
                     break;
                 case 'despesa':
-                    $goal->goal_invoices_expenses = $request->goal_invoices_expenses;
+                    $goal->goal_invoices_expenses = removeCurrency($request->goal_invoices_expenses);
                     break;
                 case 'entrada':
-                    $goal->goal_transactions_revenues = $request->goal_transactions_revenues;
+                    $goal->goal_transactions_revenues = removeCurrency($request->goal_transactions_revenues);
                     break;
                 case 'saída':
-                    $goal->goal_transactions_expenses = $request->goal_transactions_expenses;
+                    $goal->goal_transactions_expenses = removeCurrency($request->goal_transactions_expenses);
                     break;
             }
             $goal->save();

@@ -269,6 +269,7 @@ class Invoice extends Model {
                     ->with('proposal.productProposals')
                     ->get();
 
+//            dd($invoices);
 //                      if($key == 12) {    
 //dd($monthlys);
 //                      }
@@ -282,7 +283,8 @@ class Invoice extends Model {
                     $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
-                            $value = $productProposal->subtotalPrice / $installment;
+                            $value = $productProposal->subtotalPrice;
+//                            echo "// $productProposal->subtotalPrice   -  $value <br>";
                             $sumValue += $value;
                             $monthlys[$month] = $sumValue;
                         }
@@ -303,16 +305,18 @@ class Invoice extends Model {
                 ->where('type', $type)
                 ->where('trash', '!=', 1)
                 ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
-                ->with('invoiceLines.product')
+                ->with('proposal.productProposals')
                 ->get();
 
         $annual = 0;
 
         foreach ($invoices as $invoice) {
-            foreach ($invoice->invoiceLines as $invoiceLine) {
-
-                if ($invoiceLine->product->category == $category) {
-                    $annual += $invoiceLine->subtotalPrice;
+            if ($invoice->proposal) {
+                $installment = $invoice->proposal->installment;
+                foreach ($invoice->proposal->productProposals as $productProposal) {
+                    if ($productProposal->product->category == $category) {
+                        $annual += $productProposal->subtotalPrice;
+                    }
                 }
             }
         }
@@ -367,16 +371,18 @@ class Invoice extends Model {
                 ->where('type', $type)
                 ->where('trash', '!=', 1)
                 ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
-                ->with('invoiceLines.product')
+                ->with('proposal.productProposals')
                 ->get();
 
         $annual = 0;
 
         foreach ($invoices as $invoice) {
-            foreach ($invoice->invoiceLines as $invoiceLine) {
-
-                if ($invoiceLine->product->group == $group) {
-                    $annual += $invoiceLine->subtotalPrice;
+            if ($invoice->proposal) {
+                $installment = $invoice->proposal->installment;
+                foreach ($invoice->proposal->productProposals as $productProposal) {
+                    if ($productProposal->product->group == $group) {
+                        $annual += $productProposal->subtotalPrice / $installment;
+                    }
                 }
             }
         }
@@ -424,7 +430,6 @@ class Invoice extends Model {
             $color = 'blue';
         } else {
             $color = 'white';
-            
         }
 
         return $color;

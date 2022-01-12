@@ -50,7 +50,9 @@
         @endif
         <br>
         <br>
-            <label class="labels" for="" >PRAZO FINAL:</label>
+            <label class="labels" for="" >
+                PRAZO FINAL:
+            </label>
         <input type="date" name="date_due" value="{{old('date_due') ? old('date_due') : date('Y-m-d')}}">
         @if ($errors->has('date_due'))
         <span class="text-danger">{{$errors->first('date_due')}}</span>
@@ -98,7 +100,7 @@
             <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
                 atingir faturamento de
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues' value='{{old('goal_invoices_revenues')}}'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues' id='goal_invoices_revenues' maxlength='11' onkeyup="formatCurrencyReal('goal_invoices_revenues')" value='{{old('goal_invoices_revenues')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
             <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' {{old('type') == 'despesa' ? 'checked' : ''}}>
@@ -112,7 +114,7 @@
             <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">
                 manter despesas abaixo de 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses' value='{{old('goal_invoices_expenses')}}'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses'  id='goal_invoices_expenses' maxlength='11' onkeyup="formatCurrencyReal('goal_invoices_expenses')" value='{{old('goal_invoices_expenses')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
             <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' {{old('type') == 'entrada' ? 'checked' : ''}}>
@@ -126,7 +128,7 @@
             <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">
                 atingir entradas de 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues' value='{{old('goal_transactions_revenues')}}'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues'  id='goal_transactions_revenues' maxlength='11' onkeyup="formatCurrencyReal('goal_transactions_revenues')"  value='{{old('goal_transactions_revenues')}}'>
         </div>
         <div class='form-check d-flex justify-content-start'>
             <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' {{old('type') == 'saída' ? 'checked' : ''}}>
@@ -140,13 +142,15 @@
             <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">
                 manter saídas abaixo de 
             </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses' value='{{old('goal_transactions_expenses')}}'>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses'  id='goal_transactions_expenses' maxlength='11' onkeyup="formatCurrencyReal('goal_transactions_expenses')" value='{{old('goal_transactions_expenses')}}'>
         </div>
         </div>
         </div>
         <br>
         <br>
-        <label class='labels' for='' >DESCRIÇÃO:</label>
+        <label class='labels' for='' >
+            DESCRIÇÃO:
+        </label>
         <br>
         @if ($errors->has('description'))
         <span class='text-danger'>{{$errors->first('description')}}</span>

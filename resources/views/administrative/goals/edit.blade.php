@@ -38,13 +38,141 @@
     {{createSimpleSelect('status', 'fields', $status, $goal->status)}}
     @endsection
 
+
+    @section('label1', 'DEPARTAMENTO')
+    @section('content1')
+    {{createSimpleSelect('department', 'fields', $departments, $goal->department)}}
+    @endsection
+
+
+    @section('label2', 'TIPO DE META')
+    @section('content2')
+    <div class="row ms-2">
+
+        <div class='form-check d-flex justify-content-start'>
+            @if($goal->type == 'execução')
+            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' checked>
+            @else
+            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' >
+            @endif
+            <label class='form-check-label pt-2 ms-2' for='execução' style="text-align: right;font-weight:600">
+                EXECUÇÃO:
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <p class='form-check-label pt-2 ms-2' for='execução' style="text-align: left">
+            Concluir todas as tarefas
+        </p>
+    </div>
+
+    <div class="row ms-2">
+        <div class='form-check d-flex justify-content-start'>
+            @if($goal->type == 'contatos')
+            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' checked>
+            @else
+            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' >
+            @endif
+            <label class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right;font-weight:600">
+                MARKETING:
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col  d-flex justify-content-end">
+            <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: left">
+                aumentar contatos para 
+            </p>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts'>
+        </div>
+    </div>
+
+    <div class="row ms-2">
+        <div class='form-check d-flex justify-content-start'>
+            @if($goal->type == 'receita')
+            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' checked>
+            @else
+            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' >
+            @endif
+            <label class='form-check-label pt-2 ms-2' for='receita' style="text-align: right;font-weight:600">
+                RECEITA:
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col  d-flex justify-content-end">
+            <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
+                atingir faturamento de 
+            </p>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues'  id='goal_invoices_revenues' maxlength='11' onkeyup="formatCurrencyReal('goal_invoices_revenues')" value='{{$goal->goal_invoices_revenues}}'>
+        </div>
+    </div>
+    <div class="row ms-2">
+        <div class='form-check d-flex justify-content-start'>
+                        @if($goal->type == 'despesa')
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' checked>
+            @else
+            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' >
+            @endif
+            <label class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right;font-weight:600">
+                DESPESA:
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col  d-flex justify-content-end">
+            <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">
+                manter abaixo de 
+            </p>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses'  id='goal_invoices_expenses' maxlength='11' onkeyup="formatCurrencyReal('goal_invoices_expenses')" value='{{$goal->goal_invoices_expenses}}'>
+        </div>
+    </div>
+    <div class="row ms-2">
+        <div class='form-check d-flex justify-content-start'>
+                                    @if($goal->type == 'entrada')
+            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' checked>
+            @else
+            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' >
+            @endif
+            <label class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right;font-weight:600">
+                ENTRADAS:
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col  d-flex justify-content-end">
+            <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">
+                atingir entradas de 
+            </p>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues'  id='goal_transactions_revenues' maxlength='11' onkeyup="formatCurrencyReal('goal_transactions_revenues')" value='{{$goal->goal_transactions_revenues}}'>
+        </div>
+    </div>
+    <div class="row ms-2">
+        <div class='form-check d-flex justify-content-start'>
+            <input class='form-check-input mt-2' type='radio' name='type' id='saída' value='saída' {{$goal->type == 'saída' ? 'checked' : ''}}'>
+            <label class='form-check-label pt-2 ms-2' for='saída' style="text-align: right;font-weight:600">
+                SAÍDAS:
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col  d-flex justify-content-end">
+            <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">
+                manter saídas abaixo de 
+            </p>
+            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses'  id='goal_transactions_expenses' maxlength='11' onkeyup="formatCurrencyReal('goal_transactions_expenses')" value='{{$goal->goal_transactions_expenses}}'>
+        </div>
+    </div>
+    @endsection
+
+
     @section('fieldsId')
-    <div class='col-lg-2 col-xs-6' style='text-align: center'>
+    <div class='col-2' style='text-align: center'>
         <div class='show-label'>
             TIPO DE META
         </div>
     </div>
-    <div class='col-lg-5 col-xs-6' style='text-align: center'>
+    <div class='col-3' style='text-align: center'>
         <div class='show-field-end'>
             <div class='form-check d-flex justify-content-start'>
                 <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' {{$goal->type == 'execução' ? 'checked' : ''}}>
@@ -108,16 +236,6 @@
         </div>
     </div>
 
-    <div class='col-lg-2 col-xs-6' style='text-align: center'>
-        <div class='show-label'>
-            DEPARTAMENTO
-        </div>
-    </div>
-    <div class='col-lg-3 col-xs-6' style='text-align: center'>
-        <div class='show-field-end'>
-            {{createSimpleSelect('department', 'fields', $departments, $goal->department)}}
-        </div>
-    </div>
     @endsection
 
 
@@ -150,7 +268,7 @@
 
     @section('date_conclusion')
     <div class='circle-date-due'>
-                <input type='date' name='date_conclusion' size='20' value='{{date('Y-m-d', strtotime($goal->date_conclusion))}}'>
+        <input type='date' name='date_conclusion' size='20' value='{{date('Y-m-d', strtotime($goal->date_conclusion))}}'>
         @if ($errors->has('date_conclusion'))
         <span class='text-danger'>{{$errors->first('date_conclusion')}}</span>
         @endif
@@ -174,7 +292,7 @@
     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
     <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
     <script>
-CKEDITOR.replace('description');
+                CKEDITOR.replace('description');
     </script>
     @endsection
 
@@ -200,10 +318,4 @@ CKEDITOR.replace('description');
 
 
     @section('js-scripts')
-    <script>
-        $("[name=goal_invoices_revenues]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        $("[name=goal_invoices_expenses]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        $("[name=goal_transactions_revenues]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        $("[name=goal_transactions_expenses]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-    </script>
     @endsection

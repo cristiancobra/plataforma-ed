@@ -276,6 +276,9 @@
                 <a style='text-decoration:none' href='{{route('invoice.report')}}'>
                     <i class='fas fa-chart-area ps-2 pe-2' title='faturamento e previsão de gastos'></i>
                 </a>
+                <a style='text-decoration:none' href='{{route('proposal.report')}}'>
+                    <i class='fas fa-shopping-basket ps-2 pe-2' title='vendas e despesas'></i>
+                </a>
                 <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
                     <i class='fas fa-users ps-2 pe-2' title='relatórios de produtividade'></i>
                 </a>

@@ -18,7 +18,7 @@ class CreateGoalsTable extends Migration
             $table->foreignId('account_id');
                         $table->string('department');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->dateTime('date_start');
             $table->dateTime('date_due');
             $table->dateTime('date_conclusion');

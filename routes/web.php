@@ -579,6 +579,14 @@ Route::put('/propostas/restaurar/{proposal}', 'Sales\\ProposalController@restore
         ->name('proposal.restore')
         ->middleware('roles');
 
+Route::any('/propostas/relatorio', 'Sales\\ProposalController@report')
+        ->name('proposal.report')
+        ->middleware('roles');
+
+Route::any('/propostas/relatorio/pdf', 'Sales\\ProposalController@createPdfReport')
+        ->name('proposal.pdfReport')
+        ->middleware('roles');
+
 Route::resource('propostas', 'Sales\\ProposalController')
         ->names('proposal')
         ->parameters(['propostas' => 'proposal'])

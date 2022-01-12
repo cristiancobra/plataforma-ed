@@ -25,7 +25,7 @@
 
 
 @section('fieldsId')
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         TIPO DE META
     </div>
@@ -33,7 +33,7 @@
         META
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         {{$goal->type}}
     </div>
@@ -42,12 +42,12 @@
     </div>
 </div>
 
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         DEPARTAMENTO
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         {{$goal->department}}
     </div>
@@ -74,7 +74,9 @@
          border-color: #c28dbf
          '>
         <img src='{{asset('images/production.png')}}' width='25px' height='25px'>
-        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >PROJETOS</label>
+        <label class='labels' style='font-size: 24px;padding-left: 5px' for='' >
+            PROJETOS
+        </label>
     </div>
     <div class='col-6 pt-4 pb-3 d-flex justify-content-end' style='
          border-top-style: solid;
