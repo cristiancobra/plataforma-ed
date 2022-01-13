@@ -281,7 +281,7 @@ class Invoice extends Model {
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
                             $value = $productProposal->subtotalPrice / $installment;
-                            echo "// $invoice->id - $invoice->pay_day -- $productProposal->subtotalPrice   -  $value <br>";
+//                            echo "// $invoice->id - $invoice->pay_day -- $productProposal->subtotalPrice   -  $value <br>";
                             $sumValue += round($value, 2);
                             $monthlys[$month] = $sumValue;
                         }
@@ -312,7 +312,7 @@ class Invoice extends Model {
                 $installment = $invoice->proposal->installment;
                 foreach ($invoice->proposal->productProposals as $productProposal) {
                     if ($productProposal->product->category == $category) {
-                        $annual += $productProposal->subtotalPrice;
+                        $annual += $productProposal->subtotalPrice / $installment;
                     }
                 }
             }
