@@ -139,7 +139,7 @@ $counterMonth = 1;
          background-color: red;
          color:white;
          font-weight: 600;
-         border-radius: 8px 0px 0px 8px;
+         border-radius: 8px 0px 0px 0px;
          '>
         DESPESAS
     </div>
@@ -169,11 +169,42 @@ $counterMonth = 1;
          background-color: red;
          color:white;
          font-weight: 600;
-         border-radius: 0px 8px 8px 0px;
+         border-radius: 0px 8px 0px 0px;
          '>
         {{formatCurrency($annualExpenses)}}
     </div>
 </div>
+
+
+@php
+$counterArray = 1;
+$counterMonth = 1;
+@endphp
+
+@foreach($groups as $group)
+<div class="row">
+    <div class="tb col-1 justify-content-start" style='background-color: #FDDBDD;font-weight: 600'>
+        {{$group['name']}}
+    </div>
+    @foreach($months as $key => $month)
+    <div class="tb col justify-content-end">
+        <a href="{{route('invoice.index', [
+                                                              'group' => $group['name'],
+                                                              'type' => 'despesa',
+                                                              'status' => 'aprovada',
+                                                              'date_start' => date("$year-$key-01"),
+                                                              'date_end' =>  date("$year-$key-t"),
+                                                             ])}}">
+
+            {{formatCurrency(floatval($group['monthlys'][$month]))}}
+        </a>
+    </div>
+    @endforeach
+    <div class="tb col justify-content-end"  style='background-color: #FDDBDD;font-weight: 600'>
+        {{formatCurrency(floatval($group['year']))}}
+    </div>
+</div>
+@endforeach
 
 
 <div class="row mt-3 mb-5">
