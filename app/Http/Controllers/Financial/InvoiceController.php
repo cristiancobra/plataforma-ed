@@ -721,25 +721,25 @@ class InvoiceController extends Controller {
         $monthlyRevenues = Invoice::monthlyInvoicesTotal($year, 'receita');
         $annualRevenues = Invoice::annualInvoicesTotal($year, 'receita');
 
-//        $categoriesNames = Product::returnCategories();
-//        $categories = [];
-//        foreach ($categoriesNames as $category) {
-//            $categories[$category]['name'] = $category;
-//            $categories[$category]['monthlys'] = Invoice::monthlysCategoriesTotal($year, $category, 'receita');
-//            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'receita');
-//        }
+        $categoriesNames = Product::returnCategories();
+        $categories = [];
+        foreach ($categoriesNames as $category) {
+            $categories[$category]['name'] = $category;
+            $categories[$category]['monthlys'] = Invoice::monthlysCategoriesTotal($year, $category, 'receita');
+            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'receita');
+        }
 
         // DESPESAS
         $monthlyExpenses = Invoice::monthlyInvoicesTotal($year, 'despesa');
         $annualExpenses = Invoice::annualInvoicesTotal($year, 'despesa');
 
-//        $groupsName = Product::returnGroups();
-//        $groups = [];
-//        foreach ($groupsName as $group) {
-//            $groups[$group]['name'] = $group;
-//            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
-//            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
-//        }
+        $groupsName = Product::returnGroups();
+        $groups = [];
+        foreach ($groupsName as $group) {
+            $groups[$group]['name'] = $group;
+            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
+            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
+        }
         
         
         // SALDO
@@ -768,9 +768,9 @@ class InvoiceController extends Controller {
                         'year',
                         'months',
                         'monthlyRevenues',
-//                        'categories',
-//                        'categoriesNames',
-//                        'groups',
+                        'categories',
+                        'categoriesNames',
+                        'groups',
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',

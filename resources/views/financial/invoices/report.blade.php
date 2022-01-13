@@ -69,7 +69,7 @@ $counterMonth = 1;
     <div class="tb-header col-1 justify-content-start"  style='
          background-color: #4863A0;
          font-weight: 600;
-         border-radius: 8px 0px 0px 8px;
+         border-radius: 8px 0px 0px 0px;
          '>
         RECEITAS
     </div>
@@ -78,7 +78,7 @@ $counterMonth = 1;
     @while($counterMonth <= 12)
     <div class='tb col justify-content-end' style='background-color: lightblue;font-weight: 600'>
         <a href='{{route('invoice.index', [
-                                                                      'type' => 'crédito',
+                                                                      'type' => 'receita',
                                                                       'date_start' => date("$year-$counterMonth-01"),
                                                                       'date_end' =>  date("$year-$counterMonth-t"),
                                                                      ])}}'>
@@ -95,11 +95,43 @@ $counterMonth = 1;
     <div class='tb tb-header col justify-content-end'  style='
          background-color: #4863A0;
          font-weight: 600;
-         border-radius: 0px 8px 8px 0px;
+         border-radius: 0px 8px 0px 0px;
          '>
         {{formatCurrency($annualRevenues)}}
     </div>
 </div>
+
+
+@php
+$counterArray = 1;
+$counterMonth = 1;
+@endphp
+
+@foreach($categories as $category)
+<div class="row">
+    <div class="tb col-1 justify-content-start" style='background-color: lightblue;font-weight: 600'>
+        {{$category['name']}}
+    </div>
+    @foreach($months as $key => $month)
+    <div class="tb col justify-content-end">
+        <a href="{{route('invoice.index', [
+                                                            'category' => $category['name'],
+                                                            'status' => 'aprovada',
+                                                            'type' => 'receita',
+                                                            'date_start' => date("$year-$key-01"),
+                                                            'date_end' =>  date("$year-$key-t"),
+                                                             ])}}">
+
+            {{formatCurrency(floatval($category['monthlys'][$month]))}}
+        </a>
+    </div>
+    @endforeach
+    <div class="tb col justify-content-end" style='background-color: lightblue;font-weight: 600'>
+        {{formatCurrency(floatval($category['year']))}}
+    </div>
+</div>
+@endforeach
+
 
 
 <div class="row mt-3">

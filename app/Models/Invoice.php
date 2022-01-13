@@ -280,9 +280,9 @@ class Invoice extends Model {
                     $installment = $invoice->proposal->installment;
                     foreach ($invoice->proposal->productProposals as $productProposal) {
                         if ($productProposal->product->category == $category) {
-                            $value = $productProposal->subtotalPrice;
-//                            echo "// $productProposal->subtotalPrice   -  $value <br>";
-                            $sumValue += $value;
+                            $value = $productProposal->subtotalPrice / $installment;
+                            echo "// $invoice->id - $invoice->pay_day -- $productProposal->subtotalPrice   -  $value <br>";
+                            $sumValue += round($value, 2);
                             $monthlys[$month] = $sumValue;
                         }
                     }

@@ -43,7 +43,7 @@
 
 
 @section('fieldsId')
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         CONTATO
     </div>
@@ -54,7 +54,7 @@
         OPORTUNIDADE
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
 
     @if(isset($task->contact->name))
     <a href='{{route('contact.show', ['contact' => $task->contact_id])}}'>
@@ -94,7 +94,7 @@
     @endif
 </div>
 
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         DEPARTAMENTO
     </div>
@@ -111,7 +111,7 @@
         META
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($task->department))
         {{$task->department}}

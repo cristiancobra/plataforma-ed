@@ -70,7 +70,7 @@ $counterMonth = 1;
 
 <div class="row mt-1">
     <div class="tb-header col-1 justify-content-start"  style='background-color: #4863A0;font-weight: 600'>
-        RECEITAS
+        VENDAS
     </div>
 
     @while($counterMonth <= 12)

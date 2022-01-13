@@ -14,7 +14,7 @@
 <div class='row'>
 
     <!--     começo bloco de MINHA EMPRESA-->
-    <div class='col-2' style='
+    <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
          background-color:{{$complementaryColor}};
@@ -66,7 +66,7 @@
 
     
     <!--     começo bloco de USUÁRIOS-->
-    <div class='col-2' style='
+    <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
          background-color:{{$complementaryColor}};
@@ -118,7 +118,7 @@
 
     
     <!--     começo bloco de METAS-->
-    <div class='col-2' style='
+    <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
          background-color:{{$complementaryColor}};
@@ -179,7 +179,7 @@
     
 
     <!--     começo bloco de CONCORRENTES-->
-    <div class='col-2' style='
+    <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
          background-color:{{$complementaryColor}};
@@ -231,7 +231,7 @@
 
     
        <!--     começo bloco de RELATÓRIOS-->
-    <div class='col-2' style='
+    <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
          background-color:{{$complementaryColor}};
