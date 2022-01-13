@@ -77,6 +77,7 @@ class Invoices extends Component {
             $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
         } else {
             $invoices = [];
+            $deletedInvoices = [];
             $invoiceInstallmentsTotal = 0;
             $invoicePaymentsTotal = 0;
             $invoicesTotal = 0;

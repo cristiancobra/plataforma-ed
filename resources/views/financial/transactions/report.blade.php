@@ -180,7 +180,7 @@ $counterMonth = 1;
          font-weight: 600;
          border-radius: 0px 8px 8px 0px;
          '>
-        {{formatCurrency($annualExpenses)}}
+        {{formatCurrency($annualTotal)}}
     </div>
 </div>
 

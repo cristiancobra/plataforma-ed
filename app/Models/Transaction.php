@@ -234,6 +234,22 @@ class Transaction extends Model {
         }
         return $monthlys;
     }
+    
+    
+// soma as movimentações  do TIPO recebido somando valor VALUE do ano todo
+    public static function annualTotal($year, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
+
+        $annualTotal = Transaction::where('account_id', auth()->user()->account_id)
+                ->where('type', $type)
+                ->where('trash', '!=', 1)
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-d')])
+                ->sum('value');
+
+        return $annualTotal;
+    }
+    
 
     public static function returnTypes() {
         return [

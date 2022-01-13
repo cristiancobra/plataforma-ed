@@ -220,9 +220,6 @@ class Invoice extends Model {
     public static function annualInvoicesTotal($year, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-12-t"));
-//        $months = returnMonths();
-//        foreach ($months as $key => $month) {
-//            $monthlys[$key] = [];
 
         $annualInvoicesTotal = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
