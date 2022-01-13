@@ -140,7 +140,7 @@ class TaskController extends Controller {
         $dateDue = $dateDue->add(new \DateInterval('P5D')); 
         $dateDue = $dateDue->format('Y-m-d'); 
 
-        return view('operational.tasks.createTask', compact(
+        return view('operational.tasks.create', compact(
                         'users',
                         'name',
                         'department',

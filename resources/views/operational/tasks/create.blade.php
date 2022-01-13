@@ -81,49 +81,47 @@
                     </div>
                 </div>
 
-                @if($department == 'vendas')
-                @else
-                @if(app('request')->input('department') != 'desenvolvimento')
-                <label class="labels" for="" >
-                    OPORTUNIDADE:
-                </label>
-                @else
-                <label class="labels" for="" >
-                    PROJETO:
-                </label>
-                @endif
-                @if(!empty(app('request')->input('opportunity_id')))
-                {{app('request')->input('opportunity_name')}}
-                <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
-                @else
-                <select class = 'fields' name='opportunity_id' style='width:700px'>
-                    <option value=''>
-                        Não possui
-                    </option>
-                    @foreach ($opportunities as $opportunity)
-                    @if(old('opportunity_id') == $opportunity->id)
-                    <option value='{{$opportunity->id}}' selected='selected'>
-                        {{$opportunity->name}}
-                    </option>
-                    @endif
-                    <option value='{{$opportunity->id}}'>
-                        {{$opportunity->date_start}}  //  
 
-                        @if($opportunity->company)
-                        {{$opportunity->company->name}}  --
+                <div class='row'>
+                    <div class='col-3'>
+                        <label class="labels" for="" >
+                            OPORTUNIDADE:
+                        </label>
+                    </div>
+                    <div class='col-9'>
+                        @if(!empty(app('request')->input('opportunity_id')))
+                        {{app('request')->input('opportunity_name')}}
+                        <input type="hidden" name="opportunity_id" value="{{app('request')->input('opportunity_id')}}">
+                        @else
+                        <select class = 'fields' name='opportunity_id' style='width:700px'>
+                            <option value=''>
+                                Não possui
+                            </option>
+                            @foreach ($opportunities as $opportunity)
+                            @if(old('opportunity_id') == $opportunity->id)
+                            <option value='{{$opportunity->id}}' selected='selected'>
+                                {{$opportunity->name}}
+                            </option>
+                            @endif
+                            <option value='{{$opportunity->id}}'>
+                                {{$opportunity->date_start}}  //  
+
+                                @if($opportunity->company)
+                                {{$opportunity->company->name}}  --
+                                @endif
+
+                                @if($opportunity->contact)
+                                {{$opportunity->contact->name}}
+                                @endif
+
+                                --  {{$opportunity->name}}
+                            </option>
+                            @endforeach
+                        </select>
                         @endif
+                    </div>
+                </div>
 
-                        @if($opportunity->contact)
-                        {{$opportunity->contact->name}}
-                        @endif
-
-                        --  {{$opportunity->name}}
-                    </option>
-                    @endforeach
-                </select>
-                @endif
-                <br>
-                @endif
 
                 <div class='row'>
                     <div class='col-3'>
@@ -147,17 +145,16 @@
                         <label class="labels" for="" >
                             EMPRESA: 
                         </label>
+                    </div>
+                    <div class='col-9'>
                         @if(!empty(app('request')->input('company_id')))
                         <input type="hidden" name="company_id" value="{{app('request')->input('company_id')}}">
                         {{app('request')->input('company_name')}}
                         @else
-                    </div>
-                    <div class='col-9'>
                         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
+                        @endif
                     </div>
                 </div>
-                @endif
-                <br>
                 @endif
 
                 <div class='row'>
@@ -230,25 +227,32 @@
             </div>
 
 
-
             <div class='col-6'>
-                <label class="labels" for="" >
-                    DESCRIÇÃO:
-                </label>
-                <br>
+                <div class='row'>
+                    <div class='col'>
+                        <label class="labels" for="" >
+                            DESCRIÇÃO:
+                        </label>
+                    </div>
+                </div>
                 @if ($errors->has('description'))
                 <span class="text-danger">{{$errors->first('description')}}</span>
                 @endif
-                <textarea id="description" name="description" rows="20" cols="90">
+                <div class='row mt-3'>
+                    <div class='col'>
+                        <textarea id="description" name="description" rows="20" cols="90">
   {{old('description')}}
-                </textarea>
-                <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-                <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-                <script>
-CKEDITOR.replace('description');
-                </script>
+                        </textarea>
+                        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+                        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+                        <script>
+    CKEDITOR.replace('description');
+                        </script>
+                    </div>
+                </div>
             </div>
         </div>
+
         <div class='row mt-5'>
             <div class='col'>
                 <p style="text-align: right">
@@ -258,6 +262,4 @@ CKEDITOR.replace('description');
         </div>
     </form>
 </div>
-<br>
-<br>
 @endsection
