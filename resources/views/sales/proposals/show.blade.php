@@ -240,6 +240,11 @@
          color: {{$principalColor}};
          border-left-color: {{$complementaryColor}}
          '>
+                <a class='stretched-link' href='{{route('product.show', [
+                                                                                                        'product' => $productProposal->product,
+                                                                                                        'variation' => $type,
+                                                                                                        ])}}'>
+                </a>
         <div class="row">
             <div class='cel col-4 justify-content-start' style="font-weight: 600">
                 {{$productProposal->product->name}}

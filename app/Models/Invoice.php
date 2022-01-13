@@ -386,6 +386,30 @@ class Invoice extends Model {
         return $annual;
     }
 
+     // soma os pagamento/movimentações  do TIPO recebido gerando um array com valor total de cada mês
+    public static function monthlyInvoicesBalance($year) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$key] = [];
+
+            $transactions = Invoice::where('account_id', auth()->user()->account_id)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
+                    ->get();
+
+            $monthlys[$key] = $transactions->sum('totalPrice');
+
+            // adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
+        }
+        return $monthlys;
+    }
+
+    
 // recebe faturas e seleciona apenas as pagas
     public static function getPaidInvoices($invoices) {
         foreach ($invoices as $invoice) {

@@ -743,7 +743,7 @@ class InvoiceController extends Controller {
         
         
         // SALDO
-        $monthlysTotals = Transaction::monthlyTransactionsBalance($year);
+        $monthlysTotals = Invoice::monthlyInvoicesBalance($year);
         $annualTotal = $annualRevenues + $annualExpenses;
 
 

@@ -35,12 +35,9 @@ class ProposalController extends Controller {
 
         // Cálculo do saldo / balance
         foreach ($proposals as $proposal) {
-//                echo "<br>$proposal->id --> $proposal->status  /  ";
             $proposal->status = Proposal::paymentsStatus($proposal);
-//                echo "<br>$proposal->id --> $proposal->status  /  ";
         }
-//                $proposal = Proposal::find(302);
-//        dd($proposal);
+
 
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -724,7 +721,7 @@ class ProposalController extends Controller {
         }
 
 //   RECEITAS
-        $monthlyRevenues = Proposal::monthlyRevenues($year);
+        $monthlyRevenues = Proposal::monthlysTotal($year, 'receita');
         $annualRevenues = Proposal::annualTotal($year, 'receita');
 
         $categoriesNames = Product::returnCategories();
@@ -732,19 +729,19 @@ class ProposalController extends Controller {
         foreach ($categoriesNames as $category) {
             $categories[$category]['name'] = $category;
             $categories[$category]['monthlys'] = Proposal::monthlysCategoriesTotal($year, $category, 'receita');
-            $categories[$category]['year'] = Invoice::annualCategoriesTotal($year, $category, 'receita');
+            $categories[$category]['year'] = Proposal::annualCategoriesTotal($year, $category, 'receita');
         }
 
         // DESPESAS
-        $monthlyExpenses = Invoice::monthlyInvoicesTotal($year, 'despesa');
-        $annualExpenses = Invoice::annualInvoicesTotal($year, 'despesa');
+        $monthlyExpenses = Proposal::monthlysTotal($year, 'despesa');
+        $annualExpenses = Proposal::annualTotal($year, 'despesa');
 
         $groupsName = Product::returnGroups();
         $groups = [];
         foreach ($groupsName as $group) {
             $groups[$group]['name'] = $group;
-            $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
-            $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
+            $groups[$group]['monthlys'] = Proposal::monthlysGroupsTotal($year, $group, 'despesa');
+            $groups[$group]['year'] = Proposal::annualGroupsTotal($year, $group, 'despesa');
         }
 
         // Gráfico
