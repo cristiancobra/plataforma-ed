@@ -50,120 +50,106 @@
     @endsection
 
 
-    @section('fieldsId')
-    <div class='col-lg-2 col-xs-6' style='text-align: center'>
-        <div class='show-label'>
-            CONTATO
-        </div>
-        <div class='show-label'>
-            EMPRESA:
-        </div>
-        <div class='show-label'>
-            OPORTUNIDADE 
-        </div>
-    </div>
-    <div class='col-lg-4 col-xs-6' style='text-align: center'>
-        <div class='show-field-end'>
-            <select name="contact_id"  style='width:100%'>
-                @if(!isset($task->contact->name))
-                <option  class="fields" value="">
-                    contato excluído
-                </option>
-                @else
-                <option  class="fields" value="{{$task->contact_id}}">
-                    {{$task->contact->name}}
-                </option>
-                @endif
-                @foreach ($contacts as $contact)
-                <option  class="fields" value="{{$contact->id}}">
-                    {{$contact->name}}
-                </option>
-                @endforeach
-            </select>
-        </div>
-        <div class='show-field-end'>
-            @if($task->company_id)
-            {{editDoubleSelectIdName('company_id', '', $companies, $task->company->name, 'Não possui')}}
-            @else
-            {{editDoubleSelectIdName('company_id', '', $companies, null, 'Não possui')}}
-            @endif
-        </div>
-        <div class='show-field-end'>
-            {{createSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui', $task->opportunity)}}
-        </div>
-    </div>
-    <div class='col-lg-2 col-xs-6' style='text-align: center'>
-        <div class='show-label'>
-            RESPONSÁVEL
-        </div>
-        <div class='show-label'>
-            DEPARTAMENTO
-        </div>
-        <div class='show-label'>
-            PROJETO
-        </div>
-        <div class='show-label'>
-            ETAPA
-        </div>
-        <div class='show-label'>
-            PONTOS
-        </div>
-    </div>
-    <div class='col-lg-4 col-xs-6' style='text-align: center'>
-        <div class='show-field-end'>
-            <select name="user_id">
-                @if(!isset($task->user->contact->name))
-                <option  class="fields" value="">
-                    contato excluído
-                </option>
-                @else
-                <option  class="fields" value="{{$task->user->id}}">
-                    {{$task->user->contact->name}}
-                </option>
-                @foreach ($users as $user)
-                <option  class="fields" value="{{$user->id}}">
-                    {{$user->contact->name}}
-                </option>
-                @endforeach
-                @endif
-            </select>
-        </div>
-        <div class='show-field-end'>
-            {{createSimpleSelect('department', 'fields', $departments, $task->department)}}
-        </div>
-        <div class='show-field-end'>
-            @if($projects)
-            <select id='project_id' class = 'fields' name='project_id' style='width:100%'>
-                @if($task->project)
-                <option value='{{$task->project_id}}'>
-                    {{$task->project->name}}
-                </option>
-                @endif
-                <option value=''>
-                    Não possui
-                </option>
-                @foreach ($projects as $project)
-                <option value='{{$project->id}}'>
-                    {{$project->name}}
-                </option>
-                @endforeach
-            </select>
-            @else
-            não existe nenhum projeto
-            @endif
-        </div>
-        <div class='show-field-end'>
-            <select id='stage_id' name='stage_id' class = 'fields' style='width:100%'>
-                <option value=''>Não possui</option>
-
-            </select>
-        </div>
-        <div class='show-field-end'>
-            <input type='number' name='points' value='{{$task->points}}' style="text-align: right;width: 100px">
-        </div>
-    </div>
+    @section('label1', 'CONTATO')
+    @section('content1')
+    <select name="contact_id"  style='width:100%'>
+        @if(!isset($task->contact->name))
+        <option  class="fields" value="">
+            contato excluído
+        </option>
+        @else
+        <option  class="fields" value="{{$task->contact_id}}">
+            {{$task->contact->name}}
+        </option>
+        @endif
+        @foreach ($contacts as $contact)
+        <option  class="fields" value="{{$contact->id}}">
+            {{$contact->name}}
+        </option>
+        @endforeach
+    </select>
     @endsection
 
+
+    @section('label2', 'EMPRESA')
+    @section('content2')
+    @if($task->company_id)
+    {{editDoubleSelectIdName('company_id', '', $companies, $task->company->name, 'Não possui')}}
+    @else
+    {{editDoubleSelectIdName('company_id', '', $companies, null, 'Não possui')}}
+    @endif
+    @endsection
+
+
+    @section('label3', 'OPORTUNIDADE')
+    @section('content3')
+    {{createSelectIdName('opportunity_id', 'fields', $opportunities, 'Não possui', $task->opportunity)}}
+    @endsection
+
+
+    @section('label4', 'RESPONSÁVEL')
+    @section('content4')
+    <select name="user_id">
+        @if(!isset($task->user->contact->name))
+        <option  class="fields" value="">
+            contato excluído
+        </option>
+        @else
+        <option  class="fields" value="{{$task->user->id}}">
+            {{$task->user->contact->name}}
+        </option>
+        @foreach ($users as $user)
+        <option  class="fields" value="{{$user->id}}">
+            {{$user->contact->name}}
+        </option>
+        @endforeach
+        @endif
+    </select>
+    @endsection
+
+
+    @section('label4', 'DEPARTAMENTO')
+    @section('content3')
+    {{createSimpleSelect('department', 'fields', $departments, $task->department)}}
+    @endsection
+
+
+    @section('label5', 'PROJETO')
+    @section('content5')
+    @if($projects)
+    <select id='project_id' class = 'fields' name='project_id' style='width:100%'>
+        @if($task->project)
+        <option value='{{$task->project_id}}'>
+            {{$task->project->name}}
+        </option>
+        @endif
+        <option value=''>
+            Não possui
+        </option>
+        @foreach ($projects as $project)
+        <option value='{{$project->id}}'>
+            {{$project->name}}
+        </option>
+        @endforeach
+    </select>
+    @else
+    não existe nenhum projeto
+    @endif
+    @endsection
+
+
+    @section('label6', 'ETAPA')
+    @section('content6')
+    <select id='stage_id' name='stage_id' class = 'fields' style='width:100%'>
+        <option value=''>Não possui</option>
+    </select>
+    @endsection
+
+
+    @section('label7', 'PONTOS')
+    @section('content7')
+    <input type='number' name='points' value='{{$task->points}}' style="text-align: right;width: 100px">
+    @endsection
 
 
 
@@ -222,7 +208,7 @@
     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
     <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
     <script>
-CKEDITOR.replace('description');
+    CKEDITOR.replace('description');
     </script>
     @endsection
 
@@ -259,15 +245,15 @@ CKEDITOR.replace('description');
     @push('scripts')
     <script src='{{url(mix('js/scripts.js'))}}'></script>
     @endpush
-    
-    
+
+
     @section('footer-scripts')
     <script>
-       loadProjectStagesJson('project_id', 'stage_id', '/projetos/jsonStages', '{{$task->stage_id}}');
+            loadProjectStagesJson('project_id', 'stage_id', '/projetos/jsonStages', '{{$task->stage_id}}');
     </script>
     @endsection
-    
-    
+
+
     <!--    
         [11:48, 23/11/2021] Giordano: tem dois select na view, ele vai ficar vendo o valor de um pra mudar as opções do outro
     [11:48, 23/11/2021] Giordano: as opções do outro tão num json que vc passa o valor do primeiro select
