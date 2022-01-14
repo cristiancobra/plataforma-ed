@@ -708,7 +708,6 @@ class ProposalController extends Controller {
         return $pdf->stream("Proposta " . $proposal->account->name . ".pdf");
     }
 
-    
 //    relatórios anuais
     public function report(Request $request) {
         $months = returnMonths();
@@ -744,6 +743,21 @@ class ProposalController extends Controller {
             $groups[$group]['year'] = Proposal::annualGroupsTotal($year, $group, 'despesa');
         }
 
+        //   PRODUTOS
+        $products = Product::where('account_id', auth()->user()->account_id)
+                ->get();
+
+//        $products = [];
+        foreach ($products as $product) {
+//            $products[$product]['name'] = $product->name;
+            $product['monthlys'] = Proposal::monthlysProductsTotal($year, $product, 'receita');
+            $product->year = Proposal::annualProductsTotal($year, $product, 'receita');
+        }
+
+        $products = $products->sortByDesc(function ($product) {
+            return $product->year;
+        });
+
         // Gráfico
         $chartBackgroundColors = [
             'rgba(255, 206, 86, 0.2)',
@@ -771,13 +785,12 @@ class ProposalController extends Controller {
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',
+                        'products',
                         'chartBackgroundColors',
                         'chartBorderColors',
         ));
     }
 
-    
-    
 // Gera PDF de relatório
     public function createPdfReport() {
         $months = returnMonths();
@@ -925,4 +938,5 @@ class ProposalController extends Controller {
 // download PDF file with download method
         return $pdf->stream('Relatório financeiro.pdf');
     }
+
 }

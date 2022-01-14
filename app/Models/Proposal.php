@@ -162,7 +162,7 @@ class Proposal extends Model {
     }
 
     public static function monthlysTotal($year, $type) {
-                $monthStart = new DateTime(date("$year-01-01"));
+        $monthStart = new DateTime(date("$year-01-01"));
         $monthEnd = new DateTime(date("$year-01-t"));
         $months = returnMonths();
 
@@ -171,15 +171,13 @@ class Proposal extends Model {
                     ->where('status', 'aprovada')
                     ->where('trash', '!=', 1)
                     ->where('type', $type)
-                    ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->sum('totalPrice');
 //                    ->get();
-            
 //            if($key == 2) {
 //                
 //        dd($months[$key]);
 //            }
-            
 // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
@@ -253,8 +251,6 @@ class Proposal extends Model {
         return $months;
     }
 
-    
-    
     // retorna o STATUS / SITUAÇÃO da fatura 
     public static function returnStatus() {
 
@@ -291,8 +287,7 @@ class Proposal extends Model {
         }
         return $annual;
     }
-    
-    
+
 // soma o valor do grupo  para cada mês
     public static function monthlysGroupsTotal($year, $group, $type = null) {
         $monthStart = new DateTime(date("$year-01-01"));
@@ -316,14 +311,14 @@ class Proposal extends Model {
 
             $sumValue = 0;
             foreach ($proposals as $proposal) {
-                    $installment = $proposal->installment;
-                    foreach ($proposal->productProposals as $productProposal) {
-                        if ($productProposal->product->group == $group) {
-                            $value = $productProposal->subtotalPrice;
-                            $sumValue += $value;
-                            $monthlys[$month] = $sumValue;
-                        }
+                $installment = $proposal->installment;
+                foreach ($proposal->productProposals as $productProposal) {
+                    if ($productProposal->product->group == $group) {
+                        $value = $productProposal->subtotalPrice;
+                        $sumValue += $value;
+                        $monthlys[$month] = $sumValue;
                     }
+                }
             }
         }
         return $monthlys;
@@ -345,16 +340,75 @@ class Proposal extends Model {
         $annual = 0;
 
         foreach ($proposals as $proposal) {
-                $installment = $proposal->installment;
-                foreach ($proposal->productProposals as $productProposal) {
-                    if ($productProposal->product->group == $group) {
-                        $annual += $productProposal->subtotalPrice;
-                    }
+            $installment = $proposal->installment;
+            foreach ($proposal->productProposals as $productProposal) {
+                if ($productProposal->product->group == $group) {
+                    $annual += $productProposal->subtotalPrice;
                 }
+            }
         }
         return $annual;
     }
-    
+
+// soma o valor de vendas de cada produto  para cada mês
+    public static function monthlysProductsTotal($year, $product, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-01-t"));
+        $months = returnMonths();
+
+        foreach ($months as $key => $month) {
+            $monthlys[$month] = [];
+
+            $proposals = Proposal::where('account_id', auth()->user()->account_id)
+                    ->where('status', 'aprovada')
+                    ->where('type', $type)
+                    ->where('trash', '!=', 1)
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
+                    ->with('productProposals')
+                    ->get();
+//dd($proposals);
+// adiciona 1 mes com prevenção de erro no ultimo dia do mês
+            $monthStart->add(new DateInterval("P1M"));
+            $monthEnd->add(new DateInterval("P28D"));
+
+            $sumValue = 0;
+            foreach ($proposals as $proposal) {
+                foreach ($proposal->productProposals as $productProposal) {
+                    if ($productProposal->product->id == $product->id) {
+                        $value = $productProposal->subtotalPrice;
+                        $sumValue += $value;
+                        $monthlys[$month] = $sumValue;
+                    }
+                }
+            }
+        }
+        return $monthlys;
+    }
+
+// retorna todas as horas registradas do usuário no ano
+    public static function annualProductsTotal($year, $product, $type = null) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
+
+        $proposals = Proposal::where('account_id', auth()->user()->account_id)
+                ->where('status', 'aprovada')
+                ->where('type', $type)
+                ->where('trash', '!=', 1)
+                ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
+                ->with('productProposals')
+                ->get();
+
+        $annual = 0;
+
+        foreach ($proposals as $proposal) {
+            foreach ($proposal->productProposals as $productProposal) {
+                if ($productProposal->product->id == $product->id) {
+                    $annual += $productProposal->subtotalPrice;
+                }
+            }
+        }
+        return $annual;
+    }
 
     // verifica o saldo da proposta e determina um status
     public static function paymentsStatus($proposal) {
