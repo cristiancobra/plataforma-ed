@@ -743,20 +743,6 @@ class ProposalController extends Controller {
             $groups[$group]['year'] = Proposal::annualGroupsTotal($year, $group, 'despesa');
         }
 
-        //   PRODUTOS
-        $products = Product::where('account_id', auth()->user()->account_id)
-                ->get();
-
-//        $products = [];
-        foreach ($products as $product) {
-//            $products[$product]['name'] = $product->name;
-            $product['monthlys'] = Proposal::monthlysProductsTotal($year, $product, 'receita');
-            $product->year = Proposal::annualProductsTotal($year, $product, 'receita');
-        }
-
-        $products = $products->sortByDesc(function ($product) {
-            return $product->year;
-        });
 
         // Gráfico
         $chartBackgroundColors = [
@@ -785,7 +771,6 @@ class ProposalController extends Controller {
                         'annualRevenues',
                         'monthlyExpenses',
                         'annualExpenses',
-                        'products',
                         'chartBackgroundColors',
                         'chartBorderColors',
         ));

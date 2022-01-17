@@ -545,6 +545,10 @@ Route::get('/produtos/public/{product:name}', 'Sales\\ProductController@public')
 Route::get('/produtos/public/redirect/{product}', 'Sales\\ProductController@redirect')
         ->name('product.redirect');
 
+Route::any('/produtos/relatorio', 'Sales\\ProductController@report')
+        ->name('product.report')
+        ->middleware('roles');
+
 Route::resource('produtos', 'Sales\\ProductController')
         ->names('product')
         ->parameters(['produtos' => 'product'])

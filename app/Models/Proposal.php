@@ -173,15 +173,12 @@ class Proposal extends Model {
                     ->where('type', $type)
                     ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-t')])
                     ->sum('totalPrice');
-//                    ->get();
-//            if($key == 2) {
-//                
-//        dd($months[$key]);
-//            }
+
 // adiciona 1 mes com prevenção de erro no ultimo dia do mês
             $monthStart->add(new DateInterval("P1M"));
             $monthEnd->add(new DateInterval("P28D"));
         }
+//        dd($months);
         return $months;
     }
 
@@ -240,12 +237,14 @@ class Proposal extends Model {
     }
 
     public static function monthlyExpenses($expenses) {
+        $monthStart = new DateTime(date("$year-01-01"));
+        $monthEnd = new DateTime(date("$year-12-t"));
         $months = returnMonths();
         $year = 2021;
 
         foreach ($months as $key => $month) {
             $months[$key] = $expenses
-                    ->whereBetween('pay_day', [date("$year-0$key-01"), date("$year-0$key-t")])
+                    ->whereBetween('pay_day', [$monthStart->format('Y-m-01'), $monthEnd->format('Y-m-d')])
                     ->sum('totalPrice');
         }
         return $months;

@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+;
+
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Image;
 use App\Models\Product;
+use App\Models\Proposal;
 use App\Models\Shop;
 use App\Models\User;
 
@@ -124,10 +127,10 @@ class ProductController extends Controller {
 
             $type = $variation;
 
-        return redirect()->route('product.show', compact(
-                            'product',
-                            'type',
-                            'variation',
+            return redirect()->route('product.show', compact(
+                                    'product',
+                                    'type',
+                                    'variation',
             ));
         }
     }
@@ -144,7 +147,6 @@ class ProductController extends Controller {
         $product->margin = $product->price - $product->taxPrice - $product->cost1 - $product->cost2 - $product->cost3;
 
         $product->stock = Product::countStock($product);
-
 
         return view('sales.products.show', compact(
                         'variation',
@@ -173,8 +175,8 @@ class ProductController extends Controller {
         $categories = Product::returnCategories();
         $groups = Product::returnGroups();
         $status = Product::returnStatus();
-        
-                $product->stock = Product::countStock($product);
+
+        $product->stock = Product::countStock($product);
 
         return view('sales.products.edit', compact(
                         'product',
@@ -208,8 +210,8 @@ class ProductController extends Controller {
         $variation = $request->variation;
 
         return redirect()->route('product.show', compact(
-                        'product',
-                        'variation',
+                                'product',
+                                'variation',
         ));
     }
 
@@ -285,6 +287,44 @@ class ProductController extends Controller {
                         'users',
                         'total',
                         'variation',
+        ));
+    }
+
+//    relatórios anuais
+    public function report(Request $request) {
+        $months = returnMonths();
+        $pastMonths = date('m');
+
+        if (isset($request->year)) {
+            $year = $request->year;
+        } else {
+            $year = date('y');
+        }
+        
+                $monthlyRevenues = Proposal::monthlysTotal($year, 'receita');
+        $annualRevenues = Proposal::annualTotal($year, 'receita');
+
+        $products = Product::where('account_id', auth()->user()->account_id)
+                ->where('type', 'receita')
+                ->get();
+
+//        $products = [];
+        foreach ($products as $product) {
+//            $products[$product]['name'] = $product->name;
+            $product['monthlys'] = Proposal::monthlysProductsTotal($year, $product, 'receita');
+            $product->year = Proposal::annualProductsTotal($year, $product, 'receita');
+        }
+
+        $products = $products->sortByDesc(function ($product) {
+            return $product->year;
+        });
+
+        return view('sales.products.report', compact(
+                        'monthlyRevenues',
+                        'annualRevenues',
+                        'products',
+                        'year',
+                        'months',
         ));
     }
 
