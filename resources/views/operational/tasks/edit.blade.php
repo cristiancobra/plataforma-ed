@@ -7,13 +7,11 @@
 @endsection
 
 
-
 @section('form_start')
 <form action=' {{route('task.update', ['task' => $task])}} ' method='post'>
     @csrf
     @method('put')
     @endsection
-
 
 
     @section('buttons')

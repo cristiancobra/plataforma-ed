@@ -76,6 +76,13 @@ class PlanningController extends Controller {
             $planning = new Planning();
             $planning->fill($request->all());
             $planning->account_id = auth()->user()->account_id;
+            
+            $planning->expenses = removeCurrency($request->expenses_accounting)
+                    + removeCurrency($request->expenses_production)
+                    + removeCurrency($request->expenses_marketing)
+                    + removeCurrency($request->expenses_salary)
+                    + removeCurrency($request->expenses_infrastructure);
+            
             $planning->save();
 
             // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
@@ -191,6 +198,13 @@ class PlanningController extends Controller {
      */
     public function update(Request $request, Planning $planning) {
         $planning->fill($request->all());
+                    
+            $planning->expenses = removeCurrency($request->expenses_accounting)
+                    + removeCurrency($request->expenses_production)
+                    + removeCurrency($request->expenses_marketing)
+                    + removeCurrency($request->expenses_salary)
+                    + removeCurrency($request->expenses_infrastructure);
+            
         $planning->save();
 
         return redirect()->route('planning.show', [$planning]);

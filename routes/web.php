@@ -228,6 +228,14 @@ Route::resource('faturas', 'Financial\\InvoiceController')
         ->middleware('roles');
 
 // planejamento financeiro
+Route::put('/planejamentos/apagar/{planning}', 'Administrative\\PlanningController@sendToTrash')
+        ->name('planning.trash')
+        ->middleware('roles');
+
+Route::put('/planejamentos/restaurar/{planning}', 'Administrative\\PlanningController@restoreFromTrash')
+        ->name('planning.restore')
+        ->middleware('roles');
+
 Route::resource('planejamentos', 'Administrative\\PlanningController')
         ->names('planning')
         ->parameters(['planejamentos' => 'planning'])

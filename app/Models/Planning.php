@@ -12,6 +12,12 @@ class Planning extends Model {
         'account_id',
         'name',
         'expenses',
+        'expenses_accounting',
+        'expenses_production',
+        'expenses_marketing',
+        'expenses_salary',
+        'expenses_prolabore',
+        'expenses_infrastructure',
         'months',
         'date_creation',
         'observations',
@@ -34,4 +40,18 @@ class Planning extends Model {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
+    
+    public function sendToTrash(Planning $planning) {
+        $planning->trash = 1;
+        $planning->save();
+
+        return redirect()->back();
+    }
+
+    public function restoreFromTrash(Planning $planning) {
+        $planning->trash = 0;
+        $planning->save();
+
+        return redirect()->back();
+    }
 }

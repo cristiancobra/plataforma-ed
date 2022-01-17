@@ -22,38 +22,171 @@
 <div>
     <form action=" {{route('planning.store')}} " method="post">
         @csrf
-        <label class="labels" for="" >NOME:</label>
+        <label class="labels" for="" >
+            NOME:
+        </label>
         <input type="text" name="name" size="70" value='{{old('name')}}'>
         <br>
-        <label class='labels' for='' >DATA DE CRIAÇÃO:</label>
+        <label class='labels' for='' >
+            DATA DE CRIAÇÃO:
+        </label>
         <input type='date' name='date_creation' size='20' value='{{old('date_creation')}}'>
         @if ($errors->has('date_creation'))
         <span class="text-danger">{{ $errors->first('date_creation') }}</span>
         @endif
         <br>
         <br>
-        <label class="labels" for="" >PREVISÃO EM MESES:</label>
-        <input type="integer" name="months" size="5" min="1" max="24" value='12' style="text-align: right">
-        <br>
-        <br>
-        <label class="labels" for="" >DESPESAS MENSAIS: R$</label>
-        <input type="integer" name="increased_expenses" size="5" value='0' style="text-align: right">
-        <br>
-        <p class="fields" for="" >Previsao de todas as despesas fixas e variáveis (não incluir custos fixos de produtos)</p>
-        <br>
-        <label class="labels" for="" >CRESCIMENTO DA DESPESA:</label>
-        <input type="decimal" name="increased_expenses" size="5" max="24" value='1' style="text-align: right"> %
-        <br>
-        <p class="fields" for="" >Previsao do aumento mensal das depesas em percentual</p>
-        <br>
-        <div>
-            <label class="labels" for="" >PREVISÃO CRESCIMENTO EM %:</label>
-            <input type="decimal" name="growth_rate" size="5" max="24" value='1' style="text-align: right"> %
-            <br>
-            <p class="fields" for="" >Previsão de crescimento das vendas em percentual</p>
-            <br>
-            <label class="labels" for="" >PREVISÃO DE VENDAS MENSAL:</label>
-            <p class="subtitulo-roxo" style="text-align: left;padding-right: 6%">
+        <label class="labels" for="" >
+            PREVISÃO EM MESES:
+        </label>
+        <input type="integer" name="months" size="15" min="1" max="24" value='12' style="text-align: right">
+
+        <div class='row mt-5'>
+            <div class="cel col justify-content-start"  style='
+                 color:white;
+                 background-color: darkred;
+                 font-weight: 600;
+                 border-radius: 8px;
+                 '>
+                <label class="labels" for="" style='
+                       color:white;
+                       '>                    
+                    DESPESAS MENSAIS: R$
+                </label>
+            </div>
+            <div class='row mt-2'>
+                <div class='col'>
+                    <p class="fields" for="" >Previsao de todas as despesas fixas e variáveis (não incluir custos fixos de produtos)</p>
+                </div>
+            </div>
+            <div class='row mt-4'>
+                <div class='col-2 labels'>
+                    PROLABORE
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_prolabore" id="expenses_prolabore" onkeyup="formatCurrencyReal('expenses_prolabore')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    SALÁRIO
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_salary" id="expenses_salary" onkeyup="formatCurrencyReal('expenses_salary')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    MARKETING
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_marketing"  id="expenses_marketing" onkeyup="formatCurrencyReal('expenses_marketing')"size="15" value='0' style="text-align: right">
+                </div>
+            </div>
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    PRODUÇÃO
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_production" id="expenses_production" onkeyup="formatCurrencyReal('expenses_production')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    CONTABILIDADE
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_accounting" id="expenses_accounting" onkeyup="formatCurrencyReal('expenses_accounting')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    JURÍDICO
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_legal" id="expenses_legal" onkeyup="formatCurrencyReal('expenses_legal')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    INFRAESTRUTURA
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_infrastructure" id="expenses_infrastructure" onkeyup="formatCurrencyReal('expenses_infrastructure')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>           
+
+
+            <div class='container mt-5'  style='
+                 border-style: solid;
+                 border-width: 1px;
+                 border-color: darkred;
+                 border-radius: 8px;
+                 '>
+                <div class='row mt-0 pt-3 pb-3'>
+                    <div class="col-3 justify-content-start"  style='
+                         font-weight: 600;
+                         border-radius: 8px;
+                         '>
+                        <label class="labels" for="" style='
+                               color:darkred;
+                               '>      
+                            CRESCIMENTO DA DESPESA:
+                        </label>
+                    </div>
+                    <div class='col-1 justify-content-start'>
+                        <input type="number" name="increased_expenses" size="3" max="24" value='1' style="text-align: right">
+                    </div>
+                </div>
+                <div class='row mt-0'>
+                    <div class='col'>
+                        <p class="fields" for="" style='
+                           color:darkred;
+                           '>
+                            Previsao do aumento mensal das depesas em percentual
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class='container mt-5 mb-5'  style='
+                 border-style: solid;
+                 border-width: 1px;
+                 border-color: #4863A0;
+                 border-radius: 8px;
+                 '>
+                <div class='row mt-0 pt-3 pb-3'>
+                    <div class="col-3 justify-content-start"  style='
+                         font-weight: 600;
+                         border-radius: 8px;
+                         '>
+                        <label class="labels" for="" style='
+                               color:#4863A0;
+                               '>      
+                            CRESCIMENTO DAS VENDAS %:
+                        </label>
+                    </div>
+                    <div class='col-1 justify-content-start'>
+                        <input type="number" name="growth_rate" size="3" max="24" value='1' style="text-align: right">
+                    </div>
+                </div>
+                <div class='row mt-0'>
+                    <div class='col'>
+                        <p class="fields" for="" style='
+                           color:#4863A0;
+                           '>
+                            Previsão de crescimento das vendas em percentual
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <label class="labels" for="" >
+                PREVISÃO DE VENDAS MENSAL:
+            </label>
+            <p class="labels" style="text-align: left;padding-right: 6%">
                 Indique sua previsão de venda de cada produto para descobrir seu  balanço mensal
             </p>
             <br>

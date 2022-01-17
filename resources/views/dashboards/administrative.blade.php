@@ -54,7 +54,7 @@
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none' href='{{route('account.show', ['account' => auth()->user()->account_id])}}'>
-                    <i class='fas fa-eye ps-2 pe-2' title='ver informaçoes da emrpesa'></i>
+                    <i class='fas fa-eye ps-2 pe-2' title='ver informaçoes da empresa'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('account.dashboard', ['account' => auth()->user()->account_id])}}'>
                     <i class='fas fa-th-large ps-2 pe-2' title='modelo de negócio'></i>
@@ -158,7 +158,7 @@
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none' href='{{route('goal.create')}}'>
-                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova proposta'></i>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova meta'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('goal.index')}}'>
                     <i class='fas fa-list-alt ps-2 pe-2' title='todas as metas'></i>
