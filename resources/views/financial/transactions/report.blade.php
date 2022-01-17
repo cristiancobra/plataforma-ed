@@ -36,6 +36,9 @@
                 <option  class="fields" value="2020">
                     2020
                 </option>
+                <option  class="fields" value="2019">
+                    2019
+                </option>
             </select>
             <input class="text-button secondary" type="submit" value="FILTRAR">
             <a class="text-button secondary" href='{{route('invoice.report')}}'>
