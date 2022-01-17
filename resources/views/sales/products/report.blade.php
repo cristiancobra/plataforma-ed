@@ -74,7 +74,7 @@ $counterMonth = 1;
              overflow: hidden;
          '>
 <div class="row m-0">
-    <div class="cel col-1 m-0 pt-1 pb-1 justify-content-start"  style='
+    <div class="cel col-2 m-0 pt-1 pb-1 justify-content-start"  style='
          background-color: #4863A0;
          color:white;
          font-weight: 600;
@@ -88,10 +88,11 @@ $counterMonth = 1;
          border-style: solid;
          border-width: 1px;
          border-color: darkblue;
+         color: darkblue;
          font-weight: 600;
          font-size: 15px
          '>
-        <a href='{{route('proposal.index', [
+        <a style='color: darkblue' href='{{route('proposal.index', [
                                                                     
                                                                       'status' => 'aprovada',
                                                                       'type' => 'receita',
@@ -126,7 +127,7 @@ $counterMonth = 1;
 
 @foreach($products as $product)
 <div class="row m-0">
-    <div class="cel col-1 justify-content-start" style='
+    <div class="cel col-2 justify-content-start" style='
          background-color: lightblue;
          font-weight: 600;
          border-style: solid;
@@ -141,8 +142,8 @@ $counterMonth = 1;
             <div class='cel col justify-content-end' style='
          border-style: solid;
          border-width: 1px;
-         border-color: blue;
-         background-color: lightblue;
+         border-color: gray;
+         background-color: #e8f4f8;
          font-weight: 600;
          font-size: 15px
          '>
@@ -151,7 +152,6 @@ $counterMonth = 1;
          border-style: solid;
          border-width: 1px;
          border-color: lightgray;
-         font-weight: 600;
          font-size: 15px
          '>
             @endif

@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','VENDAS')
+@section('title','VENDAS e DESPESAS')
 
 @section('image-top')
 {{ asset('images/proposal.png') }} 
@@ -71,7 +71,7 @@ $counterArray = 1;
 $counterMonth = 1;
 @endphp
 
-<div class="container m-0 mt-4 mb-5 p-0" style='
+<div class="container m-0 mt-4 p-0" style='
          border-style: solid;
          border-width: 1px;
          border-color: darkblue;
@@ -97,7 +97,7 @@ $counterMonth = 1;
          font-weight: 600;
          font-size: 15px
          '>
-                <a style='color: darkblue'  href='{{route('proposal.index', [
+        <a href='{{route('proposal.index', [
                                                                     
                                                                       'status' => 'aprovada',
                                                                       'type' => 'receita',
@@ -146,6 +146,7 @@ $counterMonth = 1;
          border-style: solid;
          border-width: 1px;
          border-color: lightgray;
+         font-weight: 600;
          font-size: 15px
          '>
         <a style="font-size: 13px" ref="{{route('proposal.index', [
@@ -172,6 +173,117 @@ $counterMonth = 1;
 </div>
 @endforeach
 </div>
+
+
+<!--CONTAINER DE DESPESA-->
+<div class="container m-0 mt-5 p-0" style='
+         border-style: solid;
+         border-width: 1px;
+         border-color: darkred;
+         border-radius: 8px;
+             overflow: hidden;
+         '>
+<div class="row m-0">
+    <div class="cel col m-0 pt-1 pb-1 justify-content-start"  style='
+         background-color: red;
+         color:white;
+         font-weight: 600;
+         '>
+        DESPESAS
+    </div>
+    @php
+    $counterArray = 1;
+    $counterMonth = 1;
+    @endphp
+
+    @while ($counterMonth <= 12)
+            <div class='cel col justify-content-end' style='
+         background-color: #FDDBDD;
+         border-style: solid;
+         border-width: 1px;
+         border-color: red;
+         font-weight: 600;
+         font-size: 15px
+         '>
+        <a href='{{route('proposal.index', [
+                                                                    
+                                                                      'status' => 'aprovada',
+                                                                      'type' => 'despesa',
+                                                                      'date_start' => date("$year-$counterMonth-01"),
+                                                                      'date_end' =>  date("$year-$counterMonth-t"),
+                                                                     ])}}'>
+            {{formatCurrency($monthlyExpenses[$counterArray])}}
+        </a>
+    </div>
+    @php
+    $counterMonth++;
+    $counterArray++;
+    @endphp
+    @endwhile
+    
+    <div class="cel col pt-1 pb-1 justify-content-end"  style='
+         background-color: red;
+         color:white;
+         font-size: 15px;
+         font-weight: 600;
+         '>
+        {{formatCurrency($annualExpenses)}}
+    </div>
+</div>
+
+
+@php
+$counterArray = 1;
+$counterMonth = 1;
+@endphp
+
+@foreach($groups as $group)
+<div class="row m-0">
+    <div class="cel col justify-content-start" style='
+         background-color: #FDDBDD;
+         font-weight: 600;
+         border-style: solid;
+         border-width: 1px;
+         border-color: gray;
+                  font-size: 10px
+         '>
+        {{$group['name']}}
+    </div>
+    @foreach($months as $key => $month)
+        <div class='cel col justify-content-end' style='
+         border-style: solid;
+         border-width: 1px;
+         border-color: lightgray;
+         font-weight: 600;
+         font-size: 15px
+         '>
+        <a href="{{route('proposal.index', [
+                                                              'group' => $group['name'],
+                                                              'type' => 'despesa',
+                                                              'status' => 'aprovada',
+                                                              'date_start' => date("$year-$key-01"),
+                                                              'date_end' =>  date("$year-$key-t"),
+                                                             ])}}">
+
+            {{formatCurrency(floatval($group['monthlys'][$month]))}}
+        </a>
+    </div>
+    @endforeach
+        <div class="cel col pt-1 pb-1 justify-content-end"  style='
+         background-color: #FDDBDD;
+         font-size: 15px;
+         font-weight: 600;
+                  border-style: solid;
+         border-width: 1px;
+         border-color: lightgray;
+         '>
+        {{formatCurrency(floatval($group['year']))}}
+    </div>
+</div>
+@endforeach
+</div>
+
+
 
 
 @endsection

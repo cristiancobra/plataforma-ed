@@ -335,7 +335,7 @@
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none' href='{{route('proposal.report')}}'>
-                    <i class='fas fa-shopping-basket ps-2 pe-2' title='totais de vendas e despesas'></i>
+                    <i class='fas fa-shopping-basket ps-2 pe-2' title='totais de vendas'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('product.report')}}'>
                     <i class='fas fa-trophy ps-2 pe-2' title='vendas por produto'></i>
