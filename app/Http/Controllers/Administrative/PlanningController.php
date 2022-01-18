@@ -245,5 +245,20 @@ class PlanningController extends Controller {
         $planning->delete();
         return redirect()->action('Administrative\\PlanningController@index');
     }
+    
+        
+    public function sendToTrash(Planning $planning) {
+        $planning->trash = 1;
+        $planning->save();
+
+        return redirect()->back();
+    }
+
+    public function restoreFromTrash(Planning $planning) {
+        $planning->trash = 0;
+        $planning->save();
+
+        return redirect()->back();
+    }
 
 }

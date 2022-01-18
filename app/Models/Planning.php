@@ -41,19 +41,4 @@ class Planning extends Model {
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
-
-    
-    public function sendToTrash(Planning $planning) {
-        $planning->trash = 1;
-        $planning->save();
-
-        return redirect()->back();
-    }
-
-    public function restoreFromTrash(Planning $planning) {
-        $planning->trash = 0;
-        $planning->save();
-
-        return redirect()->back();
-    }
 }
