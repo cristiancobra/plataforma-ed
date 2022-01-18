@@ -115,6 +115,14 @@
                     <input type="integer" name="expenses_infrastructure" id="expenses_infrastructure" onkeyup="formatCurrencyReal('expenses_infrastructure')" size="15" value='0' style="text-align: right">
                 </div>
             </div>           
+            <div class='row mt-1'>
+                <div class='col-2 labels'>
+                    CAPITAL DE GIRO
+                </div>
+                <div class='col-2 justify-content-start'>
+                    <input type="integer" name="expenses_working_capital" id="expenses_working_capital" onkeyup="formatCurrencyReal('expenses_working_capital')" size="15" value='0' style="text-align: right">
+                </div>
+            </div>           
 
 
             <div class='container mt-5'  style='

@@ -18,6 +18,7 @@ class Planning extends Model {
         'expenses_salary',
         'expenses_prolabore',
         'expenses_infrastructure',
+        'expenses_working_capital',
         'months',
         'date_creation',
         'observations',

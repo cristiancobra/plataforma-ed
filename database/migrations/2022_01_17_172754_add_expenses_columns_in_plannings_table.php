@@ -32,7 +32,7 @@ class AddExpensesColumnsInPlanningsTable extends Migration
     public function down()
     {
         Schema::table('plannings', function (Blueprint $table) {
-                        $table->dropColumn('expenses_accounting');
+            $table->dropColumn('expenses_accounting');
             $table->dropColumn('expenses_production');
             $table->dropColumn('expenses_marketing');
             $table->dropColumn('expenses_salary');

@@ -98,6 +98,15 @@
     <div class='col-2 d-flex justify-content-end'>
         {{formatCurrencyReal($planning->expenses_infrastructure)}}
     </div>
+    </div>
+<div class='row mt-1'>
+    <div class='col-2 labels'>
+        CAPITAL DE GIRO
+    </div>
+    <div class='col-2 d-flex justify-content-end'>
+        {{formatCurrencyReal($planning->expenses_working_capital)}}
+    </div>
+    </div>
 
 
     <div class='row mt-5 mb-0'>

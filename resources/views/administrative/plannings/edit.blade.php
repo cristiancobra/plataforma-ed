@@ -96,67 +96,75 @@ CKEDITOR.replace('observations');
                 </label>
             </div>
         </div>
-         <div class='row mt-2'>
-                <div class='col'>
-                    <p class="fields" for="" >Previsao de todas as despesas fixas e variáveis (não incluir custos fixos de produtos)</p>
-                </div>
+        <div class='row mt-2'>
+            <div class='col'>
+                <p class="fields" for="" >Previsao de todas as despesas fixas e variáveis (não incluir custos fixos de produtos)</p>
             </div>
-            <div class='row mt-4'>
-                <div class='col-2 labels'>
-                    PROLABORE
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_prolabore" id="expenses_prolabore" onkeyup="formatCurrencyReal('expenses_prolabore')" size="15" value='{{formatCurrency($planning->expenses_prolabore)}}' style="text-align: right">
-                </div>
+        </div>
+        <div class='row mt-4'>
+            <div class='col-2 labels'>
+                PROLABORE
             </div>
-            <div class='row mt-1'>
-                <div class='col-2 labels'>
-                    SALÁRIO
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_salary" id="expenses_salary" onkeyup="formatCurrencyReal('expenses_salary')" size="15" value='{{formatCurrency($planning->expenses_salary)}}' style="text-align: right">
-                </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_prolabore" id="expenses_prolabore" onkeyup="formatCurrencyReal('expenses_prolabore')" size="15" value='{{formatCurrency($planning->expenses_prolabore)}}' style="text-align: right">
             </div>
-            <div class='row mt-1'>
-                <div class='col-2 labels'>
-                    MARKETING
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_marketing"  id="expenses_marketing" onkeyup="formatCurrencyReal('expenses_marketing')"size="15" value='{{formatCurrency($planning->expenses_marketing)}}' style="text-align: right">
-                </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                SALÁRIO
             </div>
-            <div class='row mt-1'>
-                <div class='col-2 labels'>
-                    PRODUÇÃO
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_production" id="expenses_production" onkeyup="formatCurrencyReal('expenses_production')" size="15" value='{{formatCurrency($planning->expenses_production)}}' style="text-align: right">
-                </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_salary" id="expenses_salary" onkeyup="formatCurrencyReal('expenses_salary')" size="15" value='{{formatCurrency($planning->expenses_salary)}}' style="text-align: right">
             </div>
-            <div class='row mt-1'>
-                <div class='col-2 labels'>
-                    CONTABILIDADE
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_accounting" id="expenses_accounting" onkeyup="formatCurrencyReal('expenses_accounting')" size="15" value='{{formatCurrency($planning->expenses_accounting)}}' style="text-align: right">
-                </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                MARKETING
             </div>
-            <div class='row mt-1'>
-                <div class='col-2 labels'>
-                    JURÍDICO
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_legal" id="expenses_legal" onkeyup="formatCurrencyReal('expenses_legal')" size="15" value='{{formatCurrency($planning->expenses_legal)}}' style="text-align: right">
-                </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_marketing"  id="expenses_marketing" onkeyup="formatCurrencyReal('expenses_marketing')"size="15" value='{{formatCurrency($planning->expenses_marketing)}}' style="text-align: right">
             </div>
-            <div class='row mt-1'>
-                <div class='col-2 labels'>
-                    INFRAESTRUTURA
-                </div>
-                <div class='col-2 justify-content-start'>
-                    <input type="integer" name="expenses_infrastructure" id="expenses_infrastructure" onkeyup="formatCurrencyReal('expenses_infrastructure')" size="15" value='{{formatCurrency($planning->expenses_infrastructure)}}' style="text-align: right">
-                </div>
-                </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                PRODUÇÃO
+            </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_production" id="expenses_production" onkeyup="formatCurrencyReal('expenses_production')" size="15" value='{{formatCurrency($planning->expenses_production)}}' style="text-align: right">
+            </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                CONTABILIDADE
+            </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_accounting" id="expenses_accounting" onkeyup="formatCurrencyReal('expenses_accounting')" size="15" value='{{formatCurrency($planning->expenses_accounting)}}' style="text-align: right">
+            </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                JURÍDICO
+            </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_legal" id="expenses_legal" onkeyup="formatCurrencyReal('expenses_legal')" size="15" value='{{formatCurrency($planning->expenses_legal)}}' style="text-align: right">
+            </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                INFRAESTRUTURA
+            </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_infrastructure" id="expenses_infrastructure" onkeyup="formatCurrencyReal('expenses_infrastructure')" size="15" value='{{formatCurrency($planning->expenses_infrastructure)}}' style="text-align: right">
+            </div>
+        </div>
+        <div class='row mt-1'>
+            <div class='col-2 labels'>
+                CAPITAL DE GIRO
+            </div>
+            <div class='col-2 justify-content-start'>
+                <input type="integer" name="expenses_working_capital" id="expenses_working_capital" onkeyup="formatCurrencyReal('expenses_working_capital')" size="15" value='{{formatCurrency($planning->expenses_working_capital)}}' style="text-align: right">
+            </div>
+        </div>
 
         <div class='row mt-3 pt-3 pb-3'>
             <div class="col">
