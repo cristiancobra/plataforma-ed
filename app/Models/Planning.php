@@ -16,6 +16,7 @@ class Planning extends Model {
         'expenses_production',
         'expenses_marketing',
         'expenses_salary',
+        'expenses_legal',
         'expenses_prolabore',
         'expenses_infrastructure',
         'expenses_working_capital',

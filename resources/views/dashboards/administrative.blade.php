@@ -64,7 +64,7 @@
     </div>
     <!--fim do bloco de MINHA EMPRESA-->
 
-    
+
     <!--     começo bloco de USUÁRIOS-->
     <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
@@ -111,12 +111,15 @@
                 <a style='text-decoration:none' href='{{route('user.index')}}'>
                     <i class='fas fa-list-alt ps-2 pe-2' title='todos os usuários'></i>
                 </a>
+                <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
+                    <i class='fas fa-users ps-2 pe-2' title='relatórios de produtividade'></i>
+                </a>
             </div>
         </div>
     </div>
     <!--fim do bloco de USUÁRIOS-->
 
-    
+
     <!--     começo bloco de METAS-->
     <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
@@ -176,7 +179,7 @@
     </div>
     <!--fim do bloco de METAS-->
 
-    
+
 
     <!--     começo bloco de CONCORRENTES-->
     <div class='col' style='
@@ -228,7 +231,7 @@
         </div>
     </div>
     <!--fim do bloco de CONCORRENTES-->
-    
+
 
     <!--fim da LINHA 1 de blocos-->    
 </div>
@@ -237,9 +240,9 @@
 <!--     linha 2 de blocos-->
 <div class='row mt-5'>
 
-    
-    
-       <!--     começo bloco de RELATÓRIOS DE FINANCEIROS-->
+
+
+    <!--     começo bloco de RELATÓRIOS DE FINANCEIROS-->
     <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -285,16 +288,13 @@
                 <a style='text-decoration:none' href='{{route('invoice.report')}}'>
                     <i class='fas fa-chart-area ps-2 pe-2' title='faturamento e previsão de gastos'></i>
                 </a>
-                <a style='text-decoration:none' href='{{route('journey.reportUsers')}}'>
-                    <i class='fas fa-users ps-2 pe-2' title='relatórios de produtividade'></i>
-                </a>
             </div>
         </div>
     </div>
     <!--fim do bloco de RELATÓRIOS DE FINANCEIROS-->
-    
-    
-       <!--     começo bloco de RELATÓRIOS DE VENDAS-->
+
+
+    <!--     começo bloco de RELATÓRIOS DE VENDAS-->
     <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -344,9 +344,9 @@
         </div>
     </div>
     <!--fim do bloco de RELATÓRIOS DE VENDAS-->
- 
-    
-    
+
+
+
     <!--fim da LINHA 2 de blocos-->    
 </div>
 

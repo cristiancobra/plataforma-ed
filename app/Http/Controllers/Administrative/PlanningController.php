@@ -77,11 +77,23 @@ class PlanningController extends Controller {
             $planning->fill($request->all());
             $planning->account_id = auth()->user()->account_id;
             
-            $planning->expenses = removeCurrency($request->expenses_accounting)
-                    + removeCurrency($request->expenses_production)
-                    + removeCurrency($request->expenses_marketing)
-                    + removeCurrency($request->expenses_salary)
-                    + removeCurrency($request->expenses_infrastructure);
+            $planning->expenses_prolabore = removeCurrency($request->expenses_prolabore);
+            $planning->expenses_salary = removeCurrency($request->expenses_salary);
+            $planning->expenses_marketing = removeCurrency($request->expenses_marketing);
+            $planning->expenses_production = removeCurrency($request->expenses_production);
+            $planning->expenses_accounting = removeCurrency($request->expenses_accounting);
+            $planning->expenses_legal = removeCurrency($request->expenses_lega);
+            $planning->expenses_infrastructure = removeCurrency($request->expenses_infrastructure);
+            $planning->expenses_working_capital = removeCurrency($request->expenses_working_capital);
+            
+            $planning->expenses = $planning->expenses_prolabore
+                    + $planning->expenses_salary
+                    + $planning->expenses_marketing
+                    + $planning->expenses_production
+                    + $planning->expenses_accounting
+                    + $planning->expenses_legal
+                    + $planning->expenses_infrastructure
+                    + $planning->expenses_working_capital;
             
             $planning->save();
 
@@ -197,15 +209,28 @@ class PlanningController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Planning $planning) {
-        $planning->fill($request->all());
-                    
-            $planning->expenses = removeCurrency($request->expenses_accounting)
-                    + removeCurrency($request->expenses_production)
-                    + removeCurrency($request->expenses_marketing)
-                    + removeCurrency($request->expenses_salary)
-                    + removeCurrency($request->expenses_infrastructure);
+        $planning->fill($request->all());             
+        
+            $planning->expenses_prolabore = removeCurrency($request->expenses_prolabore);
+            $planning->expenses_salary = removeCurrency($request->expenses_salary);
+            $planning->expenses_marketing = removeCurrency($request->expenses_marketing);
+            $planning->expenses_production = removeCurrency($request->expenses_production);
+            $planning->expenses_accounting = removeCurrency($request->expenses_accounting);
+            $planning->expenses_legal = removeCurrency($request->expenses_lega);
+            $planning->expenses_infrastructure = removeCurrency($request->expenses_infrastructure);
+            $planning->expenses_working_capital = removeCurrency($request->expenses_working_capital);
             
+            $planning->expenses = $planning->expenses_prolabore
+                    + $planning->expenses_salary
+                    + $planning->expenses_marketing
+                    + $planning->expenses_production
+                    + $planning->expenses_accounting
+                    + $planning->expenses_legal
+                    + $planning->expenses_infrastructure
+                    + $planning->expenses_working_capital;
+                          
         $planning->save();
+            
 
         return redirect()->route('planning.show', [$planning]);
     }
