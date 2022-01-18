@@ -162,7 +162,7 @@
             {{$productPlanning->subtotal_amount}}
         </div>
         <div class='tb col-1'>
-            <image src='{{$productPlanning->product->image}}' style='width:50px;height:50px; margin: 5px'></a>
+            <image src='{{asset($productPlanning->product->image->path)}}' style='width:50px;height:50px; margin: 5px'></a>
         </div>
         <div class='tb col-5 justify-content-start'>
             <button class='button-round'>
