@@ -82,7 +82,7 @@ class PlanningController extends Controller {
             $planning->expenses_marketing = removeCurrency($request->expenses_marketing);
             $planning->expenses_production = removeCurrency($request->expenses_production);
             $planning->expenses_accounting = removeCurrency($request->expenses_accounting);
-            $planning->expenses_legal = removeCurrency($request->expenses_lega);
+            $planning->expenses_legal = removeCurrency($request->expenses_legal);
             $planning->expenses_infrastructure = removeCurrency($request->expenses_infrastructure);
             $planning->expenses_working_capital = removeCurrency($request->expenses_working_capital);
             
