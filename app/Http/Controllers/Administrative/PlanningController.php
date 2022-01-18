@@ -22,6 +22,7 @@ class PlanningController extends Controller {
      */
     public function index() {
         $plannings = Planning::where('account_id', auth()->user()->account_id)
+                ->where('trash', '!=', 1)
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
