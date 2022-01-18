@@ -40,6 +40,22 @@
             PREVISÃO EM MESES:
         </label>
         <input type="integer" name="months" size="15" min="1" max="24" value='12' style="text-align: right">
+        
+        
+            <br>
+    @if ($errors->has('observations'))
+    <span class='text-danger'>{{$errors->first('text')}}</span>
+    @endif
+    <textarea id='text' name='observations' rows='20' cols='120'>
+  
+    </textarea>
+    <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+    <script>
+CKEDITOR.replace('observations');
+    </script>
+    
+    
 
         <div class='row mt-5'>
             <div class="cel col justify-content-start"  style='

@@ -182,11 +182,19 @@ class PlanningController extends Controller {
             $months['totalAccumulatedIncome'] = $accumulatedIncome;
             $counter++;
         }
+        
+        $totalValution = $months['totalAccumulatedIncome'];
+        $valuation30 = $totalValution - ($totalValution * 0.3);
+        $valuation40 = $totalValution - ($totalValution * 0.4);
+        $valuation50 = $totalValution - ($totalValution * 0.5);
 
         return view('administrative.plannings.show', compact(
                         'planning',
                         'productsPlannings',
                         'months',
+                        'valuation30',
+                        'valuation40',
+                        'valuation50',
         ));
     }
 
