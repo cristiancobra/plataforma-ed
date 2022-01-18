@@ -171,7 +171,7 @@ CKEDITOR.replace('observations');
                 <label class="labels" for=""  style='color: darkred'>
                     CRESCIMENTO DA DESPESA:
                 </label>
-                <input type="decimal" name="increased_expenses" size="5" max="24" value='{{$planning->increased_expenses}}' style="text-align: right"> %
+                <input type="decimal" name="increased_expenses" size="5" max="1000" step=".01"  value='{{$planning->increased_expenses}}' style="text-align: right"> %
             </div>
         </div>
 
@@ -189,7 +189,7 @@ CKEDITOR.replace('observations');
                 <label class="labels" for=""  style='color: #4863A0'>
                     PREVISÃO CRESCIMENTO:
                 </label>
-                <input type="decimal" name="growth_rate" size="5" max="24"  value='{{$planning->growth_rate}}'  style="text-align: right"> %
+                <input type="decimal" name="growth_rate" size="5" max="1000" step=".01"   value='{{$planning->growth_rate}}'  style="text-align: right"> %
             </div>
         </div>
 

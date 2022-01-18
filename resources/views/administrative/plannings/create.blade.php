@@ -143,7 +143,7 @@
                         </label>
                     </div>
                     <div class='col-1 justify-content-start'>
-                        <input type="number" name="increased_expenses" size="3" max="24" value='1' style="text-align: right">
+                        <input type="number" name="increased_expenses" size="3" max="1000" step=".01" value='1' style="text-align: right">
                     </div>
                 </div>
                 <div class='row mt-0'>
@@ -176,7 +176,7 @@
                         </label>
                     </div>
                     <div class='col-1 justify-content-start'>
-                        <input type="number" name="growth_rate" size="3" max="24" value='1' style="text-align: right">
+                        <input type="number" name="growth_rate" size="3" max="1000" step=".01"  value='1' style="text-align: right">
                     </div>
                 </div>
                 <div class='row mt-0'>
