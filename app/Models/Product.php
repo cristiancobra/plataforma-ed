@@ -91,7 +91,7 @@ class Product extends Model {
             return null;
         } else {
             $message = "Tenho%20interesse%20no%20produto%20$product->name%20";
-            $phone = '55' . $phone;
+            $phone = $phone;
             return "https://api.whatsapp.com/send?phone=$phone&text=$message";
         }
 //            return https://api.whatsapp.com/send?phone=5516981076049&text=Preciso%20de%20ajuda%20com%20a%20minha%20empresa!%20;
