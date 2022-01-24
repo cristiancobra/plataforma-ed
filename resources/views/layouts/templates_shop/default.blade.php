@@ -20,8 +20,8 @@
             @endphp
         </div>
         @endif
-        
-                    @yield('banner')
+
+        @yield('banner')
 
         <div id='white-page' class='row m-2 p-5' style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white'>
 
@@ -45,21 +45,25 @@
                         PRAZO DE ENTREGA
                     </div>
                     <div class='show-label mt-5' style="background-color: {{$oppositeColor}}">
-                    COMPRAR
+                        COMPRAR
                     </div>
                 </div>
                 <div class='col-2 col-xs-6' style='text-align: center'>
                     @yield('fields')
-                       <div class='col mt-5 d-flex justify-content-center'>
-                    <a class='text-button primary' target='_blank' href='{{$whatsappLink}}'>WHATSAPP</a>
-                    <a class='text-button secondary' href='{{route('product.redirect', [
+                    <div class='col mt-5 d-flex justify-content-center'>
+                        @if($whatsappLink != null)
+                        <a class='text-button primary' target='_blank' href='{{$whatsappLink}}'>
+                            WHATSAPP
+                        </a>
+                        @endif
+                        <a class='text-button secondary' href='{{route('product.redirect', [
                                                                                                                                 'product' => 76, 
                                                                                                                                 ])}}'>
-                        COMPRAR
-                    </a>
+                            COMPRAR
+                        </a>
+                    </div>
                 </div>
-                </div>
-            
+
             </div>
 
             <div class='row mt-5'>
