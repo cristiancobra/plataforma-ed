@@ -348,7 +348,10 @@ class ProductController extends Controller {
 
     public function public(Request $request, Product $product) {
         $shop = Shop::find($product->account_id);
-//            dd($shop->banner);
+//            dd($shop);
+            if($shop == null) {
+                return redirect()->back();
+            }
         $variation = $request->input('variation');
         $whatsappLink = Product::whatsappLink($product);
 //            dd($variation);

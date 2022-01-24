@@ -140,8 +140,8 @@
                        background-color: {{$page->principal_color}}
              color: {{$page->opposite_color}};
              font-size: 22px;
-             width:200px;
-             height:200px;
+             width:160px;
+             height:160px;
              margin-bottom: 20px;
              '>
         <p class='text-center' style='color: {{$page->principal_color}};font-size: 22px'>

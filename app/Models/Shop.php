@@ -12,6 +12,7 @@ class Shop extends Model
         'id',
         'account_id',
         'banner_id',
+        'headline',
         'name',
         'template',
         'status',

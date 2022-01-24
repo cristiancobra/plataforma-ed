@@ -402,7 +402,6 @@
     @endif
 
 
-        @if($page->shop == 1)
     <div class='row' style='
          border-style: solid;
          border-width: 1px;
@@ -456,9 +455,6 @@
             </div>
         </div>
     </div>
-        @endif
-
-
 
 
     @if($page->form == 1)

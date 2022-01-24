@@ -142,6 +142,7 @@ class PlanningController extends Controller {
         $totalAmount = 0;
         $totalExpenses = 0;
         $totalRevenues = 0;
+        $totalTax = 0;
 //        $totalMargin = 0;
         $totalIncome = 0;
         $totalAccumulatedIncome = 0;

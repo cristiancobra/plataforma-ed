@@ -24,7 +24,9 @@
      '>
     <div class='col text-center'>
         <p class="mt-5 pt-5" style="color: {{$oppositeColor}};text-shadow: 2px 2px 4px #000000;font-size: 38px">
-            $shop->headline
+            @if($shop->headline)
+            {{$shop->headline}}
+            @endif
         </p>
     </div>
 </div>
@@ -56,24 +58,24 @@
 @endsection
 
 @section('fields')
-    <div class='show-field-end text-end'>
-        {{$product->name}}
-    </div>
-    <div class='show-field-end text-end'>
-        {{formatCurrencyReal($product->price)}}
-    </div>
-    @if($product->initial_stock)
-    <div class='show-field-end text-end'>
-        11
-    </div>
+<div class='show-field-end text-end'>
+    {{$product->name}}
+</div>
+<div class='show-field-end text-end'>
+    {{formatCurrencyReal($product->price)}}
+</div>
+@if($product->initial_stock)
+<div class='show-field-end text-end'>
+    11
+</div>
+@endif
+<div class='show-field-end text-end'>
+    @if($product->due_date)
+    {{$product->due_date}}
+    @else
+    não informado
     @endif
-    <div class='show-field-end text-end'>
-        @if($product->due_date)
-        {{$product->due_date}}
-        @else
-        não informado
-        @endif
-    </div>
+</div>
 @endsection
 
 
