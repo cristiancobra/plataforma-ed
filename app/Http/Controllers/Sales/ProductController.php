@@ -347,8 +347,11 @@ class ProductController extends Controller {
     }
 
     public function public(Request $request, Product $product) {
-            dd($product->account_id);
-        $shop = Shop::find($product->account_id);
+        $shop = Shop::where('account_id', $product->account_id)
+                ->where('status', 'ativada')
+                ->first();
+//            dd($shop);
+            
             if($shop == null) {
                 return redirect()->back();
             }
