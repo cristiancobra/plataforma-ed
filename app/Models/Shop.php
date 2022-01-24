@@ -41,7 +41,7 @@ class Shop extends Model
     
     public static function returnStatus() {
         return [
-            'ativa',
+            'ativada',
             'desativada',
         ];
     }
