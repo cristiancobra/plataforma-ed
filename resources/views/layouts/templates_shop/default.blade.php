@@ -63,7 +63,7 @@
                     <div class="row mb-3">
                         <div class="col"  style='
                              color:{{$principalColor}};
-                             font-size: 40px;
+                             font-size: 36px;
                              '>
                             @yield('name')
                         </div>
@@ -89,7 +89,7 @@
                                     </i>
                                     <p style='
                                        color:white;
-                                       font-size:16px;
+                                       font-size:14px;
                                        padding-top: 6px;
                                        '>
                                     COMPRAR POR WHATSAPP
@@ -110,7 +110,7 @@
                         <div class='col-4 pe-0' style='text-align: center'>
                             <div class='show-label' style='
                                                                             background-color: {{$complementaryColor}};
-                                                                            font-size: 20px;
+                                                                            font-size: 18px;
                                                                             '>
                                 PREÇO
                             </div>
@@ -132,7 +132,7 @@
                             @endif
                         </div>
                         <div class='col-3 ps-0' style='text-align: center'>
-                            <div class='show-field-end text-end' style="font-size: 20px">
+                            <div class='show-field-end text-end' style="font-size: 18px">
                                 @yield('price')
                             </div>
                             <div class='show-field-end text-end'>
