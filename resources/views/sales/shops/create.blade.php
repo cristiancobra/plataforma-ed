@@ -82,7 +82,9 @@ Slogan da minha empresa
 
         <br>
         <br>
-        <label class="labels" for="" >SITUAÇAO</label>
+        <label class="labels" for="" >
+            SITUAÇAO
+        </label>
         {{createSimpleSelect('status', 'fields', $status)}}
         <br>
         <p style="text-align: right">

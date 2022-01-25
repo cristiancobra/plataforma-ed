@@ -347,6 +347,8 @@ class ProductController extends Controller {
     }
 
     public function public(Request $request, Product $product) {
+        $product->stock = Product::countStock($product);
+        
         $shop = Shop::where('account_id', $product->account_id)
                 ->where('status', 'ativada')
                 ->first();
