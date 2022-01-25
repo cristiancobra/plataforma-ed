@@ -76,37 +76,7 @@
                             @yield('description')
                         </div>
                     </div>
-                    <div class="row">
-                        <div class='col-5 d-flex align-items-center' style='text-align: center'>
-                            @if($whatsappLink != null)
-                            <a target='_blank' href='{{$whatsappLink}}'>
-                                <button class='text-button primary d-flex align-items-center w-100 ps-3 pe-3 pt-1 pb-0'>
-                                    <i class="fab fa-whatsapp" style='
-                                       font-size:36px;
-                                       color:white;
-                                       '>
-                                           
-                                    </i>
-                                    <p style='
-                                       color:white;
-                                       font-size:14px;
-                                       padding-top: 6px;
-                                       '>
-                                    COMPRAR POR WHATSAPP
-                                    </p>
-                                </button>
-                            </a>
-                            @endif
-                            <!--                        desativado botao de COMPRAR-->
-                            @if(1 == 2)
-                            <a class='text-button secondary' href='{{route('product.redirect', [
-                                                                                                                                'product' => 76, 
-                                                                                                                                ])}}'>
-                                COMPRAR
-                            </a>
-                            @endif
-                            <!--fim do botao comprar -->
-                        </div>
+                    <div class="row mt-4">
                         <div class='col-4 pe-0' style='text-align: center'>
                             <div class='show-label' style='
                                                                             background-color: {{$complementaryColor}};
@@ -143,6 +113,37 @@
                                 @yield('stock')
                             </div>
                             @endif
+                        </div>
+                                                <div class='col-5 d-flex align-items-center' style='text-align: center'>
+                            @if($whatsappLink != null)
+                            <a target='_blank' href='{{$whatsappLink}}'>
+                                <button class='text-button primary d-flex align-items-center w-100 ps-3 pe-3 pt-1 pb-0'>
+                                    <i class="fab fa-whatsapp" style='
+                                       font-size:36px;
+                                       color:white;
+                                       '>
+                                           
+                                    </i>
+                                    <p style='
+                                       color:white;
+                                       font-size:14px;
+                                       padding-top: 6px;
+                                       padding-left: 4px;
+                                       '>
+                                    COMPRAR POR WHATSAPP
+                                    </p>
+                                </button>
+                            </a>
+                            @endif
+                            <!--                        desativado botao de COMPRAR-->
+                            @if(1 == 2)
+                            <a class='text-button secondary' href='{{route('product.redirect', [
+                                                                                                                                'product' => 76, 
+                                                                                                                                ])}}'>
+                                COMPRAR
+                            </a>
+                            @endif
+                            <!--fim do botao comprar -->
                         </div>
                     </div>
                 </div>
