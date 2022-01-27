@@ -1673,33 +1673,13 @@ justify-content: center;
 /*status*/ 
 
 .canceled{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:middle;
     background-color: #E5E5E5;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
-    padding:5px;
-    width: 100%;
 }
 
 .doing{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:middle;
     background-color: #92C4D4;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
-    padding:5px;
-        width: 100%;
 }
 
 .done{
@@ -1750,17 +1730,8 @@ justify-content: center;
 /*priority*/
 
 .emergency{
-    text-align: center;
-    font-size: 18px;
-    text-shadow: 2px 2px 4px #000000;
     color: white;
-    vertical-align:middle;
     background-color: #392F6D;
-    border-style: solid;
-    border-radius:10px;
-    border-width: 1px; 
-    border-color: white;
-    padding:5px;
 }
 
 .high{

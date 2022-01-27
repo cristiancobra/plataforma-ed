@@ -20,6 +20,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('div-status', require('./components/show/DivStatus.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,38 +30,4 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
-});
-
-/**
- * Script do recaptcha do Google v3
- * @type Element
- */
-
-
-
-let grecaptchaKeyMeta = document.querySelector("meta[name='grecaptcha-key']");
-let grecaptchaKey = grecaptchaKeyMeta.getAttribute("content");
-
-grecaptcha.ready(function() {
-    let forms = document.querySelectorAll('form[data-grecaptcha-action]');
-
-    Array.from(forms).forEach(function (form) {
-        form.onsubmit = (e) => {
-            e.preventDefault();
-
-            let grecaptchaAction = form.getAttribute('data-grecaptcha-action');
-
-            grecaptcha.execute(grecaptchaKey, {action: grecaptchaAction})
-                .then((token) => {
-                    input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'grecaptcha';
-                    input.value = token;
-
-                    form.append(input);
-
-                    form.submit();
-                });
-        }
-    });
 });

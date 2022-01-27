@@ -12,9 +12,9 @@
     <body>
 
     <x-Navmenu.nav-menu/>
-    
+
     <div class="grid">
-    <x-sidebar.sidebar/>
+        <x-sidebar.sidebar/>
 
         <main class='main2'>
             <header class='row pt-5 ps-5 pb-0'>
@@ -40,6 +40,7 @@
                 </div>
                 @endif
 
+
                 <section id='white-page' class='white-page' style="margin-right:200px ">
                     <div class='row mt-4'>
                         <div class='show-name col-8'>
@@ -48,9 +49,11 @@
                         <div class='show-stage col-2'>
                             @yield('priority')
                         </div>
-                        <div class='show-stage col-2'>
-                            @yield('status')
+                        
+                        <div id="app">
+                            <div-status :status="{{json_encode($task->status)}}" />
                         </div>
+
                     </div>
 
 
@@ -89,44 +92,37 @@
 
                 @yield('createdAt')
             </div>
-            </div>
-        </main>
-
-                <aside  id='workflow-container' class='fixed-top ms-auto text-center' style="
-                      margin-top:15%;
-                      border-style: solid;
-                      border-right-style: none;
-                      border-width: 1px;
-                      border-radius: 10px 0px 0px 10px;
-                      border-color: grey;
-                      background-color: #D3D3D3;
-                      width: 190px;
-                      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                      ">
-                    <div class='row pb-0 pt-3'>
-                        <div class='col'>
-                            <p style="font-size:22px">
-                                FLUXO
-                            </p>
-                        </div>
-                    </div>
-                    <div class='row mb-3'>
-                        <div class='col'>
-                            @yield('workflow')
-                        </div>
-                    </div>
-            </aside>
     </div>
+</main>
+
+<aside  id='workflow-container' class='fixed-top ms-auto text-center' style="
+        margin-top:15%;
+        border-style: solid;
+        border-right-style: none;
+        border-width: 1px;
+        border-radius: 10px 0px 0px 10px;
+        border-color: grey;
+        background-color: #D3D3D3;
+        width: 190px;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        ">
+    <div class='row pb-0 pt-3'>
+        <div class='col'>
+            <p style="font-size:22px">
+                FLUXO
+            </p>
+        </div>
+    </div>
+    <div class='row mb-3'>
+        <div class='col'>
+            @yield('workflow')
+        </div>
+    </div>
+</aside>
+</div>
 
 
-    <script>
-        $("#delete-button").click(function () {
-            if (!confirm("Tem certeza que você quer apagar?")) {
-                return false;
-            }
-        });
-    </script>
-    @yield('js-scripts')
+@yield('js-scripts')
 
 </body>
 </html>

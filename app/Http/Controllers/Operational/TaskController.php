@@ -287,7 +287,7 @@ class TaskController extends Controller {
 
         $openJourney = Journey::myOpenJourney();
 
-        return view('operational.tasks.showTask', compact(
+        return view('operational.tasks.show', compact(
                         'today',
                         'task',
                         'totalDuration',
