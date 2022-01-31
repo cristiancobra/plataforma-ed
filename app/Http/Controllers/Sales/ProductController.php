@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+
 ;
 
 use Illuminate\Support\Facades\Validator;
@@ -148,9 +149,14 @@ class ProductController extends Controller {
 
         $product->stock = Product::countStock($product);
 
+        $status = $product->status;
+        $priority = $product->points;
+
         return view('sales.products.show', compact(
                         'variation',
                         'product',
+                        'status',
+                        'priority',
         ));
     }
 
@@ -300,8 +306,8 @@ class ProductController extends Controller {
         } else {
             $year = date('y');
         }
-        
-                $monthlyRevenues = Proposal::monthlysTotal($year, 'receita');
+
+        $monthlyRevenues = Proposal::monthlysTotal($year, 'receita');
         $annualRevenues = Proposal::annualTotal($year, 'receita');
 
         $products = Product::where('account_id', auth()->user()->account_id)
@@ -348,15 +354,15 @@ class ProductController extends Controller {
 
     public function public(Request $request, Product $product) {
         $product->stock = Product::countStock($product);
-        
+
         $shop = Shop::where('account_id', $product->account_id)
                 ->where('status', 'ativada')
                 ->first();
 //            dd($shop);
-            
-            if($shop == null) {
-                return redirect()->back();
-            }
+
+        if ($shop == null) {
+            return redirect()->back();
+        }
         $variation = $request->input('variation');
         $whatsappLink = Product::whatsappLink($product);
 //            dd($variation);

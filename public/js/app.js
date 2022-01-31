@@ -2010,6 +2010,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["status"],
   mounted: function mounted() {
@@ -2019,15 +2023,23 @@ __webpack_require__.r(__webpack_exports__);
     changeStatusColor: function changeStatusColor() {
       switch (this.status) {
         case "fazendo":
-          return "doing";
+          return "doing2";
           break;
 
         case "fazer":
-          return "to-do";
+          return "to-do2";
           break;
 
         case "feito":
-          return "done";
+          return "done2";
+          break;
+
+        case "ativada":
+          return "done2";
+          break;
+
+        case "disponível":
+          return "done2";
           break;
       }
     }
@@ -6434,7 +6446,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.doing {\n  color: white;\n  background-color: #92c4d4;\n}\n.to-do {\n  color: white;\n  background-color: #f2e28c;\n}\n.done {\n  color: white;\n  background-color: #a5d9cc;\n}\n", ""]);
+exports.push([module.i, "\n.doing2 {\n  color: white;\n  background-color: #92c4d4;\n}\n.to-do2 {\n  color: white;\n  background-color: #f2e28c;\n}\n.done2 {\n  color: white;\n  background-color: #a5d9cc;\n}\n", ""]);
 
 // exports
 
@@ -50886,15 +50898,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!****************************************************!*\
   !*** ./resources/js/components/show/DivStatus.vue ***!
   \****************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DivStatus_vue_vue_type_template_id_ffe73488___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DivStatus.vue?vue&type=template&id=ffe73488& */ "./resources/js/components/show/DivStatus.vue?vue&type=template&id=ffe73488&");
 /* harmony import */ var _DivStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DivStatus.vue?vue&type=script&lang=js& */ "./resources/js/components/show/DivStatus.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _DivStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _DivStatus_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _DivStatus_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DivStatus.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/show/DivStatus.vue?vue&type=style&index=0&lang=css&");
+/* empty/unused harmony star reexport *//* harmony import */ var _DivStatus_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./DivStatus.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/show/DivStatus.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -50926,7 +50937,7 @@ component.options.__file = "resources/js/components/show/DivStatus.vue"
 /*!*****************************************************************************!*\
   !*** ./resources/js/components/show/DivStatus.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

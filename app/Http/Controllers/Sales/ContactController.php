@@ -153,7 +153,7 @@ class ContactController extends Controller {
     public function show(Contact $contact) {
         $status = $contact->status;
         $priority= $contact->points;
-//        dd($status);
+
         return view('sales.contacts.show', compact(
             'contact',
             'status',

@@ -1,14 +1,18 @@
 <template>
-  <div id="statusId" :class="changeStatusColor()" style="
-                                     color: white;
-                                     vertical-align:middle;
-                                     border-style: solid;
-                                     border-radius:10px;
-                                     border-width: 1px;
-                                     border-color: white;
-                                     padding:5px;
-                                     text-align:center;
-                                     ">
+  <div
+    id="statusId"
+    :class="changeStatusColor()"
+    style="
+      color: white;
+      vertical-align: middle;
+      border-style: solid;
+      border-radius: 10px;
+      border-width: 1px;
+      border-color: white;
+      padding: 5px;
+      text-align: center;
+    "
+  >
     {{ status }}
   </div>
 </template>
@@ -23,13 +27,19 @@ export default {
     changeStatusColor() {
       switch (this.status) {
         case "fazendo":
-          return "doing";
+          return "doing2";
           break;
         case "fazer":
-          return "to-do";
+          return "to-do2";
           break;
         case "feito":
-          return "done";
+          return "done2";
+          break;
+        case "ativada":
+          return "done2";
+          break;
+        case "disponível":
+          return "done2";
           break;
       }
     },
@@ -38,15 +48,15 @@ export default {
 </script>
 
 <style lang="css">
-.doing {
+.doing2 {
   color: white;
   background-color: #92c4d4;
 }
-.to-do {
+.to-do2 {
   color: white;
   background-color: #f2e28c;
 }
-.done {
+.done2 {
   color: white;
   background-color: #a5d9cc;
 }
