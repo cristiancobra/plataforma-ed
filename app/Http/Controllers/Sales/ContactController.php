@@ -151,10 +151,14 @@ class ContactController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Contact $contact) {
-
-        return view('sales.contacts.show', [
-            'contact' => $contact,
-        ]);
+        $status = $contact->status;
+        $priority= $contact->points;
+//        dd($status);
+        return view('sales.contacts.show', compact(
+            'contact',
+            'status',
+            'priority',
+        ));
     }
 
     /**

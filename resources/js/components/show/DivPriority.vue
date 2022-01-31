@@ -1,5 +1,5 @@
 <template>
-  <div id="statusId" :class="changeStatusColor()" style="
+  <div id="priorityId" :class="changePriorityColor()"  style="
                                      color: white;
                                      vertical-align:middle;
                                      border-style: solid;
@@ -9,27 +9,30 @@
                                      padding:5px;
                                      text-align:center;
                                      ">
-    {{ status }}
+    {{ priority }}
   </div>
 </template>
 
 <script>
 export default {
-  props: ["status"],
+  props: ["priority"],
   mounted() {
-    console.log(this.status);
+    console.log(this.priority);
   },
   methods: {
-    changeStatusColor() {
-      switch (this.status) {
-        case "fazendo":
-          return "doing";
+    changePriorityColor() {
+      switch (this.priority) {
+        case "baixa":
+          return "low2";
           break;
-        case "fazer":
-          return "to-do";
+        case "média":
+          return "medium2";
           break;
-        case "feito":
-          return "done";
+        case "alta":
+          return "high2";
+          break;
+        case "emergência":
+          return "emergency2";
           break;
       }
     },
@@ -38,16 +41,22 @@ export default {
 </script>
 
 <style lang="css">
-.doing {
-  color: white;
-  background-color: #92c4d4;
+.emergency2{
+    color: white;
+    background-color: #392F6D;
 }
-.to-do {
-  color: white;
-  background-color: #f2e28c;
+
+.high2{
+    background-color: #6357A1;
 }
-.done {
-  color: white;
-  background-color: #a5d9cc;
+
+.low2{
+    color: white;
+    background-color: #B9A4D0;
+}
+
+.medium2{
+    color: white;
+    background-color: #9A8ABF;
 }
 </style>

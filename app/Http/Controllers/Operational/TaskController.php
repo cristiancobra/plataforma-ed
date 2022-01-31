@@ -276,7 +276,7 @@ class TaskController extends Controller {
      */
     public function show(task $task) {
         $today = date('Y-m-d');
-//dd($task->project->goal);
+
         $totalDuration = 0;
         foreach ($task->journeys as $journey) {
             $totalDuration = $totalDuration + $journey->duration;
@@ -284,6 +284,9 @@ class TaskController extends Controller {
         if ($task->status == 'fazer' AND $task->journeys()->exists()) {
             $task->status = 'fazendo';
         }
+        
+        $status = $task->status;
+        $priority= $task->priority;
 
         $openJourney = Journey::myOpenJourney();
 
@@ -291,6 +294,8 @@ class TaskController extends Controller {
                         'today',
                         'task',
                         'totalDuration',
+                        'status',
+                        'priority',
                         'openJourney',
         ));
     }

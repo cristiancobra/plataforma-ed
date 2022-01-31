@@ -26,9 +26,8 @@
 
 @section('name', $task->name)
 
-@section('priority')
-{{formatShowPriority($task)}}
-@endsection
+
+@section('priority', $task->priority)
 
 
 @section('status', $task->status)

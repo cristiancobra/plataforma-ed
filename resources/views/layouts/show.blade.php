@@ -42,16 +42,17 @@
 
 
                 <section id='white-page' class='white-page' style="margin-right:200px ">
-                    <div class='row mt-4'>
-                        <div class='show-name col-8'>
-                            @yield('name')
-                        </div>
-                        <div class='show-stage col-2'>
-                            @yield('priority')
-                        </div>
-                        
-                        <div id="app">
-                            <div-status :status="{{json_encode($task->status)}}" />
+                    <div id="app">
+                        <div class='row d-flex mt-4'>
+                            <div class='show-name col-8'>
+                                @yield('name')
+                            </div>
+                            <div class='col-2'>
+                                <div-priority :priority="{{json_encode($priority)}}" />
+                            </div>
+                            <div class='col-2'>
+                                <div-status :status="{{json_encode($status)}}" />
+                            </div>
                         </div>
 
                     </div>

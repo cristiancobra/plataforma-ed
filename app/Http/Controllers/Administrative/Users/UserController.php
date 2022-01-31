@@ -37,6 +37,7 @@ class UserController extends Controller {
         ]);
 
         $total = $users->total();
+        
 
         return view('administrative.users.index', compact(
                         'users',
