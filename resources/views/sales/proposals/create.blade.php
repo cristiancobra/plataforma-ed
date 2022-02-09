@@ -28,7 +28,7 @@
     @endphp
 </div>
 @endif
-<div>
+<div class="container">
     <form action=' {{route('proposal.store')}} ' method='post'>
         @csrf
         <input type='hidden' name='type' value='{{$type}}'>
@@ -154,12 +154,10 @@
         <input type='number'  class='fields' style='text-align: right' name='installment' value='1' max='12'>
         <br>
         <br>
-        @if(isset($proposal->opportunity_id))
-        <label class='labels' for=''>DESCRIÇÃO DA OPORTUNIDADE:</label>
+        <label class='labels' for='' >DETALHAMENTO:</label>
         @if(!empty(app('request')->input('opportunityDescription')))
         <span class='fields'>{!!html_entity_decode(app('request')->input('opportunityDescription'))!!}</span>
         @else
-        <label class='labels' for='' >OBSERVAÇÕES:</label>
         <textarea id='description' name='description' rows='20' cols='90'>
 {{old('description')}}
         </textarea>
@@ -169,21 +167,11 @@
 CKEDITOR.replace('description');
         </script>
         @endif
+
         <br>
-        <br>
-        @endif
-        <label class='labels' for='' >OBSERVAÇÕES:</label>
-        <textarea id='description' name='description' rows='20' cols='90'>
-		{{old('description')}}
-        </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
-        <script>
-CKEDITOR.replace('description');
-        </script>
-        <br>
-        <br>
-        <label class='labels' for='' >PRODUTOS: </label>
+        <label class='labels' for='' >
+            PRODUTOS:
+        </label>
         @if($type == 'receita')
         {{createButtonAdd('product.create', 'variation', 'receita')}}
         @else
@@ -271,40 +259,43 @@ CKEDITOR.replace('description');
         @endphp
         @endforeach
 
+        <div class='row mt-5'>
+            <div class='col-2'>
+                <label class='labels' for='' >
+                    DESCONTO:
+                </label>
+                <span style='margin-left:20px'>
+                    R$
+                </span>
+            </div>
+            <div class='col-2'>
+                <input type='text' name='discount' id='discount' step='any' style='text-align: right' size='6'  onkeyup="formatCurrencyReal('discount')">
+            </div>
+        </div>
 
-        <br>
-        <br>
-        <label class='labels' for='' >DESCONTO:</label><span style='margin-left:20px'>R$</span>
-        <input type='number' name='discount'  step='any' style='text-align: right' size='6' value='{{formatCurrency(0)}}'>
-        <br>
-        <br>
-        <label class='labels' for=''>SITUAÇÃO:</label>
-        @if(!empty(app('request')->input('proposalStatus')))
-        <input type='hidden' name='status' value='{{app('request')->input('proposalStatus')}}'>
-        {{app('request')->input('proposalStatus')}}
-        @else
-        {{createSimpleSelect('status', 'fields', $status)}}
-        @endif
-        <br>
-        <br>
-        <input class='btn btn-secondary' type='submit' value='CRIAR'>
+        <div class='row mt-4'>
+            <div class='col-2'>
+                <label class='labels' for=''>
+                    SITUAÇÃO:
+                </label>
+            </div>
+            <div class='col-2'>
+                @if(!empty(app('request')->input('proposalStatus')))
+                <input type='hidden' name='status' value='{{app('request')->input('proposalStatus')}}'>
+                {{app('request')->input('proposalStatus')}}
+                @else
+                {{createSimpleSelect('status', 'fields', $status)}}
+                @endif
+            </div>
+        </div>
+
+        <div class='row mt-5'>
+            <div class='col'>
+                <button class='btn btn-secondary' type='submit'>
+                    CRIAR
+                </button>
+            </div>
+        </div>
     </form>
 </div>
-<br>
-<br>
 @endsection
-
-<script>
-    // exibir form para adicionar nova imagem
-    $("#slider").change(function () {
-        if (this.checked) {
-            $('#change').hide();
-            $('#new').show();
-        } else {
-            $('#change').show();
-            $('#new').hide();
-        }
-    });
-    // formatar entrada do dinheiro
-    $("[name=price]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-</script>

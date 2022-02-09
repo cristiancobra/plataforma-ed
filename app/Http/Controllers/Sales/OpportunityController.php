@@ -205,7 +205,7 @@ class OpportunityController extends Controller {
 
             foreach ($invoices as $invoice) {
 //                $invoice->color = Invoice::statusColor($invoice);
-                
+
                 if ($invoice->status == 'aprovada') {
                     $invoice->paid = Transaction::where('invoice_id', $invoice->id)
                             ->sum('value');
@@ -234,7 +234,7 @@ class OpportunityController extends Controller {
             $invoicesCount = 0;
             $invoiceFrameColor = 'lightgray';
         }
-                
+
 //        $bankAccounts = BankAccount::where('account_id', auth()->user()->account_id)
 //                ->orderBy('NAME', 'ASC')
 //                ->paginate(20);
@@ -311,6 +311,10 @@ class OpportunityController extends Controller {
 
         $counter = 1;
 
+        $status = $opportunity->status;
+        $priority = $opportunity->stage;
+
+
         return view('sales.opportunities.show', compact(
                         'dateDue',
                         'title',
@@ -344,6 +348,8 @@ class OpportunityController extends Controller {
                         'departments',
                         'priorities',
                         'counter',
+                        'status',
+                        'priority',
         ));
     }
 

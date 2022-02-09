@@ -1956,6 +1956,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ["priority"],
   mounted: function mounted() {
@@ -1978,6 +1982,34 @@ __webpack_require__.r(__webpack_exports__);
 
         case "emergência":
           return "emergency2";
+          break;
+
+        case "prospecção":
+          return "prospecting2";
+          break;
+
+        case "apresentação":
+          return "presentation2";
+          break;
+
+        case "proposta":
+          return "proposal2";
+          break;
+
+        case "contrato":
+          return "contract";
+          break;
+
+        case "cobrança":
+          return "bill2";
+          break;
+
+        case "produção":
+          return "production2";
+          break;
+
+        case "concluída":
+          return "conclude2";
           break;
       }
     }
@@ -2023,21 +2055,18 @@ __webpack_require__.r(__webpack_exports__);
     changeStatusColor: function changeStatusColor() {
       switch (this.status) {
         case "fazendo":
+        case "negociando":
           return "doing2";
           break;
 
         case "fazer":
+        case "orçamento":
           return "to-do2";
           break;
 
         case "feito":
-          return "done2";
-          break;
-
         case "ativada":
-          return "done2";
-          break;
-
+        case "aprovada":
         case "disponível":
           return "done2";
           break;
@@ -6427,7 +6456,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.emergency2{\n    color: white;\n    background-color: #392F6D;\n}\n.high2{\n    background-color: #6357A1;\n}\n.low2{\n    color: white;\n    background-color: #B9A4D0;\n}\n.medium2{\n    color: white;\n    background-color: #9A8ABF;\n}\n", ""]);
+exports.push([module.i, "\n.emergency2 {\n  background-color: #392f6d;\n}\n.high2 {\n  background-color: #6357a1;\n}\n.low2 {\n  background-color: #b9a4d0;\n}\n.medium2 {\n  background-color: #9a8abf;\n}\n.prospecting2{\n    background-color: #8B2485;\n}\n.presentation2{\n    background-color: #957799;\n}\n.proposal2{\n    background-color: #EDB4F4;\n}\n.published2{\n    background-color: #49d194;\n}\n.dealing2{\n    background-color: #EDD500;\n}\n.bill2{\n    background-color: #F7AFB4;\n}\n.contract1{\n    background-color: #92C4D4;\n}\n.production2{\n    background-color: #09FBBE;\n}\n.conclude2{\n    background-color: #20EB48;\n}\n", ""]);
 
 // exports
 
@@ -6446,7 +6475,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.doing2 {\n  color: white;\n  background-color: #92c4d4;\n}\n.to-do2 {\n  color: white;\n  background-color: #f2e28c;\n}\n.done2 {\n  color: white;\n  background-color: #a5d9cc;\n}\n", ""]);
+exports.push([module.i, "\n.doing2 {\n  color: white;\n  background-color: #92c4d4;\n}\n.to-do2 {\n  color: white;\n  background-color: #ecd23d;\n}\n.done2 {\n  color: white;\n  background-color: #a5d9cc;\n}\n", ""]);
 
 // exports
 

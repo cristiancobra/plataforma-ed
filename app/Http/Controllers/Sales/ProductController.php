@@ -150,7 +150,7 @@ class ProductController extends Controller {
         $product->stock = Product::countStock($product);
 
         $status = $product->status;
-        $priority = $product->points;
+        $priority = $product->category;
 
         return view('sales.products.show', compact(
                         'variation',

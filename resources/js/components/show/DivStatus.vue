@@ -27,17 +27,16 @@ export default {
     changeStatusColor() {
       switch (this.status) {
         case "fazendo":
+        case "negociando":
           return "doing2";
           break;
         case "fazer":
+        case "orçamento":
           return "to-do2";
           break;
         case "feito":
-          return "done2";
-          break;
         case "ativada":
-          return "done2";
-          break;
+        case "aprovada":
         case "disponível":
           return "done2";
           break;
@@ -54,7 +53,7 @@ export default {
 }
 .to-do2 {
   color: white;
-  background-color: #f2e28c;
+  background-color: #ecd23d;
 }
 .done2 {
   color: white;

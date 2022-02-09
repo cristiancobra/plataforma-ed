@@ -141,6 +141,7 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
+             dd($request);
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
@@ -210,6 +211,8 @@ class ProposalController extends Controller {
                     ProductProposal::insert($data);
                 }
             }
+            dd($request);
+            dd(str_replace(",", ".", $request->discount));
             $proposal->totalPrice = $totalPrice - str_replace(",", ".", $request->discount);
             $proposal->installment = $request->installment;
             $proposal->update();
@@ -300,6 +303,9 @@ class ProposalController extends Controller {
                 })
                 ->sum('duration');
 
+        $status = $proposal->status;
+        $priority = $proposal->points;
+
         return view('sales.proposals.show', compact(
                         'proposal',
                         'invoices',
@@ -311,6 +317,8 @@ class ProposalController extends Controller {
                         'productProposals',
                         'tasksOperational',
                         'tasksOperationalHours',
+                        'status',
+                        'priority',
         ));
     }
 

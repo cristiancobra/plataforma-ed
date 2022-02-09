@@ -14,16 +14,15 @@
 
 @section('name', $opportunity->name)
 
-@section('priority')
-{{formatShowStage($opportunity)}}
-@endsection
 
-@section('status')
-{{formatShowStatus($opportunity)}}
-@endsection
+@section('status', $priority)
+
+
+@section('status', $status)
+
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         EMPRESA
     </div>
@@ -31,7 +30,7 @@
         CONTATO
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     @if(empty($companyName))
     <div class='show-field-end'>
         Pessoa física
@@ -55,13 +54,15 @@
         Não possui
     </div>
     @endif
+    
 </div>
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     @if(isset($opportunity->user->contact->name))
     <a href='{{route('user.show', ['user' => $opportunity->user])}}'>
         <div class='show-field-end'>

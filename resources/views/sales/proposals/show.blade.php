@@ -27,11 +27,11 @@
 @section('name', 'Sem nome')
 @endif
 
-@section('priority')
-{{formatShowStatus($proposal)}}
-@endsection
 
-@section('status')
+@section('status', $status)
+
+
+@section('status2')
 @if($proposal->totalPrice < 0)
 <div style='
      background-color: #FDDBDD;
@@ -58,24 +58,22 @@
 @endsection
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         EMPRESA
     </div>
     <div class='show-label'>
         CONTATO
     </div>
-    @if(isset($proposal->opportunity))
     <div class='show-label'>
         OPORTUNIDADE
     </div>
-    @endif
 </div>
-<div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($proposal->company))
         <a href='{{route('company.show', ['company' => $proposal->company_id])}}'>
-        {{$proposal->company->name}}
+            {{$proposal->company->name}}
         </a>
         @else
         Pessoa física
@@ -84,21 +82,23 @@
     <div class='show-field-end'>
         @if(isset($proposal->contact->name))
         <a href='{{route('contact.show', ['contact' => $proposal->contact_id])}}'>
-        {{$proposal->contact->name}}
+            {{$proposal->contact->name}}
         </a>
         @else
         Não possui
         @endif
     </div>
-    @if(isset($proposal->opportunity))
     <div class='show-field-end'>
+        @if(isset($proposal->opportunity))
         <a href='{{route('opportunity.show', ['opportunity' => $proposal->opportunity_id])}}'>
             {{$proposal->opportunity->name}}
         </a>
+        @else
+        Não possui
+        @endif
     </div>
-    @endif
 </div>
-<div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
@@ -112,7 +112,7 @@
         PARCELAMENTO
     </div>
 </div>
-<div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if(isset($proposal->user->contact->name))
         {{$proposal->user->contact->name}}
@@ -134,11 +134,11 @@
     </div>
     <div class='show-field-end'>
         <a href="{{route('proposal.editInstallment', ['proposal' => $proposal])}}">
-        @if($proposal->installment > 1)
+            @if($proposal->installment > 1)
             {{$proposal->installment}} vezes
-        @else
-        À vista
-        @endif
+            @else
+            À vista
+            @endif
         </a>
     </div>
 </div>
@@ -240,11 +240,11 @@
          color: {{$principalColor}};
          border-left-color: {{$complementaryColor}}
          '>
-                <a class='stretched-link' href='{{route('product.show', [
+        <a class='stretched-link' href='{{route('product.show', [
                                                                                                         'product' => $productProposal->product,
                                                                                                         'variation' => $type,
                                                                                                         ])}}'>
-                </a>
+        </a>
         <div class="row">
             <div class='cel col-4 justify-content-start' style="font-weight: 600">
                 {{$productProposal->product->name}}
@@ -349,5 +349,5 @@
         </form>
     </div>
 </div>
-            @endif
+@endif
 @endsection
