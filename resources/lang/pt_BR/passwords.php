@@ -18,5 +18,6 @@ return [
     'throttled' => 'Email já foi enviado. Para tentar novamente aguarde alguns minutos.',
     'token' => 'This password reset token is invalid.',
     'user' => "We can't find a user with that email address.",
+    'ResetPasswordNotification' => "Confirmar mudança de senha.",
 
 ];
