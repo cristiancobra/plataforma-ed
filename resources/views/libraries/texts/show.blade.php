@@ -16,7 +16,6 @@
 @section('name', $text->name)
 
 
-
 @section('priority', $priority)
 
 

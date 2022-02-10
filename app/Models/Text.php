@@ -93,8 +93,8 @@ class Text extends Model {
         return $status = array(
             'rascunho',
             'revisão',
-            'aprovado',
-            'indisponível',
+            'aprovada',
+            'desativada',
         );
     }
 

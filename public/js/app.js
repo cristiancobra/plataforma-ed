@@ -2060,6 +2060,7 @@ __webpack_require__.r(__webpack_exports__);
           break;
 
         case "fazer":
+        case "revisão":
         case "orçamento":
           return "to-do2";
           break;
@@ -2069,6 +2070,10 @@ __webpack_require__.r(__webpack_exports__);
         case "aprovada":
         case "disponível":
           return "done2";
+          break;
+
+        case "rascunho":
+          return "lost2";
           break;
       }
     }
@@ -6475,7 +6480,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.doing2 {\n  color: white;\n  background-color: #92c4d4;\n}\n.to-do2 {\n  color: white;\n  background-color: #ecd23d;\n}\n.done2 {\n  color: white;\n  background-color: #a5d9cc;\n}\n", ""]);
+exports.push([module.i, "\n.doing2 {\n  color: white;\n  background-color: #92c4d4;\n}\n.to-do2 {\n  color: white;\n  background-color: #ecd23d;\n}\n.done2 {\n  color: white;\n  background-color: #a5d9cc;\n}\n.lost2 {\n  color: white;\n  background-color: #EF5362;\n}\n", ""]);
 
 // exports
 

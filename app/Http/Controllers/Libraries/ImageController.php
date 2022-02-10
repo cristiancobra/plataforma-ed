@@ -50,7 +50,6 @@ class ImageController extends Controller {
         $messages = [
             'unique' => ' * :attribute já cadastrado.',
             'required' => ' *obrigatório.',
-
         ];
         $validator = Validator::make($request->all(), [
                     'name' => 'required:images',
@@ -95,9 +94,13 @@ class ImageController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Image $image) {
+        $status = $image->status;
+        $priority = $image->priority;
 
         return view('libraries/images/show', compact(
                         'image',
+                        'status',
+                        'priority',
         ));
     }
 

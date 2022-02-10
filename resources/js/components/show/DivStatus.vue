@@ -31,6 +31,7 @@ export default {
           return "doing2";
           break;
         case "fazer":
+          case "revisão":
         case "orçamento":
           return "to-do2";
           break;
@@ -39,6 +40,9 @@ export default {
         case "aprovada":
         case "disponível":
           return "done2";
+          break;
+        case "rascunho":
+          return "lost2";
           break;
       }
     },
@@ -58,5 +62,9 @@ export default {
 .done2 {
   color: white;
   background-color: #a5d9cc;
+}
+.lost2 {
+  color: white;
+  background-color: #EF5362;
 }
 </style>
