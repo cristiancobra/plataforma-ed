@@ -110,7 +110,9 @@ class GoalController extends Controller {
         $goalSelected = Goal::goalSelected($goal);
 
         $users = User::myUsers();
-        $status = Task::returnStatus();
+
+        $status = $goal->status;
+        $priority= $goal->priority;
 
         return view('administrative.goals.show', compact(
                         'goal',
@@ -118,6 +120,7 @@ class GoalController extends Controller {
                         'goalSelected',
                         'users',
                         'status',
+                        'priority',
         ));
     }
 
