@@ -140,10 +140,15 @@ class TextController extends Controller {
             default:
                 $pages = null;
         }
-//        dd($pages);
+
+        $status = $text->status;
+        $priority = $text->priority;
+        
         return view('libraries/texts/show', compact(
                         'text',
                         'pages',
+                        'status',
+                        'priority',
         ));
     }
 

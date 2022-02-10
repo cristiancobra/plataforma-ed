@@ -15,23 +15,21 @@
 
 @section('name', $text->name)
 
-@section('priority')
-{{formatShowType($text)}}
-@endsection
 
 
-@section('status')
-{{formatShowStatus($text)}}
-@endsection
+@section('priority', $priority)
+
+
+@section('status', $status)
 
 
 @section('fieldsId')
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
 
     @if(isset($text->user->contact->name))
     <a href=' {{route('user.show', ['user' => $text->user_id])}}'>
@@ -46,7 +44,7 @@
     @endif
 </div>
 
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         DEPARTAMENTO
     </div>
@@ -54,7 +52,7 @@
         PÁGINAS
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         {{$text->department}}
     </div>
