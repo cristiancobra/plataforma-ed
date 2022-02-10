@@ -14,13 +14,12 @@
 
 @section('name', $project->name)
 
-@section('priority')
-{{formatShowStage($project)}}
-@endsection
 
-@section('status')
-{{formatShowStatus($project)}}
-@endsection
+@section('priority', $priority)
+
+
+@section('status', $status)
+
 
 @section('fieldsId')
 <div class='col-lg-2 col-xs-6' style='text-align: center'>
@@ -191,7 +190,7 @@
                         RESPONSÁVEL
                     </label>
                     <br>
-                    {{createSelectUsers('select', $users)}}
+                    {{createSelectUsers('select', $allUsers)}}
                 </div>
                 <div class='col-2' style='text-align:left'>
                     <label class="labels" for="" >
@@ -232,7 +231,7 @@
                         SITUAÇÃO
                     </label>
                     <br>
-                    {{createFilterSelect('status', 'select', $status)}}
+                    {{createFilterSelect('status', 'select', $allStatus)}}
                 </div>
             </div>
             <div class="row pt-4">
@@ -409,7 +408,7 @@ CKEDITOR.replace('descriptionStage');
                             RESPONSÁVEL
                         </label>
                         <br>
-                        {{createSelectUsers('select', $users)}}
+                        {{createSelectUsers('select', $allUsers)}}
                     </div>
                     <div class='col-2' style='text-align:left'>
                         <label class="labels" for="" >
@@ -448,7 +447,7 @@ CKEDITOR.replace('descriptionStage');
                             SITUAÇÃO
                         </label>
                         <br>
-                        {{createFilterSelect('status', 'select', $status)}}
+                        {{createFilterSelect('status', 'select', $allStatus)}}
                     </div>
                 </div>
                 <div class="row pt-4">
@@ -585,7 +584,7 @@ CKEDITOR.replace("descriptionTask_{{$counter++}}");
                     RESPONSÁVEL
                 </label>
                 <br>
-                {{createSelectUsers('select', $users)}}
+                {{createSelectUsers('select', $allUsers)}}
             </div>
             <div class='col-2' style='text-align:left'>
                 <label class="labels" for="" >
@@ -624,7 +623,7 @@ CKEDITOR.replace("descriptionTask_{{$counter++}}");
                     SITUAÇÃO
                 </label>
                 <br>
-                {{createFilterSelect('status', 'select', $status)}}
+                {{createFilterSelect('status', 'select', $allStatus)}}
             </div>
         </div>
         <div class="row pt-4">
