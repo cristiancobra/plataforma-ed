@@ -90,8 +90,8 @@ class AccountController extends Controller {
                    ->where('perfil', 'dono')
                    ->first();
                       
-        $status = $invoice->status;
-        $priority = $invoice->priority;
+        $status = $account->status;
+        $priority = $account->priority;
 
         return view('administrative.accounts.show', compact(
                         'account',
