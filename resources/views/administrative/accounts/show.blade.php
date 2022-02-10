@@ -13,16 +13,12 @@
 
 @section('name', $account->name)
 
-@section('priority')
-<div class="high pe-2 d-flex justify-content-end">
-    {{formatCnpj($account->cnpj)}}
-</div>
-@endsection
+
+@section('priority', $priority)
 
 
-@section('status')
-{{formatShowStatus($account)}}
-@endsection
+@section('status', $status)
+
 
 @section('fieldsId')
 <div class='col-md-2 col-sm-4' style='text-align: center'>

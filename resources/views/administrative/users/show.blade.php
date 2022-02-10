@@ -6,8 +6,6 @@
 {{asset('images/user.png')}}
 @endsection
 
-@section('description')
-@endsection
 
 @section('buttons')
 {{createButtonEdit('user', 'user', $user)}}

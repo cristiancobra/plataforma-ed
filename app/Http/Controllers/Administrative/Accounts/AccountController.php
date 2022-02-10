@@ -89,11 +89,16 @@ class AccountController extends Controller {
            $owner = User::where('account_id', auth()->user()->account_id)
                    ->where('perfil', 'dono')
                    ->first();
+                      
+        $status = $invoice->status;
+        $priority = $invoice->priority;
 
         return view('administrative.accounts.show', compact(
                         'account',
                         'invoiceLines',
                         'owner',
+                        'status',
+                        'priority',
         ));
     }
 
