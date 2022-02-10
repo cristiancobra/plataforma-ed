@@ -8,7 +8,7 @@
             </a>
             <i class="fas fa-rocket"></i>
             <p class="mb-0"style='font-size:10px'>
-                PAINEL
+                TAREFAS
             </p>
         </div>
     </div>
