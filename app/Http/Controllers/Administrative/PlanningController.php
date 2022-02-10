@@ -188,6 +188,10 @@ class PlanningController extends Controller {
         $valuation30 = $totalValution - ($totalValution * 0.3);
         $valuation40 = $totalValution - ($totalValution * 0.4);
         $valuation50 = $totalValution - ($totalValution * 0.5);
+        
+                              
+        $status = $planning->status;
+        $priority = $planning->priority;
 
         return view('administrative.plannings.show', compact(
                         'planning',
@@ -196,6 +200,8 @@ class PlanningController extends Controller {
                         'valuation30',
                         'valuation40',
                         'valuation50',
+                        'status',
+                        'priority',
         ));
     }
 

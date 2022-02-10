@@ -15,6 +15,12 @@
 @section('name', $planning->name)
 
 
+@section('priority', $priority)
+
+
+@section('status', $status)
+
+
 @section('fieldsId')
 <div class='col-3 pe-0' style='text-align: center'>
     <div class='show-label'>
