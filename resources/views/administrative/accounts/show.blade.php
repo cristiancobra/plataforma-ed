@@ -21,7 +21,7 @@
 
 
 @section('fieldsId')
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         DONO
     </div>
@@ -29,7 +29,7 @@
         VENCIMENTO
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     @if($owner)
     <a href='{{route('user.show', ['user' => $owner])}}'>
         <div class='show-field-end'>
@@ -46,12 +46,12 @@
         </div>
 </div>
 
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         CRIADA EM
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end d-flex justify-content-end'>
         {{date('d/m/Y H:i', strtotime($account->created_at))}}
     </div>
