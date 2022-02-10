@@ -14,6 +14,6 @@ return [
     */
 
     'failed' => 'Seu email ou senha estão incorretos.',
-    'throttle' => 'Você tentou logar muitas vez. Por segurança, aguarde :seconds segundos.',
+    'throttle' => 'Você tentou logar muitas vezes. Por segurança, aguarde :seconds segundos.',
 
 ];

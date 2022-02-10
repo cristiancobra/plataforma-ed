@@ -14,14 +14,12 @@
 
 @section('name', $goal->name)
 
-@section('priority')
-{{formatShowType($goal)}}
-@endsection
+
+@section('priority', $priority)
 
 
-@section('status')
-{{formatShowStatus($goal)}}
-@endsection
+@section('status', $status)
+
 
 
 @section('fieldsId')
@@ -149,14 +147,14 @@
                         RESPONSÁVEL
                     </label>
                     <br>
-                    {{createSelectUsers('select', $users)}}
+                    {{createSelectUsers('select', $allUsers)}}
                 </div>
                 <div class='col-2' style='text-align:left'>
                     <label class='labels' for='status' style='text-align:left;color:{{$principalColor}}'>
                         SITUAÇÃO
                     </label>
                     <br>
-                    {{createFilterSelect('status', 'select', $status)}}
+                    {{createFilterSelect('status', 'select', $allStatus)}}
                 </div>
         </div>
         <div class="row pt-5">

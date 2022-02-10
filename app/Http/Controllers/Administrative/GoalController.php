@@ -20,8 +20,8 @@ class GoalController extends Controller {
      */
     public function index(Request $request) {
         $goals = Goal::filterGoals($request);
-        
-        foreach($goals as $goal) {
+
+        foreach ($goals as $goal) {
             $goal->result = Goal::goalResult($goal);
         }
 
@@ -109,16 +109,18 @@ class GoalController extends Controller {
         $projects = Project::getProjectsOfGoal($goal->id);
         $goalSelected = Goal::goalSelected($goal);
 
-        $users = User::myUsers();
+        $allUsers = User::myUsers();
+        $allStatus = Task::returnStatus();
 
         $status = $goal->status;
-        $priority= $goal->priority;
+        $priority = $goal->priority;
 
         return view('administrative.goals.show', compact(
                         'goal',
                         'projects',
                         'goalSelected',
-                        'users',
+                        'allUsers',
+                        'allStatus',
                         'status',
                         'priority',
         ));
