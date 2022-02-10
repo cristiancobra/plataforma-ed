@@ -188,70 +188,6 @@ class ProjectController extends Controller {
                 ->where('stage_id', 0)
                 ->get();
 
-//        $proposals = Proposal::where('project_id', $project->id)
-//                ->where('trash', '!=', 1)
-//                ->orderBy('PAY_DAY', 'ASC')
-//                ->get();
-//        $proposalWon = $proposals->where('status', 'aprovada')->count();
-//        $proposalApproved = Proposal::where('project_id', $project->id)
-//                ->where('status', 'aprovada')
-//                ->where('trash', '!=', 1)
-//                ->first();
-//
-//        if ($proposalApproved != null) {
-//
-//            $invoices = Invoice::where('proposal_id', $proposalApproved->id)
-//                    ->where('trash', '!=', 1)
-//                    ->with('transactions')
-//                    ->orderBy('PAY_DAY', 'ASC')
-//                    ->get();
-//
-//            foreach ($invoices as $invoice) {
-//                if ($invoice->status == 'aprovada') {
-//                    $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-//                            ->sum('value');
-//                }
-//                if ($invoice->paid >= $invoice->totalPrice) {
-//                    $invoice->status = 'paga';
-//                } elseif ($invoice->paid > 0 AND $invoice->paid <= $invoice->totalPrice) {
-//                    $invoice->status = 'parcial';
-//                }
-//
-//                $invoice->balance = $invoice->totalPrice - $invoice->paid;
-//            }
-//
-//            $invoiceInstallmentsTotal = $invoices->where('status', 'aprovada')->sum('installment_value');
-//            $invoicePaymentsTotal = $invoices->sum('balance');
-//            $balanceTotal = $invoiceInstallmentsTotal + $invoicePaymentsTotal;
-//        } else {
-//            $invoices = [];
-//            $invoiceInstallmentsTotal = 0;
-//            $invoicePaymentsTotal = 0;
-//            $balanceTotal = 0;
-//        }
-//
-//        foreach ($tasks as $task) {
-//            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-//                $task->status = 'fazendo';
-//            } elseif ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-//                $task->status = 'atrasada';
-//            }
-//        }
-//
-//        $tasksSales = $tasks->where('department', '=', 'vendas');
-//
-//        $tasksSalesHours = Journey::whereHas('task', function ($query) use ($project) {
-//                    $query->where('project_id', $project->id);
-//                    $query->where('department', '=', 'vendas');
-//                })
-//                ->sum('duration');
-//
-//        $tasksDevelopment = $tasks->where('department', 'desenvolvimento');
-//        foreach ($tasksDevelopment as $task) {
-//            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-//                $task->status = 'fazendo';
-//            }
-//        }
 
         $tasks = Task::where('project_id', $project->id)
                 ->with('journeys')
@@ -271,30 +207,15 @@ class ProjectController extends Controller {
                 })
                 ->with('journeys')
                 ->sum('duration');
-//
-//        $tasksCustomerServices = $tasks->where('department', '=', 'atendimento');
-//        foreach ($tasksOperational as $task) {
-//            if ($task->status == 'fazer' AND $task->journeys()->exists()) {
-//                $task->status = 'fazendo';
-//            }
-//            if ($task->status == 'fazer' AND $task->date_due <= date('Y-m-d')) {
-//                $task->status = 'atrasada';
-//            }
-//        }
-//
-//        $tasksCustomerServicesHours = Journey::whereHas('task', function ($query) use ($project) {
-//                    $query->where('project_id', $project->id);
-//                    $query->where('department', '=', 'atendimento');
-//                })
-//                ->sum('duration');
-//
-//        $contracts = Contract::where('project_id', $project->id)
-//                ->get();
 
-        $users = User::myUsers();
-        $status = Task::returnStatus();
+        $allUsers = User::myUsers();
+        $allStatus = Task::returnStatus();
         $departments = Task::returnDepartments();
         $priorities = Task::returnPriorities();
+        
+        
+        $status = $project->status;
+        $priority = $project->priority;
 
         $counter = 1;
 
@@ -305,23 +226,11 @@ class ProjectController extends Controller {
                         'companyId',
                         'stages',
                         'tasksWithoutStage',
-//                        'proposals',
-//                        'proposalWon',
-//                        'invoices',
-//                        'invoiceInstallmentsTotal',
-//                        'invoicePaymentsTotal',
-//                        'balanceTotal',
-//                        'tasks',
-//                        'tasksSales',
-//                        'tasksSalesHours',
-//                        'tasksDevelopment',
-//                        'tasksOperational',
                         'tasksOperationalHours',
-//                        'tasksCustomerServices',
-//                        'tasksCustomerServicesHours',
-//                        'contracts',
                         'contactCompanies',
-                        'users',
+                        'allUsers',
+                        'allStatus',
+                        'priority',
                         'status',
                         'departments',
                         'priorities',
