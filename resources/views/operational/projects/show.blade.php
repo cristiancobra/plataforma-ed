@@ -22,7 +22,7 @@
 
 
 @section('fieldsId')
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         META
     </div>
@@ -33,7 +33,7 @@
         CONTATO
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     @if($project->goal)
     <a href='{{route('goal.show', ['goal' => $project->goal_id])}}'>
         <div class='show-field-end'>
@@ -71,12 +71,12 @@
     </div>
     @endif
 </div>
-<div class='col-lg-2 col-xs-6' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         RESPONSÁVEL
     </div>
 </div>
-<div class='col-lg-4 col-xs-6' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     @if(isset($project->user->contact->name))
     <a href='{{route('user.show', ['user' => $project->user])}}'>
         <div class='show-field-end'>

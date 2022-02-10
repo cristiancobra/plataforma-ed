@@ -22,37 +22,12 @@
 @section('name', 'sem oportunidade')
 @endif
 
-@section('priority')
-{{formatShowStatus($invoice)}}
-@endsection
 
-@section('status')
-@if($invoice->totalPrice < 0)
-<div style="
-     background-color: #FDDBDD;
-     border-radius: 30px;
-     padding-top: 5px;
-     padding-bottom: 7px;
-     padding-right: 15px;
-     text-align: right;
-     width: 100%;
-     ">
-    {{formatCurrencyReal($invoice->totalPrice)}}
-</div>
-@else
-<div style="
-     background-color: lightblue;
-     border-radius: 30px;
-     padding-top: 5px;
-     padding-bottom: 7px;
-     padding-right: 15px;
-     text-align: right;
-     width: 100%;
-     ">
-    {{formatCurrencyReal($invoice->totalPrice)}}
-</div>
-@endif
-@endsection
+@section('priority', $priority)
+
+
+@section('status', $status)
+
 
 @section('fieldsId')
 <div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>

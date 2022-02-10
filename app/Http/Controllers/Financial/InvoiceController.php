@@ -289,6 +289,9 @@ class InvoiceController extends Controller {
 
         $variation = $invoice->type;
 
+        $status = $invoice->status;
+        $priority = $invoice->priority;
+
         return view('financial.invoices.show', compact(
                         'typeInvoices',
                         'invoice',
@@ -299,6 +302,8 @@ class InvoiceController extends Controller {
                         'invoicePaymentsTotal',
                         'balance',
                         'variation',
+                        'status',
+                        'priority',
         ));
     }
 
@@ -740,12 +745,11 @@ class InvoiceController extends Controller {
             $groups[$group]['monthlys'] = Invoice::monthlysGroupsTotal($year, $group, 'despesa');
             $groups[$group]['year'] = Invoice::annualGroupsTotal($year, $group, 'despesa');
         }
-        
-        
+
+
         // SALDO
         $monthlysTotals = Invoice::monthlyInvoicesBalance($year);
         $annualTotal = $annualRevenues + $annualExpenses;
-
 
         // Gráfico
         $chartBackgroundColors = [
