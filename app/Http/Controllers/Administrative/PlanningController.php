@@ -46,8 +46,11 @@ class PlanningController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
+        $allStatus = Planning::returnStatus();
+
         return view('administrative.plannings.create', compact(
                         'products',
+                        'allStatus',
         ));
     }
 
@@ -77,7 +80,7 @@ class PlanningController extends Controller {
             $planning = new Planning();
             $planning->fill($request->all());
             $planning->account_id = auth()->user()->account_id;
-            
+
             $planning->expenses_prolabore = removeCurrency($request->expenses_prolabore);
             $planning->expenses_salary = removeCurrency($request->expenses_salary);
             $planning->expenses_marketing = removeCurrency($request->expenses_marketing);
@@ -86,16 +89,9 @@ class PlanningController extends Controller {
             $planning->expenses_legal = removeCurrency($request->expenses_legal);
             $planning->expenses_infrastructure = removeCurrency($request->expenses_infrastructure);
             $planning->expenses_working_capital = removeCurrency($request->expenses_working_capital);
-            
-            $planning->expenses = $planning->expenses_prolabore
-                    + $planning->expenses_salary
-                    + $planning->expenses_marketing
-                    + $planning->expenses_production
-                    + $planning->expenses_accounting
-                    + $planning->expenses_legal
-                    + $planning->expenses_infrastructure
-                    + $planning->expenses_working_capital;
-            
+
+            $planning->expenses = $planning->expenses_prolabore + $planning->expenses_salary + $planning->expenses_marketing + $planning->expenses_production + $planning->expenses_accounting + $planning->expenses_legal + $planning->expenses_infrastructure + $planning->expenses_working_capital;
+
             $planning->save();
 
             // Cria e salva uma InvoiceLine para cada PRODUTO com quantidade maior que zero
@@ -160,7 +156,7 @@ class PlanningController extends Controller {
                 $sumExpenses += ($sumExpenses * $planning->increased_expenses / 100);
                 $sumRevenues += ($sumRevenues * $planning->growth_rate / 100);
                 $sumIncome = $sumRevenues - $sumExpenses;
-                $accumulatedIncome +=  $sumIncome;
+                $accumulatedIncome += $sumIncome;
             }
             $totalAmount += $sumAmount;
             $totalExpenses += $sumExpenses;
@@ -183,13 +179,12 @@ class PlanningController extends Controller {
             $months['totalAccumulatedIncome'] = $accumulatedIncome;
             $counter++;
         }
-        
+
         $totalValution = $months['totalAccumulatedIncome'];
         $valuation30 = $totalValution - ($totalValution * 0.3);
         $valuation40 = $totalValution - ($totalValution * 0.4);
         $valuation50 = $totalValution - ($totalValution * 0.5);
-        
-                              
+
         $status = $planning->status;
         $priority = $planning->priority;
 
@@ -212,8 +207,11 @@ class PlanningController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit(Planning $planning) {
+        $allStatus = Planning::returnStatus();
+
         return view('administrative.plannings.edit', compact(
                         'planning',
+                        'allStatus',
         ));
     }
 
@@ -225,28 +223,20 @@ class PlanningController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Planning $planning) {
-        $planning->fill($request->all());             
-        
-            $planning->expenses_prolabore = removeCurrency($request->expenses_prolabore);
-            $planning->expenses_salary = removeCurrency($request->expenses_salary);
-            $planning->expenses_marketing = removeCurrency($request->expenses_marketing);
-            $planning->expenses_production = removeCurrency($request->expenses_production);
-            $planning->expenses_accounting = removeCurrency($request->expenses_accounting);
-            $planning->expenses_legal = removeCurrency($request->expenses_lega);
-            $planning->expenses_infrastructure = removeCurrency($request->expenses_infrastructure);
-            $planning->expenses_working_capital = removeCurrency($request->expenses_working_capital);
-            
-            $planning->expenses = $planning->expenses_prolabore
-                    + $planning->expenses_salary
-                    + $planning->expenses_marketing
-                    + $planning->expenses_production
-                    + $planning->expenses_accounting
-                    + $planning->expenses_legal
-                    + $planning->expenses_infrastructure
-                    + $planning->expenses_working_capital;
-                          
+        $planning->fill($request->all());
+
+        $planning->expenses_prolabore = removeCurrency($request->expenses_prolabore);
+        $planning->expenses_salary = removeCurrency($request->expenses_salary);
+        $planning->expenses_marketing = removeCurrency($request->expenses_marketing);
+        $planning->expenses_production = removeCurrency($request->expenses_production);
+        $planning->expenses_accounting = removeCurrency($request->expenses_accounting);
+        $planning->expenses_legal = removeCurrency($request->expenses_lega);
+        $planning->expenses_infrastructure = removeCurrency($request->expenses_infrastructure);
+        $planning->expenses_working_capital = removeCurrency($request->expenses_working_capital);
+
+        $planning->expenses = $planning->expenses_prolabore + $planning->expenses_salary + $planning->expenses_marketing + $planning->expenses_production + $planning->expenses_accounting + $planning->expenses_legal + $planning->expenses_infrastructure + $planning->expenses_working_capital;
+
         $planning->save();
-            
 
         return redirect()->route('planning.show', [$planning]);
     }
@@ -261,8 +251,7 @@ class PlanningController extends Controller {
         $planning->delete();
         return redirect()->action('Administrative\\PlanningController@index');
     }
-    
-        
+
     public function sendToTrash(Planning $planning) {
         $planning->trash = 1;
         $planning->save();

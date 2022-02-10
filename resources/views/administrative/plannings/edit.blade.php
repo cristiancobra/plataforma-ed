@@ -198,7 +198,9 @@ CKEDITOR.replace('observations');
         </p>
     </div>
 
-    <label class="labels" for="">SITUAÇÃO:</label>
-    {{createSimpleSelect('status', 'fields', returnStatusActive(), $planning->status)}}
+    <label class="labels" for="">
+        SITUAÇÃO:
+    </label>
+    {{createFilterSelect('status', 'select', $allStatus)}}
 </div>
 @endsection

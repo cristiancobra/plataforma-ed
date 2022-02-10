@@ -41,4 +41,12 @@ class Planning extends Model {
     public function account() {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
+    
+    
+    public static function returnStatus() {
+        return [
+            'ativada',
+            'desativada',
+        ];
+    }
 }
