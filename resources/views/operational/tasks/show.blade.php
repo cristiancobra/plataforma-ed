@@ -27,10 +27,10 @@
 @section('name', $task->name)
 
 
-@section('priority', $task->priority)
+@section('priority', $priority)
 
 
-@section('status', $task->status)
+@section('status', $status)
 
 
 @section('fieldsId')
