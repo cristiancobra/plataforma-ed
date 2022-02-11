@@ -106,7 +106,7 @@
     </div>
 </div>
 @foreach ($tasks as $task)
-<div class="row table2 position-relative"  style="
+<div class="row table2 position-relative mt-3"  style="
      color: {{$principalColor}};
      border-left-color: {{$complementaryColor}}
      ">
@@ -152,6 +152,3 @@
 @endsection
 
 @section('paginate', $tasks->links())
-
-@section('js-scripts')
-@endsection

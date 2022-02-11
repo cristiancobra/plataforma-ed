@@ -65,7 +65,7 @@ class TaskController extends Controller {
 
         $trashStatus = request()->trash;
 
-        return view('operational.tasks.indexTasks', compact(
+        return view('operational.tasks.index', compact(
                         'tasks',
                         'teamTasksEmergencyAmount',
                         'myTasksPendingAmount',

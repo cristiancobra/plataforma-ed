@@ -21,15 +21,12 @@ Tarefa excluída
 @endif
 @endsection
 
-@section('status')
-{{formatShowStatus($journey)}}
-@endsection
 
-@section('priority')
-<div class="to-do">
-    {{dateBr($journey->start)}}
-</div>
-@endsection
+@section('priority', $priority)
+
+
+@section('status', $status)
+
 
 @section('description')
 {!!html_entity_decode($journey->description)!!}

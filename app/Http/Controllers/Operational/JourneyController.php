@@ -235,7 +235,7 @@ class JourneyController extends Controller {
             }
             $journey->save();
 
-            return view('operational.journey.show', [
+            return redirect()->route('journey.show', [
                 'journey' => $journey,
             ]);
         }

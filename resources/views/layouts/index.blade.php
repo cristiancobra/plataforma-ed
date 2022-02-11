@@ -36,9 +36,14 @@
                         @yield('shortcuts')
                     </div>
 
-                    <div class="row mt-4 mb-3" id="filter_row" style="display: none">
-                        <div style="text-align:right">
+                    <div class="row mt-4 mb-3" id="filter_row">
+                        <div class="col">
                             @yield('filter')
+                        </div>
+                        <div class="col-1">
+                            <a id='filter_button' class='circular-button secondary'>
+                                <i class="fa fa-filter" aria-hidden="true"></i>
+                            </a>
                         </div>
                     </div>
 
@@ -51,15 +56,7 @@
             </div>
         </main>
         <script>
-            // botão do filtro
-            $(document).ready(function () {
-                console.log('filter button')
-                //botao de exibir filtro
-                $('#filter_button').click(function () {
-                    $('#filter_row').slideToggle(600);
-                });
-
-            });
+           
         </script>
     </div>
 </div>
