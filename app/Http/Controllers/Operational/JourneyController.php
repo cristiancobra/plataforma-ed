@@ -115,7 +115,7 @@ class JourneyController extends Controller {
             $journey->save();
         }
 
-        return view('operational.journey.showJourney', compact(
+        return view('operational.journey.show', compact(
                         'journey',
         ));
     }
@@ -155,8 +155,14 @@ class JourneyController extends Controller {
             $journey->status = 'feito';
         }
 
-        return view('operational.journey.showJourney', compact(
+
+        $status = $journey->status;
+        $priority = $journey->priority;
+
+        return view('operational.journey.show', compact(
                         'journey',
+                        'status',
+                        'priority',
         ));
     }
 
@@ -229,7 +235,7 @@ class JourneyController extends Controller {
             }
             $journey->save();
 
-            return view('operational.journey.showJourney', [
+            return view('operational.journey.show', [
                 'journey' => $journey,
             ]);
         }
@@ -267,10 +273,10 @@ class JourneyController extends Controller {
 
         return redirect()->back();
     }
-    
+
     public function completeFromTask(Journey $journey) {
         Journey::completeJourney($journey);
-        
+
         return redirect()->route('task.show', ['task' => $journey->task_id]);
     }
 

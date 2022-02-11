@@ -36,12 +36,15 @@ Tarefa excluída
 @endsection
 
 @section('fieldsId')
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
         TAREFA
     </div>
+        <div class='show-label'>
+        OPORTUNIDADE
+    </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
     <div class='show-field-end'>
         @if($journey->task)
         <a href="{{route('task.show', ['task' => $journey->task->id])}}">
@@ -51,30 +54,7 @@ Tarefa excluída
         Tarefa excluída
         @endif
     </div>
-</div>
-<div class='col-md-2 col-sm-4' style='text-align: center'>
-    <div class='show-label'>
-        CONTATO
-    </div>
-</div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
-    <div class='show-field-end'>
-        @if($journey->task->contact)
-        <a href="{{route('contact.show', ['contact' => $journey->task->contact->id])}}">
-            {{$journey->task->contact->name}}
-        </a>
-        @else
-        --
-        @endif
-    </div>
-</div>
-<div class='col-md-2 col-sm-4' style='text-align: center'>
-    <div class='show-label'>
-        OPORTUNIDADE
-    </div>
-</div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
-    <div class='show-field-end'>
+        <div class='show-field-end'>
         @if($journey->task)
         @if($journey->task->opportunity)
         <a href="{{route('opportunity.show', ['opportunity' => $journey->task->opportunity->id])}}">
@@ -88,12 +68,24 @@ Tarefa excluída
         @endif
     </div>
 </div>
-<div class='col-md-2 col-sm-4' style='text-align: center'>
+<div class='col-2 pe-0' style='text-align: center'>
+    <div class='show-label'>
+        CONTATO
+    </div>
     <div class='show-label'>
         DEPARTAMENTO
     </div>
 </div>
-<div class='col-md-4 col-sm-8' style='text-align: center'>
+<div class='col-4 ps-0' style='text-align: center'>
+    <div class='show-field-end'>
+        @if($journey->task->contact)
+        <a href="{{route('contact.show', ['contact' => $journey->task->contact->id])}}">
+            {{$journey->task->contact->name}}
+        </a>
+        @else
+        --
+        @endif
+    </div>
     <div class='show-field-end'>
         @if($journey->task->department)
         {{$journey->task->department}}
