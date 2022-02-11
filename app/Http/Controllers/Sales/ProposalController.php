@@ -141,7 +141,7 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request) {
-             dd($request);
+//             dd($request);
         $messages = [
             'required' => '*preenchimento obrigatório.',
         ];
