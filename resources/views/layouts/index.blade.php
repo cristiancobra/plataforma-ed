@@ -36,16 +36,7 @@
                         @yield('shortcuts')
                     </div>
 
-                    <div class="row mt-4 mb-3" id="filter_row">
-                        <div class="col">
-                            @yield('filter')
-                        </div>
-                        <div class="col-1">
-                            <a id='filter_button' class='circular-button secondary'>
-                                <i class="fa fa-filter" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
+                    @yield('filter')
 
                     @yield('table')
 
@@ -56,7 +47,7 @@
             </div>
         </main>
         <script>
-           
+
         </script>
     </div>
 </div>

@@ -243,7 +243,7 @@ if (!function_exists('createFilterSelect')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
     function createFilterSelect($name, $class, array $options, $allLabel = null) {
-        echo "<select class = '$class' name = '$name' style = 'width:160px'>";
+        echo "<select class = '$class' name = '$name' style = 'width:130px'>";
         if ($allLabel) {
             echo "<option class = 'select' value = ''>
             $allLabel
@@ -264,7 +264,7 @@ if (!function_exists('createFilterSelectModels')) {
 
 // cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
     function createFilterSelectModels($name, $class, $models, $allLabel = null) {
-        echo "<select class = '$class' name = '$name' style = 'width:160px'>";
+        echo "<select class = '$class' name = '$name' style = 'width:130px'>";
         if ($allLabel) {
             echo "<option class = 'select' value = ''>
             $allLabel
@@ -357,7 +357,7 @@ if (!function_exists('createSelectUsers')) {
 
 // cria as um select com os usuários disponíveis com ID e Name
     function createSelectUsers($class, $users) {
-        echo "<select name='user_id'>
+        echo "<select class=$class name='user_id'  style = 'width:130px'>
             <option  class=$class value='" . Auth::user()->id . "'>Eu</option>";
         foreach ($users as $user) {
             if (old('user_id') == $user->id) {
