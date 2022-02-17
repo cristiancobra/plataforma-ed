@@ -31,10 +31,10 @@
             {{createFilterSelect('status', 'select', $status, 'situação')}}
         </div>
         <div class="col-1 d-flex">
-            <a class="circular-button secondary" title='remover filtros' href='{{route('task.index')}}'>
+            <a class="circular-button secondary" title='remover filtros' title='remover filtros' href='{{route('task.index')}}'>
                 <i class="fa fa-ban" aria-hidden="true"></i>
             </a>
-            <button class="circular-button secondary" type="submit" value="FILTRAR">
+            <button class="circular-button secondary" type="submit" title='aplicar filtros' value="FILTRAR">
                 <i class="fa fa-filter" aria-hidden="true"></i>
             </button>
         </div>
