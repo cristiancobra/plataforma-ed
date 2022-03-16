@@ -100,7 +100,7 @@
     @endphp
 </div>
 @endif
-<div class='row pt-5 pb-5' id='target' style='display: none;
+<div class='row pt-5 pb-5' id='addProject' style='display: none;
      border-left-style: solid;
      border-left-width: 1px;
      border-right-style: solid;
