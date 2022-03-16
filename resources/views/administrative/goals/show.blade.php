@@ -84,7 +84,7 @@
          border-radius: 0px 7px 0px 0px;
          border-color: #c28dbf
          '>
-        <button id='buttonStageAdd' class='circular-button primary' title='Criar projeto' onclick='toogleAddForm()'>
+        <button id='buttonStageAdd' class='circular-button primary' title='Criar projeto' onclick='toogleAddForm("addProject"')'>
             <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
         </button>
     </div>
@@ -109,7 +109,7 @@
      '>
     <div class="row">
         <div class='col-3' style='text-align:left'>
-            <form id='addStage' action='{{route('project.store')}}' method='post' style='text-align: left'>
+            <form id='addProject' action='{{route('project.store')}}' method='post' style='text-align: left'>
                 @csrf
                 <input type='hidden' name='goal_id' value='{{$goal->id}}'>
                 <input type='hidden' name='type' value='projeto'>
