@@ -84,9 +84,9 @@
          border-radius: 0px 7px 0px 0px;
          border-color: #c28dbf
          '>
-        <button id='buttonStageAdd' class='circular-button primary' title='Criar projeto' onclick='toogleAddForm()'>
+        <a id='stageButtonOnOff' class='circular-button primary' title='Criar nova etapa'>
             <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
-        </button>
+        </a>
     </div>
 </div>
 
@@ -100,7 +100,7 @@
     @endphp
 </div>
 @endif
-<div class='row pt-5 pb-5' id='target' style='display: none;
+<div class='row pt-5 pb-5' id='stageRow' style='display: none;
      border-left-style: solid;
      border-left-width: 1px;
      border-right-style: solid;
@@ -262,4 +262,33 @@ CKEDITOR.replace('description');
 
 
 @section('js-scripts')
+<script>
+
+    document.getElementById("stageButtonOnOff").addEventListener('click', function() {
+    slideToggle(document.getElementById("target"), 200);
+    });
+
+</script>
+
+<script>
+    // botão do filtro
+    $(document).ready(function () {
+
+    @php
+            $counterJs = 1;
+    foreach($projects as $project)
+    {
+    echo
+            "
+            $('#taskButtonOnOff_$counterJs').click(function () {
+    $('#taskRow_$counterJs').slideToggle(600);
+    });
+    ";
+            $counterJs++;
+    }
+    @endphp
+
+    }
+    );
+</script>
 @endsection

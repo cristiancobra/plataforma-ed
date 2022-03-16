@@ -156,7 +156,7 @@
         </div>
         <div class='col-6 pt-4 pb-3 d-flex justify-content-end'
              '>
-            <a id='stageButtonOnOff' class='circular-button primary' title='Criar nova etapa'>
+            <a id='stageButtonOnOff' class='circular-button primary' title='Criar nova etapa' onclick='toogleAddForm("targetEtapa")'>
                 <i id='stageButtonOnOffIcon' class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
             </a>
         </div>
@@ -172,7 +172,7 @@
         @endphp
     </div>
     @endif
-    <div class='container pt-5 pb-5' id='stageRow' style='display: none;background-color: #f1f1f1'>
+    <div class='container pt-5 pb-5'  id='targetEtapa' style='display: none;background-color: #f1f1f1'>
         <form id='addStage' action='{{route('stage.store')}}' method='post' style='text-align: left'>
             @csrf
             <input type='hidden' name='project_id'  value='{{$project->id}}'>
@@ -373,14 +373,14 @@ CKEDITOR.replace('descriptionStage');
                 adicionar tarefa nesta etapa
             </div>
             <div class='col-1 d-flex justify-content-center pt-2 pb-2'>
-                <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'>
+                <a id="taskButtonOnOff_{{$counter}}" class='circular-button primary' title='Criar nova tarefa'  onclick='toogleAddForm("taskRow_{{$counter}}")'>
                     <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
                 </a>
             </div>
         </div>
 
 
-        <!--linha oculta adicionar TAREFAS SEM ETAPAS -->
+        <!--linha oculta adicionar TAREFAS DENTRO DA ETAPA -->
         @if(Session::has('failed'))
         <div class="alert alert-danger">
             {{Session::get('failed')}}
@@ -550,7 +550,7 @@ CKEDITOR.replace("descriptionTask_{{$counter++}}");
         adicionar tarefa nesta etapa
     </div>
     <div class='col-1 d-flex justify-content-center pt-2 pb-2'>
-        <a id="taskButtonOnOffExtra" class='circular-button primary' title='Criar nova tarefa'>
+        <a id="taskButtonOnOffExtra" class='circular-button primary' title='Criar nova tarefa' onclick='toogleAddForm("taskRowExtra")'>
             <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
         </a>
     </div>
@@ -684,38 +684,5 @@ CKEDITOR.replace("descriptionTaskExtra");
 
 
 @section('workflow')
-
 @endsection
 
-
-@section('js-scripts')
-<script>
-    // botão do filtro
-    $(document).ready(function () {
-    console.log('filter button')
-            // exibir / ocultar linha de adcionar etapa
-            $('#stageButtonOnOff').click(function () {
-    $('#stageRow').slideToggle(600);
-    $('#stageButtonOnOffIcon').toggleClass('fa-plus fa-minus');
-    });
-    // exibir / ocultar linha de adcionar tarefa
-
-    @php
-            $counterJs = 1;
-    foreach($stages as $stage) {
-    echo "
-            $('#taskButtonOnOff_$counterJs').click(function () {
-    $('#taskRow_$counterJs').slideToggle(600);
-    });
-    ";
-            $counterJs++;
-    }
-    @endphp
-    });
-    // exibir / ocultar linha de adcionar tarefa SEM ETAPA
-    $('#taskButtonOnOffExtra').click(function () {
-    $('#taskRowExtra').slideToggle(600);
-    $('#taskButtonOnOffIconExtra').toggleClass('fa-plus fa-minus');
-    });
-</script>
-@endsection
