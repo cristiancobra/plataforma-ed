@@ -84,7 +84,7 @@
          border-radius: 0px 7px 0px 0px;
          border-color: #c28dbf
          '>
-        <button id='buttonStageAdd' class='circular-button primary' title='Criar projeto' onclick='toogleAddForm("addProject"')'>
+        <button id='buttonStageAdd' class='circular-button primary' title='Criar projeto' onclick='toogleAddForm("addProject")'>
             <i class='fa fa-plus' id='buttonOnOff' aria-hidden='true'></i>
         </button>
     </div>
