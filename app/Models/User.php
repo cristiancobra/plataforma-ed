@@ -142,11 +142,20 @@ class User extends Authenticatable implements MustVerifyEmail {
                 'dono',
                 'super administrador',
             ];
-        } else {
+        } elseif($user == 'dono') {
             $roles = [
                 'funcionário',
                 'administrador',
                 'dono',
+            ];
+        } elseif($user == 'administrador') {
+            $roles = [
+                'funcionário',
+                'administrador',
+            ];
+        } elseif($user == 'funcionário') {
+            $roles = [
+                'funcionário',
             ];
         }
         return $roles;
