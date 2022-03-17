@@ -36,7 +36,7 @@ class Roles {
             $role = "dono";
         } elseif ($user->perfil == 'administrador') {
             $role = "administrator";
-        } elseif ($user->perfil == 'funcionario') {
+        } elseif ($user->perfil == 'funcionário') {
             $role = "employee";
         } elseif ($user->perfil == 'cliente') {
             $role = "customer";
