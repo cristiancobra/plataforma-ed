@@ -134,10 +134,13 @@ class UserController extends Controller {
                 ->where('user_id', $user->id)
                 ->where('type', 'imagem perfil')
                 ->get();
+        
+        $roles = User::getRoles(auth()->user()->id);
 
         return view('administrative.users.edit', compact(
                         'user',
                         'images',
+                        'roles',
         ));
     }
 

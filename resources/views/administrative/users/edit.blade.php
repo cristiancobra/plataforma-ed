@@ -1,6 +1,6 @@
 @extends('layouts/edit')
 
-@section('title','FUNCIONÁRIOS')
+@section('title','USUÁRIOS')
 
 @section('image-top')
 {{ asset('images/user.png') }} 
@@ -24,48 +24,67 @@
     @endsection
 
 
-    @section('status')
-    PERFIL:
-    <select class="fields" name="perfil">
-        <option value="{{ $user->perfil }}">
-            {{ $user->perfil }}
-        </option>
-        @if(auth()->user()->perfil == 'super administrador')
-        <option value="super administrador">
-            super administrador
-        </option>
-        @endif
-        <option value="funcionario">
-            funcionário
-        </option>
-        <option value="administrador">
-            administrador
-        </option>
-    </select>
+    @section('label1', 'CONTATO')
+    @section('content1')
+    @if(!isset($user->contact->name))
+    contato excluído
+    @else
+    <a class='white' href=' {{route('contact.edit', ['contact' => $user->contact_id])}}'>
+        {{$user->contact->name}}
+    </a>
+    @endif
     @endsection
 
-    @section('status')
-    PERFIL:
-    <select class="fields" name="perfil">
-        <option value="{{ $user->perfil }}">
-            {{ $user->perfil }}
+
+    @section('label2', 'EMAIL DE ACESSO')
+    @section('content2')
+    <input class="w-100" type="text" name="email" value="{{$user->email}}">
+    </input>
+    @endsection
+
+
+    @section('label3', 'PERFIL')
+    @section('content3')
+    <select name="perfil">
+        <option class="fields" value="{{$user->perfil}}">
+            {{$user->perfil}}
         </option>
-        @if(auth()->user()->perfil == 'super administrador')
-        <option value="super administrador">
-            super administrador
+        @foreach($roles as $role)
+        <option class="fields" value="{{$role}}">
+            {{$role}}
         </option>
-        @endif
-        <option value="funcionario">
-            funcionário
-        </option>
-        <option value="administrador">
-            administrador
-        </option>
+        @endforeach
     </select>
     @endsection
 
 
-    @section('fieldsId')
+    @section('date_start')
+    <div class='circle-date-start'>
+        {{dateBr($user->created_at)}}
+    </div>
+    <p class='labels' style='text-align: center'>
+        DATA DE CRIAÇÃO
+    </p>
+    @endsection
+
+
+    @section('date_due')    
+    <div class='circle-date-due'>
+        {{dateBr($user->updated_at)}}
+        <br>
+        {{timeBr($user->updated_at)}}
+    </div>
+    <p class='labels' style='text-align: center'>
+        ÚLTIMA ATUALIZAÇÃO
+    </p>
+    @endsection
+
+
+
+
+
+
+    @section('main')
     <div class="row">
         <div class="col-4">
             <div class="row mt-4">
@@ -99,74 +118,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-8">
-            <div class="row">
-                <div class="col">
-                    <label  class='labels' for="" >Email de acesso (login): </label>
-                    <input type="text" name="email" size='40' value="{{ $user->email }} ">
-                </div>
-            </div>
-            <div class="row mt-4">
-                <div class="col">
-                    <p class='labels'>
-                        DADOS PESSOAIS  
-                        <a  class='white' href=' {{route('contact.edit', ['contact' => $user->contact_id])}}'>
-                            <button class='button-round'>
-                                <i class='fa fa-edit'></i>
-                            </button>
-                        </a>
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                    <p class='labels'>
-                        Nome:
-                    </p>
-                </div>
-                <div class="col-11">
-                    <p>
-                        {{$user->contact->name}}
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                    <p class='labels'>
-                        Email:
-                    </p>
-                </div>
-                <div class="col-11">
-                    <p>
-                        {{$user->contact->email}}
-                    </p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-1">
-                    <p class='labels'>
-                        Telefone:
-                    </p>
-                </div>
-                <div class="col-11">
-                    <p>
-                        {{$user->contact->phone}}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    @endsection
 
 
-    @section('description')
-    {{$user->contact->observations}}
-    @endsection
 
+        <input type="hidden" name="alt" id="alt" value="foto do usuário {{$user->contact->name}}">
+        <input type="hidden" name="image_type" value="imagem perfil">
+        <input type="hidden" name="name" id="name" value="foto do usuário {{$user->contact->name}}">
 
-    @section('main')
-    <input type="hidden" name="alt" id="alt" value="foto do usuário {{$user->contact->name}}">
-    <input type="hidden" name="image_type" value="imagem perfil">
-    <input type="hidden" name="name" id="name" value="foto do usuário {{$user->contact->name}}">
-
-    @endsection
+        @endsection

@@ -96,7 +96,7 @@ class User extends Authenticatable implements MustVerifyEmail {
                 ->with([
                     'image',
                     'contact',
-                    ])
+                ])
 //                ->orderBy('NAME', 'ASC')
                 ->get();
     }
@@ -115,16 +115,41 @@ class User extends Authenticatable implements MustVerifyEmail {
 
         return $user;
     }
-    
-    
+
     /**
      * Send the password reset notification.
      *
      * @param  string  $token
      * @return void
      */
-    public function sendPasswordResetNotification($token)
-    {
+    public function sendPasswordResetNotification($token) {
         $this->notify(new CustomerResetPassword($token));
     }
+
+    /**
+     * Function that returns user profiles.
+     * Função que retorna os perfis de usuários.
+     * 
+     * @access public
+     * @param object $user
+     * @return array $roles
+     */
+    public static function getRoles($user) {
+        if ($user == 'super administrador') {
+            $roles = [
+                'funcionário',
+                'administrador',
+                'dono',
+                'super administrador',
+            ];
+        } else {
+            $roles = [
+                'funcionário',
+                'administrador',
+                'dono',
+            ];
+        }
+        return $roles;
+    }
+
 }

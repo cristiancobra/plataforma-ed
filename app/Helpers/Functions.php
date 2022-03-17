@@ -908,11 +908,19 @@ if (!function_exists('formatsocialmediaStatus')) {
     }
 
 }
-// converte data para o formato brasileiro
+// converte o DateTime para o formato de data brasileiro
 if (!function_exists('dateBr')) {
 
     function dateBr($date) {
         return date('d/m/Y', strtotime($date));
+    }
+
+}
+// converte o DateTime para o formato de hora brasileiro
+if (!function_exists('timeBr')) {
+
+    function timeBr($date) {
+        return date('H:i', strtotime($date));
     }
 
 }

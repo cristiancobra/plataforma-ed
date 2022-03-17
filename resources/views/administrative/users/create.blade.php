@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','FUNCIONÁRIOS')
+@section('title','USUÁRIOS')
 
 @section('image-top')
 {{asset('images/user.png')}}
