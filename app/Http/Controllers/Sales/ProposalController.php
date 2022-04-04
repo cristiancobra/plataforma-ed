@@ -211,9 +211,14 @@ class ProposalController extends Controller {
                     ProductProposal::insert($data);
                 }
             }
-//            dd($request);
-//            dd(str_replace(",", ".", $request->discount));
-            $proposal->totalPrice = $totalPrice - str_replace(",", ".", $request->discount);
+            
+            if($request->discount == null) {
+                $discount = 0;
+            }else{
+                $discount = str_replace(",", ".", $request->discount);
+            }
+
+            $proposal->totalPrice = $totalPrice - $discount;
             $proposal->installment = $request->installment;
             $proposal->update();
 
