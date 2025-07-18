@@ -174,7 +174,7 @@ if (!function_exists('createButtonExternalLink')) {
 if (!function_exists('createButtonPdf')) {
 
 // cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF
-    function createButtonPdf($model = null, $parameter) {
+    function createButtonPdf($parameter, $model = null) {
         $link = "$parameter.pdf";
 
         echo "<a class='circular-button secondary'  href=" . route($link, [$parameter => $model]) . ">
@@ -2221,7 +2221,7 @@ if (!function_exists('createSelectYesOrNo')) {
  */
 if (!function_exists('createSelectYesOrNoPages')) {
 
-    function createSelectYesOrNoPages($label, $field, $check = null, $page) {
+    function createSelectYesOrNoPages($label, $field, $page, $check = null) {
         echo "<label class='labels me-2' for='$field'>$label</label>
         <select name='$field' id='$field'>";
         if ($check == 0) {
