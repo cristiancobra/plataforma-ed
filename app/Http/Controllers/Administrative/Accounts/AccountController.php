@@ -13,26 +13,28 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
-class AccountController extends Controller {
+class AccountController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-//        $accounts = Account::whereHas('users', function ($query) {
-//                    $query->where('users.id', Auth::user()->id);
-//                })
-//                ->with('image')
-//                ->paginate(20);
-//
-//        $total = $accounts->count();
-//
-//        return view('administrative.accounts.index', compact(
-//                        'accounts',
-//                        'total',
-//        ));
+    public function index()
+    {
+        //        $accounts = Account::whereHas('users', function ($query) {
+        //                    $query->where('users.id', Auth::user()->id);
+        //                })
+        //                ->with('image')
+        //                ->paginate(20);
+        //
+        //        $total = $accounts->count();
+        //
+        //        return view('administrative.accounts.index', compact(
+        //                        'accounts',
+        //                        'total',
+        //        ));
     }
 
     /**
@@ -40,19 +42,20 @@ class AccountController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $users = User::whereHas('accounts', function ($query) {
-                    $query->where('accounts.id', auth()->user()->account_id);
-                })
-                ->get();
+            $query->where('accounts.id', auth()->user()->account_id);
+        })
+            ->get();
 
         $states = returnStates();
         $logos = $this->logos();
 
         return view('administrative.accounts.create', compact(
-                        'users',
-                        'states',
-                        'logos',
+            'users',
+            'states',
+            'logos',
         ));
     }
 
@@ -62,7 +65,8 @@ class AccountController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $account = new \App\Models\Account();
         $account->fill($request->all());
         $account->cnpj = removeSymbols($request->cnpj);
@@ -78,27 +82,28 @@ class AccountController extends Controller {
      * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function show(Account $account) {
+    public function show(Account $account)
+    {
         $productsPlataforma = [4, 65, 67, 73];
         $invoiceLines = InvoiceLine::whereHas('product', function ($query) use ($productsPlataforma) {
-                    $query->whereIn('product_id', $productsPlataforma);
-                })
-                ->with('invoice')
-                ->get();
+            $query->whereIn('product_id', $productsPlataforma);
+        })
+            ->with('invoice')
+            ->get();
 
-           $owner = User::where('account_id', auth()->user()->account_id)
-                   ->where('perfil', 'dono')
-                   ->first();
-                      
+        $owner = User::where('account_id', auth()->user()->account_id)
+            ->where('perfil', 'dono')
+            ->first();
+
         $status = $account->status;
         $priority = $account->priority;
 
         return view('administrative.accounts.show', compact(
-                        'account',
-                        'invoiceLines',
-                        'owner',
-                        'status',
-                        'priority',
+            'account',
+            'invoiceLines',
+            'owner',
+            'status',
+            'priority',
         ));
     }
 
@@ -108,7 +113,8 @@ class AccountController extends Controller {
      * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function edit(Account $account, Request $request) {
+    public function edit(Account $account, Request $request)
+    {
         $states = returnStates();
         $status = Account::returnStatus();
         $users = User::myUsers();
@@ -116,12 +122,12 @@ class AccountController extends Controller {
         $businessModelTypes = Account::businessModelTypes();
 
         return view('administrative.accounts.edit', compact(
-                        'users',
-                        'account',
-                        'states',
-                        'status',
-                        'logos',
-                        'businessModelTypes',
+            'users',
+            'account',
+            'states',
+            'status',
+            'logos',
+            'businessModelTypes',
         ));
     }
 
@@ -132,13 +138,14 @@ class AccountController extends Controller {
      * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Account $account) {
+    public function update(Request $request, Account $account)
+    {
         $account->fill($request->all());
         $account->cnpj = removeSymbols($request->cnpj);
         $account->save();
 
         return redirect()->route('account.show', compact(
-                                'account',
+            'account',
         ));
     }
 
@@ -148,68 +155,72 @@ class AccountController extends Controller {
      * @param  \App\Models\AccountsModel  $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Account $account) {
+    public function destroy(Account $account)
+    {
         $account->delete();
         return redirect()->route('account.index');
     }
 
-    public function dashboard(Account $account) {
+    public function dashboard(Account $account)
+    {
         $providers = Company::where('account_id', auth()->user()->account_id)
-                ->where('type', 'fornecedor')
-                ->get();
-        
+            ->where('type', 'fornecedor')
+            ->get();
+
         $revenues = Product::where('account_id', auth()->user()->account_id)
-                ->where('type', 'receita')
-//                ->where('category', 'serviço')
-                ->where('status', 'disponível')
-                ->get();
-        
+            ->where('type', 'receita')
+            //                ->where('category', 'serviço')
+            ->where('status', 'disponível')
+            ->get();
+
         $expenses = Product::where('account_id', auth()->user()->account_id)
-                ->where('type', 'despesa')
-//                ->where('category', 'serviço')
-                ->where('status', 'disponível')
-                ->get();
-        
-        $socialmedias= Socialmedia::where('account_id', auth()->user()->account_id)
-                ->where('type', 'minha')
-                ->get();
-        
+            ->where('type', 'despesa')
+            //                ->where('category', 'serviço')
+            ->where('status', 'disponível')
+            ->get();
+
+        $socialmedias = Socialmedia::where('account_id', auth()->user()->account_id)
+            ->where('type', 'minha')
+            ->get();
+
         return view('administrative.accounts.dashboard', compact(
-                        'account',
-                        'providers',
-                        'revenues',
-                        'expenses',
-                        'socialmedias',
+            'account',
+            'providers',
+            'revenues',
+            'expenses',
+            'socialmedias',
         ));
     }
 
-    public function logos() {
+    public function logos()
+    {
         return $logos = Image::where('account_id', auth()->user()->account_id)
-                ->where('type', 'logo')->get();        
+            ->where('type', 'logo')->get();
     }
 
-        public function report() {
+    public function report()
+    {
         $accounts = Account::where('id', '>', 1)
-                ->with('users.contact')
-                ->orderBy('created_at', 'DESC')
-                ->paginate(50);
+            ->with('users.contact')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(50);
 
         $total = $accounts->total();
 
         return view('administrative.accounts.report', compact(
-                        'accounts',
-                        'total',
+            'accounts',
+            'total',
         ));
     }
-    
-    public function allowAccount() {
+
+    public function allowAccount()
+    {
         $user = auth()->user();
         $account = Account::find($user->account_id);
-        
+
         return view('administrative.accounts.allow', compact(
-                        'user',
-                        'account',
+            'user',
+            'account',
         ));
     }
-    
 }

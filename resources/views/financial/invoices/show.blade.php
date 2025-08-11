@@ -49,6 +49,9 @@
         PROPOSTA
         @endif
     </div>
+    <div class='show-label'>
+        SALDO
+    </div>
 </div>
 <div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
     <div class='show-field-end'>
@@ -83,6 +86,15 @@
         Não possui
     </div>
     @endif
+    @if($invoice->totalBalance < 0)
+    <div class='show-field-end'>
+        {{$invoice->totalBalance}}
+    </div>
+    @else
+    <div class='show-field-end'>
+        0,00
+    </div>
+    @endif
 </div>
 
 <div class='col-lg-2 col-xs-6 pe-0' style='text-align: center'>
@@ -97,6 +109,9 @@
     </div>
     <div class='show-label'>
         PARCELA
+    </div>
+    <div class='show-label'>
+        VALOR
     </div>
 </div>
 <div class='col-lg-4 col-xs-6 ps-0' style='text-align: center'>
@@ -121,6 +136,9 @@
         @if($invoice->proposal)
         de {{$invoice->proposal->installment}}
         @endif
+    </div>
+    <div class='show-field-end'>
+        {{$invoice->totalPrice}}
     </div>
     @endsection
 

@@ -11,3 +11,5 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Define diretório de trabalho
 WORKDIR /var/www
+
+USER 1000:1000

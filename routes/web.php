@@ -243,35 +243,35 @@ Route::resource('planejamentos', 'Administrative\\PlanningController')
 
 
 // transactions / movimentações financeiras
-Route::post('/movimentacoes/adicionar', 'Financial\\TransactionController@storeFromOpportunity')
+Route::post('/transaction/adicionar', 'Financial\\TransactionController@storeFromOpportunity')
         ->name('transaction.storeOpportunity');
 
-Route::put('/movimentacoes/apagar/{transaction}', 'Financial\\TransactionController@sendToTrash')
+Route::put('/transaction/apagar/{transaction}', 'Financial\\TransactionController@sendToTrash')
         ->name('transaction.trash')
         ->middleware('roles');
 
-Route::put('/movimentacoes/restaurar/{transaction}', 'Financial\\TransactionController@restoreFromTrash')
+Route::put('/transaction/restaurar/{transaction}', 'Financial\\TransactionController@restoreFromTrash')
         ->name('transaction.restore')
         ->middleware('roles');
 
-Route::get('/movimentacoes/export-csv', 'Financial\\TransactionController@exportCsv')
+Route::get('/transaction/export-csv', 'Financial\\TransactionController@exportCsv')
         ->name('transaction.export')
         ->middleware('roles');
 
-Route::any('/movimentacoes/relatorio', 'Financial\\TransactionController@report')
+Route::any('/transaction/relatorio', 'Financial\\TransactionController@report')
         ->name('transaction.report')
         ->middleware('roles');
 
-Route::get('/movimentacoes/transferencia', 'Financial\\TransactionController@createTransfer')
+Route::get('/transaction/transferencia', 'Financial\\TransactionController@createTransfer')
         ->name('transaction.createTransfer')
         ->middleware('roles');
 
-Route::post('/movimentacoes/transferencia', 'Financial\\TransactionController@storeTransfer')
+Route::post('/transaction/transferencia', 'Financial\\TransactionController@storeTransfer')
         ->name('transaction.storeTransfer')
         ->middleware('roles');
 
-Route::resource('movimentacoes', 'Financial\\TransactionController')
-        ->names('transaction')
+Route::resource('transaction', 'Financial\\TransactionController')
+        // ->names('transaction')
         ->parameters(['movimentacoes' => 'transaction'])
         ->middleware('roles');
 

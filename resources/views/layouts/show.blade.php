@@ -48,10 +48,10 @@
                                 @yield('name')
                             </div>
                             <div class='col-2'>
-                                <div-priority :priority="{{json_encode($priority)}}" />
+                                <div-priority :priority="{{ isset($priority) ? json_encode($priority) : 'null' }}" />
                             </div>
                             <div class='col-2'>
-                                <div-status :status="{{json_encode($status)}}" />
+                                <div-status :status="{{ isset($status) ? json_encode($status) : 'null' }}" />
                             </div>
                         </div>
 

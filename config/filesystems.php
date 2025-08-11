@@ -53,8 +53,8 @@ return [
         ],
         'public' => [
             'driver' => 'local',
-            'root' => storage_path('app'),
-            'url' => env('APP_URL') . '/storage',
+            'root' => storage_path('app/public'),
+            'url' => env('APP_URL') . '/',
             'visibility' => 'public',
         ],
         's3' => [
@@ -78,9 +78,9 @@ return [
       |
      */
     'links' => [
-        public_path('images') => storage_path('app/images'),
-        public_path('users_images') => storage_path('app/users_images'),
-        public_path('customers_images') => storage_path('app/customers_images'),
-        public_path('bugs_images') => storage_path('app/bugs_images'),
+        public_path('images') => storage_path('app/public/images'),
+        public_path('users_images') => storage_path('app/public/users_images'),
+        public_path('customers_images') => storage_path('app/public/customers_images'),
+        public_path('bugs_images') => storage_path('app/public/bugs_images'),
     ],
 ];

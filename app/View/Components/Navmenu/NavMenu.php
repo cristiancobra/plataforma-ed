@@ -23,12 +23,12 @@ class NavMenu extends Component {
     public function render() {
         $empresaDigital = \App\Models\Account::find(1);
 
-        if (auth()->user() == true AND auth()->user()->account->image) {
-            $logo = auth()->user()->account->image->path;
+        if (auth()->user() == true AND auth()->user()->account->logo) {
+            $logo = auth()->user()->account->logo;
         } else {
-            $logo = $empresaDigital->image->path;
+            $logo = asset('images/logo-empresa-digital.png');
         }
-
+// dd($empresaDigital);
         if(auth()->user() == true ? $lastJourney = \App\Models\Journey::myLastJourney() : $lastJourney = null);
         if(auth()->user() == true ? $openJourney = $openJourney = \App\Models\Journey::myOpenJourney() : $openJourney = null);
         if(auth()->user() == true ? $tasksEmergency = $tasksEmergency = \App\Models\Task::getTasksEmergency() : $tasksEmergency = null);

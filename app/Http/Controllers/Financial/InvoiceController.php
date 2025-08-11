@@ -485,9 +485,15 @@ class InvoiceController extends Controller {
             $contactCpf = $invoice->contact->cpf;
         }
 
+        if($invoice->account->image) {
+            $accountLogo = $invoice->account->image->path;
+        } else {
+            $accountLogo = "/images/logo-empresa-digital.png";
+        }
+
         $data = [
             'pdfTitle' => $pdfTitle,
-            'accountLogo' => $invoice->account->image->path,
+            'accountLogo' => $accountLogo,
             'accountPrincipalColor' => $invoice->account->principal_color,
             'accountComplementaryColor' => $invoice->account->complementary_color,
             'accountName' => $invoice->account->name,

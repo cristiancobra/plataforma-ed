@@ -3,12 +3,11 @@
 ">
     <div class="container-fluid ms-5 me-5">
         <a class="navbar-brand" href="{{url('/')}}">
-            @guest
-            <img src="{{asset('/images/logo-empresa-digital.png')}}" width="120px" height="40px">
-            @endguest
-            @auth
+            @if($logo)
             <img src="{{asset($logo)}}" width="120px" height="40px">
-            @endauth
+            @else
+            <img src="{{asset('/images/logo-empresa-digital.png')}}" width="120px" height="40px">
+            @endif
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{__('Toggle navigation')}}">
             <span class="navbar-toggler-icon"></span>

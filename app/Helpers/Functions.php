@@ -175,9 +175,9 @@ if (!function_exists('createButtonPdf')) {
 
 // cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF
     function createButtonPdf($parameter, $model = null) {
-        $link = "$parameter.pdf";
+        $link = "$model.pdf";
 
-        echo "<a class='circular-button secondary'  href=" . route($link, [$parameter => $model]) . ">
+        echo "<a class='circular-button secondary'  href=" . route($link, [$model => $parameter->id]) . ">
                         <i class='fa fa-print' aria-hidden='true'></i>
                     </a>";
     }

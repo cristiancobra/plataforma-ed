@@ -123,11 +123,19 @@ class TransactionController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->paginate(20);
 
+        if ($typeTransactions == 'débito') {
+            $typeInvoice = 'despesa';
+        } elseif ($typeTransactions == 'crédito') {
+            $typeInvoice = 'receita';
+        }
+                
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('status', 'aprovada')
-                ->where('type', 'LIKE', $typeTransactions)
+                ->where('type', 'LIKE', $typeInvoice)
                 ->orderBy('pay_day', 'ASC')
                 ->paginate(20);
+
+                // dd($typeTransactions);
 
         $users = User::myUsers();
 
@@ -190,7 +198,7 @@ class TransactionController extends Controller {
             $transaction->account_id = auth()->user()->account_id;
             
             $transaction->type = $request->input('typeTransactions');
-//            dd($transaction->type);
+        //    dd($transaction->type);
             if ($transaction->type == 'crédito') {
                 $transaction->value = removeCurrency($request->value);
             } else {
@@ -202,30 +210,54 @@ class TransactionController extends Controller {
                     ->with('transactions')
                     ->first();
 
+            $invoice->totalPrice = floatval($invoice->totalPrice);
             $totalPaid = Invoice::totalPaid($invoice);
-            $newTotal = $totalPaid + $transaction->value;
+            $newTotal = $totalPaid - $transaction->value;
+            // dd($transaction->value);
+            // dd($transaction->value, $invoice->totalPrice, $totalPaid, $newTotal);
 
-            if ($transaction->type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
+            if ($newTotal <= $invoice->totalPrice) {
                 $transaction->save();
+            
+                if ($transaction->type == 'débito') {
+                    $payment = formatCurrencyReal($transaction->value);
+                    return back()
+                        ->with('success', "Pagamento de $payment adicionado!")
+                        ->withInput();
+                }
+            
                 return redirect()->back();
-            } elseif ($transaction->type == 'débito' AND $newTotal >= $invoice->totalPrice) {
-                $transaction->save();
-                $payment = formatCurrencyReal($transaction->value);
-                
-                                return back()
-                                ->with('success', "Pagamento de $payment adicionado!")
-                                ->withInput();
-            } elseif ($transaction->type == 'crédito') {
-                $totalPrice = formatCurrencyReal($invoice->totalPrice);
-                return back()
-                                ->with('failed', "A soma dos recebimento não pode ser maior que  $totalPrice")
-                                ->withInput();
-            } else {
-                $totalPrice = formatCurrencyReal($invoice->totalPrice);
-                return back()
-                                ->with('failed', "A soma dos pagamentos  $newTotal  não pode ser menor que  $totalPrice")
-                                ->withInput();
             }
+            
+            if ($transaction->type == 'crédito') {
+                $totalPrice = formatCurrencyReal($invoice->totalPrice);
+                return back()
+                    ->with('failed', "A soma dos recebimentos não pode ser maior que $totalPrice")
+                    ->withInput();
+            }
+
+            // if ($transaction->type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
+            //     $transaction->save();
+            //     return redirect()->back();
+            // } elseif ($transaction->type == 'débito' AND $newTotal <= $invoice->totalPrice) {
+            //     $transaction->save();
+            //     $payment = formatCurrencyReal($transaction->value);
+                
+            //                     return back()
+            //                     ->with('success', "Pagamento de $payment adicionado!")
+            //                     ->withInput();
+            // } elseif ($transaction->type == 'crédito') {
+            //     $totalPrice = formatCurrencyReal($invoice->totalPrice);
+            //     return back()
+            //                     ->with('failed', "A soma dos recebimento não pode ser maior que  $totalPrice")
+            //                     ->withInput();
+            // }
+            //  else {
+            //     $totalPrice = formatCurrencyReal($invoice->totalPrice);
+            //     return back()
+            //                     ->with('failed', "A soma dos pagamentos  $newTotal  não pode ser menor que  $totalPrice")
+            //                     ->withInput();
+            // }
         }
     }
 

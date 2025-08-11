@@ -31,6 +31,8 @@
     <form action=" {{route('transaction.store')}} " method="post">
         @csrf
 
+        <input type="hidden" name="typeTransactions" value="{{ $typeTransactions }}">
+        
         @if(!empty(app('request')->input('invoiceType')))
         <input type='hidden' name='type' value='{{app('request')->input('invoiceType')}}'>
         @elseif($typeTransactions == 'crédito')
