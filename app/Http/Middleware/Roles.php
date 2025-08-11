@@ -26,9 +26,9 @@ class Roles {
         $account = Account::find($user->account_id);
         $today = date('Y-m-d');
 
-        if ($account->due_date < $today) {
-            return response()->view('administrative.accounts.allow');
-        }
+        // if ($account->due_date < $today) {
+        //     return response()->view('administrative.accounts.allow');
+        // }
         
         if ($user->perfil == 'super administrador') {
             $role = "superadmin";
