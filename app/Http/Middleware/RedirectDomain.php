@@ -22,7 +22,7 @@ class RedirectDomain {
 
         $domain = $request->server('SERVER_NAME');
 
-        if ($domain == 'plataforma.empresadigital.net.br' OR $domain == '127.0.0.1') {
+        if ($domain == 'sciblock.xyz' OR $domain == '127.0.0.1') {
             return $next($request);
         }
 
