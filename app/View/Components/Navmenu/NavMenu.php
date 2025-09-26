@@ -26,7 +26,7 @@ class NavMenu extends Component {
         if (auth()->user() == true AND auth()->user()->account->logo) {
             $logo = auth()->user()->account->logo;
         } else {
-            $logo = asset('images/logo-empresa-digital.png');
+            $logo = asset('images/logo-sciblock.png');
         }
 // dd($empresaDigital);
         if(auth()->user() == true ? $lastJourney = \App\Models\Journey::myLastJourney() : $lastJourney = null);

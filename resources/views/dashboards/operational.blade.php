@@ -18,7 +18,7 @@
         </div>
         @if($myTasksToday->isEmpty())
         <div class='row'>
-            <img class='ms-auto me-auto w-50 pt-3 pb-2' src='{{asset('images/cao-astronauta.png')}}'>
+            <img class='ms-auto me-auto w-50 pt-3 pb-2' src='{{asset('images/sciblock-mascote.png')}}'>
         </div>
         <div class='row mt-2'>
             <p class='text-center fs-5'>

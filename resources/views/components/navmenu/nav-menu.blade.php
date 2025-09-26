@@ -6,7 +6,7 @@
             @if($logo)
             <img src="{{asset($logo)}}" width="120px" height="40px">
             @else
-            <img src="{{asset('/images/logo-empresa-digital.png')}}" width="120px" height="40px">
+            <img src="{{asset('/images/logo-sciblock.png')}}" width="120px" height="40px">
             @endif
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{__('Toggle navigation')}}">
