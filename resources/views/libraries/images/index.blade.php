@@ -56,7 +56,7 @@
     <div class='tb col-2' style="background-color: lightgray">
         <div class='product-image-small'>
             <a href=' {{route('image.show', ['image' => $image->id])}}'>
-                <img src='{{asset($image->path)}}' width='100%' heigh='100%'>
+                <img src='{{asset('storage/' . $image->path)}}' width='100%' heigh='100%'>
             </a>
         </div>
     </div>
