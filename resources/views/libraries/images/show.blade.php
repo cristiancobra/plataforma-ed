@@ -46,7 +46,7 @@
 <div class="row mt-5">
     <div class='col-12 pe-0' style='text-align: center'>
         <div class='image-show'>
-            <img src='{{asset('storage/' . $image->path)}}' width='100%' heigh='100%'>
+            <img src="{{ asset('storage/' . $image->path) }}" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="{{ $image->name }}">
         </div>
     </div>
 </div>
