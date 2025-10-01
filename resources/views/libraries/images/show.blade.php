@@ -13,11 +13,7 @@
 
 @section('name', $image->name)
 
-
-@section('priority', $priority)
-
-
-@section('status', $status)
+@section('status', $image->status)
 
 
 @section('fieldsId')
@@ -50,7 +46,7 @@
 <div class="row mt-5">
     <div class='col-12 pe-0' style='text-align: center'>
         <div class='image-show'>
-            <img src='{{asset($image->path)}}' width='100%' heigh='100%'>
+            <img src='{{asset('storage/' . $image->path)}}' width='100%' heigh='100%'>
         </div>
     </div>
 </div>

@@ -18,7 +18,6 @@ class Image extends Model {
         'path',
         'type',
         'status',
-        'status'
     ];
 
     public function contact() {
@@ -46,8 +45,8 @@ class Image extends Model {
             $orderColumn = 'created_at';
             $orderDirection = 'DESC';
         } else {
-            $orderColumn = 'name';
-            $orderDirection = 'ASC';
+            $orderColumn = 'id';
+            $orderDirection = 'DESC';
         };
 
         $items = Image::where(function ($query) use ($request) {

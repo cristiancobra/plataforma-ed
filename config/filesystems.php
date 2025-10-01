@@ -78,6 +78,7 @@ return [
       |
      */
     'links' => [
+        public_path('storage') => storage_path('app/public'), // Link padrão para "public/storage"
         public_path('images') => storage_path('app/public/images'),
         public_path('users_images') => storage_path('app/public/users_images'),
         public_path('customers_images') => storage_path('app/public/customers_images'),
