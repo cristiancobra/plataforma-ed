@@ -203,7 +203,7 @@ class TaskController extends Controller {
                 $image->type = 'tarefa';
                 $image->name = 'Imagem da tarefa ' . $task->id;
                 $image->status = 'disponível';
-                $path = $request->file('image')->store('users_images');
+                $path = $request->file('image')->store('customers_images');
                 $image->path = $path;
                 $image->save();
             }

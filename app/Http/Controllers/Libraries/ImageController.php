@@ -119,7 +119,7 @@ class ImageController extends Controller
     {
         $image->fill($request->all());
         if ($request->file('image')) {
-            $path = $request->file('image')->store('users_images');
+            $path = $request->file('image')->store('customers_images');
             $image->path = $path;
         }
         $image->save();

@@ -129,7 +129,7 @@ class Image extends Model {
             $image->account_id = auth()->user()->account_id;
             $image->user_id = $user->id;
                 $image->name = "Foto de perfil " . $user->contact->name . " - " . date('d/m/Y - H:m');
-            $path = $request->file('image')->store('users_images');
+            $path = $request->file('image')->store('customers_images');
             $image->path = $path;
             $image->save();
 

@@ -89,7 +89,7 @@ class GoalController extends Controller {
                 $image->type = 'tarefa';
                 $image->name = 'Imagem da meta ' . $goal->name;
                 $image->status = 'disponível';
-                $path = $request->file('image')->store('users_images');
+                $path = $request->file('image')->store('customers_images');
                 $image->path = $path;
                 $image->save();
             }

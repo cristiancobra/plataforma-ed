@@ -104,7 +104,7 @@ class TextController extends Controller {
                 $image->type = 'tarefa';
                 $image->name = 'Imagem do texto ' . $text->id;
                 $image->status = 'disponível';
-                $path = $request->file('image')->store('users_images');
+                $path = $request->file('image')->store('customers_images');
                 $image->path = $path;
                 $image->save();
             }
@@ -207,7 +207,7 @@ class TextController extends Controller {
                 $image->type = 'tarefa';
                 $image->name = 'Imagem da tarefa ' . $text->id;
                 $image->status = 'disponível';
-                $path = $request->file('image')->store('users_images');
+                $path = $request->file('image')->store('customers_images');
                 $image->path = $path;
                 $image->save();
             }

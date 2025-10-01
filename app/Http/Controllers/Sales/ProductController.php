@@ -330,7 +330,7 @@ class ProductController extends Controller {
             $image->account_id = auth()->user()->account_id;
             $image->type = 'produto';
             $image->status = 'disponível';
-            $path = $request->file('image')->store('users_images');
+            $path = $request->file('image')->store('customers_images');
             $image->path = $path;
             $image->save();
             $imageId = $image->id;

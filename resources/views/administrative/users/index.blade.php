@@ -49,7 +49,7 @@ Total: <span class='labels'>{{$total}} </span>
             <div class='profile-picture-small'>
                 <a  class='white' href='{{route('user.show', ['user' => $user->id])}}'>
                     @if($user->image)
-                    <img src='{{asset($user->image->path)}}' width='100%' height='100%'>
+                    <img src='{{asset('storage/' . $user->image->path)}}' width='100%' height='100%'>
                     @else
                     <img src='{{asset('images/user.png')}}' width='100%' height='100%'>
                     @endif
