@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\Proposal;
 use App\Models\Shop;
 use App\Models\User;
+use App\Http\Requests\StoreProductRequest;
 
 class ProductController extends Controller {
 
@@ -93,47 +94,34 @@ class ProductController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $messages = [
-            'unique' => 'Já existe um contato com este :attribute.',
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:products',
-                    'price' => 'required:products',
-                        ], $messages);
-
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
+    public function store(StoreProductRequest $request)
+    {
+        $variation = $request->input('variation');
+    
+        $product = new Product();
+        $product->fill($request->all());
+        $product->account_id = auth()->user()->account_id;
+        $product->price = removeCurrency($request->price);
+    
+        if ($variation == 'receita') {
+            $product->price = $product->price;
         } else {
-            $variation = $request->input('variation');
-
-            $product = new Product();
-            $product->fill($request->all());
-            $product->account_id = auth()->user()->account_id;
-            $product->price = removeCurrency($request->price);
-            if ($variation == 'receita') {
-                $product->price = $product->price;
-            } else {
-                $product->price = $product->price * -1;
-            }
-            $product->tax_rate = str_replace(",", ".", $request->tax_rate);
-            $product->type = $variation;
-            $product->image_id = $this->saveImage($request);
-            $product->shop = $request->has('shop') ? 1 : 0;
-            $product->save();
-
-            $type = $variation;
-
-            return redirect()->route('product.show', compact(
-                                    'product',
-                                    'type',
-                                    'variation',
-            ));
+            $product->price = $product->price * -1;
         }
+    
+        $product->tax_rate = str_replace(",", ".", $request->tax_rate);
+        $product->type = $variation;
+        $product->image_id = $this->saveImage($request);
+        $product->shop = $request->has('shop') ? 1 : 0;
+        $product->save();
+    
+        $type = $variation;
+    
+        return redirect()->route('product.show', compact(
+            'product',
+            'type',
+            'variation',
+        ));
     }
 
     /**

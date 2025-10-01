@@ -64,7 +64,7 @@
         </a>
         <div class='cel col-1'>
             <div class='product-image-small'>
-                @if($product->image_id)
+                @if($product->image && $product->image->path)
                 <image src='{{asset($product->image->path)}}' width='100%' heigh='100%'>
                 @else
                 <image src='{{asset('images/products.png')}}' width='100%' heigh='100%'>

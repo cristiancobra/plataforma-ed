@@ -91,6 +91,8 @@ return array(
     'App\\Http\\Middleware\\TrustHosts' => $baseDir . '/app/Http/Middleware/TrustHosts.php',
     'App\\Http\\Middleware\\TrustProxies' => $baseDir . '/app/Http/Middleware/TrustProxies.php',
     'App\\Http\\Middleware\\VerifyCsrfToken' => $baseDir . '/app/Http/Middleware/VerifyCsrfToken.php',
+    'App\\Http\\Requests\\StoreImageRequest' => $baseDir . '/app/Http/Requests/StoreImageRequest.php',
+    'App\\Http\\Requests\\StoreProductRequest' => $baseDir . '/app/Http/Requests/StoreProductRequest.php',
     'App\\Mail\\invoices' => $baseDir . '/app/Mail/invoices.php',
     'App\\Mail\\marketing' => $baseDir . '/app/Mail/marketing.php',
     'App\\Models\\Account' => $baseDir . '/app/Models/Account.php',
