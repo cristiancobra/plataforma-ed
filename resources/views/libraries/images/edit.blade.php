@@ -64,9 +64,6 @@
         <div>
             <input class="btn btn-secondary" style="display:inline-block" type="submit" value="ATUALIZAR">
             </form>
-            <a class="btn btn-secondary" style="display:inline-block" href=" https://acadia.mxroute.com:2083/" target="_blank">
-                <i class='fa fa-edit'></i>EDITAR
-            </a>
         </div>
 </div>
 <br>

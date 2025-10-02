@@ -2055,9 +2055,15 @@ justify-content: center;
     position: relative;
     overflow: hidden;
     text-align: center;
-    margin: 10px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.profile-picture img {
+    width: 110%; /* Faz a imagem ocupar toda a largura do contêiner */
+    height: 110%; /* Faz a imagem ocupar toda a altura do contêiner */
+    object-fit: cover; /* Garante que a imagem mantenha a proporção e preencha o contêiner */
+    object-position: center; /* Centraliza a imagem dentro do contêiner */
 }
 
 .product-image {

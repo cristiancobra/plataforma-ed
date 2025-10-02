@@ -151,14 +151,16 @@ class UserController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user) {
-        $user->fill($request->all());
-        if ($request->file('image')) {
-            $image = Image::updateProfilePicture($request, $user);
-            $user->image_id = $image->id;
-        }
-        $user->update();
+        $user->fill($request->except('image'));
 
-        return redirect()->route('user.index');
+        if ($request->hasFile('image')) {
+            $image = Image::updateProfilePicture($request, $user);
+            $user->image_id = $image->id; // Atualiza o ID da imagem no usuário
+        }
+    
+        $user->save();
+
+        return redirect()->route('user.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
     /**
