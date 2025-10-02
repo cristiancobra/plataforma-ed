@@ -764,6 +764,7 @@ h5{
 .labels{
     font-family: helvetica;
     color: #874983;
+    vertical-align: top; 
     margin-top: 3px;
     margin-bottom: 5px;
     font-weight:bolder;

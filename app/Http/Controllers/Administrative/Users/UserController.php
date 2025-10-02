@@ -131,7 +131,6 @@ class UserController extends Controller {
      */
     public function edit(User $user) {
         $images = Image::where('account_id', auth()->user()->account_id)
-                ->where('user_id', $user->id)
                 ->where('type', 'imagem perfil')
                 ->get();
         

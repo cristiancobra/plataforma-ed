@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreImageRequest;
+use App\Models\User;
+use App\Http\Requests\UpdateImageRequest;
 
 class ImageController extends Controller
 {
@@ -100,11 +102,13 @@ class ImageController extends Controller
     {
         $types = $this->listTypes();
         $status = $this->listStatus();
+        $users = User::myUsers();
 
         return view('libraries/images/edit', compact(
             'image',
             'types',
             'status',
+            'users',
         ));
     }
 
@@ -115,13 +119,26 @@ class ImageController extends Controller
      * @param  \App\Models\Image  $image
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Image $image)
+    public function update(UpdateImageRequest $request, Image $image)
     {
-        $image->fill($request->all());
-        if ($request->file('image')) {
-            $path = $request->file('image')->store('customers_images');
-            $image->path = $path;
+        $image->fill($request->except('image'));
+
+        if ($request->hasFile('image')) {
+            // Remove a imagem antiga, se necessário
+            if ($image->path && \Storage::exists('public/' . $image->path)) {
+                \Storage::delete('public/' . $image->path);
+            }
+    
+            // Salva a nova imagem no diretório 'public/customers_images'
+            $path = $request->file('image')->store('public/customers_images');
+            $image->path = str_replace('public/', '', $path); // Remove o prefixo 'public/' para consistência
         }
+
+        // dd($image);
+        // if ($request->file('image')) {
+        //     $path = $request->file('image')->store('customers_images');
+        //     $image->path = $path;
+        // }
         $image->save();
 
         return view('libraries/images/show', compact(
