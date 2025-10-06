@@ -3,6 +3,7 @@
 .env
 /resources/views/vendor/
 comandos.txt
+backups/
 
 /storage/app/products/
 /storage/app/users_images/
