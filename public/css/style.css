@@ -2060,8 +2060,8 @@ justify-content: center;
 }
 
 .profile-picture img {
-    width: 110%; /* Faz a imagem ocupar toda a largura do contêiner */
-    height: 110%; /* Faz a imagem ocupar toda a altura do contêiner */
+    width: 100%; /* Faz a imagem ocupar toda a largura do contêiner */
+    height: 100%; /* Faz a imagem ocupar toda a altura do contêiner */
     object-fit: cover; /* Garante que a imagem mantenha a proporção e preencha o contêiner */
     object-position: center; /* Centraliza a imagem dentro do contêiner */
 }
@@ -2978,6 +2978,7 @@ h5{
     font-weight:bolder;
     text-align:left;
     font-size:16px;
+    width: 100%;
 }
 
 .fields{
@@ -2988,6 +2989,18 @@ h5{
     font-weight:400;
     text-align:left;
     font-size:16px;
+    width: 100%;
+}
+
+.fields-right{
+    color: #874983;
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-weight:400;
+    text-align:right;
+    font-size:16px;
+    width: 100%;
 }
 
 .select{
