@@ -1,14 +1,6 @@
 @extends('layouts/master')
 
-@if ($typeCompanies == 'cliente')
-    @section('title', 'ORGANIZAÇÕES')
-@elseif($typeCompanies == 'fornecedor')
-    @section('title', 'FORNECEDORES')
-@elseif($typeCompanies == 'cliente e fornecedor')
-    @section('title', 'CLIENTE FORNECEDOR')
-@elseif($typeCompanies == 'concorrente')
-    @section('title', 'CONCORRENTES')
-@endif
+@section('title', 'ORGANIZAÇÕES')
 
 @section('image-top')
     {{ asset('images/empresa.png') }}
@@ -36,8 +28,7 @@
     <div>
         <form action=" {{ route('company.update', [
             'company' => $company->id,
-        ]) }} "
-            method="post">
+        ]) }} " method="post">
             @csrf
             @method('put')
             <label for="">NOME: </label>
@@ -83,19 +74,24 @@
             <div class="row mt-3 mb-3">
                 <div class="col-md-6">
                     <label class="labels" for="field_of_activity_1">Área de atuação 1:</label>
-                    <input type="text" name="field_of_activity_1" class="fields" value="{{ old('field_of_activity_1', $company->field_of_activity_1) }}">
-                
+                    <input type="text" name="field_of_activity_1" class="fields"
+                        value="{{ old('field_of_activity_1', $company->field_of_activity_1) }}">
+
                     <label class="labels" for="field_of_activity_2">Área de atuação 2:</label>
-                    <input type="text" name="field_of_activity_2" class="fields" value="{{ old('field_of_activity_2', $company->field_of_activity_2) }}">
-                
+                    <input type="text" name="field_of_activity_2" class="fields"
+                        value="{{ old('field_of_activity_2', $company->field_of_activity_2) }}">
+
                     <label class="labels" for="field_of_activity_3">Área de atuação 3:</label>
-                    <input type="text" name="field_of_activity_3" class="fields" value="{{ old('field_of_activity_3', $company->field_of_activity_3) }}">
-                
+                    <input type="text" name="field_of_activity_3" class="fields"
+                        value="{{ old('field_of_activity_3', $company->field_of_activity_3) }}">
+
                     <label class="labels" for="field_of_activity_4">Área de atuação 4:</label>
-                    <input type="text" name="field_of_activity_4" class="fields" value="{{ old('field_of_activity_4', $company->field_of_activity_4) }}">
-                
+                    <input type="text" name="field_of_activity_4" class="fields"
+                        value="{{ old('field_of_activity_4', $company->field_of_activity_4) }}">
+
                     <label class="labels" for="field_of_activity_5">Área de atuação 5:</label>
-                    <input type="text" name="field_of_activity_5" class="fields" value="{{ old('field_of_activity_5', $company->field_of_activity_5) }}">
+                    <input type="text" name="field_of_activity_5" class="fields"
+                        value="{{ old('field_of_activity_5', $company->field_of_activity_5) }}">
                 </div>
             </div>
 

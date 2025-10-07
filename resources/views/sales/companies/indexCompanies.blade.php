@@ -1,14 +1,6 @@
 @extends('layouts/index')
 
-@if($typeCompanies == 'cliente')
 @section('title','ORGANIZAÇÕES')
-@elseif($typeCompanies == 'fornecedor')
-@section('title','FORNECEDORES')
-@elseif($typeCompanies == 'cliente e fornecedor')
-@section('title','CLIENTE FORNECEDOR')
-@elseif($typeCompanies == 'concorrente')
-@section('title','CONCORRENTES')
-@endif
 
 @section('image-top')
 {{asset('images/empresa.png')}} 
