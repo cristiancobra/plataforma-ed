@@ -13,7 +13,7 @@
 <!--     linha 1 de blocos-->
 <div class='row'>
 
-    <!--     começo bloco de MINHA EMPRESA-->
+    <!--     começo bloco de MINHA ORGANIZAÇÃO-->
     <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -37,7 +37,7 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3'>
-                MINHA EMPRESA
+                MINHA ORGANIZAÇÃO
             </div>
         </div>
         <!--linha dos botoes-->
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <!--fim do bloco de MINHA EMPRESA-->
+    <!--fim do bloco de MINHA ORGANIZAÇÃO-->
 
 
     <!--     começo bloco de USUÁRIOS-->
@@ -294,7 +294,7 @@
     <!--fim do bloco de RELATÓRIOS DE FINANCEIROS-->
 
 
-    <!--     começo bloco de RELATÓRIOS DE VENDAS-->
+    <!--     começo bloco de RELATÓRIOS DE CAPTAÇÃO-->
     <div class='col' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -318,7 +318,7 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3'>
-                RELATÓRIOS DE VENDAS
+                RELATÓRIOS DE CAPTAÇÃO
             </div>
         </div>
         <!--linha dos botoes-->
@@ -343,7 +343,7 @@
             </div>
         </div>
     </div>
-    <!--fim do bloco de RELATÓRIOS DE VENDAS-->
+    <!--fim do bloco de RELATÓRIOS DE CAPTAÇÃO-->
 
 
 

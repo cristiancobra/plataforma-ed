@@ -79,7 +79,7 @@ class ContactRequest extends FormRequest
             'date_birth.date' => 'O campo "Data de Nascimento" deve ser uma data válida.',
             'cpf.max' => 'O campo "CPF" não pode ter mais de 14 caracteres.',
             'profession.max' => 'O campo "Profissão" não pode ter mais de 255 caracteres.',
-            'companies.array' => 'O campo "Empresas" deve ser uma lista válida.',
+            'companies.array' => 'O campo "Organizações" deve ser uma lista válida.',
             'companies.*.exists' => 'Uma ou mais empresas selecionadas são inválidas.',
             'job_position.max' => 'O campo "Cargo" não pode ter mais de 255 caracteres.',
             'schollarity.max' => 'O campo "Escolaridade" não pode ter mais de 255 caracteres.',

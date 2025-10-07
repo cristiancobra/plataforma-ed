@@ -17,7 +17,7 @@
 
     <!--    {{createSidebarItem('ADMINISTRATIVO', 'fa fa-user-tie', 'dropdownMenuAdministrativo', $complementaryColor, $oppositeColor, $principalColor, [
                                                                                                                                                             [
-                                                                                                                                                            'name' => 'MINHA EMPRESA',
+                                                                                                                                                            'name' => 'MINHA ORGANIZAÇÃO',
                                                                                                                                                             'faIcon' => 'fas fa-store',
                                                                                                                                                             'link' => route('account.show', ['account' => auth()->user()->account_id])
                                                                                                                                                             ],
@@ -100,7 +100,7 @@
             </a>
             <i class="fas fa-funnel-dollar"></i>
             <p class="mb-0"style='font-size:10px'>
-                VENDAS
+                CAPTAÇÃO
             </p>
             </a>
         </div>

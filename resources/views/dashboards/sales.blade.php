@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','VENDAS')
+@section('title','CAPTAÇÃO')
 
 @section('image-top')
 {{asset('images/financeiro.png')}}
@@ -177,7 +177,7 @@
     <!--fim do bloco de CONTATOS-->
 
 
-    <!--     começo bloco de EMPRESAS-->
+    <!--     começo bloco de ORGANIZAÇÕES-->
     <div class='col-2' style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{$complementaryColor}};
@@ -201,7 +201,7 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3'>
-                EMPRESAS
+                ORGANIZAÇÕES
             </div>
         </div>
         <!--linha dos botoes-->
@@ -218,15 +218,15 @@
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none' href='{{route('company.create', ['typeCompanies' => 'cliente'])}}'>
-                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova empresa'></i>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='nova organização'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('company.index', ['typeCompanies' => 'cliente'])}}'>
-                    <i class='fas fa-list-alt ps-2 pe-2' title='todas as empresas'></i>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todas as organizações'></i>
                 </a>
             </div>
         </div>
     </div>
-    <!--fim do bloco de EMPRESAS-->
+    <!--fim do bloco de ORGANIZAÇÕES-->
 
 
     <!--     começo bloco de LOJA-->

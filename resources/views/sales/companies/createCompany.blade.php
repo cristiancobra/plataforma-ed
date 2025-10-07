@@ -44,7 +44,7 @@
                 <input type="text" name="cnpj">
             </div>
             <div class="row mt-2">
-                <label for="type">Tipo de Empresa:</label>
+                <label for="type">Tipo de Organização:</label>
             </div>
             <div class="row mt-2">
                 <select name="type" class="fields">
