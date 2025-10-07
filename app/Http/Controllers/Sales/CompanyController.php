@@ -8,15 +8,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\Contact;
 use App\Models\Company;
+use App\Http\Requests\CompanyRequest;
 
-class CompanyController extends Controller {
+class CompanyController extends Controller
+{
 
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
 
         if ($request->input('typeCompanies')) {
             $typeCompanies = $request->input('typeCompanies');
@@ -27,17 +30,17 @@ class CompanyController extends Controller {
 
         $companies = Company::filterModel($request);
 
-//        $companies = Company::where('account_id', auth()->user()->account_id)
-//                ->with([
-//                    'account',
-//                    'contacts',
-//                ])
-//                ->where(function ($query) use ($typeCompanies) {
-//                    $query->where('type', $typeCompanies)
-//                    ->orWhere('type', 'cliente e fornecedor');
-//                })
-//                ->orderBy('NAME', 'ASC')
-//                ->paginate(20);
+        //        $companies = Company::where('account_id', auth()->user()->account_id)
+        //                ->with([
+        //                    'account',
+        //                    'contacts',
+        //                ])
+        //                ->where(function ($query) use ($typeCompanies) {
+        //                    $query->where('type', $typeCompanies)
+        //                    ->orWhere('type', 'cliente e fornecedor');
+        //                })
+        //                ->orderBy('NAME', 'ASC')
+        //                ->paginate(20);
 
 
         $total = $companies->total();
@@ -45,37 +48,37 @@ class CompanyController extends Controller {
         $types = $types = Company::returnTypes();
 
         $existingCities = Company::where('city', '!=', null)
-                ->where('type', $typeCompanies)
-                ->get()
-                ->pluck('city')
-                ->toArray();
+            ->where('type', $typeCompanies)
+            ->get()
+            ->pluck('city')
+            ->toArray();
         $uniqueCities = array_unique($existingCities);
         $cities = array_unshift($uniqueCities, '');
 
         $existingStates = Company::where('state', '!=', null)
-                ->where('type', $typeCompanies)
-                ->get()
-                ->pluck('state')
-                ->toArray();
+            ->where('type', $typeCompanies)
+            ->get()
+            ->pluck('state')
+            ->toArray();
         $uniqueStates = array_unique($existingStates);
         $states = array_unshift($uniqueStates, '');
 
         $existingCountries = Company::where('country', '!=', null)
-                ->where('type', $typeCompanies)
-                ->get()
-                ->pluck('country')
-                ->toArray();
+            ->where('type', $typeCompanies)
+            ->get()
+            ->pluck('country')
+            ->toArray();
         $uniqueCountries = array_unique($existingCountries);
         $countries = array_unshift($uniqueCountries, '');
 
         return view('sales.companies.indexCompanies', compact(
-                        'typeCompanies',
-                        'companies',
-                        'total',
-                        'types',
-                        'uniqueStates',
-                        'uniqueCities',
-                        'uniqueCountries',
+            'typeCompanies',
+            'companies',
+            'total',
+            'types',
+            'uniqueStates',
+            'uniqueCities',
+            'uniqueCountries',
         ));
     }
 
@@ -84,22 +87,23 @@ class CompanyController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request) {
+    public function create(Request $request)
+    {
         $typeCompanies = $request->input('typeCompanies');
 
         $contacts = Contact::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
+            ->orderBy('NAME', 'ASC')
+            ->get();
 
         $states = returnStates();
 
         $businessModelTypes = $this->businessModelTypes();
 
         return view('sales.companies.createCompany', compact(
-                        'typeCompanies',
-                        'contacts',
-                        'states',
-                        'businessModelTypes',
+            'typeCompanies',
+            'contacts',
+            'states',
+            'businessModelTypes',
         ));
     }
 
@@ -109,17 +113,23 @@ class CompanyController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store(CompanyRequest $request)
+    {
+        $validatedData = $request->validated();
         $company = new Company();
-        $company->fill($request->all());
+        $company->fill($validatedData);
         $company->account_id = auth()->user()->account_id;
         $company->save();
-        $company->contacts()->sync($request->contacts);
+
+        if ($request->has('contacts')) {
+            $company->contacts()->sync($request->contacts);
+        }
+        
         $typeCompanies = $company->type;
 
         return view('sales.companies.showCompany', compact(
-                        'company',
-                        'typeCompanies',
+            'company',
+            'typeCompanies',
         ));
     }
 
@@ -129,12 +139,13 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company, Request $request) {
+    public function show(Company $company, Request $request)
+    {
         $typeCompanies = $request->input('typeCompanies');
 
         return view('sales.companies.showCompany', compact(
-                        'company',
-                        'typeCompanies',
+            'company',
+            'typeCompanies',
         ));
     }
 
@@ -144,7 +155,8 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company, Request $request) {
+    public function edit(Company $company, Request $request)
+    {
         $typeCompanies = $request->input('typeCompanies');
         $states = returnStates();
         $types = Company::returnTypes();
@@ -152,11 +164,11 @@ class CompanyController extends Controller {
         $businessModelTypes = Account::businessModelTypes();
 
         return view('sales.companies.editCompany', compact(
-                        'company',
-                        'states',
-                        'typeCompanies',
-                        'businessModelTypes',
-                        'types'
+            'company',
+            'states',
+            'typeCompanies',
+            'businessModelTypes',
+            'types'
         ));
     }
 
@@ -167,19 +179,17 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company) {
-        $company->fill($request->all());
+    public function update(CompanyRequest $request, Company $company)
+    {
+        $validatedData = $request->validated();
+        $company->fill($validatedData);
         $company->save();
 
-//        if ($company->type == 'cliente e fornecedor') {
-//            $typeCompanies = $typeCompanies;
-//        } else {
-            $typeCompanies = $company->type;
-//        }
+        $typeCompanies = $company->type;
 
         return redirect()->route('company.show', compact(
-                                'company',
-                                'typeCompanies',
+            'company',
+            'typeCompanies',
         ));
     }
 
@@ -189,16 +199,18 @@ class CompanyController extends Controller {
      * @param  \App\Models\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company) {
+    public function destroy(Company $company)
+    {
         $typeCompanies = $company->type;
         $company->delete();
 
         return redirect()->route('company.index', compact(
-                                'typeCompanies',
+            'typeCompanies',
         ));
     }
 
-    public function businessModelTypes() {
+    public function businessModelTypes()
+    {
         $businessModelTypes = [
             'B2B' => ' B2B - Business to Business',
             'B2C' => 'B2C - Business to Consumer',
@@ -211,5 +223,4 @@ class CompanyController extends Controller {
         ];
         return $businessModelTypes;
     }
-
 }

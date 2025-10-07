@@ -1,7 +1,7 @@
 @extends('layouts/index')
 
 @if($typeCompanies == 'cliente')
-@section('title','EMPRESAS')
+@section('title','ORGANIZAÇÕES')
 @elseif($typeCompanies == 'fornecedor')
 @section('title','FORNECEDORES')
 @elseif($typeCompanies == 'cliente e fornecedor')

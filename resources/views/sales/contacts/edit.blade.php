@@ -144,7 +144,7 @@
                         <label class="labels" for="area_of_knowledge_5">Área do conhecimento 5:</label>
                         <input type="text" class="fields" name="area_of_knowledge_5" value="{{ $contact->area_of_knowledge_5 }}">
                     </div>
-                </div>
+                </div>a
 
                 <div class="row mt-5 mb-3">
                     <h2 class="name" for="">CONTATOS</h2>

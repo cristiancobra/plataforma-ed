@@ -38,6 +38,11 @@ class Company extends Model {
         'revenues',
         'value_offer',
         'status',
+        'field_of_activity_1',
+        'field_of_activity_2',
+        'field_of_activity_3',
+        'field_of_activity_4',
+        'field_of_activity_5',
     ];
     protected $hidden = [
     ];
