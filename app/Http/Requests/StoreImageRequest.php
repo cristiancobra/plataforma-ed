@@ -26,7 +26,7 @@ class StoreImageRequest extends FormRequest
         return [
             'name' => 'required',
             'alt' => 'required',
-            'image' => 'required|image|max:50000',
+            'image' => 'required|mimes:jpeg,png,bmp,gif,svg,webp|max:50000',
             'status' => 'required',
             'type' => 'required',
         ];
