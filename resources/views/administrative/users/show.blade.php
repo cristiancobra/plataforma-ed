@@ -57,7 +57,7 @@
         CONTATO
     </div>
     <div class='tb tb-header col-3'>
-        EMPRESA
+        ORGANIZAÇÃO
     </div>
     <div class='tb tb-header col-1'>
         PRAZO

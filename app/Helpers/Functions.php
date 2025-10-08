@@ -839,8 +839,11 @@ if (!function_exists('formatType')) {
             case 'blog':
                 echo '<div class="col-1 tb tb-medium text-center">blog</div>';
                 break;
-            case 'copy de venda':
-                echo '<div class="col-1 tb tb-high text-center">copy de venda</div>';
+            case 'documento':
+                echo '<div class="col-1 tb tb-high text-center">documento</div>';
+                break;
+            case 'teste':
+                echo '<div class="col-1 tb tb-high text-center">teste</div>';
                 break;
             case 'perguntas frequentes':
                 echo '<div class="col-1 tb tb-emergency text-center">perguntas frequentes</div>';
@@ -1158,8 +1161,11 @@ if (!function_exists('formatShowType')) {
             case 'blog':
                 echo '<div class="to-do">blog</div>';
                 break;
-            case 'copy de venda':
-                echo '<div class="doing">copy de venda</div>';
+            case 'documento':
+                echo '<div class="doing">documento</div>';
+                break;
+            case 'teste':
+                echo '<div class="doing">teste</div>';
                 break;
             case 'perguntas frequentes':
                 echo '<div class="done">perguntas frequentes</div>';

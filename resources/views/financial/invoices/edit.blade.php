@@ -54,7 +54,7 @@
             PROPOSTA
         </div>
         <div class='show-label'>
-            EMPRESA
+            ORGANIZAÇÃO
         </div>
         <div class='show-label'>
             CONTATO

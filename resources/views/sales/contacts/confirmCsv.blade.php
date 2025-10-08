@@ -13,7 +13,7 @@
 @section('table')
 <div class='row mt-2'>
     <div class="col">
-        <label class='labels' for='account_id'>EMPRESA: </label>
+        <label class='labels' for='account_id'>ORGANIZAÇÃO: </label>
         <input type='hidden' name='account_id' value='{{$account->id}}'>
         {{$account->name}}
     </div>

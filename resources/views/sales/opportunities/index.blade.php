@@ -142,7 +142,7 @@
     @endif
 
     <div class="tb tb-header col-2">
-        EMPRESA
+        ORGANIZAÇÃO
     </div>
     <div class="tb tb-header col-1">
         RESPONSÁVEL 

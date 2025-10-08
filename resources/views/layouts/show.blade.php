@@ -83,6 +83,8 @@
                         </div>
                     </div>
 
+                    @yield('images')
+
                     @yield('stock')
 
                     @yield('main')

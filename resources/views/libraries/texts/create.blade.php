@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','TEXTOS')
+@section('title','DOCUMENTOS')
 
 @section('image-top')
 {{asset('images/rocket.png')}}

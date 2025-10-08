@@ -43,7 +43,7 @@
 @section('fieldsId')
 <div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
-        EMPRESA
+        ORGANIZAÇÃO
     </div>
     <div class='show-label'>
         OPORTUNIDADE

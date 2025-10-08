@@ -49,7 +49,7 @@
         <br>
         <br>
                         @if($opportunity->department != 'desenvolvimento')
-        <label class="labels" for="" >EMPRESA: </label>
+        <label class="labels" for="" >ORGANIZAÇÃO: </label>
         @if(isset($opportunity->company))
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física', $opportunity->company)}}
         @else

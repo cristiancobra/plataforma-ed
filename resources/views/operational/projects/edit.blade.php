@@ -51,7 +51,7 @@
         {{createSelectIdName('goal_id', 'fields', $goals, 'Não possui', $project->goal)}}
         <br>
         <br>
-        <label class="labels" for="" >EMPRESA: </label>
+        <label class="labels" for="" >ORGANIZAÇÃO: </label>
         @if(isset($project->company))
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física', $project->company)}}
         @else

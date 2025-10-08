@@ -8,6 +8,7 @@
 
 
 @section('buttons')
+{{createButtonTrashIndex($trashStatus, 'image')}}
 <a id='filter_button' class='circular-button secondary' title='Filtrar lista'>
     <i class='fa fa-filter' aria-hidden='true'></i>
 </a>

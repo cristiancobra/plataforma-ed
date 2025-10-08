@@ -89,7 +89,7 @@
             </a>
             <i class="fas fa-bullhorn"></i>
             <p class="mb-0"style='font-size:10px'>
-                MARKETING
+                COMUNICAÇÃO
             </p>
         </div>
     </div>

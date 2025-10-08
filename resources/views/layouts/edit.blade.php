@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang='{{str_replace('_', '-', app()->getLocale())}}'>
-    <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
+<html lang='{{ str_replace('_', '-', app()->getLocale()) }}'>
 
-        <title> @yield('title') </title>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-        @include('layouts.assets')
+    <title> @yield('title') </title>
 
-        @stack('scripts')
+    @include('layouts.assets')
 
-    </head>
-    <body>
+    @stack('scripts')
 
-    <x-Navmenu.nav-menu/>
+</head>
+
+<body>
+
+    <x-Navmenu.nav-menu />
 
     <div class="grid">
-        <x-sidebar.sidebar/>
+        <x-sidebar.sidebar />
 
         <main class='main2'>
             @yield('form_start')
@@ -25,13 +27,13 @@
             </header>
 
 
-            @if(Session::has('failed'))
-            <div class="alert alert-danger">
-                {{ Session::get('failed') }}
-                @php
-                Session::forget('failed');
-                @endphp
-            </div>
+            @if (Session::has('failed'))
+                <div class="alert alert-danger">
+                    {{ Session::get('failed') }}
+                    @php
+                        Session::forget('failed');
+                    @endphp
+                </div>
             @endif
 
             <section id='white-page' class='white-page'>
@@ -52,130 +54,130 @@
                     <div class="col-5">
 
                         @hasSection('label1')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label1')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label1')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content1')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content1')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label2')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label2')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label2')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content2')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content2')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label3')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label3')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label3')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content3')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content3')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label4')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label4')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label4')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content4')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content4')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label5')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label5')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label5')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content5')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content5')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label6')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label6')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label6')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content6')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content6')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label7')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label7')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label7')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content7')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content7')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
                         @hasSection('label8')
-                        <div class='row'>
-                            <div class="col-4 pe-0">
-                                <div class='show-label'>
-                                    @yield('label8')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label8')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content8')
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-8 ps-0">
-                                <div class='show-field-end'>
-                                    @yield('content8')
-                                </div>
-                            </div>                                
-                        </div>
                         @endif
 
 
@@ -186,21 +188,21 @@
                         <div class='row mt-4'>
 
                             @hasSection('date_start')
-                            <div class='col' style='text-align: center'>
-                                @yield('date_start')
-                            </div>
+                                <div class='col' style='text-align: center'>
+                                    @yield('date_start')
+                                </div>
                             @endif
 
                             @hasSection('date_due')
-                            <div class='col'>
-                                @yield('date_due')
-                            </div>
+                                <div class='col'>
+                                    @yield('date_due')
+                                </div>
                             @endif
 
                             @hasSection('date_conclusion')
-                            <div class='col'>
-                                @yield('date_conclusion')
-                            </div>
+                                <div class='col'>
+                                    @yield('date_conclusion')
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -219,7 +221,13 @@
 
                 @yield('stock')
 
-                @yield('main')
+                <div class="row mt-5">
+                    @yield('main')
+                </div>
+
+                <div class="row mt-5">
+                    @yield('images')
+                </div>
 
             </section>
 
@@ -228,19 +236,20 @@
 
             @yield('createdAt')
     </div>
-</div>
+    </div>
 
 
 
-<script type="text/javascript">
-    $("#delete-button").click(function () {
-        if (!confirm("Tem certeza que você quer apagar?")) {
-            return false;
-        }
-    });
-</script>
-@yield('footer-scripts')
-</div>
-</div>
+    <script type="text/javascript">
+        $("#delete-button").click(function() {
+            if (!confirm("Tem certeza que você quer apagar?")) {
+                return false;
+            }
+        });
+    </script>
+    @yield('footer-scripts')
+    </div>
+    </div>
 </body>
+
 </html>

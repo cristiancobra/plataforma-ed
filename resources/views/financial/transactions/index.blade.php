@@ -105,7 +105,7 @@ Total: <span class='labels'></span>
         </div>
         <div class="col-2">
             <label class='labels' for='company_id'>
-                EMPRESAS
+                ORGANIZAÇÕES
             </label>
             <br>
             {{createFilterSelectModels('company_id', 'select', $companies, 'todas')}}

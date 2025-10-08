@@ -103,7 +103,7 @@
         CONTATO
     </div>
     <div class='col-3'>
-        EMPRESA
+        ORGANIZAÇÃO
     </div>
     <div class='col-1'>
         PRAZO

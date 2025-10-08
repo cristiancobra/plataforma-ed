@@ -55,7 +55,7 @@
                     <p style='color: black'>
                         2. São partes deste contrato a empresa contratada 
                         <span class='labels'>
-                            [NOME DA EMPRESA]
+                            [NOME DA ORGANIZAÇÃO]
                         </span>
                         inscrita no CNPJ sob o nº
                         <span class='labels'>[CNPJ]</span>.
@@ -87,7 +87,7 @@
             <p style='color: black'>
                 a empresa contratante
                 <span class='labels'>
-                    [NOME DA EMPRESA]
+                    [NOME DA ORGANIZAÇÃO]
                 </span>
                 inscrita no CNPJ sob o nº
                 <span class='labels'>[CNPJ]</span>.

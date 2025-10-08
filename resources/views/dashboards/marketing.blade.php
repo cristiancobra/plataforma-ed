@@ -1,6 +1,6 @@
 @extends('layouts/master')
 
-@section('title','MARKETING')
+@section('title','COMUNICAÇÃO')
 
 @section('image-top')
 {{asset('images/marketing.png')}}
@@ -38,7 +38,7 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3'>
-                TEXTOS
+                DOCUMENTOS
             </div>
         </div>
         <!--linha dos botoes-->
@@ -55,15 +55,15 @@
              '>
             <div class="col d-inline-block">
                 <a style='text-decoration:none' href='{{route('text.create')}}'>
-                    <i class='fas fa-plus-circle ps-2 pe-2' title='novo texto'></i>
+                    <i class='fas fa-plus-circle ps-2 pe-2' title='novo documento'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('text.index')}}'>
-                    <i class='fas fa-list-alt ps-2 pe-2' title='todos os textos'></i>
+                    <i class='fas fa-list-alt ps-2 pe-2' title='todos os documentos'></i>
                 </a>
                 <a style='text-decoration:none' href='{{route('text.index', [
                                                                                                                             'user_id' => auth()->user()->id
                                                                                                                             ])}}'>
-                    <i class='fas fa-paperclip ps-2 pe-2' title='meus textos'></i>
+                    <i class='fas fa-paperclip ps-2 pe-2' title='meus documentos'></i>
                 </a>
             </div>
         </div>

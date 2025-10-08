@@ -37,7 +37,7 @@
         <!--linha do título-->
         <div class='row pb-2'>
             <div class='col panel-text pt-3'>
-                MINHA ORGANIZAÇÃO
+                MEU PROJETO
             </div>
         </div>
         <!--linha dos botoes-->

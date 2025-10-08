@@ -80,7 +80,7 @@
         @endif
         <br>
         @if(!empty(app('request')->input('opportunityCompanyName')))
-        <label class="labels" for="" >EMPRESA:</label>
+        <label class="labels" for="" >ORGANIZAÇÃO:</label>
         {{app('request')->input('opportunityCompanyName')}}
         <input type="hidden" name="company_id" value="{{app('request')->input('opportunityCompanyId')}}">
         @elseif($typeInvoices == 'despesa')
@@ -94,7 +94,7 @@
         </select>
         {{createButtonAdd('company.create', 'typeCompanies','fornecedor')}}
         @else
-        <label class="labels" for="" >EMPRESA:</label>
+        <label class="labels" for="" >ORGANIZAÇÃO:</label>
         <select name="company_id">
             <option  class="fields" value="">
                 Não possui

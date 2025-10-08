@@ -1,6 +1,6 @@
 @extends('layouts/show')
 
-@section('title','MINHA EMPRESA')
+@section('title','MEU PROJETO')
 
 @section('image-top')
 {{asset('images/empresa.png')}} 
@@ -23,7 +23,7 @@
 @section('fieldsId')
 <div class='col-2 pe-0' style='text-align: center'>
     <div class='show-label'>
-        DONO
+        COORDENADOR
     </div>
     <div class='show-label'>
         VENCIMENTO

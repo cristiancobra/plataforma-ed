@@ -28,6 +28,11 @@ class Text extends Model {
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'text_id', 'id');
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
@@ -102,7 +107,8 @@ class Text extends Model {
         return $status = array(
             'biografia',
             'blog',
-            'copy de venda',
+            'documento',
+            'teste',
             'desativado',
             'perguntas frequentes',
             'tutorial',

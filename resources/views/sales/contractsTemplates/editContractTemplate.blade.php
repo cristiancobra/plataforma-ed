@@ -19,7 +19,7 @@
 	<form action=" {{route('contractTemplate.update', ['contractTemplate' => $contractTemplate->id])}} " method="post" style="color: #874983">
 		@csrf
 		@method('put')
-		<label class="labels" for="" >EMPRESA: </label>
+		<label class="labels" for="" >ORGANIZAÇÃO: </label>
 		<select name="account_id">
 			<option  class="fields" value="{{$contractTemplate->account_id}}">
 				{{$contractTemplate->account->name}}

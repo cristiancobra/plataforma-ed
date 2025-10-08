@@ -31,7 +31,7 @@
 <div>
     <form action='{{route('contact.import')}}' method='post' enctype='multipart/form-data'>
         @csrf
-        <label class='labels' for='account_id'>EMPRESA: </label>
+        <label class='labels' for='account_id'>ORGANIZAÇÃO: </label>
         {{createSelectIdName('account_id', 'fields', $accounts)}}
         <br>
         <br>

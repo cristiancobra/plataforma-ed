@@ -135,7 +135,7 @@
         META 
     </div>
     <div class="col-2">
-        EMPRESA
+        ORGANIZAÇÃO
     </div>
     <div class="col-1">
         PRAZO 

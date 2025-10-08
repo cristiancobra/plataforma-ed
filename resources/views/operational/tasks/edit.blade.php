@@ -69,7 +69,7 @@
     @endsection
 
 
-    @section('label2', 'EMPRESA')
+    @section('label2', 'ORGANIZAÇÃO')
     @section('content2')
     @if($task->company_id)
     {{editDoubleSelectIdName('company_id', '', $companies, $task->company->name, 'Não possui')}}

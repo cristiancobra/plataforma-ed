@@ -23,10 +23,12 @@ class ImageController extends Controller
     {
         $images = Image::filterModel($request);
         $types = Image::returnTypes();
+        $trashStatus = request()->trash;
 
         return view('libraries/images/index', compact(
             'images',
             'types',
+            'trashStatus',
         ));
     }
 
@@ -58,7 +60,7 @@ class ImageController extends Controller
         $image->fill($request->all());
         $image->account_id = auth()->user()->account_id;
         $image->user_id = auth()->user()->id;
-    
+
         if ($request->image_name) {
             $image->name = "Imagem $image da tarefa $request->image_name";
             $image->task_id = $request->task_id;
@@ -66,7 +68,7 @@ class ImageController extends Controller
         $path = $request->file('image')->store('public/customers_images');
         $image->path = str_replace('public/', '', $path);
         $image->save();
-    
+
         if ($request->task_id) {
             return redirect()->back();
         } else {
@@ -128,7 +130,7 @@ class ImageController extends Controller
             if ($image->path && \Storage::exists('public/' . $image->path)) {
                 \Storage::delete('public/' . $image->path);
             }
-    
+
             // Salva a nova imagem no diretório 'public/customers_images'
             $path = $request->file('image')->store('public/customers_images');
             $image->path = str_replace('public/', '', $path); // Remove o prefixo 'public/' para consistência
@@ -154,9 +156,41 @@ class ImageController extends Controller
      */
     public function destroy(Image $image)
     {
-        Storage::delete($image->path);
+        if ($image->path && Storage::exists('public/' . $image->path)) {
+            Storage::delete('public/' . $image->path);
+        }
+
         $image->delete();
-        return redirect()->action('Libraries\\ImageController@index');
+
+        return redirect()->route('image.index')->with('success', 'Imagem removida com sucesso!');
+    }
+
+    /**
+     * Move the specified resource to trash.
+     *
+     * @param  \App\Models\Image  $image
+     * @return \Illuminate\Http\Response
+     */
+    public function sendToTrash(Image $image)
+    {
+        $image->trash = 1;
+        $image->save();
+
+        return redirect()->route('image.index')->with('success', 'Imagem movida para a lixeira com sucesso!');
+    }
+
+        /**
+     * Restore the specified resource from trash.
+     *
+     * @param  \App\Models\Image  $image
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreFromTrash(Image $image)
+    {
+        $image->trash = 0;
+        $image->save();
+    
+        return redirect()->back()->with('success', 'Imagem restaurada com sucesso!');
     }
 
     // retorna os estágios das images

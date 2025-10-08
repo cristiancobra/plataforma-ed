@@ -19,7 +19,7 @@
     <form action=" {{route('contract.update', ['contract' => $contract->id])}} " method="post">
         @csrf
         @method('put')
-        <label class="labels" for="" >RESPONSÁVEL NA MINHA EMPRESA: </label>
+        <label class="labels" for="" >RESPONSÁVEL NO MEU PROJETO: </label>
         <select name="user_id">
             <option  class="fields" value="{{$contract->user_id}}">
                 {{$contract->user->contact->name}}
@@ -60,7 +60,7 @@
         </select>
         <br>
         <br>
-        <label class="labels" for="" >EMPRESA CONTRATANTE: </label>
+        <label class="labels" for="" >ORGANIZAÇÃO CONTRATANTE: </label>
         <select name="company_id">
             <option  class="fields" value="{{$contract->company_id}}">
                 {{$contract->company->name}}

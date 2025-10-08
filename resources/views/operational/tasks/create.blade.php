@@ -143,7 +143,7 @@
                 <div class='row'>
                     <div class='col-3'>
                         <label class="labels" for="" >
-                            EMPRESA: 
+                            ORGANIZAÇÃO: 
                         </label>
                     </div>
                     <div class='col-9'>

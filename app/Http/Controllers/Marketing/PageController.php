@@ -53,8 +53,12 @@ class PageController extends Controller {
 
         $logos = $marketingImages->where('status', 'disponível');
 
-        $copys = Text::where('account_id', auth()->user()->account_id)
-                ->where('type', 'copy de venda')
+        $tests = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'teste')
+                ->get();
+
+        $documents = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'documento')
                 ->get();
 
         $biographies = Text::where('account_id', auth()->user()->account_id)
@@ -76,7 +80,8 @@ class PageController extends Controller {
                         'banners',
                         'marketingImages',
                         'logos',
-                        'copys',
+                        'tests',
+                        'documents',
                         'biographies',
                         'formFields',
                         'templates',
@@ -162,8 +167,12 @@ class PageController extends Controller {
 
         $logos = $marketingImages->where('status', 'disponível');
 
-        $copys = Text::where('account_id', auth()->user()->account_id)
-                ->where('type', 'copy de venda')
+        $tests = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'teste')
+                ->get();
+
+        $documents = Text::where('account_id', auth()->user()->account_id)
+                ->where('type', 'documento')
                 ->get();
 
         $biographies = Text::where('account_id', auth()->user()->account_id)
@@ -230,7 +239,8 @@ class PageController extends Controller {
                         'banners',
                         'marketingImages',
                         'logos',
-                        'copys',
+                        'tests',
+                        'documents',
                         'biographies',
                         'biographyName',
                         'valueOffer',

@@ -88,7 +88,7 @@
 
         @if($type == 'receita')
         <label class='labels' for='' >
-            EMPRESA:
+            ORGANIZAÇÃO:
         </label>
         @else
         <label class='labels' for='' >

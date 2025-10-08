@@ -46,7 +46,7 @@
         <br>
         <br>
         @if($department != 'desenvolvimento')
-        <label class="labels" for="" >EMPRESA: </label>
+        <label class="labels" for="" >ORGANIZAÇÃO: </label>
         {{createDoubleSelectIdName('company_id', 'fields', $companies, 'Pessoa física')}}
         {{createButtonAdd('company.create', 'typeCompanies', 'cliente')}}
         <br>

@@ -25,7 +25,7 @@
             DOMÍNIO 
         </td>
         <td   class="table-list-header">
-            EMPRESA
+            ORGANIZAÇÃO
         </td>
         <td   class="table-list-header">
             SITE

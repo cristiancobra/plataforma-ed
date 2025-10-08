@@ -277,6 +277,16 @@ Route::resource('transaction', 'Financial\\TransactionController')
 
 // ================================ LIBRARIES ===================
 // Images
+
+Route::put('/images/trash/{image}', 'Libraries\\ImageController@sendToTrash')
+        ->name('image.trash')
+        ->middleware('roles');
+
+Route::put('/images/restore/{image}', 'Libraries\\ImageController@restoreFromTrash')
+        ->name('image.restore')
+        ->middleware('roles');
+
+
 Route::resource('biblioteca-images', 'Libraries\\ImageController')
         ->names('image')
         ->parameters(['biblioteca-images' => 'image'])

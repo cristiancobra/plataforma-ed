@@ -23,7 +23,7 @@
 		DONO:<span class="fields">{{$email->user->contact->name}}</span>
 	</p>
 	<p class="labels">
-		EMPRESA:<span class="fields">{{$email->account->name}}</span>
+		ORGANIZAÇÃO:<span class="fields">{{$email->account->name}}</span>
 	</p>
 	<br>
 	<p class='labels'>

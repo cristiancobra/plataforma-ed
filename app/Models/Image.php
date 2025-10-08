@@ -21,19 +21,14 @@ class Image extends Model
         'status',
     ];
 
-    public function contact()
-    {
-        return $this->belongsTo(Contact::class, 'contact_id', 'id');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-
     public function account()
     {
         return $this->belongsTo(Account::class, 'account_id', 'id');
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class, 'contact_id', 'id');
     }
 
     public static function myBanners()
@@ -42,6 +37,16 @@ class Image extends Model
             ->where('status', 'disponível')
             ->where('type', 'marketing')
             ->get();
+    }
+
+    public function text()
+    {
+        return $this->belongsTo(Text::class, 'text_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     //FUNÇÕES PÚBLICAS
@@ -70,6 +75,11 @@ class Image extends Model
             }
             if ($request->user_id) {
                 $query->where('user_id', $request->user_id);
+            }
+            if ($request->trash == 1) {
+                $query->where('trash', 1);
+            } else {
+                $query->where('trash', '!=', 1);
             }
             //                    if ($request->created_at) {
             //                        $query->where('created_at', '>=', $request->created_at);
@@ -142,7 +152,7 @@ class Image extends Model
         $image->name = "Foto de perfil " . $user->contact->name . " - " . date('d/m/Y - H:i');
         $image->type = 'imagem perfil';
         $image->status = 'disponível';
-    
+
         // Salva a nova imagem no diretório 'public/customers_images'
         $path = $request->file('image')->store('public/customers_images');
         $image->path = str_replace('public/', '', $path); // Remove o prefixo 'public/' para consistência

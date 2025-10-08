@@ -20,7 +20,7 @@
 	{{$contractTemplate->name}}
 </h1>
 <p class="labels">
-	EMPRESA: {{$contractTemplate->account->name}}
+	ORGANIZAÇÃO: {{$contractTemplate->account->name}}
 </p>
 <br>
 <p class="labels">

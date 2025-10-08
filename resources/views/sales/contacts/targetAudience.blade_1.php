@@ -63,13 +63,13 @@
     <br>
     <br>
     <h2 class="name" for="">
-        EMPRESAS ONDE TRABALHA:
+    ORGANIZAÇÕES ONDE TRABALHA:
     </h2>
     @if(!$contact->companies()->exists())
     Não possui empresa cadastrada
     <br>
     <a class="btn btn-secondary" href="{{ route('company.create')}}">
-        CRIAR EMPRESA
+        CRIAR ORGANIZAÇÃO
     </a>
     <br>
     @else

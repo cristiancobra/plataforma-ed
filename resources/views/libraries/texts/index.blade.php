@@ -1,6 +1,6 @@
 @extends('layouts/index')
 
-@section('title','TEXTOS')
+@section('title','DOCUMENTOS')
 
 @section('image-top')
 {{asset('images/rocket.png')}}
@@ -52,13 +52,24 @@
     </a>
 </div>
 
-<div class='col shortcut proposal'>
-    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'  copy de venda'])}}'>
+<div class='col shortcut document'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'documento'])}}'>
         <h2>
 
         </h2>
         <h3>
-            copys de venda
+            documentos
+        </h3>
+    </a>
+</div>
+
+<div class='col shortcut proposal'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'teste'])}}'>
+        <h2>
+
+        </h2>
+        <h3>
+            testes
         </h3>
     </a>
 </div>
@@ -144,7 +155,7 @@
                 <i class='fa fa-edit'></i>
             </button>
         </a>
-        APRESENTAÇÃO DA EMPRESA
+        APRESENTAÇÃO DO PROJETO
     </div>
     <div class='col-8 tb justify-content-start'>
         {{$about->text}}

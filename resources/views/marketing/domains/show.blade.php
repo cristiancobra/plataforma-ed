@@ -19,7 +19,7 @@
 <h1 class="name">
 	{{ $domain->name }}
 </h1>
-<label class="labels" for="" >EMPRESA: </label>
+<label class="labels" for="" >ORGANIZAÇÃO: </label>
 <span class="fields">{{$domain->account->name }}</span>
 {{createButtonShow($domain->account, 'account')}}
 <br>
