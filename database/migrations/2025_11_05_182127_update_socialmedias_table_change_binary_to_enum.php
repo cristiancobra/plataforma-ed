@@ -14,7 +14,7 @@ class UpdateSocialmediasTableChangeBinaryToEnum extends Migration
     public function up()
     {
         Schema::table('socialmedias', function (Blueprint $table) {
-            // Alterar campos de tinyInteger para string
+            // Alterar campos de boolean para string
             $table->string('business', 20)->nullable()->change();
             $table->string('linked_instagram', 20)->nullable()->change();
             $table->string('linked_facebook', 20)->nullable()->change();
@@ -51,32 +51,32 @@ class UpdateSocialmediasTableChangeBinaryToEnum extends Migration
     public function down()
     {
         Schema::table('socialmedias', function (Blueprint $table) {
-            // Reverter para tinyInteger
-            $table->tinyInteger('business')->nullable()->change();
-            $table->tinyInteger('linked_instagram')->nullable()->change();
-            $table->tinyInteger('linked_facebook')->nullable()->change();
-            $table->tinyInteger('same_site_name')->nullable()->change();
-            $table->tinyInteger('about')->nullable()->change();
-            $table->tinyInteger('feed_content')->nullable()->change();
-            $table->tinyInteger('harmonic_feed')->nullable()->change();
-            $table->tinyInteger('SEO_descriptions')->nullable()->change();
-            $table->tinyInteger('feed_images')->nullable()->change();
-            $table->tinyInteger('stories')->nullable()->change();
-            $table->tinyInteger('interaction')->nullable()->change();
-            $table->tinyInteger('igtv')->nullable()->change();
-            $table->tinyInteger('reels')->nullable()->change();
-            $table->tinyInteger('employee_profiles')->nullable()->change();
-            $table->tinyInteger('employee_profiles_cv')->nullable()->change();
-            $table->tinyInteger('offers_job')->nullable()->change();
-            $table->tinyInteger('pin_content')->nullable()->change();
-            $table->tinyInteger('linktree')->nullable()->change();
-            $table->tinyInteger('image_banner')->nullable()->change();
-            $table->tinyInteger('organized_playlists')->nullable()->change();
-            $table->tinyInteger('liked_virtualstore')->nullable()->change();
-            $table->tinyInteger('video_banner')->nullable()->change();
-            $table->tinyInteger('legend')->nullable()->change();
-            $table->tinyInteger('feed_member')->nullable()->change();
-            $table->tinyInteger('follow_channel')->nullable()->change();
+            // Reverter para boolean
+            $table->boolean('business')->nullable()->change();
+            $table->boolean('linked_instagram')->nullable()->change();
+            $table->boolean('linked_facebook')->nullable()->change();
+            $table->boolean('same_site_name')->nullable()->change();
+            $table->boolean('about')->nullable()->change();
+            $table->boolean('feed_content')->nullable()->change();
+            $table->boolean('harmonic_feed')->nullable()->change();
+            $table->boolean('SEO_descriptions')->nullable()->change();
+            $table->boolean('feed_images')->nullable()->change();
+            $table->boolean('stories')->nullable()->change();
+            $table->boolean('interaction')->nullable()->change();
+            $table->boolean('igtv')->nullable()->change();
+            $table->boolean('reels')->nullable()->change();
+            $table->boolean('employee_profiles')->nullable()->change();
+            $table->boolean('employee_profiles_cv')->nullable()->change();
+            $table->boolean('offers_job')->nullable()->change();
+            $table->boolean('pin_content')->nullable()->change();
+            $table->boolean('linktree')->nullable()->change();
+            $table->boolean('image_banner')->nullable()->change();
+            $table->boolean('organized_playlists')->nullable()->change();
+            $table->boolean('liked_virtualstore')->nullable()->change();
+            $table->boolean('video_banner')->nullable()->change();
+            $table->boolean('legend')->nullable()->change();
+            $table->boolean('feed_member')->nullable()->change();
+            $table->boolean('follow_channel')->nullable()->change();
         });
     }
 }
