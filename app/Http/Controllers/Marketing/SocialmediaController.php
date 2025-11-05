@@ -57,6 +57,7 @@ class SocialmediaController extends Controller {
             $socialmedia = new Socialmedia;
             $socialmedia->fill($request->all());
             $socialmedia->account_id = auth()->user()->account_id;
+            // dd( $socialmedia);
             $socialmedia->save();
 
             return redirect()->route('socialmedia.show', [$socialmedia])

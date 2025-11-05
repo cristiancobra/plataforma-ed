@@ -709,6 +709,7 @@ class ComposerStaticInit27a89bc3954ee53cf0244660979482de
         'App\\Http\\Requests\\ContactRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ContactRequest.php',
         'App\\Http\\Requests\\StoreImageRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreImageRequest.php',
         'App\\Http\\Requests\\StoreProductRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreProductRequest.php',
+        'App\\Http\\Requests\\StoreSocialmediaRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSocialmediaRequest.php',
         'App\\Http\\Requests\\StoreTextRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreTextRequest.php',
         'App\\Http\\Requests\\UpdateImageRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateImageRequest.php',
         'App\\Mail\\invoices' => __DIR__ . '/../..' . '/app/Mail/invoices.php',

@@ -95,6 +95,7 @@ return array(
     'App\\Http\\Requests\\ContactRequest' => $baseDir . '/app/Http/Requests/ContactRequest.php',
     'App\\Http\\Requests\\StoreImageRequest' => $baseDir . '/app/Http/Requests/StoreImageRequest.php',
     'App\\Http\\Requests\\StoreProductRequest' => $baseDir . '/app/Http/Requests/StoreProductRequest.php',
+    'App\\Http\\Requests\\StoreSocialmediaRequest' => $baseDir . '/app/Http/Requests/StoreSocialmediaRequest.php',
     'App\\Http\\Requests\\StoreTextRequest' => $baseDir . '/app/Http/Requests/StoreTextRequest.php',
     'App\\Http\\Requests\\UpdateImageRequest' => $baseDir . '/app/Http/Requests/UpdateImageRequest.php',
     'App\\Mail\\invoices' => $baseDir . '/app/Mail/invoices.php',
