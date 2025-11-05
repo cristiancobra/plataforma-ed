@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Journey;
 use App\Models\Socialmedia;
+use App\Http\Requests\StoreSocialmediaRequest;
 
 class SocialmediaController extends Controller {
 
@@ -36,43 +37,30 @@ class SocialmediaController extends Controller {
      */
     public function create() {
         $types = Socialmedia::returnTypes();
+        $status = Socialmedia::returnStatus();
 
         return view('marketing.socialmedia.create', compact(
                         'types',
+                        'status'
         ));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+ * @param  \App\Http\Requests\StoreSocialmediaRequest  $request
+ * @param  \App\Models\Socialmedia  $socialmedia
+ * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:socialmedias',
-                    'URL_name' => 'required:socialmedias',
-                        ],
-                        $messages);
+    public function store(StoreSocialmediaRequest $request) {
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
-        } else {
             $socialmedia = new Socialmedia;
             $socialmedia->fill($request->all());
             $socialmedia->account_id = auth()->user()->account_id;
             $socialmedia->save();
 
-            return view('marketing.socialmedia.show', compact(
-                            'socialmedia',
-            ));
-        }
+            return redirect()->route('socialmedia.show', [$socialmedia])
+            ->with('success', 'Mídia social atualizada com sucesso!');
     }
 
     /**

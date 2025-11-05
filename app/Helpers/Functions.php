@@ -411,6 +411,45 @@ if (!function_exists('editDoubleSelect')) {
 
 }
 
+if (!function_exists('createPageAnalysis')) {
+    /**
+     * Cria um campo de análise de página com checkbox e select
+     * 
+     * @param string $label
+     * @param string $name
+     * @return string
+     */
+    function createPageAnalysis($label, $name)
+    {
+         echo '
+        <div class="form-group">
+            <label class="labels">' . $label . ':</label>
+            <select name="' . $name . '" class="form-control">
+                <option value="">Selecione</option>
+                <option value="sim">Sim</option>
+                <option value="não">Não</option>
+                <option value="parcialmente">Parcialmente</option>
+            </select>
+        </div>';
+    }
+}
+
+if (!function_exists('createPageAnalysisWithOld')) {
+    function createPageAnalysisWithOld($label, $name, $selected = null)
+    {
+        echo '
+        <div class="form-group mb-3">
+            <label class="labels">' . $label . ':</label>
+            <select name="' . $name . '" class="form-control">
+                <option value="">Selecione</option>
+                <option value="sim"' . ($selected == 'sim' ? ' selected' : '') . '>Sim</option>
+                <option value="não"' . ($selected == 'não' ? ' selected' : '') . '>Não</option>
+                <option value="parcialmente"' . ($selected == 'parcialmente' ? ' selected' : '') . '>Parcialmente</option>
+            </select>
+        </div>';
+    }
+}
+
 if (!function_exists('createSimpleSelect')) {
 
 // cria as opções de um select recebendo um array com 1 posição
