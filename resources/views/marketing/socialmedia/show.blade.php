@@ -91,225 +91,124 @@
             </td>
         </tr>
     </table>
-    <table class="table-list">
+    <br>
+    <br>   
+     <table class="table-list">
         <tr>
-            <td   class="table-list-header"style='width:85%'>
+            <td class="table-list-header" style='width:85%'>
                 Análise da página
             </td>
-            <td   class="table-list-header" style='width:10%'>
+            <td class="table-list-header" style='width:10%'>
                 situação
             </td>
         </tr>
         <tr>
-            <td   class="table-list-left">Possui conta Business:</td>
-            @if ($socialmedia->business == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Possui conta Business:</td>
+            <td class="">{{$socialmedia->business}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Conta Business vinculada com Instagram:</td>
-            @if ($socialmedia->linked_instagram == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
-        </tr>
-
-        <tr>
-            <td   class="table-list-left">Conta Business vinculada com  facebook: </td>
-            @if ($socialmedia->linked_facebook == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
-        </tr>
-
-        <tr>
-            <td   class="table-list-left">Conta possui mesmo nome do site: </td>
-            @if ($socialmedia->same_site_name == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Conta Business vinculada com Instagram:</td>
+            <td class="">{{$socialmedia->linked_instagram}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Apresentação da página (Biografia):</td>
-            @if ($socialmedia->about == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Conta Business vinculada com facebook:</td>
+            <td class="">{{$socialmedia->linked_facebook}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Publica conteúdos  feed:</td>
-            @if ($socialmedia->feed_content == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Conta possui mesmo nome do site:</td>
+            <td class="">{{$socialmedia->same_site_name}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Feed organizado:</td>
-            @if ($socialmedia->harmonic_feed == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Apresentação da página (Biografia):</td>
+            <td class="">{{$socialmedia->about}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Publicações usam SEO:</td>
-            @if ($socialmedia->SEO_descriptions == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Publica conteúdos feed:</td>
+            <td class="">{{$socialmedia->feed_content}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">images têm tamanho correto:</td>
-            @if ($socialmedia->feed_images == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Feed organizado:</td>
+            <td class="">{{$socialmedia->harmonic_feed}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Publica Stories:</td>
-            @if ($socialmedia->stories == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Publicações usam SEO:</td>
+            <td class="">{{$socialmedia->SEO_descriptions}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Ferramentas de interação:</td>
-            @if ($socialmedia->interaction == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Imagens têm tamanho correto:</td>
+            <td class="">{{$socialmedia->feed_images}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Publica IGTV:</td>
-            @if ($socialmedia->igtv == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Publica Stories:</td>
+            <td class="">{{$socialmedia->stories}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Publica Reels:</td>
-            @if ($socialmedia->reels == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Ferramentas de interação:</td>
+            <td class="">{{$socialmedia->interaction}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Possui  funcionários linkados ao perfil da empresa:</td>
-            @if ($socialmedia->employee_profiles == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
-        </tr>
-
-        <tr>
-            <td   class="table-list-left">Perfil dos funcionários está adequado ao cargo da empresa:</td>
-            @if ($socialmedia->employee_profiles_cv == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
-        </tr>
-
-        <tr>
-            <td   class="table-list-left">Anuncia vagas de emprego:</td>
-            @if ($socialmedia->offers_job == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Publica IGTV:</td>
+            <td class="">{{$socialmedia->igtv}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Possui pasta com ideias:</td>
-            @if ($socialmedia->pin_content == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Publica Reels:</td>
+            <td class="">{{$socialmedia->reels}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Possui linktree:</td>
-            @if ($socialmedia->linktree == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Possui funcionários linkados ao perfil da empresa:</td>
+            <td class="">{{$socialmedia->employee_profiles}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Capa personalizada:</td>
-            @if ($socialmedia->image_banner == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Perfil dos funcionários está adequado ao cargo da empresa:</td>
+            <td class="">{{$socialmedia->employee_profiles_cv}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Playlists organizadas por SEO:</td>
-            @if ($socialmedia->organized_playlists == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Anuncia vagas de emprego:</td>
+            <td class="">{{$socialmedia->offers_job}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Possui link para loja virtual externa:</td>
-            @if ($socialmedia->liked_virtualstore == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Possui pasta com ideias:</td>
+            <td class="">{{$socialmedia->pin_content}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Vídeos possuem capa personalizada:</td>
-            @if ($socialmedia->video_banner == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Possui linktree:</td>
+            <td class="">{{$socialmedia->linktree}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Vídeos possuem legendas em português:</td>
-            @if ($socialmedia->legend == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Capa personalizada:</td>
+            <td class="">{{$socialmedia->image_banner}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">Produz conteúdo exclusivo para membros:</td>
-            @if ($socialmedia->feed_member == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
+            <td class="table-list-left">Playlists organizadas por SEO:</td>
+            <td class="">{{$socialmedia->organized_playlists}}</td>
         </tr>
         <tr>
-            <td   class="table-list-left">	Segue outros canais que tenham haver com o seu nicho:</td>
-            @if ($socialmedia->follow_channel == 1)
-            <td   class="td-aproved">SIM</td>
-            @else
-            <td   class="td-lost">NÃO</td>
-            @endif
-
-        <br>
+            <td class="table-list-left">Possui link para loja virtual externa:</td>
+            <td class="">{{$socialmedia->liked_virtualstore}}</td>
+        </tr>
         <tr>
-            <td   class="table-list-left">Investimento em ADs:</td>
-            <td   class="table-list-money-income">  {{ formatCurrencyReal($socialmedia->value_ads) }}</td>
+            <td class="table-list-left">Vídeos possuem capa personalizada:</td>
+            <td class="">{{$socialmedia->video_banner}}</td>
+        </tr>
+        <tr>
+            <td class="table-list-left">Vídeos possuem legendas em português:</td>
+            <td class="">{{$socialmedia->legend}}</td>
+        </tr>
+        <tr>
+            <td class="table-list-left">Produz conteúdo exclusivo para membros:</td>
+            <td class="">{{$socialmedia->feed_member}}</td>
+        </tr>
+        <tr>
+            <td class="table-list-left">Segue outros canais que tenham haver com o seu nicho:</td>
+            <td class="">{{$socialmedia->follow_channel}}</td>
+        </tr>
+        <tr>
+            <td class="table-list-left">Investimento em ADs:</td>
+            <td class="table-list-money-income">{{ formatCurrencyReal($socialmedia->value_ads) }}</td>
         </tr>
     </table>
+
+
     <br>
     <br>
     <table class="table-list">
