@@ -1,8 +1,8 @@
-<div class='row mt-5 mb-5'>
-    <div class="col-sm-8 col-xs-12" style="font-size: 18px">
+<div class='row mt-5 mb-5 align-items-center'>
+    <div class="col-md-8 col-12 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
         @yield('paginate')
     </div>
-    <div class="col-sm-4 col-xs-12 d-inline-block" style="text-align: right">
+    <div class="col-md-4 col-12 d-flex justify-content-center justify-content-md-end">
         @yield('buttons')
     </div>
 </div>
