@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Libraries;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Attachment;
 use App\Models\Image;
 use App\Models\Page;
 use App\Models\Text;
@@ -21,7 +22,7 @@ class TextController extends Controller
      */
     public function index(Request $request)
     {
-        $texts = Text::filterTexts($request);
+        $texts = $this->filterTexts($request);
 
         $valueOffer = Text::myValueOffer();
         $about = Text::myAbout();
@@ -86,18 +87,8 @@ class TextController extends Controller
         $text->user_id = auth()->user()->id;
         $text->save();
 
-        if ($request->file('image')) {
-            $image = new Image();
-            $image->account_id = auth()->user()->account_id;
-            $image->task_id = $text->task_id;
-            $image->text_id = $text->id;
-            $image->type = 'imagem de texto';
-            $image->name = 'Imagem do texto ' . $text->name;
-            $image->status = 'disponível';
-            $path = $request->file('image')->store('customers_images', 'public');
-            $image->path = $path;
-            $image->save();
-        }
+        $this->handleImageUpload($request, $text);
+        $this->handleAttachmentUpload($request, $text);
 
         return redirect()->route('text.show', [$text]);
     }
@@ -134,6 +125,8 @@ class TextController extends Controller
 
         $status = $text->status;
         $priority = $text->priority;
+        
+        $text->load(['images', 'attachments']);
 
         return view('libraries/texts/show', compact(
             'text',
@@ -177,19 +170,9 @@ class TextController extends Controller
         $text->fill($request->all());
         $text->save();
 
-        if ($request->file('image')) {
-            $image = new Image();
-            $image->account_id = auth()->user()->account_id;
-            $image->task_id = $text->task_id;
-            $image->text_id = $text->id;
-            $image->type = 'imagem de texto';
-            $image->name = 'Imagem do texto ' . $text->name;
-            $image->status = 'disponível';
+        $this->handleImageUpload($request, $text);
+        $this->handleAttachmentUpload($request, $text);
 
-            $path = $request->file('image')->store('customers_images', 'public');
-            $image->path = $path;
-            $image->save();
-        }
 
         return redirect()->route('text.show', [$text])
             ->with('success', 'Texto atualizado com sucesso!');
@@ -236,5 +219,88 @@ class TextController extends Controller
         $text->save();
 
         return redirect()->back()->with('success', 'Texto restaurado com sucesso!');
+    }
+
+
+    public static function filterTexts(Request $request)
+    {
+        $texts = Text::where(function ($query) use ($request) {
+            $query->where('account_id', auth()->user()->account_id);
+            if ($request->user_id) {
+                $query->where('user_id', $request->user_id);
+            }
+            if ($request->name) {
+                $query->where('name', 'like', "%$request->name%");
+            }
+            if ($request->department) {
+                $query->where('department', $request->department);
+            }
+            if ($request->type) {
+                $query->where('type', $request->type);
+            }
+            if ($request->status) {
+                $query->where('status', $request->status);
+            }
+            if ($request->trash == 1) {
+                $query->where('trash', 1);
+            } else {
+                $query->where('trash', '!=', 1);
+            }
+        })
+            ->with(
+                'user.contact',
+                'user.image',
+                //                        'images',
+            )
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(20);
+
+        $texts->appends([
+            'name' => $request->name,
+            'user_id' => $request->user_id,
+            'department' => $request->department,
+            'type' => $request->type,
+            'status' => $request->status,
+        ]);
+
+        return $texts;
+    }
+
+
+    /**
+     * Handle image upload for text
+     */
+    private function handleImageUpload(Request $request, Text $text)
+    {
+        if ($request->file('image')) {
+            $image = new Image();
+            $image->account_id = auth()->user()->account_id;
+            $image->task_id = $text->task_id;
+            $image->text_id = $text->id;
+            $image->type = 'imagem de texto';
+            $image->name = 'Imagem do texto ' . $text->name;
+            $image->status = 'disponível';
+            $path = $request->file('image')->store('customers_images', 'public');
+            $image->path = $path;
+            $image->save();
+        }
+    }
+
+    /**
+     * Handle PDF/attachment upload for text
+     */
+    private function handleAttachmentUpload(Request $request, Text $text)
+    {
+        if ($request->file('attachment')) {
+            $attachment = new Attachment();
+            $attachment->account_id = auth()->user()->account_id;
+            $attachment->text_id = $text->id;
+            $attachment->type = 'pdf';
+            $attachment->name = $request->file('attachment')->getClientOriginalName();
+            $attachment->status = 'disponível';
+            $path = $request->file('attachment')->store('customers_attachments', 'public');
+            $attachment->path = $path;
+            $attachment->save();
+        }
     }
 }

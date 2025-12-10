@@ -3,7 +3,7 @@
 @section('title', 'DOCUMENTOS')
 
 @section('image-top')
-    {{ asset('images/rocket.png') }}
+<i class="fa fa-file"></i>
 @endsection
 
 @section('buttons')
@@ -99,6 +99,35 @@
         </div>
     @endif
 @endsection
+
+
+@section('attachments')
+    @if (count($text->attachments) > 0)
+        <div class='show-label-large mt-5'>
+            ANEXOS
+        </div>
+        <div class='description-field'>
+            <div class="row">
+                @foreach ($text->attachments as $attachment)
+                    <div class='col-md-4 mb-3'>
+                        <a href="{{ asset('storage/' . $attachment->path) }}" 
+                           download="{{ $attachment->name }}"
+                           class="text-decoration-none">
+                            <div class="card text-center p-3 h-100">
+                                <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
+                                <div class="mt-2">
+                                    <strong>{{ $attachment->name }}</strong>
+                                </div>
+                                <small class="text-muted">Clique para baixar</small>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    @endif
+@endsection
+
 
 @section('editButton', route('text.edit', ['text' => $text->id]))
 

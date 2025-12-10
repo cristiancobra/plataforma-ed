@@ -3,7 +3,7 @@
 @section('title','COMUNICAÇÃO')
 
 @section('image-top')
-{{asset('images/marketing.png')}}
+<i class="fa fa-bullhorn"></i>
 @endsection
 
 @section('buttons')
@@ -32,7 +32,7 @@
         <!--lícone do título-->
         <div class='row'>
             <div class='col panel-text pt-2'>
-                <i class='fas fa-bullhorn' style='font-size:36px; color:white'></i>
+                <i class='fas fa-file' style='font-size:36px; color:white'></i>
             </div>
         </div>
         <!--linha do título-->

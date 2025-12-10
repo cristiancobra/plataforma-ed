@@ -3,7 +3,7 @@
 @section('title','FINANCEIRO')
 
 @section('image-top')
-{{asset('images/financeiro.png')}}
+<i class="fa fa-money-bill"></i>
 @endsection
 
 @section('buttons')

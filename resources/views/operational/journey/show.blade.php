@@ -3,7 +3,7 @@
 @section('title','JORNADA')
 
 @section('image-top')
-{{asset('images/journey.png')}} 
+<i class="fa fa-coffee"></i>
 @endsection
 
 @section('buttons')

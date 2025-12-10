@@ -3,43 +3,12 @@
 @section('title','TAREFAS')
 
 @section('image-top')
-{{asset('images/rocket.png')}}
+<i class="fa fa-tasks"></i>
 @endsection
 
 @section('buttons')
 {{createButtonTrashIndex($trashStatus, 'task')}}
 {{createButtonCreate('task')}}
-@endsection
-
-
-@section('filter')
-<form id="filter" action="{{route('task.index')}}" method="get" style="text-align: right">
-    <div class="row mt-5 mb-5" style='
-                                                            border-radius: 8px;
-                                                            background-color: {{$oppositeColor}};
-                                                            padding: 10px 5px 10px 5px;
-                                                            '>
-        <div class="col-3 d-flex justify-content-start">
-            <input class='w-100' type="text" name="name" placeholder="filtrar por nome" value="">
-        </div>
-            <div class="col m-auto">
-            {{createFilterSelect('department', 'select', $departments, 'departamento')}}
-            {{createFilterSelectModels('contact_id', 'select', $contacts, 'contato')}}
-            {{createFilterSelectModels('company_id', 'select', $companies, 'empresa')}}
-            {{createSelectUsers('select', $users, 'usuário')}}
-            {{createFilterSelect('priority', 'select', $priorities, 'prioridade')}}
-            {{createFilterSelect('status', 'select', $status, 'situação')}}
-        </div>
-        <div class="col-1 d-flex">
-            <a class="circular-button secondary" title='remover filtros' title='remover filtros' href='{{route('task.index')}}'>
-                <i class="fa fa-ban" aria-hidden="true"></i>
-            </a>
-            <button class="circular-button secondary" type="submit" title='aplicar filtros' value="FILTRAR">
-                <i class="fa fa-filter" aria-hidden="true"></i>
-            </button>
-        </div>
-    </div>
-</form>
 @endsection
 
 
@@ -91,6 +60,38 @@
 @endsection
 
 
+
+@section('filter')
+<form id="filter" action="{{route('task.index')}}" method="get" style="text-align: right">
+    <div class="row mt-5 mb-5" style='
+                                                            border-radius: 8px;
+                                                            background-color: {{$oppositeColor}};
+                                                            padding: 10px 5px 10px 5px;
+                                                            '>
+        <div class="col-3 d-flex justify-content-start">
+            <input class='w-100' type="text" name="name" placeholder="filtrar por nome" value="">
+        </div>
+            <div class="col m-auto">
+            {{createFilterSelect('department', 'select', $departments, 'departamento')}}
+            {{createFilterSelectModels('contact_id', 'select', $contacts, 'contato')}}
+            {{createFilterSelectModels('company_id', 'select', $companies, 'empresa')}}
+            {{createSelectUsers('select', $users, 'usuário')}}
+            {{createFilterSelect('priority', 'select', $priorities, 'prioridade')}}
+            {{createFilterSelect('status', 'select', $status, 'situação')}}
+        </div>
+        <div class="col-1 d-flex">
+            <a class="circular-button secondary" title='remover filtros' title='remover filtros' href='{{route('task.index')}}'>
+                <i class="fa fa-ban" aria-hidden="true"></i>
+            </a>
+            <button class="circular-button secondary" type="submit" title='aplicar filtros' value="FILTRAR">
+                <i class="fa fa-filter" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+</form>
+@endsection
+
+
 @section('table')
 <div class='row  table-header mt-2 mb-2' style="background-color: {{$principalColor}}">
     <div class='col-1'>
@@ -127,7 +128,7 @@
         <div class='profile-picture-small'>
             <img src='{{asset($task->user->image->path)}}' width='100%' height='100%'>
         </div>
-        @elseif($task->user->contact))
+        @elseif($task->user->contact)
         {{$task->user->contact->name}}
         @else
         funcionário excluído

@@ -24,27 +24,22 @@ class StoreImageRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'alt' => 'required',
-            'image' => 'required|mimes:jpeg,png,bmp,gif,svg,webp|max:50000',
-            'status' => 'required',
-            'type' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:50000',
+            'task_id' => 'nullable|exists:tasks,id',
+            'text_id' => 'nullable|exists:texts,id',
+            'image_name' => 'nullable|string|max:255',
         ];
     }
-
-    /**
-     * Custom error messages for validation.
-     *
-     * @return array
-     */
+    
     public function messages()
     {
         return [
-            'name.required' => ' *obrigatório.',
-            'alt.required' => ' *obrigatório.',
-            'image.required' => ' *obrigatório.',
-            'image.image' => ' *o arquivo deve ser uma imagem.',
-            'image.max' => ' *o tamanho máximo permitido é 50MB.',
+            'image.required' => 'Por favor, selecione uma imagem.',
+            'image.image' => 'O arquivo deve ser uma imagem válida.',
+            'image.mimes' => 'A imagem deve ser: jpeg, png, jpg, gif, svg ou webp.',
+            'image.max' => 'O tamanho máximo permitido é 50MB.',
+            'task_id.exists' => 'Tarefa não encontrada.',
+            'text_id.exists' => 'Texto não encontrado.',
         ];
     }
 }

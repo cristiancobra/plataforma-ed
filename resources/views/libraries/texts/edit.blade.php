@@ -3,7 +3,7 @@
 @section('title', 'DOCUMENTOS')
 
 @section('image-top')
-    {{ asset('images/text.png') }}
+    <i class="fa fa-file"></i>
 @endsection
 
 @section('form_start')
@@ -105,9 +105,33 @@
                 CKEDITOR.replace('text');
             </script>
 
+            <div class="row mt-5 mb-5">
+                <div class="col-6">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa fa-image me-2" aria-hidden="true" style="font-size: 40px;"></i>
+                        <label class='labels mb-0' for=''>ANEXAR NOVA IMAGEM:</label>
+                    </div>
+                    <input type='file' name='image' accept="image/*">
+                    @if ($errors->has('image'))
+                        <span class='text-danger'>{{ $errors->first('image') }}</span>
+                    @endif
+                </div>
+                <div class="col-6">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="fa fa-file-pdf me-2" aria-hidden="true" style="font-size: 40px;"></i>
+                        <label class='labels mb-0' for=''>ANEXAR NOVO ARQUIVO (PDF):</label>
+                    </div>
+                    <input type='file' name='attachment' accept=".pdf">
+                    @if ($errors->has('attachment'))
+                        <span class='text-danger'>{{ $errors->first('attachment') }}</span>
+                    @endif
+                </div>
+            </div>
+        @endsection
+
         @section('images')
             @if (count($text->images) > 0)
-                <div class='show-label-large'>
+                <div class='show-label-large mt-5'>
                     IMAGENS
                 </div>
                 <div class='description-field'>
@@ -123,10 +147,28 @@
             @endif
         @endsection
 
-        <div class="row mt-3">
-            <label class='labels' for=''>ANEXAR IMAGEM:</label>
-            <input type='file' name='image'>
-        </div>
-    </div>
-
-@endsection
+        @section('attachments')
+            @if (count($text->attachments) > 0)
+                <div class='show-label-large mt-5'>
+                    ANEXOS
+                </div>
+                <div class='description-field'>
+                    <div class="row">
+                        @foreach ($text->attachments as $attachment)
+                            <div class='col-md-4 mb-3'>
+                                <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
+                                    class="text-decoration-none">
+                                    <div class="card text-center p-3 h-100">
+                                        <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
+                                        <div class="mt-2">
+                                            <strong>{{ $attachment->name }}</strong>
+                                        </div>
+                                        <small class="text-muted">Clique para baixar</small>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+        @endsection

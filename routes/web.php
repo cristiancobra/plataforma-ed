@@ -292,7 +292,7 @@ Route::resource('biblioteca-images', 'Libraries\\ImageController')
         ->parameters(['biblioteca-images' => 'image'])
         ->middleware('roles');
 
-//texts
+// texts
 Route::put('/textos/apagar/{text}', 'Libraries\\TextController@sendToTrash')
         ->name('text.trash')
         ->middleware('roles');
@@ -452,6 +452,13 @@ Route::resource('tarefas', 'Operational\\TaskController')
         ->except('create')
         ->names('task')
         ->parameters(['tarefas' => 'task'])
+        ->middleware('roles');
+
+// attachments
+Route::resource('anexos', 'Libraries\\AttachmentController')
+        ->only(['store', 'destroy'])
+        ->names('attachment')
+        ->parameters(['anexos' => 'attachment'])
         ->middleware('roles');
 
 // ------------------------------------------------ REPORTS ------------------------------------------------

@@ -22,7 +22,7 @@
 
         <main class='main2'>
             @yield('form_start')
-            <header class='row pt-5 ps-5 pb-0'>
+            <header class='row pt-5 ps-5 ms-3 me-5'>
                 @include('layouts.header')
             </header>
 
@@ -35,6 +35,20 @@
                     @endphp
                 </div>
             @endif
+
+            @if ($errors->any())
+                <div class='alert alert-danger'>
+                    <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @yield('errors')
+
 
             <section id='white-page' class='white-page'>
                 <div class='row mt-4'>
@@ -181,6 +195,22 @@
                         @endif
 
 
+                        @hasSection('label9')
+                            <div class='row'>
+                                <div class="col-4 pe-0">
+                                    <div class='show-label'>
+                                        @yield('label9')
+                                    </div>
+                                </div>
+                                <div class="col-8 ps-0">
+                                    <div class='show-field-end'>
+                                        @yield('content9')
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+
+
                     </div>
                     <!--fim da coluna  Fields-->
 
@@ -227,6 +257,10 @@
 
                 <div class="row mt-5">
                     @yield('images')
+                </div>
+
+                <div class="row mt-5">
+                    @yield('attachments')
                 </div>
 
             </section>

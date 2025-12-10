@@ -3,14 +3,13 @@
 @section('title','JORNADAS')
 
 @section('image-top')
-{{ asset('images/journey.png') }} 
+<i class="fa fa-coffee"></i>
 @endsection
 
 @section('description')
 @endsection
 
 @section('buttons')
-
 {{createButtonList('journey')}}
 @endsection
 

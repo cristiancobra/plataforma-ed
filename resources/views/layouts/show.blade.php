@@ -17,7 +17,7 @@
         <x-sidebar.sidebar/>
 
         <main class='main2'>
-            <header class='row pt-5 ps-5 pb-0'>
+            <header class='row pt-5 ps-5 ms-3 me-5'>
                 @include('layouts.header')
             </header>
 
@@ -84,6 +84,8 @@
                     </div>
 
                     @yield('images')
+
+                    @yield('attachments')
 
                     @yield('stock')
 

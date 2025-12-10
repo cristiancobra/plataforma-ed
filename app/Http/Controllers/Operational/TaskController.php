@@ -3,15 +3,18 @@
 namespace App\Http\Controllers\Operational;
 
 use App\Http\Controllers\Controller;
-use App\Models\Task;
+use App\Http\Requests\StoreTaskRequest;
 use App\Models\BankAccount;
 use App\Models\Contact;
+use App\Models\Task;
+use App\Models\Attachment;
 use App\Models\Company;
 use App\Models\Image;
 use App\Models\Journey;
 use App\Models\Opportunity;
 use App\Models\Project;
 use App\Models\User;
+use App\Requests\App\Http\Requests\StoreTextRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use PDF;
@@ -168,52 +171,22 @@ class TaskController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTaskRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:tasks',
-                    'date_start' => 'required:tasks',
-                    'date_due' => 'required:tasks',
-                        ],
-                        $messages);
+    public function store(StoreTaskRequest $request) {
+        $task = new Task();
+        $task->fill($request->all());
+        $task->account_id = auth()->user()->account_id;
+        $task->status = 'fazer';
+        $dateStart = new DateTime($request->date_due . " " . $request->time_due);
+        $task->date_due = $dateStart->format('Y-m-d H:i:s');
+        $task->save();
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
-        } else {
-            $task = new Task();
-            $task->fill($request->all());
-            $task->account_id = auth()->user()->account_id;
-            $task->status = 'fazer';
-            $dateStart = new DateTime($request->date_due . " " . $request->time_due);
-            $task->date_due = $dateStart->format('Y-m-d H:i:s');
-            $task->save();
+        $this->handleImageUpload($request, $task);
+        $this->handleAttachmentUpload($request, $task);
 
-            if ($request->file('image')) {
-                $image = new Image();
-                $image->account_id = auth()->user()->account_id;
-                $image->task_id = $task->id;
-                $image->type = 'tarefa';
-                $image->name = 'Imagem da tarefa ' . $task->id;
-                $image->status = 'disponível';
-                $path = $request->file('image')->store('customers_images');
-                $image->path = $path;
-                $image->save();
-            }
-
-            $journeys = Journey::where('task_id', $task->id)
-                    ->get();
-
-//            return redirect()->back();
-                        return redirect()->route('task.show', [$task]);
-        }
+        return redirect()->route('task.show', [$task]);
     }
 
     /**
@@ -274,7 +247,7 @@ class TaskController extends Controller {
      * @param  \App\tasks  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(task $task) {
+    public function show(Task $task) {
         $today = date('Y-m-d');
 
         $totalDuration = 0;
@@ -289,6 +262,8 @@ class TaskController extends Controller {
         $priority= $task->priority;
 
         $openJourney = Journey::myOpenJourney();
+
+        $task->load(['images', 'attachments']);
 
         return view('operational.tasks.show', compact(
                         'today',
@@ -306,7 +281,9 @@ class TaskController extends Controller {
      * @param  \App\tasks  $task
      * @return \Illuminate\Http\Response
      */
-    public function edit(task $task) {
+    public function edit(Task $task) {
+        $task->load(['images', 'attachments']);
+        
         $contacts = Contact::where('account_id', auth()->user()->account_id)
                 ->orderBy('NAME', 'ASC')
                 ->get();
@@ -343,47 +320,32 @@ class TaskController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreTaskRequest  $request
      * @param  \App\tasks  $task
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, task $task) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:tasks',
-                    'date_start' => 'required:tasks',
-                    'date_due' => 'required:tasks',
-                        ],
-                        $messages);
+    public function update(StoreTaskRequest $request, Task $task) {
+        $task->fill($request->all());
+        $dateDue = new DateTime($request->date_due . " " . $request->time_due);
+        $task->date_due = $dateDue->format('Y-m-d H:i:s');
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
+        if (isset($request->cancelado)) {
+            $task->status = 'cancelado';
+            $task->date_conclusion = "";
+        } elseif (isset($request->aguardar)) {
+            $task->status = 'aguardar';
+            $task->date_conclusion = "";
+        } elseif (isset($request->date_conclusion)) {
+            $task->status = 'feito';
         } else {
-            $task->fill($request->all());
-            $dateDue = new DateTime($request->date_due . " " . $request->time_due);
-            $task->date_due = $dateDue->format('Y-m-d H:i:s');
-
-            if (isset($request->cancelado)) {
-                $task->status = 'cancelado';
-                $task->date_conclusion = "";
-            } elseif (isset($request->aguardar)) {
-                $task->status = 'aguardar';
-                $task->date_conclusion = "";
-            } elseif (isset($request->date_conclusion)) {
-                $task->status = 'feito';
-            } else {
-                $task->status = 'fazer';
-            }
-
-            $task->save();
-
-            return redirect()->route('task.show', [$task]);
+            $task->status = 'fazer';
         }
+
+        $task->save();
+        $this->handleImageUpload($request, $task);
+        $this->handleAttachmentUpload($request, $task);
+
+        return redirect()->route('task.show', [$task]);
     }
 
     /**
@@ -582,6 +544,42 @@ class TaskController extends Controller {
                         'nullDays',
                         'myTasks',
         ));
+    }
+
+    /**
+     * Handle image upload for task
+     */
+    private function handleImageUpload(Request $request, Task $task)
+    {
+        if ($request->file('image')) {
+            $image = new Image();
+            $image->account_id = auth()->user()->account_id;
+            $image->task_id = $task->id;
+            $image->type = 'tarefa';
+            $image->name = 'Imagem da tarefa ' . $task->name;
+            $image->status = 'disponível';
+            $path = $request->file('image')->store('customers_images', 'public');
+            $image->path = $path;
+            $image->save();
+        }
+    }
+
+    /**
+     * Handle PDF/attachment upload for task
+     */
+    private function handleAttachmentUpload(Request $request, Task $task)
+    {
+        if ($request->file('attachment')) {
+            $attachment = new Attachment();
+            $attachment->account_id = auth()->user()->account_id;
+            $attachment->task_id = $task->id;
+            $attachment->type = 'pdf';
+            $attachment->name = $request->file('attachment')->getClientOriginalName();
+            $attachment->status = 'disponível';
+            $path = $request->file('attachment')->store('customers_attachments', 'public');
+            $attachment->path = $path;
+            $attachment->save();
+        }
     }
 
 }

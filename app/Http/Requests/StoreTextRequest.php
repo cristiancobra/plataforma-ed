@@ -28,7 +28,8 @@ class StoreTextRequest extends FormRequest
             'name' => 'required:texts',
             'title' => 'required:texts',
             'text' => 'required:texts',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validação para a imagem
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'attachment' => 'nullable|file|mimes:pdf|max:10240',
         ];
     }
 

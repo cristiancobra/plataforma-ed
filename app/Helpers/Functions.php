@@ -8,22 +8,23 @@ use App\Models\Question;
 // cria um botao para criar nova tarefa de vendas
 if (!function_exists('buttonTaskSales')) {
 
-    function buttonTaskSales($parameter, $model, $name = null) {
+    function buttonTaskSales($parameter, $model, $name = null)
+    {
         echo "<a class='circular-button secondary' title='$name' href = " . route('task.create', [
-                                                                                                                                                    $parameter => $model,
-                                                                                                                                                    'name' => $name,
-                                                                                                                                                    'department' => 'vendas',
-                                                                                                                                                    ]) . ">";
+            $parameter => $model,
+            'name' => $name,
+            'department' => 'vendas',
+        ]) . ">";
         echo "<i class = 'fa fa-funnel-dollar'></i>";
         echo "</a>";
     }
-
 }
 
 if (!function_exists('createButtonAdd')) {
 
-// cria um botao com simbolo de + para adicionar model  a partir da rota
-    function createButtonAdd($route, $parameter = null, $value = null) {
+    // cria um botao com simbolo de + para adicionar model  a partir da rota
+    function createButtonAdd($route, $parameter = null, $value = null)
+    {
         echo "<button class='button-round'>";
 
         if ($parameter) {
@@ -36,12 +37,12 @@ if (!function_exists('createButtonAdd')) {
         echo "</a>";
         echo "</button>";
     }
-
 }
 if (!function_exists('createButtonPlus')) {
 
-// cria um botao com simbolo de + para rota create do model fornecido
-    function createButtonPlus($route, $title = null, $parameter = null, $value = null) {
+    // cria um botao com simbolo de + para rota create do model fornecido
+    function createButtonPlus($route, $title = null, $parameter = null, $value = null)
+    {
         if ($parameter) {
             $route = route($route, [$parameter => $value]);
         } else {
@@ -53,48 +54,48 @@ if (!function_exists('createButtonPlus')) {
                             </a>
                             </button>";
     }
-
 }
 if (!function_exists('createButtonBack')) {
 
-// cria um botao com simbolo de <- para retornar para página anterior
-    function createButtonBack() {
+    // cria um botao com simbolo de <- para retornar para página anterior
+    function createButtonBack()
+    {
         $message = 'Voltar para última tela';
 
         echo "<a class='circular-button secondary' title='$message' href=" . url()->previous() . ">
                         <i class='fas fa-arrow-left'></i>
                   </a>";
     }
-
 }
 if (!function_exists('createButtonCancel')) {
 
-// cria um botao com simbolo de X cancelar as alterações do edit
-    function createButtonCancel() {
+    // cria um botao com simbolo de X cancelar as alterações do edit
+    function createButtonCancel()
+    {
         $message = 'Cancelar alterações';
 
         echo "<a class='circular-button secondary' title='$message' href=" . url()->previous() . ">
                          <i class='fas fa-times-circle'></i>
                   </a>";
     }
-
 }
 if (!function_exists('createButtonSave')) {
 
-// cria um botao com simbolo de DISQUETE que envia o form no edita para salvar as alterações
-    function createButtonSave() {
+    // cria um botao com simbolo de DISQUETE que envia o form no edita para salvar as alterações
+    function createButtonSave()
+    {
         $message = 'Salvar alterações';
 
         echo "<button id='' class='circular-button primary' title='$message' style='border:none;padding-left:4px;padding-top:2px' type='submit'>
                          <i class='fas fa-save'></i>
                   </button>";
     }
-
 }
 if (!function_exists('createButtonCreate')) {
 
-// cria um botao com simbolo que vai para o método create do model
-    function createButtonCreate($model, $parameter = null, $value = null) {
+    // cria um botao com simbolo que vai para o método create do model
+    function createButtonCreate($model, $parameter = null, $value = null)
+    {
         $route = "$model.create";
         $message = 'Criar novo';
 
@@ -106,12 +107,12 @@ if (!function_exists('createButtonCreate')) {
         echo "<i class = 'fas fa-plus'></i>
                      </a>";
     }
-
 }
 if (!function_exists('createButtonList')) {
 
-// cria um botao com simbolo que vai para o index do model
-    function createButtonList($model, $parameter = null, $value = null) {
+    // cria um botao com simbolo que vai para o index do model
+    function createButtonList($model, $parameter = null, $value = null)
+    {
         $route = "$model.index";
         $message = 'Ir para lista';
 
@@ -123,12 +124,12 @@ if (!function_exists('createButtonList')) {
         echo "<i class = 'fas fa-list'></i>
                      </a>";
     }
-
 }
 if (!function_exists('createButtonShow')) {
 
-// cria um botao com simbolo de OLHO para adicionar visualizar um model
-    function createButtonShow($model, $parameter) {
+    // cria um botao com simbolo de OLHO para adicionar visualizar um model
+    function createButtonShow($model, $parameter)
+    {
         $link = "$parameter.show";
         echo "<button class = 'button-round'>";
         echo "<a href = " . route($link, [$parameter => $model->id]) . ">";
@@ -136,12 +137,12 @@ if (!function_exists('createButtonShow')) {
         echo "</a>";
         echo "</button>";
     }
-
 }
 // cria um botao que vai para a tela de edição do model
 if (!function_exists('createButtonEdit')) {
 
-    function createButtonEdit($model, $parameter1 = null, $value1 = null, $parameter2 = null, $value2 = null) {
+    function createButtonEdit($model, $parameter1 = null, $value1 = null, $parameter2 = null, $value2 = null)
+    {
         $route = "$model.edit";
         $message = 'Editar estas informações';
 
@@ -156,49 +157,49 @@ if (!function_exists('createButtonEdit')) {
         echo "<i class = 'fas fa-edit'></i>
                      </a>";
     }
-
 }
 
 if (!function_exists('createButtonExternalLink')) {
 
-// cria um botao com simbolo de FOGUETE que aponta para links externos
-    function createButtonExternalLink($link) {
+    // cria um botao com simbolo de FOGUETE que aponta para links externos
+    function createButtonExternalLink($link)
+    {
         echo "<button class = 'button-round'>";
         echo "<a href = '//$link' target = '_blank'>";
         echo "<i class = 'fa fa-rocket' style = 'color:white'></i>";
         echo "</a>";
         echo "</button>";
     }
-
 }
 if (!function_exists('createButtonPdf')) {
 
-// cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF
-    function createButtonPdf($parameter, $model = null) {
+    // cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF
+    function createButtonPdf($parameter, $model = null)
+    {
         $link = "$model.pdf";
 
         echo "<a class='circular-button secondary'  href=" . route($link, [$model => $parameter->id]) . ">
                         <i class='fa fa-print' aria-hidden='true'></i>
                     </a>";
     }
-
 }
 if (!function_exists('createButtonPdfReport')) {
 
-// cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF específico para relatórios
-    function createButtonPdfReport($parameter) {
+    // cria um botao com simbolo de IMPRESSORA para direcionar para a rota de geração de PDF específico para relatórios
+    function createButtonPdfReport($parameter)
+    {
         $link = "$parameter.pdfReport";
 
         echo "<a class='circular-button secondary'  href=" . route($link) . ">
                         <i class='fa fa-print' aria-hidden='true'></i>
                     </a>";
     }
-
 }
 if (!function_exists('createButtonTrash')) {
 
-// gera um botão para o método que envia ou recupera um objeto da lixeira, de acordo com o estado atual
-    function createButtonTrash($model, $parameter) {
+    // gera um botão para o método que envia ou recupera um objeto da lixeira, de acordo com o estado atual
+    function createButtonTrash($model, $parameter)
+    {
         if ($model->trash == 1) {
             $link = "$parameter.restore";
             $styleName = 'restore';
@@ -216,13 +217,13 @@ if (!function_exists('createButtonTrash')) {
         echo "</button>";
         echo "</form>";
     }
-
 }
 if (!function_exists('createButtonTrashIndex')) {
 
-// gera um botão no index que mostra os objetos na lixeira
-    function createButtonTrashIndex($trashStatus, $parameter, $variation = null) {
-//        dd($trashStatus);
+    // gera um botão no index que mostra os objetos na lixeira
+    function createButtonTrashIndex($trashStatus, $parameter, $variation = null)
+    {
+        //        dd($trashStatus);
         if ($trashStatus == 1) {
             $link = route("$parameter.index", ['variation' => $variation]);
             $styleName = 'secondary';
@@ -237,12 +238,12 @@ if (!function_exists('createButtonTrashIndex')) {
                         <i class='$iconName' aria-hidden='true'></i>
                     </a>";
     }
-
 }
 if (!function_exists('createFilterSelect')) {
 
-// cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
-    function createFilterSelect($name, $class, array $options, $allLabel = null) {
+    // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
+    function createFilterSelect($name, $class, array $options, $allLabel = null)
+    {
         echo "<select class = '$class' name = '$name' style = 'width:130px'>";
         if ($allLabel) {
             echo "<option class = 'select' value = ''>
@@ -258,12 +259,12 @@ if (!function_exists('createFilterSelect')) {
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('createFilterSelectModels')) {
 
-// cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
-    function createFilterSelectModels($name, $class, $models, $allLabel = null) {
+    // cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
+    function createFilterSelectModels($name, $class, $models, $allLabel = null)
+    {
         echo "<select class = '$class' name = '$name' style = 'width:130px'>";
         if ($allLabel) {
             echo "<option class = 'select' value = ''>
@@ -275,24 +276,24 @@ if (!function_exists('createFilterSelectModels')) {
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('createDoubleSelect')) {
 
-// cria as opções de um select recebendo NOME, CLASSE e array com DUAS POSIÇÕES de OPÇÕES
-    function createDoubleSelect($name, $class, array $options) {
+    // cria as opções de um select recebendo NOME, CLASSE e array com DUAS POSIÇÕES de OPÇÕES
+    function createDoubleSelect($name, $class, array $options)
+    {
         echo "<select class = '$class' name = '$name' value='old('$name')>";
         foreach ($options as $key => $value) {
             echo "<option value = \"$key\">$value</option><br>";
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('createDoubleSelectIdName')) {
 
-// cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
-    function createDoubleSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
+    // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
+    function createDoubleSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null)
+    {
         echo "<select class = '$class' name = '$name' style='width:100%;margin-right:3px'>";
         if ($currentValue) {
             echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
@@ -309,32 +310,32 @@ if (!function_exists('createDoubleSelectIdName')) {
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('createNumericFormField')) {
 
-// cria um campo de formulário do TIPO número com Label. 
-    function createNumericFormField($label, $name, $currentValue = null) {
+    // cria um campo de formulário do TIPO número com Label. 
+    function createNumericFormField($label, $name, $currentValue = null)
+    {
         echo "<label class='labels' for='$name'>$label:</label>";
         echo "<input type='number' id='$name'  name='$name'  value='$currentValue' style='text-align:right; width:100px'>";
         echo "</br>";
     }
-
 }
 if (!function_exists('createTextFormField')) {
 
-// cria um campo de formulário do TIPO texto com Label. 
-    function createTextFormField($label, $name, $currentValue = null) {
+    // cria um campo de formulário do TIPO texto com Label. 
+    function createTextFormField($label, $name, $currentValue = null)
+    {
         echo "<label class='labels' for='$name'>$label:</label>";
         echo "<input type='text' id='$name' name='$name'  value='$currentValue' style='text-align:left; width:200px'>";
         echo "</br>";
     }
-
 }
 if (!function_exists('createOpportunitySelect')) {
 
-// select exclusivo para selecionar oportunidade
-    function createOpportunitySelect($name, $class, $models, $nullLabel = null, $currentValue = null) {
+    // select exclusivo para selecionar oportunidade
+    function createOpportunitySelect($name, $class, $models, $nullLabel = null, $currentValue = null)
+    {
         echo "<select class = '$class' name = '$name'>";
         if ($currentValue) {
             echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
@@ -351,12 +352,12 @@ if (!function_exists('createOpportunitySelect')) {
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('createSelectUsers')) {
 
-// cria as um select com os usuários disponíveis com ID e Name
-    function createSelectUsers($class, $users) {
+    // cria as um select com os usuários disponíveis com ID e Name
+    function createSelectUsers($class, $users)
+    {
         echo "<select class=$class name='user_id'  style = 'width:130px'>
             <option  class=$class value='" . Auth::user()->id . "'>Eu</option>";
         foreach ($users as $user) {
@@ -368,21 +369,22 @@ if (!function_exists('createSelectUsers')) {
         }
         echo "</select>";
     }
-
 }
 
 if (!function_exists('formatedText(stage->description')) {
 
-// formata textos longos feitos com ckeditor
-    function formatedText($text) {
-     echo html_entity_decode($text);
-}
+    // formata textos longos feitos com ckeditor
+    function formatedText($text)
+    {
+        echo html_entity_decode($text);
+    }
 }
 
 if (!function_exists('editDoubleSelectIdName')) {
 
-// cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
-    function editDoubleSelectIdName($name, $class, $models, $currentValue = null, $nullLabel = null) {
+    // cria as opções de um select recebendo NOME, CLASSE e array com POSIÇÃO ID E NOME
+    function editDoubleSelectIdName($name, $class, $models, $currentValue = null, $nullLabel = null)
+    {
         echo "<select class = '$class' name = '$name' style='width:100%'>";
         echo "<option value=''>$currentValue</option><br>";
         if ($nullLabel) {
@@ -393,14 +395,14 @@ if (!function_exists('editDoubleSelectIdName')) {
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('editDoubleSelect')) {
 
     /* cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
       e retorna o valor a editar  com DUAS POSIÇÕES */
 
-    function editDoubleSelect($name, $class, array $options, $currentValue, $currentLabel) {
+    function editDoubleSelect($name, $class, array $options, $currentValue, $currentLabel)
+    {
         echo "<select class = '$class' name = '$name'>";
         echo "<option value=\"$currentValue\">$currentLabel</option>";
         foreach ($options as $key => $value) {
@@ -408,7 +410,6 @@ if (!function_exists('editDoubleSelect')) {
         }
         echo "</select>";
     }
-
 }
 
 if (!function_exists('createPageAnalysis')) {
@@ -421,7 +422,7 @@ if (!function_exists('createPageAnalysis')) {
      */
     function createPageAnalysis($label, $name)
     {
-         echo '
+        echo '
         <div class="form-group">
             <label class="labels">' . $label . ':</label>
             <select name="' . $name . '" class="form-control">
@@ -452,28 +453,31 @@ if (!function_exists('createPageAnalysisWithOld')) {
 
 if (!function_exists('createSimpleSelect')) {
 
-// cria as opções de um select recebendo um array com 1 posição
-    function createSimpleSelect($name, $class, array $options, $currentValue = null) {
-        echo "<select class=$class name=$name  style='width:100%'>";
-        if ($currentValue != null) {
-            echo "<option value='$currentValue'>$currentValue</option>";
-        }
+    // cria as opções de um select recebendo um array com 1 posição
+    function createSimpleSelect($name, $class, array $options, $currentValue = null)
+    {
+        echo "<select class='$class' name='$name' style='width:100%'>";
+
         foreach ($options as $option) {
-            if (old($name) == $option) {
-                echo "<option value='$option' selected='selected'>$option</option><br>";
-            } else {
-                echo "<option value='$option'>$option</option><br>";
+            $selected = '';
+
+            // Verifica se é o valor atual ou old
+            if (old($name) == $option || ($currentValue == $option && !old($name))) {
+                $selected = 'selected';
             }
+
+            echo "<option value='$option' $selected>$option</option>";
         }
+
         echo "</select>";
     }
-
 }
 
 if (!function_exists('createSimpleRadio')) {
 
-// cria as opções de um seletor do tipo radio com value e label iguais
-    function createSimpleRadio($name, array $options, $currentValue = null) {
+    // cria as opções de um seletor do tipo radio com value e label iguais
+    function createSimpleRadio($name, array $options, $currentValue = null)
+    {
         if ($currentValue != null) {
             echo "<div class='form-check mb-3'>";
             echo "<input class='form-check-input' type='radio' name='$name' id='$name' value='$currentValue' checked>";
@@ -495,37 +499,38 @@ if (!function_exists('createSimpleRadio')) {
             }
         }
     }
-    }
+}
 
-    if (!function_exists('userAccounts')) {
+if (!function_exists('userAccounts')) {
 
-//  retorna o ID das empresas ao qual o usuário pertence
-    function userAccounts() {
+    //  retorna o ID das empresas ao qual o usuário pertence
+    function userAccounts()
+    {
         $accountsId = Account::whereHas('users', function ($query) {
-                    $query->where('users.id', Auth::user()->id);
-                })
-                ->get('id');
+            $query->where('users.id', Auth::user()->id);
+        })
+            ->get('id');
 
         return $accountsId;
     }
-
 }
 if (!function_exists('userContact')) {
 
-//  retorna os dados do relacionamento Contatos a partir do ID de um usuário
-    function userContact($id) {
+    //  retorna os dados do relacionamento Contatos a partir do ID de um usuário
+    function userContact($id)
+    {
         $userContact = User::where('id', $id)
-                ->with('contact')
-                ->first();
+            ->with('contact')
+            ->first();
 
         return $userContact;
     }
-
 }
 // retorna os meses do ano
 if (!function_exists('returnAccountType')) {
 
-    function returnAccountType() {
+    function returnAccountType()
+    {
         return $type = array(
             '1' => '',
             '2' => 'Agricultura',
@@ -568,12 +573,12 @@ if (!function_exists('returnAccountType')) {
             '39' => 'Outros',
         );
     }
-
 }
 // retorna os meses do ano
 if (!function_exists('returnMonths')) {
 
-    function returnMonths() {
+    function returnMonths()
+    {
         return $months = array(
             '1' => 'Janeiro',
             '2' => 'Fevereiro',
@@ -589,12 +594,12 @@ if (!function_exists('returnMonths')) {
             '12' => 'Dezembro',
         );
     }
-
 }
 // retorna os NOMES dos meses
 if (!function_exists('namesMonths')) {
 
-    function namesMonths() {
+    function namesMonths()
+    {
         return [
             'Janeiro',
             'Fevereiro',
@@ -610,12 +615,12 @@ if (!function_exists('namesMonths')) {
             'Dezembro',
         ];
     }
-
 }
 // retorna o nome do mês a partir do parâmetro recebido
 if (!function_exists('returnMonth')) {
 
-    function returnMonth(int $number) {
+    function returnMonth(int $number)
+    {
         switch ($number) {
             case '1':
                 $month = 'Janeiro';
@@ -654,14 +659,14 @@ if (!function_exists('returnMonth')) {
                 $month = 'Dezembro';
                 break;
         }
-        return($month);
+        return ($month);
     }
-
 }
 // retorna os estados do Brasil
 if (!function_exists('returnStates')) {
 
-    function returnStates() {
+    function returnStates()
+    {
         return $states = array(
             '' => '',
             'AC' => 'Acre',
@@ -693,12 +698,12 @@ if (!function_exists('returnStates')) {
             'TO' => 'Tocantins',
         );
     }
-
 }
 // retorna o nome COMPLETO DO ESTADO a partir da sigla
 if (!function_exists('returnStateName')) {
 
-    function returnStateName($state) {
+    function returnStateName($state)
+    {
         switch ($state) {
             case 'AC':
                 $state = 'Acre';
@@ -782,14 +787,14 @@ if (!function_exists('returnStateName')) {
                 $state = 'Tocantins';
                 break;
         }
-        return($state);
+        return ($state);
     }
-
 }
 // gera um botão com a formatação para PRIORIDADE da tarefa  a partir de  $model
 if (!function_exists('formatPriority')) {
 
-    function formatPriority($model) {
+    function formatPriority($model)
+    {
         switch ($model->priority) {
             case 'baixa':
                 echo '<div class="col-1 tb tb-low text-center">baixa</div>';
@@ -805,12 +810,12 @@ if (!function_exists('formatPriority')) {
                 break;
         }
     }
-
 }
 // gera um DIV com a formatação para PRIORIDADE da tarefa  a partir de  $model
 if (!function_exists('formatShowPriority')) {
 
-    function formatShowPriority($model) {
+    function formatShowPriority($model)
+    {
         switch ($model->priority) {
             case 'baixa':
                 echo '<div class="low">baixa</div>';
@@ -826,12 +831,12 @@ if (!function_exists('formatShowPriority')) {
                 break;
         }
     }
-
 }
 // gera um DIV com a formatação para CATEGORIA do produto  a partir de  $model
 if (!function_exists('formatShowCategory')) {
 
-    function formatShowCategory($model) {
+    function formatShowCategory($model)
+    {
         switch ($model->category) {
             case 'serviço':
                 echo '<div class="low">serviço</div>';
@@ -844,12 +849,12 @@ if (!function_exists('formatShowCategory')) {
                 break;
         }
     }
-
 }
 // gera um CÉLUA DE TABELA com a formatação para PRIORIDADE da tarefa  a partir de  $model
 if (!function_exists('formatPriority')) {
 
-    function formatPriority($model) {
+    function formatPriority($model)
+    {
         switch ($model->priority) {
             case 'baixa':
                 echo '<div class="td-low">baixa</div>';
@@ -865,12 +870,12 @@ if (!function_exists('formatPriority')) {
                 break;
         }
     }
-
 }
 // gera uma DIV  com a formatação para TYPE
 if (!function_exists('formatType')) {
 
-    function formatType($model) {
+    function formatType($model)
+    {
         switch ($model->type) {
             case 'biografia':
                 echo '<div class="col-1 tb tb-low text-center">biografia</div>';
@@ -898,12 +903,12 @@ if (!function_exists('formatType')) {
                 break;
         }
     }
-
 }
 // retorna métodos de pagamento
 if (!function_exists('returnPaymentMethods')) {
 
-    function returnPaymentMethods() {
+    function returnPaymentMethods()
+    {
         return $states = array(
             'transferência bancária',
             'pix',
@@ -912,12 +917,12 @@ if (!function_exists('returnPaymentMethods')) {
             'boleto',
         );
     }
-
 }
 // retorna os  tipos de  rede social
 if (!function_exists('returnSocialmediaType')) {
 
-    function returnSocialmediaType() {
+    function returnSocialmediaType()
+    {
         return $states = array(
             'Facebook',
             'Instagram',
@@ -930,12 +935,12 @@ if (!function_exists('returnSocialmediaType')) {
             'Google Meu Negocio',
         );
     }
-
 }
 // gera um botão com a formatação para STATUS / SITUAÇÃO da rede social partir de  $socialmedia
 if (!function_exists('formatsocialmediaStatus')) {
 
-    function formatsocialmediaStatus($socialmedia) {
+    function formatsocialmediaStatus($socialmedia)
+    {
         switch ($socialmedia->status) {
             case 'publicada':
                 echo '<td class="td-published">publicada</td>';
@@ -948,28 +953,28 @@ if (!function_exists('formatsocialmediaStatus')) {
                 break;
         }
     }
-
 }
 // converte o DateTime para o formato de data brasileiro
 if (!function_exists('dateBr')) {
 
-    function dateBr($date) {
+    function dateBr($date)
+    {
         return date('d/m/Y', strtotime($date));
     }
-
 }
 // converte o DateTime para o formato de hora brasileiro
 if (!function_exists('timeBr')) {
 
-    function timeBr($date) {
+    function timeBr($date)
+    {
         return date('H:i', strtotime($date));
     }
-
 }
 // converte data para o formato brasileiro
 if (!function_exists('phoneBr')) {
 
-    function phoneBr($number) {
+    function phoneBr($number)
+    {
         if (strlen($number) == 10) {
             $formattedNumber = substr_replace($number, '(', 0, 0);
             $formattedNumber = substr_replace($formattedNumber, '9', 3, 0);
@@ -982,13 +987,13 @@ if (!function_exists('phoneBr')) {
         }
         return $formattedNumber;
     }
-
 }
 
 // gera um botão com a formatação para STAGE / ETAPADA DE PROSPECÇÃO da oportunidade a partir de  $model
 if (!function_exists('formatStage')) {
 
-    function formatStage($model) {
+    function formatStage($model)
+    {
         switch ($model->stage) {
             case 'prospecção':
                 echo '<div class="tb col-1 tb-prospecting">prospecção</div>';
@@ -1013,12 +1018,12 @@ if (!function_exists('formatStage')) {
                 break;
         }
     }
-
 }
 // gera um botão com a formatação para STATUS / SITUAÇÃO do CONTRATO  a partir de  $model
 if (!function_exists('formatContractStatus')) {
 
-    function formatContractStatus($model) {
+    function formatContractStatus($model)
+    {
         switch ($model->status) {
             case 'cancelado':
                 echo '<td class="td-canceled">cancelado</td>';
@@ -1034,12 +1039,12 @@ if (!function_exists('formatContractStatus')) {
                 break;
         }
     }
-
 }
 // gera uma coluna de tabela com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatStatus')) {
 
-    function formatStatus($model) {
+    function formatStatus($model)
+    {
         switch ($model->status) {
             case 'aguardar':
                 echo '<div class="col-1 tb tb-stuck text-center">aguardar</div>';
@@ -1082,12 +1087,12 @@ if (!function_exists('formatStatus')) {
                 break;
         }
     }
-
 }
 // gera uma DIV com a formatação para ESTÁGIO da oportunidade  a partir de  $model
 if (!function_exists('formatShowStage')) {
 
-    function formatShowStage($model) {
+    function formatShowStage($model)
+    {
         switch ($model->stage) {
             case 'prospecção':
                 echo '<div class="prospecting">prospecção</div>';
@@ -1112,12 +1117,12 @@ if (!function_exists('formatShowStage')) {
                 break;
         }
     }
-
 }
 // gera uma DIV com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatShowStatus')) {
 
-    function formatShowStatus($model) {
+    function formatShowStatus($model)
+    {
         switch ($model->status) {
             case 'cancelado':
                 echo '<div class="canceled">cancelada</div>';
@@ -1178,12 +1183,12 @@ if (!function_exists('formatShowStatus')) {
                 break;
         }
     }
-
 }
 // gera uma DIV com a formatação para TYPE / TIPO  da imagem  a partir de  $model
 if (!function_exists('formatShowType')) {
 
-    function formatShowType($model) {
+    function formatShowType($model)
+    {
         switch ($model->type) {
             case 'produto':
                 echo '<div class="to-do">produto</div>';
@@ -1217,12 +1222,12 @@ if (!function_exists('formatShowType')) {
                 break;
         }
     }
-
 }
 // gera um botão com a formatação para STATUS / SITUAÇÃO da tarefa  a partir de  $model
 if (!function_exists('formatProductStatus')) {
 
-    function formatProductStatus($model) {
+    function formatProductStatus($model)
+    {
         switch ($model->status) {
             case 'indisponível':
                 echo '<td class="td-canceled">indisponível</td>';
@@ -1232,12 +1237,12 @@ if (!function_exists('formatProductStatus')) {
                 break;
         }
     }
-
 }
 // formata uma div com cor de acordo com o status para as tabelas de index
 if (!function_exists('formatTableStatus')) {
 
-    function formatTableStatus($model) {
+    function formatTableStatus($model)
+    {
         switch ($model->status) {
             case 'indisponível':
                 echo '<div class="tb tb-canceled col-1 text-center">indisponível</div>';
@@ -1250,12 +1255,12 @@ if (!function_exists('formatTableStatus')) {
                 break;
         }
     }
-
 }
 // gera um botão com a formatação para STATUS / SITUAÇÃO para ativado ou desativado
 if (!function_exists('formatStatusActive')) {
 
-    function formatStatusActive($model) {
+    function formatStatusActive($model)
+    {
         switch ($model->status) {
             case 'desativado':
                 echo '<td class="td-canceled">desativado</td>';
@@ -1265,12 +1270,12 @@ if (!function_exists('formatStatusActive')) {
                 break;
         }
     }
-
 }
 // gera uma coluna TD com a formatação para STATUS / SITUAÇÃO da Fatura  a partir de  $model
 if (!function_exists('formatInvoiceStatus')) {
 
-    function formatInvoiceStatus($invoice) {
+    function formatInvoiceStatus($invoice)
+    {
         switch ($invoice->status) {
             case 'rascunho':
                 echo '<div class="tb tb-draft col-1">rascunho</div>';
@@ -1295,12 +1300,12 @@ if (!function_exists('formatInvoiceStatus')) {
                 break;
         }
     }
-
 }
 // gera um botao de acordo com o status da fatura
 if (!function_exists('faiconInvoiceStatus')) {
 
-    function faiconInvoiceStatus($status) {
+    function faiconInvoiceStatus($status)
+    {
         switch ($status) {
             case 'rascunho':
                 echo "<i class='fas fa-stop draft-paid ms-1 me-1' style='font-size:28px'></i>";
@@ -1325,12 +1330,12 @@ if (!function_exists('faiconInvoiceStatus')) {
                 break;
         }
     }
-
 }
 // gera uma coluna TD  com a formatação para STATUS / SITUAÇÃO da Conta Bancaria  a partir de  $model
 if (!function_exists('formatBankAccountStatus')) {
 
-    function formatBankAccountStatus($model) {
+    function formatBankAccountStatus($model)
+    {
         switch ($model->status) {
             case 'desativada':
                 echo '<td class="td-canceled">desativada</td>';
@@ -1343,23 +1348,23 @@ if (!function_exists('formatBankAccountStatus')) {
                 break;
         }
     }
-
 }
 // retorna STATUS ativo ou desativado
 if (!function_exists('returnStatusActive')) {
 
-    function returnStatusActive() {
+    function returnStatusActive()
+    {
         return $status = array(
             'ativo',
             'desativado',
         );
     }
-
 }
 // retorna o TIPO de um model
 if (!function_exists('returnType')) {
 
-    function returnType($name, $class, $model) {
+    function returnType($name, $class, $model)
+    {
         switch ($model) {
             case 'invoice':
                 $all = 'todos os tipos';
@@ -1383,12 +1388,12 @@ if (!function_exists('returnType')) {
         }
         echo "</select>";
     }
-
 }
 // retorna os nomes e códigos dos BANCOS BRASILEIROS
 if (!function_exists('returnBanks')) {
 
-    function returnBanks() {
+    function returnBanks()
+    {
         return $banks = array(
             '' => '',
             '332' => 'Acesso Soluções de Pagamento S.A.',
@@ -1677,24 +1682,24 @@ if (!function_exists('returnBanks')) {
             '359' => 'ZEMA CRÉDITO, FINANCIAMENTO E INVESTIMENTO S/A',
         );
     }
-
 }
 // retorna o status da CONTA BANCÁRIA
 if (!function_exists('returnBankAccountStatus')) {
 
-    function returnBankAccountStatus() {
+    function returnBankAccountStatus()
+    {
         return $status = array(
             'ativa',
             'desativada',
             'recebendo',
         );
     }
-
 }
 // retorna o STATUS / SITUAÇÃO do contrato 
 if (!function_exists('returnContractStatus')) {
 
-    function returnContractStatus() {
+    function returnContractStatus()
+    {
         return $status = array(
             'rascunho',
             'enviado',
@@ -1702,12 +1707,12 @@ if (!function_exists('returnContractStatus')) {
             'cancelado',
         );
     }
-
 }
 // retorna o STATUS / SITUAÇÃO da fatura especificamente para o filtro
 if (!function_exists('returnInvoiceStatusToFilter')) {
 
-    function returnInvoiceStatusToFilter() {
+    function returnInvoiceStatusToFilter()
+    {
         return $status = array(
             'rascunho',
             'orçamento',
@@ -1717,7 +1722,6 @@ if (!function_exists('returnInvoiceStatusToFilter')) {
             'paga',
         );
     }
-
 }
 
 //if (!function_exists('selectOneCollection')) {
@@ -1734,8 +1738,9 @@ if (!function_exists('returnInvoiceStatusToFilter')) {
 //}
 if (!function_exists('createSelectIdName')) {
 
-// cria as opções de um select recebendo NOME, CLASSE, COLLECTION e aplica ID em VALUE e NAME no label
-    function createSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null) {
+    // cria as opções de um select recebendo NOME, CLASSE, COLLECTION e aplica ID em VALUE e NAME no label
+    function createSelectIdName($name, $class, $models, $nullLabel = null, $currentValue = null)
+    {
         echo "<select class = '$class' name = '$name'  value='old('$name') style='width:100%'>";
         if ($currentValue) {
             echo "<option value='$currentValue->id'>$currentValue->name</option><br>";
@@ -1748,66 +1753,67 @@ if (!function_exists('createSelectIdName')) {
         }
         echo "</select>";
     }
-
 }
 if (!function_exists('gerarSenha')) {
 
-    function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos) {
+    function gerarSenha($tamanho, $maiusculas, $minusculas, $numeros, $simbolos)
+    {
         $ma = "ABCDEFGHIJKLMNOPQRSTUVYXWZ"; // $ma contem as letras maiúsculas
         $mi = "abcdefghijklmnopqrstuvyxwz"; // $mi contem as letras minusculas
         $nu = "0123456789"; // $nu contem os números
         $si = "!@#$%¨&*()_+="; // $si contem os símbolos
 
         if ($maiusculas) {
-// se $maiusculas for "true", a variável $ma é embaralhada e adicionada para a variável $senha
+            // se $maiusculas for "true", a variável $ma é embaralhada e adicionada para a variável $senha
             $senha = str_shuffle($ma);
         }
 
         if ($minusculas) {
-// se $minusculas for "true", a variável $mi é embaralhada e adicionada para a variável $senha
+            // se $minusculas for "true", a variável $mi é embaralhada e adicionada para a variável $senha
             $senha .= str_shuffle($mi);
         }
 
         if ($numeros) {
-// se $numeros for "true", a variável $nu é embaralhada e adicionada para a variável $senha
+            // se $numeros for "true", a variável $nu é embaralhada e adicionada para a variável $senha
             $senha .= str_shuffle($nu);
         }
 
         if ($simbolos) {
-// se $simbolos for "true", a variável $si é embaralhada e adicionada para a variável $senha
+            // se $simbolos for "true", a variável $si é embaralhada e adicionada para a variável $senha
             $senha .= str_shuffle($si);
         }
 
-// retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
+        // retorna a senha embaralhada com "str_shuffle" com o tamanho definido pela variável $tamanho
         return substr(str_shuffle($senha), 0, $tamanho);
     }
 
-// retorna número no formato de CEP
+    // retorna número no formato de CEP
     if (!function_exists('formatZipCode')) {
 
-        function formatZipCode($zipCode) {
+        function formatZipCode($zipCode)
+        {
             $startNumbers = substr($zipCode, 0, 5);
             $endNumbers = substr($zipCode, 5, 8);
             echo $startNumbers . "-" . $endNumbers;
         }
-
     }
-// retorna número no formato de CPF
+    // retorna número no formato de CPF
     if (!function_exists('formatCpf')) {
 
-        function formatCpf($cpf) {
+        function formatCpf($cpf)
+        {
             $part1 = substr($cpf, 0, 3);
             $part2 = substr($cpf, 3, 3);
             $part3 = substr($cpf, 6, 3);
             $part4 = substr($cpf, 9, 2);
             echo $part1 . "." . $part2 . "." . $part3 . "-" . $part4;
         }
-
     }
-// retorna número no formato de CNPJ
+    // retorna número no formato de CNPJ
     if (!function_exists('formatCnpj')) {
 
-        function formatCnpj($cnpj) {
+        function formatCnpj($cnpj)
+        {
             $part1 = substr($cnpj, 0, 2);
             $part2 = substr($cnpj, 2, 3);
             $part3 = substr($cnpj, 5, 3);
@@ -1815,29 +1821,29 @@ if (!function_exists('gerarSenha')) {
             $part5 = substr($cnpj, -2);
             echo $part1 . "." . $part2 . "." . $part3 . "/" . $part4 . "-" . $part5;
         }
-
     }
 }
 // formata valor inteiro em moeda real com R$
 if (!function_exists('formatCurrencyReal')) {
 
-    function formatCurrencyReal($value) {
+    function formatCurrencyReal($value)
+    {
         return 'R$ ' . number_format($value, 2, ",", ".");
     }
-
 }
 // formata valor inteiro em moeda real SEM R$
 if (!function_exists('formatCurrency')) {
 
-    function formatCurrency($value) {
+    function formatCurrency($value)
+    {
         return number_format($value, 2, ",", ".");
     }
-
 }
 //formatar data em páginas index
 if (!function_exists('formatDateDue')) {
 
-    function formatDateDue($model) {
+    function formatDateDue($model)
+    {
         echo "<div class='tb col-1'>";
         if ($model->date_due == date('Y-m-d')) {
             echo "<p>hoje";
@@ -1848,30 +1854,30 @@ if (!function_exists('formatDateDue')) {
         }
         echo "</p></div>";
     }
-
 }
 
 
 // formata um número com pontos de milhar
 if (!function_exists('formatThousands')) {
 
-    function formatThousands($value) {
+    function formatThousands($value)
+    {
         return number_format($value, 0, ",", ".");
     }
-
 }
 // formata valor inteiro em segundos para formato de decimal (total horas) 
 if (!function_exists('formatTotalHour')) {
 
-    function formatTotalHour($value) {
+    function formatTotalHour($value)
+    {
         return number_format($value / 3600, 1, ',', '.');
     }
-
 }
 // remove símbolos de números de CPF, CNPJ etc
 if (!function_exists('removeSymbols')) {
 
-    function removeSymbols($value) {
+    function removeSymbols($value)
+    {
         $value = trim($value);
         $value = str_replace(".", "", $value);
         $value = str_replace(",", "", $value);
@@ -1880,12 +1886,12 @@ if (!function_exists('removeSymbols')) {
         $value = str_replace("=", "", $value);
         return $value;
     }
-
 }
 // remove pontos, R$ e troca a vírgula por ponto
 if (!function_exists('removeCurrency')) {
 
-    function removeCurrency($value) {
+    function removeCurrency($value)
+    {
         $value = trim($value);
         $value = str_replace('R', '', $value);
         $value = str_replace('$', '', $value);
@@ -1893,13 +1899,13 @@ if (!function_exists('removeCurrency')) {
         $value = str_replace(',', '.', $value);
         return $value;
     }
-
 }
 
 if (!function_exists('createSidebarItem')) {
 
-// cria o menu sidebar com itens principais e submenus
-    function createSidebarItem($groupName, $groupFaIcon, $aria, $backgroundColor, $oppositeColor, $principalColor, array $itens) {
+    // cria o menu sidebar com itens principais e submenus
+    function createSidebarItem($groupName, $groupFaIcon, $aria, $backgroundColor, $oppositeColor, $principalColor, array $itens)
+    {
         echo "
          <div class='dropdown'>
             <button class='dropdown-btn dropdown-toggle text-center' type='button' id='dropdownMenuButtonFinanceiro' data-bs-toggle='dropdown' aria-expanded='false'  style='background-color:$backgroundColor'>
@@ -1926,120 +1932,119 @@ if (!function_exists('createSidebarItem')) {
 ";
     }
 
-// Gera Cabeçalho do relatório de social media em reports 
+    // Gera Cabeçalho do relatório de social media em reports 
 
     if (!function_exists('createSocialmediaHeader')) {
 
-        function createSocialmediaHeader($socialmediaReport) {
+        function createSocialmediaHeader($socialmediaReport)
+        {
             $socialmediaName = strtolower($socialmediaReport->socialmedia->socialmedia_name);
             $socialmediaImage = "/images/socialmedia/" . $socialmediaName . ".png";
-//            dd(asset($socialmediaImage));
+            //            dd(asset($socialmediaImage));
 
-            echo"<div class='row " . $socialmediaName . " '>";
-            echo"<div class='col-1'>";
-            echo"<img src='" . asset($socialmediaImage) . "' style='width: 75px;height: 75px;text-align: center'>";
-            echo"</div>";
-            echo"<div class='col-9'>";
-            echo"<p style='font-size:20px;font-weight:800'>";
+            echo "<div class='row " . $socialmediaName . " '>";
+            echo "<div class='col-1'>";
+            echo "<img src='" . asset($socialmediaImage) . "' style='width: 75px;height: 75px;text-align: center'>";
+            echo "</div>";
+            echo "<div class='col-9'>";
+            echo "<p style='font-size:20px;font-weight:800'>";
             echo strtoupper($socialmediaReport->socialmedia->socialmedia_name);
-            echo"</p>";
-            echo"<p style='font-size:14p;margin-top:-15px'>";
+            echo "</p>";
+            echo "<p style='font-size:14p;margin-top:-15px'>";
             echo $socialmediaReport->socialmedia->name;
-            echo"<br>";
+            echo "<br>";
             echo $socialmediaReport->socialmedia->URL_name;
-            echo"</p></div>";
-            echo"<div class='col-2'>";
-            echo"<p style='font-size:36px;text-align:center;font-weight:800'>";
+            echo "</p></div>";
+            echo "<div class='col-2'>";
+            echo "<p style='font-size:36px;text-align:center;font-weight:800'>";
             echo formatThousands($socialmediaReport->followers);
-            echo"</p>";
-            echo"<p style='font-size:20px;text-align:center;margin-top:-20px'>";
-            echo"seguidores";
-            echo"</p>";
-            echo"</div></div><br>";
+            echo "</p>";
+            echo "<p style='font-size:20px;text-align:center;margin-top:-20px'>";
+            echo "seguidores";
+            echo "</p>";
+            echo "</div></div><br>";
         }
-
     }
-// Criar um checkbox para a página do edit
+    // Criar um checkbox para a página do edit
 
     if (!function_exists('createCheckboxEdit')) {
 
-        function createCheckboxEdit($name, $value = null) {
+        function createCheckboxEdit($name, $value = null)
+        {
             echo "<input type='checkbox' class='form-check-input' name=$name ";
-//            if ($value) {
-//                echo "value=$value ";
-//            }else{
-//                echo "value=0";
-//            }
+            //            if ($value) {
+            //                echo "value=$value ";
+            //            }else{
+            //                echo "value=0";
+            //            }
             if ($value == 1) {
                 echo "checked=checked";
             }
             echo ">";
         }
-
     }
-// Criar um checkbox para a página show apenas leitura
+    // Criar um checkbox para a página show apenas leitura
 
     if (!function_exists('createCheckboxReadOnly')) {
 
-        function createCheckboxReadOnly($name, $value) {
+        function createCheckboxReadOnly($name, $value)
+        {
             echo "<input type='checkbox' class='form-check-input' name=$name value=$value ";
             if ($value == 1) {
                 echo "checked ";
             }
             echo "onclick='return false;'>";
         }
-
     }
-// Gera Cabeçalho do relatório de concorrentes em reports 
+    // Gera Cabeçalho do relatório de concorrentes em reports 
 
     if (!function_exists('createCompetitorHeader')) {
 
-        function createCompetitorHeader($competitorReport) {
-            echo"<div class='row competitor' style='margin-top:40px'>";
-            echo"<div class='col-12'>";
-            echo"<p style='font-size:24px;font-weight:800'>";
+        function createCompetitorHeader($competitorReport)
+        {
+            echo "<div class='row competitor' style='margin-top:40px'>";
+            echo "<div class='col-12'>";
+            echo "<p style='font-size:24px;font-weight:800'>";
             echo strtoupper($competitorReport->company->name);
-            echo"</p>";
-            echo"<p style='font-size:16px;font-weight:600;margin-top:-15px'>";
+            echo "</p>";
+            echo "<p style='font-size:16px;font-weight:600;margin-top:-15px'>";
             echo strtoupper($competitorReport->company->business_model);
-            echo"</p>";
-            echo"</div></div><br>";
+            echo "</p>";
+            echo "</div></div><br>";
         }
-
     }
-// Gera respostas do perguntas de mkt
+    // Gera respostas do perguntas de mkt
     if (!function_exists('createSocialmediaQuestions')) {
 
-        function createSocialmediaQuestions($socialmediaReport) {
+        function createSocialmediaQuestions($socialmediaReport)
+        {
 
             foreach ($socialmediaReport->getAttributes() as $key => $value) {
                 if (
-                        $key == 'id'
-                        OR
-                        $key == 'account_id'
-                        OR
-                        $key == 'socialmedia_id'
-                        OR
-                        $key == 'report_id'
-                        OR
-                        $key == 'business_model'
-                        OR
-                        $key == 'type'
-                        OR
-                        $key == 'status'
-                        OR
-                        $key == 'created_at'
-                        OR
-                        $key == 'updated_at'
+                    $key == 'id'
+                    or
+                    $key == 'account_id'
+                    or
+                    $key == 'socialmedia_id'
+                    or
+                    $key == 'report_id'
+                    or
+                    $key == 'business_model'
+                    or
+                    $key == 'type'
+                    or
+                    $key == 'status'
+                    or
+                    $key == 'created_at'
+                    or
+                    $key == 'updated_at'
                 ) {
-                    
                 } else {
 
                     $question = Question::where('criterion', $key)
-                            ->first();
+                        ->first();
 
                     if (!$question) {
-                        
                     } else {
                         echo "<div class = row>";
                         echo "<div  class='col-11 labels' style='border-bottom: 1px; border-bottom-style: solid;margin-top:15px'>";
@@ -2049,57 +2054,55 @@ if (!function_exists('createSidebarItem')) {
                         if ($value === 1) {
                             echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
                         } else {
-                            echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+                            echo "<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
                         }
                         echo "</div></div>";
 
-                        echo"<div class='row'>";
-                        echo"<div>";
-                        echo"<p style='font-style:italic;text-align: justify'>";
+                        echo "<div class='row'>";
+                        echo "<div>";
+                        echo "<p style='font-style:italic;text-align: justify'>";
                         if ($value === 1) {
                             echo $question->answer1;
                         } else {
                             echo $question->answer3;
                         }
-                        echo"</p>";
-                        echo"</div></div>";
+                        echo "</p>";
+                        echo "</div></div>";
                     }
                 }
             }
         }
-
     }
-// Gera respostas do perguntas de para COMPETIDORES (sem análise das respostas)
+    // Gera respostas do perguntas de para COMPETIDORES (sem análise das respostas)
     if (!function_exists('createSocialmediaCompetitorQuestions')) {
 
-        function createSocialmediaCompetitorQuestions($socialmediaReport) {
+        function createSocialmediaCompetitorQuestions($socialmediaReport)
+        {
 
             foreach ($socialmediaReport->getAttributes() as $key => $value) {
                 if (
-                        $key == 'id'
-                        OR
-                        $key == 'account_id'
-                        OR
-                        $key == 'socialmedia_id'
-                        OR
-                        $key == 'report_id'
-                        OR
-                        $key == 'type'
-                        OR
-                        $key == 'status'
-                        OR
-                        $key == 'created_at'
-                        OR
-                        $key == 'updated_at'
+                    $key == 'id'
+                    or
+                    $key == 'account_id'
+                    or
+                    $key == 'socialmedia_id'
+                    or
+                    $key == 'report_id'
+                    or
+                    $key == 'type'
+                    or
+                    $key == 'status'
+                    or
+                    $key == 'created_at'
+                    or
+                    $key == 'updated_at'
                 ) {
-                    
                 } else {
 
                     $question = Question::where('criterion', $key)
-                            ->first();
+                        ->first();
 
                     if (!$question) {
-                        
                     } else {
                         echo "<div class = row>";
                         echo "<div  class='col-11' style='border-bottom: 1px; border-bottom-style: solid'>";
@@ -2109,57 +2112,55 @@ if (!function_exists('createSidebarItem')) {
                         if ($value === 1) {
                             echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
                         } else {
-                            echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+                            echo "<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
                         }
                         echo "</div></div>";
                     }
                 }
             }
         }
-
     }
 
 
-// Gera respostas das perguntas de competitor
+    // Gera respostas das perguntas de competitor
     if (!function_exists('createReportQuestions')) {
 
-        function createReportCompetitor($criterion, $value) {
+        function createReportCompetitor($criterion, $value)
+        {
 
             echo "<div class= 'row' style='border-bottom-style: solid; border-bottom-width: 1px' >";
-            echo"<div class='labels col-3'> $criterion:";
-            echo"</div>";
-            echo"<div class='col-9'>";
-            echo"$value";
-            echo"</div>";
-            echo"</div>";
+            echo "<div class='labels col-3'> $criterion:";
+            echo "</div>";
+            echo "<div class='col-9'>";
+            echo "$value";
+            echo "</div>";
+            echo "</div>";
         }
-
     }
 }
 // Gera respostas das perguntas de competitor
 if (!function_exists('createReportAccountQuestions')) {
 
-    function createReportAccountQuestions($accountReport) {
+    function createReportAccountQuestions($accountReport)
+    {
         foreach ($accountReport->getAttributes() as $key => $value) {
             if (
-                    $key == 'id'
-                    OR
-                    $key == 'account_id'
-                    OR
-                    $key == 'report_id'
-                    OR
-                    $key == 'created_at'
-                    OR
-                    $key == 'updated_at'
+                $key == 'id'
+                or
+                $key == 'account_id'
+                or
+                $key == 'report_id'
+                or
+                $key == 'created_at'
+                or
+                $key == 'updated_at'
             ) {
-                
             } else {
 
                 $question = Question::where('criterion', $key)
-                        ->first();
+                    ->first();
 
                 if (!$question) {
-                    
                 } else {
                     echo "<div class = row>";
                     echo "<div  class='col-11 labels' style='border-bottom: 1px; border-bottom-style: solid'>";
@@ -2169,40 +2170,40 @@ if (!function_exists('createReportAccountQuestions')) {
                     if ($value === 1) {
                         echo "<div class='col-1 btn btn-info' style='padding: 0.5rem 2rem;text-align: center ' >SIM";
                     } else {
-                        echo"<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
+                        echo "<div class= 'col-1 btn btn-danger' style='padding: 0.5rem 2rem;text-align: center'>NÃO";
                     }
                     echo "</div></div>";
 
-                    echo"<div class='row'>";
-                    echo"<div>";
-                    echo"<p style='font-style:italic;text-align: justify'><br><br>";
+                    echo "<div class='row'>";
+                    echo "<div>";
+                    echo "<p style='font-style:italic;text-align: justify'><br><br>";
                     if ($value === 1) {
                         echo $question->answer1;
                     } else {
                         echo $question->answer3;
                     }
-                    echo"</p>";
-                    echo"</div></div>";
+                    echo "</p>";
+                    echo "</div></div>";
                 }
             }
         }
     }
-
 }
 
 // calcular porcentagem de um valor em relação ao valor total
 if (!function_exists('percentage')) {
 
-    function percentage($number, $total) {
+    function percentage($number, $total)
+    {
         return number_format($number / $total * 100, 1);
     }
-
 }
 
 // cria tabela com nome do item, total do item e percentual do item
 if (!function_exists('createTablePercentual')) {
 
-    function createTablePercentual($name, array $items) {
+    function createTablePercentual($name, array $items)
+    {
         echo "<div class='row mt-3 ms-2'>
     <div class='tb-header-start col-8'>";
         echo $name;
@@ -2230,7 +2231,6 @@ if (!function_exists('createTablePercentual')) {
 </div>";
         }
     }
-
 }
 
 /**
@@ -2238,7 +2238,8 @@ if (!function_exists('createTablePercentual')) {
  */
 if (!function_exists('createSelectYesOrNo')) {
 
-    function createSelectYesOrNo($label, $field, $check = null) {
+    function createSelectYesOrNo($label, $field, $check = null)
+    {
         echo "<label class='labels me-2' for='$field'>$label</label>
         <select name='$field' id='$field'>";
         if ($check == 0) {
@@ -2258,7 +2259,6 @@ if (!function_exists('createSelectYesOrNo')) {
         }
         echo "</select>";
     }
-
 }
 
 /**
@@ -2266,7 +2266,8 @@ if (!function_exists('createSelectYesOrNo')) {
  */
 if (!function_exists('createSelectYesOrNoPages')) {
 
-    function createSelectYesOrNoPages($label, $field, $page, $check = null) {
+    function createSelectYesOrNoPages($label, $field, $page, $check = null)
+    {
         echo "<label class='labels me-2' for='$field'>$label</label>
         <select name='$field' id='$field'>";
         if ($check == 0) {
@@ -2286,13 +2287,13 @@ if (!function_exists('createSelectYesOrNoPages')) {
         }
         echo "</select>";
     }
-
 }
 
 // cria tuma pergunta com SIM ou NAO para EDITAR a análise da página em socialmedia
 if (!function_exists('editPageAnalysis')) {
 
-    function editPageAnalysis($question, $field, $currentValue) {
+    function editPageAnalysis($question, $field, $currentValue)
+    {
         echo "<label class='labels' for=''>$question</label>
         <br>";
         if ($currentValue == 1) {
@@ -2306,7 +2307,6 @@ if (!function_exists('editPageAnalysis')) {
         }
         echo "<br><br>";
     }
-
 }
 
 

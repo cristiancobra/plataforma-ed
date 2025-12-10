@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
-class Text extends Model {
+class Text extends Model
+{
 
     protected $table = 'texts';
     protected $fillable = [
@@ -19,13 +20,18 @@ class Text extends Model {
         'type',
         'status',
     ];
-    protected $hidden = [
-    ];
+    protected $hidden = [];
 
     // RELACIONAMENTOS
 
-    public function account() {
+    public function account()
+    {
         return $this->belongsTo(Account::class, 'account_id', 'id');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
     }
 
     public function images()
@@ -33,56 +39,15 @@ class Text extends Model {
         return $this->hasMany(Image::class, 'text_id', 'id');
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     // MÉTODOS PÚBLICO
 
-    public static function filterTexts(Request $request) {
-        $texts = Text::where(function ($query) use ($request) {
-                    $query->where('account_id', auth()->user()->account_id);
-                    if ($request->user_id) {
-                        $query->where('user_id', $request->user_id);
-                    }
-                    if ($request->name) {
-                        $query->where('name', 'like', "%$request->name%");
-                    }
-                    if ($request->department) {
-                        $query->where('department', $request->department);
-                    }
-                    if ($request->type) {
-                        $query->where('type', $request->type);
-                    }
-                    if ($request->status) {
-                        $query->where('status', $request->status);
-                    }
-                    if ($request->trash == 1) {
-                        $query->where('trash', 1);
-                    } else {
-                        $query->where('trash', '!=', 1);
-                    }
-                })
-                ->with(
-                        'user.contact',
-                        'user.image',
-//                        'images',
-                )
-                ->orderBy('updated_at', 'DESC')
-                ->paginate(20);
-
-        $texts->appends([
-            'name' => $request->name,
-            'user_id' => $request->user_id,
-            'department' => $request->department,
-            'type' => $request->type,
-            'status' => $request->status,
-        ]);
-
-        return $texts;
-    }
-
-    public static function returnDepartments() {
+       public static function returnDepartments()
+    {
         return $departments = array(
             'administrativo',
             'atendimento',
@@ -94,7 +59,8 @@ class Text extends Model {
         );
     }
 
-    public static function returnStatus() {
+    public static function returnStatus()
+    {
         return $status = array(
             'rascunho',
             'revisão',
@@ -103,7 +69,8 @@ class Text extends Model {
         );
     }
 
-    public static function returnTypes() {
+    public static function returnTypes()
+    {
         return $status = array(
             'biografia',
             'blog',
@@ -115,22 +82,25 @@ class Text extends Model {
         );
     }
 
-    public static function myValueOffer() {
+    public static function myValueOffer()
+    {
         return Text::where('account_id', auth()->user()->account_id)
-                        ->where('type', 'proposta de valor')
-                        ->first();
+            ->where('type', 'proposta de valor')
+            ->first();
     }
 
-    public static function myAbout() {
+    public static function myAbout()
+    {
         return Text::where('account_id', auth()->user()->account_id)
-                        ->where('type', 'apresentação da empresa')
-                        ->first();
+            ->where('type', 'apresentação da empresa')
+            ->first();
     }
 
-    public static function myStrengths() {
+    public static function myStrengths()
+    {
         return Text::where('account_id', auth()->user()->account_id)
-                        ->where('type', 'força')
-                        ->get();
+            ->where('type', 'força')
+            ->get();
     }
 
     /**
@@ -138,10 +108,11 @@ class Text extends Model {
      * @param type $page
      * @return type
      */
-    public static function selectedAbout($page) {
-            return Text::where('account_id', $page->account_id)
-                            ->where('type', 'apresentação da empresa')
-                            ->first();
+    public static function selectedAbout($page)
+    {
+        return Text::where('account_id', $page->account_id)
+            ->where('type', 'apresentação da empresa')
+            ->first();
     }
 
     /**
@@ -149,10 +120,11 @@ class Text extends Model {
      * @param type $page
      * @return type
      */
-    public static function selectedValueOffer($page) {
-            return Text::where('account_id', $page->account_id)
-                            ->where('type', 'proposta de valor')
-                            ->first();
+    public static function selectedValueOffer($page)
+    {
+        return Text::where('account_id', $page->account_id)
+            ->where('type', 'proposta de valor')
+            ->first();
     }
 
     /**
@@ -160,10 +132,11 @@ class Text extends Model {
      * @param type $page
      * @return type
      */
-    public static function selectedStrengths($page) {
-            return Text::where('account_id', $page->account_id)
-                            ->where('type', 'força')
-                            ->get();
+    public static function selectedStrengths($page)
+    {
+        return Text::where('account_id', $page->account_id)
+            ->where('type', 'força')
+            ->get();
     }
 
     /**
@@ -171,14 +144,14 @@ class Text extends Model {
      * @param type $page
      * @return type
      */
-    public static function unformatText($text) {
+    public static function unformatText($text)
+    {
         $text = strip_tags($text);
-        
-// Clean up things like &amp;
+
+        // Clean up things like &amp;
         $text = html_entity_decode($text);
 
 
         return $text;
     }
-
 }

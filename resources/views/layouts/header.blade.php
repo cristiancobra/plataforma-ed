@@ -1,5 +1,7 @@
     <div class="col-8" style="font-size: 32px">
-        <img src= @yield('image-top') width="30px" height="30px" style="margin-top:-7px">
+        <span style="font-size: 30px; margin-top: -7px; display: inline-block;">
+            @yield('image-top')
+        </span>
         @isset($total)
         <span class="labels" style="font-size: 34px;font-weight: 200">{{$total}}</span>
         @endisset

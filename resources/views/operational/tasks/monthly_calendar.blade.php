@@ -3,7 +3,7 @@
 @section('title','AGENDA')
 
 @section('image-top')
-{{asset('images/marketing.png')}}
+<i class="fa fa-bullhorn"></i>
 @endsection
 
 @section('buttons')

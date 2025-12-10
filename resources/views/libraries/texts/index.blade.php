@@ -3,7 +3,7 @@
 @section('title','DOCUMENTOS')
 
 @section('image-top')
-{{asset('images/rocket.png')}}
+<i class="fa fa-file"></i>
 @endsection
 
 @section('buttons')
@@ -17,7 +17,7 @@
 
 @section('filter')
 <form id="filter" action="{{route('text.index')}}" method="get" style="text-align: right">
-    <input type="text" name="name" placeholder="nome da tarefa" value="">
+    <input type="text" name="name" placeholder="nome do documento" value="">
     {{createFilterSelect('department', 'select', $departments, 'Todos departamentos')}}
         {{createSelectUsers('select', $users, 'Todos os usuários')}}
     {{createFilterSelect('status', 'select', $status, 'Todas as situações')}}
@@ -42,7 +42,7 @@
     </a>
 </div>
 <div class='col shortcut presentation'>
-    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'blogs'])}}'>
+    <a style='text-decoration:none' href='{{route('text.index', ['type' =>'blog'])}}'>
         <h2>
 
         </h2>

@@ -3,7 +3,7 @@
 @section('title','CAPTAÇÃO')
 
 @section('image-top')
-{{asset('images/financeiro.png')}}
+<i class="fas fa-funnel-dollar"></i>
 @endsection
 
 @section('buttons')
