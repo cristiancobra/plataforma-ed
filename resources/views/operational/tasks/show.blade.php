@@ -295,13 +295,16 @@
     </div>
     <div class='row description-field justify-content-center'>
         @foreach ($task->attachments as $attachment)
+        @php
+        Log::info("Attachment name: " . $attachment->name);
+    @endphp
             <div class='col-2 mt-2 mb-2'>
                 <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
                     class="text-decoration-none">
                     <div class="card text-center p-3 h-100">
                         <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
                         <div class="mt-2">
-                            <strong style="font-size: 12px;">{{ $attachment->name }}</strong>
+                            <strong style="font-size: 12px;">{{ Str::limit($attachment->name, 20) }}</strong>
                         </div>
                         <small class="text-muted">Clique para baixar</small>
                     </div>
