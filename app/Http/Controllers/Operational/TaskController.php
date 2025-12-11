@@ -263,8 +263,7 @@ class TaskController extends Controller {
 
         $openJourney = Journey::myOpenJourney();
 
-        // $task->load(['images', 'attachments']);
-        // $task->load(['images']);
+        $task->load(['images', 'attachments']);
 
         return view('operational.tasks.show', compact(
                         'today',
