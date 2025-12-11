@@ -296,6 +296,11 @@
     <div class='row description-field justify-content-center'>
         @foreach ($task->attachments as $attachment)
             <div class='col-2 mt-2 mb-2'>
+                {{ $attachment->name }}
+                <br>
+                {{ $attachment }}
+                <br>
+                <br>
                 {{-- <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
                     class="text-decoration-none">
                     <div class="card text-center p-3 h-100">
