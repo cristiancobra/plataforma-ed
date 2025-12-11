@@ -17,6 +17,7 @@ use App\Models\User;
 use App\Requests\App\Http\Requests\StoreTextRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 use PDF;
 use DateTime;
 
@@ -248,34 +249,40 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Task $task) {
-        \Log::info('Start show task ' . $task->id);
-        $today = date('Y-m-d');
+        Log::info("Start show task {$task->id}");
 
+        $start = microtime(true);
+
+        $today = date('Y-m-d');
         $totalDuration = 0;
+
         foreach ($task->journeys as $journey) {
-            $totalDuration = $totalDuration + $journey->duration;
+            $totalDuration += $journey->duration;
         }
-        if ($task->status == 'fazer' AND $task->journeys()->exists()) {
+
+        if ($task->status == 'fazer' && $task->journeys()->exists()) {
             $task->status = 'fazendo';
         }
 
         $status = $task->status;
-        $priority= $task->priority;
+        $priority = $task->priority;
 
         $openJourney = Journey::myOpenJourney();
 
-        \Log::info('Before load for task ' . $task->id);
+        Log::info("Before load for task {$task->id}");
         $task->load(['images', 'attachments']);
-        \Log::info('After load for task ' . $task->id);
+        Log::info("After load for task {$task->id}");
 
-        \Log::info('End show task ' . $task->id);
+        $end = microtime(true);
+        Log::info("Execution time for show task {$task->id}: " . round($end - $start, 2) . " seconds");
+
         return view('operational.tasks.show', compact(
-                        'today',
-                        'task',
-                        'totalDuration',
-                        'status',
-                        'priority',
-                        'openJourney',
+            'today',
+            'task',
+            'totalDuration',
+            'status',
+            'priority',
+            'openJourney',
         ));
     }
 
