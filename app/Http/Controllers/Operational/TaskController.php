@@ -248,6 +248,7 @@ class TaskController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Task $task) {
+        \Log::info('Start show task ' . $task->id);
         $today = date('Y-m-d');
 
         $totalDuration = 0;
@@ -257,14 +258,17 @@ class TaskController extends Controller {
         if ($task->status == 'fazer' AND $task->journeys()->exists()) {
             $task->status = 'fazendo';
         }
-        
+
         $status = $task->status;
         $priority= $task->priority;
 
         $openJourney = Journey::myOpenJourney();
 
+        \Log::info('Before load for task ' . $task->id);
         $task->load(['images', 'attachments']);
+        \Log::info('After load for task ' . $task->id);
 
+        \Log::info('End show task ' . $task->id);
         return view('operational.tasks.show', compact(
                         'today',
                         'task',
