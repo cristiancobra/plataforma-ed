@@ -304,7 +304,7 @@
                     <div class="card text-center p-3 h-100">
                         <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
                         <div class="mt-2">
-                            <strong style="font-size: 12px;">{{ Str::limit($attachment->name, 20) }}</strong>
+                            <strong style="font-size: 12px;">{{ substr($attachment->name, 0, 20) }}</strong>
                         </div>
                         <small class="text-muted">Clique para baixar</small>
                     </div>
