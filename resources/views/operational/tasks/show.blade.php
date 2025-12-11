@@ -294,9 +294,9 @@
         </div>
     </div>
     <div class='row description-field justify-content-center'>
-        {{-- @foreach ($task->attachments as $attachment)
+        @foreach ($task->attachments as $attachment)
             <div class='col-2 mt-2 mb-2'>
-                <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
+                {{-- <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
                     class="text-decoration-none">
                     <div class="card text-center p-3 h-100">
                         <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
@@ -305,9 +305,9 @@
                         </div>
                         <small class="text-muted">Clique para baixar</small>
                     </div>
-                </a>
+                </a> --}}
             </div>
-        @endforeach --}}
+        @endforeach
     </div>
     <div class='row' style='margin-top: 10px;text-align: right'>
         <div class='col-12'style='text-align: right'>
