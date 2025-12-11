@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-
+{{-- 
     {{ createButtonPdf($task, 'task') }}
 
     @if ($task->status == 'fazendo')
@@ -23,7 +23,7 @@
     @endif
     {{ createButtonTrash($task, 'task') }}
     {{ createButtonEdit('task', 'task', $task) }}
-    {{ createButtonList('task') }}
+    {{ createButtonList('task') }} --}}
 @endsection
 
 @section('name', $task->name)
