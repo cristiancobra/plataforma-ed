@@ -1,166 +1,180 @@
 <!DOCTYPE html>
-<html lang='{{str_replace('_', '-', app()->getLocale())}}'>
-    <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
+<html lang='{{ str_replace('_', '-', app()->getLocale()) }}'>
 
-        <title> @yield('title') </title>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-        @include('layouts.assets')
+    <title> @yield('title') </title>
 
-    </head>
-    <body style='background-color: white'>
+    @include('layouts.assets')
+
+</head>
+
+<body style='background-color: white'>
 
 
-        @if(Session::has('failed'))
+    @if (Session::has('failed'))
         <div class='alert alert-danger'>
             {{ Session::get('failed') }}
             @php
-            Session::forget('failed');
+                Session::forget('failed');
             @endphp
         </div>
-        @endif
+    @endif
 
-        <!--        banner  -->
-        <div class='container-fluid m-0 p-0 w-100'>
-            @if($shop->banner)
-            <div class='row pt-5' style='
+    <!--        banner  -->
+    <div class='container-fluid m-0 p-0 w-100'>
+        @if ($shop->banner)
+            <div class='row pt-5'
+                style='
                  height:140px;
-                 background-image: url({{asset($shop->banner->path)}});
+                 background-image: url({{ asset($shop->banner->path) }});
                  background-size: cover;
                  background-position: center;
                  background-repeat: no-repeat;
                  '>
             </div>
-            @else
-            <div class="row d-flex justify-content-center" style="
+        @else
+            <div class="row d-flex justify-content-center"
+                style="
                  height: 140px;
                  align-items: center;
                  opacity: 0.8;
-                 background-color: {{$principalColor}};
+                 background-color: {{ $principalColor }};
                  overflow: hidden;
 
                  ">
-                <p style="
-                   color: {{$oppositeColor}};
+                <p
+                    style="
+                   color: {{ $oppositeColor }};
                    text-align: center;
                    font-size: 32px;
                    ">
-                    {{$shop->headline}}
+                    {{ $shop->headline }}
                 </p>
             </div>
-            @endif
-        </div>
+        @endif
+    </div>
 
 
-        <!--principal-->
-        <div class='container'>
-            <div class='row' style='margin-top: 40px'>
-                <div class='col-6 ps-5 pe-5 pt-1 pb-1' style='text-align: center'>
-                    @yield('image')
-                </div>
-                <div class='col-6'">
-                    <div class="row mb-3">
-                        <div class="col"  style='
-                             color:{{$principalColor}};
+    <!--principal-->
+    <div class='container'>
+        <div class='row' style='margin-top: 40px'>
+            <div class='col-6 ps-5 pe-5 pt-1 pb-1' style='text-align: center'>
+                @yield('image')
+            </div>
+            <div class='col-6'">
+                <div class="row mb-3">
+                    <div class="col"
+                        style='
+                             color:{{ $principalColor }};
                              font-size: 36px;
                              '>
-                            @yield('name')
-                        </div>
+                        @yield('name')
                     </div>
-                    <div class="row mb-3">
-                        <div class="col"  style='
+                </div>
+                <div class="row mb-3">
+                    <div class="col"
+                        style='
                              color:lightslategray;
                              font-size: 15px;
                              '>
-                            @yield('description')
-                        </div>
+                        @yield('description')
                     </div>
-                    <div class="row mt-4">
-                        <div class='col-4 pe-0' style='text-align: center'>
-                            <div class='show-label' style='
-                                                                            background-color: {{$complementaryColor}};
+                </div>
+                <div class="row mt-4">
+                    <div class='col-4 pe-0' style='text-align: center'>
+                        <div class='show-label'
+                            style='
+                                                                            background-color: {{ $complementaryColor }};
                                                                             font-size: 18px;
                                                                             '>
-                                PREÇO
-                            </div>
-                            <div class='show-label' style='
-                                 color: {{$complementaryColor}};
+                            PREÇO
+                        </div>
+                        <div class='show-label'
+                            style='
+                                 color: {{ $complementaryColor }};
                                  background-color: white;
                                  font-weight: 200;
                                  '>
-                                PRAZO DE ENTREGA
-                            </div>
-                            @if($product->stock)
-                            <div class='show-label' style='
-                                 color: {{$complementaryColor}};
+                            PRAZO DE ENTREGA
+                        </div>
+                        @if ($product->stock)
+                            <div class='show-label'
+                                style='
+                                 color: {{ $complementaryColor }};
                                  background-color: white;
                                  font-weight: 200;
                                  '>
                                 QUANTIDADE DISPONÍVEL
                             </div>
-                            @endif
+                        @endif
+                    </div>
+                    <div class='col-3 ps-0' style='text-align: center'>
+                        <div class='show-field-end text-end' style="font-size: 18px">
+                            @yield('price')
                         </div>
-                        <div class='col-3 ps-0' style='text-align: center'>
-                            <div class='show-field-end text-end' style="font-size: 18px">
-                                @yield('price')
-                            </div>
-                            <div class='show-field-end text-end'>
-                                @yield('due_date')
-                            </div>
-                            @if($product->stock)
+                        <div class='show-field-end text-end'>
+                            @yield('due_date')
+                        </div>
+                        @if ($product->stock)
                             <div class='show-field-end text-end'>
                                 @yield('stock')
                             </div>
-                            @endif
-                        </div>
-                                                <div class='col-5 d-flex align-items-center' style='text-align: center'>
-                            @if($whatsappLink != null)
-                            <a target='_blank' href='{{$whatsappLink}}'>
+                        @endif
+                    </div>
+                    <div class='col-5 d-flex align-items-center' style='text-align: center'>
+                        @if ($whatsappLink != null)
+                            <a target='_blank' href='{{ $whatsappLink }}'>
                                 <button class='text-button primary d-flex align-items-center w-100 ps-3 pe-3 pt-1 pb-0'>
-                                    <i class="fab fa-whatsapp" style='
+                                    <i class="fab fa-whatsapp"
+                                        style='
                                        font-size:36px;
                                        color:white;
                                        '>
-                                           
+
                                     </i>
-                                    <p style='
+                                    <p
+                                        style='
                                        color:white;
                                        font-size:14px;
                                        padding-top: 6px;
                                        padding-left: 4px;
                                        '>
-                                    COMPRAR POR WHATSAPP
+                                        COMPRAR POR WHATSAPP
                                     </p>
                                 </button>
                             </a>
-                            @endif
-                            <!--                        desativado botao de COMPRAR-->
-                            @if(1 == 2)
-                            <a class='text-button secondary' href='{{route('product.redirect', [
-                                                                                                                                'product' => 76, 
-                                                                                                                                ])}}'>
+                        @endif
+                        <!--                        desativado botao de COMPRAR-->
+                        @if (1 == 2)
+                            <a class='text-button secondary'
+                                href='{{ route('product.redirect', [
+                                    'product' => 76,
+                                ]) }}'>
                                 COMPRAR
                             </a>
-                            @endif
-                            <!--fim do botao comprar -->
-                        </div>
+                        @endif
+                        <!--fim do botao comprar -->
                     </div>
                 </div>
-
-                @yield('main')
-
-                @include('layouts.footer')
-
             </div>
+
+            @yield('main')
+
+            @include('layouts.footer')
+
         </div>
-        <script>
-            $('#delete-button').click(function () {
-                if (!confirm('Tem certeza que você quer apagar?')) {
-                    return false;
-                }
-            });
-        </script>
-        @yield('js-scripts')
-    </body>
+    </div>
+    <script>
+        $('#delete-button').click(function() {
+            if (!confirm('Tem certeza que você quer apagar?')) {
+                return false;
+            }
+        });
+    </script>
+    @yield('js-scripts')
+</body>
+
 </html>

@@ -186,6 +186,13 @@ class TaskController extends Controller {
         $this->handleImageUpload($request, $task);
         $this->handleAttachmentUpload($request, $task);
 
+        // Se veio de um projeto, retorna para o projeto
+        if ($request->project_id) {
+            return redirect()->route('project.show', [$request->project_id])
+                ->with('success', 'Tarefa criada com sucesso!');
+        }
+
+        // Caso contrário, vai para a página da tarefa criada
         return redirect()->route('task.show', [$task]);
     }
 

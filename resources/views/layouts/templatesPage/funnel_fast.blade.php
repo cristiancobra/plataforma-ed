@@ -1,36 +1,36 @@
 <!DOCTYPE html>
-<html lang='{{str_replace('_', '-', app()->getLocale())}}'>
-    <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
+<html lang='{{ str_replace('_', '-', app()->getLocale()) }}'>
 
-        <title> @yield('page_name')</title>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-        @include('layouts.assets')
+    <title> @yield('page_name')</title>
 
-    </head>
-    <body>
-        @yield('errors')
+    @include('layouts.assets')
 
-        @yield('banner')
+</head>
 
-        @yield('value_offer')
-        
-        @yield('about')
+<body>
+    @yield('errors')
 
-        @yield('strengths')		
+    @yield('banner')
 
-        @yield('competitor_advantages')
+    @yield('value_offer')
 
-        @yield('how-it-works')
+    @yield('about')
 
-        @yield('shop')
+    @yield('strengths')
 
-        @yield('form')
+    @yield('competitor_advantages')
 
-        @yield('js-scripts')
-    </body>
+    @yield('how-it-works')
+
+    @yield('shop')
+
+    @yield('form')
+
+    @yield('js-scripts')
+</body>
+
 </html>
-
-
-

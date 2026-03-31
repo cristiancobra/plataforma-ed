@@ -222,65 +222,66 @@
 
 
     @section('main')
-        @if(Session::has('failed'))
-        <div class='alert alert-danger'>
-            {{Session::get('failed')}}
-            @php
-            Session::forget('failed');
-            @endphp
-        </div>
+        @if (Session::has('failed'))
+            <div class='alert alert-danger'>
+                {{ Session::get('failed') }}
+                @php
+                    Session::forget('failed');
+                @endphp
+            </div>
         @endif
 
         @if ($errors->any())
-        <div class='alert alert-danger'>
-            <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+            <div class='alert alert-danger'>
+                <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
         @endif
 
         {{-- IMAGENS EXISTENTES --}}
-        @if(count($task->images) > 0)
-        <div class='row show-label-large col-12' style='margin-top: 30px'>
-            <div class=''>
-                IMAGENS ANEXADAS
-            </div>
-        </div>
-        <div class='row description-field justify-content-center'>
-            @foreach ($task->images as $image)
-                <div class='col-2 mt-2 mb-2'>
-                    <img src='{{ asset('storage/' . $image->path) }}' style='width:100%; height:120px; object-fit:cover; border-radius: 4px;'>
+        @if (count($task->images) > 0)
+            <div class='row show-label-large col-12' style='margin-top: 30px'>
+                <div class=''>
+                    IMAGENS ANEXADAS
                 </div>
-            @endforeach
-        </div>
+            </div>
+            <div class='row description-field justify-content-center'>
+                @foreach ($task->images as $image)
+                    <div class='col-2 mt-2 mb-2'>
+                        <img src='{{ asset('storage/' . $image->path) }}'
+                            style='width:100%; height:120px; object-fit:cover; border-radius: 4px;'>
+                    </div>
+                @endforeach
+            </div>
         @endif
 
         {{-- ANEXOS (PDFs) EXISTENTES --}}
-        @if(count($task->attachments) > 0)
-        <div class='row show-label-large col-12' style='margin-top: 30px'>
-            <div class=''>
-                ANEXOS (PDF)
-            </div>
-        </div>
-        <div class='row description-field justify-content-center'>
-            @foreach ($task->attachments as $attachment)
-                <div class='col-2 mt-2 mb-2'>
-                    <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
-                        class="text-decoration-none">
-                        <div class="card text-center p-3 h-100">
-                            <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
-                            <div class="mt-2">
-                                <strong style="font-size: 12px;">{{ Str::limit($attachment->name, 20) }}</strong>
-                            </div>
-                            <small class="text-muted">Clique para baixar</small>
-                        </div>
-                    </a>
+        @if (count($task->attachments) > 0)
+            <div class='row show-label-large col-12' style='margin-top: 30px'>
+                <div class=''>
+                    ANEXOS (PDF)
                 </div>
-            @endforeach
-        </div>
+            </div>
+            <div class='row description-field justify-content-center'>
+                @foreach ($task->attachments as $attachment)
+                    <div class='col-2 mt-2 mb-2'>
+                        <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
+                            class="text-decoration-none">
+                            <div class="card text-center p-3 h-100">
+                                <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
+                                <div class="mt-2">
+                                    <strong style="font-size: 12px;">{{ Str::limit($attachment->name, 20) }}</strong>
+                                </div>
+                                <small class="text-muted">Clique para baixar</small>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
         @endif
 
         {{-- FORMULÁRIO PARA NOVOS ANEXOS --}}

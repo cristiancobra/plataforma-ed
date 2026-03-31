@@ -126,23 +126,28 @@
                 <div class="row mt-3 mb-3">
                     <div class="col-md-4">
                         <label class="labels" for="area_of_knowledge_1">Área do conhecimento 1:</label>
-                        <input type="text" class="fields" name="area_of_knowledge_1" value="{{ $contact->area_of_knowledge_1 }}">
+                        <input type="text" class="fields" name="area_of_knowledge_1"
+                            value="{{ $contact->area_of_knowledge_1 }}">
                     </div>
                     <div class="col-md-4">
                         <label class="labels" for="area_of_knowledge_2">Área do conhecimento 2:</label>
-                        <input type="text" class="fields" name="area_of_knowledge_2" value="{{ $contact->area_of_knowledge_2 }}">
+                        <input type="text" class="fields" name="area_of_knowledge_2"
+                            value="{{ $contact->area_of_knowledge_2 }}">
                     </div>
                     <div class="col-md-4">
                         <label class="labels" for="area_of_knowledge_3">Área do conhecimento 3:</label>
-                        <input type="text" class="fields" name="area_of_knowledge_3" value="{{ $contact->area_of_knowledge_3 }}">
+                        <input type="text" class="fields" name="area_of_knowledge_3"
+                            value="{{ $contact->area_of_knowledge_3 }}">
                     </div>
                     <div class="col-md-4">
                         <label class="labels" for="area_of_knowledge_4">Área do conhecimento 4:</label>
-                        <input type="text" class="fields" name="area_of_knowledge_4" value="{{ $contact->area_of_knowledge_4 }}">
+                        <input type="text" class="fields" name="area_of_knowledge_4"
+                            value="{{ $contact->area_of_knowledge_4 }}">
                     </div>
                     <div class="col-md-4">
                         <label class="labels" for="area_of_knowledge_5">Área do conhecimento 5:</label>
-                        <input type="text" class="fields" name="area_of_knowledge_5" value="{{ $contact->area_of_knowledge_5 }}">
+                        <input type="text" class="fields" name="area_of_knowledge_5"
+                            value="{{ $contact->area_of_knowledge_5 }}">
                     </div>
                 </div>a
 

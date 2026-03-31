@@ -2,16 +2,16 @@
     {{-- Header --}}
     @slot('header')
         @component('mail::header', ['url' => config('app.url')])
-	<img src= '{{$account->logo}}' width='150px' height='50px'>
-	<br>
-	{{$account->name}}
+            <img src= '{{ $account->logo }}' width='150px' height='50px'>
+            <br>
+            {{ $account->name }}
         @endcomponent
     @endslot
 
     {{-- Body --}}
-{!!html_entity_decode($email->message)!!} 
+    {!! html_entity_decode($email->message) !!}
 
-  {{-- Subcopy --}}
+    {{-- Subcopy --}}
     @slot('subcopy')
         @component('mail::subcopy')
             <!-- subcopy here -->
@@ -26,4 +26,3 @@
         @endcomponent
     @endslot
 @endcomponent
-

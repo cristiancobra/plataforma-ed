@@ -156,8 +156,8 @@
     <!--  div oculta ADICIONAR TRANSACAO  -->
 
     <div class='container pt-5 pb-5' id='newPaymentRow' style='display: none;background-color: #f1f1f1'>
-        <form id='addPayment' action='{{ route('transaction.store', ['typeTransactions' => $type]) }}'
-            method='post' style='text-align: left'>
+        <form id='addPayment' action='{{ route('transaction.store', ['typeTransactions' => $type]) }}' method='post'
+            style='text-align: left'>
             @csrf
             <input type='hidden' name='invoice_id' value='{{ $invoice->id }}'>
             <div class="row mt-2">
@@ -225,8 +225,7 @@
             </div>
             <div class="row pt-4">
                 <div class='col-5' style='text-align:left'>
-                    <label class='labels' for='description'
-                        style='text-align:left;color:{{ $principalColor }}'>
+                    <label class='labels' for='description' style='text-align:left;color:{{ $principalColor }}'>
                         OBSERVAÇÕES
                     </label>
                     @if ($errors->has('observations'))

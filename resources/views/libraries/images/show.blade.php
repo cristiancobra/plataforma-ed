@@ -1,15 +1,15 @@
 @extends('layouts/show')
 
-@section('title','IMAGENS')
+@section('title', 'IMAGENS')
 
 @section('image-top')
-"data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im02LjI1IDE5LjVjLTEuNjAxIDAtMy4wMjUtMS4wMjUtMy41NDItMi41NTFsLS4wMzUtLjExNWMtLjEyMi0uNDA0LS4xNzMtLjc0NC0uMTczLTEuMDg0di02LjgxOGwtMi40MjYgOC4wOThjLS4zMTIgMS4xOTEuMzk5IDIuNDI2IDEuNTkyIDIuNzU1bDE1LjQ2MyA0LjE0MWMuMTkzLjA1LjM4Ni4wNzQuNTc2LjA3NC45OTYgMCAxLjkwNi0uNjYxIDIuMTYxLTEuNjM1bC45MDEtMi44NjV6IiBmaWxsPSIjODc0OTgzIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjxwYXRoIGQ9Im05IDljMS4xMDMgMCAyLS44OTcgMi0ycy0uODk3LTItMi0yLTIgLjg5Ny0yIDIgLjg5NyAyIDIgMnoiIGZpbGw9IiM4NzQ5ODMiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjEuNSAyaC0xNWMtMS4zNzggMC0yLjUgMS4xMjItMi41IDIuNXYxMWMwIDEuMzc4IDEuMTIyIDIuNSAyLjUgMi41aDE1YzEuMzc4IDAgMi41LTEuMTIyIDIuNS0yLjV2LTExYzAtMS4zNzgtMS4xMjItMi41LTIuNS0yLjV6bS0xNSAyaDE1Yy4yNzYgMCAuNS4yMjQuNS41djcuMDk5bC0zLjE1OS0zLjY4NmMtLjMzNS0uMzkzLS44Mi0uNjAzLTEuMzQxLS42MTUtLjUxOC4wMDMtMS4wMDQuMjMzLTEuMzM2LjYzMWwtMy43MTQgNC40NTgtMS4yMS0xLjIwN2MtLjY4NC0uNjg0LTEuNzk3LS42ODQtMi40OCAwbC0yLjc2IDIuNzU5di05LjQzOWMwLS4yNzYuMjI0LS41LjUtLjV6IiBmaWxsPSIjODc0OTgzIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg=="
+    "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDI0IDI0IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyIiB4bWw6c3BhY2U9InByZXNlcnZlIiBjbGFzcz0iIj48Zz48ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxnPjxwYXRoIGQ9Im02LjI1IDE5LjVjLTEuNjAxIDAtMy4wMjUtMS4wMjUtMy41NDItMi41NTFsLS4wMzUtLjExNWMtLjEyMi0uNDA0LS4xNzMtLjc0NC0uMTczLTEuMDg0di02LjgxOGwtMi40MjYgOC4wOThjLS4zMTIgMS4xOTEuMzk5IDIuNDI2IDEuNTkyIDIuNzU1bDE1LjQ2MyA0LjE0MWMuMTkzLjA1LjM4Ni4wNzQuNTc2LjA3NC45OTYgMCAxLjkwNi0uNjYxIDIuMTYxLTEuNjM1bC45MDEtMi44NjV6IiBmaWxsPSIjODc0OTgzIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjxwYXRoIGQ9Im05IDljMS4xMDMgMCAyLS44OTcgMi0ycy0uODk3LTItMi0yLTIgLjg5Ny0yIDIgLjg5NyAyIDIgMnoiIGZpbGw9IiM4NzQ5ODMiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48L2c+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjEuNSAyaC0xNWMtMS4zNzggMC0yLjUgMS4xMjItMi41IDIuNXYxMWMwIDEuMzc4IDEuMTIyIDIuNSAyLjUgMi41aDE1YzEuMzc4IDAgMi41LTEuMTIyIDIuNS0yLjV2LTExYzAtMS4zNzgtMS4xMjItMi41LTIuNS0yLjV6bS0xNSAyaDE1Yy4yNzYgMCAuNS4yMjQuNS41djcuMDk5bC0zLjE1OS0zLjY4NmMtLjMzNS0uMzkzLS44Mi0uNjAzLTEuMzQxLS42MTUtLjUxOC4wMDMtMS4wMDQuMjMzLTEuMzM2LjYzMWwtMy43MTQgNC40NTgtMS4yMS0xLjIwN2MtLjY4NC0uNjg0LTEuNzk3LS42ODQtMi40OCAwbC0yLjc2IDIuNzU5di05LjQzOWMwLS4yNzYuMjI0LS41LjUtLjV6IiBmaWxsPSIjODc0OTgzIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PC9nPjwvc3ZnPg=="
 @endsection
 
 @section('buttons')
-{{createButtonTrash($image, 'image')}}
-{{createButtonEdit('image', 'image', $image)}}
-{{createButtonList('image')}}
+    {{ createButtonTrash($image, 'image') }}
+    {{ createButtonEdit('image', 'image', $image) }}
+    {{ createButtonList('image') }}
 @endsection
 
 @section('name', $image->name)
@@ -18,44 +18,45 @@
 
 
 @section('fieldsId')
-<div class="row">
-    <div class='col-2 pe-0' style='text-align: center'>
-        <div class='show-label'>
-            ENVIADO POR
-        </div>
-    </div>
-    <div class='col-4 ps-0' style='text-align: center'>
-        @if($image->contact_id != null OR $image->contact_id != 0)
-        <div class='show-field-end'>
-            <a  class='white' href=' {{route('contact.show', ['contact' => $image->contact_id])}}'>
-                {{$image->contact->name}}
-            </a>
-        </div>
-        @elseif(isset($image->user->image))
-        <a href=' {{route('user.show', ['user' => $image->user_id])}}'>
-            <div class='show-field-end'>
-                {{$image->user->contact->name}}
+    <div class="row">
+        <div class='col-2 pe-0' style='text-align: center'>
+            <div class='show-label'>
+                ENVIADO POR
             </div>
-        </a>
-        @else
-        <div class='show-field-end'>
-            foi excluído
         </div>
-        @endif
-    </div>
-</div>
-<div class="row mt-5">
-    <div class='col-12 pe-0' style='text-align: center'>
-        <div class='image-show'>
-            <img src="{{ asset('storage/' . $image->path) }}" style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="{{ $image->name }}">
+        <div class='col-4 ps-0' style='text-align: center'>
+            @if ($image->contact_id != null or $image->contact_id != 0)
+                <div class='show-field-end'>
+                    <a class='white' href=' {{ route('contact.show', ['contact' => $image->contact_id]) }}'>
+                        {{ $image->contact->name }}
+                    </a>
+                </div>
+            @elseif(isset($image->user->image))
+                <a href=' {{ route('user.show', ['user' => $image->user_id]) }}'>
+                    <div class='show-field-end'>
+                        {{ $image->user->contact->name }}
+                    </div>
+                </a>
+            @else
+                <div class='show-field-end'>
+                    foi excluído
+                </div>
+            @endif
         </div>
     </div>
-</div>
+    <div class="row mt-5">
+        <div class='col-12 pe-0' style='text-align: center'>
+            <div class='image-show'>
+                <img src="{{ asset('storage/' . $image->path) }}"
+                    style="max-width: 100%; max-height: 100%; object-fit: contain;" alt="{{ $image->name }}">
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @section('description')
-{!!html_entity_decode($image->alt)!!}
+    {!! html_entity_decode($image->alt) !!}
 @endsection
 
 
@@ -69,9 +70,9 @@
 @section('backButton', route('image.index'))
 
 @section('createdAt')
-<div class='row' style='margin-top: 30px'>
-    <div class='col-12'style='padding-top: -10px'>
-        Primeiro registro em: {{date('d/m/Y H:i', strtotime($image->created_at))}}
+    <div class='row' style='margin-top: 30px'>
+        <div class='col-12'style='padding-top: -10px'>
+            Primeiro registro em: {{ date('d/m/Y H:i', strtotime($image->created_at)) }}
+        </div>
     </div>
-</div>
 @endsection

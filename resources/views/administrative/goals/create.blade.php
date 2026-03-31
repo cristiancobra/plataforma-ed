@@ -1,9 +1,9 @@
 @extends('layouts/master')
 
-@section('title','METAS')
+@section('title', 'METAS')
 
 @section('image-top')
-{{asset('images/rocket.png')}}
+    <i class="fa fa-tasks"></i>
 @endsection
 
 @section('description')
@@ -11,183 +11,232 @@
 
 @section('buttons')
 
-{{createButtonList('goal')}}
+    {{ createButtonList('goal') }}
 @endsection
 
 @section('main')
-@if(Session::has('failed'))
-<div class='alert alert-danger'>
-    {{Session::get('failed')}}
-    @php
-    Session::forget('failed');
-    @endphp
-</div>
-@endif
-<div>
-    <form action=' {{route('goal.store')}} ' method='post' enctype='multipart/form-data'>
-        @csrf
-        <label class='labels' for='' >
-            NOME:
-        </label>
-        <input type='text' name='name' style='width: 600px' value='{{old('name')}}'>
-        @if ($errors->has('name'))
-        <span class='text-danger'>{{$errors->first('name')}}</span>
-        @endif
-        <br>
-        <label class='labels' for='' >
-            DEPARTAMENTO:
-        </label>
-        {{createSimpleSelect('department', 'fields', $departments)}}
-        @if ($errors->has('department'))
-        <span class='text-danger'>{{$errors->first('department')}}</span>
-        @endif
-        <br>
-        <br>
-            <label class="labels" for="" >INÍCIO:</label>
-        <input type="date" name="date_start" value="{{old('date_start') ? old('date_start') : date('Y-m-d')}}">
-        @if ($errors->has('date_start'))
-        <span class="text-danger">{{$errors->first('date_start')}}</span>
-        @endif
-        <br>
-        <br>
-            <label class="labels" for="" >
+    @if (Session::has('failed'))
+        <div class='alert alert-danger'>
+            {{ Session::get('failed') }}
+            @php
+                Session::forget('failed');
+            @endphp
+        </div>
+    @endif
+    <div>
+        <form action=' {{ route('goal.store') }} ' method='post' enctype='multipart/form-data'>
+            @csrf
+            <label class='labels' for=''>
+                NOME:
+            </label>
+            <input type='text' name='name' style='width: 600px' value='{{ old('name') }}'>
+            @if ($errors->has('name'))
+                <span class='text-danger'>{{ $errors->first('name') }}</span>
+            @endif
+            <br>
+            <label class='labels' for=''>
+                DEPARTAMENTO:
+            </label>
+            {{ createSimpleSelect('department', 'fields', $departments) }}
+            @if ($errors->has('department'))
+                <span class='text-danger'>{{ $errors->first('department') }}</span>
+            @endif
+            <br>
+            <br>
+            <label class="labels" for="">INÍCIO:</label>
+            <input type="date" name="date_start" value="{{ old('date_start') ? old('date_start') : date('Y-m-d') }}">
+            @if ($errors->has('date_start'))
+                <span class="text-danger">{{ $errors->first('date_start') }}</span>
+            @endif
+            <br>
+            <br>
+            <label class="labels" for="">
                 PRAZO FINAL:
             </label>
-        <input type="date" name="date_due" value="{{old('date_due') ? old('date_due') : date('Y-m-d')}}">
-        @if ($errors->has('date_due'))
-        <span class="text-danger">{{$errors->first('date_due')}}</span>
-        @endif
-        <br>
-        <br>
-        <div class='row'>
-            <div class='col'>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução' {{old('type') == 'execução' ? 'checked' : ''}}>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="
+            <input type="date" name="date_due" value="{{ old('date_due') ? old('date_due') : date('Y-m-d') }}">
+            @if ($errors->has('date_due'))
+                <span class="text-danger">{{ $errors->first('date_due') }}</span>
+            @endif
+            <br>
+            <br>
+            <div class='row'>
+                <div class='col'>
+                    <div class='form-check d-flex justify-content-start'>
+                        <input class='form-check-input mt-2' type='radio' name='type' id='execução' value='execução'
+                            {{ old('type') == 'execução' ? 'checked' : '' }}>
+                        <label class='form-check-label pt-2 ms-2' for='execução'
+                            style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
-                                                                                                                    color: {{$principalColor}}
+                                                                                                                    color: {{ $principalColor }}
                                                                                                                      ">
-                EXECUÇÃO:
-            </label>
-            <p class='form-check-label pt-2 ms-2' for='execução' style="text-align: right">
-                concluir todas as tarefas
-            </p>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos' {{old('type') == 'contatos' ? 'checked' : ''}}>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="
+                            EXECUÇÃO:
+                        </label>
+                        <p class='form-check-label pt-2 ms-2' for='execução' style="text-align: right">
+                            concluir todas as tarefas
+                        </p>
+                    </div>
+                    <div class='form-check d-flex justify-content-start'>
+                        <input class='form-check-input mt-2' type='radio' name='type' id='contatos' value='contatos'
+                            {{ old('type') == 'contatos' ? 'checked' : '' }}>
+                        <label class='form-check-label pt-2 ms-2' for='execução'
+                            style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
-                                                                                                                    color: {{$principalColor}}
+                                                                                                                    color: {{ $principalColor }}
                                                                                                                      ">
-                MARKETING:
-            </label>
-            <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right">
-                aumentar contatos para 
-            </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number' name='goal_contacts' value='{{old('goal_contacts')}}'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita' {{old('type') == 'receita' ? 'checked' : ''}}>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="
+                            MARKETING:
+                        </label>
+                        <p class='form-check-label pt-2 ms-2' for='contatos' style="text-align: right">
+                            aumentar contatos para
+                        </p>
+                        <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='number'
+                            name='goal_contacts' value='{{ old('goal_contacts') }}'>
+                    </div>
+                    <div class='form-check d-flex justify-content-start'>
+                        <input class='form-check-input mt-2' type='radio' name='type' id='receita' value='receita'
+                            {{ old('type') == 'receita' ? 'checked' : '' }}>
+                        <label class='form-check-label pt-2 ms-2' for='execução'
+                            style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
-                                                                                                                    color: {{$principalColor}}
+                                                                                                                    color: {{ $principalColor }}
                                                                                                                      ">
-                RECEITA:
-            </label>
-            <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
-                atingir faturamento de
-            </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_revenues' id='goal_invoices_revenues' maxlength='11' onkeyup="formatCurrencyReal('goal_invoices_revenues')" value='{{old('goal_invoices_revenues')}}'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa' {{old('type') == 'despesa' ? 'checked' : ''}}>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="
+                            RECEITA:
+                        </label>
+                        <p class='form-check-label pt-2 ms-2' for='receita' style="text-align: right">
+                            atingir faturamento de
+                        </p>
+                        <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text'
+                            name='goal_invoices_revenues' id='goal_invoices_revenues' maxlength='11'
+                            onkeyup="formatCurrencyReal('goal_invoices_revenues')"
+                            value='{{ old('goal_invoices_revenues') }}'>
+                    </div>
+                    <div class='form-check d-flex justify-content-start'>
+                        <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='despesa'
+                            {{ old('type') == 'despesa' ? 'checked' : '' }}>
+                        <label class='form-check-label pt-2 ms-2' for='execução'
+                            style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
-                                                                                                                    color: {{$principalColor}}
+                                                                                                                    color: {{ $principalColor }}
                                                                                                                      ">
-                DESPESA:
-            </label>
-            <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">
-                manter despesas abaixo de 
-            </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_invoices_expenses'  id='goal_invoices_expenses' maxlength='11' onkeyup="formatCurrencyReal('goal_invoices_expenses')" value='{{old('goal_invoices_expenses')}}'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='entrada' value='entrada' {{old('type') == 'entrada' ? 'checked' : ''}}>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="
+                            DESPESA:
+                        </label>
+                        <p class='form-check-label pt-2 ms-2' for='despesa' style="text-align: right">
+                            manter despesas abaixo de
+                        </p>
+                        <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text'
+                            name='goal_invoices_expenses' id='goal_invoices_expenses' maxlength='11'
+                            onkeyup="formatCurrencyReal('goal_invoices_expenses')"
+                            value='{{ old('goal_invoices_expenses') }}'>
+                    </div>
+                    <div class='form-check d-flex justify-content-start'>
+                        <input class='form-check-input mt-2' type='radio' name='type' id='entrada'
+                            value='entrada' {{ old('type') == 'entrada' ? 'checked' : '' }}>
+                        <label class='form-check-label pt-2 ms-2' for='execução'
+                            style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
-                                                                                                                    color: {{$principalColor}}
+                                                                                                                    color: {{ $principalColor }}
                                                                                                                      ">
-                ENTRADAS:
-            </label>
-            <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">
-                atingir entradas de 
-            </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_revenues'  id='goal_transactions_revenues' maxlength='11' onkeyup="formatCurrencyReal('goal_transactions_revenues')"  value='{{old('goal_transactions_revenues')}}'>
-        </div>
-        <div class='form-check d-flex justify-content-start'>
-            <input class='form-check-input mt-2' type='radio' name='type' id='despesa' value='saída' {{old('type') == 'saída' ? 'checked' : ''}}>
-            <label class='form-check-label pt-2 ms-2' for='execução' style="
+                            ENTRADAS:
+                        </label>
+                        <p class='form-check-label pt-2 ms-2' for='entrada' style="text-align: right">
+                            atingir entradas de
+                        </p>
+                        <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text'
+                            name='goal_transactions_revenues' id='goal_transactions_revenues' maxlength='11'
+                            onkeyup="formatCurrencyReal('goal_transactions_revenues')"
+                            value='{{ old('goal_transactions_revenues') }}'>
+                    </div>
+                    <div class='form-check d-flex justify-content-start'>
+                        <input class='form-check-input mt-2' type='radio' name='type' id='despesa'
+                            value='saída' {{ old('type') == 'saída' ? 'checked' : '' }}>
+                        <label class='form-check-label pt-2 ms-2' for='execução'
+                            style="
                                                                                                                     text-align: right;
                                                                                                                     font-weight:600;
-                                                                                                                    color: {{$principalColor}}
+                                                                                                                    color: {{ $principalColor }}
                                                                                                                      ">
-                SAÍDAS:
+                            SAÍDAS:
+                        </label>
+                        <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">
+                            manter saídas abaixo de
+                        </p>
+                        <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text'
+                            name='goal_transactions_expenses' id='goal_transactions_expenses' maxlength='11'
+                            onkeyup="formatCurrencyReal('goal_transactions_expenses')"
+                            value='{{ old('goal_transactions_expenses') }}'>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <br>
+            <label class='labels' for=''>
+                DESCRIÇÃO:
             </label>
-            <p class='form-check-label pt-2 ms-2' for='saída' style="text-align: right">
-                manter saídas abaixo de 
-            </p>
-            <input class='form-control ms-2 mb-1 me-3' style="text-align: right;width: 140px" type='text' name='goal_transactions_expenses'  id='goal_transactions_expenses' maxlength='11' onkeyup="formatCurrencyReal('goal_transactions_expenses')" value='{{old('goal_transactions_expenses')}}'>
-        </div>
-        </div>
-        </div>
-        <br>
-        <br>
-        <label class='labels' for='' >
-            DESCRIÇÃO:
-        </label>
-        <br>
-        @if ($errors->has('description'))
-        <span class='text-danger'>{{$errors->first('description')}}</span>
-        @endif
-        <textarea id='text' name='description' rows='20' cols='90'>
-  {{old('text')}}
+            <br>
+            @if ($errors->has('description'))
+                <span class='text-danger'>{{ $errors->first('description') }}</span>
+            @endif
+            <textarea id='text' name='description' rows='20' cols='90'>
+  {{ old('text') }}
         </textarea>
-        <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
-        <script>
-CKEDITOR.replace('description');
-        </script>
-        <br>
-        <label class='labels' for='' >ANEXAR IMAGEM:</label>
-        <input type='file' name='image'>
-        <br>
-        <br>
+            <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
+            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
+            <script>
+                CKEDITOR.replace('description');
+            </script>
+            <br>
+            <label class='labels' for=''>ANEXAR IMAGEM:</label>
+            <input type='file' name='image'>
+            <br>
+            <br>
 
-        <label class='labels' for='' >SITUAÇÃO:</label>
-        {{createSimpleSelect('status', 'fields', $status)}}
-        <br>
-        <br>
-        <p style='text-align: right'>
-            <input class='btn btn-secondary' type='submit' value='CRIAR'>
-        </p>
-    </form>
-</div>
-<br>
-<br>
+            <label class='labels' for=''>SITUAÇÃO:</label>
+            {{ createSimpleSelect('status', 'fields', $status) }}
+            <br>
+            <br>
+            <p style='text-align: right'>
+                <input class='btn btn-secondary' type='submit' value='CRIAR'>
+            </p>
+        </form>
+    </div>
+    <br>
+    <br>
 @endsection
 
 
-    @section('js-scripts')
+@section('js-scripts')
     <script>
-        $("[name=goal_invoices_revenues]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        $("[name=goal_invoices_expenses]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        $("[name=goal_transactions_revenues]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
-        $("[name=goal_transactions_expenses]").maskMoney({prefix: 'R$ ', allowNegative: true, thousands: '.', decimal: ',', affixesStay: false});
+        $("[name=goal_invoices_revenues]").maskMoney({
+            prefix: 'R$ ',
+            allowNegative: true,
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false
+        });
+        $("[name=goal_invoices_expenses]").maskMoney({
+            prefix: 'R$ ',
+            allowNegative: true,
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false
+        });
+        $("[name=goal_transactions_revenues]").maskMoney({
+            prefix: 'R$ ',
+            allowNegative: true,
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false
+        });
+        $("[name=goal_transactions_expenses]").maskMoney({
+            prefix: 'R$ ',
+            allowNegative: true,
+            thousands: '.',
+            decimal: ',',
+            affixesStay: false
+        });
     </script>
-    @endsection
+@endsection

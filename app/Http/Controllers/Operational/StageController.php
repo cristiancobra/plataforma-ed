@@ -43,7 +43,7 @@ class StageController extends Controller
             'required' => '*preenchimento obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
-                    'name' => 'required:stages',
+                    'name' => 'required',
                         ],
                         $messages);
 

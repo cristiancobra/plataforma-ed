@@ -3,7 +3,7 @@
             @yield('image-top')
         </span>
         @isset($total)
-        <span class="labels" style="font-size: 34px;font-weight: 200">{{$total}}</span>
+            <span class="labels" style="font-size: 34px;font-weight: 200">{{ $total }}</span>
         @endisset
         @yield('title')
     </div>

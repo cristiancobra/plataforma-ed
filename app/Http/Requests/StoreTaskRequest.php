@@ -26,7 +26,7 @@ class StoreTaskRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'department' => 'required|string|in:administrativo,atendimento,desenvolvimento,financeiro,marketing,produção,vendas,tarefa pessoal',
+            'department' => 'nullable|string|in:administrativo,atendimento,desenvolvimento,financeiro,marketing,produção,vendas,tarefa pessoal',
             'priority' => 'required|string|in:baixa,média,alta,emergência',
             'status' => 'nullable|string|in:fazer,aguardar,feito,fazendo,cancelado',
             'type' => 'nullable|string',
@@ -56,7 +56,6 @@ class StoreTaskRequest extends FormRequest
         return [
             'name.required' => 'O nome da tarefa é obrigatório.',
             'name.max' => 'O nome da tarefa não pode ter mais de 255 caracteres.',
-            'department.required' => 'O departamento é obrigatório.',
             'department.in' => 'O departamento selecionado é inválido.',
             'priority.required' => 'A prioridade é obrigatória.',
             'priority.in' => 'A prioridade selecionada é inválida.',

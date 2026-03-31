@@ -3,7 +3,7 @@
 @section('title', 'DOCUMENTOS')
 
 @section('image-top')
-<i class="fa fa-file"></i>
+    <i class="fa fa-file"></i>
 @endsection
 
 @section('description')

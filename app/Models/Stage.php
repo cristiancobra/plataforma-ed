@@ -18,6 +18,7 @@ class Stage extends Model {
         'points',
         'start',
         'end',
+        'priority',
         'goals_contacts',
         'goals_points',
         'goals_invoice_revenues',

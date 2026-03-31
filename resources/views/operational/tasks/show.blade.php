@@ -295,9 +295,9 @@
     </div>
     <div class='row description-field justify-content-center'>
         @foreach ($task->attachments as $attachment)
-        @php
-        Log::info("Attachment name: " . $attachment->name);
-    @endphp
+            @php
+                Log::info('Attachment name: ' . $attachment->name);
+            @endphp
             <div class='col-2 mt-2 mb-2'>
                 <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
                     class="text-decoration-none">

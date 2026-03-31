@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang='{{str_replace('_', '-', app()->getLocale())}}'>
-    <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
+<html lang='{{ str_replace('_', '-', app()->getLocale()) }}'>
 
-        <title> @yield('title') </title>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-        @include('layouts.assets')
+    <title> @yield('title') </title>
 
-    </head>
-    <body>
+    @include('layouts.assets')
 
-    <x-Navmenu.nav-menu/>
+</head>
+
+<body>
+
+    <x-Navmenu.nav-menu />
 
     <div class="grid">
-        <x-sidebar.sidebar/>
+        <x-sidebar.sidebar />
 
         <main class='main2'>
             <header class='row pt-5 ps-5 pb-0'>
@@ -22,13 +24,13 @@
             </header>
 
             <div class="col">
-                @if(Session::has('failed'))
-                <div class="alert alert-danger">
-                    {{ Session::get('failed') }}
-                    @php
-                    Session::forget('failed');
-                    @endphp
-                </div>
+                @if (Session::has('failed'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('failed') }}
+                        @php
+                            Session::forget('failed');
+                        @endphp
+                    </div>
                 @endif
 
                 <section id='white-page' class='white-page'>
@@ -46,11 +48,10 @@
 
             </div>
         </main>
-        <script>
-
-        </script>
+        <script></script>
     </div>
-</div>
-@yield('js-scripts')
+    </div>
+    @yield('js-scripts')
 </body>
+
 </html>

@@ -1,18 +1,18 @@
 @extends('layouts/master')
 
-@section('title','CONCORRENTES')
+@section('title', 'CONCORRENTES')
 
 @section('image-top')
-{{asset('images/competitors.png')}} 
+    {{ asset('images/competitors.png') }}
 @endsection
 
 @section('description')
 @endsection
 
 @section('buttons')
-<a class='circular-button primary'  href='{{route('competitor.create')}}'>
-    <i class='fa fa-plus' aria-hidden='true'></i>
-</a>
+    <a class='circular-button primary' href='{{ route('competitor.create') }}'>
+        <i class='fa fa-plus' aria-hidden='true'></i>
+    </a>
 @endsection
 
 @section('main')
@@ -39,41 +39,41 @@
         </tr>
 
         @foreach ($competitors as $competitor)
-        <tr style='font-size: 14px'>
-            <td class='table-list-left'>
-                <button class='button-round'>
-                    <a href=' {{route('competitor.show', ['competitor' => $competitor->id])}}'>
-                        <i class='fa fa-eye' style='color:white'></i></a>
-                </button>
-                {{$competitor->name}}
-            </td>
+            <tr style='font-size: 14px'>
+                <td class='table-list-left'>
+                    <button class='button-round'>
+                        <a href=' {{ route('competitor.show', ['competitor' => $competitor->id]) }}'>
+                            <i class='fa fa-eye' style='color:white'></i></a>
+                    </button>
+                    {{ $competitor->name }}
+                </td>
 
-            <td class='table-list-right'>
-                {{$competitor->facebook_followers}}
-            </td>
+                <td class='table-list-right'>
+                    {{ $competitor->facebook_followers }}
+                </td>
 
-            <td class='table-list-right'>
-                {{$competitor->instagram_followers}}
-            </td>
+                <td class='table-list-right'>
+                    {{ $competitor->instagram_followers }}
+                </td>
 
-            <td class='table-list-right'>
-                {{$competitor->linkedin_followers}}
-            </td>
+                <td class='table-list-right'>
+                    {{ $competitor->linkedin_followers }}
+                </td>
 
-            <td class='table-list-right'>
-                {{$competitor->twitter_followers}}
-            </td>
+                <td class='table-list-right'>
+                    {{ $competitor->twitter_followers }}
+                </td>
 
-            <td class='table-list-right'>
-                {{$competitor->pinterest_followers}}
-            </td>
+                <td class='table-list-right'>
+                    {{ $competitor->pinterest_followers }}
+                </td>
 
-        </tr>
+            </tr>
         @endforeach
     </table>
     <p style='text-align: right'>
         <br>
-        {{$competitors->links()}}
+        {{ $competitors->links() }}
     </p>
     <br>
-    @endsection
+@endsection

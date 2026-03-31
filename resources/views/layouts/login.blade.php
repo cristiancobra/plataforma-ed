@@ -1,29 +1,32 @@
 <!DOCTYPE html>
-<html lang="{{str_replace('_', '-', app()->getLocale())}}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-        <title> @yield('title') </title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        @include('layouts.assets')
+    <title> @yield('title') </title>
 
-        <!--        Google recaptcha-->
-        <meta name="grecaptcha-key" content="{{config('recaptcha.v3.public_key')}}">
-        <script src="https://www.google.com/recaptcha/api.js?render={{config('recaptcha.v3.public_key')}}"></script>
+    @include('layouts.assets')
 
-    </head>
-    <body style='background-color: #c28dbf'>
+    <!--        Google recaptcha-->
+    <meta name="grecaptcha-key" content="{{ config('recaptcha.v3.public_key') }}">
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('recaptcha.v3.public_key') }}"></script>
 
-        <x-navmenu.nav-menu/>
+</head>
 
-        <div class='container-fluid'>
-            <div class='row'>
-                <main role='main' class='col-lg-12 px-4'>
-                    @yield('main')
-                </main>
-            </div>
-            @yield('js-scripts')
+<body style='background-color: #c28dbf'>
+
+    <x-navmenu.nav-menu />
+
+    <div class='container-fluid'>
+        <div class='row'>
+            <main role='main' class='col-lg-12 px-4'>
+                @yield('main')
+            </main>
         </div>
-    </body>
+        @yield('js-scripts')
+    </div>
+</body>
+
 </html>

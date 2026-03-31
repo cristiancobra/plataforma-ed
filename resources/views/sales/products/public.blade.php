@@ -1,7 +1,7 @@
 @extends('layouts/templates_shop/default')
 
 @section('banner')
-{{$shop->headline}}
+    {{ $shop->headline }}
 @endsection
 
 
@@ -9,13 +9,13 @@
 
 
 @section('image')
-<div class='product-image-public'>
-    @if($product->image)
-    <image src='{{asset($product->image->path)}}' width='80%' heigh='80%'>
-    @else
-    <image src='{{asset('images/products.png')}}'  width='80%' heigh='80%'>
-    @endif
-</div>
+    <div class='product-image-public'>
+        @if ($product->image)
+            <image src='{{ asset($product->image->path) }}' width='80%' heigh='80%'>
+            @else
+                <image src='{{ asset('images/products.png') }}' width='80%' heigh='80%'>
+        @endif
+    </div>
 @endsection
 
 
@@ -26,16 +26,15 @@
 
 
 @section('due_date')
-@if($product->due_date)
-{{$product->due_date}}
-@else
-não informado
-@endif
+    @if ($product->due_date)
+        {{ $product->due_date }}
+    @else
+        não informado
+    @endif
 @endsection
 
 
 
 @section('description')
-{!!html_entity_decode($product->description)!!}
+    {!! html_entity_decode($product->description) !!}
 @endsection
-

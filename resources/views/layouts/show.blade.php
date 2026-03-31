@@ -1,20 +1,22 @@
 <!DOCTYPE html>
-<html lang='{{str_replace('_', '-', app()->getLocale())}}'>
-    <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
+<html lang='{{ str_replace('_', '-', app()->getLocale()) }}'>
 
-        <title> @yield('title') </title>
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
 
-        @include('layouts.assets')
+    <title> @yield('title') </title>
 
-    </head>
-    <body>
+    @include('layouts.assets')
 
-    <x-Navmenu.nav-menu/>
+</head>
+
+<body>
+
+    <x-Navmenu.nav-menu />
 
     <div class="grid">
-        <x-sidebar.sidebar/>
+        <x-sidebar.sidebar />
 
         <main class='main2'>
             <header class='row pt-5 ps-5 ms-3 me-5'>
@@ -22,22 +24,22 @@
             </header>
 
             <div class="col">
-                @if(Session::has('failed'))
-                <div class="alert alert-danger ms-5 mt-5 mb-5">
-                    <i class="fas fa-exclamation-circle late-paid ms-1 me-1" style="font-size:20px"></i>
-                    {{ Session::get('failed') }}
-                    @php
-                    Session::forget('failed');
-                    @endphp
-                </div>
+                @if (Session::has('failed'))
+                    <div class="alert alert-danger ms-5 mt-5 mb-5">
+                        <i class="fas fa-exclamation-circle late-paid ms-1 me-1" style="font-size:20px"></i>
+                        {{ Session::get('failed') }}
+                        @php
+                            Session::forget('failed');
+                        @endphp
+                    </div>
                 @elseif(Session::has('success'))
-                <div class="alert alert-success ms-5 mt-5 mb-5">
-                    <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
-                    {{ Session::get('success') }}
-                    @php
-                    Session::forget('success');
-                    @endphp
-                </div>
+                    <div class="alert alert-success ms-5 mt-5 mb-5">
+                        <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
+                        {{ Session::get('success') }}
+                        @php
+                            Session::forget('success');
+                        @endphp
+                    </div>
                 @endif
 
 
@@ -98,9 +100,10 @@
                 @yield('createdAt')
             </div>
     </div>
-</main>
+    </main>
 
-<aside  id='workflow-container' class='fixed-top ms-auto text-center' style="
+    <aside id='workflow-container' class='fixed-top ms-auto text-center'
+        style="
         margin-top:15%;
         border-style: solid;
         border-right-style: none;
@@ -111,23 +114,24 @@
         width: 190px;
         box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
         ">
-    <div class='row pb-0 pt-3'>
-        <div class='col'>
-            <p style="font-size:22px">
-                FLUXO
-            </p>
+        <div class='row pb-0 pt-3'>
+            <div class='col'>
+                <p style="font-size:22px">
+                    FLUXO
+                </p>
+            </div>
         </div>
-    </div>
-    <div class='row mb-3'>
-        <div class='col'>
-            @yield('workflow')
+        <div class='row mb-3'>
+            <div class='col'>
+                @yield('workflow')
+            </div>
         </div>
+    </aside>
     </div>
-</aside>
-</div>
 
 
-@yield('js-scripts')
+    @yield('js-scripts')
 
 </body>
+
 </html>

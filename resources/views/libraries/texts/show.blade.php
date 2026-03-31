@@ -3,7 +3,7 @@
 @section('title', 'DOCUMENTOS')
 
 @section('image-top')
-<i class="fa fa-file"></i>
+    <i class="fa fa-file"></i>
 @endsection
 
 @section('buttons')
@@ -110,9 +110,8 @@
             <div class="row">
                 @foreach ($text->attachments as $attachment)
                     <div class='col-md-4 mb-3'>
-                        <a href="{{ asset('storage/' . $attachment->path) }}" 
-                           download="{{ $attachment->name }}"
-                           class="text-decoration-none">
+                        <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
+                            class="text-decoration-none">
                             <div class="card text-center p-3 h-100">
                                 <i class="fa fa-file-pdf text-danger" style="font-size: 48px;"></i>
                                 <div class="mt-2">

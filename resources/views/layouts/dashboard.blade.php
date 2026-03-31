@@ -1,27 +1,30 @@
 <!DOCTYPE html>
-<html lang="{{str_replace('_', '-', app()->getLocale())}}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-        <title> @yield('title') </title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        @include('layouts.assets')
+    <title> @yield('title') </title>
 
-    </head>
-    <body>
+    @include('layouts.assets')
 
-    <x-Navmenu.nav-menu/>
-    
+</head>
+
+<body>
+
+    <x-Navmenu.nav-menu />
+
     <div class="grid">
-    <x-sidebar.sidebar/>
+        <x-sidebar.sidebar />
 
-    <main class='main2'>
+        <main class='main2'>
             <section id='white-page' class='white-page'>
                 @yield('main')
             </section>
-    </main>
+        </main>
     </div>
     @yield('js-scripts')
 </body>
+
 </html>
