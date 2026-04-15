@@ -87,17 +87,18 @@
             </div>
             @foreach ($months as $key => $month)
                 <div class="tb col justify-content-end">
-                    <a
-                        href="{{ route('journey.index', [
-                            'department' => $department,
-                            'start' => date("$year-$key-01"),
-                            'end' => date("$year-$key-t"),
-                        ]) }}">
+                    <a href="{{ route('journey.index', [
+                        'department' => $department,
+                        'start' => date("$year-$key-01"),
+                        'end' => date("$year-$key-t"),
+                    ]) }}"
+                        style="{{ $department['monthlys'][$month] > 0 ? 'font-weight: bold;' : '' }}">
                         {{ number_format($department['monthlys'][$month] / 3600, 1, ',', '.') }}
                     </a>
                 </div>
             @endforeach
-            <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
+            <div class="tb col justify-content-end"
+                style='color:white;background-color: #874983;border-color: white;{{ $department['year'] > 0 ? 'font-weight: bold;' : '' }}'>
                 {{ number_format($department['year'] / 3600, 1, ',', '.') }}
             </div>
         </div>
@@ -108,7 +109,8 @@
             TOTAL
         </div>
         @foreach ($monthlyTotals as $monthlyTotal)
-            <div class="tb-header col justify-content-end" style="width: 5%;border-color: white">
+            <div class="tb-header col justify-content-end"
+                style="width: 5%;border-color: white;{{ $monthlyTotal > 0 ? 'font-weight: bold;' : '' }}">
                 {{ number_format($monthlyTotal / 3600, 1, ',', '.') }}
             </div>
         @endforeach

@@ -85,17 +85,18 @@
 
             @foreach ($months as $monthKey => $month)
                 <div class="tb col justify-content-end">
-                    <a
-                        href="{{ route('journey.index', [
-                            'user_id' => $user->id,
-                            'start' => date("$year-$monthKey-01"),
-                            'end' => date("$year-$monthKey-t"),
-                        ]) }}">
+                    <a href="{{ route('journey.index', [
+                        'user_id' => $user->id,
+                        'start' => date("$year-$monthKey-01"),
+                        'end' => date("$year-$monthKey-t"),
+                    ]) }}"
+                        style="{{ $user[$month] > 0 ? 'font-weight: bold;' : '' }}">
                         {{ number_format($user[$month] / 3600, 1, ',', '.') }}
                     </a>
                 </div>
             @endforeach
-            <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
+            <div class="tb col justify-content-end"
+                style='color:white;background-color: #874983;border-color: white;{{ $user['year'] > 0 ? 'font-weight: bold;' : '' }}'>
                 {{ number_format($user['year'] / 3600, 1, ',', '.') }}
             </div>
         </div>
@@ -106,7 +107,8 @@
             TOTAL
         </div>
         @foreach ($monthlyTotals as $monthlyTotal)
-            <div class="tb-header col justify-content-end" style="width: 5%;border-color: white">
+            <div class="tb-header col justify-content-end"
+                style="width: 5%;border-color: white;{{ $monthlyTotal > 0 ? 'font-weight: bold;' : '' }}">
                 {{ number_format($monthlyTotal / 3600, 1, ',', '.') }}
             </div>
         @endforeach

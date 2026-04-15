@@ -305,8 +305,8 @@ class JourneyController extends Controller {
         $annualTotal = Journey::accountHoursByYear($year);
         $monthlyAverage = $annualTotal / $pastMonths;
 
-        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
-        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+        $annualTotalFormatted = number_format($annualTotal / 3600, 1, ',', '.');
+        $monthlyAverage = number_format($monthlyAverage / 3600, 1, ',', '.');
 
         $monthlyTotals = Journey::accountHoursByMonth($year);
 
@@ -338,12 +338,11 @@ class JourneyController extends Controller {
                         'users',
                         'months',
                         'namesMonths',
-                        'annualTotal',
                         'monthlyTotals',
                         'monthlyAverage',
                         'chartBackgroundColors',
                         'chartBorderColors',
-        ));
+        ))->with('annualTotal', $annualTotalFormatted);
     }
 
     public function reportByDepartments(Request $request) {
@@ -359,8 +358,8 @@ class JourneyController extends Controller {
         $annualTotal = Journey::accountHoursByYear($year);
         $monthlyAverage = $annualTotal / $pastMonths;
 
-        $annualTotal = number_format($annualTotal / 3600, 0, ',', '.');
-        $monthlyAverage = number_format($monthlyAverage / 3600, 0, ',', '.');
+        $annualTotalFormatted = number_format($annualTotal / 3600, 1, ',', '.');
+        $monthlyAverage = number_format($monthlyAverage / 3600, 1, ',', '.');
 
         $monthlyTotals = Journey::accountHoursByMonth($year);
         $departmentsNames = Task::returnDepartments();
@@ -376,10 +375,9 @@ class JourneyController extends Controller {
                         'months',
                         'departments',
                         'departmentsNames',
-                        'annualTotal',
                         'monthlyTotals',
                         'monthlyAverage',
-        ));
+        ))->with('annualTotal', $annualTotalFormatted);
     }
 
     function returnStatus() {
