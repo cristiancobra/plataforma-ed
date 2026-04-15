@@ -71,7 +71,7 @@
                     <i class="fas fa-calendar-check" title='Criar nova tarefa'></i>
                 </a>
                 @if (count($tasksEmergency) > 0)
-                    <a class='circular-nav-button delete'
+                    <a class='circular-nav-button delete' style="position: relative;"
                         href='{{ route('task.index', [
                             'status' => 'fazer',
                             'priority' => 'emergência',
@@ -80,6 +80,9 @@
                         <i class="fas fa-exclamation-triangle" title='Tarefas emergenciais'"></i>
                         <div
                             style="
+                     position: absolute;
+                     top: -5px;
+                     right: -5px;
                      border-radius: 50%;
                      color:white;
                      background-color: red;
@@ -88,9 +91,7 @@
                      text-align: center;
                      width: 17px;
                      height: 17px;
-                     margin-top: -28px;
-                     margin-left: 15px;
-                     padding-bottom: 5px;
+                     line-height: 17px;
                      ">
                             {{ $tasksEmergencyTotal }}
                         </div>

@@ -474,27 +474,24 @@ h5{
 
 .circular-nav-button {
     border-color: #49d194;
-    padding-top: 1px;
-    padding-left: 0px;
     font-size: 14px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 50%;
     margin: 5px;
     vertical-align: middle;
     text-decoration: none;
-    text-align: center;
     transition: 0.3s;
     width: 24px;
     height: 24px;
-    display:inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
 .circular-nav-button-stop {
     color:#d60000;
     background-color: #FDDBDD;
-    padding-top: 1px;
-    padding-left: 0px;
     font-size: 14px;
     border-color: #49d194;
     border-radius: 50%;
@@ -502,11 +499,12 @@ h5{
     margin: 5px;
     vertical-align: middle;
     text-decoration: none;
-    text-align: center;
     transition: 0.3s;
     width: 24px;
     height: 24px;
-    display:inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .circular-nav-button-stop:hover {
@@ -517,8 +515,6 @@ h5{
 .circular-nav-button-start {
     background-color: #82c91e;
     color: white;
-    padding-top: 1px;
-    padding-left: 0px;
     font-size: 14px;
     border-color: #49d194;
     border-radius: 50%;
@@ -526,11 +522,12 @@ h5{
     margin: 5px;
     vertical-align: middle;
     text-decoration: none;
-    text-align: center;
     transition: 0.3s;
     width: 24px;
     height: 24px;
-    display:inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .circular-nav-button-start:hover {
