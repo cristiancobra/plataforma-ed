@@ -3,7 +3,7 @@
 @section('title', 'METAS')
 
 @section('image-top')
-    {{ asset('images/text.png') }}
+    <i class="fa fa-tasks"></i>
 @endsection
 
 @section('form_start')
@@ -14,7 +14,8 @@
 
 
     @section('buttons')
-        <a class='circular-button secondary' title='Cancelar alterações' href='{{ url()->previous() }}'>
+        <a class='circular-button secondary' title='Cancelar alterações' href='{{ url()->previous() }}'
+            style='padding-left:2px;padding-top:4px'>
             <i class='fas fa-times-circle'></i>
         </a>
         <button id='' class='circular-button primary' title='Salvar alterações'

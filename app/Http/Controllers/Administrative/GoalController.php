@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Administrative;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreGoalRequest;
+use App\Http\Requests\UpdateGoalRequest;
 use App\Models\Goal;
+use App\Models\Image;
 use App\Models\Opportunity;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class GoalController extends Controller {
 
@@ -55,48 +57,64 @@ class GoalController extends Controller {
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreGoalRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:goals',
-                        ],
-                        $messages);
+    public function store(StoreGoalRequest $request) {
+        $goal = new Goal();
+        $goal->fill($request->all());
+        $goal->account_id = auth()->user()->account_id;
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
-        } else {
-            $goal = new Goal();
-            $goal->fill($request->all());
-            $goal->account_id = auth()->user()->account_id;
+        if ($request->department == 'desenvolvimento') {
+            $goal->goal_points = 1;
+        }
 
-            if ($request->department == 'desenvolvimento') {
-                $goal->goal_points = 1;
-            }
-            $goal->save();
+        // Limpar todos os campos de metas
+        $goal->goal_points = null;
+        $goal->goal_contacts = null;
+        $goal->goal_invoices_revenues = null;
+        $goal->goal_invoices_expenses = null;
+        $goal->goal_transactions_revenues = null;
+        $goal->goal_transactions_expenses = null;
 
-            if ($request->file('image')) {
-                $image = new Image();
-                $image->account_id = auth()->user()->account_id;
-                $image->task_id = $goal->id;
-                $image->type = 'tarefa';
-                $image->name = 'Imagem da meta ' . $goal->name;
-                $image->status = 'disponível';
-                $path = $request->file('image')->store('customers_images');
-                $image->path = $path;
-                $image->save();
-            }
+        // Definir apenas o campo correspondente ao tipo selecionado
+        switch ($request->type) {
+            case 'execução':
+                $goal->goal_points = 0;
+                break;
+            case 'contatos':
+                $goal->goal_contacts = $request->goal_contacts;
+                break;
+            case 'receita':
+                $goal->goal_invoices_revenues = removeCurrency($request->goal_invoices_revenues);
+                break;
+            case 'despesa':
+                $goal->goal_invoices_expenses = removeCurrency($request->goal_invoices_expenses);
+                break;
+            case 'entrada':
+                $goal->goal_transactions_revenues = removeCurrency($request->goal_transactions_revenues);
+                break;
+            case 'saída':
+                $goal->goal_transactions_expenses = removeCurrency($request->goal_transactions_expenses);
+                break;
+        }
+
+        $goal->save();
+
+        if ($request->file('image')) {
+            $image = new Image();
+            $image->account_id = auth()->user()->account_id;
+            $image->task_id = $goal->id;
+            $image->type = 'tarefa';
+            $image->name = 'Imagem da meta ' . $goal->name;
+            $image->status = 'disponível';
+            $path = $request->file('image')->store('customers_images');
+            $image->path = $path;
+            $image->save();
+        }
 
 //            return redirect()->back();
-            return redirect()->route('goal.show', [$goal]);
-        }
+        return redirect()->route('goal.show', [$goal]);
     }
 
     /**
@@ -153,59 +171,51 @@ class GoalController extends Controller {
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateGoalRequest  $request
      * @param  \App\Models\Goal  $goal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Goal $goal) {
-        $messages = [
-            'required' => '*preenchimento obrigatório.',
-        ];
-        $validator = Validator::make($request->all(), [
-                    'name' => 'required:goals',
-                        ],
-                        $messages);
+    public function update(UpdateGoalRequest $request, Goal $goal) {
+        $goal->department = $request->department;
+        $goal->name = $request->name;
+        $goal->description = $request->description;
+        $goal->date_start = $request->date_start;
+        $goal->date_due = $request->date_due;
+        $goal->date_conclusion = $request->date_conclusion;
+        $goal->type = $request->type;
 
-        if ($validator->fails()) {
-            return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
-                            ->withErrors($validator)
-                            ->withInput();
-        } else {
-//            dd($goal);
-            $goal->department = $request->department;
-            $goal->name = $request->name;
-            $goal->description = $request->description;
-            $goal->date_start = $request->date_start;
-            $goal->date_due = $request->date_due;
-            $goal->date_conclusion = $request->date_conclusion;
-            $goal->type = $request->type;
-//dd($request->type);
-//            dd($goal->type);
-            switch ($goal->type) {
-                case 'execução':
-                    $goal->goal_points = 0;
-                    break;
-                case 'contatos':
-                    $goal->goal_contacts = $request->goal_contacts;
-                    break;
-                case 'receita':
-                    $goal->goal_invoices_revenues = removeCurrency($request->goal_invoices_revenues);
-                    break;
-                case 'despesa':
-                    $goal->goal_invoices_expenses = removeCurrency($request->goal_invoices_expenses);
-                    break;
-                case 'entrada':
-                    $goal->goal_transactions_revenues = removeCurrency($request->goal_transactions_revenues);
-                    break;
-                case 'saída':
-                    $goal->goal_transactions_expenses = removeCurrency($request->goal_transactions_expenses);
-                    break;
-            }
-            $goal->save();
+        // Limpar todos os campos de metas
+        $goal->goal_points = null;
+        $goal->goal_contacts = null;
+        $goal->goal_invoices_revenues = null;
+        $goal->goal_invoices_expenses = null;
+        $goal->goal_transactions_revenues = null;
+        $goal->goal_transactions_expenses = null;
 
-            return redirect()->route('goal.show', [$goal]);
+        // Definir apenas o campo correspondente ao tipo selecionado
+        switch ($goal->type) {
+            case 'execução':
+                $goal->goal_points = 0;
+                break;
+            case 'contatos':
+                $goal->goal_contacts = $request->goal_contacts;
+                break;
+            case 'receita':
+                $goal->goal_invoices_revenues = removeCurrency($request->goal_invoices_revenues);
+                break;
+            case 'despesa':
+                $goal->goal_invoices_expenses = removeCurrency($request->goal_invoices_expenses);
+                break;
+            case 'entrada':
+                $goal->goal_transactions_revenues = removeCurrency($request->goal_transactions_revenues);
+                break;
+            case 'saída':
+                $goal->goal_transactions_expenses = removeCurrency($request->goal_transactions_expenses);
+                break;
         }
+        $goal->save();
+
+        return redirect()->route('goal.show', [$goal]);
     }
 
     /**

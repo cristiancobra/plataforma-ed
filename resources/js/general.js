@@ -24,19 +24,31 @@ window.formatCurrencyReal = function (
     var elemento = document.getElementById(fieldId);
     var valor = elemento.value;
 
-
-    valor = valor + '';
-    valor = parseInt(valor.replace(/[\D]+/g, ''));
-    valor = valor + '';
+    // Remove tudo que não é dígito
+    valor = valor.replace(/[\D]+/g, '');
+    
+    // Se estiver vazio, limpa o campo
+    if (valor === '' || valor === '0') {
+        elemento.value = '';
+        return;
+    }
+    
+    // Garante pelo menos 3 dígitos (para ter 0,XX)
+    valor = valor.padStart(3, '0');
+    
+    // Adiciona a vírgula antes dos últimos 2 dígitos
     valor = valor.replace(/([0-9]{2})$/g, ",$1");
 
+    // Adiciona ponto separador de milhar
     if (valor.length > 6) {
         valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
     }
+    
+    if (valor.length > 10) {
+        valor = valor.replace(/([0-9]{3}).([0-9]{3}),([0-9]{2}$)/g, ".$1.$2,$3");
+    }
 
     elemento.value = valor;
-    if (valor == 'NaN')
-        elemento.value = '';
 
 };
 

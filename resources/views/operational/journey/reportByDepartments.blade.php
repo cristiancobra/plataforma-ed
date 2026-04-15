@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary'>
+    <a id='filter_button' class='circular-button secondary pt-2'>
         <i class="fa fa-filter" aria-hidden="true"></i>
     </a>
 
@@ -20,17 +20,22 @@
 @section('main')
 
     <div class='row'>
-        <form id="filter" action="{{ route('journey.reportUsers') }}" method="get" style="text-align: right;display:none">
+        <form id="filter" action="{{ route('journey.reportDepartments') }}" method="get"
+            style="text-align: right;display:none">
             @csrf
-            <select class="select"name="year">
-                <option class="fields" value="2021">
-                    2021
-                </option>
-                <option class="fields" value="2020">
-                    2020
-                </option>
+            <select class="select" name="year">
+                @php
+                    $currentYear = date('Y');
+                    $selectedYear = request('year', $currentYear);
+                    $startYear = 2020;
+                @endphp
+                @for ($y = $currentYear; $y >= $startYear; $y--)
+                    <option class="fields" value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>
+                        {{ $y }}
+                    </option>
+                @endfor
             </select>
-            <a class="text-button secondary" href='{{ route('journey.reportUsers') }}'>
+            <a class="text-button secondary" href='{{ route('journey.reportDepartments') }}'>
                 LIMPAR
             </a>
             <input class="text-button secondary" type="submit" value="FILTRAR">
@@ -114,47 +119,52 @@
 
 @endsection
 
-@section('js-scripts')
-    <script>
-        // esconde/exibe o filtro
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-        });
-        //gráfico pizza
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Botão de exibir/ocultar filtro
+        const filterButton = document.getElementById('filter_button');
+        const filterElement = document.getElementById('filter');
 
+        if (filterButton && filterElement) {
+            filterButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (filterElement.style.display === 'none' || filterElement.style.display === '') {
+                    filterElement.style.display = 'block';
+                } else {
+                    filterElement.style.display = 'none';
+                }
+            });
+        }
+
+        // Gráfico pizza
         var ctx = document.getElementById('chart');
         var chart = new Chart(ctx, {
             type: 'pie',
             data: {
                 labels: {!! json_encode($departmentsNames) !!},
                 datasets: [{
-                    label: 'Dataset 1',
+                    label: 'Horas',
                     data: [
-                        <?php
-                        foreach ($departments as $department) {
-                            $result = number_format($department['year'] / 3600, 0, ',', '');
-                            //    dd($result);
-                            echo json_encode($result);
-                            echo ',';
-                        }
-                        ?>
+                        @foreach ($departments as $department)
+                            {!! json_encode(round($department['year'] / 3600, 1)) !!},
+                        @endforeach
                     ],
                     backgroundColor: [
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 99, 132, 0.2)',
+                        @php
+                            $colors = ['rgba(255, 206, 86, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)', 'rgba(41, 221, 101, 0.2)', 'rgba(255, 99, 132, 0.2)'];
+                        @endphp
+                        @foreach ($departments as $department)
+                            {!! json_encode($colors[$loop->index % count($colors)]) !!},
+                        @endforeach
                     ],
                     borderColor: [
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(255, 99, 132, 1)',
+                        @php
+                            $borderColors = ['rgba(255, 206, 86, 1)', 'rgba(54, 162, 235, 1)', 'rgba(153, 102, 255, 1)', 'rgba(41, 221, 101, 1)', 'rgba(255, 99, 132, 1)'];
+                        @endphp
+                        @foreach ($departments as $department)
+                            {!! json_encode($borderColors[$loop->index % count($borderColors)]) !!},
+                        @endforeach
                     ],
                     borderWidth: 2,
                 }]
@@ -172,5 +182,5 @@
                 }
             },
         });
-    </script>
-@endsection
+    });
+</script>

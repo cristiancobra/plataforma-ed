@@ -115,8 +115,19 @@ class JourneyController extends Controller {
             $journey->save();
         }
 
+        if ($journey->end == null) {
+            $journey->status = 'fazendo';
+        } else {
+            $journey->status = 'feito';
+        }
+
+        $status = $journey->status;
+        $priority = $journey->task ? $journey->task->priority : null;
+
         return view('operational.journey.show', compact(
                         'journey',
+                        'status',
+                        'priority',
         ));
     }
 
@@ -288,7 +299,7 @@ class JourneyController extends Controller {
         if (isset($request->year)) {
             $year = $request->year;
         } else {
-            $year = date('y');
+            $year = date('Y');
         }
 
         $annualTotal = Journey::accountHoursByYear($year);
@@ -330,7 +341,6 @@ class JourneyController extends Controller {
                         'annualTotal',
                         'monthlyTotals',
                         'monthlyAverage',
-                        'annualTotal',
                         'chartBackgroundColors',
                         'chartBorderColors',
         ));
@@ -343,7 +353,7 @@ class JourneyController extends Controller {
         if (isset($request->year)) {
             $year = $request->year;
         } else {
-            $year = date('y');
+            $year = date('Y');
         }
 
         $annualTotal = Journey::accountHoursByYear($year);
@@ -366,7 +376,6 @@ class JourneyController extends Controller {
                         'months',
                         'departments',
                         'departmentsNames',
-                        'annualTotal',
                         'annualTotal',
                         'monthlyTotals',
                         'monthlyAverage',

@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary'>
+    <a id='filter_button' class='circular-button secondary pt-2'>
         <i class="fa fa-filter" aria-hidden="true"></i>
     </a>
 
@@ -21,13 +21,17 @@
     <div class='row'>
         <form id="filter" action="{{ route('journey.reportUsers') }}" method="get" style="text-align: right;display:none">
             @csrf
-            <select class="select"name="year">
-                <option class="fields" value="2021">
-                    2021
-                </option>
-                <option class="fields" value="2020">
-                    2020
-                </option>
+            <select class="select" name="year">
+                @php
+                    $currentYear = date('Y');
+                    $selectedYear = request('year', $currentYear);
+                    $startYear = 2020;
+                @endphp
+                @for ($y = $currentYear; $y >= $startYear; $y--)
+                    <option class="fields" value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>
+                        {{ $y }}
+                    </option>
+                @endfor
             </select>
             <a class="text-button secondary" href='{{ route('journey.reportUsers') }}'>
                 LIMPAR
@@ -79,18 +83,18 @@
                 {{ $user->contact->name }}
             </div>
 
-            @for ($i = 1; $i <= 12; $i++)
+            @foreach ($months as $monthKey => $month)
                 <div class="tb col justify-content-end">
                     <a
                         href="{{ route('journey.index', [
                             'user_id' => $user->id,
-                            'start' => date("$year-$i-01"),
-                            'end' => date("$year-$i-t"),
+                            'start' => date("$year-$monthKey-01"),
+                            'end' => date("$year-$monthKey-t"),
                         ]) }}">
-                        {{ number_format($user["$month $i"] / 3600, 1, ',', '.') }}
+                        {{ number_format($user[$month] / 3600, 1, ',', '.') }}
                     </a>
                 </div>
-            @endfor
+            @endforeach
             <div class="tb col justify-content-end" style='color:white;background-color: #874983;border-color: white'>
                 {{ number_format($user['year'] / 3600, 1, ',', '.') }}
             </div>
@@ -113,48 +117,41 @@
 
 @endsection
 
-@section('js-scripts')
-    <script>
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-        });
-        // esconde/exibe o filtro
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-        });
-        //gráfico pizza
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Botão de exibir/ocultar filtro
+        const filterButton = document.getElementById('filter_button');
+        const filterElement = document.getElementById('filter');
 
+        if (filterButton && filterElement) {
+            filterButton.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                if (filterElement.style.display === 'none' || filterElement.style.display === '') {
+                    filterElement.style.display = 'block';
+                } else {
+                    filterElement.style.display = 'none';
+                }
+            });
+        }
+
+        // Gráfico
         var ctx = document.getElementById('chart');
         var chart = new Chart(ctx, {
             type: 'bar',
             data: {
                 labels: {!! json_encode($namesMonths) !!},
                 datasets: [
-
-
                     @foreach ($users as $key => $user)
                         {
-                            label: {{ $user->contact->name }},
+                            label: "{{ $user->contact->name }}",
                             data: [
-
-
-                                @for ($i = 1; $i <= 12; $i++)
-                                    {{ number_format($user["$month $i"] / 3600, 0, ',', '') }},
-                                @endfor
-
+                                @foreach ($months as $month)
+                                    {{ number_format($user[$month] / 3600, 0, ',', '') }},
+                                @endforeach
                             ],
-                            backgroundColor: [
-                                '$chartBackgroundColors[{{ $key }}]',
-                            ],
-                            borderColor: [
-                                '$chartBorderColors[{{ $key }}]',
-                            ],
+                            backgroundColor: {!! json_encode($chartBackgroundColors[$key % count($chartBackgroundColors)]) !!},
+                            borderColor: {!! json_encode($chartBorderColors[$key % count($chartBorderColors)]) !!},
                             borderWidth: 2,
                         },
                     @endforeach
@@ -171,7 +168,6 @@
                         text: 'TOTAL DE HORAS POR MÊS'
                     }
                 },
-                responsive: true,
                 scales: {
                     x: {
                         stacked: true,
@@ -182,5 +178,5 @@
                 }
             },
         });
-    </script>
-@endsection
+    });
+</script>
