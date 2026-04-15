@@ -99,9 +99,9 @@ if (!function_exists('createButtonCreate')) {
         $message = 'Criar novo';
 
         if ($parameter) {
-            echo "<a class='circular-button primary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
+            echo "<a class='circular-button primary' title='$message' style='display:inline-flex;align-items:center;justify-content:center;' href=" . route($route, [$parameter => $value]) . ">";
         } else {
-            echo "<a class = 'circular-button primary' title='$message' href = " . route($route) . ">";
+            echo "<a class = 'circular-button primary' title='$message' style='display:inline-flex;align-items:center;justify-content:center;' href = " . route($route) . ">";
         }
         echo "<i class = 'fas fa-plus'></i>
                      </a>";
@@ -210,7 +210,7 @@ if (!function_exists('createButtonTrash')) {
         echo "<form style='text-decoration: none;color: black;display: inline-block' action='" . route($link, [$parameter => $model]) . "' method='post'>";
         echo "<input type='hidden' name='_method' value='PUT'>";
         echo "<input type='hidden' name='_token' value='" . csrf_token() . "' />";
-        echo "<button id='' class='circular-button $styleName' style='border:none;padding-left:4px;paddint-top:-5px' type='submit'>";
+        echo "<button id='' class='circular-button $styleName' style='border:none;display:inline-flex;align-items:center;justify-content:center;' type='submit'>";
         echo "<i class='$iconName'></i>";
         echo "</button>";
         echo "</form>";
@@ -232,8 +232,18 @@ if (!function_exists('createButtonTrashIndex')) {
             $iconName = 'fa fa-trash-restore';
         };
 
-        echo "<a class='circular-button $styleName'  href=" . $link . ">
+        echo "<a class='circular-button $styleName' style='display:inline-flex;align-items:center;justify-content:center;' href=" . $link . ">
                         <i class='$iconName' aria-hidden='true'></i>
+                    </a>";
+    }
+}
+if (!function_exists('createButtonFilter')) {
+
+    // cria um botão de filtro para exibir/ocultar o formulário de filtros
+    function createButtonFilter()
+    {
+        echo "<a id='filter_button' class='circular-button secondary' style='display:inline-flex;align-items:center;justify-content:center;'>
+                        <i class='fa fa-filter' aria-hidden='true'></i>
                     </a>";
     }
 }

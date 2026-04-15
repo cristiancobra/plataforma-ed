@@ -8,23 +8,24 @@
 
 @section('buttons')
     {{ createButtonTrashIndex($trashStatus, 'goal') }}
-    <a id='filter_button' class='circular-button secondary'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
+    {{ createButtonFilter() }}
     {{ createButtonCreate('goal') }}
 @endsection
 
 
 @section('filter')
     <form id="filter" action="{{ route('goal.index') }}" method="get" style="text-align: right">
-        <input type="text" name="name" placeholder="nome da tarefa" value="">
-        {{ createFilterSelect('department', 'select', $departments, 'Todos departamentos') }}
-        {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
-        <br>
-        <a class="text-button secondary" href='{{ route('goal.index') }}'>
-            LIMPAR
-        </a>
-        <input class="text-button primary" type="submit" value="FILTRAR">
+        <div class="mb-3">
+            <input type="text" name="name" placeholder="nome da tarefa" value="">
+            {{ createFilterSelect('department', 'select', $departments, 'Todos departamentos') }}
+            {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
+        </div>
+        <div>
+            <a class="text-button secondary" href='{{ route('goal.index') }}'>
+                LIMPAR
+            </a>
+            <input class="text-button primary" type="submit" value="FILTRAR">
+        </div>
     </form>
 @endsection
 
@@ -45,7 +46,7 @@
 
 
 @section('table')
-    <div class='row mt-2'>
+    <div class='row mt-5'>
         <div class='tb tb-header-start col-4'>
             NOME
         </div>
