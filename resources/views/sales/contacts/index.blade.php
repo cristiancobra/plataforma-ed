@@ -45,7 +45,7 @@
     <div class='col-lg-2 d-inline-block tasks-my'>
         <a style='text-decoration:none'
             href='{{ route('contact.index', [
-                'type' => 'funcionário',
+                'type' => 'equipe',
             ]) }}'>
             <p class='panel-number'>
                 {{ $employessTotal }}

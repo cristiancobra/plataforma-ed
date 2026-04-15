@@ -37,6 +37,11 @@ class ContactController extends Controller
             ->get();
         $employessTotal = $employees->count();
 
+        $staff = Contact::where('account_id', auth()->user()->account_id)
+            ->where('type', 'equipe')
+            ->get();
+        $staffTotal = $staff->count();
+
         $news = Contact::where('account_id', auth()->user()->account_id)
             ->get();
         $newsTotal = $news->count();

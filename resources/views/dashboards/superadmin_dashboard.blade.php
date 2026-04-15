@@ -108,7 +108,7 @@
             <table class="table-list">
                 <tr>
                     <td class="table-list-header" style="width: 50%">
-                        <b>FUNCIONÁRIO </b>
+                        <b>EQUIPE </b>
                     </td>
                     <td class="table-list-header" style="width: 10%">
                         HOJE

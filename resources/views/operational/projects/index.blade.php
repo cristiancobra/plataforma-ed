@@ -171,7 +171,7 @@
                         {{ $project->user->contact->name }}
                     </a>
                 @else
-                    funcionário excluído
+                    membro da equipe excluído
                 @endif
             </div>
             <div class="cel col-4 justify-content-start">

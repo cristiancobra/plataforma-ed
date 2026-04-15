@@ -120,7 +120,7 @@
         <input type="text" name="opposite_color" value="#49d194">
         <br>
         <br>
-        <label class="labels" for="">Funcionários: </label>
+        <label class="labels" for="">Equipe: </label>
         <br>
         @foreach ($users as $user)
             <p class="fields">

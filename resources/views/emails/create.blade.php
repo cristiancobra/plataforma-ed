@@ -28,7 +28,7 @@
         <form action="{{ route('email.store') }}" method="post" style="color: #874983">
             @csrf
 
-            <label class="labels" for="">FUNCIONÁRIO: </label>
+            <label class="labels" for="">EQUIPE: </label>
             {{ Auth::user()->contact->name }}
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <br>

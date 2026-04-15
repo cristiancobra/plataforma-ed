@@ -142,7 +142,7 @@
             <br>
             <br>
             <h2 class="name" for="">PERFIL</h2>
-            <label for="">Quantidade de funcionários: </label>
+            <label for="">Quantidade de membros da equipe: </label>
             <input type="number" name="employees">
             <br>
             <label for="">Quantidade de clientes: </label>

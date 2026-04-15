@@ -484,7 +484,7 @@
             {{ createReportCompetitor('Proposta de valor', $competitorReport->company->value_offer) }}
             {{ createReportCompetitor('Diferencial Competitivo', $competitorReport->company->competitive_advantage) }}
             {{ createReportCompetitor('Modelo de negócios', $competitorReport->company->business_model) }}
-            {{ createReportCompetitor('Funcionários', $competitorReport->employees) }}
+            {{ createReportCompetitor('Equipe', $competitorReport->employees) }}
             {{ createReportCompetitor('Clientes', $competitorReport->client_number) }}
             {{ createReportCompetitor('Faturamento', $competitorReport->revenues) }}
             <br>

@@ -38,6 +38,8 @@ class Roles {
             $role = "administrator";
         } elseif ($user->perfil == 'funcionário') {
             $role = "employee";
+        } elseif ($user->perfil == 'equipe') {
+            $role = "staff";
         } elseif ($user->perfil == 'cliente') {
             $role = "customer";
         } else {

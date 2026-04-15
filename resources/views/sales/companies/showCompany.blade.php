@@ -119,7 +119,7 @@
 
         <br>
         <br>
-        <h2 class="name" for="">FUNCIONÁRIOS</h2>
+        <h2 class="name" for="">EQUIPE</h2>
         @foreach ($company->contacts as $contact)
             <a class="white" href=" {{ route('contact.show', ['contact' => $contact->id]) }}">
                 <button class="button-round">

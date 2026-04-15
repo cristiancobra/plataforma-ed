@@ -83,7 +83,7 @@
                         {{ $image->user->contact->name }}
                     </a>
                 @else
-                    funcionário excluído
+                    membro da equipe excluído
                 @endif
             </div>
             <div class='tb col-1'>

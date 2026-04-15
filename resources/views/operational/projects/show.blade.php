@@ -339,7 +339,7 @@
                                             {{ $task->user->contact->name }}
                                         </a>
                                     @else
-                                        funcionário excluído
+                                        membro da equipe excluído
                                     @endif
                                 </div>
                                 <div class='cel col-1' style="font-weight: 600">

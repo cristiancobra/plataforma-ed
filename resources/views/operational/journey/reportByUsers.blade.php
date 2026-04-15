@@ -49,7 +49,7 @@
         </div>
         <div class="col-2 pt-5">
             <a class='text-button secondary' href='{{ route('journey.reportUsers') }}'>
-                FUNCIONÁRIOS
+                EQUIPE
             </a>
             <br>
             <br>
@@ -61,7 +61,7 @@
 
     <div class="row mt-4">
         <div class="tb-header-start col-2">
-            FUNCIONÁRIOS
+            EQUIPE
         </div>
         @foreach ($months as $month)
             <div class="tb-header col justify-content-center" style="width: 5%">

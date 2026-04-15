@@ -155,7 +155,7 @@
         <div class="col-6">
             <div class='row mt-0'>
                 <div class='show-label-large col'>
-                    FUNCIONÁRIOS:
+                    EQUIPE :
                 </div>
                 <div class='description-field'>
                     @foreach ($account->users as $user)

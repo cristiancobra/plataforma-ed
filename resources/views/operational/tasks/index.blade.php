@@ -137,7 +137,7 @@
                 @elseif($task->user->contact)
                     {{ $task->user->contact->name }}
                 @else
-                    funcionário excluído
+                    membro da equipe excluído
                 @endif
             </div>
             <div class='cel col-3 justify-content-start' style="font-weight: 600">

@@ -245,7 +245,7 @@
             <table class='table-list'>
                 <tr>
                     <td class='table-list-header' style='width: 40%'>
-                        FUNCIONÁRIO
+                        EQUIPE
                     </td>
                     <td class='table-list-header' style='width: 10%'>
                         HOJE

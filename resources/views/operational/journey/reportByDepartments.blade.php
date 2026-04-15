@@ -50,7 +50,7 @@
         </div>
         <div class="col-2 pt-5">
             <a class='text-button primary' href='{{ route('journey.reportUsers') }}'>
-                FUNCIONÁRIOS
+                EQUIPE
             </a>
             <br>
             <br>

@@ -35,7 +35,7 @@
                     'link' => route('account.dashboard', ['account' => auth()->user()->account_id]),
                 ],
                 [
-                    'name' => 'FUNCIONÁRIOS',
+                    'name' => 'EQUIPE',
                     'faIcon' => 'fa fa-id-card-alt',
                     'link' => route('user.index'),
                 ],

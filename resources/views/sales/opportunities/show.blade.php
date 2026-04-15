@@ -248,7 +248,7 @@
                 @endif
             </div>
             <div class='col'>
-                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for=''>Funcionários:
+                <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for=''>Equipe:
                 </label>
                 <label class='labels' style='font-size: 15px;padding-top: 5px;margin-right: 3px' for=''>
                     @if (isset($opportunity->company->employees))

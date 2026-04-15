@@ -137,6 +137,7 @@ class User extends Authenticatable implements MustVerifyEmail {
     public static function getRoles($user) {
         if ($user == 'super administrador') {
             $roles = [
+                'equipe',
                 'funcionário',
                 'administrador',
                 'dono',
@@ -156,6 +157,10 @@ class User extends Authenticatable implements MustVerifyEmail {
         } elseif($user == 'funcionário') {
             $roles = [
                 'funcionário',
+            ];
+        } elseif($user == 'equipe') {
+            $roles = [
+                'equipe',
             ];
         }
         return $roles;

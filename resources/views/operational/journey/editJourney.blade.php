@@ -19,7 +19,7 @@
         <form action=' {{ route('journey.update', ['journey' => $journey]) }} ' method='post'>
             @csrf
             @method('put')
-            <label class='labels' for=''>FUNCIONÁRIO:</label>
+            <label class='labels' for=''>EQUIPE:</label>
             <select name='user_id'>
                 <option class='fields' value='{{ $journey->user_id }}'>
                     {{ $journey->user->contact->name }}

@@ -229,7 +229,7 @@
                 @elseif(isset($project->user->contact->name))
                     {{ $project->user->contact->name }}
                 @else
-                    funcionário excluído
+                    membro da equipe excluído
                 @endif
             </div>
             <div class='cel col-1'>

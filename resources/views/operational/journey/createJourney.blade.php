@@ -26,7 +26,7 @@
     <div>
         <form action=" {{ route('journey.store') }} " method="post">
             @csrf
-            <label class="labels" for="">FUNCIONÁRIO: </label>
+            <label class="labels" for="">EQUIPE: </label>
             {{ Auth::user()->contact->name }}
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <br>

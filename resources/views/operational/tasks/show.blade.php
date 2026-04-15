@@ -349,7 +349,7 @@
             ID
         </div>
         <div class='tb tb-header col-3'>
-            FUNCIONÁRIO
+            EQUIPE
         </div>
         <div class='tb tb-header col-4'>
             OBSERVAÇÕES
