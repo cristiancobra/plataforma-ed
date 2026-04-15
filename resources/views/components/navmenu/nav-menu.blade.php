@@ -10,7 +10,7 @@
                 <img src="{{ asset('/images/logo-sciblock.png') }}" width="120px" height="40px">
             @endif
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -35,7 +35,7 @@
                 @else
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             {{ Auth::user()->contact->name }} <span class="caret"></span>
                         </a>
 
@@ -70,7 +70,7 @@
                 <a class='circular-nav-button secondary' href='{{ route('task.create') }}'>
                     <i class="fas fa-calendar-check" title='Criar nova tarefa'></i>
                 </a>
-                @if (count($tasksEmergency) > 0))
+                @if (count($tasksEmergency) > 0)
                     <a class='circular-nav-button delete'
                         href='{{ route('task.index', [
                             'status' => 'fazer',
