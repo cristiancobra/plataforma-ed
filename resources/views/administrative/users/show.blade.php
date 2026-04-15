@@ -3,7 +3,7 @@
 @section('title', 'USUÁRIOS')
 
 @section('image-top')
-    {{ asset('images/user.png') }}
+    <i class="fas fa-users"></i>
 @endsection
 
 
@@ -39,12 +39,8 @@
             </p>
             <br>
             <p class='labels'>
+                {{ createButtonShow($user->contact, 'contact', 'Visualizar contato') }}
                 DADOS PESSOAIS
-                <a class='white' href=' {{ route('contact.show', ['contact' => $user->contact_id]) }}'>
-                    <button class='button-round'>
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
             </p>
         </div>
     </div>

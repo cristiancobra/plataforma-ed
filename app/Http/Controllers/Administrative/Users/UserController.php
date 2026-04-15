@@ -52,7 +52,7 @@ class UserController extends Controller {
      */
     public function create(Request $request) {
         $contacts = Contact::where('account_id', auth()->user()->account_id)
-                ->where('type', 'equipe')
+                ->whereIn('type', ['funcionário', 'equipe'])
                 ->orderBy('NAME', 'ASC')
                 ->get();
 

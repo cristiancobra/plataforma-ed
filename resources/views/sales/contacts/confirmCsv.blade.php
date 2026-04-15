@@ -3,7 +3,7 @@
 @section('title', 'IMPORTAR CONTATOS')
 
 @section('image-top')
-    {{ asset('images/record.png') }}
+    <i class="fas fa-address-book"></i>
 @endsection
 
 @section('buttons')

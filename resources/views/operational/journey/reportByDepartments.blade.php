@@ -3,7 +3,7 @@
 @section('title', 'PRODUTIVIDADE')
 
 @section('image-top')
-    {{ asset('images/journey.png') }}
+    <i class="fas fa-users"></i>
 @endsection
 
 @section('description')

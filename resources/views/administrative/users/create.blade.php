@@ -3,7 +3,7 @@
 @section('title', 'USUÁRIOS')
 
 @section('image-top')
-    {{ asset('images/user.png') }}
+    <i class="fas fa-users"></i>
 @endsection
 
 @section('description')
@@ -28,7 +28,7 @@
             @csrf
             <label class="labels"'for="">Contato: </label>
             {{ createSelectIdName('contact_id', 'fields', $contacts, null) }}
-            {{ createButtonAdd('contact.create', 'type', 'funcionário') }}
+            {{ createButtonAdd('contact.create', 'type', 'equipe') }}
             <br>
             <label class="labels"for="">Email (login): </label>
             <input class="fields" type="text" name="email" value="{{ old('email') }}">
@@ -41,6 +41,9 @@
             <select name="perfil">
                 <option class="fields" value="administrador">
                     administrador
+                </option>
+                <option class="fields" value="equipe">
+                    equipe
                 </option>
                 <option class="fields" value="funcionario">
                     funcionário

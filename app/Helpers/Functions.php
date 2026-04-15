@@ -49,10 +49,9 @@ if (!function_exists('createButtonPlus')) {
             $route = route($route);
         }
 
-        echo "<a class='circular-button primary ms-3' title='$title' href='$route'>
+        echo "<a class='circular-button primary ms-3' title='$title' style='display:inline-flex;align-items:center;justify-content:center;' href='$route'>
                                 <i class='fa fa-plus' aria-hidden='true'></i>
-                            </a>
-                            </button>";
+                            </a>";
     }
 }
 if (!function_exists('createButtonBack')) {
@@ -74,7 +73,7 @@ if (!function_exists('createButtonCancel')) {
     {
         $message = 'Cancelar alterações';
 
-        echo "<a class='circular-button secondary' title='$message' href=" . url()->previous() . ">
+        echo "<a class='circular-button secondary' title='$message' href='" . url()->previous() . "' style='display:inline-flex;align-items:center;justify-content:center;'>
                          <i class='fas fa-times-circle'></i>
                   </a>";
     }
@@ -86,7 +85,7 @@ if (!function_exists('createButtonSave')) {
     {
         $message = 'Salvar alterações';
 
-        echo "<button id='' class='circular-button primary' title='$message' style='border:none;padding-left:4px;padding-top:2px' type='submit'>
+        echo "<button class='circular-button primary' title='$message' style='border:none;display:inline-flex;align-items:center;justify-content:center;' type='submit'>
                          <i class='fas fa-save'></i>
                   </button>";
     }
@@ -117,9 +116,9 @@ if (!function_exists('createButtonList')) {
         $message = 'Ir para lista';
 
         if ($parameter) {
-            echo "<a class='circular-button primary' title='$message' href=" . route($route, [$parameter => $value]) . ">";
+            echo "<a class='circular-button primary' title='$message' style='display:inline-flex;align-items:center;justify-content:center;' href=" . route($route, [$parameter => $value]) . ">";
         } else {
-            echo "<a class = 'circular-button primary' title='$message' href = " . route($route) . ">";
+            echo "<a class = 'circular-button primary' title='$message' style='display:inline-flex;align-items:center;justify-content:center;' href = " . route($route) . ">";
         }
         echo "<i class = 'fas fa-list'></i>
                      </a>";
@@ -128,14 +127,13 @@ if (!function_exists('createButtonList')) {
 if (!function_exists('createButtonShow')) {
 
     // cria um botao com simbolo de OLHO para adicionar visualizar um model
-    function createButtonShow($model, $parameter)
+    function createButtonShow($model, $parameter, $title = null)
     {
         $link = "$parameter.show";
-        echo "<button class = 'button-round'>";
-        echo "<a href = " . route($link, [$parameter => $model->id]) . ">";
-        echo "<i class = 'fa fa-eye' style = 'color:white'></i>";
+        $titleAttr = $title ? $title : 'Visualizar';
+        echo "<a class='button-round' title='$titleAttr' style='display:inline-flex;align-items:center;justify-content:center;' href=" . route($link, [$parameter => $model->id]) . ">";
+        echo "<i class='fa fa-eye' style='color:white'></i>";
         echo "</a>";
-        echo "</button>";
     }
 }
 // cria um botao que vai para a tela de edição do model
@@ -147,12 +145,12 @@ if (!function_exists('createButtonEdit')) {
         $message = 'Editar estas informações';
 
         if ($parameter1) {
-            echo "<a class='circular-button secondary' title='$message' href=" . route($route, [
+            echo "<a class='circular-button secondary' title='$message' style='display:inline-flex;align-items:center;justify-content:center;' href=" . route($route, [
                 $parameter1 => $value1,
                 $parameter2 => $value2,
             ]) . ">";
         } else {
-            echo "<a class = 'circular-button secondary' title='$message' href = " . route($route) . ">";
+            echo "<a class = 'circular-button secondary' title='$message' style='display:inline-flex;align-items:center;justify-content:center;' href = " . route($route) . ">";
         }
         echo "<i class = 'fas fa-edit'></i>
                      </a>";

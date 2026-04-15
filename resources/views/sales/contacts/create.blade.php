@@ -3,7 +3,7 @@
 @section('title', 'CONTATOS')
 
 @section('image-top')
-    {{ asset('images/contact.png') }}
+    <i class="fas fa-address-book"></i>
 @endsection
 
 @section('description')

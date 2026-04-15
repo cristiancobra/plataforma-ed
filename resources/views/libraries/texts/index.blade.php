@@ -262,7 +262,7 @@
                         {{ $text->user->contact->name }}
                     </a>
                 @else
-                    funcionário excluído
+                    membro da equipe excluído
                 @endif
             </div>
 

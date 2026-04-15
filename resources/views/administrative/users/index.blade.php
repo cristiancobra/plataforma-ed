@@ -3,7 +3,7 @@
 @section('title', 'USUÁRIOS')
 
 @section('image-top')
-    {{ asset('images/user.png') }}
+    <i class="fas fa-users"></i>
 @endsection
 
 @section('description')
@@ -39,6 +39,9 @@
                 NOME
             </td>
             <td class='table-list-header'>
+                PERFIL
+            </td>
+            <td class='table-list-header'>
                 EMAIL
             </td>
         </tr>
@@ -46,7 +49,7 @@
         @foreach ($users as $user)
             <tr style='font-size: 16px'>
                 <td class='table-list-center'>
-                    <div class='profile-picture-small'>
+                    <div class='profile-picture-small' style='margin: 0 auto;'>
                         <a class='white' href='{{ route('user.show', ['user' => $user->id]) }}'>
                             @if ($user->image)
                                 <img src='{{ asset('storage/' . $user->image->path) }}' width='100%' height='100%'>
@@ -57,21 +60,27 @@
                     </div>
                 </td>
                 <td class='table-list-left'>
+                    <div style='display: flex; align-items: center; gap: 8px;'>
+                        {{ createButtonShow($user, 'user', 'Visualizar usuário') }}
+                        {{ $user->contact->name }}
+                    </div>
+                </td>
 
-                    <a class='white' href=' {{ route('user.show', ['user' => $user->id]) }}'>
-                        <button class='button-round'>
-                            <i class='fa fa-eye'></i>
-                        </button>
-                    </a>
-                    {{ $user->contact->name }}
+                <td class='table-list-center'>
+                    {{ $user->perfil }}
                 </td>
 
                 <td class='table-list-left'>
-                    <a style='color: #874983' href=' mailto:{{ $user->email }} ' target='_blank'>
-                        <button class='button-round'>
-                            <i class='fa fa-envelope'></i>
-                        </button> {{ $user->email }}
-                    </a>
+                    <div style='display: flex; align-items: center; gap: 8px;'>
+                        <a style='color: #874983' href=' mailto:{{ $user->email }} ' target='_blank'>
+                            <button class='button-round'>
+                                <i class='fa fa-envelope'></i>
+                            </button>
+                        </a>
+                        <a style='color: #874983' href=' mailto:{{ $user->email }} ' target='_blank'>
+                            {{ $user->email }}
+                        </a>
+                    </div>
                 </td>
             </tr>
         @endforeach

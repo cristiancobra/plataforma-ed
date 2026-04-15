@@ -221,8 +221,9 @@ class Contact extends Model {
     public static function returnContactTypes() {
         return [
             'cliente',
-            'funcionário',
+            'equipe',
             'fornecedor',
+            'funcionário',
             'parceiro',
         ];
     }
