@@ -58,233 +58,437 @@
 @endsection
 
 @section('description')
-    {{ $contact->observations }}
+    @if ($contact->observations)
+        <div class="d-flex align-items-start">
+            <i class="fas fa-comment-dots me-2 mt-1" style="color: {{ $principalColor }}"></i>
+            <span>{{ $contact->observations }}</span>
+        </div>
+    @else
+        <span class="text-muted"><i class="fas fa-info-circle me-1"></i>Sem observações</span>
+    @endif
 @endsection
 
 @section('main')
-    <div class="row mt-5">
-        <div class="col-6">
-            <h2 class="name" for="">PESSOAL</h2>
-            <label class="labels" for="">Primeiro nome: </label> {{ $contact->first_name }}
-            <br>
-            <label class="labels" for="">Sobrenome: </label> {{ $contact->last_name }}
-            <br>
-            <label class="labels" for="">Data de nascimento: </label> {{ $contact->date_birth }}
-            <br>
-            <label class="labels" for="">CPF: </label> {{ $contact->cpf }}
+    <style>
+        .info-label {
+            font-weight: 600;
+            color: #6c757d;
+            margin-right: 8px;
+        }
 
+        .info-value {
+            color: #333;
+        }
 
-            <div class="row mt-5 mb-3">
-                <h2 class="name" for="">PROFISSIONAL</h2>
+        .info-row {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+
+    <div class="row mt-4">
+        <div class="col-lg-6">
+            <!-- SEÇÃO PESSOAL -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i class="fas fa-user me-2"></i>PESSOAL</h5>
+                </div>
+                <div class="card-body">
+                    @if ($contact->first_name)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-user-tag me-1"></i>Primeiro nome:</span>
+                            <span class="info-value">{{ $contact->first_name }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->last_name)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-user-tag me-1"></i>Sobrenome:</span>
+                            <span class="info-value">{{ $contact->last_name }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->date_birth)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-birthday-cake me-1"></i>Data de nascimento:</span>
+                            <span class="info-value">{{ date('d/m/Y', strtotime($contact->date_birth)) }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->cpf)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-id-card me-1"></i>CPF:</span>
+                            <span class="info-value">{{ $contact->cpf }}</span>
+                        </div>
+                    @endif
+                </div>
             </div>
-            <label class="labels" for="">Profissão: </label> {{ $contact->profession }}
-            <label class="labels" for="">Empresa: </label> {{ $contact->company }}
-            <label class="labels" for="">Cargo: </label> {{ $contact->job_position }}
-            <label class="labels" for="">Escolaridade: </label> {{ $contact->schollarity }}
-            <label class="labels" for="">Número USP: </label> {{ $contact->usp_id }}
-            <label class="labels" for="">Área do conhecimento 1: </label> {{ $contact->area_of_knowledge_1 }}
-            <label class="labels" for="">Área do conhecimento 2: </label> {{ $contact->area_of_knowledge_2 }}
-            <label class="labels" for="">Área do conhecimento 3: </label> {{ $contact->area_of_knowledge_3 }}
-            <label class="labels" for="">Área do conhecimento 4: </label> {{ $contact->area_of_knowledge_4 }}
-            <label class="labels" for="">Área do conhecimento 5: </label> {{ $contact->area_of_knowledge_5 }}
 
-
-
-            <div class="row mt-5 mb-3">
-                <h2 class="name" for="">CONTATOS</h2>
+            <!-- SEÇÃO PROFISSIONAL -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i class="fas fa-briefcase me-2"></i>PROFISSIONAL
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if ($contact->profession)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-user-tie me-1"></i>Profissão:</span>
+                            <span class="info-value">{{ $contact->profession }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->job_position)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-briefcase me-1"></i>Cargo:</span>
+                            <span class="info-value">{{ $contact->job_position }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->schollarity)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-graduation-cap me-1"></i>Escolaridade:</span>
+                            <span class="info-value">{{ $contact->schollarity }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->usp_id)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-university me-1"></i>Número USP:</span>
+                            <span class="info-value">{{ $contact->usp_id }}</span>
+                        </div>
+                    @endif
+                    @if (
+                        $contact->area_of_knowledge_1 ||
+                            $contact->area_of_knowledge_2 ||
+                            $contact->area_of_knowledge_3 ||
+                            $contact->area_of_knowledge_4 ||
+                            $contact->area_of_knowledge_5)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-book me-1"></i>Áreas do conhecimento:</span>
+                            <div class="mt-2">
+                                @if ($contact->area_of_knowledge_1)
+                                    <span class="badge"
+                                        style="background-color: {{ $complementaryColor }}">{{ $contact->area_of_knowledge_1 }}</span>
+                                @endif
+                                @if ($contact->area_of_knowledge_2)
+                                    <span class="badge"
+                                        style="background-color: {{ $complementaryColor }}">{{ $contact->area_of_knowledge_2 }}</span>
+                                @endif
+                                @if ($contact->area_of_knowledge_3)
+                                    <span class="badge"
+                                        style="background-color: {{ $complementaryColor }}">{{ $contact->area_of_knowledge_3 }}</span>
+                                @endif
+                                @if ($contact->area_of_knowledge_4)
+                                    <span class="badge"
+                                        style="background-color: {{ $complementaryColor }}">{{ $contact->area_of_knowledge_4 }}</span>
+                                @endif
+                                @if ($contact->area_of_knowledge_5)
+                                    <span class="badge"
+                                        style="background-color: {{ $complementaryColor }}">{{ $contact->area_of_knowledge_5 }}</span>
+                                @endif
+                            </div>
+                        </div>
+                    @endif
+                </div>
             </div>
-            <label class="labels" for="">Email: </label> {{ $contact->email }}
-            <br>
-            <label class="labels" for="">Telefone: </label> {{ $contact->phone }}
-            <br>
-            <label class="labels" for="">Site: </label> {{ $contact->site }}
-            <br>
-            <label class="labels" for="">Instagram: </label> {{ $contact->instagram }}
-            <br>
-            <label class="labels" for="">Facebook: </label> {{ $contact->facebook }}
-            <br>
-            <label class="labels" for="">Linkedin: </label> {{ $contact->linkedin }}
-            <br>
-            <label class="labels" for="">Twitter: </label> {{ $contact->twitter }}
-            <br>
-            <br>
-            <br>
-            <h2 class="name" for="">LOCALIZAÇÃO</h2>
-            <label class="labels" for="">Endereço: </label> {{ $contact->address }}
-            <br>
-            <label class="labels" for="">Cidade: </label> {{ $contact->city }}
-            <br>
-            <label class="labels" for="">Bairro: </label> {{ $contact->neighborhood }}
-            <br>
-            <label class="labels" for="">Estado: </label> {{ $contact->state }}
-            <br>
-            <label class="labels" for="">País: </label> {{ $contact->country }}
-            <br>
-            <label class="labels" for="">CEP: </label> {{ $contact->zip_code }}
-            <br>
-            <br>
-            <br>
-            <h2 class="name" for="">PERFIL</h2>
-            <label class="labels" for="">Estado civil: </label>
-            {{ $contact->civil_state }}
-            <br>
-            <label class="labels" for="">Naturalidade: </label>
-            {{ $contact->naturality }}
-            <br>
-            <label class="labels" for="">Filhos: </label>
-            {{ $contact->kids }}
-            <br>
-            <label class="labels" for="">Hobbie: </label>
-            {{ $contact->hobbie }}
-            <br>
-            <label class="labels" for="">Renda: </label>
-            {{ $contact->income }}
-            <br>
-            <label class="labels" for="">Religião: </label>
-            {{ $contact->religion }}
-            <br>
-            <label class="labels" for="">Etinia: </label>
-            {{ $contact->etinicity }}
-            <br>
-            <label class="labels" for="">Gênero: </label>
-            {{ $contact->gender }}
-            <br>
 
+            <!-- SEÇÃO CONTATOS -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i class="fas fa-envelope me-2"></i>CONTATOS</h5>
+                </div>
+                <div class="card-body">
+                    @if ($contact->email)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-envelope me-1"></i>Email:</span>
+                            <a href="mailto:{{ $contact->email }}"
+                                style="color: {{ $principalColor }}">{{ $contact->email }}</a>
+                        </div>
+                    @endif
+                    @if ($contact->phone)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-phone me-1"></i>Telefone:</span>
+                            <span class="info-value">{{ $contact->phone }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->site)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-globe me-1"></i>Site:</span>
+                            <a href="{{ $contact->site }}" target="_blank"
+                                style="color: {{ $principalColor }}">{{ $contact->site }}</a>
+                        </div>
+                    @endif
+                    @if ($contact->instagram)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fab fa-instagram me-1"></i>Instagram:</span>
+                            <span class="info-value">{{ $contact->instagram }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->facebook)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fab fa-facebook me-1"></i>Facebook:</span>
+                            <span class="info-value">{{ $contact->facebook }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->linkedin)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fab fa-linkedin me-1"></i>LinkedIn:</span>
+                            <span class="info-value">{{ $contact->linkedin }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->twitter)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fab fa-twitter me-1"></i>Twitter:</span>
+                            <span class="info-value">{{ $contact->twitter }}</span>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- SEÇÃO LOCALIZAÇÃO -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i
+                            class="fas fa-map-marker-alt me-2"></i>LOCALIZAÇÃO</h5>
+                </div>
+                <div class="card-body">
+                    @if ($contact->address)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-home me-1"></i>Endereço:</span>
+                            <span class="info-value">{{ $contact->address }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->neighborhood)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-map me-1"></i>Bairro:</span>
+                            <span class="info-value">{{ $contact->neighborhood }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->city)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-city me-1"></i>Cidade:</span>
+                            <span class="info-value">{{ $contact->city }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->state)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-map-marked-alt me-1"></i>Estado:</span>
+                            <span class="info-value">{{ $contact->state }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->country)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-flag me-1"></i>País:</span>
+                            <span class="info-value">{{ $contact->country }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->zip_code)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-mail-bulk me-1"></i>CEP:</span>
+                            <span class="info-value">{{ $contact->zip_code }}</span>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+            <!-- SEÇÃO PERFIL -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i class="fas fa-user-circle me-2"></i>PERFIL
+                    </h5>
+                </div>
+                <div class="card-body">
+                    @if ($contact->civil_state)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-heart me-1"></i>Estado civil:</span>
+                            <span class="info-value">{{ $contact->civil_state }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->naturality)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-map-pin me-1"></i>Naturalidade:</span>
+                            <span class="info-value">{{ $contact->naturality }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->kids !== null)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-baby me-1"></i>Filhos:</span>
+                            <span class="info-value">{{ $contact->kids }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->hobbie)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-gamepad me-1"></i>Hobbie:</span>
+                            <span class="info-value">{{ $contact->hobbie }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->income)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-dollar-sign me-1"></i>Renda:</span>
+                            <span class="info-value">{{ $contact->income }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->religion)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-praying-hands me-1"></i>Religião:</span>
+                            <span class="info-value">{{ $contact->religion }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->etinicity)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-users me-1"></i>Etnia:</span>
+                            <span class="info-value">{{ $contact->etinicity }}</span>
+                        </div>
+                    @endif
+                    @if ($contact->gender)
+                        <div class="info-row">
+                            <span class="info-label"><i class="fas fa-venus-mars me-1"></i>Gênero:</span>
+                            <span class="info-value">{{ $contact->gender }}</span>
+                        </div>
+                    @endif
+                </div>
+            </div>
         </div>
-        <div class="col-6">
-            <div class='row'>
-                <div class='show-label-large col'>
-                    AUTORIZAÇÕES
-                </div>
-                <div class='description-field'>
 
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="labels" for="">Dados pessoais:</label>
-                        </div>
-                        <div class="col-10">
-                            {{ createCheckboxReadOnly('authorization_data', $contact->authorization_data) }} Autorizo o
-                            armazenamento dos meus dados.
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="labels" for="">Contato:</label>
-                        </div>
-                        <div class="col-10">
-                            {{ createCheckboxReadOnly('authorization_contact', $contact->authorization_contact) }} Permito
-                            que a empresa entre em contato comigo.
+        <div class="col-lg-6">
+            <!-- AUTORIZAÇÕES -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i
+                            class="fas fa-shield-alt me-2"></i>AUTORIZAÇÕES</h5>
+                </div>
+                <div class="card-body">
+                    <div class="info-row">
+                        <div class="form-check">
+                            {{ createCheckboxReadOnly('authorization_data', $contact->authorization_data) }}
+                            <label class="form-check-label ms-2">
+                                Autorizo o armazenamento dos meus dados
+                            </label>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="labels" for="">Newsletter:</label>
+                    <div class="info-row">
+                        <div class="form-check">
+                            {{ createCheckboxReadOnly('authorization_contact', $contact->authorization_contact) }}
+                            <label class="form-check-label ms-2">
+                                Permito que a empresa entre em contato comigo
+                            </label>
                         </div>
-                        <div class="col-10">
+                    </div>
+                    <div class="info-row">
+                        <div class="form-check">
                             {{ createCheckboxReadOnly('authorization_newsletter', $contact->authorization_newsletter) }}
-                            Quero receber notícias sobre a empresa e seus produtos/serviços.
+                            <label class="form-check-label ms-2">
+                                Quero receber notícias sobre a empresa e seus produtos/serviços
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class='row mt-5'>
-                <div class='show-label-large col'>
-                    ONDE TRABALHA:
+            <!-- ONDE TRABALHA -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i class="fas fa-building me-2"></i>ONDE TRABALHA
+                    </h5>
                 </div>
-                <div class='description-field'>
+                <div class="card-body">
                     @if (!$contact->companies()->exists())
-                        <p>
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-info-circle me-1"></i>
                             Não possui empresa cadastrada
-                            {{ createButtonPlus('company.create', 'criar um ponto forte da empresa', 'typeCompanies', 'cliente') }}
+                            {{ createButtonPlus('company.create', 'criar uma empresa', 'typeCompanies', 'cliente') }}
                         </p>
                     @else
                         @foreach ($contact->companies as $company)
-                            <a class="white" href=" {{ route('company.show', ['company' => $company->id]) }}">
-                                <button class="button-round">
+                            <div class="info-row d-flex align-items-center">
+                                <a href="{{ route('company.show', ['company' => $company->id]) }}"
+                                    class="btn btn-sm me-2"
+                                    style="background-color: {{ $principalColor }}; color: white;">
                                     <i class='fa fa-eye'></i>
-                                </button>
-                            </a>
-                            {{ $company->name }}
-                            <br>
+                                </a>
+                                <span>{{ $company->name }}</span>
+                            </div>
                         @endforeach
                     @endif
                 </div>
             </div>
 
-            <div class='row mt-5'>
-                <div class='show-label-large col'>
-                    OPORTUNIDADES:
+            <!-- OPORTUNIDADES -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i
+                            class="fas fa-handshake me-2"></i>OPORTUNIDADES</h5>
                 </div>
-                <div class='description-field'>
-                    @foreach ($contact->opportunities as $opportunity)
-                        <div class="row">
-                            <a class="white"
-                                href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
-                                <button class="button-round">
+                <div class="card-body">
+                    @if ($contact->opportunities->count() > 0)
+                        @foreach ($contact->opportunities as $opportunity)
+                            <div class="info-row d-flex align-items-center">
+                                <a href="{{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}"
+                                    class="btn btn-sm me-2"
+                                    style="background-color: {{ $principalColor }}; color: white;">
                                     <i class='fa fa-eye'></i>
-                                </button>
-                            </a>
-                            {{ $opportunity->name }}
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-
-
-            <div class='row mt-5'>
-                <div class='show-label-large col'>
-                    IMAGENS ENVIADAS PELO CONTATO:
-                </div>
-                <div class='description-field'>
-                    <div class="row mt-3">
-                        @foreach ($contact->images as $image)
-                            <div class="col-6">
-                                <a class="white" href=" {{ route('image.show', ['image' => $image->id]) }}">
-                                    <img src='{{ asset($image->path) }}' style='width: 50px; height:50px'>
                                 </a>
-                                {{ $image->name }}
+                                <span>{{ $opportunity->name }}</span>
                             </div>
                         @endforeach
-                    </div>
+                    @else
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Nenhuma oportunidade cadastrada
+                        </p>
+                    @endif
                 </div>
+            </div>
 
-                @foreach ($contact->opportunities as $opportunity)
-                    <div class="row">
-                        <div class='col'>
-                            <a class="white"
-                                href=" {{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
-                                <button class="button-round">
-                                    <i class='fa fa-eye'></i>
-                                </button>
-                            </a>
-                            {{ $opportunity->name }}
+            <!-- IMAGENS -->
+            <div class="card mb-4">
+                <div class="card-header" style="background-color: {{ $principalColor }}; color: white !important;">
+                    <h5 class="mb-0" style="color: white !important;"><i class="fas fa-images me-2"></i>IMAGENS
+                        ENVIADAS</h5>
+                </div>
+                <div class="card-body">
+                    @if ($contact->images->count() > 0)
+                        <div class="row">
+                            @foreach ($contact->images as $image)
+                                <div class="col-sm-6 mb-3">
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ route('image.show', ['image' => $image->id]) }}" class="me-2">
+                                            <img src='{{ asset($image->path) }}' class="img-thumbnail"
+                                                style='width: 60px; height:60px; object-fit: cover;'>
+                                        </a>
+                                        <span class="small">{{ $image->name }}</span>
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
-                    </div>
-                @endforeach
+                    @else
+                        <p class="text-muted mb-0">
+                            <i class="fas fa-info-circle me-1"></i>
+                            Nenhuma imagem enviada
+                        </p>
+                    @endif
+                </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
 
 
-    @section('workflow')
-        <div class='row'>
-            <div class='col'>
-                <button id='' class='workflow-button-red' title='Encerrar tarefa com a data atual'
-                    type='submit'>
-                    <a style='text-decoration: none;color: white;display: inline-block'
-                        href="{{ route('task.create', [
-                            'contact' => $contact,
-                            'name' => "Vender para $contact->first_name",
-                            'department' => 'vendas',
-                        ]) }}">
-                        <i class="fas fa-funnel-dollar" style="font-size:30px; color:white;padding-bottom: 10px"></i>
-                        <br>
-                        CRIAR OPORTUNIDADE
-                    </a>
-                </button>
-            </div>
+@section('workflow')
+    <div class='row'>
+        <div class='col'>
+            <button id='' class='workflow-button-red' title='Encerrar tarefa com a data atual' type='submit'>
+                <a style='text-decoration: none;color: white;display: inline-block'
+                    href="{{ route('task.create', [
+                        'contact' => $contact,
+                        'name' => "Vender para $contact->first_name",
+                        'department' => 'vendas',
+                    ]) }}">
+                    <i class="fas fa-funnel-dollar" style="font-size:30px; color:white;padding-bottom: 10px"></i>
+                    <br>
+                    CRIAR OPORTUNIDADE
+                </a>
+            </button>
         </div>
-    @endsection
+    </div>
+@endsection

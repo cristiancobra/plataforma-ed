@@ -97,55 +97,97 @@
 
 
 @section('table')
-    <div class='row mt-5'>
-        <div class='tb tb-header-start col-3'>
-            NOME
-        </div>
-        <div class='tb tb-header col-3'>
-            ORGANIZAÇÃO
-        </div>
-        <div class='tb tb-header col-3'>
-            EMAIL
-        </div>
-        <div class='tb tb-header col-2'>
-            TELEFONE
-        </div>
-        <div class='tb tb-header-end col-1'>
-            ORIGEM
-        </div>
-    </div>
+    <style>
+        .table-contacts-header {
+            background-color: {{ $principalColor }};
+            color: white;
+            font-weight: 600;
+            padding: 15px;
+            border-radius: 5px 5px 0 0;
+        }
 
-    @foreach ($contacts as $contact)
-        <div class='row'>
-            <div class='tb col-3 justify-content-start'>
-                <a class='white' href=' {{ route('contact.show', ['contact' => $contact->id]) }}'>
-                    {{ $contact->name }}
-                </a>
+        .table-contacts-row {
+            background-color: white;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .table-contacts-row:hover {
+            background-color: #f8f9fa;
+            transform: translateX(2px);
+        }
+
+        .table-contacts-cell {
+            padding: 12px 15px;
+        }
+    </style>
+
+    <div class='card shadow-sm mt-5'>
+        <div class='row g-0 table-contacts-header'>
+            <div class='col-3 table-contacts-cell'>
+                <i class="fas fa-user me-2"></i>NOME
             </div>
-            <div class='tb col-3 justify-content-start'>
-                @if ($contact->companies)
-                    @foreach ($contact->companies as $company)
-                        <a class='white' href=' {{ route('company.show', ['company' => $company->id]) }}'>
-                            {{ $company->name }}
-                        </a>
-                    @endforeach
-                @else
-                    Não possui
-                @endif
+            <div class='col-3 table-contacts-cell'>
+                <i class="fas fa-building me-2"></i>ORGANIZAÇÃO
             </div>
-            <div class='tb col-3 justify-content-start'>
-                <a class='white' href='mailto:{{ $contact->email }}'>
-                    {{ $contact->email }}
-                </a>
+            <div class='col-3 table-contacts-cell'>
+                <i class="fas fa-envelope me-2"></i>EMAIL
             </div>
-            <div class='tb col-2'>
-                {{ $contact->phone }}
+            <div class='col-2 table-contacts-cell'>
+                <i class="fas fa-phone me-2"></i>TELEFONE
             </div>
-            <div class='tb col-1'>
-                {{ $contact->lead_source }}
+            <div class='col-1 table-contacts-cell'>
+                <i class="fas fa-tag me-1"></i>ORIGEM
             </div>
         </div>
-    @endforeach
+
+        @foreach ($contacts as $contact)
+            <div class='row g-0 table-contacts-row'>
+                <div class='col-3 table-contacts-cell'>
+                    <a href='{{ route('contact.show', ['contact' => $contact->id]) }}'
+                        style='text-decoration: none; color: {{ $principalColor }}; font-weight: 500;'>
+                        {{ $contact->name }}
+                    </a>
+                </div>
+                <div class='col-3 table-contacts-cell'>
+                    @if ($contact->companies && count($contact->companies) > 0)
+                        @foreach ($contact->companies as $company)
+                            <a href='{{ route('company.show', ['company' => $company->id]) }}'
+                                style='text-decoration: none; color: #6c757d;'>
+                                {{ $company->name }}
+                            </a>
+                            @if (!$loop->last)
+                                ,
+                            @endif
+                        @endforeach
+                    @else
+                        <span class='text-muted'>—</span>
+                    @endif
+                </div>
+                <div class='col-3 table-contacts-cell'>
+                    @if ($contact->email)
+                        <a href='mailto:{{ $contact->email }}' style='text-decoration: none; color: #6c757d;'>
+                            {{ $contact->email }}
+                        </a>
+                    @else
+                        <span class='text-muted'>—</span>
+                    @endif
+                </div>
+                <div class='col-2 table-contacts-cell text-muted'>
+                    {{ $contact->phone ?? '—' }}
+                </div>
+                <div class='col-1 table-contacts-cell'>
+                    @if ($contact->lead_source)
+                        <span class='badge' style='background-color: {{ $complementaryColor }}; color: white;'>
+                            {{ $contact->lead_source }}
+                        </span>
+                    @else
+                        <span class='text-muted'>—</span>
+                    @endif
+                </div>
+            </div>
+        @endforeach
+    </div>
 @endsection
 
 @section('paginate', $contacts->links())

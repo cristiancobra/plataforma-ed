@@ -306,6 +306,24 @@ Route::resource('textos', 'Libraries\\TextController')
         ->parameters(['textos' => 'text'])
         ->middleware('roles');
 
+// Collections (Acervo)
+Route::put('/acervo/apagar/{collection}', 'CollectionController@trash')
+        ->name('collection.trash')
+        ->middleware('roles');
+
+Route::put('/acervo/restaurar/{collection}', 'CollectionController@restore')
+        ->name('collection.restore')
+        ->middleware('roles');
+
+Route::post('/acervo/{collection}/locations', 'CollectionController@addLocation')
+        ->name('collection.add-location')
+        ->middleware('roles');
+
+Route::resource('acervo', 'CollectionController')
+        ->names('collection')
+        ->parameters(['acervo' => 'collection'])
+        ->middleware('roles');
+
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')
         ->names('competitor')

@@ -46,8 +46,10 @@
                 <section id='white-page' class='white-page' style="margin-right:200px ">
                     <div id="app">
                         <div class='row d-flex mt-4'>
-                            <div class='show-name col-8'>
-                                @yield('name')
+                            <div class='col-8'>
+                                <h2 class="fw-bold" style="color: {{ $principalColor }}">
+                                    @yield('name')
+                                </h2>
                             </div>
                             <div class='col-2'>
                                 <div-priority :priority="{{ isset($priority) ? json_encode($priority) : 'null' }}" />
@@ -77,10 +79,10 @@
                     </div>
 
                     <div class='row mt-5'>
-                        <div class='show-label-large col'>
+                        <h4 class="mb-3 fw-bold" style="color: {{ $principalColor }}">
                             DESCRIÇÃO
-                        </div>
-                        <div class='description-field'>
+                        </h4>
+                        <div class="border rounded p-3 bg-light">
                             @yield('description')
                         </div>
                     </div>

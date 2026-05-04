@@ -15,252 +15,358 @@
 @endsection
 
 @section('main')
-    <br>
+    <style>
+        .btn-submit-contact:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+            transition: all 0.2s ease;
+        }
+    </style>
+    <div class="container-fluid">
+        @if (Session::has('failed'))
+            <div class='alert alert-danger'>
+                {{ Session::get('failed') }}
+                @php
+                    Session::forget('failed');
+                @endphp
+            </div>
+        @endif
 
-    @if (Session::has('failed'))
-        <div class='alert alert-danger'>
-            {{ Session::get('failed') }}
-            @php
-                Session::forget('failed');
-            @endphp
-        </div>
-    @endif
-    <div>
         <form action='{{ route('contact.store') }}' method='post'>
             @csrf
-            <label class='labels' for=''>Origem do Lead: </label>
-            {{ createSimpleSelect('lead_source', 'fields', $leadSources) }}
-            <br>
-            <br>
-            <br>
-            <h2 class='name' for=''>PESSOAL</h2>
-            <label class='labels' for=''>Primeiro nome: </label>
-            <input type='text' name='first_name' value='{{ old('first_name') }}'>
-            @if ($errors->has('first_name'))
-                <span class='text-danger'>{{ $errors->first('first_name') }}</span>
-            @endif
-            <br>
-            <label class='labels' for=''>Sobrenome: </label>
-            <input type='text' name='last_name' value='{{ old('last_name') }}'>
-            @if ($errors->has('last_name'))
-                <span class='text-danger'>{{ $errors->first('last_name') }}</span>
-            @endif
-            <br>
-            <label class='labels' for=''>Data de Nascimento: </label>
-            <input type='date' name='date_birth'>
-            <br>
-            <label class='labels' for=''>CPF: </label>
-            <input type='text' name='cpf'>
-            <br>
-            <br>
 
-            <div class="row mt-5 mb-3">
-                <h2 class='name' for=''>PROFISSIONAL</h2>
-            </div>
-            <div class="row mt-3 mb-3">
-                <div class="col">
-                    <label class='labels' for=''>Profissão: </label>
-                    {{ createSimpleSelect('profession', 'fields', $professions) }}
-                </div>
-            </div>
-            <div class="row mt-3 mb-3">
-                <label class='labels' for='companies'>Empresa: </label>
-                <select name="companies[]" id="companies" class="fields" multiple size="10">
-                    @foreach ($companies as $company)
-                        <option value="{{ $company->id }}"
-                            {{ in_array($company->id, old('companies', [])) ? 'selected' : '' }}>
-                            {{ $company->name }}
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <div class="row mt-3 mb-3">
-                <div class="col-md-4">
-                    <label class='labels' for='job_position'>Cargo: </label>
-                    {{ createSimpleSelect('job_position', 'fields', $jobPositions) }}
-                </div>
-
-                <div class="col-md-4">
-                    <label class='labels' for=''>Escolaridade: </label>
-                    <select name='schollarity'>
-                        <option class='fields' value=''>
-                        </option>
-                        <option class='fields' value='fundamental'>
-                            ensino fundamental
-                        </option>
-                        <option class='fields' value='médio'>
-                            ensino médio
-                        </option>
-                        <option class='fields' value='superior incompleto'>
-                            superior incompleto
-                        </option>
-                        <option class='fields' value='superior completo'>
-                            superior completo
-                        </option>
-                        <option class='fields' value='pós-graduação'>
-                            pós-graduação
-                        </option>
-                        <option class='fields' value='sem escolaridade'>
-                            sem escolaridade
-                        </option>
-                    </select>
-                </div>
-                <div class="col-md-4">
-                    <label class="labels" for="usp_id">Número USP:</label>
-                    <input type="text" class="fields" name="usp_id" size="8" value="{{ old('usp_id') }}">
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label class='form-label' for='lead_source'>Origem do Lead:</label>
+                        {{ createSimpleSelect('lead_source', 'form-control', $leadSources) }}
+                    </div>
                 </div>
             </div>
 
-            <div class="row mt-3 mb-3">
-                <div class="col-md-12">
-                    <label class='labels' for=''>Áreas do conhecimento 1: </label>
-                    <input type='text' name='area_of_knowledge_1' class="fields"
-                        value="{{ old('area_of_knowledge_1') }}">
-                    <label class='labels' for=''>Áreas do conhecimento 2: </label>
-                    <input type='text' name='area_of_knowledge_2' class="fields"
-                        value="{{ old('area_of_knowledge_2') }}">
-                    <label class='labels' for=''>Áreas do conhecimento 3: </label>
-                    <input type='text' name='area_of_knowledge_3' class="fields"
-                        value="{{ old('area_of_knowledge_3') }}">
-                    <label class='labels' for=''>Áreas do conhecimento 4: </label>
-                    <input type='text' name='area_of_knowledge_4' class="fields"
-                        value="{{ old('area_of_knowledge_4') }}">
-                    <label class='labels' for=''>Áreas do conhecimento 5: </label>
-                    <input type='text' name='area_of_knowledge_5' class="fields"
-                        value="{{ old('area_of_knowledge_5') }}">
+            <!-- SEÇÃO PESSOAL -->
+            <div class="card mb-4">
+                <div class="card-header text-white" style="background-color: {{ $principalColor }}">
+                    <h4 class="mb-0"><i class="fas fa-user"></i> PESSOAL</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='first_name'>Primeiro nome:</label>
+                            <input type='text' class="form-control" id="first_name" name='first_name'
+                                value='{{ old('first_name') }}'>
+                            @if ($errors->has('first_name'))
+                                <span class='text-danger'>{{ $errors->first('first_name') }}</span>
+                            @endif
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='last_name'>Sobrenome:</label>
+                            <input type='text' class="form-control" id="last_name" name='last_name'
+                                value='{{ old('last_name') }}'>
+                            @if ($errors->has('last_name'))
+                                <span class='text-danger'>{{ $errors->first('last_name') }}</span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='date_birth'>Data de Nascimento:</label>
+                            <input type='date' class="form-control" id="date_birth" name='date_birth'
+                                value='{{ old('date_birth') }}'>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='cpf'>CPF:</label>
+                            <input type='text' class="form-control" id="cpf" name='cpf'
+                                value='{{ old('cpf') }}'>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row mt-5 mb-3">
-                <h2 class='name' for=''>CONTATOS</h2>
+
+            <!-- SEÇÃO PROFISSIONAL -->
+            <div class="card mb-4">
+                <div class="card-header text-white" style="background-color: {{ $principalColor }}">
+                    <h4 class="mb-0"><i class="fas fa-briefcase"></i> PROFISSIONAL</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class='form-label' for='profession'>Profissão:</label>
+                            <input type='text' class="form-control" id="profession" name='profession'
+                                value="{{ old('profession') }}">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class='form-label' for='companies'>Empresas:</label>
+                            <select name="companies[]" id="companies" class="form-control" multiple size="5">
+                                @foreach ($companies as $company)
+                                    <option value="{{ $company->id }}"
+                                        {{ in_array($company->id, old('companies', [])) ? 'selected' : '' }}>
+                                        {{ $company->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <small class="form-text text-muted">Segure Ctrl/Cmd para selecionar múltiplas empresas</small>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='job_position'>Cargo:</label>
+                            <input type='text' class="form-control" id="job_position" name='job_position'
+                                value="{{ old('job_position') }}">
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='schollarity'>Escolaridade:</label>
+                            <select name='schollarity' id='schollarity' class="form-control">
+                                <option value=''>Selecione...</option>
+                                <option value='fundamental' {{ old('schollarity') == 'fundamental' ? 'selected' : '' }}>
+                                    Ensino Fundamental</option>
+                                <option value='médio' {{ old('schollarity') == 'médio' ? 'selected' : '' }}>Ensino Médio
+                                </option>
+                                <option value='superior incompleto'
+                                    {{ old('schollarity') == 'superior incompleto' ? 'selected' : '' }}>Superior Incompleto
+                                </option>
+                                <option value='superior completo'
+                                    {{ old('schollarity') == 'superior completo' ? 'selected' : '' }}>Superior Completo
+                                </option>
+                                <option value='pós-graduação'
+                                    {{ old('schollarity') == 'pós-graduação' ? 'selected' : '' }}>Pós-graduação</option>
+                                <option value='sem escolaridade'
+                                    {{ old('schollarity') == 'sem escolaridade' ? 'selected' : '' }}>Sem Escolaridade
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label" for="usp_id">Número USP:</label>
+                            <input type="text" class="form-control" id="usp_id" name="usp_id"
+                                value="{{ old('usp_id') }}">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class='form-label'>Áreas do Conhecimento:</label>
+                            <input type='text' class="form-control mb-2" name='area_of_knowledge_1'
+                                placeholder="Área 1" value="{{ old('area_of_knowledge_1') }}">
+                            <input type='text' class="form-control mb-2" name='area_of_knowledge_2'
+                                placeholder="Área 2" value="{{ old('area_of_knowledge_2') }}">
+                            <input type='text' class="form-control mb-2" name='area_of_knowledge_3'
+                                placeholder="Área 3" value="{{ old('area_of_knowledge_3') }}">
+                            <input type='text' class="form-control mb-2" name='area_of_knowledge_4'
+                                placeholder="Área 4" value="{{ old('area_of_knowledge_4') }}">
+                            <input type='text' class="form-control" name='area_of_knowledge_5' placeholder="Área 5"
+                                value="{{ old('area_of_knowledge_5') }}">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <label class='labels' for=''>Email: </label>
-            <input type='text' name='email' class="fields" value='{{ old('email') }}'>
-            @if ($errors->has('email'))
-                <span class='text-danger'>{{ $errors->first('email') }}</span>
-            @endif
-            <br>
-            <label class='labels' for=''>Telefone: </label>
-            <input type='text' name='phone' class="fields">
-            <br>
-            <label class='labels' for=''>Site: </label>
-            <input type='text' name='site' class="fields">
-            <br>
-            <label class='labels' for=''>Instagram: </label>
-            <input type='text' name='instagram' class="fields">
-            <br>
-            <label class='labels' for=''>Facebook: </label>
-            <input type='text' name='facebook' class="fields">
-            <br>
-            <label class='labels' for=''>Linkedin: </label>
-            <input type='text' name='linkedin' class="fields">
-            <br>
-            <label class='labels' for=''>Twitter: </label>
-            <input type='text' name='twitter' class="fields">
-            <br>
-            <br>
-            <br>
-
-            <h2 class='name' for=''>LOCALIZAÇÃO</h2>
-            <label class='labels' for=''>Endereço: </label>
-            <input type='text' name='address'>
-            <br>
-            <label for='city'>Cidade: </label>
-            <input type='text' name='city'>
-            <br>
-            <label class='labels' for=''>Bairro: </label>
-            <input type='text' name='neighborhood'>
-            <br>
-            <label class='labels' for=''>Estado: </label>
-            {{ createDoubleSelect('state', 'fields', $states) }}
-            <br>
-            <br>
-            <label class='labels' for=''>País: </label>
-            <input type='text' name='country' value='Brasil'>
-            <br>
-            <label class='labels' for=''>CEP: </label>
-            <input type='text' name='zip_code'>
-            <br>
-            <br>
-            <br>
-
-            <h2 class='name' for=''>PERFIL</h2>
-            <p>Utilize esses dados apenas com permissão dos contatos e se você for importante para seu modelo de
-                negócio,
-                obedecendo o previsto na
-                <a href='http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709.htm'>
-                    Lei Geral de Proteção de Dados
-                </a>.
-                <br>
-                <br>
-                <label class='labels' for=''>Estado Civil: </label>
-                <select name='civil_state'>
-                    <option class='fields' value=''>
-
-                    </option>
-                    <option class='fields' value='solteiro'>
-                        solteiro(a)
-                    </option>
-                    <option class='fields' value='casado'>
-                        casado(a)
-                    </option>
-                    <option class='fields' value='divorciado'>
-                        divorciado(a)
-                    </option>
-                    <option class='fields' value='união estável'>
-                        união estável
-                    </option>
-                    <option class='fields' value='viúvo'>
-                        viúvo(a)
-                    </option>
-                </select>
-
-                <br>
-                <label class='labels' for=''>Naturalidade: </label>
-                <input type='text' name='naturality'>
-                <br>
-                <label class='labels' for=''>Filhos: </label>
-                <input type='number' name='kids'>
-                <br>
-                <label class='labels' for=''>Hobbie principal: </label>
-                {{ createSimpleSelect('hobbie', 'fields', $hobbies) }}
-                <br>
-                <label class='labels' for=''>Renda: </label>
-                <input type='text' name='income'>
-                <br>
-                <label class='labels' for=''>Religião: </label>
-                {{ createSimpleSelect('religion', 'fields', $religions) }}
-                <br>
-                <label class='labels' for=''>Etinia: </label>
-                {{ createSimpleSelect('etinicity', 'fields', $etinicities) }}
-                <br>
-                <label class='labels' for=''>Gênero: </label>
-                {{ createSimpleSelect('gender', 'fields', $genderTypes) }}
-                <br>
-                <br>
-                <label class='labels' for=''>Tipo: </label>
-                @if ($type)
-                    <input type='hidden' name='type' value='{{ Request::get('type') }}'>
-                    {{ Request::get('type') }}
-                @else
-                    {{ createSimpleSelect('type', 'fields', $contactTypes) }}
-                @endif
-                <br>
-                <br>
-                <label class='labels' for=''>observações: </label>
-                <br>
-                <textarea id='observation' name='observation' rows='10' cols='90'>
-            </textarea>
-
-            <div class="row mt-3 mb-3">
-                <label for='status'>SITUAÇÃO: </label>
-                <select class='fields' name='status'>
-                    <option value='ativo'>ativo</option>
-                    <option value='pendente'>pendente</option>
-                    <option value='desativado'>desativado</option>
-                </select>
+            <!-- SEÇÃO CONTATOS -->
+            <div class="card mb-4">
+                <div class="card-header text-white" style="background-color: {{ $principalColor }}">
+                    <h4 class="mb-0"><i class="fas fa-envelope"></i> CONTATOS</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='email'>Email:</label>
+                            <input type='email' class="form-control" id="email" name='email'
+                                value='{{ old('email') }}'>
+                            @if ($errors->has('email'))
+                                <span class='text-danger'>{{ $errors->first('email') }}</span>
+                            @endif
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='phone'>Telefone:</label>
+                            <input type='text' class="form-control" id="phone" name='phone'
+                                value='{{ old('phone') }}'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='site'>Site:</label>
+                            <input type='url' class="form-control" id="site" name='site'
+                                value='{{ old('site') }}' placeholder="https://">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class='form-label' for='instagram'>Instagram:</label>
+                            <input type='text' class="form-control" id="instagram" name='instagram'
+                                value='{{ old('instagram') }}' placeholder="@usuario">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='facebook'>Facebook:</label>
+                            <input type='text' class="form-control" id="facebook" name='facebook'
+                                value='{{ old('facebook') }}'>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='linkedin'>LinkedIn:</label>
+                            <input type='text' class="form-control" id="linkedin" name='linkedin'
+                                value='{{ old('linkedin') }}'>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='twitter'>Twitter:</label>
+                            <input type='text' class="form-control" id="twitter" name='twitter'
+                                value='{{ old('twitter') }}' placeholder="@usuario">
+                        </div>
+                    </div>
+                </div>
             </div>
-            <input class='btn btn-secondary' type='submit' value='CRIAR'>
+
+            <!-- SEÇÃO LOCALIZAÇÃO -->
+            <div class="card mb-4">
+                <div class="card-header text-white" style="background-color: {{ $principalColor }}">
+                    <h4 class="mb-0"><i class="fas fa-map-marker-alt"></i> LOCALIZAÇÃO</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label class='form-label' for='address'>Endereço:</label>
+                            <input type='text' class="form-control" id="address" name='address'
+                                value='{{ old('address') }}'>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='zip_code'>CEP:</label>
+                            <input type='text' class="form-control" id="zip_code" name='zip_code'
+                                value='{{ old('zip_code') }}'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 mb-3">
+                            <label class='form-label' for='city'>Cidade:</label>
+                            <input type='text' class="form-control" id="city" name='city'
+                                value='{{ old('city') }}'>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='neighborhood'>Bairro:</label>
+                            <input type='text' class="form-control" id="neighborhood" name='neighborhood'
+                                value='{{ old('neighborhood') }}'>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <label class='form-label' for='state'>Estado:</label>
+                            {{ createDoubleSelect('state', 'form-control', $states) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class='form-label' for='country'>País:</label>
+                            <input type='text' class="form-control" id="country" name='country'
+                                value='{{ old('country', 'Brasil') }}'>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO PERFIL -->
+            <div class="card mb-4">
+                <div class="card-header text-white" style="background-color: {{ $principalColor }}">
+                    <h4 class="mb-0"><i class="fas fa-user-circle"></i> PERFIL</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-info" role="alert">
+                        <small>
+                            <i class="fas fa-info-circle"></i>
+                            Utilize esses dados apenas com permissão dos contatos e se for importante para seu modelo de
+                            negócio,
+                            obedecendo o previsto na
+                            <a href='http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/L13709.htm'
+                                target="_blank" class="alert-link">
+                                Lei Geral de Proteção de Dados
+                            </a>.
+                        </small>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='civil_state'>Estado Civil:</label>
+                            <select name='civil_state' id='civil_state' class="form-control">
+                                <option value=''>Selecione...</option>
+                                <option value='solteiro' {{ old('civil_state') == 'solteiro' ? 'selected' : '' }}>
+                                    Solteiro(a)</option>
+                                <option value='casado' {{ old('civil_state') == 'casado' ? 'selected' : '' }}>Casado(a)
+                                </option>
+                                <option value='divorciado' {{ old('civil_state') == 'divorciado' ? 'selected' : '' }}>
+                                    Divorciado(a)</option>
+                                <option value='união estável'
+                                    {{ old('civil_state') == 'união estável' ? 'selected' : '' }}>União Estável</option>
+                                <option value='viúvo' {{ old('civil_state') == 'viúvo' ? 'selected' : '' }}>Viúvo(a)
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='naturality'>Naturalidade:</label>
+                            <input type='text' class="form-control" id="naturality" name='naturality'
+                                value='{{ old('naturality') }}'>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='kids'>Filhos:</label>
+                            <input type='number' class="form-control" id="kids" name='kids' min="0"
+                                value='{{ old('kids') }}'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='hobbie'>Hobbie Principal:</label>
+                            {{ createSimpleSelect('hobbie', 'form-control', $hobbies) }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='religion'>Religião:</label>
+                            {{ createSimpleSelect('religion', 'form-control', $religions) }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='income'>Renda:</label>
+                            <input type='text' class="form-control" id="income" name='income'
+                                value='{{ old('income') }}'>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='etinicity'>Etnia:</label>
+                            {{ createSimpleSelect('etinicity', 'form-control', $etinicities) }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='gender'>Gênero:</label>
+                            {{ createSimpleSelect('gender', 'form-control', $genderTypes) }}
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class='form-label' for='type'>Tipo:</label>
+                            @if ($type)
+                                <input type='hidden' name='type' value='{{ Request::get('type') }}'>
+                                <input type='text' class="form-control" value='{{ Request::get('type') }}' disabled>
+                            @else
+                                {{ createSimpleSelect('type', 'form-control', $contactTypes) }}
+                            @endif
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class='form-label' for='observation'>Observações:</label>
+                            <textarea id='observation' name='observation' rows='5' class="form-control">{{ old('observation') }}</textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label class='form-label' for='status'>Situação:</label>
+                            <select class='form-control' id='status' name='status'>
+                                <option value='ativo' {{ old('status', 'ativo') == 'ativo' ? 'selected' : '' }}>Ativo
+                                </option>
+                                <option value='pendente' {{ old('status') == 'pendente' ? 'selected' : '' }}>Pendente
+                                </option>
+                                <option value='desativado' {{ old('status') == 'desativado' ? 'selected' : '' }}>
+                                    Desativado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4 text-end">
+                <button type='submit' class='btn text-white btn-submit-contact'
+                    style="background-color: {{ $principalColor }};">
+                    <i class="fas fa-save"></i>
+                </button>
+            </div>
         </form>
     </div>
 @endsection

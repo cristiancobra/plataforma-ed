@@ -258,11 +258,17 @@ if (!function_exists('createFilterSelect')) {
             $allLabel
             </option>";
         }
-        foreach ($options as $option) {
-            if (old($name) == $option) {
-                echo "<option value = '$option' selected = 'selected'>$option</option><br>";
+        foreach ($options as $key => $value) {
+            // Verifica se é array associativo ou indexado
+            $optionValue = is_string($key) ? $key : $value;
+            $optionLabel = $value;
+            
+            // Verifica tanto old (POST) quanto request (GET)
+            $currentValue = old($name) ?? request($name);
+            if ($currentValue == $optionValue) {
+                echo "<option value = '$optionValue' selected = 'selected'>$optionLabel</option><br>";
             } else {
-                echo "<option value = '$option'>$option</option><br>";
+                echo "<option value = '$optionValue'>$optionLabel</option><br>";
             }
         }
         echo "</select>";
@@ -364,12 +370,20 @@ if (!function_exists('createOpportunitySelect')) {
 if (!function_exists('createSelectUsers')) {
 
     // cria as um select com os usuários disponíveis com ID e Name
-    function createSelectUsers($class, $users)
+    function createSelectUsers($class, $users, $allLabel = null)
     {
-        echo "<select class=$class name='user_id'  style = 'width:130px'>
-            <option  class=$class value='" . Auth::user()->id . "'>Eu</option>";
+        echo "<select class=$class name='user_id'  style = 'width:130px'>";
+        
+        if ($allLabel) {
+            echo "<option class='$class' value=''>$allLabel</option>";
+        } else {
+            echo "<option class='$class' value='" . Auth::user()->id . "'>Eu</option>";
+        }
+        
+        $currentValue = old('user_id') ?? request('user_id');
+        
         foreach ($users as $user) {
-            if (old('user_id') == $user->id) {
+            if ($currentValue == $user->id) {
                 echo "<option class='$class' value='$user->id' selected='selected'>" . $user->contact->name . "</option><br>";
             } else {
                 echo "<option class='$class' value='$user->id'>" . $user->contact->name . "</option><br>";
@@ -466,15 +480,19 @@ if (!function_exists('createSimpleSelect')) {
     {
         echo "<select class='$class' name='$name' style='width:100%'>";
 
-        foreach ($options as $option) {
+        foreach ($options as $key => $value) {
+            // Verifica se é array associativo ou indexado
+            $optionValue = is_string($key) ? $key : $value;
+            $optionLabel = $value;
+            
             $selected = '';
 
             // Verifica se é o valor atual ou old
-            if (old($name) == $option || ($currentValue == $option && !old($name))) {
+            if (old($name) == $optionValue || ($currentValue == $optionValue && !old($name))) {
                 $selected = 'selected';
             }
 
-            echo "<option value='$option' $selected>$option</option>";
+            echo "<option value='$optionValue' $selected>$optionLabel</option>";
         }
 
         echo "</select>";

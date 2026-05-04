@@ -56,13 +56,13 @@
              border-radius: 0px 0px 10px 10px;
              '>
                 <div class="col d-inline-block">
-                    <a style='text-decoration:none' href='{{ route('text.create') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('text.create') }}'>
                         <i class='fas fa-plus-circle ps-2 pe-2' title='novo documento'></i>
                     </a>
-                    <a style='text-decoration:none' href='{{ route('text.index') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('text.index') }}'>
                         <i class='fas fa-list-alt ps-2 pe-2' title='todos os documentos'></i>
                     </a>
-                    <a style='text-decoration:none'
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}'
                         href='{{ route('text.index', [
                             'user_id' => auth()->user()->id,
                         ]) }}'>
@@ -116,13 +116,13 @@
              border-radius: 0px 0px 10px 10px;
              '>
                 <div class="col d-inline-block">
-                    <a style='text-decoration:none' href='{{ route('image.create') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('image.create') }}'>
                         <i class='fas fa-plus-circle ps-2 pe-2' title='subir nova imagem'></i>
                     </a>
-                    <a style='text-decoration:none' href='{{ route('image.index') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('image.index') }}'>
                         <i class='fas fa-list-alt ps-2 pe-2' title='todas as imagens'></i>
                     </a>
-                    <a style='text-decoration:none'
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}'
                         href='{{ route('image.index', [
                             'user_id' => auth()->user()->id,
                         ]) }}'>
@@ -132,6 +132,66 @@
             </div>
         </div>
         <!--fim do bloco de IMAGENS-->
+
+
+        <!--     começo bloco de ACERVO-->
+        <div class='col-2'
+            style='
+         text-shadow: 2px 2px 4px #000000;
+         border-color:{{ $complementaryColor }};
+         background-color:{{ $complementaryColor }};
+         border-style: solid;
+         border-width: 4px;
+         margin-left: 20px;
+         margin-right: 20px;
+         margin-top: 10px;
+         padding-top: 10px;
+         border-radius: 10px;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         text-decoration:none;
+         '>
+            <!--lícone do título-->
+            <div class='row'>
+                <div class='col panel-text pt-2'>
+                    <i class='fas fa-archive' style='font-size:36px; color:white'></i>
+                </div>
+            </div>
+            <!--linha do título-->
+            <div class='row pb-2'>
+                <div class='col panel-text pt-3'>
+                    ACERVO
+                </div>
+            </div>
+            <!--linha dos botoes-->
+            <div class='row d-flex justify-content-center'
+                style='
+             font-size: 20px;
+             font-weight: 600;
+             color: {{ $complementaryColor }};
+             background-color: white;
+             text-shadow: none;
+             padding-top: 10px;
+             padding-bottom: 10px;
+             text-align: center;
+             border-radius: 0px 0px 10px 10px;
+             '>
+                <div class="col d-inline-block">
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('collection.create') }}'>
+                        <i class='fas fa-plus-circle ps-2 pe-2' title='novo item do acervo'></i>
+                    </a>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('collection.index') }}'>
+                        <i class='fas fa-list-alt ps-2 pe-2' title='todos os itens do acervo'></i>
+                    </a>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}'
+                        href='{{ route('collection.index', [
+                            'user_id' => auth()->user()->id,
+                        ]) }}'>
+                        <i class='fas fa-paperclip ps-2 pe-2' title='meus itens do acervo'></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--fim do bloco de ACERVO-->
 
 
         <!--     começo bloco de REDES SOCIAIS-->
@@ -176,10 +236,10 @@
              border-radius: 0px 0px 10px 10px;
              '>
                 <div class="col d-inline-block">
-                    <a style='text-decoration:none' href='{{ route('socialmedia.create') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('socialmedia.create') }}'>
                         <i class='fas fa-plus-circle ps-2 pe-2' title='nova rede social'></i>
                     </a>
-                    <a style='text-decoration:none' href='{{ route('socialmedia.index') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('socialmedia.index') }}'>
                         <i class='fas fa-list-alt ps-2 pe-2' title='todos as redes'></i>
                     </a>
                 </div>
@@ -229,16 +289,23 @@
              border-radius: 0px 0px 10px 10px;
              '>
                 <div class="col d-inline-block">
-                    <a style='text-decoration:none' href='{{ route('page.create') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('page.create') }}'>
                         <i class='fas fa-plus-circle ps-2 pe-2' title='nova página'></i>
                     </a>
-                    <a style='text-decoration:none' href='{{ route('page.index') }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('page.index') }}'>
                         <i class='fas fa-list-alt ps-2 pe-2' title='todas as páginas'></i>
                     </a>
                 </div>
             </div>
         </div>
         <!--fim do bloco de PÁGINAS-->
+
+        <!--fim da LINHA 1 de blocos-->
+    </div>
+
+
+    <!--     linha 2 de blocos-->
+    <div class='row mt-4'>
 
 
         <!--     começo bloco de LOJA-->
@@ -284,28 +351,23 @@
              '>
                 <div class="col d-inline-block">
                     @if ($shop == null)
-                        <a style='text-decoration:none' href='{{ route('shop.create') }}'>
+                        <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('shop.create') }}'>
                             <i class='fas fa-plus-circle ps-2 pe-2' title='criar loja'></i>
                         </a>
                     @else
-                        <a style='text-decoration:none' href='{{ route('shop.edit', ['shop' => $shop]) }}'>
+                        <a style='text-decoration:none;color:{{ $oppositeColor }}'
+                            href='{{ route('shop.edit', ['shop' => $shop]) }}'>
                             <i class='fas fa-edit ps-2 pe-2' title='editar loja'></i>
                         </a>
                     @endif
-                    <a style='text-decoration:none' href='{{ route('product.index', ['variation' => 'receita']) }}'>
+                    <a style='text-decoration:none;color:{{ $oppositeColor }}'
+                        href='{{ route('product.index', ['variation' => 'receita']) }}'>
                         <i class='fas fa-list-alt ps-2 pe-2' title='ver produtos'></i>
                     </a>
                 </div>
             </div>
         </div>
         <!--fim do bloco de LOJA-->
-
-        <!--fim da LINHA 1 de blocos-->
-    </div>
-
-
-    <!--     linha 2 de blocos-->
-    <div class='row mt-4'>
 
 
         <!--     começo bloco de RELATÓRIOS-->
