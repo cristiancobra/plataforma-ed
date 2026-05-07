@@ -11,20 +11,17 @@
 
 @section('main')
 
-    <!--     linha 1 de blocos-->
-    <div class='row'>
+    <!--     blocos do painel - responsivo com quebra automática -->
+    <div class='row' style='display: flex; flex-wrap: wrap; gap: 3rem; padding: 2rem; justify-content: center;'>
 
         <!--     começo bloco de TEXTOS-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $complementaryColor }};
          background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -75,16 +72,13 @@
 
 
         <!--     começo bloco de IMAGENS-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $complementaryColor }};
          background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -134,77 +128,15 @@
         <!--fim do bloco de IMAGENS-->
 
 
-        <!--     começo bloco de ACERVO-->
-        <div class='col-2'
-            style='
-         text-shadow: 2px 2px 4px #000000;
-         border-color:{{ $complementaryColor }};
-         background-color:{{ $complementaryColor }};
-         border-style: solid;
-         border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
-         padding-top: 10px;
-         border-radius: 10px;
-         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-         text-decoration:none;
-         '>
-            <!--lícone do título-->
-            <div class='row'>
-                <div class='col panel-text pt-2'>
-                    <i class='fas fa-archive' style='font-size:36px; color:white'></i>
-                </div>
-            </div>
-            <!--linha do título-->
-            <div class='row pb-2'>
-                <div class='col panel-text pt-3'>
-                    ACERVO
-                </div>
-            </div>
-            <!--linha dos botoes-->
-            <div class='row d-flex justify-content-center'
-                style='
-             font-size: 20px;
-             font-weight: 600;
-             color: {{ $complementaryColor }};
-             background-color: white;
-             text-shadow: none;
-             padding-top: 10px;
-             padding-bottom: 10px;
-             text-align: center;
-             border-radius: 0px 0px 10px 10px;
-             '>
-                <div class="col d-inline-block">
-                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('collection.create') }}'>
-                        <i class='fas fa-plus-circle ps-2 pe-2' title='novo item do acervo'></i>
-                    </a>
-                    <a style='text-decoration:none;color:{{ $oppositeColor }}' href='{{ route('collection.index') }}'>
-                        <i class='fas fa-list-alt ps-2 pe-2' title='todos os itens do acervo'></i>
-                    </a>
-                    <a style='text-decoration:none;color:{{ $oppositeColor }}'
-                        href='{{ route('collection.index', [
-                            'user_id' => auth()->user()->id,
-                        ]) }}'>
-                        <i class='fas fa-paperclip ps-2 pe-2' title='meus itens do acervo'></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <!--fim do bloco de ACERVO-->
-
 
         <!--     começo bloco de REDES SOCIAIS-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $complementaryColor }};
          background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -248,16 +180,13 @@
         <!--fim do bloco de REDES SOCIAIS-->
 
         <!--     começo bloco de PÁGINAS-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $complementaryColor }};
          background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -300,25 +229,14 @@
         </div>
         <!--fim do bloco de PÁGINAS-->
 
-        <!--fim da LINHA 1 de blocos-->
-    </div>
-
-
-    <!--     linha 2 de blocos-->
-    <div class='row mt-4'>
-
-
         <!--     começo bloco de LOJA-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $complementaryColor }};
          background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 10px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -371,16 +289,13 @@
 
 
         <!--     começo bloco de RELATÓRIOS-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $oppositeColor }};
          background-color:{{ $oppositeColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -425,16 +340,13 @@
 
 
         <!--     começo bloco de PÚBLICO-ALVO-->
-        <div class='col-2'
+        <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
          border-color:{{ $oppositeColor }};
          background-color:{{ $oppositeColor }};
          border-style: solid;
          border-width: 4px;
-         margin-left: 20px;
-         margin-right: 20px;
-         margin-top: 10px;
          padding-top: 10px;
          border-radius: 10px;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -474,9 +386,7 @@
         </div>
         <!--fim do bloco de PÚBLICO-ALVO-->
 
-
-
-        <!--fim da LINHA 2 de blocos-->
     </div>
+    <!--fim dos blocos do painel-->
 
 @endsection

@@ -246,13 +246,6 @@
     </table>
 
     <script>
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-        });
-
         //gráfico de linhas
 
         <?php

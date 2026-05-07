@@ -10,9 +10,7 @@
 @endsection
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary pt-2'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
+    {{ createButtonFilter() }}
 
     {{ createButtonList('journey') }}
 @endsection

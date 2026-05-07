@@ -1,45 +1,66 @@
 @extends('layouts/index')
 
-@if ($type == 'receita')
-    @section('title', 'PROPOSTAS')
-@else
-    @section('title', 'DESPESAS')
-@endif
+@section('title', $config['title'])
 
 @section('image-top')
-    {{ asset('images/proposal.png') }}
+    <i class="{{ $config['icon'] }}"></i>
 @endsection
 
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
+    {{ createButtonFilter() }}
     {{ createButtonTrashIndex($trashStatus, 'proposal') }}
 
     {{ createButtonCreate('proposal', 'type', $type) }}
 @endsection
 
 @section('table')
-    <div class="row mb-5">
-        <form id="filter" action="{{ route('proposal.index') }}" method="get" style="text-align: right;display:inline">
+    <div class="row mb-4" id="filter" style="display:none;">
+        <form action="{{ route('proposal.index') }}" method="get">
             <input type="hidden" name="type" value="{{ $type }}">
-            <input type="text" name="name" placeholder="nome da oportunidade" value="">
-            <input type="date" name="date_start" size="20" value="{{ old('date_start') }}">
-            <input type="date" name="date_end" size="20" value="{{ old('date_end') }}">
-            {{ createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas') }}
-            {{ createFilterSelectModels('contact_id', 'select', $contacts, 'Todas os contatos') }}
-            {{ createFilterSelectModels('product_id', 'select', $products, 'Todos os produtos') }}
-            {{ createFilterSelect('status', 'select', returnInvoiceStatusToFilter(), 'Todas as situações') }}
-            <br>
-            <a class="text-button secondary" href='{{ route('proposal.index', ['type' => $type]) }}'>
-                LIMPAR
-            </a>
-            <input class="text-button primary" type="submit" value="FILTRAR">
+
+            <div class="row g-2 mb-3">
+                <div class="col-md-4">
+                    <input type="text" class="form-control form-control-sm" name="name"
+                        placeholder="Nome da oportunidade" value="{{ request('name') }}">
+                </div>
+                <div class="col-md-2">
+                    <input type="date" class="form-control form-control-sm" name="date_start"
+                        value="{{ request('date_start') ?? old('date_start') }}">
+                </div>
+                <div class="col-md-2">
+                    <input type="date" class="form-control form-control-sm" name="date_end"
+                        value="{{ request('date_end') ?? old('date_end') }}">
+                </div>
+                <div class="col-md-4">
+                    {{ createFilterSelectModels('company_id', '', $companies, 'Todas as empresas') }}
+                </div>
+            </div>
+
+            <div class="row g-2 mb-3">
+                <div class="col-md-4">
+                    {{ createFilterSelectModels('contact_id', '', $contacts, 'Todos os contatos') }}
+                </div>
+                <div class="col-md-4">
+                    {{ createFilterSelectModels('product_id', '', $products, 'Todos os produtos') }}
+                </div>
+                <div class="col-md-4">
+                    {{ createFilterSelect('status', '', returnInvoiceStatusToFilter(), 'Todas as situações') }}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 text-end">
+                    <a class="text-button secondary" href='{{ route('proposal.index', ['type' => $type]) }}'>
+                        LIMPAR
+                    </a>
+                    <input class="text-button primary" type="submit" value="FILTRAR">
+                </div>
+            </div>
         </form>
     </div>
 
-    <div class='row  table-header mt-2 mb-2' style="background-color: {{ $principalColor }}">
+    <div class='row  table-header mt-5 mb-2' style="background-color: {{ $principalColor }}">
         <div class="col-4">
             NOME
         </div>
@@ -47,11 +68,7 @@
             CONTATO
         </div>
         <div class="col-2">
-            @if ($type == 'receita')
-                CONTRATANTE
-            @else
-                FORNECEDOR
-            @endif
+            {{ $config['companyLabel'] }}
         </div>
         <div class="col-1">
             VENCIMENTO
@@ -138,16 +155,4 @@
         {{ $proposals->links() }}
     </p>
     <br>
-@endsection
-
-@section('js-scripts')
-    <script>
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-
-        });
-    </script>
 @endsection

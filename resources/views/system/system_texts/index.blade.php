@@ -7,9 +7,7 @@
 @endsection
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
+    {{ createButtonFilter() }}
     {{ createButtonCreate('systemText') }}
 @endsection
 

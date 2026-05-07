@@ -12,9 +12,7 @@
 
 @section('buttons')
     {{ createButtonTrashIndex(request('trash'), 'product', $variation) }}
-    <a id='filter_button' class='circular-button secondary'>
-        <i class='fa fa-filter' aria-hidden='true'></i>
-    </a>
+    {{ createButtonFilter() }}
     <a class='circular-button primary' href='{{ route('product.create', ['variation' => $variation]) }}'>
         <i class='fa fa-plus' aria-hidden='true'></i>
     </a>
@@ -109,13 +107,4 @@
     @endsection
 
     @section('js-scripts')
-        <script>
-            $(document).ready(function() {
-                //botao de exibir filtro
-                $('#filter_button').click(function() {
-                    $('#filter').slideToggle(600);
-                });
-
-            });
-        </script>
     @endsection

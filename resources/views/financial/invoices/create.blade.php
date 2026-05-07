@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-    {{ asset('images/invoice.png') }}
+    <i class="fas fa-box"></i>
 @endsection
 
 @section('description')

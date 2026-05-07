@@ -12,9 +12,7 @@
 
 @section('buttons')
     {{ createButtonTrashIndex($trashStatus, 'transaction') }}
-    <a id='filter_button' class='circular-button secondary'>
-        <i class='fa fa-filter' aria-hidden='true'></i>
-    </a>
+    {{ createButtonFilter() }}
     <a id='export' class='circular-button secondary' href='{{ route('transaction.export') }}'
         onclick='exportTasks(event.target);'>
         <i class='fa fa-table' aria-hidden='true'></i>
@@ -254,14 +252,6 @@
 
 @section('js-scripts')
     <script>
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $('#filter_button').click(function() {
-                $('#filter').slideToggle(600);
-            });
-
-        });
-
         // exportar em CSV
         function exportTasks(_this) {
             let _url = $(_this).data('href');

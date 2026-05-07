@@ -242,9 +242,35 @@ if (!function_exists('createButtonFilter')) {
     // cria um botão de filtro para exibir/ocultar o formulário de filtros
     function createButtonFilter()
     {
-        echo "<a id='filter_button' class='circular-button secondary' style='display:inline-flex;align-items:center;justify-content:center;'>
+        echo "<a id='filter_button' class='circular-button secondary' style='display:inline-flex;align-items:center;justify-content:center;' onclick='toggleFilter()'>
                         <i class='fa fa-filter' aria-hidden='true'></i>
-                    </a>";
+                    </a>
+                    <script>
+                        function toggleFilter() {
+                            const filter = document.getElementById('filter');
+                            if (filter.style.display === 'none' || filter.style.display === '') {
+                                filter.style.display = 'block';
+                                setTimeout(() => {
+                                    filter.style.opacity = '1';
+                                    filter.style.maxHeight = '1000px';
+                                }, 10);
+                            } else {
+                                filter.style.opacity = '0';
+                                filter.style.maxHeight = '0';
+                                setTimeout(() => {
+                                    filter.style.display = 'none';
+                                }, 300);
+                            }
+                        }
+                        // Adicionar estilos de transição
+                        document.addEventListener('DOMContentLoaded', function() {
+                            const filter = document.getElementById('filter');
+                            if (filter) {
+                                filter.style.transition = 'opacity 0.3s ease, max-height 0.3s ease';
+                                filter.style.overflow = 'hidden';
+                            }
+                        });
+                    </script>";
     }
 }
 if (!function_exists('createFilterSelect')) {
@@ -252,7 +278,7 @@ if (!function_exists('createFilterSelect')) {
     // cria as opções de um select recebendo NOME, CLASSE e array OPÇÕES
     function createFilterSelect($name, $class, array $options, $allLabel = null)
     {
-        echo "<select class = '$class' name = '$name' style = 'width:130px'>";
+        echo "<select class = 'form-select form-select-sm $class' name = '$name'>";
         if ($allLabel) {
             echo "<option class = 'select' value = ''>
             $allLabel
@@ -279,7 +305,7 @@ if (!function_exists('createFilterSelectModels')) {
     // cria as opções de um select recebendo NOME, CLASSE e um MODEL, que exibirá NAME e salvará ID e uma label para todos
     function createFilterSelectModels($name, $class, $models, $allLabel = null)
     {
-        echo "<select class = '$class' name = '$name' style = 'width:130px'>";
+        echo "<select class = 'form-select form-select-sm $class' name = '$name'>";
         if ($allLabel) {
             echo "<option class = 'select' value = ''>
             $allLabel

@@ -7,9 +7,7 @@
 @endsection
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
+    {{ createButtonFilter() }}
     <a class="circular-button primary" href="{{ route('page.create') }}">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>

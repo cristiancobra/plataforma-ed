@@ -118,6 +118,18 @@
 
     <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
+            <a class='stretched-link' href='{{ route('collection.index') }}' style="color: {{ $principalColor }}">
+            </a>
+            <i class="fas fa-archive"></i>
+            <p class="mb-0"style='font-size:10px'>
+                ACERVO
+            </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="row pt-2">
+        <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
             <a class='stretched-link' href='{{ route('dashboard.support') }}' style="color: {{ $principalColor }}">
             </a>
             <i class="fas fa-question-circle"></i>

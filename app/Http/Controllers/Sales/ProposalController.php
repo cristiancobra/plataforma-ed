@@ -58,6 +58,22 @@ class ProposalController extends Controller {
 
         $total = $proposals->total();
 
+        // Configuração de labels baseado no tipo
+        $typeConfig = [
+            'receita' => [
+                'title' => 'PROPOSTAS',
+                'companyLabel' => 'CONTRATANTE',
+                'icon' => 'fas fa-donate'
+            ],
+            'despesa' => [
+                'title' => 'DESPESAS',
+                'companyLabel' => 'FORNECEDOR',
+                'icon' => 'fas fa-box'
+            ],
+        ];
+        
+        $config = $typeConfig[$type] ?? $typeConfig['receita'];
+
         return view('sales.proposals.index', compact(
                         'proposals',
                         'contacts',
@@ -68,6 +84,7 @@ class ProposalController extends Controller {
                         'total',
                         'type',
                         'trashStatus',
+                        'config'
         ));
     }
 

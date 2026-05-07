@@ -7,9 +7,7 @@
 @endsection
 
 @section('buttons')
-    <a id='filter_button' class='circular-button secondary'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
+    {{ createButtonFilter() }}
     {{ createButtonTrashIndex($trashStatus, 'project') }}
 
     {{ createButtonCreate('project') }}
@@ -209,13 +207,4 @@
 
 
 @section('js-scripts')
-    <script>
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-
-        });
-    </script>
 @endsection
