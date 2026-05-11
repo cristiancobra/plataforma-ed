@@ -1102,6 +1102,7 @@ if (!function_exists('formatStatus')) {
                 echo '<div class="col-1 tb tb-stuck text-center">aguardar</div>';
                 break;
             case 'aprovado':
+            case 'aprovada':
                 echo '<div class="col-1 tb tb-won">aprovado</div>';
                 break;
             case 'ativada':
