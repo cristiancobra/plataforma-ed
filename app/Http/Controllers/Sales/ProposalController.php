@@ -256,9 +256,6 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Proposal $proposal, Request $request) {
-        // Carregar relacionamentos antecipadamente
-        $proposal->load('opportunity', 'attachments');
-        
         $DateTime = new DateTime($proposal->date_creation);
         $DateTime->add(new \DateInterval("P" . $proposal->expiration_date . "D"));
         $proposal->expiration_date = $DateTime->format('d/m/Y');
