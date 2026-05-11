@@ -5,7 +5,29 @@
 comandos.txt
 backups/
 
+# Ignorar TODA a pasta storage/app/public exceto .gitkeep
+/storage/app/public/*
+!/storage/app/public/.gitkeep
+
+# Outras pastas de storage que contêm uploads
 /storage/app/products/
 /storage/app/users_images/
 /storage/app/profile_pictures/
 /storage/app/customers_images/
+
+# Ignorar logs e cache do Laravel
+/storage/logs/*
+!/storage/logs/.gitkeep
+/storage/framework/cache/*
+!/storage/framework/cache/.gitkeep
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitkeep
+/storage/framework/views/*
+!/storage/framework/views/.gitkeep
+
+# Ignorar os symlinks criados por storage:link
+/public/storage
+/public/images
+/public/users_images
+/public/customers_images
+/public/bugs_images
