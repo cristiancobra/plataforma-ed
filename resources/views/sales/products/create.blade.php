@@ -15,7 +15,7 @@
 
 @section('buttons')
 
-    {{ createButtonList('product', 'variation', $variation) }}
+    <x-buttons.list model="product" parameter="variation" :value="$variation" :principalColor="$principalColor" />
 @endsection
 
 @section('main')

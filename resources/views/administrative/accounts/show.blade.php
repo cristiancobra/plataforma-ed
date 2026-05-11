@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonEdit('account', 'account', $account) }}
+    <x-buttons.edit model="account" :object="$account" />
 
 @endsection
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Sales;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attachment;
 use App\Models\BankAccount;
 use App\Models\Contact;
 use App\Models\Contract;
@@ -239,6 +240,11 @@ class ProposalController extends Controller {
             $proposal->installment = $request->installment;
             $proposal->update();
 
+            // Processar uploads de anexos (apenas para despesas)
+            if ($request->type == 'despesa') {
+                $this->handleAttachmentsUpload($request, $proposal);
+            }
+
             return redirect()->route('proposal.show', compact('proposal'));
         }
     }
@@ -457,6 +463,11 @@ class ProposalController extends Controller {
             $proposal->totalPrice = $totalPrice + $proposal->discount;
             $proposal->save();
 
+            // Processar uploads de novos anexos (apenas para despesas)
+            if ($proposal->type == 'despesa') {
+                $this->handleAttachmentsUpload($request, $proposal);
+            }
+
             return redirect()->route('proposal.show', compact('proposal'));
         }
     }
@@ -665,39 +676,39 @@ class ProposalController extends Controller {
         }
 
         if ($proposal->company_id) {
-            $email = $proposal->company->email;
-            $phone = $proposal->company->phone;
-            $address = $proposal->company->address;
-            $city = $proposal->company->city;
-            $state = $proposal->company->state;
-            $country = $proposal->company->country;
-            $companyName = $proposal->company->name;
-            $companyCnpj = $proposal->company->cnpj;
+            $email = $proposal->company?->email ?? null;
+            $phone = $proposal->company?->phone ?? null;
+            $address = $proposal->company?->address ?? null;
+            $city = $proposal->company?->city ?? null;
+            $state = $proposal->company?->state ?? null;
+            $country = $proposal->company?->country ?? null;
+            $companyName = $proposal->company?->name ?? null;
+            $companyCnpj = $proposal->company?->cnpj ?? null;
             $contactCpf = null;
         } else {
-            $email = $proposal->contact->email;
-            $phone = $proposal->contact->phone;
-            $address = $proposal->contact->address;
-            $city = $proposal->contact->city;
-            $state = $proposal->contact->state;
-            $country = $proposal->contact->country;
+            $email = $proposal->contact?->email ?? null;
+            $phone = $proposal->contact?->phone ?? null;
+            $address = $proposal->contact?->address ?? null;
+            $city = $proposal->contact?->city ?? null;
+            $state = $proposal->contact?->state ?? null;
+            $country = $proposal->contact?->country ?? null;
             $companyName = null;
             $companyCnpj = null;
-            $contactCpf = $proposal->contact->cpf;
+            $contactCpf = $proposal->contact?->cpf ?? null;
         }
 
         $data = [
             'pdfTitle' => $pdfTitle,
-            'accountLogo' => $proposal->account->image->path,
-            'accountPrincipalColor' => $proposal->account->principal_color,
-            'accountComplementaryColor' => $proposal->account->complementary_color,
-            'accountName' => $proposal->account->name,
-            'accountEmail' => $proposal->account->email,
-            'accountPhone' => $proposal->account->phone,
-            'accountAddress' => $proposal->account->address,
-            'accountCity' => $proposal->account->city,
-            'accountState' => $proposal->account->state,
-            'accountCnpj' => $proposal->account->cnpj,
+            'accountLogo' => $proposal->account?->image?->path ?? 'images/logo-default.png',
+            'accountPrincipalColor' => $proposal->account?->principal_color ?? '#000000',
+            'accountComplementaryColor' => $proposal->account?->complementary_color ?? '#ffffff',
+            'accountName' => $proposal->account?->name ?? '',
+            'accountEmail' => $proposal->account?->email ?? '',
+            'accountPhone' => $proposal->account?->phone ?? '',
+            'accountAddress' => $proposal->account?->address ?? '',
+            'accountCity' => $proposal->account?->city ?? '',
+            'accountState' => $proposal->account?->state ?? '',
+            'accountCnpj' => $proposal->account?->cnpj ?? '',
             'companyName' => $companyName,
             'companyCnpj' => $companyCnpj,
             'contactCpf' => $contactCpf,
@@ -716,15 +727,21 @@ class ProposalController extends Controller {
             'invoiceStatus' => $proposal->status,
             'invoiceNumberInstallmentTotal' => $proposal->number_installment_total,
             'invoiceTotalPrice' => $proposal->installment_value,
-            'opportunityDescription' => $proposal->opportunity->description,
+            'opportunityDescription' => $proposal->opportunity?->description ?? null,
             'invoiceDiscount' => $proposal->discount,
             'invoicePayday' => $proposal->pay_day,
             'invoiceTotalPrice' => $proposal->totalPrice,
-            'customerName' => $proposal->opportunity->contact->name,
+            'customerName' => $proposal->opportunity?->contact?->name ?? null,
             'productsProposals' => $productsProposals,
             'invoiceTotalTransactions' => $totalTransactions,
         ];
 //        dd($data);
+        
+        // Limpa qualquer output que possa corromper o PDF
+        if (ob_get_length()) {
+            ob_clean();
+        }
+        
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
         $pdf = PDF::loadView('sales.proposals.pdf', compact('data'))
@@ -735,7 +752,8 @@ class ProposalController extends Controller {
         ]);
 
 // download PDF file with download method
-        return $pdf->stream("Proposta " . $proposal->account->name . ".pdf");
+        $accountName = $proposal->account?->name ?? 'Proposta';
+        return $pdf->stream("Proposta " . $accountName . ".pdf");
     }
 
 //    relatórios anuais
@@ -952,6 +970,28 @@ class ProposalController extends Controller {
 
 // download PDF file with download method
         return $pdf->stream('Relatório financeiro.pdf');
+    }
+
+    /**
+     * Handle multiple PDF attachments upload for proposal
+     */
+    private function handleAttachmentsUpload(Request $request, Proposal $proposal)
+    {
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                if ($file) {
+                    $attachment = new Attachment();
+                    $attachment->account_id = auth()->user()->account_id;
+                    $attachment->proposal_id = $proposal->id;
+                    $attachment->type = 'pdf';
+                    $attachment->name = $file->getClientOriginalName();
+                    $attachment->status = 'disponível';
+                    $path = $file->store('customers_attachments', 'public');
+                    $attachment->path = $path;
+                    $attachment->save();
+                }
+            }
+        }
     }
 
 }

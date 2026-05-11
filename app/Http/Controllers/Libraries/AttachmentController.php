@@ -41,7 +41,8 @@ class AttachmentController extends Controller
         $attachment->account_id = auth()->user()->account_id;
         $attachment->task_id = $request->task_id;
         $attachment->text_id = $request->text_id;
-        $attachment->type = 'pdf';
+        $attachment->proposal_id = $request->proposal_id;
+        $attachment->type = $request->type ?? 'pdf';
         $attachment->name = $request->file('attachment')->getClientOriginalName();
         $attachment->status = 'disponível';
         
@@ -78,12 +79,34 @@ class AttachmentController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Attachment  $attachment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Attachment $attachment)
     {
-        //
+        // Verificar se o usuário tem permissão
+        if ($attachment->account_id !== auth()->user()->account_id) {
+            return redirect()->back()->with('failed', 'Você não tem permissão para editar este anexo.');
+        }
+
+        // Validar dados
+        $request->validate([
+            'type' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
+            'created_at' => 'nullable|date'
+        ]);
+
+        // Atualizar dados
+        $attachment->type = $request->type;
+        $attachment->name = $request->name;
+        
+        if ($request->created_at) {
+            $attachment->created_at = $request->created_at;
+        }
+        
+        $attachment->save();
+
+        return redirect()->back()->with('attachment_success', 'Anexo atualizado com sucesso!');
     }
 
     /**

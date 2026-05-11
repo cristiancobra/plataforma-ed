@@ -8,7 +8,7 @@
 
 @section('buttons')
 
-    {{ createButtonPdf($task, 'task') }}
+    <x-buttons.pdf :object="$task" model="task" />
 
     @if ($task->status == 'fazendo')
         <form style='text-decoration: none;color: black;display: inline-block'
@@ -21,8 +21,8 @@
             </button>
         </form>
     @endif
-    {{ createButtonTrash($task, 'task') }}
-    {{ createButtonEdit('task', 'task', $task) }}
+    <x-buttons.trash :object="$task" model="task" />
+    <x-buttons.edit model="task" :object="$task" />
     {{ createButtonList('task') }}
 @endsection
 

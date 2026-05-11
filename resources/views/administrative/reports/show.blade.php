@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonPdf($report, 'report') }}
+    <x-buttons.pdf :object="$report" model="report" />
 
     {{ createButtonList('report') }}
 @endsection

@@ -7,8 +7,8 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrash($collection, 'collection') }}
-    {{ createButtonEdit('collection', 'collection', $collection) }}
+    <x-buttons.trash :object="$collection" model="collection" />
+    <x-buttons.edit model="collection" :object="$collection" :principalColor="$principalColor" />
     {{ createButtonList('collection') }}
 @endsection
 

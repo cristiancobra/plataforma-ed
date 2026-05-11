@@ -15,7 +15,7 @@
 
 @section('buttons')
 
-    {{ createButtonList('invoice', 'typeInvoices', $typeInvoices) }}
+    <x-buttons.list model="invoice" parameter="typeInvoices" :value="$typeInvoices" :principalColor="$principalColor" />
 @endsection
 
 @section('main')

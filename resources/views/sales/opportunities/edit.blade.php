@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonList('opportunity', 'department', $opportunity->department) }}
+    <x-buttons.list model="opportunity" parameter="department" :value="$opportunity->department" :principalColor="$principalColor" />
 @endsection
 
 @section('main')

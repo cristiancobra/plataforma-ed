@@ -79,6 +79,10 @@ class Proposal extends Model {
         return $this->belongsTo(Opportunity::class, 'opportunity_id', 'id');
     }
 
+    public function attachments() {
+        return $this->hasMany(Attachment::class, 'proposal_id', 'id');
+    }
+
 //    public function transactions() {
 //        return $this->hasMany(Transaction::class);
 //    }

@@ -7,13 +7,13 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonPdf($invoice, 'invoice') }}
+    <x-buttons.pdf :object="$invoice" model="invoice" :principalColor="$principalColor" />
     <a class='circular-button secondary' href='{{ route('invoice.email', ['invoice' => $invoice]) }}'>
         <i class='fas fa-envelope'></i>
     </a>
-    {{ createButtonTrash($invoice, 'invoice') }}
-    {{ createButtonEdit('invoice', 'invoice', $invoice) }}
-    {{ createButtonList('invoice', 'typeInvoices', $typeInvoices) }}
+    <x-buttons.trash :object="$invoice" model="invoice" />
+    <x-buttons.edit model="invoice" :object="$invoice" :principalColor="$principalColor" />
+    <x-buttons.list model="invoice" parameter="typeInvoices" :value="$typeInvoices" :principalColor="$principalColor" />
 @endsection
 
 @if ($invoice->opportunity)

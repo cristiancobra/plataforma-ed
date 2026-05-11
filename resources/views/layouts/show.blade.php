@@ -40,6 +40,14 @@
                             Session::forget('success');
                         @endphp
                     </div>
+                @elseif(Session::has('attachment_success'))
+                    <div class="alert alert-success ms-5 mt-5 mb-5">
+                        <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
+                        {{ Session::get('attachment_success') }}
+                        @php
+                            Session::forget('attachment_success');
+                        @endphp
+                    </div>
                 @endif
 
 

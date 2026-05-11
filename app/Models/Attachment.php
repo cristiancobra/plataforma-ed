@@ -12,6 +12,8 @@ class Attachment extends Model
     protected $fillable = [
         'account_id',
         'text_id',
+        'task_id',
+        'proposal_id',
         'type',
         'name',
         'path',
@@ -24,6 +26,22 @@ class Attachment extends Model
     public function text()
     {
         return $this->belongsTo(Text::class);
+    }
+
+    /**
+     * Get the task that owns the attachment.
+     */
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
+    /**
+     * Get the proposal that owns the attachment.
+     */
+    public function proposal()
+    {
+        return $this->belongsTo(Proposal::class);
     }
 
     /**

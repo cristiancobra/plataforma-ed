@@ -8,8 +8,8 @@
 
 @section('buttons')
 
-    {{ createButtonTrash($journey, 'journey') }}
-    {{ createButtonEdit('journey', 'journey', $journey) }}
+    <x-buttons.trash :object="$journey" model="journey" />
+    <x-buttons.edit model="journey" :object="$journey" />
     {{ createButtonList('journey') }}
 @endsection
 

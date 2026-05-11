@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-    {{ asset('images/proposal.png') }}
+    <i class="fas fa-box"></i>
 @endsection
 
 @section('description')
@@ -15,7 +15,7 @@
 
 @section('buttons')
 
-    {{ createButtonList('proposal', 'type', $type) }}
+    <x-buttons.list model="proposal" parameter="type" :value="$type" :principalColor="$principalColor" />
 @endsection
 
 @section('main')
@@ -28,8 +28,8 @@
             @endphp
         </div>
     @endif
-    <div class="container">
-        <form action=' {{ route('proposal.store') }} ' method='post'>
+    <div class="">
+        <form action=' {{ route('proposal.store') }} ' method='post' enctype='multipart/form-data'>
             @csrf
             <input type='hidden' name='type' value='{{ $type }}'>
             @if ($type == 'receita')
@@ -167,6 +167,86 @@
                 <script>
                     CKEDITOR.replace('description');
                 </script>
+            @endif
+
+            <br>
+            <br>
+
+            @if ($type == 'despesa')
+                <div class='row mt-4'>
+                    <div class='col-12'>
+                        <label class='labels' for=''>ANEXAR DOCUMENTOS (PDFs):</label>
+                        <p class='text-muted' style='font-size: 14px; margin-top: 5px;'>
+                            Você pode anexar: nota fiscal, orçamento aprovado, orçamentos concorrentes, boleto, etc.
+                        </p>
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-6 mb-3'>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-file-invoice me-2" aria-hidden="true"
+                                style="font-size: 30px; color: #6c757d;"></i>
+                            <label class='labels mb-0' for=''>NOTA FISCAL:</label>
+                        </div>
+                        <input type='file' name='attachments[]' accept=".pdf" class='form-control'>
+                        @if ($errors->has('attachments.0'))
+                            <span class='text-danger'>{{ $errors->first('attachments.0') }}</span>
+                        @endif
+                    </div>
+
+                    <div class='col-md-6 mb-3'>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-file-alt me-2" aria-hidden="true"
+                                style="font-size: 30px; color: #6c757d;"></i>
+                            <label class='labels mb-0' for=''>ORÇAMENTO APROVADO:</label>
+                        </div>
+                        <input type='file' name='attachments[]' accept=".pdf" class='form-control'>
+                        @if ($errors->has('attachments.1'))
+                            <span class='text-danger'>{{ $errors->first('attachments.1') }}</span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-md-6 mb-3'>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-file-contract me-2" aria-hidden="true"
+                                style="font-size: 30px; color: #6c757d;"></i>
+                            <label class='labels mb-0' for=''>ORÇAMENTOS CONCORRENTES:</label>
+                        </div>
+                        <input type='file' name='attachments[]' accept=".pdf" class='form-control' multiple>
+                        @if ($errors->has('attachments.2'))
+                            <span class='text-danger'>{{ $errors->first('attachments.2') }}</span>
+                        @endif
+                    </div>
+
+                    <div class='col-md-6 mb-3'>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-money-bill me-2" aria-hidden="true"
+                                style="font-size: 30px; color: #6c757d;"></i>
+                            <label class='labels mb-0' for=''>BOLETO:</label>
+                        </div>
+                        <input type='file' name='attachments[]' accept=".pdf" class='form-control'>
+                        @if ($errors->has('attachments.3'))
+                            <span class='text-danger'>{{ $errors->first('attachments.3') }}</span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class='row'>
+                    <div class='col-12 mb-3'>
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="fa fa-file-pdf me-2" aria-hidden="true"
+                                style="font-size: 30px; color: #6c757d;"></i>
+                            <label class='labels mb-0' for=''>OUTROS DOCUMENTOS:</label>
+                        </div>
+                        <input type='file' name='attachments[]' accept=".pdf" class='form-control' multiple>
+                        @if ($errors->has('attachments'))
+                            <span class='text-danger'>{{ $errors->first('attachments') }}</span>
+                        @endif
+                    </div>
+                </div>
             @endif
 
             <br>

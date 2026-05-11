@@ -8,7 +8,7 @@
 
 
 @section('buttons')
-    {{ createButtonEdit('user', 'user', $user) }}
+    <x-buttons.edit model="user" :object="$user" />
     {{ createButtonList('user') }}
 @endsection
 

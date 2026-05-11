@@ -114,6 +114,7 @@ return array(
     'App\\Models\\Bank' => $baseDir . '/app/Models/Bank.php',
     'App\\Models\\BankAccount' => $baseDir . '/app/Models/BankAccount.php',
     'App\\Models\\Collection' => $baseDir . '/app/Models/Collection.php',
+    'App\\Models\\CollectionLocation' => $baseDir . '/app/Models/CollectionLocation.php',
     'App\\Models\\Company' => $baseDir . '/app/Models/Company.php',
     'App\\Models\\Competitor' => $baseDir . '/app/Models/Competitor.php',
     'App\\Models\\CompetitorReport' => $baseDir . '/app/Models/CompetitorReport.php',

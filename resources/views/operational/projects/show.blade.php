@@ -7,9 +7,9 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrash($project, 'project') }}
-    {{ createButtonEdit('project', 'project', $project, 'department', $project->department) }}
-    {{ createButtonList('project', 'department', $project->department) }}
+    <x-buttons.trash :object="$project" model="project" />
+    <x-buttons.edit model="project" :object="$project" parameter2="department" :value2="$project->department" :principalColor="$principalColor" />
+    <x-buttons.list model="project" parameter="department" :value="$project->department" :principalColor="$principalColor" />
 @endsection
 
 @section('name', $project->name)

@@ -15,8 +15,8 @@
 
 
     @section('buttons')
-        {{ createButtonCancel() }}
-        {{ createButtonSave() }}
+        <x-buttons.cancel />
+        <x-buttons.save :principalColor="$principalColor" />
     @endsection
 
     @section('name')

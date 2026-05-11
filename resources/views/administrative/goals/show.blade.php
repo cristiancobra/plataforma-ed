@@ -7,8 +7,8 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrash($goal, 'goal') }}
-    {{ createButtonEdit('goal', 'goal', $goal) }}
+    <x-buttons.trash :object="$goal" model="goal" />
+    <x-buttons.edit model="goal" :object="$goal" />
     {{ createButtonList('goal') }}
 @endsection
 

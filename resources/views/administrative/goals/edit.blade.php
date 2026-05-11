@@ -14,14 +14,8 @@
 
 
     @section('buttons')
-        <a class='circular-button secondary' title='Cancelar alterações' href='{{ url()->previous() }}'
-            style='padding-left:2px;padding-top:4px'>
-            <i class='fas fa-times-circle'></i>
-        </a>
-        <button id='' class='circular-button primary' title='Salvar alterações'
-            style='border:none;padding-left:4px;padding-top:2px' "type='submit'>
-            <i class='fas fa-save'></i>
-        </button>
+        <x-buttons.cancel />
+        <x-buttons.save :principalColor="$principalColor" />
     @endsection
 
     @section('name')

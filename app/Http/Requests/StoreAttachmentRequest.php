@@ -23,7 +23,9 @@ class StoreAttachmentRequest extends FormRequest
             'attachment' => 'required|file|mimes:pdf|max:10240', // 10MB max
             'task_id' => 'nullable|exists:tasks,id',
             'text_id' => 'nullable|exists:texts,id',
+            'proposal_id' => 'nullable|exists:proposals,id',
             'attachment_name' => 'nullable|string|max:255',
+            'type' => 'required|string|max:255',
         ];
     }
 
@@ -39,6 +41,8 @@ class StoreAttachmentRequest extends FormRequest
             'attachment.max' => 'O arquivo não pode ser maior que 10MB.',
             'task_id.exists' => 'Tarefa não encontrada.',
             'text_id.exists' => 'Texto não encontrado.',
+            'proposal_id.exists' => 'Proposta não encontrada.',
+            'type.required' => 'Por favor, selecione o tipo de documento.',
         ];
     }
 }

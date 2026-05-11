@@ -7,9 +7,9 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrash($opportunity, 'opportunity') }}
-    {{ createButtonEdit('opportunity', 'opportunity', $opportunity, 'department', $opportunity->department) }}
-    {{ createButtonList('opportunity', 'department', $opportunity->department) }}
+    <x-buttons.trash :object="$opportunity" model="opportunity" />
+    <x-buttons.edit model="opportunity" :object="$opportunity" parameter2="department" :value2="$opportunity->department" :principalColor="$principalColor" />
+    <x-buttons.list model="opportunity" parameter="department" :value="$opportunity->department" :principalColor="$principalColor" />
 @endsection
 
 @section('name', $opportunity->name)
@@ -805,7 +805,7 @@
 @endsection
 
 @section('deleteButton')
-    {{ createButtonTrash($opportunity, 'opportunity') }}
+    <x-buttons.trash :object="$opportunity" model="opportunity" />
 @endsection
 
 @section('editButton', route('opportunity.edit', ['opportunity' => $opportunity->id]))

@@ -7,24 +7,20 @@
 @endif
 
 @section('image-top')
-    {{ asset('images/proposal.png') }}
+    <i class="fas fa-box"></i>
 @endsection
 
 @section('form_start')
-    <form action=' {{ route('proposal.update', ['proposal' => $proposal]) }} ' method='post'>
+    <form id="proposal-form" action=' {{ route('proposal.update', ['proposal' => $proposal]) }} ' method='post'
+        enctype='multipart/form-data'>
         @csrf
         @method('put')
     @endsection
 
 
     @section('buttons')
-        <a class='circular-button secondary' title='Cancelar alterações' href='{{ url()->previous() }}'>
-            <i class='fas fa-times-circle'></i>
-        </a>
-        <button id='' class='circular-button primary' title='Salvar alterações'
-            style='border:none;padding-left:4px;padding-top:2px' 'type='submit'>
-            <i class='fas fa-save'></i>
-        </button>
+        <x-buttons.cancel :href="route('proposal.index', ['type' => $type])" />
+        <x-buttons.save :principalColor="$principalColor" formId="proposal-form" />
     @endsection
 
     @section('name')
@@ -301,4 +297,147 @@
                     {{ formatCurrencyReal($proposal->totalPrice) }}
                 </div>
             </div>
-        @endsection
+        </section>
+    @endsection
+
+    @section('attachments')
+        @if ($type == 'despesa')
+            {{-- ANEXOS EXISTENTES --}}
+            @if (count($proposal->attachments ?? []) > 0)
+                <section class='container' style='margin-top: 50px'>
+                    <div class='row show-label-large col-12'>
+                        <div class=''>
+                            DOCUMENTOS ANEXADOS
+                        </div>
+                    </div>
+                    <div class='row mt-3'>
+                        @foreach ($proposal->attachments as $attachment)
+                            <div class='col-md-6 mb-4'>
+                                <div class="card p-3">
+                                    <form action="{{ route('attachment.update', ['attachment' => $attachment->id]) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('PUT')
+
+                                        <div class="row align-items-center">
+                                            <div class="col-md-2 text-center">
+                                                <i class="fa fa-file-invoice-dollar"
+                                                    style="font-size: 48px; color:{{ $principalColor }}"></i>
+                                            </div>
+
+                                            <div class="col-md-10">
+                                                <div class="row mb-2">
+                                                    <div class="col-md-6">
+                                                        <label class='labels' style="font-size: 11px;">Tipo:</label>
+                                                        <select name='type' class='form-control form-control-sm'
+                                                            required>
+                                                            <option value='Nota fiscal'
+                                                                {{ $attachment->type == 'Nota fiscal' ? 'selected' : '' }}>
+                                                                Nota fiscal</option>
+                                                            <option value='Orçamento aprovado'
+                                                                {{ $attachment->type == 'Orçamento aprovado' ? 'selected' : '' }}>
+                                                                Orçamento aprovado</option>
+                                                            <option value='Orçamento concorrente'
+                                                                {{ $attachment->type == 'Orçamento concorrente' ? 'selected' : '' }}>
+                                                                Orçamento concorrente</option>
+                                                            <option value='Boleto'
+                                                                {{ $attachment->type == 'Boleto' ? 'selected' : '' }}>
+                                                                Boleto</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class='labels' style="font-size: 11px;">Data:</label>
+                                                        <input type='date' name='created_at'
+                                                            class='form-control form-control-sm'
+                                                            value='{{ date('Y-m-d', strtotime($attachment->created_at)) }}'>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mb-2">
+                                                    <div class="col-md-12">
+                                                        <label class='labels' style="font-size: 11px;">Nome do
+                                                            arquivo:</label>
+                                                        <input type='text' name='name'
+                                                            class='form-control form-control-sm'
+                                                            value='{{ $attachment->name }}' required>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-2">
+                                                    <div class="col-md-12 d-flex justify-content-end gap-2">
+                                                        <button type="button" class="btn btn-sm btn-danger"
+                                                            onclick="if(confirm('Tem certeza que deseja excluir este documento?')) { document.getElementById('delete-form-{{ $attachment->id }}').submit(); }"
+                                                            title="Excluir">
+                                                            <i class="fa fa-trash"></i> Excluir
+                                                        </button>
+                                                        <a href="{{ asset('storage/' . $attachment->path) }}"
+                                                            download="{{ $attachment->name }}"
+                                                            class="btn btn-sm btn-secondary" title="Baixar">
+                                                            <i class="fa fa-download"></i> Baixar
+                                                        </a>
+                                                        <button type="submit" class="btn btn-sm"
+                                                            style="background-color: {{ $principalColor }}; color: white;"
+                                                            title="Salvar">
+                                                            <i class="fa fa-save"></i> Salvar
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    {{-- Form separado para delete --}}
+                                    <form id="delete-form-{{ $attachment->id }}"
+                                        action="{{ route('attachment.destroy', ['attachment' => $attachment->id]) }}"
+                                        method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </section>
+            @endif
+
+            {{-- FORMULÁRIO PARA ADICIONAR NOVOS ANEXOS --}}
+            <section class='container' style='margin-top: 40px'>
+                <div class='row show-label-large col-12'>
+                    <div class='col-12'>
+                        <h5 class='mb-3 text-white'>
+                            <i class="fa fa-plus-circle me-2"></i>
+                            ADICIONAR NOVO DOCUMENTO
+                        </h5>
+                    </div>
+                </div>
+                <form action="{{ route('attachment.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <input type="hidden" name="proposal_id" value="{{ $proposal->id }}">
+
+                    <div class='row mt-3'>
+                        <div class='col-md-4'>
+                            <label class='labels mb-2' for='attachment_type_edit'>Tipo de documento:</label>
+                            <select id='attachment_type_edit' name='type' class='form-control' required>
+                                <option value=''>Selecione o tipo</option>
+                                <option value='Nota fiscal'>Nota fiscal</option>
+                                <option value='Orçamento aprovado'>Orçamento aprovado</option>
+                                <option value='Orçamento concorrente'>Orçamento concorrente</option>
+                                <option value='Boleto'>Boleto</option>
+                            </select>
+                        </div>
+                        <div class='col-md-4'>
+                            <label class='labels mb-2' for='attachment_file_edit'>Selecione o arquivo PDF:</label>
+                            <input type='file' id='attachment_file_edit' name='attachment' accept=".pdf"
+                                class='form-control' required>
+                        </div>
+                        <div class='col-md-4'>
+                            <button type="submit" class='btn w-100'
+                                style="margin-top: 32px; background-color: {{ $principalColor }}; color: white;">
+                                <i class="fa fa-upload me-2"></i> Enviar Documento
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        @endif
+    @endsection

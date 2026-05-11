@@ -392,7 +392,7 @@
                     </div>
                 </div>
                 <div class='col-2 d-flex justify-content-center'>
-                    {{ createButtonTrash($deletedInvoice, 'invoice') }}
+                    <x-buttons.trash :object="$deletedInvoice" model="invoice" />
                 </div>
             </div>
 

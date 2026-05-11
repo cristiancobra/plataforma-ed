@@ -36,6 +36,16 @@
                 </div>
             @endif
 
+            @if (Session::has('attachment_success'))
+                <div class="alert alert-success ms-5 mt-3 mb-3">
+                    <i class="fas fa-check-circle ms-1 me-1" style="font-size:20px"></i>
+                    {{ Session::get('attachment_success') }}
+                    @php
+                        Session::forget('attachment_success');
+                    @endphp
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class='alert alert-danger'>
                     <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
@@ -259,16 +269,24 @@
                     @yield('images')
                 </div>
 
+                @include('layouts.footer')
+                </form>
+
                 <div class="row mt-5">
                     @yield('attachments')
                 </div>
 
+                {{-- Botões duplicados no rodapé quando há attachments --}}
+                @hasSection('attachments')
+                    <div class='row mt-5 mb-5'>
+                        <div class="col-12 d-flex justify-content-end gap-2">
+                            @yield('buttons')
+                        </div>
+                    </div>
+                @endif
+
+                @yield('createdAt')
             </section>
-
-            @include('layouts.footer')
-            </form>
-
-            @yield('createdAt')
     </div>
     </div>
 

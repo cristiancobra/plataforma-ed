@@ -7,7 +7,7 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonEdit('systemText', 'systemText', $systemText) }}
+    <x-buttons.edit model="systemText" :object="$systemText" />
     {{ createButtonList('systemText') }}
 @endsection
 

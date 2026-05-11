@@ -11,7 +11,7 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrash($product, 'product') }}
+    <x-buttons.trash :object="$product" model="product" />
     <a class='circular-button secondary' title='Ver na loja' href='{{ route('product.public', ['product' => $product]) }}'
         target="_blank">
         <i class="fas fa-shopping-cart"></i>
@@ -20,8 +20,8 @@
         href='{{ route('proposal.index', ['product_id' => $product->id]) }}'>
         <i class="fas fa-gifts"></i>
     </a>
-    {{ createButtonEdit('product', 'product', $product, 'variation', $variation) }}
-    {{ createButtonList('product', 'variation', $variation) }}
+    <x-buttons.edit model="product" :object="$product" parameter2="variation" :value2="$variation" :principalColor="$principalColor" />
+    <x-buttons.list model="product" parameter="variation" :value="$variation" :principalColor="$principalColor" />
 @endsection
 
 @section('name', $product->name)

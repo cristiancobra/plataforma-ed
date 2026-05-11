@@ -728,6 +728,7 @@ class ComposerStaticInit27a89bc3954ee53cf0244660979482de
         'App\\Models\\Bank' => __DIR__ . '/../..' . '/app/Models/Bank.php',
         'App\\Models\\BankAccount' => __DIR__ . '/../..' . '/app/Models/BankAccount.php',
         'App\\Models\\Collection' => __DIR__ . '/../..' . '/app/Models/Collection.php',
+        'App\\Models\\CollectionLocation' => __DIR__ . '/../..' . '/app/Models/CollectionLocation.php',
         'App\\Models\\Company' => __DIR__ . '/../..' . '/app/Models/Company.php',
         'App\\Models\\Competitor' => __DIR__ . '/../..' . '/app/Models/Competitor.php',
         'App\\Models\\CompetitorReport' => __DIR__ . '/../..' . '/app/Models/CompetitorReport.php',

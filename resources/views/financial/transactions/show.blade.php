@@ -8,8 +8,8 @@
 
 @section('buttons')
 
-    {{ createButtonTrash($transaction, 'transaction') }}
-    {{ createButtonEdit('transaction', 'transaction', $transaction, 'typeTransactions', $transaction->type) }}
+    <x-buttons.trash :object="$transaction" model="transaction" />
+    <x-buttons.edit model="transaction" :object="$transaction" parameter2="typeTransactions" :value2="$transaction->type" />
     {{ createButtonList('transaction') }}
 @endsection
 
