@@ -287,14 +287,22 @@ class ProposalController extends Controller {
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('proposal_id', $proposal->id)
                 ->where('trash', '!=', 1)
+                ->with('transactions')
                 ->get();
+
+        // Buscar todas as transações de uma vez
+        $invoiceIds = $invoices->pluck('id');
+        $transactionsByInvoice = Transaction::whereIn('invoice_id', $invoiceIds)
+                ->where('trash', '!=', 1)
+                ->selectRaw('invoice_id, SUM(value) as total_paid')
+                ->groupBy('invoice_id')
+                ->pluck('total_paid', 'invoice_id');
 
         $invoicesTotal = 0;
         $balanceTotal = 0;
         foreach ($invoices as $invoice) {
-            $invoice->paid = Transaction::where('invoice_id', $invoice->id)
-                    ->where('trash', '!=', 1)
-                    ->sum('value');
+            $invoice->paid = $transactionsByInvoice->get($invoice->id, 0);
+            
             if ($invoice->totalPrice == $invoice->paid) {
                 $invoice->status = 'paga';
             } elseif ($invoice->totalPrice > $invoice->paid AND $invoice->paid > 0) {
@@ -317,19 +325,25 @@ class ProposalController extends Controller {
 //        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
 //        $balanceTotal = $invoicesTotal - $proposalPaymentsTotal;
 
-        $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
-                ->where('department', '=', 'produção')
-                ->with([
-                    'journeys',
-                    'user'
-                ])
-                ->get();
+        $tasksOperational = collect();
+        $tasksOperationalHours = 0;
+        
+        // Buscar tasks apenas se houver opportunity_id
+        if ($proposal->opportunity_id) {
+            $tasksOperational = Task::where('opportunity_id', $proposal->opportunity_id)
+                    ->where('department', '=', 'produção')
+                    ->with([
+                        'journeys',
+                        'user'
+                    ])
+                    ->get();
 
-        $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($proposal) {
-                    $query->where('opportunity_id', $proposal->opportunity_id);
-                    $query->where('department', '=', 'produção');
-                })
-                ->sum('duration');
+            $tasksOperationalHours = Journey::whereHas('task', function ($query) use ($proposal) {
+                        $query->where('opportunity_id', $proposal->opportunity_id);
+                        $query->where('department', '=', 'produção');
+                    })
+                    ->sum('duration');
+        }
 
         $status = $proposal->status;
         $priority = $proposal->points;
