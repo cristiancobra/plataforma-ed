@@ -256,6 +256,9 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Proposal $proposal, Request $request) {
+        // Carregar relacionamentos antecipadamente
+        $proposal->load('opportunity', 'attachments');
+        
         $DateTime = new DateTime($proposal->date_creation);
         $DateTime->add(new \DateInterval("P" . $proposal->expiration_date . "D"));
         $proposal->expiration_date = $DateTime->format('d/m/Y');
@@ -320,6 +323,7 @@ class ProposalController extends Controller {
         $invoicesCount = $invoices->count();
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
+                ->with('product')
                 ->get();
 
 //        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
