@@ -360,20 +360,19 @@ class Task extends Model
     }
 
     // cria a primeira TAREFA tutorial para a nova conta registrada.
-    public static function registerTasksTutorials($systemText, $user, $companyEdCustomer, $contact, $account, $contactEdCustomer)
+    public static function registerTasksTutorials($systemText, array $data)
     {
         $task = new Task();
-        $task->user_id = $user->id;
-        $task->company_id = $companyEdCustomer->id;
+        $task->user_id = $data['user']->id;
+        $task->company_id = $data['companyEdCustomer']->id;
         $task->name = $systemText->title;
-        $task->account_id = $account->id;
-        $task->contact_id = $contactEdCustomer->id;
-        $task->company_id = $companyEdCustomer->id;
+        $task->account_id = $data['account']->id;
+        $task->contact_id = $data['contactEdCustomer']->id;
         $task->department = 'administrativo';
         $task->description = $systemText->text;
         $task->date_start = date('Y-m-d');
-        $today = new Datetime('now');
-        $today->add(new DateInterval('P1D'));
+        $today = new \Datetime('now');
+        $today->add(new \DateInterval('P1D'));
         $task->date_due = $today;
         $task->priority = 'emergência';
         $task->points = 1;

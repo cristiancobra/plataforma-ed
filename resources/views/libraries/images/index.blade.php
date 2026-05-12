@@ -8,8 +8,8 @@
 
 
 @section('buttons')
-    {{ createButtonTrashIndex($trashStatus, 'image') }}
-    {{ createButtonFilter() }}
+    <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'image'" />
+    <x-buttons.filter />
     <a class="circular-button primary" href="{{ route('image.create') }}">
         <i class="fa fa-plus" aria-hidden="true"></i>
     </a>

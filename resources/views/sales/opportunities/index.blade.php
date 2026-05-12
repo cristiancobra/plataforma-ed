@@ -7,10 +7,10 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonFilter() }}
-    {{ createButtonTrashIndex($trashStatus, 'opportunity') }}
+    <x-buttons.filter />
+    <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'opportunity'" />
 
-    {{ createButtonCreate('opportunity', 'department', $department) }}
+    <x-buttons.create model="opportunity" parameter="department" :value="$department" />
 @endsection
 
 

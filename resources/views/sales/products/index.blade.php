@@ -11,8 +11,8 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrashIndex(request('trash'), 'product', $variation) }}
-    {{ createButtonFilter() }}
+    <x-buttons.trash-index :trash-status="request('trash')" :parameter="'product'" :variation="$variation" />
+    <x-buttons.filter />
     <a class='circular-button primary' href='{{ route('product.create', ['variation' => $variation]) }}'>
         <i class='fa fa-plus' aria-hidden='true'></i>
     </a>

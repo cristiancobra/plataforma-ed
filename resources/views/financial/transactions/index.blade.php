@@ -11,8 +11,8 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrashIndex($trashStatus, 'transaction') }}
-    {{ createButtonFilter() }}
+    <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'transaction'" />
+    <x-buttons.filter />
     <a id='export' class='circular-button secondary' href='{{ route('transaction.export') }}'
         onclick='exportTasks(event.target);'>
         <i class='fa fa-table' aria-hidden='true'></i>

@@ -8,7 +8,7 @@
 
 @section('buttons')
     {{ createButtonFilter() }}
-    {{ createButtonCreate('systemText') }}
+    <x-buttons.create model="systemText" />
 @endsection
 
 

@@ -8,9 +8,9 @@
 
 
 @section('buttons')
-    {{ createButtonTrashIndex($trashStatus, 'journey') }}
-    {{ createButtonFilter() }}
-    {{ createButtonCreate('journey') }}
+    <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'journey'" />
+    <x-buttons.filter />
+    <x-buttons.create model="journey" />
 @endsection
 
 @section('main')

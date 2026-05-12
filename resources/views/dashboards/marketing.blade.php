@@ -292,8 +292,8 @@
         <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
-         border-color:{{ $oppositeColor }};
-         background-color:{{ $oppositeColor }};
+         border-color:{{ $complementaryColor }};
+         background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
          padding-top: 10px;
@@ -343,8 +343,8 @@
         <div class='col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2'
             style='
          text-shadow: 2px 2px 4px #000000;
-         border-color:{{ $oppositeColor }};
-         background-color:{{ $oppositeColor }};
+         border-color:{{ $complementaryColor }};
+         background-color:{{ $complementaryColor }};
          border-style: solid;
          border-width: 4px;
          padding-top: 10px;

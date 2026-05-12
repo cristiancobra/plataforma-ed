@@ -7,15 +7,14 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonTrashIndex($trashStatus, 'collection') }}
-    {{ createButtonFilter() }}
-    {{ createButtonCreate('collection') }}
+    <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'collection'" />
+    <x-buttons.filter />
+    <x-buttons.create model="collection" />
 @endsection
 
 
 @section('filter')
-    <form id="filter" action="{{ route('collection.index') }}" method="get" 
-        style="text-align: right; display: {{ request()->hasAny(['name', 'category', 'type', 'user_id', 'status']) ? 'block' : 'none' }};">
+    <form id="filter" action="{{ route('collection.index') }}" method="get" style="text-align: right;">
         <input type="text" name="name" placeholder="nome do item" value="{{ request('name') }}">
         {{ createFilterSelect('category', 'select', $categories, 'Todas as categorias') }}
         {{ createFilterSelect('type', 'select', $types, 'Todos os tipos') }}
@@ -119,7 +118,7 @@
             filterButton.addEventListener('click', function(e) {
                 e.preventDefault();
                 const isHidden = window.getComputedStyle(filterForm).display === 'none';
-                
+
                 if (isHidden) {
                     filterForm.style.display = 'block';
                 } else {

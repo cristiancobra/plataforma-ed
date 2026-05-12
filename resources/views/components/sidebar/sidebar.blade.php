@@ -116,17 +116,87 @@
         </div>
     </div>
 
+    <style>
+        .biblioteca-menu {
+            display: block;
+        }
+
+        .sidebar-submenu {
+            display: none;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            padding: 0.5rem 0;
+            margin: 0.5rem 0;
+        }
+
+        .biblioteca-menu.show .sidebar-submenu {
+            display: block;
+        }
+
+        .sidebar-submenu a {
+            display: flex;
+            align-items: center;
+            color: inherit;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 10px;
+            transition: background 0.2s;
+        }
+
+        .sidebar-submenu a:hover {
+            background: #f0f0f0;
+        }
+    </style>
     <div class="row pt-2">
-        <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
-            <a class='stretched-link' href='{{ route('collection.index') }}' style="color: {{ $principalColor }}">
-            </a>
-            <i class="fas fa-archive"></i>
-            <p class="mb-0"style='font-size:10px'>
-                ACERVO
-            </p>
-            </a>
+        <div class='col sidebar-item text-center biblioteca-menu' style="color: {{ $principalColor }}"
+            id="biblioteca-menu">
+            <div class="biblioteca-header" style="cursor: pointer;">
+                <i class="fas fa-book"></i>
+                <p class="mb-0 fw-bold" style='font-size:11px;'>
+                    BIBLIOTECA
+                </p>
+            </div>
+            <div class="sidebar-submenu">
+                <a href='{{ route('collection.index') }}' style="color: {{ $principalColor }};">
+                    <i class="fas fa-archive me-1"></i>
+                    <span>ACERVO</span>
+                </a>
+                <a href='{{ route('text.index') }}' style="color: {{ $principalColor }};">
+                    <i class="fas fa-file-alt me-1"></i>
+                    <span>DOCUMENTOS</span>
+                </a>
+            </div>
         </div>
     </div>
+    <script>
+        (function() {
+            var menu = document.getElementById('biblioteca-menu');
+            var header = menu.querySelector('.biblioteca-header');
+
+            // Hover: abre ao entrar, fecha ao sair
+            menu.addEventListener('mouseenter', function() {
+                menu.classList.add('show');
+            });
+
+            menu.addEventListener('mouseleave', function() {
+                menu.classList.remove('show');
+            });
+
+            // Clique: toggle
+            header.addEventListener('click', function(e) {
+                e.stopPropagation();
+                menu.classList.toggle('show');
+            });
+
+            // Fecha ao clicar fora
+            document.addEventListener('click', function(e) {
+                if (!menu.contains(e.target)) {
+                    menu.classList.remove('show');
+                }
+            });
+        })();
+    </script>
 
     <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
@@ -364,21 +434,3 @@
     ) }}-->
 
 </aside>
-
-<script>
-    /* -----------------  Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
-
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
-            }
-        });
-    }
-</script>
