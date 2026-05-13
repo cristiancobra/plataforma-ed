@@ -364,10 +364,10 @@ class Task extends Model
     {
         $task = new Task();
         $task->user_id = $data['user']->id;
-        $task->company_id = $data['companyEdCustomer']->id;
+        $task->company_id = $data['customerDefaultCompany']->id;
         $task->name = $systemText->title;
         $task->account_id = $data['account']->id;
-        $task->contact_id = $data['contactEdCustomer']->id;
+        $task->contact_id = $data['customerDefaultContact']->id;
         $task->department = 'administrativo';
         $task->description = $systemText->text;
         $task->date_start = date('Y-m-d');

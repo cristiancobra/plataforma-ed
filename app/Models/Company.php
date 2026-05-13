@@ -154,16 +154,16 @@ class Company extends Model {
     }
 
     // cria uma EMPRESA com dados da EMPRESA DIGITAL para a nova conta registrada
-    public static function registerCompanyEdCustomer($account, $empresaDigital) {
+    public static function registerCustomerDefaultSoftwareCompany($account, $defaultCompany) {
         
-            $companyEdCustomer = new Company();
-            $companyEdCustomer->account_id = $account->id;
-            $companyEdCustomer->type = 'fornecedor';
-            $companyEdCustomer->name = $empresaDigital->name;
-            $companyEdCustomer->email = $empresaDigital->email;
-            $companyEdCustomer->save();
+            $customerDefaultCompany = new Company();
+            $customerDefaultCompany->account_id = $account->id;
+            $customerDefaultCompany->type = 'fornecedor';
+            $customerDefaultCompany->name = $defaultCompany['name'];
+            $customerDefaultCompany->email = $defaultCompany['email'];
+            $customerDefaultCompany->save();
         
-        return $companyEdCustomer;
+        return $customerDefaultCompany;
     }
 
 }

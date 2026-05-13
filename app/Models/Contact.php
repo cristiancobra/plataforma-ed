@@ -741,16 +741,16 @@ class Contact extends Model {
     }
 
     // cria um CONTATO com dados da NATHALIA DA EMPRESA DIGITAL para a nova conta registrada
-    public static function registerContactEdCustomer($account, $empresaDigital, $companyEdCustomer) {
+    public static function registerCustomerDefaultContact($account, $defaultCompany, $customerDefaultCompany) {
 
         $contactEdCustomer = new Contact();
         $contactEdCustomer->account_id = $account->id;
         $contactEdCustomer->type = 'fornecedor';
         $contactEdCustomer->name = 'Nathalia Locks';
-        $contactEdCustomer->email = $empresaDigital->email;
+        $contactEdCustomer->email = $defaultCompany['email'];
         $contactEdCustomer->authorization_data = 1;
         $contactEdCustomer->save();
-                    $contactEdCustomer->companies()->sync($companyEdCustomer);
+                    $contactEdCustomer->companies()->sync($customerDefaultCompany);
 
         return $contactEdCustomer;
     }

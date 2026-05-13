@@ -81,19 +81,33 @@ use RegistersUsers;
         ]);
     }
 
-    public function register(Request $request) {
-        $empresaDigital = Account::find(1);
-        
+
+    // Sobrescreve o método register para criar uma CONTA, USUÁRIO, CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE
+    // na EMPRESA DIGITAL para o novo registro
+    public function register(Request $request) {      
+     
+    // Define manualmente os dados da empresa desenvolvedora do software
+        $defaultCompany = [
+            'name' => 'Sciblock',
+            'email' => 'XXXXXX',
+        ];
+
+        $defaultContact = [
+            'name' => 'Nathalia Locks',
+            'email' => 'XXXXXX',
+        ];
+
         // Cria uma CONTA, USUÁRIO e CONTATO para o novo registro
         $account = Account::registerAccount($request);
         $contact = Contact::registerContact($request, $account->id);
         $user = User::registerUser($request, $contact->id, $account->id);
-        $companyEdCustomer = Company::registerCompanyEdCustomer($account, $empresaDigital);
-        $contactEdCustomer = Contact::registerContactEdCustomer($account, $empresaDigital, $companyEdCustomer);
+        
+        $customerDefaultCompany = Company::registerCustomerDefaultCompany($account, $defaultCompany);
+        $customerDefaultContact = Contact::registerCustomerDefaultContact($account, $defaultCompany, $customerDefaultCompany);
 
-//  Cria novo CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE na EMPRESA DIGITAL
-        $contactEd = Contact::registerContactEd($request);
-        $companyEd = Company::registerCompanyEd($request);
+        //  Cria novo CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE na EMPRESA DIGITAL
+   //     $contactEd = Contact::registerContactEd($request);
+     //   $companyEd = Company::registerCompanyEd($request);
 //        $opportunityEd = Opportunity::registerOpportunityEd($contactEd, $companyEd);
 //
 //        if ($opportunityEd) {
@@ -105,7 +119,13 @@ use RegistersUsers;
                 ->get();
         
         foreach($systemTextsTutorials as $systemText) {
-            Task::registerTasksTutorials($systemText, $user, $companyEdCustomer, $contact, $account, $contactEdCustomer);
+            Task::registerTasksTutorials($systemText, [
+                'user' => $user,
+                'customerDefaultCompany' => $customerDefaultCompany,
+                'contact' => $contact,
+                'account' => $account,
+                'customerDefaultContact' => $customerDefaultContact,
+            ]);
         }
 
         return redirect('/');
