@@ -377,7 +377,8 @@ class Task extends Model
         $task->priority = 'emergência';
         $task->points = 1;
         $task->status = 'fazer';
-        $task->save();
+        $result = $task->save();
+
     }
 
     public static function returnTaskStages($task)

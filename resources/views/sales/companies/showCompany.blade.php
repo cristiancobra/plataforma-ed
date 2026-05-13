@@ -3,7 +3,7 @@
 @section('title', 'ORGANIZAÇÕES')
 
 @section('image-top')
-    {{ asset('images/empresa.png') }}
+    <i class="fa fa-building"></i>
 @endsection
 
 @section('description')

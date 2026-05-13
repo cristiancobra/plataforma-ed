@@ -57,8 +57,8 @@ use RegistersUsers;
      */
     protected function validator(array $data) {
         return Validator::make($data, [
-//                    'first_name' => ['required', 'string', 'max:255'],
-//                    'last_name' => ['required', 'string', 'max:255'],
+                   'first_name' => ['required', 'string', 'max:255'],
+                   'last_name' => ['required', 'string', 'max:255'],
                     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
                     'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -82,11 +82,19 @@ use RegistersUsers;
     }
 
 
-    // Sobrescreve o método register para criar uma CONTA, USUÁRIO, CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE
-    // na EMPRESA DIGITAL para o novo registro
+    /**
+     *  Sobrescreve o método register para criar uma CONTA, USUÁRIO, CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE
+     * na EMPRESA DIGITAL para o novo registro
+     * 
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function register(Request $request) {      
      
-    // Define manualmente os dados da empresa desenvolvedora do software
+        // Validação dos dados do usuário
+        $this->validator($request->all())->validate();
+
+        // Define manualmente os dados da empresa desenvolvedora do software
         $defaultCompany = [
             'name' => 'Sciblock',
             'email' => 'XXXXXX',
@@ -101,23 +109,14 @@ use RegistersUsers;
         $account = Account::registerAccount($request);
         $contact = Contact::registerContact($request, $account->id);
         $user = User::registerUser($request, $contact->id, $account->id);
-        
+
         $customerDefaultCompany = Company::registerCustomerDefaultCompany($account, $defaultCompany);
         $customerDefaultContact = Contact::registerCustomerDefaultContact($account, $defaultCompany, $customerDefaultCompany);
 
-        //  Cria novo CONTATO, EMPRESA, OPORTUNIDADE e TAREFA DA OPORTUNIDADE na EMPRESA DIGITAL
-   //     $contactEd = Contact::registerContactEd($request);
-     //   $companyEd = Company::registerCompanyEd($request);
-//        $opportunityEd = Opportunity::registerOpportunityEd($contactEd, $companyEd);
-//
-//        if ($opportunityEd) {
-//            $taskOpportunity = Task::registerTaskOpportunity($contactEd, $companyEd, $opportunityEd);
-//        }
-        
         $systemTextsTutorials = SystemText::where('type', 'primeiros passos')
-                ->where('status', 'ativada')
-                ->get();
-        
+            ->where('status', 'ativada')
+            ->get();
+
         foreach($systemTextsTutorials as $systemText) {
             Task::registerTasksTutorials($systemText, [
                 'user' => $user,
