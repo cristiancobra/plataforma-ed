@@ -13,7 +13,7 @@
     {{ createButtonFilter() }}
     {{ createButtonPdfReport('invoice') }}
 
-    {{ createButtonList('invoice') }}
+    <x-buttons.list model='invoice' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

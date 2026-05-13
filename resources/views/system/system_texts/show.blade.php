@@ -8,7 +8,7 @@
 
 @section('buttons')
     <x-buttons.edit model="systemText" :object="$systemText" />
-    {{ createButtonList('systemText') }}
+    <x-buttons.list model='systemText' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('name', $systemText->name)

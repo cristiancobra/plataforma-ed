@@ -11,7 +11,7 @@
         target='_blank'>
         <i class = 'fas fa-eye'></i>
     </a>
-    {{ createButtonList('page') }}
+    <x-buttons.list model='page' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

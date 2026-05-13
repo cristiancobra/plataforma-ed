@@ -11,7 +11,7 @@
 
 @section('buttons')
 
-    {{ createButtonList('image') }}
+    <x-buttons.list model="image" :object="$image ?? null" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('main')

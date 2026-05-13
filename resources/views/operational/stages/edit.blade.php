@@ -10,7 +10,7 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonList('stage') }}
+    <x-buttons.list model='stage' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

@@ -12,7 +12,7 @@
         <i class="fa fa-eye" aria-hidden="true"></i>
     </a>
     <x-buttons.edit model="page" :object="$page" />
-    {{ createButtonList('page') }}
+    <x-buttons.list model='page' :principalColor=$principalColor ?? null />
 @endsection
 
 

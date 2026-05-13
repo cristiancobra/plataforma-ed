@@ -13,7 +13,7 @@
     {{ createButtonFilter() }}
     {{ createButtonPdfReport('proposal') }}
 
-    {{ createButtonList('proposal') }}
+    <x-buttons.list model='proposal' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

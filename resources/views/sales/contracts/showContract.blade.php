@@ -12,7 +12,7 @@
 @section('buttons')
     <x-buttons.pdf :object="$contract" model="contract" :principalColor="$principalColor" />
     <x-buttons.edit model="contract" :object="$contract" :principalColor="$principalColor" />
-    {{ createButtonList('contract') }}
+    <x-buttons.list model='contract' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

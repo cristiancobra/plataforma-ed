@@ -9,7 +9,7 @@
 @section('buttons')
     <x-buttons.trash :object="$image" model="image" />
     <x-buttons.edit model="image" :object="$image" />
-    {{ createButtonList('image') }}
+    <x-buttons.list model="image" :object="$image ?? null" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('name', $image->name)

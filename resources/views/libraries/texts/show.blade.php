@@ -9,7 +9,7 @@
 @section('buttons')
     <x-buttons.trash :object="$text" model="text" />
     <x-buttons.edit model="text" :object="$text" />
-    {{ createButtonList('text') }}
+    <x-buttons.list model="text" :object="$text ?? null" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('name', $text->name)

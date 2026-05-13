@@ -39,7 +39,7 @@
         <i class="fas fa-plus"></i>
     </a>
 
-    {{ createButtonList('invoice') }}
+    <x-buttons.list model='invoice' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('shortcuts')

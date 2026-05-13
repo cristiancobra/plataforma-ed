@@ -10,7 +10,7 @@
 
     <x-buttons.trash :object="$journey" model="journey" />
     <x-buttons.edit model="journey" :object="$journey" />
-    {{ createButtonList('journey') }}
+    <x-buttons.list model='journey' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('name')

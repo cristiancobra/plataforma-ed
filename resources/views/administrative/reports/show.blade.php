@@ -9,7 +9,7 @@
 @section('buttons')
     <x-buttons.pdf :object="$report" model="report" />
 
-    {{ createButtonList('report') }}
+    <x-buttons.list model='report' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

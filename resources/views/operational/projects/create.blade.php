@@ -11,7 +11,7 @@
 
 @section('buttons')
 
-    {{ createButtonList('project') }}
+    <x-buttons.list model='project' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('main')

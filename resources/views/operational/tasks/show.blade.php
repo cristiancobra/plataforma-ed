@@ -23,7 +23,7 @@
     @endif
     <x-buttons.trash :object="$task" model="task" />
     <x-buttons.edit model="task" :object="$task" />
-    {{ createButtonList('task') }}
+    <x-buttons.list model='task' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('name', $task->name)
