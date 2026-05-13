@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Collection;
 use App\Models\CollectionLocation;
+use App\Models\Contact;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCollectionRequest;
@@ -20,15 +21,20 @@ class CollectionController extends Controller
     {
         $query = Collection::query()
             ->where('account_id', auth()->user()->account_id)
-            ->with(['currentLocation', 'user.contact']);
+            ->with(['currentLocation', 'user.contact', 'contact']);
+
 
         // Filtros opcionais
         if ($request->filled('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
 
-        if ($request->filled('user_id')) {
-            $query->where('user_id', $request->user_id);
+        if ($request->filled('patrimony_number')) {
+            $query->where('patrimony_number', 'like', '%' . $request->patrimony_number . '%');
+        }
+
+        if ($request->filled('brand')) {
+            $query->where('brand', 'like', '%' . $request->brand . '%');
         }
 
         if ($request->filled('category')) {
@@ -37,6 +43,16 @@ class CollectionController extends Controller
 
         if ($request->filled('type')) {
             $query->where('type', $request->type);
+        }
+
+        if ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
+
+        if ($request->filled('location')) {
+            $query->whereHas('currentLocation', function ($q) use ($request) {
+                $q->where('location', 'like', '%' . $request->location . '%');
+            });
         }
 
         if ($request->filled('status')) {
@@ -77,11 +93,15 @@ class CollectionController extends Controller
         $categories = Collection::returnCategories();
         $types = Collection::returnTypes();
         $status = Collection::returnStatus();
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('libraries/collections/create', compact(
             'categories',
             'types',
             'status',
+            'contacts',
         ));
     }
 
@@ -140,6 +160,9 @@ class CollectionController extends Controller
         $types = Collection::returnTypes();
         $status = Collection::returnStatus();
         $users = User::myUsers();
+        $contacts = Contact::where('account_id', auth()->user()->account_id)
+            ->orderBy('name', 'asc')
+            ->get();
 
         return view('libraries/collections/edit', compact(
             'collection',
@@ -147,6 +170,7 @@ class CollectionController extends Controller
             'types',
             'status',
             'users',
+            'contacts',
         ));
     }
 

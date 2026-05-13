@@ -40,7 +40,9 @@
 
                     @yield('filter')
 
+
                     @yield('table')
+                    @yield('pagination')
 
                     @include('layouts.footer')
 

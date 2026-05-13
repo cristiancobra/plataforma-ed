@@ -65,30 +65,26 @@
 
 
 @section('filter')
-    <form id="filter" action="{{ route('task.index') }}" method="get" style="text-align: right">
-        <div class="row mt-5 mb-5"
-            style='
-                                                            border-radius: 8px;
-                                                            background-color: {{ $oppositeColor }};
-                                                            padding: 10px 5px 10px 5px;
-                                                            '>
-            <div class="col-3 d-flex justify-content-start">
-                <input class='w-100' type="text" name="name" placeholder="filtrar por nome" value="">
+    <form id="filter" action="{{ route('task.index') }}" method="get" class="mb-4">
+        <div class="row g-2 align-items-end p-3 mb-4 shadow-sm rounded" style="border-color: {{ $oppositeColor }};">
+            <div class="col-md-3 col-12 mb-2 mb-md-0">
+                <input class="form-control" type="text" name="name" placeholder="Filtrar por nome" value="">
             </div>
-            <div class="col m-auto">
-                {{ createFilterSelect('department', 'select', $departments, 'departamento') }}
-                {{ createFilterSelectModels('contact_id', 'select', $contacts, 'contato') }}
-                {{ createFilterSelectModels('company_id', 'select', $companies, 'empresa') }}
-                {{ createSelectUsers('select', $users, 'usuário') }}
-                {{ createFilterSelect('priority', 'select', $priorities, 'prioridade') }}
-                {{ createFilterSelect('status', 'select', $status, 'situação') }}
+            <div class="col-md-7 col-12 mb-2 mb-md-0 d-flex flex-wrap gap-2">
+                <div class="flex-fill">{{ createFilterSelect('department', 'select', $departments, 'departamento') }}</div>
+                <div class="flex-fill">{{ createFilterSelectModels('contact_id', 'select', $contacts, 'contato') }}</div>
+                <div class="flex-fill">{{ createFilterSelectModels('company_id', 'select', $companies, 'empresa') }}</div>
+                <div class="flex-fill">{{ createSelectUsers('select', $users, 'usuário') }}</div>
+                <div class="flex-fill">{{ createFilterSelect('priority', 'select', $priorities, 'prioridade') }}</div>
+                <div class="flex-fill">{{ createFilterSelect('status', 'select', $status, 'situação') }}</div>
             </div>
-            <div class="col-1 d-flex">
-                <a class="circular-button secondary" title='remover filtros' title='remover filtros'
-                    href='{{ route('task.index') }}'>
+            <div class="col-md-2 col-12 d-flex gap-2 justify-content-md-end justify-content-start mt-2 mt-md-0">
+                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center"
+                    title="Remover filtros" href="{{ route('task.index') }}">
                     <i class="fa fa-ban" aria-hidden="true"></i>
                 </a>
-                <button class="circular-button secondary" type="submit" title='aplicar filtros' value="FILTRAR">
+                <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit"
+                    title="Aplicar filtros" value="FILTRAR">
                     <i class="fa fa-filter" aria-hidden="true"></i>
                 </button>
             </div>
@@ -98,59 +94,36 @@
 
 
 @section('table')
-    <div class='row  table-header mt-2 mb-2' style="background-color: {{ $principalColor }}">
-        <div class='col-1'>
-            RESPONSÁVEL
-        </div>
-        <div class='col-3'>
-            NOME
-        </div>
-        <div class='col-2'>
-            CONTATO
-        </div>
-        <div class='col-3'>
-            ORGANIZAÇÃO
-        </div>
-        <div class='col-1'>
-            PRAZO
-        </div>
-        <div class='col-1'>
-            PRIORIDADE
-        </div>
-        <div class='col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" class="mt-2 mb-2" :columns="[
+        ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
+        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'CONTATO', 'class' => 'col-2'],
+        ['label' => 'ORGANIZAÇÃO', 'class' => 'col-2'],
+        ['label' => 'PRAZO', 'class' => 'col-1'],
+        ['label' => 'PRIORIDADE', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+        ['label' => 'VER', 'class' => 'col-1'],
+    ]" />
     @foreach ($tasks as $task)
         <div class="row table2 position-relative mt-3"
             style="
      color: {{ $principalColor }};
      border-left-color: {{ $complementaryColor }}
      ">
-            <a class="stretched-link "href=" {{ route('task.show', ['task' => $task]) }}">
-            </a>
-            <div class='cel col-1'>
-                @if (isset($task->user->image))
-                    <div class='profile-picture-small'>
-                        <img src='{{ asset($task->user->image->path) }}' width='100%' height='100%'>
-                    </div>
-                @elseif($task->user->contact)
-                    {{ $task->user->contact->name }}
-                @else
-                    membro da equipe excluído
-                @endif
+            <div class='col-1 text-center'>
+                <x-user.avatar :user="$task->user" />
             </div>
-            <div class='cel col-3 justify-content-start' style="font-weight: 600">
+            <div class='col-3 justify-content-start' style="font-weight: 600">
                 {{ $task->name }}
             </div>
-            <div class='cel col-2'>
+            <div class='col-2 text-center'>
                 @if ($task->contact)
                     {{ $task->contact->name }}
                 @else
                     contato excluído
                 @endif
             </div>
-            <div class='cel col-3 text-center'>
+            <div class='col-2 text-center'>
                 @if ($task->company)
                     {{ $task->company->name }}
                 @else
@@ -164,6 +137,9 @@
 
             {{ formatStatus($task) }}
 
+            <div class="col-1 d-flex align-items-center justify-content-center pe-4">
+                <x-buttons.details :href="route('task.show', ['task' => $task])" title="Visualizar tarefa" :color="$principalColor" :size="36" />
+            </div>
         </div>
     @endforeach
 @endsection

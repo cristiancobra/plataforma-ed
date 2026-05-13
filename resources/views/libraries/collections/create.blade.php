@@ -69,6 +69,16 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
+                    <label class='labels' for=''>CONTATO:</label>
+                    {{ createDoubleSelectIdName('contact_id', 'fields', $contacts, 'Não possui') }}
+                    @if ($errors->has('contact_id'))
+                        <span class='text-danger'>{{ $errors->first('contact_id') }}</span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
                     <label class='labels' for=''>TÍTULO:</label>
                     <input type='text' name='title' class='form-control' value='{{ old('title') }}'>
                     @if ($errors->has('title'))

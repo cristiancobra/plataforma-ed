@@ -27,6 +27,7 @@ class UpdateCollectionRequest extends FormRequest
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:50',
             'type' => 'required|string|max:100',
+            'contact_id' => 'nullable|exists:contacts,id',
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'patrimony_number' => 'nullable|string|max:100',

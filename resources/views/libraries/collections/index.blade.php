@@ -8,76 +8,55 @@
 
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'collection'" />
-    <x-buttons.filter />
     <x-buttons.create model="collection" />
 @endsection
 
 
 @section('filter')
-    <form id="filter" action="{{ route('collection.index') }}" method="get" style="text-align: right;">
-        <input type="text" name="name" placeholder="nome do item" value="{{ request('name') }}">
-        {{ createFilterSelect('category', 'select', $categories, 'Todas as categorias') }}
-        {{ createFilterSelect('type', 'select', $types, 'Todos os tipos') }}
-        {{ createSelectUsers('select', $users, 'Todos os usuários') }}
-        {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
-        <br>
-        <a class="text-button secondary" href='{{ route('collection.index') }}'>
-            LIMPAR
-        </a>
-        <input class="text-button primary" type="submit" value="FILTRAR">
-    </form>
+    <x-table.filter :action="route('collection.index')" :reset-url="route('collection.index')">
+        <x-filter.input name="name" placeholder="nome do item" />
+        <x-filter.input name="patrimony_number" placeholder="nº patrimônio" />
+        <x-filter.input name="brand" placeholder="marca" />
+        <x-filter.select name="category" :options="$categories" placeholder="Todas as categorias" />
+        <x-filter.select name="type" :options="$types" placeholder="Todos os tipos" />
+        <x-filter.select-user name="user_id" :users="$users" placeholder="Responsável" />
+        <x-filter.input name="location" placeholder="localização" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+    </x-table.filter>
 @endsection
 
 
 @section('table')
-    <div class="row table-header mb-2 mt-5" style="background-color: {{ $principalColor }}">
-        <div class="col-3 text-white fw-bold">
-            NOME
-        </div>
-        <div class="col-1 text-white fw-bold">
-            IA
-        </div>
-        <div class="col-2 text-white fw-bold">
-            TIPO
-        </div>
-        <div class="col-2 text-white fw-bold">
-            PATRIMÔNIO
-        </div>
-        <div class="col-2 text-white fw-bold">
-            LOCALIZAÇÃO
-        </div>
-        <div class="col-1 text-white fw-bold">
-            RESPONSÁVEL
-        </div>
-        <div class="col-1 text-white fw-bold">
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-2'],
+        ['label' => 'CATEGORIA', 'class' => 'col-1'],
+        ['label' => 'TIPO', 'class' => 'col-2'],
+        ['label' => 'PATRIMÔNIO', 'class' => 'col-2'],
+        ['label' => 'REGISTRADO POR', 'class' => 'col-1'],
+        ['label' => 'LOCALIZAÇÃO', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+        ['label' => 'CONTATO', 'class' => 'col-1'],
+        ['label' => 'VER', 'class' => 'col-1 text-center'],
+    ]" />
     @foreach ($collections as $collection)
         <div class="row border-bottom py-2 align-items-center">
-            <div class="col-3 fw-bold">
-                <a class="text-dark text-decoration-none"
-                    href="{{ route('collection.show', ['collection' => $collection->id]) }}">
-                    <button class="btn btn-sm btn-outline-secondary me-2">
-                        <i class="fa fa-eye"></i>
-                    </button>
-                    {{ $collection->name }}
-                </a>
+            <div class="col-2 fw-bold">
+                {{ $collection->name }}
             </div>
-            <div class="col-1">
+            <div class="col-1 text-center">
                 {{ $collection->category }}
             </div>
-            <div class="col-2">
+            <div class="col-2 text-center">
                 {{ $collection->type }}
             </div>
-            <div class="col-2">
+            <div class="col-2 text-center">
                 {{ $collection->patrimony_number ?? '-' }}
             </div>
-            <div class="col-2">
-                {{ $collection->currentLocation->location ?? '-' }}
+            <div class="col-1 text-center">
+                <x-user.avatar :user="$collection->user" :principal-color="$principalColor" />
             </div>
-            <div class="col-1">
-                {{ $collection->user->contact->name ?? '-' }}
+            <div class="col-1 text-start">
+                {{ $collection->currentLocation->location ?? '-' }}
             </div>
             <div class="col-1">
                 @switch($collection->status)
@@ -101,30 +80,22 @@
                         {{ $collection->status }}
                 @endswitch
             </div>
+            <div class="col-1 text-center">
+                @if ($collection->contact)
+                    <a href="{{ route('contact.show', ['contact' => $collection->contact->id]) }}" title="Ver contato">
+                        {{ $collection->contact->name }}
+                    </a>
+                @else
+                    -
+                @endif
+            </div>
+            <div class="col-1 text-center">
+                <x-buttons.details :href="route('collection.show', ['collection' => $collection->id])" title="Visualizar acervo" :color="$principalColor" :size="32" />
+            </div>
         </div>
     @endforeach
 @endsection
 
 @section('pagination')
     {{ $collections->appends(request()->query())->links() }}
-@endsection
-
-@section('js-scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButton = document.getElementById('filter_button');
-            const filterForm = document.getElementById('filter');
-
-            filterButton.addEventListener('click', function(e) {
-                e.preventDefault();
-                const isHidden = window.getComputedStyle(filterForm).display === 'none';
-
-                if (isHidden) {
-                    filterForm.style.display = 'block';
-                } else {
-                    filterForm.style.display = 'none';
-                }
-            });
-        });
-    </script>
 @endsection

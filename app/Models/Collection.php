@@ -14,6 +14,7 @@ class Collection extends Model
     protected $fillable = [
         'account_id',
         'user_id',
+        'contact_id',
         'name',
         'category',
         'type',
@@ -52,6 +53,11 @@ class Collection extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class, 'contact_id', 'id');
     }
 
     public function locations()
