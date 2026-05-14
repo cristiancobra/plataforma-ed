@@ -35,7 +35,7 @@
         ['label' => 'REGISTRADO POR', 'class' => 'col-1'],
         ['label' => 'LOCALIZAÇÃO', 'class' => 'col-1'],
         ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
-        ['label' => 'CONTATO', 'class' => 'col-1'],
+        ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
         ['label' => 'VER', 'class' => 'col-1 text-center'],
     ]" />
     @foreach ($collections as $collection)
