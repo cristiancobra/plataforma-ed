@@ -124,7 +124,11 @@
     <x-sidebar.item icon="fas fa-book" title="BIBLIOTECA" :principal-color="$principalColor" :submenu="[
         ['icon' => 'fas fa-archive', 'label' => 'ACERVO', 'route' => route('collection.index')],
         ['icon' => 'fas fa-file-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
-        ['icon' => 'fas fa-tags', 'label' => 'TIPOS DE ACERVO', 'route' => route('collection-types.index')],
+        [
+            'icon' => 'fas fa-tags',
+            'label' => 'TIPOS DE ACERVO',
+            'route' => route('collection-types.indexCollectionTypesCollectionTypes'),
+        ],
     ]" />
 
     <div class="row pt-2">

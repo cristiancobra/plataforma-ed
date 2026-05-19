@@ -8,5 +8,5 @@
         <strong>Nome:</strong> {{ $collectionType->name }}
     </div>
     <a href="{{ route('collection-types.edit', $collectionType) }}" class="btn btn-warning">Editar</a>
-    <a href="{{ route('collection-types.index') }}" class="btn btn-secondary">Voltar</a>
+    <a href="{{ route('collection-types.indexCollectionTypes') }}" class="btn btn-secondary">Voltar</a>
 @endsection
