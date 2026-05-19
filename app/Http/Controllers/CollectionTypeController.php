@@ -27,7 +27,7 @@ class CollectionTypeController extends Controller
         $data = $request->validated();
         $data['account_id'] = Auth::user()->account_id;
         CollectionType::create($data);
-        return redirect()->route('collection-types.index')->with('success', 'Tipo criado com sucesso!');
+        return redirect()->route('collection_types.indexCollectionTypes')->with('success', 'Tipo criado com sucesso!');
     }
 
     public function show(CollectionType $collectionType)
@@ -46,14 +46,14 @@ class CollectionTypeController extends Controller
     {
         $this->authorizeType($collectionType);
         $collectionType->update($request->validated());
-        return redirect()->route('collection-types.index')->with('success', 'Tipo atualizado com sucesso!');
+        return redirect()->route('collection_types.indexCollectionTypes')->with('success', 'Tipo atualizado com sucesso!');
     }
 
     public function destroy(CollectionType $collectionType)
     {
         $this->authorizeType($collectionType);
         $collectionType->delete();
-        return redirect()->route('collection-types.index')->with('success', 'Tipo removido com sucesso!');
+        return redirect()->route('collection_types.indexCollectionTypes')->with('success', 'Tipo removido com sucesso!');
     }
 
     private function authorizeType(CollectionType $type)
