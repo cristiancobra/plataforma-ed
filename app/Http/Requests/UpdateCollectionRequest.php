@@ -26,7 +26,7 @@ class UpdateCollectionRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'category' => 'required|string|max:50',
-            'type' => 'required|string|max:100',
+            'type_id' => 'required|exists:collection_types,id',
             'contact_id' => 'nullable|exists:contacts,id',
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
@@ -47,6 +47,10 @@ class UpdateCollectionRequest extends FormRequest
             'code_url' => 'nullable|url|max:500',
             'image_url' => 'nullable|url|max:500',
             'status' => 'nullable|string|max:50',
+            'tracking_tag' => 'nullable|string|max:255',
+            'redirect_link' => 'nullable|string|max:500',
+            'serial_number' => 'nullable|string|max:255',
+            'accessories' => 'nullable|string',
         ];
     }
 
@@ -55,7 +59,8 @@ class UpdateCollectionRequest extends FormRequest
         return [
             'name.required' => 'O nome é obrigatório.',
             'category.required' => 'A categoria é obrigatória.',
-            'type.required' => 'O tipo é obrigatório.',
+            'type_id.required' => 'O tipo é obrigatório.',
+            'type_id.exists' => 'O tipo selecionado é inválido.',
             'purchase_date.date' => 'Data de compra inválida.',
             'manufacturing_date.date' => 'Data de fabricação inválida.',
             'video_url.url' => 'URL do vídeo inválida.',

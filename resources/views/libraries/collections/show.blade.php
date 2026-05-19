@@ -44,7 +44,7 @@
             TIPO
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
-            {{ $collection->type }}
+            {{ optional($collection->collectionType)->name ?? '-' }}
         </div>
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             PATRIMÔNIO
@@ -66,6 +66,39 @@
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
             {{ $collection->brand ?? '-' }}
+        </div>
+    </div>
+
+    <div class="row g-0 mb-3">
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            TAG DE RASTREAMENTO
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            {{ $collection->tracking_tag ?? '-' }}
+        </div>
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            LINK DE REDIRECIONAMENTO
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            @if ($collection->redirect_link)
+                <a href="{{ $collection->redirect_link }}" target="_blank">{{ $collection->redirect_link }}</a>
+            @else
+                -
+            @endif
+        </div>
+    </div>
+    <div class="row g-0 mb-3">
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            NÚMERO DE SÉRIE
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            {{ $collection->serial_number ?? '-' }}
+        </div>
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            ACESSÓRIOS
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            {{ $collection->accessories ?? '-' }}
         </div>
     </div>
 
@@ -114,12 +147,8 @@
                 @if ($collection->best_ai)
                     <p><strong>Melhor IA:</strong> {{ $collection->best_ai }}</p>
                 @endif
-                @if ($collection->runs_adobe)
-                    <p><strong>Roda no Adobe:</strong> {{ $collection->runs_adobe }}</p>
-                @endif
-                @if ($collection->runs_vrchat)
-                    <p><strong>Roda no VRChat:</strong> {{ $collection->runs_vrchat }}</p>
-                @endif
+                <p><strong>Roda no Adobe:</strong> {{ $collection->runs_adobe ? 'Sim' : 'Não' }}</p>
+                <p><strong>Roda no VRChat:</strong> {{ $collection->runs_vrchat ? 'Sim' : 'Não' }}</p>
             </div>
             <div class="col-md-6">
                 @if ($collection->purchase_date)

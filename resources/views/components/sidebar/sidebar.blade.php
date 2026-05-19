@@ -8,10 +8,15 @@
             </a>
             <i class="fas fa-rocket"></i>
             <p class="mb-0"style='font-size:10px'>
-                TAREFAS
+                PAINEL
             </p>
         </div>
     </div>
+
+    <x-sidebar.item icon="fas fa-cog" title="OPERACIONAL" :principal-color="$principalColor" :submenu="[
+        ['icon' => 'fas fa-tasks', 'label' => 'TAREFAS', 'route' => route('task.index')],
+        ['icon' => 'fas fa-clock', 'label' => 'JORNADAS', 'route' => route('journey.index')],
+    ]" />
 
     @if (auth()->user()->perfil == 'super administrador' or
             auth()->user()->perfil == 'administrador' or
@@ -116,87 +121,11 @@
         </div>
     </div>
 
-    <style>
-        .biblioteca-menu {
-            display: block;
-        }
-
-        .sidebar-submenu {
-            display: none;
-            background: #fff;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-            padding: 0.5rem 0;
-            margin: 0.5rem 0;
-        }
-
-        .biblioteca-menu.show .sidebar-submenu {
-            display: block;
-        }
-
-        .sidebar-submenu a {
-            display: flex;
-            align-items: center;
-            color: inherit;
-            text-decoration: none;
-            padding: 8px 16px;
-            font-size: 10px;
-            transition: background 0.2s;
-        }
-
-        .sidebar-submenu a:hover {
-            background: #f0f0f0;
-        }
-    </style>
-    <div class="row pt-2">
-        <div class='col sidebar-item text-center biblioteca-menu' style="color: {{ $principalColor }}"
-            id="biblioteca-menu">
-            <div class="biblioteca-header" style="cursor: pointer;">
-                <i class="fas fa-book"></i>
-                <p class="mb-0 fw-bold" style='font-size:11px;'>
-                    BIBLIOTECA
-                </p>
-            </div>
-            <div class="sidebar-submenu">
-                <a href='{{ route('collection.index') }}' style="color: {{ $principalColor }};">
-                    <i class="fas fa-archive me-1"></i>
-                    <span>ACERVO</span>
-                </a>
-                <a href='{{ route('text.index') }}' style="color: {{ $principalColor }};">
-                    <i class="fas fa-file-alt me-1"></i>
-                    <span>DOCUMENTOS</span>
-                </a>
-            </div>
-        </div>
-    </div>
-    <script>
-        (function() {
-            var menu = document.getElementById('biblioteca-menu');
-            var header = menu.querySelector('.biblioteca-header');
-
-            // Hover: abre ao entrar, fecha ao sair
-            menu.addEventListener('mouseenter', function() {
-                menu.classList.add('show');
-            });
-
-            menu.addEventListener('mouseleave', function() {
-                menu.classList.remove('show');
-            });
-
-            // Clique: toggle
-            header.addEventListener('click', function(e) {
-                e.stopPropagation();
-                menu.classList.toggle('show');
-            });
-
-            // Fecha ao clicar fora
-            document.addEventListener('click', function(e) {
-                if (!menu.contains(e.target)) {
-                    menu.classList.remove('show');
-                }
-            });
-        })();
-    </script>
+    <x-sidebar.item icon="fas fa-book" title="BIBLIOTECA" :principal-color="$principalColor" :submenu="[
+        ['icon' => 'fas fa-archive', 'label' => 'ACERVO', 'route' => route('collection.index')],
+        ['icon' => 'fas fa-file-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
+        ['icon' => 'fas fa-tags', 'label' => 'TIPOS DE ACERVO', 'route' => route('collection-types.index')],
+    ]" />
 
     <div class="row pt-2">
         <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">

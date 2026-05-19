@@ -18,6 +18,7 @@ class Collection extends Model
         'name',
         'category',
         'type',
+        'type_id',
         'title',
         'description',
         'patrimony_number',
@@ -38,11 +39,16 @@ class Collection extends Model
         'image_url',
         'trash',
         'status',
+        'tracking_tag',
+        'redirect_link',
+        'serial_number',
+        'accessories',
     ];
 
     protected $casts = [
         'purchase_date' => 'date',
         'manufacturing_date' => 'date',
+        'runs_adobe' => 'boolean',
     ];
 
     public function account()
@@ -54,6 +60,11 @@ class Collection extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
+        public function collectionType()
+        {
+            return $this->belongsTo(CollectionType::class, 'type_id', 'id');
+        }
 
     public function contact()
     {
@@ -78,53 +89,60 @@ class Collection extends Model
         ];
     }
 
-    public static function returnTypes()
-    {
-        return [
-            'computador',
-            'notebook',
-            'tablet',
-            'smartphone',
-            'monitor',
-            'TV',
-            'impressora',
-            'scanner',
-            'projetor',
-            'câmera',
-            'óculos VR',
-            'lousa digital',
-            'teclado',
-            'mouse',
-            'headset',
-            'fone de ouvido',
-            'caixa de som',
-            'microfone',
-            'webcam',
-            'HD externo',
-            'SSD externo',
-            'pendrive',
-            'cartão de memória',
-            'roteador',
-            'switch',
-            'modem',
-            'no-break',
-            'estabilizador',
-            'cabo',
-            'adaptador',
-            'hub USB',
-            'mesa digitalizadora',
-            'controle',
-            'joystick',
-            'servidor',
-            'rack',
-            'software',
-            'licença de software',
-            'jogo',
-            'assinatura',
-            'domínio',
-            'outro',
-        ];
-    }
+    // public static function returnTypes()
+    // {
+    //     $types = [
+    //         'computador',
+    //         'notebook',
+    //         'tablet',
+    //         'smartphone',
+    //         'monitor',
+    //         'TV',
+    //         'impressora',
+    //         'scanner',
+    //         'projetor',
+    //         'câmera',
+    //         'óculos VR',
+    //         'lousa digital',
+    //         'teclado',
+    //         'mouse',
+    //         'headset',
+    //         'fone de ouvido',
+    //         'caixa de som',
+    //         'microfone',
+    //         'webcam',
+    //         'HD externo',
+    //         'SSD externo',
+    //         'pendrive',
+    //         'cartão de memória',
+    //         'roteador',
+    //         'switch',
+    //         'modem',
+    //         'no-break',
+    //         'estabilizador',
+    //         'cabo',
+    //         'adaptador',
+    //         'hub USB',
+    //         'mesa digitalizadora',
+    //         'controle',
+    //         'joystick',
+    //         'servidor',
+    //         'rack',
+    //         'software',
+    //         'licença de software',
+    //         'jogo',
+    //         'assinatura',
+    //         'domínio',
+    //         'outro',
+    //     ];
+    //     if (class_exists('Collator')) {
+    //         $collator = new \Collator('pt_BR');
+    //         $collator->sort($types);
+    //     } else {
+    //         natcasesort($types);
+    //     }
+    //     return array_values($types);
+    // }
 
     public static function returnStatus()
     {

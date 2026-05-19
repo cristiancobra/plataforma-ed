@@ -71,7 +71,8 @@ class Task extends Model
 
     public function journeys()
     {
-        return $this->hasMany(Journey::class, 'task_id', 'id');
+        return $this->hasMany(Journey::class, 'task_id', 'id')
+            ->where('trash', '!=', 1);
     }
 
     public function opportunity()

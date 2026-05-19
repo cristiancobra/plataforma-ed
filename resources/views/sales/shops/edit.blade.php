@@ -154,7 +154,10 @@
             </div>
             <div class="row mt-5">
                 <div class="col">
-                    <input class='btn btn-secondary' type='submit' value='ATUALIZAR'>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <x-buttons.cancel />
+                        <x-buttons.save />
+                    </div>
     </form>
     </div>
     </div>

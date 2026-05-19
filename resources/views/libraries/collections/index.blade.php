@@ -47,7 +47,7 @@
                 {{ $collection->category }}
             </div>
             <div class="col-2 text-center">
-                {{ $collection->type }}
+                {{ optional($collection->collectionType)->name ?? '-' }}
             </div>
             <div class="col-2 text-center">
                 {{ $collection->patrimony_number ?? '-' }}

@@ -19,7 +19,7 @@
         <x-sidebar.sidebar />
 
         <main class='main2'>
-            <header class='row pt-5 ps-5 pb-0'>
+            <header class='row pt-5 ps-5 pb-0 me-5'>
                 @include('layouts.header')
             </header>
 
@@ -54,6 +54,7 @@
     </div>
     </div>
     @yield('js-scripts')
+    @stack('scripts')
 </body>
 
 </html>

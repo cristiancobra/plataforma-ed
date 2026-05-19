@@ -57,8 +57,8 @@ html,body{
 
 .main2{
     grid-area: main2;
-    height: 100%;
-    background-color: #EEEEEE;
+    height: 100vh;
+    background-color: lightslategray;
     /*background-color: red;*/
 }
 

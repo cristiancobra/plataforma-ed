@@ -324,6 +324,13 @@ Route::resource('acervo', 'CollectionController')
         ->parameters(['acervo' => 'collection'])
         ->middleware('roles');
 
+// ================================ ACERVO - TIPOS DE COLEÇÃO ===================
+Route::resource('collection-types', 'CollectionTypeController')
+        ->names('collection-types')
+        ->parameters(['collection-types' => 'collectionType']);
+
+
+
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')
         ->names('competitor')

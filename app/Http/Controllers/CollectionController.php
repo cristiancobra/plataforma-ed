@@ -6,6 +6,7 @@ use App\Models\Collection;
 use App\Models\CollectionLocation;
 use App\Models\Contact;
 use App\Models\User;
+use App\Models\CollectionType;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\UpdateCollectionRequest;
@@ -42,7 +43,7 @@ class CollectionController extends Controller
         }
 
         if ($request->filled('type')) {
-            $query->where('type', $request->type);
+            $query->where('type_id', $request->type);
         }
 
         if ($request->filled('user_id')) {
@@ -67,8 +68,12 @@ class CollectionController extends Controller
 
         $collections = $query->orderBy('created_at', 'desc')->paginate(20);
 
+
         $categories = Collection::returnCategories();
-        $types = Collection::returnTypes();
+        $types = CollectionType::where('account_id', auth()->user()->account_id)
+            ->orderBy('name')
+            ->pluck('name', 'id')
+            ->toArray();
         $status = Collection::returnStatus();
         $users = User::myUsers();
         $trashStatus = $request->trash;
@@ -90,8 +95,12 @@ class CollectionController extends Controller
      */
     public function create()
     {
+
         $categories = Collection::returnCategories();
-        $types = Collection::returnTypes();
+        $types = CollectionType::where('account_id', auth()->user()->account_id)
+            ->orderBy('name')
+            ->pluck('name', 'id');
+
         $status = Collection::returnStatus();
         $contacts = Contact::where('account_id', auth()->user()->account_id)
             ->orderBy('name', 'asc')
@@ -113,8 +122,14 @@ class CollectionController extends Controller
      */
     public function store(StoreCollectionRequest $request)
     {
+        $data = $request->all();
+        // Compatibilidade: se vier 'type' do form, converte para 'type_id'
+        if (isset($data['type'])) {
+            $data['type_id'] = $data['type'];
+            unset($data['type']);
+        }
         $collection = new Collection();
-        $collection->fill($request->all());
+        $collection->fill($data);
         $collection->account_id = auth()->user()->account_id;
         $collection->user_id = auth()->user()->id;
         $collection->save();
@@ -156,8 +171,12 @@ class CollectionController extends Controller
      */
     public function edit(Collection $collection)
     {
+
         $categories = Collection::returnCategories();
-        $types = Collection::returnTypes();
+        $types = CollectionType::where('account_id', auth()->user()->account_id)
+            ->orderBy('name')
+            ->pluck('name', 'id')
+            ->toArray();
         $status = Collection::returnStatus();
         $users = User::myUsers();
         $contacts = Contact::where('account_id', auth()->user()->account_id)
@@ -183,7 +202,11 @@ class CollectionController extends Controller
      */
     public function update(UpdateCollectionRequest $request, Collection $collection)
     {
-        $collection->fill($request->all());
+        $data = $request->all();
+        // Se o checkbox não for marcado, o campo não vem no request. Forçar para 0 (false)
+        $data['runs_adobe'] = $request->has('runs_adobe') ? 1 : 0;
+        $data['runs_vrchat'] = $request->has('runs_vrchat') ? 1 : 0;
+        $collection->fill($data);
         $collection->save();
 
         return redirect()->route('collection.show', [$collection])

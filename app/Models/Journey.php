@@ -20,6 +20,7 @@ class Journey extends Model {
         'start',
         'end',
         'duration',
+        'trash',
     ];
     protected $hidden = [
     ];
