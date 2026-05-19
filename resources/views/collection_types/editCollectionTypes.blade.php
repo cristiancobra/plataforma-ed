@@ -28,6 +28,6 @@
             @enderror
         </div>
         <button type="submit" class="btn text-white" style="background-color: {{ $principalColor }}">Atualizar</button>
-        <a href="{{ route('collection-types.indexCollectionTypes') }}" class="btn btn-secondary">Cancelar</a>
+        <a href="{{ route('collection-types.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 @endsection
