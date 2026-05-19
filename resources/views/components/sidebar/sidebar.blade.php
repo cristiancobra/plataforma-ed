@@ -127,7 +127,7 @@
         [
             'icon' => 'fas fa-tags',
             'label' => 'TIPOS DE ACERVO',
-            'route' => route('collection-types.indexCollectionTypes'),
+            'route' => route('collection-types.index'),
         ],
     ]" />
 
