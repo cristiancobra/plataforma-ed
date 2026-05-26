@@ -25,7 +25,6 @@ class UpdateCollectionRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'category' => 'required|string|max:50',
             'type_id' => 'required|exists:collection_types,id',
             'contact_id' => 'nullable|exists:contacts,id',
             'title' => 'nullable|string|max:255',
@@ -58,7 +57,6 @@ class UpdateCollectionRequest extends FormRequest
     {
         return [
             'name.required' => 'O nome é obrigatório.',
-            'category.required' => 'A categoria é obrigatória.',
             'type_id.required' => 'O tipo é obrigatório.',
             'type_id.exists' => 'O tipo selecionado é inválido.',
             'purchase_date.date' => 'Data de compra inválida.',

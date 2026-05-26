@@ -47,21 +47,15 @@ class OpportunityController extends Controller {
 
         $total = $opportunities->total();
 
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $companies = Company::where('account_id', auth()->user()->account_id)
-                ->orderBy('NAME', 'ASC')
-                ->get();
-
-        $users = User::myUsers();
-        $stages = Opportunity::listStages();
-        $status = Opportunity::listStatus();
+        $contactSelectOptions = Contact::userSelectOptions();
+        $companiesSelectOptions = Company::companiesSelectOptions();
+        $userSelectOptions = User::userSelectOptions();
+        $stagesSelectOptions = Opportunity::listStages();
+        $statusSelectOptions = Opportunity::listStatus();
 
         $trashStatus = request()->trash;
 
-        return view('sales.opportunities.index', compact(
+        return view('opportunities.index', compact(
                         'title',
                         'department',
                         'opportunities',
@@ -72,11 +66,11 @@ class OpportunityController extends Controller {
                         'totalBill',
                         'totalProduction',
                         'total',
-                        'contacts',
-                        'companies',
-                        'users',
-                        'stages',
-                        'status',
+                        'contactSelectOptions',
+                        'companiesSelectOptions',
+                        'userSelectOptions',
+                        'stagesSelectOptions',
+                        'statusSelectOptions',
                         'trashStatus',
         ));
     }
@@ -107,7 +101,7 @@ class OpportunityController extends Controller {
 
         $users = User::myUsers();
 
-        return view('sales.opportunities.create', compact(
+        return view('opportunities.create', compact(
                         'title',
                         'department',
                         'users',
@@ -315,7 +309,7 @@ class OpportunityController extends Controller {
         $priority = $opportunity->stage;
 
 
-        return view('sales.opportunities.show', compact(
+        return view('opportunities.show', compact(
                         'dateDue',
                         'title',
                         'opportunity',
@@ -382,7 +376,7 @@ class OpportunityController extends Controller {
                 ->orderBy('PAY_DAY', 'ASC')
                 ->get();
 
-        return view('sales.opportunities.edit', compact(
+        return view('opportunities.edit', compact(
                         'title',
                         'opportunity',
                         'users',
@@ -472,7 +466,7 @@ class OpportunityController extends Controller {
         $stages = Opportunity::listStages();
         $status = Opportunity::listStatus();
 
-        return view('sales.opportunities.indexOpportunities', compact(
+        return view('opportunities.indexOpportunities', compact(
                         'opportunities',
                         'total',
                         'contacts',
@@ -611,7 +605,7 @@ class OpportunityController extends Controller {
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('sales.proposals.pdf_production', compact('data'))
+        $pdf = PDF::loadView('proposals.pdf_production', compact('data'))
                 ->setOptions([
             'page-size' => 'A4',
             'header-html' => $header,

@@ -20,9 +20,21 @@ class CollectionController extends Controller
      */
     public function index(Request $request)
     {
+        // Detecta se há filtros ativos (exceto paginação, trash e role)
+        $filtersActive = collect($request->except(['page', 'trash', 'role']))
+            ->filter(function ($v) {
+                return !is_null($v) && trim($v) !== '';
+            })
+            ->count() > 0;
+            
         $query = Collection::query()
             ->where('account_id', auth()->user()->account_id)
             ->with(['currentLocation', 'user.contact', 'contact']);
+
+        // Total geral SEM filtro (apenas da conta)
+        $totalTotal = Collection::where('account_id', auth()->user()->account_id)
+            ->where('trash', $request->has('trash') && $request->trash == 1 ? 1 : 0)
+            ->count();
 
 
         // Filtros opcionais
@@ -39,7 +51,9 @@ class CollectionController extends Controller
         }
 
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->whereHas('collectionType', function ($q) use ($request) {
+                $q->where('category', $request->category);
+            });
         }
 
         if ($request->filled('type')) {
@@ -48,6 +62,10 @@ class CollectionController extends Controller
 
         if ($request->filled('user_id')) {
             $query->where('user_id', $request->user_id);
+        }
+
+        if ($request->filled('contact_id')) {
+            $query->where('contact_id', $request->contact_id);
         }
 
         if ($request->filled('location')) {
@@ -67,24 +85,27 @@ class CollectionController extends Controller
         }
 
         $collections = $query->orderBy('created_at', 'desc')->paginate(20);
+        $totalFiltered = $collections->total();
 
 
-        $categories = Collection::returnCategories();
-        $types = CollectionType::where('account_id', auth()->user()->account_id)
-            ->orderBy('name')
-            ->pluck('name', 'id')
-            ->toArray();
-        $status = Collection::returnStatus();
-        $users = User::myUsers();
+        $categorySelectOptions = Collection::returnCategories();
+        $typeSelectOptions = CollectionType::collectionTypeSelectOptions();
+        $statusSelectOptions = Collection::returnStatus();
+        $userSelectOptions = User::userSelectOptions();
+        $contactSelectOptions = Contact::userSelectOptions();
         $trashStatus = $request->trash;
 
-        return view('libraries/collections/index', compact(
+        return view('collections.index', compact(
             'collections',
-            'categories',
-            'types',
-            'status',
-            'users',
+            'categorySelectOptions',
+            'typeSelectOptions',
+            'statusSelectOptions',
+            'userSelectOptions',
+            'contactSelectOptions',
             'trashStatus',
+            'totalTotal',
+            'totalFiltered',
+            'filtersActive',
         ));
     }
 
@@ -95,8 +116,6 @@ class CollectionController extends Controller
      */
     public function create()
     {
-
-        $categories = Collection::returnCategories();
         $types = CollectionType::where('account_id', auth()->user()->account_id)
             ->orderBy('name')
             ->pluck('name', 'id');
@@ -106,8 +125,7 @@ class CollectionController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('libraries/collections/create', compact(
-            'categories',
+        return view('collections.create', compact(
             'types',
             'status',
             'contacts',
@@ -160,7 +178,7 @@ class CollectionController extends Controller
     {
         $collection->load(['user.contact', 'currentLocation.user.contact', 'locations.user.contact']);
 
-        return view('libraries/collections/show', compact('collection'));
+        return view('collections.show', compact('collection'));
     }
 
     /**
@@ -183,7 +201,7 @@ class CollectionController extends Controller
             ->orderBy('name', 'asc')
             ->get();
 
-        return view('libraries/collections/edit', compact(
+        return view('collections.edit', compact(
             'collection',
             'categories',
             'types',

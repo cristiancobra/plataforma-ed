@@ -80,6 +80,16 @@ class Company extends Model {
         return $businessModelTypes;
     }
 
+        /**
+     * Retorna um array id => name das empresas da conta autenticada, para uso em selects.
+     */
+    public static function companiesSelectOptions() {
+        return self::where('account_id', auth()->user()->account_id)
+            ->orderBy('name', 'asc')
+            ->pluck('name', 'id')
+            ->toArray();
+    }
+
     public static function returnTypes() {
         return $types = array(
             'cliente',

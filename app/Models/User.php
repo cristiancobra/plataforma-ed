@@ -101,6 +101,22 @@ class User extends Authenticatable implements MustVerifyEmail {
                 ->get();
     }
 
+    /**
+     * Retorna um array id => contact->name dos usuários da conta autenticada, para uso em selects.
+     */
+    public static function userSelectOptions() {
+        return self::where('account_id', auth()->user()->account_id)
+            ->with('contact')
+            ->get()
+            ->filter(function($user) {
+                return $user->contact && $user->contact->name;
+            })
+            ->mapWithKeys(function($user) {
+                return [$user->id => $user->contact->name];
+            })
+            ->toArray();
+    }
+
     // EMPRESA DIGITAL:  cria USUÁRIO com o contato fornecido quando uma nova conta é registrada
     public static function registerUser($request, $contactId, $accountId) {
         $user = new User();

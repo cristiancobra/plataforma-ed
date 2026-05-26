@@ -4,6 +4,11 @@
     <div class="row g-2 align-items-end p-3 mb-4 shadow-sm rounded border-3"
         style="border-color: {{ $oppositeColor ?? '#f8f9fa' }};">
         {{ $slot }}
+        <div class="col-12 mt-3">
+            @isset($quantidade)
+                {{ $quantidade }}
+            @endisset
+        </div>
         <div class="col-auto ms-auto d-flex gap-2">
             @if ($resetUrl)
                 <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center"

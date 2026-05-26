@@ -40,7 +40,7 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-12">
                     <label class='labels' for=''>NOME:</label>
                     <input type='text' name='name' class='form-control' value='{{ old('name') }}' required>
                     @if ($errors->has('name'))
@@ -48,13 +48,6 @@
                     @endif
                 </div>
 
-                <div class="col-md-6">
-                    <label class='labels' for=''>CATEGORIA:</label>
-                    {{ createSimpleSelect('category', 'fields', $categories) }}
-                    @if ($errors->has('category'))
-                        <span class='text-danger'>{{ $errors->first('category') }}</span>
-                    @endif
-                </div>
             </div>
 
             <div class="row mt-3">

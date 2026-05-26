@@ -109,17 +109,10 @@
         </div>
     </div>
 
-    <div class="row pt-2">
-        <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
-            <a class='stretched-link' href='{{ route('dashboard.sales') }}' style="color: {{ $principalColor }}">
-            </a>
-            <i class="fas fa-funnel-dollar"></i>
-            <p class="mb-0"style='font-size:10px'>
-                CAPTAÇÃO
-            </p>
-            </a>
-        </div>
-    </div>
+    <x-sidebar.item icon="fas fa-book" title="CAPTAÇÃO" :principal-color="$principalColor" :submenu="[
+        ['icon' => 'fas fa-file-alt', 'label' => 'PAINEL', 'route' => route('dashboard.sales')],
+        ['icon' => 'fas fa-archive', 'label' => 'OPORTUNIDADES', 'route' => route('opportunity.index')],
+    ]" />
 
     <x-sidebar.item icon="fas fa-book" title="BIBLIOTECA" :principal-color="$principalColor" :submenu="[
         ['icon' => 'fas fa-archive', 'label' => 'ACERVO', 'route' => route('collection.index')],

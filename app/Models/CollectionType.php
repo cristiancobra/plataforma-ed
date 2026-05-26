@@ -26,4 +26,14 @@ class CollectionType extends Model
     {
         return $this->hasMany(Collection::class, 'type', 'id');
     }
+
+    /**
+     * Retorna um array id => name dos tipos de coleção da conta autenticada, para uso em selects.
+     */
+    public static function collectionTypeSelectOptions() {
+        return self::where('account_id', auth()->user()->account_id)
+            ->orderBy('name', 'asc')
+            ->pluck('name', 'id')
+            ->toArray();
+    }
 }

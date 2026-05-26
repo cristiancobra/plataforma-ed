@@ -41,21 +41,13 @@
             @method('PUT')
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-12">
                     <label class='labels' for=''>NOME:</label>
                     <input type='text' name='name' class='form-control' value='{{ old('name', $collection->name) }}'
                         required>
                     @if ($errors->has('name'))
                         <span class='text-danger'>{{ $errors->first('name') }}</span>
                     @endif
-                </div>
-                <div class="col-md-6">
-                    <label class='labels' for=''>CATEGORIA:</label>
-                    {{ createSimpleSelect('category', 'fields', $categories, old('category', $collection->category)) }}
-                    @if ($errors->has('category'))
-                        <span class='text-danger'>{{ $errors->first('category') }}</span>
-                    @endif
-
                 </div>
 
                 <div class="row mt-3">

@@ -17,11 +17,19 @@
         <x-filter.input name="name" placeholder="nome do item" />
         <x-filter.input name="patrimony_number" placeholder="nº patrimônio" />
         <x-filter.input name="brand" placeholder="marca" />
-        <x-filter.select name="category" :options="$categories" placeholder="Todas as categorias" />
-        <x-filter.select name="type" :options="$types" placeholder="Todos os tipos" />
-        <x-filter.select-user name="user_id" :users="$users" placeholder="Responsável" />
         <x-filter.input name="location" placeholder="localização" />
-        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+        <x-filter.select name="category" :options="$categorySelectOptions" placeholder="Todas as categorias" />
+        <x-filter.select name="type" :options="$typeSelectOptions" placeholder="Todos os tipos" />
+        <x-filter.select name="user_id" :options="$userSelectOptions" placeholder="Registrado por" />
+        <x-filter.select name="contact_id" :options="$contactSelectOptions" placeholder="Todos os responsáveis" />
+        <x-filter.select name="status" :options="$statusSelectOptions" placeholder="Todas as situações" />
+        <x-slot name="quantidade">
+            @if ($filtersActive)
+                <span class="fw-bold">{{ $totalFiltered }} item(s) encontrado(s) com o filtro aplicado.</span>
+            @else
+                <span class="fw-bold">{{ $totalTotal }} item(s) no total.</span>
+            @endif
+        </x-slot>
     </x-table.filter>
 @endsection
 
@@ -39,12 +47,12 @@
         ['label' => 'VER', 'class' => 'col-1 text-center'],
     ]" />
     @foreach ($collections as $collection)
-        <div class="row border-bottom py-2 align-items-center">
+        <div class="row border-bottom align-items-center">
             <div class="col-2 fw-bold">
                 {{ $collection->name }}
             </div>
             <div class="col-1 text-center">
-                {{ $collection->category }}
+                {{ optional($collection->collectionType)->category ?? '-' }}
             </div>
             <div class="col-2 text-center">
                 {{ optional($collection->collectionType)->name ?? '-' }}

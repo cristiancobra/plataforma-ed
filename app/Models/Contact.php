@@ -96,6 +96,16 @@ class Contact extends Model {
         return $this->belongsTo(User::class, 'id', 'contact_id');
     }
 
+    /**
+     * Retorna um array id => name dos contatos da conta autenticada, para uso em selects.
+     */
+    public static function userSelectOptions() {
+        return self::where('account_id', auth()->user()->account_id)
+            ->orderBy('name', 'asc')
+            ->pluck('name', 'id')
+            ->toArray();
+    }
+
 //FUNÇÕES PÚBLICAS
     public static function filterModel(Request $request) {
         if ($request->filter == 'news') {

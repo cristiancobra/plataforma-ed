@@ -35,7 +35,7 @@
             CATEGORIA
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
-            {{ $collection->category }}
+            {{ optional($collection->collectionType)->category ?? '-' }}
         </div>
     </div>
 
