@@ -31,12 +31,27 @@ class OpportunityController extends Controller {
         $title = 'OPORTUNIDADES';
         $department = null;
 
+        // Detecta se há filtros ativos (exceto paginação, trash e role)
+        $filtersActive = collect($request->except(['page', 'trash', 'role']))
+            ->filter(function ($v) {
+                return !is_null($v) && trim($v) !== '';
+            })
+            ->count() > 0;
+
         $opportunities = Opportunity::filterOpportunities($request);
+
+        // Total geral SEM filtro (apenas da conta)
+        $totalTotal = Opportunity::where('account_id', auth()->user()->account_id)
+            ->where('trash', $request->has('trash') && $request->trash == 1 ? 1 : 0)
+            ->count();
+
+        $totalFiltered = $opportunities->total();
+
         $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
-                ->where('status', '!=', 'perdemos')
-                ->where('stage', '!=', 'concluída')
-                ->where('trash', '!=', 1)
-                ->get();
+            ->where('status', '!=', 'perdemos')
+            ->where('stage', '!=', 'concluída')
+            ->where('trash', '!=', 1)
+            ->get();
 
         $totalProspection = $allOpportunities->where('stage', 'prospecção')->count();
         $totalPresentation = $allOpportunities->where('stage', 'apresentação')->count();
@@ -44,8 +59,6 @@ class OpportunityController extends Controller {
         $totalContract = $allOpportunities->where('stage', 'contrato')->count();
         $totalBill = $allOpportunities->where('stage', 'cobrança')->count();
         $totalProduction = $allOpportunities->where('stage', 'produção')->count();
-
-        $total = $opportunities->total();
 
         $contactSelectOptions = Contact::userSelectOptions();
         $companiesSelectOptions = Company::companiesSelectOptions();
@@ -56,22 +69,24 @@ class OpportunityController extends Controller {
         $trashStatus = request()->trash;
 
         return view('opportunities.index', compact(
-                        'title',
-                        'department',
-                        'opportunities',
-                        'totalProspection',
-                        'totalPresentation',
-                        'totalProposal',
-                        'totalContract',
-                        'totalBill',
-                        'totalProduction',
-                        'total',
-                        'contactSelectOptions',
-                        'companiesSelectOptions',
-                        'userSelectOptions',
-                        'stagesSelectOptions',
-                        'statusSelectOptions',
-                        'trashStatus',
+            'title',
+            'department',
+            'opportunities',
+            'totalProspection',
+            'totalPresentation',
+            'totalProposal',
+            'totalContract',
+            'totalBill',
+            'totalProduction',
+            'contactSelectOptions',
+            'companiesSelectOptions',
+            'userSelectOptions',
+            'stagesSelectOptions',
+            'statusSelectOptions',
+            'trashStatus',
+            'filtersActive',
+            'totalFiltered',
+            'totalTotal',
         ));
     }
 

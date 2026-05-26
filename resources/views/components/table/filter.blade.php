@@ -1,13 +1,25 @@
-@props(['action', 'method' => 'get', 'resetUrl' => null, 'submitLabel' => 'FILTRAR'])
+@props([
+    'action',
+    'method' => 'get',
+    'resetUrl' => null,
+    'submitLabel' => 'FILTRAR',
+    'filtersActive' => null,
+    'totalFiltered' => null,
+    'totalTotal' => null,
+])
 
 <form action="{{ $action }}" method="{{ $method }}" class="mb-4" id="filter">
     <div class="row g-2 align-items-end p-3 mb-4 shadow-sm rounded border-3"
         style="border-color: {{ $oppositeColor ?? '#f8f9fa' }};">
         {{ $slot }}
         <div class="col-12 mt-3">
-            @isset($quantidade)
-                {{ $quantidade }}
-            @endisset
+            @if (!is_null($filtersActive) && !is_null($totalFiltered) && !is_null($totalTotal))
+                @if ($filtersActive)
+                    <span class="fw-bold">{{ $totalFiltered }} item(s) encontrado(s) com o filtro aplicado.</span>
+                @else
+                    <span class="fw-bold">{{ $totalTotal }} item(s) no total.</span>
+                @endif
+            @endif
         </div>
         <div class="col-auto ms-auto d-flex gap-2">
             @if ($resetUrl)

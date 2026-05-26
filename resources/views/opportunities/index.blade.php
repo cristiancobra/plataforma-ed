@@ -16,7 +16,7 @@
 
 
 @section('filter')
-    <x-table.filter :action="route('opportunity.index')" :reset-url="route('opportunity.index')">
+    <x-table.filter :action="route('opportunity.index')" :reset-url="route('opportunity.index')" :filters-active="$filtersActive" :total-filtered="$totalFiltered" :total-total="$totalTotal">
         <x-filter.input name="name" placeholder="nome da oportunidade" />
         <x-filter.select name="contact_id" :options="$contactSelectOptions" placeholder="Todos os contatos" />
         <x-filter.select name="company_id" :options="$companiesSelectOptions" placeholder="Todas as empresas" />
@@ -124,7 +124,7 @@
 
 
 @section('table')
-    <x-table.header :columns="[
+    <x-table.header :background-color="$principalColor" :columns="[
         ['label' => 'NOME', 'class' => 'col-3'],
         ['label' => 'CONTATO', 'class' => 'col-2'],
         ['label' => 'ORGANIZAÇÃO', 'class' => 'col-2'],

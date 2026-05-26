@@ -13,7 +13,8 @@
 
 
 @section('filter')
-    <x-table.filter :action="route('collection.index')" :reset-url="route('collection.index')">
+
+    <x-table.filter :action="route('collection.index')" :reset-url="route('collection.index')" :filters-active="$filtersActive" :total-filtered="$totalFiltered" :total-total="$totalTotal">
         <x-filter.input name="name" placeholder="nome do item" />
         <x-filter.input name="patrimony_number" placeholder="nº patrimônio" />
         <x-filter.input name="brand" placeholder="marca" />
@@ -23,13 +24,6 @@
         <x-filter.select name="user_id" :options="$userSelectOptions" placeholder="Registrado por" />
         <x-filter.select name="contact_id" :options="$contactSelectOptions" placeholder="Todos os responsáveis" />
         <x-filter.select name="status" :options="$statusSelectOptions" placeholder="Todas as situações" />
-        <x-slot name="quantidade">
-            @if ($filtersActive)
-                <span class="fw-bold">{{ $totalFiltered }} item(s) encontrado(s) com o filtro aplicado.</span>
-            @else
-                <span class="fw-bold">{{ $totalTotal }} item(s) no total.</span>
-            @endif
-        </x-slot>
     </x-table.filter>
 @endsection
 
