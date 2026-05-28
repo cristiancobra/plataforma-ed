@@ -24,7 +24,7 @@ html,body{
 
 .grid {
     display: grid;
-    height: auto;
+    min-height: 100vh;
     text-align: left;
     margin-top: 2%;
     grid-template-columns: 6% 94%;
@@ -57,9 +57,8 @@ html,body{
 
 .main2{
     grid-area: main2;
-    height: 100vh;
-    background-color: lightslategray;
-    /*background-color: red;*/
+    min-height: 100%;
+    background-color: rgb(221, 221, 221);
 }
 
 .white-page {

@@ -16,6 +16,7 @@
     <x-sidebar.item icon="fas fa-cog" title="OPERACIONAL" :principal-color="$principalColor" :submenu="[
         ['icon' => 'fas fa-tasks', 'label' => 'TAREFAS', 'route' => route('task.index')],
         ['icon' => 'fas fa-clock', 'label' => 'JORNADAS', 'route' => route('journey.index')],
+        ['icon' => 'fas fa-bullseye', 'label' => 'METAS', 'route' => route('goal.index')],
     ]" />
 
     @if (auth()->user()->perfil == 'super administrador' or
@@ -109,19 +110,20 @@
         </div>
     </div>
 
-    <x-sidebar.item icon="fas fa-book" title="CAPTAÇÃO" :principal-color="$principalColor" :submenu="[
+    <x-sidebar.item icon="fas fa-funnel-dollar" title="CAPTAÇÃO" :principal-color="$principalColor" :submenu="[
         ['icon' => 'fas fa-file-alt', 'label' => 'PAINEL', 'route' => route('dashboard.sales')],
-        ['icon' => 'fas fa-archive', 'label' => 'OPORTUNIDADES', 'route' => route('opportunity.index')],
+        ['icon' => 'fas fa-bullseye', 'label' => 'OPORTUNIDADES', 'route' => route('opportunity.index')],
     ]" />
 
-    <x-sidebar.item icon="fas fa-book" title="BIBLIOTECA" :principal-color="$principalColor" :submenu="[
-        ['icon' => 'fas fa-archive', 'label' => 'ACERVO', 'route' => route('collection.index')],
-        ['icon' => 'fas fa-file-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
+    <x-sidebar.item icon="fas fa-archive" title="ACERVO" :principal-color="$principalColor" :submenu="[
+        ['icon' => 'fas fa-archive', 'label' => 'ITENS DE ACERVOS', 'route' => route('collection.index')],
+        ['icon' => 'fas fa-layer-group', 'label' => 'GRUPOS DE ACERVOS', 'route' => route('collections-group.index')],
         [
             'icon' => 'fas fa-tags',
             'label' => 'TIPOS DE ACERVO',
             'route' => route('collection-types.index'),
         ],
+        ['icon' => 'fas fa-file-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
     ]" />
 
     <div class="row pt-2">

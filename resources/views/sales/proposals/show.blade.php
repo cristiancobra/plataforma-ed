@@ -322,10 +322,11 @@
         </div>
     </section>
 
-
     <x-sections.invoices :proposal='$proposal' />
 
-    {{-- ANEXOS / DOCUMENTOS --}}
+@endsection
+
+@section('attachments')
     @if ($type == 'despesa' && count($proposal->attachments ?? []) > 0)
         <section class='container frame mt-5 pb-5'>
             <div class="row">
@@ -461,7 +462,6 @@
             </form>
         </section>
     @endif
-
 @endsection
 
 @section('createdAt')

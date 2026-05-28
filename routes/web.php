@@ -330,6 +330,11 @@ Route::resource('collection-types', 'CollectionTypeController')
         ->parameters(['collection-types' => 'collectionType']);
 
 
+// ================================ ACERVO - GRUPOS DE COLEÇÃO ===================
+Route::resource('collections-group', 'CollectionsGroupController')
+        ->names('collections-group')
+        ->parameters(['collections-group' => 'collections_group']);
+
 
 // ================================ MARKET ===================
 Route::resource('competitors', 'Market\\CompetitorController')
@@ -526,7 +531,7 @@ Route::resource('contatos', 'Sales\\ContactController')
         ->parameters(['contatos' => 'contact'])
         ->middleware('roles');
 
-// contRacts
+// contRActs
 Route::get('contratos/pdf/{contract}', 'Sales\\ContractController@createPDF')
         ->name('contract.pdf')
         ->middleware('roles');
@@ -658,4 +663,5 @@ Route::get('/editarsite', 'SiteCliente@EditarSite')
 
 Route::get('/postarsite', 'SiteCliente@PostarSite')
         ->name('postar-site');
+
 

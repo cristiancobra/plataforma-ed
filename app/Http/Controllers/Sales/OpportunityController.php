@@ -60,7 +60,7 @@ class OpportunityController extends Controller {
         $totalBill = $allOpportunities->where('stage', 'cobrança')->count();
         $totalProduction = $allOpportunities->where('stage', 'produção')->count();
 
-        $contactSelectOptions = Contact::userSelectOptions();
+        $contactSelectOptions = Contact::contactsSelectOptions();
         $companiesSelectOptions = Company::companiesSelectOptions();
         $userSelectOptions = User::userSelectOptions();
         $stagesSelectOptions = Opportunity::listStages();

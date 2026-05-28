@@ -15,6 +15,7 @@ class Collection extends Model
         'account_id',
         'user_id',
         'contact_id',
+        'collections_group_id',
         'name',
         'category',
         'type',
@@ -56,6 +57,11 @@ class Collection extends Model
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
+    public function attachments()
+    {
+        return $this->hasMany(Attachment::class);
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
@@ -80,6 +86,12 @@ class Collection extends Model
     {
         return $this->hasOne(CollectionLocation::class)->where('is_current', true)->latest();
     }
+
+    public function collectionsGroup()
+    {
+        return $this->belongsTo(CollectionsGroup::class, 'collections_group_id', 'id');
+    }
+    
 
     public static function returnCategories()
     {

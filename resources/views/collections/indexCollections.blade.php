@@ -22,7 +22,8 @@
         <x-filter.select name="category" :options="$categorySelectOptions" placeholder="Todas as categorias" />
         <x-filter.select name="type" :options="$typeSelectOptions" placeholder="Todos os tipos" />
         <x-filter.select name="user_id" :options="$userSelectOptions" placeholder="Registrado por" />
-        <x-filter.select name="contact_id" :options="$contactSelectOptions" placeholder="Todos os responsáveis" />
+        <x-filter.select name="contact_id" :options="$contactsSelectOptions" placeholder="Todos os responsáveis" />
+        <x-filter.select name="collections_group_id" :options="$collectionsGroupSelectOptions" placeholder="Todos os acervos" />
         <x-filter.select name="status" :options="$statusSelectOptions" placeholder="Todas as situações" />
     </x-table.filter>
 @endsection
@@ -31,27 +32,31 @@
 @section('table')
     <x-table.header :background-color="$principalColor" :columns="[
         ['label' => 'NOME', 'class' => 'col-2'],
+        ['label' => 'ACERVO', 'class' => 'col-2'],
         ['label' => 'CATEGORIA', 'class' => 'col-1'],
-        ['label' => 'TIPO', 'class' => 'col-2'],
-        ['label' => 'PATRIMÔNIO', 'class' => 'col-2'],
+        ['label' => 'TIPO', 'class' => 'col-1'],
+        ['label' => 'PATRIMÔNIO', 'class' => 'col-1'],
         ['label' => 'REGISTRADO POR', 'class' => 'col-1'],
         ['label' => 'LOCALIZAÇÃO', 'class' => 'col-1'],
         ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
         ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1 text-center'],
+        ['label' => 'VER', 'class' => 'col-1'],
     ]" />
     @foreach ($collections as $collection)
         <div class="row border-bottom align-items-center">
             <div class="col-2 fw-bold">
                 {{ $collection->name }}
             </div>
+            <div class="col-2 text-center">
+                {{ $collection->collectionsGroup->name ?? '-' }}
+            </div>
             <div class="col-1 text-center">
                 {{ optional($collection->collectionType)->category ?? '-' }}
             </div>
-            <div class="col-2 text-center">
+            <div class="col-1 text-center">
                 {{ optional($collection->collectionType)->name ?? '-' }}
             </div>
-            <div class="col-2 text-center">
+            <div class="col-1 text-center">
                 {{ $collection->patrimony_number ?? '-' }}
             </div>
             <div class="col-1 text-center">

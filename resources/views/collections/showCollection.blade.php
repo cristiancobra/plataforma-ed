@@ -18,9 +18,22 @@
 
 
 @section('fieldsId')
+
     <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-            RESPONSÁVEL
+            ACERVO
+        </div>
+        <div class="col-10 border border-start-0 text-center py-2">
+            @if ($collection->collectionsGroup)
+                {{ $collection->collectionsGroup->name }}
+            @else
+                -
+            @endif
+        </div>
+    </div>
+    <div class="row g-0 mb-3">
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            REGISTRADO POR
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
             @if (isset($collection->user->contact->name))
@@ -32,27 +45,34 @@
             @endif
         </div>
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            RESPONSÁVEL
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            @if ($collection->contact)
+                <a href="{{ route('contact.show', ['contact' => $collection->contact->id]) }}" class="text-decoration-none">
+                    {{ $collection->contact->name }}
+                </a>
+            @else
+                -
+            @endif
+        </div>
+    </div>
+
+    <div class="row g-0 mb-3">
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             CATEGORIA
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
             {{ optional($collection->collectionType)->category ?? '-' }}
         </div>
-    </div>
-
-    <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             TIPO
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
             {{ optional($collection->collectionType)->name ?? '-' }}
         </div>
-        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-            PATRIMÔNIO
-        </div>
-        <div class="col-4 border border-start-0 text-center py-2">
-            {{ $collection->patrimony_number ?? '-' }}
-        </div>
     </div>
+
 
     <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
@@ -102,12 +122,19 @@
         </div>
     </div>
 
+
     <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             MODELO
         </div>
         <div class="col-4 border border-start-0 text-center py-2">
             {{ $collection->model ?? '-' }}
+        </div>
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            PATRIMÔNIO
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            {{ $collection->patrimony_number ?? '-' }}
         </div>
     </div>
 
@@ -131,10 +158,11 @@
 @endsection
 
 @section('main')
-
-    <h4 class="mt-4 mb-3 fw-bold" style="color: {{ $principalColor }}">
-        ESPECIFICAÇÕES TÉCNICAS
-    </h4>
+    <div class="row g-0 mb-3">
+        <h4 class="mt-4 mb-3 fw-bold" style="color: {{ $principalColor }}">
+            ESPECIFICAÇÕES TÉCNICAS
+        </h4>
+    </div>
     <div class="border rounded p-3 bg-light">
         <div class="row">
             <div class="col-md-6">
@@ -168,6 +196,7 @@
 
         @if ($collection->video_url || $collection->code_url || $collection->image_url)
             <div class="row mt-3">
+
                 <div class="col-12">
                     <strong>Links:</strong>
                     @if ($collection->video_url)
@@ -252,4 +281,87 @@
             @endforeach
         </div>
     @endif
+@endsection
+
+@section('attachments')
+    <div class="row g-0 mb-3">
+        <h4 class="mt-5 mb-3 fw-bold" style="color: {{ $principalColor }}">
+            DOCUMENTOS
+        </h4>
+    </div>
+    <div class="border rounded p-3 bg-light mb-4">
+        @if ($collection->attachments && $collection->attachments->count())
+            <div class="row mt-3">
+                @foreach ($collection->attachments as $attachment)
+                    <div class='col-md-3 mb-4'>
+                        <div class="card text-center p-3 h-100 shadow-sm" style="border: 2px solid #e0e0e0;">
+                            <i class="fa fa-file-invoice-dollar"
+                                style="font-size: 60px; color:{{ $principalColor }}"></i>
+                            <div class="mt-2">
+                                <span class="badge bg-secondary text-white"
+                                    style="font-size: 11px;">{{ $attachment->type }}</span>
+                            </div>
+                            <div class="mt-2">
+                                <strong style="font-size: 13px;">{{ Str::limit($attachment->name, 30) }}</strong>
+                            </div>
+                            <small class="text-muted mt-2">{{ date('d/m/Y', strtotime($attachment->created_at)) }}</small>
+                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                <form action="{{ route('attachment.destroy', ['attachment' => $attachment->id]) }}"
+                                    method="POST"
+                                    onsubmit="return confirm('Tem certeza que deseja excluir este documento?');"
+                                    style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Excluir">
+                                        <i class="fa fa-trash"></i> Excluir
+                                    </button>
+                                </form>
+                                <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
+                                    class="btn btn-sm" title="Baixar"
+                                    style="background-color: {{ $principalColor }}; color: white;">
+                                    <i class="fa fa-download"></i> Baixar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <p class="text-muted mb-3">Nenhum documento anexado ainda.</p>
+        @endif
+
+        <div class='row mt-5 pt-4' style='border-top: 2px solid #e0e0e0;'>
+            <div class='col-12'>
+                <h5 class='mb-3' style='color:{{ $principalColor }}'>
+                    <i class="fa fa-plus-circle me-2"></i>
+                    ADICIONAR NOVO DOCUMENTO
+                </h5>
+            </div>
+        </div>
+        <form action="{{ route('attachment.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="hidden" name="collection_id" value="{{ $collection->id }}">
+            <div class='row mt-3'>
+                <div class='col-md-4'>
+                    <label class='labels mb-2' for='attachment_type'>Tipo de documento:</label>
+                    <select id='attachment_type' name='type' class='form-control' required>
+                        <option value=''>Selecione o tipo</option>
+                        <option value='Nota fiscal'>Nota fiscal</option>
+                        <option value='Termo de empréstimo'>Termo de empréstimo</option>
+                    </select>
+                </div>
+                <div class='col-md-4'>
+                    <label class='labels mb-2' for='attachment_file'>Selecione o arquivo PDF:</label>
+                    <input type='file' id='attachment_file' name='attachment' accept=".pdf" class='form-control'
+                        required>
+                </div>
+                <div class='col-md-4'>
+                    <button type="submit" class='btn w-100'
+                        style="margin-top: 32px; background-color: {{ $principalColor }}; color: white;">
+                        <i class="fa fa-upload me-2"></i> Enviar Documento
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
 @endsection

@@ -99,7 +99,7 @@ class Contact extends Model {
     /**
      * Retorna um array id => name dos contatos da conta autenticada, para uso em selects.
      */
-    public static function userSelectOptions() {
+    public static function contactsSelectOptions() {
         return self::where('account_id', auth()->user()->account_id)
             ->orderBy('name', 'asc')
             ->pluck('name', 'id')

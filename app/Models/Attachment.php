@@ -14,6 +14,7 @@ class Attachment extends Model
         'text_id',
         'task_id',
         'proposal_id',
+        'collection_id',
         'type',
         'name',
         'path',
@@ -58,5 +59,13 @@ class Attachment extends Model
     public function getUrlAttribute()
     {
         return asset('storage/' . $this->path);
+    }
+
+        /**
+     * Get the collection that owns the attachment.
+     */
+    public function collection()
+    {
+        return $this->belongsTo(Collection::class);
     }
 }

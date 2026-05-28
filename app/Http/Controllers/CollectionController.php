@@ -10,6 +10,7 @@ use App\Models\CollectionType;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\UpdateCollectionRequest;
+use App\Models\CollectionsGroup;
 
 class CollectionController extends Controller
 {
@@ -29,7 +30,7 @@ class CollectionController extends Controller
             
         $query = Collection::query()
             ->where('account_id', auth()->user()->account_id)
-            ->with(['currentLocation', 'user.contact', 'contact']);
+            ->with(['currentLocation', 'user.contact', 'contact', 'collectionsGroup']);
 
         // Total geral SEM filtro (apenas da conta)
         $totalTotal = Collection::where('account_id', auth()->user()->account_id)
@@ -40,6 +41,10 @@ class CollectionController extends Controller
         // Filtros opcionais
         if ($request->filled('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        if ($request->filled('collections_group_id')) {
+            $query->where('collections_group_id', $request->collections_group_id);
         }
 
         if ($request->filled('patrimony_number')) {
@@ -89,23 +94,25 @@ class CollectionController extends Controller
 
 
         $categorySelectOptions = Collection::returnCategories();
+        $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $typeSelectOptions = CollectionType::collectionTypeSelectOptions();
         $statusSelectOptions = Collection::returnStatus();
         $userSelectOptions = User::userSelectOptions();
-        $contactSelectOptions = Contact::userSelectOptions();
+        $contactsSelectOptions = Contact::contactsSelectOptions();
         $trashStatus = $request->trash;
 
-        return view('collections.index', compact(
+        return view('collections.indexCollections', compact(
             'collections',
             'categorySelectOptions',
             'typeSelectOptions',
             'statusSelectOptions',
             'userSelectOptions',
-            'contactSelectOptions',
+            'contactsSelectOptions',
             'trashStatus',
             'totalTotal',
             'totalFiltered',
             'filtersActive',
+            'collectionsGroupSelectOptions',
         ));
     }
 
@@ -121,14 +128,14 @@ class CollectionController extends Controller
             ->pluck('name', 'id');
 
         $status = Collection::returnStatus();
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-            ->orderBy('name', 'asc')
-            ->get();
+        $contactsSelectOptions = Contact::contactsSelectOptions();
+        $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
 
-        return view('collections.create', compact(
+        return view('collections.createCollection', compact(
             'types',
             'status',
-            'contacts',
+            'contactsSelectOptions',
+            'collectionsGroupSelectOptions',
         ));
     }
 
@@ -176,9 +183,9 @@ class CollectionController extends Controller
      */
     public function show(Collection $collection)
     {
-        $collection->load(['user.contact', 'currentLocation.user.contact', 'locations.user.contact']);
+        $collection->load(['user.contact', 'currentLocation.user.contact', 'locations.user.contact', 'collectionsGroup']);
 
-        return view('collections.show', compact('collection'));
+        return view('collections.showCollection', compact('collection'));
     }
 
     /**
@@ -196,18 +203,18 @@ class CollectionController extends Controller
             ->pluck('name', 'id')
             ->toArray();
         $status = Collection::returnStatus();
-        $users = User::myUsers();
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-            ->orderBy('name', 'asc')
-            ->get();
+        // $usersSelectOptions = User::myUsers();
+        $contactsSelectOptions = Contact::contactsSelectOptions();
+        $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
 
-        return view('collections.edit', compact(
+        return view('collections.editCollection', compact(
             'collection',
             'categories',
             'types',
             'status',
-            'users',
-            'contacts',
+            // 'usersSelectOptions',
+            'contactsSelectOptions',
+            'collectionsGroupSelectOptions',
         ));
     }
 
