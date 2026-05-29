@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Libraries;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAttachmentRequest;
@@ -42,12 +42,14 @@ class AttachmentController extends Controller
         $attachment->task_id = $request->task_id;
         $attachment->text_id = $request->text_id;
         $attachment->proposal_id = $request->proposal_id;
+        $attachment->collection_id = $request->collection_id;
         $attachment->type = $request->type ?? 'pdf';
         $attachment->name = $request->file('attachment')->getClientOriginalName();
         $attachment->status = 'disponível';
         
         $path = $request->file('attachment')->store('customers_attachments', 'public');
         $attachment->path = $path;
+        // dd($attachment);
         $attachment->save();
 
         return redirect()->back()->with('attachment_success', 'Anexo adicionado com sucesso!');

@@ -94,19 +94,12 @@
                             @yield('description')
                         </div>
                     </div>
-
                     @yield('images')
-
-                    @yield('attachments')
-
                     @yield('stock')
-
                     @yield('main')
-
+                    @yield('attachments')
                 </section>
-
                 @include('layouts.footer')
-
                 @yield('createdAt')
             </div>
     </div>

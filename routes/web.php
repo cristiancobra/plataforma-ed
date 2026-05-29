@@ -485,7 +485,7 @@ Route::resource('tarefas', 'Operational\\TaskController')
         ->middleware('roles');
 
 // attachments
-Route::resource('anexos', 'Libraries\\AttachmentController')
+Route::resource('anexos', 'AttachmentController')
         ->only(['store', 'update', 'destroy'])
         ->names('attachment')
         ->parameters(['anexos' => 'attachment'])

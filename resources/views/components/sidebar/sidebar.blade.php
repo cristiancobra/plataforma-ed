@@ -85,17 +85,15 @@
             </div>
         </div>
 
-        <div class="row pt-2">
-            <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
-                <a class='stretched-link' href='{{ route('dashboard.financial') }}'
-                    style="color: {{ $principalColor }}">
-                </a>
-                <i class="fas fa-money-bill"></i>
-                <p class="mb-0"style='font-size:10px'>
-                    FINANCEIRO
-                </p>
-            </div>
-        </div>
+
+        <x-sidebar.item icon="fas fa-money-bill" title="FINANCEIRO" :principal-color="$principalColor" :submenu="[
+            ['icon' => 'fas fa-money-bill', 'label' => 'PAINEL', 'route' => route('dashboard.financial')],
+            [
+                'icon' => 'fas fa-boxes',
+                'label' => 'DESPESAS',
+                'route' => route('proposal.index', ['type' => 'despesa']),
+            ],
+        ]" />
     @endif
 
 

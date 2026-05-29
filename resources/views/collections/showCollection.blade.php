@@ -158,8 +158,8 @@
 @endsection
 
 @section('main')
-    <div class="row g-0 mb-3">
-        <h4 class="mt-4 mb-3 fw-bold" style="color: {{ $principalColor }}">
+    <div class="row g-0 mb-3 mt-5">
+        <h4 class="fw-bold" style="color: {{ $principalColor }}">
             ESPECIFICAÇÕES TÉCNICAS
         </h4>
     </div>
@@ -219,9 +219,11 @@
         @endif
     </div>
 
-    <h4 class="mt-4 mb-3 fw-bold" style="color: {{ $principalColor }}">
-        LOCALIZAÇÃO ATUAL
-    </h4>
+    <div class="mt-5 mb-3">
+        <h4 class="fw-bold" style="color: {{ $principalColor }}">
+            LOCALIZAÇÃO ATUAL
+        </h4>
+    </div>
     <div class="border rounded p-3 bg-light">
         @if ($collection->currentLocation)
             <p><strong>Local:</strong> {{ $collection->currentLocation->location }}</p>
@@ -284,84 +286,6 @@
 @endsection
 
 @section('attachments')
-    <div class="row g-0 mb-3">
-        <h4 class="mt-5 mb-3 fw-bold" style="color: {{ $principalColor }}">
-            DOCUMENTOS
-        </h4>
-    </div>
-    <div class="border rounded p-3 bg-light mb-4">
-        @if ($collection->attachments && $collection->attachments->count())
-            <div class="row mt-3">
-                @foreach ($collection->attachments as $attachment)
-                    <div class='col-md-3 mb-4'>
-                        <div class="card text-center p-3 h-100 shadow-sm" style="border: 2px solid #e0e0e0;">
-                            <i class="fa fa-file-invoice-dollar"
-                                style="font-size: 60px; color:{{ $principalColor }}"></i>
-                            <div class="mt-2">
-                                <span class="badge bg-secondary text-white"
-                                    style="font-size: 11px;">{{ $attachment->type }}</span>
-                            </div>
-                            <div class="mt-2">
-                                <strong style="font-size: 13px;">{{ Str::limit($attachment->name, 30) }}</strong>
-                            </div>
-                            <small class="text-muted mt-2">{{ date('d/m/Y', strtotime($attachment->created_at)) }}</small>
-                            <div class="d-flex justify-content-center gap-2 mt-3">
-                                <form action="{{ route('attachment.destroy', ['attachment' => $attachment->id]) }}"
-                                    method="POST"
-                                    onsubmit="return confirm('Tem certeza que deseja excluir este documento?');"
-                                    style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Excluir">
-                                        <i class="fa fa-trash"></i> Excluir
-                                    </button>
-                                </form>
-                                <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
-                                    class="btn btn-sm" title="Baixar"
-                                    style="background-color: {{ $principalColor }}; color: white;">
-                                    <i class="fa fa-download"></i> Baixar
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        @else
-            <p class="text-muted mb-3">Nenhum documento anexado ainda.</p>
-        @endif
-
-        <div class='row mt-5 pt-4' style='border-top: 2px solid #e0e0e0;'>
-            <div class='col-12'>
-                <h5 class='mb-3' style='color:{{ $principalColor }}'>
-                    <i class="fa fa-plus-circle me-2"></i>
-                    ADICIONAR NOVO DOCUMENTO
-                </h5>
-            </div>
-        </div>
-        <form action="{{ route('attachment.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <input type="hidden" name="collection_id" value="{{ $collection->id }}">
-            <div class='row mt-3'>
-                <div class='col-md-4'>
-                    <label class='labels mb-2' for='attachment_type'>Tipo de documento:</label>
-                    <select id='attachment_type' name='type' class='form-control' required>
-                        <option value=''>Selecione o tipo</option>
-                        <option value='Nota fiscal'>Nota fiscal</option>
-                        <option value='Termo de empréstimo'>Termo de empréstimo</option>
-                    </select>
-                </div>
-                <div class='col-md-4'>
-                    <label class='labels mb-2' for='attachment_file'>Selecione o arquivo PDF:</label>
-                    <input type='file' id='attachment_file' name='attachment' accept=".pdf" class='form-control'
-                        required>
-                </div>
-                <div class='col-md-4'>
-                    <button type="submit" class='btn w-100'
-                        style="margin-top: 32px; background-color: {{ $principalColor }}; color: white;">
-                        <i class="fa fa-upload me-2"></i> Enviar Documento
-                    </button>
-                </div>
-            </div>
-        </form>
-    </div>
+    <x-attachments-section :attachments="$collection->attachments" modelId="{{ $collection->id }}" modelIdField="collection_id"
+        routeStore="attachment.store" routeDestroy="attachment.destroy" :types="['nota_fiscal', 'termo_emprestimo']" :principalColor="$principalColor" />
 @endsection
