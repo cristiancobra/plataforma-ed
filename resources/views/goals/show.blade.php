@@ -121,7 +121,7 @@
                         NOME DO PROJETO
                     </label>
                     <br>
-                    <input type='text' name='name' placeholder='nome' value=''>
+                    <input type='text' name='name' placeholder='nome' value='{{ old('name') }}'>
             </div>
             <div class='col-2' style='text-align:left'>
 

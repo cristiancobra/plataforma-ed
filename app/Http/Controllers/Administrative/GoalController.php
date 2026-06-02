@@ -31,7 +31,7 @@ class GoalController extends Controller {
         $status = Goal::returnStatus();
         $trashStatus = request()->trash;
 
-        return view('administrative.goals.index', compact(
+        return view('goals.index', compact(
                         'goals',
                         'departments',
                         'status',
@@ -48,7 +48,7 @@ class GoalController extends Controller {
         $departments = Task::returnDepartments();
         $status = Goal::returnStatus();
 
-        return view('administrative.goals.create', compact(
+        return view('goals.create', compact(
                         'departments',
                         'status',
         ));
@@ -133,7 +133,7 @@ class GoalController extends Controller {
         $status = $goal->status;
         $priority = $goal->priority;
 
-        return view('administrative.goals.show', compact(
+        return view('goals.show', compact(
                         'goal',
                         'projects',
                         'goalSelected',
@@ -158,7 +158,7 @@ class GoalController extends Controller {
 //dd($goal);
         $goalSelected = Goal::goalSelected($goal);
 
-        return view('administrative.goals.edit', compact(
+        return view('goals.edit', compact(
                         'goal',
                         'projects',
                         'departments',

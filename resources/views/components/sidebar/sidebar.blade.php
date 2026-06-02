@@ -17,6 +17,7 @@
         ['icon' => 'fas fa-tasks', 'label' => 'TAREFAS', 'route' => route('task.index')],
         ['icon' => 'fas fa-clock', 'label' => 'JORNADAS', 'route' => route('journey.index')],
         ['icon' => 'fas fa-bullseye', 'label' => 'METAS', 'route' => route('goal.index')],
+        ['icon' => 'fas fa-folder', 'label' => 'PROJETOS', 'route' => route('project.index')],
     ]" />
 
     @if (auth()->user()->perfil == 'super administrador' or
@@ -73,18 +74,42 @@
             ],
         ) }}-->
 
-        <div class="row pt-2">
-            <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
-                <a class='stretched-link' href='{{ route('dashboard.administrative') }}'
-                    style="color: {{ $principalColor }}">
-                </a>
-                <i class="fas fa-user-tie"></i>
-                <p class="mb-0"style='font-size:10px'>
-                    ADMINISTRATIVO
-                </p>
-            </div>
-        </div>
 
+        <x-sidebar.item icon="fas fa-money-bill" title="ADMINISTRATIVO" :principal-color="$principalColor" :submenu="[
+            ['icon' => 'fas fa-building', 'label' => 'PAINEL', 'route' => route('dashboard.administrative')],
+            [
+                'icon' => 'fas fa-store',
+                'label' => 'MINHA ORGANIZACAO',
+                'route' => route('account.show', ['account' => auth()->user()->account_id]),
+            ],
+            [
+                'icon' => 'fas fa-store',
+                'label' => 'MODELO DE NEGOCIO',
+                'route' => route('account.dashboard', ['account' => auth()->user()->account_id]),
+            ],
+            ['icon' => 'fas fa-id-card-alt', 'label' => 'EQUIPE', 'route' => route('user.index')],
+            [
+                'icon' => 'fas fa-trophy',
+                'label' => 'CONCORRENTES',
+                'route' => route('company.index', ['typeCompanies' => 'concorrente']),
+            ],
+            [
+                'icon' => 'fas fa-chart-pie',
+                'label' => 'RELATORIO DE PRODUTIVIDADE',
+                'route' => route('journey.reportUsers'),
+            ],
+            [
+                'icon' => 'fas fa-chart-pie',
+                'label' => 'RELATORIOS FINANCEIROS',
+                'route' => route('invoice.report'),
+            ],
+            ['icon' => 'fas fa-calendar-check', 'label' => 'METAS', 'route' => route('goal.index')],
+            [
+                'icon' => 'fas fa-calendar-check',
+                'label' => 'PLANEJAMENTO FINANCEIRO',
+                'route' => route('planning.index'),
+            ],
+        ]" />
 
         <x-sidebar.item icon="fas fa-money-bill" title="FINANCEIRO" :principal-color="$principalColor" :submenu="[
             ['icon' => 'fas fa-money-bill', 'label' => 'PAINEL', 'route' => route('dashboard.financial')],
@@ -97,16 +122,36 @@
     @endif
 
 
-    <div class="row pt-2">
-        <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
-            <a class='stretched-link' href='{{ route('dashboard.marketing') }}' style="color: {{ $principalColor }}">
-            </a>
-            <i class="fas fa-bullhorn"></i>
-            <p class="mb-0"style='font-size:10px'>
-                COMUNICAÇÃO
-            </p>
-        </div>
-    </div>
+    <x-sidebar.item icon="fas fa-bullhorn" title="COMUNICAÇÃO" :principal-color="$principalColor" :submenu="[
+        ['icon' => 'fas fa-bullhorn', 'label' => 'PAINEL', 'route' => route('dashboard.marketing')],
+        ['icon' => 'fas fa-file', 'label' => 'NOVO DOCUMENTO', 'route' => route('text.create')],
+        ['icon' => 'fas fa-list-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
+        [
+            'icon' => 'fas fa-paperclip',
+            'label' => 'MEUS DOCUMENTOS',
+            'route' => route('text.index', ['user_id' => auth()->user()->id]),
+        ],
+        ['icon' => 'fas fa-image', 'label' => 'NOVA IMAGEM', 'route' => route('image.create')],
+        ['icon' => 'fas fa-images', 'label' => 'IMAGENS', 'route' => route('image.index')],
+        [
+            'icon' => 'fas fa-paperclip',
+            'label' => 'MINHAS IMAGENS',
+            'route' => route('image.index', ['user_id' => auth()->user()->id]),
+        ],
+        ['icon' => 'fas fa-hashtag', 'label' => 'NOVA REDE SOCIAL', 'route' => route('socialmedia.create')],
+        ['icon' => 'fas fa-share-alt', 'label' => 'REDES SOCIAIS', 'route' => route('socialmedia.index')],
+        ['icon' => 'fas fa-plus-circle', 'label' => 'NOVA PAGINA', 'route' => route('page.create')],
+        ['icon' => 'fas fa-window-maximize', 'label' => 'PAGINAS', 'route' => route('page.index')],
+        ['icon' => 'fas fa-store', 'label' => 'CRIAR LOJA', 'route' => route('shop.create')],
+        [
+            'icon' => 'fas fa-box-open',
+            'label' => 'PRODUTOS',
+            'route' => route('product.index', ['variation' => 'receita']),
+        ],
+        ['icon' => 'fas fa-chart-line', 'label' => 'NOVO RELATORIO', 'route' => route('report.create')],
+        ['icon' => 'fas fa-chart-bar', 'label' => 'RELATORIOS', 'route' => route('report.index')],
+        ['icon' => 'fas fa-users', 'label' => 'PUBLICO-ALVO', 'route' => route('contact.target')],
+    ]" />
 
     <x-sidebar.item icon="fas fa-funnel-dollar" title="CAPTAÇÃO" :principal-color="$principalColor" :submenu="[
         ['icon' => 'fas fa-file-alt', 'label' => 'PAINEL', 'route' => route('dashboard.sales')],

@@ -59,7 +59,7 @@ class ProjectController extends Controller {
 
         $trashStatus = request()->trash;
 
-        return view('operational.projects.index', compact(
+        return view('projects.index', compact(
                         'title',
                         'projects',
 //                        'totalProspection',
@@ -110,7 +110,7 @@ class ProjectController extends Controller {
 
         $users = User::myUsers();
 
-        return view('operational.projects.create', compact(
+        return view('projects.create', compact(
                         'title',
                         'department',
                         'users',
@@ -219,7 +219,7 @@ class ProjectController extends Controller {
 
         $counter = 1;
 
-        return view('operational.projects.show', compact(
+        return view('projects.show', compact(
                         'title',
                         'project',
                         'companyName',
@@ -264,7 +264,7 @@ class ProjectController extends Controller {
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
-        return view('operational.projects.edit', compact(
+        return view('projects.edit', compact(
                         'title',
                         'project',
                         'users',

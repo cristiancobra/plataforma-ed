@@ -18,7 +18,7 @@
     <div class='container-fluid' style="margin-top: 30px">
         <div class='row' style='background-color: #EEEEEE'>
             <x-sidebar.sidebar />
-            <main role='main' class='offset-1 col-11 ml-sm-auto px-2' style='background-color: #EEEEEE'>
+            <main role='main' class='col-12 col-lg-11 offset-lg-1 ml-sm-auto px-2' style='background-color: #EEEEEE'>
 
                 <div class='row'
                     style='
