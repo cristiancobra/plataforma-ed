@@ -2229,21 +2229,26 @@ html,body{
     height:100%;
 }
 
+:root {
+    --nav-height: 75px;
+    --sidebar-width: 110px;
+}
+
 /*FRAME PRINCIPAL*/
 
 .grid {
     display: grid;
-    min-height: 100vh;
+    min-height: calc(100vh - var(--nav-height));
     text-align: left;
-    margin-top: 2%;
-    grid-template-columns: 6% 94%;
+    margin-top: var(--nav-height);
+    grid-template-columns: var(--sidebar-width) minmax(0, 1fr);
     grid-template-areas: 
         "sidebar main2";
     gap: 0%;
 }
 
 .nav-menu {
-    height:7%;
+    height: var(--nav-height);
     position: fixed;
     top: 0;
     right: 0;
@@ -2254,20 +2259,25 @@ html,body{
 
 .sidebar {
     grid-area: sidebar;
-    width: 6%;
-    height: 100vh;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--nav-height));
     position:fixed;
-    top: 7%;
+    top: var(--nav-height);
     right: 0;
     left: 0;
     z-index: 1029;
-    padding: 0;
+    padding: 6px;
+    overflow: visible;
+    border-right: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 10px 0 30px rgba(27, 32, 50, 0.12);
+    backdrop-filter: blur(10px);
 }
 
 .main2{
     grid-area: main2;
-    min-height: 100%;
+    min-height: calc(100vh - var(--nav-height));
     background-color: rgb(221, 221, 221);
+    overflow-x: hidden;
 }
 
 .white-page {
@@ -2332,16 +2342,55 @@ h5{
 .sidebar-item {
     color:white;
     list-style-type: none;
-    padding-top: 6px;
-    padding-bottom:  6px; 
-    font-size: 16px;
+    padding-top: 8px;
+    padding-bottom:  8px;
+    font-size: 12px;
     border: none;
-    text-align: left;
+    text-align: center;
+    border-radius: 12px;
+    transition: background-color .2s ease, transform .2s ease;
 }
 .sidebar-item:hover{
     color:#874983;
-    background-color: #EEEEEE;
+    background-color: rgba(255, 255, 255, 0.38);
+    transform: translateY(-1px);
     text-decoration: none;
+}
+
+.sidebar-item.sidebar-menu:hover {
+    background-color: transparent;
+    transform: none;
+}
+
+.sidebar-item.sidebar-menu:hover {
+    background-color: transparent;
+    transform: none;
+}
+
+@media (max-width: 991.98px) {
+    .grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "sidebar"
+            "main2";
+    }
+
+    .sidebar {
+        position: sticky;
+        width: 100%;
+        top: var(--nav-height);
+        height: auto;
+        max-height: 42vh;
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: 0 8px 20px rgba(27, 32, 50, 0.12);
+        padding: 8px 10px;
+    }
+
+    .white-page {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
 }
 
 .sidebar-subitem {
