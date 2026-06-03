@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Operational;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Contact;
 use App\Models\Company;
 use App\Models\Goal;
-use App\Models\Invoice;
 use App\Models\Journey;
 use App\Models\Project;
 use App\Models\Product;
@@ -305,14 +304,14 @@ class ProjectController extends Controller {
         $project->trash = 1;
         $project->save();
 
-        return redirect()->action('Operational\\ProjectController@index');
+        return redirect()->action('ProjectController@index');
     }
 
     public function restoreFromTrash(Project $project) {
         $project->trash = 0;
         $project->save();
 
-        return redirect()->action('Operational\\ProjectController@index');
+        return redirect()->action('ProjectController@index');
     }
 
     public function jsonStages(Project $project) {

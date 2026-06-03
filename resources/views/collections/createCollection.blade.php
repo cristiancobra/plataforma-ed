@@ -40,13 +40,16 @@
             @csrf
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class='labels' for=''>NOME:</label>
                     <input type='text' name='name' class='form-control' value='{{ old('name') }}' required>
                     @if ($errors->has('name'))
                         <span class='text-danger'>{{ $errors->first('name') }}</span>
                     @endif
                 </div>
+            </div>
+
+            <div class="row mt-3">
                 <div class="col-md-6">
                     <label class='labels' for=''>ACERVO:</label>
                     <x-form.select name="collections_group_id" :options="$collectionsGroupSelectOptions" :selected="old('collections_group_id')"
@@ -55,8 +58,17 @@
                         <span class='text-danger'>{{ $errors->first('collections_group_id') }}</span>
                     @endif
                 </div>
-
+                <div class="col-md-6">
+                    <label class='labels' for=''>PROJETO:</label>
+                    <x-form.select name="project_id" :options="$projectsSelectOptions" :selected="old('project_id')" placeholder="Não possui"
+                        class="fields" />
+                    @if ($errors->has('project_id'))
+                        <span class='text-danger'>{{ $errors->first('project_id') }}</span>
+                    @endif
+                </div>
             </div>
+
+
 
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -94,16 +106,6 @@
             <x-form.select name="contact_id" :options="$contactsSelectOptions" placeholder="Não possui" class="fields" />
             @if ($errors->has('contact_id'))
                 <span class='text-danger'>{{ $errors->first('contact_id') }}</span>
-            @endif
-        </div>
-    </div>
-
-    <div class="row mt-3">
-        <div class="col-md-12">
-            <label class='labels' for=''>TÍTULO:</label>
-            <input type='text' name='title' class='form-control' value='{{ old('title') }}'>
-            @if ($errors->has('title'))
-                <span class='text-danger'>{{ $errors->first('title') }}</span>
             @endif
         </div>
     </div>

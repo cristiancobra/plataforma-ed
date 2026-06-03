@@ -393,19 +393,19 @@ Route::get('/perfil', function () {
 // // projects
 // 
 
-Route::put('/projetos/apagar/{project}', 'Operational\\ProjectController@sendToTrash')
+Route::put('/projetos/apagar/{project}', 'ProjectController@sendToTrash')
         ->name('project.trash')
         ->middleware('roles');
 
-Route::put('/projetos/restaurar/{project}', 'Operational\\ProjectController@restoreFromTrash')
+Route::put('/projetos/restaurar/{project}', 'ProjectController@restoreFromTrash')
         ->name('project.restore')
         ->middleware('roles');
 
-Route::get('/projetos/jsonStages/{project}', 'Operational\\ProjectController@jsonStages')
+Route::get('/projetos/jsonStages/{project}', 'ProjectController@jsonStages')
         ->name('project.jsonStages')
         ->middleware('roles');
 
-Route::resource('projetos', 'Operational\\ProjectController')
+Route::resource('projetos', 'ProjectController')
         ->names('project')
         ->parameters(['projetos' => 'project'])
         ->middleware('roles');

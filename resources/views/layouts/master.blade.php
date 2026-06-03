@@ -15,32 +15,23 @@
 
     <x-Navmenu.nav-menu />
 
-    <div class='container-fluid' style="margin-top: 75px">
-        <div class='row' style='background-color: #EEEEEE; min-height: calc(100vh - 75px);'>
-            <x-sidebar.sidebar />
-            <main role='main' class='col-12 col-lg-11 offset-lg-1 ml-sm-auto px-2'
-                style='background-color: #EEEEEE; min-height: 100%;'>
+    <div class="grid">
+        <x-sidebar.sidebar />
 
-                <div class='row'
-                    style='
-                         margin-top: 10px;
-                         margin-bottom: 15px;
-                         margin-left:13px;
-                         margin-right: 6px
-                         '>
-                    @include('layouts.header')
-                </div>
+        <main role="main" class="main2">
+            <header class='row pb-3'>
+                @include('layouts.header')
+            </header>
 
-                <div
-                    style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white;padding: 20px;margin: 20px;margin-top:10px'>
-                    <div class='col-lg-12 px-2'>
-                        @yield('main')
-                    </div>
+            <section id="white-page" class="white-page">
+                <div class="col-lg-12 px-2">
+                    @yield('main')
                 </div>
-            </main>
-        </div>
-        @yield('js-scripts')
+            </section>
+        </main>
     </div>
+    @yield('js-scripts')
+    @stack('scripts')
 </body>
 
 </html>

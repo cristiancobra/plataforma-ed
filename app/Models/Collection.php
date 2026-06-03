@@ -15,6 +15,7 @@ class Collection extends Model
         'account_id',
         'user_id',
         'contact_id',
+        'project_id',
         'collections_group_id',
         'name',
         'category',
@@ -91,7 +92,11 @@ class Collection extends Model
     {
         return $this->belongsTo(CollectionsGroup::class, 'collections_group_id', 'id');
     }
-    
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id', 'id');
+    }
 
     public static function returnCategories()
     {

@@ -26,6 +26,7 @@ class UpdateCollectionRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'type_id' => 'required|exists:collection_types,id',
+            'project_id' => 'nullable|exists:projects,id',
             'contact_id' => 'nullable|exists:contacts,id',
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',

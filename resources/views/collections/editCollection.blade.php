@@ -41,7 +41,7 @@
             @method('PUT')
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <label class='labels' for=''>NOME:</label>
                     <input type='text' name='name' class='form-control' value='{{ old('name', $collection->name) }}'
                         required>
@@ -49,12 +49,23 @@
                         <span class='text-danger'>{{ $errors->first('name') }}</span>
                     @endif
                 </div>
+            </div>
+
+            <div class="row mt-3">
                 <div class="col-md-6">
                     <label class='labels' for=''>ACERVO:</label>
                     <x-form.select name="collections_group_id" :options="$collectionsGroupSelectOptions" :selected="old('collections_group_id')"
                         placeholder="Selecione o grupo" class="fields" />
                     @if ($errors->has('collections_group_id'))
                         <span class='text-danger'>{{ $errors->first('collections_group_id') }}</span>
+                    @endif
+                </div>
+                <div class="col-md-6">
+                    <label class='labels' for=''>PROJETO:</label>
+                    <x-form.select name="project_id" :options="$projectsSelectOptions" :selected="old('project_id', $collection->project_id)" placeholder="Não possui"
+                        class="fields" />
+                    @if ($errors->has('project_id'))
+                        <span class='text-danger'>{{ $errors->first('project_id') }}</span>
                     @endif
                 </div>
             </div>

@@ -24,6 +24,7 @@
         <x-filter.select name="user_id" :options="$userSelectOptions" placeholder="Registrado por" />
         <x-filter.select name="contact_id" :options="$contactsSelectOptions" placeholder="Todos os responsáveis" />
         <x-filter.select name="collections_group_id" :options="$collectionsGroupSelectOptions" placeholder="Todos os acervos" />
+        <x-filter.select name="project_id" :options="$projectsSelectOptions" placeholder="Todos os projetos" />
         <x-filter.select name="status" :options="$statusSelectOptions" placeholder="Todas as situações" />
     </x-table.filter>
 @endsection

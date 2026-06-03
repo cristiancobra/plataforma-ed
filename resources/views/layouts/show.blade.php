@@ -19,13 +19,13 @@
         <x-sidebar.sidebar />
 
         <main class='main2'>
-            <header class='row pt-5 ps-5 ms-3 me-5'>
+            <header class='row pb-3'>
                 @include('layouts.header')
             </header>
 
             <div class="col">
                 @if (Session::has('failed'))
-                    <div class="alert alert-danger ms-5 mt-5 mb-5">
+                    <div class="alert alert-danger ">
                         <i class="fas fa-exclamation-circle late-paid ms-1 me-1" style="font-size:20px"></i>
                         {{ Session::get('failed') }}
                         @php
@@ -33,7 +33,7 @@
                         @endphp
                     </div>
                 @elseif(Session::has('success'))
-                    <div class="alert alert-success ms-5 mt-5 mb-5">
+                    <div class="alert alert-success ">
                         <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
                         {{ Session::get('success') }}
                         @php
@@ -41,7 +41,7 @@
                         @endphp
                     </div>
                 @elseif(Session::has('attachment_success'))
-                    <div class="alert alert-success ms-5 mt-5 mb-5">
+                    <div class="alert alert-success ">
                         <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
                         {{ Session::get('attachment_success') }}
                         @php

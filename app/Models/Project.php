@@ -52,12 +52,23 @@ class Project extends Model
         return $this->hasMany(Task::class, 'opportunity_id', 'id');
     }
 
+    public function collections() {
+        return $this->hasMany(Collection::class, 'project_id', 'id');
+    }
+
     public function user() {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     // MÉTODOS PÚBLICO
 
+    public static function projectsSelectOptions() {
+        return self::where('account_id', auth()->user()->account_id)
+            ->where('trash', 0)
+            ->orderBy('name', 'asc')
+            ->pluck('name', 'id')
+            ->toArray();
+    }
 
     public static function filterProjects(Request $request) {
         $opportunities = Project::where(function ($query) use ($request) {

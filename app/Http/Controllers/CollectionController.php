@@ -7,6 +7,7 @@ use App\Models\CollectionLocation;
 use App\Models\Contact;
 use App\Models\User;
 use App\Models\CollectionType;
+use App\Models\Project;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCollectionRequest;
 use App\Http\Requests\UpdateCollectionRequest;
@@ -42,53 +43,45 @@ class CollectionController extends Controller
         if ($request->filled('name')) {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
-
         if ($request->filled('collections_group_id')) {
             $query->where('collections_group_id', $request->collections_group_id);
         }
-
         if ($request->filled('patrimony_number')) {
             $query->where('patrimony_number', 'like', '%' . $request->patrimony_number . '%');
         }
-
         if ($request->filled('brand')) {
             $query->where('brand', 'like', '%' . $request->brand . '%');
         }
-
         if ($request->filled('category')) {
             $query->whereHas('collectionType', function ($q) use ($request) {
                 $q->where('category', $request->category);
             });
         }
-
         if ($request->filled('type')) {
             $query->where('type_id', $request->type);
         }
-
         if ($request->filled('user_id')) {
             $query->where('user_id', $request->user_id);
         }
-
         if ($request->filled('contact_id')) {
             $query->where('contact_id', $request->contact_id);
         }
-
+        if ($request->filled('project_id')) {
+            $query->where('project_id', $request->project_id);
+        }  
         if ($request->filled('location')) {
             $query->whereHas('currentLocation', function ($q) use ($request) {
                 $q->where('location', 'like', '%' . $request->location . '%');
             });
         }
-
         if ($request->filled('status')) {
             $query->where('status', $request->status);
         }
-
         if ($request->has('trash') && $request->trash == 1) {
             $query->where('trash', 1);
         } else {
             $query->where('trash', 0);
         }
-
         $collections = $query->orderBy('created_at', 'desc')->paginate(20);
         $totalFiltered = $collections->total();
 
@@ -99,6 +92,7 @@ class CollectionController extends Controller
         $statusSelectOptions = Collection::returnStatus();
         $userSelectOptions = User::userSelectOptions();
         $contactsSelectOptions = Contact::contactsSelectOptions();
+        $projectsSelectOptions = Project::projectsSelectOptions();
         $trashStatus = $request->trash;
 
         return view('collections.indexCollections', compact(
@@ -108,6 +102,7 @@ class CollectionController extends Controller
             'statusSelectOptions',
             'userSelectOptions',
             'contactsSelectOptions',
+            'projectsSelectOptions',
             'trashStatus',
             'totalTotal',
             'totalFiltered',
@@ -130,12 +125,14 @@ class CollectionController extends Controller
         $status = Collection::returnStatus();
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
+        $projectsSelectOptions = Project::projectsSelectOptions();
 
         return view('collections.createCollection', compact(
             'types',
             'status',
             'contactsSelectOptions',
             'collectionsGroupSelectOptions',
+            'projectsSelectOptions',
         ));
     }
 
@@ -206,6 +203,7 @@ class CollectionController extends Controller
         // $usersSelectOptions = User::myUsers();
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
+        $projectsSelectOptions = Project::projectsSelectOptions();
 
         return view('collections.editCollection', compact(
             'collection',
@@ -215,6 +213,7 @@ class CollectionController extends Controller
             // 'usersSelectOptions',
             'contactsSelectOptions',
             'collectionsGroupSelectOptions',
+            'projectsSelectOptions',
         ));
     }
 
