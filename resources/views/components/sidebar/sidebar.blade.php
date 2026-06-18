@@ -160,6 +160,7 @@
         ]" />
 
         <x-sidebar.item icon="fas fa-archive" title="ACERVO" :principal-color="$principalColor" :submenu="[
+            ['icon' => 'fas fa-exchange-alt', 'label' => 'EMPRÉSTIMOS', 'route' => route('loan.index')],
             ['icon' => 'fas fa-archive', 'label' => 'ITENS DE ACERVOS', 'route' => route('collection.index')],
             [
                 'icon' => 'fas fa-layer-group',

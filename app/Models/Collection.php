@@ -18,8 +18,6 @@ class Collection extends Model
         'project_id',
         'collections_group_id',
         'name',
-        'category',
-        'type',
         'type_id',
         'title',
         'description',
@@ -96,6 +94,19 @@ class Collection extends Model
     public function project()
     {
         return $this->belongsTo(Project::class, 'project_id', 'id');
+    }
+
+    public function loanItems()
+    {
+        return $this->hasMany(LoanItem::class);
+    }
+
+    public function isAvailableForLoan()
+    {
+        return $this->collectionType 
+            && $this->collectionType->category === 'físico' 
+            && $this->status === 'available' 
+            && $this->trash == 0;
     }
 
     public static function returnCategories()

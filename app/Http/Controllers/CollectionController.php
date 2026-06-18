@@ -145,11 +145,6 @@ class CollectionController extends Controller
     public function store(StoreCollectionRequest $request)
     {
         $data = $request->all();
-        // Compatibilidade: se vier 'type' do form, converte para 'type_id'
-        if (isset($data['type'])) {
-            $data['type_id'] = $data['type'];
-            unset($data['type']);
-        }
         $collection = new Collection();
         $collection->fill($data);
         $collection->account_id = auth()->user()->account_id;

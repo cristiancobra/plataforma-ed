@@ -324,6 +324,24 @@ Route::resource('acervo', 'CollectionController')
         ->parameters(['acervo' => 'collection'])
         ->middleware('roles');
 
+// ================================ ACERVO - EMPRÉSTIMOS ===================
+Route::put('/emprestimos/devolver/{loan}', 'LoanController@return')
+        ->name('loan.return')
+        ->middleware('roles');
+
+Route::put('/emprestimos/apagar/{loan}', 'LoanController@trash')
+        ->name('loan.trash')
+        ->middleware('roles');
+
+Route::put('/emprestimos/restaurar/{loan}', 'LoanController@restore')
+        ->name('loan.restore')
+        ->middleware('roles');
+
+Route::resource('emprestimos', 'LoanController')
+        ->names('loan')
+        ->parameters(['emprestimos' => 'loan'])
+        ->middleware('roles');
+
 // ================================ ACERVO - TIPOS DE COLEÇÃO ===================
 Route::resource('collection-types', 'CollectionTypeController')
         ->names('collection-types')
