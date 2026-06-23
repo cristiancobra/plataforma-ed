@@ -155,6 +155,7 @@ class Opportunity extends Model {
             'negociando',
             'perdemos',
             'ganhamos',
+            'desistimos',
         );
     }
 

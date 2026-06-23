@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="statusId"
-    :class="changeStatusColor()"
-    style="
+  <div id="statusId" :class="changeStatusColor()" style="
       color: white;
       vertical-align: middle;
       border-style: solid;
@@ -11,8 +8,7 @@
       border-color: white;
       padding: 5px;
       text-align: center;
-    "
-  >
+    ">
     {{ status }}
   </div>
 </template>
@@ -31,7 +27,7 @@ export default {
           return "doing2";
           break;
         case "fazer":
-          case "revisão":
+        case "revisão":
         case "orçamento":
           return "to-do2";
           break;
@@ -42,6 +38,9 @@ export default {
           return "done2";
           break;
         case "rascunho":
+          return "lost2";
+          break;
+        case "desistimos":
           return "lost2";
           break;
       }
@@ -55,14 +54,17 @@ export default {
   color: white;
   background-color: #92c4d4;
 }
+
 .to-do2 {
   color: white;
   background-color: #ecd23d;
 }
+
 .done2 {
   color: white;
   background-color: #a5d9cc;
 }
+
 .lost2 {
   color: white;
   background-color: #EF5362;
