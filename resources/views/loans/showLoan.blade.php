@@ -8,12 +8,13 @@
 
 @section('buttons')
     @if ($loan->status !== 'returned')
-        <button type="button" class="btn text-white" style="background-color: {{ $principalColor }}" data-bs-toggle="modal"
+        <button type="button " class="btn text-white" style="background-color: {{ $principalColor }}" data-bs-toggle="modal"
             data-bs-target="#returnModal">
             <i class="fa fa-check"></i> REGISTRAR DEVOLUÇÃO
         </button>
     @endif
     <x-buttons.trash :object="$loan" model="loan" />
+    <x-buttons.pdf :object="$loan" model="loan" :principalColor="$principalColor" />
     <x-buttons.edit model="loan" :object="$loan" :principalColor="$principalColor" />
     <x-buttons.list model="loan" :object="$loan" :principalColor="$principalColor" />
 @endsection
@@ -50,7 +51,7 @@
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             EMPRESTADOR
         </div>
-        <div class="col-4 border border-start-0 text-center py-2">
+        <div class="col-4 border border-start-0 text-center py-2 ps-3">
             @if ($loan->lender && $loan->lender->contact)
                 <a href="{{ route('user.show', $loan->lender->id) }}" class="text-decoration-none">
                     {{ $loan->lender->contact->name }}
@@ -59,23 +60,13 @@
                 {{ $loan->lender->name ?? '-' }}
             @endif
         </div>
-        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-            TIPO DEVEDOR
-        </div>
-        <div class="col-4 border border-start-0 text-center py-2">
-            @if ($loan->getBorrowerType() === 'user')
-                <span class="badge bg-info">Usuário Interno</span>
-            @else
-                <span class="badge bg-warning text-dark">Contato Externo</span>
-            @endif
-        </div>
     </div>
 
     <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             DEVEDOR
         </div>
-        <div class="col-10 border border-start-0 text-center py-2">
+        <div class="col-4 border border-start-0 text-center py-2">
             @if ($loan->borrower_user_id && $loan->borrowerUser)
                 <a href="{{ route('user.show', $loan->borrowerUser->id) }}" class="text-decoration-none">
                     {{ $loan->borrowerUser->contact->name ?? $loan->borrowerUser->name }}
@@ -86,6 +77,16 @@
                 </a>
             @else
                 -
+            @endif
+        </div>
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            TIPO DEVEDOR
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            @if ($loan->getBorrowerType() === 'user')
+                <span class="">Usuário Interno</span>
+            @else
+                <span class="">Contato Externo</span>
             @endif
         </div>
     </div>

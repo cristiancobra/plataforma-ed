@@ -7,6 +7,6 @@
         @endisset
         @yield('title')
     </div>
-    <div class="col-4 d-inline-block" style="text-align: right">
+    <div class="col-4 gap-1 d-flex justify-content-end" style="text-align: right">
         @yield('buttons')
     </div>

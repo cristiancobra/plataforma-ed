@@ -325,6 +325,10 @@ Route::resource('acervo', 'CollectionController')
         ->middleware('roles');
 
 // ================================ ACERVO - EMPRÉSTIMOS ===================
+Route::get('emprestimos/pdf/{loan}', 'LoanController@createPDF')
+        ->name('loan.pdf')
+        ->middleware('roles');
+
 Route::put('/emprestimos/devolver/{loan}', 'LoanController@return')
         ->name('loan.return')
         ->middleware('roles');

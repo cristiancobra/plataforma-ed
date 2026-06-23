@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreLoanRequest;
 use App\Http\Requests\UpdateLoanRequest;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class LoanController extends Controller
 {
@@ -384,5 +385,100 @@ class LoanController extends Controller
             return redirect()->back()
                 ->with('error', 'Erro ao registrar devolução: ' . $e->getMessage());
         }
+    }
+
+    /**
+     * Generate PDF for loan.
+     *
+     * @param  \App\Models\Loan  $loan
+     * @return \Illuminate\Http\Response
+     */
+    public function createPDF(Loan $loan)
+    {
+        $loan->load([
+            'lender.contact',
+            'borrowerUser.contact',
+            'borrowerContact',
+            'loanItems.collection.collectionType',
+        ]);
+
+        // Definir o nome do devedor
+        if ($loan->borrower_user_id && $loan->borrowerUser) {
+            $borrowerName = $loan->borrowerUser->contact->name ?? $loan->borrowerUser->name;
+            $borrowerType = 'Usuário Interno';
+        } elseif ($loan->borrower_contact_id && $loan->borrowerContact) {
+            $borrowerName = $loan->borrowerContact->name;
+            $borrowerType = 'Contato Externo';
+        } else {
+            $borrowerName = 'Não especificado';
+            $borrowerType = '-';
+        }
+
+        // Definir o nome do emprestador
+        if ($loan->lender && $loan->lender->contact) {
+            $lenderName = $loan->lender->contact->name;
+        } else {
+            $lenderName = $loan->lender->name ?? 'Não especificado';
+        }
+
+        // Definir status
+        $statusText = '';
+        if ($loan->isOverdue()) {
+            $statusText = 'ATRASADO';
+        } else {
+            switch ($loan->status) {
+                case 'pending':
+                    $statusText = 'PENDENTE';
+                    break;
+                case 'active':
+                    $statusText = 'ATIVO';
+                    break;
+                case 'returned':
+                    $statusText = 'DEVOLVIDO';
+                    break;
+                case 'cancelled':
+                    $statusText = 'CANCELADO';
+                    break;
+            }
+        }
+
+        $data = [
+            'pdfTitle' => 'EMPRÉSTIMO',
+            'accountLogo' => $loan->account?->image?->path ?? 'images/logo-default.png',
+            'accountPrincipalColor' => $loan->account?->principal_color ?? '#000000',
+            'accountComplementaryColor' => $loan->account?->complementary_color ?? '#ffffff',
+            'accountName' => $loan->account?->name ?? '',
+            'accountEmail' => $loan->account?->email ?? '',
+            'accountPhone' => $loan->account?->phone ?? '',
+            'accountAddress' => $loan->account?->address ?? '',
+            'accountCity' => $loan->account?->city ?? '',
+            'accountState' => $loan->account?->state ?? '',
+            'accountCnpj' => $loan->account?->cnpj ?? '',
+            'loanId' => $loan->id,
+            'lenderName' => $lenderName,
+            'borrowerName' => $borrowerName,
+            'borrowerType' => $borrowerType,
+            'startDate' => $loan->start_date,
+            'dueDate' => $loan->due_date,
+            'returnedDate' => $loan->returned_date,
+            'status' => $statusText,
+            'notes' => $loan->notes,
+            'loanItems' => $loan->loanItems,
+            'totalItems' => $loan->loanItems->count(),
+        ];
+
+        // Limpa qualquer output que possa corromper o PDF
+        if (ob_get_length()) {
+            ob_clean();
+        }
+
+        $pdf = PDF::loadView('loans.pdf', compact('data'))
+            ->setOptions([
+                'page-size' => 'A4',
+            ]);
+
+        // Stream PDF
+        $accountName = $loan->account?->name ?? 'Emprestimo';
+        return $pdf->stream("Emprestimo_" . $loan->id . "_" . $accountName . ".pdf");
     }
 }
