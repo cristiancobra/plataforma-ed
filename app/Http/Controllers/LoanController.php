@@ -395,6 +395,9 @@ class LoanController extends Controller
      */
     public function createPDF(Loan $loan)
     {
+        // Inicia buffer para capturar qualquer output indesejado
+        ob_start();
+        
         $loan->load([
             'lender.contact',
             'borrowerUser.contact',
@@ -467,9 +470,9 @@ class LoanController extends Controller
             'totalItems' => $loan->loanItems->count(),
         ];
 
-        // Limpa qualquer output que possa corromper o PDF
-        if (ob_get_length()) {
-            ob_clean();
+        // Limpa completamente qualquer output acumulado
+        while (ob_get_level() > 0) {
+            ob_end_clean();
         }
 
         $pdf = PDF::loadView('loans.pdf', compact('data'))
