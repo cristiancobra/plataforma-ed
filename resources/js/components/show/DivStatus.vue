@@ -34,15 +34,16 @@ export default {
         case "feito":
         case "ativada":
         case "aprovada":
+        case "ganhamos":
         case "disponível":
           return "done2";
           break;
         case "rascunho":
-          return "lost2";
-          break;
         case "desistimos":
+        case "perdemos":
           return "lost2";
           break;
+
       }
     },
   },
