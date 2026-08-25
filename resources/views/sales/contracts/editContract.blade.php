@@ -137,9 +137,8 @@
 		{{ $contract->text }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('text');
+                Jodit.make('textarea[name=\"text\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>
@@ -148,9 +147,8 @@
 		{!! html_entity_decode($contract->observations) !!}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('observations');
+                Jodit.make('textarea[name=\"observations\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>

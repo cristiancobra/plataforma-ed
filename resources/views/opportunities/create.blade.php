@@ -101,9 +101,8 @@
                     <textarea id="description" name="description" class="form-control" rows="6">{{ old('description') }}</textarea>
                 </div>
             </div>
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('description');
+                Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
             </script>
             <div class="row mb-3  mt-5 mb-5">
                 @if ($stages != null)

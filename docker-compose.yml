@@ -28,14 +28,14 @@ services:
       - laravel
 
   mysql:
-    image: mysql:5.7
+    image: mariadb:10.6
     container_name: laravel_db
     restart: unless-stopped
     ports:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
+      MYSQL_DATABASE: plataforma
       MYSQL_USER: laravel
       MYSQL_PASSWORD: laravel
     volumes:

@@ -42,9 +42,8 @@
 		{{ $account->description }}
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
         <script>
-            CKEDITOR.replace('description');
+            Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
         </script>
         <br>
         <br>
@@ -146,9 +145,8 @@
 {{ $account->value_offer }}
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
         <script>
-            CKEDITOR.replace('value_offer');
+            Jodit.make('textarea[name=\"value_offer\"]', { language: 'pt_BR' });
         </script>
         <br>
         <br>

@@ -33,9 +33,8 @@
 		{{ $report->general }}
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR----------------------- -->
-        <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
         <script>
-            CKEDITOR.replace('general');
+            Jodit.make('textarea[name=\"general\"]', { language: 'pt_BR' });
         </script>
         <br>
         <br>
@@ -45,9 +44,8 @@
 {{ $report->target }}
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
         <script>
-            CKEDITOR.replace('target');
+            Jodit.make('textarea[name=\"target\"]', { language: 'pt_BR' });
         </script>
         <br>
         <input type='submit' class='btn btn-secondary' value='Atualizar dados'>

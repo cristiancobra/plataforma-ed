@@ -58,9 +58,8 @@
                     @endif
                     <textarea id="description" name="description" rows="6" class="form-control">{{ old('description', $journey->description) }}</textarea>
                 </div>
-                <script src='//cdn.ckeditor.com/4.5.7/standard/ckeditor.js'></script>
                 <script>
-                    CKEDITOR.replace('description');
+                    Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
                 </script>
                 <div style="display: flex; gap: 16px;">
                     <div style="flex: 1;">

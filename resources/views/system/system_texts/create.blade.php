@@ -54,9 +54,8 @@
   {{ old('text') }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('text');
+                Jodit.make('textarea[name=\"text\"]', { language: 'pt_BR' });
             </script>
             <br>
             <label class='labels' for=''>ANEXAR IMAGEM:</label>

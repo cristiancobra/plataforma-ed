@@ -44,9 +44,8 @@
             <textarea id="description" name="message" rows="10" cols="90" value="{{ old('message') }}">
 		</textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('message');
+                Jodit.make('textarea[name=\"message\"]', { language: 'pt_BR' });
             </script>
             <br>
             <input class="btn btn-secondary" type="submit" value="CRIAR">

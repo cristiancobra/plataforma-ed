@@ -114,9 +114,8 @@
 {{ $socialmedia->observation }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('observation');
+                Jodit.make('textarea[name=\"observation\"]', { language: 'pt_BR' });
             </script>
             <br>
             <label class="labels" for="">STATUS:</label>

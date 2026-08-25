@@ -3,6 +3,7 @@
 
 <!-- Styles -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit/es2021/jodit.min.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
 <link href="{{ url(mix('css/style.css')) }}" rel="stylesheet">
@@ -19,3 +20,4 @@
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ url(mix('js/app.js')) }}" sync defer></script>
 <script src='{{ url(mix('js/scripts.js')) }}' sync defer></script>
+<script src="https://cdn.jsdelivr.net/npm/jodit/es2021/jodit.min.js"></script>

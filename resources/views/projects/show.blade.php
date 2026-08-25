@@ -251,9 +251,8 @@
   {{ old('description') }}
                     </textarea>
                             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-                            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
                             <script>
-                                CKEDITOR.replace('descriptionStage');
+                                Jodit.make('textarea[name=\"descriptionStage\"]', { language: 'pt_BR' });
                             </script>
                         </div>
                     </div>
@@ -470,9 +469,8 @@
   {{ old('description') }}
                         </textarea>
                                     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-                                    <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
                                     <script>
-                                        CKEDITOR.replace("descriptionTask_{{ $counter++ }}");
+                                        Jodit.make('textarea[name=\"descriptionTask_{{ $counter++ }}\"]', { language: 'pt_BR' });
                                     </script>
                                 </div>
                             </div>
@@ -667,9 +665,8 @@
   {{ old('description') }}
                 </textarea>
                                 <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-                                <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
                                 <script>
-                                    CKEDITOR.replace("descriptionTaskExtra");
+                                    Jodit.make('textarea[name=\"descriptionTaskExtra\"]', { language: 'pt_BR' });
                                 </script>
                             </div>
                         </div>

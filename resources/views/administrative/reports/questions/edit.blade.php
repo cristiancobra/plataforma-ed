@@ -35,9 +35,8 @@
 {{ $question->question }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('question');
+                Jodit.make('textarea[name=\"question\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>
@@ -47,9 +46,8 @@
 {{ $question->answer1 }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('answer1');
+                Jodit.make('textarea[name=\"answer1\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>
@@ -59,9 +57,8 @@
 {{ $question->answer2 }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('answer2');
+                Jodit.make('textarea[name=\"answer2\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>
@@ -71,9 +68,8 @@
 {{ $question->answer3 }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('answer3');
+                Jodit.make('textarea[name=\"answer3\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>

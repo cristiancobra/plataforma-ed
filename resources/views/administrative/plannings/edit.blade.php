@@ -61,9 +61,8 @@
   {{ $planning->observations }}
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
         <script>
-            CKEDITOR.replace('observations');
+            Jodit.make('textarea[name=\"observations\"]', { language: 'pt_BR' });
         </script>
     @endsection
 

@@ -78,9 +78,8 @@
   {{ $systemText->text }}
                     </textarea>
                         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-                        <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
                         <script>
-                            CKEDITOR.replace('systemText');
+                            Jodit.make('textarea[name=\"systemText\"]', { language: 'pt_BR' });
                         </script>
                     </div>
                 </div>

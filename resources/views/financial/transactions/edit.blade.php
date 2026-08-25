@@ -118,9 +118,8 @@
 		{{ $transaction->observations }}
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('description');
+                Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
             </script>
             <br>
             <br>

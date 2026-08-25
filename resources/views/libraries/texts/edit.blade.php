@@ -95,9 +95,8 @@
   {{ $text->text }}
             </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script src="//cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
             <script>
-                CKEDITOR.replace('text');
+                Jodit.make('textarea[name=\"text\"]', { language: 'pt_BR' });
             </script>
 
             <div class="row mt-5 mb-5">
