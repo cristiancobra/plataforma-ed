@@ -1099,44 +1099,44 @@ if (!function_exists('formatStatus')) {
     {
         switch ($model->status) {
             case 'aguardar':
-                echo '<div class="tb tb-stuck text-center">aguardar</div>';
+                echo '<div class="tb col-1 tb-stuck text-center">aguardar</div>';
                 break;
             case 'aprovado':
             case 'aprovada':
-                echo '<div class="tb tb-won">aprovado</div>';
+                echo '<div class="tb col-1 tb-won text-center">aprovado</div>';
                 break;
             case 'ativada':
-                echo '<div class="tb tb-done text-center">ativada</div>';
+                echo '<div class="tb col-1 tb-done text-center">ativada</div>';
                 break;
             case 'atrasada':
-                echo '<div class="tb tb-late text-center">atrasada</div>';
+                echo '<div class="tb col-1 tb-late text-center">atrasada</div>';
                 break;
             case 'cancelado':
-                echo '<div class="tb tb-canceled text-center">cancelada</div>';
+                echo '<div class="tb col-1 tb-canceled text-center">cancelada</div>';
                 break;
             case 'fazer':
-                echo '<div class="tb tb-toDo text-center">fazer</div>';
+                echo '<div class="tb col-1 tb-toDo text-center">fazer</div>';
                 break;
             case 'fazendo':
-                echo '<div class="tb tb-doing text-center">fazendo</div>';
+                echo '<div class="tb col-1 tb-doing text-center">fazendo</div>';
                 break;
             case 'feito':
-                echo '<div class="tb tb-done text-center">feito</div>';
+                echo '<div class="tb col-1 tb-done text-center">feito</div>';
                 break;
             case 'negociando':
-                echo '<div class="tb tb-dealing">negociando</div>';
+                echo '<div class="tb col-1 tb-dealing text-center">negociando</div>';
                 break;
             case 'perdemos':
-                echo '<div class="tb tb-lost">perdemos</div>';
+                echo '<div class="tb col-1 tb-lost text-center">perdemos</div>';
                 break;
             case 'ganhamos':
-                echo '<div class="tb tb-won">ganhamos</div>';
+                echo '<div class="tb col-1 tb-won text-center">ganhamos</div>';
                 break;
             case 'rascunho':
-                echo '<div class="tb tb-stuck">rascunho</div>';
+                echo '<div class="tb col-1 tb-stuck text-center">rascunho</div>';
                 break;
             case 'revisão':
-                echo '<div class="tb tb-late text-center">revisão</div>';
+                echo '<div class="tb col-1 tb-late text-center">revisão</div>';
                 break;
         }
     }
