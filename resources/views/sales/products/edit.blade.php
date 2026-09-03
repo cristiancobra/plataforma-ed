@@ -169,16 +169,24 @@
 
         @section('footer-scripts')
             <script>
-                formatCurrencyReal();
-
                 // exibir form para adicionar nova imagem
-                $('#slider').change(function() {
+                document.getElementById('slider').addEventListener('change', function () {
+                    var change = document.getElementById('change');
+                    var newImage = document.getElementById('new');
                     if (this.checked) {
-                        $('#change').hide();
-                        $('#new').show();
+                        if (change) {
+                            change.style.display = 'none';
+                        }
+                        if (newImage) {
+                            newImage.style.display = 'block';
+                        }
                     } else {
-                        $('#change').show();
-                        $('#new').hide();
+                        if (change) {
+                            change.style.display = 'inline';
+                        }
+                        if (newImage) {
+                            newImage.style.display = 'none';
+                        }
                     }
                 });
             </script>

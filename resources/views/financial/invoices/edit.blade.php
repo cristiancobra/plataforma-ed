@@ -9,7 +9,7 @@
 
 
 @section('image-top')
-    {{ asset('images/invoice.png') }}
+    <i class="fas fa-file-invoice-dollar"></i>
 @endsection
 
 
@@ -163,7 +163,9 @@
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script>
-            Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
+            Jodit.make('textarea[name=\"description\"]', {
+                language: 'pt_BR'
+            });
         </script>
     @endsection
 

@@ -207,35 +207,3 @@
 @endsection
 
 
-@section('js-scripts')
-    <script>
-        $("[name=goal_invoices_revenues]").maskMoney({
-            prefix: 'R$ ',
-            allowNegative: true,
-            thousands: '.',
-            decimal: ',',
-            affixesStay: false
-        });
-        $("[name=goal_invoices_expenses]").maskMoney({
-            prefix: 'R$ ',
-            allowNegative: true,
-            thousands: '.',
-            decimal: ',',
-            affixesStay: false
-        });
-        $("[name=goal_transactions_revenues]").maskMoney({
-            prefix: 'R$ ',
-            allowNegative: true,
-            thousands: '.',
-            decimal: ',',
-            affixesStay: false
-        });
-        $("[name=goal_transactions_expenses]").maskMoney({
-            prefix: 'R$ ',
-            allowNegative: true,
-            thousands: '.',
-            decimal: ',',
-            affixesStay: false
-        });
-    </script>
-@endsection

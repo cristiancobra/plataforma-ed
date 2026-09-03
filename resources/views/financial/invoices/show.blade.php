@@ -3,14 +3,12 @@
 @section('title', 'FATURAS')
 
 @section('image-top')
-    {{ asset('images/invoice.png') }}
+    <i class="fas fa-file-invoice-dollar"></i>
 @endsection
 
 @section('buttons')
     <x-buttons.pdf :object="$invoice" model="invoice" :principalColor="$principalColor" />
-    <a class='circular-button secondary' href='{{ route('invoice.email', ['invoice' => $invoice]) }}'>
-        <i class='fas fa-envelope'></i>
-    </a>
+    <x-buttons.email :object="$invoice" model="invoice" route="invoice.email" :principalColor="$principalColor" />
     <x-buttons.trash :object="$invoice" model="invoice" />
     <x-buttons.edit model="invoice" :object="$invoice" :principalColor="$principalColor" />
     <x-buttons.list model="invoice" parameter="typeInvoices" :value="$typeInvoices" :principalColor="$principalColor" />

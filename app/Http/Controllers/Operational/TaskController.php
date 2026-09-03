@@ -68,7 +68,7 @@ class TaskController extends Controller {
 
         $trashStatus = request()->trash;
 
-        return view('operational.tasks.index', compact(
+        return view('tasks.index', compact(
                         'tasks',
                         'teamTasksEmergencyAmount',
                         'myTasksPendingAmount',
@@ -143,7 +143,7 @@ class TaskController extends Controller {
         $dateDue = $dateDue->add(new \DateInterval('P5D')); 
         $dateDue = $dateDue->format('Y-m-d'); 
 
-        return view('operational.tasks.create', compact(
+        return view('tasks.create', compact(
                         'users',
                         'name',
                         'department',
@@ -272,7 +272,7 @@ class TaskController extends Controller {
 
         $task->load(['images', 'attachments']);
 
-        return view('operational.tasks.show', compact(
+        return view('tasks.show', compact(
                         'today',
                         'task',
                         'totalDuration',
@@ -310,7 +310,7 @@ class TaskController extends Controller {
         $priorities = Task::returnPriorities();
         $taskStages = Task::returnTaskStages($task);
 
-        return view('operational.tasks.edit', compact(
+        return view('tasks.edit', compact(
                         'task',
                         'users',
                         'opportunities',
@@ -461,7 +461,7 @@ class TaskController extends Controller {
 ////			'deadline' => $deadline,
         ];
 
-        $pdf = PDF::loadView('operational.tasks.createPdf', compact('data'));
+        $pdf = PDF::loadView('tasks.createPdf', compact('data'));
         $pdf->setPaper('A4', 'portrait');
 
 // download PDF file with download method
@@ -473,7 +473,7 @@ class TaskController extends Controller {
         $modules = Task::returnBugModules();
         $actions = Task::returnBugActions();
 
-        return view('operational.tasks.createBug', compact(
+        return view('tasks.createBug', compact(
                         'priorities',
                         'modules',
                         'actions',
@@ -541,7 +541,7 @@ class TaskController extends Controller {
 //        $myTasks = $teamTasks->where('user_id', auth()->user()->id);
 //        $myTasksCount = $myTasks->count();
 
-        return view('operational.tasks.monthly_calendar', compact(
+        return view('tasks.monthly_calendar', compact(
                         'startMonth',
                         'startDay',
                         'monthName',

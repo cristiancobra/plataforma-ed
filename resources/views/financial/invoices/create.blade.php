@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-    <i class="fas fa-box"></i>
+    <i class="fas fa-file-invoice-dollar"></i>
 @endsection
 
 @section('description')
@@ -146,7 +146,9 @@
         </textarea>
                     <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
                     <script>
-                        Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
+                        Jodit.make('textarea[name=\"description\"]', {
+                            language: 'pt_BR'
+                        });
                     </script>
                 @endif
                 <br>
@@ -158,7 +160,9 @@
         </textarea>
             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
             <script>
-                Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
+                Jodit.make('textarea[name=\"description\"]', {
+                    language: 'pt_BR'
+                });
             </script>
             <br>
             <br>

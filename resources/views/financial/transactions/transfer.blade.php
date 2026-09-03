@@ -80,7 +80,7 @@
             @if ($errors->has('value'))
                 <span class="text-danger">{{ $errors->first('value') }}</span>
             @endif
-            <input type="decimal" name="value" style="text-align: right" size='12'>
+            <input type="decimal" name="value" class='prices' onkeyup="formatCurrencyRealAll('input.prices')" style="text-align: right" size='12'>
             <br>
             <label class="labels" for="">MEIO DE PAGAMENTO: </label>
             {{ createSimpleSelect('payment_method', 'fields', returnPaymentMethods()) }}
@@ -100,16 +100,4 @@
     </div>
     <br>
     <br>
-@endsection
-
-@section('js-scripts')
-    <script>
-        $("[name=value]").maskMoney({
-            prefix: 'R$ ',
-            allowNegative: true,
-            thousands: '.',
-            decimal: ',',
-            affixesStay: false
-        });
-    </script>
 @endsection

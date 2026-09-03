@@ -13,8 +13,7 @@
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'transaction'" />
     <x-buttons.filter />
-    <a id='export' class='circular-button secondary' href='{{ route('transaction.export') }}'
-        onclick='exportTasks(event.target);'>
+    <a id='export' class='circular-button secondary' href='{{ route('transaction.export') }}'>
         <i class='fa fa-table' aria-hidden='true'></i>
     </a>
     <a class='circular-button secondary'
@@ -249,13 +248,3 @@
 @endsection
 
 @section('paginate', $transactions->links())
-
-@section('js-scripts')
-    <script>
-        // exportar em CSV
-        function exportTasks(_this) {
-            let _url = $(_this).data('href');
-            window.location.href = _url;
-        }
-    </script>
-@endsection

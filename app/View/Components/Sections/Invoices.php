@@ -51,6 +51,7 @@ class Invoices extends Component {
             
             $invoicesTotal = 0;
             $balanceTotal = 0;
+            $invoicesPaidTotal = 0;
 
             foreach ($invoices as $invoice) {
 
@@ -69,6 +70,7 @@ class Invoices extends Component {
 
                 $invoicesTotal += $invoice->totalPrice;
                 $balanceTotal += $invoice->balance;
+                $invoicesPaidTotal += $invoice->paid;
             }
 
 
@@ -82,6 +84,7 @@ class Invoices extends Component {
             $invoicePaymentsTotal = 0;
             $invoicesTotal = 0;
             $balanceTotal = 0;
+            $invoicesPaidTotal = 0;
             $invoicesCount = 0;
             $invoiceFrameColor = 'lightgray';
         }
@@ -102,6 +105,7 @@ class Invoices extends Component {
                         'invoicePaymentsTotal',
                         'invoicesTotal',
                         'balanceTotal',
+                        'invoicesPaidTotal',
                         'invoicesCount',
                         'invoiceFrameColor',
                         'counterInvoices',

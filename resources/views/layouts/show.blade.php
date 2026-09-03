@@ -27,7 +27,7 @@
                 @if (Session::has('failed'))
                     <div class="alert alert-danger ">
                         <i class="fas fa-exclamation-circle late-paid ms-1 me-1" style="font-size:20px"></i>
-                        {{ Session::get('failed') }}
+                        {!! Session::get('failed') !!}
                         @php
                             Session::forget('failed');
                         @endphp

@@ -75,7 +75,7 @@ class ProposalController extends Controller {
         
         $config = $typeConfig[$type] ?? $typeConfig['receita'];
 
-        return view('sales.proposals.index', compact(
+        return view('proposals.index', compact(
                         'proposals',
                         'contacts',
                         'companies',
@@ -138,7 +138,7 @@ class ProposalController extends Controller {
         $types = Proposal::returnTypes();
         $status = Proposal::returnStatus();
 
-        return view('sales.proposals.create', compact(
+        return view('proposals.create', compact(
                         'request',
                         'opportunity',
                         'opportunities',
@@ -349,7 +349,7 @@ class ProposalController extends Controller {
         $status = $proposal->status;
         $priority = $proposal->points;
 
-        return view('sales.proposals.show', compact(
+        return view('proposals.show', compact(
                         'proposal',
                         'invoices',
                         'invoicesCount',
@@ -393,7 +393,7 @@ class ProposalController extends Controller {
         $status = Proposal::returnStatus();
         ;
 
-        return view('sales.proposals.edit', compact(
+        return view('proposals.edit', compact(
                         'users',
                         'companies',
                         'contracts',
@@ -494,7 +494,17 @@ class ProposalController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Proposal $proposal) {
-        //
+        $hasInvoices = Invoice::where('proposal_id', $proposal->id)
+                ->where('trash', '!=', 1)
+                ->exists();
+
+        if ($hasInvoices) {
+            return back()
+                            ->with('failed', 'Esta proposta possui faturas associadas e não pode ser excluída.');
+        }
+
+        return back()
+                        ->with('failed', 'Exclusão de propostas não é permitida. Utilize a lixeira.');
     }
 
     public function sendToTrash(Proposal $proposal) {
@@ -596,7 +606,7 @@ class ProposalController extends Controller {
 
         $counter = 1;
 
-        return view('sales.proposals.edit_installment', compact(
+        return view('proposals.edit_installment', compact(
                         'proposal',
                         'invoices',
                         'counter',
@@ -636,9 +646,9 @@ class ProposalController extends Controller {
         }
 //        dd($proposal->totalPrice);
         $diferential = 0.001;
-        if (abs($sumInvoicesPrice - $proposal->totalPrice) > $diferential) {
+        if (abs($sumInvoicesPrice) - abs($proposal->totalPrice) > $diferential) {
             return back()
-                            ->with('failed', "A soma das faturas   (" . formatCurrencyReal($sumInvoicesPrice) . ")   NÃO pode ser diferente do total da proposta   (" . formatCurrencyReal($proposal->totalPrice) . ")  .")
+                            ->with('failed', "A soma das faturas   (" . formatCurrencyReal($sumInvoicesPrice) . ")   NÃO pode ser MAIOR que o total da proposta   (" . formatCurrencyReal($proposal->totalPrice) . ")  .")
                             ->withInput();
         } else {
 //atualiza valores das faturas
@@ -646,6 +656,22 @@ class ProposalController extends Controller {
                     ->where('status', 'aprovada')
                     ->where('trash', '!=', 1)
                     ->get();
+
+// valida que nenhuma fatura terá o valor reduzido abaixo do que já foi pago
+            $counter = 0;
+            foreach ($invoices as $invoice) {
+                $newTotalPrice = removeCurrency($request->totalPrice[$counter]);
+                if ($proposal->type == 'despesa') {
+                    $newTotalPrice = $newTotalPrice * -1;
+                }
+                $paid = Invoice::totalPaid($invoice);
+                if (abs($paid) - abs($newTotalPrice) > $diferential) {
+                    return back()
+                                    ->with('failed', "A fatura Nº " . $invoice->identifier . " já possui pagamento de   (" . formatCurrencyReal($paid) . ")   registrado e não pode ter o valor reduzido abaixo desse total.")
+                                    ->withInput();
+                }
+                $counter++;
+            }
 
             $counter = 0;
             foreach ($invoices as $invoice) {
@@ -656,6 +682,44 @@ class ProposalController extends Controller {
                 $invoice->pay_day = $request->pay_day[$counter];
                 $invoice->update();
                 $counter++;
+            }
+
+// se a soma ficou menor que o total da proposta, cria uma nova parcela com a diferença
+            $diffPrice = abs($proposal->totalPrice) - abs($sumInvoicesPrice);
+            if ($diffPrice > $diferential) {
+                $lastInvoice = $invoices->sortByDesc('number_installment')->first();
+
+                $invoicesIdentifiers = Invoice::where('account_id', auth()->user()->account_id)
+                        ->pluck('identifier')
+                        ->toArray();
+                $lastIdentifier = $invoicesIdentifiers ? max($invoicesIdentifiers) : 0;
+
+                $newInvoice = new Invoice();
+                $newInvoice->identifier = $lastIdentifier + 1;
+                $newInvoice->user_id = auth()->user()->id;
+                $newInvoice->account_id = auth()->user()->account_id;
+                $newInvoice->contact_id = $proposal->contact_id;
+                $newInvoice->contract_id = $proposal->contract_id;
+                $newInvoice->company_id = $proposal->company_id;
+                $newInvoice->proposal_id = $proposal->id;
+                $newInvoice->description = $proposal->description;
+                $newInvoice->totalPrice = $proposal->type == 'despesa' ? $diffPrice * -1 : $diffPrice;
+                $newInvoice->number_installment = $lastInvoice->number_installment + 1;
+                $newInvoice->type = $proposal->type;
+                $newInvoice->status = 'aprovada';
+
+                $DateTime = new DateTime($lastInvoice->pay_day);
+                $DateTime->add(new \DateInterval('P1M'));
+                $newInvoice->pay_day = $DateTime->format('Y-m-d');
+                $newInvoice->date_creation = date('Y-m-d');
+
+                $newInvoice->save();
+
+                $proposal->installment = $proposal->installment + 1;
+                $proposal->save();
+
+                return redirect()->route('proposal.editInstallment', compact('proposal'))
+                                ->with('success', 'Uma nova parcela de   (' . formatCurrencyReal($newInvoice->totalPrice) . ')   foi criada com a diferença.');
             }
 
             return redirect()->route('proposal.show', compact(
@@ -759,7 +823,7 @@ class ProposalController extends Controller {
         
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('sales.proposals.pdf', compact('data'))
+        $pdf = PDF::loadView('proposals.pdf', compact('data'))
                 ->setOptions([
             'page-size' => 'A4',
             'header-html' => $header,
@@ -824,7 +888,7 @@ class ProposalController extends Controller {
             'rgba(255, 99, 132, 1)',
         ];
 
-        return view('sales.proposals.report', compact(
+        return view('proposals.report', compact(
                         'year',
                         'months',
                         'monthlyRevenues',

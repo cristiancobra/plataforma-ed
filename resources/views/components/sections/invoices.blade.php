@@ -1,9 +1,9 @@
-<section class='container frame mt-5' id='invoices' style="border-color:{{ $invoiceFrameColor }}">
+<section class='container frame mt-5 mb-5' id='invoices' style="border-color:{{ $invoiceFrameColor }}">
     <div class="row">
         <div class='col-10 pt-4 pb-3'
             style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{ $invoiceFrameColor }}'>
             <i class="fa fa-receipt"></i>
-            PAGAMENTOS
+            FATURAS
         </div>
         <div class='col-2 d-flex justify-content-end pt-4 pb-3 text-end'
             style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{ $invoiceFrameColor }}'>
@@ -44,10 +44,43 @@
         </div>
     </div>
 
+    @if ($proposal)
+        @php
+            $proposalBalance = $proposal->totalPrice - $invoicesPaidTotal;
+        @endphp
+        <div class="row mt-1 mb-3 text-center">
+            <div class='col-4'>
+                <div style="font-size: 13px;font-weight:600;color:{{ $oppositeColor }}">
+                    TOTAL DE FATURAS
+                </div>
+                <div style='font-size: 20px;font-weight: 600;color:{{ $principalColor }}'>
+                    {{ formatCurrencyReal($invoicesTotal) }}
+                </div>
+            </div>
+            <div class='col-4'>
+                <div style="font-size: 13px;font-weight:600;color:{{ $oppositeColor }}">
+                    TOTAL PAGO
+                </div>
+                <div style='font-size: 20px;font-weight: 600;color:{{ $principalColor }}'>
+                    {{ formatCurrencyReal($invoicesPaidTotal) }}
+                </div>
+            </div>
+            <div class='col-4'>
+                <div style="font-size: 13px;font-weight:600;color:{{ $oppositeColor }}">
+                    SALDO A PAGAR
+                </div>
+                <div
+                    style='font-size: 20px;font-weight: 600;color:{{ $proposalBalance < 0 ? 'red' : $principalColor }}'>
+                    {{ formatCurrencyReal($proposalBalance) }}
+                </div>
+            </div>
+        </div>
+    @endif
+
     <!--cabeçalho de faturas-->
 
     <div class="container" id="invoices-header">
-        <div class='row table-header mt-3 mb-3'>
+        <div class='row table-header mt-3 mb-3' style="background-color: {{ $principalColor }}">
             <div class='col-3'>
                 FATURA
             </div>
@@ -172,7 +205,8 @@
                     <input type='hidden' name='invoice_id' value='{{ $invoice->id }}'>
                     <div class="row mt-2">
                         <div class='col-3' style='text-align:left'>
-                            <label class='labels' for='user_id' style='text-align:left;color:{{ $principalColor }}'>
+                            <label class='labels' for='user_id'
+                                style='text-align:left;color:{{ $principalColor }}'>
                                 REGISTRADO POR
                             </label>
                             <br>
@@ -253,7 +287,9 @@
                         </textarea>
                             <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
                             <script>
-                                Jodit.make('textarea[name=\"observations\"]', { language: 'pt_BR' });
+                                Jodit.make('textarea[name=\"observations\"]', {
+                                    language: 'pt_BR'
+                                });
                             </script>
                         </div>
                     </div>
@@ -270,7 +306,7 @@
                 $counterTransactions = 1;
             @endphp
             <!--LINHA DE PAGAMENTOS / TRANSACTIONS-->
-            <div id='paymentsRow_{{ $counterInvoices++ }}' class='row' style="display:none">
+            <div id='paymentsRow_{{ $counterInvoices++ }}' class='row' style="display:block">
                 @foreach ($invoice->transactions as $transaction)
                     @if ($transaction->trash != 1)
                         <div class="row">
@@ -300,10 +336,10 @@
                                         {{ date('d/m/Y', strtotime($transaction->pay_day)) }}
                                     </div>
                                     <div class='cel col-5 justify-content-start'>
-                                        {{ $transaction->user->contact->name }}
+                                        {{ optional($transaction->user->contact ?? null)->name }}
                                     </div>
                                     <div class='cel col-2 justify-content-start'>
-                                        {{ $transaction->bankAccount->name }}
+                                        {{ optional($transaction->bankAccount)->name }}
                                     </div>
                                     <div class='cel col-2 justify-content-end'>
                                         {{ formatCurrencyReal($transaction->value) }}
@@ -431,10 +467,10 @@
                                         {{ date('d/m/Y', strtotime($transaction->pay_day)) }}
                                     </div>
                                     <div class='cel col-5 justify-content-start'>
-                                        {{ $transaction->user->contact->name }}
+                                        {{ optional($transaction->user->contact ?? null)->name }}
                                     </div>
                                     <div class='cel col-2 justify-content-start'>
-                                        {{ $transaction->bankAccount->name }}
+                                        {{ optional($transaction->bankAccount)->name }}
                                     </div>
                                     <div class='cel col-2 justify-content-end'>
                                         {{ formatCurrencyReal($transaction->value) }}
@@ -458,16 +494,28 @@
         $counterJs = 1;
         foreach ($invoices as $invoice) {
             echo "
-            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
-    $('#newPaymentRow_$counterJs').slideToggle(600);
-    });
-    ";
+            (function () {
+                var btn = document.getElementById('invoicePaymentButtonOnOff_$counterJs');
+                var row = document.getElementById('newPaymentRow_$counterJs');
+                if (btn && row) {
+                    btn.addEventListener('click', function () {
+                        row.style.display = (row.style.display === 'none' || row.style.display === '') ? 'block' : 'none';
+                    });
+                }
+            })();
+            ";
 
             echo "
-            $('#listPaymentsButtonOnOff_$counterJs').click(function () {
-    $('#paymentsRow_$counterJs').slideToggle(600);
-    });
-    ";
+            (function () {
+                var btn = document.getElementById('listPaymentsButtonOnOff_$counterJs');
+                var row = document.getElementById('paymentsRow_$counterJs');
+                if (btn && row) {
+                    btn.addEventListener('click', function () {
+                        row.style.display = (row.style.display === 'none' || row.style.display === '') ? 'block' : 'none';
+                    });
+                }
+            })();
+            ";
             $counterJs++;
         }
     @endphp

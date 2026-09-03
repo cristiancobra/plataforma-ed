@@ -215,7 +215,7 @@
             </div>
         </div>
 
-        <div class='row table-header mt-3'>
+        <div class='row table-header mt-3' style="background-color: {{ $principalColor }}">
             <div class='col-4'>
                 NOME
             </div>

@@ -172,6 +172,21 @@ class TransactionController extends Controller {
     }
 
     /**
+     * Aplica o sinal correto ao valor de uma transação: crédito fica positivo, débito negativo.
+     */
+    private function signedTransactionValue($type, $value) {
+        return $type == 'crédito' ? $value : $value * -1;
+    }
+
+    /**
+     * Verifica se o novo total pago respeita o limite da fatura: recebimentos (crédito) não podem
+     * ultrapassar o total por cima, pagamentos (débito, valores negativos) não podem ultrapassar por baixo.
+     */
+    private function isWithinInvoiceLimit($type, $newTotal, $invoiceTotalPrice) {
+        return $type == 'crédito' ? $newTotal <= $invoiceTotalPrice : $newTotal >= $invoiceTotalPrice;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -182,7 +197,6 @@ class TransactionController extends Controller {
             'required' => '*preenchimento obrigatório.',
         ];
         $validator = Validator::make($request->all(), [
-//					'value' => 'required:transactions',
                     'pay_day' => 'required:transactions',
                         ],
                         $messages);
@@ -192,73 +206,50 @@ class TransactionController extends Controller {
                             ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
                             ->withErrors($validator)
                             ->withInput();
-        } else {
-            $transaction = new Transaction();
-            $transaction->fill($request->all());
-            $transaction->account_id = auth()->user()->account_id;
-            
-            $transaction->type = $request->input('typeTransactions');
-        //    dd($transaction->type);
-            if ($transaction->type == 'crédito') {
-                $transaction->value = removeCurrency($request->value);
-            } else {
-                $transaction->value = removeCurrency($request->value) * -1;
-            }
-
-            // verifica se o total de pagamentos é maior que o total da fatura
-            $invoice = Invoice::where('id', $request->invoice_id)
-                    ->with('transactions')
-                    ->first();
-
-            $invoice->totalPrice = floatval($invoice->totalPrice);
-            $totalPaid = Invoice::totalPaid($invoice);
-            $newTotal = $totalPaid - $transaction->value;
-            // dd($transaction->value);
-            // dd($transaction->value, $invoice->totalPrice, $totalPaid, $newTotal);
-
-            if ($newTotal <= $invoice->totalPrice) {
-                $transaction->save();
-            
-                if ($transaction->type == 'débito') {
-                    $payment = formatCurrencyReal($transaction->value);
-                    return back()
-                        ->with('success', "Pagamento de $payment adicionado!")
-                        ->withInput();
-                }
-            
-                return redirect()->back();
-            }
-            
-            if ($transaction->type == 'crédito') {
-                $totalPrice = formatCurrencyReal($invoice->totalPrice);
-                return back()
-                    ->with('failed', "A soma dos recebimentos não pode ser maior que $totalPrice")
-                    ->withInput();
-            }
-
-            // if ($transaction->type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
-            //     $transaction->save();
-            //     return redirect()->back();
-            // } elseif ($transaction->type == 'débito' AND $newTotal <= $invoice->totalPrice) {
-            //     $transaction->save();
-            //     $payment = formatCurrencyReal($transaction->value);
-                
-            //                     return back()
-            //                     ->with('success', "Pagamento de $payment adicionado!")
-            //                     ->withInput();
-            // } elseif ($transaction->type == 'crédito') {
-            //     $totalPrice = formatCurrencyReal($invoice->totalPrice);
-            //     return back()
-            //                     ->with('failed', "A soma dos recebimento não pode ser maior que  $totalPrice")
-            //                     ->withInput();
-            // }
-            //  else {
-            //     $totalPrice = formatCurrencyReal($invoice->totalPrice);
-            //     return back()
-            //                     ->with('failed', "A soma dos pagamentos  $newTotal  não pode ser menor que  $totalPrice")
-            //                     ->withInput();
-            // }
         }
+
+        if (empty($request->bank_account_id)) {
+            $bankAccountLink = route('bankAccount.create');
+            return back()
+                            ->with('failed', "Você ainda não tem nenhuma conta bancária cadastrada. <a href=\"$bankAccountLink\">Clique aqui para cadastrar uma conta bancária</a> antes de adicionar um pagamento.")
+                            ->withInput();
+        }
+
+        $transaction = new Transaction();
+        $transaction->fill($request->all());
+        $transaction->account_id = auth()->user()->account_id;
+        $transaction->type = $request->input('typeTransactions');
+        $transaction->value = $this->signedTransactionValue($transaction->type, removeCurrency($request->value));
+
+        // verifica se o total de pagamentos é maior que o total da fatura
+        $invoice = Invoice::where('id', $request->invoice_id)
+                ->with('transactions')
+                ->first();
+
+        $invoice->totalPrice = floatval($invoice->totalPrice);
+        $totalPaid = Invoice::totalPaid($invoice);
+        $newTotal = $totalPaid + $transaction->value;
+
+        if (!$this->isWithinInvoiceLimit($transaction->type, $newTotal, $invoice->totalPrice)) {
+            $totalPrice = formatCurrencyReal($invoice->totalPrice);
+            $message = $transaction->type == 'crédito'
+                ? "A soma dos recebimentos não pode ser maior que $totalPrice"
+                : "A soma dos pagamentos não pode ser maior que $totalPrice";
+            return back()
+                ->with('failed', $message)
+                ->withInput();
+        }
+
+        $transaction->save();
+
+        if ($transaction->type == 'débito') {
+            $payment = formatCurrencyReal($transaction->value);
+            return back()
+                ->with('success', "Pagamento de $payment adicionado!")
+                ->withInput();
+        }
+
+        return redirect()->back();
     }
 
     public function storeFromOpportunity(Request $request) {
@@ -276,46 +267,33 @@ class TransactionController extends Controller {
                             ->with('failed', 'Ops... alguns campos precisam ser preenchidos corretamente.')
                             ->withErrors($validator)
                             ->withInput();
-        } else {
-            $transaction = new Transaction();
-            $transaction->fill($request->all());
-            $transaction->account_id = auth()->user()->account_id;
-
-            if ($request->type == 'receita') {
-                $type = 'crédito';
-            } elseif ($request->type == 'despesa') {
-                $type = 'débito';
-            }
-
-            if ($type == 'crédito') {
-                $transaction->value = removeCurrency($request->value);
-            } else {
-                $transaction->value = removeCurrency($request->value) * -1;
-            }
-
-
-            // verifica se o total de pagamentos é maior que o total da fatura
-            $invoice = Invoice::where('id', $request->invoice_id)
-                    ->with('transactions')
-                    ->first();
-
-            $totalPaid = Invoice::totalPaid($invoice);
-//            dd($transaction->value);
-            $newTotal = $totalPaid + $transaction->value;
-            if ($type == 'crédito' AND $newTotal <= $invoice->totalPrice) {
-                $transaction->save();
-                return redirect()->back();
-            } elseif ($type == 'débito' AND $newTotal >= $invoice->totalPrice) {
-                $transaction->save();
-                return redirect()->back();
-            } else {
-                $totalPrice = formatCurrencyReal($invoice->totalPrice);
-                $newTotal = formatCurrencyReal($newTotal);
-                return back()
-                                ->with('failed', "A soma dos pagamentos $newTotal  não pode ser maior que total da fatura  $totalPrice")
-                                ->withInput();
-            }
         }
+
+        $transaction = new Transaction();
+        $transaction->fill($request->all());
+        $transaction->account_id = auth()->user()->account_id;
+
+        $type = $request->type == 'despesa' ? 'débito' : 'crédito';
+        $transaction->value = $this->signedTransactionValue($type, removeCurrency($request->value));
+
+        // verifica se o total de pagamentos é maior que o total da fatura
+        $invoice = Invoice::where('id', $request->invoice_id)
+                ->with('transactions')
+                ->first();
+
+        $totalPaid = Invoice::totalPaid($invoice);
+        $newTotal = $totalPaid + $transaction->value;
+
+        if (!$this->isWithinInvoiceLimit($type, $newTotal, $invoice->totalPrice)) {
+            $totalPrice = formatCurrencyReal($invoice->totalPrice);
+            $newTotalFormatted = formatCurrencyReal($newTotal);
+            return back()
+                            ->with('failed', "A soma dos pagamentos $newTotalFormatted  não pode ser maior que total da fatura  $totalPrice")
+                            ->withInput();
+        }
+
+        $transaction->save();
+        return redirect()->back();
     }
 
     public function storeTransfer(Request $request) {
@@ -415,11 +393,15 @@ class TransactionController extends Controller {
         $typeTransactions = $request->input('typeTransactions');
         $oldTransactionValue = $transaction->value;
 
-        $transaction->fill($request->all());
-        $transaction->value = removeCurrency($request->value);
-        if ($typeTransactions == 'débito') {
-            $transaction->value = $transaction->value * -1;
+        if (empty($request->bank_account_id)) {
+            $bankAccountLink = route('bankAccount.create');
+            return back()
+                            ->with('failed', "Você ainda não tem nenhuma conta bancária cadastrada. <a href=\"$bankAccountLink\">Clique aqui para cadastrar uma conta bancária</a> antes de adicionar um pagamento.")
+                            ->withInput();
         }
+
+        $transaction->fill($request->all());
+        $transaction->value = $this->signedTransactionValue($typeTransactions, removeCurrency($request->value));
 
         // verifica se o total de pagamentos é maior que o total da fatura
         $invoice = Invoice::where('id', $request->invoice_id)
@@ -429,20 +411,19 @@ class TransactionController extends Controller {
         $totalPaid = Invoice::totalPaid($invoice) - $oldTransactionValue;
         $newTotal = $totalPaid + $transaction->value;
 
-        if ($newTotal >= $invoice->totalPrice) {
+        if ($this->isWithinInvoiceLimit($typeTransactions, $newTotal, $invoice->totalPrice)) {
             $transaction->save();
 
             return redirect()->route('transaction.show', compact('transaction'));
-        } else {
-            if ($typeTransactions == 'débito') {
-                $totalPrice = formatCurrencyReal($invoice->totalPrice * -1);
-            } else {
-                $totalPrice = formatCurrencyReal($invoice->totalPrice);
-            }
-            return back()
-                            ->with('failed', "A soma dos pagamentos não pode ser maior que  $totalPrice")
-                            ->withInput();
         }
+
+        $totalPrice = $typeTransactions == 'débito'
+            ? formatCurrencyReal($invoice->totalPrice * -1)
+            : formatCurrencyReal($invoice->totalPrice);
+
+        return back()
+                        ->with('failed', "A soma dos pagamentos não pode ser maior que  $totalPrice")
+                        ->withInput();
     }
 
     /**

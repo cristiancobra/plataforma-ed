@@ -3,12 +3,13 @@
 @section('title', 'EDITAR PARCELAMENTO')
 
 @section('image-top')
-    {{ asset('images/proposal.png') }}
+    <i class="fas fa-box"></i>
 @endsection
 
 
 @section('form_start')
     <form
+        id='installment-form'
         action=' {{ route('proposal.updateInstallment', [
             'proposal' => $proposal,
             'invoice' => $invoices,
@@ -21,13 +22,8 @@
 
 
     @section('buttons')
-        <a class='circular-button secondary' title='Cancelar alterações' href='{{ url()->previous() }}'>
-            <i class='fas fa-times-circle'></i>
-        </a>
-        <button id='' class='circular-button primary' title='Salvar alterações'
-            style='border:none;padding-left:4px;padding-top:2px' 'type='submit'>
-            <i class='fas fa-save'></i>
-        </button>
+        <x-buttons.cancel :href="route('proposal.show', ['proposal' => $proposal])" />
+        <x-buttons.save :principalColor="$principalColor" formId="installment-form" />
     @endsection
 
 
@@ -151,8 +147,16 @@
                 @endphp
             </div>
         @endif
+        @if (Session::has('success'))
+            <div class="alert alert-success">
+                {{ Session::get('success') }}
+                @php
+                    Session::forget('success');
+                @endphp
+            </div>
+        @endif
         <section class='container mt-5' id='invoicesLines'>
-            <div class='row table-header mt-3'>
+            <div class='row table-header mt-3' style="background-color: {{ $principalColor }}">
                 <div class='col-1'>
                     FATURA
                 </div>
@@ -198,47 +202,33 @@
                     </div>
                     <div class='cel col-2 justify-content-end'>
                         @if ($proposal->type == 'receita')
-                            <input class="form-control" id='totalPrice_{{ $counter++ }}' name='totalPrice[]'
+                            <input class="form-control" id='totalPrice_{{ $counter }}' name='totalPrice[]'
                                 type='decimal' value='{{ formatCurrency($invoice->totalPrice) }}'
+                                onkeyup="formatCurrencyReal('totalPrice_{{ $counter++ }}')"
                                 style="text-align: right;width: 120px;font-size: 14px">
                         @else
-                            <input class="form-control" id='totalPrice_{{ $counter++ }}' name='totalPrice[]'
+                            <input class="form-control" id='totalPrice_{{ $counter }}' name='totalPrice[]'
                                 type='decimal' value='{{ formatCurrency($invoice->totalPrice * -1) }}'
+                                onkeyup="formatCurrencyReal('totalPrice_{{ $counter++ }}')"
                                 style="text-align: right;width: 120px;font-size: 14px">
                         @endif
                     </div>
                 </div>
             @endforeach
             <div class="row">
-                <div class="col-8 tb-header justify-content-end">
+                <div class="col-8 tb-header justify-content-end" style="background-color: {{ $principalColor }}">
                     TOTAL DA PROPOSTA
                 </div>
-                <div class="col-2 tb-header justify-content-lg-end">
+                <div class="col-2 tb-header justify-content-lg-end" style="background-color: {{ $principalColor }}">
                     @if ($proposal->type == 'receita')
                         {{ formatCurrency($proposal->totalPrice) }}
                     @else
                         {{ formatCurrency($proposal->totalPrice * 1) }}
                     @endif
                 </div>
-                <div class="col-2 tb-header">
+                <div class="col-2 tb-header" style="background-color: {{ $principalColor }}">
 
                 </div>
             </div>
         </section>
-    @endsection
-
-
-    @section('js-scripts')
-        <script>
-            @while ($counter > 0)
-                $('[id=totalPrice_{!! json_encode($counter) !!}]').maskMoney({
-                    prefix: 'R$ ',
-                    allowNegative: true,
-                    thousands: '.',
-                    decimal: ',',
-                    affixesStay: false
-                });
-                {{ $counter-- }}
-            @endwhile
-        </script>
     @endsection

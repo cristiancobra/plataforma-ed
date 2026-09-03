@@ -4,6 +4,7 @@
 /resources/views/vendor/
 comandos.txt
 backups/
+CLAUDE.md
 
 # Ignorar TODA a pasta storage/app/public exceto .gitkeep
 /storage/app/public/*

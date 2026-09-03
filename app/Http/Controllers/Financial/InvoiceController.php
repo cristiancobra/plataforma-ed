@@ -386,12 +386,21 @@ class InvoiceController extends Controller {
                             ->withErrors($validator)
                             ->withInput();
         } else {
-            $invoice->fill($request->all());
             if ($invoice->type == 'receita') {
                 $totalPrice = removeCurrency($request->totalPrice);
             } else {
                 $totalPrice = removeCurrency($request->totalPrice) * -1;
             }
+
+            $paid = Invoice::totalPaid($invoice);
+            $diferential = 0.001;
+            if (abs($paid) - abs($totalPrice) > $diferential) {
+                return back()
+                                ->with('failed', "Esta fatura já possui pagamento de   (" . formatCurrencyReal($paid) . ")   registrado e não pode ter o valor reduzido abaixo desse total.")
+                                ->withInput();
+            }
+
+            $invoice->fill($request->all());
             $invoice->totalPrice = $totalPrice;
             $invoice->save();
 
@@ -406,6 +415,15 @@ class InvoiceController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Invoice $invoice) {
+        $hasTransactions = Transaction::where('invoice_id', $invoice->id)
+                ->where('trash', '!=', 1)
+                ->exists();
+
+        if ($hasTransactions) {
+            return back()
+                            ->with('failed', 'Esta fatura possui transações associadas e não pode ser excluída.');
+        }
+
         $invoice->invoiceLines()->delete();
         $invoice->delete();
 

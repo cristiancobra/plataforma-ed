@@ -3,7 +3,7 @@
 @section('title', 'FATURAS')
 
 @section('image-top')
-    <i class="fas fa-box"></i>
+    <i class="fas fa-file-invoice-dollar"></i>
 @endsection
 
 @section('filter')
@@ -27,7 +27,7 @@
     <a class='circular-button secondary' href="{{ route('invoice.index', ['trash' => 1]) }}">
         <i class="fa fa-trash-restore" aria-hidden="true"></i>
     </a>
-    <a id='filter_button' class='circular-button secondary'>
+    <a id='filter_button' class='circular-button secondary' onclick='toogleAddForm("filter")'>
         <i class="fa fa-filter" aria-hidden="true"></i>
     </a>
     <a class="circular-button secondary" style="background-color: lightblue"
@@ -207,16 +207,4 @@
         {{ $invoices->links() }}
     </p>
     <br>
-@endsection
-
-@section('js-scripts')
-    <script>
-        $(document).ready(function() {
-            //botao de exibir filtro
-            $("#filter_button").click(function() {
-                $("#filter").slideToggle(600);
-            });
-
-        });
-    </script>
 @endsection

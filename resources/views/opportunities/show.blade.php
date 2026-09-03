@@ -821,32 +821,3 @@
 @endsection
 
 
-@section('js-scripts')
-    <script>
-        // botão do filtro
-        $(document).ready(function() {
-            console.log('filter button')
-            //botao de exibir filtro
-            //            $('#invoicePaymentButtonOnOff').click(function () {
-            //    $('#stageRow').slideToggle(600);
-            //    $('#buttonOnOff').toggleClass('plus minus');
-            //    });
-            //            $('#taskButtonOnOff').click(function () {
-            //    $('#taskRow').slideToggle(600);
-            //    });
-            //    @php
-                //            $counterJs = 1;
-                //    foreach($invoices as $invoice) {
-                //    echo "
-//            $('#invoicePaymentButtonOnOff_$counterJs').click(function () {
-//    $('#paymentRow_$counterJs').slideToggle(600);
-//    });
-//    ";
-                //            $counterJs++;
-                //    }
-                //
-            @endphp
-
-        });
-    </script>
-@endsection

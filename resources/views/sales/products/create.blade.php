@@ -133,8 +133,8 @@
                 <br>
             @endif
             <label class='labels' for=''>PREÇO:</label>
-            <input class='text-right' type='decimal' name='price' value='{{ old('price') }}'
-                style='text-align: right' size='6'>
+            <input class='text-right' type='decimal' name='price' id='price' value='{{ old('price') }}'
+                onkeyup="formatCurrencyReal('price')" style='text-align: right' size='6'>
             @if ($errors->has('price'))
                 <span class='text-danger'>{{ $errors->first('price') }}</span>
             @endif
@@ -155,22 +155,14 @@
     </div>
     <script>
         // exibir form para adicionar nova imagem
-        $('#slider').change(function() {
+        document.getElementById('slider').addEventListener('change', function () {
             if (this.checked) {
-                $('#change').hide();
-                $('#new').show();
+                document.getElementById('change').style.display = 'none';
+                document.getElementById('new').style.display = 'block';
             } else {
-                $('#change').show();
-                $('#new').hide();
+                document.getElementById('change').style.display = 'inline';
+                document.getElementById('new').style.display = 'none';
             }
-        });
-        //         formatar entrada do dinheiro
-        $('[name=price]').maskMoney({
-            prefix: 'R$ ',
-            allowNegative: true,
-            thousands: '.',
-            decimal: ',',
-            affixesStay: false
         });
         //        $('[name=work_hours]').on('input', '.decimal-number', function (e) {
         //    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');

@@ -293,11 +293,14 @@
 
 
     <script type="text/javascript">
-        $("#delete-button").click(function() {
-            if (!confirm("Tem certeza que você quer apagar?")) {
-                return false;
-            }
-        });
+        var deleteButton = document.getElementById('delete-button');
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function (e) {
+                if (!confirm('Tem certeza que você quer apagar?')) {
+                    e.preventDefault();
+                }
+            });
+        }
     </script>
     @yield('footer-scripts')
     </div>

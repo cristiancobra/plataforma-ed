@@ -157,12 +157,15 @@
 
 
     @section('description')
-        <textarea id='description' name='description' rows='20' cols='90'>
+        <textarea id='description' name='description' rows='20' cols='90'
+            style='background-color: {{ $complementaryColor }}; color: {{ $principalColor }}  '>
 		{{ $proposal->description }}
     </textarea>
         <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
         <script>
-            Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
+            Jodit.make('textarea[name=\"description\"]', {
+                language: 'pt_BR'
+            });
         </script>
     @endsection
 
@@ -174,7 +177,7 @@
                     PRODUTOS ATUAIS:
                 </label>
             </div>
-            <div class='row table-header mt-3'>
+            <div class='row table-header mt-3' style="background-color: {{ $principalColor }}">
                 <div class='col-1'>
                     FOTO
                 </div>
