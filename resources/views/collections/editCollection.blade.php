@@ -54,7 +54,7 @@
             <div class="row mt-3">
                 <div class="col-md-6">
                     <label class='labels' for=''>ACERVO:</label>
-                    <x-form.select name="collections_group_id" :options="$collectionsGroupSelectOptions" :selected="old('collections_group_id')"
+                    <x-form.select name="collections_group_id" :options="$collectionsGroupSelectOptions" :selected="old('collections_group_id', $collection->collections_group_id)"
                         placeholder="Selecione o grupo" class="fields" />
                     @if ($errors->has('collections_group_id'))
                         <span class='text-danger'>{{ $errors->first('collections_group_id') }}</span>
