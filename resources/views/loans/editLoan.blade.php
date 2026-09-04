@@ -104,6 +104,18 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
+                    <label class='labels' for='destination'>DESTINO:</label>
+                    <input type='text' name='destination' id='destination' class='form-control'
+                        value='{{ old('destination', $loan->destination) }}'
+                        placeholder="Ex: Sala de reuniões, Evento X, Uso externo...">
+                    @if ($errors->has('destination'))
+                        <span class='text-danger'>{{ $errors->first('destination') }}</span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
                     <label class='labels' for='notes'>OBSERVAÇÕES:</label>
                     <textarea name='notes' id='notes' class='form-control' rows='4'>{{ old('notes', $loan->notes) }}</textarea>
                     @if ($errors->has('notes'))

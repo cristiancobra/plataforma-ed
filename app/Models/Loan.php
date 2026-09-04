@@ -19,6 +19,7 @@ class Loan extends Model
         'borrower_contact_id',
         'start_date',
         'due_date',
+        'destination',
         'returned_date',
         'status',
         'notes',

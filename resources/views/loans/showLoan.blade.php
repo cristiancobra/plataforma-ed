@@ -51,7 +51,7 @@
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             EMPRESTADOR
         </div>
-        <div class="col-4 border border-start-0 text-center py-2 ps-3">
+        <div class="col-4 border border-start-0 text-center py-2">
             @if ($loan->lender && $loan->lender->contact)
                 <a href="{{ route('user.show', $loan->lender->id) }}" class="text-decoration-none">
                     {{ $loan->lender->contact->name }}
@@ -60,9 +60,6 @@
                 {{ $loan->lender->name ?? '-' }}
             @endif
         </div>
-    </div>
-
-    <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             DEVEDOR
         </div>
@@ -79,6 +76,9 @@
                 -
             @endif
         </div>
+    </div>
+
+    <div class="row g-0 mb-3">
         <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
             TIPO DEVEDOR
         </div>
@@ -88,6 +88,12 @@
             @else
                 <span class="">Contato Externo</span>
             @endif
+        </div>
+        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
+            DESTINO
+        </div>
+        <div class="col-4 border border-start-0 text-center py-2">
+            {{ $loan->destination ?? '-' }}
         </div>
     </div>
 

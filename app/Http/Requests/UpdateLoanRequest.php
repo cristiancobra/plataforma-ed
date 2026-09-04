@@ -25,6 +25,7 @@ class UpdateLoanRequest extends FormRequest
     {
         return [
             'due_date' => 'required|date',
+            'destination' => 'nullable|string|max:255',
             'returned_date' => 'nullable|date',
             'status' => 'nullable|in:pending,active,returned,overdue,cancelled',
             'notes' => 'nullable|string|max:1000',

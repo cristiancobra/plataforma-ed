@@ -171,6 +171,7 @@ class LoanController extends Controller
             
             $loan->start_date = $request->start_date;
             $loan->due_date = $request->due_date;
+            $loan->destination = $request->destination;
             $loan->notes = $request->notes;
             $loan->status = 'active';
             $loan->save();
@@ -249,6 +250,7 @@ class LoanController extends Controller
             DB::beginTransaction();
 
             $loan->due_date = $request->due_date;
+            $loan->destination = $request->destination;
             $loan->notes = $request->notes;
 
             // Se data de devolução foi informada, atualizar status e restaurar collections
@@ -465,6 +467,7 @@ class LoanController extends Controller
                 'borrowerType' => $borrowerType,
                 'startDate' => $loan->start_date,
                 'dueDate' => $loan->due_date,
+                'destination' => $loan->destination,
                 'returnedDate' => $loan->returned_date,
                 'status' => $statusText,
                 'notes' => $loan->notes,

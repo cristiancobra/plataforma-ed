@@ -30,6 +30,7 @@ class StoreLoanRequest extends FormRequest
             'borrower_contact_id' => 'required_if:borrower_type,contact|nullable|exists:contacts,id',
             'start_date' => 'required|date',
             'due_date' => 'required|date|after:start_date',
+            'destination' => 'nullable|string|max:255',
             'collection_ids' => 'required|array|min:1',
             'collection_ids.*' => 'exists:collections,id',
             'conditions' => 'nullable|array',

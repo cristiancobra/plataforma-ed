@@ -222,6 +222,17 @@
             </div>
         </div>
 
+        @if ($data['destination'])
+            <div class="info-row">
+                <div class="info-label" style="background-color: {{ $data['accountComplementaryColor'] }}">
+                    DESTINO:
+                </div>
+                <div class="info-value">
+                    {{ $data['destination'] }}
+                </div>
+            </div>
+        @endif
+
         @if ($data['notes'])
             <div class="info-row">
                 <div class="info-label" style="background-color: {{ $data['accountComplementaryColor'] }}">

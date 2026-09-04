@@ -137,6 +137,17 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
+                    <label class='labels' for='destination'>DESTINO:</label>
+                    <input type='text' name='destination' id='destination' class='form-control'
+                        value='{{ old('destination') }}' placeholder="Ex: Sala de reuniões, Evento X, Uso externo...">
+                    @if ($errors->has('destination'))
+                        <span class='text-danger'>{{ $errors->first('destination') }}</span>
+                    @endif
+                </div>
+            </div>
+
+            <div class="row mt-3">
+                <div class="col-md-12">
                     <label class='labels'>ITENS DO ACERVO (Apenas itens físicos disponíveis):</label>
                     <div class="border rounded p-3" style="max-height: 300px; overflow-y: auto;">
                         @if ($availableCollections->count() > 0)
