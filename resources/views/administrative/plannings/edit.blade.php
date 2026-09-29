@@ -3,7 +3,7 @@
 @section('title', 'PLANEJAMENTO')
 
 @section('image-top')
-    {{ asset('images/planning.png') }}
+    <i class="fas fa-calendar-check"></i>
 @endsection
 
 

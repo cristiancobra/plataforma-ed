@@ -3,7 +3,7 @@
 @section('title', 'INSTAGRAM')
 
 @section('image-top')
-    {{ asset('images/email.png') }}
+    <i class="fas fa-envelope"></i>
 @endsection
 
 @section('description')

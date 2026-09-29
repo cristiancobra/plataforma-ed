@@ -3,7 +3,7 @@
 @section('title', 'QUESTÕES')
 
 @section('image-top')
-    {{ asset('images/question.png') }}
+    <i class="fas fa-question"></i>
 @endsection
 
 @section('description')

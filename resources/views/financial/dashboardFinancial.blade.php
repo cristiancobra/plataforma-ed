@@ -3,7 +3,7 @@
 @section('title', 'PAINEL FINANCEIRO')
 
 @section('image-top')
-    {{ asset('images/financeiro.png') }}
+    <i class="fas fa-money-bill"></i>
 @endsection
 
 @section('description')

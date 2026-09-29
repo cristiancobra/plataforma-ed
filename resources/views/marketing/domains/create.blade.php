@@ -3,7 +3,7 @@
 @section('title', 'DOMÍNIOS')
 
 @section('image-top')
-    {{ asset('images/domain.png') }}
+    <i class="fas fa-globe"></i>
 @endsection
 
 @section('description')

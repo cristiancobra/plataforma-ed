@@ -3,7 +3,7 @@
 @section('title', 'PINTEREST')
 
 @section('image-top')
-    {{ asset('images/pinterest.png') }}
+    <i class="fab fa-pinterest"></i>
 @endsection
 
 @section('description')

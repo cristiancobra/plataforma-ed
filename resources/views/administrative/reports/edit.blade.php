@@ -3,7 +3,7 @@
 @section('title', 'EDITAR RELATÓRIO')
 
 @section('image-top')
-    {{ asset('images/report.png') }}
+    <i class="fas fa-chart-bar"></i>
 @endsection
 
 @section('description')

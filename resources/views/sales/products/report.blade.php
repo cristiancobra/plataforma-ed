@@ -3,7 +3,7 @@
 @section('title', 'VENDAS POR PRODUTO')
 
 @section('image-top')
-    {{ asset('images/proposal.png') }}
+    <i class="fas fa-donate"></i>
 @endsection
 
 @section('description')

@@ -3,7 +3,7 @@
 @section('title', 'USUÁRIOS')
 
 @section('image-top')
-    {{ asset('images/user.png') }}
+    <i class="fas fa-id-card-alt"></i>
 @endsection
 
 @section('buttons')

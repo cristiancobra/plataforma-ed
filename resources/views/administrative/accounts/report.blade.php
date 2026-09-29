@@ -3,7 +3,7 @@
 @section('title', 'CONTAS')
 
 @section('image-top')
-    {{ asset('images/empresa.png') }}
+    <i class="fas fa-store"></i>
 @endsection
 
 @section('buttons')

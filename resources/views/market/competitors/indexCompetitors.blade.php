@@ -3,7 +3,7 @@
 @section('title', 'CONCORRENTES')
 
 @section('image-top')
-    {{ asset('images/competitors.png') }}
+    <i class="fas fa-trophy"></i>
 @endsection
 
 @section('description')

@@ -3,7 +3,7 @@
 @section('title', 'TEXTOS DO SISTEMA')
 
 @section('image-top')
-    {{ asset('images/text.png') }}
+    <i class="fas fa-file-alt"></i>
 @endsection
 
 @section('form_start')

@@ -3,7 +3,7 @@
 @section('title', 'REDES SOCIAIS')
 
 @section('image-top')
-    {{ asset('images/socialmedia.png') }}
+    <i class="fas fa-share-alt"></i>
 @endsection
 
 @section('description')

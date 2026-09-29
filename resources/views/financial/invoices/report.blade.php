@@ -3,7 +3,7 @@
 @section('title', 'CAIXA PREVISTO')
 
 @section('image-top')
-    {{ asset('images/invoice.png') }}
+    <i class="fas fa-file-invoice-dollar"></i>
 @endsection
 
 @section('description')

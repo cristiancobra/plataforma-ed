@@ -7,7 +7,7 @@
 @endif
 
 @section('image-top')
-    {{ asset('images/products.png') }}
+    <i class="fas fa-box-open"></i>
 @endsection
 
 @section('buttons')

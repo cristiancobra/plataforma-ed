@@ -3,7 +3,7 @@
 @section('title', 'BUGS')
 
 @section('image-top')
-    {{ asset('images/task.png') }}
+    <i class="fas fa-tasks"></i>
 @endsection
 
 @section('description')

@@ -3,7 +3,7 @@
 @section('title', 'NOVA PÁGINA')
 
 @section('image-top')
-    {{ asset('images/facebook.png') }}
+    <i class="fab fa-facebook"></i>
 @endsection
 
 @section('description')

@@ -3,7 +3,7 @@
 @section('title', 'PALETA DE CORES')
 
 @section('image-top')
-    {{ asset('images/contact.png') }}
+    <i class="fas fa-address-book"></i>
 @endsection
 
 @section('buttons')

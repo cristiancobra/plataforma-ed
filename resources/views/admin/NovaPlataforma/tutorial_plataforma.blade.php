@@ -3,7 +3,7 @@
 @section('title', 'NOVA PLATAFORMA')
 
 @section('image-top')
-    {{ asset('images/email.png') }}
+    <i class="fas fa-envelope"></i>
 @endsection
 
 @section('description')

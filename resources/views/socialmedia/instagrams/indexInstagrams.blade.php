@@ -3,7 +3,7 @@
 @section('title', 'INSTAGRAM')
 
 @section('image-top')
-    {{ asset('images/instagram.png') }}
+    <i class="fab fa-instagram"></i>
 @endsection
 
 @section('description')

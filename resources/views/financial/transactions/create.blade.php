@@ -9,7 +9,7 @@
 @endif
 
 @section('image-top')
-    {{ asset('images/transaction.png') }}
+    <i class="fas fa-exchange-alt"></i>
 @endsection
 
 

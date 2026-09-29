@@ -3,7 +3,7 @@
 @section('title', 'SUPER ADMINISTRADOR')
 
 @section('image-top')
-    {{ asset('images/control-panel.png') }}
+    <i class="fas fa-tachometer-alt"></i>
 @endsection
 
 @section('description')

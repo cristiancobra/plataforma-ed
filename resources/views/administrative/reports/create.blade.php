@@ -3,7 +3,7 @@
 @section('title', 'CRIAR BRIEFING')
 
 @section('image-top')
-    {{ asset('images/colaborador.png') }}
+    <i class="fas fa-user-tie"></i>
 @endsection
 
 @section('description')

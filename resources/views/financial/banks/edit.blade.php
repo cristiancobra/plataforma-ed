@@ -4,7 +4,7 @@
 
 
 @section('image-top')
-    {{ asset('images/bank.png') }}
+    <i class="fas fa-university"></i>
 @endsection
 
 @section('buttons')

@@ -3,7 +3,7 @@
 @section('title', 'CONTAS BANCÁRIAS')
 
 @section('image-top')
-    {{ asset('images/bankAccount.png') }}
+    <i class="fas fa-university"></i>
 @endsection
 
 @section('description')

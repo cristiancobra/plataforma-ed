@@ -3,7 +3,7 @@
 @section('title', 'TEXTOS DO SISTEMA')
 
 @section('image-top')
-    {{ asset('images/rocket.png') }}
+    <i class="fas fa-rocket"></i>
 @endsection
 
 @section('description')

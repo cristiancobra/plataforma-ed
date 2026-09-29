@@ -3,7 +3,7 @@
 @section('title', 'CONTRATOS')
 
 @section('image-top')
-    {{ asset('images/contract.png') }}
+    <i class="fas fa-file-signature"></i>
 @endsection
 
 @section('description')

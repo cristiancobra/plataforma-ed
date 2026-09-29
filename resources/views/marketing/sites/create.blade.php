@@ -3,7 +3,7 @@
 @section('title', 'SITES')
 
 @section('image-top')
-    {{ asset('images/site.png') }}
+    <i class="fas fa-window-maximize"></i>
 @endsection
 
 @section('description')

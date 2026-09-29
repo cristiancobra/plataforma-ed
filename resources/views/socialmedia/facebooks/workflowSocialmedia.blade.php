@@ -3,7 +3,7 @@
 @section('title', 'REDES SOCIAIS')
 
 @section('image-top')
-    {{ asset('images/astronauta-estrela.png') }}
+    <i class="fas fa-user-astronaut"></i>
 @endsection
 
 @section('description')

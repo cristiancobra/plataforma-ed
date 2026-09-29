@@ -3,7 +3,7 @@
 @section('title', 'SPOTIFY')
 
 @section('image-top')
-    {{ asset('images/spotify.png') }}
+    <i class="fab fa-spotify"></i>
 @endsection
 
 @section('description')

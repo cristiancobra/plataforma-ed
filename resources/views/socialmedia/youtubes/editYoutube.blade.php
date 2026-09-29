@@ -3,7 +3,7 @@
 @section('title', 'EDITAR YOUTUBE')
 
 @section('image-top')
-    {{ asset('images/youtube.png') }}
+    <i class="fab fa-youtube"></i>
 @endsection
 
 @section('description')
