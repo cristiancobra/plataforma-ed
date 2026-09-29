@@ -15,26 +15,6 @@
 @endsection
 
 @section('main')
-    @if (Session::has('failed'))
-        <div class="alert alert-danger">
-            {{ Session::get('failed') }}
-            @php
-                Session::forget('failed');
-            @endphp
-        </div>
-    @endif
-
-    @if ($errors->any())
-        <div class='alert alert-danger'>
-            <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div>
         <form action=" {{ route('task.store') }} " method="post" enctype='multipart/form-data'>
             @csrf

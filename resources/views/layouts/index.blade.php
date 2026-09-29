@@ -24,14 +24,7 @@
             </header>
 
             <div class="col">
-                @if (Session::has('failed'))
-                    <div class="alert alert-danger">
-                        {{ Session::get('failed') }}
-                        @php
-                            Session::forget('failed');
-                        @endphp
-                    </div>
-                @endif
+                <x-alerts />
 
                 <section id='white-page' class='white-page'>
                     <div class='row justify-content-end mt-3 mb-4 offset-2'>

@@ -23,6 +23,8 @@
                 @include('layouts.header')
             </header>
 
+            <x-alerts />
+
             <section id="white-page" class="white-page">
                 <div class="col-lg-12 px-2">
                     @yield('main')

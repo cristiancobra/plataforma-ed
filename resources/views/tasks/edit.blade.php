@@ -216,26 +216,6 @@
 
 
     @section('main')
-        @if (Session::has('failed'))
-            <div class='alert alert-danger'>
-                {{ Session::get('failed') }}
-                @php
-                    Session::forget('failed');
-                @endphp
-            </div>
-        @endif
-
-        @if ($errors->any())
-            <div class='alert alert-danger'>
-                <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
         {{-- IMAGENS EXISTENTES --}}
         @if (count($task->images) > 0)
             <div class='row show-label-large col-12' style='margin-top: 30px'>

@@ -19,14 +19,6 @@
 @endsection
 
 @section('main')
-    @if (Session::has('failed'))
-        <div class='alert alert-danger'>
-            {{ Session::get('failed') }}
-            @php
-                Session::forget('failed');
-            @endphp
-        </div>
-    @endif
     <div>
         <form action='{{ route('product.store', ['variation' => $variation]) }}' method='post'
             enctype='multipart/form-data'>

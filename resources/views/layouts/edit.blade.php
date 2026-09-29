@@ -27,35 +27,9 @@
             </header>
 
 
-            @if (Session::has('failed'))
-                <div class="alert alert-danger">
-                    {{ Session::get('failed') }}
-                    @php
-                        Session::forget('failed');
-                    @endphp
-                </div>
-            @endif
-
-            @if (Session::has('attachment_success'))
-                <div class="alert alert-success ms-5 mt-3 mb-3">
-                    <i class="fas fa-check-circle ms-1 me-1" style="font-size:20px"></i>
-                    {{ Session::get('attachment_success') }}
-                    @php
-                        Session::forget('attachment_success');
-                    @endphp
-                </div>
-            @endif
-
-            @if ($errors->any())
-                <div class='alert alert-danger'>
-                    <strong>Erro ao salvar!</strong> Verifique os campos abaixo:
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+            <div class='mx-5'>
+                <x-alerts />
+            </div>
 
             @yield('errors')
 

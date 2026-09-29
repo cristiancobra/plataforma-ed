@@ -15,26 +15,7 @@
 @endsection
 
 @section('main')
-    @if (Session::has('failed'))
-        <div class="alert alert-danger">
-            {{ Session::get('failed') }}
-            @php
-                Session::forget('failed');
-            @endphp
-        </div>
-    @endif
-
     <!-- Exibir erros de validação -->
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
-
     <div>
         <form action='{{ route('socialmedia.store') }}' method='post'>
             @csrf

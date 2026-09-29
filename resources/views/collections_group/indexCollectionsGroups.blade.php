@@ -7,10 +7,6 @@
 @endsection
 
 @section('table')
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     <x-table.header :background-color="$principalColor" :columns="[
         ['label' => 'NOME', 'class' => 'col-4'],
         ['label' => 'DESCRIÇÃO', 'class' => 'col-6'],

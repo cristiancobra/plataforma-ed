@@ -24,31 +24,7 @@
             </header>
 
             <div class="col">
-                @if (Session::has('failed'))
-                    <div class="alert alert-danger ">
-                        <i class="fas fa-exclamation-circle late-paid ms-1 me-1" style="font-size:20px"></i>
-                        {!! Session::get('failed') !!}
-                        @php
-                            Session::forget('failed');
-                        @endphp
-                    </div>
-                @elseif(Session::has('success'))
-                    <div class="alert alert-success ">
-                        <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
-                        {{ Session::get('success') }}
-                        @php
-                            Session::forget('success');
-                        @endphp
-                    </div>
-                @elseif(Session::has('attachment_success'))
-                    <div class="alert alert-success ">
-                        <i class="fas fa-check-circle paid ms-1 me-1" style="font-size:20px"></i>
-                        {{ Session::get('attachment_success') }}
-                        @php
-                            Session::forget('attachment_success');
-                        @endphp
-                    </div>
-                @endif
+                <x-alerts />
 
 
                 <section id='white-page' class='white-page' style="margin-right:200px ">
