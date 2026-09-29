@@ -1,4 +1,5 @@
 /node_modules/
+/vendor/
 /nbproject/private/
 .env
 /resources/views/vendor/
