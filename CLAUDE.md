@@ -22,7 +22,7 @@ Comandos comuns (executar dentro do container `app`, ex.: `docker-compose exec a
 trabalhando fora do Docker):
 
 ```bash
-# Dependências PHP
+# Dependências PHP (vendor/ não é versionado — instale a partir do composer.lock)
 composer install
 
 # Rodar toda a suíte de testes (PHPUnit, Laravel 8)

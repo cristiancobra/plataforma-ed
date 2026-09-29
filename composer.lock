@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "27a89bc3954ee53cf0244660979482de",
+    "content-hash": "5ec1e400975b05da97d2e1be96db255c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -316,54 +316,6 @@
                 }
             ],
             "time": "2023-10-01T12:35:29+00:00"
-        },
-        {
-            "name": "ckeditor/ckeditor",
-            "version": "4.25.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "3fa1987d35342526e4eb2e64f6ec7172561b7328"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/3fa1987d35342526e4eb2e64f6ec7172561b7328",
-                "reference": "3fa1987d35342526e4eb2e64f6ec7172561b7328",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+",
-                "LGPL-2.1+",
-                "MPL-1.1+"
-            ],
-            "authors": [
-                {
-                    "name": "CKSource",
-                    "homepage": "https://cksource.com"
-                }
-            ],
-            "description": "JavaScript WYSIWYG web text editor.",
-            "homepage": "https://ckeditor.com/ckeditor-4/",
-            "keywords": [
-                "CKEditor",
-                "ckeditor4",
-                "editor",
-                "fckeditor",
-                "html",
-                "javascript",
-                "richtext",
-                "text",
-                "wysiwyg"
-            ],
-            "support": {
-                "forum": "https://stackoverflow.com/tags/ckeditor",
-                "issues": "https://github.com/ckeditor/ckeditor4/issues",
-                "source": "https://github.com/ckeditor/ckeditor4",
-                "wiki": "https://ckeditor.com/docs/ckeditor4/latest/"
-            },
-            "time": "2025-02-05T12:32:07+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -7498,84 +7450,6 @@
             "time": "2025-04-30T06:54:44+00:00"
         },
         {
-            "name": "laravel-lang/lang",
-            "version": "10.9.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Laravel-Lang/lang.git",
-                "reference": "e341421d40f2cd28feca24ab2cb84fa5cb5ddaf6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Laravel-Lang/lang/zipball/e341421d40f2cd28feca24ab2cb84fa5cb5ddaf6",
-                "reference": "e341421d40f2cd28feca24ab2cb84fa5cb5ddaf6",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*"
-            },
-            "conflict": {
-                "laravel-lang/publisher": "<12.0 >=14.0"
-            },
-            "require-dev": {
-                "dragon-code/pretty-array": "^4.0",
-                "dragon-code/simple-dto": "^2.3",
-                "dragon-code/support": "^6.1",
-                "ext-zip": "*",
-                "guzzlehttp/guzzle": "^7.3",
-                "laravel-lang/publisher": "^13.0",
-                "laravel/breeze": "^1.2",
-                "laravel/fortify": "^1.7",
-                "laravel/jetstream": "^2.3",
-                "laravel/ui": "^3.4",
-                "orchestra/testbench": "^7.0",
-                "php": "^8.1",
-                "phpunit/phpunit": "^9.5",
-                "symfony/finder": "^6.0",
-                "symfony/var-dumper": "^6.0",
-                "vlucas/phpdotenv": "^5.4.1"
-            },
-            "suggest": {
-                "arcanedev/laravel-lang": "Translations manager and checker for Laravel 5",
-                "laravel-lang/publisher": "Easy installation and update of translation files for your project",
-                "overtrue/laravel-lang": "Command to add languages in your project"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "LaravelLang\\Lang\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Laravel-Lang Team",
-                    "homepage": "https://github.com/Laravel-Lang"
-                }
-            ],
-            "description": "Languages for Laravel",
-            "keywords": [
-                "lang",
-                "languages",
-                "laravel",
-                "lpm"
-            ],
-            "support": {
-                "issues": "https://github.com/Laravel-Lang/lang/issues",
-                "source": "https://github.com/Laravel-Lang/lang"
-            },
-            "funding": [
-                {
-                    "url": "https://opencollective.com/laravel-lang",
-                    "type": "open_collective"
-                }
-            ],
-            "time": "2022-06-27T01:57:27+00:00"
-        },
-        {
             "name": "maximebf/debugbar",
             "version": "v1.23.6",
             "source": {
@@ -9442,8 +9316,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.4|^8.0"
+        "php": "^8.0|^8.1"
     },
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
