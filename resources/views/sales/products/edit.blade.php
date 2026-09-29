@@ -15,7 +15,8 @@
 
 
 @section('form_start')
-    <form action='{{ route('product.update', ['product' => $product->id, 'variation' => $variation]) }}' method='post'>
+    <form action='{{ route('product.update', ['product' => $product->id, 'variation' => $variation]) }}' method='post'
+        enctype='multipart/form-data'>
         @csrf
         @method('put')
     @endsection
@@ -156,6 +157,12 @@
                             <input type='checkbox' id='slider'>
                             <span class='slider round'></span>
                         </label>
+                    </div>
+                    <div id='new' class='mt-3' style='display:none'>
+                        <input type='file' name='image' accept='image/*'>
+                        @if ($errors->has('image'))
+                            <span class='text-danger'>{{ $errors->first('image') }}</span>
+                        @endif
                     </div>
                 </div>
             </div>

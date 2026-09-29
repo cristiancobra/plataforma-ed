@@ -25,7 +25,8 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:products,name',
-            'price' => 'required|numeric',
+            'price' => ['required', 'regex:/^(R\$\s?)?\d{1,3}(\.?\d{3})*(,\d{1,2})?$/'],
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:50000',
         ];
     }
 
@@ -38,7 +39,7 @@ class StoreProductRequest extends FormRequest
             'name.required' => '*preenchimento obrigatório.',
             'name.unique' => 'Já existe um produto com este nome.',
             'price.required' => '*preenchimento obrigatório.',
-            'price.numeric' => 'O preço deve ser um valor numérico.',
+            'price.regex' => 'Informe um preço válido (ex.: 1.234,56).',
         ];
     }
 }

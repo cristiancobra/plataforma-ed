@@ -13,9 +13,7 @@
 @section('buttons')
     <x-buttons.trash-index :trash-status="request('trash')" :parameter="'product'" :variation="$variation" />
     <x-buttons.filter />
-    <a class='circular-button primary' href='{{ route('product.create', ['variation' => $variation]) }}'>
-        <i class='fa fa-plus' aria-hidden='true'></i>
-    </a>
+    <x-buttons.create model="product" parameter="variation" :value="$variation" :principalColor="$principalColor" />
 @endsection
 
 @section('main')

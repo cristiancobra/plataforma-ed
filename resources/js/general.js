@@ -24,31 +24,23 @@ window.formatCurrencyReal = function (
     var elemento = document.getElementById(fieldId);
     var valor = elemento.value;
 
-    // Remove tudo que não é dígito
-    valor = valor.replace(/[\D]+/g, '');
-    
+    // Remove tudo que não é dígito e os zeros à esquerda
+    valor = valor.replace(/[\D]+/g, '').replace(/^0+/, '');
+
     // Se estiver vazio, limpa o campo
-    if (valor === '' || valor === '0') {
+    if (valor === '') {
         elemento.value = '';
         return;
     }
-    
+
     // Garante pelo menos 3 dígitos (para ter 0,XX)
     valor = valor.padStart(3, '0');
-    
-    // Adiciona a vírgula antes dos últimos 2 dígitos
-    valor = valor.replace(/([0-9]{2})$/g, ",$1");
 
-    // Adiciona ponto separador de milhar
-    if (valor.length > 6) {
-        valor = valor.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
-    }
-    
-    if (valor.length > 10) {
-        valor = valor.replace(/([0-9]{3}).([0-9]{3}),([0-9]{2}$)/g, ".$1.$2,$3");
-    }
+    // Separa centavos e adiciona ponto separador de milhar na parte inteira
+    var inteiro = valor.slice(0, -2).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    var centavos = valor.slice(-2);
 
-    elemento.value = valor;
+    elemento.value = inteiro + ',' + centavos;
 
 };
 

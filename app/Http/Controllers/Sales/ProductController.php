@@ -190,6 +190,10 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Product $product) {
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:50000',
+        ]);
+
         $product->fill($request->all());
         $product->price = removeCurrency($request->price);
         if ($product->type == 'receita') {
@@ -323,15 +327,15 @@ class ProductController extends Controller {
     }
 
     public function saveImage($request) {
-//        dd($request);
         if ($request->file('image')) {
             $image = new Image();
             $image->name = $request->name;
             $image->account_id = auth()->user()->account_id;
+            $image->user_id = auth()->user()->id;
             $image->type = 'produto';
             $image->status = 'disponível';
-            $path = $request->file('image')->store('customers_images');
-            $image->path = $path;
+            $path = $request->file('image')->store('public/customers_images');
+            $image->path = str_replace('public/', '', $path);
             $image->save();
             $imageId = $image->id;
         } else {
