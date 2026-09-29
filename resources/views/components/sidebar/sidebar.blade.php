@@ -115,33 +115,72 @@
             <x-sidebar.item icon="fas fa-money-bill" title="FINANCEIRO" :principal-color="$principalColor" :submenu="[
                 ['icon' => 'fas fa-money-bill', 'label' => 'PAINEL', 'route' => route('dashboard.financial')],
                 [
+                    'icon' => 'fas fa-donate',
+                    'label' => 'PROPOSTAS',
+                    'route' => route('proposal.index', ['type' => 'receita']),
+                ],
+                [
+                    'icon' => 'fas fa-paperclip',
+                    'label' => 'MINHAS PROPOSTAS',
+                    'route' => route('proposal.index', ['type' => 'receita', 'user_id' => auth()->user()->id]),
+                ],
+                [
                     'icon' => 'fas fa-boxes',
                     'label' => 'DESPESAS',
                     'route' => route('proposal.index', ['type' => 'despesa']),
                 ],
+                [
+                    'icon' => 'fas fa-truck',
+                    'label' => 'FORNECEDORES',
+                    'route' => route('company.index', ['typeCompanies' => 'fornecedor']),
+                ],
+                [
+                    'icon' => 'fas fa-box',
+                    'label' => 'ITENS DE DESPESA',
+                    'route' => route('product.index', ['variation' => 'despesa']),
+                ],
+                ['icon' => 'fas fa-university', 'label' => 'CONTAS BANCARIAS', 'route' => route('bankAccount.index')],
+                [
+                    'icon' => 'fas fa-list',
+                    'label' => 'ENTRADAS',
+                    'route' => route('transaction.index', ['type' => 'crédito']),
+                ],
+                [
+                    'icon' => 'fas fa-list',
+                    'label' => 'SAIDAS',
+                    'route' => route('transaction.index', ['type' => 'débito']),
+                ],
+                ['icon' => 'fas fa-exchange-alt', 'label' => 'PAGAMENTOS', 'route' => route('transaction.index')],
+                [
+                    'icon' => 'fas fa-file-invoice-dollar',
+                    'label' => 'FATURAS A RECEBER',
+                    'route' => route('invoice.index', ['type' => 'receita']),
+                ],
+                [
+                    'icon' => 'fas fa-file-invoice',
+                    'label' => 'FATURAS A PAGAR',
+                    'route' => route('invoice.index', ['type' => 'despesa']),
+                ],
+                ['icon' => 'fas fa-file-invoice-dollar', 'label' => 'FATURAS', 'route' => route('invoice.index')],
             ]" />
         @endif
 
 
         <x-sidebar.item icon="fas fa-bullhorn" title="COMUNICAÇÃO" :principal-color="$principalColor" :submenu="[
             ['icon' => 'fas fa-bullhorn', 'label' => 'PAINEL', 'route' => route('dashboard.marketing')],
-            ['icon' => 'fas fa-file', 'label' => 'NOVO DOCUMENTO', 'route' => route('text.create')],
             ['icon' => 'fas fa-list-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
             [
                 'icon' => 'fas fa-paperclip',
                 'label' => 'MEUS DOCUMENTOS',
                 'route' => route('text.index', ['user_id' => auth()->user()->id]),
             ],
-            ['icon' => 'fas fa-image', 'label' => 'NOVA IMAGEM', 'route' => route('image.create')],
             ['icon' => 'fas fa-images', 'label' => 'IMAGENS', 'route' => route('image.index')],
             [
                 'icon' => 'fas fa-paperclip',
                 'label' => 'MINHAS IMAGENS',
                 'route' => route('image.index', ['user_id' => auth()->user()->id]),
             ],
-            ['icon' => 'fas fa-hashtag', 'label' => 'NOVA REDE SOCIAL', 'route' => route('socialmedia.create')],
             ['icon' => 'fas fa-share-alt', 'label' => 'REDES SOCIAIS', 'route' => route('socialmedia.index')],
-            ['icon' => 'fas fa-plus-circle', 'label' => 'NOVA PAGINA', 'route' => route('page.create')],
             ['icon' => 'fas fa-window-maximize', 'label' => 'PAGINAS', 'route' => route('page.index')],
             ['icon' => 'fas fa-store', 'label' => 'CRIAR LOJA', 'route' => route('shop.create')],
             [
@@ -149,7 +188,6 @@
                 'label' => 'PRODUTOS',
                 'route' => route('product.index', ['variation' => 'receita']),
             ],
-            ['icon' => 'fas fa-chart-line', 'label' => 'NOVO RELATORIO', 'route' => route('report.create')],
             ['icon' => 'fas fa-chart-bar', 'label' => 'RELATORIOS', 'route' => route('report.index')],
             ['icon' => 'fas fa-users', 'label' => 'PUBLICO-ALVO', 'route' => route('contact.target')],
         ]" />
