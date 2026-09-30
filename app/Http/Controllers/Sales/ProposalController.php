@@ -192,18 +192,10 @@ class ProposalController extends Controller {
             $proposal->account_id = auth()->user()->account_id;
             $proposal->discount = $this->parseDiscount($request->discount);
 
-            $proposalsIdentifier = Proposal::where('account_id', $request->account_id)
-                    ->pluck('identifier')
-                    ->toArray();
-
             // Se for rascunho ou orçamento atribui ID zero
-            if ($request->status == 'rascunho' OR $request->status == 'orçamento') {
-                $proposal->identifier = 0;
-            } elseif ($proposalsIdentifier == null) {
-                $proposal->identifier = 1;
-            } else {
-                $proposal->identifier = max($proposalsIdentifier) + 1;
-            }
+            $proposal->identifier = $this->isNumberedStatus($request->status)
+                    ? $this->nextIdentifier($proposal->account_id)
+                    : 0;
 
             $proposal->save();
 
@@ -244,6 +236,20 @@ class ProposalController extends Controller {
 
             return redirect()->route('proposal.show', compact('proposal'));
         }
+    }
+
+    /**
+     * Rascunhos e orçamentos não recebem número; os demais status sim.
+     */
+    private function isNumberedStatus(?string $status): bool {
+        return !in_array($status, ['rascunho', 'orçamento']);
+    }
+
+    /**
+     * Próximo número sequencial de proposta da conta.
+     */
+    private function nextIdentifier(int $accountId): int {
+        return (int) Proposal::where('account_id', $accountId)->max('identifier') + 1;
     }
 
     /**
@@ -526,6 +532,11 @@ class ProposalController extends Controller {
             }
             $proposal->fill($request->all());
             $proposal->discount = $this->parseDiscount($request->discount);
+
+            // rascunho/orçamento que deixou de ser rascunho recebe o próximo número
+            if (!$proposal->identifier && $this->isNumberedStatus($proposal->status)) {
+                $proposal->identifier = $this->nextIdentifier($proposal->account_id);
+            }
             $proposal->totalPrice = $this->applyDiscount($totalPrice, $proposal->discount, $proposal->type);
             $proposal->save();
 
