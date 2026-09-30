@@ -219,7 +219,7 @@
             </td>
             <td class="table-list-header right"
                 style="font-size: 14px;background-color:{{ $data['accountComplementaryColor'] }}" colspan="2">
-                - {{ formatCurrencyReal($data['invoiceDiscount']) }}
+                - {{ formatCurrencyReal(abs($data['invoiceDiscount'])) }}
             </td>
         </tr>
 

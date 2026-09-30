@@ -19,15 +19,6 @@
 @endsection
 
 @section('main')
-
-    @if (Session::has('failed'))
-        <div class='alert alert-danger'>
-            {{ Session::get('failed') }}
-            @php
-                Session::forget('failed');
-            @endphp
-        </div>
-    @endif
     <div class="">
         <form action=' {{ route('proposal.store') }} ' method='post' enctype='multipart/form-data'>
             @csrf

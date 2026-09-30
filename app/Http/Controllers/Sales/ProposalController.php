@@ -179,15 +179,17 @@ class ProposalController extends Controller {
                             ],
                             $messages);
         }
+        $this->validateProducts($validator, $request, 'product_price');
+
         if ($validator->fails()) {
             return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
                             ->withErrors($validator)
                             ->withInput();
         } else {
             $proposal = new Proposal();
             $proposal->fill($request->all());
             $proposal->account_id = auth()->user()->account_id;
+            $proposal->discount = $this->parseDiscount($request->discount);
 
             $proposalsIdentifier = Proposal::where('account_id', $request->account_id)
                     ->pluck('identifier')
@@ -230,13 +232,7 @@ class ProposalController extends Controller {
                 }
             }
             
-            if($request->discount == null) {
-                $discount = 0;
-            }else{
-                $discount = str_replace(",", ".", $request->discount);
-            }
-
-            $proposal->totalPrice = $totalPrice - $discount;
+            $proposal->totalPrice = $this->applyDiscount($totalPrice, $proposal->discount, $proposal->type);
             $proposal->installment = $request->installment;
             $proposal->update();
 
@@ -247,6 +243,62 @@ class ProposalController extends Controller {
 
             return redirect()->route('proposal.show', compact('proposal'));
         }
+    }
+
+    /**
+     * Converte o desconto digitado (ex.: 1.234,56) em valor numérico.
+     * O desconto é sempre gravado positivo; o sinal é aplicado no total (ver applyDiscount).
+     */
+    private function parseDiscount($discount): float {
+        return abs((float) removeCurrency($discount ?: '0'));
+    }
+
+    /**
+     * Aplica o desconto ao total dos produtos. Receitas têm total positivo e despesas
+     * negativo, então o desconto sempre reduz o valor absoluto da proposta.
+     */
+    private function applyDiscount(float $totalPrice, float $discount, ?string $type): float {
+        return $type == 'despesa' ? $totalPrice + $discount : $totalPrice - $discount;
+    }
+
+    /**
+     * Valida os produtos da proposta: exige ao menos um produto com quantidade,
+     * nenhum produto escolhido com preço zerado e total (já com desconto) maior que zero.
+     * Os preços chegam formatados em moeda (ex.: 1.234,56) no campo $priceField.
+     */
+    private function validateProducts($validator, Request $request, string $priceField) {
+        $validator->after(function ($validator) use ($request, $priceField) {
+            // percorre product_id, como o store/update fazem ao gravar as linhas
+            $productIds = (array) $request->product_id;
+            $names = Product::whereIn('id', $productIds)->pluck('name', 'id');
+
+            $total = 0;
+            $hasProducts = false;
+            foreach ($productIds as $key => $productId) {
+                $amount = $request->input("product_amount.$key");
+                if ($amount > 0) {
+                    $hasProducts = true;
+                    $price = (float) removeCurrency($request->input("$priceField.$key"));
+                    if ($price <= 0) {
+                        $name = $names[$productId] ?? 'selecionado';
+                        $validator->errors()->add('products', "O produto $name está com preço zerado.");
+                    }
+                    $total += $amount * $price;
+                }
+            }
+
+            if (!$hasProducts) {
+                $validator->errors()->add('products', 'Adicione ao menos um produto, informando a quantidade.');
+                return;
+            }
+            if ($validator->errors()->has('products')) {
+                return; // já há produto com preço zerado; o aviso de total seria redundante
+            }
+
+            if ($total - $this->parseDiscount($request->discount) <= 0) {
+                $validator->errors()->add('products', 'O valor total da proposta deve ser maior que R$ 0,00.');
+            }
+        });
     }
 
     /**
@@ -428,10 +480,10 @@ class ProposalController extends Controller {
                     'date_creation' => 'required:invoices',
                         ],
                         $messages);
+        $this->validateProducts($validator, $request, 'price');
 
         if ($validator->fails()) {
             return back()
-                            ->with('failed', 'Ops... alguns campos precisam ser preenchidos.')
                             ->withErrors($validator)
                             ->withInput();
         } else {
@@ -459,23 +511,19 @@ class ProposalController extends Controller {
                     }
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                    ProductProposal::where('id', $request->product_proposal_id[$key])->update($data);
+                    ProductProposal::where('id', $request->product_proposal_id[$key])
+                            ->where('proposal_id', $proposal->id)
+                            ->update($data);
+                } else {
+                    // quantidade zerada remove o produto da proposta
+                    ProductProposal::where('id', $request->product_proposal_id[$key])
+                            ->where('proposal_id', $proposal->id)
+                            ->delete();
                 }
             }
             $proposal->fill($request->all());
-
-            if ($proposal->discount == null) {
-                $proposal->discount = 0;
-            } elseif ($proposal->type == 'despesa') {
-                $proposal->discount = removeCurrency($request->discount);
-            } elseif ($proposal->type == 'receita') {
-                $proposal->discount = removeCurrency($request->discount);
-                $proposal->discount = $proposal->discount * -1;
-            }
-//            if ($request->type == 'despesa') {
-//                $data['subtotalPrice'] = $data['subtotalPrice'] * -1;
-//            }
-            $proposal->totalPrice = $totalPrice + $proposal->discount;
+            $proposal->discount = $this->parseDiscount($request->discount);
+            $proposal->totalPrice = $this->applyDiscount($totalPrice, $proposal->discount, $proposal->type);
             $proposal->save();
 
             // Processar uploads de novos anexos (apenas para despesas)

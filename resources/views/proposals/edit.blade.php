@@ -288,7 +288,7 @@
                 </div>
                 <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{ $principalColor }}'>
                     <input type='text' id='discount' name='discount' onkeyup="formatCurrencyReal('discount')"
-                        value='{{ formatCurrency($proposal->discount) }}' style='text-align: right;width: 90px'>
+                        value='{{ formatCurrency(abs($proposal->discount)) }}' style='text-align: right;width: 90px'>
                 </div>
             </div>
             <div class='row mt-1'>

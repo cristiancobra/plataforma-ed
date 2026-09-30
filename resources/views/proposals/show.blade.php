@@ -309,7 +309,7 @@
                 desconto:
             </div>
             <div class='cel col-2 justify-content-end' style='font-weight: 600;color:{{ $principalColor }}'>
-                {{ formatCurrencyReal($proposal->discount) }}
+                {{ formatCurrencyReal(abs($proposal->discount)) }}
             </div>
         </div>
         <div class='row mt-1'>
