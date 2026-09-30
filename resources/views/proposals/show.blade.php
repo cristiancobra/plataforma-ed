@@ -216,7 +216,9 @@
         </div>
 
         <div class='row table-header mt-3' style="background-color: {{ $principalColor }}">
-            <div class='col-4'>
+            <div class='col-1'>
+            </div>
+            <div class='col-3'>
                 NOME
             </div>
             <div class='col-1'>
@@ -249,7 +251,11 @@
                     ]) }}'>
                 </a>
                 <div class="row">
-                    <div class='cel col-4 justify-content-start' style="font-weight: 600">
+                    <div class='cel col-1'>
+                        <img src='{{ $productProposal->product->image_url }}' alt='{{ $productProposal->product->name }}'
+                            style='width:50px;height:50px;object-fit:cover;border-radius:6px;margin:5px'>
+                    </div>
+                    <div class='cel col-3 justify-content-start' style="font-weight: 600">
                         {{ $productProposal->product->name }}
                     </div>
                     <div class='cel col-1'>

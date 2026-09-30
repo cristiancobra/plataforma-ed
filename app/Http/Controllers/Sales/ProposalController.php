@@ -330,12 +330,13 @@ class ProposalController extends Controller {
         if ($proposal->opportunity AND $type == 'receita') {
             $opportunityName = $proposal->opportunity->name;
             $opportunityId = $proposal->opportunity->id;
-            $itensName = ' ITENS DA PROPOSTA';
         } else {
             $opportunityName = null;
             $opportunityId = null;
-            $itensName = ' ITENS DA DESPESA';
         }
+
+        // o título dos itens depende do tipo, não da existência de oportunidade
+        $itensName = $proposal->type == 'despesa' ? ' ITENS DA DESPESA' : ' ITENS DA PROPOSTA';
 
         $invoices = Invoice::where('account_id', auth()->user()->account_id)
                 ->where('proposal_id', $proposal->id)
@@ -373,7 +374,7 @@ class ProposalController extends Controller {
         $invoicesCount = $invoices->count();
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
-                ->with('product')
+                ->with('product.image')
                 ->get();
 
 //        $proposalPaymentsTotal = $proposal->invoices->balance->sum('value');
@@ -440,6 +441,7 @@ class ProposalController extends Controller {
                 ->get();
 
         $productProposals = ProductProposal::where('proposal_id', $proposal->id)
+                ->with('product.image')
                 ->get();
 
         $type = $request->type;
