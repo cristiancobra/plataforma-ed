@@ -204,7 +204,7 @@
                 <div class='row'>
                     <input type='hidden' name='product_id[]' value='{{ $product->id }}'>
                     <div class='tb col-1'>
-                        <image src='{{ $product->image }}' style='width:50px;height:50px; margin: 5px'>
+                        <image src='{{ $product->image_url }}' style='width:50px;height:50px; margin: 5px'>
                     </div>
                     <div class='tb col-1'>
                         <input type='number' name='product_amount[]' size='4'

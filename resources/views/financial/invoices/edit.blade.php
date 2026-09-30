@@ -222,7 +222,7 @@
                         class='stretched-link 'href=' {{ route('proposal.show', ['proposal' => $productProposal->proposal_id]) }}'>
                     </a>
                     <div class='cel col-1'>
-                        <image src='{{ $productProposal->product->image }}' style='width:50px;height:50px; margin: 5px'>
+                        <image src='{{ $productProposal->product->image_url }}' style='width:50px;height:50px; margin: 5px'>
                             </a>
                     </div>
                     <div class='cel col-1'>

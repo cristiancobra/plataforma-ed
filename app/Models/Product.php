@@ -189,6 +189,11 @@ class Product extends Model {
 //        dd($stock);
     }
 
+    // URL da imagem do produto (ou da imagem padrão): $product->image_url
+    public function getImageUrlAttribute() {
+        return self::getImage($this);
+    }
+
     public static function getImage($product) {
         if ($product->image) {
             $image = asset($product->image->path);

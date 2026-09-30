@@ -233,7 +233,7 @@
                     <div class='cel col-1'>
                         <a class=''
                             href=' {{ route('product.show', ['product' => $productProposal->product_id]) }}'>
-                            <image src='{{ $productProposal->product->image }}'
+                            <image src='{{ $productProposal->product->image_url }}'
                                 style='width:50px;height:50px; margin: 5px'>
                         </a>
                         </a>

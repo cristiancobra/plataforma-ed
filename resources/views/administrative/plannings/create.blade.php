@@ -280,7 +280,7 @@
                         </div>
 
                         <div class='tb col-1'>
-                            <image src='{{ $product->image }}' style='width:50px;height:50px; margin: 5px'></a>
+                            <image src='{{ $product->image_url }}' style='width:50px;height:50px; margin: 5px'></a>
                         </div>
 
                         <div class='tb col-6 justify-content-start'>

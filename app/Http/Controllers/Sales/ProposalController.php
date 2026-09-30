@@ -132,6 +132,7 @@ class ProposalController extends Controller {
                 ->where('type', 'LIKE', $type)
                 ->where('status', 'disponível')
                 ->where('trash', '!=', 1)
+                ->with('image')
                 ->orderBy('NAME', 'ASC')
                 ->get();
 
