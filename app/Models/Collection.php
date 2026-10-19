@@ -176,9 +176,18 @@ class Collection extends Model
     {
         return [
             'available' => 'Disponível',
-            'in use' => 'Em Uso',
+            'in use' => 'Emprestado',
             'maintenance' => 'Manutenção',
             'discarded' => 'Descartado',
         ];
+    }
+
+    /**
+     * Situações que podem ser escolhidas no cadastro do item. 'in use' fica de fora porque é controlada
+     * pelos empréstimos (LoanController).
+     */
+    public static function returnManualStatus()
+    {
+        return array_diff_key(self::returnStatus(), ['in use' => '']);
     }
 }

@@ -73,7 +73,7 @@
                     @break
 
                     @case('in use')
-                        <span class="badge bg-primary">Em Uso</span>
+                        <span class="badge bg-primary">Emprestado</span>
                     @break
 
                     @case('maintenance')

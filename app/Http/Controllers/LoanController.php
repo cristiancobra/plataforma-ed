@@ -186,9 +186,19 @@ class LoanController extends Controller
                     'condition_on_loan' => $condition,
                 ]);
 
-                // Atualizar status da Collection para 'in use'
-                Collection::where('id', $collectionId)
+                // Atualizar status da Collection para 'in use'. O filtro por status evita emprestar o mesmo
+                // item duas vezes se outro empréstimo for salvo entre a validação e este ponto.
+                $updated = Collection::where('id', $collectionId)
+                    ->where('account_id', auth()->user()->account_id)
+                    ->where('status', 'available')
                     ->update(['status' => 'in use']);
+
+                if (!$updated) {
+                    DB::rollBack();
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Um dos itens selecionados acabou de ser emprestado e não está mais disponível. Revise os itens e tente novamente.');
+                }
             }
 
             DB::commit();
@@ -198,9 +208,14 @@ class LoanController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error('Erro ao criar empréstimo', [
+                'user_id' => auth()->id(),
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Erro ao criar empréstimo: ' . $e->getMessage());
+                ->with('error', 'Não foi possível criar o empréstimo. Tente novamente e, se o problema continuar, entre em contato com o suporte.');
         }
     }
 
@@ -282,9 +297,14 @@ class LoanController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error('Erro ao atualizar empréstimo', [
+                'user_id' => auth()->id(),
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()->back()
                 ->withInput()
-                ->with('error', 'Erro ao atualizar empréstimo: ' . $e->getMessage());
+                ->with('error', 'Não foi possível atualizar o empréstimo. Tente novamente e, se o problema continuar, entre em contato com o suporte.');
         }
     }
 
@@ -333,7 +353,8 @@ class LoanController extends Controller
      */
     public function restore($id)
     {
-        $loan = Loan::find($id);
+        $loan = Loan::where('account_id', auth()->user()->account_id)
+            ->findOrFail($id);
         $loan->trash = 0;
         $loan->save();
 
@@ -384,8 +405,13 @@ class LoanController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error('Erro ao registrar devolução de empréstimo', [
+                'loan_id' => $loan->id,
+                'error' => $e->getMessage(),
+            ]);
+
             return redirect()->back()
-                ->with('error', 'Erro ao registrar devolução: ' . $e->getMessage());
+                ->with('error', 'Não foi possível registrar a devolução. Tente novamente e, se o problema continuar, entre em contato com o suporte.');
         }
     }
 
@@ -498,11 +524,8 @@ class LoanController extends Controller
                 'file' => $e->getFile(),
             ]);
             
-            return response()->json([
-                'error' => 'Erro ao gerar PDF',
-                'message' => $e->getMessage(),
-                'line' => $e->getLine(),
-            ], 500);
+            return redirect()->route('loan.show', [$loan])
+                ->with('error', 'Não foi possível gerar o PDF do empréstimo. Tente novamente e, se o problema continuar, entre em contato com o suporte.');
         }
     }
 }

@@ -245,7 +245,11 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <label class='labels' for=''>SITUAÇÃO:</label>
-                    {{ createSimpleSelect('status', 'fields', $status, old('status', $collection->status)) }}
+                    @if ($collection->status === 'in use')
+                        <p>Emprestado <span class="text-muted small">(volta a ficar disponível ao registrar a devolução do empréstimo)</span></p>
+                    @else
+                        {{ createSimpleSelect('status', 'fields', $status, old('status', $collection->status)) }}
+                    @endif
                 </div>
             </div>
 

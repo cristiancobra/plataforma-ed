@@ -46,7 +46,7 @@ class StoreCollectionRequest extends FormRequest
             'video_url' => 'nullable|url|max:500',
             'code_url' => 'nullable|url|max:500',
             'image_url' => 'nullable|url|max:500',
-            'status' => 'nullable|string|max:50',
+            'status' => 'nullable|in:available,maintenance,discarded',
             'initial_location' => 'required|string|max:255',
             'location_notes' => 'nullable|string',
             'tracking_tag' => 'nullable|string|max:255',
@@ -67,6 +67,7 @@ class StoreCollectionRequest extends FormRequest
             'video_url.url' => 'URL do vídeo inválida.',
             'code_url.url' => 'URL do código inválida.',
             'image_url.url' => 'URL da imagem inválida.',
+            'status.in' => 'Situação inválida. Itens emprestados são controlados pelo empréstimo.',
             'initial_location.required' => 'A localização inicial é obrigatória.',
         ];
     }

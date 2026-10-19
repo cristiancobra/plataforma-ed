@@ -46,7 +46,7 @@ class UpdateCollectionRequest extends FormRequest
             'video_url' => 'nullable|url|max:500',
             'code_url' => 'nullable|url|max:500',
             'image_url' => 'nullable|url|max:500',
-            'status' => 'nullable|string|max:50',
+            'status' => 'nullable|in:available,maintenance,discarded',
             'tracking_tag' => 'nullable|string|max:255',
             'redirect_link' => 'nullable|string|max:500',
             'serial_number' => 'nullable|string|max:255',
@@ -65,6 +65,7 @@ class UpdateCollectionRequest extends FormRequest
             'video_url.url' => 'URL do vídeo inválida.',
             'code_url.url' => 'URL do código inválida.',
             'image_url.url' => 'URL da imagem inválida.',
+            'status.in' => 'Situação inválida. Itens emprestados são controlados pelo empréstimo.',
         ];
     }
 }

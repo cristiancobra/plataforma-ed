@@ -335,6 +335,19 @@ class Roles {
                     $permission = true;
                 }
                 break;
+            case 'loan.show':
+            case 'loan.edit':
+            case 'loan.update':
+            case 'loan.destroy':
+            case 'loan.pdf':
+            case 'loan.return':
+            case 'loan.trash':
+                if ($request->route('loan')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
             default:
                 $permission = true;
                 break;

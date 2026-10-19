@@ -122,7 +122,7 @@ class CollectionController extends Controller
             ->orderBy('name')
             ->pluck('name', 'id');
 
-        $status = Collection::returnStatus();
+        $status = Collection::returnManualStatus();
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
@@ -194,7 +194,7 @@ class CollectionController extends Controller
             ->orderBy('name')
             ->pluck('name', 'id')
             ->toArray();
-        $status = Collection::returnStatus();
+        $status = Collection::returnManualStatus();
         // $usersSelectOptions = User::myUsers();
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
@@ -225,6 +225,10 @@ class CollectionController extends Controller
         // Se o checkbox não for marcado, o campo não vem no request. Forçar para 0 (false)
         $data['runs_adobe'] = $request->has('runs_adobe') ? 1 : 0;
         $data['runs_vrchat'] = $request->has('runs_vrchat') ? 1 : 0;
+        // Item emprestado: a situação só muda pela devolução do empréstimo
+        if ($collection->status === 'in use') {
+            unset($data['status']);
+        }
         $collection->fill($data);
         $collection->save();
 
