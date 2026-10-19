@@ -134,6 +134,10 @@
         ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
         ['label' => 'VER', 'class' => 'col-1'],
     ]" />
+    @php
+        $stageColors = App\Models\Opportunity::stageColors();
+        $statusColors = App\Models\Opportunity::statusColors();
+    @endphp
     @foreach ($opportunities as $opportunity)
         <div class="row border-bottom py-2 align-items-center">
             <div class="col-3 fw-bold">
@@ -157,13 +161,17 @@
                 <x-user.avatar :user="$opportunity->user" />
             </div>
             <div class="col-1 text-center">
-                {{ dateBr($opportunity->date_due) }}
+                @if (strtotime($opportunity->date_due) > 0)
+                    {{ dateBr($opportunity->date_due) }}
+                @else
+                    indefinido
+                @endif
             </div>
             <div class="col-1 text-center">
-                {{ formatStage($opportunity) }}
+                <x-table.badge :label="$opportunity->stage" :colors="$stageColors[$opportunity->stage] ?? null" />
             </div>
             <div class="col-1 text-center">
-                {{ formatStatus($opportunity) }}
+                <x-table.badge :label="$opportunity->status" :colors="$statusColors[$opportunity->status] ?? null" />
             </div>
             <div class="col-1 text-center">
                 <x-buttons.details :href="route('opportunity.show', ['opportunity' => $opportunity->id])" title="Visualizar oportunidade" color="primary" :size="32" />

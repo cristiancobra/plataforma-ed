@@ -85,7 +85,8 @@
             <label class="labels" for="">
                 PRAZO FINAL:
             </label>
-            <input type="date" name="date_due" size="20" value="{{ old('date_due') }}">
+            <input type="date" name="date_due" size="20"
+                value="{{ old('date_due', strtotime($opportunity->date_due) > 0 ? date('Y-m-d', strtotime($opportunity->date_due)) : '') }}">
             @if ($errors->has('date_due'))
                 <span class="text-danger">{{ $errors->first('date_due') }}</span>
             @endif

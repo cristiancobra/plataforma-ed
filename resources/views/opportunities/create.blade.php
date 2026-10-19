@@ -70,25 +70,18 @@
                 </div>
             </div>
             <div class="row mb-3  mt-5 mb-5">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">DATA DE CRIAÇÃO:</label>
                     <input type="date" class="form-control" name="date_start" value="{{ old('date_start') }}">
                     @if ($errors->has('date_start'))
                         <span class="text-danger small">{{ $errors->first('date_start') }}</span>
                     @endif
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="form-label">PRAZO FINAL:</label>
                     <input type="date" class="form-control" name="date_due" value="{{ old('date_due') }}">
                     @if ($errors->has('date_due'))
                         <span class="text-danger small">{{ $errors->first('date_due') }}</span>
-                    @endif
-                </div>
-                <div class="col-md-4">
-                    <label class="form-label">DATA DA CONCLUSÃO:</label>
-                    <input type="date" class="form-control" name="date_conclusion" value="{{ old('date_conclusion') }}">
-                    @if ($errors->has('date_conclusion'))
-                        <span class="text-danger small">{{ $errors->first('date_conclusion') }}</span>
                     @endif
                 </div>
             </div>

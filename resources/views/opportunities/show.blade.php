@@ -93,10 +93,10 @@
 
 @section('date_due')
     <div class='circle-date-due'>
-        @if ($opportunity->pay_day == null)
+        @if (strtotime($opportunity->date_due) <= 0)
             indefinida
         @else
-            {{ date('d/m/Y', strtotime($opportunity->pay_day)) }}
+            {{ date('d/m/Y', strtotime($opportunity->date_due)) }}
         @endif
     </div>
     <p class='labels' style='text-align: center'>

@@ -48,7 +48,7 @@ class OpportunityController extends Controller {
         $totalFiltered = $opportunities->total();
 
         $allOpportunities = Opportunity::where('account_id', auth()->user()->account_id)
-            ->where('status', '!=', 'perdemos')
+            ->whereNotIn('status', ['perdemos', 'desistimos'])
             ->where('stage', '!=', 'concluída')
             ->where('trash', '!=', 1)
             ->get();
@@ -172,7 +172,7 @@ class OpportunityController extends Controller {
      */
     public function show(Opportunity $opportunity) {
         $title = 'OPORTUNIDADES';
-        $dateDue = 'PRÓXIMO CONTATO';
+        $dateDue = 'PRAZO FINAL';
 
         if ($opportunity->company) {
             $companyName = $opportunity->company->name;

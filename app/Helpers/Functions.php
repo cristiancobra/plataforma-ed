@@ -1129,6 +1129,9 @@ if (!function_exists('formatStatus')) {
             case 'perdemos':
                 echo '<div class="tb col-1 tb-lost text-center">perdemos</div>';
                 break;
+            case 'desistimos':
+                echo '<div class="tb col-1 tb-canceled text-center">desistimos</div>';
+                break;
             case 'ganhamos':
                 echo '<div class="tb col-1 tb-won text-center">ganhamos</div>';
                 break;

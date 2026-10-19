@@ -98,7 +98,7 @@ class Opportunity extends Model {
                         $query->where('stage', $request->stage);
                     }
                     if ($request->status == 'ativo') {
-                        $query->where('status', '!=', 'perdemos');
+                        $query->whereNotIn('status', ['perdemos', 'desistimos']);
                         $query->where('stage', '!=', 'concluída');
                     } elseif ($request->status) {
                         $query->where('status', $request->status);
@@ -157,6 +157,29 @@ class Opportunity extends Model {
             'ganhamos',
             'desistimos',
         );
+    }
+
+// retorna as cores [fundo, texto] da etiqueta de cada etapa da venda
+    public static function stageColors() {
+        return [
+            'prospecção' => ['#F3E5F5', '#7B1FA2'],
+            'apresentação' => ['#EDE7F6', '#5E35B1'],
+            'proposta' => ['#FCE4EC', '#AD1457'],
+            'contrato' => ['#E3F2FD', '#1565C0'],
+            'cobrança' => ['#FFF3E0', '#E65100'],
+            'produção' => ['#E0F7FA', '#00838F'],
+            'concluída' => ['#E8F5E9', '#2E7D32'],
+        ];
+    }
+
+// retorna as cores [fundo, texto] da etiqueta de cada situação
+    public static function statusColors() {
+        return [
+            'negociando' => ['#FFF8E1', '#B26A00'],
+            'ganhamos' => ['#E8F5E9', '#2E7D32'],
+            'perdemos' => ['#FFEBEE', '#C62828'],
+            'desistimos' => ['#ECEFF1', '#546E7A'],
+        ];
     }
 
 // retorna os estágios das oportunidades do tipo DESENVOLVIMENTO

@@ -195,6 +195,33 @@
         <x-sidebar.item icon="fas fa-funnel-dollar" title="CAPTAÇÃO" :principal-color="$principalColor" :submenu="[
             ['icon' => 'fas fa-file-alt', 'label' => 'PAINEL', 'route' => route('dashboard.sales')],
             ['icon' => 'fas fa-bullseye', 'label' => 'OPORTUNIDADES', 'route' => route('opportunity.index')],
+            [
+                'icon' => 'fas fa-paperclip',
+                'label' => 'MINHAS OPORTUNIDADES',
+                'route' => route('opportunity.index', ['user_id' => auth()->user()->id]),
+            ],
+            [
+                'icon' => 'fas fa-donate',
+                'label' => 'PROPOSTAS',
+                'route' => route('proposal.index', ['type' => 'receita']),
+            ],
+            [
+                'icon' => 'fas fa-paperclip',
+                'label' => 'MINHAS PROPOSTAS',
+                'route' => route('proposal.index', ['type' => 'receita', 'user_id' => auth()->user()->id]),
+            ],
+            ['icon' => 'fas fa-file-signature', 'label' => 'CONTRATOS', 'route' => route('contract.index')],
+            ['icon' => 'fas fa-user-plus', 'label' => 'CONTATOS', 'route' => route('contact.index')],
+            [
+                'icon' => 'fas fa-building',
+                'label' => 'ORGANIZAÇÕES',
+                'route' => route('company.index', ['typeCompanies' => 'cliente']),
+            ],
+            [
+                'icon' => 'fas fa-box-open',
+                'label' => 'PRODUTOS',
+                'route' => route('product.index', ['variation' => 'receita']),
+            ],
         ]" />
 
         <x-sidebar.item icon="fas fa-archive" title="ACERVO" :principal-color="$principalColor" :submenu="[
