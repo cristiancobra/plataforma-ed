@@ -349,13 +349,15 @@ Route::resource('emprestimos', 'LoanController')
 // ================================ ACERVO - TIPOS DE COLEÇÃO ===================
 Route::resource('collection-types', 'CollectionTypeController')
         ->names('collection-types')
-        ->parameters(['collection-types' => 'collectionType']);
+        ->parameters(['collection-types' => 'collectionType'])
+        ->middleware('roles');
 
 
 // ================================ ACERVO - GRUPOS DE COLEÇÃO ===================
 Route::resource('collections-group', 'CollectionsGroupController')
         ->names('collections-group')
-        ->parameters(['collections-group' => 'collections_group']);
+        ->parameters(['collections-group' => 'collections_group'])
+        ->middleware('roles');
 
 
 // ================================ MARKET ===================

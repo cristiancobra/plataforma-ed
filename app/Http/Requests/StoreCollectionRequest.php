@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreCollectionRequest extends FormRequest
 {
@@ -23,11 +24,14 @@ class StoreCollectionRequest extends FormRequest
      */
     public function rules()
     {
+        $accountId = auth()->user()->account_id;
+
         return [
             'name' => 'required|string|max:255',
-            'type_id' => 'required|exists:collection_types,id',
-            'project_id' => 'nullable|exists:projects,id',
-            'contact_id' => 'nullable|exists:contacts,id',
+            'type_id' => ['required', Rule::exists('collection_types', 'id')->where('account_id', $accountId)],
+            'collections_group_id' => ['nullable', Rule::exists('collections_group', 'id')->where('account_id', $accountId)],
+            'project_id' => ['nullable', Rule::exists('projects', 'id')->where('account_id', $accountId)],
+            'contact_id' => ['nullable', Rule::exists('contacts', 'id')->where('account_id', $accountId)],
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'patrimony_number' => 'nullable|string|max:100',
@@ -62,6 +66,9 @@ class StoreCollectionRequest extends FormRequest
             'name.required' => 'O nome é obrigatório.',
             'type_id.required' => 'O tipo é obrigatório.',
             'type_id.exists' => 'O tipo selecionado é inválido.',
+            'collections_group_id.exists' => 'O acervo selecionado é inválido.',
+            'project_id.exists' => 'O projeto selecionado é inválido.',
+            'contact_id.exists' => 'O contato selecionado é inválido.',
             'purchase_date.date' => 'Data de compra inválida.',
             'manufacturing_date.date' => 'Data de fabricação inválida.',
             'video_url.url' => 'URL do vídeo inválida.',

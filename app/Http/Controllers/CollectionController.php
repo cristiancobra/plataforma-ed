@@ -273,7 +273,8 @@ class CollectionController extends Controller
      */
     public function restore($id)
     {
-        $collection = Collection::find($id);
+        $collection = Collection::where('account_id', auth()->user()->account_id)
+            ->findOrFail($id);
         $collection->trash = 0;
         $collection->save();
 
