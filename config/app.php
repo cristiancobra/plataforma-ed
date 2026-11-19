@@ -139,9 +139,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-//        Barryvdh\DomPDF\ServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
-        Barryvdh\Snappy\ServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -203,8 +201,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Helper' => App\Helpers\Functions::class, // teste de helper
-//        'PDF' => Barryvdh\DomPDF\Facade::class,
-        'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
-        'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
+        // 'PDF' removido com o Snappy/DomPDF (Fase 1/2 do upgrade): os 9 pontos de geração de PDF
+        // ficam quebrados até a Fase 3 migrar para Spatie Browsershot.
     ],
 ];

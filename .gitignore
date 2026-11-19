@@ -35,3 +35,4 @@ backups/
 
 # Cache local do PHPUnit
 .phpunit.result.cache
+.phpunit.cache/
