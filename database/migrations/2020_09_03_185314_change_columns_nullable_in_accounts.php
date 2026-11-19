@@ -20,7 +20,8 @@ class ChangeColumnsNullableInAccounts extends Migration {
 			$table->string('type')->nullable()->change();
 			$table->smallInteger('employees')->nullable()->change();
 			$table->text('description')->nullable()->change();
-			$table->string('status');  // criar campo STATUS
+			// status já é criado em create_accounts_table (foi adicionado lá depois desta
+			// migration já existir); recriá-lo aqui duplicava a coluna numa migration do zero.
 		});
 	}
 
@@ -31,7 +32,6 @@ class ChangeColumnsNullableInAccounts extends Migration {
 	 */
 	public function down() {
 		Schema::table('accounts', function (Blueprint $table) {
-			$table->dropColumn('status');  // apaga campo STATUS
 			$table->string('email')->change();
 			$table->string('phone')->change();
 			$table->string('site')->change();

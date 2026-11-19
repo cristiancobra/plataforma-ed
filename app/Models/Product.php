@@ -14,7 +14,7 @@ class Product extends Model {
         'name',
         'cnae',
         'description',
-        ' type',
+        'type',
         'category',
         'work_hours',
         'points',
