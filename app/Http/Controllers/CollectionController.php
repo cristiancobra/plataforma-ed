@@ -181,8 +181,15 @@ class CollectionController extends Controller
     {
         $collection->load(['user.contact', 'currentLocation.user.contact', 'locations.user.contact', 'collectionsGroup']);
         $customFields = CollectionField::applicableTo($collection->type_id);
+        // valores guardados de campos que não estão (mais) no tipo do item ou foram desativados:
+        // continuam visíveis, para nenhum dado preenchido sumir da tela
+        $otherFields = CollectionField::ofCurrentAccount()
+            ->whereIn('key', array_keys($collection->custom_fields ?? []))
+            ->whereNotIn('id', $customFields->pluck('id'))
+            ->ordered()
+            ->get();
 
-        return view('collections.showCollection', compact('collection', 'customFields'));
+        return view('collections.showCollection', compact('collection', 'customFields', 'otherFields'));
     }
 
     /**

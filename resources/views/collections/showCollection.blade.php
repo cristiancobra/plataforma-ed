@@ -52,7 +52,7 @@
 
 @section('main')
     @php
-        $customItems = $customFields->map(function ($field) use ($collection, $link) {
+        $toItem = function ($field) use ($collection, $link) {
             $value = $collection->custom_fields[$field->key] ?? null;
             $display = match (true) {
                 $value === null => null,
@@ -67,7 +67,9 @@
             };
 
             return ['label' => mb_strtoupper($field->label), 'value' => $display];
-        })->all();
+        };
+        $customItems = $customFields->map($toItem)->all();
+        $otherItems = $otherFields->map($toItem)->all();
 
         $specItems = array_values(array_filter([
             $collection->purchase_date ? ['label' => 'DATA DA COMPRA', 'value' => $collection->purchase_date->format('d/m/Y')] : null,
@@ -84,6 +86,19 @@
                 CAMPOS DO TIPO {{ mb_strtoupper($collection->collectionType->name ?? '') }}
             </h4>
             <x-show.field-grid :items="$customItems" />
+        </div>
+    @endif
+
+    @if ($otherItems)
+        <div class="row mt-5">
+            <h4 class="mb-1 fw-bold" style="color: {{ $principalColor }}">
+                OUTROS CAMPOS PREENCHIDOS
+            </h4>
+            <p class="text-muted small mb-3">
+                Valores guardados em campos que não fazem mais parte do tipo deste item ou foram desativados.
+                Para editá-los, ligue o campo ao tipo na tela do tipo de acervo.
+            </p>
+            <x-show.field-grid :items="$otherItems" />
         </div>
     @endif
 

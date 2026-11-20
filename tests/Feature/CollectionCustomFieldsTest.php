@@ -280,4 +280,49 @@ class CollectionCustomFieldsTest extends TestCase
             ->assertSessionHasErrors('custom_fields.isbn');
         $this->assertTrue($shared->types()->count() === 2);
     }
+
+    public function test_show_displays_every_field_type_and_keeps_values_of_unlinked_fields(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+        $a = $user->account_id;
+        $t = [$type->id];
+        $this->makeField($a, ['label' => 'Apelido', 'type' => 'text', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Observações', 'type' => 'textarea', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Memória', 'type' => 'number', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Valor', 'type' => 'currency', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Garantia', 'type' => 'date', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Roda VR', 'type' => 'boolean', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Cor', 'type' => 'select', 'options' => ['Preto', 'Azul'], 'types' => $t]);
+        $this->makeField($a, ['label' => 'Manual', 'type' => 'url', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Senha', 'type' => 'secret', 'types' => $t]);
+        $this->makeField($a, ['label' => 'Vazio', 'type' => 'text', 'types' => $t]);
+        $unlinked = $this->makeField($a, ['label' => 'Antigo', 'type' => 'text', 'types' => $t]);
+        $inactive = $this->makeField($a, ['label' => 'Desligado', 'type' => 'text', 'types' => $t]);
+
+        $this->post(route('collection.store'), $this->itemPayload($type, [
+            'apelido' => 'PC do lab', 'observacoes' => "linha 1\nlinha 2", 'memoria' => '16', 'valor' => '2.500,00',
+            'garantia' => '2027-01-31', 'roda_vr' => '1', 'cor' => 'Azul', 'manual' => 'https://exemplo.com/m',
+            'senha' => 'segredo', 'antigo' => 'valor antigo', 'desligado' => 'valor desligado',
+        ]))->assertSessionHasNoErrors();
+        $item = CollectionItem::first();
+
+        $unlinked->types()->detach();
+        $inactive->update(['active' => false]);
+
+        $this->get(route('collection.show', $item))->assertOk()
+            ->assertSee('CAMPOS DO TIPO COMPUTADOR')
+            ->assertSeeInOrder(['APELIDO', 'PC do lab'])
+            ->assertSee('linha 1<br />', false)
+            ->assertSeeInOrder(['MEMÓRIA', '16'])
+            ->assertSee('R$ 2.500,00')
+            ->assertSee('31/01/2027')
+            ->assertSeeInOrder(['RODA VR', 'Sim'])
+            ->assertSeeInOrder(['COR', 'Azul'])
+            ->assertSee('href="https://exemplo.com/m"', false)
+            ->assertSeeInOrder(['SENHA', '••••••••', 'Mostrar'])
+            ->assertDontSee('segredo')
+            ->assertSee('VAZIO')
+            ->assertSeeInOrder(['OUTROS CAMPOS PREENCHIDOS', 'ANTIGO', 'valor antigo', 'DESLIGADO', 'valor desligado']);
+    }
 }
