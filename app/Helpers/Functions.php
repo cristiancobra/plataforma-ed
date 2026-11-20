@@ -13,11 +13,15 @@ if (!function_exists('pdfFromView')) {
     // que não existe mais a partir do upgrade para Laravel 13.
     function pdfFromView(string $view, array $data, string $filename, array $options = [])
     {
-        // O usuário do container (uid 1000) não tem HOME gravável; sem isso o chromium falha
-        // ao iniciar o crash handler ("chrome_crashpad_handler: --database is required").
-        if (!getenv('HOME') || getenv('HOME') === '/') {
-            putenv('HOME=/tmp');
-        }
+        $systemChromium = file_exists('/usr/bin/chromium');
+
+        // O chromium precisa de um $HOME gravável pra iniciar o crash handler
+        // ("chrome_crashpad_handler: --database is required"); o $HOME real do processo que serve
+        // a requisição (www-data em produção, por ex.) normalmente não é gravável pra isso. Em
+        // produção, onde o puppeteer baixa e cacheia o próprio Chrome (não há pacote `chromium` no
+        // Ubuntu do servidor), o cache fica em $HOME/.cache/puppeteer — por isso forçamos sempre
+        // /opt/browsershot (onde o `npm install` rodou) nesse caso, em vez de /tmp.
+        putenv('HOME=' . ($systemChromium ? '/tmp' : '/opt/browsershot'));
 
         $html = view($view, $data)->render();
 
@@ -30,7 +34,7 @@ if (!function_exists('pdfFromView')) {
 
         // Em dev (Docker/Debian) usamos o Chromium do sistema; em produção (Ubuntu, sem pacote
         // `chromium` nos repositórios) o puppeteer baixa e gerencia seu próprio Chromium.
-        if (file_exists('/usr/bin/chromium')) {
+        if ($systemChromium) {
             $browsershot->setChromePath('/usr/bin/chromium');
         }
 
