@@ -4,14 +4,16 @@ Este arquivo fornece orientações ao Claude Code (claude.ai/code) para trabalha
 
 ## Visão geral do projeto
 
-"Plataforma ED" é um SaaS de gestão empresarial multi-tenant construído em Laravel 8 (PHP ^8.0|^8.1),
+"Plataforma ED" é um SaaS de gestão empresarial multi-tenant construído em Laravel 13 (PHP ^8.5),
 cobrindo CRM/vendas, financeiro, marketing, redes sociais e gestão operacional de tarefas. As views e
 comentários estão em português (pt_BR); os identificadores de código (classes, variáveis) estão em inglês.
 
 ## Ambiente de desenvolvimento
 
 O projeto roda via Docker Compose (`docker-compose.yml`):
-- `app` — container PHP-FPM (build a partir de `docker/php/Dockerfile`), working dir `/var/www`
+- `app` — container PHP-FPM (build a partir de `docker/php/Dockerfile`), working dir `/var/www`.
+  Também tem Node.js + Chromium + o pacote npm `puppeteer` (em `/opt/browsershot/node_modules`,
+  isolado do `node_modules` do front-end), usados pelo Spatie Browsershot para gerar PDF.
 - `web` — nginx, exposto na porta `8080` do host
 - `mysql` — MariaDB 10.6, banco `plataforma`, exposto na porta `3306` do host
 - `node` — container Node 20 para build dos assets (não tem comando próprio e fica reiniciando; use
@@ -25,7 +27,7 @@ trabalhando fora do Docker):
 # Dependências PHP (vendor/ não é versionado — instale a partir do composer.lock)
 composer install
 
-# Rodar toda a suíte de testes (PHPUnit, Laravel 8)
+# Rodar toda a suíte de testes (PHPUnit 11)
 php artisan test
 # ou
 vendor/bin/phpunit
@@ -176,6 +178,12 @@ de introduzir um padrão diferente.
 - **Validação de imagem**: a regra `image` do Laravel detecta o tipo pelo conteúdo do arquivo; arquivos com
   extensão `.png` mas conteúdo em outro formato fora da lista aceita (ex.: AVIF) são rejeitados com "O arquivo
   selecionado não é uma imagem".
+- **Geração de PDF**: use o helper `pdfFromView($view, $data, $filename, $options)` (em
+  `Functions.php`), que renderiza a view Blade e gera o PDF via Spatie Browsershot (Chrome headless).
+  Não existe mais `PDF::loadView()`/Snappy/wkhtmltopdf nem dompdf no projeto — foram removidos no
+  upgrade para Laravel 13 (wkhtmltopdf não é mais empacotado no Debian da imagem PHP, e nenhum dos
+  dois suporta `illuminate/support` 13.x). `$options` aceita `format`, `landscape` e `header`/`footer`
+  (HTML, equivalentes ao antigo `header-html`/`footer-html` do wkhtmltopdf).
 
 ## Observações
 
