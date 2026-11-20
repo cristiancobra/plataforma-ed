@@ -14,7 +14,10 @@ class AddCompanyIdColumnInTasksTable extends Migration
     public function up()
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->foreignId('company_id')->after('user_id');
+            // nullable: no banco real essa coluna aceita NULL (nem toda tarefa está ligada a uma
+            // empresa); a migration original não tinha o ->nullable(), mas o schema de produção já
+            // é assim.
+            $table->foreignId('company_id')->nullable()->after('user_id');
         });
     }
 

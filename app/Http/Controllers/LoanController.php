@@ -506,15 +506,8 @@ class LoanController extends Controller
                 ob_end_clean();
             }
 
-            $pdf = PDF::loadView('loans.pdf', compact('data'))
-                ->setOptions([
-                    'page-size' => 'A4',
-                    'enable-local-file-access' => true,
-                ]);
-
-            // Stream PDF
             $accountName = $loan->account?->name ?? 'Emprestimo';
-            return $pdf->stream("Emprestimo_" . $loan->id . "_" . $accountName . ".pdf");
+            return pdfFromView('loans.pdf', compact('data'), "Emprestimo_" . $loan->id . "_" . $accountName . ".pdf");
             
         } catch (\Exception $e) {
             \Log::error('Erro ao gerar PDF de empréstimo', [

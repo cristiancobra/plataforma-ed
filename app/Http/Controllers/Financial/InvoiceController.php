@@ -557,15 +557,10 @@ class InvoiceController extends Controller {
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('financial.invoices.pdfInvoice', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'header-html' => $header,
-            'footer-html' => $footer,
+        return pdfFromView('financial.invoices.pdfInvoice', compact('data'), 'Fatura.pdf', [
+            'header' => $header,
+            'footer' => $footer,
         ]);
-
-// download PDF file with download method
-        return $pdf->stream('Fatura.pdf');
     }
 
 // Gera PDF de relatório
@@ -703,17 +698,11 @@ class InvoiceController extends Controller {
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('financial.invoices.reportPdf', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'orientation' => 'Landscape',
-            'header-html' => $header,
-            'footer-html' => $footer,
-                ])
-        ;
-
-// download PDF file with download method
-        return $pdf->stream('Relatório financeiro.pdf');
+        return pdfFromView('financial.invoices.reportPdf', compact('data'), 'Relatório financeiro.pdf', [
+            'landscape' => true,
+            'header' => $header,
+            'footer' => $footer,
+        ]);
     }
 
     public function sendToTrash(Invoice $invoice) {

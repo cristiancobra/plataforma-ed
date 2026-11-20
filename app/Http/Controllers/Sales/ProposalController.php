@@ -885,16 +885,11 @@ class ProposalController extends Controller {
         
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('proposals.pdf', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'header-html' => $header,
-            'footer-html' => $footer,
-        ]);
-
-// download PDF file with download method
         $accountName = $proposal->account?->name ?? 'Proposta';
-        return $pdf->stream("Proposta " . $accountName . ".pdf");
+        return pdfFromView('proposals.pdf', compact('data'), "Proposta " . $accountName . ".pdf", [
+            'header' => $header,
+            'footer' => $footer,
+        ]);
     }
 
 //    relatórios anuais
@@ -1100,17 +1095,11 @@ class ProposalController extends Controller {
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('financial.invoices.reportPdf', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'orientation' => 'Landscape',
-            'header-html' => $header,
-            'footer-html' => $footer,
-                ])
-        ;
-
-// download PDF file with download method
-        return $pdf->stream('Relatório financeiro.pdf');
+        return pdfFromView('financial.invoices.reportPdf', compact('data'), 'Relatório financeiro.pdf', [
+            'landscape' => true,
+            'header' => $header,
+            'footer' => $footer,
+        ]);
     }
 
     /**

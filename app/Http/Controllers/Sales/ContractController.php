@@ -355,15 +355,10 @@ class ContractController extends Controller {
 
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('sales.contracts.pdfContract', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'header-html' => $header,
-            'footer-html' => $footer,
+        return pdfFromView('sales.contracts.pdfContract', compact('data'), "Contrato-" . $contract->company->name . ".pdf", [
+            'header' => $header,
+            'footer' => $footer,
         ]);
-
-// download PDF file with download method
-        return $pdf->stream("Contrato-" . $contract->company->name . ".pdf");
     }
 
 }

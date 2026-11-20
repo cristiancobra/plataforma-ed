@@ -461,11 +461,7 @@ class TaskController extends Controller {
 ////			'deadline' => $deadline,
         ];
 
-        $pdf = PDF::loadView('tasks.createPdf', compact('data'));
-        $pdf->setPaper('A4', 'portrait');
-
-// download PDF file with download method
-        return $pdf->stream('Relatório de execução.pdf');
+        return pdfFromView('tasks.createPdf', compact('data'), 'Relatório de execução.pdf');
     }
 
     public function createBug() {

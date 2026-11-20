@@ -34,13 +34,13 @@ class RedirectDomain {
                     ->first();
 
             if ($page == null) {
-                echo "Você não possui landing page com SLUG 'HOME' configurada com este domínio";
+                abort(404, "Você não possui landing page com SLUG 'HOME' configurada com este domínio");
             } else {
                 return redirect()->route('page.public', ['page' => $page]);
             }
         } else {
-            echo "domínio nao autorizado";
-        };
+            abort(403, 'Domínio não autorizado');
+        }
     }
 
 }

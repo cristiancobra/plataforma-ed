@@ -30,24 +30,29 @@ class AppServiceProvider extends ServiceProvider {
             'edit' => 'editar'
         ]);
 
-        $empresaDigital = Account::find(1);
+        view()->composer('*', function ($view) {
+            // $empresaDigital só é consultado quando alguma cor realmente precisa do fallback,
+            // em vez de a cada boot da aplicação (evita 1 query a mais por request/teste sem view).
+            $empresaDigital = null;
+            $fallback = function () use (&$empresaDigital) {
+                return $empresaDigital ??= Account::find(1);
+            };
 
-        view()->composer('*', function ($view) use($empresaDigital) {
             if (auth()->user() == true AND auth()->user()->account->principal_color) {
                 $principalColor = auth()->user()->account->principal_color;
             } else {
-                $principalColor = $empresaDigital->principal_color;
+                $principalColor = $fallback()?->principal_color;
             }
                         if (auth()->user() == true AND auth()->user()->account->complementary_color) {
                 $complementaryColor = auth()->user()->account->complementary_color;
             } else {
-                $complementaryColor = $empresaDigital->complementary_color;
+                $complementaryColor = $fallback()?->complementary_color;
             }
 
             if (auth()->user() == true AND auth()->user()->account->opposite_color) {
                 $oppositeColor = auth()->user()->account->opposite_color;
             } else {
-                $oppositeColor = $empresaDigital->opposite_color;
+                $oppositeColor = $fallback()?->opposite_color;
             }
 
             $view->with([
