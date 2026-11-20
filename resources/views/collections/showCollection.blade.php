@@ -2,6 +2,13 @@
 
 @section('title', 'ACERVO')
 
+@php
+    // link seguro (escapado) usado nas grades de rótulo/valor abaixo
+    $link = fn ($url, $text = null) => $url
+        ? new \Illuminate\Support\HtmlString('<a href="' . e($url) . '" target="_blank" rel="noopener">' . e($text ?? $url) . '</a>')
+        : null;
+@endphp
+
 @section('image-top')
     <i class="fa fa-archive"></i>
 @endsection
@@ -18,264 +25,128 @@
 
 
 @section('fieldsId')
+    <x-show.field-grid :items="array_values(array_filter([
+        ['label' => 'TIPO', 'value' => $collection->collectionType->name ?? null],
+        ['label' => 'CATEGORIA', 'value' => $collection->collectionType->category ?? null],
+        ['label' => 'ACERVO', 'value' => $collection->collectionsGroup->name ?? null],
+        ['label' => 'PROJETO', 'value' => $collection->project->name ?? null],
+        ['label' => 'RESPONSÁVEL', 'value' => $collection->contact ? $link(route('contact.show', $collection->contact), $collection->contact->name) : null],
+        ['label' => 'REGISTRADO POR', 'value' => isset($collection->user->contact->name) ? $link(route('user.show', ['user' => $collection->user_id]), $collection->user->contact->name) : 'foi excluído'],
+        ['label' => 'MARCA', 'value' => $collection->brand],
+        ['label' => 'MODELO', 'value' => $collection->model],
+        ['label' => 'PATRIMÔNIO', 'value' => $collection->patrimony_number],
+        ['label' => 'CONTROLE', 'value' => $collection->control_code],
+        ['label' => 'NÚMERO DE SÉRIE', 'value' => $collection->serial_number],
+        ['label' => 'TAG DE RASTREAMENTO', 'value' => $collection->tracking_tag],
+        ['label' => 'LINK DE REDIRECIONAMENTO', 'value' => $link($collection->redirect_link)],
+        ['label' => 'ACESSÓRIOS', 'value' => $collection->accessories],
+        $collection->title ? ['label' => 'TÍTULO', 'value' => $collection->title] : null,
+    ]))" />
+@endsection
 
-    <div class="row g-0 mb-3">
-        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-            ACERVO
+@section('description')
+    @if ($collection->description)
+        {!! nl2br(e($collection->description)) !!}
+    @endif
+@endsection
+
+@section('main')
+    @php
+        $customItems = $customFields->map(function ($field) use ($collection, $link) {
+            $value = $collection->custom_fields[$field->key] ?? null;
+            $display = match (true) {
+                $value === null => null,
+                $field->type === \App\Enums\CustomFieldType::Url => $link($value),
+                $field->type === \App\Enums\CustomFieldType::Textarea => new \Illuminate\Support\HtmlString(nl2br(e($value))),
+                default => $field->displayValue($collection->custom_fields),
+            };
+
+            return ['label' => mb_strtoupper($field->label), 'value' => $display];
+        })->all();
+
+        $specItems = array_values(array_filter([
+            $collection->operating_system ? ['label' => 'SISTEMA OPERACIONAL', 'value' => $collection->operating_system] : null,
+            $collection->video_card ? ['label' => 'PLACA DE VÍDEO', 'value' => $collection->video_card] : null,
+            $collection->best_ai ? ['label' => 'MELHOR IA', 'value' => $collection->best_ai] : null,
+            $collection->users ? ['label' => 'USUÁRIOS', 'value' => $collection->users] : null,
+            $collection->password ? ['label' => 'SENHA', 'value' => $collection->password] : null,
+            $collection->runs_adobe ? ['label' => 'RODA NO ADOBE', 'value' => 'Sim'] : null,
+            $collection->runs_vrchat ? ['label' => 'RODA NO VRCHAT', 'value' => 'Sim'] : null,
+            $collection->purchase_date ? ['label' => 'DATA DA COMPRA', 'value' => $collection->purchase_date->format('d/m/Y')] : null,
+            $collection->manufacturing_date ? ['label' => 'DATA DE FABRICAÇÃO', 'value' => $collection->manufacturing_date->format('d/m/Y')] : null,
+            $collection->video_url ? ['label' => 'URL DO VÍDEO', 'value' => $link($collection->video_url)] : null,
+            $collection->code_url ? ['label' => 'URL DO CÓDIGO', 'value' => $link($collection->code_url)] : null,
+            $collection->image_url ? ['label' => 'URL DA IMAGEM', 'value' => $link($collection->image_url)] : null,
+        ]));
+    @endphp
+
+    @if ($customItems)
+        <div class="row mt-5">
+            <h4 class="mb-3 fw-bold" style="color: {{ $principalColor }}">
+                CAMPOS DO TIPO {{ mb_strtoupper($collection->collectionType->name ?? '') }}
+            </h4>
+            <x-show.field-grid :items="$customItems" />
         </div>
-        <div class="col-4 border border-start-0 text-center py-2">
-            @if ($collection->collectionsGroup)
-                {{ $collection->collectionsGroup->name }}
-            @else
-                -
-            @endif
-        </div>
-        <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-            PROJETO
-        </div>
-        <div class="col-4 border border-start-0 text-center py-2">
-            @if ($collection->project)
-                {{ $collection->project->name }}
-            @else
-                -
-            @endif
-        </div>
-        <div class="row g-0 mt-3 mb-3">
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                REGISTRADO POR
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                @if (isset($collection->user->contact->name))
-                    <a href='{{ route('user.show', ['user' => $collection->user_id]) }}' class="text-decoration-none">
-                        {{ $collection->user->contact->name }}
-                    </a>
-                @else
-                    foi excluído
-                @endif
-            </div>
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                RESPONSÁVEL
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                @if ($collection->contact)
-                    <a href="{{ route('contact.show', ['contact' => $collection->contact->id]) }}"
-                        class="text-decoration-none">
-                        {{ $collection->contact->name }}
-                    </a>
-                @else
-                    -
-                @endif
-            </div>
-        </div>
+    @endif
 
-        <div class="row g-0 mb-3">
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                CATEGORIA
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ optional($collection->collectionType)->category ?? '-' }}
-            </div>
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                TIPO
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ optional($collection->collectionType)->name ?? '-' }}
-            </div>
-        </div>
-
-
-        <div class="row g-0 mb-3">
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                CONTROLE
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->control_code ?? '-' }}
-            </div>
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                MARCA
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->brand ?? '-' }}
-            </div>
-        </div>
-
-        <div class="row g-0 mb-3">
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                TAG DE RASTREAMENTO
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->tracking_tag ?? '-' }}
-            </div>
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                LINK DE REDIRECIONAMENTO
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                @if ($collection->redirect_link)
-                    <a href="{{ $collection->redirect_link }}" target="_blank">{{ $collection->redirect_link }}</a>
-                @else
-                    -
-                @endif
-            </div>
-        </div>
-        <div class="row g-0 mb-3">
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                NÚMERO DE SÉRIE
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->serial_number ?? '-' }}
-            </div>
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                ACESSÓRIOS
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->accessories ?? '-' }}
-            </div>
-        </div>
-
-
-        <div class="row g-0 mb-3">
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                MODELO
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->model ?? '-' }}
-            </div>
-            <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                PATRIMÔNIO
-            </div>
-            <div class="col-4 border border-start-0 text-center py-2">
-                {{ $collection->patrimony_number ?? '-' }}
-            </div>
-        </div>
-
-        @if ($collection->title)
-            <div class="row g-0 mb-3">
-                <div class="col-2 text-white text-center py-2" style="background-color: {{ $principalColor }}">
-                    TÍTULO
-                </div>
-                <div class="col-10 border border-start-0 text-center py-2">
-                    {{ $collection->title }}
-                </div>
-            </div>
-        @endif
-    @endsection
-
-
-    @section('description')
-        @if ($collection->description)
-            {!! nl2br(e($collection->description)) !!}
-        @endif
-    @endsection
-
-    @section('main')
-        <div class="row g-0 mb-3 mt-5">
-            <h4 class="fw-bold" style="color: {{ $principalColor }}">
+    @if ($specItems)
+        <div class="row mt-5">
+            <h4 class="mb-3 fw-bold" style="color: {{ $principalColor }}">
                 ESPECIFICAÇÕES TÉCNICAS
             </h4>
+            <x-show.field-grid :items="$specItems" />
         </div>
+    @endif
+
+    <div class="row mt-5">
+        <h4 class="mb-3 fw-bold" style="color: {{ $principalColor }}">
+            LOCALIZAÇÃO ATUAL
+        </h4>
         <div class="border rounded p-3 bg-light">
-            <div class="row">
-                <div class="col-md-6">
-                    @if ($collection->operating_system)
-                        <p><strong>Sistema Operacional:</strong> {{ $collection->operating_system }}</p>
-                    @endif
-                    @if ($collection->video_card)
-                        <p><strong>Placa de Vídeo:</strong> {{ $collection->video_card }}</p>
-                    @endif
-                    @if ($collection->best_ai)
-                        <p><strong>Melhor IA:</strong> {{ $collection->best_ai }}</p>
-                    @endif
-                    <p><strong>Roda no Adobe:</strong> {{ $collection->runs_adobe ? 'Sim' : 'Não' }}</p>
-                    <p><strong>Roda no VRChat:</strong> {{ $collection->runs_vrchat ? 'Sim' : 'Não' }}</p>
-                </div>
-                <div class="col-md-6">
-                    @if ($collection->purchase_date)
-                        <p><strong>Data da Compra:</strong> {{ $collection->purchase_date->format('d/m/Y') }}</p>
-                    @endif
-                    @if ($collection->manufacturing_date)
-                        <p><strong>Data de Fabricação:</strong> {{ $collection->manufacturing_date->format('d/m/Y') }}</p>
-                    @endif
-                    @if ($collection->users)
-                        <p><strong>Usuários:</strong> {{ $collection->users }}</p>
-                    @endif
-                    @if ($collection->password)
-                        <p><strong>Senha:</strong> {{ $collection->password }}</p>
-                    @endif
-                </div>
-            </div>
-
-            <x-custom-fields.display :fields="$customFields" :values="$collection->custom_fields" />
-
-            @if ($collection->video_url || $collection->code_url || $collection->image_url)
-                <div class="row mt-3">
-
-                    <div class="col-12">
-                        <strong>Links:</strong>
-                        @if ($collection->video_url)
-                            <a href="{{ $collection->video_url }}" target="_blank" class="btn btn-sm btn-primary ms-2">
-                                <i class="fa fa-video"></i> Vídeo
-                            </a>
-                        @endif
-                        @if ($collection->code_url)
-                            <a href="{{ $collection->code_url }}" target="_blank" class="btn btn-sm btn-success ms-2">
-                                <i class="fa fa-code"></i> Código
-                            </a>
-                        @endif
-                        @if ($collection->image_url)
-                            <a href="{{ $collection->image_url }}" target="_blank" class="btn btn-sm btn-info ms-2">
-                                <i class="fa fa-image"></i> Imagem
-                            </a>
+            @if ($collection->currentLocation)
+                <div class="row">
+                    <div class="col-md-4"><strong>Local:</strong> {{ $collection->currentLocation->location }}</div>
+                    <div class="col-md-4"><strong>Movido em:</strong> {{ $collection->currentLocation->moved_at->format('d/m/Y H:i') }}</div>
+                    <div class="col-md-4">
+                        @if ($collection->currentLocation->user && $collection->currentLocation->user->contact)
+                            <strong>Por:</strong> {{ $collection->currentLocation->user->contact->name }}
                         @endif
                     </div>
                 </div>
-            @endif
-        </div>
-
-        <div class="mt-5 mb-3">
-            <h4 class="fw-bold" style="color: {{ $principalColor }}">
-                LOCALIZAÇÃO ATUAL
-            </h4>
-        </div>
-        <div class="border rounded p-3 bg-light">
-            @if ($collection->currentLocation)
-                <p><strong>Local:</strong> {{ $collection->currentLocation->location }}</p>
                 @if ($collection->currentLocation->notes)
-                    <p><strong>Notas:</strong> {{ $collection->currentLocation->notes }}</p>
-                @endif
-                <p><strong>Movido em:</strong> {{ $collection->currentLocation->moved_at->format('d/m/Y H:i') }}</p>
-                @if ($collection->currentLocation->user && $collection->currentLocation->user->contact)
-                    <p><strong>Por:</strong> {{ $collection->currentLocation->user->contact->name }}</p>
+                    <p class="mt-2 mb-0"><strong>Notas:</strong> {{ $collection->currentLocation->notes }}</p>
                 @endif
             @else
-                <p>Sem localização registrada</p>
+                <p class="mb-0">Sem localização registrada</p>
             @endif
 
-            <form action="{{ route('collection.add-location', $collection) }}" method="POST" class="mt-3">
+            <form action="{{ route('collection.add-location', $collection) }}" method="POST" class="mt-3 pt-3 border-top">
                 @csrf
                 <div class="row">
                     <div class="col-md-4">
-                        <label>Nova Localização:</label>
+                        <label class="labels">NOVA LOCALIZAÇÃO:</label>
                         <input type="text" name="location" class="form-control" required>
                     </div>
                     <div class="col-md-4">
-                        <label>Notas:</label>
+                        <label class="labels">NOTAS:</label>
                         <input type="text" name="notes" class="form-control">
                     </div>
                     <div class="col-md-4">
-                        <label>Data/Hora:</label>
+                        <label class="labels">DATA/HORA:</label>
                         <input type="datetime-local" name="moved_at" class="form-control"
                             value="{{ now()->format('Y-m-d\TH:i') }}">
                     </div>
                 </div>
-                <button type="submit" class="btn mt-2 text-white" style="background-color: {{ $principalColor }};"
-                    onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+                <button type="submit" class="btn mt-2 text-white" style="background-color: {{ $principalColor }};">
                     Atualizar Localização
                 </button>
             </form>
         </div>
+    </div>
 
-        @if ($collection->locations->count() > 1)
-            <h4 class="mt-4 mb-3 fw-bold" style="color: {{ $principalColor }}">
+    @if ($collection->locations->count() > 1)
+        <div class="row mt-5">
+            <h4 class="mb-3 fw-bold" style="color: {{ $principalColor }}">
                 HISTÓRICO DE LOCALIZAÇÕES
             </h4>
             <div class="border rounded p-3 bg-light">
@@ -294,7 +165,8 @@
                     @endif
                 @endforeach
             </div>
-        @endif
+        </div>
+    @endif
     @endsection
 
     @section('attachments')

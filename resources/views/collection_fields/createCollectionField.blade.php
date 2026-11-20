@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'NOVO CAMPO DO ACERVO')
+@section('title', 'NOVO CAMPO DOS TIPOS DE ACERVO')
 
 @section('image-top')
     <i class="fas fa-sliders-h"></i>

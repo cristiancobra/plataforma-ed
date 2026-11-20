@@ -274,7 +274,7 @@ class CollectionCustomFieldsTest extends TestCase
         ksort($values);
         $this->assertSame(['cor' => 'Preto', 'processador' => 'i7'], $values);
 
-        $this->get(route('collection.show', $item))->assertOk()->assertSee('Processador')->assertDontSee('ISBN');
+        $this->get(route('collection.show', $item))->assertOk()->assertSee('PROCESSADOR')->assertDontSee('ISBN');
 
         $this->post(route('collection.store'), $this->itemPayload($book, ['cor' => 'Azul']))
             ->assertSessionHasErrors('custom_fields.isbn');

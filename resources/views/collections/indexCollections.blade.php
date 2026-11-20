@@ -1,6 +1,6 @@
 @extends('layouts/index')
 
-@section('title', 'ACERVO')
+@section('title', 'ITENS DE ACERVO')
 
 @section('image-top')
     <i class="fa fa-archive"></i>
