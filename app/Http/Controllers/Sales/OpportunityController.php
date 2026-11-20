@@ -620,15 +620,10 @@ class OpportunityController extends Controller {
 //        dd($data);
         $header = view('layouts/pdfHeader', compact('data'))->render();
         $footer = view('layouts/pdfFooter', compact('data'))->render();
-        $pdf = PDF::loadView('proposals.pdf_production', compact('data'))
-                ->setOptions([
-            'page-size' => 'A4',
-            'header-html' => $header,
-            'footer-html' => $footer,
+        return pdfFromView('proposals.pdf_production', compact('data'), 'Relatorio.pdf', [
+            'header' => $header,
+            'footer' => $footer,
         ]);
-
-// download PDF file with download method
-        return $pdf->stream('Relatorio.pdf');
     }
 
 }

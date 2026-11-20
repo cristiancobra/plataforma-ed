@@ -4,6 +4,48 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Account;
 use App\Models\User;
 use App\Models\Question;
+use Spatie\Browsershot\Browsershot;
+
+if (!function_exists('pdfFromView')) {
+
+    // Gera um PDF a partir de uma view Blade usando Browsershot (Chrome headless) e devolve a
+    // resposta HTTP para exibição inline. Substitui o antigo PDF::loadView() do Snappy/wkhtmltopdf,
+    // que não existe mais a partir do upgrade para Laravel 13.
+    function pdfFromView(string $view, array $data, string $filename, array $options = [])
+    {
+        // O usuário do container (uid 1000) não tem HOME gravável; sem isso o chromium falha
+        // ao iniciar o crash handler ("chrome_crashpad_handler: --database is required").
+        if (!getenv('HOME') || getenv('HOME') === '/') {
+            putenv('HOME=/tmp');
+        }
+
+        $html = view($view, $data)->render();
+
+        $browsershot = Browsershot::html($html)
+            ->setNodeBinary('/usr/bin/node')
+            ->setChromePath('/usr/bin/chromium')
+            ->setNodeModulePath('/opt/browsershot/node_modules')
+            ->noSandbox()
+            ->showBackground()
+            ->format($options['format'] ?? 'A4');
+
+        if (!empty($options['landscape'])) {
+            $browsershot->landscape();
+        }
+
+        if (!empty($options['header']) || !empty($options['footer'])) {
+            $browsershot->showBrowserHeaderAndFooter()
+                ->headerHtml($options['header'] ?? '')
+                ->footerHtml($options['footer'] ?? '')
+                ->margins(60, 10, 60, 10);
+        }
+
+        return response($browsershot->pdf(), 200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'inline; filename="' . $filename . '"',
+        ]);
+    }
+}
 
 // cria um botao para criar nova tarefa de vendas
 if (!function_exists('buttonTaskSales')) {

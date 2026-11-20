@@ -17,6 +17,7 @@
 		"laravel/ui": "^4.0",
 		"league/csv": "^9.7",
 		"nesbot/carbon": "^3.8",
+		"spatie/browsershot": "^5.5",
 		"twbs/bootstrap": "5.1.0"
 	},
 	"require-dev": {
