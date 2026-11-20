@@ -10,7 +10,7 @@
                         <form method='POST' action='{{ route('login') }}'>
                             @csrf
 
-                            <div class='form-group row'>
+                            <div class='form-group row justify-content-center'>
                                 <label for='email'
                                     class='col-md-4 col-form-label text-md-right'>{{ __('Email') }}</label>
 
@@ -27,25 +27,34 @@
                                 </div>
                             </div>
 
-                            <div class='form-group row'>
+                            <div class='form-group row justify-content-center'>
                                 <label for='password'
                                     class='col-md-4 col-form-label text-md-right'>{{ __('Senha') }}</label>
 
                                 <div class='col-md-6'>
-                                    <input id='password' type='password'
-                                        class='form-control @error('password') is-invalid @enderror' name='password'
-                                        required autocomplete='current-password'>
+                                    <div class='input-group'>
+                                        <input id='password' type='password'
+                                            class='form-control @error('password') is-invalid @enderror' name='password'
+                                            required autocomplete='current-password'>
 
-                                    @error('password')
-                                        <span class='invalid-feedback' role='alert'>
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                        <div class='input-group-append'>
+                                            <button type='button' class='btn btn-outline-secondary' id='togglePassword'
+                                                tabindex='-1'>
+                                                <i class='fa fa-eye' id='togglePasswordIcon'></i>
+                                            </button>
+                                        </div>
+
+                                        @error('password')
+                                            <span class='invalid-feedback' role='alert'>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class='form-group row'>
-                                <div class='col-md-6 offset-md-4'>
+                            <div class='form-group row justify-content-center'>
+                                <div class='col-md-6'>
                                     <div class='form-check'>
                                         <input class='form-check-input' type='checkbox' name='remember' id='remember'
                                             {{ old('remember') ? 'checked' : '' }}>
@@ -57,8 +66,8 @@
                                 </div>
                             </div>
 
-                            <div class='form-group row mb-0'>
-                                <div class='col-md-8 offset-md-4'>
+                            <div class='form-group row justify-content-center mb-0'>
+                                <div class='col-md-6 text-center'>
                                     <button type='submit' class='btn btn-primary'>
                                         {{ __('Entrar') }}
                                     </button>
@@ -76,4 +85,21 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js-scripts')
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const icon = document.getElementById('togglePasswordIcon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                icon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                icon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        });
+    </script>
 @endsection
