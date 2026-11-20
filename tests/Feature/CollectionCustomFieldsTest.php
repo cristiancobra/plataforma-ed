@@ -21,12 +21,19 @@ class CollectionCustomFieldsTest extends TestCase
         return CollectionType::create(['account_id' => $accountId, 'name' => $name, 'category' => 'físico']);
     }
 
+    /**
+     * Cria um campo e o associa aos tipos informados em $attributes['types'] (ids).
+     */
     private function makeField($accountId, array $attributes): CollectionField
     {
+        $typeIds = $attributes['types'] ?? [];
+        unset($attributes['types']);
+
         $field = new CollectionField($attributes);
         $field->account_id = $accountId;
         $field->key = CollectionField::generateKey($attributes['label'], $accountId);
         $field->save();
+        $field->types()->sync($typeIds);
 
         return $field;
     }
@@ -49,7 +56,7 @@ class CollectionCustomFieldsTest extends TestCase
 
         $this->post(route('collection-field.store'), [
             'label' => 'Placa de vídeo',
-            'collection_type_id' => $type->id,
+            'collection_type_ids' => [$type->id],
             'type' => 'select',
             'options_text' => "RTX 3060\nRTX 4070\n\nRTX 3060",
             'required' => '1',
@@ -60,6 +67,7 @@ class CollectionCustomFieldsTest extends TestCase
         $this->assertSame(CustomFieldType::Select, $field->type);
         $this->assertSame(['RTX 3060', 'RTX 4070'], $field->options);
         $this->assertTrue($field->required);
+        $this->assertSame([$type->id], $field->types->pluck('id')->all());
 
         $this->get(route('collection-field.index'))->assertOk()->assertSee('Placa de vídeo');
         $this->get(route('collection-field.edit', $field))->assertOk();
@@ -79,11 +87,11 @@ class CollectionCustomFieldsTest extends TestCase
         $type = $this->makeType($user->account_id);
         $otherType = $this->makeType($user->account_id, 'Livro');
 
-        $this->makeField($user->account_id, ['label' => 'Valor de mercado', 'type' => 'currency']);
-        $this->makeField($user->account_id, ['label' => 'Roda VRChat', 'type' => 'boolean', 'collection_type_id' => $type->id]);
-        $this->makeField($user->account_id, ['label' => 'Garantia até', 'type' => 'date', 'collection_type_id' => $type->id]);
-        $this->makeField($user->account_id, ['label' => 'Memória (GB)', 'type' => 'number', 'collection_type_id' => $type->id]);
-        $this->makeField($user->account_id, ['label' => 'ISBN', 'type' => 'text', 'required' => true, 'collection_type_id' => $otherType->id]);
+        $this->makeField($user->account_id, ['label' => 'Valor de mercado', 'type' => 'currency', 'types' => [$type->id]]);
+        $this->makeField($user->account_id, ['label' => 'Roda VRChat', 'type' => 'boolean', 'types' => [$type->id]]);
+        $this->makeField($user->account_id, ['label' => 'Garantia até', 'type' => 'date', 'types' => [$type->id]]);
+        $this->makeField($user->account_id, ['label' => 'Memória (GB)', 'type' => 'number', 'types' => [$type->id]]);
+        $this->makeField($user->account_id, ['label' => 'ISBN', 'type' => 'text', 'required' => true, 'types' => [$otherType->id]]);
 
         $this->get(route('collection.create'))->assertOk()->assertSee('VALOR DE MERCADO')->assertSee('ISBN');
 
@@ -123,7 +131,7 @@ class CollectionCustomFieldsTest extends TestCase
         $user = $this->loginAsAccountOwner();
         $computer = $this->makeType($user->account_id);
         $book = $this->makeType($user->account_id, 'Livro');
-        $this->makeField($user->account_id, ['label' => 'Placa', 'type' => 'text', 'collection_type_id' => $computer->id]);
+        $this->makeField($user->account_id, ['label' => 'Placa', 'type' => 'text', 'types' => [$computer->id]]);
 
         $this->post(route('collection.store'), $this->itemPayload($computer, ['placa' => 'RTX']));
         $item = CollectionItem::first();
@@ -139,7 +147,7 @@ class CollectionCustomFieldsTest extends TestCase
     {
         $user = $this->loginAsAccountOwner();
         $type = $this->makeType($user->account_id);
-        $field = $this->makeField($user->account_id, ['label' => 'Ano', 'type' => 'number']);
+        $field = $this->makeField($user->account_id, ['label' => 'Ano', 'type' => 'number', 'types' => [$type->id]]);
 
         $this->post(route('collection.store'), $this->itemPayload($type, ['ano' => '2020']));
 
@@ -157,7 +165,7 @@ class CollectionCustomFieldsTest extends TestCase
     {
         $user = $this->loginAsAccountOwner();
         $type = $this->makeType($user->account_id);
-        $field = $this->makeField($user->account_id, ['label' => 'Cor', 'type' => 'text']);
+        $field = $this->makeField($user->account_id, ['label' => 'Cor', 'type' => 'text', 'types' => [$type->id]]);
         $this->post(route('collection.store'), $this->itemPayload($type, ['cor' => 'Azul']));
         $item = CollectionItem::first();
 
@@ -194,5 +202,82 @@ class CollectionCustomFieldsTest extends TestCase
         $user->save();
 
         $this->get(route('collection-field.index'))->assertForbidden();
+    }
+
+    public function test_type_form_selects_existing_fields_and_creates_new_ones(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $existing = $this->makeField($user->account_id, ['label' => 'Sistema operacional', 'type' => 'text']);
+        $this->makeField($user->account_id, ['label' => 'ISBN', 'type' => 'text']);
+
+        $this->get(route('collection-types.create'))->assertOk()->assertSee('Sistema operacional');
+
+        // opções obrigatórias para campo novo do tipo lista
+        $this->post(route('collection-types.store'), [
+            'name' => 'Computador',
+            'category' => 'físico',
+            'new_fields' => [['label' => 'Processador', 'type' => 'select', 'options_text' => '']],
+        ])->assertSessionHasErrors('new_fields.0.options');
+        $this->assertSame(0, CollectionType::count());
+
+        $this->post(route('collection-types.store'), [
+            'name' => 'Computador',
+            'category' => 'físico',
+            'field_ids' => [$existing->id],
+            'new_fields' => [
+                ['label' => 'Processador', 'type' => 'select', 'options_text' => "i5\ni7", 'required' => '1'],
+                ['label' => '', 'type' => 'text'], // linha deixada em branco: ignorada
+            ],
+        ])->assertSessionHasNoErrors()->assertRedirect(route('collection-types.index'));
+
+        $type = CollectionType::where('name', 'Computador')->first();
+        $this->assertSame(['Processador', 'Sistema operacional'], $type->fields->pluck('label')->sort()->values()->all());
+        $new = CollectionField::where('key', 'processador')->first();
+        $this->assertSame(['i5', 'i7'], $new->options);
+        $this->assertTrue($new->required);
+
+        $this->get(route('collection-types.index'))->assertOk()->assertSee('Processador');
+        $this->get(route('collection-types.edit', $type))->assertOk();
+
+        // editar: desmarcar o campo existente deixa só o Processador
+        $this->put(route('collection-types.update', $type), [
+            'name' => 'Computador',
+            'category' => 'físico',
+            'field_ids' => [$new->id],
+        ])->assertSessionHasNoErrors();
+        $this->assertSame(['Processador'], $type->fresh()->fields->pluck('label')->all());
+    }
+
+    public function test_item_only_uses_fields_of_its_type(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $computer = $this->makeType($user->account_id);
+        $book = $this->makeType($user->account_id, 'Livro');
+        $shared = $this->makeField($user->account_id, ['label' => 'Cor', 'type' => 'text', 'types' => [$computer->id, $book->id]]);
+        $this->makeField($user->account_id, ['label' => 'Processador', 'type' => 'text', 'types' => [$computer->id]]);
+        $this->makeField($user->account_id, ['label' => 'ISBN', 'type' => 'text', 'required' => true, 'types' => [$book->id]]);
+        $this->makeField($user->account_id, ['label' => 'Sem tipo', 'type' => 'text']);
+
+        // campo sem nenhum tipo não aparece no formulário
+        $this->get(route('collection.create'))->assertOk()
+            ->assertSee('PROCESSADOR')
+            ->assertSee('data-type-ids=",' . $computer->id . ',"', false)
+            ->assertDontSee('SEM TIPO');
+
+        // ISBN (obrigatório só em Livro) não é exigido num Computador; valor de campo de outro tipo é ignorado
+        $this->post(route('collection.store'), $this->itemPayload($computer, [
+            'cor' => 'Preto', 'processador' => 'i7', 'isbn' => '123', 'sem_tipo' => 'x',
+        ]))->assertSessionHasNoErrors();
+
+        $item = CollectionItem::first();
+        $values = $item->custom_fields;
+        ksort($values);
+        $this->assertSame(['cor' => 'Preto', 'processador' => 'i7'], $values);
+
+        $this->get(route('collection.show', $item))->assertOk()->assertSee('Processador')->assertDontSee('ISBN');
+
+        $this->post(route('collection.store'), $this->itemPayload($book, ['cor' => 'Azul']))
+            ->assertSessionHasErrors('custom_fields.isbn');
+        $this->assertTrue($shared->types()->count() === 2);
     }
 }

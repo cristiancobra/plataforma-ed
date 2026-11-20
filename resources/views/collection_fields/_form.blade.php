@@ -8,11 +8,18 @@
         @enderror
     </div>
     <div class="col-md-6">
-        <label class='labels' for='collection_type_id'>VALE PARA:</label>
-        <x-form.select name="collection_type_id" :options="$collectionTypeOptions"
-            :selected="old('collection_type_id', $field->collection_type_id)" placeholder="Todos os tipos de acervo"
-            id="collection_type_id" />
-        @error('collection_type_id')
+        <label class='labels'>TIPOS DE ACERVO QUE USAM ESTE CAMPO:</label>
+        @php $checkedTypes = array_map('intval', old('collection_type_ids', $field->exists ? $field->types->pluck('id')->all() : [])); @endphp
+        @forelse ($collectionTypeOptions as $typeId => $typeName)
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="collection_type_ids[]" value="{{ $typeId }}"
+                    id="collection_type_{{ $typeId }}" @checked(in_array($typeId, $checkedTypes))>
+                <label class="form-check-label" for="collection_type_{{ $typeId }}">{{ $typeName }}</label>
+            </div>
+        @empty
+            <p class="text-muted">Nenhum tipo de acervo cadastrado.</p>
+        @endforelse
+        @error('collection_type_ids.*')
             <span class='text-danger'>{{ $message }}</span>
         @enderror
     </div>

@@ -2,11 +2,19 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Concerns\ValidatesCollectionTypeFields;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateCollectionTypeRequest extends FormRequest
 {
+    use ValidatesCollectionTypeFields;
+
+    protected function prepareForValidation()
+    {
+        $this->prepareFieldsForValidation();
+    }
+
     public function authorize()
     {
         return Auth::check();
@@ -18,7 +26,7 @@ class UpdateCollectionTypeRequest extends FormRequest
         return [
             'name' => 'required|string|max:255|unique:collection_types,name,' . $id . ',id,account_id,' . Auth::user()->account_id,
             'category' => 'required|string|in:físico,digital',
-        ];
+        ] + $this->fieldRules();
     }
 
     public function messages()
@@ -26,6 +34,6 @@ class UpdateCollectionTypeRequest extends FormRequest
         return [
             'name.required' => 'O nome é obrigatório.',
             'name.unique' => 'Já existe um tipo com esse nome para sua conta.',
-        ];
+        ] + $this->fieldMessages();
     }
 }

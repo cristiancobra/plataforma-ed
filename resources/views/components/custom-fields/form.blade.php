@@ -1,7 +1,7 @@
 {{--
     Campos personalizados do acervo no formulário de criação/edição.
-    Recebe todos os campos ativos da conta; o JS abaixo mostra só os globais e os do tipo marcado
-    em input[name=type_id] (e desabilita os escondidos, para não serem enviados nem validados pelo navegador).
+    Recebe os campos ativos da conta (com os tipos carregados); o JS abaixo mostra só os campos do tipo
+    marcado em input[name=type_id] e desabilita os demais, para não serem enviados nem validados pelo navegador.
 --}}
 @props(['fields', 'values' => []])
 
@@ -21,7 +21,7 @@
                         ? old('custom_fields.' . $field->key)
                         : $field->type->inputValue($values[$field->key] ?? null);
                 @endphp
-                <div class="col-md-6 mt-3 custom-field" data-type-id="{{ $field->collection_type_id }}">
+                <div class="col-md-6 mt-3 custom-field" data-type-ids=",{{ $field->types->pluck('id')->join(',') }},">
                     @if ($field->type !== \App\Enums\CustomFieldType::Boolean)
                         <label class='labels' for='{{ $id }}'>
                             {{ mb_strtoupper($field->label) }}:@if ($field->required)<span class="text-danger"> *</span>@endif
@@ -53,8 +53,7 @@
             function refreshCustomFields() {
                 var typeId = selectedType();
                 section.querySelectorAll('.custom-field').forEach(function (wrapper) {
-                    var fieldType = wrapper.dataset.typeId;
-                    var visible = fieldType === '' || fieldType === typeId;
+                    var visible = typeId !== null && wrapper.dataset.typeIds.indexOf(',' + typeId + ',') !== -1;
                     wrapper.style.display = visible ? '' : 'none';
                     wrapper.querySelectorAll('input, select, textarea').forEach(function (input) {
                         input.disabled = !visible;

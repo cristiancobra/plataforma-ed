@@ -12,16 +12,16 @@
 
 @section('table')
     <p class="text-muted">
-        Campos extras que aparecem no cadastro dos itens de acervo. Um campo pode valer para todos os itens
-        ou só para um tipo de acervo. Desativar um campo esconde ele dos formulários, mas mantém os valores já
-        preenchidos.
+        Campos extras dos itens de acervo. Cada tipo de acervo escolhe quais campos tem (na tela do tipo ou
+        aqui), e o item mostra só os campos do seu tipo. Desativar um campo esconde ele dos formulários, mas
+        mantém os valores já preenchidos.
     </p>
 
     <x-table.header :background-color="$principalColor" :columns="[
         ['label' => 'ORDEM', 'class' => 'col-1 text-center'],
         ['label' => 'CAMPO', 'class' => 'col-3'],
         ['label' => 'TIPO DO CAMPO', 'class' => 'col-2 text-center'],
-        ['label' => 'VALE PARA', 'class' => 'col-2 text-center'],
+        ['label' => 'TIPOS DE ACERVO', 'class' => 'col-2 text-center'],
         ['label' => 'OBRIGATÓRIO', 'class' => 'col-1 text-center'],
         ['label' => 'AÇÕES', 'class' => 'col-3 text-center'],
     ]" />
@@ -40,7 +40,7 @@
                 @endif
             </div>
             <div class="col-2 text-center">{{ $field->type->label() }}</div>
-            <div class="col-2 text-center">{{ $field->collectionType->name ?? 'Todos os tipos' }}</div>
+            <div class="col-2 text-center">{{ $field->types->pluck('name')->join(', ') ?: 'Nenhum tipo' }}</div>
             <div class="col-1 text-center">{{ $field->required ? 'Sim' : 'Não' }}</div>
             <div class="col-3 text-center d-flex gap-2 justify-content-center">
                 <a href="{{ route('collection-field.edit', $field) }}" class="btn btn-sm text-white"

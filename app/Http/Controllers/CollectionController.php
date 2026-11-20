@@ -127,7 +127,7 @@ class CollectionController extends Controller
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
-        $customFields = CollectionField::ofCurrentAccount()->active()->ordered()->get();
+        $customFields = CollectionField::ofCurrentAccount()->active()->has('types')->with('types')->ordered()->get();
 
         return view('collections.createCollection', compact(
             'types',
@@ -204,7 +204,7 @@ class CollectionController extends Controller
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
-        $customFields = CollectionField::ofCurrentAccount()->active()->ordered()->get();
+        $customFields = CollectionField::ofCurrentAccount()->active()->has('types')->with('types')->ordered()->get();
 
         return view('collections.editCollection', compact(
             'collection',

@@ -24,6 +24,9 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
+        @include('collection_types._fields')
+
+        <div class="mt-4"></div>
         <button type="submit" class="btn text-white" style="background-color: {{ $principalColor }}">Salvar</button>
         <a href="{{ route('collection-types.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>

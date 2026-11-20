@@ -16,7 +16,6 @@ class CollectionField extends Model
     protected $table = 'collection_fields';
 
     protected $fillable = [
-        'collection_type_id',
         'label',
         'type',
         'options',
@@ -37,9 +36,12 @@ class CollectionField extends Model
         return $this->belongsTo(Account::class, 'account_id', 'id');
     }
 
-    public function collectionType()
+    /**
+     * Tipos de acervo que usam este campo.
+     */
+    public function types()
     {
-        return $this->belongsTo(CollectionType::class, 'collection_type_id', 'id');
+        return $this->belongsToMany(CollectionType::class, 'collection_field_type');
     }
 
     public function scopeOfCurrentAccount(Builder $query): Builder
@@ -58,16 +60,45 @@ class CollectionField extends Model
     }
 
     /**
-     * Campos ativos que valem para um tipo de acervo: os globais + os do próprio tipo.
+     * Campos associados a um tipo de acervo (sem tipo, nenhum campo).
      */
     public function scopeForType(Builder $query, $typeId): Builder
     {
-        return $query->where(function ($q) use ($typeId) {
-            $q->whereNull('collection_type_id');
-            if ($typeId) {
-                $q->orWhere('collection_type_id', $typeId);
-            }
-        });
+        return $query->whereHas('types', fn ($q) => $q->where('collection_types.id', $typeId ?: 0));
+    }
+
+    /**
+     * Opções da lista digitadas num textarea, uma por linha (sem vazias nem repetidas).
+     */
+    public static function parseOptions(?string $text): array
+    {
+        return collect(preg_split('/\r\n|\r|\n/', (string) $text))
+            ->map(fn ($option) => trim($option))
+            ->filter(fn ($option) => $option !== '')
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+    /**
+     * Cria um campo na conta atual, gerando a key a partir do rótulo e colocando-o no fim da ordem.
+     */
+    public static function createForCurrentAccount(array $data): self
+    {
+        $accountId = auth()->user()->account_id;
+
+        $field = new self($data);
+        if ($field->type !== CustomFieldType::Select) {
+            $field->options = null;
+        }
+        $field->account_id = $accountId;
+        $field->key = self::generateKey($field->label, $accountId);
+        if (!array_key_exists('position', $data)) {
+            $field->position = (int) self::where('account_id', $accountId)->max('position') + 1;
+        }
+        $field->save();
+
+        return $field;
     }
 
     /**

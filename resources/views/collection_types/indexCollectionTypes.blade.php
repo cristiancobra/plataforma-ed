@@ -8,18 +8,22 @@
 
 @section('table')
     <x-table.header :background-color="$principalColor" :columns="[
-        ['label' => 'NOME', 'class' => 'col-5'],
-        ['label' => 'CATEGORIA', 'class' => 'col-4'],
+        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'CATEGORIA', 'class' => 'col-2'],
+        ['label' => 'CAMPOS DOS ITENS', 'class' => 'col-4'],
         ['label' => 'AÇÕES', 'class' => 'col-3 text-center'],
     ]" />
 
     @forelse($types as $type)
         <div class="row border-bottom align-items-center py-2">
-            <div class="col-5 fw-bold">
+            <div class="col-3 fw-bold">
                 {{ $type->name }}
             </div>
-            <div class="col-4 text-center">
+            <div class="col-2 text-center">
                 {{ $type->category }}
+            </div>
+            <div class="col-4 small">
+                {{ $type->fields->pluck('label')->join(', ') ?: '-' }}
             </div>
             <div class="col-3 text-center d-flex gap-2 justify-content-center">
                 <a href="{{ route('collection-types.edit', $type) }}" class="btn btn-sm text-white me-2"

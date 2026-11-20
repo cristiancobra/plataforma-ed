@@ -79,6 +79,8 @@
             </div>
     </div>
 
+    <x-custom-fields.form :fields="$customFields" />
+
     <div class="row mt-3">
         <div class="col-md-12">
             <label class='labels' for=''>CONTATO:</label>
@@ -222,8 +224,6 @@
             <input type='url' name='image_url' class='form-control' value='{{ old('image_url') }}'>
         </div>
     </div>
-
-    <x-custom-fields.form :fields="$customFields" />
 
     <div class="row mt-3">
         <div class="col-md-6">

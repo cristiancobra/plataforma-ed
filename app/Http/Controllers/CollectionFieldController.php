@@ -29,7 +29,7 @@ class CollectionFieldController extends Controller
     public function index()
     {
         $fields = CollectionField::ofCurrentAccount()
-            ->with('collectionType')
+            ->with('types')
             ->orderByDesc('active')
             ->ordered()
             ->get();
@@ -46,10 +46,8 @@ class CollectionFieldController extends Controller
 
     public function store(CollectionFieldRequest $request)
     {
-        $field = new CollectionField($request->validatedData());
-        $field->account_id = auth()->user()->account_id;
-        $field->key = CollectionField::generateKey($field->label, $field->account_id);
-        $field->save();
+        $field = CollectionField::createForCurrentAccount($request->fieldData());
+        $field->types()->sync($request->typeIds());
 
         return redirect()->route('collection-field.index')
             ->with('success', 'Campo "' . $field->label . '" criado com sucesso!');
@@ -63,7 +61,8 @@ class CollectionFieldController extends Controller
     public function update(CollectionFieldRequest $request, CollectionField $collectionField)
     {
         // a key nunca muda: é ela que liga o campo aos valores já gravados nos itens
-        $collectionField->update($request->validatedData());
+        $collectionField->update($request->fieldData());
+        $collectionField->types()->sync($request->typeIds());
 
         return redirect()->route('collection-field.index')
             ->with('success', 'Campo "' . $collectionField->label . '" atualizado com sucesso!');

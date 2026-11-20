@@ -28,6 +28,16 @@ class CollectionType extends Model
     }
 
     /**
+     * Campos personalizados que os itens deste tipo preenchem.
+     */
+    public function fields()
+    {
+        return $this->belongsToMany(CollectionField::class, 'collection_field_type')
+            ->orderBy('position')
+            ->orderBy('label');
+    }
+
+    /**
      * Retorna um array id => name dos tipos de coleção da conta autenticada, para uso em selects.
      */
     public static function collectionTypeSelectOptions() {
