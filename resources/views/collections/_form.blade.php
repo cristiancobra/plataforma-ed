@@ -152,7 +152,7 @@
     </div>
 </x-form.section>
 
-<x-form.section :title="$isNew ? 'LOCALIZAÇÃO E SITUAÇÃO' : 'SITUAÇÃO'" icon="fas fa-map-marker-alt">
+<x-form.section :title="$isNew ? 'LOCALIZAÇÃO E SITUAÇÃO' : 'SITUAÇÃO'" :icon="$isNew ? 'fas fa-map-marker-alt' : 'fas fa-clipboard-check'">
     <div class="row">
         @if ($isNew)
             <div class="col-md-6">

@@ -152,7 +152,7 @@ class CollectionController extends Controller
         $collection->fill($data);
         $collection->account_id = auth()->user()->account_id;
         $collection->user_id = auth()->user()->id;
-        $collection->fillCustomFields($request->customFields(), $request->input('custom_fields', []));
+        $collection->fillCustomFields($request->customFields(), $request->input('custom_fields', []), $request->input('custom_fields_clear', []));
         $collection->save();
 
         // Criar localização inicial se fornecida
@@ -234,7 +234,7 @@ class CollectionController extends Controller
             unset($data['status']);
         }
         $collection->fill($data);
-        $collection->fillCustomFields($request->customFields(), $request->input('custom_fields', []));
+        $collection->fillCustomFields($request->customFields(), $request->input('custom_fields', []), $request->input('custom_fields_clear', []));
         $collection->save();
 
         return redirect()->route('collection.show', [$collection])
@@ -285,6 +285,23 @@ class CollectionController extends Controller
 
         return redirect()->route('collection.show', [$collection])
             ->with('success', 'Item restaurado da lixeira!');
+    }
+
+    /**
+     * Revela o valor de um campo do tipo Senha (protegida), só quando o usuário clica em "Mostrar".
+     * A conta do item já é checada no middleware roles.
+     */
+    public function revealSecret(Collection $collection, string $key)
+    {
+        $field = CollectionField::ofCurrentAccount()
+            ->where('key', $key)
+            ->where('type', \App\Enums\CustomFieldType::Secret->value)
+            ->firstOrFail();
+
+        $value = \App\Enums\CustomFieldType::decryptSecret($collection->custom_fields[$field->key] ?? null);
+        abort_if($value === null, 404);
+
+        return response()->json(['value' => $value])->header('Cache-Control', 'no-store');
     }
 
     /**

@@ -138,6 +138,11 @@ class CollectionField extends Model
             return ['nullable', 'boolean'];
         }
 
+        if ($this->type === CustomFieldType::Secret) {
+            // em branco mantém a senha guardada: só é obrigatória se ainda não houver uma
+            return array_merge([$this->required && $currentValue === null ? 'required' : 'nullable'], $this->type->rules());
+        }
+
         return array_merge(
             [$this->required ? 'required' : 'nullable'],
             $this->type->rules(array_values(array_filter(

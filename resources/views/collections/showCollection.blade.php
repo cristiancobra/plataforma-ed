@@ -57,6 +57,11 @@
             $display = match (true) {
                 $value === null => null,
                 $field->type === \App\Enums\CustomFieldType::Url => $link($value),
+                $field->type === \App\Enums\CustomFieldType::Secret => new \Illuminate\Support\HtmlString(
+                    '<span class="secret-value">••••••••</span> '
+                    . '<button type="button" class="btn btn-sm btn-outline-secondary ms-2 reveal-secret" data-url="'
+                    . e(route('collection.reveal-secret', [$collection, $field->key])) . '"><i class="fas fa-eye"></i> Mostrar</button>'
+                ),
                 $field->type === \App\Enums\CustomFieldType::Textarea => new \Illuminate\Support\HtmlString(nl2br(e($value))),
                 default => $field->displayValue($collection->custom_fields),
             };
@@ -166,3 +171,28 @@
         <x-attachments-section :attachments="$collection->attachments" modelId="{{ $collection->id }}" modelIdField="collection_id"
             routeStore="attachment.store" routeDestroy="attachment.destroy" :types="['nota_fiscal', 'termo_emprestimo']" :principalColor="$principalColor" />
     @endsection
+
+@section('js-scripts')
+    <script>
+        // senhas protegidas: busca o valor só ao clicar em "Mostrar" e volta a esconder no segundo clique
+        document.querySelectorAll('.reveal-secret').forEach(function (button) {
+            button.addEventListener('click', function () {
+                var target = button.parentElement.querySelector('.secret-value');
+                if (button.dataset.revealed) {
+                    target.textContent = '••••••••';
+                    delete button.dataset.revealed;
+                    button.innerHTML = '<i class="fas fa-eye"></i> Mostrar';
+                    return;
+                }
+                fetch(button.dataset.url, { headers: { 'Accept': 'application/json' }, credentials: 'same-origin' })
+                    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+                    .then(function (data) {
+                        target.textContent = data.value;
+                        button.dataset.revealed = '1';
+                        button.innerHTML = '<i class="fas fa-eye-slash"></i> Ocultar';
+                    })
+                    .catch(function () { target.textContent = 'não foi possível mostrar'; });
+            });
+        });
+    </script>
+@endsection

@@ -1,25 +1,9 @@
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <label class='labels' for='label'>NOME DO CAMPO: <span class="text-danger">*</span></label>
         <input type='text' name='label' id='label' class='form-control' maxlength="100"
             value='{{ old('label', $field->label) }}' placeholder="Ex.: Placa de vídeo" required>
         @error('label')
-            <span class='text-danger'>{{ $message }}</span>
-        @enderror
-    </div>
-    <div class="col-md-6">
-        <label class='labels'>TIPOS DE ACERVO QUE USAM ESTE CAMPO:</label>
-        @php $checkedTypes = array_map('intval', old('collection_type_ids', $field->exists ? $field->types->pluck('id')->all() : [])); @endphp
-        @forelse ($collectionTypeOptions as $typeId => $typeName)
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="collection_type_ids[]" value="{{ $typeId }}"
-                    id="collection_type_{{ $typeId }}" @checked(in_array($typeId, $checkedTypes))>
-                <label class="form-check-label" for="collection_type_{{ $typeId }}">{{ $typeName }}</label>
-            </div>
-        @empty
-            <p class="text-muted">Nenhum tipo de acervo cadastrado.</p>
-        @endforelse
-        @error('collection_type_ids.*')
             <span class='text-danger'>{{ $message }}</span>
         @enderror
     </div>
@@ -63,6 +47,29 @@
         <label class='labels' for='options_text'>OPÇÕES DA LISTA (uma por linha): <span class="text-danger">*</span></label>
         <textarea name='options_text' id='options_text' class='form-control' rows='5'>{{ old('options_text', implode("\n", $field->options ?? [])) }}</textarea>
         @error('options')
+            <span class='text-danger'>{{ $message }}</span>
+        @enderror
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-12">
+        <label class='labels'>TIPOS DE ACERVO QUE USAM ESTE CAMPO:</label>
+        @php $checkedTypes = array_map('intval', old('collection_type_ids', $field->exists ? $field->types->pluck('id')->all() : [])); @endphp
+        @if (count($collectionTypeOptions))
+            <div style="columns: 4 160px;">
+                @foreach ($collectionTypeOptions as $typeId => $typeName)
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="collection_type_ids[]" value="{{ $typeId }}"
+                            id="collection_type_{{ $typeId }}" @checked(in_array($typeId, $checkedTypes))>
+                        <label class="form-check-label" for="collection_type_{{ $typeId }}">{{ $typeName }}</label>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <p class="text-muted">Nenhum tipo de acervo cadastrado.</p>
+        @endif
+        @error('collection_type_ids.*')
             <span class='text-danger'>{{ $message }}</span>
         @enderror
     </div>

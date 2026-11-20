@@ -3,6 +3,7 @@
 namespace App\Enums;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Validation\Rule;
 
 /**
@@ -23,6 +24,8 @@ enum CustomFieldType: string
     case Boolean = 'boolean';
     case Select = 'select';
     case Url = 'url';
+    // valor criptografado no banco (APP_KEY), mascarado na tela e revelado só sob demanda
+    case Secret = 'secret';
 
     public function label(): string
     {
@@ -35,6 +38,7 @@ enum CustomFieldType: string
             self::Boolean => 'Sim / Não',
             self::Select => 'Lista de opções',
             self::Url => 'Link (URL)',
+            self::Secret => 'Senha (protegida)',
         };
     }
 
@@ -68,6 +72,21 @@ enum CustomFieldType: string
     }
 
     /**
+     * Decifra um valor do tipo Senha (null se estiver vazio ou não puder ser decifrado).
+     */
+    public static function decryptSecret(?string $stored): ?string
+    {
+        if ($stored === null || $stored === '') {
+            return null;
+        }
+        try {
+            return Crypt::decryptString($stored);
+        } catch (\Illuminate\Contracts\Encryption\DecryptException) {
+            return null;
+        }
+    }
+
+    /**
      * Regras de validação do valor (sem required/nullable, que dependem da definição do campo).
      */
     public function rules(array $options = []): array
@@ -83,6 +102,7 @@ enum CustomFieldType: string
             self::Boolean => ['boolean'],
             self::Select => [Rule::in($options)],
             self::Url => ['url', 'max:500'],
+            self::Secret => ['string', 'max:255'],
         };
     }
 
@@ -103,6 +123,7 @@ enum CustomFieldType: string
             self::Number => (float) str_replace(',', '.', $value),
             self::Currency => (float) removeCurrency($value),
             self::Date => Carbon::parse($value)->format('Y-m-d'),
+            self::Secret => Crypt::encryptString(trim($value)),
             default => trim($value),
         };
     }
@@ -124,6 +145,7 @@ enum CustomFieldType: string
             self::Number => rtrim(rtrim(number_format((float) $value, 6, ',', '.'), '0'), ','),
             self::Currency => formatCurrencyReal($value),
             self::Date => Carbon::parse($value)->format('d/m/Y'),
+            self::Secret => '••••••••',
             default => (string) $value,
         };
     }
@@ -140,6 +162,8 @@ enum CustomFieldType: string
         return match ($this) {
             self::Number => str_replace('.', ',', (string) $value),
             self::Currency => formatCurrency($value),
+            // o valor guardado nunca volta para o formulário
+            self::Secret => null,
             default => $value,
         };
     }

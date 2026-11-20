@@ -315,6 +315,10 @@ Route::put('/acervo/restaurar/{collection}', 'CollectionController@restore')
         ->name('collection.restore')
         ->middleware('roles');
 
+Route::get('/acervo/{collection}/senha/{key}', 'CollectionController@revealSecret')
+        ->name('collection.reveal-secret')
+        ->middleware('roles');
+
 Route::post('/acervo/{collection}/locations', 'CollectionController@addLocation')
         ->name('collection.add-location')
         ->middleware('roles');

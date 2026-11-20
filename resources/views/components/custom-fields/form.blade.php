@@ -32,6 +32,7 @@
                         'name' => $name,
                         'id' => $id,
                         'value' => $value,
+                        'hasStored' => array_key_exists($field->key, $values),
                     ])
                     @error('custom_fields.' . $field->key)
                         <span class='text-danger'>{{ $message }}</span>

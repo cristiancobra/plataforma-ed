@@ -341,6 +341,7 @@ class Roles {
             case 'collection.destroy':
             case 'collection.trash':
             case 'collection.add-location':
+            case 'collection.reveal-secret':
                 if ($request->route('collection')->account_id != auth()->user()->account_id) {
                     $permission = false;
                 } else {

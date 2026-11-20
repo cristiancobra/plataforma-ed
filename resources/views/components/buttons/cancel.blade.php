@@ -1,4 +1,5 @@
 @props([
+    'object' => null, // aceito e ignorado: sem isso o model inteiro seria impresso como atributo HTML
     'title' => 'Cancelar alterações',
     'href' => null,
 ])

@@ -38,6 +38,11 @@ class Collection extends Model
         'accessories',
     ];
 
+    // coluna antiga com senhas em texto puro (substituída pelo campo protegido "Senha"): nunca serializar
+    protected $hidden = [
+        'password',
+    ];
+
     protected $casts = [
         'purchase_date' => 'date',
         'manufacturing_date' => 'date',
@@ -49,10 +54,17 @@ class Collection extends Model
      * Valores de campos que não estão em $fields (de outro tipo ou desativados) são preservados,
      * para que trocar o tipo do item ou desativar um campo não apague dados.
      */
-    public function fillCustomFields($fields, array $input): void
+    public function fillCustomFields($fields, array $input, array $clearSecrets = []): void
     {
         $values = $this->custom_fields ?? [];
         foreach ($fields as $field) {
+            // senha protegida em branco = manter a guardada (ou apagar, se marcado "apagar")
+            if ($field->type === \App\Enums\CustomFieldType::Secret && trim((string) ($input[$field->key] ?? '')) === '') {
+                if (!empty($clearSecrets[$field->key])) {
+                    unset($values[$field->key]);
+                }
+                continue;
+            }
             $value = $field->type->normalize($input[$field->key] ?? null);
             if ($value === null) {
                 unset($values[$field->key]);
