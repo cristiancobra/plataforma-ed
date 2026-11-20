@@ -23,11 +23,16 @@ if (!function_exists('pdfFromView')) {
 
         $browsershot = Browsershot::html($html)
             ->setNodeBinary('/usr/bin/node')
-            ->setChromePath('/usr/bin/chromium')
             ->setNodeModulePath('/opt/browsershot/node_modules')
             ->noSandbox()
             ->showBackground()
             ->format($options['format'] ?? 'A4');
+
+        // Em dev (Docker/Debian) usamos o Chromium do sistema; em produção (Ubuntu, sem pacote
+        // `chromium` nos repositórios) o puppeteer baixa e gerencia seu próprio Chromium.
+        if (file_exists('/usr/bin/chromium')) {
+            $browsershot->setChromePath('/usr/bin/chromium');
+        }
 
         if (!empty($options['landscape'])) {
             $browsershot->landscape();
