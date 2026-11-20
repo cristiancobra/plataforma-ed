@@ -49,37 +49,6 @@
 
 
 
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <label class='labels' for=''>TIPO:</label>
-                    <div class="row">
-                        @php
-                            $col = 0;
-                            $total = count($types);
-                            $perCol = ceil($total / 4);
-                        @endphp
-                        @foreach ($types as $key => $value)
-                            @if ($col % $perCol == 0)
-                                <div class="col-md-3">
-                            @endif
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="type_id" id="type_{{ $key }}"
-                                    value="{{ $key }}" {{ old('type_id') == $key ? 'checked' : '' }}>
-                                <label class="form-check-label" for="type_{{ $key }}">{{ $value }}</label>
-                            </div>
-                            @php $col++; @endphp
-                            @if ($col % $perCol == 0 || $loop->last)
-                    </div>
-                    @endif
-                    @endforeach
-                </div>
-                @if ($errors->has('type_id'))
-                    <span class='text-danger'>{{ $errors->first('type_id') }}</span>
-                @endif
-            </div>
-    </div>
-
-    <x-custom-fields.form :fields="$customFields" />
 
     <div class="row mt-3">
         <div class="col-md-12">
@@ -248,6 +217,26 @@
             <textarea name='location_notes' class='form-control' rows='2'>{{ old('location_notes') }}</textarea>
         </div>
     </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <label class='labels'>TIPO:</label>
+            <div style="columns: 4 180px;">
+                @foreach ($types as $key => $value)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="type_id" id="type_{{ $key }}"
+                            value="{{ $key }}" @checked(old('type_id') == $key)>
+                        <label class="form-check-label" for="type_{{ $key }}">{{ $value }}</label>
+                    </div>
+                @endforeach
+            </div>
+            @error('type_id')
+                <span class='text-danger'>{{ $message }}</span>
+            @enderror
+        </div>
+    </div>
+
+    <x-custom-fields.form :fields="$customFields" />
 
     <br>
     <p style='text-align: right'>

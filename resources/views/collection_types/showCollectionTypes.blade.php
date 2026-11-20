@@ -10,7 +10,7 @@
     <div class="mb-3">
         <strong>Campos dos itens:</strong>
         @forelse ($collectionType->fields as $field)
-            <span class="badge bg-secondary">{{ $field->label }}</span>
+            <x-custom-fields.pill :field="$field" />
         @empty
             nenhum
         @endforelse

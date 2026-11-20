@@ -170,6 +170,30 @@ class CollectionField extends Model
         return [$rules, $attributes];
     }
 
+    /**
+     * Paleta das pílulas dos campos: [fundo, texto]. A cor é fixa por campo (pelo id), então o mesmo
+     * campo tem sempre a mesma cor em todas as telas, e campos diferentes ficam bem distintos.
+     */
+    private const PILL_COLORS = [
+        ['#dbeafe', '#1e40af'], // azul
+        ['#dcfce7', '#166534'], // verde
+        ['#ffedd5', '#9a3412'], // laranja
+        ['#f3e8ff', '#6b21a8'], // roxo
+        ['#fce7f3', '#9d174d'], // rosa
+        ['#cffafe', '#155e75'], // ciano
+        ['#fef9c3', '#854d0e'], // amarelo
+        ['#fee2e2', '#991b1b'], // vermelho
+        ['#e0e7ff', '#3730a3'], // índigo
+        ['#ecfccb', '#3f6212'], // lima
+        ['#ccfbf1', '#115e59'], // verde-água
+        ['#f5f5f4', '#44403c'], // cinza
+    ];
+
+    public function pillColors(): array
+    {
+        return self::PILL_COLORS[($this->id ?? 0) % count(self::PILL_COLORS)];
+    }
+
     public function displayValue(?array $values): string
     {
         return $this->type->display($values[$this->key] ?? null);

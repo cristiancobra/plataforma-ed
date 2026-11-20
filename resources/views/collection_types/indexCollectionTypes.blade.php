@@ -22,8 +22,12 @@
             <div class="col-2 text-center">
                 {{ $type->category }}
             </div>
-            <div class="col-4 small">
-                {{ $type->fields->pluck('label')->join(', ') ?: '-' }}
+            <div class="col-4">
+                @forelse ($type->fields as $field)
+                    <x-custom-fields.pill :field="$field" />
+                @empty
+                    <span class="text-muted">-</span>
+                @endforelse
             </div>
             <div class="col-3 text-center d-flex gap-2 justify-content-center">
                 <a href="{{ route('collection-types.edit', $type) }}" class="btn btn-sm text-white me-2"
