@@ -229,9 +229,6 @@ class CollectionController extends Controller
     public function update(UpdateCollectionRequest $request, Collection $collection)
     {
         $data = $request->all();
-        // Se o checkbox não for marcado, o campo não vem no request. Forçar para 0 (false)
-        $data['runs_adobe'] = $request->has('runs_adobe') ? 1 : 0;
-        $data['runs_vrchat'] = $request->has('runs_vrchat') ? 1 : 0;
         // Item emprestado: a situação só muda pela devolução do empréstimo
         if ($collection->status === 'in use') {
             unset($data['status']);

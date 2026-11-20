@@ -27,13 +27,6 @@ class Collection extends Model
         'model',
         'purchase_date',
         'manufacturing_date',
-        'operating_system',
-        'video_card',
-        'best_ai',
-        'password',
-        'users',
-        'runs_adobe',
-        'runs_vrchat',
         'video_url',
         'code_url',
         'image_url',
@@ -48,7 +41,6 @@ class Collection extends Model
     protected $casts = [
         'purchase_date' => 'date',
         'manufacturing_date' => 'date',
-        'runs_adobe' => 'boolean',
         'custom_fields' => 'array',
     ];
 

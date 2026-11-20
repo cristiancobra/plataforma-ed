@@ -126,40 +126,6 @@
     </div>
 </x-form.section>
 
-<x-form.section title="ESPECIFICAÇÕES TÉCNICAS" icon="fas fa-microchip">
-    <div class="row">
-        <div class="col-md-4">
-            <label class='labels' for='operating_system'>SISTEMA OPERACIONAL:</label>
-            <input type='text' name='operating_system' id='operating_system' class='form-control'
-                value='{{ old('operating_system', $collection->operating_system) }}'>
-        </div>
-        <div class="col-md-4">
-            <label class='labels' for='video_card'>PLACA DE VÍDEO:</label>
-            <input type='text' name='video_card' id='video_card' class='form-control'
-                value='{{ old('video_card', $collection->video_card) }}'>
-        </div>
-        <div class="col-md-4">
-            <label class='labels' for='best_ai'>MELHOR IA:</label>
-            <input type='text' name='best_ai' id='best_ai' class='form-control' value='{{ old('best_ai', $collection->best_ai) }}'>
-        </div>
-    </div>
-    <div class="row mt-3">
-        <div class="col-md-4">
-            <label class='labels' for='users'>USUÁRIOS:</label>
-            <input type='text' name='users' id='users' class='form-control' value='{{ old('users', $collection->users) }}'>
-        </div>
-        <div class="col-md-4">
-            <label class='labels' for='password'>SENHA:</label>
-            <input type='text' name='password' id='password' class='form-control'
-                value='{{ old('password', $collection->password) }}' autocomplete="off">
-        </div>
-        <div class="col-md-4 d-flex gap-4">
-            <x-form.checkbox name="runs_adobe" label="Roda no Adobe" :checked="old('runs_adobe', $collection->runs_adobe)" />
-            <x-form.checkbox name="runs_vrchat" label="Roda no VRChat" :checked="old('runs_vrchat', $collection->runs_vrchat)" />
-        </div>
-    </div>
-</x-form.section>
-
 <x-form.section title="LINKS" icon="fas fa-link">
     <div class="row">
         <div class="col-md-4">

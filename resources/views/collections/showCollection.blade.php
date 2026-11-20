@@ -65,13 +65,6 @@
         })->all();
 
         $specItems = array_values(array_filter([
-            $collection->operating_system ? ['label' => 'SISTEMA OPERACIONAL', 'value' => $collection->operating_system] : null,
-            $collection->video_card ? ['label' => 'PLACA DE VÍDEO', 'value' => $collection->video_card] : null,
-            $collection->best_ai ? ['label' => 'MELHOR IA', 'value' => $collection->best_ai] : null,
-            $collection->users ? ['label' => 'USUÁRIOS', 'value' => $collection->users] : null,
-            $collection->password ? ['label' => 'SENHA', 'value' => $collection->password] : null,
-            $collection->runs_adobe ? ['label' => 'RODA NO ADOBE', 'value' => 'Sim'] : null,
-            $collection->runs_vrchat ? ['label' => 'RODA NO VRCHAT', 'value' => 'Sim'] : null,
             $collection->purchase_date ? ['label' => 'DATA DA COMPRA', 'value' => $collection->purchase_date->format('d/m/Y')] : null,
             $collection->manufacturing_date ? ['label' => 'DATA DE FABRICAÇÃO', 'value' => $collection->manufacturing_date->format('d/m/Y')] : null,
             $collection->video_url ? ['label' => 'URL DO VÍDEO', 'value' => $link($collection->video_url)] : null,
@@ -92,7 +85,7 @@
     @if ($specItems)
         <div class="row mt-5">
             <h4 class="mb-3 fw-bold" style="color: {{ $principalColor }}">
-                ESPECIFICAÇÕES TÉCNICAS
+                AQUISIÇÃO E LINKS
             </h4>
             <x-show.field-grid :items="$specItems" />
         </div>
