@@ -49,7 +49,27 @@ class Collection extends Model
         'purchase_date' => 'date',
         'manufacturing_date' => 'date',
         'runs_adobe' => 'boolean',
+        'custom_fields' => 'array',
     ];
+
+    /**
+     * Grava os valores dos campos personalizados informados no formulário.
+     * Valores de campos que não estão em $fields (de outro tipo ou desativados) são preservados,
+     * para que trocar o tipo do item ou desativar um campo não apague dados.
+     */
+    public function fillCustomFields($fields, array $input): void
+    {
+        $values = $this->custom_fields ?? [];
+        foreach ($fields as $field) {
+            $value = $field->type->normalize($input[$field->key] ?? null);
+            if ($value === null) {
+                unset($values[$field->key]);
+            } else {
+                $values[$field->key] = $value;
+            }
+        }
+        $this->custom_fields = $values ?: null;
+    }
 
     public function account()
     {

@@ -223,6 +223,8 @@
         </div>
     </div>
 
+    <x-custom-fields.form :fields="$customFields" />
+
     <div class="row mt-3">
         <div class="col-md-6">
             <label class='labels' for=''>LOCALIZAÇÃO INICIAL: <span class="text-danger">*</span></label>

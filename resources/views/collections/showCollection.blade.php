@@ -204,6 +204,8 @@
                 </div>
             </div>
 
+            <x-custom-fields.display :fields="$customFields" :values="$collection->custom_fields" />
+
             @if ($collection->video_url || $collection->code_url || $collection->image_url)
                 <div class="row mt-3">
 

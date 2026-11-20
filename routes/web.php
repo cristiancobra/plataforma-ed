@@ -353,6 +353,18 @@ Route::resource('collection-types', 'CollectionTypeController')
         ->middleware('roles');
 
 
+// ================================ ACERVO - CAMPOS PERSONALIZADOS ===================
+Route::put('/campos-acervo/reativar/{collectionField}', 'CollectionFieldController@activate')
+        ->name('collection-field.activate')
+        ->middleware('roles');
+
+Route::resource('campos-acervo', 'CollectionFieldController')
+        ->except(['show'])
+        ->names('collection-field')
+        ->parameters(['campos-acervo' => 'collectionField'])
+        ->middleware('roles');
+
+
 // ================================ ACERVO - GRUPOS DE COLEÇÃO ===================
 Route::resource('collections-group', 'CollectionsGroupController')
         ->names('collections-group')

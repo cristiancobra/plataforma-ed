@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Collection;
+use App\Models\CollectionField;
 use App\Models\CollectionLocation;
 use App\Models\Contact;
 use App\Models\User;
@@ -126,9 +127,11 @@ class CollectionController extends Controller
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
+        $customFields = CollectionField::ofCurrentAccount()->active()->ordered()->get();
 
         return view('collections.createCollection', compact(
             'types',
+            'customFields',
             'status',
             'contactsSelectOptions',
             'collectionsGroupSelectOptions',
@@ -149,6 +152,7 @@ class CollectionController extends Controller
         $collection->fill($data);
         $collection->account_id = auth()->user()->account_id;
         $collection->user_id = auth()->user()->id;
+        $collection->fillCustomFields($request->customFields(), $request->input('custom_fields', []));
         $collection->save();
 
         // Criar localização inicial se fornecida
@@ -176,8 +180,9 @@ class CollectionController extends Controller
     public function show(Collection $collection)
     {
         $collection->load(['user.contact', 'currentLocation.user.contact', 'locations.user.contact', 'collectionsGroup']);
+        $customFields = CollectionField::applicableTo($collection->type_id);
 
-        return view('collections.showCollection', compact('collection'));
+        return view('collections.showCollection', compact('collection', 'customFields'));
     }
 
     /**
@@ -199,9 +204,11 @@ class CollectionController extends Controller
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
+        $customFields = CollectionField::ofCurrentAccount()->active()->ordered()->get();
 
         return view('collections.editCollection', compact(
             'collection',
+            'customFields',
             'categories',
             'types',
             'status',
@@ -230,6 +237,7 @@ class CollectionController extends Controller
             unset($data['status']);
         }
         $collection->fill($data);
+        $collection->fillCustomFields($request->customFields(), $request->input('custom_fields', []));
         $collection->save();
 
         return redirect()->route('collection.show', [$collection])

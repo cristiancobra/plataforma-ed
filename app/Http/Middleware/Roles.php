@@ -347,6 +347,16 @@ class Roles {
                     $permission = true;
                 }
                 break;
+            case 'collection-field.edit':
+            case 'collection-field.update':
+            case 'collection-field.destroy':
+            case 'collection-field.activate':
+                if ($request->route('collectionField')->account_id != auth()->user()->account_id) {
+                    $permission = false;
+                } else {
+                    $permission = true;
+                }
+                break;
             case 'loan.show':
             case 'loan.edit':
             case 'loan.update':

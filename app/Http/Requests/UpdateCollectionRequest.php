@@ -3,10 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\CollectionField;
 use Illuminate\Validation\Rule;
 
 class UpdateCollectionRequest extends FormRequest
 {
+    protected $customFields;
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -26,7 +29,12 @@ class UpdateCollectionRequest extends FormRequest
     {
         $accountId = auth()->user()->account_id;
 
-        return [
+        [$customFieldRules] = CollectionField::validationFor(
+            $this->customFields(),
+            $this->route('collection')->custom_fields
+        );
+
+        return $customFieldRules + [
             'name' => 'required|string|max:255',
             'type_id' => ['required', Rule::exists('collection_types', 'id')->where('account_id', $accountId)],
             'collections_group_id' => ['nullable', Rule::exists('collections_group', 'id')->where('account_id', $accountId)],
@@ -56,6 +64,21 @@ class UpdateCollectionRequest extends FormRequest
             'serial_number' => 'nullable|string|max:255',
             'accessories' => 'nullable|string',
         ];
+    }
+
+    /**
+     * Campos personalizados que valem para o tipo escolhido no formulário.
+     */
+    public function customFields()
+    {
+        return $this->customFields ??= CollectionField::applicableTo($this->input('type_id'));
+    }
+
+    public function attributes()
+    {
+        [, $attributes] = CollectionField::validationFor($this->customFields());
+
+        return $attributes;
     }
 
     public function messages()

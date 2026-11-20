@@ -237,6 +237,11 @@
                 'label' => 'TIPOS DE ACERVO',
                 'route' => route('collection-types.index'),
             ],
+            [
+                'icon' => 'fas fa-sliders-h',
+                'label' => 'CAMPOS DO ACERVO',
+                'route' => route('collection-field.index'),
+            ],
             ['icon' => 'fas fa-file-alt', 'label' => 'DOCUMENTOS', 'route' => route('text.index')],
         ]" />
 

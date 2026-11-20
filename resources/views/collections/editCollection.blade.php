@@ -242,6 +242,8 @@
                 </div>
             </div>
 
+            <x-custom-fields.form :fields="$customFields" :values="$collection->custom_fields" />
+
             <div class="row mt-3">
                 <div class="col-md-12">
                     <label class='labels' for=''>SITUAÇÃO:</label>

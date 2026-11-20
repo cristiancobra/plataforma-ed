@@ -1,0 +1,198 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Enums\CustomFieldType;
+use App\Models\Account;
+use App\Models\Collection as CollectionItem;
+use App\Models\CollectionField;
+use App\Models\CollectionType;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Feature\Concerns\CreatesAuthenticatedUser;
+use Tests\TestCase;
+
+class CollectionCustomFieldsTest extends TestCase
+{
+    use RefreshDatabase;
+    use CreatesAuthenticatedUser;
+
+    private function makeType($accountId, string $name = 'Computador'): CollectionType
+    {
+        return CollectionType::create(['account_id' => $accountId, 'name' => $name, 'category' => 'físico']);
+    }
+
+    private function makeField($accountId, array $attributes): CollectionField
+    {
+        $field = new CollectionField($attributes);
+        $field->account_id = $accountId;
+        $field->key = CollectionField::generateKey($attributes['label'], $accountId);
+        $field->save();
+
+        return $field;
+    }
+
+    private function itemPayload(CollectionType $type, array $customFields = []): array
+    {
+        return [
+            'name' => 'Notebook',
+            'type_id' => $type->id,
+            'initial_location' => 'Sala 1',
+            'status' => 'available',
+            'custom_fields' => $customFields,
+        ];
+    }
+
+    public function test_owner_creates_select_field_with_generated_key(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+
+        $this->post(route('collection-field.store'), [
+            'label' => 'Placa de vídeo',
+            'collection_type_id' => $type->id,
+            'type' => 'select',
+            'options_text' => "RTX 3060\nRTX 4070\n\nRTX 3060",
+            'required' => '1',
+        ])->assertRedirect(route('collection-field.index'));
+
+        $field = CollectionField::first();
+        $this->assertSame('placa_de_video', $field->key);
+        $this->assertSame(CustomFieldType::Select, $field->type);
+        $this->assertSame(['RTX 3060', 'RTX 4070'], $field->options);
+        $this->assertTrue($field->required);
+
+        $this->get(route('collection-field.index'))->assertOk()->assertSee('Placa de vídeo');
+        $this->get(route('collection-field.edit', $field))->assertOk();
+    }
+
+    public function test_select_field_requires_options(): void
+    {
+        $this->loginAsAccountOwner();
+
+        $this->post(route('collection-field.store'), ['label' => 'Cor', 'type' => 'select', 'options_text' => ''])
+            ->assertSessionHasErrors('options');
+    }
+
+    public function test_values_are_validated_normalized_and_displayed(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+        $otherType = $this->makeType($user->account_id, 'Livro');
+
+        $this->makeField($user->account_id, ['label' => 'Valor de mercado', 'type' => 'currency']);
+        $this->makeField($user->account_id, ['label' => 'Roda VRChat', 'type' => 'boolean', 'collection_type_id' => $type->id]);
+        $this->makeField($user->account_id, ['label' => 'Garantia até', 'type' => 'date', 'collection_type_id' => $type->id]);
+        $this->makeField($user->account_id, ['label' => 'Memória (GB)', 'type' => 'number', 'collection_type_id' => $type->id]);
+        $this->makeField($user->account_id, ['label' => 'ISBN', 'type' => 'text', 'required' => true, 'collection_type_id' => $otherType->id]);
+
+        $this->get(route('collection.create'))->assertOk()->assertSee('VALOR DE MERCADO')->assertSee('ISBN');
+
+        // campo inválido é rejeitado com o rótulo do campo na mensagem
+        $this->post(route('collection.store'), $this->itemPayload($type, ['memoria_gb' => 'muito']))
+            ->assertSessionHasErrors('custom_fields.memoria_gb');
+
+        // ISBN é obrigatório, mas só para "Livro": não é exigido num "Computador"
+        $this->post(route('collection.store'), $this->itemPayload($type, [
+            'valor_de_mercado' => '1.234,56',
+            'roda_vrchat' => '1',
+            'garantia_ate' => '2027-03-01',
+            'memoria_gb' => '16,5',
+        ]))->assertSessionHasNoErrors();
+
+        $item = CollectionItem::first();
+        $values = $item->custom_fields;
+        ksort($values);
+        $this->assertSame([
+            'garantia_ate' => '2027-03-01',
+            'memoria_gb' => 16.5,
+            'roda_vrchat' => true,
+            'valor_de_mercado' => 1234.56,
+        ], $values);
+
+        $this->get(route('collection.show', $item))->assertOk()
+            ->assertSee('R$ 1.234,56')
+            ->assertSee('01/03/2027')
+            ->assertSee('16,5')
+            ->assertDontSee('ISBN');
+
+        $this->get(route('collection.edit', $item))->assertOk()->assertSee('1.234,56', false);
+    }
+
+    public function test_changing_item_type_preserves_values_of_other_type_fields(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $computer = $this->makeType($user->account_id);
+        $book = $this->makeType($user->account_id, 'Livro');
+        $this->makeField($user->account_id, ['label' => 'Placa', 'type' => 'text', 'collection_type_id' => $computer->id]);
+
+        $this->post(route('collection.store'), $this->itemPayload($computer, ['placa' => 'RTX']));
+        $item = CollectionItem::first();
+
+        $payload = $this->itemPayload($book);
+        unset($payload['initial_location']);
+        $this->put(route('collection.update', $item), $payload)->assertSessionHasNoErrors();
+
+        $this->assertSame(['placa' => 'RTX'], $item->fresh()->custom_fields);
+    }
+
+    public function test_type_change_is_blocked_when_field_has_values(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+        $field = $this->makeField($user->account_id, ['label' => 'Ano', 'type' => 'number']);
+
+        $this->post(route('collection.store'), $this->itemPayload($type, ['ano' => '2020']));
+
+        $this->put(route('collection-field.update', $field), ['label' => 'Ano', 'type' => 'date'])
+            ->assertSessionHasErrors('type');
+
+        // compatível (não reinterpreta dados) continua permitido
+        $text = $this->makeField($user->account_id, ['label' => 'Obs', 'type' => 'text']);
+        $this->put(route('collection-field.update', $text), ['label' => 'Observações', 'type' => 'textarea'])
+            ->assertSessionHasNoErrors();
+        $this->assertSame('obs', $text->fresh()->key);
+    }
+
+    public function test_deactivating_hides_field_but_keeps_values(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+        $field = $this->makeField($user->account_id, ['label' => 'Cor', 'type' => 'text']);
+        $this->post(route('collection.store'), $this->itemPayload($type, ['cor' => 'Azul']));
+        $item = CollectionItem::first();
+
+        $this->delete(route('collection-field.destroy', $field))->assertRedirect();
+        $this->assertFalse($field->fresh()->active);
+        $this->get(route('collection.create'))->assertDontSee('COR:');
+
+        $payload = $this->itemPayload($type);
+        unset($payload['initial_location']);
+        $this->put(route('collection.update', $item), $payload);
+        $this->assertSame(['cor' => 'Azul'], $item->fresh()->custom_fields);
+
+        $this->put(route('collection-field.activate', $field));
+        $this->get(route('collection.show', $item))->assertSee('Azul');
+    }
+
+    public function test_fields_of_another_account_are_not_accessible(): void
+    {
+        $this->loginAsAccountOwner();
+        $other = Account::create([
+            'name' => 'Outra', 'city' => 'X', 'state' => 'XX', 'country' => 'Brasil',
+            'status' => 'ativo', 'due_date' => now()->addYear(),
+        ]);
+        $field = $this->makeField($other->id, ['label' => 'Segredo', 'type' => 'text']);
+
+        $this->get(route('collection-field.edit', $field))->assertForbidden();
+        $this->get(route('collection-field.index'))->assertDontSee('Segredo');
+    }
+
+    public function test_employee_cannot_manage_fields(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $user->perfil = 'funcionário';
+        $user->save();
+
+        $this->get(route('collection-field.index'))->assertForbidden();
+    }
+}
