@@ -704,5 +704,3 @@
 
 
 
-    @section('workflow')
-    @endsection

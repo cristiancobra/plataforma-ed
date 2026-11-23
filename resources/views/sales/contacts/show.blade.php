@@ -474,21 +474,3 @@
 
 
 
-@section('workflow')
-    <div class='row'>
-        <div class='col'>
-            <button id='' class='workflow-button-red' title='Encerrar tarefa com a data atual' type='submit'>
-                <a style='text-decoration: none;color: white;display: inline-block'
-                    href="{{ route('task.create', [
-                        'contact' => $contact,
-                        'name' => "Vender para $contact->first_name",
-                        'department' => 'vendas',
-                    ]) }}">
-                    <i class="fas fa-funnel-dollar" style="font-size:30px; color:white;padding-bottom: 10px"></i>
-                    <br>
-                    CRIAR OPORTUNIDADE
-                </a>
-            </button>
-        </div>
-    </div>
-@endsection
