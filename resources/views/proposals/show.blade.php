@@ -12,7 +12,6 @@
 
 @section('buttons')
 
-    <x-buttons.trash :object="$proposal" model="proposal" />
     @if ($invoicesCount < 1)
         <x-buttons.icon-form icon="fas fa-file-invoice-dollar" title="Gerar faturas dos pagamentos"
             :action="route('proposal.generateInstallment', ['proposal' => $proposal])" :principalColor="$principalColor" />
@@ -21,6 +20,10 @@
     <x-buttons.email :object="$proposal" model="proposal" route="proposal.pdf" :principalColor="$principalColor" />
     <x-buttons.edit model="proposal" :object="$proposal" parameter2="type" :value2="$type" :principalColor="$principalColor" />
     <x-buttons.list model="proposal" parameter="type" :value="$type" :principalColor="$principalColor" />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$proposal" model="proposal" />
 @endsection
 
 @if ($proposal->name)

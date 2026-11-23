@@ -14,9 +14,12 @@
 @endsection
 
 @section('buttons')
-    <x-buttons.trash :object="$collection" model="collection" />
     <x-buttons.edit model="collection" :object="$collection" :principalColor="$principalColor" />
     <x-buttons.list model="collection" :object="$collection" :principalColor="$principalColor" />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$collection" model="collection" />
 @endsection
 
 @section('name', $collection->name)

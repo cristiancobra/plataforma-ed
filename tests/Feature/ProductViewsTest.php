@@ -37,7 +37,10 @@ class ProductViewsTest extends TestCase
                 ->assertOk()->assertDontSee("Item $variation")->assertSee('encontrado(s)');
             $this->get(route('product.create', ['variation' => $variation]))->assertOk()->assertSee('IDENTIFICAÇÃO');
             $this->get(route('product.edit', ['product' => $product, 'variation' => $variation]))->assertOk();
-            $this->get(route("product.show", ["product" => $product, "variation" => $variation]))->assertOk()->assertSee("fa-gifts", false);
+            $this->get(route("product.show", ["product" => $product, "variation" => $variation]))->assertOk()->assertSee("fa-gifts", false)->assertSee("fa-trash", false);
+            $html = $this->get(route("product.show", ["product" => $product, "variation" => $variation]))->getContent();
+            $this->assertSame(1, substr_count($html, "fa-trash"), "lixeira deve aparecer uma vez (rodapé)");
+            $this->assertGreaterThan(strpos($html, "fa-gifts"), strpos($html, "fa-trash"));
         }
     }
 }

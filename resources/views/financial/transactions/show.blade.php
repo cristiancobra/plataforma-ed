@@ -8,9 +8,12 @@
 
 @section('buttons')
 
-    <x-buttons.trash :object="$transaction" model="transaction" />
     <x-buttons.edit model="transaction" :object="$transaction" parameter2="typeTransactions" :value2="$transaction->type" />
     <x-buttons.list model='transaction' :principalColor=$principalColor ?? null />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$transaction" model="transaction" />
 @endsection
 
 @section('name')

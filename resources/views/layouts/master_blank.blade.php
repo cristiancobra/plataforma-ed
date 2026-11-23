@@ -35,7 +35,7 @@
                 </div>
 
                 <div
-                    style='border-style: solid;border-width: 0.8px;border-color: #c28dbf;border-radius: 10px;background-color: white;padding: 20px;margin: 20px;margin-top:10px'>
+                    style='border-style: solid;border-width: 0.8px;border-color: {{ $principalColor ?? '#c28dbf' }};border-radius: 10px;background-color: white;padding: 20px;margin: 20px;margin-top:10px'>
                     <div class='col-lg-12 px-2'>
                         @yield('main')
                     </div>

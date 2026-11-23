@@ -13,10 +13,13 @@
             <i class="fa fa-check"></i> REGISTRAR DEVOLUÇÃO
         </button>
     @endif
-    <x-buttons.trash :object="$loan" model="loan" />
     <x-buttons.pdf :object="$loan" model="loan" :principalColor="$principalColor" />
     <x-buttons.edit model="loan" :object="$loan" :principalColor="$principalColor" />
     <x-buttons.list model="loan" :object="$loan" :principalColor="$principalColor" />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$loan" model="loan" />
 @endsection
 
 @section('name', 'Empréstimo #' . $loan->id)

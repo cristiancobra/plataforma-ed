@@ -9,9 +9,12 @@
 @section('buttons')
     <x-buttons.pdf :object="$invoice" model="invoice" :principalColor="$principalColor" />
     <x-buttons.email :object="$invoice" model="invoice" route="invoice.email" :principalColor="$principalColor" />
-    <x-buttons.trash :object="$invoice" model="invoice" />
     <x-buttons.edit model="invoice" :object="$invoice" :principalColor="$principalColor" />
     <x-buttons.list model="invoice" parameter="typeInvoices" :value="$typeInvoices" :principalColor="$principalColor" />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$invoice" model="invoice" />
 @endsection
 
 @if ($invoice->opportunity)

@@ -22,9 +22,12 @@
         <x-buttons.icon-form icon="fas fa-clipboard-check" title="Concluir tarefa com a data atual"
             :action="route('task.complete', ['task' => $task])" :principalColor="$principalColor" />
     @endif
-    <x-buttons.trash :object="$task" model="task" />
     <x-buttons.edit model="task" :object="$task" />
     <x-buttons.list model='task' :principalColor=$principalColor ?? null />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$task" model="task" />
 @endsection
 
 @section('name', $task->name)

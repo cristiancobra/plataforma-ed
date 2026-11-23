@@ -25,6 +25,11 @@
 @endsection
 
 @section('buttons')
+    <x-buttons.edit model="company" :object="$company" parameter2="typeCompanies" :value2="$company->type" :principalColor="$principalColor" />
+    <x-buttons.list model="company" parameter="typeCompanies" :value="$company->type" :principalColor="$principalColor" />
+@endsection
+
+@section('trash')
     <form class="d-inline-block" action="{{ route('company.destroy', $company) }}" method="post"
         onsubmit="return confirm('Tem certeza que deseja apagar esta organização? Esta ação não pode ser desfeita.')">
         @csrf
@@ -34,8 +39,6 @@
             <i class="fa fa-trash"></i>
         </button>
     </form>
-    <x-buttons.edit model="company" :object="$company" parameter2="typeCompanies" :value2="$company->type" :principalColor="$principalColor" />
-    <x-buttons.list model="company" parameter="typeCompanies" :value="$company->type" :principalColor="$principalColor" />
 @endsection
 
 @section('name', $company->name)

@@ -27,6 +27,11 @@
 @endsection
 
 @section('buttons')
+    <x-buttons.edit model="contact" :object="$contact" :principalColor="$principalColor" />
+    <x-buttons.list model="contact" :principalColor="$principalColor" />
+@endsection
+
+@section('trash')
     <form class="d-inline-block" action="{{ route('contact.destroy', $contact) }}" method="post"
         onsubmit="return confirm('Tem certeza que deseja apagar este contato? Esta ação não pode ser desfeita.')">
         @csrf
@@ -36,8 +41,6 @@
             <i class="fa fa-trash"></i>
         </button>
     </form>
-    <x-buttons.edit model="contact" :object="$contact" :principalColor="$principalColor" />
-    <x-buttons.list model="contact" :principalColor="$principalColor" />
 @endsection
 
 @section('name', $contact->name)

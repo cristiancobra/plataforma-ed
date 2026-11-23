@@ -7,9 +7,12 @@
 @endsection
 
 @section('buttons')
-    <x-buttons.trash :object="$goal" model="goal" />
     <x-buttons.edit model="goal" :object="$goal" />
     <x-buttons.list model='goal' :principalColor=$principalColor ?? null />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$goal" model="goal" />
 @endsection
 
 @section('name', $goal->name)

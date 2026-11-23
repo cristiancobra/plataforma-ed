@@ -7,9 +7,12 @@
 @endsection
 
 @section('buttons')
-    <x-buttons.trash :object="$planning" model="planning" />
     <x-buttons.edit model="planning" :object="$planning" />
     <x-buttons.list model='planning' :principalColor=$principalColor ?? null />
+@endsection
+
+@section('trash')
+    <x-buttons.trash :object="$planning" model="planning" />
 @endsection
 
 @section('name', $planning->name)

@@ -27,7 +27,7 @@
                 <x-alerts />
 
 
-                <section id='white-page' class='white-page' style="margin-right:200px ">
+                <section id='white-page' class='white-page'>
                     <div id="app">
                         <div class='row d-flex mt-4'>
                             <div class='col-8'>
@@ -75,7 +75,15 @@
                     @yield('main')
                     @yield('attachments')
                 </section>
-                @include('layouts.footer')
+                {{-- Rodapé: lixeira (apagar) só aqui, à esquerda; ações à direita --}}
+                <div class='row mt-5 mb-5 align-items-center'>
+                    <div class="col-4 d-flex justify-content-start gap-1">
+                        @yield('trash')
+                    </div>
+                    <div class="col-8 gap-1 d-flex justify-content-end">
+                        @yield('buttons')
+                    </div>
+                </div>
                 @yield('createdAt')
             </div>
     </div>
