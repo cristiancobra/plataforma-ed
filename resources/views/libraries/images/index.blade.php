@@ -9,22 +9,17 @@
 
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'image'" />
-    <x-buttons.filter />
-    <a class="circular-button primary" href="{{ route('image.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="image" :principalColor="$principalColor" />
 @endsection
 
 @section('filter')
-    <form id='filter' action='{{ route('image.index') }}' method='get' style='text-align: right'>
-        <input type='text' name='name' placeholder='nome' value=''>
-        {{ createFilterSelect('type', 'select', $types) }}
-        <br>
-        <a class='text-button secondary' href='{{ route('image.index') }}'>
-            LIMPAR
-        </a>
-        <input class='text-button primary' type='submit' value='FILTRAR'>
-    </form>
+    <x-table.filter :action="route('image.index')" :reset-url="route('image.index')" :total-filtered="$images->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome" />
+        <x-filter.select name="type" :options="$types" placeholder="Todos os tipos" />
+    </x-table.filter>
 @endsection
 
 @section('shortcuts')
@@ -95,4 +90,6 @@
     <br>
 @endsection
 
-@section('paginate', $images->links())
+@section('pagination')
+    <div class="mt-3">{{ $images->appends(request()->query())->links() }}</div>
+@endsection

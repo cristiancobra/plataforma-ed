@@ -7,7 +7,6 @@
 @endsection
 
 @section('buttons')
-    <x-buttons.filter />
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'project'" />
 
     <x-buttons.create model="project" />
@@ -16,19 +15,16 @@
 
 
 @section('filter')
-    <form id="filter" action="{{ route('project.index') }}" method="get" style="text-align: right;display:none">
-        @csrf
-        <input type="text" name="name" placeholder="nome da oportunidade" value="">
-        {{ createFilterSelectModels('contact_id', 'select', $contacts, 'Todos os contatos') }}
-        {{ createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas') }}
-        {{ createSelectUsers('select', $users, 'Todos os usuários') }}
-        {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
-        <br>
-        <a class="btn btn-secondary" href='{{ route('project.index') }}'>
-            LIMPAR
-        </a>
-        <input class="btn btn-primary" type="submit" value="FILTRAR">
-    </form>
+    <x-table.filter :action="route('project.index')" :reset-url="route('project.index')" :total-filtered="$projects->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome do projeto" />
+        <x-filter.select name="contact_id" :options="$contacts->pluck('name', 'id')->all()" placeholder="Todos os contatos" />
+        <x-filter.select name="company_id" :options="$companies->pluck('name', 'id')->all()" placeholder="Todas as organizações" />
+        <x-filter.select name="user_id" :options="$users->mapWithKeys(fn ($u) => [$u->id => optional($u->contact)->name])->all()" placeholder="Todos os usuários" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+    </x-table.filter>
 @endsection
 
 
@@ -203,7 +199,9 @@
 @endsection
 
 
-@section('paginate', $projects->links())
+@section('pagination')
+    <div class="mt-3">{{ $projects->appends(request()->query())->links() }}</div>
+@endsection
 
 
 @section('js-scripts')

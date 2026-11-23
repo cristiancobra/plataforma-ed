@@ -7,22 +7,19 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonFilter() }}
     <x-buttons.create model="systemText" />
 @endsection
 
 
 @section('filter')
-    <form id="filter" action="{{ route('systemText.index') }}" method="get" style="text-align: right">
-        <input type="text" name="name" placeholder="nome da tarefa" value="">
-        {{ createFilterSelect('department', 'select', $departments, 'Todos departamentos') }}
-        {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
-        <br>
-        <a class="text-button secondary" href='{{ route('systemText.index') }}'>
-            LIMPAR
-        </a>
-        <input class="text-button primary" type="submit" value="FILTRAR">
-    </form>
+    <x-table.filter :action="route('systemText.index')" :reset-url="route('systemText.index')" :total-filtered="$tutorials->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome" />
+        <x-filter.select name="department" :options="$departments" placeholder="Todos os departamentos" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+    </x-table.filter>
 @endsection
 
 
@@ -67,7 +64,9 @@
     @endforeach
 @endsection
 
-@section('paginate', $tutorials->links())
+@section('pagination')
+    <div class="mt-3">{{ $tutorials->appends(request()->query())->links() }}</div>
+@endsection
 
 @section('js-scripts')
 @endsection

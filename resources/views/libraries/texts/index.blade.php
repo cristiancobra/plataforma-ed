@@ -8,23 +8,20 @@
 
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'text'" />
-    <x-buttons.filter />
     <x-buttons.create model="text" />
 @endsection
 
 
 @section('filter')
-    <form id="filter" action="{{ route('text.index') }}" method="get" style="text-align: right">
-        <input type="text" name="name" placeholder="nome do documento" value="">
-        {{ createFilterSelect('department', 'select', $departments, 'Todos departamentos') }}
-        {{ createSelectUsers('select', $users, 'Todos os usuários') }}
-        {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
-        <br>
-        <a class="text-button secondary" href='{{ route('text.index') }}'>
-            LIMPAR
-        </a>
-        <input class="text-button primary" type="submit" value="FILTRAR">
-    </form>
+    <x-table.filter :action="route('text.index')" :reset-url="route('text.index')" :total-filtered="$texts->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome do documento" />
+        <x-filter.select name="department" :options="$departments" placeholder="Todos os departamentos" />
+        <x-filter.select name="user_id" :options="$users->mapWithKeys(fn ($u) => [$u->id => optional($u->contact)->name])->all()" placeholder="Todos os usuários" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+    </x-table.filter>
 @endsection
 
 
@@ -272,7 +269,9 @@
     @endforeach
 @endsection
 
-@section('paginate', $texts->links())
+@section('pagination')
+    <div class="mt-3">{{ $texts->appends(request()->query())->links() }}</div>
+@endsection
 
 @section('js-scripts')
 @endsection

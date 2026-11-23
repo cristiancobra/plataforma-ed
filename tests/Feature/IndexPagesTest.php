@@ -22,6 +22,11 @@ class IndexPagesTest extends TestCase
             'propostas' => ['proposal.index', ['type' => 'receita']],
             'faturas' => ['invoice.index', []],
             'transacoes' => ['transaction.index', []],
+            'metas' => ['goal.index', []],
+            'projetos' => ['project.index', []],
+            'imagens' => ['image.index', []],
+            'documentos' => ['text.index', []],
+            'textos do sistema' => ['systemText.index', []],
         ];
     }
 

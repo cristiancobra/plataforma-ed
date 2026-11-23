@@ -8,25 +8,19 @@
 
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'goal'" />
-    <x-buttons.filter />
     <x-buttons.create model="goal" />
 @endsection
 
 
 @section('filter')
-    <form id="filter" action="{{ route('goal.index') }}" method="get" style="text-align: right">
-        <div class="mb-3">
-            <input type="text" name="name" placeholder="nome da tarefa" value="">
-            {{ createFilterSelect('department', 'select', $departments, 'Todos departamentos') }}
-            {{ createFilterSelect('status', 'select', $status, 'Todas as situações') }}
-        </div>
-        <div>
-            <a class="text-button secondary" href='{{ route('goal.index') }}'>
-                LIMPAR
-            </a>
-            <input class="text-button primary" type="submit" value="FILTRAR">
-        </div>
-    </form>
+    <x-table.filter :action="route('goal.index')" :reset-url="route('goal.index')" :total-filtered="$goals->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome da meta" />
+        <x-filter.select name="department" :options="$departments" placeholder="Todos os departamentos" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+    </x-table.filter>
 @endsection
 
 
@@ -91,7 +85,9 @@
     @endforeach
 @endsection
 
-@section('paginate', $goals->links())
+@section('pagination')
+    <div class="mt-3">{{ $goals->appends(request()->query())->links() }}</div>
+@endsection
 
 @section('js-scripts')
 @endsection
