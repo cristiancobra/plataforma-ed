@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreProductRequest extends FormRequest
 {
@@ -24,7 +25,11 @@ class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|unique:products,name',
+            'name' => [
+                'required',
+                // nome único apenas dentro da conta (multi-tenant)
+                Rule::unique('products', 'name')->where('account_id', auth()->user()->account_id),
+            ],
             'price' => ['required', 'regex:/^(R\$\s?)?\d{1,3}(\.?\d{3})*(,\d{1,2})?$/'],
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:50000',
         ];
