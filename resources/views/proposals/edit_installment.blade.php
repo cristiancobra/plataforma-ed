@@ -26,6 +26,10 @@
         <x-buttons.save :principalColor="$principalColor" formId="installment-form" />
     @endsection
 
+    @section('header_buttons')
+        <x-buttons.list model="proposal" :principalColor="$principalColor" />
+    @endsection
+
 
     @section('name')
         {{ $proposal->name }}

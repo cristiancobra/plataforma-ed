@@ -23,7 +23,16 @@
         <main class='main2'>
             @yield('form_start')
             <header class='row pb-3'>
-                @include('layouts.header')
+                {{-- Cabeçalho: título + atalhos (header_buttons, ex.: ir para a lista). Cancelar/Salvar ficam só no rodapé. --}}
+                <div class="col-8" style="font-size: 32px">
+                    <span style="font-size: 30px; margin-top: -7px; display: inline-block;">
+                        @yield('image-top')
+                    </span>
+                    @yield('title')
+                </div>
+                <div class="col-4 gap-1 d-flex justify-content-end" style="text-align: right">
+                    @yield('header_buttons')
+                </div>
             </header>
 
 
@@ -243,14 +252,21 @@
                     @yield('images')
                 </div>
 
-                @include('layouts.footer')
+                {{-- Cancelar/Salvar: uma única vez, no rodapé (depois dos anexos, quando houver) --}}
+                @unless (View::hasSection('attachments'))
+                    <div class='row mt-5 mb-5'>
+                        <div class="col-12 d-flex justify-content-end gap-2">
+                            @yield('buttons')
+                        </div>
+                    </div>
+                @endunless
                 </form>
 
                 <div class="row mt-5">
                     @yield('attachments')
                 </div>
 
-                {{-- Botões duplicados no rodapé quando há attachments --}}
+                {{-- Cancelar/Salvar após os anexos (a página com anexos não os mostra antes) --}}
                 @hasSection('attachments')
                     <div class='row mt-5 mb-5'>
                         <div class="col-12 d-flex justify-content-end gap-2">

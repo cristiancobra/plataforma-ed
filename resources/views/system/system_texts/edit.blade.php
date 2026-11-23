@@ -18,6 +18,10 @@
         <x-buttons.save :principalColor="$principalColor" />
     @endsection
 
+    @section('header_buttons')
+        <x-buttons.list model="systemText" :principalColor="$principalColor" />
+    @endsection
+
     @section('name')
         NOME:
         <input type='systemText' name='name' size='60' style="margin-left: 10px" value='{{ $systemText->name }}'>

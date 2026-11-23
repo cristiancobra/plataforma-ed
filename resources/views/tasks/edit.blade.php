@@ -18,6 +18,10 @@
         <x-buttons.save :principalColor="$principalColor" />
     @endsection
 
+    @section('header_buttons')
+        <x-buttons.list model="task" :principalColor="$principalColor" />
+    @endsection
+
 
     @section('name')
         NOME:

@@ -25,6 +25,10 @@
         <x-buttons.save :principalColor="$principalColor" />
     @endsection
 
+    @section('header_buttons')
+        <x-buttons.list model="invoice" :principalColor="$principalColor" />
+    @endsection
+
 
     @section('name')
         NOME:
