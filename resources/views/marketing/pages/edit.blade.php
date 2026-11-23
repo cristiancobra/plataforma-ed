@@ -260,7 +260,7 @@
                                 <br>
                                 <br>
                                 <a class='circular-button primary' title='editar o texto'
-                                    href='{{ route('text.edit', ['text' => $about->id]) }}'>
+                                    href='{{ route('text.edit', ['text' => $about]) }}'>
                                     <i class='fa fa-edit' aria-hidden='true'></i>
                                 </a>
                             </p>

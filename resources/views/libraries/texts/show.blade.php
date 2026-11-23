@@ -131,7 +131,7 @@
 @endsection
 
 
-@section('editButton', route('text.edit', ['text' => $text->id]))
+@section('editButton', route('text.edit', ['text' => $text]))
 
 @section('backButton', route('text.index'))
 

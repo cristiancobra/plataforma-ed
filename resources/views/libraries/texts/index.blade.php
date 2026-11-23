@@ -48,7 +48,7 @@
     ]" />
     @foreach ($businessModel as $item)
         @forelse ($item['texts'] as $text)
-            <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.edit', ['text' => $text->id]) }}">
+            <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.edit', ['text' => $text]) }}">
                 <div class="col-3 fw-bold">
                     @if ($loop->first)
                         {{ $item['label'] }}
@@ -95,7 +95,7 @@
         ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
     ]" />
     @foreach ($texts as $text)
-        <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.show', ['text' => $text->id]) }}">
+        <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.show', ['text' => $text]) }}">
             <div class="col-4 fw-bold small">
                 {{ $text->name }}
             </div>
