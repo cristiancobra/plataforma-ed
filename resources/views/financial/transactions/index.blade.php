@@ -12,20 +12,10 @@
 
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'transaction'" />
-    <x-buttons.filter />
-    <a id='export' class='circular-button secondary' href='{{ route('transaction.export') }}'>
-        <i class='fa fa-table' aria-hidden='true'></i>
-    </a>
-    <a class='circular-button secondary'
-        href='{{ route('transaction.createTransfer', ['typeTransactions' => 'transferência']) }}'>
-        <i class='fas fa-sync'></i>
-    </a>
-    <a class='circular-button secondary' href='{{ route('transaction.create', ['typeTransactions' => 'despesa']) }}'>
-        <i class='fas fa-minus'></i>
-    </a>
-    <a class='circular-button primary' href='{{ route('transaction.create', ['typeTransactions' => 'receita']) }}'>
-        <i class='fas fa-plus'></i>
-    </a>
+    <x-buttons.icon icon="fa fa-table" title="Exportar" :href="route('transaction.export')" :principalColor="$principalColor" />
+    <x-buttons.icon icon="fas fa-sync" title="Nova transferência" :href="route('transaction.createTransfer', ['typeTransactions' => 'transferência'])" :principalColor="$principalColor" />
+    <x-buttons.icon icon="fas fa-minus" title="Nova despesa" :href="route('transaction.create', ['typeTransactions' => 'despesa'])" :principalColor="$principalColor" />
+    <x-buttons.icon icon="fas fa-plus" title="Nova receita" :href="route('transaction.create', ['typeTransactions' => 'receita'])" :principalColor="$principalColor" />
 @endsection
 
 @section('shortcuts')
@@ -76,72 +66,22 @@
     </div>
 @endsection
 
+@section('filter')
+    <x-table.filter :action="route('transaction.index')" :reset-url="route('transaction.index')" :total-filtered="$transactions->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome" />
+        <x-filter.input name="date_start" type="date" title="Data inicial" />
+        <x-filter.input name="date_end" type="date" title="Data final" />
+        <x-filter.select name="company_id" :options="$companies->pluck('name', 'id')->all()" placeholder="Todas as organizações" />
+        <x-filter.select name="contact_id" :options="$contacts->pluck('name', 'id')->all()" placeholder="Todos os contatos" />
+        <x-filter.select name="bank_account_id" :options="$bankAccounts->pluck('name', 'id')->all()" placeholder="Todas as contas" />
+        <x-filter.select name="type" :options="$types" placeholder="Todos os tipos" />
+    </x-table.filter>
+@endsection
+
 @section('table')
-    <form id='filter' action='{{ route('transaction.index') }}' method='get'display:none'>
-        @csrf
-        <div class="row">
-            <div class="col">
-                <label class='labels' for='name'>
-                    NOME
-                </label>
-                <input type='text' name='name' placeholder='nome da oportunidade'style="width:100%" value=''>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-2">
-                <label class='labels' for='date_start'>
-                    INÍCIO
-                </label>
-                <br>
-                <input type='date' name='date_start' size='20' value='{{ old('date_start') }}'><span
-                    class='fields'></span>
-            </div>
-            <div class="col-2">
-                <label class='labels' for='date_end'>
-                    FIM
-                </label>
-                <br>
-                <input type='date' name='date_end' size='20' value='{{ old('date_end') }}'><span
-                    class='fields'></span>
-            </div>
-            <div class="col-2">
-                <label class='labels' for='company_id'>
-                    ORGANIZAÇÕES
-                </label>
-                <br>
-                {{ createFilterSelectModels('company_id', 'select', $companies, 'todas') }}
-            </div>
-            <div class="col-2">
-                <label class='labels' for='contact_id'>
-                    CONTATO
-                </label>
-                <br>
-                {{ createFilterSelectModels('contact_id', 'select', $contacts, 'todas') }}
-            </div>
-            <div class="col-2">
-                <label class='labels' for='bank_account_id'>
-                    CONTA BANCÁRIA
-                </label>
-                <br>
-                {{ createFilterSelectModels('bank_account_id', 'select', $bankAccounts, 'todas') }}
-            </div>
-            <div class="col-2">
-                <label class='labels' for='type'>
-                    TIPO
-                </label>
-                <br>
-                {{ createFilterSelect('type', 'select', $types, 'todos') }}
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col d-flex justify-content-end">
-                <a class='text-button secondary' href='{{ route('transaction.index') }}'>
-                    LIMPAR
-                </a>
-                <input class='text-button primary' type='submit' value='FILTRAR'>
-            </div>
-        </div>
-    </form>
     <div class='row  table-header mt-5 mb-2' style="background-color: {{ $complementaryColor }}">
         <div class='col-2'>
             DATA
@@ -247,4 +187,6 @@
 
 @endsection
 
-@section('paginate', $transactions->links())
+@section('pagination')
+    <div class="mt-3">{{ $transactions->appends(request()->query())->links() }}</div>
+@endsection

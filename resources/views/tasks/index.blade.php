@@ -65,31 +65,18 @@
 
 
 @section('filter')
-    <form id="filter" action="{{ route('task.index') }}" method="get" class="mb-4">
-        <div class="row g-2 align-items-end p-3 mb-4 shadow-sm rounded" style="border-color: {{ $oppositeColor }};">
-            <div class="col-md-3 col-12 mb-2 mb-md-0">
-                <input class="form-control" type="text" name="name" placeholder="Filtrar por nome" value="">
-            </div>
-            <div class="col-md-7 col-12 mb-2 mb-md-0 d-flex flex-wrap gap-2">
-                <div class="flex-fill">{{ createFilterSelect('department', 'select', $departments, 'departamento') }}</div>
-                <div class="flex-fill">{{ createFilterSelectModels('contact_id', 'select', $contacts, 'contato') }}</div>
-                <div class="flex-fill">{{ createFilterSelectModels('company_id', 'select', $companies, 'empresa') }}</div>
-                <div class="flex-fill">{{ createSelectUsers('select', $users, 'usuário') }}</div>
-                <div class="flex-fill">{{ createFilterSelect('priority', 'select', $priorities, 'prioridade') }}</div>
-                <div class="flex-fill">{{ createFilterSelect('status', 'select', $status, 'situação') }}</div>
-            </div>
-            <div class="col-md-2 col-12 d-flex gap-2 justify-content-md-end justify-content-start mt-2 mt-md-0">
-                <a class="btn btn-outline-secondary d-flex align-items-center justify-content-center"
-                    title="Remover filtros" href="{{ route('task.index') }}">
-                    <i class="fa fa-ban" aria-hidden="true"></i>
-                </a>
-                <button class="btn btn-primary d-flex align-items-center justify-content-center" type="submit"
-                    title="Aplicar filtros" value="FILTRAR">
-                    <i class="fa fa-filter" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-    </form>
+    <x-table.filter :action="route('task.index')" :reset-url="route('task.index')" :total-filtered="$tasks->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome da tarefa" />
+        <x-filter.select name="department" :options="$departments" placeholder="Todos os departamentos" />
+        <x-filter.select name="contact_id" :options="$contacts->pluck('name', 'id')->all()" placeholder="Todos os contatos" />
+        <x-filter.select name="company_id" :options="$companies->pluck('name', 'id')->all()" placeholder="Todas as organizações" />
+        <x-filter.select name="user_id" :options="$users->mapWithKeys(fn ($u) => [$u->id => optional($u->contact)->name])->all()" placeholder="Todos os usuários" />
+        <x-filter.select name="priority" :options="$priorities" placeholder="Todas as prioridades" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
+    </x-table.filter>
 @endsection
 
 
@@ -144,4 +131,6 @@
     @endforeach
 @endsection
 
-@section('paginate', $tasks->links())
+@section('pagination')
+    <div class="mt-3">{{ $tasks->appends(request()->query())->links() }}</div>
+@endsection

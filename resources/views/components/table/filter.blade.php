@@ -8,6 +8,14 @@
     'totalTotal' => null,
 ])
 
+@php
+    // Sem $filtersActive/$totalTotal vindos do controller: deduz da query e usa o total filtrado.
+    $filtersActive ??= collect(request()->except(['page', 'trash', 'role', 'variation']))
+        ->filter(fn ($v) => !is_null($v) && !is_array($v) && trim($v) !== '')
+        ->isNotEmpty();
+    $totalTotal ??= $totalFiltered;
+@endphp
+
 <form action="{{ $action }}" method="{{ $method }}" class="mb-4" id="filter">
     <div class="row g-2 align-items-end p-3 mb-4 shadow-sm rounded border-3"
         style="border-color: {{ $oppositeColor ?? '#f8f9fa' }};">

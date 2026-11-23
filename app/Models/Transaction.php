@@ -57,7 +57,7 @@ class Transaction extends Model {
         $transactions = Transaction::where(function ($query) use ($request) {
                     $query->where('account_id', auth()->user()->account_id);
                     if ($request->name) {
-                        $query->whereHas('opportunity', function ($query) use ($request) {
+                        $query->whereHas('invoice.opportunity', function ($query) use ($request) {
                             $query->where('name', 'like', "%$request->name%");
                         });
                     }

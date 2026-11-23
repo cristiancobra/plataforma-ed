@@ -7,39 +7,24 @@
 @endsection
 
 @section('filter')
-    <form id="filter" action="{{ route('invoice.index') }}" method="get" style="text-align: right;display:none">
-        <input type="text" name="name" placeholder="nome da oportunidade" value="">
-        <input type="date" name="date_start" size="20" value="{{ old('date_start') }}">
-        <input type="date" name="date_end" size="20" value="{{ old('date_end') }}">
-        {{ createFilterSelectModels('company_id', 'select', $companies, 'Todas as empresas') }}
-        {{ createFilterSelectModels('contact_id', 'select', $contacts, 'Todas os contatos') }}
-        {{ createFilterSelect('status', 'select', returnInvoiceStatusToFilter(), 'Todas as situações') }}
-        {{ returnType('type', 'select', 'invoice') }}
-        <br>
-        <a class="text-button secondary" href='{{ route('invoice.index') }}'>
-            LIMPAR
-        </a>
-        <input class="text-button primary" type="submit" value="FILTRAR">
-    </form>
+    <x-table.filter :action="route('invoice.index')" :reset-url="route('invoice.index')" :total-filtered="$invoices->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome da proposta" />
+        <x-filter.input name="date_start" type="date" title="Data inicial" />
+        <x-filter.input name="date_end" type="date" title="Data final" />
+        <x-filter.select name="company_id" :options="$companies->pluck('name', 'id')->all()" placeholder="Todas as organizações" />
+        <x-filter.select name="contact_id" :options="$contacts->pluck('name', 'id')->all()" placeholder="Todos os contatos" />
+        <x-filter.select name="status" :options="returnInvoiceStatusToFilter()" placeholder="Todas as situações" />
+        <x-filter.select name="type" :options="['receita', 'despesa']" placeholder="Todos os tipos" />
+    </x-table.filter>
 @endsection
 
 @section('buttons')
-    <a class='circular-button secondary' href="{{ route('invoice.index', ['trash' => 1]) }}">
-        <i class="fa fa-trash-restore" aria-hidden="true"></i>
-    </a>
-    <a id='filter_button' class='circular-button secondary' onclick='toogleAddForm("filter")'>
-        <i class="fa fa-filter" aria-hidden="true"></i>
-    </a>
-    <a class="circular-button secondary" style="background-color: lightblue"
-        href="{{ route('proposal.create', ['type' => 'despesa']) }}">
-        <i class="fas fa-minus"></i>
-    </a>
-    <a class="circular-button primary" style="background-color: lightblue"
-        href="{{ route('proposal.create', ['type' => 'receita']) }}">
-        <i class="fas fa-plus"></i>
-    </a>
-
-    <x-buttons.list model='invoice' :principalColor=$principalColor ?? null />
+    <x-buttons.trash-index :trash-status="request('trash')" :parameter="'invoice'" />
+    <x-buttons.icon icon="fas fa-minus" title="Nova despesa" :href="route('proposal.create', ['type' => 'despesa'])" :principalColor="$principalColor" />
+    <x-buttons.icon icon="fas fa-plus" title="Nova receita" :href="route('proposal.create', ['type' => 'receita'])" :principalColor="$principalColor" />
 @endsection
 
 @section('shortcuts')
@@ -202,9 +187,8 @@
             </div>
         </div>
     @endforeach
-    <p style="text-align: right">
-        <br>
-        {{ $invoices->links() }}
-    </p>
-    <br>
+@endsection
+
+@section('pagination')
+    <div class="mt-3">{{ $invoices->appends(request()->query())->links() }}</div>
 @endsection
