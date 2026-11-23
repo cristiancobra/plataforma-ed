@@ -52,7 +52,15 @@
     </div>
 </div>
 
-<div class="row mt-3">
+<div class="row">
+    <div class="col-md-12">
+        <x-form.checkbox name="is_global"
+            label="Campo geral (aparece em todos os tipos de acervo, inclusive os criados depois)"
+            :checked="old('is_global', $field->is_global)" />
+    </div>
+</div>
+
+<div class="row mt-3" id="types-row">
     <div class="col-md-12">
         <label class='labels'>TIPOS DE ACERVO QUE USAM ESTE CAMPO:</label>
         @php $checkedTypes = array_map('intval', old('collection_type_ids', $field->exists ? $field->types->pluck('id')->all() : [])); @endphp
@@ -92,5 +100,19 @@
 
         type.addEventListener('change', refresh);
         refresh();
+
+        // campo geral não escolhe tipos: esconde e desabilita os checkboxes para não serem enviados
+        var isGlobal = document.getElementById('is_global');
+        var typesRow = document.getElementById('types-row');
+
+        function refreshGlobal() {
+            typesRow.style.display = isGlobal.checked ? 'none' : '';
+            typesRow.querySelectorAll('input[type=checkbox]').forEach(function (input) {
+                input.disabled = isGlobal.checked;
+            });
+        }
+
+        isGlobal.addEventListener('change', refreshGlobal);
+        refreshGlobal();
     })();
 </script>

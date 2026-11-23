@@ -325,4 +325,72 @@ class CollectionCustomFieldsTest extends TestCase
             ->assertSee('VAZIO')
             ->assertSeeInOrder(['OUTROS CAMPOS PREENCHIDOS', 'ANTIGO', 'valor antigo', 'DESLIGADO', 'valor desligado']);
     }
+
+    public function test_global_field_applies_to_every_type_including_later_ones(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $computer = $this->makeType($user->account_id);
+        $this->makeField($user->account_id, ['label' => 'Patrimônio', 'type' => 'text', 'is_global' => true]);
+        $later = $this->makeType($user->account_id, 'Livro');
+
+        foreach ([$computer, $later] as $type) {
+            $this->assertSame(['patrimonio'], CollectionField::applicableTo($type->id)->pluck('key')->all());
+        }
+
+        $this->get(route('collection.create'))->assertOk()
+            ->assertSee('PATRIMÔNIO')
+            ->assertSee('data-type-ids=",*,"', false);
+
+        $this->post(route('collection.store'), $this->itemPayload($later, ['patrimonio' => 'A-1']))
+            ->assertSessionHasNoErrors();
+        $this->assertSame(['patrimonio' => 'A-1'], CollectionItem::first()->custom_fields);
+    }
+
+    public function test_saving_global_field_does_not_store_type_links(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+
+        $this->post(route('collection-field.store'), [
+            'label' => 'Patrimônio',
+            'type' => 'text',
+            'is_global' => '1',
+            'collection_type_ids' => [$type->id],
+        ])->assertRedirect(route('collection-field.index'));
+
+        $field = CollectionField::first();
+        $this->assertTrue($field->is_global);
+        $this->assertSame(0, $field->types()->count());
+        $this->get(route('collection-field.index'))->assertOk()->assertSee('Geral');
+    }
+
+    public function test_required_global_field_is_enforced_on_items(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = $this->makeType($user->account_id);
+        $this->makeField($user->account_id, ['label' => 'Patrimônio', 'type' => 'text', 'required' => true, 'is_global' => true]);
+
+        $this->post(route('collection.store'), $this->itemPayload($type))
+            ->assertSessionHasErrors('custom_fields.patrimonio');
+    }
+
+    public function test_unchecking_global_with_types_makes_it_a_type_field_again(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $computer = $this->makeType($user->account_id);
+        $book = $this->makeType($user->account_id, 'Livro');
+        $field = $this->makeField($user->account_id, ['label' => 'Patrimônio', 'type' => 'text', 'is_global' => true]);
+
+        $this->put(route('collection-field.update', $field), [
+            'label' => 'Patrimônio',
+            'type' => 'text',
+            'collection_type_ids' => [$computer->id],
+        ])->assertRedirect(route('collection-field.index'));
+
+        $field->refresh();
+        $this->assertFalse($field->is_global);
+        $this->assertSame([$computer->id], $field->types->pluck('id')->all());
+        $this->assertCount(1, CollectionField::applicableTo($computer->id));
+        $this->assertCount(0, CollectionField::applicableTo($book->id));
+    }
 }

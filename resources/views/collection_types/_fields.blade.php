@@ -15,6 +15,16 @@
         Ao cadastrar um item deste tipo, o usuário preenche os campos marcados aqui.
     </p>
 
+    @if (isset($globalFields) && $globalFields->isNotEmpty())
+        <div class="mb-3">
+            <small class="text-muted d-block">Campos gerais (todos os tipos) — herdados, não podem ser desvinculados aqui:</small>
+            @foreach ($globalFields as $globalField)
+                <x-custom-fields.pill :field="$globalField" />
+                <span class="badge bg-info text-dark me-2" style="font-size: .65rem;">Geral</span>
+            @endforeach
+        </div>
+    @endif
+
     @if ($availableFields->isNotEmpty())
         <div class="row">
             @foreach ($availableFields as $availableField)

@@ -127,7 +127,7 @@ class CollectionController extends Controller
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
-        $customFields = CollectionField::ofCurrentAccount()->active()->has('types')->with('types')->ordered()->get();
+        $customFields = CollectionField::ofCurrentAccount()->active()->usedInForms()->with('types')->orderByDesc('is_global')->ordered()->get();
 
         return view('collections.createCollection', compact(
             'types',
@@ -183,6 +183,7 @@ class CollectionController extends Controller
         $customFields = CollectionField::applicableTo($collection->type_id);
         // valores guardados de campos que não estão (mais) no tipo do item ou foram desativados:
         // continuam visíveis, para nenhum dado preenchido sumir da tela
+        // (applicableTo já inclui os campos gerais, então eles nunca caem aqui)
         $otherFields = CollectionField::ofCurrentAccount()
             ->whereIn('key', array_keys($collection->custom_fields ?? []))
             ->whereNotIn('id', $customFields->pluck('id'))
@@ -211,7 +212,7 @@ class CollectionController extends Controller
         $contactsSelectOptions = Contact::contactsSelectOptions();
         $collectionsGroupSelectOptions = CollectionsGroup::collectionsGroupSelectOptions();
         $projectsSelectOptions = Project::projectsSelectOptions();
-        $customFields = CollectionField::ofCurrentAccount()->active()->has('types')->with('types')->ordered()->get();
+        $customFields = CollectionField::ofCurrentAccount()->active()->usedInForms()->with('types')->orderByDesc('is_global')->ordered()->get();
 
         return view('collections.editCollection', compact(
             'collection',

@@ -13,7 +13,8 @@
 @section('table')
     <p class="text-muted">
         Campos extras dos itens de acervo. Cada tipo de acervo escolhe quais campos tem (na tela do tipo ou
-        aqui), e o item mostra só os campos do seu tipo. Desativar um campo esconde ele dos formulários, mas
+        aqui), e o item mostra só os campos do seu tipo. Os campos gerais aparecem em todos os tipos, inclusive
+        nos que forem criados depois. Desativar um campo esconde ele dos formulários, mas
         mantém os valores já preenchidos.
     </p>
 
@@ -40,7 +41,16 @@
                 @endif
             </div>
             <div class="col-2 text-center">{{ $field->type->label() }}</div>
-            <div class="col-2 text-center">{{ $field->types->pluck('name')->join(', ') ?: 'Nenhum tipo' }}</div>
+            <div class="col-2 text-center">
+                @if ($field->is_global)
+                    <span class="badge bg-info text-dark">Geral — todos os tipos</span>
+                @else
+                    {{ $field->types->pluck('name')->join(', ') ?: 'Nenhum tipo' }}
+                    @if ($typeCount > 0 && $field->types->count() === $typeCount)
+                        <div class="small text-muted">Está em todos os tipos — considere torná-lo geral</div>
+                    @endif
+                @endif
+            </div>
             <div class="col-1 text-center">{{ $field->required ? 'Sim' : 'Não' }}</div>
             <div class="col-3 text-center d-flex gap-2 justify-content-center">
                 <a href="{{ route('collection-field.edit', $field) }}" class="btn btn-sm text-white"

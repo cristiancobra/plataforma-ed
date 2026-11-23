@@ -15,6 +15,14 @@
             nenhum
         @endforelse
     </div>
+    @if ($globalFields->isNotEmpty())
+        <div class="mb-3">
+            <strong>Campos gerais (todos os tipos):</strong>
+            @foreach ($globalFields as $field)
+                <x-custom-fields.pill :field="$field" />
+            @endforeach
+        </div>
+    @endif
     <a href="{{ route('collection-types.edit', $collectionType) }}" class="btn btn-warning">Editar</a>
     <a href="{{ route('collection-types.index') }}" class="btn btn-secondary">Voltar</a>
 @endsection

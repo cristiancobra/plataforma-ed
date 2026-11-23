@@ -22,8 +22,9 @@ class CollectionTypeController extends Controller
     public function create()
     {
         $availableFields = $this->availableFields();
+        $globalFields = $this->globalFields();
 
-        return view('collection_types.createCollectionTypes', compact('availableFields'));
+        return view('collection_types.createCollectionTypes', compact('availableFields', 'globalFields'));
     }
 
     public function store(StoreCollectionTypeRequest $request)
@@ -42,14 +43,16 @@ class CollectionTypeController extends Controller
     {
         $this->authorizeType($collectionType);
         $collectionType->load('fields');
-        return view('collection_types.showCollectionTypes', compact('collectionType'));
+        $globalFields = $this->globalFields();
+        return view('collection_types.showCollectionTypes', compact('collectionType', 'globalFields'));
     }
 
     public function edit(CollectionType $collectionType)
     {
         $this->authorizeType($collectionType);
         $availableFields = $this->availableFields();
-        return view('collection_types.editCollectionTypes', compact('collectionType', 'availableFields'));
+        $globalFields = $this->globalFields();
+        return view('collection_types.editCollectionTypes', compact('collectionType', 'availableFields', 'globalFields'));
     }
 
     public function update(UpdateCollectionTypeRequest $request, CollectionType $collectionType)
@@ -74,7 +77,12 @@ class CollectionTypeController extends Controller
      */
     private function syncFields(CollectionType $collectionType, $request): void
     {
-        $fieldIds = $request->fieldIds();
+        // campos gerais valem para todos os tipos: nunca são vinculados pelo tipo
+        $fieldIds = CollectionField::ofCurrentAccount()
+            ->where('is_global', false)
+            ->whereIn('id', $request->fieldIds())
+            ->pluck('id')
+            ->all();
         foreach ($request->newFields() as $data) {
             $fieldIds[] = CollectionField::createForCurrentAccount([
                 'label' => $data['label'],
@@ -91,7 +99,15 @@ class CollectionTypeController extends Controller
      */
     private function availableFields()
     {
-        return CollectionField::ofCurrentAccount()->orderByDesc('active')->ordered()->get();
+        return CollectionField::ofCurrentAccount()->where('is_global', false)->orderByDesc('active')->ordered()->get();
+    }
+
+    /**
+     * Campos gerais ativos da conta, herdados por todos os tipos.
+     */
+    private function globalFields()
+    {
+        return CollectionField::ofCurrentAccount()->active()->where('is_global', true)->ordered()->get();
     }
 
     private function authorizeType(CollectionType $type)

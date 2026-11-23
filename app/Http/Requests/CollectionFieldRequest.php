@@ -23,6 +23,7 @@ class CollectionFieldRequest extends FormRequest
         $this->merge([
             'options' => CollectionField::parseOptions($this->input('options_text')),
             'required' => $this->boolean('required'),
+            'is_global' => $this->boolean('is_global'),
             'position' => $this->input('position') === null || $this->input('position') === '' ? 0 : $this->input('position'),
         ]);
     }
@@ -39,6 +40,7 @@ class CollectionFieldRequest extends FormRequest
             'options' => ['array', 'required_if:type,' . CustomFieldType::Select->value],
             'options.*' => 'string|max:255',
             'required' => 'boolean',
+            'is_global' => 'boolean',
             'position' => 'integer|min:0|max:9999',
         ];
     }
@@ -81,7 +83,7 @@ class CollectionFieldRequest extends FormRequest
      */
     public function fieldData(): array
     {
-        $data = $this->safe()->only(['label', 'type', 'options', 'required', 'position']);
+        $data = $this->safe()->only(['label', 'type', 'options', 'required', 'is_global', 'position']);
         if ($data['type'] !== CustomFieldType::Select->value) {
             $data['options'] = null;
         }
@@ -91,6 +93,11 @@ class CollectionFieldRequest extends FormRequest
 
     public function typeIds(): array
     {
+        // campo geral vale para todos os tipos: não tem vínculo com tipos específicos
+        if ($this->boolean('is_global')) {
+            return [];
+        }
+
         return $this->validated('collection_type_ids') ?? [];
     }
 }

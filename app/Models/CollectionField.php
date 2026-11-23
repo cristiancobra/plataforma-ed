@@ -20,6 +20,7 @@ class CollectionField extends Model
         'type',
         'options',
         'required',
+        'is_global',
         'position',
         'active',
     ];
@@ -28,6 +29,7 @@ class CollectionField extends Model
         'type' => CustomFieldType::class,
         'options' => 'array',
         'required' => 'boolean',
+        'is_global' => 'boolean',
         'active' => 'boolean',
     ];
 
@@ -60,11 +62,25 @@ class CollectionField extends Model
     }
 
     /**
-     * Campos associados a um tipo de acervo (sem tipo, nenhum campo).
+     * Campos de um tipo de acervo: os gerais (valem para todos os tipos) e os ligados ao tipo.
+     * Sem tipo, só os gerais.
      */
     public function scopeForType(Builder $query, $typeId): Builder
     {
-        return $query->whereHas('types', fn ($q) => $q->where('collection_types.id', $typeId ?: 0));
+        return $query->where(function (Builder $q) use ($typeId) {
+            $q->where('is_global', true)
+                ->orWhereHas('types', fn ($t) => $t->where('collection_types.id', $typeId ?: 0));
+        });
+    }
+
+    /**
+     * Campos que aparecem em algum formulário de item: gerais ou ligados a pelo menos um tipo.
+     */
+    public function scopeUsedInForms(Builder $query): Builder
+    {
+        return $query->where(function (Builder $q) {
+            $q->where('is_global', true)->orHas('types');
+        });
     }
 
     /**
@@ -157,7 +173,7 @@ class CollectionField extends Model
      */
     public static function applicableTo($typeId)
     {
-        return self::ofCurrentAccount()->active()->forType($typeId)->ordered()->get();
+        return self::ofCurrentAccount()->active()->forType($typeId)->orderByDesc('is_global')->ordered()->get();
     }
 
     /**

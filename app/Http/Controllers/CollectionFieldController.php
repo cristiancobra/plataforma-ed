@@ -34,7 +34,9 @@ class CollectionFieldController extends Controller
             ->ordered()
             ->get();
 
-        return view('collection_fields.indexCollectionFields', compact('fields'));
+        $typeCount = CollectionType::where('account_id', auth()->user()->account_id)->count();
+
+        return view('collection_fields.indexCollectionFields', compact('fields', 'typeCount'));
     }
 
     public function create()

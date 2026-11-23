@@ -21,7 +21,7 @@
                         ? old('custom_fields.' . $field->key)
                         : $field->type->inputValue($values[$field->key] ?? null);
                 @endphp
-                <div class="col-md-6 mt-3 custom-field" data-type-ids=",{{ $field->types->pluck('id')->join(',') }},">
+                <div class="col-md-6 mt-3 custom-field" data-type-ids="{{ $field->is_global ? ',*,' : ',' . $field->types->pluck('id')->join(',') . ',' }}">
                     @if ($field->type !== \App\Enums\CustomFieldType::Boolean)
                         <label class='labels' for='{{ $id }}'>
                             {{ mb_strtoupper($field->label) }}:@if ($field->required)<span class="text-danger"> *</span>@endif
@@ -54,7 +54,7 @@
             function refreshCustomFields() {
                 var typeId = selectedType();
                 section.querySelectorAll('.custom-field').forEach(function (wrapper) {
-                    var visible = typeId !== null && wrapper.dataset.typeIds.indexOf(',' + typeId + ',') !== -1;
+                    var visible = typeId !== null && (wrapper.dataset.typeIds === ',*,' || wrapper.dataset.typeIds.indexOf(',' + typeId + ',') !== -1);
                     wrapper.style.display = visible ? '' : 'none';
                     wrapper.querySelectorAll('input, select, textarea').forEach(function (input) {
                         input.disabled = !visible;
