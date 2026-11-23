@@ -58,9 +58,48 @@ class Contact extends Model {
         'authorization_contact',
         'authorization_newsletter',
         'status',
+        'gender',
+        'observations',
     ];
     protected $hidden = [
     ];
+    protected $casts = [
+        'authorization_data' => 'boolean',
+        'authorization_contact' => 'boolean',
+        'authorization_newsletter' => 'boolean',
+    ];
+
+    public const STATUSES = ['ativo', 'pendente', 'desativado'];
+
+    // situações antigas que ainda existem no banco
+    public const LEGACY_STATUSES = ['ativada', 'desativada', 'descadastrado'];
+
+    public const SCHOLLARITIES = [
+        'fundamental' => 'Ensino fundamental',
+        'médio' => 'Ensino médio',
+        'superior incompleto' => 'Superior incompleto',
+        'superior completo' => 'Superior completo',
+        'pós-graduação' => 'Pós-graduação',
+        'sem escolaridade' => 'Sem escolaridade',
+    ];
+
+    public const CIVIL_STATES = [
+        'solteiro' => 'Solteiro(a)',
+        'casado' => 'Casado(a)',
+        'divorciado' => 'Divorciado(a)',
+        'união estável' => 'União estável',
+        'viúvo' => 'Viúvo(a)',
+    ];
+
+    // Cores [fundo, texto] da etiqueta de situação
+    public static function statusColors($status) {
+        return match ($status) {
+            'ativo', 'ativada' => ['#E8F5E9', '#2E7D32'],
+            'pendente' => ['#FFF8E1', '#F57F17'],
+            'desativado', 'desativada', 'descadastrado' => ['#FFEBEE', '#C62828'],
+            default => null,
+        };
+    }
 
     //RELACIONAMENTOS
     public function account() {
@@ -129,6 +168,12 @@ class Contact extends Model {
                     if ($request->type) {
                         $query->where('type', $request->type);
                     }
+                    if ($request->status) {
+                        $query->where('status', $request->status);
+                    }
+                    if ($request->lead_source) {
+                        $query->where('lead_source', $request->lead_source);
+                    }
                     if ($request->created_at) {
                         $query->where('created_at', '>=', $request->created_at);
                     }
@@ -152,14 +197,10 @@ class Contact extends Model {
 //                        'user.contact',
 //                        'user.image',
 //                )
+                ->with('companies')
                 ->orderBy($orderColumn, $orderDirection)
-                ->paginate(20);
-
-        $items->appends([
-            'name' => $request->name,
-            'company' => $request->company_id,
-            'type' => $request->type,
-        ]);
+                ->paginate(20)
+                ->withQueryString();
 
         return $items;
     }

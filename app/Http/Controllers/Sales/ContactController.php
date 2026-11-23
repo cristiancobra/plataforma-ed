@@ -32,51 +32,25 @@ class ContactController extends Controller
         $contacts = Contact::filterModel($request);
         $total = $contacts->total();
 
-        $employees = Contact::where('account_id', auth()->user()->account_id)
-            ->where('type', 'funcionário')
-            ->get();
-        $employessTotal = $employees->count();
+        $totalTotal = Contact::where('account_id', auth()->user()->account_id)->count();
+        $filtersActive = collect($request->except(['page', 'trash', 'role', 'filter']))
+            ->filter(fn ($value) => $value !== null && $value !== '')
+            ->isNotEmpty();
 
-        $staff = Contact::where('account_id', auth()->user()->account_id)
-            ->where('type', 'equipe')
-            ->get();
-        $staffTotal = $staff->count();
-
-        $news = Contact::where('account_id', auth()->user()->account_id)
-            ->get();
-        $newsTotal = $news->count();
-
-        $clients = Contact::where('account_id', auth()->user()->account_id)
-            ->where('type', 'cliente')
-            ->get();
-        $clientsTotal = $clients->count();
-
-        $suppliers = Contact::where('account_id', auth()->user()->account_id)
-            ->where('type', 'fornecedor')
-            ->get();
-        $suppliersTotal = $suppliers->count();
-
-        $partners = Contact::where('account_id', auth()->user()->account_id)
-            ->where('type', 'parceiro')
-            ->get();
-        $partnersTotal = $partners->count();
-
-        $companies = Company::where('account_id', auth()->user()->account_id)
-            ->orderBy('NAME', 'ASC')
-            ->get();
-
+        $companies = Company::companiesSelectOptions();
         $types = Contact::returnContactTypes();
+        $leadSources = array_values(array_filter(Contact::returnSources()));
+        $statuses = Contact::STATUSES;
 
         return view('sales.contacts.index', compact(
             'contacts',
             'total',
-            'employessTotal',
-            'newsTotal',
-            'clientsTotal',
-            'suppliersTotal',
-            'partnersTotal',
+            'totalTotal',
+            'filtersActive',
             'companies',
             'types',
+            'leadSources',
+            'statuses',
         ));
     }
 
@@ -87,36 +61,13 @@ class ContactController extends Controller
      */
     public function create(Request $request)
     {
-        $companies = Company::where('account_id', auth()->user()->account_id)
-            ->orderBy('NAME', 'ASC')
-            ->get();
+        $contact = new Contact([
+            'type' => $request->type,
+            'status' => 'ativo',
+            'country' => 'Brasil',
+        ]);
 
-        $leadSources = Contact::returnSources();
-        $states = returnStates();
-        $status = Contact::returnStatus();
-        $genderTypes = Contact::returnGenderTypes();
-        $hobbies = Contact::returnHobbie();
-        $religions = Contact::returnReligion();
-        $etinicities = Contact::returnEtinicity();
-        $professions = Contact::returnProfessions();
-        $jobPositions = Contact::returnProfessions();
-        $contactTypes = Contact::returnContactTypes();
-        $type = $request->type;
-
-        return view('sales.contacts.create', compact(
-            'leadSources',
-            'states',
-            'status',
-            'companies',
-            'genderTypes',
-            'hobbies',
-            'religions',
-            'etinicities',
-            'professions',
-            'jobPositions',
-            'contactTypes',
-            'type',
-        ));
+        return view('sales.contacts.create', array_merge(compact('contact'), $this->formOptions()));
     }
 
     /**
@@ -127,15 +78,15 @@ class ContactController extends Controller
      */
     public function store(ContactRequest $request)
     {
-        $validatedData = $request->validated();
-        $validatedData['name'] = $validatedData['first_name'] . ' ' . $validatedData['last_name'];
-        
-        $contact = Contact::create($validatedData);
+        $contact = new Contact();
+        $this->fillContact($contact, $request);
         $contact->account_id = auth()->user()->account_id;
         $contact->save();
-        $contact->companies()->sync($request->companies);
+        $contact->companies()->sync($this->accountCompanyIds($request));
 
-        return redirect()->action('Sales\\ContactController@index');
+        return redirect()
+            ->route('contact.show', $contact)
+            ->with('success', 'Contato criado com sucesso.');
     }
 
     /**
@@ -146,14 +97,9 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        $status = $contact->status;
-        $priority = $contact->points;
+        $contact->load('companies', 'opportunities', 'images');
 
-        return view('sales.contacts.show', compact(
-            'contact',
-            'status',
-            'priority',
-        ));
+        return view('sales.contacts.show', compact('contact'));
     }
 
     /**
@@ -164,39 +110,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        $companies = Company::where('account_id', auth()->user()->account_id)
-            ->get();
-
-        $companiesChecked = Company::whereHas('contacts', function ($query) use ($contact) {
-            $query->where('contact_id', $contact->id);
-        })
-            ->pluck('id')
-            ->toArray();
-
-        $states = returnStates();
-        $status = Contact::returnStatus();
-        $genderTypes = Contact::returnGenderTypes();
-        $hobbies = Contact::returnHobbie();
-        $religions = Contact::returnReligion();
-        $etinicities = Contact::returnEtinicity();
-        $professions = Contact::returnProfessions();
-        $job_positions = Contact::returnProfessions();
-        $contactTypes = Contact::returnContactTypes();
-
-        return view('sales.contacts.edit', compact(
-            'contact',
-            'companies',
-            'companiesChecked',
-            'states',
-            'status',
-            'genderTypes',
-            'hobbies',
-            'religions',
-            'etinicities',
-            'professions',
-            'job_positions',
-            'contactTypes',
-        ));
+        return view('sales.contacts.edit', array_merge(compact('contact'), $this->formOptions()));
     }
 
     /**
@@ -206,19 +120,15 @@ class ContactController extends Controller
      * @param  \App\Models\Contact  $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Contact $contact)
+    public function update(ContactRequest $request, Contact $contact)
     {
-        $contact->fill($request->all());
-        $contact->name = ucfirst($request->first_name) . " " . ucfirst($request->last_name);
-        $contact->authorization_data = $request->has('authorization_data') ? true : false;
-        $contact->authorization_contact = $request->has('authorization_contact') ? true : false;
-        $contact->authorization_newsletter = $request->has('authorization_newsletter') ? true : false;
+        $this->fillContact($contact, $request);
         $contact->save();
-        $contact->companies()->sync($request->companies);
+        $contact->companies()->sync($this->accountCompanyIds($request));
 
-        return view('sales.contacts.show', [
-            'contact' => $contact,
-        ]);
+        return redirect()
+            ->route('contact.show', $contact)
+            ->with('success', 'Contato atualizado com sucesso.');
     }
 
     /**
@@ -230,7 +140,54 @@ class ContactController extends Controller
     public function destroy(Contact $contact)
     {
         $contact->delete();
-        return redirect()->route('contact.index');
+
+        return redirect()
+            ->route('contact.index')
+            ->with('success', 'Contato apagado.');
+    }
+
+    /**
+     * Preenche o contato com os dados validados do formulário de criar/editar.
+     */
+    private function fillContact(Contact $contact, ContactRequest $request)
+    {
+        $contact->fill(collect($request->validated())->except('companies')->all());
+        $contact->name = trim(ucfirst($request->first_name) . ' ' . ucfirst((string) $request->last_name));
+        $contact->authorization_data = $request->boolean('authorization_data');
+        $contact->authorization_contact = $request->boolean('authorization_contact');
+        $contact->authorization_newsletter = $request->boolean('authorization_newsletter');
+    }
+
+    /**
+     * Opções dos selects do formulário de criar/editar.
+     */
+    private function formOptions()
+    {
+        return [
+            'companies' => Company::companiesSelectOptions(),
+            'states' => array_filter(returnStates()),
+            'statuses' => Contact::STATUSES,
+            'genderTypes' => array_values(array_filter(Contact::returnGenderTypes())),
+            'hobbies' => array_values(array_filter(Contact::returnHobbie())),
+            'religions' => array_values(array_filter(Contact::returnReligion())),
+            'etinicities' => array_values(array_unique(array_filter(Contact::returnEtinicity()))),
+            'professions' => array_values(array_filter(Contact::returnProfessions())),
+            'leadSources' => array_values(array_filter(Contact::returnSources())),
+            'contactTypes' => Contact::returnContactTypes(),
+            'schollarities' => Contact::SCHOLLARITIES,
+            'civilStates' => Contact::CIVIL_STATES,
+        ];
+    }
+
+    /**
+     * Ids das organizações enviadas no formulário, limitados às da conta do usuário.
+     */
+    private function accountCompanyIds(Request $request)
+    {
+        return Company::where('account_id', auth()->user()->account_id)
+            ->whereIn('id', (array) $request->input('companies', []))
+            ->pluck('id')
+            ->toArray();
     }
 
     public function storeFromForm(Request $request, Page $page)
