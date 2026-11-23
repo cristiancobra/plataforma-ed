@@ -281,6 +281,79 @@
                     </div>
                 </div>
             @endforeach
+            @if ($productProposals->isEmpty())
+                <div class='row mt-2'>
+                    <div class='col'>Nenhum produto nesta {{ $proposal->type == 'despesa' ? 'despesa' : 'proposta' }}.</div>
+                </div>
+            @endif
+
+            @if ($availableProducts->isNotEmpty())
+                <div class='row mt-5'>
+                    <label class='labels' for=''>
+                        ADICIONAR PRODUTOS:
+                    </label>
+                    <span class='ms-2'>informe a quantidade dos produtos que deseja incluir</span>
+                </div>
+                <div class='row table-header mt-3' style="background-color: {{ $principalColor }}">
+                    <div class='col-1'>FOTO</div>
+                    <div class='col-1'>QTDE</div>
+                    <div class='col-3'>NOME</div>
+                    <div class='col-1'>PRAZO</div>
+                    <div class='col-1'>HORAS</div>
+                    <div class='col-1'>PONTOS</div>
+                    <div class='col-1'>CUSTOS</div>
+                    <div class='col-1'>IMPOSTO</div>
+                    <div class='col-1'>UNITÁRIO</div>
+                    <div class='col-1'></div>
+                </div>
+                @foreach ($availableProducts as $product)
+                    <input type='hidden' name='product_proposal_id[]' value=''>
+                    <input type='hidden' name='product_id[]' value='{{ $product->id }}'>
+                    <input type='hidden' name='product_margin[]'
+                        value='{{ (-$product->price * $product->tax_rate) / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price }}'>
+                    <input type='hidden' name='product_due_date[]' value='{{ $product->due_date }}'>
+                    <input type='hidden' name='product_work_hours[]' value='{{ $product->work_hours }}'>
+                    <input type='hidden' name='product_points[]' value='{{ $product->points }}'>
+                    <input type='hidden' name='product_cost[]'
+                        value='{{ $product->cost1 + $product->cost2 + $product->cost3 }}'>
+                    <input type='hidden' name='product_tax_rate[]'
+                        value='{{ ($product->price * $product->tax_rate) / 100 }}'>
+                    <div class='row table2'
+                        style='color: {{ $principalColor }}; border-left-color: {{ $complementaryColor }}'>
+                        <div class='cel col-1'>
+                            <a href='{{ route('product.show', ['product' => $product->id]) }}'>
+                                <image src='{{ $product->image_url }}' style='width:50px;height:50px; margin: 5px'>
+                            </a>
+                        </div>
+                        <div class='cel col-1'>
+                            <input style="text-align: right" type='number' name='product_amount[]' size='5'
+                                min='0' value=''>
+                        </div>
+                        <div class='cel col-3 justify-content-start'>
+                            <a href='{{ route('product.show', ['product' => $product->id]) }}'>
+                                <span class='fields'>{{ $product->name }}</span>
+                            </a>
+                        </div>
+                        <div class='cel col-1'>{{ number_format($product->due_date) }}</div>
+                        <div class='cel col-1'>{{ number_format($product->work_hours) }}</div>
+                        <div class='cel col-1'>{{ number_format($product->points) }}</div>
+                        <div class='cel col-1'>
+                            {{ number_format($product->cost1 + $product->cost2 + $product->cost3, 2, ',', '.') }}
+                        </div>
+                        <div class='cel col-1'>
+                            {{ number_format(($product->price * $product->tax_rate) / 100, 2, ',', '.') }}
+                        </div>
+                        <div class='cel col-1'>
+                            <input type='decimal' name='price[]' class='prices' size='7'
+                                onkeyup="formatCurrencyRealAll('input.prices')"
+                                value='{{ formatCurrency($proposal->type == 'despesa' ? $product->price * -1 : $product->price) }}'
+                                style='text-align: right'>
+                        </div>
+                        <div class='cel col-1'></div>
+                    </div>
+                @endforeach
+            @endif
+
             <div class='row mt-1'>
                 <div class='cel offset-8 col-2 table-header justify-content-end'
                     style="background-color: {{ $oppositeColor }}">

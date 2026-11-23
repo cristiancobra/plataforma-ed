@@ -277,13 +277,19 @@ class ProposalController extends Controller {
         $validator->after(function ($validator) use ($request, $priceField) {
             // percorre product_id, como o store/update fazem ao gravar as linhas
             $productIds = (array) $request->product_id;
-            $names = Product::whereIn('id', $productIds)->pluck('name', 'id');
+            $names = Product::whereIn('id', $productIds)
+                    ->where('account_id', auth()->user()->account_id)
+                    ->pluck('name', 'id');
 
             $total = 0;
             $hasProducts = false;
             foreach ($productIds as $key => $productId) {
                 $amount = $request->input("product_amount.$key");
                 if ($amount > 0) {
+                    if (!isset($names[$productId])) {
+                        $validator->errors()->add('products', 'Produto inválido.');
+                        return;
+                    }
                     $hasProducts = true;
                     $price = (float) removeCurrency($request->input("$priceField.$key"));
                     if ($price <= 0) {
@@ -450,9 +456,18 @@ class ProposalController extends Controller {
                 ->with('product.image')
                 ->get();
 
+        // produtos que ainda não estão na proposta, para poder adicioná-los na edição
+        $availableProducts = Product::where('account_id', auth()->user()->account_id)
+                ->where('type', 'LIKE', $proposal->type)
+                ->where('status', 'disponível')
+                ->where('trash', '!=', 1)
+                ->whereNotIn('id', $productProposals->pluck('product_id'))
+                ->with('image')
+                ->orderBy('NAME', 'ASC')
+                ->get();
+
         $type = $request->type;
         $status = Proposal::returnStatus();
-        ;
 
         return view('proposals.edit', compact(
                         'users',
@@ -461,6 +476,7 @@ class ProposalController extends Controller {
                         'contacts',
                         'proposal',
                         'productProposals',
+                        'availableProducts',
                         'type',
                         'status',
 //                        'invoices',
@@ -520,10 +536,15 @@ class ProposalController extends Controller {
                     }
                     $totalPrice = $totalPrice + $data['subtotalPrice'];
                     $totalTaxrate = $totalTaxrate + $data['subtotalTax_rate'];
-                    ProductProposal::where('id', $request->product_proposal_id[$key])
-                            ->where('proposal_id', $proposal->id)
-                            ->update($data);
-                } else {
+                    if (empty($request->product_proposal_id[$key])) {
+                        // produto adicionado na edição
+                        ProductProposal::insert($data);
+                    } else {
+                        ProductProposal::where('id', $request->product_proposal_id[$key])
+                                ->where('proposal_id', $proposal->id)
+                                ->update($data);
+                    }
+                } elseif (!empty($request->product_proposal_id[$key])) {
                     // quantidade zerada remove o produto da proposta
                     ProductProposal::where('id', $request->product_proposal_id[$key])
                             ->where('proposal_id', $proposal->id)
