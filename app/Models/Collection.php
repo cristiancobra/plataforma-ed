@@ -38,11 +38,6 @@ class Collection extends Model
         'accessories',
     ];
 
-    // coluna antiga com senhas em texto puro (substituída pelo campo protegido "Senha"): nunca serializar
-    protected $hidden = [
-        'password',
-    ];
-
     protected $casts = [
         'purchase_date' => 'date',
         'manufacturing_date' => 'date',

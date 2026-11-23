@@ -15,6 +15,18 @@ class LegacyCollectionColumnsMigrationTest extends TestCase
     use RefreshDatabase;
     use CreatesAuthenticatedUser;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // as colunas antigas já foram removidas (2026_11_23_000000): recria-as para testar a cópia
+        $this->dropMigration()->down();
+    }
+
+    private function dropMigration()
+    {
+        return require database_path('migrations/2026_11_23_000000_drop_legacy_columns_from_collections_table.php');
+    }
+
     private function migration()
     {
         return require database_path('migrations/2026_11_20_000003_migrate_legacy_collection_columns_to_custom_fields.php');
@@ -83,5 +95,31 @@ class LegacyCollectionColumnsMigrationTest extends TestCase
         $this->assertSame(0, CollectionField::where('account_id', $a)->count());
         $this->assertNull(CollectionItem::find($pcItem)->custom_fields);
         $this->assertSame(' Windows 11 ', DB::table('collections')->where('id', $pcItem)->value('operating_system'));
+    }
+
+    public function test_drop_migration_aborts_if_a_value_was_not_copied_and_drops_otherwise(): void
+    {
+        $user = $this->loginAsAccountOwner();
+        $type = CollectionType::create(['account_id' => $user->account_id, 'name' => 'Computador', 'category' => 'físico']);
+        $this->item($user->account_id, $user->id, $type->id, ['operating_system' => 'Linux', 'password' => '1234', 'runs_vrchat' => 1]);
+        $this->migration()->up();
+        (require database_path('migrations/2026_11_20_000004_protect_collection_password_fields.php'))->up();
+
+        // valor gravado depois da cópia: a remoção precisa abortar sem apagar nada
+        $late = $this->item($user->account_id, $user->id, $type->id, ['video_card' => 'RTX']);
+        try {
+            $this->dropMigration()->up();
+            $this->fail('deveria ter abortado');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString("#{$late} video_card", $e->getMessage());
+        }
+        $this->assertTrue(\Illuminate\Support\Facades\Schema::hasColumn('collections', 'video_card'));
+
+        DB::table('collections')->where('id', $late)->delete();
+        $this->dropMigration()->up();
+        foreach (['operating_system', 'video_card', 'best_ai', 'password', 'users', 'runs_adobe', 'runs_vrchat'] as $column) {
+            $this->assertFalse(\Illuminate\Support\Facades\Schema::hasColumn('collections', $column), $column);
+        }
+        $this->assertSame('Linux', CollectionItem::first()->custom_fields['sistema_operacional']);
     }
 }
