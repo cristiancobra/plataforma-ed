@@ -37,6 +37,7 @@ class ProductViewsTest extends TestCase
                 ->assertOk()->assertDontSee("Item $variation")->assertSee('encontrado(s)');
             $this->get(route('product.create', ['variation' => $variation]))->assertOk()->assertSee('IDENTIFICAÇÃO');
             $this->get(route('product.edit', ['product' => $product, 'variation' => $variation]))->assertOk();
+            $this->get(route("product.show", ["product" => $product, "variation" => $variation]))->assertOk()->assertSee("fa-gifts", false);
         }
     }
 }

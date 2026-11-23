@@ -12,14 +12,10 @@
 
 @section('buttons')
     <x-buttons.trash :object="$product" model="product" />
-    <a class='circular-button secondary' title='Ver na loja' href='{{ route('product.public', ['product' => $product]) }}'
-        target="_blank">
-        <i class="fas fa-shopping-cart"></i>
-    </a>
-    <a class='circular-button secondary' title='Vendas deste produto'
-        href='{{ route('proposal.index', ['product_id' => $product->id]) }}'>
-        <i class="fas fa-gifts"></i>
-    </a>
+    <x-buttons.icon icon="fas fa-shopping-cart" title="Ver na loja" :href="route('product.public', ['product' => $product])"
+        target="_blank" :principalColor="$principalColor" />
+    <x-buttons.icon icon="fas fa-gifts" title="Vendas deste produto" :href="route('proposal.index', ['product_id' => $product->id])"
+        :principalColor="$principalColor" />
     <x-buttons.edit model="product" :object="$product" parameter2="variation" :value2="$variation" :principalColor="$principalColor" />
     <x-buttons.list model="product" parameter="variation" :value="$variation" :principalColor="$principalColor" />
 @endsection
