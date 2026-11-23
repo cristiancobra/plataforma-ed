@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'CONTAS BANCÁRIAS')
 
@@ -16,7 +16,7 @@
     </a>
 @endsection
 
-@section('main')
+@section('table')
     <br>
     <div>
         <table class="table-list">

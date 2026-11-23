@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'USUÁRIOS')
 
@@ -21,7 +21,7 @@
     </a>
 @endsection
 
-@section('main')
+@section('table')
     <div style='text-align: right'>
         <form action='{{ route('user.index') }}' method='post' style='color: #874983;display: inline-block'>
             @csrf

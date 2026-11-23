@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'DOMÍNIOS')
 
@@ -18,7 +18,7 @@
     </a>
 @endsection
 
-@section('main')
+@section('table')
     <table class="table-list">
         <tr>
             <td class="table-list-header">

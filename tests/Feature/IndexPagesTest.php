@@ -22,6 +22,7 @@ class IndexPagesTest extends TestCase
             'propostas' => ['proposal.index', ['type' => 'receita']],
             'faturas' => ['invoice.index', []],
             'transacoes' => ['transaction.index', []],
+            'jornadas' => ['journey.index', []],
             'metas' => ['goal.index', []],
             'projetos' => ['project.index', []],
             'imagens' => ['image.index', []],
@@ -37,5 +38,16 @@ class IndexPagesTest extends TestCase
 
         $this->get(route($route, $params))->assertOk()->assertSee('item(s)');
         $this->get(route($route, $params + ['name' => 'zzz']))->assertOk()->assertSee('item(s) encontrado(s)');
+    }
+
+    /** Listagens sem filtro (ainda sem contador): só conferem que abrem no layout index. */
+    public function test_plain_indexes_render(): void
+    {
+        $this->loginAsAccountOwner();
+
+        foreach (['user.index', 'bank.index', 'bankAccount.index', 'competitor.index', 'contract.index',
+            'contractTemplate.index', 'domain.index', 'site.index', 'socialmedia.index', 'email.index'] as $route) {
+            $this->get(route($route))->assertOk();
+        }
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'EMAILS')
 
@@ -15,7 +15,7 @@
     </a>
 @endsection
 
-@section('main')
+@section('table')
     <div>
         <p style="text-align: center;width: 100%">
             Configure seu email no celular ou gerenciador de email:

@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'MODELOS DE CONTRATOS')
 
@@ -18,7 +18,7 @@
     </a>
 @endsection
 
-@section('main')
+@section('table')
     <div>
         <table class="table-list">
             <tr>

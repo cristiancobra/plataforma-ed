@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'REDES SOCIAIS')
 
@@ -22,7 +22,7 @@
     <x-buttons.list model='socialmedia' :principalColor=$principalColor ?? null />
 @endsection
 
-@section('main')
+@section('table')
     <table class="table-list">
         <tr>
             <td class="table-list-header">

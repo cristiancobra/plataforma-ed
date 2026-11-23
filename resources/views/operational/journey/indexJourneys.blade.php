@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'JORNADAS')
 
@@ -9,26 +9,23 @@
 
 @section('buttons')
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'journey'" />
-    <x-buttons.filter />
     <x-buttons.create model="journey" />
 @endsection
 
-@section('main')
-    <div style="text-align:right">
-        <form id="filter" action="{{ route('journey.index') }}" method="get" style="text-align: right;display:none">
-            <input type="text" name="name" placeholder="nome da tarefa" value="">
-            <input type="date" name="start" size="20" value="{{ old('start') }}">
-            <input type="date" name="end" size="20" value="{{ old('end') }}">
-            {{ createFilterSelect('department', 'select', $departments, 'Todos os departamentos') }}
-            {{ createSelectUsers('select', $users, 'Todos os usuários') }}
-            <br>
-            <a class="text-button secondary" href='{{ route('journey.index') }}'>
-                LIMPAR
-            </a>
-            <input class="text-button primary" type="submit" value="FILTRAR">
-        </form>
-        <br>
-    </div>
+@section('filter')
+    <x-table.filter :action="route('journey.index')" :reset-url="route('journey.index')" :total-filtered="$journeys->total()">
+        @if (request('trash'))
+            <input type="hidden" name="trash" value="1">
+        @endif
+        <x-filter.input name="name" placeholder="nome da tarefa" />
+        <x-filter.input name="start" type="date" title="Data inicial" />
+        <x-filter.input name="end" type="date" title="Data final" />
+        <x-filter.select name="department" :options="$departments" placeholder="Todos os departamentos" />
+        <x-filter.select name="user_id" :options="$users->mapWithKeys(fn ($u) => [$u->id => optional($u->contact)->name])->all()" placeholder="Todos os usuários" />
+    </x-table.filter>
+@endsection
+
+@section('table')
     <table class="table-list">
         <tr>
             <td class="table-list-header" style="width: 20%">

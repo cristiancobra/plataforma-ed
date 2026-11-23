@@ -1,4 +1,4 @@
-@extends('layouts/master')
+@extends('layouts/index')
 
 @section('title', 'CONCORRENTES')
 
@@ -15,7 +15,7 @@
     </a>
 @endsection
 
-@section('main')
+@section('table')
     <table class='table-list'>
         <tr>
             <td class='table-list-header'>
