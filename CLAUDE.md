@@ -14,7 +14,7 @@ O projeto roda via Docker Compose (`docker-compose.yml`):
 - `app` — container PHP-FPM (build a partir de `docker/php/Dockerfile`), working dir `/var/www`.
   Também tem Node.js + Chromium + o pacote npm `puppeteer` (em `/opt/browsershot/node_modules`,
   isolado do `node_modules` do front-end), usados pelo Spatie Browsershot para gerar PDF.
-- `web` — nginx, exposto na porta `8080` do host
+- `web` — nginx, exposto na porta `8090` do host
 - `mysql` — MariaDB 10.6, banco `plataforma`, exposto na porta `3306` do host
 - `node` — container Node 20 para build dos assets (não tem comando próprio e fica reiniciando; use
   `docker-compose run --rm node <cmd>` em vez de `exec`)
@@ -149,6 +149,19 @@ Use os componentes existentes em vez de escrever o HTML à mão:
   sessão `failed`, `error`, `success`, `attachment_success` e `message`. Não repita blocos
   `$errors->any()` / `Session::has(...)` nas views — basta o controller usar `->with('success', ...)` ou
   `->with('failed', ...)`. `failed` é renderizado como HTML (alguns controllers enviam links nela).
+- **Listagens com filtro** (padrão — ver `resources/views/collections/indexCollections.blade.php` e
+  `sales/products/index.blade.php`): a view estende `layouts/index` e preenche as seções `buttons`
+  (somente `<x-buttons.trash-index>` + `<x-buttons.create>`; **sem** botão de filtro — o filtro fica sempre
+  visível), `filter`, `table` e `pagination`. O filtro é `<x-table.filter :action :reset-url
+  :filters-active :total-filtered :total-total>` (formulário GET) contendo `<x-filter.input>` /
+  `<x-filter.select>`; parâmetros fixos (ex.: `variation`, `trash`) entram como `<input type="hidden">`
+  porque o GET descarta a query string do `action`. O controller calcula `$filtersActive` (qualquer parâmetro
+  não vazio exceto `page`, `trash`, `role`) e `$totalTotal` (total sem filtro). A tabela usa `<x-table.header>`,
+  linhas `row border-bottom align-items-center`, `<x-table.badge>` para situação e `<x-buttons.details>` na
+  última coluna.
+- **Formulários create/edit** novos: estenda `layouts/master`, agrupe os campos em `<x-form.section title icon>`
+  com `form-control`/`form-select` em colunas `col-md-*`, e termine com `<x-buttons.cancel>` + `<x-buttons.save>`
+  (ver `collections/_form.blade.php`). Evite `layouts/edit` e os helpers `createSimpleSelect` em telas novas.
 - Sidebar: os menus ficam em `resources/views/components/sidebar/sidebar.blade.php`, cada um um
   `<x-sidebar.item icon="..." title="..." :submenu="[['icon' => ..., 'label' => ..., 'route' => ...], ...]">`.
   Os submenus trazem apenas atalhos para listagens (sem links "Novo/Nova") para não ficarem longos.

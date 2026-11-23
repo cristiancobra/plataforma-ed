@@ -19,136 +19,144 @@
 @endsection
 
 @section('main')
-    <div>
-        <form action='{{ route('product.store', ['variation' => $variation]) }}' method='post'
-            enctype='multipart/form-data'>
-            @csrf
-            <label class='labels' for=''>
-                ADICIONAR NOVA IMAGEM:
-            </label>
-            <label class='switch'>
-                <input type='checkbox' id='slider'>
-                <span class='slider round'></span>
-            </label>
-            <br>
-            <br>
-            <div id='new' style='display:none'>
-                <input type='file' name='image' accept='image/*'>
-            </div>
-            @if ($errors->has('image'))
-                <span class='text-danger'>{{ $errors->first('image') }}</span>
-            @endif
-            <div id='change' style='display:inline'>
-                <label class='labels' for=''>SELECIONAR IMAGEM:</label>
-                {{ createSelectIdName('image_id', 'select', $images, 'Nenhuma') }}
-            </div>
-            <br>
-            <br>
-            <label class='labels' for=''>NOME:</label>
-            <input type='text' name='name' size='20' style='width:90%' value='{{ old('name') }}'>
-            @if ($errors->has('name'))
-                <span class='text-danger'>{{ $errors->first('name') }}</span>
-            @endif
-            <br>
-            <label class='labels' for=''>CNAE:</label>
-            <input type='text' name='cnae' size='20' value='{{ old('cnae') }}'>
-            <br>
-            <label class='labels' for=''>ESTOQUE INICIAL:</label>
-            * Apenas para produtos
-            <input type='number' name='initial stock'>
-            <br>
-            <br>
-            <label class='labels' for=''>CATEGORIA:</label>
-            {{ createSimpleSelect('category', 'fields', $categories) }}
-            <br>
-            @if ($variation == 'despesa')
-                <label class='labels' for=''>GRUPO:</label>
-                {{ createSimpleSelect('group', 'fields', $groups) }}
-                <br>
-            @endif
-            <br>
-            <br>
-            <label class='labels' for=''>DESCRIÇÃO:</label>
-            <textarea id='description' name='description' rows='20' cols='90'>
-        </textarea>
-            <!------------------------------------------- SCRIPT CKEDITOR---------------------- -->
-            <script>
-                Jodit.make('textarea[name=\"description\"]', { language: 'pt_BR' });
-            </script>
-            <br>
-            <br>
-            @if ($variation == 'receita')
-                <label class='labels' for=''>HORAS NECESSÁRIAS:</label>
-                <input style='text-align:right' type='number' name='work_hours' size='5' min='0'
-                    max='999' step='0.1' value='{{ old('work_hours') }}'>
-                <br>
-                <label class='labels' for=''>PONTOS FUNCIONAIS:</label>
-                <input class='text-right' type='decimal' name='points' size='5' value='{{ old('points') }}'>
-                <br>
-                <br>
-                <label class='labels' for=''>CUSTO 1:</label>
-                <input type='integer' name='cost1' size='5'>
-                <label class='labels' for=''>descrição:</label>
-                <input type='decimal' name='cost1_description' size='40'>
-                <br>
-                <label class='labels' for=''>CUSTO 2:</label>
-                <input type='integer' name='cost2' size='5'>
-                <label class='labels' for=''>descrição:</label>
-                <input type='decimal' name='cost2_description' size='40'>
-                <br>
-                <label class='labels' for=''>CUSTO 3:</label>
-                <input type='integer' name='cost3' size='5''>
-                <label class='labels' for=''>descrição:</label>
-                <input type='decimal' name='cost3_description' size='40'>
-                <br>
-                <br>
-                <label class='labels' for=''>IMPOSTO (%):</label>
-                <input class='text-right' type='decimal' name='tax_rate' size='5' value='{{ old('tax_rate') }}'>
-                <br>
-                <br>
-            @endif
-            <label class='labels' for=''>PREÇO:</label>
-            <input class='text-right' type='decimal' name='price' id='price' value='{{ old('price') }}'
-                onkeyup="formatCurrencyReal('price')" style='text-align: right' size='6'>
-            @if ($errors->has('price'))
-                <span class='text-danger'>{{ $errors->first('price') }}</span>
-            @endif
-            <br>
-            <br>
-            <label class='labels' for=''>PRAZO DE ENTREGA:</label>
-            <input class='text-right' type='integer' name='due_date' size='5' value='{{ old('due_date') }}'>
-            <br>
-            <br>
-            <label class='labels' for=''>
-                SITUAÇÃO:
-            </label>
-            {{ createSimpleSelect('status', 'fields', $status) }}
-            <br>
-            <br>
-            <input class='btn btn-secondary' type='submit' value='CRIAR PRODUTO'>
-        </form>
-    </div>
-    <script>
-        // exibir form para adicionar nova imagem
-        document.getElementById('slider').addEventListener('change', function () {
-            if (this.checked) {
-                document.getElementById('change').style.display = 'none';
-                document.getElementById('new').style.display = 'block';
-            } else {
-                document.getElementById('change').style.display = 'inline';
-                document.getElementById('new').style.display = 'none';
-            }
-        });
-        //        $('[name=work_hours]').on('input', '.decimal-number', function (e) {
-        //    this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
-        //});
+    @php
+        $opts = fn ($list, $name, $placeholder = null) => collect($list)->map(
+            fn ($v) => "<option value=\"$v\"" . (old($name) == $v ? ' selected' : '') . ">$v</option>"
+        )->implode('');
+    @endphp
+    <form action='{{ route('product.store', ['variation' => $variation]) }}' method='post' enctype='multipart/form-data'>
+        @csrf
 
-        // formatar entrada para decimal
-        //        $('[name=work_hours]').inputmask({
-        //  alias: 'numeric', 
-        //  allowMinus: false,  
-        //  digits: 2, 
-        //  max: 999.99
-        //});
+        <x-form.section title="IDENTIFICAÇÃO" icon="fas fa-id-card">
+            <div class="row">
+                <div class="col-md-8">
+                    <label class='labels' for='name'>NOME: <span class="text-danger">*</span></label>
+                    <input type='text' name='name' id='name' class='form-control' value='{{ old('name') }}'>
+                    @error('name')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-4">
+                    <label class='labels' for='cnae'>CNAE:</label>
+                    <input type='text' name='cnae' id='cnae' class='form-control' value='{{ old('cnae') }}'>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-md-4">
+                    <label class='labels' for='category'>CATEGORIA:</label>
+                    <select name='category' id='category' class='form-select'>{!! $opts($categories, 'category') !!}</select>
+                </div>
+                @if ($variation == 'despesa')
+                    <div class="col-md-4">
+                        <label class='labels' for='group'>GRUPO:</label>
+                        <select name='group' id='group' class='form-select'>{!! $opts($groups, 'group') !!}</select>
+                    </div>
+                @endif
+                <div class="col-md-4">
+                    <label class='labels' for='status'>SITUAÇÃO:</label>
+                    <select name='status' id='status' class='form-select'>{!! $opts($status, 'status') !!}</select>
+                </div>
+                <div class="col-md-4">
+                    <label class='labels' for='initial_stock'>ESTOQUE INICIAL:</label>
+                    <input type='number' min='0' name='initial_stock' id='initial_stock' class='form-control text-end'
+                        value='{{ old('initial_stock') }}'>
+                    <small class="text-muted">Apenas para produtos físicos</small>
+                </div>
+            </div>
+        </x-form.section>
+
+        <x-form.section title="IMAGEM" icon="fas fa-image">
+            <div class="row align-items-end">
+                <div class="col-md-6" id='change'>
+                    <label class='labels'>SELECIONAR IMAGEM:</label>
+                    {{ createSelectIdName('image_id', 'form-select', $images, 'Nenhuma') }}
+                </div>
+                <div class="col-md-6">
+                    <label class='labels d-block'>ADICIONAR NOVA IMAGEM:</label>
+                    <label class='switch'>
+                        <input type='checkbox' id='slider'>
+                        <span class='slider round'></span>
+                    </label>
+                    <div id='new' class="mt-2" style='display:none'>
+                        <input type='file' name='image' accept='image/*' class='form-control'>
+                    </div>
+                    @error('image')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+            </div>
+        </x-form.section>
+
+        <x-form.section title="DESCRIÇÃO" icon="fas fa-align-left">
+            <textarea id='description' name='description' rows='10' class='form-control'>{{ old('description') }}</textarea>
+            <script>
+                Jodit.make('textarea[name="description"]', { language: 'pt_BR' });
+            </script>
+        </x-form.section>
+
+        @if ($variation == 'receita')
+            <x-form.section title="PRODUÇÃO E CUSTOS" icon="fas fa-calculator">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label class='labels' for='work_hours'>HORAS NECESSÁRIAS:</label>
+                        <input type='number' name='work_hours' id='work_hours' class='form-control text-end' min='0'
+                            max='999' step='0.1' value='{{ old('work_hours') }}'>
+                    </div>
+                    <div class="col-md-4">
+                        <label class='labels' for='points'>PONTOS FUNCIONAIS:</label>
+                        <input type='text' name='points' id='points' class='form-control text-end' value='{{ old('points') }}'>
+                    </div>
+                    <div class="col-md-4">
+                        <label class='labels' for='tax_rate'>IMPOSTO (%):</label>
+                        <input type='text' name='tax_rate' id='tax_rate' class='form-control text-end' value='{{ old('tax_rate') }}'>
+                    </div>
+                </div>
+                @foreach ([1, 2, 3] as $i)
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <label class='labels' for='cost{{ $i }}'>CUSTO {{ $i }}:</label>
+                            <input type='text' name='cost{{ $i }}' id='cost{{ $i }}'
+                                class='form-control text-end' value='{{ old('cost' . $i) }}'>
+                        </div>
+                        <div class="col-md-8">
+                            <label class='labels' for='cost{{ $i }}_description'>DESCRIÇÃO DO CUSTO {{ $i }}:</label>
+                            <input type='text' name='cost{{ $i }}_description' id='cost{{ $i }}_description'
+                                class='form-control' value='{{ old('cost' . $i . '_description') }}'>
+                        </div>
+                    </div>
+                @endforeach
+            </x-form.section>
+        @endif
+
+        <x-form.section title="VENDA" icon="fas fa-tag">
+            <div class="row">
+                <div class="col-md-4">
+                    <label class='labels' for='price'>PREÇO:</label>
+                    <input type='text' name='price' id='price' class='form-control text-end' value='{{ old('price') }}'
+                        onkeyup="formatCurrencyReal('price')">
+                    @error('price')
+                        <span class='text-danger'>{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-4">
+                    <label class='labels' for='due_date'>PRAZO DE ENTREGA:</label>
+                    <input type='text' name='due_date' id='due_date' class='form-control text-end' value='{{ old('due_date') }}'>
+                </div>
+            </div>
+        </x-form.section>
+
+        <div class="mt-4" style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
+            <x-buttons.cancel />
+            <x-buttons.save title="Criar produto" />
+        </div>
+    </form>
+@endsection
+
+@section('js-scripts')
+    <script>
+        document.getElementById('slider').addEventListener('change', function() {
+            document.getElementById('change').style.display = this.checked ? 'none' : '';
+            document.getElementById('new').style.display = this.checked ? 'block' : 'none';
+        });
     </script>
 @endsection

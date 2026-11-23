@@ -25,6 +25,15 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request) {
+        $filtersActive = collect($request->except(['page', 'trash', 'role', 'variation']))
+                ->filter(fn ($v) => !is_null($v) && trim($v) !== '')
+                ->count() > 0;
+
+        $totalTotal = Product::where('account_id', auth()->user()->account_id)
+                ->where('type', $request->variation)
+                ->where('trash', $request->trash == 1 ? 1 : 0)
+                ->count();
+
         $products = Product::filterProducts($request);
 
         foreach ($products as $product) {
@@ -54,6 +63,8 @@ class ProductController extends Controller {
                         'categories',
                         'groups',
                         'status',
+                        'filtersActive',
+                        'totalTotal',
         ));
     }
 

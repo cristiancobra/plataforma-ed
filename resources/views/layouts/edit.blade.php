@@ -22,7 +22,7 @@
 
         <main class='main2'>
             @yield('form_start')
-            <header class='row pt-5 ps-5 ms-3 me-5'>
+            <header class='row pb-3'>
                 @include('layouts.header')
             </header>
 

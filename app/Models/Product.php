@@ -110,7 +110,10 @@ class Product extends Model {
                         $query->where('due_date', '<', $request->date_due);
                     }
                     if ($request->category) {
-                        $query->where('category', $request->type);
+                        $query->where('category', $request->category);
+                    }
+                    if ($request->group) {
+                        $query->where('group', $request->group);
                     }
                     if ($request->type) {
                         $query->where('type', $request->type);
@@ -134,6 +137,7 @@ class Product extends Model {
             'name' => $request->name,
             'status' => $request->status,
             'category' => $request->category,
+            'group' => $request->group,
             'variation' => $request->variation,
             'trash' => $request->trash,
         ]);
