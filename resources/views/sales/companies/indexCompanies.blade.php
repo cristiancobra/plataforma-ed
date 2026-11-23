@@ -7,76 +7,72 @@
 @endsection
 
 @section('buttons')
-    {{ createButtonFilter() }}
-    <a class="circular-button primary" href="{{ route('company.create', ['typeCompanies' => $typeCompanies]) }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="company" parameter="typeCompanies" :value="$typeCompanies" :principalColor="$principalColor" />
 @endsection
 
 @section('filter')
-    <form id="filter" action="{{ route('company.index') }}" method="get" style="text-align: right">
-        <input type="text" name="name" placeholder="nome" value="">
-        <input type="hidden" name="type" value="{{ $typeCompanies }}">
-        <span style="margin-left: 20px">cidade: </span>
-        {{ createFilterSelect('city', 'select', $uniqueCities) }}
-        <span style="margin-left: 20px">Estado: </span>
-        {{ createFilterSelect('state', 'select', $uniqueStates) }}
-        <span style="margin-left: 20px">País: </span>
-        {{ createFilterSelect('country', 'select', $uniqueCountries) }}
-        <br>
-        <a class="text-button secondary" href='{{ route('company.index') }}'>
-            LIMPAR
-        </a>
-        <input class="text-button primary" type="submit" value="FILTRAR">
-    </form>
+    <x-table.filter :action="route('company.index')" :reset-url="route('company.index', ['typeCompanies' => $typeCompanies])"
+        :filters-active="$filtersActive" :total-filtered="$total" :total-total="$totalTotal">
+        <input type="hidden" name="typeCompanies" value="{{ $typeCompanies }}">
+        <x-filter.input name="name" placeholder="nome" />
+        <x-filter.select name="city" :options="$cities" placeholder="Todas as cidades" />
+        <x-filter.select name="state" :options="$states" placeholder="Todos os estados" />
+        <x-filter.select name="country" :options="$countries" placeholder="Todos os países" />
+        <x-filter.select name="status" :options="$statuses" placeholder="Todas as situações" />
+        <x-filter.select name="cadin_estadual" :options="$cadinOptions" placeholder="CADIN Estadual" />
+        <x-filter.select name="cadin_federal" :options="$cadinOptions" placeholder="CADIN Federal" />
+    </x-table.filter>
 @endsection
 
 @section('table')
-    <div>
-        <table class="table-list">
-            <tr>
-                <td class="table-list-header">
-                    Nome
-                </td>
-                <td class="table-list-header">
-                    Email
-                </td>
-                <td class="table-list-header">
-                    País
-                </td>
-                <td class="table-list-header">
-                    Cidade
-                </td>
-            </tr>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'EMAIL', 'class' => 'col-2'],
+        ['label' => 'CIDADE', 'class' => 'col-2'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+        ['label' => 'CADIN ESTADUAL', 'class' => 'col-1'],
+        ['label' => 'CADIN FEDERAL', 'class' => 'col-1'],
+        ['label' => 'CONSULTA', 'class' => 'col-1'],
+        ['label' => 'VER', 'class' => 'col-1'],
+    ]" />
+    @foreach ($companies as $company)
+        <div class="row border-bottom align-items-center py-2">
+            <div class="col-3 fw-bold">
+                {{ $company->name }}
+                @if ($company->cnpj)
+                    <div class="small text-muted fw-normal">{{ $company->cnpj }}</div>
+                @endif
+            </div>
+            <div class="col-2 text-center text-break small">
+                {{ $company->email ?: '-' }}
+            </div>
+            <div class="col-2 text-center">
+                {{ $company->city ?: '-' }}{{ $company->state ? ' / ' . $company->state : '' }}
+            </div>
+            <div class="col-1 text-center">
+                <x-table.badge :label="$company->status" :colors="\App\Models\Company::statusColors($company->status)" />
+            </div>
+            <div class="col-1 text-center">
+                <x-table.badge :label="\App\Models\Company::cadinLabel($company->cadin_estadual)"
+                    :colors="\App\Models\Company::cadinColors($company->cadin_estadual)" />
+            </div>
+            <div class="col-1 text-center">
+                <x-table.badge :label="\App\Models\Company::cadinLabel($company->cadin_federal)"
+                    :colors="\App\Models\Company::cadinColors($company->cadin_federal)" />
+            </div>
+            <div class="col-1 text-center small">
+                {{ $company->cadin_checked_at?->format('d/m/Y') ?? '-' }}
+            </div>
+            <div class="col-1 text-center">
+                <x-buttons.details :href="route('company.show', ['company' => $company, 'typeCompanies' => $company->type])" title="Visualizar"
+                    :color="$principalColor" :size="32" />
+            </div>
+        </div>
+    @endforeach
+@endsection
 
-            @foreach ($companies as $company)
-                <tr style="font-size: 14px">
-                    <td class="table-list-left">
-                        <a class="white"
-                            href=" {{ route('company.show', [
-                                'company' => $company,
-                                'typeCompanies' => $company->type,
-                            ]) }}">
-                            <button class="button-round">
-                                <i class='fa fa-eye'></i>
-                            </button>
-                        </a>
-                        </a>
-                        {{ $company->name }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $company->email }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $company->country }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $company->city }}
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-
-    @section('paginate', $companies->links())
-
+@section('pagination')
+    <div class="mt-3">
+        {{ $companies->links() }}
+    </div>
 @endsection

@@ -43,9 +43,85 @@ class Company extends Model {
         'field_of_activity_3',
         'field_of_activity_4',
         'field_of_activity_5',
+        'cadin_estadual',
+        'cadin_federal',
+        'cadin_checked_at',
     ];
     protected $hidden = [
     ];
+    protected $casts = [
+        'cadin_checked_at' => 'date',
+    ];
+
+    // Situações do CADIN: valor => [rótulo, [fundo, texto]] (cores para <x-table.badge>)
+    public const CADIN_STATUSES = [
+        'em_dia' => ['Em dia', ['#E8F5E9', '#2E7D32']],
+        'devedor' => ['Devedor', ['#FFEBEE', '#C62828']],
+    ];
+
+    public const STATUSES = ['ativo', 'pendente', 'desativado'];
+
+    public const SECTORS = [
+        'agricultura' => 'Agricultura',
+        'biotecnologia' => 'Biotecnologia',
+        'química' => 'Substâncias e produtos químicos',
+        'aeroespacial' => 'Aeroespacial',
+        'hardware' => 'Computadores e hardware',
+        'construção' => 'Construção',
+        'consultoria' => 'Consultoria',
+        'produtos de consumo' => 'Produtos de consumo',
+        'serviços ao consumidor' => 'Serviços ao consumidor',
+        'marketing digital' => 'Marketing digital',
+        'educação' => 'Educação',
+        'eletrônica' => 'Eletrônica',
+        'moda' => 'Moda',
+        'serviços financeiros' => 'Serviços financeiros',
+        'alimentos e bebidas' => 'Alimentos e bebidas',
+        'jogos' => 'Jogos',
+        'serviços de saúde' => 'Serviços de saúde',
+        'indústria' => 'Indústria',
+        'internet/serviços da web' => 'Internet/serviços da web',
+        'serviços de TI' => 'Serviços de TI',
+        'jurídico' => 'Jurídico',
+        'estilo de vida' => 'Estilo de vida',
+        'marítimo' => 'Marítimo',
+        'marketing/publicidade' => 'Marketing/publicidade',
+        'mídias e entretenimento' => 'Mídias e entretenimento',
+        'mineração' => 'Mineração',
+        'petróleo e gás' => 'Petróleo e gás',
+        'política' => 'Política',
+        'imóveis' => 'Imóveis',
+        'varejo/distribuição' => 'Varejo/distribuição',
+        'segurança' => 'Segurança',
+        'software' => 'Software',
+        'esportes' => 'Esportes',
+        'telecomunicações' => 'Telecomunicações',
+        'transportes' => 'Transportes',
+        'turismo' => 'Turismo',
+        'outros' => 'Outros',
+    ];
+
+    // Cores [fundo, texto] da etiqueta de situação
+    public static function statusColors($status) {
+        return match ($status) {
+            'ativo' => ['#E8F5E9', '#2E7D32'],
+            'pendente' => ['#FFF8E1', '#F57F17'],
+            'desativado' => ['#FFEBEE', '#C62828'],
+            default => null,
+        };
+    }
+
+    public static function cadinStatusOptions() {
+        return array_map(fn ($status) => $status[0], self::CADIN_STATUSES);
+    }
+
+    public static function cadinLabel($value) {
+        return self::CADIN_STATUSES[$value][0] ?? null;
+    }
+
+    public static function cadinColors($value) {
+        return self::CADIN_STATUSES[$value][1] ?? null;
+    }
 
     // RELACIONAMENTOS
     public function account() {
@@ -117,6 +193,16 @@ class Company extends Model {
                     } elseif ($request->country) {
                         $query->where('country', $request->country);
                     }
+                    if ($request->status) {
+                        $query->where('status', $request->status);
+                    }
+                    foreach (['cadin_estadual', 'cadin_federal'] as $cadinField) {
+                        if ($request->$cadinField == 'nao_consultado') {
+                            $query->whereNull($cadinField);
+                        } elseif ($request->$cadinField) {
+                            $query->where($cadinField, $request->$cadinField);
+                        }
+                    }
                     if ($request->type == 'cliente e fornecedor') {
                         $query->where('type', $request->type)
                         ->orWhere('type', 'cliente e fornecedor');
@@ -134,11 +220,7 @@ class Company extends Model {
                 ->orderBy('name', 'ASC')
                 ->paginate(20);
 
-        $items->appends([
-            'name' => $request->name,
-            'company' => $request->company_id,
-            'type' => $request->type,
-        ]);
+        $items->withQueryString();
 
         return $items;
     }

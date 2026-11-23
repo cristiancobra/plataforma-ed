@@ -44,7 +44,22 @@ class CompanyRequest extends FormRequest
             'country' => 'nullable|string|max:255',
             'zip_code' => 'nullable|string|max:20',
             'type' => 'nullable|string|max:255',
-            'status' => 'nullable|string|in:ativo,inativo',
+            'status' => 'nullable|string|in:ativo,pendente,desativado',
+            'financial_email' => 'nullable|email|max:255',
+            'neighborhood' => 'nullable|string|max:255',
+            'employees' => 'nullable|integer|min:0',
+            'client_number' => 'nullable|integer|min:0',
+            'revenues' => 'nullable|integer|min:0',
+            'sector' => 'nullable|string|max:255',
+            'business_model' => 'nullable|string|max:255',
+            'competitive_advantage' => 'nullable|string|max:255',
+            'value_offer' => 'nullable|string',
+            'description' => 'nullable|string|max:255',
+            'contacts' => 'nullable|array',
+            'contacts.*' => 'integer',
+            'cadin_estadual' => 'nullable|in:em_dia,devedor',
+            'cadin_federal' => 'nullable|in:em_dia,devedor',
+            'cadin_checked_at' => 'nullable|date',
         ];
     }
 
@@ -79,7 +94,15 @@ class CompanyRequest extends FormRequest
             'country.max' => 'O campo "País" não pode ter mais de 255 caracteres.',
             'zip_code.max' => 'O campo "CEP" não pode ter mais de 20 caracteres.',
             'type.max' => 'O campo "Tipo" não pode ter mais de 255 caracteres.',
-            'status.in' => 'O campo "Status" deve ser "ativo" ou "inativo".',
+            'status.in' => 'O campo "Situação" deve ser "ativo", "pendente" ou "desativado".',
+            'financial_email.email' => 'O campo "Email financeiro" deve ser um endereço de email válido.',
+            'employees.integer' => 'O campo "Quantidade de empregados" deve ser um número inteiro.',
+            'client_number.integer' => 'O campo "Quantidade de clientes" deve ser um número inteiro.',
+            'revenues.integer' => 'O campo "Faturamento" deve ser um número inteiro.',
+            'description.max' => 'O campo "Descrição" não pode ter mais de 255 caracteres.',
+            'cadin_estadual.in' => 'O campo "CADIN Estadual" deve ser "Em dia" ou "Devedor".',
+            'cadin_federal.in' => 'O campo "CADIN Federal" deve ser "Em dia" ou "Devedor".',
+            'cadin_checked_at.date' => 'O campo "Data da consulta ao CADIN" deve ser uma data válida.',
         ];
     }
 }

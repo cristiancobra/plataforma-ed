@@ -20,65 +20,45 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-
-        if ($request->input('typeCompanies')) {
-            $typeCompanies = $request->input('typeCompanies');
-            $request->type = $typeCompanies;
-        } else {
-            $typeCompanies = $request->type;
-        }
+        $typeCompanies = $request->input('typeCompanies', $request->input('type'));
+        $request->merge(['type' => $typeCompanies]);
 
         $companies = Company::filterModel($request);
-
-        //        $companies = Company::where('account_id', auth()->user()->account_id)
-        //                ->with([
-        //                    'account',
-        //                    'contacts',
-        //                ])
-        //                ->where(function ($query) use ($typeCompanies) {
-        //                    $query->where('type', $typeCompanies)
-        //                    ->orWhere('type', 'cliente e fornecedor');
-        //                })
-        //                ->orderBy('NAME', 'ASC')
-        //                ->paginate(20);
-
-
         $total = $companies->total();
 
-        $types = $types = Company::returnTypes();
+        $accountCompanies = Company::where('account_id', auth()->user()->account_id)
+            ->where('type', $typeCompanies);
 
-        $existingCities = Company::where('city', '!=', null)
-            ->where('type', $typeCompanies)
-            ->get()
-            ->pluck('city')
-            ->toArray();
-        $uniqueCities = array_unique($existingCities);
-        $cities = array_unshift($uniqueCities, '');
+        $totalTotal = (clone $accountCompanies)->count();
+        $filtersActive = collect($request->except(['page', 'trash', 'role', 'type', 'typeCompanies']))
+            ->filter(fn ($value) => $value !== null && $value !== '')
+            ->isNotEmpty();
 
-        $existingStates = Company::where('state', '!=', null)
-            ->where('type', $typeCompanies)
-            ->get()
-            ->pluck('state')
+        $distinct = fn ($column) => (clone $accountCompanies)
+            ->whereNotNull($column)
+            ->where($column, '!=', '')
+            ->orderBy($column)
+            ->distinct()
+            ->pluck($column)
             ->toArray();
-        $uniqueStates = array_unique($existingStates);
-        $states = array_unshift($uniqueStates, '');
 
-        $existingCountries = Company::where('country', '!=', null)
-            ->where('type', $typeCompanies)
-            ->get()
-            ->pluck('country')
-            ->toArray();
-        $uniqueCountries = array_unique($existingCountries);
-        $countries = array_unshift($uniqueCountries, '');
+        $cities = $distinct('city');
+        $states = $distinct('state');
+        $countries = $distinct('country');
+        $statuses = Company::STATUSES;
+        $cadinOptions = Company::cadinStatusOptions() + ['nao_consultado' => 'Não consultado'];
 
         return view('sales.companies.indexCompanies', compact(
             'typeCompanies',
             'companies',
             'total',
-            'types',
-            'uniqueStates',
-            'uniqueCities',
-            'uniqueCountries',
+            'totalTotal',
+            'filtersActive',
+            'cities',
+            'states',
+            'countries',
+            'statuses',
+            'cadinOptions',
         ));
     }
 
@@ -90,20 +70,11 @@ class CompanyController extends Controller
     public function create(Request $request)
     {
         $typeCompanies = $request->input('typeCompanies');
+        $company = new Company(['type' => $typeCompanies, 'status' => 'ativo']);
 
-        $contacts = Contact::where('account_id', auth()->user()->account_id)
-            ->orderBy('NAME', 'ASC')
-            ->get();
-
-        $states = returnStates();
-
-        $businessModelTypes = $this->businessModelTypes();
-
-        return view('sales.companies.createCompany', compact(
-            'typeCompanies',
-            'contacts',
-            'states',
-            'businessModelTypes',
+        return view('sales.companies.createCompany', array_merge(
+            compact('company', 'typeCompanies'),
+            $this->formOptions(),
         ));
     }
 
@@ -115,22 +86,16 @@ class CompanyController extends Controller
      */
     public function store(CompanyRequest $request)
     {
-        $validatedData = $request->validated();
         $company = new Company();
-        $company->fill($validatedData);
+        $company->fill($request->validated());
         $company->account_id = auth()->user()->account_id;
         $company->save();
 
-        if ($request->has('contacts')) {
-            $company->contacts()->sync($request->contacts);
-        }
-        
-        $typeCompanies = $company->type;
+        $company->contacts()->sync($this->accountContactIds($request));
 
-        return view('sales.companies.showCompany', compact(
-            'company',
-            'typeCompanies',
-        ));
+        return redirect()
+            ->route('company.show', ['company' => $company, 'typeCompanies' => $company->type])
+            ->with('success', 'Organização criada com sucesso.');
     }
 
     /**
@@ -157,18 +122,11 @@ class CompanyController extends Controller
      */
     public function edit(Company $company, Request $request)
     {
-        $typeCompanies = $request->input('typeCompanies');
-        $states = returnStates();
-        $types = Company::returnTypes();
+        $typeCompanies = $request->input('typeCompanies', $company->type);
 
-        $businessModelTypes = Account::businessModelTypes();
-
-        return view('sales.companies.editCompany', compact(
-            'company',
-            'states',
-            'typeCompanies',
-            'businessModelTypes',
-            'types'
+        return view('sales.companies.editCompany', array_merge(
+            compact('company', 'typeCompanies'),
+            $this->formOptions(),
         ));
     }
 
@@ -181,16 +139,14 @@ class CompanyController extends Controller
      */
     public function update(CompanyRequest $request, Company $company)
     {
-        $validatedData = $request->validated();
-        $company->fill($validatedData);
+        $company->fill($request->validated());
         $company->save();
 
-        $typeCompanies = $company->type;
+        $company->contacts()->sync($this->accountContactIds($request));
 
-        return redirect()->route('company.show', compact(
-            'company',
-            'typeCompanies',
-        ));
+        return redirect()
+            ->route('company.show', ['company' => $company, 'typeCompanies' => $company->type])
+            ->with('success', 'Organização atualizada com sucesso.');
     }
 
     /**
@@ -209,18 +165,31 @@ class CompanyController extends Controller
         ));
     }
 
-    public function businessModelTypes()
+    /**
+     * Opções dos selects do formulário de criar/editar.
+     */
+    private function formOptions()
     {
-        $businessModelTypes = [
-            'B2B' => ' B2B - Business to Business',
-            'B2C' => 'B2C - Business to Consumer',
-            'B2E' => 'B2E - Business to Employee',
-            'B2P' => 'B2P -  Business to Producer ',
-            'B2G' => ' B2P - Business to Government',
-            'B2B2C' => 'B2P - Business to Business to Consumer',
-            'C2C' => 'B2P - Consumer to Consumer',
-            'D2C' => 'B2P - Direct to Consumer ',
+        return [
+            'contacts' => Contact::where('account_id', auth()->user()->account_id)
+                ->orderBy('name', 'ASC')
+                ->get(['id', 'name']),
+            'states' => array_filter(returnStates()),
+            'types' => Company::returnTypes(),
+            'statuses' => Company::STATUSES,
+            'sectors' => Company::SECTORS,
+            'businessModelTypes' => Company::businessModelTypes(),
         ];
-        return $businessModelTypes;
+    }
+
+    /**
+     * Ids de contatos enviados no formulário, limitados aos da conta do usuário.
+     */
+    private function accountContactIds(Request $request)
+    {
+        return Contact::where('account_id', auth()->user()->account_id)
+            ->whereIn('id', (array) $request->input('contacts', []))
+            ->pluck('id')
+            ->toArray();
     }
 }
