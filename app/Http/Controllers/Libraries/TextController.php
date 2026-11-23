@@ -22,14 +22,22 @@ class TextController extends Controller
      */
     public function index(Request $request)
     {
+        $filtersActive = collect($request->except(['page', 'trash', 'role']))
+            ->filter(fn ($v) => ! is_null($v) && trim($v) !== '')
+            ->count() > 0;
+
+        $totalTotal = Text::where('account_id', auth()->user()->account_id)
+            ->where('trash', $request->trash == 1 ? '=' : '!=', 1)
+            ->count();
+
         $texts = $this->filterTexts($request);
 
         $valueOffer = Text::myValueOffer();
         $about = Text::myAbout();
         $strengths = Text::myStrengths();
-        //dd($strengths);
         $users = User::myUsers();
         $status = Text::returnStatus();
+        $types = Text::returnTypes();
         $departments = Text::returnDepartments();
         $trashStatus = request()->trash;
 
@@ -37,8 +45,11 @@ class TextController extends Controller
             'texts',
             'users',
             'status',
+            'types',
             'departments',
             'trashStatus',
+            'filtersActive',
+            'totalTotal',
             'valueOffer',
             'about',
             'strengths',
@@ -230,7 +241,10 @@ class TextController extends Controller
                 $query->where('user_id', $request->user_id);
             }
             if ($request->name) {
-                $query->where('name', 'like', "%$request->name%");
+                $query->where(function ($query) use ($request) {
+                    $query->where('name', 'like', "%$request->name%")
+                        ->orWhere('title', 'like', "%$request->name%");
+                });
             }
             if ($request->department) {
                 $query->where('department', $request->department);

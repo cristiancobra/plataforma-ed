@@ -13,11 +13,12 @@
 
 
 @section('filter')
-    <x-table.filter :action="route('text.index')" :reset-url="route('text.index')" :total-filtered="$texts->total()">
+    <x-table.filter :action="route('text.index')" :reset-url="route('text.index')" :filters-active="$filtersActive" :total-filtered="$texts->total()" :total-total="$totalTotal">
         @if (request('trash'))
             <input type="hidden" name="trash" value="1">
         @endif
-        <x-filter.input name="name" placeholder="nome do documento" />
+        <x-filter.input name="name" placeholder="nome ou título" />
+        <x-filter.select name="type" :options="$types" placeholder="Todos os tipos" />
         <x-filter.select name="department" :options="$departments" placeholder="Todos os departamentos" />
         <x-filter.select name="user_id" :options="$users->mapWithKeys(fn ($u) => [$u->id => optional($u->contact)->name])->all()" placeholder="Todos os usuários" />
         <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
@@ -25,249 +26,98 @@
 @endsection
 
 
-@section('shortcuts')
-    <div class='col shortcut prospecting'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'biografia']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                biografias
-            </h3>
-        </a>
-    </div>
-    <div class='col shortcut presentation'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'blog']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                blogs
-            </h3>
-        </a>
-    </div>
-
-    <div class='col shortcut document'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'documento']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                documentos
-            </h3>
-        </a>
-    </div>
-
-    <div class='col shortcut proposal'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'teste']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                testes
-            </h3>
-        </a>
-    </div>
-
-    <div class='col shortcut contract'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'perguntas frequentes']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                perguntas frequentes
-            </h3>
-        </a>
-    </div>
-
-    <div class='col shortcut bill'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'tutorial']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                tutorial
-            </h3>
-        </a>
-    </div>
-
-    <div class='col shortcut production'>
-        <a style='text-decoration:none' href='{{ route('text.index', ['type' => 'desativado']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                desativado
-            </h3>
-        </a>
-    </div>
-@endsection
-
-
 @section('table')
-    <div class='row mt-2'>
-        <div class='col tb tb-header-start justify-content-start'>
-            MODELO DE NEGÓCIO
-        </div>
-    </div>
+    @php
+        $statusColors = [
+            'rascunho' => ['#FFF8E1', '#F57F17'],
+            'revisão' => ['#E3F2FD', '#1565C0'],
+            'aprovada' => ['#E8F5E9', '#2E7D32'],
+            'desativada' => ['#ECEFF1', '#546E7A'],
+        ];
+        $businessModel = [
+            ['label' => 'PROPOSTA DE VALOR', 'texts' => $valueOffer ? collect([$valueOffer]) : collect(), 'type' => 'proposta de valor', 'multiple' => false],
+            ['label' => 'APRESENTAÇÃO DA EMPRESA', 'texts' => $about ? collect([$about]) : collect(), 'type' => 'apresentação da empresa', 'multiple' => false],
+            ['label' => 'PONTOS FORTES', 'texts' => $strengths, 'type' => 'força', 'multiple' => true],
+        ];
+    @endphp
 
-    @if ($valueOffer)
-        <div class='row'>
-            <div class='col-3 tb justify-content-start' style="font-weight: 600">
-                <a class="white me-2" href=" {{ route('text.edit', ['text' => $valueOffer->id]) }}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
-                </a>
-                PROPOSTA DE VALOR
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'MODELO DE NEGÓCIO', 'class' => 'col-3'],
+        ['label' => 'TEXTO', 'class' => 'col-7'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
+    ]" />
+    @foreach ($businessModel as $item)
+        @forelse ($item['texts'] as $text)
+            <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.edit', ['text' => $text->id]) }}">
+                <div class="col-3 fw-bold">
+                    @if ($loop->first)
+                        {{ $item['label'] }}
+                    @endif
+                </div>
+                <div class="col-7 small">
+                    {{ $text->text }}
+                </div>
+                <div class="col-2 text-center">
+                    <x-table.badge :label="$text->status" :colors="$statusColors[$text->status] ?? null" />
+                </div>
             </div>
-            <div class='col-8 tb justify-content-start'>
-                {{ $valueOffer->text }}
-            </div>
-            {{ formatStatus($valueOffer) }}
-        </div>
-    @else
-        <div class='row'>
-            <div class='col-3 tb justify-content-start' style="font-weight: 600">
-                <a class="white me-2" href=" {{ route('text.create', ['type' => 'proposta de valor']) }}">
-                    <button class="button-round">
-                        <i class='fa fa-plus'></i>
-                    </button>
-                </a>
-                PROPOSTA DE VALOR
-            </div>
-            <div class='col-8 tb justify-content-start'>
-                não possui
-            </div>
-        </div>
-    @endif
-
-    @if ($about)
-        <div class='row'>
-            <div class='col-3 tb justify-content-start' style="font-weight: 600">
-                <a class="white me-2" href=" {{ route('text.edit', ['text' => $about->id]) }}">
-                    <button class="button-round">
-                        <i class='fa fa-edit'></i>
-                    </button>
-                </a>
-                APRESENTAÇÃO DO PROJETO
-            </div>
-            <div class='col-8 tb justify-content-start'>
-                {{ $about->text }}
-            </div>
-            {{ formatStatus($about) }}
-        </div>
-    @else
-        <div class='row'>
-            <div class='col-3 tb justify-content-start' style="font-weight: 600">
-                <a class="white me-2" href=" {{ route('text.create', ['type' => 'apresentação da empresa']) }}">
-                    <button class="button-round">
-                        <i class='fa fa-plus'></i>
-                    </button>
-                </a>
-                APRESENTAÇÃO DA EMPRESA
-            </div>
-            <div class='col-9 tb justify-content-start'>
-                não possui
-            </div>
-        </div>
-    @endif
-
-    @if ($strengths->isNotEmpty())
-        <div class='row mb-5'>
-            <div class='col-3 tb justify-content-start' style="font-weight: 600">
-                <a class="white me-2" href=" {{ route('text.create', ['type' => 'força']) }}">
-                    <button class="button-round">
-                        <i class='fa fa-plus'></i>
-                    </button>
-                </a>
-                PONTOS FORTES
-            </div>
-            <div class='col-9 tb d-block'>
-                @foreach ($strengths as $strength)
-                    <div class='row'>
-                        <div class='col-10'>
-                            <a class="white me-2" href=" {{ route('text.edit', ['text' => $strength->id]) }}">
-                                <button class="button-round">
-                                    <i class='fa fa-edit'></i>
-                                </button>
-                            </a>
-                            {{ $strength->text }}
-                        </div>
-                        {{ formatStatus($strength) }}
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    @else
-        <div class='row mb-5'>
-            <div class='col-3 tb justify-content-start' style="font-weight: 600">
-                <a class="white me-2" href=" {{ route('text.create', ['type' => 'força']) }}">
-                    <button class="button-round">
-                        <i class='fa fa-plus'></i>
-                    </button>
-                </a>
-                PONTOS FORTES
-            </div>
-            <div class='col-9 tb justify-content-start'>
-                não possui
-            </div>
-        </div>
-    @endif
-
-    <div class='row mt-2'>
-        <div class='tb tb-header-start col-4'>
-            NOME
-        </div>
-        <div class='tb tb-header col-4'>
-            TÍTULO
-        </div>
-        <div class='tb tb-header col-2'>
-            RESPONSÁVEL
-        </div>
-        <div class='tb tb-header col-1'>
-            TIPO
-        </div>
-        <div class='tb tb-header-end col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
-    @foreach ($texts as $text)
-        <div data-href="{{ route('text.show', ['text' => $text->id]) }}" class='row row-link'>
-            <div class='tb col-4 justify-content-start' style="font-weight: 600">
-                
-                {{ $text->name }}
-            </div>
-            <div class='tb col-4'>
-                {{ $text->title }}
-            </div>
-            <div class='tb col-2'>
-                @if (isset($text->user->image))
-                    <div class='profile-picture-small'>
-                        <a class='white' href=' {{ route('user.show', ['user' => $text->user->id]) }}'>
-                            <img src='{{ asset($text->user->image->path) }}' width='100%' height='100%'>
+            @if ($item['multiple'] && $loop->last)
+                <div class="row border-bottom align-items-center py-2">
+                    <div class="col-3"></div>
+                    <div class="col-9">
+                        <a href="{{ route('text.create', ['type' => $item['type']]) }}" class="small">
+                            <i class="fa fa-plus me-1"></i>adicionar
                         </a>
                     </div>
-                @elseif(isset($text->user->contact->name))
-                    <a class='white' href=' {{ route('user.show', ['user' => $text->user->id]) }}'>
-                        {{ $text->user->contact->name }}
-                    </a>
-                @else
-                    membro da equipe excluído
-                @endif
+                </div>
+            @endif
+        @empty
+            <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.create', ['type' => $item['type']]) }}">
+                <div class="col-3 fw-bold">
+                    {{ $item['label'] }}
+                </div>
+                <div class="col-7 small text-muted">
+                    não possui — <i class="fa fa-plus"></i> criar
+                </div>
+                <div class="col-2 text-center">
+                    <x-table.badge />
+                </div>
             </div>
+        @endforelse
+    @endforeach
 
-            {{ formatType($text) }}
-
-            {{ formatStatus($text) }}
-
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-4'],
+        ['label' => 'TÍTULO', 'class' => 'col-3'],
+        ['label' => 'DEPARTAMENTO', 'class' => 'col-1'],
+        ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
+        ['label' => 'TIPO', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
+    ]" />
+    @foreach ($texts as $text)
+        <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('text.show', ['text' => $text->id]) }}">
+            <div class="col-4 fw-bold small">
+                {{ $text->name }}
+            </div>
+            <div class="col-3 text-center small">
+                {{ $text->title ?: '-' }}
+            </div>
+            <div class="col-1 text-center small">
+                {{ $text->department ?: '-' }}
+            </div>
+            <div class="col-1 text-center">
+                <x-user.avatar :user="$text->user" :principal-color="$principalColor" />
+            </div>
+            <div class="col-1 text-center">
+                <x-table.badge :label="$text->type" />
+            </div>
+            <div class="col-2 text-center">
+                <x-table.badge :label="$text->status" :colors="$statusColors[$text->status] ?? null" />
+            </div>
         </div>
     @endforeach
 @endsection
 
 @section('pagination')
-    <div class="mt-3">{{ $texts->appends(request()->query())->links() }}</div>
-@endsection
-
-@section('js-scripts')
+    {{ $texts->appends(request()->query())->links() }}
 @endsection
