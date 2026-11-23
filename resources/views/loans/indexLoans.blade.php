@@ -34,11 +34,10 @@
         ['label' => 'EMPRÉSTIMO', 'class' => 'col-1'],
         ['label' => 'VENCIMENTO', 'class' => 'col-1'],
         ['label' => 'DEVOLUÇÃO', 'class' => 'col-1'],
-        ['label' => 'STATUS', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1'],
+        ['label' => 'STATUS', 'class' => 'col'],
     ]" />
     @foreach ($loans as $loan)
-        <div class="row border-bottom align-items-center {{ $loan->isOverdue() ? 'bg-danger bg-opacity-10' : '' }}">
+        <div class="row row-link border-bottom align-items-center {{ $loan->isOverdue() ? 'bg-danger bg-opacity-10' : '' }}" data-href="{{ route('loan.show', ['loan' => $loan->id]) }}">
             <div class="col-1 text-center">
                 #{{ $loan->id }}
             </div>
@@ -81,7 +80,7 @@
             <div class="col-1 text-center">
                 {{ $loan->returned_date ? $loan->returned_date->format('d/m/Y') : '-' }}
             </div>
-            <div class="col-1 text-center">
+            <div class="col text-center">
                 @if ($loan->isOverdue())
                     <span class="badge bg-danger">Atrasado</span>
                 @else
@@ -106,9 +105,6 @@
                             {{ $loan->status }}
                     @endswitch
                 @endif
-            </div>
-            <div class="col-1 text-center">
-                <x-buttons.details :href="route('loan.show', ['loan' => $loan->id])" title="Visualizar empréstimo" :color="$principalColor" :size="32" />
             </div>
         </div>
     @endforeach

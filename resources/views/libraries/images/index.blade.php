@@ -46,7 +46,7 @@
         </div>
     </div>
     @foreach ($images as $image)
-        <div class='row'>
+        <div class='row row-link' data-href="{{ route('image.show', ['image' => $image->id]) }}">
             <div class='tb col-2' style="background-color: lightgray">
                 <div class='product-image-small'>
                     <a href=' {{ route('image.show', ['image' => $image->id]) }}'>

@@ -32,13 +32,10 @@
             </tr>
 
             @foreach ($banks as $bank)
-                <tr>
+                <tr class="row-link" data-href="{{ route('bank.show', ['bank' => $bank->id]) }}">
                     <td class="table-list-left">
                         @if ($bank->id)
                             <a class="white" href=" {{ route('bank.show', ['bank' => $bank->id]) }}">
-                                <button class="button-round">
-                                    <i class='fa fa-eye'></i>
-                                </button>
                                 {{ $bank->id }}
                             </a>
                         @else

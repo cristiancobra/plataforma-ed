@@ -40,13 +40,9 @@
         </tr>
 
         @foreach ($socialmedias as $socialmedia)
-            <tr style="font-size: 14px">
+            <tr class="row-link" data-href="{{ route('socialmedia.show', ['socialmedia' => $socialmedia->id]) }}" style="font-size: 14px">
                 <td class="table-list-left">
-                    <button class="button-round">
-                        <a href=" {{ route('socialmedia.show', ['socialmedia' => $socialmedia->id]) }}">
-                            <i class='fa fa-eye' style="color:white"></i>
-                        </a>
-                    </button>
+                    
                     {{ $socialmedia->socialmedia_name }}
                 </td>
                 <td class="table-list-center">

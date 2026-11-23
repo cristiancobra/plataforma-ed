@@ -32,7 +32,8 @@ class ProductViewsTest extends TestCase
             $product->save();
 
             $this->get(route('product.index', ['variation' => $variation]))
-                ->assertOk()->assertSee("Item $variation");
+                ->assertOk()->assertSee("Item $variation")
+                ->assertSee('data-href', false)->assertDontSee('VER');
             $this->get(route('product.index', ['variation' => $variation, 'name' => 'zzz', 'category' => 'serviço']))
                 ->assertOk()->assertDontSee("Item $variation")->assertSee('encontrado(s)');
             $this->get(route('product.create', ['variation' => $variation]))->assertOk()->assertSee('IDENTIFICAÇÃO');

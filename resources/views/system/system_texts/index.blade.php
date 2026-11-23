@@ -53,13 +53,9 @@
         </div>
     </div>
     @foreach ($systemTexts as $systemText)
-        <div class='row'>
+        <div data-href="{{ route('systemText.show', ['systemText' => $systemText->id]) }}" class='row row-link'>
             <div class='tb col-5 justify-content-start' style="font-weight: 600">
-                <a class="white" href=" {{ route('systemText.show', ['systemText' => $systemText->id]) }}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
+                
                 {{ $systemText->name }}
             </div>
             <div class='tb col-5'>

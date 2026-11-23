@@ -58,13 +58,9 @@
         </div>
     </div>
     @foreach ($goals as $goal)
-        <div class='row'>
+        <div data-href="{{ route('goal.show', ['goal' => $goal->id]) }}" class='row row-link'>
             <div class='tb col-4 justify-content-start' style="font-weight: 600">
-                <a class="white" href=" {{ route('goal.show', ['goal' => $goal->id]) }}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
+                
                 {{ $goal->name }}
             </div>
             <div class='tb col-2'>

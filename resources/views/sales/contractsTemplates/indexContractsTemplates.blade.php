@@ -31,13 +31,9 @@
             </tr>
 
             @foreach ($contractsTemplates as $contractTemplate)
-                <tr style="font-size: 14px">
+                <tr class="row-link" data-href="{{ route('contractTemplate.show', ['contractTemplate' => $contractTemplate->id]) }}" style="font-size: 14px">
                     <td class="table-list-left">
-                        <button class="button-round">
-                            <a href=" {{ route('contractTemplate.show', ['contractTemplate' => $contractTemplate->id]) }}">
-                                <i class='fa fa-eye' style="color:white"></i>
-                            </a>
-                        </button>
+                        
                         <button class="button-round">
                             <a href=" {{ route('contractTemplate.edit', ['contractTemplate' => $contractTemplate->id]) }}">
                                 <i class='fa fa-edit' style="color:white"></i>

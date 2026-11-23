@@ -233,13 +233,9 @@
         </div>
     </div>
     @foreach ($texts as $text)
-        <div class='row'>
+        <div data-href="{{ route('text.show', ['text' => $text->id]) }}" class='row row-link'>
             <div class='tb col-4 justify-content-start' style="font-weight: 600">
-                <a class="white" href=" {{ route('text.show', ['text' => $text->id]) }}">
-                    <button class="button-round">
-                        <i class='fa fa-eye'></i>
-                    </button>
-                </a>
+                
                 {{ $text->name }}
             </div>
             <div class='tb col-4'>

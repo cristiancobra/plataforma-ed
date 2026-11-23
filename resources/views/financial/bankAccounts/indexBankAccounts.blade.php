@@ -42,13 +42,9 @@
             </tr>
 
             @foreach ($bankAccounts as $bankAccount)
-                <tr style="font-size: 14px">
+                <tr class="row-link" data-href="{{ route('bankAccount.show', ['bankAccount' => $bankAccount->id]) }}" style="font-size: 14px">
                     <td class="table-list-left">
-                        <a class="white" href=" {{ route('bankAccount.show', ['bankAccount' => $bankAccount->id]) }}">
-                            <button class="button-round">
-                                <i class='fa fa-eye'></i>
-                            </button>
-                        </a>
+                        
                         <a class="white" href=" {{ route('bankAccount.edit', ['bankAccount' => $bankAccount->id]) }}">
                             <button class="button-round">
                                 <i class='fa fa-edit'></i>

@@ -32,11 +32,10 @@
         ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
         ['label' => 'CADIN ESTADUAL', 'class' => 'col-1'],
         ['label' => 'CADIN FEDERAL', 'class' => 'col-1'],
-        ['label' => 'CONSULTA', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1'],
+        ['label' => 'CONSULTA', 'class' => 'col'],
     ]" />
     @foreach ($companies as $company)
-        <div class="row border-bottom align-items-center py-2">
+        <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('company.show', ['company' => $company, 'typeCompanies' => $company->type]) }}">
             <div class="col-3 fw-bold">
                 {{ $company->name }}
                 @if ($company->cnpj)
@@ -60,12 +59,8 @@
                 <x-table.badge :label="\App\Models\Company::cadinLabel($company->cadin_federal)"
                     :colors="\App\Models\Company::cadinColors($company->cadin_federal)" />
             </div>
-            <div class="col-1 text-center small">
+            <div class="col text-center small">
                 {{ $company->cadin_checked_at?->format('d/m/Y') ?? '-' }}
-            </div>
-            <div class="col-1 text-center">
-                <x-buttons.details :href="route('company.show', ['company' => $company, 'typeCompanies' => $company->type])" title="Visualizar"
-                    :color="$principalColor" :size="32" />
             </div>
         </div>
     @endforeach

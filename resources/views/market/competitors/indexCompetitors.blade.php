@@ -39,12 +39,9 @@
         </tr>
 
         @foreach ($competitors as $competitor)
-            <tr style='font-size: 14px'>
+            <tr class="row-link" data-href="{{ route('competitor.show', ['competitor' => $competitor->id]) }}" style='font-size: 14px'>
                 <td class='table-list-left'>
-                    <button class='button-round'>
-                        <a href=' {{ route('competitor.show', ['competitor' => $competitor->id]) }}'>
-                            <i class='fa fa-eye' style='color:white'></i></a>
-                    </button>
+                    
                     {{ $competitor->name }}
                 </td>
 

@@ -52,14 +52,12 @@
             </tr>
 
             @foreach ($emails as $email)
-                <tr style="font-size: 16px">
+                <tr class="row-link" data-href="{{ route('email.show', ['email' => $email]) }}" style="font-size: 16px">
                     <td class="table-list-left">
                         <a class="button-round" href=" https://empresadigital.net.br/webmail" target="_blank">
                             <i class='fa fa-envelope'></i>
                         </a>
-                        <a class="button-round" href=" {{ route('email.show', ['email' => $email]) }}">
-                            <i class='fa fa-eye'></i>
-                        </a>
+                        
                         {{ $email->title }}
                     </td>
                     <td class="table-list-center">

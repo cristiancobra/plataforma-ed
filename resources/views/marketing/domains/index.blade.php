@@ -42,12 +42,9 @@
         </tr>
 
         @foreach ($domains as $domain)
-            <tr style="font-size: 14px">
+            <tr class="row-link" data-href="{{ route('domain.show', ['domain' => $domain->id]) }}" style="font-size: 14px">
                 <td class="table-list-left">
-                    <button class="button-round">
-                        <a href=" {{ route('domain.show', ['domain' => $domain->id]) }}">
-                            <i class='fa fa-eye' style="color:white"></i></a>
-                    </button>
+                    
                     <button class="button-round">
                         <a href=" {{ route('domain.edit', ['domain' => $domain->id]) }}">
                             <i class='fa fa-edit' style="color:white"></i></a>

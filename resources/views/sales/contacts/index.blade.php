@@ -29,11 +29,10 @@
         ['label' => 'EMAIL', 'class' => 'col-2'],
         ['label' => 'TELEFONE', 'class' => 'col-2'],
         ['label' => 'TIPO', 'class' => 'col-1'],
-        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col'],
     ]" />
     @foreach ($contacts as $contact)
-        <div class="row border-bottom align-items-center py-2">
+        <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('contact.show', $contact) }}">
             <div class="col-3 fw-bold">
                 {{ $contact->name }}
                 @if ($contact->job_position)
@@ -52,11 +51,8 @@
             <div class="col-1 text-center">
                 <x-table.badge :label="$contact->type" />
             </div>
-            <div class="col-1 text-center">
+            <div class="col text-center">
                 <x-table.badge :label="$contact->status" :colors="\App\Models\Contact::statusColors($contact->status)" />
-            </div>
-            <div class="col-1 text-center">
-                <x-buttons.details :href="route('contact.show', $contact)" title="Visualizar" :color="$principalColor" :size="32" />
             </div>
         </div>
     @endforeach

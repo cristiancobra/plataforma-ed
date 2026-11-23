@@ -49,12 +49,9 @@
         </tr>
 
         @foreach ($journeys as $journey)
-            <tr style="font-size: 14px">
+            <tr class="row-link" data-href="{{ route('journey.show', ['journey' => $journey]) }}" style="font-size: 14px">
                 <td class="table-list-left">
                     <a href=" {{ route('journey.show', ['journey' => $journey]) }}">
-                        <button class="button-round">
-                            <i class='fa fa-eye' style="color:white"></i>
-                        </button>
                         {{ date('d/m/Y', strtotime($journey->start)) }}
                     </a>
                 </td>

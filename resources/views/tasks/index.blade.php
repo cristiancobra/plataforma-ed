@@ -83,16 +83,15 @@
 @section('table')
     <x-table.header :background-color="$principalColor" class="mt-2 mb-2" :columns="[
         ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
-        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'NOME', 'class' => 'col-4'],
         ['label' => 'CONTATO', 'class' => 'col-2'],
         ['label' => 'ORGANIZAÇÃO', 'class' => 'col-2'],
         ['label' => 'PRAZO', 'class' => 'col-1'],
         ['label' => 'PRIORIDADE', 'class' => 'col-1'],
         ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1'],
     ]" />
     @foreach ($tasks as $task)
-        <div class="row table2 position-relative mt-3"
+        <div class="row row-link table2 position-relative mt-3" data-href="{{ route('task.show', ['task' => $task]) }}"
             style="
      color: {{ $principalColor }};
      border-left-color: {{ $complementaryColor }}
@@ -100,7 +99,7 @@
             <div class='col-1 text-center'>
                 <x-user.avatar :user="$task->user" />
             </div>
-            <div class='col-3 justify-content-start' style="font-weight: 600">
+            <div class='col-4 justify-content-start' style="font-weight: 600">
                 {{ $task->name }}
             </div>
             <div class='col-2 text-center'>
@@ -124,9 +123,6 @@
 
             {{ formatStatus($task) }}
 
-            <div class="col-1 d-flex align-items-center justify-content-center pe-4">
-                <x-buttons.details :href="route('task.show', ['task' => $task])" title="Visualizar tarefa" :color="$principalColor" :size="36" />
-            </div>
         </div>
     @endforeach
 @endsection

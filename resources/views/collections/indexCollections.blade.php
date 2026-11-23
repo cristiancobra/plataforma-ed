@@ -40,11 +40,10 @@
         ['label' => 'REGISTRADO POR', 'class' => 'col-1'],
         ['label' => 'LOCALIZAÇÃO', 'class' => 'col-1'],
         ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
-        ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1'],
+        ['label' => 'RESPONSÁVEL', 'class' => 'col'],
     ]" />
     @foreach ($collections as $collection)
-        <div class="row border-bottom align-items-center">
+        <div class="row row-link border-bottom align-items-center" data-href="{{ route('collection.show', ['collection' => $collection->id]) }}">
             <div class="col-2 fw-bold">
                 {{ $collection->name }}
             </div>
@@ -88,7 +87,7 @@
                         {{ $collection->status }}
                 @endswitch
             </div>
-            <div class="col-1 text-center">
+            <div class="col text-center">
                 @if ($collection->contact)
                     <a href="{{ route('contact.show', ['contact' => $collection->contact->id]) }}" title="Ver contato">
                         {{ $collection->contact->name }}
@@ -96,9 +95,6 @@
                 @else
                     -
                 @endif
-            </div>
-            <div class="col-1 text-center">
-                <x-buttons.details :href="route('collection.show', ['collection' => $collection->id])" title="Visualizar acervo" :color="$principalColor" :size="32" />
             </div>
         </div>
     @endforeach

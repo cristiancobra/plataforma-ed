@@ -34,22 +34,22 @@
 @section('table')
     <x-table.header :background-color="$principalColor" :columns="[
         ['label' => 'FOTO', 'class' => 'col-1'],
-        ['label' => 'NOME', 'class' => 'col-4'],
+        ['label' => 'NOME', 'class' => 'col-5'],
         ['label' => 'GRUPO', 'class' => 'col-2'],
         ['label' => 'ESTOQUE', 'class' => 'col-1'],
         ['label' => 'PREÇO', 'class' => 'col-1'],
         ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
-        ['label' => 'VER', 'class' => 'col-1'],
     ]" />
     @foreach ($products as $product)
-        <div class="row border-bottom align-items-center">
+        <div class="row row-link border-bottom align-items-center"
+            data-href="{{ route('product.show', ['product' => $product->id, 'variation' => $variation]) }}">
             <div class="col-1">
                 <div class="product-image-small">
                     <img src="{{ $product->image && $product->image->path ? asset($product->image->path) : asset('images/products.png') }}"
                         width="100%" height="100%" alt="{{ $product->name }}">
                 </div>
             </div>
-            <div class="col-4 fw-bold">
+            <div class="col-5 fw-bold">
                 {{ $product->name }}
             </div>
             <div class="col-2 text-center">
@@ -69,9 +69,6 @@
                 @else
                     <x-table.badge :label="$product->status" />
                 @endif
-            </div>
-            <div class="col-1 text-center">
-                <x-buttons.details :href="route('product.show', ['product' => $product->id, 'variation' => $variation])" title="Visualizar" :color="$principalColor" :size="32" />
             </div>
         </div>
     @endforeach

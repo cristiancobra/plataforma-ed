@@ -131,15 +131,14 @@
         ['label' => 'RESPONSÁVEL', 'class' => 'col-1'],
         ['label' => 'PRAZO', 'class' => 'col-1'],
         ['label' => 'ETAPA DA VENDA', 'class' => 'col-1'],
-        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
-        ['label' => 'VER', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col'],
     ]" />
     @php
         $stageColors = App\Models\Opportunity::stageColors();
         $statusColors = App\Models\Opportunity::statusColors();
     @endphp
     @foreach ($opportunities as $opportunity)
-        <div class="row border-bottom py-2 align-items-center">
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
             <div class="col-3 fw-bold">
                 {{ $opportunity->name }}
             </div>
@@ -170,11 +169,8 @@
             <div class="col-1 text-center">
                 <x-table.badge :label="$opportunity->stage" :colors="$stageColors[$opportunity->stage] ?? null" />
             </div>
-            <div class="col-1 text-center">
+            <div class="col text-center">
                 <x-table.badge :label="$opportunity->status" :colors="$statusColors[$opportunity->status] ?? null" />
-            </div>
-            <div class="col-1 text-center">
-                <x-buttons.details :href="route('opportunity.show', ['opportunity' => $opportunity->id])" title="Visualizar oportunidade" color="primary" :size="32" />
             </div>
         </div>
     @endforeach

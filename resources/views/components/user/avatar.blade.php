@@ -13,7 +13,7 @@
     @if ($contactUrl)
         <a href="{{ $contactUrl }}" title="Ver contato">
     @endif
-    <div class='d-inline-block border border-3 rounded-circle position-relative overflow-hidden text-nowrap'
+    <div class='avatar-zoom d-inline-block border border-3 rounded-circle position-relative overflow-hidden text-nowrap'
         style='width: 36px; height: 36px; border-color: {{ $principalColor ?? '#c28dbf' }} !important;'>
         <img src='{{ asset($user->image->path) }}' class='w-100 h-100' alt='Avatar do usuário'>
     </div>

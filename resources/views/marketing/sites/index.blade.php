@@ -36,12 +36,9 @@
         </tr>
 
         @foreach ($sites as $site)
-            <tr style='font-size: 14px'>
+            <tr class="row-link" data-href="{{ route('site.show', ['site' => $site->id]) }}" style='font-size: 14px'>
                 <td class='table-list-left'>
-                    <button class='button-round'>
-                        <a href='{{ route('site.show', ['site' => $site->id]) }}'>
-                            <i class='fa fa-eye' style='color:white'></i></a>
-                    </button>
+                    
                     <button class='button-round'>
                         <a href='{{ route('site.edit', ['site' => $site->id]) }}'>
                             <i class='fa fa-edit' style='color:white'></i></a>
@@ -51,12 +48,7 @@
 
                 <td class='table-list-left'>
                     @foreach ($site->domains as $domain)
-                        <a class='white' href='{{ route('domain.show', ['domain' => $domain->id]) }}'>
-                            <button class='button-round'>
-                                <i class='fa fa-eye'></i>
-                            </button>
-                        </a>
-                        {{ $domain->name }}</li>
+                        <a href='{{ route('domain.show', ['domain' => $domain->id]) }}'>{{ $domain->name }}</a>
                         <br>
                         </a>
                     @endforeach

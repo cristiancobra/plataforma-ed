@@ -10,7 +10,36 @@
 <style>
     /* moldura da página branca na cor principal da conta */
     .white-page { border-color: {{ $principalColor ?? '#c28dbf' }}; }
+
+    /* linhas de listagem clicáveis (data-href) com hover na cor secundária da conta */
+    :root { --secondary-color: {{ $complementaryColor ?? '#f9d0ff' }}; }
+    .row-link { cursor: pointer; }
+    .row-link:hover, .table2:hover {
+        background-color: color-mix(in srgb, var(--secondary-color) 25%, white) !important;
+    }
+    .row-link:hover { position: relative; z-index: 10; }
+    .row-link a, .row-link button, .row-link form { position: relative; z-index: 2; }
+
+    /* avatares/miniaturas ampliam no hover, sem deslocar a tabela (transform não reflui o layout) */
+    .avatar-zoom, .profile-picture-small { transition: transform .15s ease-in-out; transform-origin: center; position: relative; }
+    .avatar-zoom:hover, .profile-picture-small:hover {
+        transform: scale(4);
+        z-index: 50;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, .4);
+        background-color: white;
+    }
+    .product-image-small { transition: transform .15s ease-in-out; }
+    .product-image-small:hover { transform: scale(2.4); z-index: 50; position: relative; box-shadow: 0 6px 18px rgba(0, 0, 0, .4); background-color: white; }
 </style>
+<script>
+    // clique em qualquer ponto da linha abre o show (ignora cliques em links/botões/campos da própria linha)
+    document.addEventListener('click', function(e) {
+        var row = e.target.closest('[data-href]');
+        if (!row || e.target.closest('a, button, input, select, textarea, label, form')) return;
+        if (e.ctrlKey || e.metaKey) { window.open(row.dataset.href, '_blank'); return; }
+        window.location.href = row.dataset.href;
+    });
+</script>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"

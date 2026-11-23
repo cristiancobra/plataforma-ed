@@ -47,9 +47,9 @@
         </tr>
 
         @foreach ($users as $user)
-            <tr style='font-size: 16px'>
+            <tr class="row-link" data-href="{{ route('user.show', ['user' => $user->id]) }}" style='font-size: 16px'>
                 <td class='table-list-center'>
-                    <div class='profile-picture-small' style='margin: 0 auto;'>
+                    <div class='profile-picture-small avatar-zoom' style='margin: 0 auto;'>
                         <a class='white' href='{{ route('user.show', ['user' => $user->id]) }}'>
                             @if ($user->image)
                                 <img src='{{ asset('storage/' . $user->image->path) }}' width='100%' height='100%'>
@@ -61,8 +61,7 @@
                 </td>
                 <td class='table-list-left'>
                     <div style='display: flex; align-items: center; gap: 8px;'>
-                        {{ createButtonShow($user, 'user', 'Visualizar usuário') }}
-                        {{ $user->contact->name }}
+                                                {{ $user->contact->name }}
                     </div>
                 </td>
 
