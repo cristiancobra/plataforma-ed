@@ -21,14 +21,28 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
+        $filtersActive = collect($request->except(['page', 'trash', 'role']))
+            ->filter(fn ($v) => ! is_null($v) && trim($v) !== '')
+            ->count() > 0;
+
+        $totalTotal = Image::where('account_id', auth()->user()->account_id)
+            ->where('trash', $request->trash == 1 ? '=' : '!=', 1)
+            ->count();
+
         $images = Image::filterModel($request);
         $types = Image::returnTypes();
+        $status = $this->listStatus();
+        $users = User::myUsers();
         $trashStatus = request()->trash;
 
         return view('libraries/images/index', compact(
             'images',
             'types',
+            'status',
+            'users',
             'trashStatus',
+            'filtersActive',
+            'totalTotal',
         ));
     }
 

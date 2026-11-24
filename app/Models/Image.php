@@ -76,6 +76,9 @@ class Image extends Model
             if ($request->user_id) {
                 $query->where('user_id', $request->user_id);
             }
+            if ($request->status) {
+                $query->where('status', $request->status);
+            }
             if ($request->trash == 1) {
                 $query->where('trash', 1);
             } else {
@@ -102,17 +105,11 @@ class Image extends Model
                 //                        'opportunity',
                 //                        'journeys',
                 'user.contact',
+                'user.image',
                 'contact',
-                //                        'user.image',
             )
             ->orderBy($orderColumn, $orderDirection)
             ->paginate(20);
-
-        $items->appends([
-            'name' => $request->name,
-            //            'company' => $request->company_id,
-            //            'type' => $request->type,
-        ]);
 
         return $items;
     }

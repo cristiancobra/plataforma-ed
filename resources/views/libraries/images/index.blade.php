@@ -13,83 +13,61 @@
 @endsection
 
 @section('filter')
-    <x-table.filter :action="route('image.index')" :reset-url="route('image.index')" :total-filtered="$images->total()">
+    <x-table.filter :action="route('image.index')" :reset-url="route('image.index')" :filters-active="$filtersActive" :total-filtered="$images->total()" :total-total="$totalTotal">
         @if (request('trash'))
             <input type="hidden" name="trash" value="1">
         @endif
-        <x-filter.input name="name" placeholder="nome" />
+        <x-filter.input name="name" placeholder="nome da imagem" />
         <x-filter.select name="type" :options="$types" placeholder="Todos os tipos" />
+        <x-filter.select name="user_id" :options="$users->mapWithKeys(fn ($u) => [$u->id => optional($u->contact)->name])->all()" placeholder="Todos os usuários" />
+        <x-filter.select name="status" :options="$status" placeholder="Todas as situações" />
     </x-table.filter>
-@endsection
-
-@section('shortcuts')
-
 @endsection
 
 
 @section('table')
-    <div class="row table-header mb-2" style="background-color: {{ $principalColor }}">
-        <div class='col-2'>
-            IMAGEM
-        </div>
-        <div class='col-5'>
-            NOME
-        </div>
-        <div class='col-2'>
-            TIPO
-        </div>
-        <div class='col-2'>
-            ENVIADO POR
-        </div>
-        <div class='col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'IMAGEM', 'class' => 'col-1'],
+        ['label' => 'NOME', 'class' => 'col-5'],
+        ['label' => 'TIPO', 'class' => 'col-2'],
+        ['label' => 'ENVIADO POR', 'class' => 'col-2'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
+    ]" />
     @foreach ($images as $image)
-        <div class='row row-link' data-href="{{ route('image.show', ['image' => $image->id]) }}">
-            <div class='tb col-2' style="background-color: lightgray">
-                <div class='product-image-small'>
-                    <a href=' {{ route('image.show', ['image' => $image->id]) }}'>
-                        <img src='{{ asset('storage/' . $image->path) }}' width='100%' heigh='100%'>
-                    </a>
+        <div class="row row-link border-bottom align-items-center py-2" data-href="{{ route('image.show', ['image' => $image->id]) }}">
+            <div class="col-1">
+                <div class="product-image-small">
+                    <img src="{{ asset('storage/' . $image->path) }}" width="100%" height="100%" alt="{{ $image->name }}">
                 </div>
             </div>
-            <div class='tb col-5'>
+            <div class="col-5 fw-bold small">
                 {{ $image->name }}
             </div>
-            <div class='tb col-2 text-center'>
-                {{ $image->type }}
+            <div class="col-2 text-center">
+                <x-table.badge :label="$image->type" />
             </div>
-            <div class='tb col-2'>
-                @if ($image->contact_id != null or $image->contact_id != 0)
-                    <a class='white' href=' {{ route('contact.show', ['contact' => $image->contact_id]) }}'>
+            <div class="col-2 text-center">
+                @if ($image->contact)
+                    <a href="{{ route('contact.show', ['contact' => $image->contact->id]) }}" title="Ver contato">
                         {{ $image->contact->name }}
                     </a>
-                @elseif(isset($image->user->image))
-                    <div class='profile-picture-small'>
-                        <a class='white' href=' {{ route('user.show', ['user' => $image->user_id]) }}'>
-                            <img src='{{ asset($image->user->image->path) }}' width='100%' height='100%'>
-                        </a>
-                    </div>
-                @elseif(isset($image->user->contact->name))
-                    <a class='white' href=' {{ route('user.show', ['user' => $image->user->id]) }}'>
-                        {{ $image->user->contact->name }}
-                    </a>
                 @else
-                    membro da equipe excluído
+                    <x-user.avatar :user="$image->user" :principal-color="$principalColor" />
                 @endif
             </div>
-            <div class='tb col-1'>
-                {{ $image->status }}
+            <div class="col-2 text-center">
+                @if ($image->status == 'disponível')
+                    <x-table.badge label="disponível" :colors="['#E8F5E9', '#2E7D32']" />
+                @elseif ($image->status == 'indisponível')
+                    <x-table.badge label="indisponível" :colors="['#FFEBEE', '#C62828']" />
+                @else
+                    <x-table.badge :label="$image->status" />
+                @endif
             </div>
         </div>
     @endforeach
-    <div class='row'>
-        <div class='tb-footer'></div>
-    </div>
-    <br>
 @endsection
 
 @section('pagination')
-    <div class="mt-3">{{ $images->appends(request()->query())->links() }}</div>
+    {{ $images->appends(request()->query())->links() }}
 @endsection
