@@ -4,7 +4,7 @@
        ">
 
         <div class="row pt-3">
-            <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
+            <div class='col sidebar-item text-center position-relative' style="color: #fff">
                 <a class='stretched-link' href='/'>
                 </a>
                 <i class="fas fa-rocket"></i>
@@ -246,8 +246,8 @@
         ]" />
 
         <div class="row pt-2">
-            <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
-                <a class='stretched-link' href='{{ route('dashboard.support') }}' style="color: {{ $principalColor }}">
+            <div class='col sidebar-item text-center position-relative' style="color: #fff">
+                <a class='stretched-link' href='{{ route('dashboard.support') }}' style="color: #fff">
                 </a>
                 <i class="fas fa-question-circle"></i>
                 <p class="mb-0"style='font-size:10px'>
@@ -259,9 +259,9 @@
 
         @if (auth()->user()->perfil == 'super administrador')
             <div class="row pt-2">
-                <div class='col sidebar-item text-center position-relative' style="color: {{ $principalColor }}">
+                <div class='col sidebar-item text-center position-relative' style="color: #fff">
                     <a class='stretched-link' href='{{ route('dashboard.plataforma') }}'
-                        style="color: {{ $principalColor }}">
+                        style="color: #fff">
                     </a>
                     <i class="fas fa-rocket"></i>
                     <p class="mb-0"style='font-size:10px'>

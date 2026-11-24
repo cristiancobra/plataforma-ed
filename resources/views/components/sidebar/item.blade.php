@@ -7,7 +7,7 @@
 <div class="row pt-2">
     <div class="col sidebar-item text-center {{ $submenu ? 'sidebar-menu' : 'position-relative' }}"
         style="color: {{ $principalColor }}" id="{{ $menuId }}">
-        <div class="sidebar-header" style="cursor: {{ $submenu ? 'pointer' : 'default' }};">
+        <div class="sidebar-header" style="color: #fff; cursor: {{ $submenu ? 'pointer' : 'default' }};">
             <i class="{{ $icon }}"></i>
             <p class="mb-0 fw-bold" style="font-size:10px;">
                 {{ $title }}
@@ -97,6 +97,13 @@
         .sidebar-menu {
             display: block;
             position: relative;
+        }
+
+        /* ícones do primeiro nível da sidebar (menus e itens simples como PAINEL/SUPORTE) */
+        .sidebar-item > i,
+        .sidebar-header > i {
+            font-size: 21px;
+            margin-bottom: 4px;
         }
 
         .sidebar-header {
