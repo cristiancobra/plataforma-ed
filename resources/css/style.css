@@ -76,7 +76,7 @@ a:hover {
 }
 
 a {
-    color: #874983;
+    color: var(--principal-color, #874983);
     text-decoration: none;
 }
 
@@ -88,7 +88,7 @@ a {
 }
 
 h5{
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-weight: 700;
 }
 
@@ -101,7 +101,7 @@ h5{
 }
 
 .link-light:focus, .link-light:hover {
-    color: #874983;
+    color: var(--principal-color, #874983);
 }
 
 .nav-link {
@@ -384,7 +384,7 @@ h5{
 
 .subtitulo-roxo{
     text-align: center;
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-weight:800;
     font-size:18px;
     margin: 0px;
@@ -393,7 +393,7 @@ h5{
 }
 
 .titulo-roxo{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 10px;
     margin-bottom: 0px;
     font-weight:700;
@@ -412,14 +412,14 @@ h5{
 }
 
 .title-reports{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 10px;
     margin-bottom: 0px;
     font-weight:700;
     text-align:left;
     font-size:26px;
     border-bottom: 3px;
-    border-color: #874983;
+    border-color: var(--principal-color, #874983);
     border-bottom-style: solid;
     width: 100%;
 }

@@ -1468,7 +1468,7 @@ td {
     padding: 0.5rem 0.75rem;
     margin-left: -1px;
     line-height: 1.25;
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: white;
     border: 1px solid #dee2e6;
 }
@@ -1477,14 +1477,14 @@ td {
     z-index: 2;
     color: white;
     text-decoration: none;
-    background-color: #874983;
+    background-color: var(--principal-color, #874983);
     border-color: #dee2e6;
 }
 
 .page-link:focus {
     z-index: 3;
     outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+    box-shadow: 0 0 0 0.2rem color-mix(in srgb, var(--principal-color, #874983) 25%, transparent);
 }
 
 .page-item:first-child .page-link {
@@ -1501,8 +1501,8 @@ td {
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #874983;
-    border-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
+    border-color: var(--principal-color, #874983);
 }
 
 .page-item.disabled .page-link {
@@ -1624,7 +1624,7 @@ justify-content: center;
     font-size: 18px;
     text-shadow: 2px 2px 4px #000000;
     color: white;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #c28dbf);
     border-style: solid;
     border-radius:30px;
     border-width: 1px; 
@@ -2246,7 +2246,7 @@ a:hover {
 }
 
 a {
-    color: #874983;
+    color: var(--principal-color, #874983);
     text-decoration: none;
 }
 
@@ -2258,7 +2258,7 @@ a {
 }
 
 h5{
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-weight: 700;
 }
 
@@ -2271,7 +2271,7 @@ h5{
 }
 
 .link-light:focus, .link-light:hover {
-    color: #874983;
+    color: var(--principal-color, #874983);
 }
 
 .nav-link {
@@ -2554,7 +2554,7 @@ h5{
 
 .subtitulo-roxo{
     text-align: center;
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-weight:800;
     font-size:18px;
     margin: 0px;
@@ -2563,7 +2563,7 @@ h5{
 }
 
 .titulo-roxo{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 10px;
     margin-bottom: 0px;
     font-weight:700;
@@ -2582,14 +2582,14 @@ h5{
 }
 
 .title-reports{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 10px;
     margin-bottom: 0px;
     font-weight:700;
     text-align:left;
     font-size:26px;
     border-bottom: 3px;
-    border-color: #874983;
+    border-color: var(--principal-color, #874983);
     border-bottom-style: solid;
     width: 100%;
 }
