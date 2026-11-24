@@ -785,7 +785,7 @@ h5{
 
 .labels{
     font-family: helvetica;
-    color: #874983;
+    color: var(--principal-color, #874983);
     vertical-align: top; 
     margin-top: 3px;
     margin-bottom: 5px;
@@ -796,7 +796,7 @@ h5{
 }
 
 .fields{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 3px;
     margin-left: 5px;
     margin-bottom: 5px;
@@ -807,7 +807,7 @@ h5{
 }
 
 .fields-right{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 3px;
     margin-left: 5px;
     margin-bottom: 5px;

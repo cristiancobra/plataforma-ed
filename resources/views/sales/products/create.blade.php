@@ -30,34 +30,34 @@
         <x-form.section title="IDENTIFICAÇÃO" icon="fas fa-id-card">
             <div class="row">
                 <div class="col-md-8">
-                    <label class='labels' for='name'>NOME: <span class="text-danger">*</span></label>
+                    <x-form.label for="name" required>NOME:</x-form.label>
                     <input type='text' name='name' id='name' class='form-control' value='{{ old('name') }}'>
                     @error('name')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-4">
-                    <label class='labels' for='cnae'>CNAE:</label>
+                    <x-form.label for="cnae">CNAE:</x-form.label>
                     <input type='text' name='cnae' id='cnae' class='form-control' value='{{ old('cnae') }}'>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-md-4">
-                    <label class='labels' for='category'>CATEGORIA:</label>
+                    <x-form.label for="category">CATEGORIA:</x-form.label>
                     <select name='category' id='category' class='form-select'>{!! $opts($categories, 'category') !!}</select>
                 </div>
                 @if ($variation == 'despesa')
                     <div class="col-md-4">
-                        <label class='labels' for='group'>GRUPO:</label>
+                        <x-form.label for="group">GRUPO:</x-form.label>
                         <select name='group' id='group' class='form-select'>{!! $opts($groups, 'group') !!}</select>
                     </div>
                 @endif
                 <div class="col-md-4">
-                    <label class='labels' for='status'>SITUAÇÃO:</label>
+                    <x-form.label for="status">SITUAÇÃO:</x-form.label>
                     <select name='status' id='status' class='form-select'>{!! $opts($status, 'status') !!}</select>
                 </div>
                 <div class="col-md-4">
-                    <label class='labels' for='initial_stock'>ESTOQUE INICIAL:</label>
+                    <x-form.label for="initial_stock">ESTOQUE INICIAL:</x-form.label>
                     <input type='number' min='0' name='initial_stock' id='initial_stock' class='form-control text-end'
                         value='{{ old('initial_stock') }}'>
                     <small class="text-muted">Apenas para produtos físicos</small>
@@ -68,11 +68,11 @@
         <x-form.section title="IMAGEM" icon="fas fa-image">
             <div class="row align-items-end">
                 <div class="col-md-6" id='change'>
-                    <label class='labels'>SELECIONAR IMAGEM:</label>
+                    <x-form.label>SELECIONAR IMAGEM:</x-form.label>
                     {{ createSelectIdName('image_id', 'form-select', $images, 'Nenhuma') }}
                 </div>
                 <div class="col-md-6">
-                    <label class='labels d-block'>ADICIONAR NOVA IMAGEM:</label>
+                    <x-form.label class="d-block">ADICIONAR NOVA IMAGEM:</x-form.label>
                     <label class='switch'>
                         <input type='checkbox' id='slider'>
                         <span class='slider round'></span>
@@ -98,28 +98,28 @@
             <x-form.section title="PRODUÇÃO E CUSTOS" icon="fas fa-calculator">
                 <div class="row">
                     <div class="col-md-4">
-                        <label class='labels' for='work_hours'>HORAS NECESSÁRIAS:</label>
+                        <x-form.label for="work_hours">HORAS NECESSÁRIAS:</x-form.label>
                         <input type='number' name='work_hours' id='work_hours' class='form-control text-end' min='0'
                             max='999' step='0.1' value='{{ old('work_hours') }}'>
                     </div>
                     <div class="col-md-4">
-                        <label class='labels' for='points'>PONTOS FUNCIONAIS:</label>
+                        <x-form.label for="points">PONTOS FUNCIONAIS:</x-form.label>
                         <input type='text' name='points' id='points' class='form-control text-end' value='{{ old('points') }}'>
                     </div>
                     <div class="col-md-4">
-                        <label class='labels' for='tax_rate'>IMPOSTO (%):</label>
+                        <x-form.label for="tax_rate">IMPOSTO (%):</x-form.label>
                         <input type='text' name='tax_rate' id='tax_rate' class='form-control text-end' value='{{ old('tax_rate') }}'>
                     </div>
                 </div>
                 @foreach ([1, 2, 3] as $i)
                     <div class="row mt-3">
                         <div class="col-md-4">
-                            <label class='labels' for='cost{{ $i }}'>CUSTO {{ $i }}:</label>
+                            <x-form.label for="cost{{ $i }}">CUSTO {{ $i }}:</x-form.label>
                             <input type='text' name='cost{{ $i }}' id='cost{{ $i }}'
                                 class='form-control text-end' value='{{ old('cost' . $i) }}'>
                         </div>
                         <div class="col-md-8">
-                            <label class='labels' for='cost{{ $i }}_description'>DESCRIÇÃO DO CUSTO {{ $i }}:</label>
+                            <x-form.label for="cost{{ $i }}_description">DESCRIÇÃO DO CUSTO {{ $i }}:</x-form.label>
                             <input type='text' name='cost{{ $i }}_description' id='cost{{ $i }}_description'
                                 class='form-control' value='{{ old('cost' . $i . '_description') }}'>
                         </div>
@@ -131,7 +131,7 @@
         <x-form.section title="VENDA" icon="fas fa-tag">
             <div class="row">
                 <div class="col-md-4">
-                    <label class='labels' for='price'>PREÇO:</label>
+                    <x-form.label for="price">PREÇO:</x-form.label>
                     <input type='text' name='price' id='price' class='form-control text-end' value='{{ old('price') }}'
                         onkeyup="formatCurrencyReal('price')">
                     @error('price')
@@ -139,7 +139,7 @@
                     @enderror
                 </div>
                 <div class="col-md-4">
-                    <label class='labels' for='due_date'>PRAZO DE ENTREGA:</label>
+                    <x-form.label for="due_date">PRAZO DE ENTREGA:</x-form.label>
                     <input type='text' name='due_date' id='due_date' class='form-control text-end' value='{{ old('due_date') }}'>
                 </div>
             </div>

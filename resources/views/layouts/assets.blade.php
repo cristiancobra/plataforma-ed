@@ -12,7 +12,10 @@
     .white-page { border-color: {{ $principalColor ?? '#c28dbf' }}; }
 
     /* linhas de listagem clicáveis (data-href) com hover na cor secundária da conta */
-    :root { --secondary-color: {{ $complementaryColor ?? '#f9d0ff' }}; }
+    :root {
+        --principal-color: {{ $principalColor ?? '#874983' }};
+        --secondary-color: {{ $complementaryColor ?? '#f9d0ff' }};
+    }
     .row-link { cursor: pointer; }
     .row-link:hover, .table2:hover {
         background-color: color-mix(in srgb, var(--secondary-color) 25%, white) !important;

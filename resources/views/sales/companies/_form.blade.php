@@ -26,14 +26,14 @@
 <x-form.section title="IDENTIFICAÇÃO" icon="fas fa-id-card">
     <div class="row">
         <div class="col-md-8">
-            <label class="labels" for="name">NOME: <span class="text-danger">*</span></label>
+            <x-form.label for="name" required>NOME:</x-form.label>
             <input type="text" name="name" id="name" class="form-control" value="{{ old('name', $company->name) }}" required>
             @error('name')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
         <div class="col-md-4">
-            <label class="labels" for="cnpj">CNPJ:</label>
+            <x-form.label for="cnpj">CNPJ:</x-form.label>
             <input type="text" name="cnpj" id="cnpj" class="form-control" value="{{ old('cnpj', $company->cnpj) }}">
             @error('cnpj')
                 <span class="text-danger">{{ $message }}</span>
@@ -42,11 +42,11 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-4">
-            <label class="labels" for="type">TIPO:</label>
+            <x-form.label for="type">TIPO:</x-form.label>
             <select name="type" id="type" class="form-select">{{ $options($types, 'type') }}</select>
         </div>
         <div class="col-md-4">
-            <label class="labels" for="status">SITUAÇÃO:</label>
+            <x-form.label for="status">SITUAÇÃO:</x-form.label>
             <select name="status" id="status" class="form-select">{{ $options($statuses, 'status', '') }}</select>
             @error('status')
                 <span class="text-danger">{{ $message }}</span>
@@ -55,7 +55,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-12">
-            <label class="labels" for="description">DESCRIÇÃO:</label>
+            <x-form.label for="description">DESCRIÇÃO:</x-form.label>
             <textarea name="description" id="description" class="form-control" rows="2" maxlength="255">{{ old('description', $company->description) }}</textarea>
             @error('description')
                 <span class="text-danger">{{ $message }}</span>
@@ -68,7 +68,7 @@
     hint="Situação no Cadastro Informativo de créditos não quitados do setor público.">
     <div class="row">
         <div class="col-md-4">
-            <label class="labels" for="cadin_estadual">CADIN ESTADUAL:</label>
+            <x-form.label for="cadin_estadual">CADIN ESTADUAL:</x-form.label>
             <select name="cadin_estadual" id="cadin_estadual" class="form-select">
                 {{ $options(\App\Models\Company::cadinStatusOptions(), 'cadin_estadual', 'Não consultado') }}
             </select>
@@ -77,7 +77,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label class="labels" for="cadin_federal">CADIN FEDERAL:</label>
+            <x-form.label for="cadin_federal">CADIN FEDERAL:</x-form.label>
             <select name="cadin_federal" id="cadin_federal" class="form-select">
                 {{ $options(\App\Models\Company::cadinStatusOptions(), 'cadin_federal', 'Não consultado') }}
             </select>
@@ -86,7 +86,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label class="labels" for="cadin_checked_at">DATA DA CONSULTA:</label>
+            <x-form.label for="cadin_checked_at">DATA DA CONSULTA:</x-form.label>
             <input type="date" name="cadin_checked_at" id="cadin_checked_at" class="form-control"
                 value="{{ old('cadin_checked_at', $company->cadin_checked_at?->format('Y-m-d')) }}">
             @error('cadin_checked_at')
@@ -99,14 +99,14 @@
 <x-form.section title="CONTATO" icon="fas fa-address-book">
     <div class="row">
         <div class="col-md-6">
-            <label class="labels" for="email">EMAIL:</label>
+            <x-form.label for="email">EMAIL:</x-form.label>
             <input type="email" name="email" id="email" class="form-control" value="{{ old('email', $company->email) }}">
             @error('email')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
         <div class="col-md-6">
-            <label class="labels" for="financial_email">EMAIL FINANCEIRO:</label>
+            <x-form.label for="financial_email">EMAIL FINANCEIRO:</x-form.label>
             <input type="email" name="financial_email" id="financial_email" class="form-control"
                 value="{{ old('financial_email', $company->financial_email) }}">
             @error('financial_email')
@@ -116,14 +116,14 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-4">
-            <label class="labels" for="phone">TELEFONE:</label>
+            <x-form.label for="phone">TELEFONE:</x-form.label>
             <input type="text" name="phone" id="phone" class="form-control" value="{{ old('phone', $company->phone) }}">
             @error('phone')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
         <div class="col-md-8">
-            <label class="labels" for="site">SITE:</label>
+            <x-form.label for="site">SITE:</x-form.label>
             <input type="url" name="site" id="site" class="form-control" placeholder="https://"
                 value="{{ old('site', $company->site) }}">
             @error('site')
@@ -136,30 +136,30 @@
 <x-form.section title="LOCALIZAÇÃO" icon="fas fa-map-marker-alt">
     <div class="row">
         <div class="col-md-8">
-            <label class="labels" for="address">ENDEREÇO:</label>
+            <x-form.label for="address">ENDEREÇO:</x-form.label>
             <input type="text" name="address" id="address" class="form-control" value="{{ old('address', $company->address) }}">
         </div>
         <div class="col-md-4">
-            <label class="labels" for="neighborhood">BAIRRO:</label>
+            <x-form.label for="neighborhood">BAIRRO:</x-form.label>
             <input type="text" name="neighborhood" id="neighborhood" class="form-control"
                 value="{{ old('neighborhood', $company->neighborhood) }}">
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-3">
-            <label class="labels" for="zip_code">CEP:</label>
+            <x-form.label for="zip_code">CEP:</x-form.label>
             <input type="text" name="zip_code" id="zip_code" class="form-control" value="{{ old('zip_code', $company->zip_code) }}">
         </div>
         <div class="col-md-3">
-            <label class="labels" for="city">CIDADE:</label>
+            <x-form.label for="city">CIDADE:</x-form.label>
             <input type="text" name="city" id="city" class="form-control" value="{{ old('city', $company->city) }}">
         </div>
         <div class="col-md-3">
-            <label class="labels" for="state">ESTADO:</label>
+            <x-form.label for="state">ESTADO:</x-form.label>
             <select name="state" id="state" class="form-select">{{ $options($states, 'state', '') }}</select>
         </div>
         <div class="col-md-3">
-            <label class="labels" for="country">PAÍS:</label>
+            <x-form.label for="country">PAÍS:</x-form.label>
             <input type="text" name="country" id="country" class="form-control" value="{{ old('country', $company->country) }}">
         </div>
     </div>
@@ -169,7 +169,7 @@
     <div class="row">
         @foreach (['instagram' => 'INSTAGRAM', 'facebook' => 'FACEBOOK', 'linkedin' => 'LINKEDIN', 'twitter' => 'TWITTER'] as $field => $label)
             <div class="col-md-3">
-                <label class="labels" for="{{ $field }}">{{ $label }}:</label>
+                <x-form.label for="{{ $field }}">{{ $label }}:</x-form.label>
                 <input type="text" name="{{ $field }}" id="{{ $field }}" class="form-control" value="{{ old($field, $company->$field) }}">
             </div>
         @endforeach
@@ -180,7 +180,7 @@
     <div class="row g-3">
         @foreach (range(1, 5) as $i)
             <div class="col-md-4">
-                <label class="labels" for="field_of_activity_{{ $i }}">ÁREA {{ $i }}:</label>
+                <x-form.label for="field_of_activity_{{ $i }}">ÁREA {{ $i }}:</x-form.label>
                 <input type="text" name="field_of_activity_{{ $i }}" id="field_of_activity_{{ $i }}" class="form-control"
                     value="{{ old("field_of_activity_$i", $company->{"field_of_activity_$i"}) }}">
             </div>
@@ -191,7 +191,7 @@
 <x-form.section title="PERFIL" icon="fas fa-chart-line">
     <div class="row">
         <div class="col-md-4">
-            <label class="labels" for="employees">QUANTIDADE DE EMPREGADOS:</label>
+            <x-form.label for="employees">QUANTIDADE DE EMPREGADOS:</x-form.label>
             <input type="number" min="0" step="1" name="employees" id="employees" class="form-control text-end"
                 value="{{ old('employees', $company->employees) }}">
             @error('employees')
@@ -199,7 +199,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label class="labels" for="client_number">QUANTIDADE DE CLIENTES:</label>
+            <x-form.label for="client_number">QUANTIDADE DE CLIENTES:</x-form.label>
             <input type="number" min="0" step="1" name="client_number" id="client_number" class="form-control text-end"
                 value="{{ old('client_number', $company->client_number) }}">
             @error('client_number')
@@ -207,7 +207,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label class="labels" for="revenues">FATURAMENTO (R$):</label>
+            <x-form.label for="revenues">FATURAMENTO (R$):</x-form.label>
             <input type="number" min="0" step="1" name="revenues" id="revenues" class="form-control text-end"
                 value="{{ old('revenues', $company->revenues) }}">
             @error('revenues')
@@ -217,22 +217,22 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-4">
-            <label class="labels" for="sector">SETOR:</label>
+            <x-form.label for="sector">SETOR:</x-form.label>
             <select name="sector" id="sector" class="form-select">{{ $options($sectors, 'sector', '') }}</select>
         </div>
         <div class="col-md-4">
-            <label class="labels" for="business_model">MODELO DE NEGÓCIOS:</label>
+            <x-form.label for="business_model">MODELO DE NEGÓCIOS:</x-form.label>
             <select name="business_model" id="business_model" class="form-select">{{ $options($businessModelTypes, 'business_model', '') }}</select>
         </div>
         <div class="col-md-4">
-            <label class="labels" for="competitive_advantage">DIFERENCIAL COMPETITIVO:</label>
+            <x-form.label for="competitive_advantage">DIFERENCIAL COMPETITIVO:</x-form.label>
             <input type="text" name="competitive_advantage" id="competitive_advantage" class="form-control"
                 value="{{ old('competitive_advantage', $company->competitive_advantage) }}">
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-12">
-            <label class="labels" for="value_offer">PROPOSTA DE VALOR:</label>
+            <x-form.label for="value_offer">PROPOSTA DE VALOR:</x-form.label>
             <textarea name="value_offer" id="value_offer" class="form-control" rows="4">{{ old('value_offer', $company->value_offer) }}</textarea>
         </div>
     </div>

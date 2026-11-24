@@ -31,35 +31,35 @@
         <x-form.section title="IDENTIFICAÇÃO" icon="fas fa-id-card">
             <div class="row">
                 <div class="col-md-8">
-                    <label class='labels' for='name'>NOME: <span class="text-danger">*</span></label>
+                    <x-form.label for="name" required>NOME:</x-form.label>
                     <input type='text' name='name' id='name' class='form-control' value='{{ old('name', $product->name) }}'>
                     @error('name')
                         <span class='text-danger'>{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="col-md-4">
-                    <label class='labels' for='cnae'>CNAE:</label>
+                    <x-form.label for="cnae">CNAE:</x-form.label>
                     <input type='text' name='cnae' id='cnae' class='form-control' value='{{ old('cnae', $product->cnae) }}'>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-md-4">
-                    <label class='labels' for='category'>CATEGORIA:</label>
+                    <x-form.label for="category">CATEGORIA:</x-form.label>
                     <select name='category' id='category' class='form-select'>{!! $opts($categories, 'category', $product->category) !!}</select>
                 </div>
                 @if ($variation == 'despesa')
                     <div class="col-md-4">
-                        <label class='labels' for='group'>GRUPO:</label>
+                        <x-form.label for="group">GRUPO:</x-form.label>
                         <select name='group' id='group' class='form-select'>{!! $opts($groups, 'group', $product->group) !!}</select>
                     </div>
                 @endif
                 <div class="col-md-4">
-                    <label class='labels' for='status'>SITUAÇÃO:</label>
+                    <x-form.label for="status">SITUAÇÃO:</x-form.label>
                     <select name='status' id='status' class='form-select'>{!! $opts($status, 'status', $product->status) !!}</select>
                 </div>
                 @if ($product->category == 'produto físico')
                     <div class="col-md-4">
-                        <label class='labels' for='initial_stock'>ESTOQUE INICIAL:</label>
+                        <x-form.label for="initial_stock">ESTOQUE INICIAL:</x-form.label>
                         <input type='number' step='1' min='0' name='initial_stock' id='initial_stock'
                             class='form-control text-end' value='{{ old('initial_stock', $product->initial_stock) }}'>
                     </div>
@@ -77,10 +77,10 @@
                 </div>
                 <div class="col-md-9">
                     <div id='change'>
-                        <label class='labels'>SELECIONAR IMAGEM:</label>
+                        <x-form.label>SELECIONAR IMAGEM:</x-form.label>
                         {{ createSelectIdName('image_id', 'form-select', $images, 'Nenhuma', $product->image) }}
                     </div>
-                    <label class='labels d-block mt-3'>ADICIONAR NOVA IMAGEM:</label>
+                    <x-form.label class="d-block mt-3">ADICIONAR NOVA IMAGEM:</x-form.label>
                     <label class='switch'>
                         <input type='checkbox' id='slider'>
                         <span class='slider round'></span>
@@ -105,7 +105,7 @@
         <x-form.section title="PRODUÇÃO E VENDA" icon="fas fa-tag">
             <div class="row">
                 <div class="col-md-4">
-                    <label class='labels' for='price'>PREÇO:</label>
+                    <x-form.label for="price">PREÇO:</x-form.label>
                     <input type='text' name='price' id='price' class='form-control text-end'
                         value='{{ old('price', formatCurrencyReal($product->price)) }}' onkeyup="formatCurrencyReal('price')">
                     @error('price')
@@ -113,31 +113,31 @@
                     @enderror
                 </div>
                 <div class="col-md-4">
-                    <label class='labels' for='tax_rate'>IMPOSTO (%):</label>
+                    <x-form.label for="tax_rate">IMPOSTO (%):</x-form.label>
                     <input type='text' name='tax_rate' id='tax_rate' class='form-control text-end'
                         value='{{ old('tax_rate', $product->tax_rate) }}'>
                 </div>
                 <div class="col-md-4">
-                    <label class='labels' for='due_date'>PRAZO DE ENTREGA:</label>
+                    <x-form.label for="due_date">PRAZO DE ENTREGA:</x-form.label>
                     <input type='text' name='due_date' id='due_date' class='form-control text-end'
                         value='{{ old('due_date', $product->due_date) }}'>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-md-4">
-                    <label class='labels' for='work_hours'>HORAS NECESSÁRIAS:</label>
+                    <x-form.label for="work_hours">HORAS NECESSÁRIAS:</x-form.label>
                     <input type='text' name='work_hours' id='work_hours' class='form-control text-end'
                         value='{{ old('work_hours', $product->work_hours) }}'>
                 </div>
                 @if ($product->category == 'serviço')
                     <div class="col-md-4">
-                        <label class='labels' for='points'>PONTOS FUNCIONAIS:</label>
+                        <x-form.label for="points">PONTOS FUNCIONAIS:</x-form.label>
                         <input type='text' name='points' id='points' class='form-control text-end'
                             value='{{ old('points', $product->points) }}'>
                     </div>
                 @endif
                 <div class="col-md-4">
-                    <label class='labels' for='shop'>DISPONÍVEL NA LOJA:</label>
+                    <x-form.label for="shop">DISPONÍVEL NA LOJA:</x-form.label>
                     <select name='shop' id='shop' class='form-select'>
                         <option value='1' @selected(old('shop', $product->shop) == 1)>sim</option>
                         <option value='0' @selected(old('shop', $product->shop) != 1)>não</option>

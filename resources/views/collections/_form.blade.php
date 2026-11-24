@@ -10,7 +10,7 @@
 <x-form.section title="IDENTIFICAÇÃO" icon="fas fa-id-card">
     <div class="row">
         <div class="col-md-12">
-            <label class='labels' for='name'>NOME: <span class="text-danger">*</span></label>
+            <x-form.label for="name" required>NOME:</x-form.label>
             <input type='text' name='name' id='name' class='form-control' value='{{ old('name', $collection->name) }}' required>
             @error('name')
                 <span class='text-danger'>{{ $message }}</span>
@@ -19,7 +19,7 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-12">
-            <label class='labels' for='title'>TÍTULO:</label>
+            <x-form.label for="title">TÍTULO:</x-form.label>
             <input type='text' name='title' id='title' class='form-control' value='{{ old('title', $collection->title) }}'>
             @error('title')
                 <span class='text-danger'>{{ $message }}</span>
@@ -28,17 +28,17 @@
     </div>
     <div class="row mt-3">
         <div class="col-md-6">
-            <label class='labels' for='brand'>MARCA:</label>
+            <x-form.label for="brand">MARCA:</x-form.label>
             <input type='text' name='brand' id='brand' class='form-control' value='{{ old('brand', $collection->brand) }}'>
         </div>
         <div class="col-md-6">
-            <label class='labels' for='model'>MODELO:</label>
+            <x-form.label for="model">MODELO:</x-form.label>
             <input type='text' name='model' id='model' class='form-control' value='{{ old('model', $collection->model) }}'>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-12">
-            <label class='labels' for='description'>DESCRIÇÃO:</label>
+            <x-form.label for="description">DESCRIÇÃO:</x-form.label>
             <textarea name='description' id='description' class='form-control' rows='3'>{{ old('description', $collection->description) }}</textarea>
             @error('description')
                 <span class='text-danger'>{{ $message }}</span>
@@ -50,29 +50,29 @@
 <x-form.section title="CÓDIGOS E RASTREAMENTO" icon="fas fa-barcode">
     <div class="row">
         <div class="col-md-4">
-            <label class='labels' for='patrimony_number'>NÚMERO PATRIMÔNIO:</label>
+            <x-form.label for="patrimony_number">NÚMERO PATRIMÔNIO:</x-form.label>
             <input type='text' name='patrimony_number' id='patrimony_number' class='form-control'
                 value='{{ old('patrimony_number', $collection->patrimony_number) }}'>
         </div>
         <div class="col-md-4">
-            <label class='labels' for='control_code'>CÓDIGO DE CONTROLE:</label>
+            <x-form.label for="control_code">CÓDIGO DE CONTROLE:</x-form.label>
             <input type='text' name='control_code' id='control_code' class='form-control'
                 value='{{ old('control_code', $collection->control_code) }}'>
         </div>
         <div class="col-md-4">
-            <label class='labels' for='serial_number'>NÚMERO DE SÉRIE:</label>
+            <x-form.label for="serial_number">NÚMERO DE SÉRIE:</x-form.label>
             <input type='text' name='serial_number' id='serial_number' class='form-control'
                 value='{{ old('serial_number', $collection->serial_number) }}'>
         </div>
     </div>
     <div class="row mt-3">
         <div class="col-md-6">
-            <label class='labels' for='tracking_tag'>TAG DE RASTREAMENTO:</label>
+            <x-form.label for="tracking_tag">TAG DE RASTREAMENTO:</x-form.label>
             <input type='text' name='tracking_tag' id='tracking_tag' class='form-control'
                 value='{{ old('tracking_tag', $collection->tracking_tag) }}'>
         </div>
         <div class="col-md-6">
-            <label class='labels' for='redirect_link'>LINK DE REDIRECIONAMENTO:</label>
+            <x-form.label for="redirect_link">LINK DE REDIRECIONAMENTO:</x-form.label>
             <input type='text' name='redirect_link' id='redirect_link' class='form-control'
                 value='{{ old('redirect_link', $collection->redirect_link) }}'>
         </div>
@@ -82,7 +82,7 @@
 <x-form.section title="ORGANIZAÇÃO E RESPONSÁVEL" icon="fas fa-sitemap">
     <div class="row">
         <div class="col-md-4">
-            <label class='labels'>ACERVO:</label>
+            <x-form.label>ACERVO:</x-form.label>
             <x-form.select name="collections_group_id" :options="$collectionsGroupSelectOptions"
                 :selected="old('collections_group_id', $collection->collections_group_id)" placeholder="Selecione o grupo" class="fields" />
             @error('collections_group_id')
@@ -90,7 +90,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label class='labels'>PROJETO:</label>
+            <x-form.label>PROJETO:</x-form.label>
             <x-form.select name="project_id" :options="$projectsSelectOptions"
                 :selected="old('project_id', $collection->project_id)" placeholder="Não possui" class="fields" />
             @error('project_id')
@@ -98,7 +98,7 @@
             @enderror
         </div>
         <div class="col-md-4">
-            <label class='labels'>RESPONSÁVEL (CONTATO):</label>
+            <x-form.label>RESPONSÁVEL (CONTATO):</x-form.label>
             <x-form.select name="contact_id" :options="$contactsSelectOptions"
                 :selected="old('contact_id', $collection->contact_id)" placeholder="Não possui" class="fields" />
             @error('contact_id')
@@ -111,16 +111,16 @@
 <x-form.section title="AQUISIÇÃO" icon="fas fa-shopping-cart">
     <div class="row">
         <div class="col-md-3">
-            <label class='labels' for='purchase_date'>DATA DA COMPRA:</label>
+            <x-form.label for="purchase_date">DATA DA COMPRA:</x-form.label>
             <input type='date' name='purchase_date' id='purchase_date' class='form-control' value='{{ $dateValue('purchase_date') }}'>
         </div>
         <div class="col-md-3">
-            <label class='labels' for='manufacturing_date'>DATA DE FABRICAÇÃO:</label>
+            <x-form.label for="manufacturing_date">DATA DE FABRICAÇÃO:</x-form.label>
             <input type='date' name='manufacturing_date' id='manufacturing_date' class='form-control'
                 value='{{ $dateValue('manufacturing_date') }}'>
         </div>
         <div class="col-md-6">
-            <label class='labels' for='accessories'>ACESSÓRIOS:</label>
+            <x-form.label for="accessories">ACESSÓRIOS:</x-form.label>
             <textarea name='accessories' id='accessories' class='form-control' rows='2'>{{ old('accessories', $collection->accessories) }}</textarea>
         </div>
     </div>
@@ -129,21 +129,21 @@
 <x-form.section title="LINKS" icon="fas fa-link">
     <div class="row">
         <div class="col-md-4">
-            <label class='labels' for='video_url'>URL DO VÍDEO:</label>
+            <x-form.label for="video_url">URL DO VÍDEO:</x-form.label>
             <input type='url' name='video_url' id='video_url' class='form-control' value='{{ old('video_url', $collection->video_url) }}'>
             @error('video_url')
                 <span class='text-danger'>{{ $message }}</span>
             @enderror
         </div>
         <div class="col-md-4">
-            <label class='labels' for='code_url'>URL DO CÓDIGO:</label>
+            <x-form.label for="code_url">URL DO CÓDIGO:</x-form.label>
             <input type='url' name='code_url' id='code_url' class='form-control' value='{{ old('code_url', $collection->code_url) }}'>
             @error('code_url')
                 <span class='text-danger'>{{ $message }}</span>
             @enderror
         </div>
         <div class="col-md-4">
-            <label class='labels' for='image_url'>URL DA IMAGEM:</label>
+            <x-form.label for="image_url">URL DA IMAGEM:</x-form.label>
             <input type='url' name='image_url' id='image_url' class='form-control' value='{{ old('image_url', $collection->image_url) }}'>
             @error('image_url')
                 <span class='text-danger'>{{ $message }}</span>
@@ -156,7 +156,7 @@
     <div class="row">
         @if ($isNew)
             <div class="col-md-6">
-                <label class='labels' for='initial_location'>LOCALIZAÇÃO INICIAL: <span class="text-danger">*</span></label>
+                <x-form.label for="initial_location" required>LOCALIZAÇÃO INICIAL:</x-form.label>
                 <input type='text' name='initial_location' id='initial_location'
                     class='form-control @error('initial_location') is-invalid @enderror'
                     value='{{ old('initial_location') }}' required>
@@ -167,7 +167,7 @@
         @endif
         <div class="col-md-6">
             @if ($isNew)
-                <label class='labels'>SITUAÇÃO:</label>
+                <x-form.label>SITUAÇÃO:</x-form.label>
             @endif
             @if ($collection->status === 'in use')
                 <p>Emprestado <span class="text-muted small">(volta a ficar disponível ao registrar a devolução do empréstimo)</span></p>
@@ -179,7 +179,7 @@
     @if ($isNew)
         <div class="row mt-3">
             <div class="col-md-12">
-                <label class='labels' for='location_notes'>NOTAS DA LOCALIZAÇÃO:</label>
+                <x-form.label for="location_notes">NOTAS DA LOCALIZAÇÃO:</x-form.label>
                 <textarea name='location_notes' id='location_notes' class='form-control' rows='2'>{{ old('location_notes') }}</textarea>
             </div>
         </div>

@@ -1885,7 +1885,7 @@ justify-content: center;
 .show-label {
     font-family: helvetica;
     color: white;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #c28dbf);
         display: flex;
     justify-content: flex-start;
     margin-top: 3px;
@@ -1899,14 +1899,14 @@ justify-content: center;
     font-size:14px;
     border-radius:7px 0px 0px 7px;
     border-style: solid;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #c28dbf);
     border-width: 0.5px;
 }
 
 .show-label-large {
     font-family: helvetica;
     color: white;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #c28dbf);
     margin-top: 3px;
     margin-bottom: 5px;
     margin-right: 0px;
@@ -1922,7 +1922,7 @@ justify-content: center;
 
 .show-field-start {
     font-family: helvetica;
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #EEEEEE;
     margin-top: 3px;
     margin-bottom: 5px;
@@ -1936,13 +1936,13 @@ justify-content: center;
     text-align:left;
     font-size:14px;
     border-style: solid;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #c28dbf);
     border-width: 0.5px;
 }
 
 .show-field-end {
     font-family: helvetica;
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #EEEEEE;
     display: block;
     /*justify-content: flex-start;*/
@@ -1959,7 +1959,7 @@ justify-content: center;
     font-size:14px;
     border-radius:0px 7px 7px 0px;
     border-style: solid;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #c28dbf);
     border-width: 0.5px;
 }
 
@@ -1969,7 +1969,7 @@ justify-content: center;
 
 .description-field {
     font-family: helvetica;
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #EEEEEE;
     margin-top: -10px;
     margin-bottom: 5px;
@@ -1983,7 +1983,7 @@ justify-content: center;
     font-size:16px;
     border-radius:0px 0px 7px 7px;
     border-style: solid;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #c28dbf);
     border-width: 0.5px;
 }
 
@@ -2955,7 +2955,7 @@ h5{
 
 .labels{
     font-family: helvetica;
-    color: #874983;
+    color: var(--principal-color, #874983);
     vertical-align: top; 
     margin-top: 3px;
     margin-bottom: 5px;
@@ -2966,7 +2966,7 @@ h5{
 }
 
 .fields{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 3px;
     margin-left: 5px;
     margin-bottom: 5px;
@@ -2977,7 +2977,7 @@ h5{
 }
 
 .fields-right{
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 3px;
     margin-left: 5px;
     margin-bottom: 5px;
