@@ -24,16 +24,7 @@
 
 
 @section('shortcuts')
-    <div class='col-2 shortcut prospecting'>
-        <a style='text-decoration:none' href='{{ route('systemText.index', ['type' => 'primeiros passos']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                Primeiros passos
-            </h3>
-        </a>
-    </div>
+    <x-shortcut :href="route('systemText.index', ['type' => 'primeiros passos'])" label="primeiros passos" />
 @endsection
 
 

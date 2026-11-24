@@ -107,12 +107,12 @@
         <label for="">
             Cor principal (escura):
         </label>
-        <input type="text" name="principal_color" value="#874983">
+        <input type="text" name="principal_color" value="var(--principal-color, #874983)">
         <br>
         <label for="">
             Cor secundária:
         </label>
-        <input type="text" name="complementary_color" value="#c28dbf">
+        <input type="text" name="complementary_color" value="var(--principal-color, #874983)">
         <br>
         <label for="">
             Cor oposta:

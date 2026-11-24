@@ -130,7 +130,7 @@
                         {{ date('H:i', strtotime($journey->end_time)) }}
                     @endif
                 </td>
-                <td class="table-list-center" style="color:white;background-color: #874983;padding: 4px">
+                <td class="table-list-center" style="color:white;background-color: var(--principal-color, #874983);padding: 4px">
                     {{ gmdate('H:i', $journey->duration) }}
                 </td>
             </tr>

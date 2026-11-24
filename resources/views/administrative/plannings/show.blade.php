@@ -245,10 +245,10 @@
             <div class='tb col-1 justify-content-end'>
                 {{ formatCurrencyReal((-$productPlanning->product->price * $productPlanning->product->tax_rate) / 100 - $productPlanning->product->cost1 - $productPlanning->product->cost2 - $productPlanning->product->cost3 + $productPlanning->product->price) }}
             </div>
-            <div class='tb col-1 justify-content-end' style='color:white;background-color: #c28dbf;text-align: right'>
+            <div class='tb col-1 justify-content-end' style='color:white;background-color: var(--principal-color, #874983);text-align: right'>
                 {{ formatCurrency($productPlanning->product->price) }}
             </div>
-            <div class='tb col-1 justify-content-end' style='color:white;background-color: #c28dbf;text-align: right'>
+            <div class='tb col-1 justify-content-end' style='color:white;background-color: var(--principal-color, #874983);text-align: right'>
                 {{ formatCurrency($productPlanning->subtotal_price) }}
             </div>
         </div>

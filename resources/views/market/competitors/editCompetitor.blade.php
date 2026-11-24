@@ -13,7 +13,7 @@
 @section('main')
     <div style="padding-left: 6%">
         <form action=" {{ route('competitor.update', ['competitor' => $competitor->id]) }} " method="post"
-            style="padding: 40px;color: #874983">
+            style="padding: 40px;color: var(--principal-color, #874983)">
             @csrf
             @method('put')
             <label class="labels" for="">DONO: </label>

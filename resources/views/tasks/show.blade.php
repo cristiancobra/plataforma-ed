@@ -406,7 +406,7 @@
                     {{ date('H:i', strtotime($journey->end)) }}
                 @endif
             </div>
-            <div class='tb col-1 text-center' style='color:white;background-color: #874983;border-color: white'>
+            <div class='tb col-1 text-center' style='color:white;background-color: var(--principal-color, #874983);border-color: white'>
                 {{ gmdate('H:i', $journey->duration) }}
             </div>
         </div>

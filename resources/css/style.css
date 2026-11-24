@@ -61,7 +61,7 @@ html,body{
 .white-page {
     border-style: solid;
     border-width: 0.8px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     border-radius: 10px;
     background-color: white;
     padding:3%;
@@ -93,11 +93,11 @@ h5{
 }
 
 .bg-primary {
-    background-color: #874983 !important;
+    background-color: var(--principal-color, #874983) !important;
 }
 
 .bg-secondary {
-    background-color: #c28dbf !important;
+    background-color: var(--principal-color, #874983) !important;
 }
 
 .link-light:focus, .link-light:hover {
@@ -126,7 +126,7 @@ h5{
     transition: background-color .2s ease, transform .2s ease;
 }
 .sidebar-item:hover{
-    color:#874983;
+    color:var(--principal-color, #874983);
     background-color: rgba(255, 255, 255, 0.38);
     transform: translateY(-1px);
     text-decoration: none;
@@ -165,7 +165,7 @@ h5{
 
 .sidebar-subitem {
     color:white;
-    background-color: #874983;
+    background-color: var(--principal-color, #874983);
     list-style-type: none;
     padding-top: 6px;
     padding-bottom:  6px; 
@@ -177,7 +177,7 @@ h5{
 }
 
 .sidebar-subitem:hover{
-    color:#874983;
+    color:var(--principal-color, #874983);
     background-color: white;
     text-decoration: none;
 }
@@ -216,7 +216,7 @@ h5{
 /*.tasks-my {
         grid-area: tasks-my;
         color: white;
-        background-color: #c28dbf;
+        background-color: var(--principal-color, #874983);
         padding: 4%;
         border-radius: 20px;
 }*/
@@ -224,7 +224,7 @@ h5{
 /*.hours {
     grid-area: hours;
     color: white;
-    background-color: #874983;
+    background-color: var(--principal-color, #874983);
     padding: 4%;
     border-radius: 20px;
 }
@@ -243,7 +243,7 @@ h5{
     z-index: 1; /* Stay on top */
     top: 5%; /* Stay at the top */
     left: 0;
-    background-color: #c28dbf; /* fundo*/
+    background-color: var(--principal-color, #874983); /* fundo*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 60px; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -281,7 +281,7 @@ h5{
 
 /* When you mouse over the navigation links, change their color */
 .sidenav a:hover, .dropdown-btn:hover {
-    color: #874983;
+    color: var(--principal-color, #874983);
 }
 
 /* Position and style the close button (top right corner) */
@@ -302,7 +302,7 @@ h5{
 
 /* Add an active class to the active dropdown button */
 .active {
-    background-color: #874983;
+    background-color: var(--principal-color, #874983);
     color: white;
 }
 
@@ -338,7 +338,7 @@ h5{
     padding-bottom: 1px;
     padding-left: 3px;
     padding-right: 2px;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     width:1.5vw;
     border-radius: 0px 8px 8px 0px;
     z-index: 9;
@@ -360,7 +360,7 @@ h5{
     height: auto;
     width:100%;
     clear: both;
-    background-color: #874983;
+    background-color: var(--principal-color, #874983);
 }
 
 .destaque_amarelo{
@@ -445,24 +445,24 @@ h5{
 
 
 .botao-claro{
-    background: #c28dbf;
+    background: var(--principal-color, #874983);
     border-radius: 9px;
     padding: 8px;
     cursor: pointer;
     color: black;
     border-width: 2px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     font-size: 14px
 }
 
 .botao-roxo{
-    background: #874983;
+    background: var(--principal-color, #874983);
     border-radius: 9px;
     padding: 8px;
     cursor: pointer;
     color: white;
     border-width: 2px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     font-size: 14px
 }
 /*NEW BUTTONS*/
@@ -558,8 +558,8 @@ h5{
 }
 
 .circular-nav-button-start:hover {
-    color: #e25bff;
-    background-color: #f9d0ff;
+    color: var(--principal-color, #874983);
+    background-color: var(--secondary-color, #f9d0ff);
     text-decoration: none;
 }
 
@@ -584,30 +584,30 @@ h5{
 }
 
 .primary {
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #49d194;
     border-color: #49d194;
 }
 
 .primary:hover {
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #39ea94;
     text-decoration: none;
 }
 
 .secondary {
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #d8c2db;
 }
 
 .secondary:hover {
-    color: #e25bff;
-    background-color: #f9d0ff;
+    color: var(--principal-color, #874983);
+    background-color: var(--secondary-color, #f9d0ff);
     text-decoration: none;
 }
 
 .button-active {
-    background-color: #c28dbf ;
+    background-color: var(--principal-color, #874983) ;
     border: none;
     border-width: 1px;
     color: white;
@@ -623,7 +623,7 @@ h5{
 
 .button-active:hover {
     background-color: red;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     color: white;
 }
 
@@ -644,7 +644,7 @@ h5{
 
 .button-warning:hover {
     background-color: red;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     color: white;
 }
 
@@ -665,7 +665,7 @@ h5{
 
 .button-disable:hover {
     background-color: red;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     color: white;
 }
 /* ------------------------------------------------ PÁGINAS LISTALL -------------------------- */
@@ -674,7 +674,7 @@ h5{
     width: 100%;
     text-align:center;
     display: table;
-    color:#874983;
+    color:var(--principal-color, #874983);
     font-size: 13px;
     border-bottom-style: solid;
     border-width: 2px;
@@ -691,7 +691,7 @@ h5{
 }
 
 .table-list-center:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .table-list-right{ 
@@ -706,7 +706,7 @@ h5{
     font-size: 13px;
 }
 .table-list-right:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 .table-list-left{ 
     background-color: #EEEEEE;
@@ -720,7 +720,7 @@ h5{
     font-size: 13px;
 }
 .table-list-left:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .table-list-left ul{ 
@@ -751,7 +751,7 @@ h5{
 .table-list-header{ 
     border: solid;
     border-width: 1px;
-    border-color: #874983;
+    border-color: var(--principal-color, #874983);
     display: table-cell;  
     font-size: 13px;
     padding-left: 10px;
@@ -759,7 +759,7 @@ h5{
     text-align: center;
     color: white;
     vertical-align:middle;
-    background-color: #c28dbf
+    background-color: var(--principal-color, #874983)
 }
 
 .table-list-header-right{ 
@@ -767,7 +767,7 @@ h5{
     text-align: right;
     color: white;
     vertical-align:super;
-    background-color: #c28dbf
+    background-color: var(--principal-color, #874983)
 }
 
 /* ------------------------------------------------ PÁGINAS DETAILS -------------------------- */
@@ -775,7 +775,7 @@ h5{
 .name{
     font-family: helvetica;
     font-weight:bolder;
-    color: #874983;
+    color: var(--principal-color, #874983);
     margin-top: 0px;
     margin-bottom: 5px;
     font-weight:bolder;
@@ -822,7 +822,7 @@ h5{
 }
 
 .delete {
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #FDDBDD;
 }
 
@@ -833,12 +833,12 @@ h5{
 }
 
 .restore {
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #97F80C;
 }
 
 .restore:hover{
     background-color: #09FBBE;
-    color: #874983;
+    color: var(--principal-color, #874983);
     text-decoration: none;
 }

@@ -96,7 +96,7 @@
                 </div>
             @endforeach
             <div class="tb col justify-content-end"
-                style='color:white;background-color: #874983;border-color: white;{{ $department['year'] > 0 ? 'font-weight: bold;' : '' }}'>
+                style='color:white;background-color: var(--principal-color, #874983);border-color: white;{{ $department['year'] > 0 ? 'font-weight: bold;' : '' }}'>
                 {{ number_format($department['year'] / 3600, 1, ',', '.') }}
             </div>
         </div>

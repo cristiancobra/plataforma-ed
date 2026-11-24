@@ -30,7 +30,7 @@
             <p class="subtitulo-branco">
                 fazer
             </p>
-            <form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+            <form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: var(--principal-color, #874983)">
                 @csrf
                 <input type="hidden" name="status" value="fazer">
                 <input type="hidden" name="contact_id" value="">
@@ -45,7 +45,7 @@
             <p class="subtitulo-branco">
                 minhas
             </p>
-            <form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+            <form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: var(--principal-color, #874983)">
                 @csrf
                 <input type="hidden" name="status" size="20" value="fazer">
                 <input type="hidden" name="contact_id" value="">
@@ -61,7 +61,7 @@
             <p class="subtitulo-branco">
                 fazendo
             </p>
-            <form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: #874983">
+            <form action=" {{ route('task.index') }} " method="post" style="text-align: center;color: var(--principal-color, #874983)">
                 @csrf
                 <input type="hidden" name="status" value="fazendo">
                 <input type="hidden" name="contact_id" value="">

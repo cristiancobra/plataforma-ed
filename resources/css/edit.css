@@ -49,7 +49,7 @@ and open the template in the editor.
 }
 
 input:checked + .slider {
-  background-color: #874983;
+  background-color: var(--principal-color, #874983);
 }
 
 input:focus + .slider {
@@ -73,6 +73,6 @@ input:checked + .slider:before {
 
 
 .form-check-input:checked {
-background-color: #c28dbf;
-border-color: #c28dbf;
+background-color: var(--principal-color, #874983);
+border-color: var(--principal-color, #874983);
 }

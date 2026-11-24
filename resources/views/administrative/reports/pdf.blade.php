@@ -107,7 +107,7 @@
         }
 
         .labels {
-            color: #874983;
+            color: var(--principal-color, #874983);
             margin-top: 3px;
             margin-bottom: 5px;
             font-weight: bolder;
@@ -171,7 +171,7 @@
 
         .competitor {
             color: white;
-            background-color: #874983;
+            background-color: var(--principal-color, #874983);
             padding: 2%;
             border-radius: 20px;
         }
@@ -205,7 +205,7 @@
         }
 
         .title-reports {
-            color: #874983;
+            color: var(--principal-color, #874983);
             margin-top: 10px;
             margin-bottom: 0;
             font-weight: 700;
@@ -214,7 +214,7 @@
             border-bottom: 3px;
             border-bottom-color: currentcolor;
             border-bottom-style: none;
-            border-color: #874983;
+            border-color: var(--principal-color, #874983);
             border-bottom-style: solid;
             width: 100%;
         }
@@ -223,7 +223,7 @@
 
 <body>
     <br>
-    <div style="background-color: #874983;padding-bottom: 1%;padding-top: 1.5%;border-radius: 25px">
+    <div style="background-color: var(--principal-color, #874983);padding-bottom: 1%;padding-top: 1.5%;border-radius: 25px">
         <h1 class="name" style="color: white;text-align: center">
             {{ $report->name }}
         </h1>

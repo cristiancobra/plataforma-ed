@@ -73,7 +73,7 @@
          border-left-style: solid;
          border-left-width: 1px;
          border-radius: 7px 0px 0px 0px;
-         border-color: #c28dbf
+         border-color: var(--principal-color, #874983)
          '>
             <img src='{{ asset('images/production.png') }}' width='25px' height='25px'>
             <label class='labels' style='font-size: 24px;padding-left: 5px' for=''>
@@ -87,7 +87,7 @@
          border-right-style: solid;
          border-right-width: 1px;
          border-radius: 0px 7px 0px 0px;
-         border-color: #c28dbf
+         border-color: var(--principal-color, #874983)
          '>
             <button id='buttonStageAdd' class='circular-button primary' title='Criar projeto'
                 onclick='toogleAddForm("addProject")'>

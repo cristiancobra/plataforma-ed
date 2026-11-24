@@ -13,53 +13,12 @@
 
 
 @section('shortcuts')
-    <div class='col-lg-3 d-inline-block tasks-my'>
-        <a style='text-decoration:none'
-            href='{{ route('task.index', [
-                'status' => 'fazer',
-                'contact_id' => '',
-                'user_id' => Auth::user()->id,
-            ]) }}'>
-            <p class='panel-number'>
-                {{ $myTasksPendingAmount }}
-            </p>
-            <p class='panel-text'>
-                minhas pendências
-            </p>
-        </a>
-    </div>
-    <div class='col-lg-3 d-inline-block tasks-toDo'>
-        <a style='text-decoration:none'
-            href='{{ route('task.index', [
-                'status' => 'fazer',
-                'priority' => 'emergência',
-                'contact_id' => '',
-            ]) }}'>
-            <p class='panel-number'>
-                {{ $teamTasksEmergencyAmount }}
-            </p>
-            <p class='panel-text'>
-                emergências equipe
-            </p>
-        </a>
-    </div>
-
-    <div class='col-lg-3 d-inline-block tasks-emergency'>
-        <a style='text-decoration:none'
-            href='{{ route('task.index', [
-                'status' => 'fazer',
-                'priority' => 'emergência',
-                'contact_id' => '',
-                'user_id' => Auth::user()->id,
-            ]) }}'>
-            <p class='panel-number'>
-                {{ $myTasksEmergencyAmount }}
-            </p>
-            <p class='panel-text'>
-                minhas emergências
-            </p>
-        </a>
-    </div>
+    <x-shortcut :href="route('task.index', ['status' => 'fazer', 'contact_id' => '', 'user_id' => Auth::user()->id])"
+        :number="$myTasksPendingAmount" label="minhas pendências" />
+    <x-shortcut :href="route('task.index', ['status' => 'fazer', 'priority' => 'emergência', 'contact_id' => ''])"
+        :number="$teamTasksEmergencyAmount" label="emergências equipe" />
+    <x-shortcut :href="route('task.index', ['status' => 'fazer', 'priority' => 'emergência', 'contact_id' => '', 'user_id' => Auth::user()->id])"
+        :number="$myTasksEmergencyAmount" label="minhas emergências" />
 @endsection
 
 

@@ -12,7 +12,7 @@
 
 @section('main')
     <div>
-        <form action=" {{ route('spotify.store') }} " method="post" style="padding: 40px;color: #874983">
+        <form action=" {{ route('spotify.store') }} " method="post" style="padding: 40px;color: var(--principal-color, #874983)">
             @csrf
             <label class="labels" for="">NOME DA PÁGINA:</label>
             <input type="text" name="page_name" size="20"><span class="fields"></span><br>

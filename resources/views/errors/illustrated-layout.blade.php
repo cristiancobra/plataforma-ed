@@ -17,7 +17,7 @@
             line-height: 1.15;
             -ms-text-size-adjust: 100%;
             -webkit-text-size-adjust: 100%;
-            background-color: #c28dbf;
+            background-color: var(--principal-color, #874983);
         }
 
         body {
@@ -246,7 +246,7 @@
         }
 
         .bg-purple-light {
-            background-color: #874983;
+            background-color: var(--principal-color, #874983);
         }
 
         .bg-no-repeat {

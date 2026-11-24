@@ -55,12 +55,12 @@
                 <div class="coluna-4-roxo">
                     <p style="font-size:16px">GERENCIADOR FINANCEIRO</p>
                     <a href="/gerenciador-financeiro">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">CRIAR</button></a><br>
                 </div>
                 <div class="coluna-4-roxo">
                     <p style="font-size:16px">CONTRATOS DIGITAIS</p>
                     <a href="https://painel.autentique.com.br/" target="blank">
-                        <button style="background: #874983; border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: #fff; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">ACESSAR</button></a><br>
                     login: xxxxxx
                 </div>
                 <div class="coluna-4-roxo">
@@ -78,28 +78,28 @@
                 <div class="coluna-4-branco">
                     <p style="font-size:20px">NOVA PLATAFORMA</p>
                     <a href="/instalar-plataforma">
-                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">CRIAR</button></a><br>
                 </div>
                 <div class="coluna-4-branco">
                     <p style="font-size:20px">GERENCIAR EMAILS</p>
                     <a href="https://acadia.mxroute.com:2083/" target="blank">
-                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">CRIAR CONTAS</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">CRIAR CONTAS</button></a><br>
                     login: solucoes
                 </div>
                 <div class="coluna-4-branco">
                     <p style="font-size:20px">MIGRAÇÕES</p>
                     <a href="https://nuvem.empresadigital.net.br/index.php/apps/files/?dir=/Empresa%20Digital/operacional/plataforma&fileid=8431" target="blank">
-                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">ACESSAR</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">ACESSAR</button></a><br>
                     login: xxxxxx
                 </div>
                 <div class="coluna-4-branco">
                     <p style="font-size:20px">SERVIDORES</p>
                     <a href="https://62.171.185.126:8090/" target="blank">
-                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">SERVIDOR NOVO</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">SERVIDOR NOVO</button></a><br>
                     login: admin
                     <br>
                     <a href="https://167.86.97.159:2087" target="blank">
-                        <button style="background: #c28dbf; border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: #c28dbf; font-size: 14px">SERVIDOR ANTIGO</button></a><br>
+                        <button style="background: var(--principal-color, #874983); border-radius: 9px; padding: 12px; cursor: pointer; color: black; border-width: 2px; border-color: var(--principal-color, #874983); font-size: 14px">SERVIDOR ANTIGO</button></a><br>
                     login: root
                 </div>
             </div>

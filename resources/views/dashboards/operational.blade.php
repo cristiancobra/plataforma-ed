@@ -9,7 +9,7 @@
             style='
          border-style: solid;
          border-width: 1px;
-         border-color: #c28dbf;
+         border-color: var(--principal-color, #874983);
          border-radius: 10px;
          '>
             <div class='row mt-2'>
@@ -28,45 +28,20 @@
                 </div>
             @else
                 @foreach ($myTasksToday as $task)
-                    <a style='text-decoration:none' href='{{ route('task.show', ['task' => $task->id]) }}'>
-                        <div class='row mb-3'>
-                            <div class='col-2 text-end fs-5 my-auto' style='color: #c28dbf;font-weight: 600'>
-                                {{ date('H:i', strtotime($task->date_due)) }}
-                            </div>
-
-                            <div class='col-9 justify-content-start task d-block'>
-                                <p>
-                                    <span style='font-weight: 600'>{{ $task->name }}</span>
-                                    <br>
-                                    @if ($task->project)
-                                        {{ $task->project->name }} -
-                                    @endif
-                                    {{ $task->department }}
-                                </p>
-                            </div>
-                        </div>
+                    <a class='task-line' href='{{ route('task.show', ['task' => $task->id]) }}'
+                        title='{{ $task->name }}'>
+                        <span class='task-line-date'>{{ date('H:i', strtotime($task->date_due)) }}</span>
+                        <span class='task-line-name'>{{ $task->name }}</span>
+                        <span class='task-line-meta'>{{ $task->project ? $task->project->name . ' · ' : '' }}{{ $task->department }}</span>
                     </a>
                 @endforeach
             @endif
             <div class='row mt-2'>
-                <div class='col d-flex justify-content-center'>
-                    <a class='circular-button primary' style='display: inline-block;float: right'
-                        href='{{ route('task.create', [
-                            //                                                                                                                                                                                        'task_name' => 'ATENDIMENTO',
-                            //                                                                                                                                                                                        'opportunity_id' => $opportunity->id,
-                            //                                                                                                                                                                                        'opportunity_name' => $opportunity->name,
-                            //                                                                                                                                                                                        'company_name' => $companyName,
-                            //                                                                                                                                                                                        'company_id' => $companyId,
-                            //                                                                                                                                                                                        'contact_name' => $opportunity->contact->name,
-                            //                                                                                                                                                                                        'contact_id' => $opportunity->contact->id,
-                            //                                                                                                                                                                                        'department' => 'atendimento',
-                            //                                                                                                                                                                                        'invoiceStatus' => 'orçamento',
-                        ]) }}'>
-                        <i class='fa fa-plus text-center ' aria-hidden='true'></i>
-                    </a>
-                    <a class='circular-button primary' style='display: inline-block;float: right'
-                        href='{{ route('task.calendar') }}'>
-                        <i class='fa fa-calendar text-center ' aria-hidden='true'></i>
+                <div class='col d-flex justify-content-center gap-3 pb-4 pt-2'>
+                    <x-buttons.create model="task" title="Nova tarefa" :principalColor="$principalColor" />
+                    <a class='btn rounded-circle' title='Agenda' href='{{ route('task.calendar') }}'
+                        style='background-color: {{ $principalColor }}; border-color: {{ $principalColor }}; color: white; width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;'>
+                        <i class='fas fa-calendar'></i>
                     </a>
                 </div>
             </div>
@@ -183,26 +158,13 @@
                 </div>
             @else
                 @foreach ($myTasksLimited as $task)
-                    <a style='text-decoration:none' href='{{ route('task.show', ['task' => $task->id]) }}'>
-                        <div class='row mb-3'>
-                            <div class='col-2 text-end  my-auto' style='color: #8b0000;font-weight: 600;font-size: 18px'>
-                                {{ date('d/m', strtotime($task->date_due)) }}
-                            </div>
-
-                            @if ($task->priority == 'emergência')
-                                <div class='col-9 justify-content-start task-emergency d-block'>
-                                @else
-                                    <div class='col-9 justify-content-start task d-block'>
-                            @endif
-                            <p>
-                                <span style='font-weight: 600'>{{ $task->name }}</span>
-                                <br>
-                                {{ $task->department }}
-                            </p>
-                        </div>
-        </div>
-        </a>
-        @endforeach
+                    <a class='task-line {{ $task->priority == 'emergência' ? 'task-line-emergency' : '' }}'
+                        href='{{ route('task.show', ['task' => $task->id]) }}' title='{{ $task->name }}'>
+                        <span class='task-line-date'>{{ date('d/m', strtotime($task->date_due)) }}</span>
+                        <span class='task-line-name'>{{ $task->name }}</span>
+                        <span class='task-line-meta'>{{ $task->department }}</span>
+                    </a>
+                @endforeach
         <div class="row mb-2 mt-1">
             <div class="col d-flex justify-content-center">
                 <a
@@ -223,7 +185,7 @@
     <div class='row mt-5 mb-5 ms-0 me-0 pe-3'>
         <div class='offset-1 col-2'
             style='
-         background-color: #c28dbf;
+         background-color: var(--principal-color, #874983);
          border-radius: 10px 0px 0px 10px
          '>
             <div class='row pt-3 text-center'>
@@ -243,14 +205,14 @@
             </div>
         </div>
         <div class='col-2'>
-            <div class="row pt-2 pb-2 ps-2 pe-2"
+            <div class="row pt-2 pb-2 ps-2 pe-2 h-100 align-items-stretch"
                 style='
              border-style: solid;
              border-width: 1px;
-             border-color: #c28dbf;
+             border-color: var(--principal-color, #874983);
              border-radius: 0px 10px 10px 0px;
              '>
-                <div class='col task-high-button'>
+                <div class='col stat-card'>
                     <a style='text-decoration:none'
                         href='{{ route('project.index', [
                             'status' => 'fazer',
@@ -265,7 +227,7 @@
                     </a>
                 </div>
 
-                <div class='col emergency-button'>
+                <div class='col stat-card stat-card-danger'>
                     <a style='text-decoration:none'
                         href='{{ route('task.index', [
                             'status' => 'fazer',
@@ -286,7 +248,7 @@
         </div>
         <div class='offset-1 col-2'
             style='
-         background-color: #c28dbf;
+         background-color: var(--principal-color, #874983);
          border-radius: 10px 0px 0px 10px
          '>
             <a style='text-decoration:none'
@@ -305,14 +267,14 @@
             </a>
         </div>
         <div class='col-3'>
-            <div class="row pt-2 pb-2 ps-2 pe-2"
+            <div class="row pt-2 pb-2 ps-2 pe-2 h-100 align-items-stretch"
                 style='
              border-style: solid;
              border-width: 1px;
-             border-color: #c28dbf;
+             border-color: var(--principal-color, #874983);
              border-radius: 0px 10px 10px 0px;
              '>
-                <div class='col task-high-button'>
+                <div class='col stat-card'>
                     <a style='text-decoration:none'
                         href='{{ route('task.index', [
                             'status' => 'fazer',
@@ -327,7 +289,7 @@
                     </a>
                 </div>
 
-                <div class='col emergency-button'>
+                <div class='col stat-card stat-card-danger'>
                     <a style='text-decoration:none'
                         href='{{ route('task.index', [
                             'status' => 'fazer',
@@ -344,7 +306,7 @@
                 </div>
 
 
-                <div class='col  team-button'>
+                <div class='col stat-card stat-card-warning'>
                     <a style='text-decoration:none'
                         href='{{ route('task.index', [
                             'status' => 'fazer',
@@ -369,185 +331,62 @@
         style='
      border-style: solid;
      border-width: 1px;
-     border-color: #c28dbf;
+     border-color: var(--principal-color, #874983);
      border-radius: 10px 0px 10px 0px;
      '>
         <div class='row mt-0 mb-2 ms-1 me-1 p-0'>
             <div class="col">
                 @foreach ($users as $user)
-                    <div class='row mt-5 me-1'
-                        style='
-                 border-style: solid;
-                 border-width: 1px;
-                 border-color: #c28dbf;
-                 border-radius: 10px;
-                 background-color: {{ $user['backgroundColor'] }};
-                 '>
-                        <div class='col-1 d-inline-block'>
+                    <div class='team-line {{ $user['backgroundColor'] == null ? 'team-line-active' : '' }}'>
+                        <a class='team-line-user' href='{{ route('user.show', ['user' => $user->id]) }}'
+                            title='{{ $user->contact->name }}'>
                             @if (isset($user->image))
-                                <div class='profile-picture-small'>
-                                    <a class='white' href=' {{ route('user.show', ['user' => $user->id]) }}'>
-                                        <img src='{{ asset($user->image->path) }}' width='100%' height='100%'>
-                                    </a>
-                                </div>
+                                <img class='team-line-avatar' src='{{ asset($user->image->path) }}'>
                             @else
-                                <a class='white' href=' {{ route('user.show', ['user' => $user->id]) }}'>
-                                    {{ $user->contact->name }}
-                                </a>
+                                <i class='fas fa-user-circle team-line-avatar-icon'></i>
                             @endif
-                        </div>
+                            <span class='team-line-username'>{{ $user->contact->name }}</span>
+                        </a>
 
-                        @if ($user['backgroundColor'] == null)
-                            <div class='col-1 mt-3 mb-4 ms-2 ps-1'
-                                style="
-                     border-radius: 10px 0px 0px 10px;
-                     background-color: {{ $complementaryColor }};
-                     color: white;
-                     font-size:14px; 
-                     margin-top: -0px;
-                     padding-bottom: 0px;
-                     padding-top: 15px;
-                     text-align: left;
-                     font-weight: 600;
-                     ">
-                                FAZENDO
-                            </div>
-                        @else
-                            <div class='col-1 mt-3 mb-4 ms-2 ps-1'
-                                style="
-                     border-radius: 10px 0px 0px 10px;
-                     border-color: gray;
-                     border-style: solid;
-                     border-width: 1px;
-                     background-color: {{ $user['backgroundColor'] }};
-                     color: white;
-                     font-size:14px; 
-                     margin-top: -0px;
-                     padding-bottom: 0px;
-                     padding-top: 15px;
-                     text-align: left;
-                     font-weight: 600;
-                     ">
-                                FAZENDO
-                            </div>
-                        @endif
-
-                        <div class="col-3 mt-3 mb-4 pt-3 show-field-end">
-                            @if ($user['taskId'] == null)
-                                {{ $user['journeyName'] }}
-                            @else
-                                <a class='white' style="font-size: 14px"
-                                    href=' {{ route('task.show', ['task' => $user['taskId']]) }}'>
+                        <span class='team-line-label'>{{ $user['backgroundColor'] == null ? 'FAZENDO' : 'FEZ' }}</span>
+                        <span class='team-line-task'>
+                            @if ($user['backgroundColor'] == null)
+                                @if ($user['taskId'] == null)
                                     {{ $user['journeyName'] }}
-                                </a>
+                                @else
+                                    <a href='{{ route('task.show', ['task' => $user['taskId']]) }}'
+                                        title='{{ $user['journeyName'] }}'>{{ $user['journeyName'] }}</a>
+                                @endif
+                            @elseif ($user->lastTask)
+                                <a href='{{ route('task.show', ['task' => $user->lastTask->id]) }}'
+                                    title='{{ $user->lastTask->name }}'>{{ $user->lastTask->name }}</a>
+                            @else
+                                {{ $user['journeyName'] }}
                             @endif
-                        </div>
+                        </span>
 
-                        @if ($user['backgroundColor'] == null)
-                            <div class='col-1 mt-3 mb-4 ms-5 ps-3'
-                                style="
-                     border-radius: 10px 0px 0px 10px;
-                     background-color: {{ $oppositeColor }};
-                     color: white;
-                     font-size:14px; 
-                     margin-top: -0px;
-                     padding-bottom: 0px;
-                     padding-top: 15px;
-                     text-align: left;
-                     font-weight: 600;
-                     ">
-                                FEZ
-                            </div>
-                        @else
-                            <div class='col-1 mt-3 mb-4 ms-5 ps-3'
-                                style="
-                     border-radius: 10px 0px 0px 10px;
-                     border-color: gray;
-                     border-style: solid;
-                     border-width: 1px;
-                     background-color: {{ $user['backgroundColor'] }};
-                     color: white;
-                     font-size:14px; 
-                     margin-top: -0px;
-                     padding-bottom: 0px;
-                     padding-top: 15px;
-                     text-align: left;
-                     font-weight: 600;
-                     ">
-                                FEZ
-                            </div>
-                        @endif
-
-                        @if ($user->lastTask)
-                            <div class="col-3 mt-3 mb-4 pt-2 show-field-end">
-                                <a class='white' style="font-size: 14px"
-                                    href=' {{ route('task.show', ['task' => $user->lastTask->id]) }}'>
-                                    {{ $user->lastTask->name }}
-                                </a>
-                            </div>
-                        @endif
-
-                        <div class="col-3 text-end">
-                            <div class="col d-inline-block mt-3 pt-2 task-high-button" style="width: 48px"
-                                title='tarefas abertas'>
-                                <a style='text-decoration:none'
-                                    href='{{ route('task.index', [
-                                        'status' => 'fazer',
-                                        'user_id' => $user->id,
-                                    ]) }}'>
-                                    <p
-                                        style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                                        {{ $user->tasks }}
-                                    </p>
-                                </a>
-                            </div>
-
-                            <div class='col d-inline-block  mt-3 pt-2 emergency-button' style="width: 48px"
-                                title='tarefas emergenciais'>
-                                <a style='text-decoration:none'
-                                    href='{{ route('task.index', [
-                                        'status' => 'fazer',
-                                        'priority' => 'emergência',
-                                        'user_id' => $user->id,
-                                    ]) }}'>
-                                    <p
-                                        style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                                        {{ $user->emergencies }}
-                                    </p>
-                                </a>
-                            </div>
-
-                            <div class='col d-inline-block  mt-3 pt-2  team-button' style="width: 48px"
-                                title='tarefas atrasadas'>
-                                <a style='text-decoration:none'
-                                    href='{{ route('task.index', [
-                                        'status' => 'fazer',
-                                        'priority' => 'emergência',
-                                        'user_id' => $user->id,
-                                        'date_due' => date('Y-m-d'),
-                                    ]) }}'>
-                                    <p
-                                        style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                                        {{ $user->lates }}
-                                    </p>
-                                </a>
-                            </div>
-
+                        <span class='team-line-counters'>
+                            <a class='team-pill' title='tarefas abertas'
+                                href='{{ route('task.index', ['status' => 'fazer', 'user_id' => $user->id]) }}'>
+                                <i class='fas fa-tasks'></i> {{ $user->tasks }}
+                            </a>
+                            <a class='team-pill team-pill-danger' title='tarefas emergenciais'
+                                href='{{ route('task.index', ['status' => 'fazer', 'priority' => 'emergência', 'user_id' => $user->id]) }}'>
+                                <i class='fas fa-exclamation-triangle'></i> {{ $user->emergencies }}
+                            </a>
+                            <a class='team-pill team-pill-warning' title='tarefas atrasadas'
+                                href='{{ route('task.index', ['status' => 'fazer', 'priority' => 'emergência', 'user_id' => $user->id, 'date_due' => date('Y-m-d')]) }}'>
+                                <i class='fas fa-clock'></i> {{ $user->lates }}
+                            </a>
                             @if (isset($user->lastJourney))
-                                <div class='d-inline-block mt-3  pt-2  sales-button' style="width: 48px"
-                                    title='última tarefa'>
-                                    <a style='text-decoration:none'
-                                        href='{{ route('task.show', ['task' => $user->lastJourney->task_id]) }}'>
-                                        <p
-                                            style='font-size:20px; color:white;margin-top: -0px;padding-bottom: 0px;text-align: center;font-weight: 600'>
-                                            <i class='fas fa-step-forward'
-                                                style='font-size:20px; color:white;margin-top: 0px;padding-bottom: 0px'></i>
-                                        </p>
-                                    </a>
-                                </div>
+                                <a class='team-pill team-pill-ok' title='última tarefa'
+                                    href='{{ route('task.show', ['task' => $user->lastJourney->task_id]) }}'>
+                                    <i class='fas fa-step-forward'></i>
+                                </a>
+                            @else
+                                <span class='team-pill team-pill-ok' style='visibility:hidden'><i class='fas fa-step-forward'></i></span>
                             @endif
-
-                        </div>
+                        </span>
                     </div>
                 @endforeach
             </div>

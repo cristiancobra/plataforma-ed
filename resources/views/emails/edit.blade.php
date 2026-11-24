@@ -16,7 +16,7 @@
 
 @section('main')
     <div>
-        <form action=" {{ route('email.update', ['email' => $email->id]) }} " method="post" style="color: #874983">
+        <form action=" {{ route('email.update', ['email' => $email->id]) }} " method="post" style="color: var(--principal-color, #874983)">
             @csrf
             @method('put')
             <label class="labels" for="">QUEM ESCREVEU: </label>

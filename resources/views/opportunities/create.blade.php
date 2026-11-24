@@ -23,7 +23,7 @@
         </div>
     @endif
     <div class="mt-5 mb-5">
-        <form action="{{ route('opportunity.store') }}" method="post" style="color: #874983">
+        <form action="{{ route('opportunity.store') }}" method="post" style="color: var(--principal-color, #874983)">
             @csrf
             @if ($department == 'desenvolvimento')
                 <input type="hidden" name="department" value="{{ $department }}">

@@ -48,10 +48,10 @@
                     <div class='show-name col-8'>
                         @yield('name')
                     </div>
-                    <div class='show-stage col-2' style='background-color:#c28dbf;border-radius: 30px'>
+                    <div class='show-stage col-2' style='background-color:var(--principal-color, #874983);border-radius: 30px'>
                         @yield('priority')
                     </div>
-                    <div class='show-stage col-2' style='background-color:#c28dbf;border-radius: 30px'>
+                    <div class='show-stage col-2' style='background-color:var(--principal-color, #874983);border-radius: 30px'>
                         @yield('status')
                     </div>
                 </div>

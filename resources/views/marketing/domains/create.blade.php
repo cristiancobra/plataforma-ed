@@ -16,7 +16,7 @@
 
 @section('main')
     <div>
-        <form action=" {{ route('domain.store') }} " method="post" style="color: #874983">
+        <form action=" {{ route('domain.store') }} " method="post" style="color: var(--principal-color, #874983)">
             @csrf
             <label class="labels" for="">DOMÍNIO:</label>
             <input type="text" name="name" size="60"><span class="fields"></span>

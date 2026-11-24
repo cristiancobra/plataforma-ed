@@ -23,7 +23,7 @@
 
 @section('table')
     <div style='text-align: right'>
-        <form action='{{ route('user.index') }}' method='post' style='color: #874983;display: inline-block'>
+        <form action='{{ route('user.index') }}' method='post' style='color: var(--principal-color, #874983);display: inline-block'>
             @csrf
             <input type='text' name='user_name' placeholder='nome ou sobrenome' value=''>
             <input class='btn btn-secondary' type='submit' value='FILTRAR'>
@@ -71,12 +71,12 @@
 
                 <td class='table-list-left'>
                     <div style='display: flex; align-items: center; gap: 8px;'>
-                        <a style='color: #874983' href=' mailto:{{ $user->email }} ' target='_blank'>
+                        <a style='color: var(--principal-color, #874983)' href=' mailto:{{ $user->email }} ' target='_blank'>
                             <button class='button-round'>
                                 <i class='fa fa-envelope'></i>
                             </button>
                         </a>
-                        <a style='color: #874983' href=' mailto:{{ $user->email }} ' target='_blank'>
+                        <a style='color: var(--principal-color, #874983)' href=' mailto:{{ $user->email }} ' target='_blank'>
                             {{ $user->email }}
                         </a>
                     </div>

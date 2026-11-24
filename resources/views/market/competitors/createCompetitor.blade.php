@@ -12,7 +12,7 @@
 
 @section('main')
     <br>
-    <form action=" {{ route('competitor.store') }} " method="post" style="padding: 40px;color: #874983">
+    <form action=" {{ route('competitor.store') }} " method="post" style="padding: 40px;color: var(--principal-color, #874983)">
         @csrf
         <label class="labels" for="">
             DONO:

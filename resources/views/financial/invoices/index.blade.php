@@ -28,19 +28,7 @@
 @endsection
 
 @section('shortcuts')
-    <div class='col-2 offset-4 d-inline-block tasks-my mt-3 mb-5 me-5'>
-        <a style='text-decoration:none'
-            href='{{ route('invoice.index', [
-                'date_start' => $monthStart,
-                'date_end' => $monthEnd,
-            ]) }}'>
-            <p class='panel-text' style="font-size: 20px">
-                MÊS
-                <br>
-                ATUAL
-            </p>
-        </a>
-    </div>
+    <x-shortcut :href="route('invoice.index', ['date_start' => $monthStart, 'date_end' => $monthEnd])" label="mês atual" />
     <div class='col-6'>
         <div class='row  table-header mb-2' style="background-color: {{ $principalColor }}">
             <div class='col-1'>

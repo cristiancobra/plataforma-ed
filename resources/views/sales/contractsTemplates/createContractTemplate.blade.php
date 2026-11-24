@@ -16,7 +16,7 @@
 
 @section('main')
     <div>
-        <form action=' {{ route('contractTemplate.store') }} ' method='post' style='padding: 40px;color: #874983'>
+        <form action=' {{ route('contractTemplate.store') }} ' method='post' style='padding: 40px;color: var(--principal-color, #874983)'>
             @csrf
             <label class='labels' for=''>NOME DO MODELO:</label>
             <input type='text' name='name'value=''>
@@ -27,10 +27,10 @@
             <div class='row mt-5 mb-5'
                 style='
              padding: 40px;
-             color: #874983;
+             color: var(--principal-color, #874983);
              border-style: solid;
              border-width: 1px;
-             border-color: #c28dbf;
+             border-color: var(--principal-color, #874983);
              border-radius: 15px;
              '>
                 <div class='row mt-2''>

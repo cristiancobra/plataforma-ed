@@ -11,7 +11,7 @@ and open the template in the editor.
 /* ------------------------------------------------ GRID INICIO -------------------------- */
 .financial-display {
     text-align: right;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -19,7 +19,7 @@ and open the template in the editor.
 }
 
 .journey-display {
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     border-radius: 10px;
     padding: 15px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -41,7 +41,7 @@ and open the template in the editor.
 }
 
 .journey-display-row:hover {
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .financial-image {
@@ -59,7 +59,7 @@ and open the template in the editor.
     vertical-align: middle;
     border-radius: 10px;
     text-align: center;
-    color: #874983;
+    color: var(--principal-color, #874983);
 }
 
 .tasks-now{
@@ -112,7 +112,7 @@ and open the template in the editor.
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 .tasks-my:hover{
-    background-color: #AC56B8;
+    background-color: var(--principal-color, #874983);
 }
 
 .sales-button {
@@ -156,7 +156,7 @@ and open the template in the editor.
     text-decoration:none;
 }
 .task-button:hover {
-    background-color: #AC56B8;
+    background-color: var(--principal-color, #874983);
 }
 
 .task-high-button {
@@ -169,7 +169,7 @@ and open the template in the editor.
     text-decoration:none;
 }
 .task-high-button:hover {
-    background-color: #AC56B8;
+    background-color: var(--principal-color, #874983);
 }
 
 .task-medium-button {
@@ -186,7 +186,7 @@ and open the template in the editor.
     text-decoration:none;
 }
 .task-medium-button:hover {
-    background-color: #AC56B8;
+    background-color: var(--principal-color, #874983);
 }
 
 .task-low-button {
@@ -203,7 +203,7 @@ and open the template in the editor.
     text-decoration:none;
 }
 .task-low-button:hover {
-    background-color: #AC56B8;
+    background-color: var(--principal-color, #874983);
 }
 
 .task-display {
@@ -219,7 +219,7 @@ and open the template in the editor.
     text-decoration:none;
 }
 .task-display:hover {
-    background-color: #AC56B8;
+    background-color: var(--principal-color, #874983);
 }
 
 .team-button {
@@ -285,7 +285,7 @@ and open the template in the editor.
     padding: 4%;
     border-radius: 10px;
     text-align: center;
-    color: #874983;
+    color: var(--principal-color, #874983);
     vertical-align: middle;
 }
 .opportunities-funnel{
@@ -293,7 +293,7 @@ and open the template in the editor.
     height: 100%;
     border-radius: 10px;
     text-align: center;
-    color: #874983;
+    color: var(--principal-color, #874983);
 }
 
 .funnel-bar-prospecting{
@@ -484,7 +484,7 @@ and open the template in the editor.
     height: 100%;
     padding: 4%;
     text-align: center;
-    color: #874983;
+    color: var(--principal-color, #874983);
 }
 
 /*                       ------------ fim do grid administrator---------           */
@@ -603,7 +603,7 @@ and open the template in the editor.
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border: solid;
     border-width: 1px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     padding: 2.5px 2.5px;
     text-align: center;
     text-decoration: none;
@@ -676,7 +676,7 @@ and open the template in the editor.
 }
 
 .task:hover{
-    background-color:  #c28dbf;
+    background-color:  var(--principal-color, #874983);
 }
 
 .task-mini {
@@ -693,7 +693,7 @@ and open the template in the editor.
 }
 
 .task-mini:hover{
-    background-color:  #c28dbf;
+    background-color:  var(--principal-color, #874983);
 }
 
 .task-emergency{
@@ -713,3 +713,92 @@ and open the template in the editor.
     background-color:  #f7736f ;
 }
 
+
+/* cartões de estatística (contadores do painel operacional) */
+.stat-card {
+    background-color: #fff;
+    border: 1px solid color-mix(in srgb, var(--principal-color, #874983) 25%, white);
+    border-left: 5px solid var(--principal-color, #874983);
+    border-radius: 8px;
+    margin: 4px;
+    padding: 8px 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow .15s, transform .15s;
+}
+.stat-card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+.stat-card p {
+    margin: 0;
+    color: #6c757d !important;
+    line-height: 1.2;
+    text-shadow: none;
+}
+.stat-card p span,
+.stat-card > a > p:only-child:not(:has(span)) {
+    color: var(--principal-color, #874983);
+}
+.stat-card p span { font-weight: 700; }
+.stat-card-danger { border-left-color: #d9534f; border-color: #f3c6c4; border-left-width: 5px; }
+.stat-card-danger p span { color: #d9534f; }
+.stat-card-sm { width: 52px; padding: 4px; }
+.stat-card-sm p { color: var(--principal-color, #874983) !important; font-weight: 700; }
+.stat-card-sm.stat-card-danger p { color: #d9534f !important; }
+.stat-card-warning { border-left-color: #e0a800; border-color: #f1e1a6; }
+.stat-card-warning p span { color: #b88700; }
+.stat-card-sm.stat-card-warning p { color: #b88700 !important; }
+.stat-card-ok { border-left-color: #28a745; border-color: #bfe5c9; }
+.stat-card-sm.stat-card-ok p, .stat-card-sm.stat-card-ok i { color: #28a745 !important; }
+.stat-card-sm p { margin: 0; }
+
+/* linhas compactas de tarefas (painel operacional) */
+.task-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 8px;
+    border-bottom: 1px solid #eee;
+    border-left: 4px solid var(--principal-color, #874983);
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+}
+.task-line:hover {
+    background-color: color-mix(in srgb, var(--secondary-color, #f9d0ff) 25%, white);
+    color: #333;
+}
+.task-line-date { flex: 0 0 44px; font-weight: 700; color: var(--principal-color, #874983); }
+.task-line-name { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; font-weight: 600; }
+.task-line-meta { flex: 0 1 38%; min-width: 0; overflow: hidden; text-overflow: ellipsis; color: #6c757d; font-size: 12px; text-align: right; }
+.task-line-emergency { border-left-color: #d9534f; background-color: #fdf0ef; }
+.task-line-emergency .task-line-date { color: #d9534f; }
+
+/* equipe: uma linha compacta por usuário */
+.team-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 4px 8px;
+    border-bottom: 1px solid #eee;
+    border-left: 4px solid #adb5bd;
+    font-size: 13px;
+}
+.team-line-active { border-left-color: #28a745; }
+.team-line:hover { background-color: color-mix(in srgb, var(--secondary-color, #f9d0ff) 25%, white); }
+.team-line-user { flex: 0 0 190px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: #333; min-width: 0; }
+.team-line-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 2px solid var(--principal-color, #874983); }
+.team-line-avatar-icon { font-size: 26px; color: var(--principal-color, #874983); }
+.team-line-username { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.team-line-label { flex: 0 0 62px; font-size: 11px; font-weight: 700; color: #6c757d; }
+.team-line-active .team-line-label { color: #28a745; }
+.team-line-task { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.team-line-task a { color: #333; text-decoration: none; }
+.team-line-task a:hover { color: var(--principal-color, #874983); }
+.team-line-counters { flex: 0 0 auto; display: flex; gap: 6px; }
+.team-pill { display: inline-flex; min-width: 54px; justify-content: center; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-weight: 700; text-decoration: none; background: color-mix(in srgb, var(--principal-color, #874983) 12%, white); color: var(--principal-color, #874983); }
+.team-pill-danger { background: #fdecea; color: #d9534f; }
+.team-pill-warning { background: #fff6d6; color: #b88700; }
+.team-pill-ok { min-width: 32px; background: #e3f5e8; color: #28a745; }
+.team-pill:hover { filter: brightness(.95); }

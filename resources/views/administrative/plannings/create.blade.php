@@ -323,7 +323,7 @@
                             value='{{ (-$product->price * $product->tax_rate) / 100 - $product->cost1 - $product->cost2 - $product->cost3 + $product->price }}'>
 
                         <div class='tb col-1 justify-content-end'
-                            style='color:white;background-color: #c28dbf;text-align: right'>
+                            style='color:white;background-color: var(--principal-color, #874983);text-align: right'>
                             <input type='decimal' name='product_price[]' size='7'
                                 value='{{ formatCurrency($product->price) }}' style='text-align: right'>
                         </div>

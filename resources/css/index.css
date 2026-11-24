@@ -13,7 +13,7 @@ table{
     width: 100%;
     text-align:center;
     display: table;
-    color:#874983;
+    color:var(--principal-color, #874983);
     font-size: 14px;
     border-bottom-style: solid;
     border-width: 2px;
@@ -78,7 +78,7 @@ table{
     text-align: center;
     color: white;
     vertical-align:super;
-    background-color: #c28dbf
+    background-color: var(--principal-color, #874983)
 }
 
 /*nova tabela com DIVS e bootstrap*/
@@ -96,7 +96,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .table2:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .table-header { 
@@ -121,7 +121,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .cel:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .tb { 
@@ -129,7 +129,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding-right: 5px;
     padding-top: 4px;
     padding-bottom: 4px;
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-size:14px;
     border-color: rgba(135, 73, 131,0.50);
     border-style: solid;
@@ -140,7 +140,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .tb:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .tb-description { 
@@ -148,7 +148,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding-right: 5px;
     padding-top: 4px;
     padding-bottom: 4px;
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-size:14px;
     border-color: rgba(135, 73, 131,0.50);
     border-style: solid;
@@ -157,7 +157,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
 .tb-description:hover{ 
-    background-color: #f9d0ff;
+    background-color: var(--secondary-color, #f9d0ff);
 }
 
 .tb-row { 
@@ -165,7 +165,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     padding-right: 5px;
     padding-top: 10px;
     padding-bottom: 10px;
-    color: #874983;
+    color: var(--principal-color, #874983);
     font-size:14px;
     border-left-color: rgba(135, 73, 131,0.50);
     border-left-style: solid;
@@ -189,9 +189,9 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 
 .tb-footer{ 
     color: white;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     font-size:15px;
-    border-color: #874983;
+    border-color: var(--principal-color, #874983);
     border-style: solid;
     border-width: 1px;
     border-radius: 0 0 8px 8px;
@@ -201,7 +201,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 .tb-header{ 
     color: white;
     text-align: center;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     font-size:14px;
     display: flex;
     justify-content: center;
@@ -211,7 +211,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 .tb-header-start{ 
     color: white;
     text-align: center;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     font-size:15px;
     border-radius: 8px 8px 0 0;
     display: flex;
@@ -222,7 +222,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 .tb-header-end { 
     color: white;
     text-align: center;
-    background-color: #c28dbf;
+    background-color: var(--principal-color, #874983);
     font-size:15px;
     border-radius: 0 8px 0 0;
     display: flex;
@@ -235,7 +235,7 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     text-align: right;
     color: white;
     vertical-align:super;
-    background-color: #c28dbf
+    background-color: var(--principal-color, #874983)
 }
 
 td {
@@ -553,7 +553,7 @@ td {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
     border: solid;
     border-width: 1px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     text-align: center;
     text-decoration: none;
     display: inline-flex;
@@ -575,7 +575,7 @@ td {
 .profile-picture-small {
     border-style: solid;
     border-width: 3px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     height: 80px;
     width: 80px;
     border-radius: 50%;

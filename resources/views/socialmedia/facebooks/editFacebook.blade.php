@@ -13,7 +13,7 @@
 @section('main')
     <br>
     <form action=" {{ route('facebook.update', ['facebook' => $facebook->id]) }} " method="post"
-        style="padding: 40px;color: #874983">
+        style="padding: 40px;color: var(--principal-color, #874983)">
         @csrf
         @method('put')
         <div style="padding-left: 6%">

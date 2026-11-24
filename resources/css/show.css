@@ -251,7 +251,7 @@ justify-content: center;
     text-shadow: 2px 2px 4px #000000;
     color: white;
     vertical-align:middle;
-    background-color: #e25bff;
+    background-color: var(--principal-color, #874983);
     border-style: solid;
     border-radius:50%;
     border-width: 1px; 
@@ -383,7 +383,7 @@ justify-content: center;
 
 .table-show{ 
     font-family: helvetica;
-    color: #874983;
+    color: var(--principal-color, #874983);
     background-color: #EEEEEE;
     margin-top: -5px;
     margin-bottom: 5px;
@@ -397,14 +397,14 @@ justify-content: center;
     font-size:16px;
     border-radius:0px 0px 7px 7px;
     border-style: solid;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     border-width: 0.5px;
 }
 
 .profile-picture {
     border-style: solid;
     border-width: 5px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     height: 200px;
     width: 200px;
     border-radius: 50%;
@@ -425,7 +425,7 @@ justify-content: center;
 .product-image {
     border-style: solid;
     border-width: 2px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     border-radius: 5px;
     height: 300px;
     width: 300px;
@@ -439,7 +439,7 @@ justify-content: center;
 .product-image-public {
     border-style: solid;
     border-width: 2px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     border-radius: 5px;
     position: relative;
     overflow: hidden;
@@ -456,7 +456,7 @@ justify-content: center;
     display: inline-block; /* Ajusta o tamanho do contêiner à imagem */
     border-style: solid;
     border-width: 2px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     border-radius: 5px;
     text-align: center;
     margin-left: auto;
@@ -472,7 +472,7 @@ justify-content: center;
 .frame {
     border-style: solid;
     border-width: 1px;
-    border-color: #c28dbf;
+    border-color: var(--principal-color, #874983);
     border-radius: 10px 10px 10px 10px;
 }
 
@@ -499,7 +499,7 @@ box-shadow: rgba(0, 0, 0, 0.15) 6.95px 6.95px 12.6px;
 }
 
 .form-button-red {
-        color: #874983;
+        color: var(--principal-color, #874983);
             background-color: #FDDBDD;
     font-size:18px;
     border-style: none;

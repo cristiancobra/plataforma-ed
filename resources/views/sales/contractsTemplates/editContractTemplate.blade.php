@@ -17,7 +17,7 @@
 @section('main')
     <div>
         <form action=" {{ route('contractTemplate.update', ['contractTemplate' => $contractTemplate->id]) }} " method="post"
-            style="color: #874983">
+            style="color: var(--principal-color, #874983)">
             @csrf
             @method('put')
             <label class="labels" for="">ORGANIZAÇÃO: </label>

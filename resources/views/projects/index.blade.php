@@ -30,94 +30,12 @@
 
 @section('shortcuts')
     @if (1 > 2)
-        <div class='col shortcut prospecting'>
-            <a style='text-decoration:none'
-                href='{{ route('project.index', [
-                    'stage' => 'prospecção',
-                    'status' => 'ativo',
-                ]) }}'>
-                <h2>
-                    {{ $totalProspection }}
-                </h2>
-                <h3>
-                    prospecções
-                </h3>
-            </a>
-        </div>
-        <div class='col shortcut presentation'>
-            <a style='text-decoration:none'
-                href='{{ route('project.index', [
-                    'stage' => 'apresentação',
-                    'status' => 'ativo',
-                ]) }}'>
-                <h2>
-                    {{ $totalPresentation }}
-                </h2>
-                <h3>
-                    apresentações
-                </h3>
-            </a>
-        </div>
-
-        <div class='col shortcut proposal'>
-            <a style='text-decoration:none'
-                href='{{ route('project.index', [
-                    'stage' => 'proposta',
-                    'status' => 'ativo',
-                ]) }}'>
-                <h2>
-                    {{ $totalProposal }}
-                </h2>
-                <h3>
-                    propostas
-                </h3>
-            </a>
-        </div>
-
-        <div class='col shortcut contract'>
-            <a style='text-decoration:none'
-                href='{{ route('project.index', [
-                    'stage' => 'contrato',
-                    'status' => 'ativo',
-                ]) }}'>
-                <h2>
-                    {{ $totalContract }}
-                </h2>
-                <h3>
-                    contratos
-                </h3>
-            </a>
-        </div>
-
-        <div class='col shortcut bill'>
-            <a style='text-decoration:none'
-                href='{{ route('project.index', [
-                    'stage' => 'cobrança',
-                    'status' => 'ativo',
-                ]) }}'>
-                <h2>
-                    {{ $totalBill }}
-                </h2>
-                <h3>
-                    cobrança
-                </h3>
-            </a>
-        </div>
-
-        <div class='col shortcut production'>
-            <a style='text-decoration:none'
-                href='{{ route('project.index', [
-                    'stage' => 'produção',
-                    'status' => 'ativo',
-                ]) }}'>
-                <h2>
-                    {{ $totalProduction }}
-                </h2>
-                <h3>
-                    produção
-                </h3>
-            </a>
-        </div>
+        <x-shortcut :href="route('project.index', ['stage' => 'prospecção', 'status' => 'ativo'])" :number="$totalProspection" label="prospecções" />
+        <x-shortcut :href="route('project.index', ['stage' => 'apresentação', 'status' => 'ativo'])" :number="$totalPresentation" label="apresentações" />
+        <x-shortcut :href="route('project.index', ['stage' => 'proposta', 'status' => 'ativo'])" :number="$totalProposal" label="propostas" />
+        <x-shortcut :href="route('project.index', ['stage' => 'contrato', 'status' => 'ativo'])" :number="$totalContract" label="contratos" />
+        <x-shortcut :href="route('project.index', ['stage' => 'cobrança', 'status' => 'ativo'])" :number="$totalBill" label="cobrança" />
+        <x-shortcut :href="route('project.index', ['stage' => 'produção', 'status' => 'ativo'])" :number="$totalProduction" label="produção" />
     @endif
 @endsection
 

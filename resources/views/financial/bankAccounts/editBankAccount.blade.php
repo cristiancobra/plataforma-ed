@@ -17,7 +17,7 @@
 @section('main')
     <div>
         <form action="{{ route('bankAccount.update', ['bankAccount' => $bankAccount]) }}" method="post"
-            style="color: #874983">
+            style="color: var(--principal-color, #874983)">
             @csrf
             @method('put')
             <label for="">Nome / apelido: </label>

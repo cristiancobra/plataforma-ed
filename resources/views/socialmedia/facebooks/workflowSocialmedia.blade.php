@@ -43,7 +43,7 @@
     </center>
 
 
-    <div style="width:100vw; background-color: #c28dbf">
+    <div style="width:100vw; background-color: var(--principal-color, #874983)">
         <div class="admin-blocks"">
             <p class="subtitulo-roxo">FINANCEIRO</p>
             <br>

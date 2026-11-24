@@ -25,7 +25,7 @@
         </div>
     @endif
     <div>
-        <form action="{{ route('email.store') }}" method="post" style="color: #874983">
+        <form action="{{ route('email.store') }}" method="post" style="color: var(--principal-color, #874983)">
             @csrf
 
             <label class="labels" for="">EQUIPE: </label>

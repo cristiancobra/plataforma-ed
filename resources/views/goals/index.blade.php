@@ -25,17 +25,7 @@
 
 
 @section('shortcuts')
-    <div class='col-3 shortcut prospecting'>
-        <a style='text-decoration:none' href='{{ route('goal.index', ['department' => 'desenvolvimento']) }}'>
-            <h2>
-
-            </h2>
-            <h3>
-                DESENVOLVIMENTO
-            </h3>
-        </a>
-    </div>
-
+    <x-shortcut :href="route('goal.index', ['department' => 'desenvolvimento'])" label="desenvolvimento" />
 @endsection
 
 

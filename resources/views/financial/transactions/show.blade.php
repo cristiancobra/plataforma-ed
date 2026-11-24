@@ -22,7 +22,7 @@
 @endsection
 
 @section('priority')
-    <div class='pb-2 pt-1' style='background-color: #c28dbf; border-radius:30px'>
+    <div class='pb-2 pt-1' style='background-color: var(--principal-color, #874983); border-radius:30px'>
         {{ date('d/m/Y', strtotime($transaction->pay_day)) }}
     </div>
 @endsection

@@ -17,7 +17,7 @@
 
 @section('main')
     <div>
-        <form action=' {{ route('contract.store') }} ' method='post' style='color: #874983'>
+        <form action=' {{ route('contract.store') }} ' method='post' style='color: var(--principal-color, #874983)'>
             @csrf
             <label class='labels' for=''>RESPONSÁVEL NA MINHA EMPRESA: </label>
             <select name='user_id'>

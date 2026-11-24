@@ -59,7 +59,7 @@ and open the template in the editor.
 
 .competitor {
     color: white;
-    background-color: #874983;
+    background-color: var(--principal-color, #874983);
     padding: 2%;
     border-radius: 20px;
 }

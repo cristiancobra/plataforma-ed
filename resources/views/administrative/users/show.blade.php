@@ -106,7 +106,7 @@
             {{ $userTasks->links() }}
         </div>
         <div class="col-sm-4 col-xs-12 d-inline-block" style="text-align: right">
-            <div style='text-align:right;color: #874983; display: inline-block'>
+            <div style='text-align:right;color: var(--principal-color, #874983); display: inline-block'>
                 <form action='{{ route('user.destroy', ['user' => $user->id]) }}' method='post'>
                     @csrf
                     @method('delete')
@@ -116,7 +116,7 @@
                     </button>
                 </form>
             </div>
-            <div style='text-align:right;color: #874983;display: inline-block'>
+            <div style='text-align:right;color: var(--principal-color, #874983);display: inline-block'>
                 <a class='circular-button secondary' href=' {{ route('user.edit', ['user' => $user->id]) }}'>
                     <i class='fa fa-edit'></i>
                 </a>

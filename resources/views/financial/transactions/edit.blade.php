@@ -30,7 +30,7 @@
                 'transaction' => $transaction,
                 'typeTransactions' => 'débito',
             ]) }} "
-            method="post" style="color: #874983">
+            method="post" style="color: var(--principal-color, #874983)">
             @csrf
             @method('put')
             <label class="labels" for="">REGISTRADO POR:</label>

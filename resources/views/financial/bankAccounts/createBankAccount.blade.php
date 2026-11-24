@@ -26,7 +26,7 @@
         </div>
     @endif
     <div>
-        <form action=" {{ route('bankAccount.store') }} " method="post" style="color: #874983">
+        <form action=" {{ route('bankAccount.store') }} " method="post" style="color: var(--principal-color, #874983)">
             @csrf
             <label for="">Nome / apelido: </label>
             <input type="text" name="name" value="{{ old('name') }}">
