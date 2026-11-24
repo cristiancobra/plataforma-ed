@@ -5,7 +5,7 @@
 
 @section('main')
     <div class='row'>
-        <div class='col-4 mt-3 mb-3'
+        <div class='col-12 col-xl-4 mt-3 mb-3'
             style='
          border-style: solid;
          border-width: 1px;
@@ -49,7 +49,7 @@
 
         <!-- coluna 2 -->
 
-        <div class='col-4'>
+        <div class='col-12 col-xl-4 mt-3 mt-xl-0'>
             <div class='journey-display'>
                 <div class='row'>
                     <p class='panel-text pt-0 pb-2 fs-5'>
@@ -138,7 +138,7 @@
 
         <!--    coluna 3 -->
 
-        <div class='col-4 mt-3 mb-0'
+        <div class='col-12 col-xl-4 mt-3 mb-3 mb-xl-0'
             style='
          border-style: solid;
          border-width: 1px;
@@ -182,8 +182,8 @@
 
     <!--    linha  -->
 
-    <div class='row mt-5 mb-5 ms-0 me-0 pe-3'>
-        <div class='offset-1 col-2'
+    <div class='row mt-4 mt-xl-5 mb-4 mb-xl-5 ms-0 me-0 pe-xl-3'>
+        <div class='col-12 col-md-4 col-xl-2 offset-xl-1 mt-3 mt-xl-0 pb-2'
             style='
          background-color: var(--principal-color, #874983);
          border-radius: 10px 0px 0px 10px
@@ -204,7 +204,7 @@
                 </p>
             </div>
         </div>
-        <div class='col-2'>
+        <div class='col-12 col-md-8 col-xl-2 mt-3 mt-xl-0'>
             <div class="row pt-2 pb-2 ps-2 pe-2 h-100 align-items-stretch"
                 style='
              border-style: solid;
@@ -246,7 +246,7 @@
 
             </div>
         </div>
-        <div class='offset-1 col-2'
+        <div class='col-12 col-md-4 col-xl-2 offset-xl-1 mt-3 mt-xl-0 pb-2'
             style='
          background-color: var(--principal-color, #874983);
          border-radius: 10px 0px 0px 10px
@@ -266,7 +266,7 @@
                 </div>
             </a>
         </div>
-        <div class='col-3'>
+        <div class='col-12 col-md-8 col-xl-3 mt-3 mt-xl-0'>
             <div class="row pt-2 pb-2 ps-2 pe-2 h-100 align-items-stretch"
                 style='
              border-style: solid;
