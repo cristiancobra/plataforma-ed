@@ -43,6 +43,8 @@ class AttachmentController extends Controller
         $attachment->text_id = $request->text_id;
         $attachment->proposal_id = $request->proposal_id;
         $attachment->collection_id = $request->collection_id;
+        $attachment->invoice_id = $request->invoice_id;
+        $attachment->opportunity_id = $request->opportunity_id;
         $attachment->type = $request->type ?? 'pdf';
         $attachment->name = $request->file('attachment')->getClientOriginalName();
         $attachment->status = 'disponível';

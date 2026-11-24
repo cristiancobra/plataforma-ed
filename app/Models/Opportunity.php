@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class Opportunity extends Model {
 
+    public function attachments() {
+        return $this->hasMany(Attachment::class, 'opportunity_id', 'id');
+    }
+
     protected $table = 'opportunities';
     protected $fillable = [
         'id',

@@ -25,6 +25,8 @@ class StoreAttachmentRequest extends FormRequest
             'text_id' => 'nullable|exists:texts,id',
             'proposal_id' => 'nullable|exists:proposals,id',
             'collection_id' => 'nullable|exists:collections,id',
+            'invoice_id' => 'nullable|exists:invoices,id',
+            'opportunity_id' => 'nullable|exists:opportunities,id',
             'attachment_name' => 'nullable|string|max:255',
             'type' => 'required|string|max:255',
         ];

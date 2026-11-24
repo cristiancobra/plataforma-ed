@@ -6,6 +6,7 @@
         'orcamento_aprovado' => 'Orçamento aprovado',
         'orcamento_concorrente' => 'Orçamento concorrente',
         'boleto' => 'Boleto',
+        'comprovante' => 'Comprovante',
         // Adicione outros tipos conforme necessário
     ];
 @endphp

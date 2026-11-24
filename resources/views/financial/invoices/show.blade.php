@@ -189,6 +189,11 @@
         </p>
     @endsection
 
+    @section('attachments')
+        <x-attachments-section :attachments="$invoice->attachments" modelId="{{ $invoice->id }}" modelIdField="invoice_id"
+            :types="['nota_fiscal', 'boleto', 'comprovante']" :principalColor="$principalColor" title="DOCUMENTOS" />
+    @endsection
+
     @section('main')
         <x-sections.transactions :invoice='$invoice' />
 

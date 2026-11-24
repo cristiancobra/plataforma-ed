@@ -85,6 +85,10 @@ class Invoice extends Model {
         return $this->belongsTo(Proposal::class, 'proposal_id', 'id');
     }
 
+    public function attachments() {
+        return $this->hasMany(Attachment::class, 'invoice_id', 'id');
+    }
+
     public function transactions() {
         return $this->hasMany(Transaction::class);
     }

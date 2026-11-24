@@ -15,6 +15,8 @@ class Attachment extends Model
         'task_id',
         'proposal_id',
         'collection_id',
+        'invoice_id',
+        'opportunity_id',
         'type',
         'name',
         'path',

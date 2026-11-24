@@ -517,6 +517,11 @@
     </x-show.section>
 @endsection
 
+@section('attachments')
+    <x-attachments-section :attachments="$opportunity->attachments" modelId="{{ $opportunity->id }}" modelIdField="opportunity_id"
+        :types="['orcamento_aprovado', 'orcamento_concorrente', 'termo_referencia', 'outro']" :principalColor="$principalColor" title="DOCUMENTOS" />
+@endsection
+
 @section('deleteButton')
     <x-buttons.trash :object="$opportunity" model="opportunity" />
 @endsection
