@@ -10,67 +10,28 @@
 @endsection
 
 @section('buttons')
-    <a class='circular-button primary' href='{{ route('competitor.create') }}'>
-        <i class='fa fa-plus' aria-hidden='true'></i>
-    </a>
+    <x-buttons.create model="competitor" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('table')
-    <table class='table-list'>
-        <tr>
-            <td class='table-list-header'>
-                Nome
-            </td>
-            <td class='table-list-header'>
-                Facebook
-            </td>
-            <td class='table-list-header'>
-                Instagram
-            </td>
-            <td class='table-list-header'>
-                Linkedin
-            </td>
-            <td class='table-list-header'>
-                Twitter
-            </td>
-            <td class='table-list-header'>
-                Pinterest
-            </td>
-        </tr>
-
-        @foreach ($competitors as $competitor)
-            <tr class="row-link" data-href="{{ route('competitor.show', ['competitor' => $competitor->id]) }}" style='font-size: 14px'>
-                <td class='table-list-left'>
-                    
-                    {{ $competitor->name }}
-                </td>
-
-                <td class='table-list-right'>
-                    {{ $competitor->facebook_followers }}
-                </td>
-
-                <td class='table-list-right'>
-                    {{ $competitor->instagram_followers }}
-                </td>
-
-                <td class='table-list-right'>
-                    {{ $competitor->linkedin_followers }}
-                </td>
-
-                <td class='table-list-right'>
-                    {{ $competitor->twitter_followers }}
-                </td>
-
-                <td class='table-list-right'>
-                    {{ $competitor->pinterest_followers }}
-                </td>
-
-            </tr>
-        @endforeach
-    </table>
-    <p style='text-align: right'>
-        <br>
-        {{ $competitors->links() }}
-    </p>
-    <br>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-4'],
+        ['label' => 'FACEBOOK', 'class' => 'col'],
+        ['label' => 'INSTAGRAM', 'class' => 'col'],
+        ['label' => 'LINKEDIN', 'class' => 'col'],
+        ['label' => 'TWITTER', 'class' => 'col'],
+        ['label' => 'PINTEREST', 'class' => 'col'],
+    ]" />
+    @foreach ($competitors as $competitor)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('competitor.show', ['competitor' => $competitor->id]) }}">
+            <div class="col-4 fw-bold small">{{ $competitor->name }}</div>
+            <div class="col text-center small">{{ $competitor->facebook_followers }}</div>
+            <div class="col text-center small">{{ $competitor->instagram_followers }}</div>
+            <div class="col text-center small">{{ $competitor->linkedin_followers }}</div>
+            <div class="col text-center small">{{ $competitor->twitter_followers }}</div>
+            <div class="col text-center small">{{ $competitor->pinterest_followers }}</div>
+        </div>
+    @endforeach
 @endsection
+
+@section('paginate', $competitors->links())

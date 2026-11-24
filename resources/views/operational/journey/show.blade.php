@@ -6,9 +6,12 @@
     <i class="fa fa-coffee"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
 
     <x-buttons.edit model="journey" :object="$journey" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model='journey' :principalColor=$principalColor ?? null />
 @endsection
 
@@ -199,14 +202,7 @@
 @endsection
 
 @section('extraButton')
-    <form style='text-decoration: none;color: black;display: inline-block'
-        action='{{ route('journey.destroy', ['journey' => $journey]) }}' method='post'>
-        @method('delete')
-        @csrf
-        <button id='' class='circular-button delete' style='border:none;padding-left:4px' "type='submit'>
-            <i class='fa fa-trash'></i>
-        </button>
-    </form>
+    <x-buttons.delete :action="route('journey.destroy', ['journey' => $journey])" />
 @endsection
 
 @section('editButton', route('journey.edit', ['journey' => $journey->id]))

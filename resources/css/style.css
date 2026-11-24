@@ -748,18 +748,23 @@ h5{
     color: blue;
 }
 
-.table-list-header{ 
-    border: solid;
-    border-width: 1px;
-    border-color: var(--principal-color, #874983);
-    display: table-cell;  
-    font-size: 13px;
-    padding-left: 10px;
-    padding-right: 10px;
+.table-list-header {
+    display: table-cell;
+    font-size: 0.9rem;
+    font-weight: 700;
+    padding: 0.25rem 0.5rem;
     text-align: center;
     color: white;
-    vertical-align:middle;
-    background-color: var(--principal-color, #874983)
+    vertical-align: middle;
+    background-color: var(--principal-color, #874983);
+}
+
+.table-list-header:first-child {
+    border-radius: 50rem 0 0 50rem;
+}
+
+.table-list-header:last-child {
+    border-radius: 0 50rem 50rem 0;
 }
 
 .table-list-header-right{ 

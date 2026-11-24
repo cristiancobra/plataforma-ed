@@ -444,21 +444,15 @@
 
                                                 <div class="row mt-2">
                                                     <div class="col-md-12 d-flex justify-content-end gap-2">
-                                                        <button type="button" class="btn btn-sm btn-danger"
-                                                            onclick="if(confirm('Tem certeza que deseja excluir este documento?')) { document.getElementById('delete-form-{{ $attachment->id }}').submit(); }"
-                                                            title="Excluir">
-                                                            <i class="fa fa-trash"></i> Excluir
+                                                        <button type="button" class="btn rounded-circle"
+                                                            onclick="document.getElementById('delete-form-{{ $attachment->id }}').requestSubmit()"
+                                                            title="Apagar"
+                                                            style="background-color: #dc3545; border-color: #dc3545; color: white; width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
+                                                            <i class="fa fa-trash"></i>
                                                         </button>
-                                                        <a href="{{ asset('storage/' . $attachment->path) }}"
-                                                            download="{{ $attachment->name }}"
-                                                            class="btn btn-sm btn-secondary" title="Baixar">
-                                                            <i class="fa fa-download"></i> Baixar
-                                                        </a>
-                                                        <button type="submit" class="btn btn-sm"
-                                                            style="background-color: {{ $principalColor }}; color: white;"
-                                                            title="Salvar">
-                                                            <i class="fa fa-save"></i> Salvar
-                                                        </button>
+                                                        <x-buttons.icon icon="fa fa-download" title="Baixar" :href="asset('storage/' . $attachment->path)"
+                                                            download="{{ $attachment->name }}" :principalColor="$principalColor" />
+                                                        <x-buttons.save title="Salvar" :principalColor="$principalColor" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -468,7 +462,7 @@
                                     {{-- Form separado para delete --}}
                                     <form id="delete-form-{{ $attachment->id }}"
                                         action="{{ route('attachment.destroy', ['attachment' => $attachment->id]) }}"
-                                        method="POST" style="display: none;">
+                                        method="POST" style="display: none;" data-confirm="Tem certeza que deseja apagar? Esta ação não pode ser desfeita." data-confirm-title="Apagar" data-confirm-label="Apagar">
                                         @csrf
                                         @method('DELETE')
                                     </form>

@@ -7,6 +7,8 @@
     'color' => null,
     'principalColor' => null,
     'confirm' => null,
+    'confirmTitle' => 'Confirmação',
+    'confirmLabel' => 'Confirmar',
 ])
 
 @php
@@ -14,9 +16,12 @@
 @endphp
 
 <form style='display: inline-block' action='{{ $action }}' method='post'
-    @if ($confirm) onsubmit="return confirm('{{ $confirm }}')" @endif>
+    @if ($confirm) data-confirm="{{ $confirm }}" data-confirm-title="{{ $confirmTitle }}" data-confirm-label="{{ $confirmLabel }}" @endif>
     @csrf
-    @method($method)
+    @if (strtoupper($method) !== 'POST')
+        @method($method)
+    @endif
+    {{ $slot }}
     <button class='btn rounded-circle' title='{{ $title }}' type='submit'
         style='background-color: {{ $bgColor }}; border-color: {{ $bgColor }}; color: white; width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;'
         {{ $attributes }}>

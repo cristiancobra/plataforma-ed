@@ -13,8 +13,11 @@
     <i class="fa fa-archive"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="collection" :object="$collection" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="collection" :object="$collection" :principalColor="$principalColor" />
 @endsection
 

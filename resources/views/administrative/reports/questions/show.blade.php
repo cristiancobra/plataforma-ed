@@ -14,7 +14,6 @@
 
 @section('main')
 
-    @endif
     <div>
 
         <label class="labels" for="">CRITÉRIO:</label>

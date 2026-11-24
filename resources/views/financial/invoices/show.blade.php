@@ -6,10 +6,13 @@
     <i class="fas fa-file-invoice-dollar"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.pdf :object="$invoice" model="invoice" :principalColor="$principalColor" />
     <x-buttons.email :object="$invoice" model="invoice" route="invoice.email" :principalColor="$principalColor" />
     <x-buttons.edit model="invoice" :object="$invoice" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="invoice" parameter="typeInvoices" :value="$typeInvoices" :principalColor="$principalColor" />
 @endsection
 

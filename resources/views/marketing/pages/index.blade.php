@@ -8,9 +8,7 @@
 
 @section('buttons')
     {{ createButtonFilter() }}
-    <a class="circular-button primary" href="{{ route('page.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="page" :principalColor="$principalColor ?? null" />
 @endsection
 
 
@@ -23,23 +21,13 @@
 
 
 @section('table')
-    <div class='row mt-2'>
-        <div class='tb tb-header-start col-3'>
-            NOME
-        </div>
-        <div class='tb tb-header col-3'>
-            ENDEREÇO
-        </div>
-        <div class='tb tb-header col-4'>
-            LINK
-        </div>
-        <div class='tb tb-header col-1'>
-            CADASTROS
-        </div>
-        <div class='tb tb-header-end col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'ENDEREÇO', 'class' => 'col-3'],
+        ['label' => 'LINK', 'class' => 'col-4'],
+        ['label' => 'CADASTROS', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+    ]" />
     @foreach ($pages as $page)
         <div class='row'>
             <div class='tb col-3 justify-content-start' style="font-weight: 600">

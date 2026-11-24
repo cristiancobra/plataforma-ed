@@ -23,9 +23,9 @@
         <div class="col-12 mt-3">
             @if (!is_null($filtersActive) && !is_null($totalFiltered) && !is_null($totalTotal))
                 @if ($filtersActive)
-                    <span class="fw-bold">{{ $totalFiltered }} item(s) encontrado(s) com o filtro aplicado.</span>
+                    <span class="fw-bold small">{{ $totalFiltered }} item(s) encontrado(s) com o filtro aplicado.</span>
                 @else
-                    <span class="fw-bold">{{ $totalTotal }} item(s) no total.</span>
+                    <span class="fw-bold small">{{ $totalTotal }} item(s) no total.</span>
                 @endif
             @endif
         </div>

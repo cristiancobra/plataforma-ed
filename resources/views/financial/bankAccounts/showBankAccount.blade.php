@@ -55,12 +55,7 @@
         <p class='labels'> <b>Criado em:</b> {{ date('d/m/Y H:i', strtotime($bankAccount->created_at)) }} </p>
 
         <div style='text-align:right;padding: 2%'>
-            <form style='text-decoration: none;display: inline-block'
-                action='{{ route('bankAccount.destroy', ['bankAccount' => $bankAccount]) }}' method='post'>
-                @csrf
-                @method('delete')
-                <input class='btn btn-danger' type='submit' value='APAGAR'>
-            </form>
+            <x-buttons.delete :action="route('bankAccount.destroy', ['bankAccount' => $bankAccount])" />
             <a class='btn btn-secondary' href='{{ route('bankAccount.edit', ['bankAccount' => $bankAccount]) }}'
                 style='text-decoration: none;color: white;display: inline-block'>
                 <i class='fa fa-edit'></i>EDITAR</a>
@@ -163,22 +158,13 @@
     </div>
 
     <div style='margin-top: 20px;text-align: right'>
-        <a class='circular-button secondary' href='{{ route('transaction.create', ['typeTransactions' => 'despesa']) }}'>
-            <i class='fas fa-minus'></i>
-        </a>
-        <a class='circular-button primary' href='{{ route('transaction.create', ['typeTransactions' => 'receita']) }}'>
-            <i class='fas fa-plus'></i>
-        </a>
+        <x-buttons.create model="transaction" icon="fas fa-minus" title="Nova despesa" :params="['typeTransactions' => 'despesa']" :principalColor="$principalColor ?? null" />
+        <x-buttons.create model="transaction" title="Nova receita" :params="['typeTransactions' => 'receita']" :principalColor="$principalColor ?? null" />
     </div>
     <br>
     </div>
     <div style='text-align:right;padding: 2%'>
-        <form style='text-decoration: none;display: inline-block'
-            action='{{ route('bankAccount.destroy', ['bankAccount' => $bankAccount]) }}' method='post'>
-            @csrf
-            @method('delete')
-            <input class='btn btn-danger' type='submit' value='APAGAR'>
-        </form>
+        <x-buttons.delete :action="route('bankAccount.destroy', ['bankAccount' => $bankAccount])" />
         <a class='btn btn-secondary' href='{{ route('bankAccount.edit', ['bankAccount' => $bankAccount]) }}'
             style='text-decoration: none;color: white;display: inline-block'>
             <i class='fa fa-edit'></i>EDITAR</a>

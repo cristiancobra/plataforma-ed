@@ -45,9 +45,7 @@
                         </option>
                     @endforeach
                 </select>
-                <a class="circular-button secondary" href="{{ route('task.create') }}" target="blank">
-                    <i class="fas fa-plus"></i>
-                </a>
+                <x-buttons.create model="task" title="Nova tarefa" target="_blank" :principalColor="$principalColor ?? null" />
             @endif
             @if ($errors->has('task_id'))
                 <span class="text-danger">{{ $errors->first('task_id') }}</span>

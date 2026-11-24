@@ -6,7 +6,7 @@
     <i class="fa fa-building"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="account" :object="$account" />
 
 @endsection

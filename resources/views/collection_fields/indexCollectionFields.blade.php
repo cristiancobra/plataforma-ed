@@ -56,12 +56,10 @@
                 <a href="{{ route('collection-field.edit', $field) }}" class="btn btn-sm text-white"
                     style="background-color: {{ $principalColor }}">Editar</a>
                 @if ($field->active)
-                    <form action="{{ route('collection-field.destroy', $field) }}" method="POST">
+                    <form action="{{ route('collection-field.destroy', $field) }}" method="POST" data-confirm='Desativar o campo "{{ $field->label }}"? Os valores já preenchidos serão mantidos.' data-confirm-title="Desativar" data-confirm-label="Desativar">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-outline-danger btn-sm"
-                            data-confirm='Desativar o campo "{{ $field->label }}"? Os valores já preenchidos serão mantidos.'
-                            onclick="return confirm(this.dataset.confirm)">Desativar</button>
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Desativar</button>
                     </form>
                 @else
                     <form action="{{ route('collection-field.activate', $field) }}" method="POST">

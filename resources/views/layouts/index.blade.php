@@ -37,7 +37,12 @@
                     @yield('table')
                     @yield('pagination')
 
-                    @include('layouts.footer')
+                    {{-- Rodapé da listagem: só paginação (os botões ficam apenas no topo) --}}
+                    <div class='row mt-5 mb-5 align-items-center'>
+                        <div class="col-12 d-flex justify-content-center justify-content-md-start">
+                            @yield('paginate')
+                        </div>
+                    </div>
 
                     @yield('createdAt')
                 </section>

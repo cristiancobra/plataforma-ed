@@ -6,7 +6,7 @@
     <i class="fa fa-tasks"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
 
     <x-buttons.pdf :object="$task" model="task" />
 
@@ -23,6 +23,9 @@
             :action="route('task.complete', ['task' => $task])" :principalColor="$principalColor" />
     @endif
     <x-buttons.edit model="task" :object="$task" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model='task' :principalColor=$principalColor ?? null />
 @endsection
 
@@ -421,15 +424,7 @@
 
     <div class='row' style='margin-top: 10px;text-align: right'>
         <div class='col-12'style='text-align: right'>
-            <a class='circular-button primary'
-                href='{{ route('journey.create', [
-                    'taskName' => $task->name,
-                    'taskId' => $task->id,
-                    'taskAccountName' => $task->account->name,
-                    'taskAccountId' => $task->account->id,
-                ]) }}'>
-                <i class='fa fa-plus' aria-hidden='true'></i>
-            </a>
+            <x-buttons.create model="journey" :params="['taskName' => $task->name, 'taskId' => $task->id, 'taskAccountName' => $task->account->name, 'taskAccountId' => $task->account->id]" :principalColor="$principalColor ?? null" />
         </div>
     </div>
 @endsection

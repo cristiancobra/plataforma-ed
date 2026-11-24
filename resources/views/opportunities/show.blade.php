@@ -6,8 +6,11 @@
     <i class="fa fa-bullseye"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="opportunity" :object="$opportunity" parameter2="department" :value2="$opportunity->department" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="opportunity" parameter="department" :value="$opportunity->department" :principalColor="$principalColor" />
 @endsection
 
@@ -76,8 +79,8 @@
             <div class='show-field-end'>
                 foi excluído
             </div>
+        @endif
     </div>
-    @endif
 @endsection
 
 @section('date_start')
@@ -138,67 +141,41 @@
             @endphp
         </div>
     @endif
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-left-style: solid;
-         border-top-style: solid;
-         border-left-width: 1px;
-         border-top-width: 1px;
-         border-color: {{ $principalColor }};
-         border-radius: 10px 0 0 0;
-         '>
-            <img src='{{ asset('images/vendas.png') }}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for=''>
-                PROSPECÇÃO
-            </label>
-        </div>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-right-style: solid;
-         border-top-style: solid;
-         border-right-width: 1px;
-         border-top-width: 1px;
-         border-color: {{ $principalColor }};
-         border-radius: 0 10px 0 0;
-         '>
-            <form style='display: inline-block;float: right' action='{{ route('task.create') }}' method='post'>
-                @csrf
+    <x-show.section title="PROSPECÇÃO" icon="fas fa-search-dollar">
+        <x-slot:actions>
+            <x-buttons.icon-form method="POST" icon="fas fa-paper-plane" title="Enviar material" :action="route('task.create')" :principalColor="$principalColor">
                 <input type='hidden' name='task_name' value='ENVIAR MATERIAL:'>
                 <input type='hidden' name='opportunity_id' value='{{ $opportunity->id }}'>
                 <input type='hidden' name='opportunity_name' value='{{ $opportunity->name }}'>
                 <input type='hidden' name='company_name' value='{{ $companyName }}'>
                 <input type='hidden' name='company_id' value='{{ $companyId }}'>
                 @if ($opportunity->contact)
-                    <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
-                    <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
+                <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
+                <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
                 @endif
                 <input type='hidden' name='department' value='vendas'>
-                <input class='text-button secondary' type='submit' value='ENVIAR MATERIAL'>
-            </form>
-            <form style='display: inline-block;float: right' action='{{ route('task.create') }}' method='post'>
-                @csrf
+            </x-buttons.icon-form>
+            <x-buttons.icon-form method="POST" icon="fas fa-calendar-plus" title="Agendar reunião" :action="route('task.create')" :principalColor="$principalColor">
                 <input type='hidden' name='task_name' value='AGENDAR REUNIÃO:'>
                 <input type='hidden' name='opportunity_id' value='{{ $opportunity->id }}'>
                 <input type='hidden' name='opportunity_name' value='{{ $opportunity->name }}'>
                 <input type='hidden' name='company_name' value='{{ $companyName }}'>
                 <input type='hidden' name='company_id' value='{{ $companyId }}'>
                 @if ($opportunity->contact)
-                    <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
-                    <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
+                <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
+                <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
                 @endif
                 <input type='hidden' name='department' value='vendas'>
-                <input class='text-button secondary' type='submit' value='AGENDAR REUNIÃO'>
-            </form>
-        </div>
-    </div>
-    <div class='tb-row'>
-
+            </x-buttons.icon-form>
+        </x-slot:actions>
         @empty($companyName)
-            <a href='{{ route('company.create') }}'>
-                adicionar empresa
-            </a>
+            <div class='tb-row'>
+                <a href='{{ route('company.create') }}'>
+                    adicionar empresa
+                </a>
+            </div>
         @else
+        <div class='tb-row'>
             <i class='fas fa-store me-2'></i>
             <a
                 href='{{ route('company.edit', [
@@ -284,7 +261,6 @@
             </div>
         </div>
     @endempty
-    </div>
 
 
     <div class='tb-row pt-5'>
@@ -306,8 +282,8 @@
             <label class='labels' style='font-size: 13px;padding-top: 5px;margin-right: 3px' for=''>
                 Email:
             </label>
-            @if ($opportunity->contact)
-                {{ $opportunity->contact->name }}
+            @if ($opportunity->contact && $opportunity->contact->email)
+                {{ $opportunity->contact->email }}
             @else
                 --
             @endif
@@ -323,159 +299,72 @@
             @endif
         </div>
     </div>
-    <div class='row'>
-        <div class='col-2 tb tb-header'>
-            CRIAÇÃO
-        </div>
-        <div class='tb tb-header col-3'>
-            TAREFA
-        </div>
-        <div class='tb tb-header col-4'>
-            DESCRIÇÃO
-        </div>
-        <div class='tb tb-header col-1'>
-            CONCLUSÃO
-        </div>
-        <div class='tb tb-header col-1'>
-            PRIORIDADE
-        </div>
-        <div class='tb tb-header col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'CRIAÇÃO', 'class' => 'col-2'],
+        ['label' => 'TAREFA', 'class' => 'col-3'],
+        ['label' => 'DESCRIÇÃO', 'class' => 'col-4'],
+        ['label' => 'CONCLUSÃO', 'class' => 'col-1'],
+        ['label' => 'PRIORIDADE', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+    ]" />
     @foreach ($tasksSales as $task)
-        <div class='row'>
-            <div class='tb col-2'>
-                <button class='button-round'>
-                    <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                        <i class='fa fa-eye' style='color:white'></i>
-                    </a>
-                </button>
-                {{ date('d/m/Y', strtotime($task->date_start)) }}
-            </div>
-            <div class='tb col-3'>
-                {{ $task->name }}
-            </div>
-            <div class='tb col-4'>
-                {!! html_entity_decode($task->description) !!}
-            </div>
-            <div class='tb col-1'>
-                @isset($task->date_conclusion)
-                    {{ date('d/m/Y', strtotime($task->date_conclusion)) }}
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('task.show', ['task' => $task->id]) }}">
+            <div class="col-2 small">{{ dateBr($task->date_start) }}</div>
+            <div class="col-3 fw-bold small">{{ $task->name }}</div>
+            <div class="col-4 small">{!! html_entity_decode($task->description) !!}</div>
+            <div class="col-1 small">
+                @if ($task->date_conclusion)
+                    {{ dateBr($task->date_conclusion) }}
                 @else
                     em aberto
-                @endisset
+                @endif
             </div>
-            {{ formatPriority($task) }}
-            @if ($task->status == 'fazer' and $task->journeys()->exists())
-                <div class='tb tb-doing col-1'>
-                    fazendo
-                </div>
-            @elseif($task->status == 'fazer' and $task->date_due <= date('Y-m-d'))
-                <div class='tb tb-late col-1'>
-                    atrasada
-                </div>
-            @else
-                {{ formatStatus($task) }}
-            @endif
+            <div class="col-1 text-center"><x-table.status :value="$task->priority" /></div>
+            <div class="col-1 text-center">
+                @if ($task->status == 'fazer' && $task->journeys()->exists())
+                    <x-table.status value="fazendo" />
+                @elseif ($task->status == 'fazer' && $task->date_due <= date('Y-m-d'))
+                    <x-table.status value="atrasada" />
+                @else
+                    <x-table.status :value="$task->status" />
+                @endif
+            </div>
         </div>
     @endforeach
-    <div class='row mb-4'>
-        <div class='tb tb-header col-11 justify-content-end'>
-            TOTAL
-        </div>
-        <div class='tb tb-header col-1'>
-            {{ formatTotalHour($tasksSalesHours) }} horas
-        </div>
+    <div class="row border-top pt-2 mt-2">
+        <div class="col text-end fw-bold small">TOTAL: {{ formatTotalHour($tasksSalesHours) }} horas</div>
     </div>
+    </x-show.section>
 
-
-    <section class='container frame mt-5 p-3' id='invoices' style="border-color:{{ $principalColor }}">
-        <div class="row">
-            <div class='col-11 pt-4 pb-3'
-                style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{ $principalColor }}'>
-                <i class="fa fa-receipt"></i>
-                PROPOSTAS
-            </div>
-            <div class='col-1 pt-3 pb-3'>
-                @if ($proposalWon == 0)
-                    <a class='circular-button primary' style='display: inline-block;float: right'
-                        href='{{ route('proposal.create', [
-                            'type' => 'receita',
-                            'opportunity' => $opportunity,
-                        ]) }}'>
-                        <i class='fa fa-plus' aria-hidden='true'></i>
-                    </a>
-                @else
-                    <div class='circular-button primary' style='display: inline-block;float: right'>
-                        <i class='fa fa-check' aria-hidden='true'></i>
-                        </>
-                    </div>
-            </div>
+    <x-show.section title="PROPOSTAS" icon="fa fa-receipt" id="proposals">
+        <x-slot:actions>
+            @if ($proposalWon == 0)
+                <x-buttons.create model="proposal" :params="['type' => 'receita', 'opportunity' => $opportunity]" :principalColor="$principalColor ?? null" />
+            @else
+                <x-show.badge icon="fa fa-check" label="Proposta ganha" :colors="['#E8F5E9', '#2E7D32']" />
             @endif
-        </div>
-        <div class='container p-3'>
-            <div class='row table-header mt-3'>
-                <div class='col-1'>
-                    ID
-                </div>
-                <div class='col-4'>
-                    NOME
-                </div>
-                <div class='col-1'>
-                    CRIAÇÃO
-                </div>
-                <div class='col-1'>
-                    VENCIMENTO
-                </div>
-                <div class='col-2'>
-                    RECEBER
-                </div>
-                <div class='col-2'>
-                    VALOR
-                </div>
-                <div class='col-1'>
-                    SITUAÇÃO
-                </div>
+        </x-slot:actions>
+        <x-table.header :background-color="$principalColor" :columns="[
+            ['label' => 'ID', 'class' => 'col-1'],
+            ['label' => 'NOME', 'class' => 'col-4'],
+            ['label' => 'CRIAÇÃO', 'class' => 'col-1'],
+            ['label' => 'VENCIMENTO', 'class' => 'col-1'],
+            ['label' => 'RECEBER', 'class' => 'col-2'],
+            ['label' => 'VALOR', 'class' => 'col-2'],
+            ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+        ]" />
+        @foreach ($proposals as $proposal)
+            <div class='row row-link border-bottom py-2 align-items-center' data-href="{{ route('proposal.show', ['proposal' => $proposal->id]) }}">
+                <div class='col-1 small'>{{ $proposal->identifier }}</div>
+                <div class='col-4 fw-bold small'>{{ $proposal->name }}</div>
+                <div class='col-1 text-center small'>{{ dateBr($proposal->date_creation) }}</div>
+                <div class='col-1 text-center small'>{{ dateBr($proposal->pay_day) }}</div>
+                <div class='col-2 text-end small'>{{ formatCurrencyReal($proposal->balance) }}</div>
+                <div class='col-2 text-end small'>{{ formatCurrencyReal($proposal->totalPrice) }}</div>
+                <div class='col-1 text-center'><x-table.status :value="$proposal->status" /></div>
             </div>
-            @foreach ($proposals as $proposal)
-                <div class='row table2 position-relative'
-                    style='
-         color: {{ $principalColor }};
-         border-left-color: {{ $complementaryColor }};
-         background-color: white;
-         '>
-                    <a class="stretched-link "href=' {{ route('proposal.show', ['proposal' => $proposal->id]) }}'>
-                    </a>
-                    <div class='cel col-1'>
-                        {{ $proposal->identifier }}
-                    </div>
-                    <div class='cel col-4 justify-content-start'>
-                        {{ $proposal->name }}
-                    </div>
-                    <div class='cel col-1'>
-                        {{ date('d/m/Y', strtotime($proposal->date_creation)) }}
-                    </div>
-                    @if ($proposal->status == 'aprovada' and $proposal->paid == 0 and $proposal->pay_day < date('Y-m-d'))
-                        <div class='cel col-1'>
-                            {{ date('d/m/Y', strtotime($proposal->pay_day)) }}
-                        </div>
-                    @else
-                        <div class='cel col-1'>
-                            {{ date('d/m/Y', strtotime($proposal->pay_day)) }}
-                        </div>
-                    @endif
-                    <div class='cel col-2 justify-content-end''>
-                        {{ formatCurrencyReal($proposal->balance) }}
-                    </div>
-                    <div class='cel col-2 justify-content-end''>
-                        {{ formatCurrencyReal($proposal->totalPrice) }}
-                    </div>
-                    {{ formatInvoiceStatus($proposal) }}
-                </div>
-            @endforeach
-        </div>
-    </section>
+        @endforeach
+    </x-show.section>
 
 
 
@@ -483,54 +372,29 @@
     <x-sections.invoices :proposal='$proposalApproved' />
 
 
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{ $principalColor }}
-         '>
-            <img src='{{ asset('images/contract.png') }}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for=''>
-                CONTRATOS
-            </label>
-        </div>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{ $principalColor }}
-         '>
-            <form style='display: inline-block;float: right' action='{{ route('task.create') }}' method='post'>
-                @csrf
+    <x-show.section title="CONTRATOS" icon="fas fa-file-signature">
+        <x-slot:actions>
+            <x-buttons.icon-form method="POST" icon="fas fa-file-signature" title="Fazer contrato" :action="route('task.create')" :principalColor="$principalColor">
                 <input type='hidden' name='task_name' value='CONTRATO:'>
                 <input type='hidden' name='opportunity_id' value='{{ $opportunity->id }}'>
                 <input type='hidden' name='opportunity_name' value='{{ $opportunity->name }}'>
                 <input type='hidden' name='company_name' value='{{ $companyName }}'>
                 <input type='hidden' name='company_id' value='{{ $companyId }}'>
                 @if ($opportunity->contact)
-                    <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
-                    <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
+                <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
+                <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
                 @endif
                 <input type='hidden' name='account_name' value='{{ $opportunity->account->name }}'>
                 <input type='hidden' name='account_id' value='{{ $opportunity->account->id }}'>
                 <input type='hidden' name='department' value='vendas'>
-                <input class='text-button secondary' type='submit' value='  FAZER CONTRATO'>
-            </form>
-            <form style='display: inline-block;float: right' action='{{ route('contract.create') }}' method='post'>
-                @csrf
+            </x-buttons.icon-form>
+            <x-buttons.icon-form method="POST" icon="fas fa-file-contract" title="Gerar contrato" :action="route('contract.create')" :principalColor="$principalColor">
                 <input type='hidden' name='opportunity_id' value='{{ $opportunity->id }}'>
                 <input type='hidden' name='opportunity_name' value='{{ $opportunity->name }}'>
                 <input type='hidden' name='opportunity_description' value='{{ $opportunity->description }}'>
                 @if ($opportunity->contact)
-                    <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
-                    <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
+                <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
+                <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
                 @endif
                 <input type='hidden' name='account_name' value='{{ $opportunity->account->name }}'>
                 <input type='hidden' name='account_id' value='{{ $opportunity->account->id }}'>
@@ -538,273 +402,119 @@
                 <input type='hidden' name='company_ids' value='{{ $contactCompanies }}'>
                 <input type='hidden' name='department' value='vendas'>
                 <input type='hidden' name='status' value='pendente'>
-                <input class='text-button secondary' type='submit' value='  GERAR CONTRATO'>
-            </form>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col-1 tb tb-header'>
-            ID
-        </div>
-        <div class='col-2 tb tb-header'>
-            TÍTULO
-        </div>
-        <div class='col-2 tb tb-header'>
-            CONTRATADA
-        </div>
-        <div class='col-2 tb tb-header'>
-            CONTRATANTE
-        </div>
-        <div class='col-2 tb tb-header'>
-            RESPONSÁVEL
-        </div>
-        <div class='col-1 tb tb-header'>
-            ÍNICIO
-        </div>
-        <div class='col-1 tb tb-header'>
-            VENCIMENTO
-        </div>
-        <div class='col-1 tb tb-header'>
-            SITUAÇÃO
-        </div>
-    </div>
+            </x-buttons.icon-form>
+        </x-slot:actions>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'ID', 'class' => 'col-1'],
+        ['label' => 'TÍTULO', 'class' => 'col-2'],
+        ['label' => 'CONTRATADA', 'class' => 'col-2'],
+        ['label' => 'CONTRATANTE', 'class' => 'col-2'],
+        ['label' => 'RESPONSÁVEL', 'class' => 'col-2'],
+        ['label' => 'INÍCIO', 'class' => 'col-1'],
+        ['label' => 'VENCIMENTO', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+    ]" />
     @foreach ($contracts as $contract)
-        <div class='row mb-5'>
-            <div class='tb col-2'>
-                <button class='button-round'>
-                    <a href=' {{ route('contract.show', ['contract' => $contract->id]) }}'>
-                        <i class='fa fa-eye' style='color:white'></i></a>
-                </button>
-                {{ $contract->identifier }}
-            </div>
-            <div class='tb col-2'>
-                {{ $contract->name }}
-            </div>
-            <div class='tb col-2'>
-                {{ $contract->account->name }}
-            </div>
-            <div class='tb col-2'>
-                {{ $contract->company->name }}
-            </div>
-            <div class='tb col-2'>
-                {{ $contract->contact->name }}
-            </div>
-            <div class='tb col-2'>
-                {{ date('d/m/Y', strtotime($contract->date_start)) }}
-            </div>
-            <div class='tb col-2'>
-                {{ date('d/m/Y', strtotime($contract->date_due)) }}
-            </div>
-            {{ formatInvoiceStatus($contract) }}
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('contract.show', ['contract' => $contract->id]) }}">
+            <div class="col-1 small">{{ $contract->identifier }}</div>
+            <div class="col-2 fw-bold small">{{ $contract->name }}</div>
+            <div class="col-2 small">{{ $contract->account->name }}</div>
+            <div class="col-2 small">{{ $contract->company->name }}</div>
+            <div class="col-2 small">{{ $contract->contact->name }}</div>
+            <div class="col-1 small">{{ dateBr($contract->date_start) }}</div>
+            <div class="col-1 small">{{ dateBr($contract->date_due) }}</div>
+            <div class="col-1 text-center"><x-table.status :value="$contract->status" /></div>
         </div>
     @endforeach
+    </x-show.section>
 
-
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{ $principalColor }}
-         '>
-            <img src='{{ asset('images/production.png') }}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for=''>PRODUÇÃO</label>
-        </div>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{ $principalColor }}
-         '>
-            <form style='display: inline-block;float: right' action='{{ route('task.create') }}' method='post'>
-                @csrf
+    <x-show.section title="PRODUÇÃO" icon="fas fa-industry">
+        <x-slot:actions>
+            <x-buttons.icon-form method="POST" icon="fas fa-hammer" title="Solicitar produção" :action="route('task.create')" :principalColor="$principalColor">
                 <input type='hidden' name='task_name' value='PRODUZIR:'>
                 <input type='hidden' name='opportunity_id' value='{{ $opportunity->id }}'>
                 <input type='hidden' name='opportunity_name' value='{{ $opportunity->name }}'>
                 <input type='hidden' name='department' value='produção'>
-                <input class='text-button secondary' type='submit' value='SOLICITAR  PRODUÇÃO'>
-            </form>
-            <form style='display: inline-block;float: right' action='{{ route('task.create') }}' method='post'>
-                @csrf
+            </x-buttons.icon-form>
+            <x-buttons.icon-form method="POST" icon="fas fa-truck" title="Realizar entrega" :action="route('task.create')" :principalColor="$principalColor">
                 <input type='hidden' name='task_name' value='ENTREGAR:'>
                 <input type='hidden' name='opportunity_id' value='{{ $opportunity->id }}'>
                 <input type='hidden' name='opportunity_name' value='{{ $opportunity->name }}'>
                 @if ($opportunity->contact)
-                    <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
-                    <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
+                <input type='hidden' name='contact_name' value='{{ $opportunity->contact->name }}'>
+                <input type='hidden' name='contact_id' value='{{ $opportunity->contact->id }}'>
                 @endif
                 <input type='hidden' name='department' value='produção'>
-                <input class='text-button secondary' type='submit' value=' REALIZAR ENTREGA'>
-            </form>
-            <a class='text-button secondary' style='display: inline-block;float: right'
-                href='{{ route('opportunity.pdfProduction', ['opportunity' => $opportunity]) }}'>
-                RELATÓRIO PDF
-            </a>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col-2 tb tb-header'>
-            CRIAÇÃO
-        </div>
-        <div class='col-3 tb tb-header'>
-            TAREFA
-        </div>
-        <div class='col-4 tb tb-header'>
-            DESCRIÇÃO
-        </div>
-        <div class='col-1 tb tb-header'>
-            CONCLUSÃO
-        </div>
-        <div class='col-1 tb tb-header'>
-            PRIORIDADE
-        </div>
-        <div class='col-1 tb tb-header'>
-            SITUAÇÃO
-        </div>
-    </div>
+            </x-buttons.icon-form>
+            <x-buttons.icon icon="fa fa-file-pdf" title="Relatório em PDF" :href="route('opportunity.pdfProduction', ['opportunity' => $opportunity])" :principalColor="$principalColor" />
+        </x-slot:actions>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'CRIAÇÃO', 'class' => 'col-2'],
+        ['label' => 'TAREFA', 'class' => 'col-3'],
+        ['label' => 'DESCRIÇÃO', 'class' => 'col-4'],
+        ['label' => 'PRAZO', 'class' => 'col-1'],
+        ['label' => 'PRIORIDADE', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+    ]" />
     @foreach ($tasksOperational as $task)
-        <div class='row'>
-            <div class='tb col-2'>
-                <button class='button-round'>
-                    <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                        <i class='fa fa-eye' style='color:white'></i></a>
-                </button>
-                {{ date('d/m/Y', strtotime($task->date_start)) }}
-            </div>
-            <div class='tb col-3'>
-                {{ $task->name }}
-            </div>
-            <div class='tb-description col-4'>
-                {!! html_entity_decode($task->description) !!}
-            </div>
-
-            {{ formatDateDue($task) }}
-
-            {{ formatPriority($task) }}
-
-            {{ formatStatus($task) }}
-        </div>
-    @endforeach
-    <div class='row mb-4'>
-        <div class='tb tb-header col-11 justify-content-end'>
-            TOTAL:
-        </div>
-        <div class='tb tb-header col-1'>
-            {{ formatTotalHour($tasksOperationalHours) }} horas
-        </div>
-    </div>
-
-
-    <div class='row mt-5'>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-left-style: solid;
-         border-left-width: 1px;
-         border-radius: 7px 0px 0px 0px;
-         border-color: {{ $principalColor }}
-         '>
-            <img src='{{ asset('images/customer-service.png') }}' width='25px' height='25px'>
-            <label class='labels' style='font-size: 24px;padding-left: 5px' for=''>
-                ATENDIMENTO
-            </label>
-        </div>
-        <div class='col-6 pt-4 pb-3'
-            style='
-         border-top-style: solid;
-         border-top-width: 1px;
-         border-right-style: solid;
-         border-right-width: 1px;
-         border-radius: 0px 7px 0px 0px;
-         border-color: {{ $principalColor }}
-         '>
-            <a class='circular-button primary' style='display: inline-block;float: right'
-                href='{{ route('task.create', ['opportunity' => $opportunity]) }}'>
-                <i class='fa fa-plus' aria-hidden='true'></i>
-            </a>
-        </div>
-    </div>
-    <div class='row'>
-        <div class='col-1 tb tb-header'>
-            CRIAÇÃO
-        </div>
-        <div class='col-2 tb tb-header'>
-            TAREFA
-        </div>
-        <div class='col-4 tb tb-header'>
-            DESCRIÇÃO
-        </div>
-        <div class='col-2 tb tb-header'>
-            RESPONSÁVEL
-        </div>
-        <div class='col-1 tb tb-header'>
-            CONCLUSÃO
-        </div>
-        <div class='col-1 tb tb-header'>
-            PRIORIDADE
-        </div>
-        <div class='tb tb-header col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
-
-    @foreach ($tasksCustomerServices as $task)
-        <div class='row'>
-            <div class='tb col-1'>
-                <button class='button-round'>
-                    <a href=' {{ route('task.show', ['task' => $task->id]) }}'>
-                        <i class='fa fa-eye' style='color:white'></i></a>
-                </button>
-                {{ date('d/m/Y', strtotime($task->date_start)) }}
-            </div>
-            <div class='tb col-2'>
-                {{ $task->name }}
-            </div>
-            <div class='tb-description col-4'>
-                {!! html_entity_decode($task->description) !!}
-            </div>
-            <div class='tb col-2'>
-                @if (isset($task->user->image))
-                    <div class='profile-picture-small'>
-                        <a class='white' href=' {{ route('user.show', ['user' => $task->user->id]) }}'>
-                            <img src='{{ asset($task->user->image->path) }}' width='100%' height='100%'>
-                        </a>
-                    </div>
-                @elseif($task->user->contact)
-                    <a class='white' href=' {{ route('user.show', ['user' => $task->user->id]) }}'>
-                        {{ $task->user->contact->name }}
-                    </a>
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('task.show', ['task' => $task->id]) }}">
+            <div class="col-2 small">{{ dateBr($task->date_start) }}</div>
+            <div class="col-3 fw-bold small">{{ $task->name }}</div>
+            <div class="col-4 small">{!! html_entity_decode($task->description) !!}</div>
+            <div class="col-1 small">
+                @if ($task->date_due == date('Y-m-d'))
+                    hoje
+                @elseif ($task->date_due < date('Y-m-d'))
+                    <span class="text-danger">{{ dateBr($task->date_due) }}</span>
                 @else
-                    funcionário excluído
+                    {{ dateBr($task->date_due) }}
                 @endif
             </div>
-            <div class='tb col-1'>
-                @isset($task->date_conclusion)
+            <div class="col-1 text-center"><x-table.status :value="$task->priority" /></div>
+            <div class="col-1 text-center"><x-table.status :value="$task->status" /></div>
+        </div>
+    @endforeach
+    <div class="row border-top pt-2 mt-2">
+        <div class="col text-end fw-bold small">TOTAL: {{ formatTotalHour($tasksOperationalHours) }} horas</div>
+    </div>
+    </x-show.section>
+
+    <x-show.section title="ATENDIMENTO" icon="fas fa-headset">
+        <x-slot:actions>
+            <x-buttons.create model="task" title="Nova tarefa" :params="['opportunity' => $opportunity]" :principalColor="$principalColor ?? null" />
+        </x-slot:actions>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'CRIAÇÃO', 'class' => 'col-1'],
+        ['label' => 'TAREFA', 'class' => 'col-2'],
+        ['label' => 'DESCRIÇÃO', 'class' => 'col-4'],
+        ['label' => 'RESPONSÁVEL', 'class' => 'col-2'],
+        ['label' => 'CONCLUSÃO', 'class' => 'col-1'],
+        ['label' => 'PRIORIDADE', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+    ]" />
+    @foreach ($tasksCustomerServices as $task)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('task.show', ['task' => $task->id]) }}">
+            <div class="col-1 small">{{ dateBr($task->date_start) }}</div>
+            <div class="col-2 fw-bold small">{{ $task->name }}</div>
+            <div class="col-4 small">{!! html_entity_decode($task->description) !!}</div>
+            <div class="col-2 text-center">
+                <x-user.avatar :user="$task->user" :principal-color="$principalColor" />
+            </div>
+            <div class="col-1 small">
+                @if ($task->date_conclusion)
                     {{ dateBr($task->date_conclusion) }}
                 @else
                     em aberto
-                @endisset
+                @endif
             </div>
-            {{ formatPriority($task) }}
-
-            {{ formatStatus($task) }}
+            <div class="col-1 text-center"><x-table.status :value="$task->priority" /></div>
+            <div class="col-1 text-center"><x-table.status :value="$task->status" /></div>
         </div>
     @endforeach
-    <div class='row'>
-        <div class='tb tb-header col-11 justify-content-end'>
-            TOTAL:
-        </div>
-        <div class='tb tb-header col-1'>
-            {{ formatTotalHour($tasksCustomerServicesHours) }} horas
-        </div>
+    <div class="row border-top pt-2 mt-2">
+        <div class="col text-end fw-bold small">TOTAL: {{ formatTotalHour($tasksCustomerServicesHours) }} horas</div>
     </div>
+    </x-show.section>
 @endsection
 
 @section('deleteButton')

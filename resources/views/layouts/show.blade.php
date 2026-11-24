@@ -74,16 +74,14 @@
                     @yield('stock')
                     @yield('main')
                     @yield('attachments')
+                    {{-- Rodapé padrão (dentro da área branca): ações do próprio item; lixeira/restaurar sempre à esquerda dos demais; navegação (voltar) fica só no topo --}}
+                    <div class='row mt-5 mb-3 align-items-center'>
+                        <div class="col-12 gap-1 d-flex justify-content-end align-items-center">
+                            @yield('trash')
+                            @yield('actions')
+                        </div>
+                    </div>
                 </section>
-                {{-- Rodapé: lixeira (apagar) só aqui, à esquerda; ações à direita --}}
-                <div class='row mt-5 mb-5 align-items-center'>
-                    <div class="col-4 d-flex justify-content-start gap-1">
-                        @yield('trash')
-                    </div>
-                    <div class="col-8 gap-1 d-flex justify-content-end">
-                        @yield('buttons')
-                    </div>
-                </div>
                 @yield('createdAt')
             </div>
     </div>

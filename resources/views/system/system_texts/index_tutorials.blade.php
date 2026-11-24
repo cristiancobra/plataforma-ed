@@ -28,20 +28,12 @@
 
 
 @section('table')
-    <div class='row mt-2'>
-        <div class='tb tb-header-start col-5'>
-            NOME
-        </div>
-        <div class='tb tb-header col-5'>
-            TÍTULO
-        </div>
-        <div class='tb tb-header col-1'>
-            TIPO
-        </div>
-        <div class='tb tb-header-end col-1'>
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-5'],
+        ['label' => 'TÍTULO', 'class' => 'col-5'],
+        ['label' => 'TIPO', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-1'],
+    ]" />
     @foreach ($tutorials as $tutorial)
         <div data-href="{{ route('systemText.showTutorial', ['systemText' => $tutorial->id]) }}" class='row row-link'>
             <div class='tb col-5 justify-content-start' style="font-weight: 600">

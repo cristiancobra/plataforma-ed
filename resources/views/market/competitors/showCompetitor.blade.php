@@ -136,12 +136,7 @@
     <p class="labels"> <b> Criado em: </b> {{ date('d/m/Y H:i', strtotime($competitor->created_at)) }} </p>
 
     <div style="text-align:right;padding: 2%">
-        <form style="text-decoration: none;display: inline-block"
-            action="{{ route('competitor.destroy', ['competitor' => $competitor->id]) }}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>
+        <x-buttons.delete :action="route('competitor.destroy', ['competitor' => $competitor->id])" />
         <a class="btn btn-secondary" href=" {{ route('competitor.edit', ['competitor' => $competitor->id]) }} "
             style="text-decoration: none;color: white;display: inline-block">
             <i class='fa fa-edit'></i>EDITAR</a>

@@ -13,9 +13,7 @@
     <a class='circular-button secondary' href='{{ route('account.edit', ['account' => $account]) }}'>
         <i class='fa fa-edit' aria-hidden='true'></i>
     </a>
-    <a class='circular-button primary' href='{{ route('account.create', ['account' => $account]) }}'>
-        <i class='fa fa-plus' aria-hidden='true'></i>
-    </a>
+    <x-buttons.create model="account" :params="['account' => $account]" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('main')

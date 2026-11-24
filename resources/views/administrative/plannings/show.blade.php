@@ -6,8 +6,11 @@
     <i class="fas fa-calendar-check"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="planning" :object="$planning" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model='planning' :principalColor=$principalColor ?? null />
 @endsection
 

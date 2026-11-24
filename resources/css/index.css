@@ -71,16 +71,6 @@ table{
     color: blue;
 }
 
-.table-header{ 
-    display: table-cell;  
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: center;
-    color: white;
-    vertical-align:super;
-    background-color: var(--principal-color, #874983)
-}
-
 /*nova tabela com DIVS e bootstrap*/
 .table2 { 
     margin-top: 5px;
@@ -99,16 +89,17 @@ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: var(--secondary-color, #f9d0ff);
 }
 
-.table-header { 
-    font-size:14px;
-    padding: 6px;
+.table-header {
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 20px;
-    color:white;
-    font-weight: 600;
-    
+    border-radius: 50rem;
+    color: white;
+    font-weight: 700;
+    background-color: var(--principal-color, #874983);
 }
 
 .cel { 

@@ -34,12 +34,7 @@
     <p class="labels"> <b> Criado em: </b> {{ date('d/m/Y H:i', strtotime($contractTemplate->created_at)) }} </p>
 
     <div style="text-align:right;padding: 2%">
-        <form style="text-decoration: none;display: inline-block"
-            action="{{ route('contractTemplate.destroy', ['contractTemplate' => $contractTemplate->id]) }}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>
+        <x-buttons.delete :action="route('contractTemplate.destroy', ['contractTemplate' => $contractTemplate->id])" />
         <a class="btn btn-secondary"
             href=" {{ route('contractTemplate.edit', ['contractTemplate' => $contractTemplate->id]) }} "
             style="text-decoration: none;color: white;display: inline-block">

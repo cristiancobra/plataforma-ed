@@ -124,12 +124,7 @@
                 <input class="btn btn-secondary" style="float:right;text-align: right;margin-left: 5px" type="submit"
                     value="SALVAR">
         </form>
-        <form style="text-decoration: none;display: inline-block"
-            action="{{ route('project.destroy', ['project' => $project->id]) }}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>
+        <x-buttons.delete :action="route('project.destroy', ['project' => $project->id])" />
         <a class="btn btn-secondary" href=" {{ route('project.index') }} "
             style="text-decoration: none;color: white;display: inline-block">
             <i class='fas fa-arrow-alt-circle-left'></i><i class="fas fa-arrow-left"></i>

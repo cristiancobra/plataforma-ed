@@ -19,62 +19,33 @@
 @endsection
 
 @section('table')
-    <table class='table-list'>
-        <tr>
-            <td class='table-list-header'>
-                NOME
-            </td>
-            <td class='table-list-header'>
-                DOMÍNIOS
-            </td>
-            <td class='table-list-header'>
-                LINKS
-            </td>
-            <td class='table-list-header'>
-                SITUAÇÃO
-            </td>
-        </tr>
-
-        @foreach ($sites as $site)
-            <tr class="row-link" data-href="{{ route('site.show', ['site' => $site->id]) }}" style='font-size: 14px'>
-                <td class='table-list-left'>
-                    
-                    <button class='button-round'>
-                        <a href='{{ route('site.edit', ['site' => $site->id]) }}'>
-                            <i class='fa fa-edit' style='color:white'></i></a>
-                    </button>
-                    {{ $site->name }}
-                </td>
-
-                <td class='table-list-left'>
-                    @foreach ($site->domains as $domain)
-                        <a href='{{ route('domain.show', ['domain' => $domain->id]) }}'>{{ $domain->name }}</a>
-                        <br>
-                        </a>
-                    @endforeach
-                </td>
-
-                <td class='table-list-center'>
-                    <button class='button-round'>
-                        <a href='//{{ $site->link_view }}' target='_blank'>
-                            <i class='fa fa-eye' style='color:white'></i></a>
-                    </button>
-                    <button class='button-round'>
-                        <a href='//{{ $site->link_edit }}' target='_blank'>
-                            <i class='fa fa-edit' style='color:white'></i></a>
-                    </button>
-                    <button class='button-round'>
-                        <a href='//{{ $site->link_hosting }}' target='_blank'>
-                            <i class='fa fa-server' style='color:white'></i></a>
-                    </button>
-                </td>
-                {{ formatStatusActive($site) }}
-            </tr>
-        @endforeach
-    </table>
-    <p style='text-align: right'>
-        <br>
-        {{ $sites->links() }}
-    </p>
-    <br>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'DOMÍNIOS', 'class' => 'col-4'],
+        ['label' => 'LINKS', 'class' => 'col-3'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
+    ]" />
+    @foreach ($sites as $site)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('site.show', ['site' => $site->id]) }}">
+            <div class="col-3 fw-bold small">
+                <a href="{{ route('site.edit', ['site' => $site->id]) }}" class="btn btn-sm btn-outline-secondary rounded-circle me-1" title="Editar" onclick="event.stopPropagation()"><i class="fa fa-edit"></i></a>
+                {{ $site->name }}
+            </div>
+            <div class="col-4 small">
+                @foreach ($site->domains as $domain)
+                    <a href="{{ route('domain.show', ['domain' => $domain->id]) }}" onclick="event.stopPropagation()">{{ $domain->name }}</a>@if (!$loop->last), @endif
+                @endforeach
+            </div>
+            <div class="col-3 text-center">
+                <a class="me-2" href="//{{ $site->link_view }}" target="_blank" title="Ver" onclick="event.stopPropagation()"><i class="fa fa-eye"></i></a>
+                <a class="me-2" href="//{{ $site->link_edit }}" target="_blank" title="Editar" onclick="event.stopPropagation()"><i class="fa fa-edit"></i></a>
+                <a href="//{{ $site->link_hosting }}" target="_blank" title="Hospedagem" onclick="event.stopPropagation()"><i class="fa fa-server"></i></a>
+            </div>
+            <div class="col-2 text-center">
+                <x-table.badge :label="$site->status" :colors="$site->status == 'ativo' ? ['#E8F5E9', '#2E7D32'] : ['#FFEBEE', '#C62828']" />
+            </div>
+        </div>
+    @endforeach
 @endsection
+
+@section('paginate', $sites->links())

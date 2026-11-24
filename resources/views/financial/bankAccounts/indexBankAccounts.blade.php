@@ -11,62 +11,36 @@
 @endsection
 
 @section('buttons')
-    <a class="circular-button primary" href="{{ route('bankAccount.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="bankAccount" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('table')
-    <br>
-    <div>
-        <table class="table-list">
-            <tr>
-                <td class="table-list-header" style="width: 25%">
-                    NOME
-                </td>
-                <td class="table-list-header" style="width: 15%">
-                    AGÊNCIA
-                </td>
-                <td class="table-list-header" style="width: 15%">
-                    CONTA
-                </td>
-                <td class="table-list-header" style="width: 15%">
-                    CHAVE PIX
-                </td>
-                <td class="table-list-header" style="width: 15%">
-                    DONO
-                </td>
-                <td class="table-list-header" style="width: 15%">
-                    SITUAÇÃO
-                </td>
-            </tr>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-3'],
+        ['label' => 'AGÊNCIA', 'class' => 'col-2'],
+        ['label' => 'CONTA', 'class' => 'col-2'],
+        ['label' => 'CHAVE PIX', 'class' => 'col-2'],
+        ['label' => 'DONO', 'class' => 'col-2'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col'],
+    ]" />
+    @php
+        $statusColors = ['desativada' => ['#FFEBEE', '#C62828'], 'ativa' => ['#E8F5E9', '#2E7D32'], 'recebendo' => ['#E3F2FD', '#1565C0']];
+    @endphp
+    @foreach ($bankAccounts as $bankAccount)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('bankAccount.show', ['bankAccount' => $bankAccount->id]) }}">
+            <div class="col-3 fw-bold small">
+                <a href="{{ route('bankAccount.edit', ['bankAccount' => $bankAccount->id]) }}" class="btn btn-sm btn-outline-secondary rounded-circle me-1" title="Editar" onclick="event.stopPropagation()"><i class="fa fa-edit"></i></a>
+                {{ $bankAccount->name }}
+            </div>
+            <div class="col-2 text-center small">{{ $bankAccount->agency }}</div>
+            <div class="col-2 text-center small">{{ $bankAccount->account_number }}</div>
+            <div class="col-2 text-center small">{{ $bankAccount->pix }}</div>
+            <div class="col-2 text-center small">{{ $bankAccount->account->name }}</div>
+            <div class="col text-center">
+                <x-table.badge :label="$bankAccount->status" :colors="$statusColors[$bankAccount->status] ?? null" />
+            </div>
+        </div>
+    @endforeach
+@endsection
 
-            @foreach ($bankAccounts as $bankAccount)
-                <tr class="row-link" data-href="{{ route('bankAccount.show', ['bankAccount' => $bankAccount->id]) }}" style="font-size: 14px">
-                    <td class="table-list-left">
-                        
-                        <a class="white" href=" {{ route('bankAccount.edit', ['bankAccount' => $bankAccount->id]) }}">
-                            <button class="button-round">
-                                <i class='fa fa-edit'></i>
-                            </button>
-                        </a>
-                        {{ $bankAccount->name }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $bankAccount->agency }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $bankAccount->account_number }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $bankAccount->pix }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $bankAccount->account->name }}
-                    </td>
-                    {{ formatBankAccountStatus($bankAccount) }}
-                </tr>
-            @endforeach
-        </table>
-        <br>
-    @endsection
+@section('paginate', method_exists($bankAccounts, 'links') ? $bankAccounts->links() : '')

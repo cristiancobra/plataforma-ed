@@ -13,43 +13,23 @@
     <a class="circular-button primary" href="{{ route('contract.index') }}">
         VER CONTRATOS
     </a>
-    <a class="circular-button primary" href="{{ route('contractTemplate.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="contractTemplate" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('table')
-    <div>
-        <table class="table-list">
-            <tr>
-                <td class="table-list-header" style="width: 80%">
-                    <b>TÍTULO </b>
-                </td>
-                <td class="table-list-header" style="width: 20%">
-                    <b>ÚLTIMA ALTERAÇÃO</b>
-                </td>
-            </tr>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'TÍTULO', 'class' => 'col-9'],
+        ['label' => 'ÚLTIMA ALTERAÇÃO', 'class' => 'col-3'],
+    ]" />
+    @foreach ($contractsTemplates as $contractTemplate)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('contractTemplate.show', ['contractTemplate' => $contractTemplate->id]) }}">
+            <div class="col-9 fw-bold small">
+                <a href="{{ route('contractTemplate.edit', ['contractTemplate' => $contractTemplate->id]) }}" class="btn btn-sm btn-outline-secondary rounded-circle me-1" title="Editar" onclick="event.stopPropagation()"><i class="fa fa-edit"></i></a>
+                {{ $contractTemplate->name }}
+            </div>
+            <div class="col-3 text-center small">{{ $contractTemplate->updated_at }}</div>
+        </div>
+    @endforeach
+@endsection
 
-            @foreach ($contractsTemplates as $contractTemplate)
-                <tr class="row-link" data-href="{{ route('contractTemplate.show', ['contractTemplate' => $contractTemplate->id]) }}" style="font-size: 14px">
-                    <td class="table-list-left">
-                        
-                        <button class="button-round">
-                            <a href=" {{ route('contractTemplate.edit', ['contractTemplate' => $contractTemplate->id]) }}">
-                                <i class='fa fa-edit' style="color:white"></i>
-                            </a>
-                        </button>
-                        {{ $contractTemplate->name }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $contractTemplate->updated_at }}
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-        <p style="text-align: right">
-            <br>
-            {{ $contractsTemplates->links() }}
-        </p>
-        <br>
-    @endsection
+@section('paginate', $contractsTemplates->links())

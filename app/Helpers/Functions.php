@@ -89,22 +89,6 @@ if (!function_exists('createButtonAdd')) {
         echo "</button>";
     }
 }
-if (!function_exists('createButtonPlus')) {
-
-    // cria um botao com simbolo de + para rota create do model fornecido
-    function createButtonPlus($route, $title = null, $parameter = null, $value = null)
-    {
-        if ($parameter) {
-            $route = route($route, [$parameter => $value]);
-        } else {
-            $route = route($route);
-        }
-
-        echo "<a class='circular-button primary ms-3' title='$title' style='display:inline-flex;align-items:center;justify-content:center;' href='$route'>
-                                <i class='fa fa-plus' aria-hidden='true'></i>
-                            </a>";
-    }
-}
 if (!function_exists('createButtonBack')) {
 
     // cria um botao com simbolo de <- para retornar para página anterior
@@ -1039,24 +1023,6 @@ if (!function_exists('returnSocialmediaType')) {
         );
     }
 }
-// gera um botão com a formatação para STATUS / SITUAÇÃO da rede social partir de  $socialmedia
-if (!function_exists('formatsocialmediaStatus')) {
-
-    function formatsocialmediaStatus($socialmedia)
-    {
-        switch ($socialmedia->status) {
-            case 'publicada':
-                echo '<td class="td-published">publicada</td>';
-                break;
-            case 'desativada':
-                echo '<td class="td-disabled">desativada</td>';
-                break;
-            case 'cancelado':
-                echo '<td class="td-canceled">cancelada</td>';
-                break;
-        }
-    }
-}
 // converte o DateTime para o formato de data brasileiro
 if (!function_exists('dateBr')) {
 
@@ -1118,27 +1084,6 @@ if (!function_exists('formatStage')) {
                 break;
             case 'concluída':
                 echo '<div class="tb text-center tb-conclude">concluída</div>';
-                break;
-        }
-    }
-}
-// gera um botão com a formatação para STATUS / SITUAÇÃO do CONTRATO  a partir de  $model
-if (!function_exists('formatContractStatus')) {
-
-    function formatContractStatus($model)
-    {
-        switch ($model->status) {
-            case 'cancelado':
-                echo '<td class="td-canceled">cancelado</td>';
-                break;
-            case 'rascunho':
-                echo '<td class="td-toDo">rascunho</td>';
-                break;
-            case 'enviado':
-                echo '<td class="td-stuck">enviado</td>';
-                break;
-            case 'assinado':
-                echo '<td class="td-done">assinado</td>';
                 break;
         }
     }
@@ -1363,51 +1308,6 @@ if (!function_exists('formatTableStatus')) {
         }
     }
 }
-// gera um botão com a formatação para STATUS / SITUAÇÃO para ativado ou desativado
-if (!function_exists('formatStatusActive')) {
-
-    function formatStatusActive($model)
-    {
-        switch ($model->status) {
-            case 'desativado':
-                echo '<td class="td-canceled">desativado</td>';
-                break;
-            case 'ativo':
-                echo '<td class="td-done">atvivo</td>';
-                break;
-        }
-    }
-}
-// gera uma coluna TD com a formatação para STATUS / SITUAÇÃO da Fatura  a partir de  $model
-if (!function_exists('formatInvoiceStatus')) {
-
-    function formatInvoiceStatus($invoice)
-    {
-        switch ($invoice->status) {
-            case 'rascunho':
-                echo '<div class="tb tb-draft col-1">rascunho</div>';
-                break;
-            case 'orçamento':
-                echo '<div class="tb tb-pending col-1">orçamento</div>';
-                break;
-            case 'cancelada':
-                echo '<div class="tb tb-canceled col-1">cancelada</div>';
-                break;
-            case 'aprovada':
-                echo '<div class="tb tb-aproved col-1">aprovada</div>';
-                break;
-            case 'paga':
-                echo '<div class="tb tb-paid col-1">paga</div>';
-                break;
-            case 'parcial':
-                echo '<div class="tb tb-paid col-1">parcial</div>';
-                break;
-            case 'atrasada':
-                echo '<div class="tb tb-late col-1">atrasada</div>';
-                break;
-        }
-    }
-}
 // gera um botao de acordo com o status da fatura
 if (!function_exists('faiconInvoiceStatus')) {
 
@@ -1434,24 +1334,6 @@ if (!function_exists('faiconInvoiceStatus')) {
                 break;
             case 'atrasada':
                 echo "<i class='fas fa-clock late-paid ms-1 me-1' style='font-size:28px'></i>";
-                break;
-        }
-    }
-}
-// gera uma coluna TD  com a formatação para STATUS / SITUAÇÃO da Conta Bancaria  a partir de  $model
-if (!function_exists('formatBankAccountStatus')) {
-
-    function formatBankAccountStatus($model)
-    {
-        switch ($model->status) {
-            case 'desativada':
-                echo '<td class="td-canceled">desativada</td>';
-                break;
-            case 'ativa':
-                echo '<td class="td-aproved">ativa</td>';
-                break;
-            case 'recebendo':
-                echo '<td class="td-paid">recebendo</td>';
                 break;
         }
     }

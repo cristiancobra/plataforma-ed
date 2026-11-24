@@ -21,11 +21,11 @@
     $bgColor = $isInTrash ? '#28a745' : '#dc3545';
 
     // Confirmação apenas para trash, não para restore
-    $onSubmit = !$isInTrash ? "return confirm('$confirmMessage')" : '';
+    $confirm = !$isInTrash ? $confirmMessage : null;
 @endphp
 
 <form style='display: inline-block' action='{{ route($route, [$model => $object]) }}' method='post'
-    @if ($onSubmit) onsubmit="{{ $onSubmit }}" @endif>
+    @if ($confirm) data-confirm="{{ $confirm }}" data-confirm-title="Mover para a lixeira" data-confirm-label="Mover para a lixeira" @endif>
     @csrf
     @method('PUT')
     <button class='btn rounded-circle' title='{{ $title }}' type='submit'

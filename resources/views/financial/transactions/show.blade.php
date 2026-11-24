@@ -6,9 +6,12 @@
     <i class="fas fa-exchange-alt"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
 
     <x-buttons.edit model="transaction" :object="$transaction" parameter2="typeTransactions" :value2="$transaction->type" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model='transaction' :principalColor=$principalColor ?? null />
 @endsection
 

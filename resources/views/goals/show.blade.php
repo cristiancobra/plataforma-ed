@@ -6,8 +6,11 @@
     <i class="fa fa-tasks"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="goal" :object="$goal" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model='goal' :principalColor=$principalColor ?? null />
 @endsection
 

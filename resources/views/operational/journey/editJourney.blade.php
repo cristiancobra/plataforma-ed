@@ -46,10 +46,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <a class='circular-button secondary' href='{{ route('task.create') }}' target='blank'
-                        title="Nova tarefa">
-                        <i class='fas fa-plus'></i>
-                    </a>
+                    <x-buttons.create model="task" title="Nova tarefa" target="_blank" :principalColor="$principalColor ?? null" />
                 </div>
                 <div>
                     <label class="labels" for="description">OBSERVAÇÕES:</label>

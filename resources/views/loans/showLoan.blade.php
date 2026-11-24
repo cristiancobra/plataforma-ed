@@ -6,7 +6,7 @@
     <i class="fa fa-exchange-alt"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     @if ($loan->status !== 'returned')
         <button type="button " class="btn text-white" style="background-color: {{ $principalColor }}" data-bs-toggle="modal"
             data-bs-target="#returnModal">
@@ -15,6 +15,9 @@
     @endif
     <x-buttons.pdf :object="$loan" model="loan" :principalColor="$principalColor" />
     <x-buttons.edit model="loan" :object="$loan" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="loan" :object="$loan" :principalColor="$principalColor" />
 @endsection
 

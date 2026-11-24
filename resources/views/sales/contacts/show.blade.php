@@ -26,21 +26,16 @@
     <i class="fas fa-address-book"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="contact" :object="$contact" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="contact" :principalColor="$principalColor" />
 @endsection
 
 @section('trash')
-    <form class="d-inline-block" action="{{ route('contact.destroy', $contact) }}" method="post"
-        onsubmit="return confirm('Tem certeza que deseja apagar este contato? Esta ação não pode ser desfeita.')">
-        @csrf
-        @method('DELETE')
-        <button class="btn rounded-circle" title="Apagar contato" type="submit"
-            style="background-color: #dc3545; border-color: #dc3545; color: white; width: 38px; height: 38px; padding: 0; display: inline-flex; align-items: center; justify-content: center;">
-            <i class="fa fa-trash"></i>
-        </button>
-    </form>
+    <x-buttons.delete :action="route('contact.destroy', $contact)" confirm="Tem certeza que deseja apagar este contato? Esta ação não pode ser desfeita." />
 @endsection
 
 @section('name', $contact->name)

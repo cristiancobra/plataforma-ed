@@ -54,12 +54,7 @@
         </p>
 
         <div style="text-align:right;padding: 2%">
-            <form style="text-decoration: none;color: black;display: inline-block"
-                action="{{ route('email.destroy', ['email' => $email->id]) }}" method="post">
-                @csrf
-                @method('delete')
-                <input class="btn btn-danger" type="submit" value="APAGAR">
-            </form>
+            <x-buttons.delete :action="route('email.destroy', ['email' => $email->id])" />
             <form style="text-decoration: none;display: inline-block"
                 action="{{ route('email.send', ['email' => $email]) }}" method="post">
                 @csrf

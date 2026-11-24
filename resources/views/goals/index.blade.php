@@ -30,23 +30,13 @@
 
 
 @section('table')
-    <div class='row mt-5'>
-        <div class='tb tb-header-start col-4'>
-            NOME
-        </div>
-        <div class='tb tb-header col-2'>
-            DEPARTAMENTO
-        </div>
-        <div class='tb tb-header col-1'>
-            INÍCIO
-        </div>
-        <div class='tb tb-header col-1'>
-            FIM
-        </div>
-        <div class='tb tb-header col-4'>
-            SITUAÇÃO
-        </div>
-    </div>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME', 'class' => 'col-4'],
+        ['label' => 'DEPARTAMENTO', 'class' => 'col-2'],
+        ['label' => 'INÍCIO', 'class' => 'col-1'],
+        ['label' => 'FIM', 'class' => 'col-1'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-4'],
+    ]" />
     @foreach ($goals as $goal)
         <div data-href="{{ route('goal.show', ['goal' => $goal->id]) }}" class='row row-link'>
             <div class='tb col-4 justify-content-start' style="font-weight: 600">

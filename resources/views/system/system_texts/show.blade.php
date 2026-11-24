@@ -6,8 +6,11 @@
     <i class="fas fa-rocket"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="systemText" :object="$systemText" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model='systemText' :principalColor=$principalColor ?? null />
 @endsection
 

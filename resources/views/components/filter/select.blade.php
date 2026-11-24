@@ -7,7 +7,7 @@
 @endphp
 
 <div class="col-auto">
-    <select name="{{ $name }}" class="form-select" {{ $attributes }}>
+    <select name="{{ $name }}" class="form-select form-select-sm" {{ $attributes }}>
         <option value="">{{ $placeholder }}</option>
         @foreach ($selectOptions as $value => $label)
             <option value="{{ $value }}" {{ request($name) == $value ? 'selected' : '' }}>

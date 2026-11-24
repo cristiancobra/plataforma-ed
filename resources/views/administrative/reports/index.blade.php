@@ -7,9 +7,7 @@
 @endsection
 
 @section('buttons')
-    <a class="circular-button primary" href="{{ route('report.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="report" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('main')

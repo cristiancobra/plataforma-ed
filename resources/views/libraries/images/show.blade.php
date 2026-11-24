@@ -6,8 +6,11 @@
     <i class="fas fa-image"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="image" :object="$image" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="image" :object="$image ?? null" :principalColor="$principalColor ?? null" />
 @endsection
 

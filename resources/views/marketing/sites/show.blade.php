@@ -76,12 +76,7 @@
     <p class="labels"> <b> Criado em: </b> {{ date('d/m/Y H:i', strtotime($site->created_at)) }} </p>
 
     <div style="text-align:right;padding: 2%">
-        <form style="text-decoration: none;display: inline-block"
-            action="{{ route('site.destroy', ['site' => $site->id]) }}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>
+        <x-buttons.delete :action="route('site.destroy', ['site' => $site->id])" />
         <a class="btn btn-secondary" href=" {{ route('site.edit', ['site' => $site->id]) }} "
             style="text-decoration: none;color: white;display: inline-block">
             <i class='fa fa-edit'></i>EDITAR</a>

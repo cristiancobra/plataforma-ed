@@ -6,8 +6,11 @@
     <i class="fa fa-folder"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="project" :object="$project" parameter2="department" :value2="$project->department" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="project" parameter="department" :value="$project->department" :principalColor="$principalColor" />
 @endsection
 

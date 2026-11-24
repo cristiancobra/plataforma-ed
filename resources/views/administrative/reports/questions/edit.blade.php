@@ -85,12 +85,7 @@
     <!--===================================     FOOTER     ===================================-->
 
     <div style="text-align:right;padding: 2%">
-        <form style="text-decoration: none;color: black;display: inline-block"
-            action="{{ route('question.destroy', ['question' => $question->id]) }}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>
+        <x-buttons.delete :action="route('question.destroy', ['question' => $question->id])" />
         <a class="btn btn-secondary" href="{{ route('question.index') }}">
             <i class="fas fa-arrow-left"></i>
         </a>

@@ -434,12 +434,7 @@
                 </p>
                 <br>
                 <div style="text-align:right;padding: 2%">
-                    <form style="text-decoration: none;color: black;display: inline-block"
-                        action="{{ route('socialmedia.destroy', ['socialmedia' => $socialmedia->id]) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        <input class="btn btn-danger" type="submit" value="APAGAR">
-                    </form>
+                    <x-buttons.delete :action="route('socialmedia.destroy', ['socialmedia' => $socialmedia->id])" />
                     <a class="btn btn-secondary"
                         href=" {{ route('socialmedia.edit', ['socialmedia' => $socialmedia->id]) }}">
                         <i class='fa fa-edit'></i>

@@ -92,12 +92,7 @@
         </table>
 
         <div style="text-align:right;padding: 2%">
-            <form style="text-decoration: none;color: black;display: inline-block"
-                action="{{ route('linkedin.destroy', ['linkedin' => $linkedin->id]) }}" method="post">
-                @csrf
-                @method('delete')
-                <input class="button-delete" type="submit" value="APAGAR">
-            </form>
+            <x-buttons.delete :action="route('linkedin.destroy', ['linkedin' => $linkedin->id])" />
             <a class="btn btn-secondary" href=" {{ route('linkedin.edit', ['linkedin' => $linkedin->id]) }}"">
                 <i class='fa fa-edit'></i>
                 Editar

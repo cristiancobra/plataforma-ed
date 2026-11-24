@@ -11,46 +11,22 @@
 @endsection
 
 @section('buttons')
-    <a class="circular-button primary" href="{{ route('bank.create') }}">
-        <i class="fas fa-plus"></i>
-    </a>
+    <x-buttons.create model="bank" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('table')
-    <div>
-        <table class="table-list">
-            <tr>
-                <td class="table-list-header" style="width: 10%">
-                    ID
-                </td>
-                <td class="table-list-header" style="width: 70%">
-                    NOME
-                </td>
-                <td class="table-list-header" style="width: 10%">
-                    CÓDIGO
-                </td>
-            </tr>
-
-            @foreach ($banks as $bank)
-                <tr class="row-link" data-href="{{ route('bank.show', ['bank' => $bank->id]) }}">
-                    <td class="table-list-left">
-                        @if ($bank->id)
-                            <a class="white" href=" {{ route('bank.show', ['bank' => $bank->id]) }}">
-                                {{ $bank->id }}
-                            </a>
-                        @else
-                            no
-                        @endif
-                    </td>
-                    <td class="table-list-left">
-                        {{ $bank->name }}
-                    </td>
-                    <td class="table-list-center">
-                        {{ $bank->bank_code }}
-                    </td>
-                </tr>
-            @endforeach
-        </table>
-    </div>
-    <br>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'ID', 'class' => 'col-1'],
+        ['label' => 'NOME', 'class' => 'col-9'],
+        ['label' => 'CÓDIGO', 'class' => 'col-2'],
+    ]" />
+    @foreach ($banks as $bank)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('bank.show', ['bank' => $bank->id]) }}">
+            <div class="col-1 small">{{ $bank->id }}</div>
+            <div class="col-9 fw-bold small">{{ $bank->name }}</div>
+            <div class="col-2 text-center small">{{ $bank->bank_code }}</div>
+        </div>
+    @endforeach
 @endsection
+
+@section('paginate', method_exists($banks, 'links') ? $banks->links() : '')

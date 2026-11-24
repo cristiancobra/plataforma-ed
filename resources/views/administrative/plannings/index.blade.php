@@ -8,9 +8,7 @@
 
 
 @section('buttons')
-    <a class="circular-button secondary" href="{{ route('planning.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="planning" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('table')

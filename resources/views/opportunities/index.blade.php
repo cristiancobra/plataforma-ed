@@ -7,8 +7,8 @@
 @endsection
 
 @section('buttons')
-    <x-buttons.filter />
     <x-buttons.trash-index :trash-status="$trashStatus" :parameter="'opportunity'" />
+    <x-buttons.filter />
 
     <x-buttons.create model="opportunity" parameter="department" :value="$department" />
 @endsection
@@ -56,17 +56,17 @@
     @endphp
     @foreach ($opportunities as $opportunity)
         <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('opportunity.show', ['opportunity' => $opportunity->id]) }}">
-            <div class="col-3 fw-bold">
+            <div class="col-3 fw-bold small">
                 {{ $opportunity->name }}
             </div>
-            <div class="col-2">
+            <div class="col-2 small">
                 @if (isset($opportunity->contact->name))
                     {{ $opportunity->contact->name }}
                 @else
                     Não possui
                 @endif
             </div>
-            <div class="col-2">
+            <div class="col-2 small">
                 @if (isset($opportunity->company->name))
                     {{ $opportunity->company->name }}
                 @else
@@ -76,7 +76,7 @@
             <div class="col-1 text-center">
                 <x-user.avatar :user="$opportunity->user" />
             </div>
-            <div class="col-1 text-center">
+            <div class="col-1 text-center small">
                 @if (strtotime($opportunity->date_due) > 0)
                     {{ dateBr($opportunity->date_due) }}
                 @else

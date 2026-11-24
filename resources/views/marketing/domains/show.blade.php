@@ -50,12 +50,7 @@
     <p class="labels"> <b> Criado em: </b> {{ date('d/m/Y H:i', strtotime($domain->created_at)) }} </p>
 
     <div style="text-align:right;padding: 2%">
-        <form style="text-decoration: none;display: inline-block"
-            action="{{ route('domain.destroy', ['domain' => $domain->id]) }}" method="post">
-            @csrf
-            @method('delete')
-            <input class="btn btn-danger" type="submit" value="APAGAR">
-        </form>
+        <x-buttons.delete :action="route('domain.destroy', ['domain' => $domain->id])" />
         <a class="btn btn-secondary" href=" {{ route('domain.edit', ['domain' => $domain->id]) }} "
             style="text-decoration: none;color: white;display: inline-block">
             <i class='fa fa-edit'></i>EDITAR</a>

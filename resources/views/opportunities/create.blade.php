@@ -109,11 +109,9 @@
                     {{ createSimpleSelect('status', 'fields', $status) }}
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-12 text-end">
-                    <input class="btn text-white" style="background-color: {{ $principalColor }}" type="submit"
-                        value="CRIAR">
-                </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end; align-items: center;">
+                <x-buttons.cancel />
+                <x-buttons.save title="Criar oportunidade" :principalColor="$principalColor" />
             </div>
         </form>
     </div>

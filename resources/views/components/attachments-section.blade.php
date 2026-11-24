@@ -40,21 +40,10 @@
                         </div>
                         <small class="text-muted mt-2">{{ date('d/m/Y', strtotime($attachment->created_at)) }}</small>
                         <div class="d-flex justify-content-center gap-2 mt-3">
-                            <form action="{{ route('attachment.destroy', ['attachment' => $attachment->id]) }}"
-                                method="POST"
-                                onsubmit="return confirm('Tem certeza que deseja excluir este documento?');"
-                                style="display: inline;">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" title="Excluir">
-                                    <i class="fa fa-trash"></i> Excluir
-                                </button>
-                            </form>
-                            <a href="{{ asset('storage/' . $attachment->path) }}" download="{{ $attachment->name }}"
-                                class="btn btn-sm" title="Baixar"
-                                style="background-color: {{ $principalColor }}; color: white;">
-                                <i class="fa fa-download"></i> Baixar
-                            </a>
+                            <x-buttons.delete :action="route('attachment.destroy', ['attachment' => $attachment->id])"
+                                confirm="Tem certeza que deseja excluir este documento?" />
+                            <x-buttons.icon icon="fa fa-download" title="Baixar" :href="asset('storage/' . $attachment->path)"
+                                download="{{ $attachment->name }}" :principalColor="$principalColor" />
                         </div>
                     </div>
                 </div>

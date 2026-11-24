@@ -10,7 +10,7 @@
     <i class="fas fa-box"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
 
     @if ($invoicesCount < 1)
         <x-buttons.icon-form icon="fas fa-file-invoice-dollar" title="Gerar faturas dos pagamentos"
@@ -19,6 +19,9 @@
     <x-buttons.pdf :object="$proposal" model="proposal" :principalColor="$principalColor" />
     <x-buttons.email :object="$proposal" model="proposal" route="proposal.pdf" :principalColor="$principalColor" />
     <x-buttons.edit model="proposal" :object="$proposal" parameter2="type" :value2="$type" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="proposal" parameter="type" :value="$type" :principalColor="$principalColor" />
 @endsection
 
@@ -203,24 +206,16 @@
 
     <!--ITENS DA PROPOSTA / FATURA-->
 
-    <section class='container frame mt-5 pb-5' id='productProposals'>
-        <div class="row">
-            <div class='col-6 pt-4 pb-3'>
-                <img src='{{ asset('images/products.png') }}' width='25px' height='25px'>
-                <label class='labels' style='font-size: 24px;padding-left: 5px' for=''>
-                    {{ $itensName }}
-                </label>
-            </div>
-            <div class='col-6 pt-4 pb-3'>
-                <a class='text-button secondary' style='display: inline-block;float: right'
-                    href='{{ route('proposal.edit', [
-                        'proposal' => $proposal,
-                        'type' => $type,
-                    ]) }}'>
-                    EDITAR
-                </a>
-            </div>
-        </div>
+    <x-show.section :title="$itensName" icon="fas fa-boxes" id="productProposals">
+        <x-slot:actions>
+            <a class='text-button secondary'
+                href='{{ route('proposal.edit', [
+                    'proposal' => $proposal,
+                    'type' => $type,
+                ]) }}'>
+                EDITAR
+            </a>
+        </x-slot:actions>
 
         <div class='row table-header mt-3' style="background-color: {{ $principalColor }}">
             <div class='col-1'>
@@ -333,7 +328,7 @@
                 {{ formatCurrencyReal($proposal->totalPrice) }}
             </div>
         </div>
-    </section>
+    </x-show.section>
 
     <x-sections.invoices :proposal='$proposal' />
 

@@ -6,8 +6,11 @@
     <i class="fa fa-file"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.edit model="text" :object="$text" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="text" :object="$text ?? null" :principalColor="$principalColor ?? null" />
 @endsection
 

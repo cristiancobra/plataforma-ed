@@ -27,12 +27,7 @@
         </p>
 
         <div style="text-align:right;padding: 2%">
-            <form style="text-decoration: none;color: black;display: inline-block"
-                action="{{ route('bank.destroy', ['bank' => $bank->id]) }}" method="post">
-                @csrf
-                @method('delete')
-                <input class="btn btn-danger" type="submit" value="APAGAR">
-            </form>
+            <x-buttons.delete :action="route('bank.destroy', ['bank' => $bank->id])" />
             <a class="btn btn-secondary" href=" {{ route('bank.edit', ['bank' => $bank->id]) }}">
                 <i class='fa fa-edit'></i>EDITAR
             </a>

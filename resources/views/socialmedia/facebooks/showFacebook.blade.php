@@ -101,12 +101,7 @@
         </table>
 
         <div style="text-align:right;padding: 2%">
-            <form style="text-decoration: none;color: black;display: inline-block"
-                action="{{ route('facebook.destroy', ['facebook' => $facebook->id]) }}" method="post">
-                @csrf
-                @method('delete')
-                <input class="btn btn-danger" type="submit" value="APAGAR">
-            </form>
+            <x-buttons.delete :action="route('facebook.destroy', ['facebook' => $facebook->id])" />
             <a class="btn btn-secondary" href=" {{ route('facebook.edit', ['facebook' => $facebook->id]) }}">
                 <i class='fa fa-edit'></i>EDITAR</a>
             <a class="btn btn-secondary" href="{{ route('facebook.index') }}"><i class="fas fa-arrow-left"></i></a>

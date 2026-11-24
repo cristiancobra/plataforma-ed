@@ -13,61 +13,37 @@
 @endsection
 
 @section('buttons')
-    <a class="circular-button secondary" href="{{ route('socialmedia.create', [
-        'type' => 'minha',
-    ]) }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="socialmedia" :params="['type' => 'minha']" :principalColor="$principalColor ?? null" />
 
     <x-buttons.list model='socialmedia' :principalColor=$principalColor ?? null />
 @endsection
 
 @section('table')
-    <table class="table-list">
-        <tr>
-            <td class="table-list-header">
-                NOME DA REDE SOCIAL
-            </td>
-            <td class="table-list-header">
-                URL
-            </td>
-            <td class="table-list-header">
-                STUDIO DE CRIAÇÃO
-            </td>
-            <td class="table-list-header">
-                SITUAÇÃO
-            </td>
-        </tr>
-
-        @foreach ($socialmedias as $socialmedia)
-            <tr class="row-link" data-href="{{ route('socialmedia.show', ['socialmedia' => $socialmedia->id]) }}" style="font-size: 14px">
-                <td class="table-list-left">
-                    
-                    {{ $socialmedia->socialmedia_name }}
-                </td>
-                <td class="table-list-center">
-                    {{ $socialmedia->URL_name }}
-                    <button class="button-round">
-                        <a href=" {{ $socialmedia->URL_name }}">
-                            <i class='fa fa-share-alt' style="color:white"></i>
-                        </a>
-                </td>
-                <td class="table-list-center">
-
-                    </button>
-                    <button class="button-round">
-                        <a href=" {{ $socialmedia->URL_studio }}">
-                            <i class='fa fa-video' style="color:white"></i>
-                        </a>
-                    </button>
-                </td>
-                {{ formatsocialmediaStatus($socialmedia) }}
-            </tr>
-        @endforeach
-    </table>
-    <p style="text-align: right">
-        <br>
-        {{ $socialmedias->links() }}
-    </p>
-    <br>
+    <x-table.header :background-color="$principalColor" :columns="[
+        ['label' => 'NOME DA REDE SOCIAL', 'class' => 'col-3'],
+        ['label' => 'URL', 'class' => 'col-4'],
+        ['label' => 'STUDIO DE CRIAÇÃO', 'class' => 'col-3'],
+        ['label' => 'SITUAÇÃO', 'class' => 'col-2'],
+    ]" />
+    @php
+        $statusColors = ['publicada' => ['#E8F5E9', '#2E7D32'], 'desativada' => ['#ECEFF1', '#546E7A'], 'cancelado' => ['#FFEBEE', '#C62828']];
+    @endphp
+    @foreach ($socialmedias as $socialmedia)
+        <div class="row row-link border-bottom py-2 align-items-center" data-href="{{ route('socialmedia.show', ['socialmedia' => $socialmedia->id]) }}">
+            <div class="col-3 fw-bold small">{{ $socialmedia->socialmedia_name }}</div>
+            <div class="col-4 text-center small">
+                <a href="{{ $socialmedia->URL_name }}" target="_blank" onclick="event.stopPropagation()">{{ $socialmedia->URL_name }} <i class="fa fa-share-alt"></i></a>
+            </div>
+            <div class="col-3 text-center small">
+                @if ($socialmedia->URL_studio)
+                    <a href="{{ $socialmedia->URL_studio }}" target="_blank" onclick="event.stopPropagation()"><i class="fa fa-video"></i></a>
+                @endif
+            </div>
+            <div class="col-2 text-center">
+                <x-table.badge :label="$socialmedia->status" :colors="$statusColors[$socialmedia->status] ?? null" />
+            </div>
+        </div>
+    @endforeach
 @endsection
+
+@section('paginate', $socialmedias->links())

@@ -107,14 +107,7 @@
         </div>
         <div class="col-sm-4 col-xs-12 d-inline-block" style="text-align: right">
             <div style='text-align:right;color: var(--principal-color, #874983); display: inline-block'>
-                <form action='{{ route('user.destroy', ['user' => $user->id]) }}' method='post'>
-                    @csrf
-                    @method('delete')
-                    <button id='' class='circular-button delete'
-                        style='border:none;padding-left:7px;padding-top: -2px' "type='submit'>
-                        <i class='fa fa-trash'></i>
-                    </button>
-                </form>
+                <x-buttons.delete :action="route('user.destroy', ['user' => $user->id])" />
             </div>
             <div style='text-align:right;color: var(--principal-color, #874983);display: inline-block'>
                 <a class='circular-button secondary' href=' {{ route('user.edit', ['user' => $user->id]) }}'>

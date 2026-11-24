@@ -24,12 +24,7 @@
             <div class="col-2 text-center d-flex gap-2 justify-content-center">
                 <a href="{{ route('collections-group.edit', $group) }}" class="btn btn-sm text-white me-2"
                     style="background-color: {{ $principalColor }}">Editar</a>
-                <form action="{{ route('collections-group.destroy', $group) }}" method="POST" style="display:inline-block">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Tem certeza?')">Excluir</button>
-                </form>
+                <x-buttons.delete :action="route('collections-group.destroy', $group)" />
             </div>
         </div>
     @empty

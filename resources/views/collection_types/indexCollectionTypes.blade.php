@@ -32,12 +32,7 @@
             <div class="col-3 text-center d-flex gap-2 justify-content-center">
                 <a href="{{ route('collection-types.edit', $type) }}" class="btn btn-sm text-white me-2"
                     style="background-color: {{ $principalColor }}">Editar</a>
-                <form action="{{ route('collection-types.destroy', $type) }}" method="POST" style="display:inline-block">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm"
-                        onclick="return confirm('Tem certeza?')">Excluir</button>
-                </form>
+                <x-buttons.delete :action="route('collection-types.destroy', $type)" />
             </div>
         </div>
     @empty

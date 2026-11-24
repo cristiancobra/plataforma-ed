@@ -10,9 +10,7 @@
 @endsection
 
 @section('buttons')
-    <a class="circular-button primary" href="{{ route('email.create') }}">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-    </a>
+    <x-buttons.create model="email" :principalColor="$principalColor ?? null" />
 @endsection
 
 @section('table')

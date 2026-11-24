@@ -10,12 +10,15 @@
     <i class="fas fa-box-open"></i>
 @endsection
 
-@section('buttons')
+@section('actions')
     <x-buttons.icon icon="fas fa-shopping-cart" title="Ver na loja" :href="route('product.public', ['product' => $product])"
         target="_blank" :principalColor="$principalColor" />
     <x-buttons.icon icon="fas fa-gifts" title="Vendas deste produto" :href="route('proposal.index', ['product_id' => $product->id])"
         :principalColor="$principalColor" />
     <x-buttons.edit model="product" :object="$product" parameter2="variation" :value2="$variation" :principalColor="$principalColor" />
+@endsection
+
+@section('buttons')
     <x-buttons.list model="product" parameter="variation" :value="$variation" :principalColor="$principalColor" />
 @endsection
 

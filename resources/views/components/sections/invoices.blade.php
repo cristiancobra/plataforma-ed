@@ -1,48 +1,19 @@
-<section class='container frame mt-5 mb-5' id='invoices' style="border-color:{{ $invoiceFrameColor }}">
-    <div class="row">
-        <div class='col-10 pt-4 pb-3'
-            style='font-size: 24px;padding-left: 5px;font-weight:600;color:{{ $invoiceFrameColor }}'>
-            <i class="fa fa-receipt"></i>
-            FATURAS
-        </div>
-        <div class='col-2 d-flex justify-content-end pt-4 pb-3 text-end'
-            style='font-size: 16px;padding-left: 5px;font-weight:600;color:{{ $invoiceFrameColor }}'>
+<x-show.section title="FATURAS" icon="fa fa-file-invoice-dollar" id="invoices" :color="$invoiceFrameColor">
+    <x-slot:actions>
             @if ($proposal == null)
                 <i class='fas fa-ban ms-2' style='font-size:28px'></i>
             @elseif($invoicesCount < 1)
-                <a href="{{ route('proposal.generateInstallment', ['proposal' => $proposal]) }}">
-                    <button class='form-button'
-                        style="
-                        color: {{ $principalColor }};
-                        background-color: {{ $oppositeColor }};
-                        border-color: {{ $principalColor }};
-                        "
-                        type='submit' title='GERAR  FATURAS'>
-                        <i class="fa fa-file-invoice-dollar"></i>
-                    </button>
-                </a>
+                <x-buttons.icon-form icon="fas fa-file-invoice-dollar" title="Gerar faturas dos pagamentos"
+                    :action="route('proposal.generateInstallment', ['proposal' => $proposal])" :principalColor="$principalColor" />
             @else
-                <form action="{{ route('proposal.trashInvoices', ['proposal' => $proposal]) }}" method="post">
-                    @csrf
-                    @method('put')
-                    <button class='form-button-red ms-1 me-1' type='submit' title='Apagar TODAS as faturas'>
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </form>
-                <a href="{{ route('proposal.editInstallment', ['proposal' => $proposal]) }}">
-                    <button class='form-button ms-1 me-1'
-                        style="
-                        color: {{ $principalColor }};
-                        background-color: {{ $oppositeColor }};
-                        border-color: {{ $principalColor }};
-                        "
-                        type='submit' title='Editar TODAS as faturas'>
-                        <i class="fa fa-edit"></i>
-                    </button>
-                </a>
+                <x-buttons.icon-form icon="fa fa-trash" color="#dc3545" title="Apagar TODAS as faturas"
+                    :action="route('proposal.trashInvoices', ['proposal' => $proposal])"
+                    confirm="Tem certeza que deseja apagar TODAS as faturas desta proposta?"
+                    confirm-title="Apagar faturas" confirm-label="Apagar faturas" />
+                <x-buttons.icon icon="fa fa-edit" title="Editar TODAS as faturas"
+                    :href="route('proposal.editInstallment', ['proposal' => $proposal])" :principalColor="$principalColor" />
             @endif
-        </div>
-    </div>
+    </x-slot:actions>
 
     @if ($proposal)
         @php
@@ -50,7 +21,7 @@
         @endphp
         <div class="row mt-1 mb-3 text-center">
             <div class='col-4'>
-                <div style="font-size: 13px;font-weight:600;color:{{ $oppositeColor }}">
+                <div style="font-size: 13px;font-weight:600;color:{{ $complementaryColor }}">
                     TOTAL DE FATURAS
                 </div>
                 <div style='font-size: 20px;font-weight: 600;color:{{ $principalColor }}'>
@@ -58,7 +29,7 @@
                 </div>
             </div>
             <div class='col-4'>
-                <div style="font-size: 13px;font-weight:600;color:{{ $oppositeColor }}">
+                <div style="font-size: 13px;font-weight:600;color:{{ $complementaryColor }}">
                     TOTAL PAGO
                 </div>
                 <div style='font-size: 20px;font-weight: 600;color:{{ $principalColor }}'>
@@ -66,7 +37,7 @@
                 </div>
             </div>
             <div class='col-4'>
-                <div style="font-size: 13px;font-weight:600;color:{{ $oppositeColor }}">
+                <div style="font-size: 13px;font-weight:600;color:{{ $complementaryColor }}">
                     SALDO A PAGAR
                 </div>
                 <div
@@ -79,116 +50,52 @@
 
     <!--cabeçalho de faturas-->
 
-    <div class="container" id="invoices-header">
-        <div class='row table-header mt-3 mb-3' style="background-color: {{ $principalColor }}">
-            <div class='col-3'>
-                FATURA
-            </div>
-            <div class='col-2'>
-                VENCIMENTO
-            </div>
-            <div class='col-2'>
-                VALOR
-            </div>
-            <div class='col-2'>
-                SALDO
-            </div>
+    <div class="row" id="invoices-header">
+        <div class='col-10'>
+            <x-table.header :background-color="$principalColor" class="mt-3 mb-3" :columns="[
+                ['label' => '#', 'class' => 'col-1'],
+                ['label' => 'FATURA', 'class' => 'col-4'],
+                ['label' => 'VENCIMENTO', 'class' => 'col-2'],
+                ['label' => 'VALOR', 'class' => 'col-2'],
+                ['label' => 'SALDO', 'class' => 'col-2'],
+            ]" />
         </div>
     </div>
 
     <!--linhas de  faturas-->
-    <div class="container" id="invoices-lines">
+    <div id="invoices-lines">
 
         @foreach ($invoices as $invoice)
             <div class="row">
                 <div class='col-10'>
-                    <div class='row table2 position-relative'
-                        style='
-                     color: {{ $principalColor }};
-                     border-left-color: {{ $complementaryColor }};
-
-                     '>
-                        <a class='stretched-link' href="{{ route('invoice.show', ['invoice' => $invoice]) }}"
-                            style="color:white">
-                        </a>
-                        <div class='cel col-1 justify-content-start' style="font-size: 26px;font-weight: 600">
-                            {{ $counterInvoices }}
-                            <i class="fas fa-file-invoice-dollar"
-                                style='
-                           display:block;
-                           padding-left:10px;
-                           width:25%;
-                           font-size: 30px;
-                           '>
-                            </i>
+                    <div class='row row-link border-bottom py-2 align-items-center'
+                        data-href="{{ route('invoice.show', ['invoice' => $invoice]) }}">
+                        <div class='col-1 fw-bold'>{{ $counterInvoices }}</div>
+                        <div class='col-4 small'>
+                            FATURA {{ $invoice->identifier }}: parcela {{ $invoice->number_installment }} de {{ $proposal->installment }}
                         </div>
-                        <div class='cel col-4 justify-content-start'>
-                            FATURA {{ $invoice->identifier }}: parcela {{ $invoice->number_installment }} de
-                            {{ $proposal->installment }}
+                        <div class='col-2 text-center small'>{{ dateBr($invoice->pay_day) }}</div>
+                        <div class='col-2 text-end small'>{{ formatCurrencyReal($invoice->totalPrice) }}</div>
+                        <div class='col-2 text-end small {{ $invoice->balance < 0 ? 'text-danger' : '' }}'>
+                            {{ formatCurrencyReal($invoice->balance) }}
                         </div>
-                        <div class='cel col-2'>
-                            {{ date('d/m/Y', strtotime($invoice->pay_day)) }}
-                        </div>
-
-                        <div class='cel col-2 justify-content-end'>
-                            {{ formatCurrencyReal($invoice->totalPrice) }}
-                        </div>
-
-
-                        @if ($invoice->balance < 0)
-                            <div class='cel col-2 justify-content-end' style='color:red'>
-                                {{ formatCurrencyReal($invoice->balance) }}
-                            </div>
-                        @else
-                            <div class='cel col-2 justify-content-end'>
-                                {{ formatCurrencyReal($invoice->balance) }}
-                            </div>
-                        @endif
                     </div>
                 </div>
-                <div class='col-2 pt-4 d-flex justify-content-center'>
+                <div class='col-2 d-flex justify-content-center align-items-center gap-1'>
                     @if ($invoice->balance == $invoice->totalPrice)
-                        <a href='{{ route('task.create') }}'>
-                            <button class='form-button'
-                                style="
-                            color: {{ $principalColor }};
-                            background-color: {{ $oppositeColor }};
-                            border-color: {{ $principalColor }};
-                            "
-                                type='' title='COBRAR'>
-                                <i class="fa fa-bell"></i>
-                            </button>
-                        </a>
+                        <x-buttons.icon icon="fa fa-bell" title="Cobrar" :href="route('task.create')" :principalColor="$principalColor" />
                     @else
-                        <a id='listPaymentsButtonOnOff_{{ $counterInvoices }}'>
-                            <button class='form-button'
-                                style="
-                            color: {{ $principalColor }};
-                            background-color: {{ $oppositeColor }};
-                            border-color: {{ $principalColor }};
-                            "
-                                type='submit' title='VER PAGAMENTOS'>
-                                <i class="fa fa-list"></i>
-                            </button>
-                        </a>
+                        <x-buttons.toggle id="listPaymentsButtonOnOff_{{ $counterInvoices }}" icon="fa fa-list"
+                            title="Ver pagamentos" :principalColor="$principalColor" />
                     @endif
 
                     @if ($invoice->balance == 0)
-                        <p class="pt-2" id='{{ $counterInvoices }}'>
+                        <span id='{{ $counterInvoices }}'>
                             {{ faiconInvoiceStatus($invoice->status) }}
-                        </p>
+                        </span>
                     @else
-                        <a id='invoicePaymentButtonOnOff_{{ $counterInvoices }}'>
-                            <button class='form-button'
-                                style="
-                            color: {{ $principalColor }};
-                            background-color: {{ $oppositeColor }};
-                            border-color: {{ $principalColor }};
-                            "
-                                type='submit' title='ADICIONAR PAGAMENTO'>
-                                <i class="fa fa-money-bill"></i>
-                            </button>
-                        </a>
+                        <x-buttons.toggle id="invoicePaymentButtonOnOff_{{ $counterInvoices }}" icon="fa fa-money-bill"
+                            title="Adicionar pagamento" :principalColor="$principalColor" />
                     @endif
                 </div>
             </div>
@@ -196,7 +103,7 @@
 
             <!--  div oculta ADICIONAR PAGAMENTO  -->
 
-            <div class='container pt-5 pb-5' id='newPaymentRow_{{ $counterInvoices }}'
+            <div class='px-3 pt-5 pb-5' id='newPaymentRow_{{ $counterInvoices }}'
                 style='display: none;background-color: #f1f1f1'>
                 <form id='addPayment'
                     action='{{ route('transaction.store', ['typeTransactions' => $proposal->transactionType]) }}'
@@ -363,8 +270,8 @@
 
     <!--cabeçalho de faturas APAGADAS-->
 
-    <div class="container" id="invoices">
-        <div class='row table-header mt-5 mb-3' style="background-color: {{ $oppositeColor }}">
+    <div class="" id="invoices">
+        <div class='row table-header mt-5 mb-3' style="background-color: {{ $complementaryColor }}">
             <div class='col d-flex justify-content-start'>
                 FATURAS APAGADAS DESTA PROPOSTA
             </div>
@@ -375,55 +282,24 @@
 
     <!--linhas de  faturas APAGADAS -->
 
-    <div class="container" id="deleted-invoices">
+    <div class="" id="deleted-invoices">
         @php
             $counterInvoices = 1;
         @endphp
         @foreach ($deletedInvoices as $deletedInvoice)
             <div class="row">
                 <div class='col-10'>
-                    <div class='row table2 position-relative'
-                        style='
-                     color: {{ $principalColor }};
-                     border-left-color: {{ $oppositeColor }};
-
-                     '>
-                        <a class='stretched-link' href="{{ route('invoice.show', ['invoice' => $deletedInvoice]) }}"
-                            style="color:white">
-                        </a>
-                        <div class='cel col-1 justify-content-start' style="font-size: 26px;font-weight: 600">
-                            <i class="fas fa-file-invoice-dollar"
-                                style='
-                           display:block;
-                           padding-left:10px;
-                           width:25%;
-                           font-size: 30px;
-                           color: {{ $oppositeColor }};
-                           '>
-                            </i>
+                    <div class='row row-link border-bottom py-2 align-items-center'
+                        data-href="{{ route('invoice.show', ['invoice' => $deletedInvoice]) }}">
+                        <div class='col-1 fw-bold'></div>
+                        <div class='col-4 small'>
+                            FATURA {{ $deletedInvoice->identifier }}: parcela {{ $deletedInvoice->number_installment }} de {{ $proposal->installment }}
                         </div>
-                        <div class='cel col-4 justify-content-start'>
-                            FATURA {{ $deletedInvoice->identifier }}: parcela
-                            {{ $deletedInvoice->number_installment }} de {{ $proposal->installment }}
+                        <div class='col-2 text-center small'>{{ dateBr($deletedInvoice->pay_day) }}</div>
+                        <div class='col-2 text-end small'>{{ formatCurrencyReal($deletedInvoice->totalPrice) }}</div>
+                        <div class='col-2 text-end small {{ $deletedInvoice->balance < 0 ? 'text-danger' : '' }}'>
+                            {{ formatCurrencyReal($deletedInvoice->balance) }}
                         </div>
-                        <div class='cel col-2'>
-                            {{ date('d/m/Y', strtotime($deletedInvoice->pay_day)) }}
-                        </div>
-
-                        <div class='cel col-2 justify-content-end'>
-                            {{ formatCurrencyReal($deletedInvoice->totalPrice) }}
-                        </div>
-
-
-                        @if ($deletedInvoice->balance < 0)
-                            <div class='cel col-2 justify-content-end' style='color:red'>
-                                {{ formatCurrencyReal($deletedInvoice->balance) }}
-                            </div>
-                        @else
-                            <div class='cel col-2 justify-content-end'>
-                                {{ formatCurrencyReal($deletedInvoice->balance) }}
-                            </div>
-                        @endif
                     </div>
                 </div>
                 <div class='col-2 d-flex justify-content-center'>
@@ -444,14 +320,14 @@
                                 <div class='row table2 position-relative'
                                     style='
                          color: {{ $principalColor }};
-                         border-left-color: {{ $oppositeColor }};
+                         border-left-color: {{ $complementaryColor }};
                          '>
                                     <a class='stretched-link'
                                         href="{{ route('transaction.show', ['transaction' => $transaction]) }}"
                                         style="color:white">
                                     </a>
                                     <div class='cel col-1 justify-content-start'
-                                        style="font-size: 26px;font-weight: 600;color: {{ $oppositeColor }}">
+                                        style="font-size: 26px;font-weight: 600;color: {{ $complementaryColor }}">
                                         {{ $counterTransactions++ }}
                                         <i class="fas fa-coins"
                                             style='
@@ -459,7 +335,7 @@
                                padding-left:10px;
                                width:25%;
                                font-size: 30px;
-                               color: {{ $oppositeColor }};
+                               color: {{ $complementaryColor }};
                                '>
                                         </i>
                                     </div>
@@ -486,7 +362,7 @@
         @endforeach
     </div>
 
-</section>
+</x-show.section>
 
 
 <script>
