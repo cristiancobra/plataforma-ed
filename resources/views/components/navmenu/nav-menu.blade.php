@@ -1,4 +1,4 @@
-<nav class="nav-menu navbar navbar-expand-md navbar-dark shadow-sm"
+<nav class="nav-menu navbar navbar-expand-lg navbar-dark shadow-sm"
     style="
      background-color: {{ $principalColor }}
 ">
@@ -10,8 +10,8 @@
                 <img src="{{ asset('/images/logo-sciblock.png') }}" width="120px" height="40px">
             @endif
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+        <button class="navbar-toggler" type="button" id="sidebar-toggler" aria-controls="sidebar"
+            aria-expanded="false" aria-label="Abrir menu">
             <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -101,3 +101,22 @@
             </div>
         </div>
     </nav>
+
+<script>
+    // hambúrguer abre/fecha a gaveta do sidebar no celular; clicar fora (ou num link) fecha
+    (function() {
+        var btn = document.getElementById('sidebar-toggler');
+        if (!btn) return;
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var open = document.body.classList.toggle('sidebar-open');
+            btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.addEventListener('click', function(e) {
+            if (document.body.classList.contains('sidebar-open') && !e.target.closest('.background-sidebar')) {
+                document.body.classList.remove('sidebar-open');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+</script>

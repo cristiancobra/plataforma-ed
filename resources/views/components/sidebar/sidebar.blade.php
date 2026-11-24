@@ -505,4 +505,58 @@
         backdrop-filter: blur(10px);
         border-radius: 6px;
     }
+
+    /* celular/tablet: sidebar vira gaveta lateral, oculta por padrão (abre pelo hambúrguer do navbar) */
+    @media (max-width: 991.98px) {
+        .grid {
+            grid-template-columns: minmax(0, 1fr);
+        }
+
+        .background-sidebar {
+            position: fixed;
+            top: var(--nav-height);
+            left: 0;
+            bottom: 0;
+            width: 210px;
+            max-width: 85vw;
+            z-index: 1035;
+            overflow-y: auto;
+            transform: translateX(-105%);
+            transition: transform .25s ease;
+            box-shadow: 4px 0 16px rgba(27, 32, 50, 0.25);
+        }
+
+        body.sidebar-open .background-sidebar {
+            transform: translateX(0);
+        }
+
+        body.sidebar-open::after {
+            content: '';
+            position: fixed;
+            inset: var(--nav-height) 0 0 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 1034;
+        }
+
+        .sidebar {
+            position: static;
+            width: auto;
+            height: auto;
+            min-height: 100%;
+            margin: 0;
+            padding: 6px;
+            backdrop-filter: none;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* submenus abrem como lista dentro da própria gaveta */
+        .sidebar .sidebar-submenu {
+            position: static;
+            min-width: 0;
+            max-width: none;
+            max-height: none;
+            margin: 6px 0 0;
+        }
+    }
 </style>
